@@ -16,6 +16,7 @@ require_once('./include/header.inc.php');
 require_once('./include/class.distribution.inc.php');
 
 if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {  
+  echo('Breakpoint 1');
   if (!isset($_SESSION['dist'])) {
     error('get distribution suggestion of session', 'Variable not set.');
   }
@@ -23,6 +24,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {
       !isset($_POST['reviewerarrayindex'])) {
     error('get distribution suggestion of session', 'An index is missing.');
   }
+  echo('Breakpoint 2');
   $pid = $_POST['paperid'];
   $rid = $_POST['reviewerid'];
   $rindex = $_POST['reviewerarrayindex'];
@@ -31,6 +33,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {
     error('get distribution suggestion of session', 'Wrong index.');
   }
   unset($dist[$pid][$rindex]);
+  echo('Breakpoint 3');
 }
 else {
   $myDist = new Distribution($mySql);
