@@ -1297,7 +1297,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     }
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
       if (empty($objPaperDetailed->intCoAuthorIds[$i]) &&
-          !empty($objPaperDetailed->strCoAuthorNames[$i]) {
+          !empty($objPaperDetailed->strCoAuthorNames[$i])) {
         $s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
             "         VALUES ('$objPaperDetailed->intId',".
             "                 '".$objPaperDetailed->strCoAuthors[$i]."')";
