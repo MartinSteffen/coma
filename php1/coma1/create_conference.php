@@ -188,7 +188,7 @@ if (isset($_POST['action'])) {
                                               $_POST['def_reviews'],
                                               $_POST['min_papers'],
                                               $_POST['max_papers'],
-                                              $_POST['variance'],
+                                              $_POST['variance']/100,
                                               (!empty($_POST['auto_actaccount']) ? '1' : '0'),
                                               (!empty($_POST['auto_paperforum']) ? '1' : '0'),
                                               (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
