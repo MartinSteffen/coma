@@ -26,39 +26,36 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   redirect('start.php');
 }
 else {
-$mainPage = new Template(TPLPATH.'main.tpl');
-$menue = new Template(TPLPATH.'nav_index.tpl');
-$loginPage = new Template(TPLPATH.'logreg.tpl');
-
-$strMainAssocs = defaultAssocArray();
-$strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
-$strMainAssocs['content'] = 'Bitte Einloggen oder Registrieren';
-$strMainAssocs['body'] = & $loginPage;
-
-$strMainAssocs['menue'] =& $menue;
-$strMainAssocs['submenue'] = '';
-
-// $strMenueAssocs['loginName'] = $_SESSION['uname'];
-if (isset($_SESSION['message'])) {
-  $strMessage = $_SESSION['message'];
-  unset($_SESSION['message']);
+  $mainPage = new Template(TPLPATH.'main.tpl');
+  $menue = new Template(TPLPATH.'nav_index.tpl');
+  $loginPage = new Template(TPLPATH.'logreg.tpl');
+  
+  $strMainAssocs = defaultAssocArray();
+  $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
+  $strMainAssocs['content'] = 'Bitte Einloggen oder Registrieren';
+  $strMainAssocs['body'] = &$loginPage;
+  
+  $strMainAssocs['menue'] = &$menue;
+  $strMainAssocs['submenue'] = '';
+  
+  // $strMenueAssocs['loginName'] = $_SESSION['uname'];
+  if (isset($_SESSION['message'])) {
+    $strMessage = $_SESSION['message'];
+    unset($_SESSION['message']);
+  }
+  else {
+    $strMessage = '';
+  }
+  
+  $strLoginAssocs = defaultAssocArray();
+  $strLoginAssocs['message'] = $strMessage;
+  
+  $mainPage->assign($strMainAssocs);
+  $menue->assign(defaultAssocArray());
+  $menue->assign($strMenueAssocs);
+  $loginPage->assign($strLoginAssocs);
+  
+  $mainPage->parse();
+  $mainPage->output();
 }
-else {
-  $strMessage = '';
-}
-
-$strLoginAssocs = defaultAssocArray();
-$strLoginAssocs['message'] = $strMessage;
-
-$mainPage->assign($strMainAssocs);
-$menue->assign(defaultAssocArray());
-$menue->assign($strMenueAssocs);
-$loginPage->assign($strLoginAssocs);
-
-$mainPage->parse();
-$mainPage->output();
-
- }
-
-
 ?>
