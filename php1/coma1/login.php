@@ -55,7 +55,7 @@ $strMainAssocs['menu'] = &$menu;
 $strPath = array('CoMa'=>'', 'Login'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
-$strMainAssocs['date'] = date("l, d.m.Y");
+$strMainAssocs['date'] = date("d.m.Y");
 
 $main->assign($strMainAssocs);
 $main->parse();
