@@ -62,7 +62,7 @@ public class Login extends HttpServlet
 		switch (action) 
 		{
 		case LOGIN: 
-		int conference_id=-1;
+		int conference_id=0;
 		try 
 		{
 			conference_id = Integer.parseInt(request.getParameter(FormParameters.CONFERENCE_ID));
@@ -175,6 +175,7 @@ public class Login extends HttpServlet
 				if( mySR != null)
 				{
 					int[] roles = (int[])mySR.getResultObj();
+					System.out.println(roles[0]);
 					myPerson.setRole_type(roles);
 				}
 			}	
