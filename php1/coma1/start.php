@@ -20,6 +20,8 @@ $menue = new Template(TPLPATH.'nav_start.tpl');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
+$strMainAssocs['content'] = '';
+$strMainAssocs['body'] = '';
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] = '';
 $mainPage->assign($strMainAssocs);
