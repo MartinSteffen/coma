@@ -1178,7 +1178,7 @@ nur fuer detaillierte?
         "         conference_start = '$objConferenceDetailed->strStart',".
         "         conference_end = '$objConferenceDetailed->strEnd',".
         "         min_reviews_per_paper = '$objConferenceDetailed->intMinReviewsPerPaper'".
-        " WHERE   conference_id = '$objConferenceDetailed->intId'";
+        " WHERE   id = '$objConferenceDetailed->intId'";
     echo("<br>$s<br>");
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
