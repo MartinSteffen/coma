@@ -108,7 +108,7 @@
             <input type="text" name="crit-name" size="32" maxlength="127" value="">
           </td>
           <td>
-            <input type="text" name="crit-maxvalue" size="8" maxlength="8" value="">
+            <input type="text" name="crit-max" size="8" maxlength="8" value="">
           </td>
           <td>
             <input type="text" name="crit-weight" size="8" maxlength="8" value="">
