@@ -24,7 +24,7 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$objForums = $myDBAccess->getForumsOfConference(session('confid'));
+$objForums = $myDBAccess->getAllForums(session('confid'));
 if ($myDBAccess->failed()) {
   error('An error occured during retrieving forums!',
         $myDBAccess->getLastError());
