@@ -87,9 +87,9 @@ if (isset($_POST['action'])) {
     }
     if (isset($_POST['add_crit']) && !empty($_POST['crit_name'])) {
       $strCriterions[]    = $_POST['crit_name'];
-      $strCritDescripts[] = $_POST['crit_descr'];
-      $strCritMaxVals[]   = $_POST['crit_max'];
-      $strCritWeights[]   = $_POST['crit_weight'];
+      $strCritDescripts[] = unserialize(base64_decode($_POST['crit_descr']));
+      $strCritMaxVals[]   = unserialize(base64_decode($_POST['crit_max']));
+      $strCritWeights[]   = unserialize(base64_decode($_POST['crit_weight']));
     }
   }
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
