@@ -5,7 +5,7 @@
   the conference '{title}'!<br>
 </p>
 {if1
-<p class="message-failed">
+<p class="message">
   You will be notified as soon as the conference chair accepts your apply.
 </p>
 }
