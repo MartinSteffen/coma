@@ -6,7 +6,7 @@
   </td>
   <td class="listitem-{line_no}">{date}</td>
   <td>
-    {if5 <a href="{link}" target="_blank" class="link">visit website
+    {if5 <a href="{link}" target="_blank" class="buttonlink">visit website
      <!--<img border="0" alt="website" height="20" width="64" src="{path}images/icon_website.gif">-->
      </a>}
   </td> 
