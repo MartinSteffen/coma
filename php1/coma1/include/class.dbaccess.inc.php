@@ -682,7 +682,7 @@ class DBAccess extends ErrorHandling {
       // erhalte "leer" zurueck, aber keinen Fehler!!!
     }
     $strAuthor = $objAuthor->getName(1);
-    $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,"
+    $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,".
                  "         state, filename, a.last_name AS author_name".
                  " FROM    Paper p".
                  " INNER   JOIN Person a".
@@ -791,7 +791,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($objReviewer)) {
       return $this->success(false);
     }
-    $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,"
+    $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,".
                  "         state, filename, a.last_name AS author_name".
                  " FROM    Paper AS p".
                  " INNER   JOIN Person AS a".
@@ -863,7 +863,7 @@ class DBAccess extends ErrorHandling {
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getPapersOfConference($intConferenceId, $intOrder=false) {
-    $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,"
+    $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,".
                  "         state, filename, a.last_name AS author_name".
                  " FROM    Paper AS p".
                  " INNER   JOIN Person AS a".
