@@ -38,9 +38,19 @@ if (!empty($objReviews)) {
     }
     else if (!empty($objPaper)) {
       $ifArray[] = $objPaper->intStatus;
-    }    
-    $strItemAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
-    $strItemAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 100).'%');
+    }
+    if (!empty($objReview->fltReviewRating)) {
+      $strItemAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
+    }
+    else {
+      $strItemAssocs['rating'] = ' - ';
+    }
+    if (!empty($objReview->fltAverageRating)) {
+      $strItemAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 100).'%');
+    }
+    else {
+      $strItemAssocs['avg_rating'] = ' - ';
+    }
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
     $paperItem->assign($strItemAssocs);

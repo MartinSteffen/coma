@@ -37,7 +37,12 @@ if (!empty($objPapers)) {
       $ifArray[] = 5;
     }
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');    
+    if (!empty($objPaper->fltAvgRating)) {
+      $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
+    }
+    else {
+      $strItemAssocs['avg_rating'] = ' - ';
+    }    
     $strItemAssocs['last_edited'] = encodeText(emptytime(strtotime($objPaper->strLastEdit)));
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'chair_paperlistitem.tpl');
