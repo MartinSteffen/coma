@@ -64,7 +64,7 @@ class DBAccess {
    * Legt die Fehlerbeschreibung fest.
    *
    * @param string $strError optionale Fehlerbeschreibung
-   * @return false immer <b>false</b>
+   * @return bool immer <b>false</b>
    * @see getLastError()
    * @access protected
    */
@@ -132,7 +132,8 @@ class DBAccess {
    * Liefert ein Person-Objekt mit den Daten der Person $intPersonId.
    *
    * @param int $intPersonId ID der Person
-   * @return Person bzw. <b>false</b>, falls keine Person mit ID $intPersonId gefunden wurde
+   * @return Person <b>false</b>, falls keine Person mit ID $intPersonId
+   *   gefunden wurde
    * @access public
    * @author Sandro, Tom (03.12.04)
    */
@@ -162,7 +163,8 @@ class DBAccess {
    * Liefert ein PersonDetailed-Objekt mit den Daten der Person $intPersonId.
    *
    * @param int $intPersonId ID der Person
-   * @return PersonDetailed bzw. <b>false</b>, falls keine Person mit ID $intPersonId gefunden wurde
+   * @return PersonDetailed <b>false</b>, falls keine Person mit ID $intPersonId
+   *   gefunden wurde
    * @access public
    * @author Sandro, Tom (03.12.04)
    */
@@ -198,7 +200,7 @@ class DBAccess {
    * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
    *
    * @param int $intAuthorId ID des Autors
-   * @return PaperSimple [] bzw. <b>false</b>, falls keine Paper des Autors
+   * @return PaperSimple [] <b>false</b>, falls keine Paper des Autors
    *   $intAuthorId gefunden wurden
    * @access public
    * @author Tom (04.12.04)
@@ -234,7 +236,7 @@ class DBAccess {
    * Liefert den Durchschnitt der Gesamtbewertungen des Papers $intPaperId.
    *
    * @param int $intPaperId ID des Papers
-   * @return flt bzw. <b>false</b>, falls keine Bewertungen des Papers gefunden wurden.
+   * @return flt <b>false</b>, falls keine Bewertungen des Papers gefunden wurden.
    * @access private
    * @author Sandro, Tom (06.12.04)
    */
@@ -263,7 +265,7 @@ class DBAccess {
    * Kriterien unter Beruecksichtigung der Gewichtungen).
    *
    * @param int $intReviewId ID des Reviews
-   * @return int bzw. <b>false</b>, falls das Review nicht existiert.
+   * @return int <b>false</b>, falls das Review nicht existiert.
    * @access private
    * @author Sandro, Tom (06.12.04)
    */
