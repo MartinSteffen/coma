@@ -31,11 +31,11 @@ $content->assign(defaultAssocArray());
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Hilfe zu CoMa';
+$strMainAssocs['title'] = 'Help for CoMa';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array('CoMa'=>'', 'Hilfe'=>'');
+$strPath = array('CoMa'=>'', 'Help'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 

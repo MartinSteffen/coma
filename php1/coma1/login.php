@@ -31,8 +31,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
     redirect('main_start.php');
   }
   else {
-    $_SESSION['message'] = 'Geben Sie Ihren Benutzernamen (ihre Email-Adresse) '.
-                           'und Ihr Passwort an!';
+    $_SESSION['message'] = 'Please enter your Username (E-Mail) and your Password.';
   }
 }
 
@@ -52,7 +51,7 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Willkommen bei CoMa!';
+$strMainAssocs['title'] = 'Welcome to CoMa!';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 

@@ -25,7 +25,7 @@ require_once('./include/header.inc.php');
   session_delete('uid');
   session_delete('confid');
 
-  $_SESSION['message'] = 'Sie haben sich erfolgreich abgemeldet!';
+  $_SESSION['message'] = 'You have been successfully signed out.';
 
 redirect('login.php');
 

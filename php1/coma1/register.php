@@ -102,11 +102,11 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Neuen Benutzer registrieren';
+$strMainAssocs['title'] = 'Register new User';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array('CoMa'=>'', 'Registrieren'=>'');
+$strPath = array('CoMa'=>'', 'Register'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
