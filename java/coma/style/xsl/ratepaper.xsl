@@ -11,7 +11,7 @@
     />
 
   <xsl:include href="navcolumn.xsl" />
-  <xsl:include href="stderror.xsl" />
+  <xsl:include href="stderrors.xsl" />
 
   <xsl:template match="//servletState">
     <input type="hidden" name="servletState" value="{@state}"></input>
@@ -39,7 +39,7 @@
     <div class="content">
       <form action="RatePaper" method="post">
         <xsl:apply-templates select="//servletState" />
-        <xsl:call-template name="stderror" />
+        <xsl:call-template name="stderrors" />
 
         <xsl:choose>
 
