@@ -119,14 +119,14 @@ if (in_array('comapages', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-topics'] = '';
   $strArrayChapterAssocs['special'] = '';
   $strArrayChapterAssocs['related-link'] = '';
-  $objChapterContent = new Template('./templates/helptext/chapter-2.tpl');
+  $objChapterContent = new Template('./templates/helptext/chapter-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
   $objChaptertemplate->assign($strArrayChapterAssocs);
   $objChaptertemplate->parse();
-  $strContentAssocs['chapter-2'] = $objChaptertemplate->getOutput();
+  $strContentAssocs['chapter-02'] = $objChaptertemplate->getOutput();
 }
 if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH . 'help_chapter.tpl');
@@ -148,14 +148,14 @@ if (in_array('login', $strArrayHelpTopics)){
   $objRelatedTemplate->assign($strArrayRelatedAssocs);
   $objRelatedTemplate->parse();
   $strArrayChapterAssocs['related-link'] = $objRelatedTemplate->getOutput();
-  $objChapterContent = new Template('./templates/helptext/chapter-2_1.tpl');
+  $objChapterContent = new Template('./templates/helptext/chapter-02_01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
   $objChaptertemplate->assign($strArrayChapterAssocs);
   $objChaptertemplate->parse();
-  $strContentAssocs['chapter-2_1'] = $objChaptertemplate->getOutput();
+  $strContentAssocs['chapter-02_01'] = $objChaptertemplate->getOutput();
 }
 
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
