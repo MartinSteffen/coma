@@ -20,7 +20,7 @@ $content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
-$strMenuAssocs['if'] = array(3);
+$strMenuAssocs['if'] = array(4);
 $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');

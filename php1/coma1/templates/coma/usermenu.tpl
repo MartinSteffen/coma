@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td class="menu"><a href="{basepath}user_forums.php?{SID}" class="{if3 marked}menu">
-      Forum</a>
+      Forums</a>
     </td>
   </tr>
   <tr>
