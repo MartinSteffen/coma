@@ -26,17 +26,25 @@ $sql->connect();
 //		var_dump($Conferences);
 		$conf = array();
 		if(count($Conferences) == 1){
- 			redirect("author", "new", "create", "cid=".$Conferences[0]);
+//			dump($Conferences);
+			foreach($Conferences as $value)		//wird nur einmal ausgeführt, ist aber notwendig, da der erste Index im Array nicht bekannt ist
+				{
+				redirect("author", "new", "create", "cid=".$value);
+				}
 		}
 		foreach ($Conferences as $conference_id)
 		{
-			$SQL = "SELECT name, description FROM conference WHERE id = ".$conference_id;
+			$SQL = "SELECT id, name, description FROM conference WHERE id = ".$conference_id;
 			$conf = array_merge($conf,$sql->query($SQL));
-		}
+		}			
+		$TPL['conf'] = $conf;
+		template("AUTHOR_choose_conference");
+		exit();
 	}
 	else
 	{
 		$selectConference = false;
+		template("AUTHOR_no_new_papers");
+		exit();
 	}
-	include('templates/AUTHOR_new_form.tpl.php');
 ?>

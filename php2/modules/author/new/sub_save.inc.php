@@ -14,6 +14,13 @@
 // echo date('Y-m-d');
 // exit();
 
+$name = $_REQUEST['file']['name'];
+$a = explode(".", $name);
+$a = array_reverse($a);
+$ending = $a[0];
+
+
+/*
 $mimemap= array(
 	"application/pdf" => ".pdf",
 	"application/postscript" => ".ps",
@@ -21,7 +28,7 @@ $mimemap= array(
 	"aplication/x-dvi" => ".dvi",
 	"text/plain" => ".txt"
 );
-
+*/
 $content = array();
 
 if (isset($_REQUEST['cid']))
@@ -46,7 +53,7 @@ $content['mime_type'] = $_REQUEST['file']['type'];
 
 
 $SQL = "INSERT INTO paper (conference_id, author_id, title, abstract, last_edited, filename, state, mime_type) VALUES ('".$content['conference_id']."', '".$content['author_id']."', '".$content['title']."', '".$content['abstract']."', '".$content['last_edited']."', '".$content['filename']."', '".$content['state']."', '".$content['mime_type']."')";
-$result = mysql_query($SQL); //Warum wirft er hier Fehlermeldung wenn man "$sql->query" benutzt??
+$result = $sql->insert($SQL); //Warum wirft er hier Fehlermeldung wenn man "$sql->query" benutzt??
 // var_dump($result);
 
 
@@ -79,25 +86,19 @@ $ftppath="./" . $ftpdir . "/" . $paper_id;
 // changedir to $ftpdir ausser config, darunter Verzeichnis $paperid, oder wirf Fehler
 @ftp_chdir($ftphandle, $ftppath) or die("FTP-chdir to ".$ftppath." fehlgeschlagen!");
 
-$remotefilename = $paper_id . $mimemap[ $_FILES['file']['type'] ];
+$remotefilename = $paper_id .".". $ending;
 $localfilename = $_FILES['file']['tmp_name'];
 
 // put file, auto-creating a filename styled $paperid.$ending with ending coming from mimemap, or die in error
 @ftp_put($ftphandle, $remotefilename, $localfilename ,FTP_BINARY) or die("Hochladen nach '$ftppath / $remotefilename' irgendwie fehlgeschlagen. Schade. Aber ich hab noch Erdbeertoertchen...");
 
 $SQL = "UPDATE paper SET filename = '".$remotefilename."' WHERE id = ".$paper_id."";
-$change_result = mysql_query($SQL);
+$change_result = $sql->insert($SQL);
 // var_dump($change_result);
 
 // do not forget to close connection. Your FTP-provider says thanks :)
-@ftp_close($ftphandle);
+@ftp_quit($ftphandle);
 
 redirect("author");
-// Irgendwie macht er ab hier nix mehr
-
-echo 'Hallo Welt?';
-
-
-echo 'Hallo Welt!';
 //done at last! Good luck!
 ?>
