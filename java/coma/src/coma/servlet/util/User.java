@@ -7,6 +7,7 @@ public class User {
     public static final int REVIEWER=3;
     public static final int AUTHOR = 4;
     public static final int PARTICIPANT = 5;
+    public static final int ADMIN = 6;
 
     public static final int ACTIVE=1;
     public static final int INACTIVE=2;
