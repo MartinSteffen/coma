@@ -42,8 +42,10 @@ function error($strMethod, $strError, $strComment='') {
 function redirect($strName) {
   global $mySession;
   session_write_close();
-  header('Location:' . COREURL . $strName . $mySession->getUrlId('?'));
-  die(0);
+  $strTarget = COREURL . $strName . $mySession->getUrlId('?');
+  //header('Location:' . $strTarget);
+  die('If your Browser does not support automatical redirection please use '.
+     .'<a href='"'.$strTarget.'"'>this link!</a>');
 }
 
 /**
