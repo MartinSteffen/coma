@@ -144,7 +144,7 @@ if (!empty($objPapers)) {
 else {
   // Artikelliste ist leer.
   $strItemAssocs = defaultAssocArray();
-  $strItemAssocs['colspan'] = '8';
+  $strItemAssocs['colspan'] = '7';
   $strItemAssocs['text'] = 'There are no papers available.';
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
