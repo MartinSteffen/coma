@@ -9,8 +9,12 @@ if (!defined('IN_COMA1')) {
   die('Hacking attempt');
 }
 
+require_once('config.inc.php');
+
 /**@ignore */
-define('DEBUG', true);
+if (!defined('DEBUG') {
+  define('DEBUG', false);
+}
 /**@ignore */
 define('VERSION', '0.M2');
 

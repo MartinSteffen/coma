@@ -54,8 +54,6 @@ else {
   }
 }
 
-//global $strRoles;
-
 $content = new Template(TPLPATH.'confirm_apply.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['title'] = encodeText($objConference->strName);

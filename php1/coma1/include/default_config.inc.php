@@ -14,13 +14,8 @@ if ( !defined('IN_COMA1') )
 
 // Change these Values
 $sqlServer = 'localhost';
-$sqlUser = 'coma1';
-$sqlPassword = 'Rhashdeak';
+$sqlUser = 'USERNAME';
+$sqlPassword = 'PASSWORD';
 $sqlDatabase = 'coma1';
-
-// This is the Debugging Version :)
-if (!defined('DEBUG') {
-  define('DEBUG', true);
-}
 
 ?>
