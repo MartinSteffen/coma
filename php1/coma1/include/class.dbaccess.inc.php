@@ -2171,10 +2171,8 @@ nur fuer detaillierte?
        if ($this->failed()) {
          return $this->error('updatePaperStatus', $this->getLastError());
        }
-       $s = sprintf("SELECT   cc.critical_variance, p.state".
-                    " FROM    Conference AS c".
-                    " INNER   JOIN ConferenceConfig AS cc".
-                    " ON      cc.conference_id = c.id".
+       $s = sprintf("SELECT   c.critical_variance, p.state".
+                    " FROM    ConferenceConfig AS c".                    
                     " INNER   JOIN Paper AS p".                    
                     " ON      c.id = p.conference_id".
                     " AND     p.id = '%d'",
