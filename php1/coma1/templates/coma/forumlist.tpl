@@ -1,4 +1,4 @@
-{message}<br>
-<table class="formtable" width="80%">
+{message}
+<table width="60%">
   {forumtypes}
 </table>

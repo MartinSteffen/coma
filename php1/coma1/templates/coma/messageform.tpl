@@ -1,10 +1,18 @@
 <br>
-<p>{replystring}<br>
-<form action="{basepath}forum.php{?SID}" method="post" accept-charset="UTF-8">
-  <input type="hidden" name="reply-to" value="{message-id}">
-  <input type="hidden" name="forumid" value="{forum-id}">
-  Subject: <input type="text" size="40" name="subject" value="{subject}"><br>
-  Message: <textarea cols="40" rows="10" wrap="soft" name="text">{text}</textarea><br>
-  {editform}
-  <input type="submit" value="send"></form>
-</p>
+<table class="list" width="100%">
+  <tr width="100%" class="listitem-2">
+    <td align="center"> <b> <u> {replystring} </u> </b><br> </td>
+  </tr>
+  <tr width="100%" class="listitem-2">
+     <td>
+       
+       <form action="{basepath}forum.php{?SID}" method="post" accept-charset="UTF-8">
+       <input type="hidden" name="reply-to" value="{message-id}">
+       <input type="hidden" name="forumid" value="{forum-id}">
+       &nbsp; <b> Subject: </b>  <br><input type="text" size="80" name="subject" value="{subject}"><br>
+       &nbsp; <b> Message: </b>  <br><textarea cols="80" rows="5" wrap="soft" name="text">{text}</textarea><br>
+       {editform}
+       <input type="submit" class="button" value="send"></form>
+    </td>
+  </tr>
+</table>

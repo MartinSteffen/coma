@@ -1,6 +1,7 @@
-<tr><td>
+<tr>
+  <td>
   <h2>{type}</h2><br>
-  <table class="formtable">
+  <table class="formtable" width="100%">
     {forum}
   </table>
 </td></tr>
