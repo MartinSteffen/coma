@@ -6,10 +6,6 @@ import static java.util.Arrays.asList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -18,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
@@ -80,12 +75,12 @@ public class ShowReports extends HttpServlet {
 		// go on as usual, the rest must be able to handle
 		// theUser==null.
 	    }
-			
+
+	    /* FIXME this doesn't point anywhere useful. */
 	    String path = getServletContext().getRealPath("");
 	    String xslt = path + "/" + "style/xsl/report.xsl";
 	    PrintWriter out = response.getWriter();
 			
-	    result.append("<?xml version=\"1.0\" encoding=\"ISO-8859-15\"?>\n");
 	    result.append("<result>\n");
 
 	    result.append(UserMessage.ALLREPORTSINTRO);
