@@ -94,7 +94,7 @@ conference_end DATE,
 min_reviews_per_paper INT,
 -- vorzugsweise: Mindestanzahl Gutachten
 PRIMARY KEY ( id )
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Person-- alle natuerlichen Personen
 (
 id INT NOT NULL AUTO_INCREMENT ,
@@ -113,7 +113,7 @@ state VARCHAR( 127 ) ,
 country VARCHAR( 127 ) ,
 PASSWORD VARCHAR( 127 ) NOT NULL ,
 PRIMARY KEY ( id )
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Role(
 conference_id INT NOT NULL ,
 person_id INT NOT NULL ,
@@ -127,7 +127,7 @@ INDEX ( conference_id ) ,
 INDEX ( person_id ) ,
 FOREIGN KEY ( conference_id ) REFERENCES Conference( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( person_id ) REFERENCES Person( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Paper(
 id INT NOT NULL AUTO_INCREMENT ,
 conference_id INT NOT NULL ,
@@ -145,14 +145,14 @@ INDEX ( conference_id ) ,
 INDEX ( author_id ) ,
 FOREIGN KEY ( conference_id ) REFERENCES Conference( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( author_id ) REFERENCES Person( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE IsCoAuthorOf(
 person_id INT,
 paper_id INT NOT NULL ,
 name VARCHAR( 127 ) ,
 INDEX ( paper_id ) ,
 FOREIGN KEY ( paper_id ) REFERENCES Paper( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Topic(
 id INT NOT NULL AUTO_INCREMENT ,
 conference_id INT NOT NULL ,
@@ -160,7 +160,7 @@ name VARCHAR( 127 ) NOT NULL ,
 PRIMARY KEY ( id ) ,
 INDEX ( conference_id ) ,
 FOREIGN KEY ( conference_id ) REFERENCES Conference( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE IsAboutTopic(
 paper_id INT NOT NULL ,
 topic_id INT NOT NULL ,
@@ -169,7 +169,7 @@ INDEX ( paper_id ) ,
 INDEX ( topic_id ) ,
 FOREIGN KEY ( paper_id ) REFERENCES Paper( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( topic_id ) REFERENCES Topic( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE PrefersTopic(
 person_id INT NOT NULL ,
 topic_id INT NOT NULL ,
@@ -178,7 +178,7 @@ INDEX ( person_id ) ,
 INDEX ( topic_id ) ,
 FOREIGN KEY ( person_id ) REFERENCES Person( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( topic_id ) REFERENCES Topic( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE PrefersPaper(
 person_id INT NOT NULL ,
 paper_id INT NOT NULL ,
@@ -187,7 +187,7 @@ INDEX ( person_id ) ,
 INDEX ( paper_id ) ,
 FOREIGN KEY ( person_id ) REFERENCES Person( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( paper_id ) REFERENCES Paper( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE DeniesPaper(
 person_id INT NOT NULL ,
 paper_id INT NOT NULL ,
@@ -196,7 +196,7 @@ INDEX ( person_id ) ,
 INDEX ( paper_id ) ,
 FOREIGN KEY ( person_id ) REFERENCES Person( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( paper_id ) REFERENCES Paper( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE ExcludesPaper(
 person_id INT NOT NULL ,
 paper_id INT NOT NULL ,
@@ -205,7 +205,7 @@ INDEX ( person_id ) ,
 INDEX ( paper_id ) ,
 FOREIGN KEY ( person_id ) REFERENCES Person( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( paper_id ) REFERENCES Paper( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE ReviewReport(
 id INT NOT NULL AUTO_INCREMENT ,
 paper_id INT NOT NULL ,
@@ -218,7 +218,7 @@ INDEX ( paper_id ) ,
 INDEX ( reviewer_id ) ,
 FOREIGN KEY ( paper_id ) REFERENCES Paper( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( reviewer_id ) REFERENCES Person( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Criterion(
 id INT NOT NULL AUTO_INCREMENT ,
 conference_id INT NOT NULL ,
@@ -229,7 +229,7 @@ quality_rating INT,
 PRIMARY KEY ( id ) ,
 INDEX ( conference_id ) ,
 FOREIGN KEY ( conference_id ) REFERENCES Conference( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Rating(
 review_id INT NOT NULL ,
 criterion_id INT NOT NULL ,
@@ -240,7 +240,7 @@ INDEX ( review_id ) ,
 INDEX ( criterion_id ) ,
 FOREIGN KEY ( review_id ) REFERENCES ReviewReport( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( criterion_id ) REFERENCES Criterion( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Forum(
 id INT NOT NULL AUTO_INCREMENT ,
 conference_id INT NOT NULL ,
@@ -251,7 +251,7 @@ PRIMARY KEY ( id ) ,
 INDEX ( conference_id ) ,
 INDEX ( forum_type ) ,
 FOREIGN KEY ( conference_id ) REFERENCES Conference( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE Message(
 id INT NOT NULL AUTO_INCREMENT ,
 forum_id INT,
@@ -263,7 +263,7 @@ text TEXT,
 PRIMARY KEY ( id ) ,
 INDEX ( sender_id ) ,
 FOREIGN KEY ( sender_id ) REFERENCES Person( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 -- ------------------------------------------------------------------------
 -- Skript zur Erstellung der PHP1-spezifischen DB-Aenderungen
 -- ------------------------------------------------------------------------
@@ -279,7 +279,7 @@ sdata TEXT,
 stime TIMESTAMP( 14 ) NOT NULL ,
 PRIMARY KEY ( sid, sname ) ,
 KEY stime( stime )
-) TYPE = MYISAM COMMENT = 'Session-Verwaltung';# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = MYISAM COMMENT = 'Session-Verwaltung';
 CREATE TABLE IF NOT EXISTS ConferenceConfig(
 id INT NOT NULL ,
 default_reviews_per_paper INT NOT NULL ,
@@ -294,7 +294,7 @@ auto_add_reviewers INT NOT NULL DEFAULT '1',
 -- 0 = FALSE, 1 (bzw. <>0) = TRUE
 number_of_auto_add_reviewers INT NOT NULL ,
 PRIMARY KEY ( id )
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 CREATE TABLE IF NOT EXISTS Distribution(
 paper_id INT NOT NULL ,
 reviewer_id INT NOT NULL ,
@@ -303,7 +303,7 @@ INDEX ( paper_id ) ,
 INDEX ( reviewer_id ) ,
 FOREIGN KEY ( paper_id ) REFERENCES Paper( id ) ON DELETE CASCADE ,
 FOREIGN KEY ( reviewer_id ) REFERENCES Person( id ) ON DELETE CASCADE
-) TYPE = INNODB;# MySQL lieferte ein leeres Resultat zurück (d.h. null Zeilen).
+) TYPE = INNODB;
 ";
 // END SQL DATA
 
