@@ -60,13 +60,14 @@ if (!empty($objPapers)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
       //achtung: nur fuer testzwecke
       foreach($critPapers as $cpap){
-        $cpapstr = round($cpap->fltVariance, 2) * 100;
+        $cpapstr = round($cpap->fltVariance * 100);
+	$cpapstr = $cpapstr . '%';
         if ($cpap->intId == $objPaper->intId){
 	  if ($cpap->fltVariance > $critvar){
-	    $strItemAssocs['variance'] = '!! ' . $cpap->fltVariance;
+	    $strItemAssocs['variance'] = '!! ' . $cpapstr;
 	  }
 	  else{
-	    $strItemAssocs['variance'] = $cpap->fltVariance;
+	    $strItemAssocs['variance'] = $cpapstr;
 	  }
 	}
       }
