@@ -1,7 +1,7 @@
 
 {if1<p class="message">{message}</p>}
 
-<div class="center">
+<p class="center">
 <form action="{basepath}login.php?{SID}" method="post">
 
 <table class="formtable">
@@ -28,17 +28,17 @@
   </tr>
 </table>
 </form>
-</div>
+</p>
 
-<div>&nbsp;</div>
+<p>&nbsp;</p>
 
-<div class="message2">
+<p class="message2">
   If you have registered for the site, please enter your username and password.
   This will mean that you can get access to information relevant to you.
   If you have not registered, please register below:<br>
 <form action="{basepath}register.php?{SID}" method="post">
   <input type="submit" name="submit" value="Register" class="button" />
 </form>
-</div>
+</p>
 
-<div>&nbsp;</div>
+<p>&nbsp;</p>
