@@ -10,7 +10,13 @@
  */
 /***/
 
-// Funktionen bereit stellen
+/**
+ * Wichtig, damit Config Dateie eingebunden werden kann
+ *
+ * @ignore
+ */
+define('IN_COMA1', true);
+// MySQL Daten bereit stellen
 require_once('./include/config.inc.php');
 
 $conn = @mysql_connect($sqlServer, $sqlUser , $sqlPassword);
