@@ -32,14 +32,18 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
   reset($dist);
   while ($pid = key($dist)) {
     for ($j = 0; $j < count($dist[$pid]); $j++) {
-      //if ($dist[$pid][$j]['status'] != ASSIGNED) {
-        if(isset($_POST['p'.$pid.'ridx'.$j])) {
-          $myDBAccess->addDistribution($dist[$pid][$j]['reviewer_id'], $pid);
-          if ($myDBAccess->failed()) {
-            error('Error occured while adding distribution data', $myDBAccess->getLastError());
-          }
+      if(isset($_POST['p'.$pid.'ridx'.$j]) && $dist[$pid][$j]['status'] != ASSIGNED) {
+        $myDBAccess->addDistribution($dist[$pid][$j]['reviewer_id'], $pid);
+        if ($myDBAccess->failed()) {
+          error('Error occured while adding distribution data', $myDBAccess->getLastError());
         }
-      //}
+      }
+      elseif (!isset($_POST['p'.$pid.'ridx'.$j]) && $dist[$pid][$j]['status'] == ASSIGNED) {
+        $myDBAccess->deleteDistribution($dist[$pid][$j]['reviewer_id'], $pid);
+        if ($myDBAccess->failed()) {
+          error('Error occured while deleting distribution data', $myDBAccess->getLastError());
+        }
+      }
     }
     next($dist);
   }
