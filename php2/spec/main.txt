@@ -58,6 +58,25 @@ Die Module im Einzelnen:
 -----------------
 mje, tdz
 
+Die Installation soll nach Vorbild der Installation eines PHPBB laufen, d.h.:
+	-der Benutzer lädt sich von der Webseite ein Archiv mit allen PHP-Sourcen runter
+	-der Benutzer entpackt das Archiv und lädt dessen Inhalt auf den zukünftig dafür genutzten Webspace (PHP-4-tauglich).
+	-der Benutzer besucht mit einem Browser seiner Wahl die Basis-URL dieses Webspace (quasi die index.php des Tools).
+	-das Script erkennt selbständig, daß die Installation noch nicht abgeschlossen wurde, und lenkt den Benutzer auf eine Seite um, auf der er die notwendigen Zugangsdaten für Datenbank und FTP-Account eingeben soll.
+	-hat der Benutzer das Formular ausgefüllt und abgeschickt, testet das Script die Daten auf Gültigkeit und wiederholt evtl. die Eingabe.
+	-dann generiert das Script aus den vom Benutzer gemachten Eingaben eine Datei "config.inc.php" mit eben diesen Zugangsdaten in PHP-Quellcode, und versucht, diese Datei durch direkten Schreibzugriff im Verzeichnis "includes" seiner eigenen Installation abzulegen.
+	-schlägt dies fehl, versucht es dasselbe per FTP.
+	-schlägt auch dies fehl, wird der Benutzer darüber informiert, er erhält die generierte config.inc.php zum Download, und dazu die Anleitung, wohin er diese Datei zu kopieren hat.
+	-Sobald die generierte config.inc.php an ihrer richtigen Stelle liegt, erkennt das Script bei erneutem Besuch der index.php, daß die Installation komplett ist, und gibt die normale Benutzung frei.
+	-Installation abgeschlossen.
+
+Die Administration beschränkt sich auf 2 Teilbereiche:
+	-Änderung der Zugangsdaten über Webformular, evtl. mit dem gleichen Hochladeweg wie beim Installationsscript.
+	-Verwaltung der Konferenzdaten:
+		* Einrichtung einer (leeren) Konferenz
+		* Löschung einer Konferenz
+		* Einrichtung/Löschung/Änderung des/eines ersten Chair-Accounts.
+
 -Chair:
 -------
 ist
