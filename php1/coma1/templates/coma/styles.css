@@ -433,7 +433,7 @@ table.subviewtable
 /* Meldungen */
 p.message
 {
-  width: 60%;
+  /*width: 60%;*/
   color: #FF2600;
   font-size: 13px;
   font-weight: bold;
@@ -445,7 +445,7 @@ p.message
 }
 p.message-ok
 {
-  width: 60%;
+  /*width: 60%;*/
   color: #20A028;
   font-size: 13px;
   font-weight: bold;
@@ -457,7 +457,7 @@ p.message-ok
 }
 p.message2
 {
-  width: 60%;
+  /*width: 60%;*/
   color: #222222;
   font-size: 13px;
   /* font-weight: bold; */
