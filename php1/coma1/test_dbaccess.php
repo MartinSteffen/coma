@@ -29,34 +29,36 @@ if ($myDBAccess->failed()) {
   echo ('Fehler: '.$myDBAccess->getLastError());
   exit(-1);
 }
-echo('Roles:<br>');
+echo('<br>Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
     echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
 }
 bit($p->intRoles);
-echo('Aendere Rollen:<br>');
+echo('<br>Aendere Rollen:<br>');
 if ($p->hasRole(REVIEWER)) {
-  echo('Case 1<br>');
   $p->deleteRole(REVIEWER);
   $p->switchRole(AUTHOR);
   $p->addRole(CHAIR);
 }
 else {
-  echo('Case 2<br>');
   $p->addRole(REVIEWER);
   $p->switchRole(AUTHOR);
   $p->deleteRole(CHAIR);
 }
 bit($p->intRoles);
-echo('Roles:<br>');
+echo('<br>Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
     echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
 }
-//echo('Update der Rollen in der DB...<br>');
-//$myDBAccess->updateRoles(1, $p);
-echo('Neuladen der Person:<br>');
+echo('<br>Update der Rollen in der DB...<br>');
+$myDBAccess->updateRoles(1, $p);
+if ($myDBAccess->failed()) {
+  echo ('Fehler: '.$myDBAccess->getLastError());
+  exit(-1);
+}
+echo('<br>Neuladen der Person:<br>');
 $p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
