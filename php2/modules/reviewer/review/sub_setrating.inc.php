@@ -43,6 +43,7 @@ if(isReviewer_Overall())
 			  "UPDATE rating SET grade = '".$criterionlist[$i]['value']."' , comment = '".$criterionlist[$i]['comment']."'
 			  WHERE (review_id = ".$_POST['reviewreportID'].")
 				AND (criterion_id = ".$criterionlist[$i]['id'].")";
+			echo $SQL;
 			$result = mysql_query($SQL);
 		} else {
 			$SQL =
