@@ -40,8 +40,7 @@ if (isset($_POST['action'])) {
   $noError = true;
   for ($i = 0; $i < count($objReview->intRatings) && $noError; $i++) {    
     if ($objReview->intRatings[$i] < 0 ||
-        $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
-      echo ($objReview->intRatings[$i].' > '.$objReview->objCriterions[$i]->intMaxValue);
+        $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {      
       $noError = false;
       $strMessage = 'There are invalid ratings. Please check if all ratings are '.
                     'within their respective range.';
