@@ -111,7 +111,7 @@ if (!empty($objPapers)) {
       $ifArray[] = 7;
     }
     // Pruefe Zugang zum Paperforum
-    if ($objPaper->intAuthorId != session('uid') {    
+    if ($objPaper->intAuthorId != session('uid')) {    
       $objPaperForum = $myDBAccess->getForumOfPaper($objPaper->intId);
       if ($myDBAccess->failed()) {
         error('Error occured retrieving forum of paper.', $myDBAccess->getLastError());

@@ -91,7 +91,7 @@ if (!empty($objPapers)) {
         $strItemAssocs['avg_rating'] = ' - ';
       }
       // Pruefe Zugang zum Paperforum
-      if ($objReview->intAuthorId != session('uid') {
+      if ($objReview->intAuthorId != session('uid')) {
         $objPaperForum = $myDBAccess->getForumOfPaper($objReview->intPaperId);
         if ($myDBAccess->failed()) {
           error('get forum of paper', $myDBAccess->getLastError());
