@@ -21,6 +21,9 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
+global $intRoles;
+global $strRoles;
+
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = array();
@@ -33,6 +36,13 @@ if (!empty($objPersons)) {
     $strItemAssocs['name'] = encodeText($objPerson->getName());
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
+    $strItemAssocs['roles'] = '';
+    for ($i = 0; $i < count($intRoles); $i++) {
+      if (!empty($strItemAssocs['roles'])) {
+      	$strItemAssocs['roles'] .= ', ';
+      }
+      $strItemAssocs['roles'] .= $strRoles[$intRoles[$i]];
+    }
     $userItem = new Template(TPLPATH.'user_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
     $userItem->parse();
