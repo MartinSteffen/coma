@@ -13,7 +13,6 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
-
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
 if ($myDBAccess->failed()) {
@@ -23,7 +22,14 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');
 }
 
-$content = new Template(TPLPATH.'edit_conference.tpl');
+if ( isset($_POST['adv'])){
+   $content = new Template(TPLPATH.'edit_conference.tpl');
+ }
+else{
+   $content = new Template(TPLPATH.'edit_conference.tpl');
+  }
+
+
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 
@@ -73,7 +79,7 @@ if (isset($_POST['action'])) {
     $ifArray[] = 4;
   }
   // Aktualisieren der Konferenz in der Datenbank
-  if (isset($_POST['submit'])) {
+  if (isset($_POST['submit']) || isset($_POST['submit_adv'])) {
     // auf korrkete Daten pruefen
     if (empty($_POST['name'])
     ||  empty($paper_dl)
@@ -112,26 +118,23 @@ if (isset($_POST['action'])) {
     elseif ($review_dl > $start_date) {
       $strMessage = 'Your Notification time should be before your Start Date!';
     }
-    elseif ( !($min_reviews <= $max_reviews)){
-      $strMessage = 'The minimum number of reviewers should not be greater than the maximum number of reviews!';
-    }
     elseif ( !($min_reviews >= 0)){
-      $strMessage = 'The minimum number of reviews should be greater or equel to zero!';
+      $strMessage = 'Your minimum number of reviews should be greater or equel to zero!';
     }
-    elseif ( !($min_paper >= 0)){
-      $strMessage = 'The number of papers should be greater or equal to zero!';
+    elseif ( !($min_papers >= 0)){
+      $strMessage = 'Your number of papers should be greater or equal to zero!';
     }
-    elseif ( !($min_paper <= $max_paper)){
-      $strMessage = 'The minimum number of papers should not be greater than the maximum number of paper!';
+    elseif ( !($min_papers <= $max_papers)){
+      $strMessage = 'Your minimum number of papers should not be greater than the maximum number of paper!';
     }
     elseif ( !($min_reviews <= $def_reviews)){
-      $strMessage = 'The minimum number of reviews should not be greater than the default number of reviews!';
+      $strMessage = 'Your minimum number of reviews should not be greater than the default number of reviews!';
     }
     elseif ( !(0 <= $variance) || !($variance > 100)){
-      $strMessage = 'The ambiguity should be greater than zero und less than hundred!';
+      $strMessage = 'Your ambiguity should be greater than zero and less than hundred!';
     }
     elseif ( !(0 <= $auto_numrev )){
-      $strMessage = 'The  number of automatically added reviewers should be greater or equal than zero!';
+      $strMessage = 'Your number of automatically added reviewers should be greater or equal than zero!';
     }
     // Versuche die Konferenz zu aktualisieren
     else {
