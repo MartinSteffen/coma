@@ -44,7 +44,7 @@ class Conference {
     else if (!strcmp($this->strStart, $this->strEnd) || empty($this->strEnd)) {
       return encodeText($this->strStart);
     }    
-    return encodeText($this->strStart." - ".$this->strEnd);    
+    return encodeText($this->strStart." to ".$this->strEnd);    
   }
 
 } // end class Conference
