@@ -54,16 +54,12 @@ if (isset($_POST['action'])) {
     $objPaper->intCoAuthorIds[] = false;
   }    
   $objPaper->objTopics = array();
-  if (!empty($_POST['topics'])) {
-    $intTopicIds = explode(',', $_POST['topics']);
+  if (!empty($_POST['topics'])) {    
     echo($_POST['topics']);    
-    for ($i = 0; $i < count($intTopicIds); $i++) {
-      for ($j = 0; $j < count($objAllTopics); $j++) {
-      	if ($intTopicIds[$i] == $objAllTopics[$j]->intId) {
-          echo('Topic'.$objAllTopics[$j]->strName.','.$objAllTopics[$j]->intId);
-      	  $objPaper->objTopics[] = $objAllTopics[$j];
-          break;
-      	}
+    for ($i = 0; $i < count($objAllTopics); $i++) {      
+      if (isset('topic-'.$objAllTopics[$i]->intId) {
+        echo('Topic'.$objAllTopics[$i]->strName.','.$objAllTopics[$i]->intId);
+      	$objPaper->objTopics[] = $objAllTopics[$i];      	
       }
     }
   }  
