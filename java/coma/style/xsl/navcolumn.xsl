@@ -30,7 +30,7 @@
               <div>
                 <div>
                   <select name="conference_id">
-                    <xsl:for-each select="//conference_list//conference">
+                    <xsl:for-each select="//navcolumn/conference_list/conference">
                       <option>
                         <xsl:attribute name="value">
                           <xsl:value-of select="id"/>

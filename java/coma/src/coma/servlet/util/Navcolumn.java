@@ -36,7 +36,7 @@ import static coma.servlet.util.XMLHelper.tagged;
    name="navcolumn" /&gt;</code> Make sure it is in a place where it
    will go to the body region of the HTML.
 
- */
+*/
 public class Navcolumn {
 
     HttpSession hsession;
@@ -68,52 +68,62 @@ public class Navcolumn {
 
 	}
 
-// 	return tagged("navcolumn",
-// 		      tagged("theTime", new Date()),
-// 		      (p==null)? tagged("noUser") : "",
-// 		      ((p != null) 
-// 		       && (p.isChair()))? tagged("isChair") : "",
-// 		      ((p != null) 
-// 		       && (p.isAuthor()))? tagged("isAuthor") : "",
-// 		      ((p != null) 
-// 		       && (p.isReviewer()))? tagged("isReviewer") : "")
-// 	    .toString();
+	// 	return tagged("navcolumn",
+	// 		      tagged("theTime", new Date()),
+	// 		      (p==null)? tagged("noUser") : "",
+	// 		      ((p != null) 
+	// 		       && (p.isChair()))? tagged("isChair") : "",
+	// 		      ((p != null) 
+	// 		       && (p.isAuthor()))? tagged("isAuthor") : "",
+	// 		      ((p != null) 
+	// 		       && (p.isReviewer()))? tagged("isReviewer") : "")
+	// 	    .toString();
 	result.append(tagged("theTime", new Date()));
 	if ( p == null ){
-		ReadServiceImpl myReadService = new ReadServiceImpl();
-		Conference mySearchconference = new Conference(-1);
-		SearchCriteria mysc = new SearchCriteria();
-		mysc.setConference(mySearchconference);
-		SearchResult mySR = myReadService.getConference(mysc);
-		String extraData = "";
-		if (mySR != null){
-			Conference[] confernceArray = (Conference[]) mySR.getResultObj();
- 			extraData="<conference_list>\n";
- 			for (int i = 0; i < confernceArray.length; i++) {
- 				extraData+=(((Conference)confernceArray[i]).toXML(XMLMODE.SHALLOW)).toString();
- 			}
- 			extraData+="</conference_list>\n";
- 			result.append(extraData);
- 			
-			String info = mySR.getInfo();
-			System.out.println(info);
-		}
-			
-			result.append(extraData);
-	    result.append(tagged("noUser"));
-	} else {
-	    result.append(p.toXML(XMLMODE.SHALLOW));
-	    if (p.isChair())
-		result.append(tagged("isChair"));
-	    if (p.isAuthor())
-		result.append(tagged("isAuthor"));
-	    if (p.isReviewer())
-		result.append(tagged("isReviewer"));
-	}
-	for (String s: extradata){
-	    result.append(s);
-	}
-	return tagged("navcolumn", result).toString();
+
+
+	    /*
+	      ReadServiceImpl myReadService = new ReadServiceImpl();
+	      Conference mySearchconference = new Conference(-1);
+	      SearchCriteria mysc = new SearchCriteria();
+	      mysc.setConference(mySearchconference);
+	      SearchResult mySR = myReadService.getConference(mysc);
+	      String extraData = "";
+	      if (mySR != null){
+	      Conference[] confernceArray = (Conference[]) mySR.getResultObj();
+	      extraData="<conference_list>\n";
+	      for (int i = 0; i < confernceArray.length; i++) {
+	      extraData+=(confernceArray[i].toXML(XMLMODE.SHALLOW)).toString();
+	      }
+	      extraData+="</conference_list>\n";
+	      result.append(extraData);
+	      }
+	    */		    
+	    SearchCriteria theSC = new SearchCriteria();
+	    theSC.setConference(new Conference(-1));
+	    Conference[] allConfs 
+		= (Conference[])new coma.handler.impl.db.ReadServiceImpl()
+		.getConference(theSC).getResultObj();
+		    
+	    result.append(XMLHelper.tagged("conference_list", 
+					   Conference.manyToXML(java.util.Arrays.asList(allConfs), 
+								XMLMODE.SHALLOW)));
+
+	//result.append(extraData);
+	result.append(tagged("noUser"));
+    } else {
+	result.append(p.toXML(XMLMODE.SHALLOW));
+	if (p.isChair())
+	    result.append(tagged("isChair"));
+	if (p.isAuthor())
+	    result.append(tagged("isAuthor"));
+	if (p.isReviewer())
+	    result.append(tagged("isReviewer"));
     }
+    for (String s: extradata){
+	result.append(s);
+    }
+    return tagged("navcolumn", result).toString();
+}
 
 }
