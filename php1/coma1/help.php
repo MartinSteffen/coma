@@ -140,6 +140,9 @@ if (in_array('login', $strArrayHelpTopics)){
   else{
     $strArrayChapterAssocs['special'] = '';
   }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
   $objRelatedTemplate = new Template(TPLPATH.'help_relatedlink.tpl');
   $strArrayRelatedAssocs = defaultAssocArray();
   $strArrayRelatedAssocs['topics'] = 'register';
@@ -173,6 +176,9 @@ if (in_array('register', $strArrayHelpTopics)){
   }
   else{
     $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
   }
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-02.tpl');
