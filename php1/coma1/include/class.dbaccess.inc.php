@@ -130,18 +130,51 @@ class DBAccess {
   function  getRoles($Id, $confId){
     $s = 'SELECT  role_type '.
         ' FROM    Role'.
-        ' WHERE   conference_id = \' '.$confId.' \' ';
+        ' WHERE   conference_id = \' '.$confId.' \' '.
+        ' AND     person_id= \''.$Id.'\'';
    $data = $this->mySql->select($s);
    if (!empty($data)) {
       $strRoles= array();
+      // Jeder Benutzer hat die Rolle Teilnehmer 
+      $strRoles[count($data)] = 'Teilnehmer';
       for ($i = 0; $i < count($data); $i++) {
-        if ($data[$i]['role_type']==0){$strRoles[$i] = 'Teilnehmer';}
-        if ($data[$i]['role_type']==1){$strRoles[$i] = 'Chair';}
+        if ($data[$i]['role_type']==0){$strRoles[$i] = 'Chair';}
+        if ($data[$i]['role_type']==1){$strRoles[$i] = 'Reviewer';}
+        if ($data[$i]['role_type']==2){$strRoles[$i] = 'Autor';}
+        // falls ein role_type in der Datenbank existiert der nicht bekannt Fehler  
+        if ($data[$i]['role_type'] >2){ 
+          $strRoles[$i] = 'undef';
+          echo 'Rolle: '.$data[$i]['role_type'].' ist in der Funktion getRoles nicht bekannt';
+        }
       }
+   }
+    else{
+      $strRoles= array();
+      // Jeder Benutzer hat die Rolle Teilnehmer 
+      $strRoles[0] = 'Teilnehmer';
+   }
+ 
       return $strRoles;
-    }
-    return $this->error('getRolesById'.$this->mySql->getLastError());
+ 
   }
+ /**
+   * Prueft, ob die Email-Adresse in der Datenbank gespeichert wurde.
+   *
+   * @return bool true gdw. die Email in der Datenbank gefunden wurde
+   * @access public
+   * @author Daniel (20.12.04)
+   */
+  function checkEmail($strEmail) {
+    $s = 'SELECT  email '.
+         ' FROM    Person'.
+         ' WHERE   email = \''.$strEmail.'\'';
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      return true;
+    }
+    return false;
+  }
+
 
   /**
    * Prueft, ob die globalen User-Daten gueltig sind.
@@ -875,7 +908,7 @@ class DBAccess {
    * @param string $strPhone        Telefonnummer der Person
    * @param string $strFax          Faxnummer der Person
    * @param string $strPassword     Passwort des Accounts (unverschluesselt zu uebergeben)
-   * @return int ID der erzeugten Person oder <b>false</b>, falls ein Fehler
+   * @return int ID der erzeugten Person oder false , falls ein Fehler
    *             aufgetreten ist
    * @access public
    * @author Sandro, Tom (17.12.04)
@@ -891,12 +924,15 @@ class DBAccess {
         '                 \''.$strPostalCode.'\', \''.$strCity.'\', \''.$strState.'\','.
         '                 \''.$strCountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
         '                 \''.sha1($strPassword).'\')';
-    echo('<br>SQL: '.$s.'<br>');
+    // echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
     }
-    return $this->error('addPerson '.$this->mySql->getLastError());
+    else {
+      return false;
+      echo $this->error('addPerson '.$this->mySql->getLastError());
+    }
   }
 
   /**
