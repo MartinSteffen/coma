@@ -7,6 +7,7 @@ a.normal {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
 .textGreen {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal; text-transform: none; color: #009900; text-decoration: none}
 .textRed {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; color: #990000; text-decoration: none}
 .textBlue { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; color: #000099; text-decoration: none }
+a.author {text-decoration: none}
 .notAtAll
 {
 	color: red;
