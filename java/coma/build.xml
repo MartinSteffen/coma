@@ -8,10 +8,17 @@
 	<property name="dist" value="${basedir}/dist" />
 	<property name="lib" value="${basedir}/lib" />
 	<property name="style" value="${basedir}/style" />
+	<property name="papers" value="${basedir}/papers" />
 	
-	<property name="catalina.home" value="/home/tomcat" />
-	<property name="webapp.home" value="${catalina.home}/webapps/" />
-
+	<!-- To install coma adjust the following tow lines accoring to -->
+	<!-- your wished installation path -->
+	
+	<!--property name="catalina.home" value="/etc/tomcat5" /-->
+	<!--property name="webapp.home" value="/home/wprguest3/webapps/" /-->
+	<property name="catalina.home" value="/usr/local/tomcat" />
+	<property name="webapp.home" value="/home/ziad/webapps/" />
+    <!--                         END                                -->
+	
 	<path id="compile.classpath">
 		<pathelement location="${catalina.home}/common/classes" />
 		<pathelement location="${catalina.home}/shared/classes" />
@@ -26,21 +33,27 @@
 		</fileset>
 	</path>
 
+	<target name="clean" description="deleting old build ...">
+			<delete dir="${bin}" />
+			<delete dir="${doc}" />
+			<delete dir="${dist}" />
+			<delete dir="${app.name}" />
+    </target>
+	
 	<target name="compile" depends="clean" description="compiling sources ...">
 		<mkdir dir="${bin}" />
 		<javac srcdir="${src}" destdir="${bin}">
 			<classpath refid="compile.classpath" />
 		</javac>
 	</target>
-
-	<target name="clean" description="deleting old build ...">
-		<delete dir="${bin}" />
-		<delete dir="${doc}" />
-		<delete dir="${dist}" />
-		<delete dir="${app.name}" />
+	<target name="doc" depends="clean" description="generating java docs ...">
+			<mkdir dir="${doc}/api" />
+			<javadoc sourcepath="${src}" destdir="${doc}/api" packagenames="*">
+				<classpath refid="compile.classpath" />
+			</javadoc>
 	</target>
 
-	<target name="build" depends="compile, doc" description="installing application">
+	<target name="install" depends="compile, doc" description="installing application">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<copy todir="${dist}/${app.name}/WEB-INF/classes">
 			<fileset dir="${bin}/" />
@@ -52,20 +65,15 @@
 			<fileset dir="${style}"/>
 		</copy>
 		<copy todir="${dist}/${app.name}/WEB-INF" file="${basedir}/web.xml" />
-		<copy todir="${catalina.home}/conf/Catalina/localhost/" file="${basedir}/${app.name}.xml" overwrite="true" />
+		<!-- uncomment this line and be sure that you are authorized to rewrite -->
+		<!-- the directory /CATALINAE_HOME/conf/Catalina/localhost -->
+		<!--copy todir="${catalina.home}/conf/Catalina/localhost/" file="${basedir}/${app.name}.xml" overwrite="true" /-->
 
 		<delete dir="${webapp.home}/${app.name}" />
 		<copy todir="${webapp.home}" overwrite="true">
 			<fileset dir="${dist}/" />
 		</copy>
 
-	</target>
-
-	<target name="doc" depends="clean" description="generating java docs ...">
-		<mkdir dir="${doc}/api" />
-		<javadoc sourcepath="${src}" destdir="${doc}/api" packagenames="*">
-			<classpath refid="compile.classpath" />
-		</javadoc>
 	</target>
 
 </project>
