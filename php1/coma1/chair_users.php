@@ -71,6 +71,8 @@ if (isset($_POST['action'])) {
                $mail->getOutput(), $strFrom);
     }
     elseif ($_POST['submit'] == 'remove') {
+      // Bereits zugeordnete Reviewer aus Distribution-Tabelle entfernen
+      $myDBAccess->deleteReviewerDistribution($intPersonId, session('confid'));
       $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
       if ($myDBAccess->failed()) {
         error('Error updating role table.', $myDBAccess->getLastError());

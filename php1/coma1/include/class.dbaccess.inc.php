@@ -3817,6 +3817,29 @@ nur fuer detaillierte?
     return $this->success();
   }
 
+  /**
+   * Loescht ALLE Zuteilungen des Reviewers mit ID $intReviewerId betreffend
+   * Paper der Konferenz mit der ID $intConferenceId.
+   *
+   * @param int @intReviewerId Reviewer-ID.
+   * @param int @intConferenceId Konferenz-ID.
+   * @return konstant true
+   */
+  function deleteReviewerDistribution($intReviewerId, $intConferenceId) {
+    $s = sprintf("DELETE   FROM Distribution".
+                 " WHERE   reviewer_id = '%d'".
+                 " AND     paper_id IN (".
+                 "         SELECT  id".
+                 "         FROM    Paper".
+                 "         WHERE   conference_id = '%d'",
+                           s2db($intReviewerId),
+                           s2db($intConferenceId));
+    $result = $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('deleteReviewerDistribution', $this->mySql->getLastError());
+    }
+    return $this->success();
+  }
   // end of class DBAccess
 }
 
