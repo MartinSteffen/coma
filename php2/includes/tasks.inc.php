@@ -123,7 +123,7 @@ function chair_task()
 			$task[] = array("text"=>"In conference", "action"=>$conferenceName);			
 			$task[] = array("text"=>"Author", "action"=>$authorName);
 			$task[] = array("text"=>"Paper title", "action"=>$paperName);
-			$taskLink = "<a href=\"index.php?m=chair&a=papers&s=paper&paperID=$paperID\" class=\"normal\">The paper is reviewed. You must accept or decline it.</a>";		
+			$taskLink = "<a href=\"index.php?m=chair&a=papers&s=paper&paperID=$paperID\" class=\"normal\">The paper is reviewed. You must accept or reject it.</a>";		
 			$task[] = array("text"=>"Task", "action"=>$taskLink);	
 			$tasks[$count] = $task;
 			$count++;			

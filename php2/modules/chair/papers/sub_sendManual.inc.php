@@ -1,0 +1,20 @@
+<?
+if(isChair_Paper($_POST['paperID']))
+{	
+	if (isset($_POST['Submit']))
+	{
+		foreach ($_POST['reviewers'] as $reviewer)
+		{
+			$SQL = "INSERT INTO reviewreport (reviewer_id, paper_id) 
+					VALUES (".$reviewer.", ".$_POST['paperID'].")";
+			$result=mysql_query($SQL);					
+		}
+		$SQL = "update paper set state = 1 where id = ".$_POST['paperID'];
+		$result=mysql_query($SQL);
+	}
+
+	redirect("chair","papers","paper","paperID=".$_POST['paperID']);	
+
+}
+else redirect("logout","","","mode=1");		
+?>

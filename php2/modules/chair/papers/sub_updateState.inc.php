@@ -20,7 +20,7 @@ if(isChair_Paper($_POST['paperID']))
 		}
 		else
 		{
-			$stateID = 3;
+			$stateID = 0;
 		}
 	}		
 	$SQL = "update paper set state = ".$stateID." where id = ".$_POST['paperID'];

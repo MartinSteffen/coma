@@ -5,7 +5,6 @@ $paper = $input['paper'];
 $report = $input['report'];
 $reviewers = $report['reviewers'];
 ?>
-<link rel="stylesheet" href="style.css" type="text/css">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -99,6 +98,8 @@ $reviewers = $report['reviewers'];
 </table>
 <br>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+<? if ((!($paper['stateID'] == 3)) && (!($paper['stateID'] == 4)))
+   {  ?>
   <tr> 
     <td align="left" valign="middle"><img src="templates/images/arrow.gif" width="30" height="17"><a href="index.php?m=chair&a=papers&s=paperReviewerAuto&paperID=<?echo $paper['paperID'] ?>" class="menus">Send 
       the paper to reviewers automatically</a></td>
@@ -110,6 +111,7 @@ $reviewers = $report['reviewers'];
   <tr> 
     <td align="left" valign="middle">&nbsp;</td>
   </tr>
+<?  }  ?>  
   <tr>
 <?
 if (!count($reviewers)==0)  
