@@ -77,7 +77,7 @@ class Session {
   * @access private
   */
   function sessionOpen($save_path, $sess_name) {
-    mySql->select('SELECT * FROM
+    mySql->select('SELECT * FROM ' . $sess_name . ' ');
   
   }
   
