@@ -1,7 +1,8 @@
 <?
   include('header.tpl.php');
+  $cid = d('cid');
 ?>
-<form action="index.php?m=author&a=new&s=save" method="post" enctype="multipart/form-data">
+<form action="index.php?m=author&a=new&s=save&cid=<? echo $cid ?>" method="post" enctype="multipart/form-data">
   <table>
 	  <tr>
 		  <td>
@@ -13,7 +14,7 @@
 		<tr>
 			<td>
 				<p>Description<br>
-				<textarea name="description" cols="60" rows="10">Please enter a short description of your paper.
+				<textarea name="summary" cols="60" rows="10">Please enter a short summary of your paper.
 				</textarea>
 				</p>
 			</td>
@@ -21,8 +22,7 @@
 		<tr>
 			<td>
 				<p>Coauthors (optional)<br>
-				<textarea name="coauthors" cols="60" rows="8">
-				</textarea>
+			<textarea name="coauthors" cols="60" rows="8"><? echo $cid ?></textarea>
 				</p>
 			</td>
 		</tr>
