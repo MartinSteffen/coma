@@ -54,6 +54,8 @@ $message = $TPL['login'];
       <p><span class="text">(It is strongly </span><span class="textBold">recommended</span><span class="text"> 
         that you use <br>
         a browser with </span><span class="textBold">javascript</span> <span class="text">enabled!)</span></p>
+      <p><span class="textBold">Forgot your password?</span> <a href="index.php?m=changePass" class="menus">Click 
+        here!</a></p>
     </td>
   </tr>
 </table>

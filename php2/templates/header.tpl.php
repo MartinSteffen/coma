@@ -258,7 +258,7 @@ function toggle(id)
 			   }}} ?>
                       <tr>
                         <td class="menus">&nbsp;</td>
-                      </tr>
+                      </tr>	   					  					  
                       <tr>
                         <td class="menus"><a href="index.php?m=forum" class="menus">Forum</a></td>
                       </tr>
@@ -317,9 +317,6 @@ function toggle(id)
 		      <tr>
 		        <td class="menus"><a href="index.php" class="menus">Click here to go back to login</a></td>
 		      </tr>
-                      <tr>
-                        <td class="menus"><a href="index.php?m=forum" class="menus">Forum</a></td>
-                      </tr>
                     </table>
                   </td>
                 </tr>
