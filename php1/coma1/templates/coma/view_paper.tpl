@@ -8,19 +8,19 @@
     <th colspan="2" class="viewheader">Details of paper:</th>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Title:
     </td>
     <td class="viewline">{title}</td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Abstract:
     </td>
     <td class="viewline">{abstract}</td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Author:
     </td>
     <td class="viewline">
@@ -28,19 +28,19 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Co-Authors:
     </td>
     <td class="viewline">{coauthors}</td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Version:
     </td>
     <td class="viewline">{version}</td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Last edited:
     </td>
     <td class="viewline">{last_edited}</td>

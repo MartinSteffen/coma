@@ -6,7 +6,7 @@
     <th colspan="2" class="viewheader">Registered New User:</th>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Name:
     </td>
     <td class="viewline">
@@ -14,7 +14,7 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       E-mail address:
     </td>
     <td>
@@ -22,7 +22,7 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Affiliation:
     </td>
     <td class="viewline">
@@ -30,7 +30,7 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Phone number:
     </td>
     <td>
@@ -38,7 +38,7 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Fax number:
     </td>
     <td class="viewline">
@@ -46,7 +46,7 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">
+    <td class="viewline" width="10%">
       Address:
     </td>
     <td class="viewline">
