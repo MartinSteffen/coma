@@ -126,13 +126,16 @@ class Template {
     $strKeys = array();
     $strValues = array();
     foreach ($this->strAssocs as $key => $value) {
-      $key = '<(?i){'.$key.'}>';
-      $strKeys[] = $key;
+      $strKeys[] = '<(?i){'.$key.'}>';
       // @todo Check ob gültiges Objekt!!!
       if (is_object($value)) {
         //$value->assign($this->strAssocs);
         $value->parse();
         $strValues[] = $value->getOutput();
+      }
+      else if (is_array($value)) {
+        $strKeys[] = '<(?i){'.$key.'*}>';
+        $strValues[] = '';
       }
       else {
         $strValues[] = $value;
