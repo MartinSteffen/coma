@@ -1392,7 +1392,7 @@ nur fuer detaillierte?
                            $this->s2db($objConferenceDetailed->strStart),
                            $this->s2db($objConferenceDetailed->strEnd),
                            $this->s2db($objConferenceDetailed->intMinReviewsPerPaper),
-                           $this->s2db($objConferenceDetailed->intId);
+                           $this->s2db($objConferenceDetailed->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
