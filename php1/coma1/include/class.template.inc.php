@@ -144,6 +144,7 @@ class Template extends ErrorHandling {
     // Alle nicht zugeordneten rauswerfen!
     $strKeys[] = '/(?i){.*?}/';
     $strValues[] = '';
+    dump_var($strKeys);dump_var($strValues);
     $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
     return $this->success(true);
   }
