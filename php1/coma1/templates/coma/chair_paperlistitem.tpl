@@ -15,7 +15,8 @@
     <td class="listitem-{line_no}">{avg_rating}/{max_rating}</td>
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
-      {if5<a href="{file_link}">}view paper{if5</a>}
+      {if5<button name="viewpaper" type="button" class="smallbutton" value="View paper"
+                  onClick="self.location.href='{file_link}'">View paper</button>}
     </td>
     <td class="listitem-{line_no}">
       TODO
@@ -24,7 +25,7 @@
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="paperid" value="{paper_id}">
-        <input type="submit" name="submit" value="delete" class="button">
+        <input type="submit" name="submit" value="delete" class="smallbutton">
       </form>
     </td>
   </tr>
