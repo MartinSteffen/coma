@@ -49,7 +49,7 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
 }
 else {
   $myDist = new Distribution($mySql);
-  $dist = $myDist->getDistribution(session('confid'), array(1 => 14));
+  $dist = $myDist->getDistribution(session('confid'));
   if ($myDist->failed()) {
     error('get distribution suggestion',$myDist->getLastError());
   }
