@@ -8,7 +8,7 @@ if (isChair_Overall())
 
 	$sql->insert($SQL);
 
-	redirect('chair','conferences', false, false);
+	redirect('chair','conferences', 'conference', 'confID='.$_POST['confID']);
 
 } else redirect(false, false, false, false);
 ?>
