@@ -1172,7 +1172,7 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPaperId ID des Papers
    * @param int $intReviewerId ID des Reviewers
-   * @return bool true gdw. das Paper bereits bewertet worden ist
+   * @return bool true gdw. das Paper dem Reviewer zugeteilt ist
    * @access public
    * @author Sandro (28.01.05)
    */

@@ -79,6 +79,14 @@ if (!empty($r_id)) {
     $strItemAssocs['rev_name'] = encodeText($objReviewer->getName(1));
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     //$strItemAssocs['if'] = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
+    $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
+    $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId));
+    if ($myDBAccess->failed()) {
+      error('get reviewer/paper information', $myDBAccess->getLastError());
+    }
+    if ($isD) {
+      $strItemAssocs['if'][] = 8;
+    }
     $strRevItem = new Template(TPLPATH.'reviewerattitudes.tpl');
     $strRevItem->assign($strItemAssocs);
     $strRevItem->parse();
