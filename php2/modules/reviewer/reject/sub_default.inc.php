@@ -17,6 +17,8 @@ if(isReviewer_Overall())
 
 	$result = mysql_query($SQL);
 
+	makePaperState($_GET['paperID']);
+
   redirect("tasks",false,false,false);
 } else redirect("logout",false,false,"error=1");
 ?>
