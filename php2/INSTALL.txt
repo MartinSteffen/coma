@@ -14,25 +14,18 @@ CoMa - a conference manager
 2. SYSTEM REQUIREMENTS
 
 For installation of this conference manager you need to have access to a webserver directory with at least XX MB of free space. This webspace must be configured to provide support for PHP version 4.1.0 or higher (http://www.php.net). We suggest to use the Apache webserver (http://www.apache.org) Version 1.2 or higher
-
-You also need to have access to a database instance of a MySQL Database version X.XX or higher (http://www.mysql.com) (not necessarily running on the same server, but must be accessible)
-
+You also need to have access to a database instance of a MySQL Database version X.XX or higher (http://www.mysql.com) (not necessarily running on the same server, but must be accessible). Database instance means an installation of the DBMS MySQL and a readily-created database named as you like, e.g. "coma". You will need this database name for the installation.
 Further you need a webspace directory capable of storing large amount of different-MIME-Typed data files, to which you have FTP-access. This might be (but may not) the same webspace your installation runs on, then we suggest to use the directory named "papers" that comes along with this software bundle.
 
 3. INSTALLATION
 
 First, you need to download the complete software bundle from your distributor's website. Well, as you are reading this file, you must already have done that :)
-
 If this software bundle is compressed, extract it to any temporary directory and move it (anyhow) to the webserver directory you wish to run it.
-
 Now you point any web browser of your choice capable of HTML 4.0 (sorry, no Lynx) to the webserver directory where you put the files to. You don't need to specify any subdirectory or filename, but if you wish you may specify "index.php". The Browser will show you a form asking for all the access data for FTP-space and DB-Instance, and further you will be asked to specify name and login data of the admin account.
-
 Fill in the form and click on "submit". !TAKE CARE OF YOUR PASSWORD! YOU WILL NEED IT JUST AT THAT MOMENT YOU LOST IT!
-
 Your access data will be tested and the database tables will be created. Now the installation routine will try to create the file "includes/config.inc.php" on your webspace. This might cause problems, as most installations of PHP do not allow direct writing file access at all. Don't bother, if the write access fails, your Browser will give you a file called "config.inc.php" for download. Save it to a temporary place and move it to the webspace where your installation lies. There, put it into the directory "includes" (seen from installation root directory of course).
-
+After that you must delete the directory "install" and all of its contents. This is necessary for security reasons, as we think you don't want anybody from the internet to change your database access data. As you will never need it again, remove it. If you didn't remove it, CoMa will not run, it just displays an error unless you removed it.
 If you managed to place the config file, a next visit to the webspace (index.php) should result in the conference manager front instead of the installation page. If not, retry. If you give up, have a look at section 4. (TROUBLESHOOTING)
-
 You can change all access data at runtime via the admin's control panel. Simply log in with the admin account data specified during the install and change configuration. BE CAREFUL WITH THE FTP-DATA: If you redirect FTP-data location you will have to copy all contents of it manually!
 
 4. TROUBLESHOOTING
