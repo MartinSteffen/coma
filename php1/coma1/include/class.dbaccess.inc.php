@@ -645,13 +645,15 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intAuthorId ID des Autors
    * @param int $intConferenceId ID der Konferenz
+   * @param int $intOrder Gibt an, wonach sortiert werden soll
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)   
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Autors
    *                        $intAuthorId gefunden wurden.
    * @access public
    * @author Tom, Sandro (04.12.04, 12.12.04, 19.01.05)
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
-  function getPapersOfAuthor($intAuthorId, $intConferenceId) {
+  function getPapersOfAuthor($intAuthorId, $intConferenceId, $intOrder=false) {
     $objAuthor = $this->getPerson($intAuthorId);
     if ($this->failed()) {
        return $this->error('getPapersOfAuthor', $this->getLastError()); // dito!
@@ -668,6 +670,14 @@ class DBAccess extends ErrorHandling {
                  " AND     conference_id = '%d'",
                            s2db($intAuthorId),
                            s2db($intConferenceId));
+    if (!empty($intOrder)) {
+      if ($intOrder == 1) {
+        $s .= " ORDER BY title";
+      }      
+      else if ($intOrder == 5) {
+        $s .= " ORDER BY last_edited";
+      }
+    }
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
@@ -698,13 +708,15 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intReviewerId ID des Reviewers
    * @param int $intConferenceId ID der Konferenz
+   * @param int $intOrder Gibt an, wonach sortiert werden soll
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)   
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Reviewers
    *                        $intReviewerId gefunden wurden.
    * @access public
    * @author Tom, Sandro (12.12.04, 19.01.05)
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
-  function getPapersOfReviewer($intReviewerId, $intConferenceId) {
+  function getPapersOfReviewer($intReviewerId, $intConferenceId, $intOrder=false) {
     $objReviewer = $this->getPerson($intReviewerId);
     if ($this->failed()) {
        return $this->error('getPapersOfReviewer', $this->getLastError());
@@ -720,6 +732,14 @@ class DBAccess extends ErrorHandling {
                  " AND     p.conference_id = '%d'",
                            s2db($intReviewerId),
                            s2db($intConferenceId));
+    if (!empty($intOrder)) {
+      if ($intOrder == 1) {
+        $s .= " ORDER BY title";
+      }
+      else if ($intOrder == 5) {
+        $s .= " ORDER BY last_edited";
+      }
+    }
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
@@ -1130,8 +1150,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intReviewId ID des Reviews
    * @return Review false, falls das Review nicht existiert.
    * @access public
-   * @author Sandro (14.12.04)
-   * @todo Aufruf von getReviewRating und getAverageRatingOfPaper in $this->... aendern.
+   * @author Sandro (14.12.04)   
    */
   function getReview($intReviewId) {
     $s = sprintf("SELECT   id, paper_id, reviewer_id".
@@ -1337,8 +1356,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intConferenceId Die ID der Konferenz, deren Foren ermittelt werden sollen.
    * @return Forum [] Ein leeres Array, falls kein Forum in der Konferenz existiert.
    * @access public
-   * @author Sandro (14.12.04)
-   * @todo Einfuegen der Konstante fuer den Artikelforen-Typ!
+   * @author Sandro (14.12.04)   
    */
   function getAllForums($intConferenceId) {
     $s = sprintf("SELECT   id, title, forum_type, paper_id".
@@ -1352,8 +1370,7 @@ class DBAccess extends ErrorHandling {
     $objForums = array();
     for ($i = 0; $i < count($data); $i++) {
       $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
-                        ($data[$i]['forum_type'] == 3) ? $data[$i]['paper_id'] : false));
-      // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
+                        ($data[$i]['forum_type'] == FORUM_PAPER) ? $data[$i]['paper_id'] : false));      
     }
     return $this->success($objForums);
   }
@@ -2713,16 +2730,15 @@ nur fuer detaillierte?
    * @param int $intConferenceId  ID der Konferenz, fuer die das Forum angelegt wird
    * @param string $strTitle      Bezeichnung des Forums
    * @param int $intForumType     Art des Forums (1: globales, 2:Komitee-, 3:Artikelforum)
-   * @param int $intPaperId       ID des assoziierten Artikels bei Artikelforen (sonst: 0)
+   * @param int $intPaperId       ID des assoziierten Artikels bei Artikelforen (sonst: false)
    * @return int ID des erzeugten Forums
    *
    * @access public
-   * @author Sandro (18.12.04)
-   * @todo Statt '3' die Konstante fuer den Artikelforen-Typ einfuegen!
+   * @author Sandro (18.12.04)   
    */
-  function addForum($intConferenceId, $strTitle, $intForumType, $intPaperId = 0) {
-    if ($intForumType <> 3) {  // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
-      $intPaperId = 0;
+  function addForum($intConferenceId, $strTitle, $intForumType, $intPaperId=false) {
+    if ($intForumType != FORUM_PAPER) {
+      $intPaperId = false;
     }
     $s = sprintf("INSERT  INTO Forum (conference_id, title, forum_type, paper_id)".
                  "VALUES ('%d', '%s', '%d', '%d')",
@@ -2742,18 +2758,17 @@ nur fuer detaillierte?
    * @param string $intSenderId  ID des Erstellers der Message
    * @param int $intForumId      ID des Forums, in das die Message eingefuegt wird
    * @param int $intReplyTo      ID der Nachricht, auf welche die Message antwortet
-   *                             (falls die Message einen neuen Thread eroeffnet: 0)
-   *                             Anm. v. Tom: Ist das mit der 0 so sicher? (ich seh es irgendwie nicht)
-   * @return int ID der erzeugten Message
-   * @todo sollte hier nicht statt 0 NULL geschrieben werden? siehe ahck in getThreadsOfForum()
+   * @return int ID der erzeugten Message   
    *
    * @access public
    * @author Sandro (18.12.04)
    */
-  function addMessage($strSubject, $strText, $intSenderId, $intForumId, $intReplyTo = 0) {
-    $s = sprintf("INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
-                 "VALUES ('%s', '%s', '%d', '%d', '%d', '%s')",
-                 s2db($strSubject), s2db($strText), s2db($intSenderId), s2db($intForumId), s2db($intReplyTo), s2db(date("Y-m-d H:i:s")));
+  function addMessage($strSubject, $strText, $intSenderId, $intForumId, $intReplyTo=false) {
+    $s = sprintf("INSERT  INTO Message (subject, text, sender_id, forum_id,".
+                 " send_time".(!empty($intReplyTo) ? ", reply_to" : ""). ")";
+                 "VALUES ('%s', '%s', '%d', '%d', '%s', '%d')",
+                 s2db($strSubject), s2db($strText), s2db($intSenderId), s2db($intForumId),
+                 s2db(date("Y-m-d H:i:s"), s2db($intReplyTo)));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addMessage', $this->mySql->getLastError());

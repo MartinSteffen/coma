@@ -8,6 +8,12 @@ if (!defined('IN_COMA1')) {
   die('Hacking attempt');
 }
 
+/**#@+ Konstanten fuer die Forentypen */
+define('FORUM_PUBLIC',  1);
+define('FORUM_PRIVATE', 2);
+define('FORUM_PAPER',   3);
+/**#@-*/
+
 /**
  * Klasse Forum
  *
