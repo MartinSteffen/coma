@@ -133,9 +133,10 @@ class Template {
         $value->parse();
         $strValues[] = $value->getOutput();
       }
-      else if (is_array($value)) {
+      elseif (is_array($value)) {
         $strKeys[] = '<(?i){'.$key.'*}>';
         $strValues[] = '';
+        var_dump($strKeys[]);
       }
       else {
         $strValues[] = $value;
