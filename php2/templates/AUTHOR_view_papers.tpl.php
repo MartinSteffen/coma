@@ -82,7 +82,14 @@ foreach($TPL as $key => $value) { // for each block of conferences (alive or dea
 		<table border="0" cellspacing="6" cellpadding="0">
 			<tr>
 				<td class="textBold">
+					<? if ($v['uploaded']) {
+						?>
 					<a href="index.php?m=author&a=view&s=getfile&pid=<? echo $v['id']; ?>"><? echo $v['title']; ?></a>
+					<? }
+					else {
+						echo $v['title'] ?> -- <font style=color:red>still no file uploaded</font>
+					<? }
+					?>
 				</td>
 				<td class="text">
 					<? echo $v['abstract']; ?>
@@ -127,7 +134,14 @@ foreach($TPL as $key => $value) { // for each block of conferences (alive or dea
 		<table align="left">
 			<tr>
 				<td class="textBold">
+					<? if ($v['uploaded']) {
+						?>
 					<a href="index.php?m=author&a=view&s=getfile&pid=<? echo $v['id']; ?>"><? echo $v['title']; ?></a>
+					<? }
+					else {
+						echo $v['title'] ?> -- <font style=color:red>still no file uploaded</font>
+					<? }
+					?>
 				</td>
 				<td class="text">
 					<? echo $v['abstract']; ?>
