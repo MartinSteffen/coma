@@ -2501,7 +2501,7 @@ nur fuer detaillierte?
     $s = sprintf("INSERT  INTO Person (first_name, last_name, title, affiliation, email,".
                  "  street, postal_code, city, state, country,".
                  "  phone_number, fax_number, password)".
-                 "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '$%s', '%s',".
+                 "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',".
                  "  '%s', '%s', '%s', '%s', '%s')",
                 s2db($strFirstname), s2db($strLastname), s2db($strTitle),
                 s2db($strAffiliation), s2db($strEmail), s2db($strStreet),
@@ -2553,8 +2553,9 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function addCoAuthor($intPaperId, $intCoAuthorId) {
-    $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
-        "         VALUES ('$intCoAuthorId', '$intPaperId')";
+    $s = sprintf("INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
+                 "VALUES ('%d', '%d')",
+                  s2db($intCoAuthorId), s2db($intPaperId));
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCoAuthor', $this->mySql->getLastError());
@@ -2573,8 +2574,9 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function addCoAuthorName($intPaperId, $strName) {
-    $s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
-        "         VALUES ('$intPaperId', '$strName')";
+    $s = sprintf("INSERT  INTO IsCoAuthorOf (paper_id, name)".
+                 "VALUES ('%d', '%s')",
+                  s2db($intPaperId), s2db($strName));
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCoAuthorName', $this->mySql->getLastError());
@@ -2598,11 +2600,9 @@ nur fuer detaillierte?
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
                     $strCoAuthors, $intTopicIds) {
-    $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
-        "                     mime_type, version, state, last_edited)".
-        "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
-        "                 '$strAbstract', '', '', '1',".
-        "                 '0', '".s2db(date("Y-m-d H:i:s"))."')";
+    $s = sprintf("INSERT  INTO Paper (conference_id, author_id, title, abstract, filename, mime_type, version, state, last_edited)".
+                 "VALUES ('%d', '%d', '%s', '%s', '', '', '1', '0', '%s')",
+                 s2db($intConferenceId), s2db($intAuthorId, s2db($strTitle), s2db($strAbstract), s2db(date("Y-m-d H:i:s")));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPaper', $this->mySql->getLastError());
@@ -2610,8 +2610,7 @@ nur fuer detaillierte?
     for ($i = 0; $i < count($strCoAuthors) && !empty($strCoAuthors); $i++) {
       $this->addCoAuthorName($intId, $strCoAuthors[$i]);
       if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
-        $s = "DELETE  FROM Paper".
-            " WHERE   id = '$intId'";
+        $s = sprintf("DELETE FROM Paper WHERE id = '%d'", s2db($intId));
         $this->mySql->delete($s);
         if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
