@@ -12,7 +12,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Title:
+      <span class="red">*</span>Title:
     </td>
     <td>
       <input type="text" name="title" size="48" maxlength="127" value="{title}">

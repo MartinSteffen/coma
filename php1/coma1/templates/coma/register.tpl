@@ -17,7 +17,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Last name:
+      <span class="red">*</span>Last name:
     </td>
     <td>
       <input type="text" name="last_name" size="48" maxlength="127" value="{last_name}">
@@ -25,7 +25,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Email address:
+      <span class="red">*</span>Email address:
     </td>
     <td>
       <input type="text" name="email" size="48" maxlength="127" value="{email}">
@@ -105,7 +105,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Password:
+      <span class="red">*</span>Password:
     </td>
     <td>
       <input type="password" name="user_password" size="32" maxlength="127">
@@ -113,7 +113,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Repeat password:
+      <span class="red">*</span>Repeat password:
     </td>
     <td>
       <input type="password" name="password_repeat" size="32" maxlength="127">
@@ -131,5 +131,5 @@
 
 <p class="message">
   Please enter information regarding your person!<br>
-  Fields marked with <span class="alert">*</span> are required to proceed with the registration.
+  Fields marked with <span class="red">*</span> are required to proceed with the registration.
 </p>

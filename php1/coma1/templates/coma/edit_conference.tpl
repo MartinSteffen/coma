@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Title:
+      <span class="red">*</span>Title:
     </td>
     <td>
       <input type="text" name="name" size="48" maxlength="127" value="{name}">
@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Starts:
+      <span class="red">*</span>Starts:
     </td>
     <td>
       <input type="text" name="start_date" size="16" maxlength="16" value="{start_date}">
@@ -49,7 +49,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Deadline for abstracts:
+      <span class="red">*</span>Deadline for abstracts:
     </td>
     <td>
       <input type="text" name="abstract_dl" size="16" maxlength="16" value="{abstract_dl}">
@@ -57,7 +57,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Deadline for paper submission:
+      <span class="red">*</span>Deadline for paper submission:
     </td>
     <td>
       <input type="text" name="paper_dl" size="16" maxlength="16" value="{paper_dl}">
@@ -65,7 +65,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Deadline for reviews:
+      <span class="red">*</span>Deadline for reviews:
     </td>
     <td>
       <input type="text" name="review_dl" size="16" maxlength="16" value="{review_dl}">
@@ -73,7 +73,7 @@
   </tr>
   <tr>
     <td>
-      <span class="alert">*</span>Deadline for final versions:
+      <span class="red">*</span>Deadline for final versions:
     </td>
     <td>
       <input type="text" name="final_dl" size="16" maxlength="16" value="{final_dl}">
