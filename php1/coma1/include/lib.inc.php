@@ -406,11 +406,12 @@ function sortPapersByAvgRating($objPapers) {
     for ($i = 0; $i < count($objPapers); $i++) {
       $fltMax = $objPapers[$i]->fltAvgRating;
       $maxIdx = $i;
-      if (!is_numeric($fltMax) {
+      if (!is_numeric($fltMax)) {
       	$fltMax = - 1.0;
       }      
       for ($j = $i+1; $j < count($objPapers); $j++) {
-       if ($objPapers[$j]->fltAvgRating > $fltMax) {
+       if (is_numeric($objPapers[$j]->fltAvgRating) &&
+           $objPapers[$j]->fltAvgRating > $fltMax) {
           $fltMax = $objPapers[$j]->fltAvgRating;
           $maxIdx = $j;
        }
