@@ -2171,7 +2171,11 @@ nur fuer detaillierte?
     if (!(is_a($objReviewerAttitude, 'ReviewerAttitude'))) {
       return $this->success(false);
     }
-    $objPapers = $this->getPapersOfConference($objReviewerAttitude->conferenceId);
+    $objPapers = $this->getPapersOfConference($objReviewerAttitude->intConferenceId);
+    if ($this->failed()) {
+      return $this->error('updateReviewerAttitude', $this->getLastError());
+    }
+    $objTopics = $this->getTopicsOfConference($objReviewerAttitude->intConferenceId);
     if ($this->failed()) {
       return $this->error('updateReviewerAttitude', $this->getLastError());
     }
@@ -2207,7 +2211,7 @@ nur fuer detaillierte?
         }
       }
     }
-    foreach ($objPapers as $objPaper) {
+    foreach ($objTopics as $objTopic) {
       $this->deletePrefersTopic($objReviewerAttitude->intReviewerId, $objTopic->intId);
       if ($this->failed()) {
         return $this->error('updateReviewerAttitude', $this->getLastError());
