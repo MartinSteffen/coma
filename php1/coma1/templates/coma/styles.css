@@ -429,7 +429,9 @@ table.list
   font-size: 12px;
   padding: 1px 8px;
   margin: 0px;  
-  background-color: #FFA0A0;
+  background-color: #FABABA;
+  border-right: 4px #FF2600 solid;
+  border-left: 4px #FF2600 solid;
 }
 .listitem-alert-2
 {
@@ -437,7 +439,9 @@ table.list
   font-size: 12px;
   padding: 1px 8px;
   margin: 0px;  
-  background-color: #FF8080;
+  background-color: #E4A4AE4;
+  border-right: 4px #FF2600 solid;
+  border-left: 4px #FF2600 solid;
 }
 
 a.list:link
