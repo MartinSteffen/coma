@@ -96,8 +96,8 @@ if (isset($_POST['action'])) {
     }
   }
   else if (isset($_POST['upload'])) {    
-    var_dump($_POST['paper_file']);
-    if (empty($_POST['paper_file'])) {
+    var_dump($_POST['binFile']);
+    if (empty($_POST['binFile'])) {
       $strMessage = 'You have to select a file for uploading!';
     }
     // Versuche das Paper hochzuladen
@@ -108,7 +108,7 @@ if (isset($_POST['action'])) {
       else {
         $objPaper->strMimeType = 'application/force-download';
       }
-      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['paper_file'],
+      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['binFile'],
                                              $objPaper->strMimeType);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
@@ -126,7 +126,6 @@ $strContentAssocs['title']          = encodeText($objPaper->strTitle);
 $strContentAssocs['abstract']       = encodeText($objPaper->strAbstract);
 $strContentAssocs['author_id']      = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name']    = encodeText($objPaper->strAuthor);      
-$strContentAssocs['file_link']      = encodeURL($objPaper->strFilePath);
 $strContentAssocs['avg_rating']     = encodeText(round($objPaper->fltAvgRating * 10) / 10);
 $strContentAssocs['last_edited']    = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version']        = encodeText($objPaper->intVersion);

@@ -1,7 +1,7 @@
 
 {if9<p class="message">{message}</p>}
 
-<form action="{basepath}{targetpage}{?SID}" method="post" enctype="multipart/form-data">
+<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="paperid" value="{paper_id}">
   <input type="hidden" name="coauthors_num" value="{coauthors_num}">
@@ -86,7 +86,7 @@
   <tr>
     <td>Upload new document:</td>
     <td colspan="2">
-      <input type="file" name="paper_file">
+      <input type="file" name="binFile">
       <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
       <input type="submit" name="upload" value="Upload" class="button">
     </td>
@@ -94,7 +94,6 @@
   <tr>
     <td>MIME type:</td>
     <td>
-      <!--<input type="text" name="mimetype" size="48" maxlength="127" value="{mimetype}">-->
       <select name="mimetype" size="1">
         <option>image/gif</option>
         <option>image/jpeg</option>
