@@ -53,7 +53,7 @@ if (!empty($objPersons)) {
       $strRolesAssocs['if'] = array(($objPerson->hasRole($intRoles[$i])) ? 1 : 2);      
       $roles->assign($strRolesAssocs);
       $roles->parse();
-      $strItemAssocs['roles'] .= $roles->getOutput();
+      $strItemAssocs['roles'] .= '['.$i.']'.$roles->getOutput();
     }    
     $userItem = new Template(TPLPATH.'chair_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
