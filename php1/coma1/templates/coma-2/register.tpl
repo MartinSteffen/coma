@@ -128,8 +128,6 @@
 </table>
 </form>
 
-
-
 <form action="{basepath}login.php?{SID}" method="post">
   <input type="submit" name="cancel" value="Cancel" class="button" />
 </form>

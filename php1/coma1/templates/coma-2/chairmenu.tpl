@@ -15,7 +15,7 @@
   </tr>  
   <tr>
     <td class="submenu"><a href="{basepath}chair_reviews.php?{SID}" class="{if4 marked}submenu">
-      Manage Reviews</a>
+      Manage reviews</a>
     </td>
   </tr>
   <tr>

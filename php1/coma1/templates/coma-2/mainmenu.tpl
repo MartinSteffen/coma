@@ -10,12 +10,17 @@
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}main_forum.php?{SID}" class="{if3 marked}menu">
+    <td class="menu"><a href="{basepath}create_conference.php?{SID}" class="{if3 marked}submenu">
+      Create conference</a>
+    </td>
+  </tr>  
+  <tr>
+    <td class="menu"><a href="{basepath}main_forum.php?{SID}" class="{if4 marked}menu">
       Forum</a>
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}logout.php?{SID}" class="{if4 marked}menu">
+    <td class="menu"><a href="{basepath}logout.php?{SID}" class="{if5 marked}menu">
       Logout</a>
     </td>
   </tr>
