@@ -324,6 +324,7 @@ public class Chair extends HttpServlet
 			 */
 			p = new Person(0);
 			p.setState("author");
+			// p.setRole_type(2)???;
 			tag = "showauthors";
 		}
 		else
@@ -413,7 +414,7 @@ public class Chair extends HttpServlet
 				tag = "showreviewers";
 		        Person p = new Person(0);
 		        p.setState("reviewer");
-		        //p.setRole_type(1);
+		        //p.setRole_type(1);???
 		        SearchCriteria search = new SearchCriteria();
 		        search.setPerson(p);
 		        ReadServiceImpl readService = new ReadServiceImpl();
@@ -443,7 +444,7 @@ public class Chair extends HttpServlet
 	public void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
 		/*
-		 * FIXME DB: get all papers wirh id=-2, fixed readServiceImpl
+		 * FIXME get ReviewReports and Rating from DB
 		 */
 	    String tag = "showpapers";
         Paper p = new Paper(-2);
