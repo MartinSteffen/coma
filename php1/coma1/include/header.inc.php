@@ -32,12 +32,12 @@ ini_set('warn_plus_overloading', '1');
 // End Debugging
 
 // PFAD - Konstanten
-/** Include-Pfad */
+/** Include-Pfad (als absolut)*/
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
-/** Template-Pfad */
+/** Template-Pfad (als absolut)*/
 define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/');
-/** Haupt-Pfad */
-define('COREPATH',dirname($_SERVER['PATH_TRANSLATED']).'/');
+/** Haupt-Pfad (als URL)*/
+define('COREPATH',dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
 
 // Standard Klassen
