@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context docBase="@WEBAPPS_HOME@/coma" path="/coma"
+	 debug="99" reloadable="true" crossContext="true">
+	
+ 
+  <Valve className="org.apache.catalina.valves.RequestDumperValve"/>
+
+    
+  <!-- jdbc realm --> 
+  
+  
+  <Realm className="org.apache.catalina.realm.DataSourceRealm" debug="99"
+	 dataSourceName="jdbc/coma3"
+	 localDataSource="true"
+	 userTable="Peron" userNameCol="email" userCredCol="password"
+	 userRoleTable="Role" roleNameCol="role_type"/>
+  
+  
+  <!-- connpool datasource --> 
+  <Resource name="jdbc/coma3" auth="Container"
+	    type="javax.sql.DataSource"/> 
+  
+  <ResourceParams name="jdbc/coma3">
+    <parameter>
+      <name>factory</name>
+      <value>org.apache.commons.dbcp.BasicDataSourceFactory</value>
+    </parameter>
+    <parameter>
+      <name>driverClassName</name>
+      <value>@DATABASE_DRIVER@</value>
+    </parameter>
+    <parameter>
+      <name>url</name>
+      <value>@URL@</value>
+    </parameter>
+    <parameter>
+      <name>username</name>
+      <value>@USER_NAME@</value>
+    </parameter>
+    <parameter>
+      <name>password</name>
+      <value>@PASSWORD@</value>
+    </parameter>
+    <parameter>
+      <name>maxActive</name>
+      <value>0</value>
+    </parameter>
+    <parameter>
+      <name>maxIdle</name>
+      <value>0</value>
+    </parameter>
+    <parameter>
+      <name>maxWait</name>
+      <value>-1</value>
+    </parameter>
+  </ResourceParams>   
+</Context>

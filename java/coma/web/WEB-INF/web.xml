@@ -1,0 +1,187 @@
+
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+    <display-name>Conference manager</display-name>
+    <description>
+      Conference Management's System
+    </description>
+    
+    <!--
+	<servlet>
+	   <servlet-name>default</servlet-name>
+	   <servlet-class>
+	      org.apache.catalina.servlets.DefaultServlet
+	   </servlet-class>
+	</servlet>
+	-->
+	
+	<servlet>
+     <servlet-name>Admin</servlet-name>
+     <servlet-class>coma.servlet.servlets.Admin</servlet-class>
+    </servlet>
+	<servlet>
+     <servlet-name>Author</servlet-name>
+     <servlet-class>coma.servlet.servlets.Author</servlet-class>
+    </servlet>
+	
+	<servlet>
+     <servlet-name>Chair</servlet-name>
+     <servlet-class>coma.servlet.servlets.Chair</servlet-class>
+    </servlet>
+	
+	<servlet>
+     <servlet-name>invite</servlet-name>
+     <servlet-class>coma.servlet.servlets.invite</servlet-class>
+    </servlet>
+	
+	<servlet>
+     <servlet-name>Index</servlet-name>
+     <servlet-class>coma.servlet.servlets.Index</servlet-class>
+    </servlet>
+		
+	<servlet>
+     <servlet-name>Login</servlet-name>
+     <servlet-class>coma.servlet.servlets.Login</servlet-class>
+    </servlet>
+    
+    <servlet>
+     <servlet-name>RatePaper</servlet-name>
+     <servlet-class>coma.servlet.servlets.RatePaper</servlet-class>
+    </servlet>
+     
+    <servlet>
+     <servlet-name>ShowReports</servlet-name>
+     <servlet-class>coma.servlet.servlets.ShowReports</servlet-class>
+    </servlet>
+      
+    <servlet>
+     <servlet-name>Subscribe</servlet-name>
+     <servlet-class>coma.servlet.servlets.Subscribe</servlet-class>
+    </servlet>
+      
+    <servlet>
+     <servlet-name>UserPrefs</servlet-name>
+     <servlet-class>coma.servlet.servlets.UserPrefs</servlet-class>
+    </servlet>   
+    
+    <servlet>
+     <servlet-name>WriteFile</servlet-name>
+     <servlet-class>coma.servlet.servlets.WriteFile</servlet-class>
+    </servlet>   
+    
+    
+     <servlet>
+     <servlet-name>AllocatePapers</servlet-name>
+     <servlet-class>coma.servlet.servlets.AllocatePapers</servlet-class>
+    </servlet>   
+    
+    
+    
+   <!--
+    <servlet-mapping>
+       <servlet-name>default</servlet-name>
+       <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    -->
+    
+    <servlet-mapping>
+ 		<servlet-name>Admin</servlet-name>
+    	<url-pattern>/Admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+ 		<servlet-name>Author</servlet-name>
+    	<url-pattern>/Author</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+
+      <servlet-name>Chair</servlet-name>
+    <url-pattern>/Chair</url-pattern>
+
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>Index</servlet-name>
+    	<url-pattern>/index.html</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>invite</servlet-name>
+    	<url-pattern>/invite</url-pattern>
+    </servlet-mapping>
+        
+    <servlet-mapping>
+    	<servlet-name>Login</servlet-name>
+    	<url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>RatePaper</servlet-name>
+    	<url-pattern>/RatePaper</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>ShowReports</servlet-name>
+    	<url-pattern>/ShowReports</url-pattern>
+    </servlet-mapping>
+        
+    <servlet-mapping>
+    	<servlet-name>Subscribe</servlet-name>
+    	<url-pattern>/Subscribe</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>UserPrefs</servlet-name>
+    	<url-pattern>/UserPrefs</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>WriteFile</servlet-name>
+    	<url-pattern>/WriteFile</url-pattern>
+    </servlet-mapping>
+     
+    <servlet-mapping>
+    	<servlet-name>AllocatePapers</servlet-name>
+    	<url-pattern>/AllocatePapers</url-pattern>
+    </servlet-mapping>
+    
+        
+    
+<!--
+
+  Define a Security Constraint on this Application
+ <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Login Coma</web-resource-name>
+      <url-pattern>/Servlet1</url-pattern>
+      <url-pattern>/Servlet2</url-pattern>
+      <url-pattern>/Login</url-pattern> 
+       </web-resource-collection>
+      <auth-constraint>
+       NOTE:  Hier ggf. noch mehr Rollen rein 
+        <role-name>coma</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  Define the Login Configuration for this Application 
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Conference Management</realm-name>
+  </login-config>
+
+Security roles referenced by this web application 
+  <security-role>
+    <description>
+      Die Rollen welche fuer den Zugriff auf Comasseiten erlaubt sind. 
+    </description>
+    <role-name>coma</role-name>
+  </security-role>
+-->
+
+</web-app>
