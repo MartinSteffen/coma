@@ -71,7 +71,7 @@
       Number of automatically added reviewers:
     </td>
     <td>
-      <input type="text" name="auto_numreviewer" size="16" maxlength="20" value="{auto_numreviewer}" />
+      <input type="text" name="auto_numreviewer" size="8" maxlength="8" value="{auto_numreviewer}" />
     </td>
   </tr>
 

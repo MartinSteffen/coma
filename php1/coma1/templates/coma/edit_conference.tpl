@@ -20,7 +20,7 @@
       Description:
     </td>
     <td>
-      <input type="text" name="description" size="48" value="{description}"/ >
+      <textarea name="description" rows="4" cols="48" value="{description}"/ >
     </td>
   </tr>
   <tr>
