@@ -109,4 +109,10 @@ if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin()))
   redirect('login.php');
 }
 
+/** @todo Setzen auf Benutzer Gast hier wieder entfernen */
+// Temporaer solange LoginCheck noch nicht implementiert ist
+if (!isset($_SESSION['uname'])) {
+  $_SESSION['uname'] = 'Gast';
+}
+
 ?>
