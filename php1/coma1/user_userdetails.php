@@ -17,7 +17,7 @@ require_once('./include/header.inc.php');
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+  error('Error occured during performing permission check.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
@@ -53,12 +53,70 @@ $strContentAssocs['country']     = encodeText($objPerson->getCountry());
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
-$content->assign($strContentAssocs);
+$strContentAssocs['author_papers'] = '';
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'User profile';
 $strMainAssocs['content'] = &$content;
 
+$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
+if ($checkRole && $objPerson->hasRole(AUTHOR)) {
+  // Pruefe Zugriffsberechtigung auf die Seite
+  $objPapers = $myDBAccess->getPapersOfAuthor($objPerson->intId, session('confid'));
+  if ($myDBAccess->failed()) {
+    error('get paper list of author', $myDBAccess->getLastError());
+  }
+  $paperList = new Template(TPLPATH.'profile_authorpaperlist.tpl');
+  $strPapersAssocs = defaultAssocArray();
+  $strPapersAssocs['message']     = '';
+  $strPapersAssocs['author_name'] = encodeText($objPerson->getName(1));
+  $strPapersAssocs['targetpage']  = 'user_userdetails.php';
+  $strPapersAssocs['lines']       = '';
+  if (!empty($objPapers)) {
+    $lineNo = 1;
+    foreach ($objPapers as $objPaper) {
+      $ifArray = array();
+      $strItemAssocs = defaultAssocArray();
+      $strItemAssocs['line_no'] = $lineNo;
+      $strItemAssocs['paper_id'] = encodeText($objPaper->intId);      
+      $ifArray[] = $objPaper->intStatus;
+      if (!empty($objPaper->strFilePath)) {
+        $ifArray[] = 5;
+      }
+      $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+      if (!empty($objPaper->fltAvgRating)) {
+        $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
+      }
+    else {
+      $strItemAssocs['avg_rating'] = ' - ';
+    }    
+    $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
+    $strItemAssocs['if'] = $ifArray;
+    $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
+    $paperItem->assign($strItemAssocs);
+    $paperItem->parse();
+    $strPapersAssocs['lines'] .= $paperItem->getOutput();
+    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+  }  
+  else {
+    // Artikelliste ist leer.
+    $strItemAssocs = defaultAssocArray();
+    $strItemAssocs['colspan'] = '8';
+    $strItemAssocs['text'] = 'There are no papers available.';
+    $emptyList = new Template(TPLPATH.'empty_list.tpl');
+    $emptyList->assign($strItemAssocs);
+    $emptyList->parse();
+    $strPapersAssocs['lines'] = $emptyList->getOutput();    
+  }
+  $paperList->assign($strPapersAssocs);
+  $paperList->parse();
+  $strContentAssocs['author_papers'] = $paperList->getOutput();
+}
+else if ($myDBAccess->failed()) {
+  error('Error occured during performing permission check.', $myDBAccess->getLastError());
+}
+
+$content->assign($strContentAssocs);
 
 if (!$popup) {
   include('./include/usermenu.inc.php');

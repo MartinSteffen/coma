@@ -42,15 +42,9 @@
       {fax}
     </td>
   </tr>
-  <tr class="viewline">
-    <td class="viewline" width="15%">
-      Address:
-    </td>
-    <td class="viewline">
-      {address}<br>{country}
-    </td>
-  </tr>
 </table>
+
+{author_papers}
 
 <p>&nbsp;</p>
 

@@ -87,7 +87,7 @@ else {
 $content->assign($strContentAssocs);
 
 $_SESSION['menu'] = 0;
-$_SESSION['menuitem'] = 7;
+$_SESSION['menuitem'] = 8;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
