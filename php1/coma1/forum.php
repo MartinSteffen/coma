@@ -4,7 +4,7 @@ define('DEBUG', true);
 define('IN_COMA1', true);
 
 require_once('./include/header.inc.php');
-require_once('./include/class.forum.inc.php');
+include('./include/class.forum.inc.php');
 require_once('./include/class.message.inc.php');
 require_once('./include/class.person.inc.php');
 
@@ -43,8 +43,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   foreach ($forums as $forum){
     $forum = new Template(TPLPATH . 'forum.tpl');
     $forumassocs = defaultAssocArray();
-    $fid = $forum->intId;
-    if ($forumselection[$fid]){
+    if ($forumselection[$forum->intId]){
       $forumassocs['selectorunselect'] = 'forumunsel';
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
