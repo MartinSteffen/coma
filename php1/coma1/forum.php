@@ -52,7 +52,7 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray, $myDBAccess){
+function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, $myDBAccess){
   if (DEBUGMODE){
     echo('forums: ' . count($forums) . '<br>');
   }
@@ -159,7 +159,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   return $assocArray;
 }
 
-function displayMessages($messages, $msgselection, $selected, $forumid, $assocs){
+function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs){
   if (DEBUGMODE){
     echo('Messages: ' . count($messages). '<br>');
   }
