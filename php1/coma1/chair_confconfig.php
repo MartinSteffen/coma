@@ -44,7 +44,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
   $start_date = empty($_POST['start_date']) ? '' : strtotime($_POST['start_date']);
   $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
 
-  // als eingabe sind nur Interger-Werte erlaubt
+  // als Eingabe sind nur Interger-Werte erlaubt
   $min_reviews = (int) $_POST['min_reviews'];
   $def_reviews = (int) $_POST['def_reviews'];
   $min_papers  = (int) $_POST['min_papers'];
