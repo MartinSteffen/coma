@@ -16,7 +16,7 @@ if (!defined('IN_COMA1')) {
  * @param string $strError Beschreibung des Fehlers
  * @param string $strComment optionaler weiterer Kommentar
  * @return bool immer <b>false</b>
- * @todo Fehelrausgabe verbessern
+ * @todo Fehlerausgabe verbessern
  */
 function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";

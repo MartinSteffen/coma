@@ -96,7 +96,7 @@ class MySql extends ErrorHandling {
    */
   function delete($strSql='') {
     if (empty($strSql)) {
-      return $this->error('delete', 'Empty SQL statement';
+      return $this->error('delete', 'Empty SQL statement');
     }
     if (!eregi("^delete",$strSql)) {
       return $this->error('delete', "Call with $strSql");
