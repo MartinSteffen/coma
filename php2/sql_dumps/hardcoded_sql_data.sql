@@ -68,6 +68,10 @@ INSERT INTO forumtype (id, type) VALUES (3, 'paper discussion forum');
 # Daten für Tabelle `paperstate`
 #
 
+INSERT INTO paperstate (id, state) VALUES (1, 'being reviewed');
+INSERT INTO paperstate (id, state) VALUES (2, 'conflicting');
+INSERT INTO paperstate (id, state) VALUES (3, 'accepted');
+INSERT INTO paperstate (id, state) VALUES (4, 'rejected');
 
 #
 # Daten für Tabelle `person`
