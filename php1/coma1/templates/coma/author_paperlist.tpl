@@ -24,5 +24,6 @@
 <p class="message2">
   Click on any paper, to edit the common information about the paper
   and to upload new versions of the document.<br>
-  Click on <span class="emph">View</span> to download and read the paper.
+  Click on <span class="emph">View</span> to download and read the paper.<br>
+  Do you want to <a href="{basepath}author_createpaper.php{?SID}">create a new paper</a>?  
 </p>
