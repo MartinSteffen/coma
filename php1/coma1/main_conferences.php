@@ -73,9 +73,9 @@ $strMainAssocs['title'] = 'Conferences Overview';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array(session('uname')=>'', 'Conferences'=>'');
-require_once(TPLPATH.'navigatoritem.php');
-$strMainAssocs['navigator'] = createNavigatorContent($strPath);
+//$strPath = array(session('uname')=>'', 'Conferences'=>'');
+//require_once(TPLPATH.'navigatoritem.php');
+//$strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
 $main->assign($strMainAssocs);
 $main->parse();
