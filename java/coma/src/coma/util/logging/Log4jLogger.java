@@ -1,4 +1,7 @@
 package coma.util.logging;
+
+import java.util.Queue;
+
 /**
    Wrapper class for Log4J.
 
@@ -30,6 +33,22 @@ class Log4jLogger extends ALogger{
      */
     private final int INITBUFFERSIZE = 80;
 
+    /** 
+	Everything of this level or more severe goes into the buffer
+	for potential traceback.
+    */
+    private final Severity RETAINLEVEL = Severity.INFO;
+    /**
+       Everything of this level or more severe causes the buffer to be
+       displayed.
+     */
+    private final Severity FLUSHLEVEL  = Severity.ERROR;
+    /**
+       The size of the history buffer.
+     */
+    private final int      HISTORYSIZE = 8;
+
+    private final Queue<StringBuffer> history;
 
     /** the low level logger of l4j */
     private org.apache.log4j.Logger lll = null;
@@ -51,6 +70,8 @@ class Log4jLogger extends ALogger{
 	    System.err.println("now this can't happen at all!");
 	}
 
+	history = new java.util.LinkedList<StringBuffer>();
+
     }
 
     /**
@@ -62,6 +83,30 @@ class Log4jLogger extends ALogger{
 	for (Object wha: what){
 	    sb.append(wha.toString());
 	    sb.append(' ');
+	}
+
+	
+	if (s.compareTo(FLUSHLEVEL) >= 0){
+	    /* show history. This will empty the history as well.
+	       "Fluten! Fluten!! Fluten!!!" */
+
+	    StringBuffer m = history.poll();
+	    while (m != null){
+
+		lll.info(m);
+		m = history.poll();
+	    }
+	}
+
+	if (s.compareTo(RETAINLEVEL) >= 0){
+	    /* store log message */
+	    history.offer(new StringBuffer("HISTORY: ")
+			  .append(s.toString())
+			  .append(' ')
+			  .append(sb));
+	    while (history.size() > HISTORYSIZE){
+		history.poll();
+	    }
 	}
 
 	switch (s){

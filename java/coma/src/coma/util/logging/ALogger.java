@@ -56,9 +56,21 @@ public abstract class ALogger {
 
     @SuppressWarnings(value="all") /* calm down, it's only test routines */
     public static void main(String[] args){
+
+	ALogger myLogger=create("ALogger.main");
 	
-	create("boing!").log(Severity.FATAL,
-			     "It", "works", 42, new StdErrLogger(null));
+	myLogger.log(Severity.FATAL,
+		     "It", "works", 42, new StdErrLogger(null));
+	myLogger.log(Severity.INFO,
+		     "information");
+	myLogger.log(Severity.WARN,
+		     "warning");
+	myLogger.log(Severity.ERROR,
+		     "This should give a traceback.");
+	myLogger.log(Severity.ERROR,
+		     "This should give a traceback as well,",
+		     "but the history is pretty empty.");
+
 	ALogger.log.log(Severity.DEBUG, 
 			"Static", "and", "ecstatic");
     }
