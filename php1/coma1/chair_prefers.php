@@ -58,7 +58,7 @@ if ($myDBAccess->failed()) {
 
 $content = new Template(TPLPATH.'chair_prefers.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if'] = array();
+$strContentAssocs['navlink']     = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $strContentAssocs['paper_lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
