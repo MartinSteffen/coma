@@ -23,7 +23,7 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-$objCriterions = $this->getCriterionsOfConference($intConferenceId);
+$objCriterions = $myDBAccess->getCriterionsOfConference($intConferenceId);
 if ($myDBAccess->failed()) {
   return $this->error('Error receiving rating criterions of conference', $myDBAccess->getLastError());
 }
