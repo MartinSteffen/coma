@@ -289,7 +289,7 @@ else{
   
   $content = new Template(TPLPATH . 'forumtypes.tpl');
   $contentAssocs = defaultAssocArray();
-  $contentAssocs[''message''] = session('message', false);
+  $contentAssocs['message'] = session('message', false);
   session_delete('message');
   
   
