@@ -148,14 +148,14 @@ if (in_array('login', $strArrayHelpTopics)){
   $objRelatedTemplate->assign($strArrayRelatedAssocs);
   $objRelatedTemplate->parse();
   $strArrayChapterAssocs['related-link'] = $objRelatedTemplate->getOutput();
-  $objChapterContent = new Template('./templates/helptext/chapter-02_01.tpl');
+  $objChapterContent = new Template('./templates/helptext/chapter-02-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
   $objChaptertemplate->assign($strArrayChapterAssocs);
   $objChaptertemplate->parse();
-  $strContentAssocs['chapter-02_01'] = $objChaptertemplate->getOutput();
+  $strContentAssocs['chapter-02-01'] = $objChaptertemplate->getOutput();
 }
 
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
