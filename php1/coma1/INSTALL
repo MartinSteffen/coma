@@ -9,8 +9,8 @@ CoMa - Your Conference Manager
 1. SYSTEM REQUIREMENTS
 
   1. Webserver
-     Any capable Webserver, the tool was developed under Apache2, but basically
-     any normal Webserver should do the job.
+     Any capable Webserver, the tool was developed under Apache2.0.51, but 
+     basically any normal Webserver should do the job.
 
   2. PHP 4.3.0+
      It is required to use at least PHP version 4.3.0+. It was developed under
