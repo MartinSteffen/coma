@@ -195,32 +195,35 @@ $strRoles = array(CHAIR       => 'Chair',
 // Check, ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 // Stellt ausserdem sicher, dass uname und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
-if (!defined('NEED_NO_LOGIN')) {
-  if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
-    if (!isset($_SESSION['uid'])) {
-      // UID setzen
-      $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
-      if ($myDBAccess->failed()) {
-        session_delete('uid');
-        error('checkLogin',$myDBAccess->getLastError());
-      }
-    }
-  }
-  else {
-    // nicht korrekt eingeloggt
+if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
+  if (!isset($_SESSION['uid'])) {
+    // UID setzen
+    $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
     if ($myDBAccess->failed()) {
+      session_delete('uid');
       error('checkLogin',$myDBAccess->getLastError());
     }
-    if (!isset($_SESSION['uname'])) {
-      $_SESSION['message'] = 'Please login with your Username and Password!';
-    }
-    else {
-      $_SESSION['message'] = 'Username or Password is wrong!';
-    }
-    session_delete('uname');
-    session_delete('password');
-    session_delete('uid');
-    session_delete('confid');
+  }
+  if (defined('NEED_NO_LOGIN')) {
+    redirect('index.php');
+  }
+}
+else {
+  // nicht korrekt eingeloggt
+  if ($myDBAccess->failed()) {
+    error('checkLogin',$myDBAccess->getLastError());
+  }
+  if (!isset($_SESSION['uname'])) {
+    $_SESSION['message'] = 'Please login with your Username (E-mail) and Password!';
+  }
+  else {
+    $_SESSION['message'] = 'Username or Password is wrong!';
+  }
+  session_delete('uname');
+  session_delete('password');
+  session_delete('uid');
+  session_delete('confid');
+  if (!defined('NEED_NO_LOGIN')) {
     redirect('login.php');
   }
 }
