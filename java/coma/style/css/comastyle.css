@@ -38,12 +38,12 @@ body {
 	}	
 .navbar {
 	position: absolute;
-  margin: 0;
+  	margin: 0;
 	padding: 0;
 	left: 0;
-  top: 9.5em;
-  width: 12em;
-  color: #fff;
+  	top: 9.5em;
+  	width: 12em;
+  	color: #fff;
 	}
 	
 .navbar li {
@@ -120,6 +120,13 @@ body>.header, body>.navbar,body>.status-line,.status-line>.content
 	font-size: 0.8em;
 	font-style: italic;
 }
+
+table.chair {
+color:black;
+text-align:center;
+font-size:12pt;
+}
+
 
 /* settings for appearance alone */
 body { background: #455372; }
