@@ -234,18 +234,22 @@ class DBAccess {
    * @author Sandro, Tom (06.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS sums,'.
-        '         COUNT(rr.id) AS number'.
+    $s = 'SELECT  rr.id, SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating,'.        
         ' FROM    ReviewReport AS rr'.
         ' INNER   JOIN Rating AS r'.
         ' ON      r.review_id = rr.id'.
         ' INNER   JOIN Criterion AS c'.
         ' ON      c.id = r.criterion_id'.                
-        ' WHERE   rr.paper_id = '.$intPaperId;
+        ' WHERE   rr.paper_id = '.$intPaperId.
+        ' GROUP   BY rr.id';
     echo($s.'<br>');
     $data = $this->mySql->select($s);
     if (!empty($data)) {
-      return $data[0]['sums'] / $data[0]['number'];
+      $sum = 0;
+      for ($i = 0; $i < count($data); $i++) {
+      	$sum += $data[$i]['total_rating'];
+      }
+      return $sum / count($data);
     }
     return false;
   }
