@@ -18,7 +18,7 @@ $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-if (isset($_POST['submit'])) {
+if (isset($_POST['action'])) {
   $strContentAssocs['name']         = $_POST['name'];
   $strContentAssocs['description']  = $_POST['description'];
   $strContentAssocs['homepage']     = $_POST['homepage'];
@@ -45,9 +45,9 @@ if (isset($_POST['submit'])) {
   $strContentAssocs['auto_addreviewer'] =
    (isset($_POST['auto_addreviewer']) ? $_POST['auto_addreviewer'] : '');
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
-echo($_POST['submit']);
+
   // Anlegen der Konferenz in der Datenbank
-  if ($_POST['submit'] == 'submit') {
+  if (isset($_POST['submit'])) {
   
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['name'])) {
@@ -69,7 +69,7 @@ echo($_POST['submit']);
     }
   }  
   // Oeffnen der erweiterten Einstellungen
-  else if ($_POST['submit'] == 'adv_config') {
+  else if (isset($_POST['adv_config'])) {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
   }
 }

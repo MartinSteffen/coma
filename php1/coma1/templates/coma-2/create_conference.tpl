@@ -104,8 +104,9 @@
       <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
       <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
                   
-      <input type="submit" name="submit" value="submit" class="button">Create Conference</input>
-      <input type="submit" name="adv_config" value="adv_config" class="button">Advanced settings</input>
+      <input type="hidden" name="action" value="submit" />
+      <input type="submit" name="submit" value="Create Conference" class="button" />
+      <input type="submit" name="adv_config" value="Advanced settings" class="button" />
     </td>
   </tr>
 </table>
