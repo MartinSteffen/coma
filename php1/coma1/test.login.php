@@ -13,7 +13,7 @@
  */
 define('IN_COMA1',true);
 
-require_once('./include/class.session.inc.php');
+require_once('./include/session.inc.php');
 require_once('./include/class.template.inc.php');
 require_once('./include/class.dbaccess.inc.php');
 
