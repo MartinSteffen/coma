@@ -682,15 +682,24 @@ class DBAccess extends ErrorHandling {
       // erhalte "leer" zurueck, aber keinen Fehler!!!
     }
     $strAuthor = $objAuthor->getName(1);
-    $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
-                 " FROM    Paper".
-                 " WHERE   author_id = '%d'".
-                 " AND     conference_id = '%d'",
+    $s = sprintf("SELECT   p.id AS id, author_id, title, last_edited, state, filename".
+                 "         a.last_name AS author_name".
+                 " FROM    Paper p".
+                 " INNER   JOIN Person a".
+                 " ON      a.id = p.author_id".
+                 " WHERE   p.author_id = '%d'".
+                 " AND     p.conference_id = '%d'",                           
                            s2db($intAuthorId),
                            s2db($intConferenceId));
     if (!empty($intOrder)) {
       if ($intOrder == 1) {
         $s .= " ORDER BY title";
+      }
+      else if ($intOrder == 2) {
+        $s .= " ORDER BY author_name";
+      }
+      else if ($intOrder == 3) {
+        $s .= " ORDER BY state";
       }
       else if ($intOrder == 5) {
         $s .= " ORDER BY last_edited";
@@ -717,7 +726,10 @@ class DBAccess extends ErrorHandling {
                        $data[$i]['filename'], $objTopics));
       // Anfragen, die Fehler erzeugen koennen (wie $this->getTopics...), nicht inline benutzen!!
     }
-    return $this->success($objPapers);
+    if (!empty($intOrder) && $intOrder == 4) {
+      $objPapers = sortPapersByAvgRating($objPapers);
+    }
+    return $this->success($objPapers);    
   }
 
   /**
@@ -780,7 +792,10 @@ class DBAccess extends ErrorHandling {
       return $this->success(false);
     }
     $s = sprintf("SELECT   p.id AS id, author_id, title, last_edited, state, filename".
+                 "         a.last_name AS author_name".
                  " FROM    Paper AS p".
+                 " INNER   JOIN Person AS a".
+                 " ON      a.id = p.author_id".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = p.id".
                  " AND     d.reviewer_id = '%d'".
@@ -790,6 +805,12 @@ class DBAccess extends ErrorHandling {
     if (!empty($intOrder)) {
       if ($intOrder == 1) {
         $s .= " ORDER BY title";
+      }
+      else if ($intOrder == 2) {
+      	$s .= " ORDER BY author_name";
+      }
+      else if ($intOrder == 3) {
+        $s .= " ORDER BY state";
       }
       else if ($intOrder == 5) {
         $s .= " ORDER BY last_edited";
@@ -824,6 +845,9 @@ class DBAccess extends ErrorHandling {
                        $data[$i]['last_edited'], $fltAvgRating,
                        $data[$i]['filename'], $objTopics));
     }
+    if (!empty($intOrder) && $intOrder == 4) {
+      $objPapers = sortPapersByAvgRating($objPapers);
+    }
     return $this->success($objPapers);
   }
 
@@ -839,13 +863,22 @@ class DBAccess extends ErrorHandling {
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getPapersOfConference($intConferenceId, $intOrder=false) {
-    $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
-                 " FROM    Paper".
+    $s = sprintf("SELECT   p.id AS id, author_id, title, last_edited, state, filename".
+                 "         a.last_name AS author_name".
+                 " FROM    Paper AS p".
+                 " INNER   JOIN Person AS a".
+                 " WHERE   a.id = p.author_id".
                  " WHERE   conference_id = '%d'",
                            s2db($intConferenceId));
     if (!empty($intOrder)) {
       if ($intOrder == 1) {
         $s .= " ORDER BY title";
+      }
+      else if ($intOrder == 2) {
+      	$s .= " ORDER BY author_name";
+      }
+      else if ($intOrder == 3) {
+        $s .= " ORDER BY state";
       }
       else if ($intOrder == 5) {
         $s .= " ORDER BY last_edited";
@@ -879,6 +912,9 @@ class DBAccess extends ErrorHandling {
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $data[$i]['last_edited'], $fltAvgRating,
                        $data[$i]['filename'], $objTopics));
+    }
+    if (!empty($intOrder) && $intOrder == 4) {
+      $objPapers = sortPapersByAvgRating($objPapers);
     }
     return $this->success($objPapers);
   }

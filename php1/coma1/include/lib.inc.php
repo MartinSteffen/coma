@@ -392,4 +392,31 @@ function generatePassword($intLen=8) {
   return $rnd_id;
 }
 
+/**
+ * Sortierfunktion fuer Papers nach der durchschnittlichen Bewertung
+ *
+ * @param PaperSimple [] Ein Array von Paper-Objekten
+ * return PaperSimple [] Das Eingabearray sortiert nach $fltAvgRating
+ * @author Sandro (06.02.05)
+ * @access public
+ */
+function sortPapersByAvgRating($objPapers) {  
+  $objSortedPapers = array();
+  if (!empty($objPapers)) {
+    for ($i = 0; $i < count($objPapers); $i++) {
+      $fltMax = $objPapers[$i]->fltAvgRating;
+      $maxIdx = $i;
+      for ($j = $i+1; $j < count($objPapers); $j++) {
+      	if ($objPapers[$j]->fltAvgRating > $fltMax) {
+          $fltMax = $objPapers[$j]->fltAvgRating;
+          $maxIdx = $j;
+      	}
+      }
+      $objSortedPapers[] = $objPapers[$maxIdx];
+      $objPapers[$maxIdx] = $objPapers[$i];
+    }
+  }
+  return $objSortedPapers;
+}
+
 ?>
