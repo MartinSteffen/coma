@@ -38,15 +38,12 @@ if (isset($_POST['action'])) {
   $strContentAssocs['topics']       = $_POST['topics'];
   $strContentAssocs['crit_max']     = $_POST['crit_max'];
   $strContentAssocs['crit_descr']   = $_POST['crit_descr'];
-  if (isset($_POST['auto_actaccount'])) {
-    $strContentAssocs['auto_actaccount'] = $_POST['auto_actaccount'];
-  }
-  else {
-    $strContentAssocs['auto_actaccount'] = '';
-  }
+  $strContentAssocs['auto_actaccount']  = $_POST['auto_actaccount'];
   $strContentAssocs['auto_paperforum']  = $_POST['auto_paperforum'];
   $strContentAssocs['auto_addreviewer'] = $_POST['auto_addreviewer'];
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
+
+echo($_POST['auto_actaccount']);
 
   // Anlegen der Person in der Datenbank
   if ($_POST['action'] == 'submit') {
