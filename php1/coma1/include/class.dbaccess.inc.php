@@ -538,7 +538,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getUsersOfConference', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($role_data); $j++) {
-        $objPerson->addRole($role_data[$j]['role_type'], $role_data[$i]['state']);
+        $objPerson->addRole($role_data[$j]['role_type'], $role_data[$j]['state']);
       }
       if ($objPerson->hasAnyRole()) {
         $objPersons[] = $objPerson;
