@@ -15,6 +15,8 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 require_once('./include/class.distribution.inc.php');
 
+redirect('chair_start.php');
+
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
 if ($myDBAccess->failed()) {
@@ -24,7 +26,6 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-x = 5;
 if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
 //  if (!isset($_SESSION['dist'])) || !isset($_SESSION['dist_check']) ||
 //      !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
