@@ -58,7 +58,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-		String QUERY = "SELECT Person.* FROM Person WHERE ";
+		String QUERY = "SELECT Person.* FROM Person, Role WHERE ";
 
 		boolean idFlag = false;
 		boolean emailFlag = false;

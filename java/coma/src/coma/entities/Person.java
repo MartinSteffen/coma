@@ -20,18 +20,6 @@ public class Person extends Entity {
     private String phone_number;
     private String fax_number;
     private String street; 
-	/**
-	 * @return Returns the role_type.
-	 */
-	public int getRole_type() {
-		return role_type;
-	}
-	/**
-	 * @param role_type The role_type to set.
-	 */
-	public void setRole_type(int role_type) {
-		this.role_type = role_type;
-	}
     private String postal_code;
     private String city;
     private String state; 
@@ -46,6 +34,19 @@ public class Person extends Entity {
 	public Person(int id) {
 		super();
 		this.id = id;
+	}
+	
+	/**
+	 * @return Returns the role_type.
+	 */
+	public int getRole_type() {
+		return role_type;
+	}
+	/**
+	 * @param role_type The role_type to set.
+	 */
+	public void setRole_type(int role_type) {
+		this.role_type = role_type;
 	}
 	/**
 	 * @return Returns the affiliation.
