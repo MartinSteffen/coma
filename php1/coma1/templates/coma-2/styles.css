@@ -46,10 +46,10 @@ table.menu  { border-style: none;
               padding: 10px;
               vertical-align: top;
               text-align: left;
-              background-color: #D7FBFF;
+              background-color: #DBE9EC;
             }
 td.menu { width: 150px;
-          background-color: #D7EBEF; vertical-align: top;
+          background-color: #DBE9EC; vertical-align: top;
           margin-bottom: 10px; }
 
 /* Links im Menue */
