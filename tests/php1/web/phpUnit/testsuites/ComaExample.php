@@ -7,6 +7,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 include('../coma1/include/header.inc.php');
 
+global $myDBAccess;
 $strEmail = "sae@me.de";
 
 class ComaExample extends PHPUnit_TestCase
@@ -16,7 +17,7 @@ class ComaExample extends PHPUnit_TestCase
       $this->assertTrue(TRUE);
   }
 
-  function test_DBAccess() {
+  function test_myDBAccess() {
       $this->assertFalse($myDBAccess->failed());
   }
 
