@@ -1,6 +1,15 @@
 <?php
 
 include("includes/config.inc.php");
+if(is_dir("install/")){
+	if(COMA_INSTALLED){
+		echo("You alreade have installed CoMa onto your System.<br>Please delete the folder '/install' in your CoMa-Directory to have CoMa run properly onto your System.");
+		exit();
+	}else{
+		header("Location: http://{$_SERVER['SERVER_NAME']}/install/install.php");
+	}
+}
+
 include("includes/definitions.inc.php");
 include("includes/sql.class.php");
 include("includes/login.inc.php");
@@ -8,6 +17,9 @@ include("includes/tools.inc.php");
 include("includes/templates.inc.php");
 include("includes/rights.inc.php");
 include("includes/tasks.inc.php");
+
+
+
 session_start();
 
 if (isset($_REQUEST['Role'])){
