@@ -290,38 +290,49 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean conferenceIdFlag = false;
 		boolean authorIdFlage = false;
 		boolean stateFlag = false;
-		if (p.getId() >= 0) {
-			QUERY += " id = ?";
-			idFlag = true;
-		} else {
-			boolean sql_and = false;
-			if (p.getConference_id() > 0) {
-				if (sql_and) {
-					QUERY += " AND ";
-				}
-				QUERY += " conference_id = ? ";
-				conferenceIdFlag = true;
-				sql_and = true;
-			}
-			if (p.getAuthor_id() > 0) {
-				if (sql_and) {
-					QUERY += " AND ";
-				}
-				QUERY += " author_id = ?";
-				authorIdFlage = true;
-				sql_and = true;
-			}
-			if (p.getState() > 0) {
-				if (sql_and) {
-					QUERY += " AND ";
-				}
-				QUERY += " state = ?";
-				stateFlag = true;
-				sql_and = true;
-			}
-
+		boolean allFlag = false;
+		// with id=-2 get all paper
+		if (p.getId()==-2)
+		{
+			QUERY = "SELECT * FROM Paper";
+			allFlag=true;
 		}
-		if (!(idFlag || conferenceIdFlag || authorIdFlage || stateFlag)) {
+		else
+		{
+			if (p.getId() >= 0) 
+			{
+				QUERY += " id = ?";
+				idFlag = true;
+			} 
+			else {
+				boolean sql_and = false;
+				if (p.getConference_id() > 0) {
+					if (sql_and) {
+						QUERY += " AND ";
+					}
+					QUERY += " conference_id = ? ";
+					conferenceIdFlag = true;
+					sql_and = true;
+				}
+				if (p.getAuthor_id() > 0) {
+					if (sql_and) {
+						QUERY += " AND ";
+					}
+					QUERY += " author_id = ?";
+					authorIdFlage = true;
+					sql_and = true;
+				}
+				if (p.getState() > 0) {
+					if (sql_and) {
+						QUERY += " AND ";
+					}
+					QUERY += " state = ?";
+					stateFlag = true;
+					sql_and = true;
+				}
+		}
+		}
+		if (!(idFlag || allFlag || conferenceIdFlag || authorIdFlage || stateFlag)) {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
