@@ -74,10 +74,6 @@ class Distribution extends ErrorHandling {
    *               weitere Verteilung noetig ist, sonst assoziatives Array mit
    *               Paper-ID als Schluessel und einem Array von Reviewer-ID's
    *               als Wert.
-   *
-   * @todo zusaetzliche Reviewer suchen und verteilen
-   * @todo Vorschlaege fuer einzelne Paper: Reviewer, die am geeignetsten sind
-   *       (z.B. 5 Stueck) und die, die am wenigsten zu tun haben...
    */
   function getDistribution($intConferenceId, $intWantedReviewers = array()) {
     define('ASSI', -2); // bereits vorher verteilt
