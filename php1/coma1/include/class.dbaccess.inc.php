@@ -888,7 +888,7 @@ class DBAccess extends ErrorHandling {
         " FROM    ReviewReport AS r".
         " INNER   JOIN Paper AS p".
         " ON      p.id = r.paper_id".
-        " AND     p.conference_id = '$intConferenceId'.        
+        " AND     p.conference_id = '$intConferenceId'".        
         " AND     r.reviewer_id = '$intReviewerId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
