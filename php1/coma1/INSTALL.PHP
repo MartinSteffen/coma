@@ -81,21 +81,21 @@ elseif ($STEP == 1){
     require_once('./include/config.inc.php');
   }
   else {
-    $sqlServer = htmlentities($_POST['sqlServer'], ENT_QUOTES, 'UTF-8');
-    $sqlUser = htmlentities($_POST['sqlUser'], ENT_QUOTES, 'UTF-8');
-    $sqlPassword = htmlentities($_POST['sqlPassword'], ENT_QUOTES, 'UTF-8');
-    $sqlDatabase = htmlentities($_POST['sqlDatabase'], ENT_QUOTES, 'UTF-8');
+    $sqlServer = addslashes($_POST['sqlServer']);
+    $sqlUser = addslashes($_POST['sqlUser']);
+    $sqlPassword = addslashes($_POST['sqlPassword']);
+    $sqlDatabase = addslashes($_POST['sqlDatabase']);
   }
   // Create ConfigFile
   $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = '$sqlServer';\n\$sqlUser = '$sqlUser';\n\$sqlPassword = '$sqlPassword';\n\$sqlDatabase = '$sqlDatabase';\n\n?>";
   
   // Output
 
-  echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
-  echo "        <input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\" value=\"$sqlServer\">\n";
-  echo "        <input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\" value=\"$sqlUser\">\n";
-  echo "        <input type=\"text\" name=\"sqlPassword\" size=\"48\" maxlength=\"127\" value=\"$sqlPassword\">\n";
-  echo "        <input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\" value=\"$sqlDatabase\">\n";
+  echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\"><br>\n";
+  echo "        SQL-Server: <input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\" value=\"$sqlServer\"><br>\n";
+  echo "        SQL-User: <input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\" value=\"$sqlUser\"><br>\n";
+  echo "        SQL-Password: <input type=\"text\" name=\"sqlPassword\" size=\"48\" maxlength=\"127\" value=\"$sqlPassword\"><br>\n";
+  echo "        SQL-Database: <input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\" value=\"$sqlDatabase\"><br>\n";
   echo "        <input type=\"submit\" name=\"submit\" value=\"generate Config\">\n";
   echo "      </form>\n";
   
