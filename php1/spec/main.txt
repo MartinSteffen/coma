@@ -24,8 +24,9 @@ Datum    Autor   Änderung(en)
 ----------------------------------------------------------------------------
 07.12.04 tos     Dokument erstellt: Kapitel 1, Appendizes, Konventionen
 08.12.04 jwa     Links eingefügt, bissige Kommentare entfernt, Templates 
-                 ergänzt, Verzeichniss Struktur ergänzt
+                 ergänzt, Verzeichnisstruktur ergänzt
 09.12.04 jwa     Typos entfernt, Templates ergänzt
+09.12.04 sae     Noch mehr Typos entfernt
 
 
 
@@ -149,14 +150,14 @@ Künstliches Beispiel: <p>Hello {Firstname} <b>{Lastname}</b>.</p>
 
 Anmerkung: Die Templates befinden sich im Unterverzeichnis templates.
 
-Dort ist die Verzeichniss-Struktur derart gedacht, das es Unterverzeichnisse
+Dort ist die Verzeichnis-Struktur derart gedacht, das es Unterverzeichnisse
 gibt die für verschiedene Designs stehen, zZ also zB templates/simplecoma/.
 In der zentralen header Datei header.inc.php wird in der Konstanten 
 DESIGN festgelegt welches Design verwendet werden soll (dieses
 ermöglicht eventuell später für den Benutzer ein Umschalten zwischen 
 mehreren Design-Schemata).
 Alle Dateien die zu einem Design gehören sollten dementsprechend in einem
-entsprechenden Unterverzeichniss (zB /templates/sandro/images/) liegen.
+entsprechenden Unterverzeichnis (zB /templates/sandro/images/) liegen.
 Wie man automatisch die korrekten Links setzt zeigen die schon vorhandenen
 Beispieldateien.
 
@@ -164,8 +165,8 @@ Beispiele:
 <img src="{path}images/logo.jpg">
 <a href="{basepath}logout.php{SID}">Logout</a>
 
-Dabei verweist {path} auf das Template Verzeichniss für Bilder, Stylesheets
-etc, während {basepath} auf das Verzeichniss verweisst, in dem die zu 
+Dabei verweist {path} auf das Template-Verzeichnis für Bilder, Stylesheets
+etc, während {basepath} auf das Verzeichnis verweist, in dem die zu 
 startenden Skripte liegen. {SID} sollte man an zu startende Skripte immer
 anhängen, damit bei ausgeschalteten Cookies die SID korrekt übergeben wird.
 
