@@ -7,7 +7,7 @@
 /***/
 
 /*** @ignore */
-define('DEBUG', true);
+define('DEBUGMODE', true);
 /**
  * Wichtig, damit Coma1 Dateien eingebunden werden koennen
  *
@@ -53,7 +53,7 @@ function notemptyandtrue($arr, $index){
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
 function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray, $myDBAccess){
-  if (DEBUG){
+  if (DEBUGMODE){
     echo('forums: ' . count($forums));
   }
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
@@ -159,7 +159,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
 }
 
 function displayMessages($messages, $msgselection, $selected, $forumid, $assocs){
-  if (DEBUG){
+  if (DEBUGMODE){
     echo('Messages: ' . count($messages));
   }
   $tempstring = '';
@@ -188,7 +188,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == getUID(getCID())) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID(getCID()))))){
+        if (($sender->intId == getUID(getCID())) || (DEBUGMODE) || (isChair($myDBAccess->getPerson(getUID(getCID()))))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -275,7 +275,7 @@ function emptystring($s){
 function getUID($cid, $myDBAccess){
   $uid = session('uid', false);
   if (emptystring($uid)){
-    if (DEBUG){ //ja, sehr haesslich, weiss ich selbst
+    if (DEBUGMODE){ //ja, sehr haesslich, weiss ich selbst
       $users = $myDBAccess->getUsersOfConference($cid);
       srand ((double)microtime()*1000000);
       $randval = rand(0,count($users)-1);
@@ -292,7 +292,7 @@ function getUID($cid, $myDBAccess){
 function getCID($myDBAccess){
   $cid = session('confid', false);
   if (emptystring($cid)){
-    if (DEBUG){ //siehe debug-kommentar zu getUID
+    if (DEBUGMODE){ //siehe DEBUGMODE-kommentar zu getUID
       $confs = $myDBAccess->getAllConferences();
       srand ((double)microtime()*1000000);
       $randval = rand(0,count($confs)-1);
@@ -308,7 +308,7 @@ function getCID($myDBAccess){
 
 //Main-Code
 
-if ((emptystring(session('uid', false))) && (!DEBUG)){
+if ((emptystring(session('uid', false))) && (!DEBUGMODE)){
   redirect('login.php');
 }
 else{
@@ -322,8 +322,8 @@ else{
   session_delete('message');
   $contentAssocs['forumtypes'] = '';
 
-  if (DEBUG){
-    $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>';
+  if (DEBUGMODE){
+    $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im DEBUGMODEmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>';
   }
 
   //evtl. posten einleiten
@@ -332,8 +332,8 @@ else{
     $postresult = false;
     //auf einen Beitrag antworten
     if (($pvars['posttype'] == 'reply') && (!empty($pvars['text'])) && (!empty($pvars['forumid'])) && (!empty($pvars['reply-to']))){
-        if (DEBUG){
-          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
+        if (DEBUGMODE){
+          $postresult = $myDBAccess->addMessage('DEBUGMODE ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
         }
         else{
           $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
@@ -341,8 +341,8 @@ else{
     }
     //einen Beitrag updaten - DBAccess Methode dazu fehlt noch
     if ((1 == 2) && ($pvars['posttype'] == 'update') && (!empty($pvars['reply-to'])) && (!empty($pvars['subject'])) && (!empty($pvars['text']))){
-        if (DEBUG){
-          $postresult = $myDBAccess->updateMessage('DEBUG ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
+        if (DEBUGMODE){
+          $postresult = $myDBAccess->updateMessage('DEBUGMODE ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
         }
         else{
           $postresult = $myDBAccess->updateMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
@@ -350,8 +350,8 @@ else{
     }
     //einen neuen Thread starten
     if (($pvars['posttype'] == 'newthread') && (!empty($pvars['text'])) && (!empty($pvars['forumid']))){
-        if (DEBUG){
-          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
+        if (DEBUGMODE){
+          $postresult = $myDBAccess->addMessage('DEBUGMODE ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
         }
         else{
           $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
@@ -375,7 +375,7 @@ else{
   }
 
   //foren holen
- if (DEBUG){
+ if (DEBUGMODE){
     $forums = $myDBAccess->getAllForums($cid);
   }
   else{
@@ -439,7 +439,7 @@ else{
   }
 
   $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs, $myDBAccess);
-  if (DEBUG){
+  if (DEBUGMODE){
     //echo($contentAssocs['forumtypes']);
     //echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
     //var_dump($contentAssocs);
