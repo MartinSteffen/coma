@@ -54,9 +54,11 @@ if(isReviewer_Overall())
 	}
 
 	$SQL =
-	  "UPDATE reviewreport SET summary = ".$_POST['summary']." , remarks = ".$_POST['remarks']." , confidential = ".$_POST['confidential']."
+	  "UPDATE reviewreport SET summary = '".$_POST['summary']."', remarks = '".$_POST['remarks']."', confidential = '".$_POST['confidential']."'
 	  WHERE (paper_id = ".$_POST['paperID'].")
 	  AND (reviewer_id = ".$_SESSION['userID'].")";
+
+//	echo $SQL;
 
     $result = mysql_query($SQL);
 
