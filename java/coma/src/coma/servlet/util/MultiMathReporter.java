@@ -23,7 +23,7 @@ import java.util.*;
 public class MultiMathReporter {
 
     /** A dummy var that indicates Array of Integer to Collection.toArray*/
-    private static final Integer[] INTARRAY_MOLD=null;
+    private static final Integer[] INTARRAY_MOLD=new Integer[0];
 
     java.util.Map<String, Collection<Integer>> ratings
 	= new TreeMap<String, Collection<Integer>>();
@@ -60,6 +60,8 @@ public class MultiMathReporter {
        calculate and return all that we know.
     */
     public CharSequence toXML(){
+	if (ratings.keySet().size()==0)
+	    return "";
 	StringBuilder result = new StringBuilder();
 	result.append("<statistics>");
 	for (String critname: ratings.keySet()){
@@ -80,6 +82,8 @@ public class MultiMathReporter {
        Reports.
     */
     Double mean(Integer... xs){
+	if ((xs==null) 
+	    || (xs.length ==0)) return 0.0;
 	Double result = 0.0;
 	int n = 0;
 	for (Integer x: xs){
@@ -103,6 +107,8 @@ public class MultiMathReporter {
        values are a sign of equivocality.
     */
     Double rms(Integer... xs){
+	if ((xs==null) 
+	    || (xs.length ==0)) return 0.0;
 	Double sqsum = 0.0;
 	Double sum = 0.0;
 	double n = 0;

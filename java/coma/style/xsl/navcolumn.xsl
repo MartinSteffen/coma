@@ -52,7 +52,7 @@
                   <input type="submit" value="login" class="submit-button" />
                 </div>
                 <div>
-                  <a href="index.html">Forgot your Password?</a></div>
+                  <a href="javascript:alert('Bad luck!')">Forgot your Password?</a></div>
                 </div>
               </fieldset>
             </form>

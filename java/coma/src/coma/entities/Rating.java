@@ -43,15 +43,6 @@ public class Rating extends Entity {
 	sc.setCriterion(new Criterion(getCriterionId()));
 	SearchResult sr = rs.getCriterion(sc);
 	
-	if (!sr.isSUCCESS()){
-	    ALogger.log.log(WARN,
-			    "Could not find Criterion ",
-			    getCriterionId(), "in DB",
-			    "for a Rating");
-			    
-	    return null;
-	}
-
 	Set<Criterion> cs 
 	    = new java.util.HashSet<Criterion>(asList((Criterion[]) sr.getResultObj()));
 
@@ -80,15 +71,6 @@ public class Rating extends Entity {
 	sc.setReviewReport(new ReviewReport(getReviewReportId()));
 	SearchResult sr = rs.getReviewReport(sc);
 	
-	if (!sr.isSUCCESS()){
-	    ALogger.log.log(WARN,
-			    "Could not find ReviewReport ",
-			    getReviewReportId(), "in DB",
-			    "for a Rating");
-			    
-	    return null;
-	}
-
 	Set<ReviewReport> cs 
 	    = new java.util.HashSet<ReviewReport>(asList((ReviewReport[]) sr.getResultObj()));
 

@@ -162,9 +162,17 @@ public class ReviewReport extends Entity {
      */
     public boolean isEdited(){
 
+	ALogger.log.log(DEBUG, "Is it rated?");
+
+	if (((getSummary() != null) && (getSummary().length()>0))
+	    || ((getRemarks() != null) && (getRemarks().length()>0))
+	    || ((getConfidental() != null) && (getConfidental().length()>0)))
+	    return true;
+
 	for (Rating r: getRatings()){
 	    Criterion c = r.getCriterion();
-	    if ((r.getGrade() < 1)
+	    if ((c == null)
+		|| (r.getGrade() < 1)
 		|| (r.getGrade() > c.getMaxValue())){
 		return false;
 	    }

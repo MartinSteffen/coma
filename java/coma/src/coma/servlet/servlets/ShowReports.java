@@ -78,6 +78,8 @@ public class ShowReports extends HttpServlet {
 		
 		if (theReport==null){
 
+		    LOG.log(DEBUG, "no session selection");
+
 		    // if anything fails, catch is below.
 
 		    // try 2: maybe the reportid is valid.
@@ -87,15 +89,20 @@ public class ShowReports extends HttpServlet {
 			    = 0+(Integer)session.getAttribute(SessionAttribs.REPORTID);
 		    } catch (Exception exce) {
 			// try 3: maybe there's a form parameter
+			LOG.log(DEBUG, "no reportid in session");
 			theReportId
 			    = Integer.parseInt(request.getParameter(FormParameters.REPORTID));
 		    }
+		    LOG.log(DEBUG, "yay! selected:", theReportId);
 
 		    SearchCriteria theSC=new SearchCriteria();
 		    theSC.setReviewReport(new ReviewReport(theReportId));
+
+		    SearchResult theSR = new coma.handler.impl.db.ReadServiceImpl().getReviewReport(theSC);
+		    LOG.log(DEBUG, "the report:", theSR.getResultObj());
+		    LOG.log(DEBUG, "db says:", theSR.getInfo());
 		    theReport = 
-			((ReviewReport[])(new coma.handler.impl.db.ReadServiceImpl()
-				    .getReviewReport(theSC).getResultObj()))[0];
+			((ReviewReport[])(theSR.getResultObj()))[0];
 
 		    if (theReport == null){
 			
@@ -106,7 +113,12 @@ public class ShowReports extends HttpServlet {
 
 		Paper thePaper = theReport.getPaper();
 		
-		if (!(getVisibleReviewReports(theUser, thePaper).contains(theReport))){
+		boolean ok=false;
+		for (ReviewReport rr: getVisibleReviewReports(theUser, thePaper)){
+		    if (rr.getId() == theReport.getId())
+			ok = true;
+		}
+		if (!ok){
 		    LOG.log(WARN, 
 			    "Illegal access to report", theReport,
 			    "on paper", thePaper,
@@ -122,6 +134,8 @@ public class ShowReports extends HttpServlet {
 
 	    } catch (Exception tbl) { // on any error, display selection list instead.
 
+		LOG.log(DEBUG, "displaying all reports instead...");
+
 		result.append(UserMessage.ALLREPORTSINTRO);
 		result.append(helper.tagged("pagetitle","All reports")); //XXX
 		result.append("<info>\n");
@@ -135,6 +149,7 @@ public class ShowReports extends HttpServlet {
 
 			result.append("<reportblock>");
 			try {
+			    LOG.log(DEBUG, "showing paper:", thePaper);
 			    // This is highly redundant, but makes stuff easier.
 			    result.append(thePaper.toXML());
 			    
@@ -146,16 +161,22 @@ public class ShowReports extends HttpServlet {
 				
 				mr.addReportRatings(theReport);
 			    }
+			} catch (Exception exc) {
+			    LOG.log(DEBUG, "inner:", exc); // FIXME
 			} finally {
+			    LOG.log(DEBUG, "closing block");
 			    result.append(mr.toXML());
 			    result.append("</reportblock>");
 			}
-
 		    }
 		} catch (DatabaseDownException dbdown){
 		    helper.addError(UserMessage.ERRDATABASEDOWN, result);
+		    LOG.log(DEBUG, "DBDOWN:", dbdown);
 		} catch (UnauthorizedException unauth){
 		    helper.addWarning(UserMessage.ERRUNAUTHORIZED, result);
+		    LOG.log(DEBUG, "UNAUTH:", unauth);
+		} catch (Exception exc){
+		    LOG.log(WARN, exc);
 		} finally {
 
 		    // Hmmm... strange. Sometimes, this doesn't get executed.
@@ -309,7 +330,7 @@ public class ShowReports extends HttpServlet {
 	boolean hasRated = false;
 
 	SearchCriteria sc = new SearchCriteria();
-	ReviewReport theReport = new ReviewReport();
+	ReviewReport theReport = new ReviewReport(-1);
 	theReport.setPaperId(thePaper.getId());
 	sc.setReviewReport(theReport);
 	theSearchResult = dbRead.getReviewReport(sc);
@@ -319,7 +340,7 @@ public class ShowReports extends HttpServlet {
 	
 	for (ReviewReport rr: reportsOnThis){
 	    
-	    if ((rr.getReviewer().equals(thePerson)
+	    if (((rr.getReviewer().getId() == thePerson.getId())
 		 && rr.getRatings().size() > 0)
 		|| thePerson.isChair()){
 		

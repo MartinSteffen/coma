@@ -65,7 +65,7 @@
              <tr>
                <th>On:</th> 
                <td>
-                 <xsl:value-of select="paper/person/last_name" />,
+                 <xsl:value-of select="paper/Person/last_name" />,
                  <a>
                    <xsl:attribute name="href">/papers/<xsl:value-of select="paper/filename" /></xsl:attribute>
                    <xsl:value-of select="paper/title" />
@@ -75,8 +75,7 @@
              <tr>
                <th>By:</th>
                <td>
-                 <xsl:value-of select="person/first_name" />
-                 <xsl:value-of select="person/last_name" />
+                 <xsl:value-of select="Person/first_name" />&#160;<xsl:value-of select="Person/last_name" />
                </td>
              </tr>
              <tr>
@@ -110,7 +109,7 @@
          <div>
            <xsl:if test="paper">
              <div><h2>On 
-             <xsl:value-of select="paper/person/last_name" />:
+             <xsl:value-of select="paper/Person/last_name" />:
              <i><a>
              <xsl:attribute name="href">/papers/<xsl:value-of select="paper/filename" /></xsl:attribute>
                <xsl:value-of select="paper/title" />
@@ -119,8 +118,11 @@
            </xsl:if>
            <xsl:for-each select="ReviewReport">
              <div>
-               <h3><xsl:value-of select="person/last_name" />:</h3>
+               <h3><xsl:value-of select="Person/last_name" />:</h3>
                <xsl:value-of select="summary" />
+               <a>
+                 <xsl:attribute name="href">ShowReports?reportid=<xsl:value-of select="id" /></xsl:attribute>
+                 details...</a>
              </div>
            </xsl:for-each>
            <xsl:if test="statistics">
