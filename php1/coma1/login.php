@@ -12,18 +12,13 @@ require_once('./include/header.inc.php');
 
 if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   /* Einlog-Versuch */
-  if (isset($_POST['user_name']) && isset($_POST['user_password']) &&
-      !empty($_POST['user_name']) && !empty($_POST['user_password'])) {
+  if (isset($_POST['user_name']) 
+  &&  isset($_POST['user_password']) 
+  &&  !empty($_POST['user_name']) 
+  &&  !empty($_POST['user_password'])) {
     $_SESSION['uname'] = $_POST['user_name'];  
     $_SESSION['password'] = sha1($_POST['user_password']);     
-    if ($myDBAccess->checkLogin()) {      
-      redirect('main_start.php');
-    }
-    else {
-      unset($_SESSION['uname']);
-      unset($_SESSION['password']);
-      $_SESSION['message'] = 'Falscher Benutzername oder Passwort!';
-    }
+    redirect('main_start.php');
   }
   else {
     $_SESSION['message'] = 'Geben Sie Ihren Benutzernamen (ihre Email-Adresse) '.
@@ -34,10 +29,10 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
 $content = new Template(TPLPATH.'login.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
-
 if (isset($_SESSION['message'])) {
-  $strContentAssocs['message'] = '<p class="message">'.$_SESSION['message'].'</p>';
+  $strContentAssocs['message'] = $_SESSION['message'];
   unset($_SESSION['message']);
+  $strContentAssocs['if'] = array(1);
 }
 $content->assign($strContentAssocs);
 
