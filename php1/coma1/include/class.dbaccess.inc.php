@@ -638,7 +638,7 @@ class DBAccess {
     $data = $this->mySql->select($s);    
     if (!empty($data)) {            
       $objForums = array();
-      for (int $i = 0; $i < count($data); $i++) {
+      for ($i = 0; $i < count($data); $i++) {
         $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
                           ($data[$i]['forum_type'] == 3) ? $data[$i]['paper_id'] : 0));
         // ACHTUNG: Statt '3' muss evtl. der tatsaechliche Wert fuer Paper-Foren eingesetzt werden
