@@ -1,65 +1,105 @@
 /* Allgemeine Styles */
-body, table, th, td, tr, div, p, pre, h1, h2, h3, ul {
-  font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif;
+body, table, th, td, tr, div, p, pre, h1, h2, h3, ul
+{
+  font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
 }
-body, p, pre, ul {
+body, p, pre, ul
+{
   font-size: 12px;
   vertical-align: top;
 }
-body {
+body
+{
   background-color: #FFFFFF;
   margin: 0px;
   padding: 0px;
 }
-td, div {
+td, div
+{
   font-size: 12px;
   vertical-align: middle;
 }
-th {
+th
+{
   text-align: left;
   font-weight: bold;
 }
 
 /* Ueberschriften */
-h1 { font-size: 18px; }
-h2 {
+h1
+{
+  font-size: 18px;
+}
+h2
+{
   font-size: 16px;
   font-weight: bold;
   margin: 8px 0px 12px 40px;
   border-bottom: 1px solid #000000;
 }
-h3 {
+h3
+{
   font-size: 13px;
   font-weight: bold;
 }
 
 /* Textformate */
-.normal { font-size: 12px; }
-.small  { font-size: 11px; }
-.tiny   { font-size: 10px; }
-.invert {
+.normal
+{
+  font-size: 12px;
+}
+.small
+{
+  font-size: 11px;
+}
+.tiny
+{
+  font-size: 10px;
+}
+.invert
+{
   color: #000000;
   background-color: #E0E2D4;
   font-weight: bold;
   font-size: 13px;
-  letter-spacing: 2px;  
+  letter-spacing: 2px;
 }
-.center { text-align: center; }
-.emph   { font-weight: bold; }
+.center
+{
+  text-align: center;
+}
+.emph
+{
+  font-weight: bold;
+}
 
 /* Allgemeine Links */
-a {
+a
+{
   font-size: 13px;
   text-decoration: none;
   font-weight: bold;
 }
-a:link    { color: #AD351A; }
-a:visited { color: #AD351A; }
-a:active  { color: #000000; }
-a:hover   { color: #FF4D00; }
+a:link
+{
+  color: #AD351A;
+}
+a:visited
+{
+  color: #AD351A;
+}
+a:active
+{
+  color: #000000;
+}
+a:hover
+{
+  color: #FF4D00;
+}
 
 /* Allgemeine Tabellen */
-table {
+table
+{
   border-style: none;
   border-spacing: 0px;
   padding: 0px;
@@ -67,7 +107,8 @@ table {
 }
 
 /* Tabelle fuer das linke Menue */
-table.menu {
+table.menu
+{
   border-style: none;
   width: 150px;
   padding: 10px;
@@ -75,13 +116,15 @@ table.menu {
   text-align: left;
   background-color: #F5FBFF;
 }
-td.menu {
+td.menu
+{
   width: 150px;
   background-color: #F5FBFF;
   vertical-align: top;
   margin-bottom: 10px;
 }
-td.submenu {
+td.submenu
+{
   width: 150px;
   background-color: #F5FBFF;
   vertical-align: top;
@@ -90,27 +133,54 @@ td.submenu {
 }
 
 /* Links im Menue */
-a.menu {
+a.menu
+{
   font-size: 13px;
   text-decoration: none;
   font-weight: bold;
 }
-a.menu:link    { color: #9D351A; }
-a.menu:visited { color: #9D351A; }
-a.menu:active  { color: #FF4D00; }
-a.menu:hover   { color: #FF4D00; }
+a.menu:link
+{
+  color: #9D351A;
+}
+a.menu:visited
+{
+  color: #9D351A;
+}
+a.menu:active
+{
+  color: #FF4D00;
+}
+a.menu:hover
+{
+  color: #FF4D00;
+}
 
-a.submenu {
+a.submenu
+{
   font-size: 12px;
   text-decoration: none;
   font-weight: normal;
 }
-a.submenu:link    { color: #9D351A; }
-a.submenu:visited { color: #9D351A; }
-a.submenu:active  { color: #FF4D00; }
-a.submenu:hover   { color: #FF4D00; }
+a.submenu:link
+{
+  color: #9D351A;
+}
+a.submenu:visited
+{
+  color: #9D351A;
+}
+a.submenu:active
+{
+  color: #FF4D00;
+}
+a.submenu:hover
+{
+  color: #FF4D00;
+}
 
-a.markedmenu {
+a.markedmenu
+{
   font-size: 13px;
   text-decoration: none;
   font-weight: bold;
@@ -118,7 +188,8 @@ a.markedmenu {
   border-top: 1px #FF0000 solid;
   border-bottom: 1px #FF0000 solid;
 }
-a.markedsubmenu {
+a.markedsubmenu
+{
   font-size: 12px;
   text-decoration: none;
   font-weight: normal;
@@ -128,17 +199,33 @@ a.markedsubmenu {
 }
 
 /* Tabelle fuer den Seiteninhalt */
-table.body { width: 100%; vertical-align: top; }
-td.body    { padding: 2px 10px; }
+table.body
+{
+  width: 100%;
+  vertical-align: top;
+}
+td.body
+{
+  padding: 2px 10px;
+}
 
 /* Tabelle fuer die Kopfzeile */
-table.header { width: 100%; background-color: #DBE9EC; }
+table.header
+{
+  width: 100%;
+  background-color: #DBE9EC;
+}
 
 /* Tabelle fuer die Fusszeile */
-table.footer { width: 100%; background-color: #DBE9EC; }
+table.footer
+{
+  width: 100%;
+  background-color: #DBE9EC;
+}
 
 /* Tabelle fuer Formulare */
-table.formtable {
+table.formtable
+{
   font-size: 13px;
   background-color: #DEEBEF;
   border-style: solid;
@@ -149,7 +236,8 @@ table.formtable {
 }
 
 /* Schaltflaechen und Eingabefelder */
-input, textarea, button {    
+input, textarea, button
+{
   /*font-family: Arial, Helvetica, Sans-Serif;*/
   font-size: 12px;
   background-color: #F7FBFF;
@@ -157,10 +245,15 @@ input, textarea, button {
   border-width: 1px;
   border-color: #404040;
   margin: 2px 4px;
-  padding: 2px 4px;  
+  padding: 2px 4px;
 }
-textarea { font-family: Arial, Sans-Serif; font-size: 11px; }
-input.button, button {
+textarea
+{
+  font-family: Arial, Sans-Serif;
+  font-size: 11px;
+}
+input.button, button
+{
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
   background-color: #CEDBEF;
@@ -169,7 +262,8 @@ input.button, button {
   padding: 2px 8px;
 }
 
-input.button120 {
+input.button120
+{
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
   background-color: #CEDBEF;
@@ -179,7 +273,8 @@ input.button120 {
 }
 
 /* Tabelle Darstellung von Listen */
-table.list {
+table.list
+{
   border-style: solid;
   border-width: 1px;
   border-color: #404040;
@@ -188,7 +283,8 @@ table.list {
   padding: 0px;
   background-color: #F7FBFF;
 }
-.listheader {
+.listheader
+{
   text-align: left;
   font-size: 12px;
   font-weight: bold;
@@ -196,26 +292,41 @@ table.list {
   border-bottom: 1px #404040 solid;
   padding: 2px 8px;
 }
-.listitem-1 {
+.listitem-1
+{
   text-align: left;
   font-size: 12px;
   padding: 2px 8px;
   background-color: #F7FBFF;
 }
-.listitem-2 {
+.listitem-2
+{
   text-align: left;
   font-size: 12px;
   padding: 2px 8px;
   background-color: #E0E2E4;
 }
 
-a.list:link    { color: #000000; }
-a.list:visited { color: #000000; }
-a.list:active  { color: #000000; }
-a.list:hover   { color: #2F2F2F; }
+a.list:link
+{
+  color: #000000;
+}
+a.list:visited
+{
+  color: #000000;
+}
+a.list:active
+{
+  color: #000000;
+}
+a.list:hover
+{
+  color: #2F2F2F;
+}
 
 /* Meldungen */
-p.message {
+p.message
+{
   width: 60%;
   color: #FF2600;
   font-size: 13px;
@@ -226,7 +337,8 @@ p.message {
   margin: 6px 10px;
   padding: 4px 12px;
 }
-p.message-ok {
+p.message-ok
+{
   width: 60%;
   color: #20A028;
   font-size: 13px;
@@ -235,8 +347,11 @@ p.message-ok {
   background-color: #E0FFF0;
   border: 1px solid #80A080;
   margin: 6px 10px;
-  padding: 4px 12px;  
+  padding: 4px 12px;
 }
-p.message2 { width: 60%; }
+p.message2
+{
+  width: 60%;
+}
 
 /* Statusanzeigen fuer Dokumente */
