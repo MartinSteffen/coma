@@ -1602,7 +1602,7 @@ class DBAccess extends ErrorHandling {
                         $data[0]['conference_id'],
                         $data[0]['forum_type'],
                        ($data[0]['forum_type'] == FORUM_PAPER ?
-                        $data[0]['paper_id'] : false));
+                        $data[0]['paper_id'] : false)));
     return $this->success($forum);
   }
 
