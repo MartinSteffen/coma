@@ -112,9 +112,9 @@ class Template {
     reset($this->strAssocs);
     while (list($key, $value) = each($this->strAssocs)) {
       $key = '<(?i){'.$key.'}>';
-      if (isObject($value)) {
+      //if (isObject($value)) {
         //$value
-      }
+      //}
     }
     $this->strOutput = preg_replace(array_keys($this->strAssocs), array_values($this->strAssocs), $this->strTemplate);
     return true;
