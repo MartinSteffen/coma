@@ -396,10 +396,19 @@ public class Chair extends HttpServlet
 	
 	public void email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
+		if (req.getParameter("email")!=null)
+		{
+			info.append("<content>");
+			info.append(XMLHelper.tagged("Recv",req.getParameter("email")));
+			info.append("</content");
+		}
+		else
+		{
 			info.append(XMLHelper.tagged("content",""));
-			info.append(XMLHelper.tagged("status","" + user + ": please write an email"));
-			String tag="email";
-			commit(res,tag);		
+		}
+		info.append(XMLHelper.tagged("status","" + user + ": please write an email"));
+		String tag="email";
+		commit(res,tag);		
 	}
 	
 	public void send_email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
@@ -436,10 +445,11 @@ public class Chair extends HttpServlet
 				info.append(XMLHelper.tagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN"));
 			if(!VALID)
 				info.append(XMLHelper.tagged("status","ENTER A VALID EMAIL ADDRESS"));
+			info.append("<content>");
 			info.append(XMLHelper.tagged("subj",formular[1]));
 			info.append(XMLHelper.tagged("recv",formular[0]));
 			info.append(XMLHelper.tagged("cont",formular[2]));
-			info.append(XMLHelper.tagged("content",""));
+			info.append("</content>");
 			String tag = "email";
 			commit(res,tag);
 		}
