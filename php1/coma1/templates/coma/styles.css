@@ -301,19 +301,22 @@ table.list
   background-color: #DBE9EC;
   border-bottom: 1px #404040 solid;
   padding: 2px 8px;
+  margin: 0px;
 }
 .listitem-1
 {
   text-align: left;
   font-size: 12px;
-  padding: 2px 8px;
+  padding: 0px 8px;
+  margin: 0px;
   background-color: #F7FBFF;
 }
 .listitem-2
 {
   text-align: left;
   font-size: 12px;
-  padding: 2px 8px;
+  padding: 0px 8px;
+  margin: 0px;
   background-color: #E0E2E4;
 }
 
