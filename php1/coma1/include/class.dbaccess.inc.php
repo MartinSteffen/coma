@@ -2171,10 +2171,12 @@ nur fuer detaillierte?
        if ($this->failed()) {
          return $this->error('updatePaperStatus', $this->getLastError());
        }
-       $s = sprintf("SELECT   c.critical_variance, p.state".
+       $s = sprintf("SELECT   cc.critical_variance, p.state".
                     " FROM    Conference AS c".
+                    " INNER   JOIN ConferenceConfig AS cc".
                     " INNER   JOIN Paper AS p".
-                    " ON      c.id = p.conference_id".
+                    " ON      cc.conference_id = c.id".
+                    " AND     c.id = p.conference_id".
                     " AND     p.id = '%d'",
                               s2db($intPaperId));
        $data = $this->mySql->select($s);
