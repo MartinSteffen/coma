@@ -39,7 +39,8 @@ class Person {
 
   /**
    * Fuegt der Person die Rolle $intRole hinzu.
-   * @warning Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
+   *
+   * Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
    *
    * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
    * @return bool konstant: true
@@ -53,7 +54,8 @@ class Person {
 
   /**
    * Aendert die Rolle $intRole der Person ().
-   * @warning Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
+   *
+   * Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
    *
    * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
    * @return bool konstant: true
@@ -67,7 +69,8 @@ class Person {
 
   /**
    * Aendert die Rolle $intRole der Person ().
-   * @warning Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
+   * 
+   * Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
    *
    * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
    * @return bool konstant: true
