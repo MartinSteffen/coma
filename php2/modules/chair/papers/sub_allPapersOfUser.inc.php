@@ -56,7 +56,7 @@ if(isChair_Person($_GET['userID']))
 		}			
 		$paper['confID'] = $list[4];
 		$paper['confName'] = $list[5];
-		$papers['$count'] = $paper;
+		$papers[$count] = $paper;
 		$count = $count + 1;			
 	}
 

@@ -17,7 +17,8 @@ if(isChair_Conference($_GET['confID']))
 			and role.state = 1 
 			and role.person_id = ".$_SESSION['userID']."
 			and role.conference_id = ".$_GET['confID']."
-			and role.conference_id = paper.conference_id";
+			and role.conference_id = paper.conference_id 
+			and paper.author_id = person.id";
 						
     $result=mysql_query($SQL);
 	$count = 0;	
@@ -54,7 +55,7 @@ if(isChair_Conference($_GET['confID']))
 		}			
 		$paper['authorID'] = $list[4];
 		$paper['authorName'] = $list[5]." ".$list[6]." ".$list[7];		
-		$papers['$count'] = $paper;		
+		$papers[$count] = $paper;		
 		$count = $count + 1;
 	}
 
