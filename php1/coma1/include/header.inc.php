@@ -172,10 +172,6 @@ if (!defined('NEED_NO_LOGIN')) {
   }
   else {
     // nicht korrekt eingeloggt
-    session_delete('uname');
-    session_delete('password');
-    session_delete('uid');
-    session_delete('confid');
     if ($myDBAccess->failed()) {
       error('checkLogin',$myDBAccess->getLastError());
     }
@@ -185,6 +181,10 @@ if (!defined('NEED_NO_LOGIN')) {
     else {
       $_SESSION['message'] = 'Username or Password is wrong!';
     }
+    session_delete('uname');
+    session_delete('password');
+    session_delete('uid');
+    session_delete('confid');
     redirect('login.php');
   }
 }
