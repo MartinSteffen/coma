@@ -110,7 +110,7 @@ class Template {
   function parse() {
     $strKeys = array_keys($this->strAssocs);
     $strKeys = array_map(create_function('$s', 'return "<{" . $s . "}>";'), $strKeys);
-    $this->strOutput = preg_replace($strKeys, array_values($strAssocs), $this->strTemplate);
+    $this->strOutput = preg_replace($strKeys, array_values($this->strAssocs), $this->strTemplate);
     return true;
   }
   
