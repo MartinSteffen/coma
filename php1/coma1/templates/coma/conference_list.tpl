@@ -24,9 +24,5 @@
 </p>
 
 <p class="message2">
-  If you want to create a new conference, please use the button below:<br>
+  If you want to create a new conference, <a href={basepath}create_conference.php{?SID}">just do so</a>!
 </p>
-
-<form action="{basepath}create_conference.php{?SID}" method="post">
-  <input type="submit" name="submit" value="Create new conference" class="button">
-</form>
