@@ -105,6 +105,5 @@
 </form>
 
 <form action="{basepath}main_conferences.php?{SID}" method="post">
-  <input type="hidden" name="action" value="cancel" />
   <input type="submit" name="cancel" value="Cancel" class="button" />
 </form>

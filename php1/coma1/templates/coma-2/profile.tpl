@@ -1,5 +1,6 @@
 
 {if1<p class="message">{message}</p>}
+{if2<p class="message-ok">{message}</p>}
 
 <p class="center">
 <form action="{basepath}main_profile.php?{SID}" method="post">

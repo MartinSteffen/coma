@@ -46,7 +46,7 @@ if (isset($_POST['action'])) {
    (isset($_POST['auto_addreviewer']) ? $_POST['auto_addreviewer'] : '');
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
 
-  // Anlegen der Person in der Datenbank
+  // Anlegen der Konferenz in der Datenbank
   if ($_POST['action'] == 'submit') {
   
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
@@ -60,7 +60,7 @@ if (isset($_POST['action'])) {
         // Erfolg (also anderes Template)
         $content = new Template(TPLPATH.'confirm_conference.tpl');
       }
-      else {
+      else if ($myDBAccess->failed()) {
         // Datenbankfehler?
         $strMessage = 'An error occured during creating your conference:<br>'
                      .$myDBAccess->getLastError()

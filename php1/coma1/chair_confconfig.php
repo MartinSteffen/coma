@@ -46,25 +46,27 @@ if (isset($_POST['action'])) {
    (isset($_POST['auto_addreviewer']) ? $_POST['auto_addreviewer'] : '');
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
 
-  // Anlegen der Person in der Datenbank
+  // Aktualisieren der Konferenz in der Datenbank
   if ($_POST['action'] == 'submit') {
   
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['name'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
     }
-    // Versuche die neue Konferenz einzutragen
+    // Versuche die Konferenz zu aktualisieren
     else {
-      $result = false; // [TODO] Konferenz einfuegen   
+      $result = false; // [TODO] Konferenz aktualisieren   
       if (!empty($result)) {
-        // Erfolg (also anderes Template)
-        $content = new Template(TPLPATH.'confirm_conference.tpl');
+        // Erfolg
+        $strMessage = 'Conference setting was changed.';        
+        $strContentAssocs['if'] = array(2);
       }
-      else {
+      else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        $strMessage = 'An error occured during creating your conference:<br>'
+        $strMessage = 'An error occured during updating conference settings:<br>'
                      .$myDBAccess->getLastError()
                      .'<br>Please try again!';
+        $strContentAssocs['if'] = array(1);
       }
     }
   }
@@ -84,8 +86,7 @@ else {
 
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
-  $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(1);
+  $strContentAssocs['message'] = $strMessage;  
 }
 
 $content->assign($strContentAssocs);

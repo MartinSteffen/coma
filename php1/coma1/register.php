@@ -48,15 +48,15 @@ if (isset($_POST['email'])){
     $strMessage = 'You have to fill in the fields <b>Last name</b>, <b>E-mail</b>, and <b>Password</b>!';
   }
   // Teste, ob Passwort mit der Wiederholung uebereinstimmt
-  elseif ($_POST['user_password'] != $_POST['password_repeat']) {
+  else if ($_POST['user_password'] != $_POST['password_repeat']) {
     $strMessage = 'Your password confirmation is not the same as your password!';
   }
   // Teste, ob die Email gueltig ist
-  elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+  else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
     $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist
-  elseif ($myDBAccess->checkEmail($_POST['email'])) {
+  else if ($myDBAccess->checkEmail($_POST['email'])) {
     $strMessage = 'Account with the given E-mail address is already existing! '.
                   'Please use that account or enter another E-mail address!';
   }
@@ -79,7 +79,7 @@ if (isset($_POST['email'])){
       // Erfolg (also anderes Template)
       $content = new Template(TPLPATH.'confirm_register.tpl');
     }
-    else {
+    else if ($myDBAccess->failed()) {
       // Datenbankfehler?
       $strMessage = 'An error occured during your registration:<br>'
                    .$myDBAccess->getLastError()
