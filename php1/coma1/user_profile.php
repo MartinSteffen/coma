@@ -55,7 +55,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
 		if ($myDBAccess->failed()) {
     	error('Error updating your account.', $myDBAccess->getLastError());
     }
-  	$strMessage .= 'You have to enter your old password in order to change your Email or passowrd.';
+  	$strMessage .= 'You have to enter your old password in order to change your Email or password.';
   }
   if (empty($strMessage)) {
     $objPerson->strFirstName   = $_POST['first_name'];
