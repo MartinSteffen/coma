@@ -186,8 +186,7 @@ if (isset($_POST['action'])) {
       $strMessage .= "Your minimum number of reviews should be greater or equel to zero!\n";
     }
     if ( !($min_papers >= 0)){
-      $strMessage =  $strMessage.
-                     'Your number of papers should be greater or equal to zero!<br>';
+      $strMessage .= "Your number of papers should be greater or equal to zero!\n";
     }
     if ( !($min_papers <= $max_papers)){
       $strMessage .= "Your minimum number of papers should not be greater than the maximum number of paper!\n";
@@ -208,9 +207,9 @@ if (isset($_POST['action'])) {
      */
     foreach ($strCriterions as $key => $crit){
       if ( empty($crit) ){
-	unset($crit);
+	      unset($crit);
       }
-      } 
+    } 
 
     foreach ($strCritMaxVals as $key => $critMax){
       if ( !(0 <= $critMax )){
