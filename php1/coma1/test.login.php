@@ -15,7 +15,7 @@ define('IN_COMA1',true);
 
 require_once('./include/class.template.inc.php');
 require_once('./include/class.dbaccess.inc.php');
-require_once('./include/session.inc.php');
+require_once('./include/sessions.inc.php');
 
 $myTemplate = new Template('./templates/login.tpl');
 
