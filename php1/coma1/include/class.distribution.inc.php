@@ -341,6 +341,8 @@ class Distribution extends ErrorHandling {
     print_r($p_num_revs_total_left);
     echo('<br>NumRevs:');
     print_r($p_num_revs);
+    echo('<br>NumPapers:');
+    print_r($r_num_papers);
 
     /*$text = array(0 => 'assigned', 'prefers', 'wants', 'denies', 'excluded');
     for ($i = 0; $i < count($matrix); $i++) {
