@@ -13,6 +13,7 @@ import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
+import coma.entities.Topic;
 import coma.handler.impl.db.ReadServiceImpl;
 
 
@@ -52,7 +53,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPerson(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}
@@ -167,6 +168,20 @@ public class ReadServiceTest extends TestCase{
 		Criterion[] criterions = (Criterion[])objResult;	
 		for (int i = 0; i < criterions.length; i++) {
 			System.out.println(criterions[i].toXML());	
+		}
+	}
+	
+	public void testGetTopic(){
+		boolean run = true;
+		if(!run){
+			return;
+		}
+		SearchResult result = read.getTopic(0, 1);
+		Object objResult = result.getResultObj();
+		
+		Topic[] topics = (Topic[])objResult;	
+		for (int i = 0; i < topics.length; i++) {
+			System.out.println(topics[i].toXML());	
 		}
 	}
 	

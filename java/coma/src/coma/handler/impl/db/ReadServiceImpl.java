@@ -18,6 +18,7 @@ import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
+import coma.entities.Topic;
 import coma.handler.db.ReadService;
 import coma.handler.util.EntityCreater;
 
@@ -1096,8 +1097,64 @@ public class ReadServiceImpl extends Service implements ReadService {
 	 * @see coma.handler.db.ReadService#getTopic(int, int)
 	 */
 	public SearchResult getTopic(int topic_id, int conference_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		Topic[] topics = new Topic[0];
+		boolean ok = true;
+		Connection conn = null;
 
+		if (conference_id < 0 && topic_id < 0) {
+			info.append("Error: no search criteria was specified \n");
+			ok = false;
+		}
+		String QUERY = "SELECT * FROM Topic WHERE ";
+		if (topic_id > 0) {
+			QUERY += "id = " + topic_id;
+		} else {
+			if (conference_id > 0) {
+				QUERY += "conference_id=" + conference_id;
+			}
+		}
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+					List<Topic> ll = new LinkedList<Topic>();
+					EntityCreater eCreater = new EntityCreater();
+					while (resSet.next()) {
+						ll.add(eCreater.getTopic(resSet));
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+					topics = new Topic[ll.size()];
+					for (int i = 0; i < topics.length; i++) {
+						topics[i] = ll.get(i);
+					}
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setResultObj(topics);
+		result.setInfo(info.toString());
+		return result;
+	}
 }
