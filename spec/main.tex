@@ -3,8 +3,8 @@
 \ifweb
 \documentclass[11pt,draft,english]{article}
 
-\title{\Coma\ conference manager}%: Data specification (\version (svn: \verb+$Id$+)}
-\date{17 November, 2004}
+\title{\Coma: data spec (v\version)}%: Data specification (\version (svn: \verb+$Id$+)}
+\date{\docdate}
 
 \else
 \documentclass[10pt,english,nologo]{handout}
@@ -29,15 +29,15 @@
 \begin{document}
 \thispagestyle{empty}
 
-\input{abstract}
+
 
 \ifweb
+\input{../tex/inputs/rawhtmlheader}
 \maketitle{}
 \else
 \fi
   
-
-
+\input{abstract}
 \input{datamodel}
 
 
@@ -59,6 +59,10 @@
 
 
 \end{document}
+
+
+
+
 
 
 \begin{verbatim}
