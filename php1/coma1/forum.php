@@ -48,7 +48,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
-      displayMessages(getThreadsOfForum($forum-intId), $msgselection, $select, $forumassocs);
+      displayMessages($myDBAccess->getThreadsOfForum($forum-intId), $msgselection, $select, $forumassocs);
     }
     else{
       $forumassocs['selectorunselect'] = 'forumsel';
@@ -128,7 +128,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
   foreach ($messages as $message){
     $messagetemplate = new Template(TPLPATH . 'message.tpl');
     $messageassocs = defaultAssocArray();
-    $sender = getPerson($message->intSender);
+    $sender = $myDBAccess->getPerson($message->intSender);
     if ($msgselection[$message->intId]){
       $messageassocs['selectorunselect'] = 'unselect';
       $messageassocs['message-id'] = $message->intId;
@@ -150,7 +150,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == $_SESSION['uid']) || (DEBUG) || (isChair(getPerson($_SESSION['uid'])))){
+        if (($sender->intId == $_SESSION['uid']) || (DEBUG) || (isChair($myDBAccess->getPerson($_SESSION['uid'])))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -253,11 +253,11 @@ else{
     //auf einen Beitrag antworten
     if (($pvars['posttype'] == 'reply') && (!empty($pvars['text'])) && (!empty($pvars['forumid'])) && (!empty($pvars['reply-to']))){
         if (DEBUG){
-          $postresult = addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
         }
         else{
           if (!empty($pvars[uid])){
-            $postresult = addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
+            $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
           }
           else{
             $postresult = false;
@@ -267,11 +267,11 @@ else{
     //einen Beitrag updaten - DBAccess Methode dazu fehlt noch
     if ((1 == 2) && ($pvars['posttype'] == 'update') && (!empty($pvars['reply-to'])) && (!empty($pvars['subject'])) && (!empty($pvars['text']))){
         if (DEBUG){
-          $postresult = updateMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+          $postresult = $myDBAccess->updateMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
         }
         else{
           if (!empty($pvars[uid])){
-            $postresult = updateMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
+            $postresult = $myDBAccess->updateMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
           }
           else{
             $postresult = false;
@@ -281,11 +281,11 @@ else{
     //einen neuen Thread starten
     if (($pvars['posttype'] == 'newthread') && (!empty($pvars['text'])) && (!empty($pvars['forumid']))){
         if (DEBUG){
-          $postresult = addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], 0); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], 0); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
         }
         else{
           if (!empty($pvars[uid])){
-            $postresult = addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], 0);
+            $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], 0);
           }
           else{
             $postresult = false;
@@ -305,10 +305,10 @@ else{
 
   //foren holen
   if (DEBUG){
-    $forums = getAllForums($_SESSION['confid']);
+    $forums = $myDBAccess->getAllForums($_SESSION['confid']);
   }
   else{
-    $forums = getForumsOfPerson($_Session['uid'], $_SESSION['confid']);
+    $forums = $myDBAccess->getForumsOfPerson($_Session['uid'], $_SESSION['confid']);
   }
 
   //selektionen updaten
@@ -345,6 +345,7 @@ else{
 
   $content->assign($contentAssocs);
   $content->parse();
+  $content->output();
 }
 
 ?>
