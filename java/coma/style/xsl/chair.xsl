@@ -158,7 +158,7 @@
 </xsl:template>
 
 <xsl:template match="/result/showauthors/content">
-	<table style="color:black;text-align:center;font-size:12pt" cellpadding="5">
+	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
 				<th>first name</th>
@@ -189,7 +189,7 @@
 
 <xsl:template match="/result/showauthors_data/content">
 Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
-	<table style="color:black;text-align:center;font-size:12pt" cellpadding="5">
+	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
 				<th></th>
@@ -262,7 +262,7 @@ Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 </xsl:template>
 
 <xsl:template match="/result/showreviewers/content">
-	<table style="color:black;text-align:center;font-size:12pt" cellpadding="5">
+	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
 				<th>first name</th>
@@ -294,7 +294,7 @@ Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 
 <xsl:template match="/result/showreviewers_data/content">
 	Hier noch Liste der Paper und zugehörigen Review Reports auf der rechten Seite eintragen
-	<table style="color:black;text-align:center;font-size:12pt" cellpadding="5">
+	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
 				<th></th>
@@ -370,7 +370,7 @@ Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 
 <xsl:template match="/result/showpapers/content">
 Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen 
-<table style="color:black;text-align:center;;font-size:12pt" cellpadding="5">
+<table class="chair" cellpadding="5">
 <thead>
 <tr align="center">
 	<!--<td>ID</td><td>Conference ID</td><td>Author ID</td>-->
@@ -418,18 +418,101 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 </xsl:template>
 
 <xsl:template match="/result/setup/content">
-Name: <xsl:apply-templates select="/result/setup/content/name"/><br/>
-Homepage: <xsl:apply-templates select="/result/setup/content/home"/><br/>
-Description: <xsl:apply-templates select="/result/setup/content/desc"/><br/>
-Start: <xsl:apply-templates select="/result/setup/content/start"/><br/>
-End: <xsl:apply-templates select="/result/setup/content/end"/><br/>
-Notification: <xsl:apply-templates select="/result/setup/content/not"/><br/>
-<h3 style="color:black">Deadlines</h3>
-Abstract submission: <xsl:apply-templates select="/result/setup/content/abstract"/><br/>
-Paper submission: <xsl:apply-templates select="/result/setup/content/paper"/><br/>
-review: <xsl:apply-templates select="/result/setup/content/review"/><br/>
-final submission: <xsl:apply-templates select="/result/setup/content/final"/><br/>
-min reviewer per paper: <xsl:apply-templates select="/result/setup/content/min"/><br/>
+<table class="chair" cellpadding="5">
+<tr>
+	<td>
+	Name:
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/name"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	Homepage: 
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/home"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	Description:
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/desc"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	min reviewer per paper::
+	</td>
+	<td> 
+		  <xsl:apply-templates select="/result/setup/content/min"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	Start:
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/start"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	End: 
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/end"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	Notification:
+	</td>
+	<td> 
+		 <xsl:apply-templates select="/result/setup/content/not"/>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+	<h3 style="color:black">Deadlines</h3>
+	</td>
+</tr>
+<tr>
+	<td>
+	Abstract submission: 
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/abstract"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	Paper submission: 
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/paper"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	review: 
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/review"/>
+	</td>
+</tr>
+<tr>
+	<td>
+	final submission:
+	</td>
+	<td> 
+		 <xsl:apply-templates select="/result/setup/content/final"/>
+	</td>
+</tr>
+</table>
 </xsl:template>
 
 
