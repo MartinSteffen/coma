@@ -436,22 +436,19 @@ class Distribution extends ErrorHandling {
     }
     
     // Ausgabearray aufbereiten:
-    // Laenge = Anzahl Papers
-    // Pro Zeile: Zwei Eintraege: 'paper_id' sowie ein Reviewer-Array 'reviewers',
-    // welches wiederum pro Zeile ein Array mit folgenden Eintraegen enthaelt:
+    // Laenge = Anzahl Papers (mit Indizes der DB-Paper-ID)
+    // Pro Zeile: Ein Reviewer-Array 'reviewers', welches wiederum pro Zeile ein
+    // Array mit folgenden Eintraegen enthaelt:
     // 'reviewer_id' und 'status' (enthaelt den Wert einer globalen Konstanten)
     $y = array();
     for ($j = 0; $j < count($p_id); $j++) {
-      $p = array();
-      $p['paper_id'] = $p_id[$j];
       $r = array();
       for ($i = 0; $i < count($r_id); $i++) {
         if ($matrix[$i][$j] == ASSI || $matrix[$i][$j] == SUGG) {
           $r[] = array('reviewer_id' => $r_id[$i], 'status' => $initial_matrix[$i][$j]);
         }
       }
-      $p['reviewers'] = $r;
-      $y[] = $p;
+      $y[$p_id[$j]] = $r;
     }
 
     return $y;
