@@ -104,7 +104,8 @@ CoMa - Your Conference Manager
       In this step you should enter your MySQL Sever details (see above).
       If you do not have or do not know the database name, database server, etc.
       please check with your hosting provider. The database server is typically
-      localhost but this is NOT universal!
+      localhost but this is NOT universal! e.g. If you are using SELinux it 
+      might be required to use '127.0.0.1' instead of 'localhost'.
 
       After generating the config.inc.php INSTALL.PHP will then attempt to write
       to the config.inc.php file which will contain the basic configuration data
