@@ -21,7 +21,7 @@
         <tr>
           <td>
         {if6<a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}"
-               class="buttonlink">Edit review</a>}
+               class="buttonlink">Edit review</a>}&nbsp;
           </td>
           <td>
             <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}"
@@ -29,9 +29,9 @@
           </td>
           <td>
         {if7<a href="{basepath}create_forum.php?paperid={paper_id}{&SID}"
-               class="buttonlink">Start discussion</a>}
+               class="buttonlink">Start discussion</a>}&nbsp;
         {if8<a href="{basepath}forum.php?paperid={paper_id}{&SID}"
-               class="buttonlink">Enter discussion</a>}
+               class="buttonlink">Enter discussion</a>}&nbsp;
           </td>
         </tr>
       </table>

@@ -22,11 +22,11 @@
         <tr>
           <td>
         {if6<a href="{basepath}reviewer_createreview.php?paperid={paper_id}{&SID}"
-               class="buttonlink">Create review</a>}            
+               class="buttonlink">Create review</a>}&nbsp;
           </td>
           <td>
             <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}"
-               class="buttonlink">See paper details</a>            
+               class="buttonlink">See paper details</a>
           </td>
         </tr>
       </table>
