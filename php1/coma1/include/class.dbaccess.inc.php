@@ -203,7 +203,7 @@ class DBAccess {
    * @return PaperSimple [] <b>false</b>, falls keine Paper des Autors
    *   $intAuthorId gefunden wurden
    * @access public
-   * @author Tom (04.12.04)
+   * @author Tom (04.12.04, 12.12.04)
    */
   function getPapersOfAuthor($intAuthorId) {
     $s = 'SELECT  id, author_id, title, state'.
@@ -212,26 +212,89 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
-      	$reviews = $this->getReviewsOfPaper($data[$i]['id']);
-      	$fltAvgRating = 0.0;
-      	if (!empty($reviews)) {
-      	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
-      	  $fltAvgRating = -1;
-        }
-      	$author = $this->getPerson($intAuthorId);
-        $strAuthorName = '';
-      	if (!empty($author)) {
-      	  $strAuthorName = $author->getName();
-        }
-      	$papers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
-      	                $data[$i]['author_id'], $strAuthorName, $data[$i]['state'],
-      	                $fltAvgRating);
+      	$fltAvgRating = getAverageRating($data[$i]['id']);
+      	$objAuthor = $this->getPerson($intAuthorId);
+      	$strAuthor = $objAuthor->getName();
+      	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
+      	                   $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+      	                   $fltAvgRating);
       }
-      return $papers;
+      return $objPapers;
     }
     return false;
   }
   
+
+  /**
+   * Liefert ein Array von PaperSimple-Objekten des Reviewers $intReviewerId.
+   *
+   * @param int $intReviewerId ID des Reviewers
+   * @return PaperSimple [] <b>false</b>, falls keine Reviews des Reviewers
+   *   $intReviewerId gefunden wurden
+   * @access public
+   * @author Tom (12.12.04)
+   */
+  function getPapersOfReviewer($intReviewerId) {
+    $s = 'SELECT  p.id AS id, author_id, title, state'.
+        ' FROM    Paper AS p'.
+        ' INNER   JOIN ReviewReport AS r'.
+        ' ON      r.paper_id = p.id'.
+        ' AND     r.reviewer_id = '.$intReviewerId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      for ($i = 0; $i < count($data); $i++) {
+      	$objAuthor = $this->getPerson($intAuthorId);
+      	$strAuthor = $objAuthor->getName();
+      	$fltAvgRating = getAverageRating($data[$i]['id']);
+      	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
+      	                   $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+      	                   $fltAvgRating);
+      }
+      return $objPapers;
+    }
+    return false;
+  }
+
+  /**
+   * Liefert PaperDetailed-Objekt mit den Daten des Papers $intPaperId.
+   *
+   * @param int $intPaperId ID des Papers
+   * @return PaperDetailed <b>false</b>, falls kein Paper mit der ID
+   *   $intPaperId gefunden wurde
+   * @access public
+   * @author Tom (12.12.04)
+   */
+  function getPaperDetailed($intPaperId) {
+    $s = 'SELECT  author_id, title, state, abstract, mime_type, last_edited, filename'.
+        ' FROM    Paper AS p'.
+        ' WHERE   id = '.$intPaperId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objAuthor = $this->getPerson($data[0]['author_id']);
+      $strAuthor = $objAuthor->getName();
+      $fltAvgRating = getAverageRating($data[0]['id']);
+      // Co-Autoren
+      $s = 'SELECT  coauthor_id'.
+          ' FROM    IsCoAuthorOf AS i'.
+          ' INNER   JOIN Person AS p'.
+          ' ON      p.id = i.person_id'.
+          ' WHERE   paper_id = '.$intPaperId;
+      $cadata = $this->mySql->select($s);
+      if (!empty($cadata) {
+        for ($i = 0; $i < count($cadata); $i++) {
+          $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
+          $intCoAuthorIds[$i] = $cadata[$i]['coauthor_id'];
+          $strCoAuthors[$i] = $objCoAuthor->getName();
+        }
+      }
+      return (new PaperDetailed($intPaperId, $data[$i]['title'], $data[0]['author_id'],
+                $strAuthorName, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
+                $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
+                $data[0]['last_edited'], $data[0]['filename']));
+    }
+    return false;
+  }
+
   /**
    * Liefert den Durchschnitt der Gesamtbewertungen des Papers $intPaperId.
    *
@@ -265,7 +328,7 @@ class DBAccess {
    * Kriterien unter Beruecksichtigung der Gewichtungen).
    *
    * @param int $intReviewId ID des Reviews
-   * @return int <b>false</b>, falls das Review nicht existiert.
+   * @return int <b>false</b>, falls das Review nicht existiert
    * @access private
    * @author Sandro, Tom (06.12.04)
    */
@@ -279,18 +342,6 @@ class DBAccess {
     if (!empty($data)) {
       return $data[0]['total_rating'];
     }
-    return false;
-  }
-
-  /**
-   */
-  function getPapersOfReviewer($intReviewerId) {
-    return false;
-  }
-
-  /**
-   */
-  function getPaperDetailed($intPaperId) {
     return false;
   }
 

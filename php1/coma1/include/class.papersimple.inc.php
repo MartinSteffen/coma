@@ -31,7 +31,7 @@ class PaperSimple extends Paper {
   var $intAuthorId;
   var $strAuthor; // hinzugefuegt (Tom) (i.d.R. first_name &nbsp; last_name)
   var $intStatus;
-  var $fltAvgRating;
+  var $fltAvgRating; // false, falls kein Rating existiert
   
 function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
                      $fltAvgRating) {
