@@ -81,7 +81,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
-      $messes = $myDBAccess->getThreadsOfForum($forum-intId);
+      $messes = $myDBAccess->getThreadsOfForum($forum->intId);
       $messes = displayMessages($messes, $msgselection, $select, $forumassocs);
     }
     else{
