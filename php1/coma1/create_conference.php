@@ -18,8 +18,8 @@ $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 
-function emptytime($str) {
-  return empty($str) ? '' : date('M d, Y',$str);
+function emptytime($str, $format='M d, Y') {
+  return empty($str) ? '' : date($format, $str);
 }
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
@@ -152,43 +152,42 @@ if (isset($_POST['action'])) {
       $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
                     'and <b>Deadlines</b>!';
     }
-    elseif ((!empty($end_date)) && ($end_date < $start_date)) {
+    elseif ((!empty($end_date)) && ($start_date > $end_date)) {
       $strMessage = 'Your Start Date should be before your End Date!';
     }
-    elseif ($abstract_dl < $paper_dl) {
+    elseif ($abstract_dl > $paper_dl) {
       $strMessage = 'Your Abstract Deadline should be before your Paper Deadline!';
     }
-    elseif ($paper_dl < $final_dl) {
+    elseif ($paper_dl > $final_dl) {
       $strMessage = 'Your Paper Deadline should be before your Final Version Deadline!';
     }
-    elseif ($final_dl < $start_date) {
+    elseif ($final_dl > $start_date) {
       $strMessage = 'Your Final Version Deadline should be before your Start Date!';
     }
-      
-/*$abstract_dl = strtotime($_POST['abstract_dl']));
-$paper_dl = strtotime($_POST['paper_dl']));
-$review_dl = strtotime($_POST['review_dl']));
-$final_dl = strtotime($_POST['final_dl']));
-$notification = strtotime($_POST['notification']));
-$start_date = strtotime($_POST['start_date']));
-$end_date = strtotime($_POST['end_date']));
-                  'Abstract deadline &lt; Paper deadline &lt; '.
-                  'Final version deadline &lt; Start date,<br>'.
-                  'and: Paper deadline &lt; Review deadline &lt; Notification &lt; Start date.';
-   $noErrors = false;
-}*/
+    elseif ($paper_dl > $review_dl) {
+      $strMessage = 'Your Paper Deadline should be before your Review Deadline!';
+    }
+    elseif ((!empty($notification)) && ($review_dl > $notification)) {
+      $strMessage = 'Your Review Deadline should be before your Notification time!';
+    } 
+    elseif ((!empty($notification)) && ($notification > $start_date)) {
+      $strMessage = 'Your Notification time should be before your Start Date!';
+    } 
+    elseif ($review_dl > $start_date) {
+      $strMessage = 'Your Notification time should be before your Start Date!';
+    } 
     // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
     else { // keine Fehler
       $result = $myDBAccess->addConference($_POST['name'],
                                            $_POST['homepage'],
                                            $_POST['description'],
-                                           date('Y-m-d', $abstract_dl),
-                                           date('Y-m-d', $paper_dl),
-                                           date('Y-m-d', $review_dl),
-                                           date('Y-m-d', $final_dl),
-                                           date('Y-m-d', $notification),
-                                           date('Y-m-d', $start_date),
-                                           date('Y-m-d', $end_date),
+                                           emptytime($abstract_dl, 'Y-m-d'),
+                                           emptytime($paper_dl, 'Y-m-d'),
+                                           emptytime($review_dl, 'Y-m-d'),
+                                           emptytime($final_dl, 'Y-m-d'),
+                                           emptytime($notification, 'Y-m-d'),
+                                           emptytime($start_date, 'Y-m-d'),
+                                           emptytime($end_date, 'Y-m-d'),
                                            $_POST['min_reviews'],
                                            $_POST['def_reviews'],
                                            $_POST['min_papers'],
@@ -208,8 +207,8 @@ $end_date = strtotime($_POST['end_date']));
         // Erfolg (also anderes Template)
         $content = new Template(TPLPATH.'confirm_conference.tpl');
         $strContentAssocs['return_page'] = 'main_conferences.php';
-        //$objConference = new Conference(0, '', '', '', $start_date, $end_date);
-        $strContentAssocs['date'] = 'TODO';
+        $objConference = new Conference(0,'','','', emptytime($start_date), emptytime($end_date));
+        $strContentAssocs['date'] = encodeText(getDateString());
         $ifArray = array();
       }
     }
