@@ -2176,7 +2176,7 @@ nur fuer detaillierte?
         return $this->error('addConference', 'Fatal error: Database inconsistency!',
                             $this->mySql->getLastError()." / $strError");
       }
-      return $this->error('addConference', $this->mySql->getLastError());
+      return $this->error('addConference', $strError);
     }
     if (!empty($strTopics)) {
       for ($i = 0; $i < count($strTopics); $i++) {
@@ -2190,7 +2190,7 @@ nur fuer detaillierte?
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
                                 $this->mySql->getLastError()." / $strError");
           }
-          return $this->error('addConference', $this->mySql->getLastError());
+          return $this->error('addConference', $strError);
         }
       }
     }
@@ -2207,7 +2207,7 @@ nur fuer detaillierte?
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
                                 $this->mySql->getLastError()." / $strError");
           }
-          return $this->error('addConference', $this->mySql->getLastError());
+          return $this->error('addConference', $strError);
         }
       }
     }
@@ -2360,7 +2360,7 @@ nur fuer detaillierte?
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
                               $this->getLastError()." / $strError");
         }
-        return $this->error('addPaper', $this->getLastError());
+        return $this->error('addPaper', $strError);
       }
     }
     return $this->success($intId);
