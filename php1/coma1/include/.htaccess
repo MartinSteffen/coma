@@ -1,1 +1,3 @@
-DirectoryIndex index.htm
+# DirectoryIndex index.htm
+Order deny,allow
+Deny from all
