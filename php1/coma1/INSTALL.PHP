@@ -79,22 +79,27 @@ elseif ($STEP == 1){
     /**@ignore */
     define('IN_COMA1', true);
     require_once('./include/config.inc.php');
-    
-    echo "Current Config File:<br>";
   }
   else {
-    $sqlServer = htmlentities($_POST['sqlServer'] ENT_QUOTES, 'UTF-8');
-    $sqlUser = htmlentities($_POST['sqlUser'] ENT_QUOTES, 'UTF-8');
-    $sqlPassword = htmlentities($_POST['sqlPassword'] ENT_QUOTES, 'UTF-8');
-    $sqlDatabase = htmlentities($_POST['sqlDatabase'] ENT_QUOTES, 'UTF-8');
-    
-    echo "Generated Config File:<br>";
+    $sqlServer = htmlentities($_POST['sqlServer'], ENT_QUOTES, 'UTF-8');
+    $sqlUser = htmlentities($_POST['sqlUser'], ENT_QUOTES, 'UTF-8');
+    $sqlPassword = htmlentities($_POST['sqlPassword'], ENT_QUOTES, 'UTF-8');
+    $sqlDatabase = htmlentities($_POST['sqlDatabase'], ENT_QUOTES, 'UTF-8');
   }
-
   // Create ConfigFile
   $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = '$sqlServer';\n\$sqlUser = '$sqlUser';\n\$sqlPassword = '$sqlPassword';\n\$sqlDatabase = '$sqlDatabase';\n\n?>";
   
+  // Output
   echo "    <p class=\"menu\">\n";
+  echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
+  echo "        <input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\ value=\"$sqlServer\">\n";
+  echo "        <input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\ value=\"$sqlUser\">\n";
+  echo "        <input type=\"text\" name=\"sqlPassword\" size=\"48\" maxlength=\"127\ value=\"$sqlPassword\">\n";
+  echo "        <input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\ value=\"$sqlDatabase\">\n";
+  echo "        <input type=\"submit\" name=\"submit\" value=\"generate Config\">\n";
+  echo "      </form>\n";
+  
+  echo "      <hr>\n";
   highlight_string($confFile);
   echo "    </p>\n";
 
