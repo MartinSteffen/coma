@@ -41,17 +41,20 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>E-mail</b>!';
   }
   // Teste, ob die Email gueltig ist
-  else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+  elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
     $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist
-  else if ($_POST['email'] != $objPerson->strEmail &&
+  elseif ($_POST['email'] != $objPerson->strEmail &&
            $myDBAccess->checkEmail($_POST['email'])) {
     if ($myDBAccess->failed()) {
-      error('Check e-mail failed.',$myDBAccess->getLastError());
+      error('Check e-mail failed.', $myDBAccess->getLastError());
     }
-    $strMessage = 'Account with the given E-mail address is already existing! '.
+    $strMessage = 'Account with the given E-mail address already exists! '.
                   'Please use another E-mail address!';
+  }
+  elseif ($_POST['password1'] != $_POST['password2']) {
+    $strMessage = 'You have to enter your new Password correctly twice!';
   }
   else {
     $objPerson->strFirstName   = $_POST['first_name'];
@@ -66,16 +69,24 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $objPerson->strCountry     = $_POST['country'];
     $objPerson->strPhone       = $_POST['phone'];
     $objPerson->strFax         = $_POST['fax'];
-
     if ($_POST['submit']) {
       $result = $myDBAccess->updatePerson($objPerson);
       if (!empty($result)) {
         $_SESSION['uname'] = $objPerson->strEmail;
         $strMessage = 'Your account has been updated sucessfully.';
       }
-      else if ($myDBAccess->failed()) {
+      elseif ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during updating account.', $myDBAccess->getLastError());
+        error('Error updating your account.', $myDBAccess->getLastError());
+      }
+      if (!empty($_POST['password1'])) {
+        $result = $myDBAccess->updatePersonPassword(session('uid'), $_POST['password1']);
+        if (!empty($result)) {
+          $_SESSION['password'] = $result;
+        }
+        elseif ($myDBAccess->failed()) {
+          error('Error updating your account.', $myDBAccess->getLastError());
+        }
       }
     }
   }
@@ -84,7 +95,6 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
 $strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
 $strContentAssocs['last_name']   = encodeText($objPerson->strLastName);
 $strContentAssocs['email']       = encodeText($objPerson->strEmail);
-$strContentAssocs['email_link']  = 'mailto:'.$objPerson->strEmail;
 $strContentAssocs['name_title']  = encodeText($objPerson->strTitle);
 $strContentAssocs['affiliation'] = encodeText($objPerson->strAffiliation);
 $strContentAssocs['street']      = encodeText($objPerson->strStreet);
@@ -94,13 +104,11 @@ $strContentAssocs['state']       = encodeText($objPerson->strState);
 $strContentAssocs['country']     = encodeText($objPerson->strCountry);
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
-
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
   $strContentAssocs['if'] = array(9);
 }
-
 $strContentAssocs['targetpage'] = 'user_profile';
 $content->assign($strContentAssocs);
 
