@@ -9,6 +9,6 @@
     <td class="menu"><a href="{basepath}help.php?{SID}"{if3 class="markedmenuitem"}>Help</a></td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}impressum.php?{SID}"{if4 class="markedmenuitem"}>Imprint</a></td>
+    <td class="menu"><a href="{basepath}imprint.php?{SID}"{if4 class="markedmenuitem"}>Imprint</a></td>
   </tr>
 </table>
