@@ -132,6 +132,7 @@ class DBAccess {
     return $this->error('getAllConferences'.$this->mySql->getLastError());
   }
 
+  // Anmerkung von Tom: [TODO] Anpassen an das neue Rollen-Array
   /**
    * Liefert ein Array mit Rollen-Namen zurück.
    *
@@ -983,19 +984,33 @@ class DBAccess {
    * @author Tom (11.05.04)
    */
   function updateRoles($intConferenceId, $objPerson) {
-/*    $intId = $objPerson->intId;
+    $intId = $objPerson->intId;
+    
+    // Rollen, die nicht mehr gelten, loeschen...
     $s = 'DELETE  FROM Role'.
         ' WHERE   person_id = '.$intId;
-      for ($i = 0; $i < count($data); $i++) {
-    $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-        '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
-        '                 \''.$intRoleType.'\')';
-    // echo('<br>SQL: '.$s.'<br>');
-    $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return true;
-    }*/
-    return $this->error('updateRoles '.$this->mySql->getLastError());
+    for ($i = 0; $i < count($ROLES); $i++) {
+      if ($objPerson->hasRole($ROLES[$i][0])
+        $s = $s.' AND role_id <> '.$ROLES[$i][0];
+    }
+    //$result = $this->mySql->update($s);
+    echo($s.' /// ');
+    if (empty($result)) {
+      return $this->error('updateRoles '.$this->mySql->getLastError());
+    }
+    
+    // neu hinzugekommene Rollen einfuegen...
+    for ($i = 0; $i < count($ROLES); $i++) {
+      if ($objPerson->hasRole($ROLES[$i][0])
+        $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
+        '             VALUES ('.$intConferenceId.', '.$intPersonId.', '.$ROLES[$i][0].');
+        echo($s.' /// ');
+        //$result = $this->mySql->update($s);
+        if (empty($result)) {
+          return $this->error('updateRoles '.$this->mySql->getLastError());
+        }
+    }
+    return true;
   }
 
   /**
