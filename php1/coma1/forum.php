@@ -326,9 +326,6 @@ function getCID(&$myDBAccess){
       $cid = $confs[$randval]->intId;
       $_SESSION['confid'] = $cid;
     }
-    else{
-      $cid = session('confid');
-    }
   }
   return $cid;
 }

@@ -1484,7 +1484,10 @@ class DBAccess extends ErrorHandling {
    * @access public
    * @author Sandro (14.12.04)   
    */
-  function getAllForums($intConferenceId) {
+  function getAllForums($intConferenceId=false) {
+    if (empty($intConferenceId)) {
+      return $this->success(array());
+    }
     $s = sprintf("SELECT   id, title, forum_type, paper_id".
                  " FROM    Forum".
                  " WHERE   conference_id = '%d'",
@@ -1537,7 +1540,7 @@ class DBAccess extends ErrorHandling {
    * @access public
    * @author Sandro (14.12.04)
    */
-  function getForumsOfPerson($intPersonId, $intConferenceId) {
+  function getForumsOfPerson($intPersonId, $intConferenceId=false) {
     $objForums = array();
     $objPerson = $this->getPerson($intPersonId, $intConferenceId);
     if ($this->failed()) {
