@@ -56,8 +56,8 @@ if (isset($_POST['email'])){
     $strMessage = 'Your password confirmation is not the same as your password!';
   }
   // Teste, ob die Email gueltig ist
-  elseif ((!preg_match("/^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$/", $_POST['email']))
-        &&(!preg_match("/^([a-zA-Z0-9\.\_\-]+)@(([0-9]|1?\d\d|2[0-4]\d|25[0-5])\.){3}([0-9]|1?\d\d|2[0-4]\d|25[0-5])$/",  $_POST['email']))) {
+  elseif ((!preg_match("/^[a-zA-Z0-9\_\-\+]+(\.[a-zA-Z0-9\_\-\+]+)*@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$/", $_POST['email']))
+        &&(!preg_match("/^[a-zA-Z0-9\_\-\+]+(\.[a-zA-Z0-9\_\-\+]+)*@(([0-9]|1?\d\d|2[0-4]\d|25[0-5])\.){3}([0-9]|1?\d\d|2[0-4]\d|25[0-5])$/",  $_POST['email']))) {
     $strMessage = 'Please enter a valid Email address!';
   }
   // Teste, ob die Email bereits vorhanden ist
