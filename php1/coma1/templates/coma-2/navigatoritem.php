@@ -5,11 +5,16 @@ function createNavigatorContent($strPath) {
   $strNavigator = '';
   $strNavigatorAssocs = defaultAssocArray();
   foreach ($strPath as $strName=>$strLink) {
-    $strNavigatorAssocs['node'] = $strName;
-    $strNavigatorAssocs['link'] = $strLink;
-    $navigatorItem->assign($strNavigatorAssocs);
-    $navigatorItem->parse();
-    $strNavigator .= $navigatorItem->strOutput;
+    if ($strLink != '') {
+      $strNavigatorAssocs['node'] = $strName;
+      $strNavigatorAssocs['link'] = $strLink;
+      $navigatorItem->assign($strNavigatorAssocs);
+      $navigatorItem->parse();
+      $strNavigator .= $navigatorItem->strOutput;
+    }
+    else {
+      $strNavigator .= $strName;
+    }
     $i++;
     if ($i < count($strPath)) {
       $strNavigator .= '  |  ';
