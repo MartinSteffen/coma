@@ -15,13 +15,13 @@ define('IN_COMA1',true);
 
 require_once('./include/header.inc.php');
 
-$mainPage = new Template('./templates/sandro/main.tpl');
-$loginPage = new Template('./templates/sandro/login.tpl');
+$mainPage = new Template(TEMPLATE.'main.tpl');
+$loginPage = new Template(TEMPLATE.'login.tpl');
 
 $strAssocs = array();
-$strAssoc['path'] = './templates/sandro/';
-$strAssoc['content'] =& $loginPage;
-$strAssoc['SID'] = $mySession->getUrlId();
+$strAssocs['path'] = TEMPLATE;
+$strAssocs['content'] =& $loginPage;
+$strAssocs['SID'] = $mySession->getUrlId();
 
 $mainPage->assign($strAssoc);
 

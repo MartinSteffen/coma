@@ -34,8 +34,10 @@ ini_set('warn_plus_overloading', '1');
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
-/** Template-Pfad (als absolut)*/
-define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/');
+/** Template-Pfad (als URL)*/
+define('TPLPATH',dirname($_SERVER['PHP_SELF']).'/templates/');
+/** Das von Coma verwendete Template */
+define('TEMPLATE', TPLPATH.'sandro/');
 /** Haupt-Pfad (als URL)*/
 define('COREPATH',dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
