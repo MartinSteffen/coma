@@ -69,10 +69,10 @@ if (!empty($objPersons)) {
   foreach ($objPersons as $objPerson) {
     $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['user_id'] = $objPerson->intId;
+    $strItemAssocs['user_id'] = encodeText($objPerson->intId);
     $strItemAssocs['name'] = encodeText($objPerson->getName(1));
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
-    $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
+    $strItemAssocs['email_link'] = encodeText('mailto:'.$objPerson->strEmail);
     $strItemAssocs['targetform'] = 'chair_users.php';
     $strItemAssocs['order'] = $intOrder;
     $strItemAssocs['roles'] = '';
@@ -80,8 +80,8 @@ if (!empty($objPersons)) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
       $strRolesAssocs = defaultAssocArray();
       $strRolesAssocs['targetform'] = 'chair_users.php';
-      $strRolesAssocs['user_id'] = $objPerson->intId;
-      $strRolesAssocs['role_type'] = $intRoles[$i];
+      $strRolesAssocs['user_id'] = encodeText($objPerson->intId);
+      $strRolesAssocs['role_type'] = encodeText($intRoles[$i]);
       $strRolesAssocs['role_name'] = encodeText($strRoles[$intRoles[$i]]);
       $strRolesAssocs['line_no'] = $lineNo;
       $strRolesAssocs['order'] = $intOrder;
