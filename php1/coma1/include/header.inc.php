@@ -115,7 +115,7 @@ function encodeText($_str) {
   $_str = trim($_str);
   $_str = htmlentities($_str);
   $_str = str_replace('\r', '', $_str);
-  $_str = str_replace('\n', "#BR#", $_str);
+  $_str = str_replace('\n', "<BR>", $_str);
   return($_str);
 }
 
@@ -126,10 +126,10 @@ function encodeText($_str) {
  * @return string decoded string
  */
 function decodeText($_str) {
+  $_str      = str_replace('<BR>', '\n', $_str);
   $trans_tbl = get_html_translation_table (HTML_ENTITIES);
   $trans_tbl = array_flip ($trans_tbl);
   $_str      = strtr($_str, $trans_tbl);
-  $_str      = str_replace('#BR#', '\n', $_str);
   return($_str);
 }
 
