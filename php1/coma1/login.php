@@ -23,6 +23,9 @@ require_once('./include/header.inc.php');
 if (checkLogin()) {
   redirect('index.php');
 }
+elseif (isset($_SESSION['uname'])) {
+  $_SESSION['message'] = 'Username or Password is wrong!';
+}
 
 if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   /* Einlog-Versuch */
