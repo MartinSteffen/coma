@@ -55,7 +55,7 @@ elseif (isset($_GET['4'])) {
 </head>
 <body>
   <div>
-    <h1>Installation of Coma</h1>
+    <h1>Installation of CoMa - Your Conference Manager</h1>
     <p class="menu">
       1. <a href="INSTALL.PHP?1">Generate Configuration</a><br>
       2. <a href="INSTALL.PHP?2">Create Database</a><br>

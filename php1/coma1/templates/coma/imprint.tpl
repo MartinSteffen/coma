@@ -1,6 +1,6 @@
 <table class="viewtable">
   <tr class="viewheader">
-    <th>CoMa Conference Management Tool, version 0.x</th>
+    <th>CoMa - Your Conference Manager, version /VERSION/</th>
   </tr>
   <tr class="viewline">
     <td class="viewline"> 

@@ -24,19 +24,16 @@
     <tr>
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
-     <!--
-      <a href="{basepath}imprint.php{?SID}">Imprint</a>&nbsp;|&nbsp;
-      <a href="{basepath}forum.php{?SID}">Forum</a>&nbsp;|&nbsp;
-      -->
       <a href="{basepath}logout.php{?SID}">Logout</a>&nbsp;&nbsp;
       <a href="{basepath}help.php{?SID}"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
      </td>
     </tr>
     <tr>
      <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
-     <td colspan="2" height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
+     <td  height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
       {navigator}
      </td>
+     <td class="renderTime">CoMa - Your Conference Manager - version /VERSION/</td>
     </tr>
    </table>
   </td>
@@ -69,7 +66,7 @@
  <tr>
   <td>&nbsp;</td>
   <td height="32">&copy; 2005 by Sandro Esquivel, Daniel Miesling, Tom Scherzer, Falk Starke, Jan Waller</td>
-  <td height="32" class="renderTime">Render Time: /RenderTime/ ms</td>
+  <td height="32" class="renderTime">Render Time: /RENDERTIME/ ms</td>
   <td>&nbsp;</td>
  </tr>
 </table>

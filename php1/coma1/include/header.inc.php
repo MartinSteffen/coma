@@ -11,6 +11,9 @@ if (!defined('IN_COMA1')) {
 
 /**@ignore */
 define('DEBUG', true);
+/**@ignore */
+define('VERSION', '0');
+
 
 // PATH_TRANSLATED patch
 $ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
