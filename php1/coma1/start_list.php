@@ -22,12 +22,19 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['content'] =  'Liste aller Konferenzen';
 $strMainAssocs['body'] =
 '
-<tr>
+<div align="center">
+<table>
+<tr class="listhead">
+  <td> Konferenzname </td> <td> Einloggen </td> <td> Registrierung </td>
+</tr>
+<tr class="list">
   <td> Konferenz A </td> <td> <a href="login.php"> login </a> </td> <td> (register) </td>
 </tr>
-<tr>
+<tr class="list">
   <td> Konferenz B </td> <td> <a href="login.php"> login </a> </td> <td> (register) </td>
 </tr>
+</table>
+</div>
 ';
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;
