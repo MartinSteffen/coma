@@ -18,7 +18,7 @@ $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-if (isset($_POST['action']) {
+if (isset($_POST['action'])) {
   $strContentAssocs['name']         = $_POST['name'];
   $strContentAssocs['description']  = $_POST['description'];
   $strContentAssocs['homepage']     = $_POST['homepage'];
