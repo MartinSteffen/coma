@@ -30,9 +30,9 @@ require_once(INCPATH.'class.papervariance.inc.php');
  * @author Falk, Tom (20.01.05)
  */
 
-function getCriticalPapers($method = 'variance') {
+function getCriticalPapers(&$myDBAccess, $method = 'variance') {
   $objPapers = array();
-  $cid = 1; //session('confid');
+  $cid = session('confid');
   $papers = $myDBAccess->getPapersOfConference($cid);
   foreach ($papers as $paper){
     $reviews = $myDBAccess->getReviewsOfPaper($paper->intId);

@@ -1,4 +1,4 @@
- <tr class="listitem-{line_no}"> 
+ <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}">
       <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}" class="link">{title}</a>
     </td> 
@@ -13,6 +13,7 @@
       {if4<span class="status-rejected">rejected</span>}      
     </td>
     <td class="listitem-{line_no}">{avg_rating}</td>
+    <td class="listitem-{line_no}">{variance}</td>
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">view paper</a>}

@@ -14,7 +14,13 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
+//Achtung: Nur zu Testzwecken eingefuegt
+include('./include/getCriticalPapers.inc.php');
+include('./include/class.conferencedetailed.inc.php');
+include('./include/class.papervariance.inc.php');
+//bis hier
+
+if (isset($_POST['action']) && $_POST['action'] == 'delete') {
   $myDBAccess->deletePaper($_POST['paperid']);
   if ($myDBAccess->failed()) {
     error('Error deleting paper.', $myDBAccess->getLastError());
@@ -25,6 +31,12 @@ $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get paper list of chair',$myDBAccess->getLastError());
 }
+
+//Achtung: Nur zu Testzwecken hier eingefuegt
+$critPapers = getCriticalPapers($myDBAccess);
+$confdet = $myDBAccess->getConferenceDetailed(session('confid'));
+$critvar = $confdet->fltCriticalVariance;
+//bis hier
 
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
@@ -46,10 +58,25 @@ if (!empty($objPapers)) {
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
+      //achtung: nur fuer testzwecke
+      foreach($critPapers as $cpap){
+        if ($cpap->intId == $objPaper->intId){
+	  if ($cpap->fltVariance > $critvar){
+	    $strItemAssocs['variance'] = '!! ' . $cpap->fltVariance;
+	  }
+	  else{
+	    $strItemAssocs['variance'] = $cpap->fltVariance;
+	  }
+	}
+      }
+      //bis hier
     }
     else {
       $strItemAssocs['avg_rating'] = ' - ';
-    }    
+      //achtung: nur fuer testzwecke
+      $strItemAssocs['variance'] = ' - ';
+      //bis hier
+    }
     $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'chair_paperlistitem.tpl');
