@@ -160,14 +160,14 @@ $myDBAccess->addCoAuthorName(2, 'Co Author Name');
 	    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
 
-/*echo '<br>ReviewReports:<br>';
+echo '<br>ReviewReports:<br>';
 $j = 0;
 $reports = 0;
 while ($j < $papers) {
   $i = 0;
 
   while ($i < $persons/3) {
-  if(rand(1,10) < 3) {
+  if(rand(1,$persons) <= 9) {
   echo '.';
     $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
@@ -179,7 +179,7 @@ while ($j < $papers) {
     $i++;
   }
   $j++;
-}*/
+}
 
 echo '<br>Criterions:<br>';
 $i = 0;
