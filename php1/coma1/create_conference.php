@@ -135,7 +135,7 @@ if (isset($_POST['action'])) {
     // Versuche die neue Konferenz einzutragen
     else {
       if ($myDBAccess->failed()) {       
-        echo('Error during creating conference.', $myDBAccess->getLastError());
+        echo('Error during creating conference: '. $myDBAccess->getLastError());
       }
       $result = $myDBAccess->addConference(encodeText($_POST['name']),                                           
                                            encodeURL($_POST['homepage']),
