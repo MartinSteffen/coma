@@ -46,5 +46,5 @@
 
 <p class="message">
   Show <a href="{basepath}user_users.php?showchairs{&SID}" class="link">list of all chairs</a> of this conference.<br>
-  Show <a href="{basepath}user_papers.php?showallpapers{&SID}" class="link">list of all papers</a> accepted for this conference.
+  Show <a href="{basepath}user_papers.php?showacceptedpapers{&SID}" class="link">list of all papers</a> accepted for this conference.
 </p>

@@ -16,7 +16,8 @@ require_once('./include/header.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 $showChairs = isset($_GET['showchairs']);
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), ($showChairs ? 0 : CHAIR));
+$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'),
+  ($showChairs ? 0 : CHAIR));
 if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
