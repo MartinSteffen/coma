@@ -124,7 +124,7 @@ class Person {
         $ret = $this->strFirstName.' '.$this->strLastName;
         break;
       case 1:
-        $ret = $this->strLastName.', '.$this->strFirstName;
+        $ret = $this->strLastName.(empty($this->strFirstName)?'':', '.$this->strFirstName);
         break;
       case 2:
         $ret = "$this->strTitle $this->strFirstName $this->strLastName";
