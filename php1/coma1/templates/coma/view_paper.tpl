@@ -43,6 +43,12 @@
     <td class="viewline">{last_edited}</td>
   </tr>  
   <tr class="viewline">
+    <td class="viewline" width="15%">
+      Topics:
+    </td>
+    <td class="viewline">{topics}</td>
+  </tr>  
+  <tr class="viewline">
     <td class="viewline" colspan="2">
       {if5<button name="viewpaper" type="button" class="button" value="View paper"
                   onClick="self.location.href='{file_link}'">View paper</button>}

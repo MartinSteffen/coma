@@ -43,11 +43,19 @@ $strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version'] = encodeText($objPaper->intVersion);
 $strContentAssocs['coauthors'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
-  if (!empty($strContentAssocs['coauthors'])) {
+  if ($i > 0) {
     $strContentAssocs['coauthors'] .= ', ';
   }
   $strContentAssocs['coauthors'] .= $objPaper->strCoAuthors[$i];
 }
+$strContentAssocs['topics'] = '';
+for ($i = 0; $i < count($objPaper->objTopics); $i++) {
+  if ($i > 0) {
+    $strContentAssocs['topics'] .= ', ';
+  }
+  $strContentAssocs['topics'] .= $objPaper->objTopics[$i]->strName;
+}
+
 if (!empty($objPaper->strFilePath)) {
   $ifArray[] = 5;
 }
