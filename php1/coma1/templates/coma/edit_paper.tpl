@@ -1,7 +1,7 @@
 
 {if9<p class="message">{message}</p>}
 
-<form action="{basepath}{targetpage}{?SID}" method="post" enctype="multipart/form-data">
+<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="paperid" value="{paper_id}">
   <input type="hidden" name="coauthors_num" value="{coauthors_num}">
