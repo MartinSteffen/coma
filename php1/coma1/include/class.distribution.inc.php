@@ -413,8 +413,8 @@ class Distribution extends ErrorHandling {
   /**
    * @access private
    */
-  function halfReviewerLine(&$matrix, $rindex, $p_id, $avg_revs, &$p_num_revs_total_left,
-                            &$p_num_revs, &$r_num_papers, $intSuggested) {
+  function suggest(&$matrix, $rindex, $p_id, $avg_revs, &$p_num_revs_total_left,
+                   &$p_num_revs, &$r_num_papers, $intSuggested) {
     $p_num_revs_total_left[$pindex]--;
     $p_num_revs[$pindex]++;
     $r_num_papers[$rindex]++;
@@ -428,6 +428,7 @@ class Distribution extends ErrorHandling {
         }
       }
     }
+    return true;
   }
 
 
