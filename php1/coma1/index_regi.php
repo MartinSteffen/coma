@@ -127,25 +127,23 @@ if (isset($_POST['email'])){
    $strMainAssocs = defaultAssocArray();
    $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
    $strMainAssocs['content'] = '
-   <h2 align="center"> Hinweis: Bitte registrieren Sie sich nur einmal ! </h2>';
-   $strMainAssocs['message'] = 'MESSAGE!';
+   <h2 align="center"> Hinweis: Bitte registrieren Sie sich nur einmal ! </h2>';   
    $strMainAssocs['body'] = & $loginPage;
    $strMainAssocs['menue'] =& $menue;
    $strMainAssocs['submenue'] = '';
    
    // Testet, ob der Benutzer bereits eingeloggt ist
-     if (isset($_SESSION['message'])) {
-       $strMessage = $_SESSION['message'];
-       unset($_SESSION['message']);
-       }
-     else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
-       $strMessage = 'Sie sind bereits eingeloggt !!!';
-       $strMainAssocs['body'] = & $emptyPage;
-       }
-
-     else {
-       $strMessage = '';
-       }
+   if (isset($_SESSION['message'])) {
+     $strMessage = $_SESSION['message'];
+     unset($_SESSION['message']);
+   }
+   else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
+     $strMessage = 'Sie sind bereits eingeloggt !!!';
+     $strMainAssocs['body'] = & $emptyPage;
+   }
+   else {
+     $strMessage = 'Hinweis: Bitte registrieren Sie sich nur einmal!';
+   }
 
    $strLoginAssocs = defaultAssocArray();
    $strLoginAssocs['message'] = $strMessage;
