@@ -1,0 +1,51 @@
+Tools Gruppe:
+Ivan (ist)
+Gunnar (gbi)
+Marco (mhe)
+Mohammed (mal)
+
+Überblick
+Programmierspache 1: Java 4.1.0
+Programmiersprache 2: php 4.0
+Server: Apache/Tomcat 4.0
+Datenbank: MySQL 4.1
+Versionskontrolle: Subversion
+Forum: phpBB
+
+Java:
++ kann jeder
++ frei
++ "Programmiersprache für's Web"
++ fertige Bibliotheken, z.B. für XML+DOM
++ Debugmöglichkeit mit JUNIT
++ gute freie Entwicklungsumgebungen wie Eclipse, Netbeans, Borland JBuilder Personal
+- oversized für unser Problem
+
+Apache Tomcat 4.0
++ frei
++ stabil
++ schnell (schneller als z.B. Microsoft Appl Server)
+- Installation z.T. schwierig (wieso?)
+
+MySQL 4.1
++ weit verbreitet
++ sehr schnell
++ sehr stabil
+- nicht frei für kommerzielle Zwecke (das Praktikum ist nicht kommerziel. Ob es tatsächlich ein Nachteil ist...)
+ 
+Subversion
++ nachfolger von CVS
++ CVS kompatibel
++ einfache Installation und Benutzung in Windows Explorer mittels Tortoise
+- wenig verbreitet
+  
+ phpBB
++ Diskussion nur bei Interesse (ich verstehe das nicht)
++ leicht zu Installieren
++ frei
+
+php 4.0
++ frei 
++ schnelle Ausführung der PHP Skripte vom Server (viel schneller als Java)
++ braucht keine aufwändige Konfiguration
+- es gibt keine gute Entwicklungsumgebung
