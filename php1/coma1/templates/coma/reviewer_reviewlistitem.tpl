@@ -26,7 +26,7 @@
     </td>
     <td class="listitem-{line_no}">
     {if7<a href="{basepath}reviewer_reviews.php?createforum&paperid={paper_id}{&SID}"
-           class="buttonlink">Start discussion</a>}&nbsp;
+           class="buttonlink">Start discussion</a>}
     {if8<a href="{basepath}forum.php?forumsel={forum_id}{&SID}"
            class="buttonlink">Enter discussion</a>}&nbsp;
     </td>
