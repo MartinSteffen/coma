@@ -10,7 +10,7 @@
 <table>
 <tr>
   <td with='25%'>Paper</td>
-  <td with='75%' colspan='3'><? echo "<a href='index.php?m=reviewer&a=default&s=getfile&pid=".$TPL['paper']['id']."'>".$TPL['paper']['title']." : klick-to-download" ?></a></td>
+  <td with='75%' colspan='3'><? echo "<a href='index.php?m=reviewer&a=default&s=getfile&pid=".$TPL['paper']['id']."'>".$TPL['paper']['title'] ?></a></td>
 </tr>
 <tr>
   <td with='25%'>criterion</td>
