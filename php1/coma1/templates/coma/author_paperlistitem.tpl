@@ -13,8 +13,8 @@
     <td class="listitem-{line_no}">{avg_rating}/{max_rating}</td>  
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
-      {if5<button name="viewpaper" type="button" class="smallbutton" value="View paper"
-                  onClick="self.location.href='{file_link}'">View paper</button>}
+      {if5<button name="viewpaper" type="button" class="smallbutton" value="view paper"
+                  onClick="self.location.href='{file_link}'">view paper</button>}
     </td>
     <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}">&nbsp;</td>
