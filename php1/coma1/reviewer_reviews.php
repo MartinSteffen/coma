@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');       
 }
 
 $objPapers = $myDBAccess->getPapersOfReviewer(session('uid'), session('confid'));
@@ -34,7 +34,7 @@ $strContentAssocs['lines'] = '';
 // Liste der Reviews erzeugen
 if (!empty($objPapers)) {
   $lineNo = 1;
-  foreach ($objPapers as $objPaper) {  	
+  foreach ($objPapers as $objPaper) {   
     $ifArray = array();
     $ifArray[] = $objPaper->intStatus;
     $strItemAssocs['line_no'] = $lineNo;
@@ -44,17 +44,24 @@ if (!empty($objPapers)) {
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
     $strItemAssocs['if'] = $ifArray;
     $isReviewed = $myDBAccess->hasPaperBeenReviewed($objPaper->intId, session('uid'));
-  	if ($myDBAccess->failed()) {
+    if ($myDBAccess->failed()) {
       error('Error during review status check.',$myDBAccess->getLastError());
     }
     if ($isReviewed) {
-    	$paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
-  	  $objReview = $myDBAccess->getReviewerReviewOfPaper(session('uid'),$objPaper->intId);
+      $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
+      $intReviewId = $myDBAccess->getReviewIdOfReviewerAndPaper(session('uid'), $objPaper->intId);
+      if ($myDBAccess->failed()) {
+        error('Error receiving review list of reviewer.',$myDBAccess->getLastError());
+      }
+      else if (empty($intReviewId)) {
+         error('Error receiving review list of reviewer.', 'Review does not exist in database.');
+      }
+      $objReview = $myDBAccess->getReview($intReviewId);
       if ($myDBAccess->failed()) {
         error('Error receiving review list of reviewer.',$myDBAccess->getLastError());
       }
       else if (empty($objReview)) {
-      	 error('Error receiving review list of reviewer.', 'Review does not exist in database.');
+         error('Error receiving review list of reviewer.', 'Review does not exist in database.');
       }
       $strItemAssocs['review_id'] = encodeText($objReview->intId);
       if (!empty($objReview->fltReviewRating)) {

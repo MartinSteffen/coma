@@ -1184,15 +1184,16 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Review-Objekt des Reviewers $intReviewerId zum Papers $intPaperId zurueck.
+   * Liefert ein die Id eines Reviews des Reviewers $intReviewerId zum
+   * Papers $intPaperId zurueck.
    *
    * @param int $intReviewerId ID des Reviewers
    * @param int $intPaperId ID des Papers   
-   * @return Review bzw. false, falls der Reviewer das Paper nicht bewertet.
+   * @return int ID des Reviews bzw. false, falls der Reviewer das Paper nicht bewertet.
    * @access public
    * @author Sandro (28.01.05)
    */
-  function getReviewerReviewOfPaper($intReviewerId, $intPaperId) {
+  function getReviewIdOfReviewerAndPaper($intReviewerId, $intPaperId) {
     $s = sprintf("SELECT   id".
                  " FROM    ReviewReport".
                  " WHERE   paper_id = '%d'".
@@ -1205,11 +1206,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
-    $objReview = $this->getReview($data[0]['id']);
-    if ($this->mySql->failed()) {
-      return $this->error('getReviewerReviewOfPaper', $this->mySql->getLastError());
-    }    
-    return $this->success($objReview);
+    return $this->success($data[0]['id']);
   }
 
   /**
