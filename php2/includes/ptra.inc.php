@@ -45,6 +45,8 @@ function checkrun()
 		 WHERE
 		   (conference.id = $list[0])";
 
+//		echo $SQL;
+
 		$result2 = mysql_query($SQL);
 		$count = 0;
 
@@ -52,6 +54,7 @@ function checkrun()
 		{
 			$count++;
 		}
+
 		if ($count == 0)
 		{
 			// Noch keine Papiere verteilt, der Alg. muss laufen ....
@@ -107,7 +110,6 @@ function check_denied($person, $paper)
 	"SELECT COUNT(*) FROM deniespaper
 	 WHERE (person_id = ".$person.")
 	 AND (paper_id = ".$paper.")";
-
 	$result = mysql_query($SQL);
 	$list = mysql_fetch_row($result);
 	$count = $list[0];
@@ -283,20 +285,25 @@ function ptraMain()
 							$rest[]=array(getreviewcount($personid), $personid);
 						}
 					}
+//					echo $papercount." ".count($pt)."<br>";
 					while (min(count($pt), $papercount) > 0)
 					{
 						// Einen Reviewer zufällig auswählen
 						$selected = rand(0, count($pt)-1);
 						addreviewer($pt[$selected], $list[0]);
 						$papercount--;
+						// Unset in PHP ist problematisch
 						unset($pt[$selected]);
 					}
 					sort($rest);
+//					echo $papercount." REST: ".count($rest)."<br>";
+					$i=0;
 					while (min(count($rest), $papercount) > 0)
 					{
-						addreviewer($rest[0][1], $list[0]);
+						addreviewer($rest[$i][1], $list[0]);
 						$papercount--;
-						unset($rest[0]);
+						$i++;
+						// unset($rest[$i]);
 					}
 				}
 			}
