@@ -125,16 +125,21 @@ class Template {
     $strKeys = array();
     $strValues = array();
     foreach ($this->strAssocs as $key => $value) {
-      $strKeys[] = '/(?i){'.$key.'}/';
       if (is_object($value)) { // @todo Check ob gültiges Objekt!!!
+        // Tag durch geparsten Output ersetzen
+        $strKeys[] = '/(?i){'.$key.'}/';
         $value->parse();
         $strValues[] = $value->getOutput();
       }
       elseif (is_array($value)) {
-//        $strKeys[] = '/(?i){'.$key.'=(.*)}/';
-        $strValues[] = '';
+        foreach ($value as $val) {
+          $strKeys[] = '/(?i){'.$key.$val.'(.*)}/'
+          $strValues[] = '\\1';
+        }
       }
       else {
+        // Tag durch Value ersetzen
+        $strKeys[] = '/(?i){'.$key.'}/';
         $strValues[] = $value;
       }
     }
