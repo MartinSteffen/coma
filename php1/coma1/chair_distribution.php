@@ -24,15 +24,14 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-if (isset($_POST['action']) || 1) {
-  $_POST['action'] = 'x';
+if (isset($_POST['action'])) {
   if($_POST['action'] != 'confirm' || !isset($_SESSION['dist'])) {
     redirect('chair_reviews.php');
   }
-  //$dist = $_SESSION['dist'];
+  $dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
-    print_r($pid.'=>'.$arrR);
-/*    for ($j = 0; $j < count($arrR); $j++) {
+/*    print_r($pid.'=>'.$arrR);
+    for ($j = 0; $j < count($arrR); $j++) {
       if ($arrR[$j]['status'] != ASSIGNED) {
         if(!isset($_POST['p'.$pid.'ridx'.$j])) {
           unset($arrR[$j]);
