@@ -21,16 +21,12 @@
       <table width="100%">
         <tr>
           <td>
-            <form action="{basepath}reviewer_createreview.php{?SID}" method="post" accept-charset="UTF-8">
-              <input type="hidden" name="paperid" value="{paper_id}">
-              <input type="submit" name="create" value="Create review" class="button">
-            </form>
+        {if6<a href="{basepath}reviewer_createreview.php?paperid={paper_id}{&SID}"
+               class="buttonlink">Create review</a>}            
           </td>
           <td>
-            <form action="{basepath}user_paperdetails.php{?SID}" method="post" accept-charset="UTF-8">
-              <input type="hidden" name="paperid" value="{paper_id}">
-              <input type="submit" name="view" value="See paper details" class="button">
-            </form>
+            <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}"
+               class="buttonlink">See paper details</a>            
           </td>
         </tr>
       </table>
