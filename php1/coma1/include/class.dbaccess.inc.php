@@ -697,11 +697,14 @@ class DBAccess extends ErrorHandling {
                         $cadata[$i]['name'] :
                         $objCoAuthor->getName();
     }
+    $objTopics = $this->getTopicsOfPaper($intPaperId);
+    if ($this->failed()) {
+      return $this->error('getPaperDetailed', $this->getLastError());
+    }
     $objPaper = (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
                   $strAuthor, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
                   $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
-                  $data[0]['last_edited'], $data[0]['filename'],
-                  $this->getTopicsOfPaper($intPaperId)));
+                  $data[0]['last_edited'], $data[0]['filename'], $objTopics));
     return $this->success($objPaper);
   }
 
@@ -1719,11 +1722,9 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
     }
-    echo("OK1");
     if (empty($objPaperSimple->intTopics)) {
       return $this->success();
     }
-    echo("OK2");
     // Topics einfuegen...
     for ($i = 0; $i < count($objPaperSimple->intTopics); $i++) {
       /*$s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
@@ -1737,7 +1738,6 @@ nur fuer detaillierte?
         return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
       }
     }
-    echo("OK3");
     return $this->success();
   }
 
