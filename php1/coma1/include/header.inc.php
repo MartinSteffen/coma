@@ -46,7 +46,7 @@ $myDBAccess = new DBAccess($mySql);
 checkError($myDBAccess);
 
 // Check ob User eingeloggt ist
-if (!myDBAccess->checkLogin()) {
+if (!$myDBAccess->checkLogin()) {
   session_write_close();
   header('Location:'.dirname(PHP_SELF).'/login.php');
 }
