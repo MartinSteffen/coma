@@ -55,7 +55,10 @@ public class ShowReports extends HttpServlet {
        This servlet has one state, in which the reports currently
        visible to the user are shown. Coincidentally, they are sorted
        by paper.
-     */
+
+       2005JAN11: we now check for the REPORTID session attribute. If
+       that is present, we display a detailed view instead.
+    */
     public void doGet(
 		      HttpServletRequest request,
 		      HttpServletResponse response) {
@@ -78,43 +81,75 @@ public class ShowReports extends HttpServlet {
 		// go on as usual, the rest must be able to handle
 		// theUser==null.
 	    }
+	    
 
+	    try {
 
-	    result.append(UserMessage.ALLREPORTSINTRO);
-	    result.append("<info>\n");
+		ReviewReport theReport 
+		    = (ReviewReport)request.getSession(false).getAttribute(SessionAttribs.REPORT);
 
-	    try{
-
-		for (coma.entities.Paper thePaper: 
-			 getVisiblePapers(theUser)){
-		    
-		    for (coma.entities.ReviewReport theReport: 
-			     getVisibleReviewReports(theUser, thePaper)){
-			
-			result.append(theReport.toXML());
-		    }
+		Paper thePaper = theReport.getPaper();
+		
+		if (!(getVisibleReviewReports(theUser, thePaper).contains(theReport))){
+		    LOG.log(WARN, 
+			    "Illegal access to report", theReport,
+			    "on paper", thePaper,
+			    "tried by user", theUser);
+		    // GOTO! GOTO! GOTO!
+		    throw new Exception("nope, can't see that one"); 
 		}
-	    } catch (DatabaseDownException dbdown){
-		helper.addError(UserMessage.ERRDATABASEDOWN, result);
-	    } catch (UnauthorizedException unauth){
-		helper.addWarning(UserMessage.ERRUNAUTHORIZED, result);
-	    }
 
-	    result.append("</info>\n");
-	    result.append("</result>\n");
+		result.append(theReport.toXML());
+		
+
+	    } catch (Throwable tbl) { // on any error, display selection list instead.
+
+		result.append(UserMessage.ALLREPORTSINTRO);
+		result.append(helper.tagged("pagetitle","All reports")); //XXX
+		result.append("<info>\n");
+
+		try{
+
+		    for (coma.entities.Paper thePaper: 
+			     getVisiblePapers(theUser)){
+	
+			MultiMathReporter mr = new MultiMathReporter();
+	    
+			for (coma.entities.ReviewReport theReport: 
+				 getVisibleReviewReports(theUser, thePaper)){
 			
-	    response.setContentType("text/html; charset=ISO-8859-1");
+			    result.append(theReport.toXML());
 
-	    String path = getServletContext().getRealPath("");
-	    String xslt = path + "/style/xsl/showreports.xsl";
-	    PrintWriter out = response.getWriter();
+			    mr.addReportRatings(theReport);
+			}
+			
+			result.append(mr.toXML());
 
-	    StreamSource xmlSource =
-		new StreamSource(new StringReader(result.toString()));
-	    StreamSource xsltSource = new StreamSource(xslt);
-	    XMLHelper.process(xmlSource, xsltSource, out);
-	    out.flush();
+		    }
+		} catch (DatabaseDownException dbdown){
+		    helper.addError(UserMessage.ERRDATABASEDOWN, result);
+		} catch (UnauthorizedException unauth){
+		    helper.addWarning(UserMessage.ERRUNAUTHORIZED, result);
+		}
 
+		result.append("</info>\n");
+
+	    } finally {
+
+		result.append("</result>\n");
+			
+		response.setContentType("text/html; charset=ISO-8859-1");
+
+		String path = getServletContext().getRealPath("");
+		String xslt = path + "/style/xsl/showreports.xsl";
+		PrintWriter out = response.getWriter();
+
+		StreamSource xmlSource =
+		    new StreamSource(new StringReader(result.toString()));
+		StreamSource xsltSource = new StreamSource(xslt);
+		XMLHelper.process(xmlSource, xsltSource, out);
+		out.flush();
+	    }
 	} catch (IOException e) {
 	    //e.printStackTrace();
 	    LOG.log(ERROR, e);
@@ -133,8 +168,8 @@ public class ShowReports extends HttpServlet {
        get all papers from the DB that the user is allowed to see.
 
        A user is allowed to see a paper iff
-        the user is a chair,
-	or the user is a reviewer of the paper and has already rated it.
+       the user is a chair,
+       or the user is a reviewer of the paper and has already rated it.
 
        @param thePerson 
        the person that is asking for the information.
@@ -170,10 +205,10 @@ public class ShowReports extends HttpServlet {
 	   pretty much the same reason, i.e. they're not impartial?
 	   and all the info.	  
 	*/
-	if (false /*FIXME not present yet. thePerson.isChair()*/){
+	if (false /*FIXME not present yet. thePerson.isChair(), bug#55 */){
 
 	    theSearchResult = dbRead.getPaper(new SearchCriteria());
-	    postAccess(theSearchResult);
+	    postDBAccess(theSearchResult);
 
 	    LOG.log(DEBUG, 
 		    "should get info", "for chair");
@@ -189,7 +224,7 @@ public class ShowReports extends HttpServlet {
 	    SearchCriteria sc = new SearchCriteria();
 	    sc.setPerson(thePerson);
 	    theSearchResult = dbRead.getReviewReport(sc);
-	    postAccess(theSearchResult);
+	    postDBAccess(theSearchResult);
 	    Set<ReviewReport> allReports = 
 		new HashSet<ReviewReport>(asList((ReviewReport[])theSearchResult.getResultObj()));
 
@@ -213,7 +248,7 @@ public class ShowReports extends HttpServlet {
 
        @throws DatabaseDownException if a DB error occurs
        @throws UnauthorizedException if thePerson is null.
-     */
+    */
     public Set<coma.entities.ReviewReport> 
 	getVisibleReviewReports(coma.entities.Person thePerson, 
 				coma.entities.Paper thePaper)
@@ -239,7 +274,7 @@ public class ShowReports extends HttpServlet {
 	SearchCriteria sc = new SearchCriteria();
 	sc.setPaper(thePaper);
 	theSearchResult = dbRead.getReviewReport(sc);
-	postAccess(theSearchResult);
+	postDBAccess(theSearchResult);
 	Set<ReviewReport> reportsOnThis = 
 	    new HashSet<ReviewReport>(asList((ReviewReport[])theSearchResult.getResultObj()));
 	
@@ -254,10 +289,10 @@ public class ShowReports extends HttpServlet {
 	}
 
 	return (hasRated)? reportsOnThis 
-	                 : new HashSet<ReviewReport>();
+	    : new HashSet<ReviewReport>();
     }
 
-    private void postAccess(SearchResult theSearchResult) 
+    private void postDBAccess(SearchResult theSearchResult) 
 	throws DatabaseDownException {
 	if (!theSearchResult.isSUCCESS()){
 	    LOG.log(WARN,
@@ -280,4 +315,83 @@ class UnauthorizedException extends Exception{
 class DatabaseDownException extends Exception{
     private static final long serialVersionUID = 1L;
     public DatabaseDownException(String reason){super(reason);}
+}
+
+/**
+   A helper class for statistics.
+
+   Throw in a lot of ReviewReports, get out average and rms-estimate
+   for each Criterion involved.
+
+   we use the following formula for rms, when we have n reports, and i
+   always runs over n:
+
+   mean = 1/n \sum_i x_i
+
+   rms  = sqrt((N\sum_i x_i^2 -(\sum_i x_i)^2 )/n) 
+
+   TODO: Currently, we do not care about those priority factors.
+ */
+class MultiMathReporter {
+
+    /** A dummy var that indicates Array of Integer to Collection.toArray*/
+    private static final Integer[] INTARRAY_MOLD=null;
+
+    java.util.Map<String, Collection<Integer>> ratings
+	= new TreeMap<String, Collection<Integer>>();
+    
+    public MultiMathReporter(){;}
+
+    /**
+       put in another ReviewReport that should go into the maths.
+     */
+    public void addReportRatings(ReviewReport rr){
+	for (Rating rat: rr.getRatings()){
+
+	    Criterion crit = rat.getCriterion();
+	    
+	    Collection<Integer> grades = ratings.get(crit.getName());
+	    if (grades==null){
+		grades = new java.util.ArrayList<Integer>();
+	    }
+	    grades.add(rat.getGrade());
+	    ratings.put(crit.getName(), grades);
+	}
+    }
+
+    /**
+       calculate and return all that we know.
+     */
+    public CharSequence toXML(){
+	StringBuilder result = new StringBuilder();
+	result.append("<statistics>");
+	for (String critname: ratings.keySet()){
+	    result.append("<criterion name=\""+critname+"\">");
+	    result.append(XMLHelper.tagged("mean", mean(ratings.get(critname).toArray(INTARRAY_MOLD))));
+	    result.append(XMLHelper.tagged("rms", rms(ratings.get(critname).toArray(INTARRAY_MOLD))));
+	    result.append("</criterion>");
+	}
+	result.append("</criterion>");
+	return result;
+    }
+
+    Double mean(Integer... xs){
+	Double result = 0.0;
+	for (Integer x: xs)
+	    result += x;
+	return result/(1.0*xs.length);
+    }
+
+    Double rms(Integer... xs){
+	Double sqsum = 0.0;
+	Double sum = 0.0;
+	final double N = xs.length;
+	for (Integer x:xs){
+	    sum += x;
+	    sqsum += (x*x);
+	}
+	return Math.sqrt((N*sqsum - sum*sum)/(N*N));
+	
+    }
+
 }

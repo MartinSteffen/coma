@@ -74,8 +74,14 @@ public class XMLHelper {
        The last entry of c must be a StringBuffer. This is an ugly
        hack. "Normative Kraft des Faktischen", anyone?
 
+       2005JAN11 ums: added cast now needed by tagged(Object...)
+       2005JAN11 ums: added big warning so that the fools will maybe not
+                      call this anymore.
+
        @author ums
        @deprecated should not have been used in the first place.
+       Somebody had called this without providing it and commited
+       non-compileable source.
      */
     @Deprecated
     public String addTagged(String tag, CharSequence... c){
@@ -92,7 +98,12 @@ public class XMLHelper {
 	CharSequence[] args = new CharSequence[c.length-1];
 	System.arraycopy(c, 0, args, 0, c.length-1);
 
-	result.append(tagged(tag, args));
+	result.append(tagged(tag, (Object[])args));
+
+	result.append("\n<!-- F I X M E ---DEPRECATED"
+		      +"\nUSE x.append(XMLHelper.tagged(...)) INSTEAD OF XMLHelper.addTagged(...,x)"
+		      +"-->");
+
 	return result.toString();
     }
 
@@ -110,10 +121,12 @@ public class XMLHelper {
 
        Note that several items in one tag will still be seperated by one single space.   
 
-       2004DEC13: would not actually generate &lt;... /&gt; tags.
-       2004DEC13: At request of mti, changed to not provide line breaking or sane spacing.
+       2004DEC13 ums: would not actually generate &lt;... /&gt; tags.
+       2004DEC13 ums: At request of mti, changed to not provide line breaking or sane spacing.
+       
+       2005JAN11 ums: can now take Objects, will call toString if needed.
      */
-    public static StringBuilder tagged(String tagname, CharSequence... content){
+    public static StringBuilder tagged(String tagname, Object... content){
 	StringBuilder result = new StringBuilder();
 
 	if (content == null || content.length==0){
@@ -127,12 +140,16 @@ public class XMLHelper {
 	    assert (content!=null);
 
 	    result.append("<"+tagname+">");
-	    for (CharSequence s: content){
+	    for (Object s: content){
 
 		// however, the content might be long, so we don't risk +.
 		if (s!=null){ // let's not risk anything.
 
-		    result.append(s);
+		    if (!(s instanceof CharSequence)){
+			s = s.toString();
+		    }
+
+		    result.append((CharSequence)s);
 		    result.append(' ');
 		}
 	    }
