@@ -12,7 +12,7 @@
  * @ignore
  */
 define('IN_COMA1', true);
-require_once(INCPATH.'header.inc.php');
+require_once('./include/header.inc.php');
 require_once(INCPATH.'class.distribution.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
