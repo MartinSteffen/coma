@@ -42,8 +42,7 @@ echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br>');
 
 $p = $dbAccess->getPapersOfAuthor(1);
-echo($p);
-if($p != false) {
+if($p) {
   for($i = 0; $i < count($p); $i++) {
     echo('Titel: '.$p->strTitle.', Autor: '.$p->strAuthor.'<br>');
   }
