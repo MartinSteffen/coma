@@ -83,21 +83,37 @@
           		 </xsl:when>
           		 <xsl:otherwise>
           		 	<li><a href="Chair?action=setup&amp;target=conference">conference setup</a></li>
-          		 	<li><a href="Chair?action=show_topics">list of topics</a></li> 
-					<li><a href="Chair?action=invite_person">invite person</a></li> 
-            	 	<li><a href="Chair?action=show_authors">list of authors</a></li> 
- 					<li><a href="Chair?action=show_reviewers">list of reviewers</a></li>
- 					<li><a href="Chair?action=show_papers">list of papers</a></li>
-                                        <li><a href="ShowReports">list of reports </a></li>
- 					<li><a href="AllocatePapers">allocate papers</a></li>
- 					<li><a href="Chair?action=email">email</a></li>
- 					<li><a href="Chair?action=program">create Program</a></li>
+          		 	<li><a href="Chair?action=invite_person">invite person</a></li> 
+          		 	<li><a href="ShowReports">list of reports </a></li>
+ 						<li><a href="AllocatePapers">allocate papers</a></li> 
+          		 	<li><a href="Chair?action=email">email</a></li>
+          		 	<xsl:choose>
+ 							<xsl:when test="//ConfEnd">
+ 					    		<li><a href="Chair?action=programShow">Show Program</a></li>
+ 							</xsl:when>
+ 					 		<xsl:otherwise>
+ 					 			<li><a href="Chair?action=program">Create Program</a></li>
+ 					 		</xsl:otherwise>
+          			</xsl:choose>
+ 					 	<li><a href="Chair?action=list_menu">listings(>)</a></li>
+          		 	<xsl:if test="//list_menu">
+          		 	<li class="left"><a href="Chair?action=show_topics">topics</a></li> 
+          		 	<li class="left"><a href="Chair?action=show_criterions">criterions</a></li> 
+            	 	<li class="left"><a href="Chair?action=show_authors">authors</a></li> 
+ 					 	<li class="left"><a href="Chair?action=show_reviewers">reviewers</a></li>
+ 					 	<li class="left"><a href="Chair?action=show_papers">papers</a></li>
+ 					 	</xsl:if>
           		 </xsl:otherwise>
-          		 </xsl:choose>
-		          
+          		 </xsl:choose>   
  			 	</ul>
           </li>
         </xsl:if>
+        <xsl:if test="//navcolumn//isAdmin">
+        	<li>Admin
+        	<ul><li><a href="Admin?action=setup">add Conference</a></li>
+        	</ul>
+        	</li>
+        	</xsl:if>
         <xsl:if test="//navcolumn//isAuthor">
 			<li>Author
           		<ul>
