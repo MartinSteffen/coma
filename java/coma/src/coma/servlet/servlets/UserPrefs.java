@@ -89,6 +89,7 @@ public class UserPrefs extends HttpServlet {
 		result.append(x.tagged("topics",
 				       Topic.manyToXML(Topic.allTopics(theConference), 
 						       XMLMODE.DEEP)));
+		LOG.log(DEBUG, "Person ID read: "+thePerson.getId());
 		break;
 	    case STATE.WRITE:
 		pagestate.set(STATE.READ);
@@ -107,6 +108,7 @@ public class UserPrefs extends HttpServlet {
 		    }
 
 		    int oldid = thePerson.getId();
+		    LOG.log(DEBUG, "Person ID "+oldid);
 		    thePerson 
 			= new coma.handler.util.EntityCreater().getPerson(request);
 		    thePerson.setId(oldid); // makes us safer against attacks
@@ -153,6 +155,7 @@ public class UserPrefs extends HttpServlet {
 		    result.append(x.tagged("error", exc.toString()));
 		    
 		}
+		LOG.log(DEBUG, "after all", thePerson.toXML(XMLMODE.SHALLOW));
 		result.append(x.tagged("noneditable", thePerson.toXML()));
 	    }
 	}

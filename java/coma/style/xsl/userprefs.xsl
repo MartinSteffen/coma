@@ -231,26 +231,29 @@
     <tr>
       <th>Name:</th>
       <td>
-        <xsl:value-of select="Person/first_name" />
-        <xsl:value-of select="Person/last_name" />, 
-        <xsl:value-of select="Person/title" />
+        <xsl:value-of select="./person/first_name" />&#160;
+        <xsl:value-of select="./person/last_name" />, 
+        <xsl:value-of select="./person/title" />
       </td>
     </tr>
     <tr>
-      <th>with</th><td><xsl:value-of select="Person/affiliation" />,</td>
+      <th>with</th><td><xsl:value-of select="person/affiliation" />,</td>
     </tr>
     <tr>
-      <th>eMail:</th><td><xsl:value-of select="Person/email" /></td>
-      <th>Phone:</th><td><xsl:value-of select="Person/phone_number" /></td>
-      <th>Fax:  </th><td><xsl:value-of select="Person/fax_number" /></td>
+      <th>eMail:</th><td><xsl:value-of select="person/email" /></td>
+    </tr><tr>
+      <th>Phone:</th><td><xsl:value-of select="person/phone_number" /></td>
+    </tr><tr>
+      <th>Fax:  </th><td><xsl:value-of select="person/fax_number" /></td>
+    </tr><tr>
       <th>Postal Address:</th>
       <td>
-        <xsl:value-of select="Person/street" /><br/>
-        <xsl:value-of select="Person/city" /> 
-        <xsl:value-of select="Person/postal_code" /><br />
-        <!-- Person/state: drunk :-D -->
-        <xsl:value-of select="Person/state" /><br />
-        <xsl:value-of select="Person/country" />
+        <xsl:value-of select="person/street" /><br/>
+        <xsl:value-of select="person/city" /> &#160;
+        <xsl:value-of select="person/postal_code" /><br />
+        <!-- person/state: drunk :-D -->
+        <xsl:value-of select="person/state" /><br />
+        <xsl:value-of select="person/country" />
       </td>
     </tr>
   </table>

@@ -99,7 +99,7 @@ public class Author extends HttpServlet {
 				thePapers = (Paper[])mySR.getResultObj();
 				result.append(XMLHelper.tagged("content",mySR.info));
 				for(int i=0;i<thePapers.length; i++)
-					result.append((Paper)thePapers[i].toXML());
+					result.append(thePapers[i].toXML());
 				}
 			
 			
@@ -109,10 +109,11 @@ public class Author extends HttpServlet {
 			}
 				
 				
-			result.append("</success>\n");
+
 			} catch (Exception e) {
 				result.append(XMLHelper.tagged("failed",e.toString()));
 			}
+			result.append("</success>\n");
 		
 			result.append("</showpaper>\n");
     	break;

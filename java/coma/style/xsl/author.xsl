@@ -74,9 +74,10 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			<td>Enter here your Abstract</td>
 			<td>	
 				<textarea class="input-box" name="abstract" cols="50" rows="10" >
-					 <xsl:attribute name="value">
+                                  <!-- <xsl:attribute name="value"> -->
 						 <xsl:value-of select="abstract"/>
-					 </xsl:attribute>
+                                                 <!-- </xsl:attribute> -->
+                                         _
 				 </textarea>
 			</td>
 		</tr>
