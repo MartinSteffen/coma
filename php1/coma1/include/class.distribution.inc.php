@@ -168,7 +168,7 @@ class Distribution extends ErrorHandling {
       $r_id_index[$r_id[$i]] = $i; // wie bei Papern
     }
 
-    //echo('<br>'.count($data).' Reviewers found:');
+    echo('<br>'.count($data).' Reviewers found:');
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
     $initial_matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
@@ -378,7 +378,7 @@ class Distribution extends ErrorHandling {
     // (...)
 
     // Debug: Ausgabe
-    /*for ($i = 0; $i < count($matrix); $i++) {
+    for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
         echo(' '.$matrix[$i][$j]);
@@ -410,7 +410,7 @@ class Distribution extends ErrorHandling {
     echo('<br>NumRevs:');
     print_r($p_num_revs);
     echo('<br>NumPapers:');
-    print_r($r_num_papers);*/
+    print_r($r_num_papers);
 
     // Keine gueltige Verteilung?
     for ($i = 0; $i < count($p_num_revs); $i++) {
