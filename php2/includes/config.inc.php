@@ -2,7 +2,7 @@
 // This is an automatically generated configuration file for CoMa!!
 // Do not change this file manually unless you exactly know what you are doing!
 
-define('COMA_INSTALLED',true);
+define('COMA_INSTALLED',false);
 $dbhost='localhost'; 
 $dbuser='dziuk'; 
 $dbpass='rethbeff6'; 
