@@ -2827,6 +2827,16 @@ nur fuer detaillierte?
         return $this->error('addPaper', $strError);
       }
     }
+    $this->addExcludesPaper($intAuthorId, $intId);
+    if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+      $strError = $this->getLastError();
+      $this->deletePaper($intId);
+      if ($this->failed()) { // Auch dabei ein Fehler? => fatal!
+        return $this->error('addPaper', 'Fatal error: Database inconsistency!',
+                            $this->getLastError()." / $strError");
+      }
+      return $this->error('addPaper', $strError);
+    }
     return $this->success($intId);
   }
 

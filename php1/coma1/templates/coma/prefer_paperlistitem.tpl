@@ -30,7 +30,7 @@
           <span class="attitude-deny">deny</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="3">
           <span class="weak">exclude</span> &nbsp;&nbsp;&nbsp;}
-      {if3<span class="attitude-exclude" align="center">exclude</span>}          
+      {if3<span class="attitude-exclude" align="center">excluded</span>}          
       <!--
       {if3<input type="radio" name="paper-{paper_id}" value="0">
           <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;

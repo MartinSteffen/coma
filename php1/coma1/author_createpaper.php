@@ -86,7 +86,7 @@ if (isset($_POST['action'])) {
       $result = $myDBAccess->addPaper(session('confid'), $objAuthor->intId,
                                       $_POST['title'], $_POST['description'],
                                       $strCoAuthors, $intTopicIds);
-      if (!empty($result)) {
+      if (!empty($result)) {      	
         // Erfolg (kehre zurueck zur Artikelliste)
         $_SESSION['message'] = 'Paper was successfully created. '.
                                'Please upload the document file soon.';
