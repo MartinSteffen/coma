@@ -47,7 +47,18 @@ if (isset($_POST['action'])) {
   }*/
 }
 
-$objPapers = $myDBAccess->getPapersOfConference(session('confid'));
+if (isset($_GET['order'])) {
+  if ((int)session('orderpapers', false) != $_GET['order']) {
+    $_SESSION['orderpapers'] = $_GET['order'];
+  }
+  else {
+    unset($_SESSION['orderpapers']);
+  }
+}
+$intOrder = (int)session('orderpapers', false);
+$ifArray = array($intOrder);
+
+$objPapers = $myDBAccess->getPapersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('gather list of reviews for chair', $myDBAccess->getLastError());
 }
@@ -62,7 +73,8 @@ else if (empty($objConference)) {
 
 $content = new Template(TPLPATH.'chair_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if']    = array();
+$strContentAssocs['if'] = $ifArray;
+$strContentAssocs['targetpage'] = 'chair_reviews.php';
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;

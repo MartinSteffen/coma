@@ -18,12 +18,22 @@
 
 <table class="list">
   <tr class="listheader">
-    <th class="listheader">Title</th>
-    <th class="listheader">Author</th>
-    <th class="listheader">Status</th>
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=1{&SID}" class="order{if1-active}">Title</a>
+    </th>
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=2{&SID}" class="order{if2-active}">Author</a>
+    </th>
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=3{&SID}" class="order{if3-active}">Status</a>
+    </th>
     <th class="listheader">Reviews</th>
-    <th class="listheader">Rating</th>
-    <th class="listheader">Variance</th>
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=4{&SID}" class="order{if4-active}">Rating</a>
+    </th>    
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=6{&SID}" class="order{if6-active}">Ambiguity</a>
+    </th>
     <th class="listheader">Assigned reviewers</th>
    </tr>
    {lines}

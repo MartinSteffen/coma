@@ -18,7 +18,18 @@ require_once('./include/paperdiscussion.inc.php');
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(REVIEWER);
 
-$objPapers = $myDBAccess->getPapersOfReviewer(session('uid'), session('confid'));
+if (isset($_GET['order'])) {
+  if ((int)session('orderpapers', false) != $_GET['order']) {
+    $_SESSION['orderpapers'] = $_GET['order'];
+  }
+  else {
+    unset($_SESSION['orderpapers']);
+  }
+}
+$intOrder = (int)session('orderpapers', false);
+$ifArray = array($intOrder);
+
+$objPapers = $myDBAccess->getPapersOfReviewer(session('uid'), session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('gather list of reviews for reviewer', $myDBAccess->getLastError());
 }
@@ -41,6 +52,8 @@ if (isset($_GET['createforum'])) {
 
 $content = new Template(TPLPATH.'reviewer_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['if'] = $ifArray;
+$strContentAssocs['targetpage'] = 'reviewer_reviews.php';
 $strContentAssocs['lines'] = '';
 // Liste der Reviews erzeugen
 if (!empty($objPapers)) {
