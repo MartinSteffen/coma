@@ -1179,7 +1179,6 @@ nur fuer detaillierte?
         "         conference_end = '$objConferenceDetailed->strEnd',".
         "         min_reviews_per_paper = '$objConferenceDetailed->intMinReviewsPerPaper'".
         " WHERE   id = '$objConferenceDetailed->intId'";
-    echo("<br>$s<br>");
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
@@ -1195,7 +1194,7 @@ nur fuer detaillierte?
                     $this->booleanToDatabase($objConferenceDetailed->blnAutoOpenPaperForum)."',".
         "         auto_add_reviewers = '".
                     $this->booleanToDatabase($objConferenceDetailed->blnAutoAddReviewers)."',".
-        "         number_of_auto_add_reviewers = ".
+        "         number_of_auto_add_reviewers = '".
         "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
         " WHERE   id = '$objConferenceDetailed->intId'";
     echo("<br>$s<br>");
