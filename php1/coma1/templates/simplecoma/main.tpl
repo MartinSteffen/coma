@@ -21,7 +21,8 @@
      <td width="100">&nbsp;</td>
      <td height="32" align="right" valign="top">
       <a href="#">Impressum</a>&nbsp;|&nbsp;
-      <a href="{basepath}logout.php{SID}">Logout</a>&nbsp;|&nbsp;
+      <a href="#">Forum</a>&nbsp;|&nbsp;
+      <a href="{basepath}logout.php{SID}">Logout</a>&nbsp;&nbsp;
      </td>
      <td width="50" align="center" valign="top">
       <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a>
