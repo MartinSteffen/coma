@@ -93,9 +93,9 @@ if (isset($_POST['email'])){
       $strContentAssocs['country'] = encodeText($objPerson->getCountry());
       $mailRegistered = new Template(TPLPATH.'mail_registered.tpl');
       $strMailAssocs = defaultAssocArray();
-      $strMailAssocs['email'] = encodeText($_POST['email']);
-      $strMailAssocs['password'] = encodeText($_POST['user_password']);
-      $strMailAssocs['name'] = encodeText($objPerson->getName(2));
+      $strMailAssocs['email'] = $_POST['email'];
+      $strMailAssocs['password'] = $_POST['user_password'];
+      $strMailAssocs['name'] = $objPerson->getName(2);
       $mailRegistered->assign($strMailAssocs);
       $mailRegistered->parse();
       sendMail($result, 'Welcome to CoMa', $mailRegistered->getOutput());

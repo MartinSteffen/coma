@@ -7,7 +7,7 @@
      1. den Namen und die Anschrift, unter der Telediensteanbieter niedergelassen sind,
          bei juristischen Personen zus&auml;tzlich den Vertretungsberechtigten,<br>
      2. Angaben, die eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation
-        mit ihnen ermöglichen, einschließlich der E-Mail-Adresse,
+        mit ihnen erm&ouml;glichen, einschließlich der E-Mail-Adresse,
      <br>&nbsp;<br>
      Denke das reicht, aber <a href="http://www.domain-recht.de/magazin/article.php?id=96" class="link" target="_blank">hier gucken</a>
      <br>&nbsp;<br>

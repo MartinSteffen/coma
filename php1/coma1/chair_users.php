@@ -48,10 +48,10 @@ if (isset($_POST['action'])) {
       error('Error retrieving conference data', $myDBAccess->getLastError());
     }
     $strMailAssocs = defaultAssocArray();
-    $strMailAssocs['chair'] = encodeText($objPerson->getName(2));
-    $strMailAssocs['name'] = encodeText($objPerson->getName(2));
-    $strMailAssocs['conference'] = encodeText($objConference->strName);
-    $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
+    $strMailAssocs['chair'] = $objPerson->getName(2);
+    $strMailAssocs['name'] = $objPerson->getName(2);
+    $strMailAssocs['conference'] = $objConference->strName;
+    $strMailAssocs['role'] = $strRoles[$intRoleType];
 
     // Benutzerrolle bearbeiten
     if ($_POST['submit'] == 'add') {
