@@ -1,5 +1,5 @@
 /* Allgemeine Styles */
-body, table, td, tr, div, p, pre, h1, h2, h3, h4, ul {
+body, table, th, td, tr, div, p, pre, h1, h2, h3, ul, textarea, input, button {
   font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif;
 }
 body, p, pre, ul {

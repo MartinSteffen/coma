@@ -20,7 +20,7 @@
       Description:
     </td>
     <td>
-      <textarea name="description" rows="4" cols="48" value="{description}"/ >
+      <textarea name="description" rows="4" cols="48">{description}</textarea>
     </td>
   </tr>
   <tr>
