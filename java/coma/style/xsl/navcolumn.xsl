@@ -62,6 +62,8 @@
 
       <!-- any proper content based on the user's role. -->
       <xsl:otherwise>
+        Hello, <xsl:value-of select="//navcolumn//Person/first_name" />&#160;
+      <xsl:value-of select="//navcolumn//Person/last_name" />!
         <li>User
         <ul>
         	<!-- logout button -->

@@ -102,6 +102,7 @@ public class Navcolumn {
 			result.append(extraData);
 	    result.append(tagged("noUser"));
 	} else {
+	    result.append(p.toXML(XMLMODE.SHALLOW));
 	    if (p.isChair())
 		result.append(tagged("isChair"));
 	    if (p.isAuthor())
