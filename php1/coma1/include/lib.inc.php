@@ -216,4 +216,17 @@ function s2db($strSql) {
   return $strSql;
 }
 
+/**
+ * Liefert ein anch $format formatiertes Datum zurueck.
+ *
+ * @param string $str das Datum
+ * @param string $format Formatierung (siehe date)
+ * @return string das formatierte Datum
+ * @author Jan (24.01.05)
+ * @access protected
+ */
+function emptytime($str, $format='M d, Y') {
+  return empty($str) ? '' : date($format, $str);
+}
+
 ?>

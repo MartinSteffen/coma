@@ -196,6 +196,8 @@ class DBAccess extends ErrorHandling {
     }
     $objConferences = array();
     for ($i = 0; $i < count($data); $i++) {
+      $data[$i]['conference_start'] = emptytime(strtotime($data[$i]['conference_start']));
+      $data[$i]['conference_end'] = emptytime(strtotime($data[$i]['conference_end']));
       $objConferences[] = (new Conference($data[$i]['id'], $data[$i]['name'],
                             $data[$i]['homepage'], $data[$i]['description'],
                             $data[$i]['conference_start'], $data[$i]['conference_end']));
@@ -240,6 +242,13 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getConferenceDetailed', $this->getLastError());
     }
+    $data[0]['conference_start'] = emptytime(strtotime($data[$i]['conference_start']));
+    $data[0]['conference_end'] = emptytime(strtotime($data[$i]['conference_end']));
+    $data[0]['abstract_submission_deadline'] = emptytime(strtotime($data[$i]['abstract_submission_deadline']));
+    $data[0]['paper_submission_deadline'] = emptytime(strtotime($data[$i]['paper_submission_deadline']));
+    $data[0]['review_deadline'] = emptytime(strtotime($data[$i]['review_deadline']));
+    $data[0]['final_version_deadline'] = emptytime(strtotime($data[$i]['final_version_deadline']));
+    $data[0]['notification'] = emptytime(strtotime($data[$i]['notification']));
     $objConferenceDetailed =
       new ConferenceDetailed($data[0]['id'], $data[0]['name'],
                              $data[0]['homepage'], $data[0]['description'],

@@ -18,10 +18,6 @@ $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 
-function emptytime($str, $format='M d, Y') {
-  return empty($str) ? '' : date($format, $str);
-}
-
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 // siehe von der Struktur her main_profile.php
 if (isset($_POST['action'])) {
