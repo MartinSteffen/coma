@@ -160,7 +160,7 @@ input, textarea, button {
   padding: 2px 4px;  
 }
 input.button, button {
-  font-family: Verdana, Arial, Sans-Serif;
+  /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
   background-color: #CEDBEF;
   min-width: 100px;
