@@ -3,9 +3,9 @@
     {special}<br>
     <h3>Chapter {chapter-no}: {chapter-title}</h3><br>
     {related-topics}
-    <table>
-      {related-link}
-    </table>
+    <table><tr><td>
+      {related-link}&nbsp;
+    </td></tr></table>
     <p>
     {content}
     </p>
