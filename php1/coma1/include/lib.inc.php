@@ -259,7 +259,7 @@ $CHRONO_STARTTIME = 0;
 function chronometer()
 {
   global $CHRONO_STARTTIME;
-  $now = (float) array_sum(explode(' ', microtime());  // float, in _seconds_
+  $now = (float) array_sum(explode(' ', microtime()));
   
   if ($CHRONO_STARTTIME > 0)
   {
