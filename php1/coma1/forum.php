@@ -361,11 +361,9 @@ function generatePostMethodArray($strArrayPostvars){
       $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], session('uid'), $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
     }
     //einen Beitrag updaten
-    /*
     if (($strArrayPvars['posttype'] == 'update') && (!empty($strArrayPvars['reply-to'])) && (!empty($strArrayPvars['subject'])) && (!empty($strArrayPvars['text']))){
       $intPostresult = $myDBAccess->updateMessage(new Message($strArrayPvars['reply-to'], session('uid'), '', $strArrayPvars['subject'], $strArrayPvars['text'], null));
     }
-    */
     //einen neuen Thread starten
     if (($strArrayPvars['posttype'] == 'newthread') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid']))){
       $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], session('uid'), $strArrayPvars['forumid']);
