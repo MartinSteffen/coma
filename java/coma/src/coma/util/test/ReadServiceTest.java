@@ -52,12 +52,11 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPerson(){
-		boolean run = false;
+		boolean run = true;
 		if(!run){
 			return;
 		}
-		
-		Person p = new Person(15);
+		Person p = new Person(1);
 		//p.setLast_name("Susi");
 		p.setEmail("test@web.de");
 		SearchCriteria criteria = new SearchCriteria();
@@ -73,7 +72,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPersonByRole(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}

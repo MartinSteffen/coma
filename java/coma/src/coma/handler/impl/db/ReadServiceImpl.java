@@ -73,7 +73,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean nameFlage = false;
 		boolean firstNameFlag = false;
 		boolean stateFlag = false;
-		boolean roleFlag = false;
 
 		if (p.getId() >= 0) {
 			QUERY += " id = ?";
@@ -110,7 +109,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
-		if (!(idFlag || roleFlag || emailFlag || stateFlag || nameFlage || firstNameFlag)) {
+		if (!(idFlag || emailFlag || stateFlag || nameFlage || firstNameFlag)) {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
@@ -136,16 +135,11 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (stateFlag) {
 						pstmt.setString(++pstmtCounter, p.getState());
 					}
-					// TODO
-					// if (roleFlag) {
-					// pstmt.setInt(++pstmtCounter, p.getRole_type());
-					// }
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
 					while (resSet.next()) {
-						Person person = eCreater.getPerson(resSet);
-						ll.add(person);
+						ll.add(eCreater.getPerson(resSet));
 					}
 					resSet.close();
 					resSet = null;
@@ -196,7 +190,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 				QUERY += ") AND Person.id = Role.person_id"
 						+ " AND Role.conference_id = " + conference_id;
-				System.out.println(QUERY);
 				Statement stmt;
 				try {
 					EntityCreater eCreater = new EntityCreater();
@@ -263,10 +256,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Conference> ll = new LinkedList<Conference>();
 					EntityCreater eCreater = new EntityCreater();
-
 					while (resSet.next()) {
-						Conference conf = eCreater.getConference(resSet);
-						ll.add(conf);
+						ll.add(eCreater.getConference(resSet));
 					}
 					resSet.close();
 					resSet = null;
@@ -393,8 +384,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
-						Paper paper = eCreater.getPaper(resSet);
-						ll.add(paper);
+						ll.add(eCreater.getPaper(resSet));
 					}
 					resSet.close();
 					resSet = null;
@@ -492,8 +482,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
-						ReviewReport rep = eCreater.getReviewReport(resSet);
-						ll.add(rep);
+						ll.add(eCreater.getReviewReport(resSet));
 					}
 					resSet.close();
 					resSet = null;
@@ -577,8 +566,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
-						Rating rat = eCreater.getRating(resSet);
-						ll.add(rat);
+						ll.add(eCreater.getRating(resSet));
 					}
 					resSet.close();
 					resSet = null;
@@ -662,8 +650,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
-						Criterion crit = eCreater.getCriterion(resSet);
-						ll.add(crit);
+						ll.add(eCreater.getCriterion(resSet));
 					}
 					resSet.close();
 					resSet = null;
@@ -737,7 +724,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					pstmt = null;
 					roles = new int[ll.size()];
 					for (int i = 0; i < roles.length; i++) {
-						roles[i] = (Integer) ll.get(i);
+						roles[i] = ll.get(i);
 					}
 				} else {
 					info.append("ERROR: coma could not establish a "
@@ -919,7 +906,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					pstmt = null;
 					paper_ids = new int[ll.size()];
 					for (int i = 0; i < paper_ids.length; i++) {
-						paper_ids[i] = (Integer) ll.get(i);
+						paper_ids[i] = ll.get(i);
 					}
 				} else {
 					info.append("ERROR: coma could not establish a "
@@ -978,7 +965,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					pstmt = null;
 					paper_ids = new int[ll.size()];
 					for (int i = 0; i < paper_ids.length; i++) {
-						paper_ids[i] = (Integer) ll.get(i);
+						paper_ids[i] = ll.get(i);
 					}
 				} else {
 					info.append("ERROR: coma could not establish a "
