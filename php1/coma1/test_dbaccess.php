@@ -23,7 +23,7 @@ function bit($b) {
   echo('<br>');
   return true;
 }
-
+/*
 $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -48,7 +48,7 @@ if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 echo('OK');
-
+*/
 /*$id = $myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
                            '', '', '', '', '', '', '', '', '');
 if ($myDBAccess->failed()) {
