@@ -86,7 +86,7 @@
   <tr>
     <td>Upload new document:</td>
     <td colspan="2">
-      <input type="file"   name="binFile" maxlength="2097152" accept="*">
+      <input type="file"   name="binFile">
       <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
       <input type="submit" name="upload" value="Upload" class="button">
     </td>
