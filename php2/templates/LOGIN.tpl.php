@@ -16,7 +16,7 @@ $message = $TPL['login'];
     <td>&nbsp;</td>
   </tr>
   <tr> 
-    <td class="textBold">Login to Comma.</td>
+    <td class="textBold">Login to Coma.</td>
   </tr>
   <tr> 
     <td>&nbsp;</td>
