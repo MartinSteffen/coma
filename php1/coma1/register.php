@@ -61,7 +61,8 @@ if (isset($_POST['email'])){
     
      if (empty($result)) {
        $strContentAssocs = defaultAssocArray();  
-       $strMessage = 'Es ist ein Fehler beim'; 
+       $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten.<br>'.
+                     'Bitte versuchen Sie erneut, sich zu registrieren.'; 
        $confirmFailed = true;
      }
      else {

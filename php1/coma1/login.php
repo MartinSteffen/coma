@@ -15,11 +15,14 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   if (isset($_POST['user_name']) && isset($_POST['user_password']) &&
       !empty($_POST['user_name']) && !empty($_POST['user_password'])) {
     $_SESSION['uname'] = $_POST['user_name'];  
-    $_SESSION['password'] = sha1($_POST['user_password']); 
+    $_SESSION['password'] = sha1($_POST['user_password']);     
     if ($myDBAccess->checkLogin()) {
+      $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail($_SESSION['uname']);
       redirect('main_start.php');
     }
     else {
+      unset($_SESSION['uname']);
+      unset($_SESSION['password']);
       $_SESSION['message'] = 'Falscher Benutzername oder Passwort!';
     }
   }
