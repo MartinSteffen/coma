@@ -249,22 +249,6 @@ table.formlist {}
 }
 
 /* Schaltflaechen und Eingabefelder */
-input, textarea, button
-{
-  /*font-family: Arial, Helvetica, Sans-Serif;*/
-  font-size: 12px;
-  background-color: #F7FBFF;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #404040;
-  margin: 1px 4px;
-  padding: 2px 4px;
-}
-textarea
-{
-  font-family: Arial, Sans-Serif;
-  font-size: 11px;
-}
 .button
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
@@ -292,6 +276,22 @@ textarea
   min-width: 120px;
   text-align: center;
   padding: 2px 8px;
+}
+input, textarea, button
+{
+  /*font-family: Arial, Helvetica, Sans-Serif;*/
+  font-size: 12px;
+  background-color: #F7FBFF;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #404040;
+  margin: 1px 4px;
+  padding: 2px 4px;
+}
+textarea
+{
+  font-family: Arial, Sans-Serif;
+  font-size: 11px;
 }
 
 /* Tabelle zur Darstellung von Listen */
