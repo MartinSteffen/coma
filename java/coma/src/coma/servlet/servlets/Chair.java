@@ -18,12 +18,12 @@ import javax.sql.DataSource;
 import javax.xml.transform.stream.StreamSource;
 import coma.servlet.util.XMLHelper;
 import coma.servlet.util.*;
+import java.util.*;
 import coma.entities.*;
 import coma.handler.impl.db.*;
 import coma.handler.impl.db.InsertServiceImpl;
 //import coma.handler.db.*;
 
-import java.util.Date;
 //import coma.entities.*;
 
 //import org.apache.catalina.realm.RealmBase;
@@ -164,12 +164,12 @@ public class Chair extends HttpServlet
 		else 
 		{
 		    info.delete(0,info.length());
-			result.delete(0,result.length());
+		    info.append("<content>");
 			helper.tagged("first",formular[0],info);
 			helper.tagged("last",formular[1],info);
 			helper.tagged("email",formular[2],info);
+			info.append("</content>");
 			helper.tagged("status","" + user + ": you have to fill out all *-fields",info);
-			helper.tagged("content",info.toString(),info);
 			String tag = "invite";
 			commit(res,tag);
 		}
@@ -177,68 +177,121 @@ public class Chair extends HttpServlet
 	
 	public void setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		helper.tagged("status","" + user + ": Setup the conference",info);
-		helper.tagged("content","",info);
-		helper.tagged("setup",info.toString(),info);
-		String tag = "setup";
-		commit(res,tag);
-	}
-
-	public void send_setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
-	{ 
-	    Conference c = new Conference(1);
+		Conference c = new Conference(1);
 	    ReadServiceImpl readService = new ReadServiceImpl();
 	    SearchCriteria search = new SearchCriteria();
 	    search.setConference(c);
 	    SearchResult search_result = readService.getConference(search);
-	    if (search_result.getResultObj()==null)
+	    Conference[] result = (Conference[])search_result.getResultObj();
+	    if (result==null || result.length==0)
 	    {
-	    	Date d = null;
-	    	String tag = "setup";
-			String[] formular = new String[] {req.getParameter("conference name"),req.getParameter("homepage"),
-			req.getParameter("min_reviewers"),req.getParameter("start_day"),req.getParameter("start_month"),
-			req.getParameter("start_year"),req.getParameter("end_day"),
-			req.getParameter("end_month"),req.getParameter("end_year"),
-			req.getParameter("abstract"),req.getParameter("final"),req.getParameter("paper"),
-			req.getParameter("review")};
-		    FormularChecker checker = new FormularChecker(formular);
-			if (checker.check())
-			{
-			    /*
-			     * FIXME Insert Conference in Database, problem with Date
-			     */
-			    c = new Conference(-1);
-			    c.setName(req.getParameter("conference name"));
-			    c.setHomepage(req.getParameter("Homepage"));
-			    c.setDescription(req.getParameter("description"));
-			    /*d = new Date();
-			    d.setDate(Integer.parseInt(req.getParameter("start_day")));
-			    d.setMonth(Integer.parseInt(req.getParameter("start_month")));
-			    d.setYear(Integer.parseInt(req.getParameter("start_year")));
-			    c.setConference_start(d);
-			    d = new Date();
-			    d.setTime();
-			    d.setDate(Integer.parseInt(req.getParameter("end_day")));
-			    d.setMonth(Integer.parseInt(req.getParameter("end_month")));
-			    d.setYear(Integer.parseInt(req.getParameter("end_year")));
-			    c.setConference_end(d);*/
-			    InsertServiceImpl insert = new InsertServiceImpl();
-			    insert.insertConference(c);
-				helper.tagged("status","" + user + ": Congratulations you have setup a new conference",info);
-				helper.tagged("content","",info);
-				commit(res,tag);
-			}
-			else
-			{
-			    helper.tagged("status","" + user + ": please fill out all *-fields",info);
-				helper.tagged("content","",info);
-				commit(res,tag);
-			}
+	    String tag = "setup_new";
+		helper.tagged("status","" + user + ": Setup a new conference",info);
+		helper.tagged("content","",info);
+		commit(res,tag);
 	    }
 	    else
 	    {
-	    	
+	    	c = result[0];
+	    	String tag = "setup";
+			helper.tagged("status","" + user + ": there is a conference: "+c.getName(),info);
+			info.append("<content>");
+			helper.tagged("name",c.getName(),info);
+			helper.tagged("home",c.getHomepage(),info);
+			helper.tagged("desc",c.getDescription(),info);
+			helper.tagged("start",c.getConference_start().toString(),info);
+			helper.tagged("end",c.getConference_end().toString(),info);
+			helper.tagged("abstract",c.getAbstract_submission_deadline().toString(),info);
+			helper.tagged("paper",c.getPaper_submission_deadline().toString(),info);
+			helper.tagged("final",c.getFinal_version_deadline().toString(),info);
+			helper.tagged("review",c.getReview_deadline().toString(),info);
+			helper.tagged("not",c.getNotification().toString(),info);
+			helper.tagged("min",String.valueOf(c.getMin_review_per_paper()),info);
+			info.append("</content>");
+			commit(res,tag);
 	    }
+	}
+
+	public void send_setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	{ 
+    	String tag = "setup";
+		GregorianCalendar calendar = null;
+		String[] formular = new String[] {req.getParameter("conference name"),req.getParameter("homepage"),
+		req.getParameter("start_year"),req.getParameter("start_month"),req.getParameter("start_day"),
+		req.getParameter("end_year"),req.getParameter("end_month"),req.getParameter("end_day"),
+		req.getParameter("abstract_year"),req.getParameter("abstract_month"),req.getParameter("abstract_day"),
+		req.getParameter("paper_year"),req.getParameter("paper_month"),req.getParameter("paper_day"),
+		req.getParameter("final_year"),req.getParameter("final_month"),req.getParameter("final_day"),
+		req.getParameter("review_year"),req.getParameter("review_month"),req.getParameter("review_day"),
+		req.getParameter("not_year"),req.getParameter("not_month"),req.getParameter("not_day"),
+		req.getParameter("min_reviewers")};
+	    FormularChecker checker = new FormularChecker(formular);
+		if (checker.check())
+		{
+		    Conference c = new Conference(-1);
+		    c.setName(req.getParameter("conference name"));
+		    c.setHomepage(req.getParameter("homepage"));
+		    c.setDescription(req.getParameter("description"));
+		    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("start_year")),
+		    		Integer.parseInt(req.getParameter("start_month"))-1,Integer.parseInt(req.getParameter("start_day")));
+		    c.setConference_start(calendar.getTime());
+		    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("end_year")),
+		    		Integer.parseInt(req.getParameter("end_month"))-1,Integer.parseInt(req.getParameter("end_day")));
+		    c.setConference_end(calendar.getTime());
+		    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("abstract_year")),
+		    		Integer.parseInt(req.getParameter("abstract_month"))-1,Integer.parseInt(req.getParameter("abstract_day")));
+		    c.setAbstract_submission_deadline(calendar.getTime());
+		    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("final_year")),
+		    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
+		    c.setFinal_version_deadline(calendar.getTime());
+		    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
+		    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
+		    c.setPaper_submission_deadline(calendar.getTime());
+		    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
+		    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
+		    c.setReview_deadline(calendar.getTime());
+		    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
+		    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
+		    c.setNotification(calendar.getTime());
+		    c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min_reviewers")));
+		    InsertServiceImpl insert = new InsertServiceImpl();
+		    insert.insertConference(c);
+			helper.tagged("status","" + user + ": Congratulations you have setup the conference: "+ req.getParameter("conference name"),info);
+			helper.tagged("content","",info);
+			commit(res,tag);
+		}
+		else
+		{
+			info.delete(0,info.length());
+			info.append("<content>");
+			helper.tagged("name",formular[0],info);
+			helper.tagged("home",formular[1],info);
+			helper.tagged("start_year",formular[2],info);
+			helper.tagged("start_month",formular[3],info);
+			helper.tagged("start_day",formular[4],info);
+			helper.tagged("end_year",formular[5],info);
+			helper.tagged("end_month",formular[6],info);
+			helper.tagged("end_day",formular[7],info);
+			helper.tagged("abstract_year",formular[8],info);
+			helper.tagged("abstract_month",formular[9],info);
+			helper.tagged("abstract_day",formular[10],info);
+			helper.tagged("paper_year",formular[11],info);
+			helper.tagged("paper_month",formular[12],info);
+			helper.tagged("paper_day",formular[13],info);
+			helper.tagged("final_year",formular[14],info);
+			helper.tagged("final_month",formular[15],info);
+			helper.tagged("final_day",formular[16],info);
+			helper.tagged("review_year",formular[17],info);
+			helper.tagged("review_month",formular[18],info);
+			helper.tagged("review_day",formular[19],info);
+			helper.tagged("not_year",formular[20],info);
+			helper.tagged("not_month",formular[21],info);
+			helper.tagged("not_day",formular[22],info);
+			helper.tagged("min",formular[23],info);
+			info.append("</content>");
+			helper.tagged("status","" + user + ": please fill out all *-fields",info);
+			commit(res,tag);
+		} 
 	}
 	
 	public void show_authors(HttpServletRequest req,HttpServletResponse res,HttpSession session)
@@ -380,9 +433,9 @@ public class Chair extends HttpServlet
 		if(!SENDED || !VALID)
 		{
 			if(VALID && !SENDED)
-				helper.addTagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN",info);
+				helper.tagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN",info);
 			if(!VALID)
-				helper.addTagged("status","ENTER A VALID EMAIL ADDRESS",info);
+				helper.tagged("status","ENTER A VALID EMAIL ADDRESS",info);
 			helper.tagged("subj",formular[1],info);
 			helper.tagged("recv",formular[0],info);
 			helper.tagged("cont",formular[2],info);
@@ -405,6 +458,7 @@ public class Chair extends HttpServlet
 			result.append("</" +tag + ">\n");
 			result.append("</result>\n");
 			String xslt = path + "/style/xsl/chair.xsl";
+			System.out.println(result);
 		    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);
 			XMLHelper.process(xmlSource, xsltSource, out);
