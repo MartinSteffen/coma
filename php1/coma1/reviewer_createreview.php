@@ -119,9 +119,9 @@ $strContentAssocs['title']        = encodeText($objPaper->strTitle);
 $strContentAssocs['author_id']    = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name']  = encodeText($objPaper->strAuthor);
 $strContentAssocs['rating']       = encodeText(round($fltRating * 100));
-$strContentAssocs['summary']      = encodeText($strSummary);
-$strContentAssocs['confidential'] = encodeText($strConfidential);
-$strContentAssocs['remarks']      = encodeText($strRemarks);
+$strContentAssocs['summary']      = encodeText($strSummary, false);
+$strContentAssocs['confidential'] = encodeText($strConfidential, false);
+$strContentAssocs['remarks']      = encodeText($strRemarks, false);
 $strContentAssocs['crit_lines']   = '';
 for ($i = 0; $i < count($objCriterions); $i++) {
   $critForm = new Template(TPLPATH.'review_critlistitem.tpl');
@@ -132,7 +132,7 @@ for ($i = 0; $i < count($objCriterions); $i++) {
   $strCritAssocs['crit_descr'] = encodeText($objCriterions[$i]->strDescription);
   $strCritAssocs['crit_max']   = encodeText($objCriterions[$i]->intMaxValue);
   $strCritAssocs['rating']     = encodeText($intRatings[$i]);
-  $strCritAssocs['comment']    = encodeText($strComments[$i]);
+  $strCritAssocs['comment']    = encodeText($strComments[$i], false);
   if ($intRatings[$i] < 0 ||
       $intRatings[$i] > $objCriterions[$i]->intMaxValue) {
     $strCritAssocs['if'] = array(1);

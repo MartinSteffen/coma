@@ -137,7 +137,7 @@ if (isset($_POST['action'])) {
 $strContentAssocs['targetpage']     = 'author_editpaper.php';
 $strContentAssocs['paper_id']       = encodeText($objPaper->intId);
 $strContentAssocs['title']          = encodeText($objPaper->strTitle);
-$strContentAssocs['abstract']       = encodeText($objPaper->strAbstract);
+$strContentAssocs['abstract']       = encodeText($objPaper->strAbstract, false);
 $strContentAssocs['author_id']      = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name']    = encodeText($objPaper->strAuthor);
 $strContentAssocs['avg_rating']     = encodeText(round($objPaper->fltAvgRating * 10) / 10);

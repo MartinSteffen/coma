@@ -37,7 +37,7 @@ $strContentAssocs = defaultAssocArray();
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 if (isset($_POST['action'])) {
   $strContentAssocs['title']       = encodeText($_POST['title']);
-  $strContentAssocs['abstract']    = encodeText($_POST['description']);
+  $strContentAssocs['abstract']    = encodeText($_POST['description'], false);
   $strContentAssocs['author_name'] = encodeText($objAuthor->getName());
   $intCoAuthorNum = $_POST['coauthors_num'];
   $strCoAuthors = array();

@@ -41,7 +41,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
   $auto_numrev = (int) $_POST['auto_numreviewer'];
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
-  $strContentAssocs['description']      = encodeText($_POST['description']);
+  $strContentAssocs['description']      = encodeText($_POST['description'], false);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
   $strContentAssocs['start_date']       = encodeText(emptytime($start_date));
   $strContentAssocs['end_date']         = encodeText(emptytime($end_date));
