@@ -305,8 +305,7 @@ function generatePostMethodArray($strArrayPostvars){
     if (($strArrayPvars['posttype'] == 'reply') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid'])) && (!empty($strArrayPvars['reply-to']))){
       $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
     }
-    // TODO
-    //einen Beitrag updaten - DBAccess Methode dazu fehlt noch
+    /** @TODO einen Beitrag updaten - DBAccess Methode dazu fehlt noch*/
     //if (($strArrayPvars['posttype'] == 'update') && (!empty($strArrayPvars['reply-to'])) && (!empty($strArrayPvars['subject'])) && (!empty($strArrayPvars['text']))){
     //  $intPostresult = $myDBAccess->updateMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
     //}

@@ -3,7 +3,6 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
- * @todo Passwort aendern... (neues Formular?)
  */
 /***/
 
