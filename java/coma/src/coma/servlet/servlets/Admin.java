@@ -1,9 +1,4 @@
-/*
- * Created on 21.01.2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package coma.servlet.servlets;
 
 import java.io.IOException;
@@ -19,6 +14,8 @@ import javax.xml.transform.stream.StreamSource;
 import coma.handler.impl.db.*;
 import coma.entities.Person;
 import coma.entities.Conference;
+import coma.entities.SearchCriteria;
+import coma.entities.SearchResult;
 import coma.servlet.util.FormularChecker;
 import coma.servlet.util.Navcolumn;
 import coma.servlet.util.SMTPClient;
@@ -53,6 +50,7 @@ public class Admin extends HttpServlet
 		path = getServletContext().getRealPath("");
 		Person p = (Person)session.getAttribute(SessionAttribs.PERSON);
 		myNavCol = new Navcolumn(req.getSession(true));
+		myNavCol.addExtraData("<isAdmin/>");
 		if (action.equals("setup"))
 		{
 			String tag="setup";
@@ -73,19 +71,50 @@ public class Admin extends HttpServlet
 
 	private void add_conference(HttpServletRequest req, HttpServletResponse res,HttpSession session)
 	{
-		String tag = "setup_complete";
-		String email = req.getParameter("email");
-		String password = req.getParameter("passwd");
-		Person p = new Person(-1);
-		p.setEmail(email);
-		p.setPassword(password);
-		Conference c = new Conference();
-		c.setName(email);
-		InsertServiceImpl insert = new InsertServiceImpl();
-		insert.insertConference(c);
-		insert.insertPerson(p);
-		info.append(XMLHelper.tagged("status","Setup successful"));
-		send_email(email);
+		String tag;
+		String[] formular=new String[] {req.getParameter("last_name"),req.getParameter("first_name"),
+				req.getParameter("email"),req.getParameter("passwd")};
+		FormularChecker checker = new FormularChecker(formular);
+		if(checker.check())
+		{
+			tag = "setup_complete";
+			String email = req.getParameter("email");
+			String last_name = req.getParameter("last_name");
+			String first_name = req.getParameter("first_name");
+			String password = req.getParameter("passwd");
+			Person p = new Person(-1);
+			p.setEmail(email);
+			p.setPassword(password);
+			p.setLast_name(last_name);
+			p.setFirst_name(first_name);
+			p.setRole_type(2);
+			Conference c = new Conference();
+			c.setName(email);
+			InsertServiceImpl insert = new InsertServiceImpl();
+			insert.insertConference(c);
+			ReadServiceImpl read = new ReadServiceImpl();
+			SearchCriteria search = new SearchCriteria();
+			search.setConference(c);
+			SearchResult result = read.getConference(search);
+			Conference[] result_conference= (Conference[])result.getResultObj();
+			int id = result_conference[0].getId();
+			p.setConference_id(id);
+			insert.insertPerson(p);
+			info.append(XMLHelper.tagged("status","Setup successful"));
+			info.append(XMLHelper.tagged("status",""));
+			//send_email(email);
+		}
+		else
+		{
+			tag = "setup";
+			info.append(XMLHelper.tagged("status","Please fill out all fields"));
+			info.append("<content>");
+			info.append(XMLHelper.tagged("last_name",formular[0]));
+			info.append(XMLHelper.tagged("first_name",formular[1]));
+			info.append(XMLHelper.tagged("email",formular[2]));
+			info.append(XMLHelper.tagged("passwd",formular[3]));
+			info.append("</content>");
+		}
 		commit(res,tag);
 	}
 	
