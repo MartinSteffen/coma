@@ -72,8 +72,7 @@ Frisch geSAEte Neuerungen vom 19.01.:
 
 ============================================================================= */
 
-require_once(INCPATH.'header.inc.php');
-
+require_once(INCPATH.'lib.inc.php');
 require_once(INCPATH.'class.mysql.inc.php');
 
 require_once(INCPATH.'class.conference.inc.php');
