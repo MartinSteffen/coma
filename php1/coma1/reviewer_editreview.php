@@ -30,9 +30,9 @@ else if (empty($objReview)) {
 $content = new Template(TPLPATH.'reviewer_editreview.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['review_id'] = encodeText($intReviewId);
-$strContentAssocs['paper_id'] = encodeText($objReview->strPaperId);
+$strContentAssocs['paper_id'] = encodeText($objReview->intPaperId);
 $strContentAssocs['title'] = encodeText($objReview->strPaperTitle);
-$strContentAssocs['author_id'] = encodeText($objReview->strAuthorId);
+$strContentAssocs['author_id'] = encodeText($objReview->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objReview->strAuthorName);
 $strContentAssocs['summary'] = encodeText($objReview->strSummary);
 $strContentAssocs['confidential'] = encodeText($objReview->strConfidential);

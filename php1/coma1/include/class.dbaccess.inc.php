@@ -1091,12 +1091,12 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
-    $fltAvgRating = $this->getAverageRatingOfPaper($paper_data[0]['id']);
+    $fltAvgRating = $this->getAverageRatingOfPaper($data[0]['paper_id']);
     if ($this->failed()) {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
-                   $paper_data[0]['title'], $objAuthor->intId, $objAuthor->getName(),
+                   $objPaper->strTitle, $objAuthor->intId, $objAuthor->getName(),
                    $objReviewRating, $fltAvgRating, $objReviewer->strEmail,
                    $objReviewer->getName(), $data[0]['summary'], $data[0]['remarks'],
                    $data[0]['confidential'], $intRatings, $strComments, $objCriterions));
