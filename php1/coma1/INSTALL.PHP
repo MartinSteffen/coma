@@ -38,17 +38,17 @@ elseif (isset($_GET['4'])) {
   a:visited { color: #1A35AD; }
   a:active { color: #000000; }
   a:hover { color: #004DFF; }
-  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
+  div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
     width: 60%; font-size: 13px; font-weight: bold; text-align: center;
     vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
-  p.area { color: #222222; background-color: #dddddd; border: 1px solid #222222; }
-  p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; }
-  p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; }
+  div.area { color: #222222; background-color: #dddddd; border: 1px solid #222222; }
+  div.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; }
+  div.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; }
   -->
   </style>
 </head>
 <body>
-  <p class="area">
+  <div class="area">
     1. <a href="INSTALL.PHP?1">Generate Configuration</a><br>
     2. <a href="INSTALL.PHP?2">Create Database</a><br>
     3. <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
@@ -123,16 +123,16 @@ elseif ($STEP == 2) {
     }
   }
   if (empty($errors)) {
-    echo "    <p class=\"message-ok\">Database successfully created!</p>";
+    echo "    <div class=\"message-ok\">Database successfully created!</div>";
   }
   else {
-    echo "    <p class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
+    echo "    <div class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
     foreach ($errors as $error) {
       echo "      ".$error."<br>\n";
     }
     echo "      <br><br>\n";
     echo "      Please check 'include/config.inc.php' for correct values!\n";
-    echo "    </p>\n";
+    echo "    </div>\n";
   }
 }
 elseif ($STEP == 3) {
@@ -143,6 +143,6 @@ elseif ($STEP == 4) {
   // TODO
 }
 ?>
-  </p>
+  </div>
 </body>
 </html>
