@@ -6,7 +6,7 @@ Dateiname (alphabetisch)         | Letzte Aenderung | Abgenommen
 ---------------------------------+------------------+-----------------
 index.php                        | jwa  / 2507      |
 login.php                        | jwa  / 2507      |
-register.php                     | jwa  / 2506      |
+register.php                     | jwa  / 2656      |
 ---------------------------------+------------------+-----------------
 include/...                      |                  |
 
