@@ -321,7 +321,7 @@ class Distribution extends ErrorHandling {
       if (1 || !isset($intWantedReviewers[$p_id[$i]]) || $intWantedReviewers[$p_id[$i]] <= 0) {
         $intWantedReviewers[$p_id[$i]] = $avg_revs_per_paper;
       } 
-      echo('<br>Wanted: '.$intWantedReviewers[$p_id[$i]]);
+      echo('<br>Wanted '.$p_id[$i].': '.$intWantedReviewers[$p_id[$i]]);
     }
 
     // Paper-Wuensche zuerst beruecksichtigen
