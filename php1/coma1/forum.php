@@ -54,7 +54,6 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $strArrayTypePaperAssocs['forum'] = '';
   $strArrayTypeChairAssocs['forum'] = '';
 
-  //$tempstring = '';
   foreach ($objArrayForums as $objForum){
     $objForumTemplate = new Template(TPLPATH . 'forum.tpl');
     $strArrayForumAssocs = defaultAssocArray();
@@ -96,7 +95,6 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
 
     $objForumTemplate->assign($strArrayForumAssocs);
     $objForumTemplate->parse();
-    //$tempstring = $tempstring . $objForumTemplate->getOutput();
     if (isOpenForum($objForum)){
       $objArrayOpenForumTemplates[$objForum->intId] = $objForumTemplate;
     }
