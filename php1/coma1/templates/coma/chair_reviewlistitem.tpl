@@ -59,10 +59,6 @@
       {reviewers}
     </td>
     <td class="listitem-{line_no}">
-      <!-- <form action="{basepath}chair_reviews.php{?SID}" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="paperid" value="{paper_id}">
-        <input type="submit" name="submit" value="add" class="smallbutton">
-      </form> -->
+      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Add/Del reviewers</a>
     </td>
   </tr>
