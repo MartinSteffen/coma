@@ -1,5 +1,5 @@
     {if1<p class="message-ok">{special}</p>}<br>
-    <table class="message" width="100%">
+    <table class="helptext" width="100%">
       <tr>
         <td> &nbsp; </td>
         <td>

@@ -373,7 +373,7 @@ textarea
 }
 
 /* Tabelle zur Darstellung der Hilfe */
-table.message
+table.helptext
 {
   border-style: solid;
   border-width: 1px;
