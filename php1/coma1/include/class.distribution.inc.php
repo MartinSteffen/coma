@@ -179,10 +179,10 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($assigned); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
-        $pid = $p_id_index[$assigned[$j]['paper_id']];
-        $matrix[$i][$pid] = 0;
-        $p_num_revs[$pid]++;
-        $p_num_revs_total_left[$pid]--;
+        $pindex = $p_id_index[$assigned[$j]['paper_id']];
+        $matrix[$i][$pindex] = 0;
+        $p_num_revs[$pindex]++;
+        $p_num_revs_total_left[$pindex]--;
         $r_num_papers[$i]++;
       }
       // Ausgeschlossene Paper
@@ -199,11 +199,11 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($excluded); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
-        $pid = $p_id_index[$excluded[$j]['paper_id']];
-        $matrix[$i][$pid] = 0;
-        $p_num_revs_total_left[$pid]--;
+        $pindex = $p_id_index[$excluded[$j]['paper_id']];
+        $matrix[$i][$pindex] = 0;
+        $p_num_revs_total_left[$pindex]--;
       }
-/*      // Abgelehnte Paper
+      // Abgelehnte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    DeniesPaper AS pp".
                    " INNER   JOIN Paper p".
@@ -217,12 +217,13 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($denies); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
-        if ($matrix[$i][$p_id_index[$denies[$j]['paper_id']]] != 0) {
-          $matrix[$i][$p_id_index[$denies[$j]['paper_id']]] = 0;
-          $p_num_revs_total_left[$j]--;
+        $pindex = $p_id_index[$denies[$j]['paper_id']];
+        if ($matrix[$i][$pindex] != 0) {
+          $matrix[$i][$pindex] = 0;
+          $p_num_revs_total_left[$pindex]--;
         }
       }
-/*      // Bevorzugte Themen
+      // Bevorzugte Themen
       $s = sprintf("SELECT   p.id AS paper_id".
                    " FROM    Paper AS p".
                    " INNER   JOIN IsAboutTopic AS iat".
@@ -238,9 +239,10 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($prefers); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
-        if ($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]] != 0) {
-          $matrix[$i][$p_id_index[$prefers[$j]['paper_id']]] *= FAC_PREF;
-          $p_num_revs_pref_left[$j]++;
+        $pindex = $p_id_index[$prefers[$j]['paper_id']]
+        if ($matrix[$i][$pindex] != 0) {
+          $matrix[$i][$pindex] *= FAC_PREF;
+          $p_num_revs_pref_left[$pindex]++;
         }
       }
       // Gewuenschte Paper
@@ -257,13 +259,14 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($wants); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
-        if ($matrix[$i][$p_id_index[$wants[$j]['paper_id']]] != 0) {
-          if ($matrix[$i][$p_id_index[$wants[$j]['paper_id']]] == 1) {
-            $p_num_revs_pref_left[$j]++;
+        $pindex = $p_id_index[$wants[$j]['paper_id']];
+        if ($matrix[$i][$pindex] != 0) {
+          if ($matrix[$i][$pindex] == 1) {
+            $p_num_revs_pref_left[$pindex]++;
           }
-          $matrix[$i][$p_id_index[$wants[$j]['paper_id']]] = FAC_WANT;
+          $matrix[$i][$pindex] = FAC_WANT;
         }
-      }*/
+      }
     }
 
     // Debug: Ausgabe
