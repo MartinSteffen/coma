@@ -37,7 +37,7 @@ class ComaExample extends PHPUnit_TestCase
 
   function test_getConferenceDetailed() {
       	global $myDBAccess;
-        $this->assertEquals(array(),getConferenceDetailed(100));
+        $this->assertEquals(array(),$myDBAccess->getConferenceDetailed(100));
   }
 
   function test_getCriterionsOfConference() {
@@ -47,7 +47,7 @@ class ComaExample extends PHPUnit_TestCase
 
   function test_getTopicsOfConference() {
       	global $myDBAccess;
-        $this->assertEquals(array(),getTopicsOfConference(100));
+        $this->assertEquals(array(),$myDBAccess->getTopicsOfConference(100));
   }
 
   function test_getPersonIdByEmail() {
