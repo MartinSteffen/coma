@@ -1,5 +1,5 @@
 <p class="center">
-<form action="{basepath}index.php?{SID}" method="post">
+<form action="{basepath}login.php?{SID}" method="post">
 
 <table class="formtable">
   <tr>
@@ -29,8 +29,9 @@
 <p>&nbsp;</p>
 
 <p>
-<form action="{basepath}index.php?{SID}" method="post">
+<form action="{basepath}register.php?{SID}" method="post">
   Falls Sie noch keinen Account besitzen, k&ouml;nnen Sie sich hier als Benutzer
-  registrieren: <input type="submit" name="submit" value="Registrieren" class="button" />
+  registrieren:<br>
+  <input type="submit" name="submit" value="Registrieren" class="button" />
 </form>
 </p>
