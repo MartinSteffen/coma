@@ -17,6 +17,17 @@ if (!defined('INCPATH')) {
 require_once(INCPATH.'header.inc.php');
 require_once(INCPATH.'class.conferencedetailed.inc.php');
 
+
+// Globale Konstanten (nach aussen)
+define('ASSIGNED', 0); // Paper
+define('SUGGESTED', 1); // Paper
+define('NEUTRAL', 2); // Topic
+define('PREFERS', 3); // Topic
+define('WANTS', 4); // Paper
+define('DENIES', 5); // Paper
+define('EXCLUDED', 6); // Paper
+
+
 /**
  * Klasse Distribution
  *
@@ -64,16 +75,10 @@ class Distribution extends ErrorHandling {
    *       (z.B. 5 Stueck) und die, die am wenigsten zu tun haben...
    */
   function getDistribution($intConferenceId) {
-    define('ASSIGNED', -2); // bereits vorher verteilt
-    define('SUGGESTED', -1); // Verteilungsvorschlag
-/*    define('ASSIGNED', 0);
-    define('PREFERS', 1); // Topic
-    define('WANTS', 2); // Paper
-    define('DENIES', 3); // Paper
-    define('EXCLUDED', 4); // Paper*/
-
-    define('NEUTRAL', 10000.0); // Faktor fuer Preferred Topic
-    define('PREF', NEUTRAL*1.5); // 1*NEUTRAL < Faktor fuer Preferred Topic < 2*NEUTRAL
+    define('ASSI', -2); // bereits vorher verteilt
+    define('SUGG', -1); // Verteilungsvorschlag
+    define('NEUT', 10000.0); // Faktor fuer Preferred Topic
+    define('PREF', NEUT*1.5); // 1*NEUT < Faktor fuer Preferred Topic < 2*NEUT
     define('WANT', PREF*1.5); // 1*PREF < Faktor fuer Preferred Paper < 2*PREF
 
     if (empty($intConferenceId)) {
@@ -96,7 +101,9 @@ class Distribution extends ErrorHandling {
     $r_num_papers = array();
     // Durchschnittliche Anzahl von Reviewern pro Paper (falls moeglich)
     $avg_revs = false;
-    // Matrix
+    // Matrix initial mit bisheriger Verteilung, Wuenschen usw.
+    $initial_matrix = array();
+    // Vorschlagsmatrix
     $matrix = array();
 
     // Konfigurationsdaten holen
@@ -168,7 +175,8 @@ class Distribution extends ErrorHandling {
     }
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
-    $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
+    $initial_matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
+    $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUT));
     $color = array_fill(0, count($r_id), array_fill(0, count($p_id), 'FFFFFF'));
 
     //$p_num_revs_pref_left = array_fill(0, count($p_id), 0);
@@ -190,9 +198,10 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($assigned); $j++) {
-        //$this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
+        //$this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSI);
         $pindex = $p_id_index[$assigned[$j]['paper_id']];
-        $matrix[$i][$pindex] = ASSIGNED;
+        $initial_matrix[$i][$pindex] = ASSIGNED;
+        $matrix[$i][$pindex] = ASSI;
         $p_num_revs[$pindex]++;
         $p_num_revs_total_left[$pindex]--;
         $r_num_papers[$i]++;
@@ -213,6 +222,8 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($excluded); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
         $pindex = $p_id_index[$excluded[$j]['paper_id']];
+        $initial_matrix[$i][$pindex] =
+          ($initial_matrix[$i][$pindex]==NEUTRAL?EXCLUDED:$initial_matrix[$i][$pindex]);
         if ($matrix[$i][$pindex] > 0) {
           $p_num_revs_total_left[$pindex]--;
           $matrix[$i][$pindex] = 0;
@@ -234,6 +245,8 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($denies); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
         $pindex = $p_id_index[$denies[$j]['paper_id']];
+        $initial_matrix[$i][$pindex] =
+          ($initial_matrix[$i][$pindex]==NEUTRAL?DENIES:$initial_matrix[$i][$pindex]);
         if ($matrix[$i][$pindex] > 0) {
           $matrix[$i][$pindex] = 0;
           $p_num_revs_total_left[$pindex]--;
@@ -257,7 +270,9 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($prefers); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
         $pindex = $p_id_index[$prefers[$j]['paper_id']];
-        if ($matrix[$i][$pindex] == NEUTRAL) {
+        $initial_matrix[$i][$pindex] =
+          ($initial_matrix[$i][$pindex]==NEUTRAL?PREFERS:$initial_matrix[$i][$pindex]);
+        if ($matrix[$i][$pindex] == NEUT) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = PREF;
           $color[$i][$pindex] = '009900';
@@ -278,7 +293,10 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($wants); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
         $pindex = $p_id_index[$wants[$j]['paper_id']];
-        if ($matrix[$i][$pindex] >= NEUTRAL) {
+        $initial_matrix[$i][$pindex] =
+          ($initial_matrix[$i][$pindex]==NEUTRAL||$initial_matrix[$i][$pindex]==PREFERS?
+          WANTS:$initial_matrix[$i][$pindex]);
+        if ($matrix[$i][$pindex] >= NEUT) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = WANT;
           $color[$i][$pindex] = '00FF00';
@@ -298,7 +316,7 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($tmp); $j++) {
         $this->suggest($matrix, $i, $tmp[$j], $p_id, $avg_revs,
-                       $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGGESTED);
+                       $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
     }
 
@@ -343,7 +361,7 @@ class Distribution extends ErrorHandling {
         /*$p_num_revs_total_left[$pindex]--;
         $p_num_revs[$pindex]++;
         $r_num_papers[$rindex]++;
-        $matrix[$rindex][$pindex] = SUGGESTED;
+        $matrix[$rindex][$pindex] = SUGG;
         // Zeile Reviewer "halbieren"
         for ($i = 0; $i < count($p_id); $i++) {
           if ($matrix[$rindex][$i] > 1) {
@@ -355,7 +373,7 @@ class Distribution extends ErrorHandling {
           }
         }*/
         $this->suggest($matrix, $rindex, $pindex, $p_id, $avg_revs,
-                       $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGGESTED);
+                       $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
     }
     
@@ -375,7 +393,7 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
-        if ($matrix[$i][$j] == SUGGESTED && $color[$i][$j] == 'FFFFFF') {
+        if ($matrix[$i][$j] == SUGG && $color[$i][$j] == 'FFFFFF') {
           $color[$i][$j] = 'FFFF00';
         }
         echo('<td bgcolor='.$color[$i][$j].'>'.$matrix[$i][$j].'</td>');
@@ -402,7 +420,7 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
-        for ($k = ASSIGNED; $k <= EXCLUDED; $k++) {
+        for ($k = ASSI; $k <= EXCLUDED; $k++) {
           if ($this->isBit($matrix[$i][$j], $k)) {
             echo(' '.$text[$k].' Paper #'.$p_id[$j]);
           }
@@ -416,8 +434,27 @@ class Distribution extends ErrorHandling {
         return $this->success(false);
       }
     }
+    
+    // Ausgabearray aufbereiten:
+    // Laenge = Anzahl Papers
+    // Pro Zeile: Zwei Eintraege: 'paper_id' sowie ein Reviewer-Array 'reviewers',
+    // welches wiederum pro Zeile ein Array mit folgenden Eintraegen enthaelt:
+    // 'reviewer_id' und 'status' (enthaelt den Wert einer globalen Konstanten)
+    $y = array();
+    for ($j = 0; $j < count($p_id); $i++) {
+      $p = array();
+      $p['paper_id'] = $p_id[$j];
+      $r = array();
+      for ($i = 0; $i < count($r_id); $i++) {
+        if ($matrix[$i][$j] == ASSI || $matrix[$i][$j] == SUGG) {
+          $r[] = array('reviewer_id' => $r_id[$i], 'status' => $initial_matrix[$i][$j]);
+        }
+      }
+      $p['reviewers'] = $r;
+      $y[] = $p;
+    }
 
-    return $matrix;
+    return $y;
   }
 
   /**

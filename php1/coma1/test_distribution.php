@@ -21,15 +21,16 @@ echo('<br>');
 
 $myDist = new Distribution($mySql);
 
-$m = $myDist->getDistribution(1);
+$y = $myDist->getDistribution(1);
 if ($myDist->failed()) {
   echo($myDist->getLastError());
 }
-else if (empty($m)) {
+else if (empty($y)) {
   echo('<br><br>EMPTY');
   die(-1);
 }
-else echo('<br><br>OK');
+echo('<br><br>OK:');
+print_r($y);
 /*for ($i = 0; $i < count($m); $i++) {
   $s = sprintf("<br>%d:", $i);
   for ($j = 0; $j < count($m[$i]); $j++) {

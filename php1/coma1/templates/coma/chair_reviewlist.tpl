@@ -1,11 +1,11 @@
 
 <p class="message2">
-  It is recommended to proceed as following:<br>
+  It is <span class="emph">recommended</span> to proceed as follows:<br>
   Let CoMa make a <a href="{basepath}chair_distribution.php{?SID}" class="link">
-  suggestion</a> of a possible paper/reviewer distribution for papers that are
-  not assigned to the average number of reviewers wanted yet.<br>
-  You may edit the suggested distribution and confirm it then.<br>
-  After that, you can assign several papers by hand (this formular) or re-start
+  suggestion</a> (may take several seconds) of a possible paper/reviewer
+  distribution for papers that are  not assigned to the average number of
+  reviewers wanted yet. You may edit the suggested distribution and confirm it
+  then. After that, you can assign several papers by hand (this formular) or re-start
   the suggestion process.
 </p>
 
