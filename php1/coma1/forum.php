@@ -171,7 +171,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
     $messagetemplate = new Template(TPLPATH . 'message.tpl');
     $messageassocs = defaultAssocArray();
     $sender = $myDBAccess->getPerson($message->intSender);
-    if ($msgselection[$message->intId]){
+    if (notemptyandtrue($msgselection, $message->intId)){
       $messageassocs['selectorunselect'] = 'unselect';
       $messageassocs['message-id'] = $message->intId;
       $messageassocs['plusorminus'] = '-';
