@@ -89,12 +89,12 @@ Tabelle PrefersPaper
 user		Varchar 127	-> User, email
 paper		BigInt	-> Paper, id
 
-Tabelle DeclinesPaper
+Tabelle DeniesPaper
 ~~~~~~~~~~~~~~~~~~~~
 user		Varchar 127	-> User, email
 paper		BigInt	-> Paper, id
 
-Tabelle ExcludeUser
+Tabelle ExcludePaper
 ~~~~~~~~~~~~~~~~~~~~
 user		Varchar 127	-> User, email
 paper		BigInt	-> Paper, id
