@@ -130,7 +130,7 @@ class Template extends ErrorHandling {
       else {
         // Tag durch Value ersetzen
         $strKeys[] = '/(?i){'.$key.'}/';
-        $strValues[] = $value;
+        $strValues[] = encodeText($value);
       }
     }
     // Alle nicht zugeordneten rauswerfen!
