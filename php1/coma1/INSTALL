@@ -18,10 +18,10 @@ CoMa - Your Conference Manager
 
   3. MySQL 3.23.58+
      CoMa uses InnoDB Tables, so you should use any MySQL Version capable to
-     do so.
+     do so, too.
 
   4. Webbrowser
-     Any modern Webbrowser should be enough.
+     Any modern Webbrowser should suit your needs.
      CoMa has been tested with IE6, Opera7 and Firefox1
 
 
@@ -32,7 +32,13 @@ CoMa - Your Conference Manager
   2. Extract the code to your Webspace.
      eg. tar -xzf coma1.tar.gz
 
-  3. In your Browser -> start "coma1/INSTALL.PHP" and follow the suggestions
+  3. In your Browser -> start "coma1/INSTALL.PHP" and follow the suggestions.
+     Step 1: Creates your config file.
+     Step 2: Tests and creates the database tables.
+     Step 3: Delete the INSTALL.PHP (security risk if not done)
+     
+     tutorial: (optional) creates a tutorial Conference.
+       Of course you have to do the "tutorial" before deleting INSTALL.PHP
 
   4. Enjoy CoMa
 

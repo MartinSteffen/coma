@@ -59,8 +59,9 @@ elseif (isset($_GET['4'])) {
     <p class="menu">
       1. <a href="INSTALL.PHP?1">Generate Configuration</a><br>
       2. <a href="INSTALL.PHP?2">Create Database</a><br>
-      3. <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
-      4. <a href="INSTALL.PHP?4">Delete INSTALL.PHP</a><br>
+      3. <a href="INSTALL.PHP?3">Delete INSTALL.PHP</a><br>
+      <br>
+      Tutorial: <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
     </p>
     <p>
       Please select your next Step of Installation from the table above...<br>
@@ -156,16 +157,16 @@ elseif ($STEP == 2) {
   }
 }
 elseif ($STEP == 3) {
+  echo "    <p class=\"message-failed\">\n";
+  echo "      Not yet implemented!";
+  echo "    </p>\n";
+}
+elseif ($STEP == 4) {
   // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was eigenes machen ;)
   echo "    <p class=\"message-failed\">\n";
   include('test_basedata.php');
   echo "    </p>\n";
   echo "    <p class=\"message-ok\">Hopefully Data added! Check above for errors!</p>\n";
-}
-elseif ($STEP == 4) {
-  echo "    <p class=\"message-failed\">\n";
-  echo "      Not yet implemented!";
-  echo "    </p>\n";
 }
 ?>
   </div>
