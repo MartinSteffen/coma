@@ -35,8 +35,8 @@ if (isset($_POST['action'])) {
   $strContentAssocs['min_papers']       = $_POST['min_papers'];
   $strContentAssocs['max_papers']       = $_POST['max_papers'];
   $strContentAssocs['variance']         = $_POST['variance'];
-  $strContentAssocs['criteria']         = $_POST['criteria'];
   $strContentAssocs['topics']           = $_POST['topics'];
+  $strContentAssocs['criteria']         = $_POST['criteria'];
   $strContentAssocs['crit_max']         = $_POST['crit_max'];
   $strContentAssocs['crit_descr']       = $_POST['crit_descr'];
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
@@ -71,6 +71,10 @@ if (isset($_POST['action'])) {
   }
   // Oeffnen der erweiterten Einstellungen
   else if (isset($_POST['adv_config'])) {
+    $strTopics = explode(",", $_POST['topics']);
+    $strTopics = explode(",", $_POST['criteria']);
+    $strTopics = explode(",", $_POST['crit_max']);
+    $strTopics = explode(",", $_POST['crit_descr']);
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
   }
 }
