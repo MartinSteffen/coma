@@ -56,10 +56,9 @@
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;paper</a>}
     </td>
     <td class="listitem-{line_no}">
-      {reviewers}
+      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Add/Del&nbsp;reviewers</a>
     </td>
-    <td class="listitem-{line_no}" nowrap>
-      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Add/Del&nbsp;reviewers</a><br>
-      K&uuml;nstlicher Umbruch (br)...
+    <td class="listitem-{line_no}">
+      {reviewers}
     </td>
   </tr>
