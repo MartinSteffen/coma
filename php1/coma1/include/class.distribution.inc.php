@@ -120,8 +120,13 @@ class Distribution extends ErrorHandling {
     $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), 0));
     for ($i = 0; $i < count($r_id); $i++) {
       // Bereits zugeteilte Paper
-      $s = sprintf("SELECT paper_id FROM Distribution WHERE reviewer_id = '%d'",
-                   s2db($r_id[$i]));
+      $s = sprintf("SELECT   d.paper_id AS paper_id".
+                   " FROM    Distribution AS d".
+                   " INNER   JOIN Paper AS p".
+                   " ON      p.id = d.paper_id".
+                   " AND     p.conference_id = '%d'".
+                   " AND     d.reviewer_id = '%d'",
+                   s2db($intConferenceId), s2db($r_id[$i]));
       $assigned = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
@@ -136,8 +141,9 @@ class Distribution extends ErrorHandling {
                    " ON      iat.paper_id = p.id".
                    " INNER   JOIN PrefersTopic AS pt".
                    " ON      pt.topic_id = iat.topic_id".
-                   " AND     pt.person_id = '%d'",
-                   s2db($r_id[$i]));
+                   " AND     pt.person_id = '%d'".
+                   " AND     p.conference_id = '%d'",
+                   s2db($r_id[$i]), s2db($intConferenceId));
       $prefers = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
@@ -146,7 +152,11 @@ class Distribution extends ErrorHandling {
         $this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
       }
       // Gewuenschte Paper
-      $s = sprintf("SELECT paper_id FROM PrefersPaper WHERE person_id = '%d'",
+      $s = sprintf("SELECT   pp.paper_id AS paper_id".
+                   " FROM    PrefersPaper AS pp".
+                   " INNER   JOIN Paper p".
+                   " ON      p.id = pp.paper_id".
+                   " AND     pp.person_id = '%d'",
                    s2db($r_id[$i]));
       $wants = $this->mySql->select($s);
       if ($this->mySql->failed()) {
@@ -156,7 +166,11 @@ class Distribution extends ErrorHandling {
         $this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
       }
       // Abgelehnte Paper
-      $s = sprintf("SELECT paper_id FROM DeniesPaper WHERE person_id = '%d'",
+      $s = sprintf("SELECT   pp.paper_id AS paper_id".
+                   " FROM    DeniesPaper AS pp".
+                   " INNER   JOIN Paper p".
+                   " ON      p.id = pp.paper_id".
+                   " AND     pp.person_id = '%d'",
                    s2db($r_id[$i]));
       $denies = $this->mySql->select($s);
       if ($this->mySql->failed()) {
@@ -166,7 +180,11 @@ class Distribution extends ErrorHandling {
         $this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
       }
       // Ausgeschlossene Paper
-      $s = sprintf("SELECT paper_id FROM ExcludesPaper WHERE person_id = '%d'",
+      $s = sprintf("SELECT   pp.paper_id AS paper_id".
+                   " FROM    ExcludesPaper AS pp".
+                   " INNER   JOIN Paper p".
+                   " ON      p.id = pp.paper_id".
+                   " AND     pp.person_id = '%d'",
                    s2db($r_id[$i]));
       $denies = $this->mySql->select($s);
       if ($this->mySql->failed()) {
