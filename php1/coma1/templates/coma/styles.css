@@ -158,6 +158,7 @@ input, textarea, button {
   margin: 2px 4px;
   padding: 2px 4px;  
 }
+textarea { font-family: Arial, Sans-Serif; }
 input.button, button {
   font-family: Verdana, Arial, Sans-Serif;
   font-weight: bold;
