@@ -31,6 +31,7 @@ Datum    Autor   Änderung(en)
 24.12.04 dmi     Anhang Login / Registrieung
 24.12.04 jwa     Konventionen "enforced" -> Frage sollte das(^^) Anhang sein? 
 07.01.05 dmi     Hinweis auf db_schema.txt und Bedeutung für uns in Kapitel 2.2
+08.01.05 tos     Kapitel 2 geändert
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -195,41 +196,26 @@ voneinander zu trennen.
   2. DAS DATENMODELL (SQL)
 ============================================================================
 
-2.1 Tabelle Session
 Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
-dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
-die Datenbank wie folgt für uns anpasst:
+dessen die Datenbank angelegt wird, stellen wir ein Skript bereit, das die
+Datenbank fuer unsere Bedürfnisse erweitert und anpasst (siehe Appendix
+Verzeichnisstruktur).
+Darin werden folgende Tabellen erstellt:
 
-- Tabelle Session wird hinzugefügt:
-**************************************************
---
--- Tabellenstruktur für Tabelle 'Session'
--- sid normalerweise 128 oder 160
---
-CREATE TABLE IF NOT EXISTS Session (
-  sid VARCHAR(255) NOT NULL DEFAULT '',
-  sname VARCHAR(25) NOT NULL DEFAULT '',
-  sdata TEXT,
-  stime TIMESTAMP(14) NOT NULL,
-  PRIMARY KEY  (sid, sname),
-  KEY stime (stime)
-) TYPE=MyISAM COMMENT='Session-Verwaltung';
-**************************************************
-
-2.2 Tabelle Role
-Wir halten uns an die Konventionen in [db-Schema.txt] (enumeration roles).
-Die Tabelle Role enthält role_types mit folgenden Bedeutungen:
-
-+--------------------------------------------------------------------------+
-| Role_type   | [db-Schema.txt]  | Entsprechung für PHP1                   |
-+------------------------+-------------------------------------------------+
-|   00        |  without role    |  Teilnehmer                             |
-|   01        |  admin           |   keine                                 |
-|   02        |  chair           |    Chair                                |
-|   03        |  reviewer        |  Reviewer                               |
-|   04        |  author          |  Author                                 |
-|   05        | participant      |   keine                                 |
-+--------------------------------------------------------------------------+
+- ConferenceConfig: erweiterte Konferenzkonfiguration
+- Session: zur Session-Verwaltung
+- Role: Wir halten uns an die Konventionen in [db-Schema.txt] (enumeration
+  roles). Die Tabelle Role enthält role_types mit folgenden Bedeutungen:
+  +------------------------------------------------------------------------+
+  | Role_type   | [db-Schema.txt]  | Entsprechung für PHP1                 |
+  +------------------------+-----------------------------------------------+
+  |   00        |  without role    |  Teilnehmer                           |
+  |   01        |  admin           |   keine                               |
+  |   02        |  chair           |    Chair                              |
+  |   03        |  reviewer        |  Reviewer                             |
+  |   04        |  author          |  Author                               |
+  |   05        | participant      |   keine                               |
+  +------------------------------------------------------------------------+
 
 
 ============================================================================
@@ -311,6 +297,8 @@ $/. enthält auch Testdateien. (gekennzeichnet durch test_...)
   (zB chair.php für die Chair Verwaltung)
 $/include enthält die Klassen.
 $/templates enthält die Templates.
+$/sql enthält die Datei php1.sql, welches die Datenbank PHP1-spezifisch
+  erweitert und anpasst.
 
 Verzeichnisse, die den Namen einzelner Mitglieder enthalten, sowie deren
 Unterverzeichnisse dienen als "private" Testumgebung.
