@@ -23,7 +23,7 @@ $strMainAssocs['content'] =  'Liste aller Konferenzen';
 $strMainAssocs['body'] =
 '
 <div align="center">
-<table class="list">
+<table width="750" class="list">
 <tr>
   <td class="listhead"> Konferenzname </td> 
   <td class="listhead"> Einloggen </td> 
