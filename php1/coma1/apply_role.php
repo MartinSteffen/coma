@@ -36,7 +36,8 @@ else if (isset($_POST['retreat'])) {
   $myDBAccess->deleteRole(session('uid'), $_POST['roleid'], $_POST['confid']);
   if ($myDBAccess->failed()) {
     error('Error updating role table.', $myDBAccess->getLastError());
-  }	
+  }
+  redirect('main_conferences.php');
 }
 // Rollen eintragen bzw. Rollenbewerbung eintragen
 else {  
