@@ -1,4 +1,10 @@
 <?php
+/**
+ * Wichtig, damit Coma1 Dateien eingebunden werden koennen
+ *
+ * @ignore
+ */
+define('IN_COMA1', true);
 
 //ACHTUNG!!! Das hier wird noch nicht funktionieren!
 
