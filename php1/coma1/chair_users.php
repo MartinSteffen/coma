@@ -40,7 +40,7 @@ if (!empty($objPersons)) {
       $strRolesAssocs = defaultAssocArray();
       $strRolesAssocs['user_id'] = $objPerson->intId;
       $strRolesAssocs['role_type'] = $intRoles[$i];
-      $strRolesAssocs['role_name'] = $strRoles[$i];      
+      $strRolesAssocs['role_name'] = $strRoles[$intRoles[$i]];      
       $strRolesAssocs['if'] = array(($objPerson->hasRole($intRoles[$i])) ? 1 : 2);      
       $roles->assign($strRolesAssocs);
       $roles->parse();
