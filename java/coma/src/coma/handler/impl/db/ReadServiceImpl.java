@@ -340,7 +340,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean authorIdFlage = false;
 		boolean stateFlag = false;
 		boolean allFlag = false;
-		if (p.getId() == 0) {
+		System.out.println(p.getId());
+		if (p.getId() == -2) {
 			QUERY = "SELECT * FROM Paper";
 			allFlag = true;
 		} else {
@@ -382,7 +383,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 		}
 		if (ok) {
 			try {
-
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);

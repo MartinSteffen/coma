@@ -53,7 +53,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPerson(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}
@@ -101,13 +101,13 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPaper(){
-		boolean run = false;
+		boolean run = true;
 		if(!run){
 			return;
 		}
 		
 		Paper p = new Paper(-2);
-		p.setAuthor_id(1);
+		//p.setAuthor_id(1);
 		//p.setConference_id(1);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPaper(p);
@@ -117,7 +117,7 @@ public class ReadServiceTest extends TestCase{
 		
 		Paper[] papers = (Paper[])objResult;	
 		for (int i = 0; i < papers.length; i++) {
-			System.out.println(papers[i].getAuthor_id());	
+			System.out.println(papers[i].toXML());	
 		}
 	}
 	
