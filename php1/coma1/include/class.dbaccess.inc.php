@@ -1560,7 +1560,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($objPerson)) {
       return $this->success($objForums);
     }
-    $objAllForums = getAllForums($intConferenceId);
+    $objAllForums = $this->getAllForums($intConferenceId);
     if ($this->failed()) {
       return $this->error('getForumsOfPerson', $this->getLastError());
     }
