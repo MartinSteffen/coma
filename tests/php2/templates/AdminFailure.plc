@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PureLoad version="1.1">
+  <!--This document is automatically generated. Be careful when editing!-->
+  <Scenarios>
+    <Scenario Name="Create Conference without data">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Login" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=login</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere.de</KeyValue>
+            <KeyValue Key="pass">pass</KeyValue>
+            <KeyValue Key="Submit">Login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">welcomeUser</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Go to admin" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">admin</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Go to create conference" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">admin</KeyValue>
+            <KeyValue Key="a">conferences</KeyValue>
+            <KeyValue Key="s">create</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Create a new conference without data" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">admin</KeyValue>
+            <KeyValue Key="a">conferences</KeyValue>
+            <KeyValue Key="s">create</KeyValue>
+            <KeyValue Key="confname"></KeyValue>
+            <KeyValue Key="confdescription"></KeyValue>
+            <KeyValue Key="confhomepage">http://www.yoursite.org/anywhere</KeyValue>
+            <KeyValue Key="confchair_lastname"></KeyValue>
+            <KeyValue Key="confchair_email"></KeyValue>
+            <KeyValue Key="confchair_passwd"></KeyValue>
+            <KeyValue Key="confchair_passwd_confirm"></KeyValue>
+            <KeyValue Key="submit">submit</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode"></TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString">No conference name given!</TaskParameter>
+          <TaskParameter Method="ErrorString">To delete Conference press</TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Logout" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">logout</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+    <Scenario Name="Get conferences without login">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Go to conferences without login" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">admin</KeyValue>
+            <KeyValue Key="a">conferences</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">logout</KeyValue>
+            <KeyValue Key="error">1</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">login</KeyValue>
+            <KeyValue Key="error">1</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode"></TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString">A problem occured with the session. Please login again.</TaskParameter>
+          <TaskParameter Method="ErrorString"></TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+  </Scenarios>
+  <ParameterGenerators />
+</PureLoad>
+

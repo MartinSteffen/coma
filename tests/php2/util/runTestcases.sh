@@ -92,6 +92,8 @@ FOOTER="
 </div>
 <!-- end of main table -->
 
+<br>
+<br>
 </center>
 </body>
 </html>"
