@@ -92,10 +92,10 @@ elseif ($STEP == 1){
   // Output
 
   echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
-  echo "        <input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\ value=\"$sqlServer\">\n";
-  echo "        <input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\ value=\"$sqlUser\">\n";
-  echo "        <input type=\"text\" name=\"sqlPassword\" size=\"48\" maxlength=\"127\ value=\"$sqlPassword\">\n";
-  echo "        <input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\ value=\"$sqlDatabase\">\n";
+  echo "        <input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\" value=\"$sqlServer\">\n";
+  echo "        <input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\" value=\"$sqlUser\">\n";
+  echo "        <input type=\"text\" name=\"sqlPassword\" size=\"48\" maxlength=\"127\" value=\"$sqlPassword\">\n";
+  echo "        <input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\" value=\"$sqlDatabase\">\n";
   echo "        <input type=\"submit\" name=\"submit\" value=\"generate Config\">\n";
   echo "      </form>\n";
   
