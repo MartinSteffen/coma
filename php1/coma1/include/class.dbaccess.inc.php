@@ -50,7 +50,7 @@ class DBAccess {
   /**
    * Fehlerbeschreibung festlegen
    *
-   * @param string $text Optionale Fehlerbeschreibung.
+   * @param string $strError Optionale Fehlerbeschreibung.
    * @return false Es wird immer <b>false</b> zurueckgegeben.
    * @see getLastError()
    * @access protected
