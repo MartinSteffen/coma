@@ -34,6 +34,7 @@ else {
   $strMainAssocs['content'] =& $loginPage;
   $strMainAssocs['menue'] = '<a href="{basepath}start.php">Start</a>&nbsp;|&nbsp;&nbsp;';
   $strMainAssocs['submenue'] = '';
+  $strMainAssocs['body'] = '';
 
   if (isset($_SESSION['message'])) {
     $strMessage = $_SESSION['message'];
