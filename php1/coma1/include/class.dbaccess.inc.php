@@ -8,12 +8,12 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('class.mysql.inc.php');
-require_once('class.person.inc.php');
-require_once('class.persondetailed.inc.php');
-require_once('class.paper.inc.php');
-require_once('class.papersimple.inc.php');
-require_once('class.paperdetailed.inc.php');
+require_once('./class.mysql.inc.php');
+require_once('./class.person.inc.php');
+require_once('./class.persondetailed.inc.php');
+require_once('./class.paper.inc.php');
+require_once('./class.papersimple.inc.php');
+require_once('./class.paperdetailed.inc.php');
 
 /**
  * Klasse DBAccess
