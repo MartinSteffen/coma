@@ -518,7 +518,7 @@ class DBAccess extends ErrorHandling {
    */
   function getUsersOfConference($intConferenceId, $intOrder=false) {
     $s = "SELECT  id, first_name, last_name, email, title".
-         " FROM    Person";   
+         " FROM    Person";
     if (!empty($intOrder)) {
       if ($intOrder == 1) {
         $s .= " ORDER BY last_name";
@@ -598,7 +598,7 @@ class DBAccess extends ErrorHandling {
                   $data[0]['filename'], $objTopics));
     return $this->success($objPaper);
   }
-  
+
   /**
    * Liefert das Paper-File mit der ID $intPaperId zurueck.
    *
@@ -635,7 +635,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($file)) {
       return $this->error('getPaperFile', 'Expected Binary File not found in DB!');
     }
-    return $this->success(array($data[0]['filename'], $data[0]['mime_type'], 
+    return $this->success(array($data[0]['filename'], $data[0]['mime_type'],
                                 $file[0]['filesize'], $file[0]['file']));
   }
 
@@ -758,7 +758,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intConferenceId ID der Konferenz
    * @param int $intOrder Gibt an, wonach sortiert werden soll
    * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)
-   * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.   
+   * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.
    * @access public
    * @author Sandro (19.01.05)
    * @todo Existenz der Konferenz muss noch geprueft werden.
@@ -767,7 +767,7 @@ class DBAccess extends ErrorHandling {
     $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
                  " FROM    Paper".
                  " WHERE   conference_id = '%d'",
-                           s2db($intConferenceId));    
+                           s2db($intConferenceId));
     if (!empty($intOrder)) {
       if ($intOrder == 1) {
         $s .= " ORDER BY title";
@@ -775,7 +775,7 @@ class DBAccess extends ErrorHandling {
       else if ($intOrder == 5) {
         $s .= " ORDER BY last_edited";
       }
-    }                              
+    }
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
@@ -1738,7 +1738,7 @@ nur fuer detaillierte?
    * Die folgende Funktion ist out of date und wird im folgenden NICHT mehr verwendet!
    *
    * Aktualisiert die Rollen der Person $objPerson bzgl. der Konferenz
-   * $intConferenceId in der Datenbank.  
+   * $intConferenceId in der Datenbank.
    *
    * @param Person $objPerson    Person-Objekt mit aktuellen Rollen
    * @param int $intConferenceId Konferenz-ID
@@ -1756,7 +1756,7 @@ nur fuer detaillierte?
     // Rollen loeschen...
     $s = sprintf("DELETE   FROM Role".
                  " WHERE   person_id = '%d'".
-                 " AND     conference_id = '%d'",                
+                 " AND     conference_id = '%d'",
                  s2db($intId), s2db($intConferenceId));
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
@@ -1780,12 +1780,12 @@ nur fuer detaillierte?
     return $this->success(true);
   }
 
-  function acceptRole($intPersonId, $intRoleId, $intConferenceId) {    
+  function acceptRole($intPersonId, $intRoleId, $intConferenceId) {
     $s = sprintf("UPDATE   Role".
                  " SET     state = ''".
                  " WHERE   person_id = '%d'".
                  " AND     role_type = '%d'".
-                 " AND     conference_id = '%d'",                 
+                 " AND     conference_id = '%d'",
                  s2db($intPersonId), s2db($intRoleId), s2db($intConferenceId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -1942,7 +1942,7 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('uploadPaperFile', $this->mySql->getLastError());
     }
-    // add Paper    
+    // add Paper
     $s = sprintf("INSERT  INTO PaperData (paper_id, filesize, file)".
                  "        VALUES ('%d', '%d', '%s')",
                  s2db($intPaperId),
@@ -1959,10 +1959,10 @@ nur fuer detaillierte?
    * Aktualisiert den ReviewReport $objReviewDetailed in der Datenbank,
    * sowie mit diesem ReviewReport assoziierten Ratings.
    *
-   * @param ReviewDetailed $objReviewDetailed Der ReviewReport   
+   * @param ReviewDetailed $objReviewDetailed Der ReviewReport
    * @return bool true gdw. die Aktualisierung gelungen ist
    * @access public
-   * @author Sandro (25.01.05) 
+   * @author Sandro (25.01.05)
    */
   function updateReviewReport($objReviewDetailed) {
     if (!(is_a($objReviewDetailed, 'ReviewDetailed'))) {
@@ -1973,13 +1973,13 @@ nur fuer detaillierte?
                  "         remarks = '%s', confidential = '%s'".
                  " WHERE   id = '%d'",
                  s2db($objReviewDetailed->intPaperId), s2db($objReviewDetailed->intReviewerId),
-                 s2db($objReviewDetailed->strSummary), s2db($objReviewDetailed->strRemarks), 
-                 s2db($objReviewDetailed->strConfidential), s2db($objReviewDetailed->intId));             
+                 s2db($objReviewDetailed->strSummary), s2db($objReviewDetailed->strRemarks),
+                 s2db($objReviewDetailed->strConfidential), s2db($objReviewDetailed->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateReviewReport', $this->mySql->getLastError());
     }
-    for ($i = 0; $i < count($objReviewDetailed->intRatings); $i++) {    
+    for ($i = 0; $i < count($objReviewDetailed->intRatings); $i++) {
       $s = sprintf("UPDATE   Rating".
                    " SET     grade = '%d', comment = '%s'".
                    " WHERE   review_id = '%d'".
@@ -1993,7 +1993,7 @@ nur fuer detaillierte?
         return $this->error('updateReviewReport', $this->mySql->getLastError(),
                             'Update operation could not finish, database may be inconsistent!');
       }
-    }    
+    }
     return $this->success();
   }
 
@@ -2311,8 +2311,8 @@ nur fuer detaillierte?
    * Aktualisiert die Artikel- und Themen-Praeferenzen, die durch das Mapping
    * $objReviewerAttitude angegeben sind.
    *
-   * @param ReviewerAttitude $objReviewerAttitude Die Abbildung von Themen- und 
-                                                  Paper-IDs auf Praeferenzwerte   
+   * @param ReviewerAttitude $objReviewerAttitude Die Abbildung von Themen- und
+                                                  Paper-IDs auf Praeferenzwerte
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Sandro (24.01.05)
@@ -2333,7 +2333,7 @@ nur fuer detaillierte?
       $this->deletePrefersPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
       if ($this->failed()) {
         return $this->error('updateReviewerAttitude', $this->getLastError());
-      }      
+      }
       $this->deleteDeniesPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
       if ($this->failed()) {
         return $this->error('updateReviewerAttitude', $this->getLastError());
@@ -2341,7 +2341,7 @@ nur fuer detaillierte?
       $this->deleteExcludesPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
       if ($this->failed()) {
         return $this->error('updateReviewerAttitude', $this->getLastError());
-      }      
+      }
       if ($objReviewerAttitude->getPaperAttitude($objPaper->intId) == ATTITUDE_PREFER) {
         $this->addPrefersPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
         if ($this->failed()) {
@@ -2365,17 +2365,17 @@ nur fuer detaillierte?
       $this->deletePrefersTopic($objReviewerAttitude->intReviewerId, $objTopic->intId);
       if ($this->failed()) {
         return $this->error('updateReviewerAttitude', $this->getLastError());
-      }      
+      }
       if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
         $this->addPrefersTopic($objReviewerAttitude->intReviewerId, $objTopic->intId);
         if ($this->failed()) {
           return $this->error('updateReviewerAttitude', $this->getLastError());
         }
-      }     
+      }
     }
     return $this->success(true);
   }
-  
+
 
   // ---------------------------------------------------------------------------
   // Definition der Insert-Funktionen
@@ -2401,31 +2401,34 @@ nur fuer detaillierte?
                          $blnAutoAddReviewer, $intNumAutoAddReviewer,
                          $strTopics=array(), $strCriterions=array(), $strCritDescripts=array(),
                          $intCritMaxVals=array(), $fltCritWeights=array()) {
-    $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
-        "                          paper_submission_deadline, review_deadline,".
-        "                          final_version_deadline, notification, conference_start,".
-        "                          conference_end, min_reviews_per_paper)".
-        "         VALUES ('$strName', '$strHomepage', '$strDescription', '$strAbstractDeadline',".
-        "                 '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline',".
-        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd',".
-        "                 '$intMinReviews')";
+    $s = sprintf("INSERT INTO Conference (name, homepage, description, abstract_submission_deadline,".
+        "                                 paper_submission_deadline, review_deadline,".
+        "                                 final_version_deadline, notification, conference_start,".
+        "                                 conference_end, min_reviews_per_paper)".
+        "                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                         s2db($strName), s2db($strHomepage), s2db($strDescription), s2db($strAbstractDeadline),
+                         s2db($strPaperDeadline), s2db($strReviewDeadline), s2db($strFinalDeadline),
+                         s2db($strNotification), s2db($strConferenceStart), s2db($strConferenceEnd),
+                         s2db($intMinReviews));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addConference', $this->mySql->getLastError());
     }
-    $s = "INSERT  INTO ConferenceConfig (id, default_reviews_per_paper,".
-         "                               min_number_of_papers, max_number_of_papers,".
-         "                               critical_variance, auto_activate_account,".
-         "                               auto_open_paper_forum, auto_add_reviewers,".
-         "                               number_of_auto_add_reviewers)".
-         "         VALUES ('$intId', '$intDefaultReviews', '$intMinPapers',".
-         "                 '$intMaxPapers', '$fltVariance', '$blnAutoActAccount',".
-         "                 '$blnAutoPaperForum', '$blnAutoAddReviewer', '$intNumAutoAddReviewer')";
+    $s = sprintf("INSERT INTO ConferenceConfig (id, default_reviews_per_paper,".
+         "   min_number_of_papers, max_number_of_papers, critical_variance, 
+         "   auto_activate_account, auto_open_paper_forum, auto_add_reviewers,".
+         "   number_of_auto_add_reviewers)".
+         " VALUES ('%d', '%d', '%d', '%d', '%f', '%d', '%d', '%d', '%d')",
+           s2db($intId), s2db($intDefaultReviews), s2db($intMinPapers),
+           s2db($intMaxPapers), s2db($fltVariance), s2db(b2db($blnAutoActAccount)),
+           s2db(b2db($blnAutoPaperForum)), s2db(b2db($blnAutoAddReviewer)),
+           s2db($intNumAutoAddReviewer));
     $this->mySql->insert($s);
     if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
       $strError = $this->mySql->getLastError();
-      $s = "DELETE  FROM Conference".
-          " WHERE   id = '$intId'";
+      $s = sprintf("DELETE  FROM Conference".
+                   "WHERE   id = '%d'",
+                    s2db($intId));
       $this->mySql->delete($s);
       if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
         return $this->error('addConference', 'Fatal error: Database inconsistency!',
@@ -2438,8 +2441,9 @@ nur fuer detaillierte?
         $this->addTopic($intId, $strTopics[$i]);
         if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
           $strError = $this->mySql->getLastError();
-          $s = "DELETE  FROM Conference".
-              " WHERE   id = '$intId'";
+          $s = sprintf("DELETE  FROM Conference".
+                       "WHERE   id = '%d'",
+                        s2db($intId));
           $this->mySql->delete($s);
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
@@ -2455,8 +2459,9 @@ nur fuer detaillierte?
                             $intCritMaxVals[$i], $fltCritWeights[$i]);
         if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
           $strError = $this->mySql->getLastError();
-          $s = "DELETE  FROM Conference".
-              " WHERE   id = '$intId'";
+          $s = sprintf("DELETE  FROM Conference".
+                       "WHERE   id = '%d'",
+                        s2db($intId));
           $this->mySql->delete($s);
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
