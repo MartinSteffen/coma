@@ -101,6 +101,7 @@ class DBAccess {
 
   /**
    * Prueft, ob die globalen User-Daten gueltig sind.
+   * Falls die Daten korrekt sind, wird in $_SESSION['uid'] die Userid gespeichert.
    *
    * @return bool <b>true</b> gdw. die Daten in der Person-Tabelle hinterlegt sind
    * @access public
@@ -116,6 +117,7 @@ class DBAccess {
         ' AND     password = \''.$_SESSION['password'].'\'';
     $data = $this->mySql->select($s);
     if (!empty($data)) {
+      $_SESSION['uid'] = $data['id'];
       return true;
     }
     return $this->error('checkLogin '.$this->mySql->getLastError());

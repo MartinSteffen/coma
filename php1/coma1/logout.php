@@ -21,6 +21,9 @@ require_once('./include/header.inc.php');
   if (isset($_SESSION['uname'])) {
     unset($_SESSION['uname']);
   }
+  if (isset($_SESSION['uid'])) {
+    unset($_SESSION['uid']);
+  }
   $_SESSION['message'] = 'Erfolgreich abgemeldet!';
 
 redirect('login.php');

@@ -59,7 +59,7 @@ function defaultAssocArray() {
 
 // Debugging Einstellungen:
 error_reporting(E_ALL);
-ini_set('display_errors', '1'); // später 0 ??
+ini_set('display_errors', '1');         // später 0 ??
 ini_set('display_startup_errors', '1'); // später 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
@@ -96,6 +96,8 @@ checkError($myDBAccess);
 // End Standard Klassen
 
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
+// Stellt ausserdem sicher das uid und password nur genau dann gesetzt sind, 
+// wenn der Benutzer korrekt eingeloggt ist!
 if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
     $_SESSION['message'] = 'Bitte melden Sie sich an!';
@@ -106,13 +108,10 @@ if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin()))
   if (isset($_SESSION['password'])) {
     unset($_SESSION['password']);
   }
+  if (isset($_SESSION['uid'])) {
+    unset($_SESSION['uid']);
+  }
   redirect('login.php');
 }
-
-/** @todo Setzen auf Benutzer Gast hier wieder entfernen */
-// Temporaer solange LoginCheck noch nicht implementiert ist
-//if (!isset($_SESSION['uname'])) {
-//  $_SESSION['uname'] = 'Gast';
-//}
 
 ?>
