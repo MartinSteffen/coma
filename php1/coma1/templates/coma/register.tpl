@@ -130,6 +130,6 @@
 <p>&nbsp;</p>
 
 <p class="message2">
-  Please enter Informations regarding your person!<br>
-  Fields marked with (*) are required to proceed with registration.
+  Please enter information regarding your person!<br>
+  Fields marked with (*) are required to proceed with the registration.
 </p>
