@@ -18,7 +18,7 @@ require_once('./include/header.inc.php');
 // Haupt-Ansicht fuer den Chair
 $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_chair.tpl');
-$submenue = new Template(TPLPATH.'nav_chair_arti.tpl');
+$submenue = new Template(TPLPATH.'nav_chair_benu.tpl');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['titel'] = 'Chair-Verwaltung';
