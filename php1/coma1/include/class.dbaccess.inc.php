@@ -320,7 +320,7 @@ class DBAccess extends ErrorHandling {
    */
   function getPersonDetailed($intPersonId, $intConfId=false) {
     $s = "SELECT  id, first_name, last_name, email, title, affiliation,".
-        "         street, city, postal_code, state, country, phone_number, fax_number,".
+        "         street, city, postal_code, state, country, phone_number, fax_number".
         " FROM    Person".
         " WHERE   id = $intPersonId";
     $data = $this->mySql->select($s);
