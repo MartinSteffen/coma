@@ -23,7 +23,7 @@ $strAssocs = array();
 $strAssoc['path'] = './templates/sandro/';
 $strAssoc['content'] =& $loginPage;
 
-$mainPage->assign($assocArray);
+$mainPage->assign($strAssoc);
 
 $mainPage->parse();
 
