@@ -21,7 +21,7 @@ $p = $MyDBAccess->getPerson(1);
 echo('Roles:<br>');
 for ($i = 0; $i < count($ROLES); $i++) {
   if ($p->hasRole($ROLES[$i][0]))
-    echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>';
+    echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
 }
 
 
