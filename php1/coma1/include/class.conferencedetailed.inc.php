@@ -63,6 +63,7 @@ class ConferenceDetailed extends Conference {
     $this->intNumberOfAutoAddReviewers = $intNumberOfAutoAddReviewers;
     $this->objCriterions = $objCriterions;
     $this->objTopics = $objTopics;
+    echo(encodeURL($this->strHomepage));
   }
 
 } // end class ConferenceDetailed
