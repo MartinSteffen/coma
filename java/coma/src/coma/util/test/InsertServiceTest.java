@@ -1,6 +1,5 @@
 package coma.util.test;
 
-
 import junit.framework.TestCase;
 
 import org.apache.log4j.BasicConfigurator;
@@ -24,14 +23,16 @@ import coma.handler.impl.db.ReadServiceImpl;
 public class InsertServiceTest extends TestCase {
 
 	private static Category log = Category.getInstance(InsertServiceTest.class);
+
 	InsertServiceImpl insert = new InsertServiceImpl();
 
 	ReadServiceImpl read = new ReadServiceImpl();
-	
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		BasicConfigurator.configure();
 	}
+
 	public void testInsertConference() {
 		boolean run = false;
 		if (run) {
@@ -55,7 +56,7 @@ public class InsertServiceTest extends TestCase {
 	}
 
 	public void testInsertPaper() {
-		boolean run = true;
+		boolean run = false;
 		if (run) {
 			Paper paper = new Paper(-1);
 			paper.setConference_id(1);
@@ -66,27 +67,31 @@ public class InsertServiceTest extends TestCase {
 			System.out.println(sr.SUCCESS);
 			System.out.println(sr.getInfo());
 		}
-	} 
+	}
 
 	public void testInsertPerson() {
-		boolean run = false;
+		boolean run = true;
 		if (run) {
-			Person p = new Person(1);
-			p.setFirst_name("Testperson1");
-			p.setLast_name("Testperson1");
-			p.setEmail("test1@web.com");
+			Person p = new Person(-1);
+			p.setFirst_name("Testperson14");
+			p.setLast_name("Testperson14");
+			p.setEmail("test14@web.com");
 			p.setPassword("passwort");
+			int[] roles = new int[2];
+			roles[0] = 1; roles[1] = 2;
+			p.setRole_type(roles);
+			p.setConference_id(1);
 			SearchResult sr = new SearchResult();
-			// sr = insert.insertPerson(p);
-			// System.out.println(sr.getInfo());
-			// System.out.println(sr.SUCCESS);
+			sr = insert.insertPerson(p);
+			System.out.println(sr.getInfo());
+			System.out.println(sr.SUCCESS);
 			SearchCriteria sc = new SearchCriteria();
 			sc.setPerson(p);
-			sr = read.getPerson(sc);
-			Person[] ps = (Person[]) (sr.getResultObj());
-			for (int i = 0; i < ps.length; i++) {
-				System.out.println(ps[i].toXML());
-			}
+		//	sr = read.getPerson(sc);
+		//	Person[] ps = (Person[]) (sr.getResultObj());
+		//	for (int i = 0; i < ps.length; i++) {
+		//		System.out.println(ps[i].toXML());
+		//	}
 		}
 	}
 

@@ -35,8 +35,21 @@ public class Person extends Entity {
     private String country; 
     private String password;
     private Vector<Integer> role_type =new Vector<Integer>();
+    private int conference_id; //optional
 
 	
+	/**
+	 * @return Returns the conference_id.
+	 */
+	public int getConference_id() {
+		return conference_id;
+	}
+	/**
+	 * @param conference_id The conference_id to set.
+	 */
+	public void setConference_id(int conference_id) {
+		this.conference_id = conference_id;
+	}
 	/**
 	 * @param id
 	 */

@@ -53,7 +53,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPerson(){
-		boolean run = false;
+		boolean run = true;
 		if(!run){
 			return;
 		}
@@ -91,7 +91,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPaper(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}

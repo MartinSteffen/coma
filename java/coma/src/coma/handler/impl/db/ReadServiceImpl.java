@@ -115,7 +115,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						and = true;
 					}
 					roleFlag = true;
-					QUERY += " Role.person_id IN (";
+					QUERY += " Role.role_type IN (";
 					for (int i = 0; i < p.getRole_type().length; i++) {
 						QUERY += p.getRole_type()[i];
 						if (i < p.getRole_type().length - 1) {
@@ -125,7 +125,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 					QUERY += ")";
 					QUERY += " AND Person.id = Role.person_id";
 				}
-				System.out.println(QUERY);
 			}
 		}
 		if (!(idFlag || emailFlag || stateFlag || nameFlage || firstNameFlag || roleFlag)) {
@@ -199,7 +198,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 		if (conn != null) {
 			if (role_type.length > 0) {
-				String QUERY = "SELECT Person.*  FROM Person, Role WHERE "
+				String QUERY = "SELECT *  FROM Person, Role WHERE "
 						+ " Role.role_type IN (";
 				for (int i = 0; i < role_type.length; i++) {
 					QUERY += role_type[i];

@@ -2,6 +2,7 @@ package coma.handler.impl.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Category;
@@ -80,11 +81,35 @@ public class InsertServiceImpl extends Service implements InsertService {
 				pstmt.setString(++pstmtCount, person.getPassword());
 
 				int rows = pstmt.executeUpdate();
+				ResultSet keyRes = pstmt.getGeneratedKeys();
+				int person_id = 0;
+				if(keyRes.next()) person_id = keyRes.getInt(1);
+				
 				if (rows != 1) {
 					conn.rollback();
 					info
-							.append("Person could not inserted into the database\n");
+							.append("Error: Person could not inserted into the database\n");
 				} else {
+					String QUERY = "INSERT INTO Role VALUES(?,?,?,?)";
+					int role[] = person.getRole_type();
+					if (role != null) {
+						for (int i = 0; i < role.length; i++) {
+							pstmt = conn.prepareStatement(QUERY);
+							pstmt.setInt(1, person.getConference_id());
+							pstmt.setInt(2, person_id);
+							pstmt.setInt(3, role[i]);
+							pstmt.setString(4, null);
+
+							rows = pstmt.executeUpdate();
+							if (rows != 1) {
+								info
+										.append("Error: could not set the roles nummber ("
+												+ role[i]
+												+ ") for this Person!");
+								conn.rollback();
+							}
+						}
+					}
 					result.setSUCCESS(true);
 					info.append("Person inserted successfully\n");
 				}
@@ -508,6 +533,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 		// TODO
 		return null;
 	}
+
 	/**
 	 * @see coma.handler.db.InsertService#insertMessage(coma.entities.Message)
 	 */
@@ -551,7 +577,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				+ conference_id + ",'" + name + "')";
 		return executeQuery(QUERY);
 	}
-	
+
 	public SearchResult setPersonRole(int person_id, int conference_id,
 			int role_type, int state) {
 		String QUERY = "INSERT INTO Role " + " VALUES(" + conference_id + ","
@@ -564,5 +590,5 @@ public class InsertServiceImpl extends Service implements InsertService {
 				+ "," + paper_id + "," + name + ")";
 		return executeQuery(QUERY);
 	}
-	
+
 }
