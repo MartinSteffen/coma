@@ -58,7 +58,12 @@ $content = new Template(TPLPATH.'help.tpl');
 $strContentAssocs = defaultAssocArray();
 
 //angeforderte hilfethemen bestimmen und template zusammenbauen
-$strArrayHelpTopics = explode(' ',$_GET['for']);
+if (!empty($_GET['for'])){
+  $strArrayHelpTopics = explode(' ',$_GET['for']);
+}
+else{
+  $strArrayHelpTopics = array('nothing');
+}
 
 if (in_array('toc', $strArrayHelpTopics)){
   $toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
@@ -78,7 +83,7 @@ if (in_array('toc', $strArrayHelpTopics)){
   $toctemplate->parse();
   $strContentAssocs['toc'] = $toctemplate->getOutput();
 }
-if (empty($strArrayHelpTopics)){
+if (in_array('nothing', $strArrayHelpTopics)){
   $toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
   $tocassocs = defaultAssocArray();
   $tocassocs['chapter-no'] = '0';
