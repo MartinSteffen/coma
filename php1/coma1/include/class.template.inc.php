@@ -118,7 +118,6 @@ class Template {
    * @return true Erfolg
    * @access public
    * @todo Check ob gueltiges Objekt!!!
-   * @todo nicht ersetzte Tags ueberpruefen!!!
    * @todo Liste von Assoziationen Baum herunter schleppen
    *
    */
@@ -126,24 +125,22 @@ class Template {
     $strKeys = array();
     $strValues = array();
     foreach ($this->strAssocs as $key => $value) {
+      $strKeys[] = '/(?i){'.$key.'}/';
       if (is_object($value)) { // @todo Check ob gültiges Objekt!!!
         $value->parse();
-        $strKeys[] = '/(?i){'.$key.'}/';
         $strValues[] = $value->getOutput();
       }
       elseif (is_array($value)) {
-        $strKeys[] = '/(?i){'.$key.'=(.*)}/';
+//        $strKeys[] = '/(?i){'.$key.'=(.*)}/';
         $strValues[] = '';
-        $this->strTemplate = preg_replace('/(?i){'.$value[0].'(.*){'.$key.'}(.*)}/', 
-                                          '\\1\\3', 
-                                          $this->strTemplate);
-        //echo('/(?i){'.$value[0].'(.*)({'.$key.'})(.*)}/');
       }
       else {
-        $strKeys[] = '/(?i){'.$key.'}/';
         $strValues[] = $value;
       }
     }
+    // Alle nicht zugeordneten rauswerfen!
+    $strKeys[] = '/(?i){(.*)}/'
+    $strValues[] = ''
     $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
     return true;
   }
