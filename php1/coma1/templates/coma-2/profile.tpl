@@ -13,7 +13,7 @@
       Vorname:
     </td>
     <td>      
-      <input type="text" name="first_name" size="32" maxlength="127">{first_name}</input>
+      <input type="text" name="first_name" size="32" maxlength="127" value="{first_name}" />
     </td>
   </tr>
   <tr>
@@ -21,7 +21,7 @@
       Nachname:
     </td>
     <td>      
-      <input type="text" name="last_name" size="32" maxlength="127">{last_name}</input> *
+      <input type="text" name="last_name" size="32" maxlength="127" value="{last_name}"/ > *
     </td>
   </tr>
   <tr>

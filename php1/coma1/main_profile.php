@@ -103,6 +103,7 @@ $menu->assign($strMenuAssocs);
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Pers&ouml;nliche Angaben von '.$_SESSION['uname'];
 $strMainAssocs['content'] = &$content;
+$strMainAssocs['menu'] = &$menu;
 
 $strPath = array($_SESSION['uname']=>'', 'Profil'=>'');
 require_once(TPLPATH.'navigatoritem.php');
