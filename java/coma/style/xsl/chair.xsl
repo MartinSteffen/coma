@@ -20,6 +20,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <div class="status-line">
 <xsl:apply-templates select = "/result/login/status"/>
+<xsl:apply-templates select = "/result/email/status"/>
 <xsl:apply-templates select = "/result/invite/status"/>
 <xsl:apply-templates select = "/result/showpapers/status"/>
 <xsl:apply-templates select = "/result/showauthors/status"/>
@@ -30,6 +31,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select = "/result/setup_topics/status"/>
 <xsl:apply-templates select = "/result/add_topics/status"/>
 <xsl:apply-templates select = "/result/invitation_send/status"/>
+<xsl:apply-templates select = "/result/assign/status"/>
 </div>
 
 
@@ -49,6 +51,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select = "/result/showreviewers_data/content"/>
 <xsl:apply-templates select = "/result/showauthors_data/content"/>
 <xsl:apply-templates select = "/result/email/content"/>
+<xsl:apply-templates select = "/result/assign/content"/>
 </div> <!-- Main content end -->
 
 </body>
@@ -396,13 +399,134 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
    </td>
    <td>
    	<a>
-		<xsl:attribute name = "href">Chair?action=show_authors&amp;id=<xsl:value-of select="author_id"/></xsl:attribute>
-		Autorenliste
+		<xsl:attribute name = "href">Chair?action=assign&amp;id=<xsl:value-of select="id"/></xsl:attribute>
+		Assignment
 		</a>
    </td>
 </tr>
 </xsl:for-each>
 </table>
+</xsl:template>
+
+
+<xsl:template match="/result/assign/content">
+<h4 align="left" style="color:black">Paper</h4>
+<table class="chair" cellpadding="5">
+	<thead>
+		<tr align="center">
+			<!--<td>ID</td><td>Conference ID</td><td>Author ID</td>-->
+			<th>Title</th>
+			<th>Author</th>
+			<th>state</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tr align="center">
+		<td>
+			<xsl:value-of select="/result/assign/content/paper/title"/>
+		</td>
+		<td>
+			<xsl:value-of select="/result/assign/content/paper/Person/last_name"/>
+		</td>
+   		<td>
+   			<xsl:choose>
+   				<xsl:when test="/result/assign/content/paper/state ='0'">
+   					rejected
+   				</xsl:when>
+   				<xsl:when test="/result/assign/content/paper/state ='1'">
+   				</xsl:when>
+   			</xsl:choose>
+   		</td>
+	</tr>
+</table>
+<form method="POST" action="Chair?action=doAssign">	
+	<table style="color:black;text-align:center;font-size:12pt" cellpadding="5">
+		<thead>
+			<tr align="center">
+				<th>
+					first name
+				</th>
+				<th>
+					last name
+				</th>
+				<th>
+					email
+				</th>
+				<th>
+					Assign
+				</th>
+				<th>
+				</th>
+			</tr>
+		</thead>
+		<h4 align="left" style="color:black">Reviewers:</h4>
+	<xsl:for-each select="/result/assign/content/personplus">
+		<tr>
+			<td><xsl:value-of select="person/first_name"/></td>
+			<td><xsl:value-of select="person/last_name"/></td>
+			<td><xsl:value-of select="person/email"/></td>	
+			<td>
+	
+			<input type="checkbox" name="CB"><xsl:attribute name = "value"><xsl:value-of select="person/id"/></xsl:attribute>
+			<xsl:if test="checked">
+			<xsl:attribute name = "checked"/>
+			</xsl:if>
+			</input>		
+</td>
+		
+	   </tr>
+	</xsl:for-each>
+	</table>
+	<p>	<input type="submit" value="submit"/></p>
+		</form>
+</xsl:template>
+
+<xsl:template match="/result/email/content">
+<form action="Chair?action=send_email" method="post">
+<table style="color:black">
+<tr>
+	<td>
+		To:
+	</td>
+	<td>	
+		<input type="text" name="Recv" id="Recv"  size="24">
+			<xsl:attribute name="value">
+  				<xsl:value-of select="/result/email/content/recv"/> 
+  			</xsl:attribute>
+		</input>
+	</td>
+</tr>
+<tr>
+	<td>
+		Subject: 
+	</td>
+	<td>
+		<input type="text" id="Subj" name="Subj" size="24">
+			<xsl:attribute name="value">
+  				<xsl:value-of select="/result/email/content/subj"/>
+  		  	</xsl:attribute>
+  		</input>
+  	</td>
+</tr>
+<tr>
+	<td>
+	</td>
+	<td>
+		<textarea rows="7" name="Cont" id="Cont" cols="28">&#160;
+  			<xsl:value-of select="/result/email/content/cont"/>
+		</textarea>
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="submit" value="Send" name="B1"/>
+	</td>
+	<td>
+		<input type="reset" value="Delete" name="B2"/>
+	</td>
+</tr>
+</table>
+</form>
 </xsl:template>
 
 
