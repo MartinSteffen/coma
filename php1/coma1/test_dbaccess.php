@@ -26,8 +26,14 @@ echo('<br>Konferenz-ID: '.$_SESSION['confid']);
 $cd = $myDBAccess->getConferenceDetailed();
 if (!empty($cd)) {
   echo('<br>AutoActivateAccount: '.$cd->blnAutoActivateAccount);
+  if ($cd->blnAutoActivateAccount = true) echo('TRUE');
+  if ($cd->blnAutoActivateAccount = false) echo('FALSE');
   echo('<br>AutoOpenPaperForum:  '.$cd->blnAutoOpenPaperForum);
+  if ($cd->blnAutoOpenPaperForum = true) echo('TRUE');
+  if ($cd->blnAutoOpenPaperForum = false) echo('FALSE');
   echo('<br>AutoAddReviewers:    '.$cd->blnAutoAddReviewers);
+  if ($cd->blnAutoAddReviewers = true) echo('TRUE');
+  if ($cd->blnAutoAddReviewers = false) echo('FALSE');
 }
 else {
   echo('<br>LastError: '.$myDBAccess->getLastError());
