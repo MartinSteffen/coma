@@ -67,14 +67,12 @@ elseif (SID != '') {
 
     <p>&nbsp;</p>
 
-    <p>
+    <ul>
       You have the following three options:
-      <ul>
-       <li>Return to the <a href="<?=COREURL?>index.php<?=SID?>">start page</a>!
-       <li>Try again and <a href="javascript:location.reload()">reload the page</a>!
-       <li>Go one step <a href="javascript:history.back()">back in time</a>!
-      </ul>
-    </p>
+      <li>Return to the <a href="<?=COREURL?>index.php<?=SID?>">start page</a>!
+      <li>Try again and <a href="javascript:location.reload()">reload the page</a>!
+      <li>Go one step <a href="javascript:history.back()">back in time</a>!
+    </ul>
 
     <p>&nbsp;</p>
   </td>
