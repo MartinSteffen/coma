@@ -686,9 +686,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (19.01.05)
    */
   function getPapersOfConference($intConferenceId) {
-    $s = "SELECT  p.id AS id, author_id, title, state, filename".
-        " FROM    Paper AS p".
+    $s = "SELECT  id, author_id, title, state, filename".
+        " FROM    Paper".
         " WHERE   conference_id = '$intConferenceId'";
+    echo($s);
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());

@@ -50,7 +50,7 @@ if (!empty($objConferences)) {
   }
 }
 else {
-  // Konferenzliste ist leer.
+  // Artikelliste ist leer.
 }
 
 $content->assign($strContentAssocs);
