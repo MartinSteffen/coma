@@ -369,7 +369,6 @@ class DBAccess extends ErrorHandling {
     $s = "SELECT  id, first_name, last_name, email, title".
         " FROM    Person".
         " WHERE   id = $intPersonId";
-    echo("<br>$s<br>");
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPerson', $this->mySql->getLastError());
@@ -570,6 +569,7 @@ class DBAccess extends ErrorHandling {
     $s = "SELECT  author_id, title, state, abstract, mime_type, last_edited, filename".
         " FROM    Paper".
         " WHERE   id = $intPaperId";
+    echo("<br>$s<br>");
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPaperDetailed', $this->mySql->getLastError());
