@@ -14,15 +14,12 @@ $STEP2 = false;
 $STEP3 = false;
 if (isset($_GET['1'])) {
   $STEP1 = true;
-  echo 1;
 }
 elseif (isset($_GET['2'])) {
   $STEP2 = true;
-  echo 2;
 }
 elseif (isset($_GET['3'])) {
   $STEP3 = true;
-  echo 3;
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,7 +31,7 @@ elseif (isset($_GET['3'])) {
   <!--
   body, ol { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
     font-size: 12px; vertical-align: top; background-color: #FFFFFF;
-    margin: 20px; padding: 0px; }
+    margin: 0px; padding: 0px; }
   a { text-decoration: none; font-weight: bold; }
   a:link { color: #1A35AD; }
   a:visited { color: #1A35AD; }
@@ -43,18 +40,19 @@ elseif (isset($_GET['3'])) {
   p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
     width: 60%; font-size: 13px; font-weight: bold; text-align: center;
     vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
+  p.area { color: #222222; background-color: #dddddd; border: 1px solid #222222; }
   p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; }
   p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; }
   -->
   </style>
 </head>
 <body>
-  <ol>
-    <li><a href="INSTALL.PHP?1">Generate Configuration</a></li>
-    <li><a href="INSTALL.PHP?2">Create Database</a></li>
-    <li><a href="INSTALL.PHP?3">Add Tutorial Data</a></li>
-  </ol>
-  <p>&nbsp;</p>
+  <p class="area">
+    <ol>
+      <li><a href="INSTALL.PHP?1">Generate Configuration</a></li>
+      <li><a href="INSTALL.PHP?2">Create Database</a></li>
+      <li><a href="INSTALL.PHP?3">Add Tutorial Data</a></li>
+    </ol>
 <?php
 if ($STEP1){
 
@@ -125,16 +123,16 @@ elseif ($STEP2) {
     }
   }
   if (empty($errors)) {
-    echo "  <p class=\"message-ok\">Database successfully created!</p>";
+    echo "    <p class=\"message-ok\">Database successfully created!</p>";
   }
   else {
-    echo "  <p class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
+    echo "    <p class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
     foreach ($errors as $error) {
-      echo "    ".$error."<br>\n";
+      echo "      ".$error."<br>\n";
     }
-    echo "    <br><br>\n";
-    echo "    Please check 'include/config.inc.php' for correct values!\n";
-    echo "  </p>\n";
+    echo "      <br><br>\n";
+    echo "      Please check 'include/config.inc.php' for correct values!\n";
+    echo "    </p>\n";
   }
 }
 elseif ($STEP3) {
@@ -142,5 +140,6 @@ elseif ($STEP3) {
   include('test_basedata.php');
 }
 ?>
+  </p>
 </body>
 </html>
