@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
     $strContentAssocs['if'] = array(1);
   }
 }
-elseif (isset($_GET['id'] && isset($_GET['key']) {
+elseif (isset($_GET['id']) && isset($_GET['key'])) {
   // Aendern des PW
   if (checkLogin($_GET['id'], $_GET['key'])) {
     // altes PW korrekt
