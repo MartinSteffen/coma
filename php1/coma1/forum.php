@@ -357,7 +357,7 @@ function generatePostMethodArray($strArrayPostvars){
   }
 
   //evtl. posten einleiten
-  if ((isset($_POST['reply'])) || (isset($_POST['newthread']) || (isset($_POST['update'])){
+  if ((isset($_POST['reply'])) || (isset($_POST['newthread'])) || (isset($_POST['update']))){
     $strArrayPvars = generatePostMethodArray($_POST);
     $intPostresult = false;
     //auf einen Beitrag antworten
