@@ -332,7 +332,12 @@ function generatePostMethodArray($strArrayPostvars){
   }
   $strArrayPma['reply-to'] = $strArrayPostvars['reply-to']; //wenn geupdated wird, dann ist reply-to gleich der id der Message die geupdated werden soll
   $strArrayPma['text']     = $strArrayPostvars['text'];
-  $strArrayPma['subject']  = $strArrayPostvars['subject'];
+  if (!empty($strArrayPostvars)){
+    $strArrayPma['subject'] = $strArrayPostvars['subject'];
+  }
+  else{
+    $strArrayPma['subject'] = 'no subject';
+  }
   $strArrayPma['forumid']  = $strArrayPostvars['forumid'];
   return $strArrayPma;
 }
