@@ -87,16 +87,17 @@ if ($checkRole && $objPerson->hasRole(AUTHOR)) {
       if (!empty($objPaper->fltAvgRating)) {
         $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
       }
-    else {
-      $strItemAssocs['avg_rating'] = ' - ';
-    }    
-    $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
-    $strItemAssocs['if'] = $ifArray;
-    $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
-    $paperItem->assign($strItemAssocs);
-    $paperItem->parse();
-    $strPapersAssocs['lines'] .= $paperItem->getOutput();
-    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+      else {
+        $strItemAssocs['avg_rating'] = ' - ';
+      }    
+      $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
+      $strItemAssocs['if'] = $ifArray;
+      $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
+      $paperItem->assign($strItemAssocs);
+      $paperItem->parse();
+      $strPapersAssocs['lines'] .= $paperItem->getOutput();
+      $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+    }
   }  
   else {
     // Artikelliste ist leer.
