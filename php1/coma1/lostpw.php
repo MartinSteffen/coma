@@ -72,7 +72,7 @@ elseif (isset($_GET['id']) && isset($_GET['key'])) {
   }
   if ($myDBAccess->checkLogin($objPerson->strEmail, $_GET['key'])) {
     // altes PW korrekt
-    $newPass = 'New Password';
+    $newPass = generatePassword();
     $myDBAccess->updatePersonPassword($_GET['id'], $newPass);
     if ($myDBAccess->failed()) {
       error('Error updateing persones password', $myDBAccess->getLastError());
@@ -84,7 +84,7 @@ elseif (isset($_GET['id']) && isset($_GET['key'])) {
     $strMailAssocs['password'] = $newPass;
     $mail->assign($strMailAssocs);
     $mail->parse();
-    if (sendMail($uid, 'New Password', $mail->getOutput())) {
+    if (sendMail($_GET['id'], 'New Password', $mail->getOutput())) {
       $_SESSION['message'] = 'An Email with your new Password has been sent to you!';
       redirect('index.php');
     }

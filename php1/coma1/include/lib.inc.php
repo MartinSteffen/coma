@@ -328,7 +328,7 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
   if (empty($strFrom)) {
     $strFrom = "\"CoMa - Your Conference Manager\" <>";
   }
-  
+
   // TOTALAY UNSURE ABOUT THIS WHOLE \r\n vs \n STUFF NEEDS LOTS OF TESTING
   // Replace \n by \r\n
   $strMsg = str_replace("\n", "\r\n", $strMsg);
@@ -343,5 +343,13 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
 
 }
 
+
+/**
+ *  Generate Random Password
+ *
+ */
+function generatePassword($intLen=8) {
+  return substr(sha1(microtime()), 0, $intLen);
+}
 
 ?>
