@@ -220,6 +220,7 @@ if (isset($_POST['action'])) {
      * ein leeres Kriterium in die Datenbank einzutragen !!!
      */
     foreach ($strCriterions as $key => $crit){
+      echo 'crit:'.crit;
       if ( empty($crit) ){
 	$crit=NULL;
       }
