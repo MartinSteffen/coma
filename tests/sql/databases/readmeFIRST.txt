@@ -2,11 +2,21 @@ Die hier vorhandenen Skripte sind geeignet um eine Datenbank mit Testdaten zu ve
 Die Skripte werden noch weiter bearbeitet und Wünsche für spezielle Daten können gerne
 an gub75@gmx.de geschickt werden.
 
--basedata.sql schreibt Daten in die aktive Datenbank. Vorhandene Table werden
-              geleert, Gruppenspezifische Table werden ignoriert. Person 32 hat mehrere
-              Rollen und nutzt diese unter anderem um ein eigenes Paper zu reviewen.
-              Paper 9 wird von insgesamt 4 Reviewern bewertet, wobei der Report 5 vom
-              Autor selbst (32) stammt. Viel Spaß damit ;)
+-basedata.sql schreibt Daten in die aktive Datenbank.Gruppenspezifische Table werden ignoriert. 
+              Die Daten sind generisch und bauensich wie folgt auf:
+              100 user mit login Xemail@mail.de X aus [0,99].
+              X 0-9 Chair
+              X 0-30 Reviewer
+              X 10-49 Author
+              X 33-99 Participant
+              1 user sae@me.de mit allen Roles.
+              50 Paper von den Authoren Random Topics 1-10
+              2 verschiedene CoAuthoren für Paper 1 und 2
+              Zufällige Reports, Reviewer scheriben Report zu Paper X mit Chance 2/3
+              3 Kriterien
+              Zufällige Ratings 1-6 pro Kriterium und Report
+              Verschiedenste Prefers/Denies/Excludes Paper und Topic
+              Viel Spaß damit ;)
               
 basedata2.sql Wie basedata.sql nur nicht generisch sondern mit weniger aber Handgeschriebenen
               Daten von glücklichen freilaufenden Praktikumsteilnehmern. Dient als backup des
