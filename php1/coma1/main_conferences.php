@@ -23,10 +23,10 @@ $strItemAssocs = defaultAssocArray();
 
 $objConferences = $myDBAccess->getAllConferences();
 $strContentAssocs['if'] = array();
-$strContentAssocs['lines'] = '';  
+$strContentAssocs['lines'] = '';
 if (!empty($objConferences)) {
-  $lineNo = 1;  
-  foreach ($objConferences as $objConference) {  	  	
+  $lineNo = 1;
+  foreach ($objConferences as $objConference) {
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
     if ($mySql->failed()) {
       echo ($mySql->getLastError().'<br>');
@@ -43,21 +43,21 @@ if (!empty($objConferences)) {
         $ifArray[] = 3;
       }
     }
-    $strItemAssocs['if'] = $ifArray;    
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['confid'] = $objConference->intId;
     $strItemAssocs['name'] = $objConference->strName;
     $strItemAssocs['startdate'] = $objConference->strStart;
-    $strItemAssocs['enddate'] = $objConference->strEnd;        
+    $strItemAssocs['enddate'] = $objConference->strEnd;
+    $strItemAssocs['if'] = $ifArray;
     $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
     $conferenceItem->assign($strItemAssocs);
     $conferenceItem->parse();
     $strContentAssocs['lines'] .= $conferenceItem->getOutput();
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
-  }    
+  }
 }
 else {
-  $strContentAssocs['if'] = array(1);  
+  $strContentAssocs['if'] = array(1);
 }
 
 $content->assign($strContentAssocs);

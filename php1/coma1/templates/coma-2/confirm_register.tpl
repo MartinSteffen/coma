@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td> 
-      Email address:
+      E-mail address:
     </td>
     <td>      
       {email} <span class="emph">(= username)</span>
