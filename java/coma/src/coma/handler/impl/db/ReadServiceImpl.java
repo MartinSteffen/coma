@@ -10,14 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Category;
 
-import coma.entities.Conference;
-import coma.entities.Criterion;
-import coma.entities.Paper;
-import coma.entities.Person;
-import coma.entities.Rating;
-import coma.entities.ReviewReport;
-import coma.entities.SearchCriteria;
-import coma.entities.SearchResult;
+import coma.entities.*;
 import coma.handler.db.ReadService;
 import coma.handler.util.EntityCreater;
 
