@@ -35,7 +35,7 @@ if (!empty($objPersons)) {
     $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
     $strItemAssocs['target_form'] = 'chair_users.php';
     $strItemAssocs['roles'] = '';
-    for (int $i = 0; $i < $intRoles; $i++) {
+    for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
       $strRolesAssocs = defaultAssocArray();
       $strRolesAssocs['user_id'] = $objPerson->intId;
