@@ -76,6 +76,33 @@ class MySql {
   }
 
   /**
+   * delete()
+   *
+   * Die Funktion <b>delete()</b> ermoeglicht delete Anfragen an die Datenbank.
+   * Dabei werden einfache Fehlerchecks durchgefuert.
+   *
+   * @param string $strSql Eine SQL <b>delete</b> Anfrage an die Datenbank
+   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls ein Fehler auftrat.
+   * @see error()
+   * @see getLastError()
+   * @access public
+   *
+   */
+  function delete($strSql='') {
+    if (empty($strSql)) {
+      return false;
+    }
+    if (!eregi("^delete",$strSql)) {
+      return $this->error("delete called with $strSql");
+    }
+    if (empty($this->mySqlConnection)) {
+      return $this->error('delete: Keine Datenbank-Verbindung');
+    }
+    $result = mysql_query($strSql, $this->mySqlConnection);
+    return $result;
+  }
+
+  /**
    * select()
    *
    * Die Funktion <b>select()</b> ermoeglicht select Anfragen an die Datenbank.
@@ -97,12 +124,12 @@ class MySql {
       return $this->error("select called with $strSql");
     }
     if (empty($this->mySqlConnection)) {
-      return false;
+      return $this->error('select: Keine Datenbank-Verbindung');
     }
     $results = mysql_query($strSql, $this->mySqlConnection);
     if (empty($results)) {
       @mysql_free_result($results);
-      return false;
+      return $this->error('select: Datensatz nicht gefunden.');
     }
     $count = 0;
     $data = array();
@@ -135,11 +162,11 @@ class MySql {
       return $this->error("insert called with $strSql");
     }
     if (empty($this->mySqlConnection)) {
-      return false;
+      return $this->error('insert: Keine Datenbank-Verbindung');
     }
     $results = mysql_query( $strSql, $this->mySqlConnection );
     if (empty($results)) {
-      return false;
+      return $this->error('insert: konnte Datensatz nicht hinzufuegen');
     }
     return  mysql_insert_id();
   }
