@@ -162,6 +162,28 @@ public class ReviewReport extends Entity {
 	return result;
     }
 
+    /**
+       returns true iff all Ratings are "valid" in the sense that they
+       are in their proper bounds.
+
+       This is a sufficient proof that the Reviewer has handed in this
+       report, iff the Ratings are initialized not to be in their
+       bounds, like null or 0. Note that existance of the Report as
+       such is not.
+     */
+    public boolean isEdited(){
+
+	for (Rating r: getRatings()){
+	    Criterion c = r.getCriterion();
+	    if ((r.getGrade() < 1)
+		|| (r.getGrade() > c.getMaxValue())){
+		return false;
+	    }
+	}
+	return true;
+
+    }
+
     public StringBuilder toXML(XMLMODE mode){
 
 	switch (mode){

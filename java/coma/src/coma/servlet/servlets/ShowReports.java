@@ -241,7 +241,7 @@ public class ShowReports extends HttpServlet {
 
 	    for (ReviewReport rr: allReports){
 
-		if (rr.getRatings().size() > 0){
+		if (rr.isEdited()){
 
 		    result.add(rr.getPaper());
 		}
