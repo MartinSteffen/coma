@@ -23,6 +23,7 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');
 }
 
+$ifArray = array();
 $content = new Template(TPLPATH.'chair_start.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['request_no'] = '';
@@ -38,7 +39,7 @@ foreach ($objPersons as $objPerson) {
 }
 if ($intRoleRequests > 0) {
   $strContentAssocs['request_no'] = encodeText($intRoleRequests);
-  $strContentAssocs['if'] = array(1);
+  $ifArray[] = 1;
 }
 $intUndistributedPapers = $myDBAccess->getNumberOfUndistributedPapers(session('confid'));
 if ($myDBAccess->failed()) {
@@ -46,8 +47,9 @@ if ($myDBAccess->failed()) {
 }
 if ($intUndistributedPapers > 0) {
   $strContentAssocs['papers_no'] = encodeText($intUndistributedPapers);
-  $strContentAssocs['if'] = array(3);
+  $ifArray[] = 3;
 }
+$strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
 $_SESSION['menu'] = CHAIR;
