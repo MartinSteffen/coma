@@ -132,6 +132,12 @@ if (!empty($objPersons)) {
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = encodeText('mailto:'.$objPerson->strEmail);
     $strItemAssocs['targetform'] = 'chair_users.php';    
+    if ($objPerson->hasRole(REVIEWER)) {
+      $strItemAssocs['if'] = array(1);
+    }
+    else {
+      $strItemAssocs['if'] = array();
+    }    
     $strItemAssocs['roles'] = '';
     for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');

@@ -19,10 +19,15 @@ $showChairs = isset($_GET['showchairs']);
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'),
   ($showChairs ? 0 : CHAIR));
 if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+  error('Error occured during performing permission check.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
+}
+
+$checkRoleChair = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
+if ($myDBAccess->failed()) {
+  error('Error occured during retrieving role information.', $myDBAccess->getLastError());
 }
 
 if (isset($_GET['order'])) {
@@ -66,7 +71,7 @@ if (!empty($objPersons)) {
           $strItemAssocs['roles'] .= encodeText($strRoles[$intRoles[$i]]);
         }
       }
-      if ($objPerson->hasRole(REVIEWER)) {
+      if ($objPerson->hasRole(REVIEWER) && $checkRoleChair) {
         $strItemAssocs['if'] = array(1);
       }
       else {
