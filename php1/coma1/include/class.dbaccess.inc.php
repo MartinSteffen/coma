@@ -109,7 +109,7 @@ class DBAccess {
   function checkLogin() {
     if (!isset($_SESSION['uname']) || !isset($_SESSION['password'])) {
       return $this->error('checkLogin (Session: User oder Passwort nicht gesetzt)');
-    }    
+    }
     $s = 'SELECT  id, email, password'.
         ' FROM    Person'.
         ' WHERE   email = \''.$_SESSION['uname'].'\''.
@@ -130,13 +130,13 @@ class DBAccess {
   /**
    * Liefert einen Array von Criterion-Objekten zurueck, die Bewertungskriterien
    * der aktuellen Konferenz sind.
-   *   
+   *
    * @return Criterion [] bzw. <b>false</b>, falls keine Konferenz aktiv ist, oder
    *                      ein leeres Array, falls fuer die aktuelle Konferenz keine
    *                      Bewertungskriterien definiert sind.
    * @access public
    * @author Sandro (18.12.04)
-   */   
+   */
   function getCriterionsOfConference() {
     $s = 'SELECT  id, name, description, max_value, quality_rating'.
         ' FROM    Criterion'.
@@ -145,9 +145,9 @@ class DBAccess {
     if (!empty($data)) {
       $objCriterions = array();
       for ($i = 0; $i < count($data); $i++) {
-      	$fltWeight = $data[$i]['quality_rating'] / 100.0;
-      	$objCriterions[] = (new Criterion($data[$i]['id'], $data[$i]['name'],
-      	                      $data[$i]['description'], $data[$i]['max_value'], $fltWeight);      	                      
+        $fltWeight = $data[$i]['quality_rating'] / 100.0;
+        $objCriterions[] = (new Criterion($data[$i]['id'], $data[$i]['name'],
+                              $data[$i]['description'], $data[$i]['max_value'], $fltWeight));
       }
       return $objCriterions;
     }
@@ -157,22 +157,22 @@ class DBAccess {
   /**
    * Liefert einen Array von Topic-Objekten zurueck, die als Topics der
    * aktuellen Konferenz definiert sind.
-   *   
+   *
    * @return Topic [] bzw. <b>false</b>, falls keine Konferenz aktiv ist, oder
    *                  ein leeres Array, falls fuer die aktuelle Konferenz keine
    *                  Topics definiert sind.
    * @access public
    * @author Sandro (18.12.04)
-   */     
+   */
   function getTopicsOfConference() {
     $s = 'SELECT  id, name'.
-        ' FROM    Topic'.        
+        ' FROM    Topic'.
         ' WHERE   conference_id = '.$_SESSION['confid'];
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       $objTopics = array();
       for ($i = 0; $i < count($data); $i++) {
-      	$objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));      
+        $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
       }
       return $objTopics;
     }
@@ -198,7 +198,7 @@ class DBAccess {
     }
     return $this->error('getPersonByEmail '.$this->mySql->getLastError());
   }
-  
+
   /**
    * Liefert ein Person-Objekt mit den Daten der Person $intPersonId.
    *
@@ -220,9 +220,9 @@ class DBAccess {
       $role_data = $this->mySql->select($s);
       $role_type = 0;
       if (!empty($role_data)) {
-      	for ($i = 0; $i < count($role_data); $i++) {
-      	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
-      	}
+        for ($i = 0; $i < count($role_data); $i++) {
+          $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+        }
       }
       return (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
                 $data[0]['email'], $role_type, $data[0]['title']));
@@ -253,9 +253,9 @@ class DBAccess {
       $role_data = $this->mySql->select($s);
       $role_type = 0;
       if (!empty($role_data)) {
-      	for ($i = 0; $i < count($role_data); $i++) {
-      	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
-      	}
+        for ($i = 0; $i < count($role_data); $i++) {
+          $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+        }
       }
       return (new PersonDetailed($data[0]['id'], $data[0]['first_name'],
                 $data[0]['last_name'], $data[0]['email'], $role_type,
@@ -280,11 +280,11 @@ class DBAccess {
         ' FROM    Paper'.
         ' WHERE   id = '.$intPaperId;
     $data = $this->mySql->select($s);
-    if (!empty($data)) {      
+    if (!empty($data)) {
       $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if (empty($objAuthor)) {
-      	return $this->error('getPaper '.$this->mySql->getLastError());
+        return $this->error('getPaper '.$this->mySql->getLastError());
       }
       $strAuthor = $objAuthor->getName();
       return (new PaperSimple($intPaperId, $data[0]['title'],
@@ -310,21 +310,21 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
-      	$fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
-      	$objAuthor = $this->getPerson($intAuthorId);
+        $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
+        $objAuthor = $this->getPerson($intAuthorId);
         if (empty($objAuthor)) {
           return $this->error('getPapersOfAuthor '.$this->mySql->getLastError());
         }
-      	$strAuthor = $objAuthor->getName();
-      	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
-      	                   $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-      	                   $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id']));
+        $strAuthor = $objAuthor->getName();
+        $objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
+                           $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+                           $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id']));
       }
       return $objPapers;
     }
     return $this->error('getPapersOfAuthor '.$this->mySql->getLastError());
   }
-  
+
 
   /**
    * Liefert ein Array von PaperSimple-Objekten des Reviewers $intReviewerId.
@@ -344,15 +344,15 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
-      	$objAuthor = $this->getPerson($intReviewerId);
-      	if (empty($objAuthor)) {
-      	  return $this->error('getPapersOfReviewer '.$this->mySql->getLastError());
+        $objAuthor = $this->getPerson($intReviewerId);
+        if (empty($objAuthor)) {
+          return $this->error('getPapersOfReviewer '.$this->mySql->getLastError());
         }
-      	$strAuthor = $objAuthor->getName();
-      	$fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
-      	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
-      	                   $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-      	                   $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id']));
+        $strAuthor = $objAuthor->getName();
+        $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
+        $objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
+                           $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+                           $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id']));
       }
       return $objPapers;
     }
@@ -376,7 +376,7 @@ class DBAccess {
     if (!empty($data)) {
       $objAuthor = $this->getPerson($data[0]['author_id']);
       if (empty($objAuthor)) {
-      	return $this->error('getPaperDetailed '.$this->mySql->getLastError());
+        return $this->error('getPaperDetailed '.$this->mySql->getLastError());
       }
       $strAuthor = $objAuthor->getName();
       $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
@@ -432,7 +432,7 @@ class DBAccess {
     if (!empty($data)) {
       $objTopics = array();
       for ($i = 0; $i < count($data); $i++) {
-      	$objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));      
+        $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
       }
       return $objTopics;
     }
@@ -448,19 +448,19 @@ class DBAccess {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.        
+    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.
         ' FROM    ReviewReport AS rr'.
         ' INNER   JOIN Rating AS r'.
         ' ON      r.review_id = rr.id'.
         ' INNER   JOIN Criterion AS c'.
-        ' ON      c.id = r.criterion_id'.                
+        ' ON      c.id = r.criterion_id'.
         ' WHERE   rr.paper_id = '.$intPaperId.
         ' GROUP   BY rr.id';
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       $sum = 0;
       for ($i = 0; $i < count($data); $i++) {
-      	$sum += $data[$i]['total_rating'];
+        $sum += $data[$i]['total_rating'];
       }
       return $sum / count($data);
     }
@@ -482,13 +482,13 @@ class DBAccess {
         ' INNER   JOIN Criterion AS c'.
         ' ON      c.id = r.criterion_id'.
         ' AND     r.review_id = '.$intReviewId;
-    $data = $this->mySql->select($s);    
+    $data = $this->mySql->select($s);
     if (!empty($data)) {
       return $data[0]['total_rating'];
     }
     return $this->error('getReviewRating '.$this->mySql->getLastError());
   }
-                 
+
   /**
    * Liefert ein Array von Review-Objekten des Reviewers $intReviewerId zurueck.
    *
@@ -508,7 +508,7 @@ class DBAccess {
         $objReviews[] = $this->getReview($data[i]['id']);
       }
     }
-    return $this->error('getReviewsOfReviewer '.$this->mySql->getLastError());    
+    return $this->error('getReviewsOfReviewer '.$this->mySql->getLastError());
   }
 
   /**
@@ -530,7 +530,7 @@ class DBAccess {
         $objReviewers[] = $this->getPerson($data[i]['reviewer_id']);
       }
     }
-    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
+    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());
   }
 
   /**
@@ -552,7 +552,7 @@ class DBAccess {
         $objReviews[] = $this->getReview($data[i]['id']);
       }
     }
-    return $this->error('getReviewsOfPaper '.$this->mySql->getLastError());    
+    return $this->error('getReviewsOfPaper '.$this->mySql->getLastError());
   }
 
   /**
@@ -572,18 +572,18 @@ class DBAccess {
     if (!empty($data)) {
       $objReviewer = $this->getPerson($data[0]['reviewer_id']);
       if (empty($objReviewer)) {
-      	return $this->error('getReview '.$this->mySql->getLastError());
+        return $this->error('getReview '.$this->mySql->getLastError());
       }
       $objPaper = $this->getPaper($data[0]['paper_id']);
       if (empty($objPaper)) {
-      	return $this->error('getReview '.$this->mySql->getLastError());
+        return $this->error('getReview '.$this->mySql->getLastError());
       }
-      $objAuthor = $this->getPerson($objPaper->intAuthorId);      
+      $objAuthor = $this->getPerson($objPaper->intAuthorId);
       if (empty($objAuthor)) {
-      	return $this->error('getReview '.$this->mySql->getLastError());
-      }      
+        return $this->error('getReview '.$this->mySql->getLastError());
+      }
       return (new Review($data[0]['id'], $data[0]['paper_id'],
-                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),                
+                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
                 getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
                 $objReviewer->strEmail, $objReviewer->getName()));
     }
@@ -600,23 +600,23 @@ class DBAccess {
    * @author Sandro (14.12.04)
    */
   function getReviewDetailed($intReviewId) {
-    $s = 'SELECT  id, paper_id, reviewer_id, summary, remarks, confidential'.        
+    $s = 'SELECT  id, paper_id, reviewer_id, summary, remarks, confidential'.
         ' FROM    ReviewReport'.
         ' WHERE   id = '.$intReviewId;
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       $objReviewer = $this->getPerson($data[0]['reviewer_id']);
       if (empty($objReviewer)) {
-      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+        return $this->error('getReviewDetailed '.$this->mySql->getLastError());
       }
       $objPaper = $this->getPaper($data[0]['paper_id']);
       if (empty($objPaper)) {
-      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+        return $this->error('getReviewDetailed '.$this->mySql->getLastError());
       }
-      $objAuthor = $this->getPerson($objPaper->intAuthorId);      
+      $objAuthor = $this->getPerson($objPaper->intAuthorId);
       if (empty($objAuthor)) {
-      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
-      }      
+        return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      }
       $s = 'SELECT  r.grade, r.comment, c.id, c.name, c.description, c.max_value,'.
           '         c.quality_rating'.
           ' FROM    Rating r'.
@@ -628,16 +628,16 @@ class DBAccess {
       $strComments = array();
       $objCriterions = array();
       if (!empty($rating_data)) {
-      	for ($i = 0; $i < count($rating_data); $i++) {
-      	  $intRatings[] = $rating_data[$i]['grade'];      	  
-      	  $strComments[] = $rating_data[$i]['comment'];
-      	  $objCriterions[] = (new Criterion($rating_data[$i]['id'], $rating_data[$i]['name'],
-      	                        $rating_data[$i]['description'], $rating_data[$i]['max_value'],
-      	                        $rating_data[$i]['quality_rating'] / 100.0));
-      	}
+        for ($i = 0; $i < count($rating_data); $i++) {
+          $intRatings[] = $rating_data[$i]['grade'];
+          $strComments[] = $rating_data[$i]['comment'];
+          $objCriterions[] = (new Criterion($rating_data[$i]['id'], $rating_data[$i]['name'],
+                                $rating_data[$i]['description'], $rating_data[$i]['max_value'],
+                                $rating_data[$i]['quality_rating'] / 100.0));
+        }
       }
       return (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
-                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),                
+                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
                 getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
                 $objReviewer->strEmail, $objReviewer->getName(),
                 $data[0]['summary'], $data[0]['remarks'], $data[0]['confidential'],
@@ -669,19 +669,19 @@ class DBAccess {
     $data = $this->mySql->select($s);
     $messages = array();
     if (!empty($data)) {
-      for ($i = 0; $i < count($data); $i++) {      	
-      	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
-      	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+      for ($i = 0; $i < count($data); $i++) {
+        $messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
+                         $data[$i]['send_time'], $data[$i]['subject'],
+                         $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
       }
       return $messages;
     }
     return $this->error('getNextMessages '.$this->mySql->getLastError());
   }
-  
+
   /**
    * Liefert ein Array von Message-Objekten zurueck, welche die Wurzelknoten
-   * von Threads des Forums $intForumId sind (im folgenden synonym mit Thread verwendet).   
+   * von Threads des Forums $intForumId sind (im folgenden synonym mit Thread verwendet).
    *
    * @param int $intForumId ID des Forums
    * @return Message[] <b>false</b>, falls das Forum nicht existiert oder
@@ -697,10 +697,10 @@ class DBAccess {
     $data = $this->mySql->select($s);
     $objThreads = array();
     if (!empty($data)) {
-      for ($i = 0; $i < count($data); $i++) {      	
-      	$objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
-      	                   $data[$i]['send_time'], $data[$i]['subject'],
-      	                   $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+      for ($i = 0; $i < count($data); $i++) {
+        $objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
+                           $data[$i]['send_time'], $data[$i]['subject'],
+                           $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
       }
       return $objThreads;
     }
@@ -709,7 +709,7 @@ class DBAccess {
 
   /**
    * Liefert ein Array von Forum-Objekten der aktuellen Konferenz zurueck.
-   *   
+   *
    * @return Forum [] <b>false</b>, falls kein Forum existiert oder keine Konferenz
    *                  in der aktuellen Session aktiv ist
    * @access public
@@ -719,8 +719,8 @@ class DBAccess {
     $s = 'SELECT  id, title'.
         ' FROM    Forum'; //.
     //    ' WHERE   conferenceId = '.$_SESSION['confid'];
-    $data = $this->mySql->select($s);    
-    if (!empty($data)) {            
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
       $objForums = array();
       for ($i = 0; $i < count($data); $i++) {
         $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
@@ -734,7 +734,7 @@ class DBAccess {
 
   /**
    * Liefert ein Forum-Objekt des Forums zurueck, das mit Paper $intPaperId assoziiert ist.
-   *   
+   *
    * @return Forum <b>false</b>, falls das Paper nicht existiert oder kein Forum besitzt
    * @access public
    * @author Sandro (14.12.04)
@@ -743,8 +743,8 @@ class DBAccess {
     $s = 'SELECT  id, title'.
         ' FROM    Forum'.
         ' WHERE   paperId = '.$intPaperId;
-    $data = $this->mySql->select($s);    
-    if (!empty($data)) {            
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
       $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
@@ -754,7 +754,7 @@ class DBAccess {
   /**
    * Liefert ein Array von Forum-Objekten aller Foren zurueck, welche die Person
    * $intPersonId einsehen darf.
-   *   
+   *
    * @return Forum [] <b>false</b>, falls die Person nicht existiert
    * @access public
    * @author Sandro (14.12.04)
@@ -765,13 +765,13 @@ class DBAccess {
       $objAllForums = getAllForums();
       $objForums = array();
       if (!empty($objAllForums)) {
-    	for ($i = 0; $i < count($objAllForums); $i++) {
-    	  if ($objAllForums[$i]->isPersonAllowed($objPerson)) {
-    	    $objForums[] = $objAllForums[$i];
+        for ($i = 0; $i < count($objAllForums); $i++) {
+          if ($objAllForums[$i]->isPersonAllowed($objPerson)) {
+            $objForums[] = $objAllForums[$i];
           }
         }
         return $objForums;
-      }      
+      }
     }
     return $this->error('getForumsOfPerson '.$this->mySql->getLastError());
   }
@@ -779,7 +779,7 @@ class DBAccess {
   /**
    * Liefert ein ForumDetailed-Objekt mit den Daten des Forums $intForumId zurueck.
    * Das ForumDetailed-Objekt enthaelt den kompletten Message-Baum des Forums.
-   *   
+   *
    * @return ForumDetailed <b>false</b>, falls das Forum nicht existiert
    * @access public
    * @author Sandro (14.12.04)
@@ -788,8 +788,8 @@ class DBAccess {
     $s = 'SELECT  id, title'.
         ' FROM    Forum'.
         ' WHERE   id = '.$intForumId;
-    $data = $this->mySql->select($s);    
-    if (!empty($data)) {       
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
       $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
                   0, false, $this->getThreadsOfForum($intForumId)));
       return $forum;
@@ -797,7 +797,7 @@ class DBAccess {
     return $this->error('getForumDetailed '.$this->mySql->getLastError());
   }
 
-  
+
   // ---------------------------------------------------------------------------
   // Definition der Update-Funktionen
   // ---------------------------------------------------------------------------
@@ -810,7 +810,7 @@ class DBAccess {
   /**
    */
   function addConference() {
-                    	    
+
     return $this->error('addConference '.$this->mySql->getLastError());
   }
 
@@ -857,7 +857,7 @@ class DBAccess {
   /**
    */
   function addRole($intPersonId, $intRole) {
-                    	    
+
     return $this->error('addRole '.$this->mySql->getLastError());
   }
 
@@ -876,7 +876,7 @@ class DBAccess {
 
   /**
    * Fuegt einen Datensatz in die Tabelle ReviewReport ein.
-   *   
+   *
    * @param int $intPaperId          ID des Papers, das bewertet wird
    * @param int $intReviewerId       ID des Reviewers
    * @param string $strSummary       Zusammenfassender Text fuer die Bewertung (inital: '')
@@ -897,7 +897,7 @@ class DBAccess {
 
   /**
    * Fuegt einen Datensatz in die Tabelle Rating ein.
-   *   
+   *
    * @param int $intReviewId     ID des Review-Reports, der das Rating beinhaltet
    * @param int $intCriterionId  ID des Bewertungskriteriums
    * @param int $intGrade        Note, Auspraegung der Bewertung (inital: 0)
@@ -915,10 +915,10 @@ class DBAccess {
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
-    }                    	                        	    
+    }
     return $this->error('addRating '.$this->mySql->getLastError());
   }
-  
+
   /**
    * Erstellt einen neuen Review-Report-Datensatz in der Datenbank, sowie die
    * mit diesem Review-Report assoziierten Ratings (Bewertungen in den einzelnen
@@ -926,23 +926,23 @@ class DBAccess {
    *
    * [TODO] Bleibt evtl. nicht an dieser Stelle stehen, sondern wandert in ein anderes Skript!
    */
-   
+
    function createNewReviewReport($intPaperId, $intReviewerId) {
      $intConferenceId = $_SESSION['confid'];
      $intReviewId = $this->addReviewReport($intPaperId, $intReviewerId);
      if (empty($intReviewId)) {
-     	return $this->error('createNewReviewReport '.$this->mySql->getLastError());
+        return $this->error('createNewReviewReport '.$this->mySql->getLastError());
      }
      $objCriterions = $this->getCriterionsOfConference($intConferenceId);
      for ($i = 0; $i < count($objCriterions); $i++) {
-     	$this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
+        $this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
      }
      return $intReviewId;
    }
 
   /**
    * Fuegt einen Datensatz in die Tabelle Forum ein.
-   *   
+   *
    * @param int $intConferenceId  ID der Konferenz, fuer die das Forum angelegt wird
    * @param string $strTitle      Bezeichnung des Forums
    * @param int $intForumType     Art des Forums (1: globales, 2:Komitee-, 3:Artikelforum)
@@ -963,17 +963,17 @@ class DBAccess {
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
-    }                    	    
+    }
     return $this->error('addForum '.$this->mySql->getLastError());
   }
 
   /**
    * Fuegt einen Datensatz in die Tabelle Message ein.
-   *      
+   *
    * @param string $strSubject   Betreff der Message
    * @param string $strText      Inhalt der Message
    * @param string $intSenderId  ID des Erstellers der Message
-   * @param int $intForumId      ID des Forums, in das die Message eingefuegt wird   
+   * @param int $intForumId      ID des Forums, in das die Message eingefuegt wird
    * @param int $intReplyTo      ID der Nachricht, auf welche die Message antwortet
    *                             (falls die Message einen neuen Thread eroeffnet: 0)
    * @return int ID der erzeugten Message oder <b>false</b>, falls ein Fehler
@@ -991,14 +991,14 @@ class DBAccess {
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
-    }                    	                        	    
+    }
     return $this->error('addMessage '.$this->mySql->getLastError());
   }
 
 
   /**
    * Fuegt einen Datensatz in die Tabelle Criterion ein.
-   *   
+   *
    * @param int $intConferenceId    ID der Konferenz, fuer die das Kriterium angelegt wird
    * @param string $strName         Bezeichnung des Bewertungskriteriums
    * @param string $strDescription  Beschreibungstext fuer das Kriterium
@@ -1019,13 +1019,13 @@ class DBAccess {
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
-    }                    	                        	                        	    
+    }
     return $this->error('addCriterion '.$this->mySql->getLastError());
   }
 
   /**
    * Fuegt einen Datensatz in die Tabelle Topic ein.
-   *   
+   *
    * @param int $intConferenceId  ID der Konferenz, fuer die das Topic angelegt wird
    * @param string $strName       Bezeichnung des Topics
    * @return int ID des erzeugten Topics oder <b>false</b>, falls ein Fehler
@@ -1040,13 +1040,13 @@ class DBAccess {
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('addTopic '.$this->mySql->getLastError());
   }
 
   /**
    * Fuegt einen Datensatz in die Tabelle IsAboutTopic ein.
-   *   
+   *
    * @param int $intPaperId  ID des Papers
    * @param int $intTopicId  ID des behandelten Topics
    * @return int <b>false</b>, falls ein Fehler aufgetreten ist
@@ -1060,13 +1060,13 @@ class DBAccess {
     $result = $this->mySql->insert($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('addIsAboutTopic '.$this->mySql->getLastError());
   }
 
   /**
    * Fuegt einen Datensatz in die Tabelle PrefersTopic ein.
-   *   
+   *
    * @param int $intPersonId  ID der Person
    * @param int $intTopicId   ID des bevorzugten Topics
    * @return int <b>false</b>, falls ein Fehler aufgetreten ist
@@ -1080,13 +1080,13 @@ class DBAccess {
     $result = $this->mySql->insert($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('addPrefersTopic '.$this->mySql->getLastError());
   }
 
   /**
    * Fuegt einen Datensatz in die Tabelle PrefersPaper ein.
-   *   
+   *
    * @param int $intPersonId  ID der Person
    * @param int $intPaperId   ID des bevorzugten Papers
    * @return int <b>false</b>, falls ein Fehler aufgetreten ist
@@ -1100,13 +1100,13 @@ class DBAccess {
     $result = $this->mySql->insert($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('addPrefersPaper '.$this->mySql->getLastError());
   }
 
   /**
    * Fuegt einen Datensatz in die Tabelle DeniesPaper ein.
-   *   
+   *
    * @param int $intPersonId  ID der Person
    * @param int $intPaperId   ID des abgelehnten Papers
    * @return int <b>false</b>, falls ein Fehler aufgetreten ist
@@ -1120,13 +1120,13 @@ class DBAccess {
     $result = $this->mySql->insert($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('addDeniesPaper '.$this->mySql->getLastError());
   }
 
   /**
    * Fuegt einen Datensatz in die Tabelle ExcludesPaper ein.
-   *   
+   *
    * @param int $intPersonId  ID der Person
    * @param int $intPaperId   ID des ausgeschlossenen Papers
    * @return int <b>false</b>, falls ein Fehler aufgetreten ist
@@ -1140,7 +1140,7 @@ class DBAccess {
     $result = $this->mySql->insert($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('addExcludesPaper '.$this->mySql->getLastError());
   }
 
@@ -1188,7 +1188,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteReviewReport '.$this->mySql->getLastError());
   }
 
@@ -1202,7 +1202,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteRating '.$this->mySql->getLastError());
   }
 
@@ -1215,7 +1215,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteForum '.$this->mySql->getLastError());
   }
 
@@ -1228,7 +1228,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteMessage '.$this->mySql->getLastError());
   }
 
@@ -1241,7 +1241,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteCriterion '.$this->mySql->getLastError());
   }
 
@@ -1254,7 +1254,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteTopic '.$this->mySql->getLastError());
   }
 
@@ -1268,7 +1268,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
   }
 
@@ -1282,7 +1282,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
   }
 
@@ -1296,7 +1296,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deletePrefersPaper '.$this->mySql->getLastError());
   }
 
@@ -1310,7 +1310,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteDeniesPaper '.$this->mySql->getLastError());
   }
 
@@ -1324,7 +1324,7 @@ class DBAccess {
     $result = $this->mySql->delete($s);
     if (!empty($result)) {
       return $result;
-    }                    	                        	                        	                        	    
+    }
     return $this->error('deleteExcludesPaper '.$this->mySql->getLastError());
   }
 
