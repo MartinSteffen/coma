@@ -313,7 +313,7 @@ class Distribution extends ErrorHandling {
       }
     }
 
-    //echo('<br><br><br>');
+    echo('<br><br><br>');
 
     // $intWantedReviewers mit Average-Werten belegen, falls nicht explizit
     // ein anderer Wert gesetzt wurde.
@@ -391,12 +391,12 @@ class Distribution extends ErrorHandling {
     // (...)
 
     // Debug: Ausgabe
-    /*for ($i = 0; $i < count($matrix); $i++) {
+    for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
         echo(' '.$matrix[$i][$j]);
       }
-    }*/
+    }
 
     /*echo('<table>');
     for ($i = 0; $i < count($matrix); $i++) {
