@@ -59,13 +59,13 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
   }
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
-  $typeopenassocs['type'] = 'Open forums';
+  $typeopenassocs['type'] = 'Public forums';
   $forumtypepaper = new Template(TPLPATH . 'forumtypes.tpl');
   $typepaperassocs = defaultAssocArray();
   $typepaperassocs['type'] = 'Paper forums';
   $forumtypechair = new Template(TPLPATH . 'forumtypes.tpl');
   $typechairassocs = defaultAssocArray();
-  $typechairassocs['type'] = 'Chair forums';
+  $typechairassocs['type'] = 'Committee forums';
   $openforumtemplates = array();
   $paperforumtemplates = array();
   $chairforumtemplates = array();
@@ -136,7 +136,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
     }
   }
   else{
-    $typeopenassocs['forum'] = 'No forums availabe in this category';
+    $typeopenassocs['forum'] = 'No forums available in this category';
   }
   if (!empty($paperforumtemplates)){
     foreach ($paperforumtemplates as $ftemp){
@@ -144,7 +144,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
     }
   }
   else{
-    $typepaperassocs['forum'] = $typepaperassocs['forum'] . 'No forums availabe in this category';
+    $typepaperassocs['forum'] = $typepaperassocs['forum'] . 'No forums available in this category';
   }
   if (!empty($chairforumtemplates)){
     foreach ($chairforumtemplates as $ftemp){
@@ -152,7 +152,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
     }
   }
   else{
-    $typechairassocs['forum'] = $typechairassocs['forum'] . 'No forums availabe in this category';
+    $typechairassocs['forum'] = $typechairassocs['forum'] . 'No forums available in this category';
   }
   $forumtypeopen->assign($typeopenassocs);
   $forumtypeopen->parse();
