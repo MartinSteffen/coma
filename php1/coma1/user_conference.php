@@ -28,10 +28,9 @@ else if (empty($objConference)) {
 
 $content = new Template(TPLPATH.'user_conference.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if'] = array();
 $strContentAssocs['name'] = encodeText($objConference->strName);
 $strContentAssocs['description'] = encodeText($objConference->strDescription);
-$strContentAssocs['date'] = $objConference->getDateString();
+$strContentAssocs['date'] = encodeText($objConference->getDateString());
 if (!empty($objConference->strHomepage)) {
   $strContentAssocs['link'] = encodeURL($objConference->strHomepage);
   $strContentAssocs['if'] = array(1);
