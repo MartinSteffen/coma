@@ -80,12 +80,6 @@ if (!empty($objPapers)) {
     for ($i = 0; $i < count($objReviewers); $i++) {
       $strReviewersAssocs['rev_id'] = $objReviewers[$i]->intId;
       $strReviewersAssocs['rev_name'] = $objReviewers[$i]->getName();
-      if ($i == count($objReviewers)-1) {
-        $strReviewersAssocs['if'] = array();
-      }
-      else {
-        $strReviewersAssocs['if'] = array(1);
-      }
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
