@@ -2,10 +2,13 @@
   <td class="listitem-{line_no}" colspan="3">
     <a href="{basepath}main_conference_info.php?confid={confid}&{SID}">
       <span class="emph">{name}</span>
-    </a>{if4 &nbsp; | &nbsp; <a href="{link}">homepage</a>}
+    </a>
   </td>
   <td class="listitem-{line_no}">
     {startdate} - {enddate}
+  </td>
+  <td>
+    {if4 <a href="{link}"><img border="0" alt="homepage" src="{path}images/icon_website.gif"></a>}
   </td>
 </tr>
 <tr class="listitem-{line_no}">
@@ -33,5 +36,6 @@
     </form>
   }
   </td>
+  <td>&nbsp;</td>
   <td>&nbsp;</td>
 </tr>
