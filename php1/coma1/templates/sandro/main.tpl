@@ -33,7 +33,7 @@
      <td style="background-image:url({path}images/menueleft.gif)" height="25" width="100">&nbsp;</td>
      <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
       <b>Chair</b>&nbsp;|&nbsp;&nbsp;
-      <a href="#">Persönliche Daten</a>&nbsp;|&nbsp;&nbsp;
+      <a href="#">Pers&ouml;nliche Daten</a>&nbsp;|&nbsp;&nbsp;
       <a href="#">Konferenzeinstellung</a>&nbsp;|&nbsp;&nbsp;
       <a href="#">Benutzerverwaltung</a>&nbsp;|&nbsp;&nbsp;
       <a href="#">Artikelverwaltung</a>&nbsp;|&nbsp;&nbsp;
