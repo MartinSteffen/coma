@@ -294,7 +294,8 @@ class Distribution extends ErrorHandling {
     $blnBreak = false;
     while ($blnChanged && !$blnBreak) {
       $blnChanged = false;
-      for ($i = 0; $i < count($p_num_revs); $i++) {
+      //for ($i = 0; $i < count($p_num_revs); $i++) {
+      for ($i = 1; $i <= 1; $i++) {
         if ($p_num_revs[$i] >= $avg_revs) {
           $blnBreak = true;
         }
