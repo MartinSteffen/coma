@@ -24,7 +24,7 @@
   </tr>
   <tr class="listitem-1">
     <td class="listitem-1" colspan="5">
-      <form action="" method="post">
+      <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="reviewid" value="{reviewid}" />
         <input type="submit" name="submit" value="Edit review" class="button" />
         <input type="submit" name="submit" value="See paper details" class="button" />
@@ -49,7 +49,7 @@
   </tr>
     <tr class="listitem-2">
     <td class="listitem-2" colspan="5">
-      <form action="" method="post">
+      <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="reviewid" value="{reviewid}" />
         <input type="submit" name="submit" value="Edit review" class="button" />
         <input type="submit" name="submit" value="See paper details" class="button" />

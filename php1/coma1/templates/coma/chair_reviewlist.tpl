@@ -3,7 +3,7 @@
   <tr>
     <td> distibute articles which are marked 'distribute'</td> 
     <td>
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="calculate" class="button" />
        </form>
@@ -24,7 +24,7 @@
   <tr class="ft-tr"> 
     <td class="listitem-1"> 
         <a href=""> Neueste Rezepte </a> 
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="add reviewer" class="button" />
        </form>
@@ -39,7 +39,7 @@
     </td> 
     <td class="listitem-1"> &nbsp; </td>
     <td class="listitem-1"> 
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="distribute" class="button" />
        </form>
@@ -50,7 +50,7 @@
   <tr class="ft-tr"> 
     <td class="listitem-2"> 
        <a href="">  Insomnia, Probleme eines Studenten </a> 
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="add reviewer" class="button" />
        </form>
@@ -65,7 +65,7 @@
     </td> 
     <td class="listitem-2"> &nbsp; </td>
     <td class="listitem-2"> 
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        distribute
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="delete choice" class="button" />
@@ -76,7 +76,7 @@
   <tr class="ft-tr"> 
     <td class="listitem-1"> 
        <a href=""> Hypnotics, ways to escape students insomnia  </a>
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="add reviewer" class="button" />
        </form>
@@ -94,7 +94,7 @@
   <tr class="ft-tr"> 
     <td class="listitem-2"> 
        <a href=""> Schlaflos in Seattle </a>
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="add reviewer" class="button" />
        </form>
@@ -126,7 +126,7 @@
         <a href="">  Rudy  Review </a> 
     </td>
     <td class="listitem-1">
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="exclude  " class="button" />
        <input type="hidden" name="confid" value="{confid}" />
@@ -143,7 +143,7 @@
 
 
     <td class="listitem-2"> 
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
          excluded
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value=" delete choice" class="button" />

@@ -23,13 +23,13 @@
     </td>
     <td> 3/5 </td> 
     <td class="listitem-1">
-      <form action="" method="post">
+      <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
         <input type="submit" name="submit" value="reset status" class="button" />        
       </form>
     </td>
     <td>
-      <form action="" method="post">
+      <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
         <input type="submit" name="submit" value="view" class="button" />
         <input type="submit" name="submit" value="delete" class="button" />
@@ -51,14 +51,14 @@
     </td>
     <td> 4/5 </td> 
     <td class="listitem-2">
-      <form action="" method="post">
+      <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
         <input type="submit" name="submit" value="accept" class="button" />
         <input type="submit" name="submit" value="reject" class="button" />
       </form>
     </td>
     <td>
-      <form action="" method="post">
+      <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
         <input type="submit" name="submit" value="view" class="button" />
         <input type="submit" name="submit" value="delete" class="button" />

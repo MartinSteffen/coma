@@ -119,7 +119,7 @@
   </tr>
   <tr class="listitem-1">
     <td class="listitem-1" colspan="2">        
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="back" class="button" />
        </form>
@@ -147,13 +147,13 @@
   </tr>
   <tr class="listitem-1">
     <td class="listitem-1" >        
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="download pdf" class="button" />
        </form>
     </td>
     <td class="listitem-1" >        
-       <form action="" method="post">
+       <form action="" method="post" accept-charset="UTF-8">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="back" class="button" />
        </form>
