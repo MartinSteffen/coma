@@ -28,17 +28,22 @@ $strMainAssocs['body'] ='
 <tr>   
   <td> 
     <form action="{basepath}login.php" method="post">
-        Konferenzname: <input type="text" name="name" size="30" maxlength="127" /><br />
-        Homepage: <input type="text" name="homepage" size="30" maxlength="127" /><br />
-        Beschreibung: <input type="text" name="description" size="30" maxlength="127" /><br />
-        <BR>
-        <BR>
+        Konferenzname:<br> 
+        <input type="text" name="name" size="30" maxlength="127" /><br>
+        <br>
+        Beschreibung: <br>
+        <input type="text" name="description" size="30" maxlength="127" /><br>
+        <br>
+        Homepage: <br>
+        <input type="text" name="homepage" size="30" maxlength="127" /><br>
+        <br>
+        <br>
         Verantwortlicher der Konferenz: 
-        <BR>
-        Email-Addresse: <input type="text" name="userMail" size="30" maxlength="127" /><br />
-        Password: <input type="password" name="userPassword" size="30" maxlength="127" /><br />
-        <input type="hidden" name="action" value="anlegen" /><br />
-        <input type="submit" name="submit" value="anlegen" /><br />
+        <br>
+        Email-Addresse: <input type="text" name="userMail" size="30" maxlength="127" /> <br>
+        Password: <input type="password" name="userPassword" size="30" maxlength="127" /> <br>
+        <input type="hidden" name="action" value="anlegen" /> <br>
+        <input type="submit" name="submit" value="anlegen" /> <br>
  
    </form>
 </td>
