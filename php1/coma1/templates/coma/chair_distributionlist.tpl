@@ -8,7 +8,8 @@
   <span class="diststatus-3">The reviewer prefers the topic of the paper.</span><br>
   <span class="diststatus-4">The reviewer explicitly wants to review the paper.
     </span><br><br>
-  You may remove suggested reviewers.<br>
+  For each paper, you may remove a suggested reviewer except he/she is already
+    assigned.<br>
   Finally, you can either confirm or reject the distribution.
 </p>
 
