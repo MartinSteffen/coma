@@ -6,8 +6,6 @@
     <table><tr><td>
       {related-link}&nbsp;
     </td></tr></table>
-    <p>
     {content}
-    </p>
   </td>
 </tr>

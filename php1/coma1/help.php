@@ -166,7 +166,7 @@ if (!$popup) {
 else {
   $main = new Template(TPLPATH.'popup_frame.tpl');
 }
-$strMainAssocs['title'] = 'Helping you when you are in a CoMa-tose condition';
+$strMainAssocs['title'] = 'Help with CoMa - Your Conference Manager';
 $strMainAssocs['content'] = &$content;
 
 $main->assign($strMainAssocs);

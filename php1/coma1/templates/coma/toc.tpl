@@ -1,6 +1,6 @@
 <table>
   <tr><td><a href="./help.php?for=01{&popup}{&SID}">1. A step-by-step introduction to Coma</a></td></tr>
-  <tr><td>&nsbp;</td></tr>
+  <tr><td>&nbsp;</td></tr>
   <tr><td><a href="./help.php?for=comapages{&popup}{&SID}">2. Detailed explanations about the different pages in Coma</a></td></tr>
   <tr><td>
     <table>
