@@ -405,6 +405,12 @@ class DBAccess {
   }
                  
   /**
+   * Liefert ein Array von Review-Objekten des Reviewers $intReviewerId zurueck.
+   *
+   * @param int $intReviewerId ID des Reviewers
+   * @return Review <b>false</b>, falls kein Review des Reviewers existiert
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getReviewsOfReviewer($intReviewerId) {
     $s = 'SELECT  id'.
@@ -417,10 +423,16 @@ class DBAccess {
         $objReviews[] = $this->getReview($data[i]['id']);
       }
     }
-    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
+    return $this->error('getReviewsOfReviewer '.$this->mySql->getLastError());    
   }
 
   /**
+   * Liefert ein Array von Person-Objekten zurueck, die Reviewer des Papers $intPaperId sind.
+   *
+   * @param int $intPaperId ID des Papers
+   * @return Person[] <b>false</b>, falls das Paper keine Reviewer besitzt
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getReviewersOfPaper($intPaperId) {
     $s = 'SELECT  reviewer_id'.
@@ -437,6 +449,12 @@ class DBAccess {
   }
 
   /**
+   * Liefert ein Array von Review-Objekten des Papers $intPaperId zurueck.
+   *
+   * @param int $intPaperId ID des Papers
+   * @return Review[] <b>false</b>, falls kein Review des Papers existiert
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getReviewsOfPaper($intPaperId) {
     $s = 'SELECT  id'.
@@ -449,10 +467,17 @@ class DBAccess {
         $objReviews[] = $this->getReview($data[i]['id']);
       }
     }
-    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
+    return $this->error('getReviewsOfPaper '.$this->mySql->getLastError());    
   }
 
   /**
+   * Liefert ein Review-Objekt mit den Daten des Reviews $intReviewId zurueck.
+   *
+   * @param int $intReviewId ID des Reviews
+   * @return Review <b>false</b>, falls das Review, oder das assoziierte Paper,
+   *                der Autor oder der Reviewer nicht existiert.
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getReview($intReviewId) {
     $s = 'SELECT  id, paper_id, reviewer_id'.
@@ -462,25 +487,32 @@ class DBAccess {
     if (!empty($data)) {
       $objReviewer = $this->getPerson($data[0]['reviewer_id']);
       if (empty($objReviewer)) {
-      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      	return $this->error('getReview '.$this->mySql->getLastError());
       }
       $objPaper = $this->getPaper($data[0]['paper_id']);
       if (empty($objPaper)) {
-      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      	return $this->error('getReview '.$this->mySql->getLastError());
       }
       $objAuthor = $this->getPerson($objPaper->intAuthorId);      
       if (empty($objAuthor)) {
-      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      	return $this->error('getReview '.$this->mySql->getLastError());
       }      
       return (new Review($data[0]['id'], $data[0]['paper_id'],
                 $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),                
                 getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
                 $objReviewer->strEmail, $objReviewer->getName()));
     }
-    return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+    return $this->error('getReview '.$this->mySql->getLastError());
   }
 
   /**
+   * Liefert ein ReviewDetailed-Objekt mit den Daten des Reviews $intReviewId zurueck.
+   *
+   * @param int $intReviewId ID des Reviews
+   * @return ReviewDetailed <b>false</b>, falls das Review, oder das assoziierte Paper,
+   *                        der Autor oder der Reviewer nicht existiert.
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getReviewDetailed($intReviewId) {
     $s = 'SELECT  id, paper_id, reviewer_id, summary, remarks, confidential'.        
@@ -537,6 +569,14 @@ class DBAccess {
   }
 
   /**
+   * Liefert ein Array von Message-Objekten zurueck, die (direkte) Antworten auf die
+   * Message $intMessageId sind.
+   *
+   * @param int $intMessageId ID der Message
+   * @return Message[] <b>false</b>, falls die Message nicht existiert.
+   *                   Gibt ein leeres Array zurueck, wenn die Message keine Antworten besitzt.
+   * @access private
+   * @author Sandro (14.12.04)
    */
   function getNextMessages($intMessageId) {
     $s = 'SELECT  id, sender_id, send_time, subject, text'.
@@ -552,10 +592,18 @@ class DBAccess {
       }
       return $messages;
     }
-    return $this->error('getNextMessages '.$this->mySql->getLastError());;
+    return $this->error('getNextMessages '.$this->mySql->getLastError());
   }
   
   /**
+   * Liefert ein Array von Message-Objekten zurueck, welche die Wurzelknoten
+   * von Threads des Forums $intForumId sind (im folgenden synonym mit Thread verwendet).   
+   *
+   * @param int $intForumId ID des Forums
+   * @return Message[] <b>false</b>, falls das Forum nicht existiert.
+   *                   Gibt ein leeres Array zurueck, wenn das Forum keine Threads besitzt.
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getThreadsOfForum($intForumId) {
     $s = 'SELECT  id, sender_id, send_time, subject, text'.
@@ -563,19 +611,25 @@ class DBAccess {
         ' WHERE   forum_id = \''.$intForumId.'\''.
         ' AND     reply_to IS NULL';
     $data = $this->mySql->select($s);
-    $messages = array();
+    $threads = array();
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {      	
-      	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
-      	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+      	$threads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
+      	                $data[$i]['send_time'], $data[$i]['subject'],
+      	                $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
       }
-      return $messages;
+      return $threads;
     }
-    return $this->error('getThreadsOfForum '.$this->mySql->getLastError());;
+    return $this->error('getThreadsOfForum '.$this->mySql->getLastError());
   }
 
   /**
+   * Liefert ein Array von Forum-Objekten der aktuellen Konferenz zurueck.
+   *   
+   * @return Forum[] <b>false</b>, falls kein Forum existiert oder keine Konferenz
+   *                 in der aktuellen Session aktiv ist.
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getAllForums() {
     $s = 'SELECT  id, title'.
@@ -586,28 +640,37 @@ class DBAccess {
       $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
-    return $this->error('getAllForums '.$this->mySql->getLastError());;
+    return $this->error('getAllForums '.$this->mySql->getLastError());
   }
 
   /**
+   * Liefert ein Forum-Objekt des Forums zurueck, das mit Paper $intPaperId assoziiert ist.
+   *   
+   * @return Forum <b>false</b>, falls das Paper nicht existiert oder kein Forum besitzt.
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getForumOfPaper($intPaperId) {
     $s = 'SELECT  id, title'.
         ' FROM    Forum'.
-        ' WHERE   paperId = '.$intPaperId; //.
-        //' AND   conference_id = \''.???.'\'';
+        ' WHERE   paperId = '.$intPaperId;
     $data = $this->mySql->select($s);    
     if (!empty($data)) {            
       $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
-    return $this->error('getForumOfPaper '.$this->mySql->getLastError());;
+    return $this->error('getForumOfPaper '.$this->mySql->getLastError());
   }
 
   /**
+   * Liefert ein Array von Forum-Objekten aller Foren zurueck, die User $intUserId einsehen darf.
+   *   
+   * @return Forum[] <b>false</b>, falls der User nicht existiert.
+   * @access public
+   * @author Sandro (14.12.04)
    */
-  function getForumsOfUser($strUserId) {
-    $userData = getPerson($strUserId);
+  function getForumsOfUser($intUserId) {
+    $userData = getPerson($intUserId);
     if (!empty($userData)) {
       $allForums = getAllForums();
       $forums = array();
@@ -618,18 +681,27 @@ class DBAccess {
           }
         }    	  
       }
+      else {
+      	return $this->error('getForumsOfUser '.$this->mySql->getLastError());
+      }
     }
-    return $this->error('getForumsOfUser '.$this->mySql->getLastError());;
+    return $this->error('getForumsOfUser '.$this->mySql->getLastError());
   }
 
   /**
+   * Liefert ein ForumDetailed-Objekt mit den Daten des Forums $intForumId zurueck.
+   * Das ForumDetailed-Objekt enthaelt den kompletten Message-Baum des Forums.
+   *   
+   * @return ForumDetailed <b>false</b>, falls das Forum nicht existiert.
+   * @access public
+   * @author Sandro (14.12.04)
    */
   function getForumDetailed($intForumId) {
     $s = 'SELECT  id, title'.
         ' FROM    Forum'.
         ' WHERE   id = \''.$intForumId.'\'';
     $data = $this->mySql->select($s);    
-    if (!empty($data)) { 
+    if (!empty($data)) {       
       $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
                   0, false, $this->getThreadsOfForum($intForumId)));
       return $forum;
