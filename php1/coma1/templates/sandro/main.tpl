@@ -23,7 +23,7 @@
       <a href="#">Impressum</a>&nbsp;|&nbsp;
       <a href="#">Feedback</a>&nbsp;|&nbsp;
       <a href="#">Forum</a>&nbsp;|&nbsp;
-      <a href="logout.php{SID}">Logout</a>&nbsp;|&nbsp;
+      <a href="{baseurl}logout.php{SID}">Logout</a>&nbsp;|&nbsp;
      </td>
      <td width="50" align="center" valign="top">
       <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a>

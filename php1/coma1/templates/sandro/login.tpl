@@ -1,5 +1,5 @@
 <b>{message}</b><br /><br />
-<form action="{basepath}login.php" method="post">
+<form action="{basepath}login.php{SID}" method="post">
   Email-Addresse: <input type="text" name="userMail" size="30" maxlength="127" /><br />
   Password: <input type="password" name="userPassword" size="30" maxlength="127" /><br />
   <input type="hidden" name="action" value="login" /><br />
