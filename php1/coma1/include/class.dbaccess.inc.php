@@ -1857,16 +1857,17 @@ nur fuer detaillierte?
    * @author Jan (31.01.05)
    */
   function updatePersonPassword($intPersonId, $strPassword) {
+    $strPassword = sha1($strPassword);
     $s = sprintf("UPDATE   Person".
                  " SET     password = '%s'".
                  " WHERE   id = '%d'",
-                           s2db(sha1($strPassword)),
+                           s2db(),
                            s2db($intPersonId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePersonPassword', $this->mySql->getLastError());
     }
-    return $this->success(true);
+    return $this->success($strPassword);
   }
 
 

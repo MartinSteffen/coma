@@ -67,13 +67,16 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
         $_SESSION['uname'] = $objPerson->strEmail;
         $strMessage = 'Your account has been updated sucessfully.';
       }
-      else if ($myDBAccess->failed()) {
+      elseif ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error updating your account.', $myDBAccess->getLastError());
       }
       if (!empty($_POST['password1'])) {
-        $myDBAccess->updatePersonPassword(session('uid'), $_POST['password1']);
-        if ($myDBAccess->failed()) {
+        $result = $myDBAccess->updatePersonPassword(session('uid'), $_POST['password1']);
+        if (!empty($result)) {
+          $_SESSION['password'] = $result;
+        }
+        elseif ($myDBAccess->failed()) {
           error('Error updating your account.', $myDBAccess->getLastError());
         }
       }
