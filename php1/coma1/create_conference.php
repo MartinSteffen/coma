@@ -294,7 +294,7 @@ if (isset($_POST['action'])) {
                    'There are contradictions in the given dates!<br>'.
                    'It should be: Start date &leq; End date,<br>'.
                    'Abstract deadline < Paper deadline < Final version deadline < Start date,<br>'.
-                   'and: Paper deadline < Review deadline < Notification < Start date.'
+                   'and: Paper deadline < Review deadline < Notification < Start date.';
      $noErrors = false;
    }
 
