@@ -41,7 +41,7 @@ a:
     (auf Fehlermeldungen achten ! - keine anderen apache oder mysql-Datenbanken dürfen laufen) 
 5.) Einrichten der Datenbank (extra Punkt in dieser Anleitung)
 6.) z.B. mit Netscape 'http://localhost/coma/coma1/' öffnen
-7.) login (zur Zeit fehlerhaft) ...
+7.) login 
 
 
 ============================================================================
