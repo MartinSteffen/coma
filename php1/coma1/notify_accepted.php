@@ -57,13 +57,13 @@ foreach ($objPersons as $objPerson) {
     if ($myDBAccess->failed()) {
       error('gather list of papers of reviewer', $myDBAccess->getLastError());
     }
-    $strMailAssocs['name']        = $objPerson->getName(2);    
+    $strMailAssocs['name'] = $objPerson->getName(2);    
     foreach ($objPapers as $objPaper) {
       $strMailAssocs['paper']           = $objPaper->strTitle;
-      $strMailAssocs['status']          = ($objPaper->intStatus == ACCEPTED ? 'accepted' : 'denied');
+      $strMailAssocs['status']          = ($objPaper->intStatus == PAPER_ACCEPTED ? 'accepted' : 'denied');
       $strMailAssocs['total_rating']    = round($objPaper->fltAvgRating * 100);
       $strMailAssocs['review_reports']  = '';
-      $objReviewers = $myDBAccess->getReviewersOfPaper();
+      $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
       if ($myDBAccess->failed()) {
         error('gather list of reviewers of paper', $myDBAccess->getLastError());
       }
@@ -119,9 +119,9 @@ foreach ($objPersons as $objPerson) {
     }
     $mail->assign($strMailAssocs);
     $mail->parse();
-    if (!sendMail($objPerson->intId, 'Paper distributed to you', $mail->getOutput())) {
+    if (!sendMail($objPerson->intId, 'Review report for your papers', $mail->getOutput())) {
       $strMessage .= (!empty($strMessage) ? '<br>' : '');
-      $strMessage .= 'Failed to send email to reviewer '.$objPerson->getName(2).'!';
+      $strMessage .= 'Failed to send email to user '.$objPerson->getName(2).'!';
       $mainIfArray = array(2);
     }
   }

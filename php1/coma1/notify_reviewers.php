@@ -59,7 +59,7 @@ foreach ($objPersons as $objPerson) {
     $mail = new Template(TPLPATH.'mail_reviewer.tpl');
     $mail->assign($strMailAssocs);
     $mail->parse();
-    if (!sendMail($objPerson->intId, 'Paper distributed to you', $mail->getOutput())) {
+    if (!sendMail($objPerson->intId, 'Papers distributed to you', $mail->getOutput())) {
       $strMessage .= (!empty($strMessage) ? '<br>' : '');
       $strMessage .= 'Failed to send email to reviewer '.$objPerson->getName(2).'!';
       $mainIfArray = array(2);
