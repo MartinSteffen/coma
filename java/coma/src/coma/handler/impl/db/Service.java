@@ -1,4 +1,3 @@
-
 package coma.handler.impl.db;
 
 import java.sql.Connection;
@@ -10,7 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import org.apache.log4j.Category;
 
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Albari</a>
@@ -19,8 +17,6 @@ import org.apache.log4j.Category;
 
 public class Service {
     
-    private static final Category log =
-		Category.getInstance(Service.class.getName());
 	DataSource dataSource = null;
 	boolean configured = false;
     
@@ -44,9 +40,9 @@ public class Service {
         Connection result = null;
         try {
             String driver = "org.gjt.mm.mysql.Driver";
-            String url = "jdbc:mysql://snert/coma3";
+            String url = "jdbc:mysql://vs170142.vserver.de/coma3";
             Class.forName(driver);
-            result = DriverManager.getConnection(url,"wprguest3","TevArHorhy");
+            result = DriverManager.getConnection(url,"coma3","TervArHorhy");
         } catch (SQLException e) {
             System.out.println(e.getClass() + e.getMessage().toString());
         } catch (ClassNotFoundException e1) {
@@ -55,4 +51,10 @@ public class Service {
 
         return result;
     }
+
+	public static void main(String[] args){
+
+		Connection con = getConnection();
+		System.out.println(con.toString());
+	}
 }

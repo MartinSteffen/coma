@@ -114,12 +114,13 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
-		if (!(idFlag || emailFlag || nameFlage || firstNameFlag )) {
+		if (!(idFlag || emailFlag || nameFlage || firstNameFlag)) {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
 		if (ok) {
 			try {
+				//conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
@@ -136,15 +137,15 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (firstNameFlag) {
 						pstmt.setString(++pstmtCounter, p.getFirst_name());
 					}
-					if(stateFlage){
+					if (stateFlage) {
 						pstmt.setString(++pstmtCounter, p.getState());
 					}
-					if(roleFlage){
+					if (roleFlage) {
 						pstmt.setInt(++pstmtCounter, p.getRole_type());
 					}
-					
+
 					ResultSet resSet = pstmt.executeQuery();
-					LinkedList<Person> ll = new LinkedList();
+					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
 					while (resSet.next()) {
 						Person person = eCreater.getPerson(resSet);
@@ -211,7 +212,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				conn = dataSource.getConnection();
+				//conn = dataSource.getConnection();
+				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					int pstmtCounter = 0;
@@ -219,7 +221,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						pstmt.setInt(++pstmtCounter, c.getId());
 					}
 					ResultSet resSet = pstmt.executeQuery();
-					LinkedList ll = new LinkedList();
+					LinkedList<Conference> ll = new LinkedList<Conference>();
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
@@ -323,7 +325,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				conn = dataSource.getConnection();
+				//conn = dataSource.getConnection();
+				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					int pstmtCounter = 0;
@@ -340,7 +343,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						pstmt.setInt(++pstmtCounter, p.getState());
 					}
 					ResultSet resSet = pstmt.executeQuery();
-					LinkedList ll = new LinkedList();
+					LinkedList<Paper> ll = new LinkedList<Paper>();
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
@@ -423,7 +426,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				conn = dataSource.getConnection();
+				//conn = dataSource.getConnection();
+				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					int pstmtCounter = 0;
@@ -437,7 +441,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						pstmt.setInt(++pstmtCounter, report.getReviewerId());
 					}
 					ResultSet resSet = pstmt.executeQuery();
-					LinkedList ll = new LinkedList();
+					LinkedList<ReviewReport> ll = new LinkedList<ReviewReport>();
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
@@ -506,7 +510,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				conn = dataSource.getConnection();
+				//conn = dataSource.getConnection();
+				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					int pstmtCounter = 0;
@@ -519,7 +524,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						pstmt.setInt(++pstmtCounter, rating.getCriterionId());
 					}
 					ResultSet resSet = pstmt.executeQuery();
-					LinkedList ll = new LinkedList();
+					LinkedList<Rating> ll = new LinkedList<Rating>();
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
@@ -589,7 +594,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				conn = dataSource.getConnection();
+				//conn = dataSource.getConnection();
+				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					int pstmtCounter = 0;
@@ -601,7 +607,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 								.getConferenceId());
 					}
 					ResultSet resSet = pstmt.executeQuery();
-					LinkedList ll = new LinkedList();
+					LinkedList<Criterion> ll = new LinkedList<Criterion>();
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
