@@ -24,8 +24,8 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-if (isset($_POST['action'])) {
-  echo('IS SET action');
+if (isset($_POST['action']) || 1) {
+  $_POST['action'] = 'x';
   if($_POST['action'] != 'confirm' || !isset($_SESSION['dist'])) {
     redirect('chair_reviews.php');
   }
@@ -43,7 +43,6 @@ if (isset($_POST['action'])) {
     echo('<br>.');
   }
   unset($dist);
-  die(-1);
 }
 else {
   $myDist = new Distribution($mySql);
