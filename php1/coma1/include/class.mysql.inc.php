@@ -13,10 +13,10 @@ if ( !defined('IN_COMA1') )
 
 class MySql {
 
-  var $mySqlServer;
-  var $mySqlUser;
-  var $mySqlPassword;
-  var $mySqlDatabase;
+  var $mySqlServer = 'localhost';
+  var $mySqlUser = '';
+  var $mySqlPassword = '';
+  var $mySqlDatabase = '';
   var $myConn;
 
   function MySql()
@@ -31,7 +31,7 @@ class MySql {
     $conn = @mysql_connect(sqlServer, sqlUser , sqlPassword);
     if (!$conn)
     {
-      $this->error("cMySql Connection Error");
+      $this->error("MySql Connection Error");
     }
 
     if ( !mysql_select_db($this->mySqlDatabase) )
@@ -58,7 +58,7 @@ class MySql {
     }
     if ( !eregi("^select",$sql) )
     {
-      if (defined('DEBUG')) echo "<H2 >cMySql->select called with $sql</H2>\n";
+      if (defined('DEBUG')) echo "<H2 >MySql->select called with $sql</H2>\n";
       return false;
     }
     if ( empty($this->myConn) )
@@ -89,7 +89,7 @@ class MySql {
     }
     if ( !eregi("^insert",$sql) )
     {
-      if (defined('DEBUG')) echo "<H2 >cMySql->insert called with $sql</H2>\n";
+      if (defined('DEBUG')) echo "<H2 >MySql->insert called with $sql</H2>\n";
       return false;
     }
     if ( empty($this->myConn) )
