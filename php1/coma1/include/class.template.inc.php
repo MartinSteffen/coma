@@ -105,6 +105,7 @@ class Template {
    * 
    * @return true Erfolg
    * @access public
+   * @TODO Check ob gueltiges Objekt!!!
    *
    */
   function parse() {
@@ -113,10 +114,14 @@ class Template {
     foreach ($this->strAssocs as $key => $value) {
       $key = '<(?i){'.$key.'}>';
       $strKeys[] = $key;
-      //if (isObject($value)) {
-        //$value
-      //}
-      $strValues[] = $value;
+      // @TODO Check ob gültiges Objekt!!!
+      if (is_object($value)) {
+        $value->parse();
+        $strValues[] = $value->getOutput();
+      }
+      else {
+        $strValues[] = $value;
+      }
     }
     $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
     return true;
