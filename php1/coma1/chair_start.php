@@ -40,7 +40,7 @@ if ($intRoleRequests > 0) {
   $strContentAssocs['request_no'] = encodeText($intRoleRequests);
   $strContentAssocs['if'] = array(1);
 }
-$intUndistributedPapers = $myDBAccess->getUndistributedPapers(session('confid'));
+$intUndistributedPapers = $myDBAccess->getNumberOfUndistributedPapers(session('confid'));
 if ($myDBAccess->failed()) {
   error('get num of undistributed papers',$myDBAccess->getLastError());
 }
