@@ -107,7 +107,7 @@ if (isset($_POST['delete'])) {
     }
     else {            
       $message = 'Your account was deactivated successfully.';      
-      $_SESSION = array('message' => $message, 'deactivated_account' => true);
+      $_SESSION = array('message' => $message);
       redirect("login.php");
     }
   }
