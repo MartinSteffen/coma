@@ -15,6 +15,6 @@ define('IN_COMA1',true);
 
 require_once('./include/class.mysql.inc.php');
 
-echo 'Hallo';
+$dbAccess = new DBAccess();
 
 ?>
