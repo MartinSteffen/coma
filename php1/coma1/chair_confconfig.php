@@ -74,7 +74,7 @@ if (isset($_POST['action'])) {
     $strContentAssocs['topic_lines'] = '';
     $strContentAssocs['crit_lines']  = '';
     for ($i = 0; $i < count($strTopics); $i++) {
-      $topicForm = new Template(TPLPATH.'topic_listitem.tpl');
+      $topicForm = new Template(TPLPATH.'topic_listitem_edit.tpl');
       $strTopicAssocs = defaultAssocArray();
       $strTopicAssocs['topic_no']   = encodeText($i+1);
       $strTopicAssocs['topic_name'] = encodeText($strTopics[$i]);
@@ -83,7 +83,7 @@ if (isset($_POST['action'])) {
       $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
     }
     for ($i = 0; $i < count($strCriterions); $i++) {
-      $critForm = new Template(TPLPATH.'criterion_listitem.tpl');
+      $critForm = new Template(TPLPATH.'criterion_listitem_edit.tpl');
       $strCritAssocs = defaultAssocArray();
       $strCritAssocs['crit_no']     = encodeText($i+1);
       $strCritAssocs['crit_name']   = encodeText($strCriterions[$i]);
