@@ -2056,7 +2056,7 @@ nur fuer detaillierte?
       return $this->error('addConference', $this->mySql->getLastError());
     }
     $s = "INSERT  INTO ConferenceConfig (id, default_reviews_per_paper,".
-         "                               min_number_of_paper, max_number_of_papers,".
+         "                               min_number_of_papers, max_number_of_papers,".
          "                               critical_variance, auto_activate_account,".
          "                               auto_open_paper_forum, auto_add_reviewers,".
          "                               number_of_auto_add_reviewers)".
