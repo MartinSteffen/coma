@@ -90,15 +90,6 @@ while ($i < $conferences) {
   $i++;
 }
 
-$myDBAccess->addCoAuthor(1, 1);
-      if ($myDBAccess->failed()) {
-	    echo('Fehler: '.$myDBAccess->getLastError());
-}
-$myDBAccess->addCoAuthorName(2, 'Co Author Name');
-      if ($myDBAccess->failed()) {
-	    echo('Fehler: '.$myDBAccess->getLastError());
-}
-
 echo '.';
 $i = 0;
 while ($i < $conferences) {
@@ -113,6 +104,15 @@ while ($i < $conferences) {
     $j++;
   }
   $i++;
+}
+
+$myDBAccess->addCoAuthor(1, 1);
+      if ($myDBAccess->failed()) {
+	    echo('Fehler: '.$myDBAccess->getLastError());
+}
+$myDBAccess->addCoAuthorName(2, 'Co Author Name');
+      if ($myDBAccess->failed()) {
+	    echo('Fehler: '.$myDBAccess->getLastError());
 }
 
 $j = 0;
