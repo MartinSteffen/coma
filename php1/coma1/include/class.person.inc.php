@@ -36,6 +36,7 @@ class Person {
   }
   
   function hasRole($intRole) {
+    echo($this->intRoles & (1 << $intRole));
     return ($this->intRoles & (1 << $intRole) != 0);
   }
   
