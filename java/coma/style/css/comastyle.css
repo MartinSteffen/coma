@@ -1,7 +1,7 @@
 /* core stylesheet for jComa
  *
  *
- * @version 0.1
+ * @version 0.6
  * @author mti
  *
  *
@@ -17,7 +17,7 @@ body
 .content 
 {
 	margin-top: 10em;
-	margin-left: 12em;
+	margin-left: 16em;
 	margin-right: 0;
 	padding: 1em;
 	color: #4C5C5C;
@@ -59,7 +59,7 @@ body
 	padding: 0;
 	left: 0;
 	top: 9em;
-	width: 12em;
+	width: 16em;
 	color: #fff;
 }
 	
@@ -95,7 +95,7 @@ body
 }
 .input-box 
 {
-	width: 9em;
+	width: 13.5em;
 	margin-bottom: 10px;
 	color: black;
 	background: #D9DBE1;
@@ -132,7 +132,7 @@ textarea
 }
 select 
 {
-	width: 9em;
+	width: 13.5em;
 	margin-bottom: 10px;
 	color: black;
 	background: #D9DBE1;
@@ -168,10 +168,7 @@ fieldset
 }
 
 		
-body>.header, body>.navbar,body>.status-line,.status-line>.content,body>.date
-{
-	position: fixed;
-}
+
 
 .date 
 {
