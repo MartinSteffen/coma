@@ -60,6 +60,11 @@
         <div>
         You are logged in.
         </div>
+	<li>User
+        <ul>
+          <li><a href="UserPrefs">Change preferences</a></li>
+        </ul>
+	</li>
         <xsl:if test="//navcolumn//isChair">
           <li>Chair
           <ul>
@@ -81,7 +86,8 @@
 
       <xsl:if test="//navcolumn//isReviewer">
         <li>Reviewer<ul>
-        <li>Review</li>
+        <li><a href="EditReport">Write Review</a></li>
+        <li><a href="ShowReports">Show Reports</a></li>
       </ul></li>
     </xsl:if>
 

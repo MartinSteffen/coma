@@ -32,4 +32,6 @@ public class FormParameters {
     public static final String RATING_POSTFIX_GRADE="Grade";
     public static final String RATING_POSTFIX_COMMENT="Commt";
 
+    /** A list of Topic-Ids preferred by the current Person */
+    public static final String PREFERREDTOPICS="preferredtopics";
 }

@@ -20,7 +20,7 @@ import coma.servlet.util.*;
 
 import coma.handler.db.*;
 import coma.entities.*;
-
+import static coma.entities.Entity.XMLMODE;
 
 /**
    Servlet to let a user edit their preferences. Currently, only their
@@ -74,9 +74,11 @@ public class UserPrefs extends HttpServlet {
 	XMLHelper x = new XMLHelper();
 
 	Person thePerson = (Person)session.getAttribute(SessionAttribs.PERSON);	
+	Conference theConference = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 
 	x.addXMLHead(result);
 	result.append("<content>");
+	result.append(x.tagged("pagetitle","Edit User Information"));
 
 	switch (pagestate.get()){
 
@@ -84,10 +86,25 @@ public class UserPrefs extends HttpServlet {
 	case STATE.READ:
 	    pagestate.set(STATE.WRITE);
 	    result.append(x.tagged("editable", thePerson.toXML()));
+	    result.append(x.tagged("topics",
+			  Topic.manyToXML(Topic.allTopics(theConference), XMLMODE.DEEP)));
 	    break;
 	case STATE.WRITE:
 	    pagestate.set(STATE.READ);
 	    result.append(UserMessage.UPDATING);
+
+	    // change thePerson's attribs.
+	    // now, I'd like a functional map operator. And polymorphism.
+	    
+	    // FIXME: many things omitted: stuff other than Topics is not my business. ums.
+
+	    //FIXME
+	    //thePerson.deletePreferredTopics();
+	    final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
+	    for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
+		//FIXME
+		//thePerson.addTopic(Topic.byId(Integer.parseInt(s)));
+	    }
 
 	    SearchResult theSR;
    	    UpdateService dbWrite 
@@ -95,7 +112,7 @@ public class UserPrefs extends HttpServlet {
 	    theSR = dbWrite.updatePerson(thePerson);
 	    // we can fail, but who cares right now?
 	    session.setAttribute(SessionAttribs.PERSON, thePerson);
-	    
+	    result.append(x.tagged("noneditable", thePerson.toXML()));
 	}
 
 	result.append(new Navcolumn(session));
@@ -111,7 +128,7 @@ public class UserPrefs extends HttpServlet {
 	out.flush();
 	    
 	} catch (Throwable tbl) {
-	    // brute-force: error handling by tomcat.
+	    // FIXME: brute-force: error handling by tomcat.
 	    throw new RuntimeException(tbl);
 	}
 

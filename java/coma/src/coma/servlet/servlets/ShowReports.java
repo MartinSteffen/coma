@@ -216,7 +216,7 @@ public class ShowReports extends HttpServlet {
 	   pretty much the same reason, i.e. they're not impartial?
 	   and all the info.	  
 	*/
-	if (false /*FIXME not present yet. thePerson.isChair(), bug#55 */){
+	if (thePerson.isChair()){
 
 	    theSearchResult = dbRead.getPaper(new SearchCriteria());
 	    postDBAccess(theSearchResult);
