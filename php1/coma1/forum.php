@@ -64,6 +64,9 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
       $forumassocs['forum-title'] = encodeText($forum->strTitle);
       $forumassocs['plusorminus'] = '-';
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
+      if ($myDBAccess->failed()){
+        error('An error occurred while trying to retrieve the forum threads from the database.', $myDBAccess->getLastError());
+      }
       $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
       //Thread-neu
       $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
@@ -155,6 +158,9 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
     $messagetemplate = new Template(TPLPATH . 'message.tpl');
     $messageassocs = defaultAssocArray();
     $sender = $myDBAccess->getPerson($message->intSender);
+    if ($myDBAccess->failed()){
+      error('An error occurred while trying to retrieve the sender of a forum message from the database. This could be a database inconsistency.', $myDBAccess->getLastError());
+    }
     if (notemptyandtrue($msgselection, $message->intId)){
       $messageassocs['selectorunselect'] = 'unselect';
       $messageassocs['message-id'] = encodeText($message->intId);
@@ -183,7 +189,11 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $formassocs['subject'] = 'Re: ' . encodeText($message->strSubject);
         $formassocs['text'] = encodeText($message->strText);
         $formassocs['newthread'] = '';
-        if (($sender->intId == session('uid')) || (isChair($myDBAccess->getPerson(session('uid'))))){
+        $ischair = (isChair($myDBAccess->getPerson(session('uid'))));
+        if ($myDBAccess->failed()){
+          error('An error occurred while trying to retrieve your user status from the database. This could be a database inconsistency.', $myDBAccess->getLastError());
+        }
+        if (($sender->intId == session('uid')) || $ischair){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -304,7 +314,7 @@ function generatePostMethodArray($postvars){
     //}
     //einen neuen Thread starten
     if (($pvars['posttype'] == 'newthread') && (!empty($pvars['text'])) && (!empty($pvars['forumid']))){
-      $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
+      $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid']);
     }
     // hat geklappt :)
     if (!empty($postresult)){
@@ -317,7 +327,9 @@ function generatePostMethodArray($postvars){
     }
     else{
       // posten fehlgeschlagen
-      $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
+      if ($myDBAccess->failed()){
+        error('An error occurred while trying to post your forum message.', $myDBAccess->getLastError());
+      }
     }
   }
 
