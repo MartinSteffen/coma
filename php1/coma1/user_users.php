@@ -45,7 +45,7 @@ $strContentAssocs['message']    = session('message', false);
 $strContentAssocs['if']         = $ifArray;
 $strContentAssocs['lines']      = '';
 $strContentAssocs['&option']    = '';
-$strContentAssocs['&option']   .= ($showChairs ? '&showchairs' : '');
+$strContentAssocs['&option']   .= ($showChairs ? '&amp;showchairs' : '');
 session_delete('message');
 $personCount = 0;
 if (!empty($objPersons)) {
