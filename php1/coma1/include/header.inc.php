@@ -72,7 +72,7 @@ $ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
 /** Include-Pfad (als absolut)*/
 define('INCPATH', $ServerPathTranslated.'/include/');
 /** Das zu verwendende Design (Verzeichniss-Name)*/
-define('DESIGN', 'coma-2');
+define('DESIGN', 'coma-3');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH', $ServerPathTranslated.'/templates/'.DESIGN.'/');
 /** Template-Pfad (als URL)*/

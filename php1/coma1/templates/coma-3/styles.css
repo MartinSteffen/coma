@@ -1,96 +1,15 @@
-body, table, td, tr, div, p, pre, h1, h2, h3, h4, ul {
-    font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif; }
-body, p, pre, ul { font-size: 12px; vertical-align: top; }
-body { background-color: #FFFFFF; margin: 0px; padding: 0px; }
-td, div {font-size: 12px; vertical-align: middle; }
+body { font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif;
+       font-size: 12px;
+       color: #000000;
+       background-color: #FFFFFF;
+       margin: 0px;
+       padding: 0px;
+     }
 
-h1 { font-size: 18px; }
-h2 { font-size: 16px; font-weight: bold; margin: 8px 0px 12px 40px;
-     border-bottom: 1px solid #000000; }
-h3 { font-size: 13px; }
+ul.navbar { position: absolute;
+            top: 2em;
+            left: 1em;
+            width: 9em
+          }
 
-.normal { font-size: 12px; }
-.small  { font-size: 11px; }
-.tiny   { font-size: 10px; }
 
-.invert { color: #000000; background-color: #E0E2D4;
-          font-weight: bold; letter-spacing: 2px; font-size: 15px; }
-
-.center { text-align: center; }
-
-a         { font-size: 13px; text-decoration: none; font-weight: bold; }
-a:link    { color: #AD351A; }
-a:visited { color: #AD351A; }
-a:active  { color: #000000; }
-a:hover   { color: #FF4D00; }
-
-/* links im menue */
-a.menu         { font-size: 13px; text-decoration: none; font-weight : bold; }
-a.menu:link    { color: #000000; }
-a.menu:visited { color: #000000; }
-a.menu:active  { color: #000000; }
-a.menu:hover   { color: #2F2F2F; }
-
-a.markedmenuitem { font-size: 13px; text-decoration: none; font-weight : bold; color: #FF0000; }
-
-table      { border-style: none;
-             border-spacing: 0px;
-             padding: 0px;
-             margin: 0px;
-           }
-
-/* startmenue */
-table.menu  { border-style: none;
-              width: 150px;
-              padding: 10px;
-              vertical-align: top;
-              text-align: left;
-              background-color: #F7FBFF;
-            }
-td.menu { width: 150px;
-          background-color: #F7FBFF; vertical-align: top;
-          margin-bottom: 10px; }
-
-/* tabelle fuer den seiteninhalt */
-table.body { width: 100%; min-height: 450px; vertical-align: top; }
-
-/* tabelle fuer die kopfzeile */
-table.header { width: 100%; background-color: #DBE9EC; }
-
-/* tabelle fuer die fusszeile */
-table.footer { width: 100%; background-color: #DBE9EC; }
-
-/* tabelle fuer formulare */
-table.formtable { font-size: 13px;
-                  background-color: #DEEBEF;
-                  border-style: solid;
-                  border-width: 1px;
-                  border-color: #000000;
-                  margin: 6px 10px;
-                  padding: 8px;
-                }
-
-input { font-size: 13px;
-        background-color: #F7FBFF;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #000000;
-        margin: 2px 4px;
-        padding: 2px 8px;
-      }
-
-input.button { background-color: #CEDBEF; min-width: 100px; text-align: center; }
-
-/* tabelle mit linien zur darstellung von listen */
-table.list  { border-style: groove; }
-td.listhead { margin-left: 10px; font-size: medium; background-color: #DBE9EC;
-              text-align: center; font-weight: bold; }
-td.list     { text-align: center; font-weight: bold; }
-
-a.list:link    { color: #000000; }
-a.list:visited { color: #000000; }
-a.list:active  { color: #000000; }
-a.list:hover   { color: #2F2F2F; }
-
-/* meldungen */
-p.message { color: #FF2600; font-size: 16px; font-weight: bold; }
