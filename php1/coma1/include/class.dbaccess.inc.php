@@ -1397,7 +1397,7 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
     }
-    $s = sprintf("UPDATE   ConferenceConfig".
+/*    $s = sprintf("UPDATE   ConferenceConfig".
                  " SET     default_reviews_per_paper = '%d', min_number_of_papers = '%d',".
                  "         max_number_of_papers = '%d', critical_variance = '%f'".
                  "         auto_activate_account = '%d', auto_open_paper_forum = '%d',".
@@ -1408,7 +1408,7 @@ nur fuer detaillierte?
                            $this->s2db($objConferenceDetailed->intMaxNumberOfPapers),
                            $this->s2db($objConferenceDetailed->flt),
                  
-    
+  */  
     $s = "UPDATE  ConferenceConfig".
         " SET     default_reviews_per_paper = '$objConferenceDetailed->intDefaultReviewsPerPaper',".
         "         min_number_of_papers = 'objConferenceDetailed->intMinNumberOfPapers',".
