@@ -73,7 +73,7 @@ if (isset($_POST['action'])) {
       }
       else if (!empty($result)) {      	
       	$objPaper->intVersion++;
-      	$objPaper->strLastEdit = date("Y-m-d H:i:s");
+      	$objPaper->strLastEdit = date('r');
         $strMessage = 'Paper was updated successfully.';
       }
     }
