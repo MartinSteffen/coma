@@ -74,6 +74,34 @@ if ($STEP == 0){
   echo "    </p>\n";
 }
 elseif ($STEP == 1){
+  // Create Configuration
+  require_once('./include/config.inc.php');
+$confFile = "<?php
+/**
+ * Configuration of the Database Server
+ *
+ * @version \$Id$DATETIME\$
+ * @package coma1
+ * @subpackage Configuration
+ */
+/***/
+if ( !defined('IN_COMA1') )
+{
+  die('Hacking attempt');
+}
+
+// Change these Values
+\$sqlServer = '$sqlServer';
+\$sqlUser = '$sqlUser';
+\$sqlPassword = '$sqlPassword';
+\$sqlDatabase = '$sqlDatabase';
+
+?>";
+
+  echo "    <p class=\"menu\">\n";
+  echo htmlentities($confFile, ENT_QUOTES, 'UTF-8');
+  echo "    </p>\n";
+
   echo "    <p class=\"message-failed\">\n";
   echo "      Not yet implemented!";
   echo "    </p>\n";
