@@ -8,6 +8,10 @@ an gub75@gmx.de geschickt werden.
               Paper 9 wird von insgesamt 4 Reviewern bewertet, wobei der Report 5 vom
               Autor selbst (32) stammt. Viel Spaß damit ;)
               
+basedata2.sql Wie basedata.sql nur nicht generisch sondern mit weniger aber Handgeschriebenen
+              Daten von glücklichen freilaufenden Praktikumsteilnehmern. Dient als backup des
+              alten Datenbestandes von PHP1.
+              
 -testdata.sql Enthält 'böse' daten, die nach der Spec zulässg sind, aber nicht unbedingt
               erwartet werden. Die einzelnen Programme sollen später mit diesen Daten
               umgehen können oder von vornherein das Auftreten solcher Daten in der
