@@ -1176,7 +1176,7 @@ nur fuer detaillierte?
         "         final_version_deadline = '$objConferenceDetailed->strFinalDeadline',".
         "         notification = '$objConferenceDetailed->strNotification',".
         "         conference_start = '$objConferenceDetailed->strStart',".
-        "         conference_end = '$objConferenceDetailed->strEnd,".
+        "         conference_end = '$objConferenceDetailed->strEnd',".
         "         min_reviews_per_paper = '$objConferenceDetailed->intMinReviewsPerPaper'".
         " WHERE   conference_id = '$objConferenceDetailed->intId'";
     echo("<br>$s<br>");
