@@ -28,5 +28,5 @@
 </p>
 
 <form action="{basepath}create_conference.php{?SID}" method="post">
-  <input type="submit" name="submit" value="Create new conference" class="button" />
+  <input type="submit" name="submit" value="Create new conference" class="button">
 </form>

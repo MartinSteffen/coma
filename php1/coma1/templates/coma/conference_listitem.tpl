@@ -16,24 +16,24 @@
   <td class="listitem-{line_no}">&nbsp;
   {if1
     <form action="{basepath}login_conference.php{?SID}" method="post">
-      <input type="hidden" name="confid" value="{confid}"></input>
-      <input type="submit" name="submit" value="Login" class="button"></input>
+      <input type="hidden" name="confid" value="{confid}">
+      <input type="submit" name="submit" value="Login" class="button">
     </form>
   }
   </td>
   <td class="listitem-{line_no}">&nbsp;
   {if2
     <form action="{basepath}apply_author.php{?SID}" method="post">
-      <input type="hidden" name="confid" value="{confid}"></input>
-      <input type="submit" name="submit" value="Apply as Author" class="button"></input>
+      <input type="hidden" name="confid" value="{confid}">
+      <input type="submit" name="submit" value="Apply as Author" class="button">
     </form>
   }
   </td>
   <td class="listitem-{line_no}">&nbsp;
   {if3
     <form action="{basepath}apply_participant.php{?SID}" method="post">
-      <input type="hidden" name="confid" value="{confid}"></input>
-      <input type="submit" name="submit" value="Sign up as Participant" class="button"></input>
+      <input type="hidden" name="confid" value="{confid}">
+      <input type="submit" name="submit" value="Sign up as Participant" class="button">
     </form>
   }
   </td>
