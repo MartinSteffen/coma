@@ -3,12 +3,17 @@
   It is <span class="emph">recommended</span> to proceed as follows:<br>
   Let CoMa make a <a href="{basepath}chair_distribution.php{?SID}" class="link">
   suggestion</a> (may take several seconds) of a possible paper/reviewer
-  distribution for papers that are not assigned to the average number of
-  reviewers yet. If the <a href="{basepath}chair_confconfig.php{?SID}" class="link">
-  'Auto add reviewers' flag</a> is activated, CoMa will try to suggest more
-  reviewers for ambiguous papers if possible. You may edit the suggested distribution
-  and afterwards confirm it. After that, you can assign several papers by hand
-  (this formular) or restart the suggestion process.
+  distribution for papers that are not assigned to the default number of
+  reviewers yet.<br>
+  If the 
+  'Auto add reviewers' flag is activated, CoMa will try to suggest n+m
+  reviewers for ambiguous papers if possible, where n ist the default number of
+  reviewers per paper and m is the number of automatically added reviewers.
+  (See <a href="{basepath}chair_confconfig.php{?SID}" class="link">Conference
+  Config</a> for more information.)<br>
+  You may edit the suggested distribution and afterwards confirm it.<br>
+  Later, you can assign several papers by hand (this formular) or restart the
+  suggestion process.
 </p>
 
 <table class="list">
