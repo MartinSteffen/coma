@@ -160,18 +160,18 @@ function ftp_rmAll($conn_id,$dst_dir)
 { // {{{
   $ar_files = ftp_rawlist($conn_id, $dst_dir) or die("function ftp_rmAll: ftp_rawlist() failed!");
   if (is_array($ar_files)) { // makes sure there are files
-   foreach ($ar_files as $st_file) { // for each file
-     if (ereg("([-d][rwxst-]+).* ([0-9]) ([a-zA-Z0-9]+).* ([a-zA-Z0-9]+).* ([0-9]*) ([a-zA-Z]+[0-9: ]*[0-9]) ([0-9]{2}:[0-9]{2}) (.+)",$st_file,$regs)) {
-       if (substr($regs[1],0,1)=="d") { // check if it is a directory
-         if (($regs[8] != ".") and ($regs[8] != "..")) { //and if it is a valid one
-           ftp_rmAll($conn_id, $dst_dir."/".$regs[8]); // if so, use recursion
-	   }
-    	 } else {
-         ftp_delete($conn_id, $dst_dir."/".$regs[8]) or die("function ftp_rmAll: ftp_delete failed()"); // if not, delete the file
-       }
-     }
-   }
+    foreach ($ar_files as $st_file) { // for each file
+      if (ereg("([-d][rwxst-]+).* ([0-9]) ([a-zA-Z0-9]+).* ([a-zA-Z0-9]+).* ([0-9]*) ([a-zA-Z]+[0-9: ]*[0-9]) ([0-9]{2}:[0-9]{2}) (.+)",$st_file,$regs)) {
+        if (substr($regs[1],0,1)=="d") { // check if it is a directory
+          if (($regs[8] != ".") and ($regs[8] != "..")) { //and if it is a valid one
+            ftp_rmAll($conn_id, $dst_dir."/".$regs[8]); // if so, use recursion
+	  }
+        }else{
+          ftp_delete($conn_id, $dst_dir."/".$regs[8]) or die("function ftp_rmAll: ftp_delete failed()"); // if not, delete the file
+      }
+    }
   }
+}
   ftp_rmdir($conn_id, $dst_dir) or die("function ftp_rmAll: ftp_rmdir() failed!"); // delete empty directories
 	return true; // }}}
 }
