@@ -31,6 +31,24 @@ if (isset($_POST['action'])) {
     // Benutzer loeschen (?)
   }
   else if ($_POST['action'] == 'editrole') {
+    $objPerson = $myDBAccess->getPerson(session('uid'));
+    if ($myDBAccess->failed()) {
+      error('Error retrieving chair data', $myDBAccess->getLastError());
+    }
+    $objPerson = $myDBAccess->getPerson($intPersonId);
+    if ($myDBAccess->failed()) {
+      error('Error retrieving person data', $myDBAccess->getLastError());
+    }
+    $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+    if ($myDBAccess->failed()) {
+      error('Error retrieving conference data', $myDBAccess->getLastError());
+    }
+    $strMailAssocs = defaultAssocArray();
+    $strMailAssocs['chair'] = encodeText($objPerson->getName(2));
+    $strMailAssocs['name'] = encodeText($objPerson->getName(2));
+    $strMailAssocs['conference'] = encodeText($objConference->strName);
+    $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
+
     $intPersonId = $_POST['userid'];
     $intRoleType = $_POST['roletype'];
     // Benutzerrolle bearbeiten
@@ -39,34 +57,20 @@ if (isset($_POST['action'])) {
       if ($myDBAccess->failed()) {
         error('Error updating role table', $myDBAccess->getLastError());
       }
-      $objPerson = $myDBAccess->getPerson(session('uid'));
-      if ($myDBAccess->failed()) {
-        error('Error retrieving chair data', $myDBAccess->getLastError());
-      }
-      $objPerson = $myDBAccess->getPerson($intPersonId);
-      if ($myDBAccess->failed()) {
-        error('Error retrieving person data', $myDBAccess->getLastError());
-      }
-      $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
-      if ($myDBAccess->failed()) {
-        error('Error retrieving conference data', $myDBAccess->getLastError());
-      }
       $mail = new Template(TPLPATH.'mail_newrole.tpl');
-      $strMailAssocs = defaultAssocArray();
-      $strMailAssocs['chair'] = encodeText($objPerson->getName(2));
-      $strMailAssocs['name'] = encodeText($objPerson->getName(2));
-      $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
-      $strMailAssocs['conference'] = encodeText($objConference->strName);
       $mail->assign($strMailAssocs);
       $mail->parse();
       sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'", $mail->getOutput());
     }
-    else if ($_POST['submit'] == 'accept') {
+    elseif ($_POST['submit'] == 'accept') {
       $myDBAccess->acceptRole($intPersonId, $intRoleType, session('confid'));
       if ($myDBAccess->failed()) {
         error('Error updating role table.', $myDBAccess->getLastError());
       }
-      //
+      $mail = new Template(TPLPATH.'mail_acceptrole.tpl');
+      $mail->assign($strMailAssocs);
+      $mail->parse();
+      sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'", $mail->getOutput());
     }
     else if ($_POST['submit'] == 'remove' || $_POST['submit'] == 'reject') {
       $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
