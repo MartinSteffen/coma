@@ -21,10 +21,14 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
-//global $intRoles;
-//global $strRoles;
-$intRoles = INTROLES;
-$strRoles = STRROLES;
+global $intRoles;
+global $strRoles;
+//[TODO]
+$intRoles = array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT);
+$strRoles = array(CHAIR       => 'Chair',
+                  REVIEWER    => 'Reviewer',
+                  AUTHOR      => 'Author',
+                  PARTICIPANT => 'Participant');                  
 
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');

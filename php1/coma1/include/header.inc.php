@@ -51,13 +51,7 @@ $intRoles = array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT);
 $strRoles = array(CHAIR       => 'Chair',
                   REVIEWER    => 'Reviewer',
                   AUTHOR      => 'Author',
-                  PARTICIPANT => 'Participant');
-define('INTROLES', array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT));
-define('STRROLES', array(CHAIR       => 'Chair',
-                         REVIEWER    => 'Reviewer',
-                         AUTHOR      => 'Author',
-                         PARTICIPANT => 'Participant'));
-                  
+                  PARTICIPANT => 'Participant');                  
 /**#@-*/
 
 // Library files -> viele bunte Funktionen
