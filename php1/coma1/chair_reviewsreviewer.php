@@ -94,18 +94,6 @@ if (!empty($r_id)) {
       error('get number of papers of reviewer', $myDBAccess->getLastError());
     }
     $strItemAssocs['num_papers'] = encodeText($intNum);
-    $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
-    $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
-    $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId);
-    if ($myDBAccess->failed()) {
-      error('get paper/reviewer information', $myDBAccess->getLastError());
-    }
-    if ($isD) {
-      $strItemAssocs['if'][] = 8; // Checkbox mit Haekchen setzen
-    }
-    elseif ($objReviewerAttitude->getPaperAttitude($objPaper->intId) != ATTITUDE_EXCLUDE) {
-      $strItemAssocs['if'][] = 7; // Checkbox ohne Haekchen setzen
-    }
 
     $strItemAssocs['topics'] = '';
     foreach ($objTopics as $objTopic) {
@@ -122,9 +110,22 @@ if (!empty($r_id)) {
         $strTopicItem = new Template(TPLPATH.'reviewertopic.tpl');
         $strTopicItem->assign($strItem2Assocs);
         $strTopicItem->parse();
-        $strItemAssocs['topics'] .= $strTopicItem->getOutput();
+        $strItemAssocs['topics'] .= $strTopicItem->getOutput().' BLABLA';
       }
     }    
+
+    $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
+    $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
+    $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId);
+    if ($myDBAccess->failed()) {
+      error('get paper/reviewer information', $myDBAccess->getLastError());
+    }
+    if ($isD) {
+      $strItemAssocs['if'][] = 8; // Checkbox mit Haekchen setzen
+    }
+    elseif ($objReviewerAttitude->getPaperAttitude($objPaper->intId) != ATTITUDE_EXCLUDE) {
+      $strItemAssocs['if'][] = 7; // Checkbox ohne Haekchen setzen
+    }
     $strRevItem = new Template(TPLPATH.'reviewerattitudes.tpl');
     $strRevItem->assign($strItemAssocs);
     $strRevItem->parse();
