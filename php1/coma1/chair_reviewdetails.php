@@ -76,8 +76,8 @@ $strMainAssocs['title'] = 'Review details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 global $strRoles;
-if (!empty(session('menu', false))) {
-  $strMenu = $strRoles[(int)session('menu', false)];
+if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
+  $strMenu = $strRoles[(int)$_SESSION['menu']];
 }
 else {
   $strMenu = 'Conference';
