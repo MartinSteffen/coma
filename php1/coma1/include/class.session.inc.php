@@ -102,6 +102,7 @@ class Session {
   function sessionRead($sess_id) {
     $results = $this->mySql->select("SELECT sdata FROM sessions WHERE sid='$sess_id'");
     if (!$results) {
+      echo 'delete Inserte'
       $this->mySql->delete("DELETE FROM sessions WHERE sid='$sess_id'");
       $this->mySql->insert("INSERT INTO sessions (sid, stime, sdata) VALUES ('$sess_id', NOW(), '')");
       $s = $this->mySql->getLastError();
@@ -111,6 +112,7 @@ class Session {
       return '';
     }
     else {
+      echo 'sid gefunden'
       return $results[0]['sdata'];
     }
   }
