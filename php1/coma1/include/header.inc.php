@@ -196,6 +196,7 @@ $strRoles = array(CHAIR       => 'Chair',
  *
  */
 function checkLogin() {
+  global $myDBAccess;
   if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
     return true;
   }
