@@ -29,7 +29,7 @@ include("includes/tasks.inc.php");
 include("includes/ptra.inc.php");
 
 
-session_start();
+session_start(session_id());
 
 if (isset($_REQUEST['Role'])){
 	loginas($_REQUEST['Role']);
