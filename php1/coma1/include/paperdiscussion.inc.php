@@ -83,7 +83,8 @@ function createPaperForum(&$myDBAccess, $intPaperId) {
     }    
     return true;
   }
-  echo($objPaperForum);
+  // HIER IST DER BOESE BUG DER PRAESENTATION!
+  //echo($objPaperForum);
   return false;
 }
 
