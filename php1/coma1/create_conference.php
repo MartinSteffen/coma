@@ -150,8 +150,8 @@ if (isset($_POST['action'])) {
                                            encodeText($_POST['max_papers']),
                                            encodeText($_POST['variance']),
                                            (!empty($_POST['auto_actaccount']) ? '1' : '0'),
-                                           (!empty($_POST['auto_paperforum']) ? '1' : '0')
-                                           (!empty($_POST['auto_addreviewer']) ? '1' : '0')
+                                           (!empty($_POST['auto_paperforum']) ? '1' : '0'),
+                                           (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
                                            encodeText($_POST['auto_numreviewer']),                                           
                                            $strTopics, $strCriterions, $strCritDescripts,
                                            $intCritMaxVals, $fltCritWeights);                                           
