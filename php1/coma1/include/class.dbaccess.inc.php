@@ -1249,7 +1249,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     }
     // Co-Autoren loeschen...
     $s = "DELETE  FROM IsCoAuthorOf".
-        " WHERE   paper_id = '$intId'".
+        " WHERE   paper_id = '$objPaperDetailed->intId'".
         " AND     person_id IS NOT NULL";
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
@@ -1259,7 +1259,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
       if (!empty($objPaperDetailed->intCoAuthorIds[$i])) {
         $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
-            "         VALUES ('".$objPaperDetailed->intCoAuthorIds[$i]."', '$intPaperId')";
+            "         VALUES ('".$objPaperDetailed->intCoAuthorIds[$i]."',".
+            "                 '$objPaperDetailed->intId')";
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateCoAuthors', $this->mySql->getLastError());
