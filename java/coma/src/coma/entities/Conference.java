@@ -113,7 +113,7 @@ public class Conference extends Entity {
 		switch (mode)
 		{
 		case DEEP:
-		    return XMLHelper.tagged("Conference",
+		    return XMLHelper.tagged("conference",
 				XMLHelper.tagged("id", ""+getId()),
 				XMLHelper.tagged("name", getName()),
 				XMLHelper.tagged("homepage", getHomepage()),
@@ -128,7 +128,7 @@ public class Conference extends Entity {
 				XMLHelper.tagged("min", getMin_review_per_paper())
 					    );
 		case SHALLOW:
-			 return XMLHelper.tagged("Conference",
+			 return XMLHelper.tagged("conference",
 			 XMLHelper.tagged("id", ""+getId()),
 				XMLHelper.tagged("name", getName()),
 				XMLHelper.tagged("desc", getDescription())

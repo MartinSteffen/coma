@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.stream.StreamSource;
 
+import com.sun.org.apache.xerces.internal.dom.DeepNodeListImpl;
+
 import coma.entities.Conference;
 import coma.entities.Person;
 import coma.entities.SearchCriteria;
@@ -45,21 +47,22 @@ public class Index extends HttpServlet {
 		
 		//result.append(XMLHelper.tagged("dummy",""));
 		result.append("<content>");
-		result.append(myNavCol.toString());
+		
 		ReadServiceImpl myReadService = new ReadServiceImpl();
 		Conference mySearchconference = new Conference(-1);
 		SearchCriteria mysc = new SearchCriteria();
 		mysc.setConference(mySearchconference);
 		SearchResult mySR = myReadService.getConference(mysc);
+		String extraData = "";
 		if (mySR != null){
 			Conference[] confernceArray = (Conference[]) mySR.getResultObj();
-// 			result.append("<conference_list>\n");
-// 			for (int i = 0; i < confernceArray.length; i++) {
-// 				result.append(confernceArray[i].toXML());
-// 			}
-// 			result.append("</conference_list>\n");
-			result.append(XMLHelper.tagged("conference_list",
-						       Conference.manyToXML(java.util.Arrays.asList(confernceArray), XMLMODE.SHALLOW)));
+ 			extraData="<conference_list>\n";
+ 			for (int i = 0; i < confernceArray.length; i++) {
+ 				extraData+=(((Conference)confernceArray[i]).toXML(XMLMODE.SHALLOW));
+ 			}
+ 			extraData+="</conference_list>\n";
+ 			myNavCol.addExtraData(extraData);
+ 			result.append(myNavCol.toString());
 			String info = mySR.getInfo();
 			System.out.println(info);
 		}

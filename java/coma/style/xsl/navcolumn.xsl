@@ -28,9 +28,9 @@
             <form action="Login" method="post">
               <fieldset>
                 <div>
-                <!-- <div>
+                <div>
                   <select name="conference_id">
-                    <xsl:for-each select="conference_list/conference">
+                    <xsl:for-each select="/conference_list/conference">
                       <option>
                         <xsl:attribute name="value">
                           <xsl:value-of select="id"/>
@@ -39,7 +39,7 @@
                       </option>
                     </xsl:for-each>
                   </select>
-                </div>  -->
+                </div>
                 <div>
                   <label for="email">E-Mail</label>
                   <input type="text" name="email" class="input-box" />
@@ -83,9 +83,9 @@
         <li>Author
         <ul>
           <li>View Status</li>
-         <!--> <li><form action="Author?action=submitpaper" method="post">
+         <li><form action="Author?action=submitpaper" method="post">
   		<input type="submit" value="submit paper" class="submit-button" />
-  	</form></li> -->
+  	</form></li>
           <li>Update</li>
           <li>Withdraw</li>
         </ul></li>
