@@ -14,7 +14,6 @@ import coma.servlet.util.XMLHelper;
 /**
    Wrapper class for the DB Rating entries.
    
-   $Id:$
 */
 public class Rating extends Entity {
 
@@ -134,22 +133,9 @@ public class Rating extends Entity {
 	}
     }
     
-    /**
-     * @param criterionId The criterionId to set.
-     */
-    public void setCriterionId(int criterionId) {
-	this.criterionId = criterionId;
-    }
-
+    public void setCriterionId(int c){criterionId = c;}
     public void set_criterion_id(int c){setCriterionId(c);}
-
-    /**
-     * @param reviewReportId The reviewReportId to set.
-     */
-    public void setReviewReportId(int reviewReportId) {
-	this.reviewReportId = reviewReportId;
-    }
-
+    public void setReviewReportId(int rId){reviewReportId = rId;}
     public void set_report_id(int r){setReviewReportId(r);}
 
 }

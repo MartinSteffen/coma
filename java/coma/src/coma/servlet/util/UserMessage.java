@@ -34,4 +34,7 @@ public class UserMessage {
 
     /** "You may now edit your report." */
     public static final String EDITREPORT = "<editReport />";
+
+    /** "Now updateing." */
+    public static final String UPDATING = "<updateInProgress />";
 }

@@ -43,6 +43,16 @@ public class ReviewReport extends Entity {
     public String getRemarks(){return remarks;}
     public String getConfidental(){return confidental;}
 
+    /**
+       get the Reviewer who wrote this Report.
+
+       May be null if there is no Reviewer for this Report in the DB,
+       or if the DB lookup fails. In either case, a WARNing is logged.
+
+       If there are multiple Reviewers listed, an arbitrary one of
+       those is returned. This is a sign of DB inconsistency, and a
+       WARNing is logged.
+     */
     public Person getReviewer(){
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
 	SearchCriteria sc = new SearchCriteria();
@@ -70,12 +80,24 @@ public class ReviewReport extends Entity {
 	for (Person r: cs){
 	    return r;
 	}
-	ALogger.log.log(INFO, 
+	ALogger.log.log(WARN, 
 			"canthappen:",
 			"suddenly a set of Persons is empty in", this);
 	return null;
     }
 
+    /**
+       return the Paper that is reviewed by this ReviewReport.
+
+       May return null if for some reason the DB lookup fails or there
+       is no paper for this Report.
+
+       If there are multiple papers referenced (this is a sign of DB
+       inconsistency), one of those is returned. Hence, multiple
+       consecutive calls may yield different results.
+
+       In all failure cases, a WARNing is logged.
+     */
     public Paper getPaper(){
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
 	SearchCriteria sc = new SearchCriteria();
@@ -103,7 +125,7 @@ public class ReviewReport extends Entity {
 	for (Paper r: cs){
 	    return r;
 	}
-	ALogger.log.log(INFO, 
+	ALogger.log.log(WARN, 
 			"canthappen:",
 			"suddenly a set of review reports is empty in", this);
 	return null;
@@ -113,6 +135,9 @@ public class ReviewReport extends Entity {
        Return a set of all ratings that are part of this review report.
 
        The set returned may be empty, but it is never null.
+
+       Unlike other get-Methods, the result is a proper set even if no
+       ratings are found at all. In this case, a WARNing is logged.
      */
     public Set<Rating> getRatings(){
 	Set<Rating> result = new HashSet<Rating>();
@@ -152,11 +177,12 @@ public class ReviewReport extends Entity {
 	case DEEP:
 	    return XMLHelper.tagged("ReviewReport",
 				    XMLHelper.tagged("id", ""+getId()),
-				    //FIXME not Entity yet getPaper().toXML(XMLMODE.SHALLOW),
-				    //FIXME not Entity yet getReviewer().toXML(XMLMODE.SHALLOW),
+				    getPaper().toXML(XMLMODE.SHALLOW),
+				    getReviewer().toXML(XMLMODE.SHALLOW),
 				    XMLHelper.tagged("summary", getSummary()),
 				    XMLHelper.tagged("remarks", getRemarks()),
-				    XMLHelper.tagged("confidental", getConfidental())
+				    XMLHelper.tagged("confidental", getConfidental()),
+				    Entity.manyToXML(getRatings(), XMLMODE.DEEP)
 				    );
 	  
 	default:
@@ -167,48 +193,12 @@ public class ReviewReport extends Entity {
 	}
     }
     
-	/**
-	 * @param confidental The confidental to set.
-	 */
-	public void setConfidental(String confidental) {
-		this.confidental = confidental;
-	}
-	/**
-	 * @param id The id to set.
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	/**
-	 * @param paperId The paperId to set.
-	 */
-	public void setPaperId(int paperId) {
-		this.paperId = paperId;
-	}
-
-    public void set_paper_Id(int p){
-	setPaperId(p);
-    }
-
-	/**
-	 * @param remarks The remarks to set.
-	 */
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	/**
-	 * @param reviewerId The reviewerId to set.
-	 */
-	public void setReviewerId(int reviewerId) {
-		this.reviewerId = reviewerId;
-	}
-
+    public void setConfidental(String c) {confidental = c;}
+    public void setId(int i) {id = i;}
+    public void setPaperId(int paperId) {this.paperId = paperId;}
+    public void set_paper_Id(int p){setPaperId(p);}
+    public void setRemarks(String remarks) {this.remarks = remarks;}
+    public void setReviewerId(int reviewerId) {this.reviewerId = reviewerId;}
     public void set_reviewer_id(int r){setReviewerId(r);}
-
-	/**
-	 * @param summary The summary to set.
-	 */
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
+    public void setSummary(String summary){this.summary = summary;}
 }

@@ -42,4 +42,27 @@ public abstract class Entity {
        these as the return type.
      */
     public abstract CharSequence toXML(XMLMODE mode);
+
+    /**
+       Return the XML representations of all entities in the
+       Collection, concatenated together.
+
+       This is useful for things like Ratings, which come in batches.
+
+       Note: we do not specify yet if there will be whitespace
+       inserted between the representations, since that apparently
+       gives XSLT problems. We do, however, currently insert a "\n"
+       after each entity just in case.
+    
+       The result is not threadsafe.
+     */
+    public static CharSequence manyToXML(java.util.Collection<? extends Entity> entities, XMLMODE mode){
+
+	StringBuilder result = new StringBuilder();
+	for (Entity e: entities){
+	    result.append(e.toXML(mode));
+	    result.append('\n');
+	}
+	return result;
+    }
 }
