@@ -34,6 +34,6 @@ $ftpdir="";
 $httpftpurl="";
 
 // connect to the database
-$link = mysql_connect ("localhost","","");
+$link = mysql_connect ("localhost","testUser","testPass");
 $base = mysql_select_db ("coma2");
 

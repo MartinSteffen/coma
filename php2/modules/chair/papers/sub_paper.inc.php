@@ -3,17 +3,15 @@ if(isChair_Paper($_GET['paperID']))
 {
 	$SQL = "select paper.title, paper.abstract, paper.last_edited, paper.version, paper.state, 
 	        person.id, person.title, person.first_name, person.last_name, 
-			conference.id, conference.name, topic.id, topic.name
-			from paper, conference, person, role, topic, isabouttopic 
+			conference.id, conference.name
+			from paper, conference, person, role 
 			where role.role_type = 2
 			and role.state = 1 
 			and role.person_id = ".$_SESSION['userID']."
 			and role.conference_id = conference.id 
 			and conference.id = paper.conference_id 
 			and paper.id = ".$_GET['paperID']." 
-			and paper.author_id = person.id
-			and isabouttopic.paper_id = paper.id
-			and isabouttopic.topic_id = topic.id";
+			and paper.author_id = person.id";
 					
     $result=mysql_query($SQL);
 	$output = array();
@@ -56,8 +54,23 @@ if(isChair_Paper($_GET['paperID']))
 		$paper['authorName'] = $list[6]." ".$list[7]." ".$list[8];
 		$paper['confID'] = $list[9];
 		$paper['confName'] = $list[10];
-		$paper['topicID'] = $list[11];
-		$paper['topicName'] = $list[12];
+		
+		$SQL2 = "SELECT topic.id, topic.name from topic, isabouttopic
+				WHERE isabouttopic.paper_id = ".$_GET['paperID']."
+				AND isabouttopic.topic_id = topic.id";
+
+		$topicCount = 0;
+		$topics = array();
+		$result2=mysql_query($SQL2);				
+		while ($list2 = mysql_fetch_row ($result2))
+		{
+			$topic = array();
+			$topic['topicID'] = $list2[0];
+			$topic['topicName'] = $list2[1];
+			$topics[$topicCount] = $topic;
+			$topicCount++;
+		}
+		$paper['topics'] = $topics;		
 	}
 	
 $output['paper'] = $paper;

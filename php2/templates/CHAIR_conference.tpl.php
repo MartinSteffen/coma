@@ -205,7 +205,7 @@ $topics = $input['topics'];
 	  <td width="140" align="center" valign="middle"> 
         <input type="submit" name="Submit" value="Update topic">
     </td>
-      <td width="100" align="right" class="normal" valign="middle"><a href="index.php?m=chair&a=conferences&s=deleteTopic&topicID=<? echo $topic['topicID'] ?>&confID=<? echo $conference['confID'] ?>" class="normal" onclick="return confirm('Are you sure you want to delete this topic?\r\nAll the papers in this topic will be deleted!')">Delete 
+      <td width="100" align="right" class="normal" valign="middle"><a href="index.php?m=chair&a=conferences&s=deleteTopic&topicID=<? echo $topic['topicID'] ?>&confID=<? echo $conference['confID'] ?>" class="normal" onclick="return confirm('Are you sure you want to delete this topic?')">Delete 
         the topic</a></td>
     <td width="29">&nbsp;</td>	
   </tr>

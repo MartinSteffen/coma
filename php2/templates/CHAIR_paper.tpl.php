@@ -37,13 +37,30 @@ $reviewers = $report['reviewers'];
       all papers in the conference</a></td>
   </tr>
   <tr> 
-    <td class="textBold" align="left" valign="top" width="117">In topic</td>
-    <td class="text" align="left" valign="top"> 
-      <? echo $paper['topicName'] ?>
+    <td class="textBold" align="left" valign="top" width="117">In topics</td>
+    <td></td>
+    <td></td>
+  </tr> 
+<? $color = "#FFFFFF";
+    foreach ($paper['topics'] as $topic)
+	{ ?> 
+  <tr> 
+    <td></td>
+    <td bgcolor="<? echo $color ?>" class="text" align="left" valign="top"> 
+      <? echo $topic['topicName'] ?>
     </td>
-    <td class="text" align="left" valign="top" width="257"><a href="index.php?m=chair&a=papers&s=allPapersOfTopic&topicID=<? echo $paper['topicID'] ?>" class="normal">List 
+    <td bgcolor="<? echo $color ?>" class="text" align="left" valign="top" width="257"><a href="index.php?m=chair&a=papers&s=allPapersOfTopic&topicID=<? echo $topic['topicID'] ?>" class="normal">List 
       all papers in the topic</a></td>
-  </tr>  
+  </tr> 
+<?   if ($color == "#FFFFFF")
+	 {
+	 	$color = "#CCCCCC";
+	 } 
+	 else
+	 {
+	 	$color = "#FFFFFF";
+	 }
+   }  ?>  
   <tr> 
     <td class="textBold" align="left" valign="top" width="117">Description</td>
     <td class="text" align="left" valign="top"> 

@@ -33,7 +33,7 @@ $papers = $input['papers'];
     <td class="text"><? echo $paper['authorName']; ?></td>
   </tr>
   <tr align="left" valign="top"> 
-    <td class="textBold">In topic</td>
+    <td class="textBold">In topics</td>
     <td class="text"><? echo $paper['topicName']; ?></td>
   </tr>  
   <tr align="left" valign="top"> 
