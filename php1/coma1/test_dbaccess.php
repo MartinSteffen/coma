@@ -28,7 +28,7 @@ $c = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-else if (empty($p)) {
+else if (empty($c)) {
   echo('EMPTY');
   exit(-1);
 }
