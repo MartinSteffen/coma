@@ -1575,7 +1575,7 @@ class DBAccess extends ErrorHandling {
    */
   function deactivateAccount($intPersonId) {
     $s = "UPDATE  Person".
-        " SET     password = NULL"
+        " SET     password = NULL".
         " WHERE   id = $intPersonId";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
