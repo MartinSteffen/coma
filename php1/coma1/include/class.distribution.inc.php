@@ -160,7 +160,7 @@ class Distribution extends ErrorHandling {
     }
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
-    $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), 1));
+    $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
 
     $p_num_revs_pref_left = array_fill(0, count($p_id), 0);
     $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
