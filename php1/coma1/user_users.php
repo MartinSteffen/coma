@@ -47,6 +47,7 @@ $strContentAssocs['lines']      = '';
 $strContentAssocs['&option']    = '';
 $strContentAssocs['&option']   .= ($showChairs ? '&showchairs' : '');
 session_delete('message');
+$personCount = 0;
 if (!empty($objPersons)) {
   $lineNo = 1;
   foreach ($objPersons as $objPerson) {
@@ -77,10 +78,11 @@ if (!empty($objPersons)) {
       $userItem->parse();
       $strContentAssocs['lines'] .= $userItem->getOutput();
       $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
-    }
+      $personCount++;
+    }    
   }
 }
-else {
+if (empty($objPersons) || $personCount == 0) {
   // Benutzerliste ist leer.
   $strItemAssocs = defaultAssocArray();
   $strItemAssocs['colspan'] = '4';
