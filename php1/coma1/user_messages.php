@@ -14,21 +14,20 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$content = new Template(TPLPATH.'user_forumlist.tpl');
+$content = new Template(TPLPATH.'user_messagelist.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$menu = new Template(TPLPATH.'mainmenu.tpl');
-$strMenuAssocs = defaultAssocArray();
-$strMenuAssocs['if'] = array(3);
-$menu->assign($strMenuAssocs);
+$actMenu = 0;
+$actMenuItem = 4;
+include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Main forum';
+$strMainAssocs['title'] = 'Messages for '.session('uname');
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Forum';
+$strMainAssocs['navigator'] = session('uname').'  |  Messages';
 
 $main->assign($strMainAssocs);
 $main->parse();
