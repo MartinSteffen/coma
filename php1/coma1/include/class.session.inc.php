@@ -12,14 +12,13 @@ if (!defined('IN_COMA1')) {
 --
 -- Tabellenstruktur für Tabelle `Sessions`
 --
-CREATE TABLE IF NOT EXISTS `Sessions` (
-  `sid` varchar(255) NOT NULL default '',
-  `sname` varchar(255) NOT NULL default '',
-  `sdata` text,
-  `stime` timestamp(14) NOT NULL,
-  PRIMARY KEY  (`sid`),
-  KEY `stime` (`stime`),
-  KEY `sname` (`sname`)
+CREATE TABLE IF NOT EXISTS Sessions (
+  sid varchar(255) NOT NULL default '',
+  sname varchar(255) NOT NULL default '',
+  sdata text,
+  stime timestamp(14) NOT NULL,
+  PRIMARY KEY  (sid, sname),
+  KEY stime (stime)
 ) TYPE=MyISAM COMMENT='Session Verwaltung';
 */
 
@@ -130,25 +129,27 @@ class Session {
   * @access private
   */
   function sessionRead($strSessId) {
-    $strSessId = $this->strSessName . $strSessId;
     // Check ob Session veraltet!!!
     $sql = "SELECT  sdata ".
           " FROM    Sessions ".
           " WHERE   sid   = '$strSessId' ".
           " AND     sname = '$this->strSessName' ".
           " AND     UNIX_TIMESTAMP(stime) > (UNIX_TIMESTAMP()-'$this->intMaxLifeTime)' ";
+    echo $sql.'<br>;
     $results = $this->mySql->select($sql);
     if (!$results) {
       $sql = "DELETE ".
             " FROM  Sessions ".
             " WHERE sid   = '$strSessId' ".
             " AND   sname = '$this->strSessName' ";
+      echo $sql.'<br>;
       $this->mySql->delete($sql);
       $sql = "INSERT ".
             " INTO  Sessions ".
             "       (sid,          sname,                sdata, stime) ".
             " VALUES ".
             "       ('$strSessId', '$this->strSessName', NULL,  NOW()) ";
+      echo $sql.'<br>;
       $this->mySql->insert($sql);
       $s = $this->mySql->getLastError();
       if (!empty($s)) {
@@ -168,7 +169,6 @@ class Session {
   * @access private
   */
   function sessionWrite($strSessId, $strData) {
-    $strSessId = $this->strSessName . $strSessId;
     $sql = "UPDATE  Sessions ".
           " SET     sdata = '$strData', ".
           "         stime = NOW() ".
