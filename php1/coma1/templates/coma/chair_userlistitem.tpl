@@ -11,11 +11,11 @@
               {roles}
             </tr>
           </table>}
-       {if2<form action="{basepath}{targetform}{?SID}" method="post" accept-charset="UTF-8">
-             <input type="hidden" name="action" value="activate">
-             <input type="hidden" name="userid" value="{user_id}">        
-             <input type="submit" name="submit" value="activate" class="smallbutton">        
-           </form>}       
+      {if2<form action="{basepath}{targetform}{?SID}" method="post" accept-charset="UTF-8">
+            <input type="hidden" name="action" value="activate">
+            <input type="hidden" name="userid" value="{user_id}">        
+            <input type="submit" name="submit" value="activate" class="smallbutton">        
+          </form>}       
     </td>
     <td class="listitem-{line_no}"> 
       <form action="{basepath}{targetform}{?SID}" method="post" accept-charset="UTF-8">
