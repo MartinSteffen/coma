@@ -1,10 +1,12 @@
-<html>
-<head>
-<title>Untitled Document</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-</head>
+<?
+if(isChair_Conference($_GET['confID']))
+{
+	$SQL = "SELECT name, homepage, description, abstract_submission_deadline, paper_submission_deadline,
+			review_deadline, final_version_deadline, notification, conference_start, conference_end, min_reviews_per_paper
+			FROM conference
+			WHERE id = ".$_GET['confID'];
 
-<body bgcolor="#FFFFFF" text="#000000">
-
-</body>
-</html>
+template("CHAIR_conference");
+}
+else redirect("logout",false,false,"error=1");	
+?>

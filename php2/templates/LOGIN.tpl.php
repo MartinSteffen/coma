@@ -2,6 +2,8 @@
 include("header.tpl.php");
 $message = $TPL['login'];
 ?>
+<link rel="stylesheet" href="style.css" type="text/css">
+
 
 
 <table width="300" border="0" cellspacing="0" cellpadding="0">
@@ -49,8 +51,13 @@ $message = $TPL['login'];
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="textBold">Not a member yet? <a href="index.php?m=register" class="menus">Register 
-      now</a>!</td>
+    <td align="center"> 
+      <p><span class="textBold">Not a member yet?</span> <a href="index.php?m=register" class="menus">Register 
+        now</a>!</p>
+      <p><span class="text">(It is strong </span><span class="textBold">recommended</span><span class="text"> 
+        that you use <br>
+        a browser with </span><span class="textBold">javascript</span> <span class="text">enabled!)</span></p>
+    </td>
   </tr>
 </table>
 <?

@@ -24,14 +24,17 @@ function toggle(id)
     <td width="100%"> 
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr> 
-          <td align="left" valign="bottom" background="templates/images/blueBack.gif" width="78%"><img src="templates/images/logoUp.gif" width="200" height="83"></td>
-          <td align="right" valign="bottom" background="templates/images/blueBack.gif" width="22%"><img src="templates/images/confManager.gif" width="215" height="34"></td>
+          
+        <td align="left" valign="bottom" background="templates/images/blueBack.gif" width="78%"><img src="templates/images/logoUp.gif" width="200" height="83" border="0"></td>
+          
+        <td align="right" valign="bottom" background="templates/images/blueBack.gif" width="22%"><img src="templates/images/confManager.gif" width="215" height="34" border="0"></td>
         </tr>
         <tr> 
           <td align="left" valign="top" height="62" width="78%"> 
             <table width="108%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="19%"><img src="templates/images/logoDown.gif" width="200" height="49"></td>
+                
+              <td width="19%"><img src="templates/images/logoDown.gif" width="200" height="49" border="0"></td>
                 <td width="81%" align="left" valign="middle" class="text">
 				    <? 
 					   if(isset($_SESSION['userID'])) 
