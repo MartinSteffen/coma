@@ -6,8 +6,6 @@
  */
 /***/
 
-/*** @ignore */
-define('DEBUGMODE', false);
 /**
  * Wichtig, damit Coma1 Dateien eingebunden werden koennen
  *
@@ -22,9 +20,11 @@ require_once(INCPATH.'class.person.inc.php');
 
 //Funktiondefinitionen
 
-//Hilfsfunktion zum feststellen ob eine valide Auswahl vorliegt, iow: es ist ein nichtleeres array in dem mindestens einmal der Wert true steht
+//Hilfsfunktion zum feststellen ob eine valide Auswahl vorliegt, 
+//iow: es ist ein nichtleeres array in dem mindestens einmal der Wert true steht
 function validSelection($selectarray){
-  if (empty($selectarray)){
+  return (array_sum($selectarray) > 0);
+  /*if (empty($selectarray)){
     return false;
   }
   else{
@@ -34,7 +34,7 @@ function validSelection($selectarray){
       }
     }
     return false;
-  }
+  }*/
 }
 
 function notemptyandtrue($arr, $index){
@@ -52,11 +52,9 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, &$myDBAccess, $fshow){
-  if (DEBUGMODE){
-    //echo('forums: ' . count($forums) . '<br>');
-    //echo('fshow=' . $fshow);
-  }
+function buildForumtemplates( $forumselection, $msgselection, $select, $assocArray, $fshow, &$forums){
+  global $myDBAccess;
+  
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
   $typeopenassocs['type'] = 'Public forums';
@@ -79,16 +77,10 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
     $forumassocs = defaultAssocArray();
     if (notemptyandtrue($forumselection, $forum->intId)){
       $forumassocs['selectorunselect'] = 'forumunsel';
-      $forumassocs['forum-id'] = $forum->intId;
-      $forumassocs['forum-title'] = $forum->strTitle;
+      $forumassocs['forum-id'] = encodeText($forum->intId);
+      $forumassocs['forum-title'] = encodeTExt($forum->strTitle);
       $forumassocs['plusorminus'] = '-';
-      if (DEBUGMODE){
-        //echo('calling getThreadsOfForum(' . $forum->intId . ')<br>');
-      }
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
-      if (DEBUGMODE){
-        //echo('count(getThreadsOfForum)=' . count($messes));
-      }
       $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs, $myDBAccess);
       //Thread-neu
       $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
@@ -173,7 +165,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
 }
 
 function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs, &$myDBAccess){
-  if (DEBUGMODE){
+  if (DEBUG){
     //echo('<br>Messages: ' . count($messages));
   }
   $tempstring = '';
@@ -209,7 +201,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == getUID(getCID($myDBAccess), $myDBAccess)) || (DEBUGMODE) || (isChair($myDBAccess->getPerson(getUID(getCID($myDBAccess), $myDBAccess))))){
+        if (($sender->intId == getUID(getCID($myDBAccess), $myDBAccess)) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID(getCID($myDBAccess), $myDBAccess))))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -289,67 +281,28 @@ function generatePostMethodArray($postvars){
     $pma['posttype'] = $postvars['posttype'];
   }
   $pma['reply-to'] = $postvars['reply-to'];
-  $pma['text'] = $postvars['text'];
-  $pma['subject'] = $postvars['subject'];
-  $pma['forumid'] = $postvars['forumid'];
+  $pma['text']     = $postvars['text'];
+  $pma['subject']  = $postvars['subject'];
+  $pma['forumid']  = $postvars['forumid'];
   return $pma;
 }
 
-function getUID($cid, &$myDBAccess){
-  $uid = session('uid', false);
-  if (empty($uid)) {
-    if (DEBUGMODE){ //ja, sehr haesslich, weiss ich selbst
-      $users = $myDBAccess->getUsersOfConference($cid);
-      srand ((double)microtime()*1000000);
-      $randval = rand(0,count($users)-1);
-      $uid = $users[$randval]->intId;
-      $_SESSION['uid'] = $uid;
-    }
-    else{
-      $uid = session('uid');
-    }
-  }
-  return $uid;
-}
 
-function getCID(&$myDBAccess) {	
-  $cid = session('confid', false);
-  if (empty($cid)){
-    if (DEBUGMODE){ //siehe DEBUGMODE-kommentar zu getUID
-      $confs = $myDBAccess->getAllConferences();
-      srand ((double)microtime()*1000000);
-      $randval = rand(0,count($confs)-1);
-      $cid = $confs[$randval]->intId;
-      $_SESSION['confid'] = $cid;
-    }
-    else {
-      $cid = false;
-    }
-  }
-  return $cid;
-}
+// Main-Code
 
-//Main-Code
-
-if ((empty(session('uid', false))) && (!DEBUGMODE)){
-  redirect('index.php');
-}
-else{
-
-  if (DEBUGMODE){
-    /*
-    echo('<h1>BEGIN VARDUMP $HTTP_POST_VARS</h1><br>');
-    var_dump($HTTP_POST_VARS);
-    echo('<h1>END VARDUMP $HTTP_POST_VARS</h1><br>');
+  /*
+  if (DEBUG){
+    echo('<h1>BEGIN VARDUMP $_POST</h1><br>');
+    var_dump($_POST);
+    echo('<h1>END VARDUMP $_POST</h1><br>');
     echo('<h1>BEGIN VARDUMP $HTTP_GET_VARS</h1><br>');
     var_dump($HTTP_GET_VARS);
     echo('<h1>END VARDUMP $HTTP_GET_VARS</h1><br>');
-    */
-    //var_dump($_SESSION);
   }
-
-  $cid = getCID($myDBAccess);
-  $uid = getUID($cid, $myDBAccess);
+  */
+  
+  $cid = session('cid', false);
+  $uid = session('uid');
 
   $content = new Template(TPLPATH . 'forumlist.tpl');
   $contentAssocs = defaultAssocArray();
@@ -357,118 +310,71 @@ else{
   session_delete('message');
   $contentAssocs['forumtypes'] = '';
 
-  if (DEBUGMODE){
-    $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>';
-  }
-
   //evtl. posten einleiten
-  if (((!empty($HTTP_POST_VARS['reply-to'])) || ((!empty($HTTP_POST_VARS['posttype'])) && ($HTTP_POST_VARS['posttype'] == 'newthread'))) && (!empty($HTTP_POST_VARS['text']))){
-    if (DEBUGMODE){
-      //echo('posten wird eingeleitet<br>');
-    }
-    $pvars = generatePostMethodArray($HTTP_POST_VARS);
+  if (((!empty($_POST['reply-to'])) || ((!empty($_POST['posttype'])) && ($_POST['posttype'] == 'newthread'))) && (!empty($_POST['text']))){
+    $pvars = generatePostMethodArray($_POST);
     $postresult = false;
     //auf einen Beitrag antworten
     if (($pvars['posttype'] == 'reply') && (!empty($pvars['text'])) && (!empty($pvars['forumid'])) && (!empty($pvars['reply-to']))){
-        if (DEBUGMODE){
-          $postresult = $myDBAccess->addMessage('DEBUGMODE ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
-        }
-        else{
-          $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
-        }
+      $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
     }
+    // TODO
     //einen Beitrag updaten - DBAccess Methode dazu fehlt noch
-    if ((1 == 2) && ($pvars['posttype'] == 'update') && (!empty($pvars['reply-to'])) && (!empty($pvars['subject'])) && (!empty($pvars['text']))){
-        if (DEBUGMODE){
-          $postresult = $myDBAccess->updateMessage('DEBUGMODE ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
-        }
-        else{
-          $postresult = $myDBAccess->updateMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
-        }
-    }
+    //if (($pvars['posttype'] == 'update') && (!empty($pvars['reply-to'])) && (!empty($pvars['subject'])) && (!empty($pvars['text']))){
+    //  $postresult = $myDBAccess->updateMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
+    //}
     //einen neuen Thread starten
     if (($pvars['posttype'] == 'newthread') && (!empty($pvars['text'])) && (!empty($pvars['forumid']))){
-        if (DEBUGMODE){
-          $postresult = $myDBAccess->addMessage('DEBUGMODE ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
-        }
-        else{
-          $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
-        }
+      $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
     }
-
-    if ($postresult != false){
+    // hat geklappt :)
+    if (!empty($postresult)){
       $selecttree = session('forum_msgselect', false);
-      if (!empty($selecttree)){
-        $selecttree[$postresult] = true;
-      }
-      else{
+      if (empty($selecttree)){
         $selecttree = array();
-        $selecttree[$postresult] = true;
       }
+      $selecttree[$postresult] = true;
       $_SESSION['forum_msgselect'] = $selecttree;
     }
     else{
-      //echo('posten fehlgeschlagen');
+      // posten fehlgeschlagen
       $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
     }
   }
-  else{
-    //echo('kein posten<br>');
-  }
 
-  //foren holen
- if (DEBUGMODE){
-    $forums = $myDBAccess->getAllForums($cid);
+  // Foren holen
+  $forums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid', false));
+  if ($myDBAccess->failed()) {
+    error('Error getting forum list.', $myDBAccess->getLastError());
   }
-  else{
-    $forums = $myDBAccess->getForumsOfPerson($uid, $cid);
-  }
-
   if (empty($forums)){
     $forums = array();
   }
 
-  //selektionen updaten
-  if (!empty($HTTP_GET_VARS['select'])){
-    $tselect = $HTTP_GET_VARS['select'];
-    $temp = session('forum_msgselect', false);
-    if (!empty($temp)){
-      $temp[$tselect] = true;
-    }
-    else{
-      $temp = array();
-      $temp[$tselect] = true;
-    }
-    $_SESSION['forum_msgselect'] = $temp;
+  // selektionen updaten
+  $temp = session('forum_msgselect', false);
+  if (empty($temp)){
+    $temp = array();
   }
-  if (!empty($HTTP_GET_VARS['unselect'])){
-    $tunselect = $HTTP_GET_VARS['unselect'];
-    if (!empty(session('forum_msgselect', false))){
-      $temp = session('forum_msgselect', false);
-      $temp[$tunselect] = false;
-      $_SESSION['forum_msgselect'] = $temp;
+  if (!empty($_GET['select'])){
+    $temp[$_GET['select']] = true;
+  }
+  if (!empty($_GET['unselect'])){
+    $temp[$_GET['unselect']] = false;
     }
   }
-  if (!empty($HTTP_GET_VARS['forumsel'])){
-    $tselect = $HTTP_GET_VARS['forumsel'];
-    $temp = session('forum_forumselect', false);
-    if (!empty($temp)){
-      $temp[$tselect] = true;
-    }
-    else{
-      $temp = array();
-      $temp[$tselect] = true;
-    }
-    $_SESSION['forum_forumselect'] = $temp;
+  $_SESSION['forum_msgselect'] = $temp;
+  $temp = session('forum_forumselect', false);
+  if (empty($temp)){
+    $temp = array();
   }
-  if (!empty($HTTP_GET_VARS['forumunsel'])){
-    $tunselect = $HTTP_GET_VARS['forumunsel'];
-    if (!empty(session('forum_forumselect', false))){
-      $temp = session('forum_forumselect', false);
-      $temp[$tunselect] = false;
-      $_SESSION['forum_forumselect'] = $temp;
-    }
+  if (!empty($_GET['forumsel'])){
+    $temp[$_GET['forumsel']] = true;
   }
+  if (!empty($_GET['forumunsel'])){
+    $temp[$_GET['forumunsel']] = false;
+  }
+  $_SESSION['forum_forumselect'] = $temp;
   if (!empty($HTTP_GET_VARS['showforums'])){
     $temp = $HTTP_GET_VARS['showforums'];
     if (($temp >= 0) && ($temp <= 3)){
@@ -504,7 +410,7 @@ else{
   }
 
   $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $myDBAccess, $fshow);
-  if (DEBUGMODE){
+  if (DEBUG){
     //echo($contentAssocs['forumtypes']);
     //echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
     //var_dump($contentAssocs);
