@@ -38,7 +38,7 @@
 # of the previous review."
 #
 # Don't change the following 2 lines:
-REVIEWER-NAME: Uwe Nestmann
+REVIEWER-NAME: Some Name
 REVIEWER-NUMBER: 8
 #
 # (Fill in after the keyword: 1 to 30) 
