@@ -18,13 +18,6 @@ require_once('./include/class.distribution.inc.php');
 
 echo('<br>');
 
-
-$a = array(1, 2, 3, 4, 5);
-print_r($a);
-unset($a[2]);
-print_r($a);
-exit(-1);
-
 $myDist = new Distribution($mySql);
 
 $y = $myDist->getDistribution(1);

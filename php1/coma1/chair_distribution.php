@@ -15,17 +15,27 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 require_once('./include/class.distribution.inc.php');
 
-/*if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
-  $myDBAccess->deletePaper($_POST['paperid']);
-  if ($myDBAccess->failed()) {
-    error('Error deleting paper.', $myDBAccess->getLastError());
+if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {  
+  if (!isset($_SESSION['dist']) {
+    error('get distribution suggestion of session', 'Variable not set.');
   }
-}*/
-
-$myDist = new Distribution($mySql);
-$dist = $myDist->getDistribution(session('confid'));
-if ($myDist->failed()) {
-  error('get distribution suggestion',$myDist->getLastError());
+  if (!isset($_POST['paperid'] || !isset($_POST['reviewerid'] ||
+      !isset($_POST['reviewerarrayindex']) {
+    error('get distribution suggestion of session', 'An index is missing.');
+  }
+  $dist = $_SESSION['dist'];
+  if ($dist[$_POST['paperid']][$_POST['reviewerarrayindex']['reviewer_id'] !=
+      $_POST['reviewerid']) {
+    error('get distribution suggestion of session', 'Wrong index.');
+  }
+  unset($dist[$_POST['paperid']][$_POST['reviewerarrayindex']);
+}
+else {
+  $myDist = new Distribution($mySql);
+  $dist = $myDist->getDistribution(session('confid'));
+  if ($myDist->failed()) {
+    error('get distribution suggestion',$myDist->getLastError());
+  }
 }
 
 $content = new Template(TPLPATH.'chair_distributionlist.tpl');
@@ -61,6 +71,7 @@ if (!empty($dist)) {
       $strReviewersAssocs['rev_id'] = $arrReviewers[$i]['reviewer_id'];
       $strReviewersAssocs['rev_name'] = $objReviewer->getName(1);
       $strReviewersAssocs['status'] = rand(1,5)<=1?0:$arrReviewers[$i]['status'];
+      $strReviewersAssocs['rev_array_index'] = $i;
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
@@ -71,6 +82,7 @@ if (!empty($dist)) {
     $strContentAssocs['lines'] .= $paperItem->getOutput();
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
   }
+  $_SESSION['dist'] = $dist;
 }
 else {
   // Artikelliste ist leer.
