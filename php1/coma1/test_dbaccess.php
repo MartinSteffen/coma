@@ -27,7 +27,7 @@ function bit($b) {
 
 echo('<br>');
 
-$p = $myDBAccess->getPersonAlgorithmic(1, 4);
+$p = $myDBAccess->getPersonAlgorithmic(1, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -42,6 +42,14 @@ for ($i = 0; $i < count($p->objPreferredTopics); $i++) {
 echo ('<br><br>Pref. Papers:');
 for ($i = 0; $i < count($p->objPreferredPapers); $i++) {
   echo ('<br>'.$p->objPreferredPapers[$i]->intId.' / '.$p->objPreferredPapers[$i]->strTitle);
+}
+echo ('<br><br>Den. Papers:');
+for ($i = 0; $i < count($p->objPreferredPapers); $i++) {
+  echo ('<br>'.$p->objDeniedPapers[$i]->intId.' / '.$p->objDeniedPapers[$i]->strTitle);
+}
+echo ('<br><br>Excl. Papers:');
+for ($i = 0; $i < count($p->objPreferredPapers); $i++) {
+  echo ('<br>'.$p->objExcludedPapers[$i]->intId.' / '.$p->objExcludedPapers[$i]->strTitle);
 }
 
 

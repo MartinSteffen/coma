@@ -500,7 +500,8 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPersonAlgorithmic', $this->getLastError());
     }
-    $objPersonAlgorithmic->objDeniedPapers = array();
+    $objPersonAlgorithmic->objDeniedPapers =
+      $this->getDeniedPapers($intPersonId, $intConferenceId);
     $objPersonAlgorithmic->objExcludedPapers = array();
 
     // Rollen der Person
@@ -1255,7 +1256,7 @@ class DBAccess extends ErrorHandling {
    * Liefert ein Array der bevorzugten Paper der Person mit ID $intPersonId
    * bei der Konferenz $intConferenceId.
    *
-   * @param int $intPersonAlgorithmic ID der Person
+   * @param int $intPersonId ID der Person
    * @param int $intConferenceId Konferenz-ID
    * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
    * @access private
@@ -1277,6 +1278,37 @@ class DBAccess extends ErrorHandling {
       $objPapers[] = $this->getPaper($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getPreferredPapers', $this->getLastError());
+      }
+    }
+    return $this->success($objPapers);
+  }
+
+  /**
+   * Liefert ein Array der durch die Person $intPersonId zum Reviw abgelehnten Paper
+   * bei der Konferenz $intConferenceId.
+   *
+   * @param int $intPersonId ID der Person
+   * @param int $intConferenceId Konferenz-ID
+   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @access private
+   * @author Tom (18.01.05)
+   */
+  function getDeniedPapers($intPersonId, $intConferenceId) {
+    $objPapers = array();
+    $s = "SELECT  dp.paper_id AS paper_id".
+        " FROM    DeniesPaper dp".
+        " INNER   JOIN Paper p".
+        " ON      p.id = dp.paper_id".
+        " AND     p.conference_id = '$intConferenceId'".
+        " WHERE   dp.person_id = '$intPersonId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getDeniedPapers', $this->mySql->getLastError());
+    }
+    for ($i = 0; $i < count($data); $i++) {
+      $objPapers[] = $this->getPaper($data[$i]['paper_id']);
+      if ($this->failed()) {
+        return $this->error('getDeniedPapers', $this->getLastError());
       }
     }
     return $this->success($objPapers);
