@@ -104,7 +104,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     if ($review_dl > $start_date) {
       $strMessage .= "Your Review Deadline should be before your Start Date!\n";
     }
-    if ($min_reviews < 0){
+    if ($min_reviews <= 0){
       $strMessage .= "Your minimum number of reviews should be greater or equel to zero!\n";
     }
     if ($min_papers < 0){
