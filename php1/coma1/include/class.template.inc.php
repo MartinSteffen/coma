@@ -111,6 +111,7 @@ class Template {
     $strKeys = array_keys($this->strAssocs);
     $strKeys = array_map(create_function('$s', 'return "{$s}";'), $strKeys);
     $this->strOutput = eregi_replace($strKeys, array_values($this->strAssocs), $this->strTemplate);
+    print_r($strKeys);
     return true;
   }
   
