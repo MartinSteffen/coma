@@ -148,6 +148,33 @@ class MySql {
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
    * @param string $strSql Eine SQL <b>insert</b> Anfrage an die Datenbank
+   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls ein Fehler auftrat.
+   * @see error()
+   * @see getLastError()
+   * @access public
+   *
+   */
+  function update($strSql = '') {
+    if (empty($strSql)) {
+      return false;
+    }
+    if (!eregi("^update",$strSql)) {
+      return $this->error("update called with $strSql");
+    }
+    if (empty($this->mySqlConnection)) {
+      return $this->error('update: Keine Datenbank-Verbindung');
+    }
+    $result = mysql_query($strSql, $this->mySqlConnection);
+    return $result;
+  }
+  
+  /**
+   * update()
+   *
+   * Die Funktion <b>update()</b> ermoeglicht update Anfragen an die Datenbank.
+   * Dabei werden einfache Fehlerchecks durchgefuert.
+   *
+   * @param string $strSql Eine SQL <b>update</b> Anfrage an die Datenbank
    * @return int|false Die id des letzten auto_increment Wertes oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
