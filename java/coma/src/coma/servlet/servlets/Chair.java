@@ -990,7 +990,7 @@ public class Chair extends HttpServlet
 		boolean SENDED = false;
 		if (VALID)
 		{
-			SMTPClient MyE = new SMTPClient("pkauffels@aol.com",
+			SMTPClient MyE = new SMTPClient(user_person.getEmail(),
 				formular[0],formular[1],formular[2]);
 			SENDED=MyE.send();		
 			if(SENDED)
