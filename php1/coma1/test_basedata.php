@@ -16,8 +16,8 @@ require_once('include/header.inc.php');
 $conferences = 1;
 $persons = 100;
 $criterions = 3;
-$papers = $persons;
-$reports = $persons * $papers;
+$papers = $persons/2-$persons/10;
+$reports = persons/3 * $papers;
 $topics = 10;
 
 echo '.';
