@@ -94,6 +94,7 @@
             
       <input type="hidden" name="action" value="submit" />
       <input type="submit" name="submit" value="Create conference" class="button" />
+      </form>
       <form action="{basepath}create_conference.php?{SID}" method="post">
         <input type="hidden" name="action" value="simple_config" />
         <input type="submit" name="submit" value="Simple settings" class="button" />
@@ -101,7 +102,6 @@
     </td>
   </tr>
 </table>
-</form>
 
 <form action="{basepath}main_conferences.php?{SID}" method="post">
   <input type="submit" name="cancel" value="Cancel" class="button" />
