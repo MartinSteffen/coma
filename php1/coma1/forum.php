@@ -23,18 +23,8 @@ require_once(INCPATH.'class.person.inc.php');
 //Hilfsfunktion zum feststellen ob eine valide Auswahl vorliegt, 
 //iow: es ist ein nichtleeres array in dem mindestens einmal der Wert true steht
 function validSelection($selectarray){
+  // false = 0!
   return (array_sum($selectarray) > 0);
-  /*if (empty($selectarray)){
-    return false;
-  }
-  else{
-    foreach ($selectarray as $selected){
-      if ($selected){
-        return true;
-      }
-    }
-    return false;
-  }*/
 }
 
 function notemptyandtrue($arr, $index){
