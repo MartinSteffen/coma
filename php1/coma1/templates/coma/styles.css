@@ -269,8 +269,7 @@ input.button, button
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
-  background-color: #CEDBEF;
-  min-width: 100px;
+  background-color: #CEDBEF;  
   text-align: center;
   padding: 2px 8px;
 }
