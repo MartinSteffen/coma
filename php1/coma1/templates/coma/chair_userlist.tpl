@@ -52,7 +52,7 @@
       <a href="{basepath}chair_userdetails.php?userid={userid}{&SID}">
       Grinse Katz</a>
     </td>
-    <td class="listitem-1"> 
+    <td class="listitem-2"> 
       <form action="" method="post">
         <input type="hidden" name="userid" value="{userid}">
         <input type="hidden" name="roletype" value="{roletype}">
@@ -60,7 +60,7 @@
         <input type="submit" name="submit" value="deleterole" class="button">       
       </form> 
     </td>
-    <td class="listitem-1"> 
+    <td class="listitem-2"> 
       <form action="" method="post">
         <input type="hidden" name="userid" value="{userid}">
         <input type="hidden" name="roletype" value="{roletype}">
