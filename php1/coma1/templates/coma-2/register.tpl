@@ -100,10 +100,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="Registrieren" class="button" /> &nbsp;
-      <form action="{basepath}login.php?{SID}" method="post">
-        <input type="submit" name="cancel" value="Abbrechen" class="button" />
-      </form>
+      <input type="submit" name="submit" value="Registrieren" class="button" />      
     </td>
   </tr>
 </table>
