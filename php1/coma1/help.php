@@ -60,6 +60,7 @@ $strContentAssocs = defaultAssocArray();
 //angeforderte hilfethemen bestimmen und template zusammenbauen
 
 //nur zu testzwecken
+var_dump($_GET);
 $toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
 $tocassocs = defaultAssocArray();
 $tocassocs['chapter-no'] = '0';
