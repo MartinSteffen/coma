@@ -24,6 +24,6 @@
 </table>
 <input type="submit" name="confirm" value="Confirm distribution" class="button">
 </form>
-<form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}chair_reviews.php{?SID}" method="post" accept-charset="UTF-8">
   <input type="submit" name="dismiss" value="Dismiss distribution" class="button">
 </form>

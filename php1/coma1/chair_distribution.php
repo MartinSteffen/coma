@@ -24,26 +24,21 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-$s = 'Bla: ';
+$s = '';
+if (!isset($_SESSION['dist'])) {
+  redirect('chair_reviews.php');
+}
 if (isset($_POST['confirm'])) {
-  $s = $_POST['confirm'];
-/*  if (!isset($_POST['confirm']) || !isset($_SESSION['dist'])) {
-    redirect('chair_reviews.php');
-  }
-  redirect('chair_start.php');
   $dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
-    print_r($pid.'=>'.$arrR);
     for ($j = 0; $j < count($arrR); $j++) {
-      if ($arrR[$j]['status'] != ASSIGNED) {
+/*      if ($arrR[$j]['status'] != ASSIGNED) {
         if(!isset($_POST['p'.$pid.'ridx'.$j])) {
           unset($arrR[$j]);
         }
-      }
-      print_r($arrR);
+      }*/
     }
-    echo('<br>.');
-  }*/
+  }
 }
 else {
   $myDist = new Distribution($mySql);
