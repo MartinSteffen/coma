@@ -566,9 +566,13 @@ class DBAccess extends ErrorHandling {
                           'author_id = '.$data[0]['author_id']);
     }
     $strAuthor = $objAuthor->getName();
+    $objTopics = $this->getTopicsOfPaper($intPaperId);
+    if ($this->failed()) {
+      return $this->error('getPaperSimple', $this->getLastError());
+    }
     $objPaper = (new PaperSimple($intPaperId, $data[0]['title'], $data[0]['author_id'],
                   $strAuthor, $data[0]['state'], $fltAvgRating, $data[0]['filename'],
-                  $this->getTopicsOfPaper($intPaperId)));
+                  $objTopics));
     return $this->success($objPaper);
   }
 
@@ -746,6 +750,9 @@ class DBAccess extends ErrorHandling {
     }
     $strAuthor = $objAuthor->getName();
     $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
+    if ($this->failed()) {
+      return $this->error('getPaperDetailed', $this->getLastError());
+    }
     // Co-Autoren
     $s = "SELECT  person_id AS coauthor_id, name".
         " FROM    IsCoAuthorOf AS i".
