@@ -143,7 +143,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   else{
     $strArrayTypeChairAssocs['forum'] = 'No forums available in this category';
   }
-  if (!empty($objArrayGloablForumTemplates)){
+  if (!empty($objArrayGlobalForumTemplates)){
     foreach ($objArrayGlobalForumTemplates as $ftemp){
       $strArrayTypeGlobalAssocs['forum'] = $strArrayTypeGlobalAssocs['forum'] . $ftemp->getOutput();
     }
