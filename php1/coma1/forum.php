@@ -316,7 +316,7 @@ else{
   $cid = getCID($myDBAccess);
   $uid = getUID($cid, $myDBAccess);
 
-  $content = new Template(TPLPATH . 'forumtypes.tpl');
+  $content = new Template(TPLPATH . 'forumlist.tpl');
   $contentAssocs = defaultAssocArray();
   $contentAssocs['message'] = session('message', false);
   session_delete('message');
