@@ -5,7 +5,7 @@
   </tr>
   <tr class="listitem-2">
      <td>
-       
+
        <form action="{basepath}forum.php{?SID}" method="post" accept-charset="UTF-8">
        <input type="hidden" name="reply-to" value="{message-id}">
        <input type="hidden" name="forumid" value="{forum-id}">
