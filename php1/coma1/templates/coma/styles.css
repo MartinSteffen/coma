@@ -474,7 +474,7 @@ table.subviewtable
 .viewline
 {
   border-top: 1px #808080 solid;
-  white-space: nowrap;
+  white-space: wrap;
 }
 
 /* Meldungen */
