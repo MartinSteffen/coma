@@ -413,7 +413,7 @@ class Distribution extends ErrorHandling {
       }
     }*/
     
-    /*echo('<table>');
+    echo('<table>');
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
@@ -426,7 +426,7 @@ class Distribution extends ErrorHandling {
     }
     echo('</table>');
     
-    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs_per_paper);
+    /*echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs_per_paper);
     echo('<br>p_id_index:');
     print_r($p_id_index);
     echo('<br>r_id_index:');
