@@ -177,9 +177,13 @@ roles are indicated in the shown SQL-code.
 
 
 In the textual representation which is agreed upon as supplementary global
-spec, we fixed the roles of Table~\ref{tab:roles} to be mandatory. The
-numbers indicate the numerical representation, if no enumeration and
-additional table \texttt{Roles} is chosen.  \index{roles}
+spec, we fixed the roles of Table~\ref{tab:roles} to be mandatory. Note
+that \texttt{admin} (corresponding to \texttt{01}) is \emph{not} a role
+within a conference. The numbers indicate the numerical
+representation.\footnote{Note further, that unlike as in previous versions,
+  no extra table \texttt{Roles} is used, everyone works with the numarical
+  representation.} 
+\index{roles}
 
 \begin{table}[htbp]
   \centering
@@ -189,8 +193,6 @@ additional table \texttt{Roles} is chosen.  \index{roles}
     \\\hline
     without role & 00 
     \\
-    admin & 01
-    \\
     chair & 02
     \\
     reviewer & 03
@@ -198,7 +200,8 @@ additional table \texttt{Roles} is chosen.  \index{roles}
     author & 04
     \\
     participant & 05
-    \\
+    \\\hline
+    admin & 01 & not a role!
   \end{tabular}
   \caption{roles}
   \label{tab:roles}
@@ -273,7 +276,7 @@ name field may be non-trivially filled in.
 
 \index{coauthor!name}%
 
-\lstinputlisting[caption=Coauthor,label=code:sql.iscoauthorof,firstline=100,lastline=109]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Coauthor,label=code:sql.iscoauthorof,firstline=101,lastline=110]{../sql/db_schema.sql}%
 
 \index{topic}%
 As the name indicates, a \emph{topic} is some area of research of interest for
@@ -287,7 +290,7 @@ with a conference, and field carrying the semantic information is the
 \texttt{name}-field, which contains a (usually not too long) descriptive
 string. 
 
-\lstinputlisting[caption=Scientific topics,label=code:sql.topic,firstline=110,lastline=119]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Scientific topics,label=code:sql.topic,firstline=112,lastline=121]{../sql/db_schema.sql}%
 
 
 The topic can be used by authors, which categorize their paper into a number
@@ -304,9 +307,9 @@ reviewers are shown in Listing~\ref{code:sql.isabouttopic} and
 
 
 
-\lstinputlisting[caption=Topic of a paper,label=code:sql.isabouttopic,firstline=120,lastline=132]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Topic of a paper,label=code:sql.isabouttopic,firstline=123,lastline=135]{../sql/db_schema.sql}%
 
-\lstinputlisting[caption=Preferred topic,label=code:sql.preferstopic,firstline=133,lastline=145]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Preferred topic,label=code:sql.preferstopic,firstline=136,lastline=148]{../sql/db_schema.sql}%
 
 
 
@@ -334,7 +337,7 @@ he is not even allowed to follow passively the disucssion about his paper
 (cf.\ \cite{coma:requirements}).
 
 \lstinputlisting[caption=Reviewer-paper
-associations,label=code:sql.prefersdeniesexcludespaper,firstline=146,lastline=185]{../sql/db_schema.sql}%
+associations,label=code:sql.prefersdeniesexcludespaper,firstline=149,lastline=186]{../sql/db_schema.sql}%
 
 
 
@@ -352,7 +355,7 @@ author.
 
 \index{review report!confidential part}
 
-\lstinputlisting[caption=Report,label=code:sql.reviewreport,firstline=186,lastline=201]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Report,label=code:sql.reviewreport,firstline=187,lastline=204]{../sql/db_schema.sql}%
 
 
 
@@ -381,7 +384,7 @@ Apart from the numerical value, the reviewer can add some explanatory text
 or justification for this grade in the field \texttt{comment}.
 
 
-\lstinputlisting[caption=Rating of papers,label=code:sql.criterionandrating,firstline=204,lastline=230]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Rating of papers,label=code:sql.criterionandrating,firstline=205,lastline=233]{../sql/db_schema.sql}%
 
 
 \medskip
@@ -394,7 +397,7 @@ phase (cf.\ Listing~\ref{code:sql.forumandmessage}).
 \index{forum}%
 
 
-\lstinputlisting[caption=Discussion forum,label=code:sql.forumandmessage,firstline=231,lastline=260]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Discussion forum,label=code:sql.forumandmessage,firstline=234,lastline=263]{../sql/db_schema.sql}%
 
 
 
