@@ -1450,23 +1450,23 @@ nur fuer detaillierte?
         "         phone_number = '$objPersonDetailed->strPhone',".
         "         fax_number = '$objPersonDetailed->strFax'".
         " WHERE   id = '$objPersonDetailed->intId'";*/
-    sprintf($s, "UPDATE  Person".
-               " SET     first_name = '%s', last_name = '%s', email = '%s', title = '%s',".
-               "         affiliation = '%s', street = '%s', city = '%s', postal_code = '%s',".
-               "         state = '%s', country = '%s', phone_number = '%s', fax_number = '%s'".
-               " WHERE   id = '%d'", $this->s2db($objPersonDetailed->strFirstName),
-                                     $this->s2db($objPersonDetailed->strLastName),
-                                     $this->s2db($objPersonDetailed->strEmail),
-                                     $this->s2db($objPersonDetailed->strTitle),
-                                     $this->s2db($objPersonDetailed->strAffiliation),
-                                     $this->s2db($objPersonDetailed->strStreet),
-                                     $this->s2db($objPersonDetailed->strCity),
-                                     $this->s2db($objPersonDetailed->strPostalCode),
-                                     $this->s2db($objPersonDetailed->strState),
-                                     $this->s2db($objPersonDetailed->strCountry),
-                                     $this->s2db($objPersonDetailed->strPhone),
-                                     $this->s2db($objPersonDetailed->strFax),
-                                     $objPersonDetailed->intId);
+    $s = sprintf("UPDATE  Person".
+                " SET     first_name = '%s', last_name = '%s', email = '%s', title = '%s',".
+                "         affiliation = '%s', street = '%s', city = '%s', postal_code = '%s',".
+                "         state = '%s', country = '%s', phone_number = '%s', fax_number = '%s'".
+                " WHERE   id = '%d'", $this->s2db($objPersonDetailed->strFirstName),
+                                      $this->s2db($objPersonDetailed->strLastName),
+                                      $this->s2db($objPersonDetailed->strEmail),
+                                      $this->s2db($objPersonDetailed->strTitle),
+                                      $this->s2db($objPersonDetailed->strAffiliation),
+                                      $this->s2db($objPersonDetailed->strStreet),
+                                      $this->s2db($objPersonDetailed->strCity),
+                                      $this->s2db($objPersonDetailed->strPostalCode),
+                                      $this->s2db($objPersonDetailed->strState),
+                                      $this->s2db($objPersonDetailed->strCountry),
+                                      $this->s2db($objPersonDetailed->strPhone),
+                                      $this->s2db($objPersonDetailed->strFax),
+                                      $objPersonDetailed->intId);
     echo("$s");
     return $this->success(false);
     $data = $this->mySql->update($s);
