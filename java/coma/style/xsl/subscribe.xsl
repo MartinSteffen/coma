@@ -1,13 +1,16 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-<xsl:output method="html" indent="yes"/>
+
+<xsl:output method="html" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
+doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
 
 <xsl:template match="/">
+<html> 
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" > 
 <head>
   <title>JCoMa:: a Conference Manager</title>
   <link rel="stylesheet" type="text/css" href="style/css/comastyle.css" />
 </head>
+
 <body>
 
 <!-- Site heading -->
@@ -15,7 +18,6 @@
 <h1 style="text-align:center">JCoMa</h1>
 <h3 style="text-align:center">Java Conference Manager</h3>
 </div><!-- Site heading -->
-
 
 
 <!-- Site navigation menu -->
