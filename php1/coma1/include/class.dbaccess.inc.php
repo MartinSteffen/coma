@@ -1390,7 +1390,7 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
     }
-    $this->updateIsAboutTopic($objPaperDetailed);
+    $this->updateTopicsOfPaper($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaper', $this->getLastError());
     }
