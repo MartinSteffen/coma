@@ -6,9 +6,9 @@
  */
 /***/
 
-/*** @ignore */
+/**@ignore */
 define('IN_COMA1', true);
-/*** @ignore */
+/**@ignore */
 define('NEED_NO_LOGIN', true);
 
 require_once('./include/header.inc.php');
