@@ -15,6 +15,7 @@ if (!defined('INCPATH')) {
 }
 
 require_once(INCPATH.'header.inc.php');
+require_once(INCPATH.'lib.inc.php');
 require_once(INCPATH.'class.conferencedetailed.inc.php');
 require_once(INCPATH.'class.papervariance.inc.php');
 
