@@ -183,8 +183,15 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
       $messageassocs['message-text'] = $message->strText;
       $messageassocs['colon'] = ':';
       $messageassocs['postfix'] = 'wrote:';
+      $replylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
+      $replyassocs = defaultAssocArray();
+      $replylinkassocs['message-id'] = $message->intId;
+      $replylinktemplate->assing($replylinkassocs);
+      $replylinktemplate->parse();
+      $messageassocs['replylink'] = $replylinktemplate->getOutput();
       //formular anzeigen/aendern
       if ($message->intId == $selected){
+        $messageassocs['replylink'] = '';
         $formtemplate = new Template(TPLPATH . 'messageform.tpl');
         $formassocs = defaultAssocArray();
         $formassocs['message-id'] = $message->intId;
@@ -230,6 +237,12 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
       $messageassocs['messages'] = '';
       $messageassocs['colon'] = '';
       $messageassocs['postfix'] = '';
+      $replylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
+      $replyassocs = defaultAssocArray();
+      $replylinkassocs['message-id'] = $message->intId;
+      $replylinktemplate->assing($replylinkassocs);
+      $replylinktemplate->parse();
+      $messageassocs['replylink'] = $replylinktemplate->getOutput();
     }
     $messagetemplate->assign($messageassocs);
     $messagetemplate->parse();
