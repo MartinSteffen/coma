@@ -97,9 +97,22 @@ class DBAccess {
   }
 
   /**
+   * Prueft, ob die globalen User-Daten gueltig sind.
+   *
+   * @return bool <b>true</b> gdw. die Daten in der Person-Tabelle hinterlegt sind
+   * @access public
+   * @author Tom (15.12.04)
    */
   function checkLogin() {
-    return true;
+    $s = 'SELECT  id, email, password'.
+        ' FROM    Person'.
+        ' WHERE   email = \''.$_SESSION['uname'].'\''.
+        ' AND     password = \''.$_SESSION['password'].'\'';
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      return true;
+    }
+    return $this->error('checkLogin '.$this->mySql->getLastError());
   }
 
   /**
