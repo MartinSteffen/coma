@@ -129,7 +129,7 @@ public class EntityCreater {
 		p.setAffiliation(request.getParameter("affiliation"));
 		p.setEmail(request.getParameter("email"));
 		p.setPhone_number(request.getParameter("phone_number"));
-		p.setFax_number(request.getParameter("Fax_number"));
+		p.setFax_number(request.getParameter("fax_number"));
 		p.setStreet(request.getParameter("street"));
 		p.setPostal_code(request.getParameter("postal_code"));
 		p.setCity(request.getParameter("city"));
