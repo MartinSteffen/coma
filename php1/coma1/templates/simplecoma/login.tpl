@@ -5,9 +5,9 @@
 <div align="center">
 <table>
 <tr> <td> <b> Einloggen </b> </td> </tr>
-
+<form action="{basepath}index.php{SID}" method="post"> 
 <tr>
-  <td> <form action="{basepath}index.php{SID}" method="post"> 
+  <td>
        Email-Addresse: 
   </td>
   <td> <input type="text" name="userMail" size="30" maxlength="127" /> &nbsp; &nbsp;
@@ -18,8 +18,8 @@
   <td> <input type="password" name="userPassword" size="30" maxlength="127" />
   <input type="hidden" name="action" value="login" />
   <input type="submit" name="submit" value="Login" />
-  </form>
   </td>
 </tr>
+ </form>
 </table>
 </div>
