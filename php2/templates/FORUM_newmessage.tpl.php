@@ -8,7 +8,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="20%">Subject:
-    <td width="100%"><input type="text" name="subject" size="66">
+    <td width="100%"><input type="text" name="subject" value="<? echo $TPL['subject']; ?>"; size="66">
   </tr>
   <tr>
     <td width="20%">Text:

@@ -60,7 +60,7 @@
   		{
   			for ($i=0; $i < $message['tiefe']; $i++) { echo "&nbsp;&nbsp;&nbsp;"; }
 
-  			echo "<a href='".$_SERVER['PHP_SELF']."?".$query."&msgid=".$message['ID']."'>".$message['subject']."</a><br>";
+  			echo "<a href='".$_SERVER['PHP_SELF']."?".$query."&msgid=".$message['ID']."'>".$message['subject']."</a>&nbsp;(from ".$message['sender']." at ".$message['sendtime'].")<br>";
   		}
   	?>
   </td></tr>

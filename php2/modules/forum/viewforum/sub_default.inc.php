@@ -5,6 +5,19 @@ $sql->connect();
 $messages = array();
 $msg = array();
 
+	function getUsername($userID)
+	{
+		global $sql;
+		if (isset($userID))
+		{
+			$user = $sql->query("SELECT first_name, last_name, id FROM person WHERE id=".$userID);
+			if ($user)
+			{
+				return $user[0][0]." ".$user[0][1];
+			}
+		}
+	}
+
 	function sub($msgid, $tiefe)
 	{
 		global $sql;
@@ -23,7 +36,7 @@ $msg = array();
 			foreach ($list as $entry)
 			{
 				$message = array();
-				$message = array("ID"=>$entry[0],"sender"=>$entry[3],"subject"=>$entry[5], "text"=>$entry[6], "tiefe"=>$tiefe);
+				$message = array("ID"=>$entry[0],"sender"=>getUsername($entry[3]),"subject"=>$entry[5], "text"=>$entry[6], "tiefe"=>$tiefe, "sendtime"=>$entry[4]);
 				$messages[] = $message;
 				sub($entry[0], $tiefe);
 			}
@@ -48,8 +61,7 @@ $msg = array();
 		foreach ($list as $entry)
 		{
 			$message = array();
-			$message = array("ID"=>$entry[0],"sender"=>$entry[3],"subject"=>$entry[5], "text"=>$entry[6], "tiefe"=>0);
-			$messages[] = $message;
+			$message = array("ID"=>$entry[0],"sender"=>getUsername($entry[3]),"subject"=>$entry[5], "text"=>$entry[6], "tiefe"=>0, "sendtime"=>$entry[4]);			$messages[] = $message;
 			sub($entry[0], 0);
 		}
 
@@ -65,14 +77,9 @@ $msg = array();
 				$reply_to = $sql->query("SELECT subject, id FROM message WHERE id=".$list[0][2]);
 			}
 
-			if (isset($list[0][3]))
-			{
-				$sender = $sql->query("SELECT first_name, last_name, id FROM person WHERE id=".$list[0][3]);
-			}
-
 			global $msg;
 
-			$msg = array("id"=>$list[0][0], "subject"=>$list[0][5], "text"=>$list[0][6], "sender"=>$sender[0][0].' '.$sender[0][1], "reply_to"=>$reply_to[0][0], "send_time"=>$list[0][4]);
+			$msg = array("id"=>$list[0][0], "subject"=>$list[0][5], "text"=>$list[0][6], "sender"=>getUsername($list[0][3]), "reply_to"=>$reply_to[0][0], "send_time"=>$list[0][4]);
 		}
 	}
 	$list = $sql->query("SELECT id, forum_type, paper_id, conference_id, title FROM forum WHERE (id=".$_GET['forumID'].")");

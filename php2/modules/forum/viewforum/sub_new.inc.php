@@ -10,6 +10,8 @@ $sql->connect();
 	if (isset($_GET['msgid']))
 	{
 		$TPL['msgid'] = $_GET['msgid'];
+		$subject = $sql->query("SELECT id, subject FROM message WHERE (id='".$_GET['msgid']."')");
+		$TPL['subject'] = ''.$subject[0][1];
 	}
 
 	$list = $sql->query("SELECT id, forum_type, paper_id FROM forum WHERE (id=".$_GET['forumID'].")");
