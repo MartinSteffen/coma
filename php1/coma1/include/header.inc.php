@@ -127,17 +127,17 @@ require_once(INCPATH.'class.session.inc.php');
 require_once(INCPATH.'class.dbaccess.inc.php');
 
 $mySql = new MySql();
-if ($mySql->failed) {
+if ($mySql->failed()) {
   error('Erzeugen den Standard-Objekte',$mySql->getLastError());
 }
 
 $mySession = new Session($mySql, 'coma1', 7200);
-if ($mySession->failed) {
+if ($mySession->failed()) {
   error('Erzeugen den Standard-Objekte',$mySession->getLastError());
 }
 
 $myDBAccess = new DBAccess($mySql);
-if ($myDBAccess->failed) {
+if ($myDBAccess->failed()) {
   error('Erzeugen den Standard-Objekte',$myDBAccess->getLastError());
 }
 // End Standard Klassen
@@ -162,7 +162,7 @@ if (!defined('NEED_NO_LOGIN')) {
     if (!isset($_SESSION['uid'])) {
       // UID setzen
       $_SESSION['uid'] = $myDBAccess->getUserIdByEmail(session(uname));
-      if ($myDBAccess->failed) {
+      if ($myDBAccess->failed()) {
         session_delete('uid');
         error('checkLogin',$myDBAccess->getLastError());
       }
@@ -174,7 +174,7 @@ if (!defined('NEED_NO_LOGIN')) {
     session_delete('uname');
     session_delete('uid');
     session_delete('confid');
-    if ($myDBAccess->failed) {
+    if ($myDBAccess->failed()) {
       error('checkLogin',$myDBAccess->getLastError());
     }
     if (!isset($_SESSION['uname'])) {
