@@ -101,10 +101,6 @@ public class XMLHelper {
 
 	result.append(tagged(tag, (Object[])args));
 
-	result.append("\n<!-- F I X M E ---DEPRECATED"
-		      +"\nUSE x.append(XMLHelper.tagged(...)) INSTEAD OF XMLHelper.addTagged(...,x)"
-		      +"-->");
-
 	return result.toString();
     }
 

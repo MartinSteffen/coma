@@ -36,18 +36,28 @@ public class Topic extends Entity {
 	Topic theTopic = new Topic(i);
 	SearchResult theSR = null;
 	theSR = theRS.getTopic(i, confid);
-	// FIXME no error handling
-	return ((Topic[])theSR.getResultObj())[0];
+	try {
+	    return ((Topic[])theSR.getResultObj())[0];
+	} catch (ClassCastException cce) {
+	    coma.util.logging.ALogger.log.log(WARN, 
+					      "class cast in Topic.allTopics?",
+					      cce.toString());
+	    return null;
+	}
     }
 
     public static Set<Topic> allTopics(Conference theConference){
-// 	ReadService theRS 
-// 	    = new coma.handler.impl.db.ReadServiceImpl();
 	SearchResult theSR = null; 
 	theSR =theRS.getTopic(-1, theConference.getId());
-	// FIXME no error handling
-	return new java.util.HashSet<Topic>
-	    (java.util.Arrays.asList((Topic[])theSR.getResultObj()));
+	try {
+	    return new java.util.HashSet<Topic>
+		(java.util.Arrays.asList((Topic[])theSR.getResultObj()));
+	} catch (ClassCastException cce){
+	    coma.util.logging.ALogger.log.log(WARN, 
+					      "class cast in Topic.allTopics?",
+					      cce.toString());
+	    return new java.util.HashSet<Topic>();
+	}
     }
 
     public StringBuilder toXML(XMLMODE mode){
