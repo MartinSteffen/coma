@@ -15,7 +15,7 @@ define('IN_COMA1', true);
 
 require_once('./include/header.inc.php');
 
-$id = $myDBAccess->getPersonIdByEmail('hase@braten.org');
+$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
 echo('<br>ID = '.$id.'<br>');
 $p = $myDBAccess->getPersonDetailed($id);
 echo($p->strFirstName.' '.$p->strLastName.' '.$p->intRoles.'<br>');
