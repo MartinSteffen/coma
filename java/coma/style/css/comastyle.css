@@ -116,7 +116,13 @@ body>.header, body>.navbar,body>.status-line,.status-line>.content
 	
 	}
 
-.date {
+.date 
+{
+	position: absolute;
+	top: 4em;
+	left: 3.5em;
+	color: white;
+	width: 10em;
 	font-size: 0.8em;
 	font-style: italic;
 }
