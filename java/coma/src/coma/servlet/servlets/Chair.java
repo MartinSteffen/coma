@@ -201,18 +201,18 @@ public class Chair extends HttpServlet
 		tag = "login";
 		info.append("<content>");
 		if (is_abstract)
-			info.append("Abstract submission deadline terminated\n");
+			info.append(XMLHelper.tagged("abstract","Abstract submission deadline terminated\n"));
 		if (is_paper)
-			info.append("Paper submission deadline terminated\n");
+			info.append(XMLHelper.tagged("paper","Paper submission deadline terminated\n"));
 		if (is_final)
 		{
-			info.append("Final submission deadline terminated\n");
+			info.append(XMLHelper.tagged("final","Final submission deadline terminated\n"));
 		}	
 		if (is_review)
 		{
-			info.append("Review submission deadline terminated\n");
+			info.append(XMLHelper.tagged("review","Review submission deadline terminated\n"));
 			if (!ProgramFileExists())
-				info.append("Please select papers to create programm\n");
+				info.append(XMLHelper.tagged("select","Please select papers to create programm\n"));
 		}
 		info.append("</content>");
 		info.append(XMLHelper.tagged("status", user+" , Welcome to JCOMA "));
@@ -631,7 +631,7 @@ public class Chair extends HttpServlet
 			if (topics.length==0)
 			{
 				info.append("<error>");
-				info.append("you have to choose at least 1 Topic");
+				info.append("you have to choose at least 1 Topic\n");
 				info.append("</error>");
 			} 
 			Criterion search_criteria = new Criterion(-1);
@@ -643,7 +643,7 @@ public class Chair extends HttpServlet
 			if (result_criteria.length==0)
 			{
 				info.append("<error>");
-				info.append("you have to choose at least 1 Criterion");
+				info.append("you have to choose at least 1 Criterion\n");
 				info.append("</error>");
 			}
 			info.append("</content>");
