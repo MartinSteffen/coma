@@ -244,17 +244,4 @@ function emptyDBtime($str, $format='M d, Y') {
     '' : date($format, strtotime($str));
 }
 
-/**
- * Liefert ein float mit der aktuellen Zeit in Sekunden
- *
- * @return float die Zeit (nicht die Zeitung!)
- * @author Jan (25.01.05)
- * @access protected
- */
-function getTime() {
-  list($usec, $sec) = explode(" ", microtime());
-  return ((float)$usec + (float)$sec);
-}
-
-
 ?>

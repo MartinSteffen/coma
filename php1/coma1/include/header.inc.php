@@ -13,7 +13,9 @@ if (!defined('IN_COMA1')) {
 define('DEBUG', true);
 
 // Zeit merken
-$_renderTime = getTime();
+list($usec, $sec) = explode(" ", microtime());
+$_renderTime = ((float)$usec + (float)$sec);
+unset($usec); unset($sec);
 
 // Header fuer die korrekte Ausgabe
 header('Content-type: text/html; charset=utf-8');
