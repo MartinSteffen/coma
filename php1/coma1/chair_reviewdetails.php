@@ -84,6 +84,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
+$strMainAssocs['message']='';
 echo $strMainAssocs['message'];
 
 //global $strRoles;
