@@ -16,9 +16,10 @@
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">view paper</a>}
     </td>
     <td class="listitem-{line_no}">
-      <button name="viewpaper" type="button" class="smallbutton" value="edit"
-              onClick="self.location.href='{basepath}author_editpaper.php?paperid={paper_id}{&SID}'">
-              edit</button>
+      <form action="{basepath}author_editpaper.php{?SID}" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="paperid" value="{paper_id}">
+        <input type="submit" name="editpaper" value="edit" class="smallbutton">
+      </form>      
     </td>
     <td class="listitem-{line_no}">
       <form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">
