@@ -11,6 +11,10 @@ SRC=../../sql/databases/basedata.sql
 DEST=../sql/basedata.sql
 DB=comadb
 
+if [ "$1x" != "x" ];then
+	DB=$1;
+fi
+
 # Insert use database to be sure where we are messing
 echo "USE $DB;" > $DEST
 

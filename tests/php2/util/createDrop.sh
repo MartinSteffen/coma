@@ -1,8 +1,23 @@
+#!/bin/sh
+#
+#     This script creates a drop.sql file to drop the tables from 
+# the database
+#
+# @author Thiago Tonelli Bartolomei
+#
 
+DEST=../sql/drop.sql
+DB=comadb
+
+if [ "$1x" != "x" ];then
+        DB=$1;
+fi
+
+echo "
 --
--- Drop all the tables from the database comadb
+-- Drop all the tables from the database "$DB"
 --
-USE comadb;
+USE $DB;
 
 DROP TABLE IF EXISTS conference;
 DROP TABLE IF EXISTS criterion;
@@ -23,4 +38,5 @@ DROP TABLE IF EXISTS reviewreport;
 DROP TABLE IF EXISTS rights;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS roledescription;
-DROP TABLE IF EXISTS topic;
+DROP TABLE IF EXISTS topic;" > $DEST
+
