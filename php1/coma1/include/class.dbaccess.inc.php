@@ -535,7 +535,7 @@ class DBAccess extends ErrorHandling {
                                       " WHERE   person_id = '%d'".
                                       " AND     conference_id = '%d'".
                                       " AND     role_type = '%d'".
-                                      " AND     isNull(state)",
+                                      " AND     (state IS NULL OR state = '0')",
                                       s2db($intPersonId),
                                       s2db($intConferenceId),
                                       s2db($intRoleType))
@@ -543,7 +543,7 @@ class DBAccess extends ErrorHandling {
                                       " FROM    Role".
                                       " WHERE   person_id = '%d'".
                                       " AND     conference_id = '%d'".
-                                      " AND     isNull(state)",
+                                      " AND     (state IS NULL OR state = '0')",
                                      s2db($intPersonId),
                                      s2db($intConferenceId)));
     $role_data = $this->mySql->select($s);
