@@ -1,0 +1,203 @@
+
+
+Das war das was ich so notiert habe. Ich gehe einfach  die ausgedruckten
+TOPS durch, und schreibe dann noch an, was danaben noch aufkam.
+
+------------------------------------------------------
+
+     o  Verschiedenes:
+
+           > Zur kenntnisname: die emailadresse swprakt+org@informatik expandiert 
+             nach ms/mky/gsc
+        
+             Besser man schreibt nicht immer nur an 1 sondern alle, damit
+             der Kenntnisstand bei uns gleich ist.
+
+     o  alte Milestrones: 
+
+           > wie sieht es mit Tools-1?
+                Antwort: noch nicht abgegenen, einer in der Gruppe
+                ist krank. Aktion: nachreichen, sobald wie m"oglich.
+
+
+	   > Test hat zugemailt: was ist das erw"ahnte Spam-filter-problem?
+                Die Gruppe sorgt daf"ur da"s der/ihr/unser Spam-filter wichtige
+                emails nicht filtert.
+
+     o Wie ist der Status mit den ``Arbeitspl"atzen''?
+
+          - jeder kann snv soweit wie er es braucht? 
+
+          - jeder (der will) kann ssh-einloggen?
+
+          - hat jeder Bugzilla-zugang?
+
+             Antwort: ``Hm-ja-ja-l"auft''. Speziell die Testgruppe sollte
+              sich vollst"andig im Bugzilla accounts k"ummern, denn da
+              f"angt es an, loszugehen.
+
+     o Wie ist die Entscheidungslage in der Javagruppe?
+
+           Gestern haben wir Java5 + passenden Tomcat installiert,
+	   das hat Snert in den Orkus gerissen. Die Diskussionlage
+	   schien uns in Gruppe Java nicht ganz einheitlich. Deswegen
+              =>  java 5 ist nun soweit klar?
+
+
+           2 Leute Anwesend, die Antwort war: ja, es bleibt bei Java5.
+          Argument: Sicherheit + ``daheim haben einige der Leute Erfahrung/Installation
+           in Java5.
+
+
+     o Snert: am Montag hat es Downtime gegeben. Grund war
+            java-5 installation. Wie stellen wir sicher
+            da"s das nicht oft wiederholt?
+            Antwort: die harte Installationsphase neigt sich hoffentlich
+             dem Ende zu.
+
+
+     o Bugzilla:
+
+           Die Leute haben bereits mit Bugzilla losgelegt.
+           Wir haben aber noch keine Spielregeln? 
+           Hat die Testgruppe was dazu zu sagen?
+
+           Antwort: noch nicht so viel.
+           
+
+     o Wir stellen fest: einige Gruppen (und in den
+          Gruppen oft immer die ``ueblichen Verdaechtigen'':
+          haben angefangen, Code einzuchecken.
+
+          Im Prinzip: gut, aber
+
+          - Ist die Struktur etc des eingecheckten Codes (zumindest intern) 
+            abgesprochen?
+          - Stimmt das mit dem Architekturplan "uberein?
+          - Ist jeder in der Gruppe "uber die Struktur im klaren?
+          - Ist Dokumentiert, inwiefern die Codefragmente 
+            mit dem Endprodukt zusammenhangen?
+
+
+           Antwort: ``keine Sorge'' (das muessen wir halt im auge behalten)
+
+      o Datenmodel: Die SQL-Leute + die ORG gruppe haben
+          ein Datenmodel zurechtgeschraubt: Gibt es damit
+          Probleme, was ist der Stand?
+
+	  Es gabt in der Spec-BB-Gruppe nicht viel gemeckere
+
+
+	  unter trunk/sql stehen 2 vorschl"age. einer scheint
+	    von Sandro zu sein, der andere ist ``unsigniert''.
+	    
+	    Was ist der Zusammenhang, welches ist der richtige?
+
+o Neue Meilstones f"ur Heute:
+
+     PHP1: Die haben ein paar daten abgegeben (gut)
+
+     PHP2:  zun"achst dachten wir, es sei nix da, aber
+            es wurde was eingecheckt. Das hatte
+            wir "ubersehen.
+
+     Tests:  da waren wir nicht so recht explizit
+
+     Java:  ?
+
+            Speziell fuer die Java-Gruppe k"onnte ich
+	    mir vorstellen, da"s man eine Gemeinschafts
+	    Diskussion vorstellt (mit ORG) um zu erfahren
+	    wie man sich das vorstellt.
+
+            Ein Texfile ist da
+
+
+            Sonder-Diskussiongruppe ``Java-Architektur'' angeregt.
+            Zur Erh"ohung der Kommunikation unternander. Teilnahme
+            von uns angestrebt.
+
+            "Ahnliches ist wohl auch Sinnvoll f"ur speziell die 
+            PHP2 Gruppe.
+
+
+
+
+
+----
+
+   Wochenthemen auf dem BB:
+
+     > General
+        -ssh-keygen:    geklaert
+	- uml-maltool:  keine besondere Empfehlung (dia hatten wir verwendet)
+        - snert: freitag morgen down => bereits donnerstag abend runterfahren
+	- svn-mime-types: l"auft das nun? 
+              im Prinzip ja, einziges Problem pdf/postscript
+	- BB-Policy: egal
+	- Projektaccounts: auf Snert:
+
+    > Spec:   nicht viel los
+
+    > Datenmodell:
+        - Sandro hat allf"allige "Anderungen gemacht (oder veroffentlicht)
+	  Fragen bezueglich Sinn von den Attributen klar?
+	  Identity geklaert?
+
+
+          Org + der Vorschlagende des Erstenwurfs schaut es sich an.
+          Mohamed realisiert es in SQL
+
+           Kurze diskussion ob Var 127 ausreichend ist: Entscheidung: Ja
+          
+        
+    > PHP1:
+
+       - automatischen Make script: gute sache, nur wie? was genau?
+
+            Antwort: kopieren von Daten auf die passende Stelle
+            Reaktion: wir sorgen daf"ur, es sollte m"oglich sein.
+
+       - svn: auto-svn-properties: (gute sache) gemacht?
+
+            Antwort: momentan geht es auch ganz gut ohne
+
+    > PHP2:
+        - workspace-aufteilung? Unkritisch, oder? Speziell wenn
+	  man daheim arbeitet, ist der Workspace ohnehin aufgeteilt.
+	   
+	  Sonst nix interessantes
+
+
+    > Java: nix interessantes
+
+
+    > Test:
+        - Php-units: interessant. Koennen wir das verwenden?
+
+           Test-Gruppe recherchiert weiter.
+        
+           Speziell: beim Unit-Testen ist engere Anbindung
+           an die getesteten Gruppen notwendig -> Ein delegierter
+           sollte (zumindest) bei der Arch-Besprechung mit
+           der  Java-Truppe dabei sein.
+
+
+=====
+
+         TeX-inokmpatibilit"aten: momentan nicht dringend,
+            aber auf dauer unschoen. Wir schlagen eine 
+            L"osung vor.
+
+
+
+Martin
+
+
+
+           
+
+
+
+
+          
