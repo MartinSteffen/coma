@@ -40,7 +40,7 @@ if (isset($_POST['action'])) {
   $strCriterions    = encodeTextArray($_POST['criterions']);
   $strCritDescripts = encodeTextArray($_POST['crit_descr']);
   $strCritMaxVals   = encodeTextArray($_POST['crit_max']);
-  $strCritWeights   = encodeTextArray($_POST['crit_weight']);  
+  $strCritWeights   = encodeTextArray($_POST['crit_weight']);
   if (isset($_POST['advanced'])) {
     $intTopicNum = count($strTopics);
     $intCritNum  = count($strCriterions);
@@ -49,28 +49,28 @@ if (isset($_POST['action'])) {
     $strCritDescripts = array();
     $strCritMaxVals   = array();
     $strCritWeights   = array();
-    for ($i = 0; $i < $intTopicNum; $i++) {      
+    for ($i = 0; $i < $intTopicNum; $i++) {
       if (!isset($_POST['del_topic-'.($i+1)])) {
         $strTopics[] = encodeText($_POST['topic_name-'.($i+1)]);
       }
-    }     
+    }
     for ($i = 0; $i < $intCritNum; $i++) {
       if (!isset($_POST['del_crit-'.($i+1)])) {
         $strCriterions[]    = encodeText($_POST['crit_name-'.($i+1)]);
         $strCritDescripts[] = encodeText($_POST['crit_descr-'.($i+1)]);
         $strCritMaxVals[]   = encodeText($_POST['crit_max-'.($i+1)]);
-        $strCritWeights[]   = encodeText($_POST['crit_weight-'.($i+1)]);      
+        $strCritWeights[]   = encodeText($_POST['crit_weight-'.($i+1)]);
       }
-    } 	
+    }
     if (isset($_POST['add_topic']) && !empty($_POST['topic_name'])) {
-        $strTopics[] = encodeText($_POST['topic_name']);      
+        $strTopics[] = encodeText($_POST['topic_name']);
     }
     if (isset($_POST['add_crit']) && !empty($_POST['crit_name'])) {
       $strCriterions[]    = encodeText($_POST['crit_name']);
       $strCritDescripts[] = encodeText($_POST['crit_descr']);
       $strCritMaxVals[]   = encodeText($_POST['crit_max']);
       $strCritWeights[]   = encodeText($_POST['crit_weight']);
-    }  
+    }
   }
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
       !isset($_POST['simple_config']) &&  !isset($_POST['submit']))) {
@@ -97,7 +97,7 @@ if (isset($_POST['action'])) {
       $critForm->assign($strCritAssocs);
       $critForm->parse();
       $strContentAssocs['crit_lines'] .= $critForm->getOutput();
-    }    
+    }
   }
   $strContentAssocs['topics']         = '';
   $strContentAssocs['criterions']     = '';
@@ -108,7 +108,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['num_criterions'] = count($strCriterions);
   for ($i = 0; $i < count($strTopics); $i++) {
     $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($strTopics[$i]);
-  } 
+  }
   for ($i = 0; $i < count($strCriterions); $i++) {
     $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($strCriterions[$i]);
     $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($strCritDescripts[$i]);
@@ -134,47 +134,60 @@ if (isset($_POST['action'])) {
     }
     // Versuche die neue Konferenz einzutragen
     else {
-      $result = $myDBAccess->addConference(encodeText($_POST['name']),                                           
-                                           encodeURL($_POST['homepage']),
-                                           encodeText($_POST['description']),                                           
-                                           encodeText($_POST['abstract_dl']),
-                                           encodeText($_POST['paper_dl']),
-                                           encodeText($_POST['review_dl']),
-                                           encodeText($_POST['final_dl']),
-                                           encodeText($_POST['notification']),
-                                           encodeText($_POST['start_date']),
-                                           encodeText($_POST['end_date']),
-                                           encodeText($_POST['min_reviews']),
-                                           encodeText($_POST['def_reviews']),
-                                           encodeText($_POST['min_papers']),
-                                           encodeText($_POST['max_papers']),
-                                           encodeText($_POST['variance']),
+      $result = $myDBAccess->addConference($_POST['name'],
+                                           $_POST['homepage'],
+                                           $_POST['description'],
+                                           $_POST['abstract_dl'],
+                                           $_POST['paper_dl'],
+                                           $_POST['review_dl'],
+                                           $_POST['final_dl'],
+                                           $_POST['notification'],
+                                           $_POST['start_date'],
+                                           $_POST['end_date'],
+                                           $_POST['min_reviews'],
+                                           $_POST['def_reviews'],
+                                           $_POST['min_papers'],
+                                           $_POST['max_papers'],
+                                           $_POST['variance'],
                                            (!empty($_POST['auto_actaccount']) ? '1' : '0'),
                                            (!empty($_POST['auto_paperforum']) ? '1' : '0'),
                                            (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
-                                           encodeText($_POST['auto_numreviewer']),                                           
+                                           $_POST['auto_numreviewer'],
                                            $strTopics, $strCriterions, $strCritDescripts,
-                                           $strCritMaxVals, $strCritWeights);                                           
+                                           $strCritMaxVals, $strCritWeights);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error during creating conference.', $myDBAccess->getLastError());
       }
       else {
-        // Erfolg (also anderes Template)        
+        // Erfolg (also anderes Template)
         $content = new Template(TPLPATH.'confirm_conference.tpl');
         $strContentAssocs['return_page'] = 'main_conferences.php';
+<<<<<<< .mine
+        if (empty($_POST['start_date'])) {
+          $strContentAssocs['data'] = 'no date announced';
+        }
+        else if (!strcmp($_POST['start_date'], $_POST['end_date']) || empty($_POST['end_date'])) {
+          $strContentAssocs['data'] = encodeText($_POST['start_date']);
+        }
+        else if ($_POST['start_date'] == $_POST['end_date']) {
+          $strContentAssocs['data'] = encodeText($_POST['start_date']).' - '.
+                                      encodeText($_POST['end_date']);
+        }
+=======
         $objConference = new Conference(0, '', '', '', encodeText($_POST['start_date']),
                                         encodeText($_POST['end_date']));
         $strContentAssocs['date'] = $objConference->getDateString();        
+>>>>>>> .r2612
         $ifArray = array();
-      }      
+      }
     }
   }
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte
 else {
   $ifArray[] = 2;
-  $ifArray[] = 3;  
+  $ifArray[] = 3;
   $strContentAssocs['min_papers']       = '1';
   $strContentAssocs['max_papers']       = '100';
   $strContentAssocs['min_reviews']      = '3';
@@ -209,7 +222,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Create new Conference';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = 'CoMa  |  Create conference';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Create conference';
 
 $main->assign($strMainAssocs);
 $main->parse();
