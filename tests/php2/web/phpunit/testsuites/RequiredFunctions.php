@@ -32,3 +32,5 @@ class RequiredFunctions extends PHPUnit_TestCase
   }
 
 }
+
+?>
