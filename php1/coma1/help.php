@@ -264,7 +264,7 @@ if (in_array('imprint', $strArrayHelpTopics)){
 
 /**
  * chapter-02-05.tpl
- */ 
+ */
 if (in_array('profile', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -292,8 +292,898 @@ if (in_array('profile', $strArrayHelpTopics)){
 }
 
 /**
+ * chapter-02-06.tpl
+ */
+if ((in_array('main', $strArrayHelpTopics)) && (in_array('conferences', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.6';
+  $strArrayChapterAssocs['chapter-title'] = 'The conferences overview page';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the conferences overwiew page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-06.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-06'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-07.tpl
+ */
+if ((in_array('create', $strArrayHelpTopics)) && (in_array('conference', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.7';
+  $strArrayChapterAssocs['chapter-title'] = 'The create conference page / creating your own conference';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the create conference page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-07.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-07'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-07-01.tpl
+ */
+if ((in_array('main', $strArrayHelpTopics)) && (in_array('conferences', $strArrayHelpTopics)) && (in_array('advanced', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.7.1';
+  $strArrayChapterAssocs['chapter-title'] = 'The create conference advanced page / advanced settings for your conference';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the create conference page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-07-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-07-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-08.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('start', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.8';
+  $strArrayChapterAssocs['chapter-title'] = "The chair's main overview";
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = "In the main window, you are currently viewing the chair's main overview page.";
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-08.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-08'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-09.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('users', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.9';
+  $strArrayChapterAssocs['chapter-title'] = 'The manage users page / adding and removing roles and other attributes of users';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the users management page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-09.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-09'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-09-01.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('prefers', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.9.1';
+  $strArrayChapterAssocs['chapter-title'] = "The view preferences page / viewing a reviewers' paper preferences";
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = "In the main window, you are currently viewing the reviewers' preferences page.";
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-09-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-09-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-10.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('papers', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.5';
+  $strArrayChapterAssocs['chapter-title'] = 'The manage papers page / adding, removing, accepting and rejecting papers';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the paper management page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-10.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-10'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-10-01.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('paperreviews', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.10.1';
+  $strArrayChapterAssocs['chapter-title'] = 'The view review report page / checking the review report of a paper';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the review report page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-10-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-10-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-11.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('reviews', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.11';
+  $strArrayChapterAssocs['chapter-title'] = 'The manage reviews page / distributing reviewers among the papers';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the review management page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-11.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-11'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-11-01.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('reviewsreviewer', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.11.1';
+  $strArrayChapterAssocs['chapter-title'] = 'The edit reviewers page / editing the list of reviewers';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the edit reviewers page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-11-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-11-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-12.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('confconfig', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.12';
+  $strArrayChapterAssocs['chapter-title'] = 'The conference configuration page / setting the important values for your conference';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the conference configuration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-12.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-12'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-12-01.tpl
+ */
+if ((in_array('chair', $strArrayHelpTopics)) && (in_array('confconfig', $strArrayHelpTopics)) && (in_array('advanced', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.12.1';
+  $strArrayChapterAssocs['chapter-title'] = 'The advanced conference configuration page / setting the even more important values for your conference';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the conference configuration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-12-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-12-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-13.tpl
+ */
+if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('start', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.13';
+  $strArrayChapterAssocs['chapter-title'] = "The reviewer's main overview";
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = "In the main window, you are currently viewing the reviewer's main overview page.";
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-13.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-13'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-14.tpl
+ */
+if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('reviews', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.14';
+  $strArrayChapterAssocs['chapter-title'] = 'The review page / managing your reviews';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the review page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-14.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-14'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-14-01.tpl
+ */
+if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('editreview', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.14.1';
+  $strArrayChapterAssocs['chapter-title'] = 'The edit review page / editing your review';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the edit review page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-14-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-14-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-14-02.tpl
+ */
+if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('createreview', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.14.2';
+  $strArrayChapterAssocs['chapter-title'] = 'The create review page / creating your review';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the create review page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-14-02.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-14-02'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-15.tpl
+ */
+if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('prefers', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.15';
+  $strArrayChapterAssocs['chapter-title'] = 'The paper preferences page / managing your paper preferences';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the paper preferences page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-15.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-15'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-16.tpl
+ */
+if ((in_array('author', $strArrayHelpTopics)) && (in_array('start', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.16';
+  $strArrayChapterAssocs['chapter-title'] = "The author's main overview";
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = "In the main window, you are currently viewing the author's main overview page.";
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-16.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-16'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-17.tpl
+ */
+if ((in_array('author', $strArrayHelpTopics)) && (in_array('papers', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.14';
+  $strArrayChapterAssocs['chapter-title'] = "The author's paper management page / managing your papers";
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = "In the main window, you are currently viewing the author's paper management page.";
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-17.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-17'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-17-01.tpl
+ */
+if ((in_array('author', $strArrayHelpTopics)) && (in_array('createpaper', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.17.1';
+  $strArrayChapterAssocs['chapter-title'] = 'The create paper page / uploading a paper to CoMa';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the create paper page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-17-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-17-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-18.tpl
+ */
+if ((in_array('participant', $strArrayHelpTopics)) && (in_array('start', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.18';
+  $strArrayChapterAssocs['chapter-title'] = "The participant's main overview page";
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = "In the main window, you are currently viewing the participant's main overview page.";
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-18.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-18'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-19.tpl
+ */
+if ((in_array('participant', $strArrayHelpTopics)) && (in_array('settings', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.19';
+  $strArrayChapterAssocs['chapter-title'] = 'The participation page / managing your participation';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the participation settings page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-19.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-19'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-20.tpl
+ */
+if ((in_array('user', $strArrayHelpTopics)) && (in_array('conference', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.20';
+  $strArrayChapterAssocs['chapter-title'] = 'The conference information page';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the conference information page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-20.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-20'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-21.tpl
+ */
+if ((in_array('user', $strArrayHelpTopics)) && (in_array('users', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.21';
+  $strArrayChapterAssocs['chapter-title'] = 'The list of chairs';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the list of chairs page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-21.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-21'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-22.tpl
+ */
+if ((in_array('user', $strArrayHelpTopics)) && (in_array('papers', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.22';
+  $strArrayChapterAssocs['chapter-title'] = 'The list of accepted papers';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the list of accepted papers page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-22.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-22'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-23.tpl
+ */
+if (in_array('forum', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.23';
+  $strArrayChapterAssocs['chapter-title'] = 'The forums / taking part in the discussions with other CoMa users';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the forum page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-23.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-23'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-24.tpl
+ */
+if (in_array('help', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.24';
+  $strArrayChapterAssocs['chapter-title'] = 'The help page / getting help with CoMa';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the help page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-24.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-24'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-25.tpl
+ */
+if (in_array('detailpages', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.25';
+  $strArrayChapterAssocs['chapter-title'] = 'The details pages / detailed information about papers or users';
+  $strArrayChapterAssocs['related-topics'] = '';
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-25.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-25'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-25-01.tpl
+ */
+if ((in_array('user', $strArrayHelpTopics)) && (in_array('userdetails', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.25.1';
+  $strArrayChapterAssocs['chapter-title'] = 'The user details page / more information about a user';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the users detail page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-25-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-25-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-25-02.tpl
+ */
+if ((in_array('user', $strArrayHelpTopics)) && (in_array('paperdetails', $strArrayHelpTopics))){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.25.2';
+  $strArrayChapterAssocs['chapter-title'] = 'The paper details page / more information about a paper';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the papers detail page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-25-02.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-25-02'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-26.tpl
+ */
+if (in_array('error', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.26';
+  $strArrayChapterAssocs['chapter-title'] = 'The error page / when something blows up...';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the error page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-26.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-26'] = $objChaptertemplate->getOutput();
+}
+
+/**
  * chapter-01.tpl
- */ 
+ */
 if (in_array('introduction', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
