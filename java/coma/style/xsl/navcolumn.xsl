@@ -114,7 +114,7 @@
     Valid CSS?
   </a>
 </li>
-
+<li>Best viewed with any browser, except ie</li>
 </ul> 
 </div><!-- Site navigation menu -->
 <xsl:comment>End of Navbar</xsl:comment>
