@@ -1646,7 +1646,7 @@ class DBAccess extends ErrorHandling {
   function getForumOfPaper($intPaperId) {
     $s = sprintf("SELECT   id, title, conference_id".
                  " FROM    Forum".
-                 " WHERE   paperId = '%d'",
+                 " WHERE   paper_id = '%d'",
                            s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
