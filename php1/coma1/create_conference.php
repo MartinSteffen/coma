@@ -239,7 +239,7 @@ if (isset($_POST['action'])) {
     echo $bla;
     echo ($bla != 1);
     
-    if (!($bla == 1)) {
+    if ((float)$bla != (float)1) {
       $strMessage .= "The weight of the criterions should sum to one!\n";
     }
     
