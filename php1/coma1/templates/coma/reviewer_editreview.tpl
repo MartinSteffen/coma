@@ -7,13 +7,13 @@
 
 <table class="list">
   <tr class="listheader">
-    <th width="35%" class="listheader">Paper</th> 
-    <th width="20%" class="listheader">Author</th> 
-    <th width="10%" class="listheader">Status</th>
-    <th width="10%" class="listheader">My rating</th>
-    <th width="10%" class="listheader">Total rating</th>
-    <th width="15%" class="listheader">Discussion</th>    
-    <th>&nbsp;</th>
+    <th class="listheader">Paper</th> 
+    <th class="listheader">Author</th> 
+    <th class="listheader">Status</th>
+    <th class="listheader">My rating</th>
+    <th class="listheader">Total rating</th>
+    <th class="listheader">Discussion</th>    
+    <th class="listheader">&nbsp;</th>
    </tr>
 
   <tr class="listitem-1"> 
@@ -57,6 +57,7 @@
   </tr>
   <tr>
     <td colspan="2">      
+      <table>
         <tr class="formlistheader">
           <th class="formlistheader">Rating criterion</th>
           <th class="formlistheader">Score</th>
@@ -76,7 +77,7 @@
           <td class="formlistitem">Style:</td>
           <td class="formlistitem"><input type="text" size="2" name="rating-3" value="7"/>/10</td>
           <td class="formlistitem"><textarea name="comment-3" rows="1" cols="48">Bla, bla...</textarea></td>
-        </tr>        
+        </tr>              
       </table>
     </td>  
   </tr>
