@@ -54,14 +54,12 @@
       <input type="checkbox" name="auto_actaccount" value="1"{if2 checked}>
     </td>
   </tr>
-  <!-- Ist vorerst nicht implementiert. -->
-  <!--<tr>
-        <td colspan="2">
-          Start discussion of critical papers automatically
-          <input type="checkbox" name="auto_paperforum" value="1"{if3 checked}>
-        </td>
-      </tr>
-  -->
+  <tr>
+    <td colspan="2">
+      Start discussion of critical papers automatically
+      <input type="checkbox" name="auto_paperforum" value="1"{if3 checked}>
+    </td>
+  </tr>  
   <tr>
     <td colspan="2">
       Add reviewers to critical papers automatically
@@ -148,7 +146,6 @@
       <input type="hidden" name="crit_weight" value="{crit_weight}">
       <input type="hidden" name="num_topics" value="{num_topics}">
       <input type="hidden" name="num_criterions" value="{num_criterions}">
-      <input type="hidden" name="auto_paperforum" value="1">
 
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit" value="Create Conference" class="button">

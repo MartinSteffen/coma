@@ -12,17 +12,25 @@ if (!defined('IN_COMA1')) {
 /**
  * Pruefe, ob ein Forum zu dem Paper $intPaperId existiert, wenn dieses
  * kritisch bewertet wurde, und eroeffne die Diskussion, falls dieses noch
- * nicht passiert ist.
+ * nicht passiert ist und falls das entsprechende Flag in der Konferenz-
+ * konfiguration gesetzt ist.
  * Gibt true zurueck, wenn das Forum erzeugt wurde,
  * false, wenn das Forum bereits existiert oder das Paper nicht kritisch ist.
  */
  
 function createPaperForumIfCritical(&$myDBAccess, $intPaperId) {
+  $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+  if ($myDBAccess->failed()) {
+    error('get conference configuration', $myDBAccess->getLastError());
+  }
+  else if (empty($objConference)) {
+    error('get conference configuration', 'Conference '.session('confid').' does not exist in database!');
+  }
   $isCritical = $myDBAccess->isPaperCritical($intPaperId);
   if ($myDBAccess->failed()) {
     error('check paper status', $myDBAccess->getLastError());
   }
-  if ($isCritical) {
+  if ($isCritical && $objConference->blnAutoOpenPaperForum) {
     return createPaperForum($myDBAccess, $intPaperId);
   }
   else {
