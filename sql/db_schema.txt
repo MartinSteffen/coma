@@ -60,7 +60,20 @@ Eine kleine Korrektur:
   Ich schlage vor: Eine Tablle fuer diese Enumerierungen mit einem
   Fremdschluessel ind der entsprechenden Tabelle so wie in der Datei
   db_schema.sql
-+++  
++++
+
+- Im folgenden sind jetzt diejenigen Felder gekennzeichnet, deren
+  Verwendung als optional beschlossen wurde. Ausserdem sind Tabellen
+  gekennzeichnet, die optional verwendet werden duerfen.
+- Die Verschluesselungsroutine fuer das Password soll nicht
+  umkehrbar sein (nur encrypt, kein decrypt moeglich). Wir haben uns
+  auf keine fuer alle verbindliche Verschluesselungs geeinigt.  
+- WICHTIG FUER DIE UMSETZUNG IN DAS SQL-SKRIPT: Optionale Fremdschluessel
+  (role_type in Role) oder solche, die Null sein duerfen (reply_to und forum_id
+  in Message) werden NICHT als Constraint in SQL umgesetzt, sondern ignoriert.
+  Die Erwaehnung hier hat rein informativen Zweck.
+
+  + + + Sandro
 
   
 1.  Tables:
@@ -70,7 +83,7 @@ Eine kleine Korrektur:
 id                            Int               Primary Key, Autoincrement
 name                          Varchar 127	Not Null
 homepage                      Varchar 127
-description                   Text
+description                   Text              optional (*)
 abstract_submission_deadline  Date
 paper_submission_deadline     Date
 review_deadline               Date
@@ -95,15 +108,22 @@ postal_code	Varchar 20
 city		Varchar 127
 state		Varchar 127
 country		Varchar 127
-password	Varchar 32      Not Null (encrypted)
-
+password	Varchar 32      Not Null (encrypted, not decryptable)
 
  Table Role
-~~~~~~~~~~~~~
+~~~~~~~~~~~~
 conference_id	Int		-> Conference, id
 person_id       Int             -> Person, id
-role_type	Int		(enumeration Roles)
-state		Int		(enumeration Status)
+role_type	Int		(enumeration Roles), optional -> Roles (*)
+state		Int		(enumeration Status) optional (*)
+
+ Table Roles    (optional)
+~~~~~~~~~~~~~
+id	        Int             Primary Key, Autoincrement
+role            Varchar 32
+
+(Anmerkung: Die Ids sollten uebereinstimmend mit den Werten in
+            der Enumeration Roles sein, also Id 1 fuer Admins, etc.)
 
  Table Paper
 ~~~~~~~~~~~~~
@@ -191,39 +211,41 @@ paper_id	Int
  Table Message
 ~~~~~~~~~~~~~~~
 id              Int             Primary Key, Autoincrement
-forum_id	Int
-reply_to	Int
+forum_id	Int             (-> Forum, id; may be Null)
+reply_to	Int             (-> Message, id; may be Null)
 sender_id	Int		-> Person, id
 send_time	TimeAndDate	(automatically set)
 subject		Varchar 127
 text		Text
 
 
-2. Enumerations (Vorschlag):
+2. Enumerations:
 
- Enumeration Roles
+Enumerations stellen KEINE Tabellen dar, sondern sind festgelegte
+Assoziationen von Integer-Werten mit bestimmten Bedeutungen.
+
+ Enumeration Roles   (optional, falls die Tabelle Roles nicht verwendet wird)
 ~~~~~~~~~~~~~~~~~~~~
+00  without role
 01  admin
 02  chair
 03  reviewer
 04  author
 05  participant
-...
 
- Enumeration Status
+ Enumeration Status  (optional)
 ~~~~~~~~~~~~~~~~~~~~
 01  active
 02  not active
 03  invited
-...
 
  Enumeration PaperState
 ~~~~~~~~~~~~~~~~~~~~~~~~
+00  no special state (not being reviewed)
 01  being reviewed
-02  conflicting
+02  being reviewed, conflicting
 03  accepted
 04  rejected
-...
 
  Enumeration ForumType
 ~~~~~~~~~~~~~~~~~~~~~~~
