@@ -31,8 +31,7 @@ elseif (isset($_GET['4'])) {
   <style type="text/css">
   <!--
   body { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 12px; 
-    vertical-align: top; background-color: #FFFFFF; margin: 0px; 
-    padding-top: 4%; padding-left: 4%; padding-right: 20px; padding-bottom: 20px; }
+    vertical-align: top; background-color: #FFFFFF; margin: 0px; padding: 4% 20px 20px 4%; }
   a { text-decoration: none; font-weight: bold; }
   a:link { color: #111111; }
   a:visited { color: #111111; }
