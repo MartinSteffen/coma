@@ -1,4 +1,4 @@
-<div width="100%" class="center">
+<div align="center">
 <form action="{basepath}index.php?{SID}" method="post">
 <table class="formtable">
   <tr>
