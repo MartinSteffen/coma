@@ -1,0 +1,306 @@
+\newif\ifweb\webfalse
+
+\documentclass[11pt,nologo,handout]{handout}
+
+\dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
+\coursename{P-I-T-M}
+\semester{WS 2004/05}
+\ausgabetermin{9.~November 2005}
+\handouttitle{F}
+\nummer{3}
+\thema{Bugzilla}
+
+\newcommand{\Coma}{\textsl{Coma}}
+\usepackage{hevea}
+\usepackage{hyperref}
+
+%\uebungfalse
+%\handouttrue
+
+\begin{document}
+
+\thispagestyle{empty}
+
+The purpose of this handout is to explain the purpose and how to use
+bugzilla.  Bugzilla is a web-based bug-tracking system.  In the following,
+we first explain the purpose of bug-tracking, the anatomy and the
+life-cycle of a bug in bugzilla, how bugzilla is used, and finally the
+policies of using bugzilla in this project.
+
+
+\section{Bugtracking}
+
+The main functionality of bugzilla is maintaining a data base of
+bug reports and track the state of bugs.  The main purpose of
+bugzilla is to help in \emph{collaborating} in correcting bugs.
+It helps to keep track of the status of an error, for instance:
+\begin{itemize}
+\item who reported the error?
+\item what kind of error, short description?
+\item who is (probably) responsible?
+\item was it acknowledged?
+\item has it been repaired?
+\end{itemize}
+
+Bugzilla can generate statistics and reports on open bugs, who is
+responsible for a bug, and in what state it is.  It can tell you
+how many bugs and which ones have to be corrected to reach a mile
+stone.  But similar to {\Coma} it does not take decisions and it does
+not correct bugs.
+
+Bugtracking is a necessity in software development.  It helps in
+classifying what has to be done when.  It keeps people informed on
+what needs to be done.  It simplifies the process of figuring out
+who is responsible for correcting a bug.
+
+Bugzilla is a tool to make life in software development simpler.
+
+
+
+
+
+\section{Anatomy of a bug}
+
+Bugs are modeled by the following fields.
+\begin{description}
+\item[Product and Component]  Bugs are divided up by Product and Component,
+  with a Product comprising many Components.  In our case the product is
+  ``{\Coma} conference manager''.  Currently, the components of coma are
+  \begin{description}
+  \item[Data Model]  This component represents the \emph{data model} of
+    {\Coma}.  The data model describes which data is represented within
+    the tool and how it is related to each other.
+  \item[Specification]  This component represents the \emph{specification}
+    document.  Bugs filed against this component may include enhancements
+    to the functionality, inconsistencies in the document, or suggestions
+    on how to change the specification to meet the overall goal within the
+    tight time constraints.
+  \end{description}
+  Further components will be added once the architecture of the tool has
+  been settled.  Each component has an initial owner and an
+  initial quality assurance (QA) contact.  The \emph{initial owner}
+  is the person who is automatically responsible for analysing and
+  correcting this bug.  The \emph{initial QA contact} is responsible
+  for verifying that the resolution of a bug is indeed a correct once.
+  More details later.
+\item[Status and Resolution]  These define exactly what state the bug is in
+  --- from not even being confirmed as a bug, through being corrected and
+  the correction being confirmed by QA.
+\item[Assigned To]  The person responsible for fixing the bug.
+\item[URL] A URL associated with the bug, if any.  This can be used to
+  associate external documents to a bug without attaching it to them.
+  It can, e.g., point to a section of the requirements or specification
+  document which explains why this is a bug.
+\item[Summary] A one-sentence summary of the problem.  This summary should
+  be meaningful.  ``It does not work'' is not meaningful.  ``Uploading an
+  article does not send a confirmation'' is.
+\item[Status Whiteboard]  A free-form text area for adding short notes and
+  tags to a bug.
+\item[Keywords]  This is currently not used.
+\item[Platform and OS]  These indicate the computing environment where the
+  bug was found.
+\item[Version]  This field usually contains the particular version of the
+  product in which the bug was found.  In our case it is the same as
+  milestones.
+\item[Priority]  The bug assignee uses this field to prioritise his or her
+  bugs.  It's a good idea not to change this on other people's bugs.  In
+  {\Coma} priorities range from P1 (the highest value) to P5 (the least
+  value).  Bugzilla defaults to P2 for each new bug.
+\item[Severity]  This indicates how severe the problem is.  Values are
+  \begin{description}
+  \item[blocker]  This error makes the application unusable.
+  \item[critical]  The error is a security error or an error which does not
+    yet make the application unusable but it misbehaves in a way which
+    violates the specification.  E.g., if an author can see the discussion
+    on his paper, this would be a critical bug.
+  \item[major]  The error does not pose any danger to the integrity to the
+    application, but it seriously impedes usability.  If uploading a paper
+    silently fails, this would be a major bug.
+  \item[normal]  It is an error that needs to be corrected, but there is
+    a work-around to achieve this functionality.
+  \item[minor]  It is an error which does not affect the main functionality
+    of the application.  Most errors in error-paths (exceptions handled in
+    an unfortunate way) are of this kind.
+  \item[trivial]  These are cosmetic issues.  Spelling errors or errors in
+    comments are trivial.
+  \item[enhancement]  These are not bugs but enhancement requests.  A valid
+    enhancement request would be to ask another group to export (define an
+    interface) some functionality, which otherwise has to be implemented on
+    your own.  Also the definition of new views can be an enhancement.
+  \item[tracking]  These are not bugs, but meta-bugs.  The idea of a
+    tracking bug is that it collects all bugs which need to be corrected
+    for a certain feature, or even tracks the discussion on the
+    implementation of a certain feature.  The use of this severity is
+    strictly optional.
+  \end{description}
+\item[Target]  A future version by which the bug is to be corrected.
+  Values are:
+  \begin{description}
+  \item[M0]
+  \item[M1]
+  \item[M2]
+  \item[M3]
+  \item[Presentation]  The final day of the lab course where the product
+    is to be presented.
+  \end{description}
+\item[Reporter]  The person who filed the bug.
+\item[CC list]  A list of people who get mail when the bug changes.
+\item[Attachments]  You can attach files (e.g. test cases or patches) to
+  bugs.  If there are any attachments, they are listed in this section.
+\item[Dependencies]  If this bug cannot be corrected until other bugs are
+  corrected (depends on), or this bug stops other bugs being fixed (blocks),
+  their numbers are recorded here.
+\item[Votes]  Whether this bug has any votes.  This is not used in our
+  lab course.
+\item[Additional Comments]  If you have something worthwhile to say, you
+  can add it to this section.  In this lab course, each change of a bug
+  requires the changer to add a \emph{meaningful} comment on why he
+  changed the bug.
+\end{description}
+
+The most important part on understanding a bug is its state and how a bug
+changes its state.  It is graphically depicted in
+Figure~\ref{fig:lifecycle}.  A state may have a \emph{resolution} as its
+substate.
+\begin{description}
+\item[Open]  Every new bug starts its life in the open state.
+\item[Assigned]  If a bug has been analyzed and found to be a valid bug
+  report, then the state is changed to assigned.  This step entails
+  confirming that the bug is filed against the right component, that it
+  is reproducable, and naming the person responsible for correcting the
+  bug.
+\item[Resolved]  Once a bug is corrected or the report is inappropriate,
+  the state is changed to resolved.  This state also allows one to set
+  the resolution.  This is a value from:
+  \begin{description}
+  \item[Fixed]  The error has been corrected.
+  \item[Invalid]  The bug report is considered to be invalid.  This
+    is used if the reporter uses a function of another component which
+    is not exported in the interface in a way which is wrong, expects
+    functionality of an exported function that is not specified or
+    which contradicts the specification, or if the report is not meaningful
+    at all.  A bug with the summary ``The tool is crashing when it is
+    raining'' is definitely invalid, as is ``x*x does not return negative
+    values''.
+  \item[Wontfix]  The responsible person will not correct the bug.  You
+    can use this resolution, if you think that the behavior described in
+    the report is indeed a bug, but there is either a workaround, or the
+    reporter used a functionality in an unintended way.  Another
+    appropriate situation is, when a client calls a function of your code
+    that is not part of the exported interface of your component.
+  \item[Remind]  This resolution can be used for bugs with a low severity
+    or a low priority.  It is used for errors which can be shipped in a
+    final product and essentially means: ``I'll correct it at the end of
+    the project, if I have time''.
+  \item[Worksforme]  This resolution is used for bug reports which cannot
+    be reproduced.
+  \end{description}
+\item[Verified]  Once an error is resolved, the QA responsible has to check
+  whether the resolution is correct.  If so, he changes the state of the
+  bug to verified.  Note that the resoltion set in resolved also is part
+  of the verified state.
+\item[Closed]  If everybody is happy with the resolution, the state of a
+  bug is changed to closed.  This means that the bug is not present in the
+  software anymore.
+\item[Reopened]  If a resolution is found to be invalid or a bug which has
+  been resolved appears again, a bug can be reopened.  For all practical
+  purposes this state is the same as open.
+\end{description}
+
+\begin{figure}
+  \centering
+  %% Put figure here.
+  \caption{A bug's life cycle}
+  \label{fig:lifecycle}
+\end{figure}
+
+
+
+
+
+
+\section{Bugzilla}
+
+\href{http://www.bugzilla.org}{Bugzilla} is some server which helps to
+maintain a common database of bugs during the software devolopment.  The
+relevant information on using bugzilla is explained
+in~\href{http://www.bugzilla.org/docs/2.18/html/using-intro.html}{Chapter 5}
+of~\href{http://www.bugzilla.org/docs/2.18/html/}{bugzilla's user manual}.
+
+In order to use bugzilla, it is necessary to create a user account
+\emph{with a working email address}.
+
+
+
+
+
+\section{Policies}
+
+Bugzilla can be a helpful tool when used with care, but obviously it does
+not guarantee solid development.  It is necessary to understand that
+bugzilla is here to help developing and not replace developing software.
+Everybody has to understand that the purpose of bugzilla is not to
+report bugs and track bugs,\footnote{Well, this actually is, what it does}
+but to \emph{arrive with a working product}.  To achieve this end, we
+propose the following policies.
+
+If you want to report a bug, first think about whether it is really a
+bug and in which components.  Not all bugs are in the code.  Some may
+be in the documentation or even the specification.  The first step when
+writing a bug report is to decide what the nature of the bug is and in
+which component you suspect the error.
+
+Then think about the text of the report.  Give a description of the bug
+which allows anybody else to reproduce the bug.  Write down what you did,
+what you expected as a response, and what you actually got.  If such a
+description is missing or erroneous, the assignee is free to resolve
+the bug as invalid or worksforme.  Bug reports with patches are even
+better.
+
+Remember, writing a good bug report takes time.  Writing reports with
+patches is even better.  Writing bad ones will just undermine the
+purpose of bugzilla and propably kill the project.
+
+Keep the bug data base up to date.  More importantly, \emph{collaborate}
+in keeping the bug data base up to date.  If you see a bug report which
+appears to be solved, ask whether it has been resolved or resolve it
+yourself with worksforme and a comment that, when you tested the code,
+it worked.  If you see duplicate reports, feel free to mark them as
+duplicates.  If you know something helpful, comment on the bug.
+
+Whenever you change the state of the bug, write a meaningful comment
+on why you changed it.  It needn't be a long comment.
+
+Nobody should change the priority or severity of a bug without very
+good reasons!
+
+If a bug is considered trivial or minor, delay its resolution.  To do
+this, set its state to resolved with resolution remind.  This allows
+us to see that you do not feel that it is necessary to correct the bug
+right now.
+
+Use bugzilla only for discussing details of bugs.  Do not put everything
+you do into bugzilla.  We have introduced tracking bugs into the
+data base, but this is only useful for certain dangerous changes or very
+complex tasks which need much communication.
+
+Do not push for a resolution.  Often it is useful to delay the resolution
+in order to have something useful for a milestone.  Often, the right
+solution is to reassign a bug.  But we should agree on these steps.
+
+And finally: If you like to go bug hunting in other peoples code instead
+of working on your own, we assume that you have too much time and expect
+you to help that group correct these bugs (just kidding).  On the other
+hand, a bug report may be assigned to the reporter in certain
+circumstances.
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
