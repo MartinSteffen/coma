@@ -58,7 +58,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $objForumTypePaperTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypePaperAssocs = defaultAssocArray();
   $strArrayTypePaperAssocs['type'] = 'Paper forums';
-  if (isChair($myDBAccess->getPerson(session('uid')))){
+  if ((1 == 1) || (isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
     $strArrayCreateAssocs['type'] = 'paper';
