@@ -99,7 +99,7 @@ if (!empty($objPapers)) {
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);      
-    $ifArray[] = $objPaper->intStatus;
+    $ifArray[] = $objPaper->intStatus;    
     if (!empty($objPaper->strFilePath)) {
       $ifArray[] = 5;
     }
