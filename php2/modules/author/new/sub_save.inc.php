@@ -41,8 +41,8 @@ if (count($result) > 0) {
 }
 */
 //if okay, proceed
-$content['title'] = $_REQUEST['title'];
-$content['abstract'] = $_REQUEST['summary'];
+$content['title'] = eregi_replace(">", "&gt;", eregi_replace("<", "&lt;", $_REQUEST['title']));
+$content['abstract'] = eregi_replace(">", "&gt;", eregi_replace("<", "&lt;", $_REQUEST['summary']));
 $content['last_edited'] = date('Y-m-d');
 $content['filename'] = "";
 $content['state'] = 0;
