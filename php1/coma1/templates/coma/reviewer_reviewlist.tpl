@@ -1,4 +1,3 @@
-
 <table class="list">
   <tr class="listheader">
     <th class="listheader">Paper</th> 
@@ -9,4 +8,3 @@
    </tr>
    {lines}
 </table>
-

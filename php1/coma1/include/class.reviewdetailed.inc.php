@@ -35,12 +35,12 @@ class ReviewDetailed extends Review {
   var $objCriterions;    // die einzelnen Kriterien selbst
 
   function ReviewDetailed($intId, $intPaperId, $strPaperTitle, $intAuthorId,
-                          $strAuthorName, $intReviewRating, $fltAverageRating,
+                          $strAuthorName, $fltReviewRating, $fltAverageRating,
                           $strReviewerEmail, $strReviewerName, $strSummary,
                           $strRemarks, $strConfidential, $intRatings, $strComments,
                           $objCriterions) {
     $this->Review($intId, $intPaperId, $strPaperTitle, $intAuthorId, $strAuthorName,
-                  $intReviewRating, $fltAverageRating, $strReviewerEmail, $strReviewerName);
+                  $fltReviewRating, $fltAverageRating, $strReviewerEmail, $strReviewerName);
     $this->strSummary = $strSummary;
     $this->strRemarks = $strRemarks;
     $this->strConfidential = $strConfidential;

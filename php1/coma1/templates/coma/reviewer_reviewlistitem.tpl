@@ -17,11 +17,11 @@
   </tr>
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}" colspan="5">
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="reviewid" value="{reviewid}" />
-        <input type="submit" name="submit" value="Edit review" class="button" />
-        <input type="submit" name="submit" value="See paper details" class="button" />
-        <input type="submit" name="submit" value="Enter discussion" class="button" />
+      <form action="{basepath}review_editreview.php{?SID}" method="post" accept-charset="UTF-8">        
+        <input type="hidden" name="reviewid" value="{review_id}">
+        <input type="submit" name="submit" value="Edit review" class="button">
+        <input type="submit" name="paper_details" value="See paper details" class="button">
+        <input type="submit" name="discuss" value="Enter discussion" class="button">
       </form> 
     </td>
   </tr>
