@@ -1,0 +1,157 @@
+Moin Leute, obwohl ich nicht zur SQL Gruppe gehöre, möchte ich einen Vorschlag machen.
+
+Ich habe noch das DB-Schema in einer Graphik gezeichnet.
+
+1. Jeder User darf in mehreren Konferenzen teilnehmen und hat auch vershiedene Rechte (Rollen).
+2. Jedes Paper darf zu mehreren Topics bzw. Konferenzen gehören.
+3. Der Status der Rollen wird gespeichert.
+4. Ein Paper ist mittels Topic mit einer Konferenz verbunden.
+
+Grüsse,
+
+Ivan (ist)
+
+Tabelle Conference
+~~~~~~~~~~~~~~~~~~
+abbreviation                  Varchar 20	Autoincrement, Primary Key
+name                          Varchar 127	Not Null
+description                   Text
+homepage                      Varchar 127
+abstract_submission_deadline  Date
+paper_submission_deadline     Date
+review_deadline               Date
+final_version_deadline        Date
+notification                  Date
+conference_start              Date
+conference_end                Date
+min_reviews_per_paper         Int
+
+Tabelle User
+~~~~~~~~~~~~
+email			Varchar 127		Autoincrement, Primary Key
+password		Varchar 32		Not Null (wird codiert gespeichert)
+first_name		Varchar 127		Not Null
+last_name		Varchar 127		Not Null
+title			Varchar 127	(bzw. Title)
+affiliation		Varchar 127
+phone_number	Varchar 20
+fax_number		Varchar 20
+street		Varchar 127
+postal_code		Varchar 20
+city			Varchar 127
+state			Varchar 127
+country		Varchar 127
+
+Tabelle Roles
+~~~~~~~~~~~~~~
+user			Varchar 127		-> User, email
+conference		Varchar 20		-> Conference, abbreviation
+type			Int			z.B. 0=Chair, 1= Reviewer, 2=Author usw.
+status		Int			z.B. 0=ist eingeladen, 1=Einladung angenommen, 2=Einladung abgelehnt
+
+Tabelle Paper
+~~~~~~~~~~~~~
+id		BigInt		Autoincrement, Primary Key
+author	Varchar 127		-> User, email
+title		Varchar 127	Not Null
+abstract	Text
+last_edited	DateAndTime	(wird automatisch gesetzt)
+version	Int		(wird automatisch gesetzt)
+filename	Varchar 127
+state		Int		(bzw. PaperState)
+format	Int		(bzw. MimeType)
+
+Tabelle IsCoAuthorOf
+~~~~~~~~~~~~~~~~~~~~
+paper		BigInt		-> Paper, id
+user		Varchar 127		-> User, email
+name		Varchar 127	Not Null
+email		VarChar 127	falls user leer ist, also der Coautor nicht angemeldet ist
+
+Tabelle Topic
+~~~~~~~~~~~~~
+id			BigInt		Autoincrement, Primary Key
+conference		BigInt		-> Conference, abbreviation
+name			Varchar 127	Not Null
+
+Tabelle IsAboutTopic
+~~~~~~~~~~~~~~~~~~~~
+paper		BigInt	-> Paper, id
+topic		BigInt	-> Topic, id
+
+Tabelle PrefersTopic (welche Themenbereiche den User interessieren)
+~~~~~~~~~~~~~~~~~~~~
+user		Varchar 127	-> User, email
+topic		BigInt	-> Topic, id
+
+Tabelle PrefersPaper
+~~~~~~~~~~~~~~~~~~~~
+user		Varchar 127	-> User, email
+paper		BigInt	-> Paper, id
+
+Tabelle DeclinesPaper
+~~~~~~~~~~~~~~~~~~~~
+user		Varchar 127	-> User, email
+paper		BigInt	-> Paper, id
+
+Tabelle ExcludeUser
+~~~~~~~~~~~~~~~~~~~~
+user		Varchar 127	-> User, email
+paper		BigInt	-> Paper, id
+
+Tabelle ReviewReport
+~~~~~~~~~~~~~~~~~~~~
+id			BigInt		Autoincrement, Primary Key
+paper			BigInt		-> Paper, id
+reviewer		Varchar 127		-> User, email
+status		Int
+summary		Text
+remarks		Text
+confidential	Text
+
+Tabelle Rating
+~~~~~~~~~~~~~~
+review		BigInt		-> ReviewReport, id
+criterion		BigInt		-> Criterion, id
+grade			Int		Not Null
+comment		Text
+
+Tabelle Criterion
+~~~~~~~~~~~~~~~~~
+id			BigInt	Autoincrement, Primary Key
+conference		Varchar 20	-> Conference, abreviation
+name			Varchar 127	Not Null
+description		Text
+max_value		Int
+quality_rating	Int		(in Percent)
+
+Tabelle Forum
+~~~~~~~~~~~~~
+id			BigInt		Autoincrement, Primary Key
+conference		Varchar 20		-> Conference, abreviation
+title			Varchar 127	Not Null
+description		Text
+
+Tabelle Thread
+~~~~~~~~~~~~~~
+id		BigInt		Autoincrement, Primary Key
+forum		BigInt		-> Forum, id
+paper		BigInt		-> Paper, id
+title		Varchar 127
+description	Text
+
+Tabelle Message
+~~~~~~~~~~~~~~~
+id		BigInt		Autoinctement, Primary Key
+thread	BigInt		-> Thread, id
+sender	Varchar 127		-> User, email
+send_time	TimeAndDate	(wird automatisch gesetzt)
+subject	Varchar 127
+text		Text
+
+Tabelle ParticipatesInForum
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+forum		BigInt		-> Forum, id
+user		Varchar 127		-> User, email
+
+
