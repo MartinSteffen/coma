@@ -1,6 +1,23 @@
 <?
   include('header.tpl.php');
   $cid = d('cid');
+	
+if (array_key_exists('msg', $TPL)) {
+	?>
+	<fieldset>
+	<legend class="textBold" style="color:red">MESSAGE</legend>
+		<table>
+			<tr>
+				<td class="textBold">
+				<? echo d('msg'); ?>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	<?
+}
+
+	
 ?>
 <fieldset>
 <legend class="textBold"><? echo d('name'); ?></legend>
@@ -15,7 +32,7 @@
 		</tr>
 		<tr>
 			<td>
-				<p>Description<br>
+				<p>Summary<br>
 				<textarea name="summary" cols="60" rows="10">Please enter a short summary of your paper.</textarea>
 				</p>
 			</td>
