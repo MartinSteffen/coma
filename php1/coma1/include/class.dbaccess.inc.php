@@ -1068,7 +1068,7 @@ class DBAccess extends ErrorHandling {
         " WHERE   id = $objPerson->intId";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('updatePerson', $this->mySql->getLastError);
+      return $this->error('updatePerson', $this->mySql->getLastError());
     }
     return $this->success(true);
   }
@@ -1092,7 +1092,7 @@ class DBAccess extends ErrorHandling {
         ' WHERE   person_id = '.$intId;
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('updateRoles', $this->mySql->getLastError);
+      return $this->error('updateRoles', $this->mySql->getLastError());
     }
 
     // Rollen einfuegen...
@@ -1102,7 +1102,7 @@ class DBAccess extends ErrorHandling {
             '         VALUES ('.$intConferenceId.', '.$intId.', '.$intRole[$i].')';
         $result = $this->mySql->insert($s);
         if ($this->mySql->failed()) {
-          return $this->error('updateRoles', $this->mySql->getLastError);
+          return $this->error('updateRoles', $this->mySql->getLastError());
         }
       }
     }
