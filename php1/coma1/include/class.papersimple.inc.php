@@ -33,12 +33,11 @@ class PaperSimple extends Paper {
   var $intStatus;
   var $strLastEdit;
   var $fltAvgRating; // false, falls kein Rating/Reviw existiert
-  var $fltVariance; // false, falls kein Rating/Review existiert
   var $strFilePath;
   var $objTopics;
   
   function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
-                       $strLastEdit, $fltAvgRating, $fltVariance, $strFilePath, $objTopics) {
+                       $strLastEdit, $fltAvgRating, $strFilePath, $objTopics) {
     $this->Paper($intId);
     $this->strTitle = $strTitle;
     $this->intAuthorId = $intAuthorId;
@@ -46,7 +45,6 @@ class PaperSimple extends Paper {
     $this->intStatus = $intStatus;
     $this->strLastEdit = $strLastEdit;
     $this->fltAvgRating = $fltAvgRating;
-    $this->fltVariance = $fltVariance;
     $this->strFilePath = $strFilePath;
     $this->objTopics = $objTopics;
   }

@@ -63,7 +63,7 @@ $ifArray = array($intOrder);
 
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get paper list of chair',$myDBAccess->getLastError());
+  error('get paper list of chair', $myDBAccess->getLastError());
 }
 
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
@@ -81,6 +81,10 @@ $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
+    $fltVariance = $myDBAccess->getVarianceOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('get paper list of chair', $myDBAccess->getLastError());
+    }
     $strItemAssocs = defaultAssocArray();
     $ifArray = array();
     $strItemAssocs['line_no'] = $lineNo;
@@ -98,8 +102,8 @@ if (!empty($objPapers)) {
     else {
       $strItemAssocs['avg_rating'] = ' - ';
     }
-    if (!empty($objPaper->fltVariance)) {
-      $strItemAssocs['variance'] = encodeText(sprintf('%.2f', $objPaper->fltVariance));
+    if (!empty($fltVariance)) {
+      $strItemAssocs['variance'] = encodeText(sprintf('%.2f', $fltVariance));
     }
     else {
       $strItemAssocs['variance'] = ' - ';
