@@ -53,6 +53,9 @@ function notemptyandtrue($arr, $index){
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
 function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray){
+  if (DEBUG){
+    echo('forums: ' . count($forums));
+  }
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
   $typeopenassocs['type'] = 'Open forums';
@@ -156,6 +159,9 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
 function displayMessages($messages, $msgselection, $selected, $forumid, $assocs){
   $tempstring = '';
   foreach ($messages as $message){
+    if (DEBUG){
+      echo('Messages: ' . count($messages));
+    }
     $messagetemplate = new Template(TPLPATH . 'message.tpl');
     $messageassocs = defaultAssocArray();
     $sender = $myDBAccess->getPerson($message->intSender);
