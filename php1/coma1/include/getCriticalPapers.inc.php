@@ -44,7 +44,7 @@ function getCriticalPapers(&$myDBAccess, $method = 'variance') {
           $val = $val + ($review->fltReviewRating - $avgrating)^2;
         }
         $val = $val / count($reviews);
-	//$val = (abs($avgrating - $val)) / $avgrating;
+	$val = (abs($avgrating - $val)) / $avgrating;
         $confdet = $myDBAccess->getConferenceDetailed($cid);
         if ($val > $confdet->fltCriticalVariance){
           $objPapers[] = new PaperVariance($paper->intId, $val);
