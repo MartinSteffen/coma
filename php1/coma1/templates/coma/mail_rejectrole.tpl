@@ -1,6 +1,6 @@
 Dear {name},
 
-I reject your request to become {role} in conference {conference}.
+I reject your request to become '{role}' in conference '{conference}'.
 
 CoMa URL: {basepath}
 

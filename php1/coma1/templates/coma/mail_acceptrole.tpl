@@ -1,6 +1,6 @@
 Dear {name},
 
-I accept your request to become {role} in conference {conference}.
+I accept your request to become '{role}' in conference '{conference}'.
 
 CoMa URL: {basepath}
 

@@ -38,6 +38,7 @@ if (isset($_POST['action'])) {
     if ($myDBAccess->failed()) {
       error('Error retrieving chair data', $myDBAccess->getLastError());
     }
+    $strFrom = '"'.$objPerson->getName(2).'" <'.$objPerson->strEmail.'>';
     $objPerson = $myDBAccess->getPerson($intPersonId);
     if ($myDBAccess->failed()) {
       error('Error retrieving person data', $myDBAccess->getLastError());
@@ -51,7 +52,7 @@ if (isset($_POST['action'])) {
     $strMailAssocs['name'] = encodeText($objPerson->getName(2));
     $strMailAssocs['conference'] = encodeText($objConference->strName);
     $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
-
+    
     // Benutzerrolle bearbeiten
     if ($_POST['submit'] == 'add') {
       $myDBAccess->addRole($intPersonId, $intRoleType, session('confid'), true);
@@ -62,7 +63,7 @@ if (isset($_POST['action'])) {
       $mail->assign($strMailAssocs);
       $mail->parse();
       sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'",
-               $mail->getOutput());
+               $mail->getOutput(), $strFrom);
     }
     elseif ($_POST['submit'] == 'accept') {
       $myDBAccess->acceptRole($intPersonId, $intRoleType, session('confid'));
@@ -73,7 +74,7 @@ if (isset($_POST['action'])) {
       $mail->assign($strMailAssocs);
       $mail->parse();
       sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'",
-               $mail->getOutput());
+               $mail->getOutput(), $strFrom);
     }
     elseif ($_POST['submit'] == 'remove') {
       $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
@@ -84,7 +85,7 @@ if (isset($_POST['action'])) {
       $mail->assign($strMailAssocs);
       $mail->parse();
       sendMail($intPersonId, "Role removed in conference '".$strMailAssocs['conference']."'",
-               $mail->getOutput());
+               $mail->getOutput(), $strFrom);
     }
     elseif ($_POST['submit'] == 'reject') {
       $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
@@ -94,7 +95,8 @@ if (isset($_POST['action'])) {
       $mail = new Template(TPLPATH.'mail_rejectrole.tpl');
       $mail->assign($strMailAssocs);
       $mail->parse();
-      sendMail($intPersonId, "Role rejected in conference '".$strMailAssocs['conference']."'", $mail->getOutput());
+      sendMail($intPersonId, "Role rejected in conference '".$strMailAssocs['conference']."'",
+               $mail->getOutput(), $strFrom);
     }
   }
 }
