@@ -30,4 +30,5 @@ public interface ReadService {
     @Deprecated public SearchResult getReviewerList(int conference_id);
     @Deprecated public SearchResult getAllPapers(int conference_id);
     @Deprecated public SearchResult getAllTopicsOfPaper(int paper_id);
+
 }

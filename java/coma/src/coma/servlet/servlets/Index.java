@@ -48,26 +48,7 @@ public class Index extends HttpServlet {
 		//result.append(XMLHelper.tagged("dummy",""));
 		result.append("<content>");
 		
-		ReadServiceImpl myReadService = new ReadServiceImpl();
-		Conference mySearchconference = new Conference(-1);
-		SearchCriteria mysc = new SearchCriteria();
-		mysc.setConference(mySearchconference);
-		SearchResult mySR = myReadService.getConference(mysc);
-		String extraData = "";
-		if (mySR != null){
-			Conference[] confernceArray = (Conference[]) mySR.getResultObj();
- 			extraData="<conference_list>\n";
- 			for (int i = 0; i < confernceArray.length; i++) {
- 				extraData+=(((Conference)confernceArray[i]).toXML(XMLMODE.SHALLOW)).toString();
- 			}
- 			extraData+="</conference_list>\n";
- 			myNavCol.addExtraData(extraData);
- 			result.append(myNavCol.toString());
-			String info = mySR.getInfo();
-			System.out.println(info);
-		}
-			
-			result.append(extraData);
+		result.append(myNavCol.toString());
 		result.append("</content>");		
 			response.setContentType("text/html; charset=ISO-8859-15");
 			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));

@@ -5,7 +5,12 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import coma.entities.Conference;
 import coma.entities.Person;
+import coma.entities.SearchCriteria;
+import coma.entities.SearchResult;
+import coma.entities.Entity.XMLMODE;
+import coma.handler.impl.db.ReadServiceImpl;
 import coma.util.logging.ALogger;
 import static coma.util.logging.Severity.*;
 
@@ -75,6 +80,26 @@ public class Navcolumn {
 // 	    .toString();
 	result.append(tagged("theTime", new Date()));
 	if ( p == null ){
+		ReadServiceImpl myReadService = new ReadServiceImpl();
+		Conference mySearchconference = new Conference(-1);
+		SearchCriteria mysc = new SearchCriteria();
+		mysc.setConference(mySearchconference);
+		SearchResult mySR = myReadService.getConference(mysc);
+		String extraData = "";
+		if (mySR != null){
+			Conference[] confernceArray = (Conference[]) mySR.getResultObj();
+ 			extraData="<conference_list>\n";
+ 			for (int i = 0; i < confernceArray.length; i++) {
+ 				extraData+=(((Conference)confernceArray[i]).toXML(XMLMODE.SHALLOW)).toString();
+ 			}
+ 			extraData+="</conference_list>\n";
+ 			result.append(extraData);
+ 			
+			String info = mySR.getInfo();
+			System.out.println(info);
+		}
+			
+			result.append(extraData);
 	    result.append(tagged("noUser"));
 	} else {
 	    if (p.isChair())

@@ -73,7 +73,7 @@ public class AllocatePapers extends HttpServlet {
 	
 	
 	/**
-	 * temporäre Ausgabe
+	 * temporï¿½re Ausgabe
 	 */
 	private void printOut(HttpServletResponse res) {
 		

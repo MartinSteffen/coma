@@ -122,7 +122,7 @@ public class Login extends HttpServlet {
 		case LOGOUT:
 			session.invalidate();
 			session = request.getSession(true);
-			response.sendRedirect("/coma/index.html");
+			response.sendRedirect("/coma/");
 			break;
 		default:
 			

@@ -33,23 +33,24 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select="/author/success" />
 <xsl:apply-templates select="/author/submitpaper"/>
 <xsl:apply-templates select="/author/writefile" />
+<xsl:apply-templates select="/author/showpaper/success" />
+<xsl:apply-templates select="/author/showpaper/failed" />
 
-<div> <!-- if no action is performed -->
-<table>
-	 <xsl:for-each select="/paper_list//paper">
-                      <tr>
-                      	<td>
-                        <xsl:value-of select="id"/>
-                        </td>
-                      </tr>
-                    </xsl:for-each>
-</table>	
-</div> 
 
 </div> <!-- Main content end -->
 
 </body>
 </html>
+</xsl:template>
+
+
+<xsl:template match="author/showpaper/success">
+<h3>Your submitted papers:</h3>
+<xsl:value-of select="."/>
+</xsl:template>
+<xsl:template match="author/showpaper/failed">
+<h3>An Error has occurred:</h3>
+<xsl:value-of select="."/>
 </xsl:template>
 
 <xsl:template match="/author/submitpaper">

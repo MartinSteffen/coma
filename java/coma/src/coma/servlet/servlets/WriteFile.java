@@ -4,12 +4,10 @@
  */
 package coma.servlet.servlets;
 
-
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.Date;
+
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -25,6 +23,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import coma.entities.Paper;
 import coma.entities.SearchResult;
 import coma.handler.impl.db.InsertServiceImpl;
+import coma.handler.impl.db.UpdateServiceImpl;
 import coma.servlet.util.Navcolumn;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
@@ -38,93 +37,91 @@ import coma.servlet.util.XMLHelper;
  * 
  */
 public class WriteFile extends HttpServlet {
-	
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, java.io.IOException {
-	
-	StringBuffer result = new StringBuffer();
-	XMLHelper helper = new XMLHelper();
-	
-	
-	
-	helper.addXMLHead(result);
-	result.append("<author>\n");
-	String path = getServletContext().getRealPath("");
-	String xslt = path+"/style/xsl/author.xsl";
-	PrintWriter out = response.getWriter();
-	HttpSession session= request.getSession(true);
-	Navcolumn myNavCol = new Navcolumn(session);
-	Paper theNewPaper = (Paper) session.getAttribute(SessionAttribs.PAPER);
-	if (theNewPaper.getId()!=-1){ //update paper: rename the old, so a new one can be created
-		File renameFile = new File(path+"/paper",theNewPaper.getFilename());
-		File backupFile = new File(path+"/paper",theNewPaper.getFilename()+theNewPaper.getVersion());
-		
+			throws ServletException, java.io.IOException {
+
+		StringBuffer result = new StringBuffer();
+		XMLHelper helper = new XMLHelper();
+
+		helper.addXMLHead(result);
+		result.append("<author>\n");
+		String path = getServletContext().getRealPath("");
+		String xslt = path + "/style/xsl/author.xsl";
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession(true);
+		Navcolumn myNavCol = new Navcolumn(session);
+		Paper theNewPaper = (Paper) session.getAttribute(SessionAttribs.PAPER);
+		if (theNewPaper.getId() != -1) { //update paper: rename the old, so a new one can be created
+			File renameFile = new File(path + "/paper", theNewPaper
+					.getFilename());
+			File backupFile = new File(path + "/paper", theNewPaper
+					.getFilename()
+					+ theNewPaper.getVersion());
+
+			try {
+				renameFile.renameTo(backupFile);
+			} catch (RuntimeException e1) {
+				// TODO Auto-generated catch block
+				result.append(XMLHelper.tagged("error", e1.toString()));
+			}
+
+		}
 		try {
-			renameFile.renameTo(backupFile);
-		} catch (RuntimeException e1) {
-			// TODO Auto-generated catch block
-			result.append(XMLHelper.tagged("error",e1.toString()));
+
+			MultipartRequest mpr = new MultipartRequest(request, path
+					+ "/papers", (5 * 1024 * 1024),
+					new DefaultFileRenamePolicy());
+
+			Enumeration fileNames = mpr.getFileNames();
+			String theNewFile = (String) fileNames.nextElement();
+			String theSystemFileName = mpr.getFilesystemName(theNewFile);
+
+			// get session attributes
+
+			theNewPaper.setFilename(theSystemFileName);
+			theNewPaper.setMim_type(mpr.getContentType(theNewFile));
+
+			if (theNewPaper.getId() == -1) {
+				InsertServiceImpl myInsertservice = new InsertServiceImpl();
+				SearchResult mySR = myInsertservice.insertPaper(theNewPaper);
+				if (mySR.SUCCESS)
+					result.append(XMLHelper.tagged("success", mySR.info));
+				else {
+					result.append(XMLHelper.tagged("failed", ""));
+					result.append(XMLHelper.tagged("error", mySR.info));
+				}
+			} else {
+				UpdateServiceImpl myUpdateservice = new UpdateServiceImpl();
+				SearchResult mySR = myUpdateservice.updatePaper(theNewPaper);
+				if (mySR.SUCCESS)
+					result.append(XMLHelper.tagged("success", mySR.info));
+				else {
+					result.append(XMLHelper.tagged("failed", ""));
+					result.append(XMLHelper.tagged("error", mySR.info));
+				}
+
+			}
+			result.append(theNewPaper.toXML());
+		} catch (Exception e) {
+			result.append(XMLHelper.tagged("failed", ""));
+			result.append(XMLHelper.tagged("error", e.toString()));
 		}
-		
+
+		result.append(myNavCol.toString());
+		result.append("</author>\n");
+		response.setContentType("text/html; charset=ISO-8859-15");
+		StreamSource xmlSource = new StreamSource(new StringReader(result
+				.toString()));
+		StreamSource xsltSource = new StreamSource(xslt);
+		XMLHelper.process(xmlSource, xsltSource, out);
+		out.flush();
+
 	}
-	try {
-		
-		
-		
-		MultipartRequest mpr = new MultipartRequest(
-				request,
-				path+"/papers",
-				(5*1024*1024),
-				new DefaultFileRenamePolicy());
-		
-		Enumeration fileNames = mpr.getFileNames();
-		String theNewFile = (String) fileNames.nextElement();
-		String theSystemFileName =mpr.getFilesystemName(theNewFile);
-		
-		// get session attributes
-		
-		
-		
-		theNewPaper.setFilename(theSystemFileName);
-		theNewPaper.setMim_type(mpr.getContentType(theNewFile));
-		
-		
-		
-		
-		
-		
-		InsertServiceImpl myInsertservice = new InsertServiceImpl();
-		SearchResult mySR = myInsertservice.insertPaper(theNewPaper);
-		if (mySR.SUCCESS)
-			result.append(XMLHelper.tagged("success",mySR.info));
-		else {
-			result.append(XMLHelper.tagged("failed",""));
-			result.append(XMLHelper.tagged("error",mySR.info));
-		}
-		result.append(theNewPaper.toXML());
-	} catch (Exception e) {
-		result.append(XMLHelper.tagged("failed",""));
-		result.append(XMLHelper.tagged("error",e.toString()));
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, java.io.IOException {
+		doGet(request, response);
 	}
-	
-	
-	result.append(myNavCol.toString());
-	result.append("</author>\n");
-	response.setContentType("text/html; charset=ISO-8859-15");
-	StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-	StreamSource xsltSource = new StreamSource(xslt);
-	XMLHelper.process(xmlSource, xsltSource, out);
-	out.flush();
-	
-	
-
-
-}
-
-public void doPost(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException,java.io.IOException{
-	doGet(request, response);
-}
 
 }

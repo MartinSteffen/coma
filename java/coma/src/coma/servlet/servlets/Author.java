@@ -17,8 +17,10 @@ import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
 import coma.entities.Conference;
+import coma.entities.Entity;
 import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.SearchCriteria;
 import coma.entities.Topic;
 
 import coma.entities.SearchResult;
@@ -86,11 +88,28 @@ public class Author extends HttpServlet {
 	case NULL: // show all his submitted papers
 		result.append("<showpaper>\n");
 		try {
-				Paper[] thePapers = theLogedPerson.getPapers();
-				result.append("<success>\n");
+			Paper[] thePapers = null; //= theLogedPerson.getPapers();
+			Paper mySearchPaper = new Paper(-1);
+			mySearchPaper.setAuthor_id(theLogedPerson.getId());
+			SearchCriteria mysc = new SearchCriteria();
+			mysc.setPaper(mySearchPaper);
+			SearchResult mySR = myReadService.getPaper(mysc);
+			result.append("<success>\n");
+			if (mySR != null){
+				thePapers = (Paper[])mySR.getResultObj();
+				result.append(XMLHelper.tagged("content",mySR.info));
 				for(int i=0;i<thePapers.length; i++)
-					result.append(thePapers[i].toXML());
-				result.append("</success>\n");
+					result.append((Paper)thePapers[i].toXML());
+				}
+			
+			
+			else {
+				
+				result.append(XMLHelper.tagged("content","sr leer"));
+			}
+				
+				
+			result.append("</success>\n");
 			} catch (Exception e) {
 				result.append(XMLHelper.tagged("failed",e.toString()));
 			}
