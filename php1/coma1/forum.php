@@ -180,7 +180,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == getUID()) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID())))){
+        if (($sender->intId == getUID(getCID())) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID(getCID()))))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -254,7 +254,6 @@ function generatePostMethodArray($postvars){
   $pma['reply-to'] = $postvars['reply-to'];
   $pma['text'] = $postvars['text'];
   $pma['subject'] = $postvars['subject'];
-  $pma['uid'] = getUID();
   $pma['forumid'] = $postvars['forumid'];
   return $pma;
 }
@@ -263,11 +262,15 @@ function emptystring($s){
   return ($s == '');
 }
 
-function getUID(){
+function getUID($cid){
   $uid = session('uid', false);
   if (emptystring($uid)){
-    if (DEBUG){
-      $uid = 1;
+    if (DEBUG){ //ja, sehr haesslich, weiss ich selbst
+      $users = $myDBAccess->getUsersOfConference($cid);
+      srand ((double)microtime()*1000000);
+      $randval = rand(0,count($users)-1);
+      $uid = $users[$randval]->intId;
+      $_SESSION['uid'] = $uid;
     }
     else{
       $uid = session('uid');
@@ -279,12 +282,15 @@ function getUID(){
 function getCID(){
   $cid = session('confid', false);
   if (emptystring($cid)){
-    if (DEBUG){
-      $cid = 1;
+    if (DEBUG){ //siehe debug-kommentar zu getUID
+      $confs = $myDBAccess->getAllConferences();
+      srand ((double)microtime()*1000000);
+      $randval = rand(0,count($confs)-1);
+      $cid = $confs[$randval]->intId;
+      $_SESSION['confid'] = $cid;
     }
     else{
-      //$cid = session('confid');
-      redirect('login.php');
+      $cid = session('confid');
     }
   }
   return $cid;
@@ -297,6 +303,9 @@ if ((emptystring(session('uid', false))) && (!DEBUG)){
 }
 else{
 
+  $cid = getCID();
+  $uid = getUID($cid);
+
   $content = new Template(TPLPATH . 'forumtypes.tpl');
   $contentAssocs = defaultAssocArray();
   $contentAssocs['message'] = session('message', false);
@@ -308,49 +317,34 @@ else{
   }
 
   //evtl. posten einleiten
+  $pvars = generatePostMethodArray($HTTP_POST_VARS);
   if ((!empty($HTTP_POST_VARS['reply-to'])) && (!empty($HTTP_POST_VARS['text']))){
-    $pvars = generatePostMethodArray($HTTP_POST_VARS);
     $postresult = false;
     //auf einen Beitrag antworten
     if (($pvars['posttype'] == 'reply') && (!empty($pvars['text'])) && (!empty($pvars['forumid'])) && (!empty($pvars['reply-to']))){
         if (DEBUG){
-          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
         }
         else{
-          if (!empty($pvars[uid])){
-            $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
-          }
-          else{
-            $postresult = false;
-          }
+          $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
         }
     }
     //einen Beitrag updaten - DBAccess Methode dazu fehlt noch
     if ((1 == 2) && ($pvars['posttype'] == 'update') && (!empty($pvars['reply-to'])) && (!empty($pvars['subject'])) && (!empty($pvars['text']))){
         if (DEBUG){
-          $postresult = $myDBAccess->updateMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+          $postresult = $myDBAccess->updateMessage('DEBUG ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
         }
         else{
-          if (!empty($pvars[uid])){
-            $postresult = $myDBAccess->updateMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
-          }
-          else{
-            $postresult = false;
-          }
+          $postresult = $myDBAccess->updateMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
         }
     }
     //einen neuen Thread starten
     if (($pvars['posttype'] == 'newthread') && (!empty($pvars['text'])) && (!empty($pvars['forumid']))){
         if (DEBUG){
-          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], 0); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+          $postresult = $myDBAccess->addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
         }
         else{
-          if (!empty($pvars[uid])){
-            $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], 0);
-          }
-          else{
-            $postresult = false;
-          }
+          $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], 0);
         }
     }
 
@@ -372,10 +366,10 @@ else{
 
   //foren holen
  if (DEBUG){
-    $forums = $myDBAccess->getAllForums(getCID());
+    $forums = $myDBAccess->getAllForums($cid);
   }
   else{
-    $forums = $myDBAccess->getForumsOfPerson(getUID(), getCID());
+    $forums = $myDBAccess->getForumsOfPerson($uid, $cid);
   }
 
   if (empty($forums)){
