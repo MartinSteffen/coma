@@ -17,6 +17,7 @@ require_once('./include/header.inc.php');
 $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
+$strMessage = '';
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 // siehe vond er Struktur her main_profile.php
@@ -60,7 +61,7 @@ if (isset($_POST['action'])) {
         $strCritDescripts[] = encodeText($_POST['crit_descr-'.($i+1)]);
         $strCritMaxVals[]   = encodeText($_POST['crit_max-'.($i+1)]);
         $strCritWeights[]   = encodeText($_POST['crit_weight-'.($i+1)]);
-      }
+       }
     }
     if (isset($_POST['add_topic']) && !empty($_POST['topic_name'])) {
         $strTopics[] = encodeText($_POST['topic_name']);
@@ -138,59 +139,91 @@ if (isset($_POST['action'])) {
       $noErrors = false;
     }
     // Test, ob das Datumsformat stimmt
-    $abstract_submission_deadline_d= substr( $_POST['abstract_dl'],0,2);
-    $abstract_submission_deadline_m= substr( $_POST['abstract_dl'],3,2);
-    $abstract_submission_deadline_y= substr( $_POST['abstract_dl'],6,4);
-    $paper_submission_deadline_d   = substr( $_POST['paper_dl'],0,2);
-    $paper_submission_deadline_m   = substr( $_POST['paper_dl'],3,2);
-    $paper_submission_deadline_y   = substr( $_POST['paper_dl'],6,4);
-    $review_deadline_d             = substr( $_POST['review_dl'],0,2);
-    $review_deadline_m             = substr( $_POST['review_dl'],3,2);
-    $review_deadline_y             = substr( $_POST['review_dl'],6,4);
-    $final_version_deadline_d      = substr( $_POST['final_dl'],0,2);
-    $final_version_deadline_m      = substr( $_POST['final_dl'],3,2);
-    $final_version_deadline_y      = substr( $_POST['final_dl'],6,4);
+    $abstract_dl_d= substr( $_POST['abstract_dl'],0,2);
+    $abstract_dl_m= substr( $_POST['abstract_dl'],3,2);
+    $abstract_dl_y= substr( $_POST['abstract_dl'],6,4);
+    $paper_dl_d   = substr( $_POST['paper_dl'],0,2);
+    $paper_dl_m   = substr( $_POST['paper_dl'],3,2);
+    $paper_dl_y   = substr( $_POST['paper_dl'],6,4);
+    $review_dl_d             = substr( $_POST['review_dl'],0,2);
+    $review_dl_m             = substr( $_POST['review_dl'],3,2);
+    $review_dl_y             = substr( $_POST['review_dl'],6,4);
+    $final_dl_d      = substr( $_POST['final_dl'],0,2);
+    $final_dl_m      = substr( $_POST['final_dl'],3,2);
+    $final_dl_y      = substr( $_POST['final_dl'],6,4);
     $notification_d                = substr( $_POST['notification'],0,2);
     $notification_m                = substr( $_POST['notification'],3,2);
     $notification_y                = substr( $_POST['notification'],6,4);
-    $conference_start_d            = substr( $_POST['start_date'],0,2);
-    $conference_start_m            = substr( $_POST['start_date'],3,2);
-    $conference_start_y            = substr( $_POST['start_date'],6,4);
-    $conference_end_d              = substr( $_POST['end_date'],0,2);
-    $conference_end_m              = substr( $_POST['end_date'],3,2);
-    $conference_end_y              = substr( $_POST['end_date'],6,4);
+    $start_date_d            = substr( $_POST['start_date'],0,2);
+    $start_date_m            = substr( $_POST['start_date'],3,2);
+    $start_date_y            = substr( $_POST['start_date'],6,4);
+    $end_date_d              = substr( $_POST['end_date'],0,2);
+    $end_date_m              = substr( $_POST['end_date'],3,2);
+    $end_date_y              = substr( $_POST['end_date'],6,4);
 
 
+<<<<<<< .mine
+    if (!checkdate((int)$abstract_dl_m,
+                   (int)$abstract_dl_d,
+		   (int)$abstract_dl_y) & $_POST['abstract_dl'] != '000'){
+      $strMessage =  $strMessage.' <br> Wrong format in the \'deadline for abstracts\':'.
+	             $_POST['abstract_dl'];
+=======
     if (!checkdate((int)$abstract_submission_deadline_m,
                    (int)$abstract_submission_deadline_d,
 		   (int)$abstract_submission_deadline_y) && !empty($_POST['abstract_dl'])) {
       $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').
                     'Wrong format in field \'Deadline for abstracts\': '.
 	            $_POST['abstract_dl'];
+>>>>>>> .r2824
       $noErrors = false;
     }
+<<<<<<< .mine
+    if (!checkdate((int)$paper_dl_m,
+	           (int)$paper_dl_d,
+		   (int)$paper_dl_y) & $_POST['paper_dl']!= '000'){
+      $strMessage =  $strMessage.'<br> Wrong format in the \'deadline for paper submission \':'.
+	             $_POST['paper_dl'];
+=======
     if (!checkdate((int)$paper_submission_deadline_m,
 	           (int)$paper_submission_deadline_d,
 		   (int)$paper_submission_deadline_y) && !empty($_POST['paper_dl'])) {
       $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').
                     'Wrong format in field \'Deadline for paper submission\': '.
 	            $_POST['paper_dl'];
+>>>>>>> .r2824
       $noErrors = false;
     }
+<<<<<<< .mine
+    if (!checkdate((int)$review_dl_m,
+		   (int)$review_dl_d,
+      		   (int)$review_dl_y) & $_POST['review_dl']!='000'){
+      $strMessage =  $strMessage.'<br> Wrong format in the \' deadline for reviews \' :'.
+                     $_POST['review_dl'];
+=======
     if (!checkdate((int)$review_deadline_m,
 		   (int)$review_deadline_d,
       		   (int)$review_deadline_y) && !empty($_POST['review_dl'])) {
       $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').
                     'Wrong format in field \'Deadline for reviews\':'.
                     $_POST['review_dl'];
+>>>>>>> .r2824
       $noErrors = false;
     }
+<<<<<<< .mine
+    if (!checkdate((int)$final_dl_m,
+		   (int)$final_dl_d,
+		   (int)$final_dl_y) & $_POST['final_dl']!='000'){
+     $strMessage =  $strMessage.'<br> Wrong format in the \'deadline for final versions \':'.
+                    $_POST['final_dl']; 
+=======
     if (!checkdate((int)$final_version_deadline_m,
 		   (int)$final_version_deadline_d,
 		   (int)$final_version_deadline_y) && !empty($_POST['final_dl'])) {
      $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').
                    'Wrong format in field \'Deadline for final versions\': '.
                    $_POST['final_dl'];
+>>>>>>> .r2824
      $noErrors = false;
     }
 
@@ -203,21 +236,37 @@ if (isset($_POST['action'])) {
      $noErrors = false;
     }
 
+<<<<<<< .mine
+    if (!checkdate((int)$start_date_m,
+		   (int)$start_date_d,
+		   (int)$start_date_y) & $_POST['start_date']!='000'){
+     $strMessage =  $strMessage.'<br> Wrong format in the \'date of start\':'.
+                    $_POST['start_date'];
+=======
     if (!checkdate((int)$conference_start_m,
 		   (int)$conference_start_d,
 		   (int)$conference_start_y) && !empty($_POST['start_date'])) {
      $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').
                    'Wrong format in field \'Start date\': '.
                    $_POST['start_date'];
+>>>>>>> .r2824
      $noErrors = false;
     }
 
+<<<<<<< .mine
+    if (!checkdate((int)$end_date_m,
+		   (int)$end_date_d,
+		   (int)$end_date_y) & $_POST['end_date']!='000'){
+     $strMessage = $strMessage.'<br> Wrong format in the \' date of end \':'.
+                   $_POST['end_date'];
+=======
     if (!checkdate((int)$conference_end_m,
 		   (int)$conference_end_d,
 		   (int)$conference_end_y) && !empty($_POST['end_date'])) {
     $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').		   	
                   'Wrong format in field \'End date\': '.
                   $_POST['end_date'];
+>>>>>>> .r2824
      $noErrors = false;
    }
 
@@ -225,6 +274,27 @@ if (isset($_POST['action'])) {
    * Test, ob die Datumsangaben plausibel sind
    *
    */
+<<<<<<< .mine
+  if (!(($abstract_dl_d.$abstract_dl_m.$abstract_dl_y <= $paper_dl_d.$paper_dl_m.$paper_dl_y )&&
+        ($paper_dl_d.$paper_dl_m.$paper_dl_y  <= $notification_d.$notification_m.$notification_y )&&
+        ($notification_d.$notification_m.$notification_y < $start_date_d.$start_date_m.$start_date_y)&&
+        ($start_date_d.$start_date_m.$start_date_y <= $end_date_d.$end_date_m.$end_date_y)&&
+        ($paper_dl_d.$paper_dl_m.$paper_dl_y <= $final_dl_d.$final_dl_m.$final_dl_y) &&
+        ($final_dl_d.$final_dl_m.$final_dl_y <= $start_date_d.$start_date_m.$start_date_y)
+	) && !($noErrors==false) //nur aufrufen, wenn hier auch der Fehler vorliegt!
+      ){
+     $strMessage =  $strMessage.'<br> <br> You have contradictions in the dates !!! <br>'
+                       .$_POST['abstract_dl'].'
+                    <='.$_POST['paper_dl'].'
+                    <='.$_POST['notification'].'
+                     <'.$_POST['start_date'].'
+                    <='.$_POST['end_date'].'
+                    <br> <br>'
+                       .$_POST['paper_dl'].'
+                    <='.$_POST['final_dl'].'
+                    <='.$_POST['start_date'];
+     $strMainAssocs['message'] = $strMessage; 
+=======
   if ($noErrors &&
        !(( $abstract_submission_deadline_y.
            $abstract_submission_deadline_m.
@@ -285,6 +355,7 @@ if (isset($_POST['action'])) {
                    'It should be: '.$_POST['abstract_dl'].'<='.$_POST['paper_dl'].'<='.
                    $_POST['notification'].'<='.$_POST['start_date'].'<='.$_POST['end_date'].
                    '<br>and: '.$_POST['paper_dl'].'<='.$_POST['final_dl'].'<='.$_POST['start_date'];     
+>>>>>>> .r2824
      $noErrors = false;
    }
 
