@@ -37,8 +37,11 @@ echo('Co-Autoren:<br>');
 for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
   echo ($p->intCoAuthorIds[$i].' / '.$p->strCoAuthors[$i].'<br>');
 }
-$p->intCoAuthorIds[] = $p->intCoAuthorIds[0];
+$p->intCoAuthorIds[] = false;
 $p->strCoAuthors[] = 'John Kerry';
+$p->intCoAuthorIds[] = $p->intCoAuthorIds[0];
+$p->strCoAuthors[] = false;
+$p->intCoAuthorIds[0] = false;
 $myDBAccess->updatePaperDetailed($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
