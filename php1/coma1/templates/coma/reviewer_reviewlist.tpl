@@ -99,19 +99,19 @@
   </tr>
   <tr>
     <td> 
-    <form action="" method="post">
-      overal rating:<br>
-      <input type="text" size="2"  name="overal rating" /> <br> <br>
-      originality:<br>
-      <input type="text" size="2" name="originality" />  <br> <br>
-      soundness:<br>
-      <input type="text" size="2"  name="soundness" /> <br> <br>
-      relevance:<br>
-      <input type="text" size="2"  name="relevance" /> <br> <br>
-      style: <br>
-      <input type="text" size="2"  name="style" /> <br> <br>
-      confidence: <br>
-      <input type="text" size="2"  name="confidence" /> 
+    <form action="" method="post"> &nbsp;  &nbsp;
+      overal rating:
+      <input type="text" size="2"  name="overal rating" /> &nbsp;  &nbsp;
+      originality:
+      <input type="text" size="2" name="originality" /> &nbsp;  &nbsp;
+      soundness:
+      <input type="text" size="2"  name="soundness" /> &nbsp;  &nbsp;
+      relevance:
+      <input type="text" size="2"  name="relevance" /> &nbsp;  &nbsp;
+      style: 
+      <input type="text" size="2"  name="style" /> &nbsp;  &nbsp;
+      confidence: 
+      <input type="text" size="2"  name="confidence" /> &nbsp;  &nbsp;
      </form>
    </td>
   <tr>
