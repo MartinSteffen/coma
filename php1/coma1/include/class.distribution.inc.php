@@ -318,7 +318,7 @@ class Distribution extends ErrorHandling {
     // $intWantedReviewers mit Average-Werten belegen, falls nicht explizit
     // ein anderer Wert gesetzt wurde.
     for ($i = 0; $i < count($p_id); $i++) {
-      if (!isset($intWantedReviewers[$p_id[$i]]) || $intWantedReviewers[$p_id[$i]] <= 0) {
+      if (1 || !isset($intWantedReviewers[$p_id[$i]]) || $intWantedReviewers[$p_id[$i]] <= 0) {
         $intWantedReviewers[$p_id[$i]] = $avg_revs_per_paper;
       } 
       echo('<br>Wanted: '.$intWantedReviewers[$p_id[$i]]);
@@ -360,7 +360,7 @@ class Distribution extends ErrorHandling {
       for ($i = 0; $i < count($p_id); $i++) {
         // nur solche, fuer die noch Reviewer in Frage kommen
         if ($p_num_revs_total_left[$i] > 0) {
-          if($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] < $minFactor/* ||
+          if($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] < $minFactor /* ||
               (abs($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] - $minFactor) <= 0.005 &&
                $intWantedReviewers[$p_id[$i]] > $wanted)*/) {
             $minFactor = $p_num_revs[$i];
