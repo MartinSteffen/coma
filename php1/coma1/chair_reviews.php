@@ -26,6 +26,11 @@ if ($myDBAccess->failed()) {
   error('get review list of chair',$myDBAccess->getLastError());
 }
 
+$fltCrit = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get review list of chair',$myDBAccess->getLastError());
+}
+
 $content = new Template(TPLPATH.'chair_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['if'] = array();
@@ -48,17 +53,25 @@ if (!empty($objPapers)) {
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $objReviewers = $myDBAccess->getAssignedReviewersOfPaper($objPaper->intId);
+    $intRevs = $myDBAccess->getNumberOfReviewsOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $strItemAssocs['num_reviews'] = encodeText(count($objReviews).'/'.count($objReviewers));
+    $strItemAssocs['num_reviews'] = encodeText($intRevs.'/'.count($objReviewers));
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
     else {
       $strItemAssocs['avg_rating'] = ' - ';
-    }    
+    }
+    $fltTestTmp = rand(0,100);
+    if ($fltTestTmp >= $fltCrit*100) {
+      $ifArray[] = 6;
+    }
+    else {
+      $ifArray[] = 7;
+    }
+    $strItemAssocs['crit_value'] = $fltTestTmp/100;
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'chair_reviewlistitem.tpl');
     $paperItem->assign($strItemAssocs);

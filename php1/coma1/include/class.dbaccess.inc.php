@@ -1006,6 +1006,29 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert die Anzahl der bisherigen Reviews des Papers $intPaperId zurueck.
+   *
+   * @param int $intPaperId ID des Papers
+   * @return int Anzahl der Reviews.
+   * @access public
+   * @author Tom (26.01.05)
+   */
+  getNumberOfReviewsOfPaper($intPaperId) {
+    $s = sprintf("SELECT   COUNT(*) AS num".
+                 " FROM    ReviewReport".
+                 " WHERE   paper_id = '%d'",
+                           s2db($intPaperId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getNumberOfReviewsOfPaper', $this->mySql->getLastError());
+    }
+    if (empty($data)) { // sollte nicht vorkommen
+      return $this->error('getNumberOfReviewsOfPaper', 'Empty result set.');
+    }
+    return $this->success($data[0]['num']);
+  }
+
+  /**
    * Liefert ein Array von Person-Objekten zurueck, die als Reviewer des Papers $intPaperId
    * zugeteilt worden sind.
    *
