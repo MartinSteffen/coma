@@ -20,18 +20,7 @@ require_once('./include/class.dbaccess.inc.php');
 
 $mySql = new MySql();
 $mySession = new Session($mySql);
-$myTemplate = new Template('./templates/login.tpl');
 
-$assocArray = array(
-  'tag1' => 'Hallo',
-  'tag2' => 'Test'
-);
-
-$myTemplate->assign($assocArray);
-
-$myTemplate->parse();
-
-$myTemplate->output();
-
+echo 'OK';
 
 ?>
