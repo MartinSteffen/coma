@@ -63,15 +63,48 @@ class Distribution extends ErrorHandling {
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
-    
-    /*$s = sprintf("SELECT   id AS paper_id".
-                 " FROM    Paper AS p".
-                 " WHERE   p.conference_id = '%s'",
+    // Paper-ID's holen
+    $s = sprintf("SELECT   id".
+                 " FROM    Paper".
+                 " WHERE   conference_id = '%s'",
                  s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getDistribution', $this->mySql->getLastError());
-    }*/
+    }
+    if (empty($data)) {
+      return array();
+    }
+    // Paper-Indizierungsarray erstellen
+    $p_id = array(); // enthaelt ID's von Papern
+    for ($i = 0; $i < count($data); $i++) {
+      $p_id[$i] = $data[$i]['id'];
+    }
+    echo('<br>'.count($data).' Papers found.');
+    // Reviewer-ID's holen
+    $s = sprintf("SELECT   p.id".
+                 " FROM    Person AS p".
+                 " INNER   JOIN Role AS r".
+                 " ON      r.person_id = p.id".
+                 " AND     r.role_type = '%d'".
+                 " WHERE   r.conference_id = '%s'",
+                 s2db(REVIEWER), s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getDistribution', $this->mySql->getLastError());
+    }
+    if (empty($data)) {
+      return array();
+    }
+    // Reviewer-Indizierungsarray erstellen
+    $r_id = array(); // enthaelt ID's von Reviewern
+    for ($i = 0; $i < count($data); $i++) {
+      $r_id[$i] = $data[$i]['id'];
+    }
+    echo('<br>'.count($data).' Reviewers found.');
+    // Paper-Reviewer-Matrix aufstellen; array_fill ab PHP >= 4.2
+    $matrix = array_fill(0, count($p_id)-1, array_fill(0, count($r_id)-1, false));
+
     return false;
   }
 
