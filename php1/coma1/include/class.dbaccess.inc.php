@@ -1091,7 +1091,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getNumberOfPapers', $this->mySql->getLastError());
     }
-    return $this->success(!empty($data) ? count($data) : 0);
+    return $this->success(!empty($data) ? $data[0]['num'] : 0);
   }
 
   /**
