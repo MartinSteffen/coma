@@ -39,7 +39,7 @@
 		</form>
 	</li>
 	<li>
-	<form action="Subscribe" method="get">	
+	<form action="Subscribe" method="post">	
 	<fieldset>
 		<label for="subscribe">not jet a Login? hurry up</label><br />
 		<input type="submit" id="subscribe" value="subscribe!" class="submit-button" />

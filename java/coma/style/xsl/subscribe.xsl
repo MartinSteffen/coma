@@ -21,7 +21,7 @@
 <!-- Site navigation menu -->
 <div class="navbar">
 <ul>
-  <li><a href="Index">Home page</a></li>
+  <li><a href="index.html">Home page</a></li>
   
   <li><a href="http://snert.informatik.uni-kiel.de:8888/coma/">tomcat directory</a></li>
   <li><a href="http://snert.informatik.uni-kiel.de:8080/svn/coma/">svn repository</a></li>
@@ -48,120 +48,180 @@
 </html>
 </xsl:template>
 
-<xsl:template match="/result/status">
+<xsl:template match="/subscribe/status">
 <h3><xsl:apply-templates/></h3>
 </xsl:template>
 
-<xsl:template match="/result/myform">
+<xsl:template match="subscribe/failed">
+<h3>An Error has occurred,plaese check your data!</h3>
+</xsl:template>
+
+<xsl:template match="subscribe/success">
+<h3>You are successfully added to your database!<br/> You are free to login!</h3>
+</xsl:template>
+
+<xsl:template match="/subscribe/form">
 <h3>Fill out the form to subscribe</h3>
 	<form method="post" action="Subscribe" >
-		<table border="0">
+		<table style="border:0">
 			<tr>
 				<td>First name: </td>
 				<td>
-					<input type="text" name="first_name" size="20"/>
+					<input class="input-box" type="text" name="first_name" size="20">
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="first_name"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Last name: </td>
 				<td >
-					<input type="text" name="last_name" size="20" />
+					<input class="input-box" style="border:1px solid red" type="text" name="last_name" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="last_name"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Title: </td>
 				<td >
-					<input type="text" name="title" size="20" />
+					<input class="input-box" type="text" name="title" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="title"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Affiliation: </td>
 				<td >
-					<input type="text" name="affiliation" size="20" />
+					<input class="input-box" type="text" name="affiliation" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="affiliation"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td>Your email: </td>
 		  	<td>
-		  		<input type="text" name="email" size="20" />
+		  		<input class="input-box" style="border:1px solid red" type="text" name="email" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="email"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Phone number: </td>
 				<td >
-					<input type="text" name="phone_number" size="20" />
+					<input class="input-box" type="text" name="phone_number" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="phone_number"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Fax number: </td>
 				<td >
-					<input type="text" name="fax_number" size="20" />
+					<input class="input-box" type="text" name="fax_number" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="fax_number"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Street: </td>
 				<td >
-					<input type="text" name="street" size="20" />
+					<input class="input-box" type="text" name="street" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="street"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Postal code: </td>
 				<td >
-					<input type="text" name="postal_code" size="20" />
+					<input class="input-box" type="text" name="postal_code" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="postal_code"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >City: </td>
 				<td >
-					<input type="text" name="city" size="20" />
+					<input class="input-box" type="text" name="city" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="city"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >State: </td>
 				<td >
-					<input type="text" name="state" size="20" />
+					<input class="input-box" type="text" name="state" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="state"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
 				<td >Country: </td>
 				<td >
-					<input type="text" name="country" size="20" />
+					<input class="input-box" type="text" name="country" size="20" >
+					 <xsl:attribute name="value">
+					 <xsl:value-of select="country"/>
+					 </xsl:attribute>
+					 </input>
 				</td>
 			</tr>
 			<tr>
-				<td >Password: </td>
+				<td >Password: min 6 chars </td>
 				<td >
-					<input type="password" name="password" size="20" />
+					<input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />
 				</td>
 			</tr>
 			<tr>
 				<td > Re-type password: </td>
 				<td >
-					<input type="password" name="repassword" size="20" />
+					<input class="input-box" style="border:1px solid red" type="password" name="repassword" size="20" />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" value="Submit Info" />
+					<input class="submit-button" type="submit" value="Submit Info" />
 				</td>
 			</tr>
 		</table>
 	</form>
-	<xsl:apply-templates/>
+	<div>red fields are mandatory</div>
 </xsl:template>
 
-<xsl:template match="result/person">
-<table border="1">
-      <tr bgcolor="#9acd32">
-        <th>key</th>
-        <th>value</th>
-      </tr>
-      
-      <tr>
-        <td><xsl:apply-templates/></td>
-      </tr>
-      
-</table>
+<xsl:template match="subscribe/person">
+<form action="Login" method="post">
+  	<fieldset>
+				<label for="name">E-mail</label><br />
+				<input type="text" id="e-mail" class="input-box">
+				 <xsl:attribute name="value">
+					 <xsl:value-of select="email"/>
+				</xsl:attribute>
+				</input>	 
+				<br />
+				<label for="passwd">Password</label><br />
+				<input type="password" id="password" class="input-box" />
+				<br />
+				<input type="submit" value="login" class="submit-button" />
+		</fieldset>
+		</form>
 </xsl:template>
 
 
