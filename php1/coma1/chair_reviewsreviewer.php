@@ -96,13 +96,13 @@ if (!empty($r_id)) {
     $strItemAssocs['num_papers'] = encodeText($intNum);
 
     $strItemAssocs['topics'] = '';
-    foreach ($objTopics as $objTopic) {
-      if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
+    for ($i = 0; $i < count($objTopics); $i++) {
+      if ($objReviewerAttitude->getTopicAttitude($objTopics[$i]->intId) == ATTITUDE_PREFER) {
         $strItem2Assocs = defaultAssocArray();
-        $strItem2Assocs['topic'] = $objTopic->strName.'NAME';
+        $strItem2Assocs['topic'] = $objTopics[$i]->strName;
         $strItem2Assocs['if'] = array(0);
-        for ($i = 0; $i < count($objPaper->objTopics); $i++) {
-          if ($objTopic->intId == $objPaper->objTopics[$i]->intId) {
+        for ($j = 0; $j < count($objPaper->objTopics); $j++) {
+          if ($objTopics[$i]->intId == $objPaper->objTopics[$j]->intId) {
             $strItem2Assocs['if'] = array(1);
             break;
           }
