@@ -110,7 +110,7 @@
 				<filter token="PASSWORD" value="${db.password}" />
 			</filterset>
 		</copy>
-		<copy file="${basedir}/build.props" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
+		<copy file="${basedir}/build.properties" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
 		</copy>
 		<copy todir="${webapps.home}" overwrite="true">
 			<fileset dir="${dist}/" />
