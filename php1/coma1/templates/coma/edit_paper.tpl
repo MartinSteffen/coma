@@ -57,7 +57,7 @@
 </table>
 </form>
 
-<form action="{basepath}{targetpage}.php{?SID}" method="post">
+<form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
 <table class="formtable">
   <tr>
     <th>Upload new document:</th>
@@ -69,7 +69,7 @@
 </table>
 </form>
 
-<form action="{basepath}{targetpage}.php{?SID}" method="post">
+<form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
 <table class="formtable">
   <tr>
     <th>Add co-author:</th>
@@ -84,7 +84,7 @@
 </table>
 </form>
 
-<form action="{basepath}{targetpage}.php{?SID}" method="post">
+<form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
 <table class="formtable">
   <tr>
     <td colspan="2">      
