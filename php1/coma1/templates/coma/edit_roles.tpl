@@ -6,7 +6,7 @@
           <span{if1 class="role_active"}{if2 class="role_passive"}{if3 class="role_request"}>{role_name}</span>
           {if1<input type="submit" name="submit" value="remove" class="smallbutton">}
           {if2<input type="submit" name="submit" value="add" class="smallbutton">}
-          {if3<input type="submit" name="submit" value="accept" class="smallbutton"><br>
+          {if3<br><input type="submit" name="submit" value="accept" class="smallbutton">
               <input type="submit" name="submit" value="reject" class="smallbutton">}
         </form> 
       </td>
