@@ -71,14 +71,20 @@ foreach($TPL as $key => $value) {
 			?>
 <fieldset>
 <legend class="text"><font class="textBold">Conference: </font><? echo $row['conference_name']; ?></legend>
-<br>
-			<?
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td>&nbsp;</td>
+<td>
+		<?
 			foreach ($row as $v) {
 				if (is_array ($v)) {
-					?>	
+					?>
+				</td>
+			</tr>
+		</table>	
 	<fieldset>
 	<legend class="text"><font class="textBold">Paper: </font><? echo $v['title']; ?><font class="textBold"> -- last edited: </font><? echo $v['last_edited'] ?></legend>
-		<table align="left">
+		<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td class="textBold">
 					<a href="index.php?m=author&a=view&s=getfile&pid=<? echo $v['id']; ?>"><? echo $v['title']; ?></a>
