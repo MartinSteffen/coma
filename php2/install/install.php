@@ -52,11 +52,11 @@ if($_REQUEST['submit']) {
 			."\$ftphost='$ftp_host'; \n"
 			."\$ftpuser='$ftp_user'; \n"
 			."\$ftppass='$ftp_passwd'; \n"
-			."\$ftpdir='$ftp_dir'; \n"
+			."\$ftpdir='$ftp_directory'; \n"
 			."\$httpftpurl='$ftp_baseurl'; \n"
 			." \n"
 			." \n"
-			." \n";
+			."?>";
 	
 		// try filesystem write access
 		if (is_writable("../includes/config.inc.php")) {
