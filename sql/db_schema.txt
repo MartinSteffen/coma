@@ -54,6 +54,13 @@ Eine kleine Korrektur:
   
   --- Tom, 04.12.04
 
++++ Moahmed:
+  unten gibt ihr einen Enumeration-Vorschlag wo die Datentypen Strings
+  sind. Hier sagt ihr roles_type, state sind integers ???.
+  Ich schlage vor: Eine Tablle fuer diese Enumerierungen mit einem
+  Fremdschluessel ind der entsprechenden Tabelle so wie in der Datei
+  db_schema.sql
++++  
 
   
 1.  Tables:
@@ -89,6 +96,7 @@ city		Varchar 127
 state		Varchar 127
 country		Varchar 127
 password	Varchar 32      Not Null (encrypted)
+
 
  Table Role
 ~~~~~~~~~~~~~
