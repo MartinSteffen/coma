@@ -819,7 +819,7 @@ class DBAccess extends ErrorHandling {
    */
   function getNextMessages($intMessageId) {
     $s = "SELECT  id, sender_id, send_time, subject, text".
-        " FROM    Message'.
+        " FROM    Message".
         " WHERE   reply_to = $intMessageId";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
