@@ -235,6 +235,7 @@ if (isset($_POST['action'])) {
     
     var_dump($strCritWeights);
     print_r($strCritWeights);
+    echo array_sum($strCritWeights);
     
     if (array_sum($strCritWeights) != 1) {
       $strMessage .= "The weight of the criterions should sum to one!\n";
