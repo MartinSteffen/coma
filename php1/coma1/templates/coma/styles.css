@@ -538,7 +538,7 @@ span.status-reviewed   { font-weight: normal; color: #000000; }
 span.status-unreviewed { font-weight: normal; color: #A00000; }
 span.status-critical   { font-weight: bold;   color: #FF2600; }
 span.status-accepted   { font-weight: bold;   color: #00A000; }
-span.status-rejected   { font-weight: bold;   color: #A0A0A0; }
+span.status-rejected   { font-weight: bold;   color: #808080; }
 
 span.role_active       { font-weight: bold;   color: #000000; }
 span.role_passive      { font-weight: bold;   color: #A0A0A0; }
