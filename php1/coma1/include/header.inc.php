@@ -57,7 +57,7 @@ $strRoles = array(CHAIR       => 'Chair',
 /**#@+ Konstanten fuer die Artikelstatuswerte */
 define('PAPER_UNREVIEWED',  0);
 define('PAPER_REVIEWED',    1);
-define('PAPER_CONFLICTED'   2);
+define('PAPER_CONFLICTED',  2);
 define('PAPER_ACCEPTED',    3);
 define('PAPER_REJECTED',    4);
 /**#@-*/
