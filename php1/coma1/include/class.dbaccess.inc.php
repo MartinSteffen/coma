@@ -896,7 +896,7 @@ class DBAccess extends ErrorHandling {
    * Kriterien unter Beruecksichtigung der Gewichtungen).
    *
    * @param int $intReviewId ID des Reviews
-   * @return int false, falls keine Ratings zu den Kriterien gemacht wurden.
+   * @return float false, falls keine Ratings zu den Kriterien gemacht wurden.
    * @access private
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */

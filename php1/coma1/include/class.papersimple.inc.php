@@ -31,7 +31,7 @@ class PaperSimple extends Paper {
   var $intAuthorId;
   var $strAuthor; // hinzugefuegt (Tom) (i.d.R. first_name &nbsp; last_name)
   var $intStatus;
-  var $fltAvgRating; // false, falls kein Rating existiert
+  var $fltAvgRating; // false, falls kein Rating existiert  
   var $strFilePath;
   var $objTopics;  
 

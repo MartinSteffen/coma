@@ -40,6 +40,7 @@ if (!empty($objPapers)) {
     }
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
+    $strItemAssocs['max_rating'] = encodeText('TODO');
     $strItemAssocs['last_edited'] = 'TODO';        
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'chair_paperlistitem.tpl');

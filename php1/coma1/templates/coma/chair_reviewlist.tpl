@@ -1,18 +1,5 @@
 
 <table class="list">
-  <tr>
-    <td> distibute articles which are marked 'distribute'</td> 
-    <td>
-       <form action="" method="post" accept-charset="UTF-8">
-       <input type="hidden" name="confid" value="{confid}" />
-       <input type="submit" name="submit" value="calculate" class="button" />
-       </form>
-    </td>
-  </tr>
-
-</table>
-
-<table class="list">
   <tr class="listheader">
     <th width="20%" class="listheader"> Title            </th> 
     <th width="20%" class="listheader"> Author           </th> 
