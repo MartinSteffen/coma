@@ -599,6 +599,45 @@ class DBAccess extends ErrorHandling {
                   $data[0]['filename'], $objTopics));
     return $this->success($objPaper);
   }
+  
+  /**
+   * Liefert das Paper-File mit der ID $intPaperId zurueck.
+   *
+   * Rueckgabe: (filename, mime_type, contents)
+   *
+   * @param int $intPaperId ID des Papers
+   * @return (string, string, string) oder false, falls das Paper nicht existiert.
+   * @access public
+   * @author Jan (25.01.04)
+   */
+  function getPaperFile($intPaperId) {
+    $s = sprintf("SELECT   filename, mime_type".
+                 " FROM    Paper".
+                 " WHERE   id = '%d'",
+                           s2db($intPaperId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPaperFile', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    if (empty($data[0]['filename']) || empty($data[0]['mime_type'])) {
+      return $this->success(false);
+    }
+    $s = sprintf("SELECT   file".
+                 " FROM    PaperData".
+                 " WHERE   paper_id = '%d'",
+                           s2db($intPaperId));
+    $file = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPaperFile', $this->mySql->getLastError());
+    }
+    else if (empty($file)) {
+      return $this->error('getPaperFile', 'Expected Binary File not found in DB!');
+    }
+    return $this->success(array($data[0]['filename'], $data[0]['mime_type'], $file[0]['file']));
+  }
 
   /**
    * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId in der

@@ -37,7 +37,6 @@ $strContentAssocs['title'] = encodeText($objPaper->strTitle);
 $strContentAssocs['abstract'] = encodeText($objPaper->strAbstract);
 $strContentAssocs['author_id'] = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);      
-$strContentAssocs['file_link'] = encodeURL($objPaper->strFilePath);
 $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
 $strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version'] = encodeText($objPaper->intVersion);
