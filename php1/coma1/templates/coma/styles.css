@@ -196,15 +196,14 @@ table.menu
   padding: 10px;
   vertical-align: top;
   text-align: left;
-  background-color: #F4F8FF;
-  border-right: 2px #DBE9EC solid;
+  background-color: #F4F8FF;  
 }
 td.menu
 {
   width: 150px;
   background-color: #F5FBFF;
   vertical-align: top;
-  margin-bottom: 10px;
+  margin-bottom: 10px;  
 }
 td.submenu
 {
