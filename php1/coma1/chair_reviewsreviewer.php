@@ -107,7 +107,7 @@ if (!empty($r_id)) {
       $strItemAssocs['if'][] = 7; // Checkbox ohne Haekchen setzen
     }
 
-    foreach ($objTopics as objTopic) {
+    foreach ($objTopics as $objTopic) {
       if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
         $strItem2Assocs = defaultAssocArray();
         $strItem2Assocs['if'] = array(0);
