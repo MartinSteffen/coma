@@ -1,0 +1,19 @@
+## This Properties have to be adjusted according to the installation system ###
+
+db.url=jdbc:mysql://vs170142.vserver.de/coma3
+db.user=coma3
+db.password=TervArHorhy
+db.driver=org.gjt.mm.mysql.Driver
+
+webapps.home=/home/ziad/webapps
+catalina.home=/usr/local/tomcat5
+lib.home=/home/ziad/projects/jars
+
+tomcat.manager.user=manager
+tomcat.manager.password=tomcat
+tomcat.url=http://localhost:8080
+###################### END ######################################
+############ change this if you do not use tomcat 5.x ###########
+tomcat.undeploy_path=manager/html/undeploy?path=/${app.name}
+tomcat.deploy_path=manager/html/deploy?deployPath=&deployConfig=file:${dist}/${app.name}/${app.name}.xml&deployWar=file:${webapps.home}/${app.name}
+###################### END ######################################

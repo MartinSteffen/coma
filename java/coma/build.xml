@@ -14,25 +14,15 @@
 	<property name="doc" value="${basedir}/doc" />
 	<property name="dist" value="${basedir}/dist" />
 	<property name="style" value="${basedir}/style" />
-	<property name="papers" value="${basedir}/papers" />
+	<property name="papers" value="${basedir}/${papers}" />
+	<property file="${basedir}/build.props" name="setup.params" location="${basedir}"/>
     
 	<path id="compile.classpath">
-		<!--
-		<pathelement location="${env.CATALINA_HOME}/common/classes" />
-		<pathelement location="${env.CATALINA_HOME}/shared/classes" />
-		
-		<fileset dir="${env.CATALINA_HOME}/common/endorsed">
-			<include name="*.jar" />
-		</fileset>
-		<fileset dir="${env.CATALINA_HOME}/common/lib">
-			<include name="*.jar" />
-		</fileset>
-		-->
 		<fileset dir="${env.LIB_HOME}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
-    
+ 
 	<target name="clean" description="deleting old build ...">
 			<delete dir="${bin}" />
 			<delete dir="${doc}" />
@@ -63,7 +53,10 @@
 		<mkdir dir="${dist}/${app.name}/style" />
 		<mkdir dir="${dist}/${app.name}/papers"/>
 		<mkdir dir="${dist}/${app.name}/doc" />
-		<chmod perm="755" dir="${dist}/${app.name}/papers"/>
+		<chmod perm="u=rwx,g=rx,o=x">
+			<fileset dir="${dist}/${app.name}/papers" />
+		</chmod>
+		<mkdir dir="${dist}/${app.name}/META-INF" />
 		<copy todir="${dist}/${app.name}/WEB-INF/classes">
 			<fileset dir="${bin}/" />
 		</copy>
@@ -77,13 +70,69 @@
 			<fileset dir="${style}/"/>
 		</copy>
 		<copy todir="${dist}/${app.name}/WEB-INF" file="${basedir}/web.xml" />
-		<!--copy todir="${env.CATALINA_HOME}/conf/Catalina/localhost/" file="${basedir}/${app.name}.xml" overwrite="true" /-->
-
-		<!-- <delete dir="${env.WEBAPPS_HOME}/${app.name}" /> -->
-		<copy todir="${env.WEBAPPS_HOME}" overwrite="true">
+		<copy file="${basedir}/${app.name}.xml" 
+			tofile="${dist}/${app.name}/META-INF/context.xml" 
+			overwrite="true">
+			<filterset>
+				<filter token="WEBAPPS_HOME" value="${env.WEBAPPS_HOME}"/>
+				<filter token="DATABASE_DRIVER" value="${db.driver}"/>
+				<filter token="URL" value="${db.url}"/>
+				<filter token="USER_NAME" value="${db.user}"/>
+				<filter token="PASSWORD" value="${db.password}"/>
+			</filterset>
+		</copy>
+		<copy todir="${env.WEBAPPS_HOME}/webapps" overwrite="true">
 			<fileset dir="${dist}/" />
 		</copy>
-
+		<get dest="" src=""/>
+	</target>
+	
+	<target name="remote-install" depends="">
+		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
+		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
+		<mkdir dir="${dist}/${app.name}/style" />
+		<mkdir dir="${dist}/${app.name}/papers"/>
+		<mkdir dir="${dist}/${app.name}/doc" />
+		<chmod perm="u=rwx,g=rx,o=x">
+			<fileset dir="${dist}/${app.name}/papers" />
+		</chmod>
+		<copy todir="${dist}/${app.name}/WEB-INF/classes">
+			<fileset dir="${bin}/" />
+		</copy>
+		<copy todir="${dist}/${app.name}/WEB-INF/lib">
+			<fileset dir="${lib.home}" />
+		</copy>
+		<copy todir="${dist}/${app.name}/style">
+			<fileset dir="${style}/"/>
+		</copy>
+		<copy todir="${dist}/${app.name}/WEB-INF" file="${basedir}/web.xml" />
+		<copy file="${basedir}/${app.name}.xml" 
+			  todir="${dist}/${app.name}" 
+			  overwrite="true">
+			  <filterset>
+				 <filter token="WEBAPPS_HOME" value="${webapps.home}"/>
+				 <filter token="DATABASE_DRIVER" value="${db.driver}"/>
+				 <filter token="URL" value="${db.url}"/>
+				 <filter token="USER_NAME" value="${db.user}"/>
+				 <filter token="PASSWORD" value="${db.password}"/>
+			 </filterset>
+		</copy>
+		<copy todir="${webapps.home}" overwrite="true">
+			<fileset dir="${dist}/" />
+		</copy>
+		<get src="${tomcat.url}/${tomcat.deploy_path}" 
+		  	 dest="status.html"
+			 username="${tomcat.manager.user}"
+			 password="${tomcat.manager.password}"
+		/>
+	</target>
+	
+	<target name="remote-uninstall">
+		<get src="${tomcat.url}/${tomcat.undeploy_path}" 
+			 dest="status.html"
+			 username="${tomcat.manager.user}"
+			 password="${tomcat.manager.password}"
+		/>
 	</target>
 
 </project>

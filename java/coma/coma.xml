@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Context docBase="/home/ziad/webapps/coma" path="/coma"
+<Context docBase="@WEBAPPS_HOME@/coma" path="/coma"
 	 debug="99" reloadable="true" crossContext="true">
 	
  
@@ -10,36 +10,36 @@
   
   
   <Realm className="org.apache.catalina.realm.DataSourceRealm" debug="99"
-	 dataSourceName="jdbc/coma"
+	 dataSourceName="jdbc/coma3"
 	 localDataSource="true"
-	 userTable="Perons" userNameCol="email" userCredCol="password"
-	 userRoleTable="Roles" roleNameCol="role"/>
+	 userTable="Peron" userNameCol="email" userCredCol="password"
+	 userRoleTable="Role" roleNameCol="role_type"/>
   
   
   <!-- connpool datasource --> 
-  <Resource name="jdbc/coma" auth="Container"
+  <Resource name="jdbc/coma3" auth="Container"
 	    type="javax.sql.DataSource"/> 
   
-  <ResourceParams name="jdbc/coma">
+  <ResourceParams name="jdbc/coma3">
     <parameter>
       <name>factory</name>
       <value>org.apache.commons.dbcp.BasicDataSourceFactory</value>
     </parameter>
     <parameter>
       <name>driverClassName</name>
-      <value>org.gjt.mm.mysql.Driver</value>
+      <value>@DATABASE_DRIVER@</value>
     </parameter>
     <parameter>
       <name>url</name>
-      <value>jdbc:mysql://localhost/coma</value>
+      <value>@URL@</value>
     </parameter>
     <parameter>
       <name>username</name>
-      <value>root</value>
+      <value>@USER_NAME@</value>
     </parameter>
     <parameter>
       <name>password</name>
-      <value></value>
+      <value>@PASSWORD@</value>
     </parameter>
     <parameter>
       <name>maxActive</name>
