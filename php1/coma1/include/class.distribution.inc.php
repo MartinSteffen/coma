@@ -150,7 +150,7 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($prefers); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
-      }*/
+      }
       // Gewuenschte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    PrefersPaper AS pp".
@@ -195,7 +195,7 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($excluded); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
-      }
+      }*/
     }
     return $matrix;
   }
