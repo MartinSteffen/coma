@@ -48,7 +48,8 @@
     {menu}
   </td>
   <td class="body">
-    <h2>{title} ICQ!!</h2>
+    <h2>{title}</h2>
+    <br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1>
     {content}
   </td>
  </tr>
