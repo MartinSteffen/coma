@@ -152,13 +152,18 @@ if (isset($_POST['action'])) {
       $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
                     'and <b>Deadlines</b>!';
     }
-    elseif ($end_date < $start_date) {
+    elseif ((!empty($end_date)) && ($end_date < $start_date)) {
       $strMessage = 'Your Start Date should be before your End Date!';
     }
     elseif ($abstract_dl < $paper_dl) {
       $strMessage = 'Your Abstract Deadline should be before your Paper Deadline!';
     }
-      
+    elseif ($paper_dl < $final_dl) {
+      $strMessage = 'Your Paper Deadline should be before your Final Version Deadline!';
+    }
+    elseif ($final_dl < $start_date) {
+      $strMessage = 'Your Final Version Deadline should be before your Start Date!';
+    }
       
 /*$abstract_dl = strtotime($_POST['abstract_dl']));
 $paper_dl = strtotime($_POST['paper_dl']));
