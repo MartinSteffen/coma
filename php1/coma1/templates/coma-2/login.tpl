@@ -38,7 +38,8 @@
   If you have not registered yet, please register below:<br>
   <form action="{basepath}register.php?{SID}" method="post">
     <input type="submit" name="submit" value="Register" class="button" />
-  </form>
 </p>
+  </form>
+
 
 <p>&nbsp;</p>
