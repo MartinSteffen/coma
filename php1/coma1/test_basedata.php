@@ -47,7 +47,7 @@ echo 'P<br>';
   $i++;
 }
 
-echo 'Sandro Spezialuser';
+echo 'Sandro Spezialuser<br>';
 $myDBAccess->addPerson('Sandro', 'Surname', 'sae@me.de', 'The wise',
     'Not affiliated', 'Sesamestreet', 'Kiel', '24116',
     'SH', 'Germany', '1234567', '0910',
@@ -56,12 +56,12 @@ if ($myDBAccess->failed()) {
     echo('Fehler: '.$myDBAccess->getLastError());
 }
 
-echo 'Sandro Spezialrechte';
+echo 'Sandro Spezialrechte<br>';
 $i = 0;
 while($i < $conferences){
 $j = 2;
 while($j < 6){
-$myDBAccess->addRole($persons+2, $j, $i+1);
+$myDBAccess->addRole($persons+1, $j, $i+1);
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
