@@ -80,8 +80,8 @@ if (!empty($objPapers)) {
       if ($i > 0) {
         $assIfArray[] = 1;
       }
-      $strReviewersAssocs['rev_id'] = $objReviewers->intId;
-      $strReviewersAssocs['rev_name'] = $objReviewers->getName();
+      $strReviewersAssocs['rev_id'] = $objReviewers[$i]->intId;
+      $strReviewersAssocs['rev_name'] = $objReviewers[$i]->getName();
     }
     $strReviewersAssocs['if'] = $assIfArray;
     $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
