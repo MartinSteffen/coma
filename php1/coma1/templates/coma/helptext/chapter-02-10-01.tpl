@@ -1,0 +1,2 @@
+The review report window displays various information on the details of the review rating of that paper. It shows title, author, how many and which reviewers are reviewing that paper, how many reviews have already been submitted, and a table showing how each reviewer rated the individual criterions of that paper. In the base line the calculated average rating is shown.
+The 'last page' link brings you back to the page you viewed last.

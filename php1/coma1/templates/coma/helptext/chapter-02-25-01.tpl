@@ -1,0 +1,1 @@
+The user details page displays the information that specific user entered in his profile. Clicking the email address will launch your system's default mail program for you to email the user.

@@ -12,24 +12,25 @@
   <li><a class="menu" href="./help.php?for=comapages{&popup}{&SID}">
       Detailed explanations about the different pages in Coma</a>
     <ol>
+      <li><a class="submenu" href="./help.php?for=layout{&popup}{&SID}">General layout of the CoMa pages</a></li>
       <li><a class="submenu" href="./help.php?for=login{&popup}{&SID}">
-          The login page / logging in to your account</a></li>
+          The login page</a></li>
       <li><a class="submenu" href="./help.php?for=register{&popup}{&SID}">
-          The registration form page / signing up for your account</a></li>
+          The registration form page</a></li>
       <li><a class="submenu" href="./help.php?for=imprint{&popup}{&SID}">
-          The imprint page / disclaimers and legal stuff</a></li>
+          The imprint page</a></li>
       <li><a class="submenu" href="./help.php?for=profile{&popup}{&SID}">
-          The profile page / modifying your profile</a></li>
+          The profile page</a></li>
       <li><a class="submenu" href="./help.php?for=conference+overview{&popup}{&SID}">
-          The conference overview page / logging in to a conference</a>
+          The conference overview page</a>
       </li>
       <li><a class="submenu" href="./help.php?for=conference+create{&popup}{&SID}">
-          The create conference page / creating your own conference</a>
+          The create conference page</a>
       </li>
       <li><a class="submenu" href="./help.php?for=chair+main{&popup}{&SID}">
           The chair's main overview page</a></li>
       <li><a class="submenu" href="./help.php?for=chair+users{&popup}{&SID}">
-          The chair's manage users page / add and modify users and users' status</a>
+          The chair's manage users page</a>
       </li>
       <li><a class="submenu" href="./help.php?for={&popup}{&SID}">...</a></li>
       <li><a class="submenu" href="./help.php?for={&popup}{&SID}">...</a></li>

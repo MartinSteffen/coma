@@ -1,0 +1,1 @@
+%%hilfe fuer author_createpaper%%

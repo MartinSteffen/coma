@@ -140,7 +140,7 @@ if (in_array('comapages', $strArrayHelpTopics)){
 if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
-  $strArrayChapterAssocs['chapter-no'] = '2.1';
+  $strArrayChapterAssocs['chapter-no'] = '2.2';
   $strArrayChapterAssocs['chapter-title'] = 'The login page / logging into your account';
   $strArrayChapterAssocs['related-topics'] = 'related topics:';
   $strArrayChapterAssocs['special'] = '';
@@ -166,36 +166,7 @@ if (in_array('login', $strArrayHelpTopics)){
   $objRelatedTemplate->assign($strArrayRelatedAssocs);
   $objRelatedTemplate->parse();
   $strArrayChapterAssocs['related-link'] = $objRelatedTemplate->getOutput();
-  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-01.tpl');
-  $strArrayContentAssocs = defaultAssocArray();
-  $objChapterContent->assign($strArrayContentAssocs);
-  $objChapterContent->parse();
-  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
-  $objChaptertemplate->assign($strArrayChapterAssocs);
-  $objChaptertemplate->parse();
-  $strContentAssocs['chapter-02-01'] = $objChaptertemplate->getOutput();
-}
-
-/**
- * chapther-02-02.tpl
- */ 
-if (in_array('register', $strArrayHelpTopics)){
-  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
-  $strArrayChapterAssocs = defaultAssocArray();
-  $strArrayChapterAssocs['chapter-no'] = '2.2';
-  $strArrayChapterAssocs['chapter-title'] = 'The registration page / signing up for your account';
-  $strArrayChapterAssocs['related-topics'] = '';
-  if ($i){
-    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
-  }
-  else{
-    $strArrayChapterAssocs['special'] = '';
-  }
-  if (!empty($strArrayChapterAssocs['special'])){
-    $strArrayChapterAssocs['if'] = array(1);
-  }
-  $strArrayChapterAssocs['related-link'] = '';
-  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-02.tpl');
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-03.tpl');
   $strArrayContentAssocs = defaultAssocArray();
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
@@ -205,18 +176,17 @@ if (in_array('register', $strArrayHelpTopics)){
   $strContentAssocs['chapter-02-02'] = $objChaptertemplate->getOutput();
 }
 
-
 /**
- * chapther-02-03.tpl
+ * chapter-02-03.tpl
  */ 
-if (in_array('imprint', $strArrayHelpTopics)){
+if (in_array('register', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
   $strArrayChapterAssocs['chapter-no'] = '2.3';
-  $strArrayChapterAssocs['chapter-title'] = 'The imprint page / disclaimers and legal stuff';
+  $strArrayChapterAssocs['chapter-title'] = 'The registration page / signing up for your account';
   $strArrayChapterAssocs['related-topics'] = '';
   if ($i){
-    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the imprint page.';
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
   }
   else{
     $strArrayChapterAssocs['special'] = '';
@@ -235,17 +205,18 @@ if (in_array('imprint', $strArrayHelpTopics)){
   $strContentAssocs['chapter-02-03'] = $objChaptertemplate->getOutput();
 }
 
+
 /**
- * chapther-02-04.tpl
+ * chapter-02-04.tpl
  */ 
-if (in_array('profile', $strArrayHelpTopics)){
+if (in_array('imprint', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
   $strArrayChapterAssocs['chapter-no'] = '2.4';
-  $strArrayChapterAssocs['chapter-title'] = 'The profile page / modifying your profile';
+  $strArrayChapterAssocs['chapter-title'] = 'The imprint page / disclaimers and legal stuff';
   $strArrayChapterAssocs['related-topics'] = '';
   if ($i){
-    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the profile page.';
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the imprint page.';
   }
   else{
     $strArrayChapterAssocs['special'] = '';
@@ -262,6 +233,35 @@ if (in_array('profile', $strArrayHelpTopics)){
   $objChaptertemplate->assign($strArrayChapterAssocs);
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02-04'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapter-02-05.tpl
+ */ 
+if (in_array('profile', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.5';
+  $strArrayChapterAssocs['chapter-title'] = 'The profile page / modifying your profile';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the profile page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-05.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-05'] = $objChaptertemplate->getOutput();
 }
 
 /**

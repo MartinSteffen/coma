@@ -1,0 +1,3 @@
+This page shows a list of possible reviewers for the specific paper. Click the reviewer's name to get more information about the reviewer. The table shows how many papers the reviewer in question is already assigned to and his attitude towards the paper. With the checkboxes you can control which reviewers shall review the paper. Check or un-check the box to assign the reviewer to the paper or to remove him from the list of reviewers for that paper. Note that if the reviewer cannot review the paper (either he is the author or he absolutely does not want to review it), the word 'excluded' will appear in red and you will not be able to assign him to the paper.
+Click 'accept changes' to submit the list to CoMa.
+Click 'reset' to reset the list.
