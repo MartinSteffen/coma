@@ -2,7 +2,7 @@
 
 <xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
 doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
-
+<xsl:include href="navcolumn.xsl" />
 <xsl:template match="/">
 <html > 
 <head>
@@ -16,56 +16,15 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <h1 style="text-align:center">JCoMa</h1>
 <h3 style="text-align:center">Java Conference Manager</h3>
 </div>
-<div class="status-line">
-<h3 style="text-align:center">You are not loged in!</h3>
-</div>
 
 <!-- Site navigation menu -->
-<div class="navbar">
-<ul>
-  <li><a href="index.html">Home page</a></li>
-  <li>
-  	<form action="LoginServlet" method="post">
-  	<fieldset>
-				<label for="name">Name</label><br />
-				<input type="text" id="email" class="input-box" />
-				<br />
-				<label for="passwd">Password</label><br />
-				<input type="password" id="password" class="input-box" />
-				<br />
-				<a href="index.html">Forgot your Password?</a>
-				<br />
-				<input type="submit" value="login" class="submit-button" />
-		</fieldset>
-		</form>
-	</li>
-	<li>
-	<form action="Subscribe" method="post">	
-	<fieldset>
-		<label for="subscribe">not jet a Login? hurry up</label><br />
-		<input type="submit" id="subscribe" value="subscribe!" class="submit-button" />
-		</fieldset>
-  	</form>
-  </li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8888/coma/">tomcat directory</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/svn/coma/">svn repository</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/~wprguest3/phpmyadmin/">phpMyAdmin</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/~wprguest3/downloads/">downloads</a></li>
-  <li>
-  	<a href="http://validator.w3.org/check?uri=referer">
-  		<img src="./img/valid-xhtml11.png" alt="Valid XHTML 1.1!" style="border:0;width:68px;height:20px"  />
-  	</a>
-   	<a href="http://jigsaw.w3.org/css-validator/check/referer">
- 			<img style="border:0;width:68px;height:20px" src="./img/vcss.png" alt="Valid CSS!" />
- 		</a>
- 	</li>
-</ul> 
-</div>
-
+<xsl:call-template name="navcolumn" />
 
 <!-- Main content -->
 <div class="content">
-
+<xsl:apply-templates select="/login/password_error" />
+<xsl:apply-templates select="/login/form_error" />
+<xsl:apply-templates select="/login/success" />
 <p>Welcome to JCoMa!</p>
 
 <p>It lacks images, but at least it has style.
@@ -107,5 +66,15 @@ anywhere ...</p>
 
 </body>
 </html>
+</xsl:template>
+
+<xsl:template match="login/password_error">
+<h3>An Error has occurred,plaese check your password and email!</h3>
+</xsl:template>
+<xsl:template match="login/form_error">
+<h3>An Error has occurred,plaese check your data!</h3>
+</xsl:template>
+<xsl:template match="login/success">
+<h3>You are loged in</h3>
 </xsl:template>
 </xsl:stylesheet>

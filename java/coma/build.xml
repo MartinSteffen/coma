@@ -59,12 +59,16 @@
 
 	<target name="install" depends="compile" description="installing application">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
+		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
 		<mkdir dir="${dist}/${app.name}/papers" />
 		<mkdir dir="${dist}/${app.name}/doc" />
 		
 		<copy todir="${dist}/${app.name}/WEB-INF/classes">
 			<fileset dir="${bin}/" />
+		</copy>
+		<copy todir="${dist}/${app.name}/WEB-INF/lib">
+			<fileset dir="${env.LIB_HOME}" />
 		</copy>
 		<!--copy todir="${dist}/${app.name}/doc">
 			<fileset dir="${doc}" />

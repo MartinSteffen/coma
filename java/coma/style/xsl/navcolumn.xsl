@@ -24,15 +24,15 @@
                any other meaningful content of the navbar. -->
           <xsl:when test="//navcolumn//noUser"> <!-- Login/Subscribe -->
           <li>
-            <form action="LoginServlet" method="post">
+            <form action="Login" method="post">
               <fieldset>
                 <div>
                 <div>
-                  <label for="name">Name</label>
+                  <label for="email">E-Mail</label>
                   <input type="text" id="email" class="input-box" />
                 </div>
                 <div>
-                  <label for="passwd">Password</label>
+                  <label for="password">Password</label>
                   <input type="password" id="password" class="input-box" />
                 </div>
                 <div>
