@@ -115,7 +115,7 @@ else {
   $strRemarks      = '';
 }
 
-$content = new Template(TPLPATH.'reviewer_editreview.tpl');
+$content = new Template(TPLPATH.'edit_review.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['targetpage']   = "reviewer_createreview.php";
 $strContentAssocs['message'] = '';

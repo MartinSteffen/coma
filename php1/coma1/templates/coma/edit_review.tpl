@@ -57,14 +57,12 @@
   </tr>
   <tr>
     <td colspan="2">
-      {if1
-      <input type="submit" name="submit" value="Update review" class="button">
+  {if1<input type="submit" name="submit" value="Update review" class="button">
       <input type="reset" name="reset" value="Reset review" class="button">}
-      {if2
-      <input type="submit" name="submit" value="Submit review" class="button">
+  {if2<input type="submit" name="submit" value="Submit review" class="button">
       <form action="{basepath}reviewer_reviews.php{?SID}" method="post" accept-charset="UTF-8">        
         <input type="submit" name="cancel" value="Cancel" class="button">
-      </form>      
+      </form>}
     </td>
   </tr>
 </table>

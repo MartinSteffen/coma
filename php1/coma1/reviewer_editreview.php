@@ -72,7 +72,7 @@ if (isset($_POST['action'])) {
   }  
 }
 
-$content = new Template(TPLPATH.'reviewer_editreview.tpl');
+$content = new Template(TPLPATH.'edit_review.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
 $strContentAssocs['targetpage']   = "reviewer_editreview.php";
