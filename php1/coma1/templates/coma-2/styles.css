@@ -60,8 +60,8 @@ a.menu:active  { color: #000000; }
 a.menu:hover   { color: #2F2F2F; }
 
 /* Tabelle fuer den Seiteninhalt */
-table.body { width: 100%; min-height: 450px; vertical-align: top; }
-td.body { padding: 2px 10px; text-align: center; }
+table.body { width: 100%; vertical-align: top; }
+td.body { padding: 2px 10px; }
 
 /* Tabelle fuer die Kopfzeile */
 table.header { width: 100%; background-color: #DBE9EC; }
