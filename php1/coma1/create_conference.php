@@ -213,12 +213,14 @@ if (isset($_POST['action'])) {
     
     foreach ($strCriterions as $key => $name){
       if (trim($name) == ''){
+        $key++;
         $strMessage .= "Criterion $key is empty!\n";
       }
     }
     
     foreach ($strCritMaxVals as $key => $critMax){
       if ($critMax < 1){
+        $key++;
         $strMessage .= "The maximum value of the criterion '{$strCriterions[$key]}' should be greater than zero!\n";
       }
     }
