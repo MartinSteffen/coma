@@ -73,7 +73,7 @@ if (isset($_POST['action'])) {
       }
       else if (!empty($result)) {      	
       	$objPaper->intVersion++;
-      	$objPaper->strLastEdit = date("Y-m-d");
+      	$objPaper->strLastEdit = date("Y-m-d H:i:s");
         $strMessage = 'Paper was updated successfully.';
       }
     }
@@ -124,7 +124,7 @@ $strContentAssocs['author_id']      = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name']    = encodeText($objPaper->strAuthor);      
 $strContentAssocs['file_link']      = encodeURL($objPaper->strFilePath);
 $strContentAssocs['avg_rating']     = encodeText(round($objPaper->fltAvgRating * 10) / 10);
-$strContentAssocs['last_edited']    = encodeText(emptytime(strtotime($objPaper->strLastEdit)));
+$strContentAssocs['last_edited']    = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version']        = encodeText($objPaper->intVersion);
 $strContentAssocs['mimetype']       = encodeText($objPaper->strMimeType);
 $strContentAssocs['coauthors_num']  = encodeText(count($objPaper->strCoAuthors));
