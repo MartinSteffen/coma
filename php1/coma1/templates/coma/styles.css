@@ -96,6 +96,15 @@ h3
   text-align: right;
 }
 
+/* Statusanzeigen fuer Distribution-Status, muss vor Links definiert werden */
+span.diststatus-0   { font-weight: bold; color: #000000; } /* assigned */
+span.diststatus-1 { font-weight: normal; color: #000000; } /* suggested, kommt nicht vor */
+span.diststatus-2   { font-weight: normal;   color: #000000; } /* neutral */
+span.diststatus-3   { font-weight: normal;   color: #00A000; } /* prefers topic */
+span.diststatus-4   { font-weight: normal;   color: #00FF00; } /* prefers paper */
+span.diststatus-5   { font-weight: normal;   color: #A00000; } /* denies paper, kommt nicht vor */
+span.diststatus-6   { font-weight: normal;   color: #FF0000; } /* excluded paper, kommt nicht vor */
+
 /* Allgemeine Links */
 a
 {
@@ -483,11 +492,3 @@ span.attitude-none     { font-weight: normal; color: #000000; }
 span.attitude-prefer   { font-weight: bold;   color: #00A000; }
 span.attitude-deny     { font-weight: bold;   color: #A00000; }
 span.attitude-exclude  { font-weight: bold;   color: #FF2600; }
-
-span.diststatus-0   { font-weight: bold; color: #000000; } /* assigned */
-span.diststatus-1 { font-weight: normal; color: #000000; } /* suggested, kommt nicht vor */
-span.diststatus-2   { font-weight: normal;   color: #000000; } /* neutral */
-span.diststatus-3   { font-weight: normal;   color: #00A000; } /* prefers topic */
-span.diststatus-4   { font-weight: normal;   color: #00FF00; } /* prefers paper */
-span.diststatus-5   { font-weight: normal;   color: #A00000; } /* denies paper, kommt nicht vor */
-span.diststatus-6   { font-weight: normal;   color: #FF0000; } /* excluded paper, kommt nicht vor */
