@@ -132,7 +132,7 @@ class DBAccess extends ErrorHandling {
    * @author Tom (12.01.05)
    * @access private
    */
-  function booleanToDatabase($blnProgram) {
+  static function booleanToDatabase($blnProgram) {
     return $this->success($blnProgram ? 1 : 0);
   }
 
@@ -145,7 +145,7 @@ class DBAccess extends ErrorHandling {
    * @author Tom (12.01.05)
    * @access private
    */
-  function booleanFromDatabase($intDatabase) {
+  static function booleanFromDatabase($intDatabase) {
     return $this->success(empty($intDatabase) ? false : true);
   }
 
@@ -422,7 +422,7 @@ class DBAccess extends ErrorHandling {
     if (!empty($intConferenceId)) {
       $s = "SELECT  role_type".
           " FROM    Role".
-          " WHERE   person_id = $data[0]['id']".
+          " WHERE   person_id = ".$data[0]['id'].
           " AND     conference_id = $intConferenceId";
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
@@ -464,7 +464,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objAuthor)) {
       return $this->error('getPaper', 'Fatal error: Database inconsistency!',
-                          "author_id = $data[$i]['author_id']");
+                          'author_id = '.$data[$i]['author_id']);
     }
     $strAuthor = $objAuthor->getName();
     $objPaper = (new PaperSimple($intPaperId, $data[0]['title'], $data[0]['author_id'],
@@ -577,7 +577,7 @@ class DBAccess extends ErrorHandling {
     }
     else if(empty($objAuthor)) {
       return $this->error('getPaperDetailed', 'Fatal error: Database inconsistency!',
-                          "author_id = $data[0]['author_id']");
+                          'author_id = '.$data[0]['author_id']);
     }
     $strAuthor = $objAuthor->getName();
     $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
@@ -720,7 +720,7 @@ class DBAccess extends ErrorHandling {
       }
       else if (empty($objReview)) {
         return $this->error('getReviewsOfReviewer', 'Fatal error: Database inconsistency!',
-                            "id = $data[$i]['id']");
+                            'id = '.$data[$i]['id']);
       }
       $objReviews[] = $objReview;
     }
@@ -751,7 +751,7 @@ class DBAccess extends ErrorHandling {
       }
       else if(empty($objReviewer)) {
         return $this->error('getReviewsOfPaper', 'Fatal error: Database inconsistency!',
-                            "reviewer_id = $data[$i]['reviewer_id']");
+                            'reviewer_id = '.$data[$i]['reviewer_id']);
       }
       $objReviewers[] = $objReviewer;
     }
@@ -782,7 +782,7 @@ class DBAccess extends ErrorHandling {
       }
       else if (empty($objReview)) {
         return $this->error('getReviewsOfPaper', 'Fatal error: Database inconsistency!',
-                            "id = $data[$i]['id']");
+                            'id = '.$data[$i]['id']);
       }
       $objReviews[] = $objReview;
     }
@@ -814,7 +814,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objReviewer)) {
         return $this->error('getReview', 'Fatal error: Database inconsistency!',
-                            "reviewer_id = $data[$i]['reviewer_id']");
+                            'reviewer_id = '.$data[$i]['reviewer_id']);
     }
     $objPaper = $this->getPaper($data[0]['paper_id']);
     if ($this->failed()) {
@@ -822,7 +822,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objPaper)) {
       return $this->error('getReview', 'Fatal error: Database inconsistency!',
-                          "paper_id = $data[0]['paper_id']");
+                          'paper_id = '.$data[0]['paper_id']);
     }
     $objAuthor = $this->getPerson($objPaper->intAuthorId);
     if ($this->failed()) {
@@ -864,7 +864,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objReviewer)) {
         return $this->error('getReviewDetailed', 'Fatal error: Database inconsistency!',
-                            "reviewer_id = $data[$i]['reviewer_id']");
+                            'reviewer_id = '.$data[$i]['reviewer_id']);
     }
     $objPaper = $this->getPaper($data[0]['paper_id']);
     if ($this->failed()) {
@@ -872,7 +872,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objPaper)) {
       return $this->error('getReviewDetailed', 'Fatal error: Database inconsistency!',
-                          "paper_id = $data[0]['paper_id']");
+                          'paper_id = '.$data[0]['paper_id']);
     }
     $objAuthor = $this->getPerson($objPaper->intAuthorId);
     if ($this->failed()) {
@@ -887,7 +887,7 @@ class DBAccess extends ErrorHandling {
         " FROM    Rating r".
         " INNER   JOIN Criterion c".
         " ON      c.id  = r.criterion_id".
-        " WHERE   review_id = $data[0]['id']";
+        " WHERE   review_id = ".$data[0]['id'];
     $rating_data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewDetailed', $this->mySql->getLastError());

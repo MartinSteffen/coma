@@ -24,6 +24,7 @@ function bit($b) {
   return true;
 }
 
+/*
 $p = $myDBAccess->getPerson(1, 1);
 if ($myDBAccess->failed()) {
   echo ('Fehler: '.$myDBAccess->getLastError());
@@ -65,7 +66,7 @@ for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
     echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
 }
-
+*/
 
 /*$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
 echo('<br>ID = '.$id.'<br>');
