@@ -28,6 +28,7 @@ else {
 $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_index_regi.tpl');
 $loginPage = new Template(TPLPATH.'register.tpl');
+$emptyPage = new Template(TPLPATH.'empty.tpl');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
@@ -43,6 +44,11 @@ if (isset($_SESSION['message'])) {
   $strMessage = $_SESSION['message'];
   unset($_SESSION['message']);
 }
+ else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
+  $strMessage = 'Sie sind bereits eingeloggt !!!';
+  $strMainAssocs['body'] = & $emptyPage;
+}
+
 else {
   $strMessage = '';
 }
@@ -55,6 +61,7 @@ $menue->assign(defaultAssocArray());
 $menue->assign($strMenueAssocs);
 
 $loginPage->assign($strLoginAssocs);
+$emptyPage->assign($strLoginAssocs);
 
 $mainPage->parse();
 $mainPage->output();
