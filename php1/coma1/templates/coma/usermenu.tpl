@@ -29,10 +29,6 @@
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}forum.php?showforums=4{&SID}" class="{if14 marked}submenu">Global forums</a>
-    </td>
-  </tr>
-  <tr>
     <td class="submenu"><a href="{basepath}forum.php?showforums=1{&SID}" class="{if11 marked}submenu">Open forums</a>
     </td>
   </tr>
