@@ -56,6 +56,8 @@ if (isset($_POST['action'])) {
       // Trage Review in die Datenbank ein
       $result = $myDBAccess->updateReviewReport($objReview);
       if (!empty($result)) {
+      	$intPaperId = $objReview->intPaperId;
+      	include('./include/paperdiscussion.inc.php');
         $strMessage = 'Review report was updated successfully.';
       }
       else if ($myDBAccess->failed()) {

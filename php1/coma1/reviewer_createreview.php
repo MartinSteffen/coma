@@ -87,7 +87,8 @@ if (isset($_POST['action'])) {
       $result = $myDBAccess->createNewReviewReport($objPaper->intId, $objReviewer->intId,
                                                    $strSummary, $strRemarks, $strConfidential,
                                                    $intRatings, $strComments, $objCriterions);
-      if (!empty($result)) {
+      if (!empty($result)) {      	
+      	include('./include/paperdiscussion.inc.php');
         $_SESSION['message'] = 'Review report was created successfully.';
         redirect("reviewer_editreview.php?reviewid=".$result);
       }
