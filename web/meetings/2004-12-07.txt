@@ -1,3 +1,183 @@
+Heute war recht viel auf dem Tablett, ich hoffen da"s ich nix vergessen hab.
+
+
+       0) Kommunikationsprobleme 
+
+          : zu viele Mails, speziell gestern
+
+           - stimmt, aber das war ein Unfall, durch u.a meine 
+             Unachtsamkeit (reply-to nicht beachtet), insofern ist es 
+             kein Dauerzustand
+        
+             -> Aktion: der email-verteiler wird umkonfiguriert: Reply-to
+                nicht mehr auf swprakt+coma gesetzt (sollte bereits bei
+                _dieser_ Email der Fall sein)
+
+          : zu viele Mails, durch bugzilla (davon war ich nicht betroffen)
+
+
+             -> Aktion: o wenn's die mails sind die st"oren: Mailzustellung abschalten
+                          in Bugzilla
+
+                        o Wenn's Bugzilla als solches ist:  drauf achten
+                           dass focussierter damit umgegangen wird.
+
+      1) Spec: (die Frage u.A. von Daniel)
+              - wir unterscheiden zwischen Requirement (trunk/requirement)
+                und Spec. Spec ist detaillierter, z.B. ist das SQL schema
+                eine sehr detaillierte Form einer gemeinsamen Spec (gemeinsam
+                bis auf die optionalen Teile, die ebenfalls gekennzeichnet werden)
+
+                Im  Detaillierungsgrad wie in SQL schaffen wir keine
+                globale Spec (ist auch nicht sinnvoll). D.h: Antwort: nein,
+                es gibt keine globale Spec. (bis auf das SQL-Ding)
+
+                Lokal soll jede Gruppe jedoch eine ``Spec'' unterhalten.
+                Die Spezifikation dient zur ``technischen Kommunikation''
+                fuer Aussenseiter der Gruppe, speziell f"ur die 
+                Tester und f"ur die Org.
+
+                Es ist nicht notwendig, erst alle Algorithmen haarklein zu
+                spezifizieren, und dann zu coden. Aber der umgekehrte Weg:
+                ``erstmal alles hacken, und was am Ende rauskommt, war
+                dann das was ich wollte'' ist auch nicht statthaft.
+
+
+         
+                Aktion: - wir (org) passen trunk/requirements den
+                        Neuentwicklungen an, z.B., es sind mehrere
+                        Konf. moeglich, oder manche der optionale Dinge
+                        ``man koennte dies...oder das'') passen wir den
+                        Spezialierungen an. Wir gehen aber nicht tiefer ins
+                        Detail.
+
+                       - jede Gruppe legt:
+
+                                 trunk/spec/main.txt
+                          oder   trunk/spec/main.tex
+
+                          an, in dem es spezifiziert wird, was die
+                          Besonderheiten der Loesung sind. main.xxx ist der
+                          Einstiegspunkt, d.h., include-dateien sind
+                          erlaubt, Hauptsache man weiss wo man anf"angt zu
+                          lesen.
+
+                          Anforderung: es muss ``kompatibel'' sein,
+                          d.h. wer LaTeX macht, soll keine 
+                          Sonderloesungen machen. Jeder im Kurs soll die
+                          Spec des anderen lesen k"onnen, speziell die
+                          Tester. 
+
+                          Es ist richtig, da"s die Dinge teilweise per
+                          email uns zugesandt wurden, aber eine Spec in
+                          einem der Email-folder von mir oder Marcel oder
+                          Gunnar ist f"ur andere schwer einsehbar.
+
+
+                          Als Richtlinie (``was soll denn da rein'') dient sich vorzustellen:
+                          was ist hilfreich f"ur die Tester? dazu geh"ort:
+
+                            - wo liegt welcher code (von aussen betrachtet ist das
+                                    eventuell nicht leicht zu erraten. Z.b., k"onnte
+                                    code rumliegen, der mal so zum Warmwerden eingecheckt
+                                    wurde. Soll am Ende zwar sowieso raus, aber das     
+                                    ``Aussenseiter'' herausfinden zu lassen, was was ist
+                                    ist nicht gut.
+
+                            - Architektur, Aufteilung in Module/Personen
+                              (aus "ahnliche Gr"unden)
+        
+                            - Welche Zusatzpakete oder includes oder "ahnliche
+                               werden vorausgesetzt?
+
+
+                            - Eher nicht rein: allgemeines Gerede was der
+                                Sinn von Coma ist (das steht in der
+                                informellen Requirements). Wer also (s)eine
+                                Spec wiederverden will, kann da gerne
+                                kuerzen
+
+                                zum allgemeinen ``Gerede'' w"urden
+                                tendenziell auch Dinge geh"oren wie: ``die
+                                Papers werden gerecht  verteilt''
+                                denn es ist schwierig zu sagen was gemeint
+                                ist. 
+
+
+        1) Stand: Wie kommt Ihr voran, im Hinblick auf das Erreichte und
+           die Ziele
+
+                 o Java: 3  Leute anwesendend, 
+                          tendenziell optimistisch, was den Zeitplan betrifft (fast schon euphorisch..)
+
+                          bereit f"ur  Testanbindungen: in einer Woche
+
+        
+                 o PHP1: 3 Leute anwesend: tendenziell optimistisch 
+
+                         bereit f"ur Testanbindung:  Jan 2005
+        
+                 o PHP2: 3 Leute anwesend: Gemischte Lageeinsch"atzung
+
+                          > Implementierung im Prinzip machbar in 2 Wochen
+                              (Meiko) (Spec nicht eingerechnet. Danach nur
+                              noch ``Zuckerguss und Testen'')
+
+                          > Andererseits: falls die organisatorischen Dinge sich 
+                              (Kommunikationsoverhead) sich nicht deutlich
+                              bessern, pessimistische Lageeinschatzung
+                              (Gunnar)
+
+                 o Testen: schwer zu beurteilen.
+
+
+             [Bemerkung meinerseits: ich fand die "Auserungen zum Stand der
+                Kunst positiv, im Sinne von: es hoerte sich gut an, ich denke
+                wir sind nicht schlecht vor (in der Hoffnung da"s die voretragenen
+                Lageeinsch"atzungen halbwegs realistisch waren).
+         
+        2) Datenmodell:
+                  - manche Dinge sind gekl"art (Innodb).
+
+                  - optional: SQL gruppe markiert die 3 (?) Dinge die beschlossen wurden
+                              als optional in der Text-Spec.
+
+                  - umbenennung von Status -> State
+
+             Frage: wann ist die ``echte'' deadline, kann es passieren, da"s
+                    ich bereits implementiere und es "andert sich was?
+
+                  Antwort aus Eriwan: im Prinzip ist die Deadline vorbei, aber...
+                     Konkret: falls weitere Fehler auftauchen, wird man nicht 
+                              umhinkommen, sie zu "andern.
+
+        3) Technische Probleme 
+
+                  - Datenbank veraltet: Im Prinzip: jein. Bequemer w"ar's
+                      f"ur die Implementierer (subqueries) mit einer
+                      neueren Version, umbequemer f"ur die Leute die die
+                      Datenbank neu aufsetzten muessen und fuer die Kunden
+                      die das Ding nutzen wollen (und eventuell dann die Datenbank      
+                      nachinstallieren wollen. 
+
+                       abstimmung: wir konnen mit der alten Version zurechtkommen,
+                                   also bleibt's dabei.
+
+              - Java-gruppe: wollte Tomcat-configs Dateien auf Snert aufspielen.
+                     Aktion: wird von uns auf Wunsch gemacht (da nicht zu erwarten
+                             ist dass das st"andig passiert). Neustart der Applikation
+                             in Tomcat ist von den Javaleuten ohne unsere Hilfe m"oglich,
+
+
+====
+
+         ``Breaking news'': Alexander Derenbach spendiert (leihweise) 128M Speichererweiterung =>
+           auch das ist soeben geschehen! 
+ 
+        
+
+#############################################################################
+===== ankuendigung (Montag):
 
 Moin an alle.
 

@@ -5,13 +5,14 @@
 
 
 The document describes \emph{informally,} i.e., in plain English, the
-functionality (or rather the purpose) of \Coma, a tool to assist in the
-distributed preparation, organization and processing of a conference,
+functionality (plus rather the purpose) of \Coma, a tool to assist in the
+distributed preparation, organization, and processing of a conference,
 workshop, or similar event.
 
-At the current stage of affairs, the rest of the document sketches the
-intention of the project, the informal functionality etc. We are here not
-explicit about specific technologies or how to realize the task
+The rest of the document sketches the intention of the project, the
+informal functionality etc. We are not explicit about specific technologies
+or how to realize the task.
+
 
 \iffalse
 
@@ -34,19 +35,119 @@ potentially implemented by us or the requester, if everyone agrees).
 \fi
 
 
-\section{General purpose}
+
+
+\subsection{General purpose}
 \label{sec:purpose}
 
 Scientific conferences nowadays are in general prepared, advertised, and
 managed via the web. In particular, part of the organization is done in a
-``distributed'' and loosely couple manner, i.e., the actors in the
+``distributed'' and loosely coupled manner, i.e., the actors in the
 organization work at various locations, time zones, etc.
-
-\medskip
 
 At an rather abstract level, the goal is to allow a group of experts, to
 collaborate to find an agreement in selecting from a set of contributions
-to the conference. 
+to the conference.
+
+
+
+
+
+
+\section{Represented data}
+
+Since this part is the best specified, we start the description here. This
+is not intended as concrete data model (let alone SQL-code), but describes
+in general terms, what is in the range of the tool and what not. There are,
+of course, links with the data model.
+
+
+
+
+
+\subsection{Users}
+\label{sec:users}
+
+
+By \emph{users,} we mean people interacting with the service. More
+precisely, users are those people which are represented and modelled in one
+form or the other inside the tool, which is to say, some accidental surfer
+is not user. Users interact in various roles. The role can change over the
+\emph{time} and the role may differ in differente conferences.
+
+The roles supported by \Coma\ are
+\begin{description}
+\item[administrator:] The administrator is not part of the scientific
+  organization of the conference, i.e., he does not take part in
+  \emph{semantical} decisions concerning the content. 
+\item[chair:] program committee chair (\emph{chair} for short). There might
+  be more than one chair. He or she is chairing the program committee and
+  is therefore part of the committee. A chair is in some sense the
+  ``dictator'' concerning semantical issues which means he is granted more
+  privileges than the others.\footnote{Whether it's wise to act as a
+    dictator, overruling all the others in the committee, taking lonely
+    decisions, or undoing decisions taken in consensus is a different
+    question and outside the possibility of our modeling.} Basically he
+  can change all data all the time, for instance, he can remove or add
+  people from the committee, throw out papers, etc. Again, whether it's
+  smart to do so excessively is another question, but sometimes his
+  intervention is necessary. A simple example: one of the reviewers does
+  not do his work (for instance does not read the assigned papers), the
+  chairman must be able to throw him out, which means for the tool: remove
+  him from the data-base etc.\footnote{Note that those semantical changes
+    of the chair are different from what the administrator could do. The
+    chair should be able to make the changes \emph{within} the software,
+    while the admin in some sense is outside. The admin can probably also
+    change data, for instance by directly querying the data base (or wiping
+    out the data base from the file system, for that matter \ldots) but
+    that's something else.}
+\item[reviewer:] = program committee member
+\item[author:] each paper must have at least one author, but there might be
+  more. For the software, one author plays are more important role than the
+  others, namely the one who interacts with the organizers. This is the
+  \textbf{corresponding author}.
+\item[participant] of the conference, i.e., a person who attend the
+  conference and listens to the presentations etc.
+\end{description}
+
+Each user should be identified uniquely, which means, identities are shared
+(or at least are shareable) between conferences.
+
+
+\subsection{Restrictions and side conditions}
+\label{sec:restrictions}
+
+
+The groups of people are not disjoint, in other words, an individual can
+interact with the service in different roles (at different times).  Crucial
+is to obey certain \emph{rules} concerning who (respectively who in which
+role) is allowed to do what or to see what. This also changes during time.
+
+Here is a number of informal restrictions.
+
+\begin{enumerate}
+\item a not-yet-accepted paper may only be seen by the author who submitted
+  it.
+\item the identities of submitting authors must be unknown to the outside
+  and also among the authors themselves
+\item a reviewer must not review his own paper, i.e., he must of course not
+  influence the decision
+\item an author never sees the discussion on his paper
+\item an author never sees the identity of his reviewers
+\item an author sees the verdict once all decisions are taken
+\item a reviewer does not see the reviews of his colleagues, until he has
+  sent his own review
+\item a chair can see everything all the time.
+\item it is expected that at least one author of an accepted paper
+  participates at the conference, i.e., each accepted paper must be
+  presented by an author
+\item \emph{optional:} a reviewer must not know the identity of the authors
+  of the papers he reviews. This is also known as \emph{double-blind}
+  review.
+\end{enumerate}
+
+
+
 
 
 
@@ -474,89 +575,6 @@ Furthermore, if a user registers before a predefined deadline
 
 
 
-
-
-
-
-
-\section{Users}
-\label{sec:users}
-
-By users, we mean people interacting with the tool/the service. People
-interact in various roles. They might include:
-\begin{description}
-\item[administrator:] The administrator is not part of the scientific
-  organization of the conference, i.e., he does not take part
-  \emph{semantical} decisions concerning the content. In a certain sense,
-  he's outside the game.
-\item[chair:] program committee chair (\emph{chair} for short). There might
-  be more than one chair. He or she is chairing the program committee and
-  is therefore part of the committee. A chair is in some sense the
-  ``dictator'' concerning semantical issues which means he is granted more
-  privileges than the others.\footnote{Whether it's wise to act as a
-    dictator, overruling all the others in the committee, taking lonely
-    decisions, or undoing decisions taken in consensus is a different
-    question and outside the possibility of our modeling.} Basically he
-  can change all data all the time, for instance, he can remove or add
-  people from the committee, throw out papers, etc. Again, whether it's
-  smart to do so excessively is another question, but sometimes his
-  intervention is necessary. A simple example: one of the reviewers does
-  not do his work (for instance does not read the assigned papers), the
-  chairman must be able to throw him out, which means for the tool: remove
-  him from the data-base etc.\footnote{Note that those semantical changes
-    of the chair are different from what the administrator could do. The
-    chair should be able to make the changes \emph{within} the software,
-    while the admin in some sense is outside. The admin can probably also
-    change data, for instance by directly querying the data base (or wiping
-    out the data base from the file system, for that matter \ldots) but
-    that's something else.}
-\item[reviewer:] = program committee member
-\item[author:] each paper must have at least one author, but there might be
-  more. For the software, one author plays are more important role than the
-  others, namely the one who interacts with the organizers. This is the
-  \textbf{corresponding author}.
-\item[participant] of the conference, i.e., a person who attend the
-  conference and listens to the presentations etc.
-\item [outsider:] That's the general public. An outsider does not interact
-  at all, except having a look at the public web pages.
-\end{description}
-
-
-
-
-
-
-\subsection{Restrictions and side conditions}
-\label{sec:restrictions}
-
-
-The groups of people are not disjoint, in other words, an individual can
-interact with the service in different roles (at different times).  Crucial
-is to obey certain \emph{rules} concerning who (respectively who in which
-role) is allowed to do what or to see what. This also changes during time.
-
-Here is a number of informal restrictions.
-
-\begin{enumerate}
-\item a not-yet-accepted paper may only be seen by the author who submitted
-  it.
-\item the identities of submitting authors must be unknown to the outside
-  and also among the authors themselves
-\item a reviewer must not review his own paper, i.e., he must of course not
-  influence the decision
-\item an author never sees the discussion on his paper
-\item an author never sees the identity of his reviewers
-\item an author sees the verdict once all decisions are taken
-\item a reviewer does not see the reviews of his colleagues, until he has
-  sent his own review
-\item a chair can see everything all the time.
-\item it is expected that at least one author of an accepted paper
-  participates at the conference, i.e., each accepted paper must be
-  presented by an author
-\item \emph{optional:} a reviewer must not know the identity of the authors
-  of the papers he reviews. This is also known as \emph{double-blind}
-  review.
-\end{enumerate}
 
 
 
