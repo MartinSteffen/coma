@@ -87,7 +87,7 @@ class Distribution extends ErrorHandling {
                  " INNER   JOIN Role AS r".
                  " ON      r.person_id = p.id".
                  " AND     r.role_type = '%d'".
-                 " WHERE   r.conference_id = '%d'
+                 " WHERE   r.conference_id = '%d'".
                  " ORDER   BY p.id ASC",
                  s2db(REVIEWER), s2db($intConferenceId));
     $data = $this->mySql->select($s);
