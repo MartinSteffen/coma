@@ -22,7 +22,7 @@
   </tr>
   <tr> 
     <td><span class="emph">Overall rating:</span></td>
-    <td><input type="text" size="2" name="total_rating" value="{rating}"/>/{max_rating}</td>
+    <td><input type="text" size="2" name="total_rating" value="{rating}">/{max_rating}</td>
   </tr>
   <tr>
     <td>
@@ -59,8 +59,7 @@
 
 <p>&nbsp;</p>
 
-<form action="{basepath}reviewer_reviews.php{?SID}" method="post" accept-charset="UTF-8">
-  Hier keine Form??<br>
+<form action="{basepath}reviewer_reviews.php{?SID}" method="post" accept-charset="UTF-8">  
   <input type="submit" name="cancel" value="Cancel" class="button" />
 </form>
 

@@ -27,11 +27,11 @@ if (!empty($objReviews)) {
   foreach ($objReviews as $objReview) {
     $ifArray = array();
     $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['review_id'] = $objReview->intId;
-    $strItemAssocs['paper_id'] = $objReview->intPaperId;
-    $strItemAssocs['title'] = $objReview->strPaperTitle;
-    $strItemAssocs['author_id'] = $objReview->intAuthorId;
-    $strItemAssocs['author_name'] = $objReview->strAuthorName;
+    $strItemAssocs['review_id'] = encodeText($objReview->intId));
+    $strItemAssocs['paper_id'] = encodeText($objReview->intPaperId);
+    $strItemAssocs['title'] = encodeText($objReview->strPaperTitle);
+    $strItemAssocs['author_id'] = encodeText($objReview->intAuthorId);
+    $strItemAssocs['author_name'] = encodeText($objReview->strAuthorName);
     $objPaper = $myDBAccess->getPaperSimple($objReview->intPaperId);
     if ($myDBAccess->failed()) {
       error('get paper in review list of reviewer', $myDBAccess->getLastError());
