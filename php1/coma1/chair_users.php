@@ -21,8 +21,8 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
-global $intRoles;
-global $strRoles;
+//global $intRoles;
+//global $strRoles;
 //[TODO]
 $intRoles = array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT);
 $strRoles = array(CHAIR       => 'Chair',
