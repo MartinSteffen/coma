@@ -44,11 +44,11 @@ for ($i = 0; $i < count($p->objPreferredPapers); $i++) {
   echo ('<br>'.$p->objPreferredPapers[$i]->intId.' / '.$p->objPreferredPapers[$i]->strTitle);
 }
 echo ('<br><br>Den. Papers:');
-for ($i = 0; $i < count($p->objPreferredPapers); $i++) {
+for ($i = 0; $i < count($p->objDeniedPapers); $i++) {
   echo ('<br>'.$p->objDeniedPapers[$i]->intId.' / '.$p->objDeniedPapers[$i]->strTitle);
 }
 echo ('<br><br>Excl. Papers:');
-for ($i = 0; $i < count($p->objPreferredPapers); $i++) {
+for ($i = 0; $i < count($p->objExcludedPapers); $i++) {
   echo ('<br>'.$p->objExcludedPapers[$i]->intId.' / '.$p->objExcludedPapers[$i]->strTitle);
 }
 
