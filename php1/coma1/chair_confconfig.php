@@ -235,6 +235,7 @@ else {
   $strContentAssocs['auto_numreviewer'] = encodeText($objConference->intNumberOfAutoAddReviewers);
   $strContentAssocs['criterions']     = '';
   $strContentAssocs['criterionsID']     = '';
+  $strContentAssocs['topicsID']     = '';
   $strContentAssocs['crit_max']       = '';
   $strContentAssocs['crit_descr']     = '';
   $strContentAssocs['crit_weight']    = '';
