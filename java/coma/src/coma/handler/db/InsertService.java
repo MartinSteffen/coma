@@ -33,20 +33,20 @@ public interface InsertService {
 
 	public SearchResult insertMessage(Message msg);
 
-	public SearchResult excludesPaper(int paper_id, int person_id);
+	public SearchResult excludesPaper(int person_id, int paper_id);
 
-	public SearchResult deniesPaper(int paper_id, int person_id);
+	public SearchResult deniesPaper(int person_id, int paper_id);
 
-	public SearchResult prefersPaper(int paper_id, int person_id);
+	public SearchResult prefersPaper(int person_id, int paper_id);
 
-	public SearchResult prefersTopuc(int topic_id, int person_id);
+	public SearchResult prefersTopic(int person_id, int topic_id);
 
 	public SearchResult insertTopic(int conference_id, String name);
 
 	public SearchResult setPersonRole(int person_id, int conference_id,
 			int role_type, int state);
 
-	public SearchResult setCoAuthorOf(int paper_id, int person_id, String name);
+	public SearchResult setCoAuthorOf(int person_id, int paper_id, String name);
 
 	public SearchResult setAboutTopic(int paper_id, int topic_id);
 

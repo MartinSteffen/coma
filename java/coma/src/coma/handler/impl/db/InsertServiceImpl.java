@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.log4j.Category;
 
@@ -512,45 +513,102 @@ public class InsertServiceImpl extends Service implements InsertService {
 		return null;
 	}
 
-	public SearchResult excludesPaper(int paper_id, int person_id) {
-		// TODO
-		return null;
+	public SearchResult excludesPaper(int person_id, int paper_id) {
+		String QUERY = "INSERT INTO ExcludesPaper " + " VALUES(" + person_id
+				+ "," + paper_id + ")";
+		return handleQuery(QUERY);
 	}
 
-	public SearchResult deniesPaper(int paper_id, int person_id) {
-		// TODO
-		return null;
+	public SearchResult deniesPaper(int person_id, int paper_id) {
+		String QUERY = "INSERT INTO DeniesPaper " + " VALUES(" + person_id
+				+ "," + paper_id + ")";
+		return handleQuery(QUERY);
 	}
 
-	public SearchResult prefersPaper(int paper_id, int person_id) {
-		// TODO
-		return null;
+	public SearchResult prefersPaper(int person_id, int paper_id) {
+		String QUERY = "INSERT INTO PrefersPaper " + " VALUES(" + person_id
+				+ "," + paper_id + ")";
+		return handleQuery(QUERY);
 	}
 
-	public SearchResult prefersTopuc(int topic_id, int person_id) {
-		// TODO
-		return null;
+	public SearchResult prefersTopic(int person_id, int topic_id) {
+		String QUERY = "INSERT INTO PrefersTopic " + " VALUES(" + person_id
+				+ "," + topic_id + ")";
+		return handleQuery(QUERY);
+	}
+
+	public SearchResult setAboutTopic(int paper_id, int topic_id) {
+		String QUERY = "INSERT INTO IsAboutToic " + " VALUES(" + paper_id + ","
+				+ topic_id + ")";
+		return handleQuery(QUERY);
 	}
 
 	public SearchResult insertTopic(int conference_id, String name) {
-		// TODO
-		return null;
+		String QUERY = "INSERT INTO Topic " + "(conference_id, name) VALUES("
+				+ conference_id + ",'" + name + "')";
+		return handleQuery(QUERY);
 	}
 
 	public SearchResult setPersonRole(int person_id, int conference_id,
 			int role_type, int state) {
-		// TODO
-		return null;
+		String QUERY = "INSERT INTO Role " + " VALUES(" + conference_id + ","
+				+ person_id + "," + role_type + "," + state + ")";
+		return handleQuery(QUERY);
 	}
-	
-	public SearchResult setCoAuthorOf(int paper_id, int person_id, String name){
-		//TODO
-		return null;
+
+	public SearchResult setCoAuthorOf(int person_id, int paper_id, String name) {
+		String QUERY = "INSERT INTO IsCoAuthorOf " + " VALUES(" + person_id
+				+ "," + paper_id + "," + name + ")";
+		return handleQuery(QUERY);
 	}
-	
-	public SearchResult setAboutTopic(int paper_id, int topic_id){
-		//TODO
-		return null;
+
+	private SearchResult handleQuery(String sqlQuery) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		try {
+			// conn = dataSource.getConnection();
+			conn = getConnection();
+		} catch (Exception e) {
+			ok = false;
+			info
+					.append("Coma could not establish a connection to the database\n");
+			info.append(e.toString());
+			System.out.println(e);
+		}
+		if (ok) {
+
+			try {
+				conn.setAutoCommit(false);
+				Statement pstmt = conn.createStatement();
+				int rows = pstmt.executeUpdate(sqlQuery);
+				if (rows != 1) {
+					conn.rollback();
+					info.append("Data could not inserted into the database\n");
+				} else {
+					result.setSUCCESS(true);
+					info.append("Data inserted successfully\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
+				try {
+					if (conn != null) {
+						conn.setAutoCommit(true);
+						conn.close();
+					}
+				} catch (Exception e) {
+					info
+							.append("ERROR: clould not close database connection\n");
+
+					System.out.println(e);
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
 	}
 
 }
