@@ -2,6 +2,12 @@ package coma.entities;
 
 import java.util.Date;
 
+import coma.entities.Entity.XMLMODE;
+import static coma.entities.Entity.XMLMODE.DEEP;
+import static coma.entities.Entity.XMLMODE.SHALLOW;
+import coma.servlet.util.XMLHelper;
+import static coma.util.logging.Severity.WARN;
+
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Z. Albari</a>
  *
@@ -101,4 +107,38 @@ public class Conference {
     public void setReview_deadline(Date review_deadline) {
         this.review_deadline = review_deadline;
     }
+    
+    public StringBuilder toXML(XMLMODE mode)
+    {
+		switch (mode)
+		{
+		case DEEP:
+		    return XMLHelper.tagged("Conference",
+				XMLHelper.tagged("id", ""+getId()),
+				XMLHelper.tagged("name", getName()),
+				XMLHelper.tagged("homepage", getHomepage()),
+				XMLHelper.tagged("description", getDescription()),
+			    XMLHelper.tagged("abstract", getAbstract_submission_deadline().toString()),
+			    XMLHelper.tagged("paper", getPaper_submission_deadline().toString()),
+			    XMLHelper.tagged("review",getReview_deadline().toString()),
+				XMLHelper.tagged("final", getFinal_version_deadline().toString()),
+				XMLHelper.tagged("notification", getNotification().toString()),
+				XMLHelper.tagged("start",getConference_start().toString()),
+				XMLHelper.tagged("end", getConference_end().toString()),
+				XMLHelper.tagged("min", getMin_review_per_paper())
+					    );
+		case SHALLOW:
+			 return XMLHelper.tagged("Conference",
+			 			XMLHelper.tagged("id", ""+getId()),
+						XMLHelper.tagged("name", getName()),
+						XMLHelper.tagged("desc", getDescription())
+					    );
+		  
+		default:
+		    coma.util.logging.ALogger.log.log(WARN, 
+						      "unknown XMLMODE in",
+						      this, ':', mode);
+		    return null;
+    		}
+    	    }
 }
