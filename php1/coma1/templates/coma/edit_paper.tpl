@@ -73,13 +73,15 @@
         {topic_lines}
       </table>
     </td>
-   </tr>
+  </tr>   
+{if3
   <tr>
     <td colspan="2">
       <input type="submit" name="submit" value="Accept changes" class="button">
       <input type="reset"  name="reset" value="Reset settings" class="button">
     </td>
   </tr>
+}
 </table>
 {if3
 <table class="formtable">

@@ -36,6 +36,18 @@ else {
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(AUTHOR);
 
+// Pruefe ob die Paper-Deadline erreicht worden ist
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get conference details',$myDBAccess->getLastError());
+}
+else if (empty($objConference)) {
+  error('conference '.session('confid').' does not exist in database.','');
+}
+if (strtotime($objConference->strFinalDeadline) <= strtotime("now")) {
+  $strMessage = 'Final version deadline has already been reached. You can\'t change information about the paper anymore.';
+}
+
 $content = new Template(TPLPATH.'edit_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
@@ -67,7 +79,9 @@ if (isset($_POST['action'])) {
     }
   }
   // Paper aktualisieren
-  if (isset($_POST['submit'])) {
+  if (isset($_POST['submit']) &&
+      (strtotime($objConference->strFinalDeadline) > strtotime("now"))) {     
+
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['title'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
@@ -86,7 +100,8 @@ if (isset($_POST['action'])) {
     }
   }
   // Paper loeschen
-  else if (isset($_POST['delete'])) {
+  else if (isset($_POST['delete']) &&
+           $objPaper->intStatus == PAPER_ACCEPTED) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['confirm_delete'])) {
       $strMessage = 'You have to check the delete confirm option!';
@@ -105,7 +120,8 @@ if (isset($_POST['action'])) {
     }
   }
   // Datei hochladen
-  else if (isset($_POST['upload'])) {
+  else if (isset($_POST['upload'])
+           (strtotime($objConference->strFinalDeadline) > strtotime("now"))) {     
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (!isset($_FILES['userfile']) ||
         !is_uploaded_file($_FILES['userfile']['tmp_name'])) {
@@ -177,13 +193,6 @@ else {
   $ifArray[] = 1;
 }
 // Pruefe ob die Final-Deadline noch nicht erreich wurde
-$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
-if ($myDBAccess->failed()) {
-  error('get conference details',$myDBAccess->getLastError());
-}
-else if (empty($objConference)) {
-  error('conference '.session('confid').' does not exist in database.','');
-}
 if (strtotime("now") < strtotime($objConference->strFinalDeadline)) {
   $ifArray[] = 3;
 }
