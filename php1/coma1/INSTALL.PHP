@@ -13,7 +13,7 @@
 function HeadOfPage() {
   print('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n');
   print('<html>\n');
-  print('<head>\n);
+  print('<head>\n');
   print('  <title>CoMa - Your Conference Manager - Error</title>\n');
   print('</head>\n');
   print('<body>\n');
