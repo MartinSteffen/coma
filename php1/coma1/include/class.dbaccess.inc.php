@@ -136,7 +136,7 @@ class DBAccess {
    * Liefert ein Array mit Rollen-Namen zurück.
    *
    * @param int $Id ID der Person $confId ID der Konferenz
-   * @return Array mit Rollen_Namen [Teilnehmer, Chair, ...] <--- provisorisch
+   * @return Array mit Rollen_Namen (siehe Spec von PHP1)
    * @access public
    * @author Daniel (29.12.04)
    */
@@ -148,10 +148,10 @@ class DBAccess {
    $data = $this->mySql->select($s);
    $strRoles= array();
    if (!empty($data)) {
-      // Jeder Benutzer hat die Rolle Teilnehmer 
-     for ($i = 0; $i < count($data); $i++) {
-         // falls ein role_type in der Datenbank existiert der nicht bekannt Fehler  
-       if (($data[$i]['role_type'] >4)||($data[$i]['role_type']==1)){ 
+      for ($i = 0; $i < count($data); $i++) {
+        // Rollen die nach der PHP1 Spec nicht verwendet werden dürfen auch in der Datenbank nicht
+	// vorkommen
+        if (($data[$i]['role_type'] >4)||($data[$i]['role_type']==1)){ 
           $strRoles[$i] = 'undef';
           echo 'Rolle: '.$data[$i]['role_type'].' ist in der Funktion getRoles nicht bekannt';
         }
