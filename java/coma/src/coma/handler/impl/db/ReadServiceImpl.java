@@ -340,7 +340,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean authorIdFlage = false;
 		boolean stateFlag = false;
 		boolean allFlag = false;
-		System.out.println(p.getId());
 		if (p.getId() == -2) {
 			QUERY = "SELECT * FROM Paper";
 			allFlag = true;
@@ -1148,7 +1147,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 		Topic[] topics = new Topic[0];
 		boolean ok = true;
 		Connection conn = null;
-
 		if (conference_id < 0 && topic_id < 0) {
 			info.append("Error: no search criteria was specified \n");
 			ok = false;
