@@ -1,5 +1,4 @@
 <!--         @author: Mohamed Z. Albari          -->
-
 <project name="coma" default="compile" basedir=".">
 
 	<property name="compile.debug" value="true" />
