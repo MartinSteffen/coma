@@ -9,9 +9,11 @@ foreach ($TPL as $key => $value)
 	$TPL[$key]['conference_name'] = $result[0][0];
 	}
 
+if (isset ($_REQUEST['msg'])) {
+	$msg = $_REQUEST['msg'];
+	$TPL['msg'] = $msg;
+}
 
-
- 
 template('AUTHOR_view_papers')
 
 ?>

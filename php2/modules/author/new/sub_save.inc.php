@@ -1,12 +1,4 @@
 <?
-
-//get fileending from filename
-$name = $_REQUEST['file']['name'];
-$a = explode(".", $name);
-$a = array_reverse($a);
-$ending = $a[0];
-
-
 $content = array();
 
 //check for conference_id
@@ -18,6 +10,24 @@ if (isset($_REQUEST['cid']))
   exit();
 }
 
+//get filenameextension from filename
+$name = $_REQUEST['file']['name'];
+//but only there is a filename
+if ($name == "") {
+	redirect("author", "new", "create", "cid=". $content['conference_id']."&msg=<font style=color:red>Please select a valid file to upload.</font>");
+}
+$a = explode(".", $name);
+//or a filenameextension
+if (count($a) > 1) {
+	$a = array_reverse($a);
+	$ending = $a[0];
+}else{
+	$ending = "";
+}
+
+if ($_REQUEST['title'] == "") {
+	redirect("author", "new", "create", "cid=". $content['conference_id']."&msg=<font style=color:red>Please enter a title for your paper.</font>");
+}
 
 //fill content array with values for db
 
@@ -51,24 +61,25 @@ $ftphandle=@ftp_connect($ftphost);
 
 // errorhandling, to be improved
 if (!$ftphandle) {
-	die("Gott ist scheisse! FTP-host unauffindbar!");
+	cleanup_ftp($paper_id, 1, $ftphandle);
+//	die("Gott ist scheisse! FTP-host unauffindbar!");
 	}
 // login or give errormessage if login failed
-@ftp_login($ftphandle, $ftpuser, $ftppass) or die("FTP user oder pass falsch!");
+@ftp_login($ftphandle, $ftpuser, $ftppass) or cleanup_ftp($paper_id, 2, $ftphandle);
 
 
 $ftppath="./" . $ftpdir . "/" . $paper_id;
 
-@ftp_mkdir($ftphandle, $ftppath) or die("ftp_mkdir ".$ftppath." fehlgeschlagen!");
+@ftp_mkdir($ftphandle, $ftppath) or cleanup_ftp($paper_id, 3, $ftphandle);//die("ftp_mkdir ".$ftppath." fehlgeschlagen!");
 
 // changedir to $ftpdir ausser config, darunter Verzeichnis $paperid, oder wirf Fehler
-@ftp_chdir($ftphandle, $ftppath) or die("FTP-chdir to ".$ftppath." fehlgeschlagen!");
+@ftp_chdir($ftphandle, $ftppath) or cleanup_ftp($paper_id, 4, $ftphandle);//die("FTP-chdir to ".$ftppath." fehlgeschlagen!");
 
 $remotefilename = $paper_id .".". $ending;
 $localfilename = $_FILES['file']['tmp_name'];
 
 // put file, auto-creating a filename styled $paperid.$ending with ending coming from mimemap, or die in error
-@ftp_put($ftphandle, $remotefilename, $localfilename ,FTP_BINARY) or redirect("author", "new", "cleanup", "pid=".$paper_id);//die("Hochladen nach '$ftppath / $remotefilename' irgendwie fehlgeschlagen. Schade. Aber ich hab noch Erdbeertoertchen...");
+@ftp_put($ftphandle, $remotefilename, $localfilename ,FTP_BINARY) or cleanup_ftp($paper_id, 5, $ftphandle);//die("Hochladen nach '$ftppath / $remotefilename' irgendwie fehlgeschlagen. Schade. Aber ich hab noch Erdbeertoertchen...");
 
 $SQL = "UPDATE paper SET filename = '".$remotefilename."' WHERE id = ".$paper_id."";
 $change_result = $sql->insert($SQL);
