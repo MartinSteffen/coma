@@ -138,5 +138,4 @@ $main->assign($strMainAssocs);
 $main->parse();
 $main->output();
 
-echo "HALLO";
 ?>
