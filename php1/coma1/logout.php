@@ -17,7 +17,7 @@ define('IN_COMA1', true);
  *
  * @ignore
  */
-//define('NEED_NO_LOGIN', true);
+define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
   session_delete('password');
