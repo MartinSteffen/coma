@@ -1,15 +1,15 @@
 /* Allgemeine Styles */
-body, table, th, td, tr, div, p, pre, h1, h2, h3, ul
+body, table, th, td, tr, div, p, pre, h1, h2, h3, ul, ol
 {
   font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
 }
 
-body, p, pre, ul
+body, p, pre, ul, ol
 {
   font-size: 12px;
   vertical-align: top;
 }
-ul
+ul, ol
 {
   text-indent: 5px;
 }
