@@ -27,6 +27,21 @@ else if (empty($objReview)) {
   error('Review does not exist in database.', '');
 }
 
+// Aktualisiere Review mit den mitgeschickten Daten
+if (isset($_POST['action'])) {
+  $objReview->strSummary = $_POST['summary'];
+  $objReview->strRemarks = $_POST['remarks'];
+  $objReview->strConfidential = $_POST['confidential'];
+  for ($i = 0; $i < count($objReview->intRatings); $i++) {
+    $objReview->intRatings[$i]  = $_POST['rating-'.($i+1)];
+    $objReview->intComments[$i] = $_POST['comment-'.($i+1)];
+  }
+  $objReview->recalcRating();
+  // Trage Review in die Datenbank ein
+  if (isset($_POST['submit']) {
+  }  
+}
+
 $content = new Template(TPLPATH.'reviewer_editreview.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['review_id'] = encodeText($intReviewId);

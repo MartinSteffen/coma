@@ -862,7 +862,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    $s = sprintf("SELECT   SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
+    $s = sprintf("SELECT   SUM((r.grade/c.max_value)*(c.quality_rating/100)) AS total_rating".
                  " FROM    ReviewReport AS rr".
                  " INNER   JOIN Rating AS r".
                  " ON      r.review_id = rr.id".
@@ -895,7 +895,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getReviewRating($intReviewId) {
-    $s = sprintf("SELECT   SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
+    $s = sprintf("SELECT   SUM((r.grade/c.max_value)*(c.quality_rating/100)) AS total_rating".
                  " FROM    Rating AS r".
                  " INNER   JOIN Criterion AS c".
                  " ON      c.id = r.criterion_id".

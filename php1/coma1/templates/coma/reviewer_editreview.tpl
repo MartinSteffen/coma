@@ -22,7 +22,10 @@
   </tr>
   <tr> 
     <td><span class="emph">Overall rating:</span></td>
-    <td><input type="text" size="2" name="total_rating" value="{rating}"> %</td>
+    <td>
+      <span class="emph">{rating}%</span>
+      <input type="submit" name="recalc" value="recalculate" class="smallbutton">
+    </td>
   </tr>
   <tr>
     <td>

@@ -49,6 +49,15 @@ class ReviewDetailed extends Review {
     $this->objCriterions = $objCriterions;
   }
 
+  function recalcRating() {
+    $fltNewRating = 0.0;
+    for ($i = 0; $i < count($this->$intRatings); $i++) {
+      $fltNewRating += (($this->$intRatings[$i] / $this->$objCriterions[$i]->intMaxValue) *
+                         $this->$objCriterions[$i]->fltWeight);
+    }
+    $this->fltReviewRating = $fltNewRating;
+  }
+
 } // end class ReviewDetailed
 
 ?>
