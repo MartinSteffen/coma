@@ -8,7 +8,11 @@
     <th class="listheader">Last edited</th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
-    <th class="listheader">&nbsp;</th>        
+    <th class="listheader">
+      <button name="addpaper" type="button" class="button" value="edit"
+              onClick="self.location.href='{basepath}author_createpaper.php{?SID}'">
+              Add new paper</button>    
+    </th>        
   </tr>
   {lines}
 </table>
