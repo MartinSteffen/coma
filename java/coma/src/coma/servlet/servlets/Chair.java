@@ -167,6 +167,7 @@ public class Chair extends HttpServlet
 		else 
 		{
 		    info.delete(0,info.length());
+		    //info.append(XMLHelper.tagged("pageTitle","invitation send"));
 		    info.append("<content>");
 		    info.append(XMLHelper.tagged("first",formular[0]));
 		    info.append(XMLHelper.tagged("last",formular[1]));
@@ -318,7 +319,7 @@ public class Chair extends HttpServlet
 		}
 		if (req.getParameter("id")==null)
 		{
-			p = new Person(0);
+			p = new Person(-1);
 			p.setRole_type(1);
 			tag = "showauthors";
 		}
@@ -346,9 +347,26 @@ public class Chair extends HttpServlet
         		p = result[i];
         		info.append(p.toXML());
         	}
+        	if (PAPER)
+        	{
+        		try
+        		{
+        			Paper[] personPaper = p.getPapers();
+	        		for (int i=0;i<personPaper.length;i++)
+	        		{
+	        			info.append(personPaper[i].toXML());
+	        		}
+        		}
+        		catch(Exception io)
+        		{
+        			System.out.println("FEHLER");
+        		}
+	        		
+        	}
         	info.append("</content>");
         	if (PAPER)
-        		info.append(XMLHelper.tagged("status","" + user + ": statistic for author ?"));
+
+        		info.append(XMLHelper.tagged("status","" + user + ": statistic for author ?"));	
         	else
         		info.append(XMLHelper.tagged("status","" + user + ": list of all authors"));	
         	commit(res,tag);
