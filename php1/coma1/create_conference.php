@@ -133,8 +133,11 @@ if (isset($_POST['action'])) {
      *   noErrors = true, solange kein Fehler gefunden wurde
      */
     $noErrors = true; 
-    if (empty($_POST['name'])) {
-      $strMessage = 'You have to fill in the field <b>Title</b>!';
+    if (empty($_POST['name'])        || empty($_POST['start_date']) ||
+        empty($_POST['abstract_dl']) || empty($_POST['paper_dl'])   || 
+        empty($_POST['review_dl'])   || empty($_POST['final_dl'])   ||  ) {
+      $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start date</b>, '.
+                    'and the <b>Deadline</b> fields!';
       $noErrors = false;
     }
     // Test, ob das Datumsformat stimmt
@@ -159,7 +162,6 @@ if (isset($_POST['action'])) {
     $conference_end_d              = substr( $_POST['end_date'],0,2);
     $conference_end_m              = substr( $_POST['end_date'],3,2);
     $conference_end_y              = substr( $_POST['end_date'],6,4);
-
 
     if (!checkdate((int)$abstract_submission_deadline_m,
                    (int)$abstract_submission_deadline_d,
@@ -210,16 +212,21 @@ if (isset($_POST['action'])) {
                    'Wrong format in field \'Start date\': '.
                    $_POST['start_date'];
      $noErrors = false;
-    }
+   }
 
-    if (!checkdate((int)$conference_end_m,
+   if (!checkdate((int)$conference_end_m,
 		   (int)$conference_end_d,
 		   (int)$conference_end_y) && !empty($_POST['end_date'])) {
     $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').		   	
                   'Wrong format in field \'End date\': '.
                   $_POST['end_date'];
-     $noErrors = false;
-   }
+    $noErrors = false;
+  }
+
+  if (!$noErrors) {
+    $strMessage .= '<br>Please use the format <b>dd/mm/yyyy</b> for the date fields, '.
+                   'for example <b>01/05/2005</b>!'
+  }
 
   /**
    * Test, ob die Datumsangaben plausibel sind
@@ -235,6 +242,7 @@ if (isset($_POST['action'])) {
            $paper_submission_deadline_d
          )
          &&
+         ( empty($_POST['notification']) ||
 	 ( $paper_submission_deadline_y.
            $paper_submission_deadline_m.
            $paper_submission_deadline_d
@@ -242,8 +250,9 @@ if (isset($_POST['action'])) {
            $notification_y.
            $notification_m.
            $notification_d
-	 )
+	 ))
          &&
+         ( empty($_POST['notification']) ||
          ( $notification_y.
            $notification_m.
            $notification_d
@@ -251,8 +260,9 @@ if (isset($_POST['action'])) {
            $conference_start_y.
            $conference_start_m.
            $conference_start_d
-         )
+         ))
          &&
+         ( empty($_POST['end_time']) ||
          ( $conference_start_y.
            $conference_start_m.
            $conference_start_d
@@ -260,7 +270,7 @@ if (isset($_POST['action'])) {
            $conference_end_y.
            $conference_end_m.
            $conference_end_d
-	 )
+	 ))
          &&
          ( $paper_submission_deadline_y.
            $paper_submission_deadline_m.

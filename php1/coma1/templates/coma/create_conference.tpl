@@ -36,7 +36,7 @@
       Starts:
     </td>
     <td>
-      <input type="text" name="start_date" size="16" maxlength="16" value="{start_date}">
+      <input type="text" name="start_date" size="16" maxlength="16" value="{start_date}"> *
     </td>
   </tr>
   <tr>
@@ -52,7 +52,7 @@
       Deadline for abstracts:
     </td>
     <td>
-      <input type="text" name="abstract_dl" size="16" maxlength="16" value="{abstract_dl}">
+      <input type="text" name="abstract_dl" size="16" maxlength="16" value="{abstract_dl}"> *
     </td>
   </tr>
   <tr>
@@ -60,7 +60,7 @@
       Deadline for paper submission:
     </td>
     <td>
-      <input type="text" name="paper_dl" size="16" maxlength="16" value="{paper_dl}">
+      <input type="text" name="paper_dl" size="16" maxlength="16" value="{paper_dl}"> *
     </td>
   </tr>
   <tr>
@@ -68,7 +68,7 @@
       Deadline for reviews:
     </td>
     <td>
-      <input type="text" name="review_dl" size="16" maxlength="16" value="{review_dl}">
+      <input type="text" name="review_dl" size="16" maxlength="16" value="{review_dl}"> *
     </td>
   </tr>
   <tr>
@@ -76,7 +76,7 @@
       Deadline for final versions:
     </td>
     <td>
-      <input type="text" name="final_dl" size="16" maxlength="16" value="{final_dl}">
+      <input type="text" name="final_dl" size="16" maxlength="16" value="{final_dl}"> *
     </td>
   </tr>
   <tr>
@@ -114,3 +114,7 @@
   </tr>
 </table>
 </form>
+
+<p class="message2">
+  Please use the format <b>dd/mm/yyyy</b> for the date fields, for example <b>01/05/2005</b>!
+</p>
