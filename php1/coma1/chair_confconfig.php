@@ -173,6 +173,7 @@ if (isset($_POST['action'])) {
       for ($i = 0; $i < count($strTopics); $i++) {
         $objTopics[] = new Topic($strTIds[$i], $strTopics[$i]);
       }
+      var_dump($objTopics);
       $objConferenceDetailed =
         new ConferenceDetailed($_POST['id'],
                                $_POST['name'],
