@@ -22,7 +22,8 @@
       Neueste Rezepte</a>
     </td> 
     <td class="listitem-1"> 
-      Robby Rabbit  
+      <a href="{basepath}user_userdetails.php?userid={authorid}{&SID}">
+      Robby Rabbit</a>
     </td>
     <td class="listitem-1"> 
       <span class="status-reviewed">reviewed</span>
@@ -39,8 +40,8 @@
       <input type="submit" name="submit" value="View" class="button" />
     </td>
   </tr>
-  <tr>
-    <td colspan="6">
+  <tr class="listitem-1">
+    <td colspan="6" class="listitem-1">
     Description: This paper is about serious infections of teenage angst.
     </td>
   <tr>

@@ -6,7 +6,6 @@
     <th width="10%" class="listheader">Status</th>
     <th width="10%" class="listheader">My rating</th>
     <th width="10%" class="listheader">Total rating</th>
-    <th width="15%" class="listheader">Discussion</th>    
    </tr>
 
   <tr class="listitem-1"> 
@@ -21,13 +20,17 @@
       <span class="status-reviewed">reviewed</span>
     </td>
     <td class="listitem-1"> 5/5 </td>
-    <td class="listitem-1"> 4.2/5 </td>
-    <td class="listitem-1">  
+    <td class="listitem-1"> 4.2/5 </td>    
+  </tr>
+  <tr class="listitem-1">
+    <td class="listitem-1" colspan="5">
       <form action="" method="post">
-        <input type="hidden" name="confid" value="{confid}" />
-        <input type="submit" name="submit" value="enter" class="button" />
+        <input type="hidden" name="reviewid" value="{reviewid}" />
+        <input type="submit" name="submit" value="Edit review" class="button" />
+        <input type="submit" name="submit" value="See paper details" class="button" />
+        <input type="submit" name="submit" value="Enter discussion" class="button" />
       </form> 
-    </td>   
+    </td>
   </tr>
 
   <tr class="listitem-2"> 
@@ -43,7 +46,16 @@
     </td> 
     <td class="listitem-2"> 1/5 </td>
     <td class="listitem-2"> - </td>
-    <td class="listitem-2">access denied</td>
+  </tr>
+    <tr class="listitem-2">
+    <td class="listitem-2" colspan="5">
+      <form action="" method="post">
+        <input type="hidden" name="reviewid" value="{reviewid}" />
+        <input type="submit" name="submit" value="Edit review" class="button" />
+        <input type="submit" name="submit" value="See paper details" class="button" />
+        <input type="submit" name="submit" value="Enter discussion" class="button" />
+      </form> 
+    </td>
   </tr>
 </table>
 
