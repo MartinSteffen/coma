@@ -1,5 +1,5 @@
       <td>
-        <form action="{basepath}{target_form}{?SID}" method="post" accept-charset="UTF-8">      
+        <form action="{basepath}{targetform}{?SID}" method="post" accept-charset="UTF-8">      
           <input type="hidden" name="action" value="editrole" class="button">
           <input type="hidden" name="userid" value="{user_id}">
           <input type="hidden" name="roletype" value="{role_type}">

@@ -63,9 +63,9 @@ if (!empty($objConferences)) {
     }
     $strItemAssocs['line_no'] = encodeText($lineNo);
     $strItemAssocs['confid'] = encodeText($objConference->intId);
-    $strItemAssocs['roleid_author'] = encodeText(AUTHOR);
-    $strItemAssocs['roleid_reviewer'] = encodeText(REVIEWER);
-    $strItemAssocs['roleid_participant'] = encodeText(PARTICIPANT);
+    $strItemAssocs['role_author'] = encodeText(AUTHOR);
+    $strItemAssocs['role_reviewer'] = encodeText(REVIEWER);
+    $strItemAssocs['role_participant'] = encodeText(PARTICIPANT);
     $strItemAssocs['link'] = encodeURL($objConference->strHomepage);
     if (!empty($objConference->strHomepage)) {
       $ifArray[] = 5;

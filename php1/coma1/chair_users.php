@@ -24,6 +24,33 @@ if ($myDBAccess->failed()) {
 global $intRoles;
 global $strRoles;
 
+if (isset($_POST['action'])) {
+  if ($_POST['action'] == 'delete') {
+    // Benutzer loeschen (?)
+  }
+  else if ($_POST['action'] == 'edit_role') {
+    // Benutzerrolle bearbeiten
+    if ($_POST['submit'] == 'add') {
+      $myDBAccess->addRole(session('uid'), $intRoleType, $_POST['confid'], true);
+      if ($myDBAccess->failed()) {
+        error('Error updating role table.', $myDBAccess->getLastError());
+      }
+    }
+    else if ($_POST['submit'] == 'accept') {
+      $myDBAccess->acceptRole(session('uid'), $intRoleType, $_POST['confid']);
+      if ($myDBAccess->failed()) {
+        error('Error updating role table.', $myDBAccess->getLastError());
+      }
+    }
+    else if ($_POST['submit'] == 'remove' || $_POST['submit'] == 'reject') {
+      $myDBAccess->deleteRole(session('uid'), $intRoleType, $_POST['confid']);
+      if ($myDBAccess->failed()) {
+        error('Error updating role table.', $myDBAccess->getLastError());
+      }
+    }
+  }
+}
+
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = array();
@@ -42,6 +69,7 @@ if (!empty($objPersons)) {
     for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
       $strRolesAssocs = defaultAssocArray();
+      $strRolesAssocs['targetform'] = 'chair_users.php';
       $strRolesAssocs['user_id'] = $objPerson->intId;
       $strRolesAssocs['role_type'] = $intRoles[$i];
       $strRolesAssocs['role_name'] = $strRoles[$intRoles[$i]];

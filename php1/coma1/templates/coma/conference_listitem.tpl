@@ -23,7 +23,7 @@
   {if2
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
-      <input type="hidden" name="roleid" value="{roleid_reviewer}">
+      <input type="hidden" name="roletype" value="{role_reviewer}">
       <input type="submit" name="submit" value="Apply as Reviewer" class="button">
     </form>
   }
@@ -31,7 +31,7 @@
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="retreat" value="retreat">
-      <input type="hidden" name="roleid" value="{roleid_reviewer}">
+      <input type="hidden" name="roletype" value="{role_reviewer}">
       <input type="submit" name="submit" value="Retreat as Reviewer" class="button">
     </form>
   }
@@ -40,7 +40,7 @@
   {if3
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
-      <input type="hidden" name="roleid" value="{roleid_author}">
+      <input type="hidden" name="roletype" value="{role_author}">
       <input type="submit" name="submit" value="Apply as Author" class="button">
     </form>
   }
@@ -48,7 +48,7 @@
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="retreat" value="retreat">
-      <input type="hidden" name="roleid" value="{roleid_author}">
+      <input type="hidden" name="roletype" value="{role_author}">
       <input type="submit" name="submit" value="Retreat as Author" class="button">
     </form>
   }
@@ -57,7 +57,7 @@
   {if4
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
-      <input type="hidden" name="roleid" value="{roleid_participant}">
+      <input type="hidden" name="roletype" value="{role_participant}">
       <input type="submit" name="submit" value="Sign up as Participant" class="button">
     </form>
   }
