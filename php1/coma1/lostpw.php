@@ -26,7 +26,7 @@ if (checkLogin()) {
 
 $uname = session('uname', false);
 $message = '';
-if ((isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
   /* E-Mail eingeben */
   $uname = $_POST['user_name'];
   if (checkEmail($uname)) {
