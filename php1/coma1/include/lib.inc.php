@@ -86,6 +86,9 @@ function encodeText($_str) {
  * @return string encoded string array
  */
 function encodeTextArray($_str) {
+  if (empty($_str)) {
+    return array();
+  }
   $retArray = explode('|', $_str);
   for ($i = 0; $i < count($retArray); $i++) {
     $retArray[$i] = encodeText($retArray[$i]);
