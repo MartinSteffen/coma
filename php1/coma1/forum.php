@@ -55,6 +55,7 @@ function notemptyandtrue($arr, $index){
 function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, &$myDBAccess, $fshow){
   if (DEBUGMODE){
     //echo('forums: ' . count($forums) . '<br>');
+    echo('fshow=' . $fshow);
   }
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
