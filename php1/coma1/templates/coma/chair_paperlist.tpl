@@ -30,7 +30,8 @@
     </td>
     <td>
       <form action="" method="post">
-        <input type="hidden" name="paperid" value="{paperid}" />        
+        <input type="hidden" name="paperid" value="{paperid}" />
+        <input type="submit" name="submit" value="view" class="button" />
         <input type="submit" name="submit" value="delete" class="button" />
       </form>
     </td>
@@ -58,7 +59,8 @@
     </td>
     <td>
       <form action="" method="post">
-        <input type="hidden" name="paperid" value="{paperid}" />        
+        <input type="hidden" name="paperid" value="{paperid}" />
+        <input type="submit" name="submit" value="view" class="button" />
         <input type="submit" name="submit" value="delete" class="button" />
       </form>
     </td>

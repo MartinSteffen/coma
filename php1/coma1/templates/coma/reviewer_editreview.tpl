@@ -5,7 +5,20 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Review paper 'Increasing Shitimonial' by Robby Rabbit:</th>
+    <th colspan="2">Review paper 'Increasing Shitimonial' by
+      <a href="{basepath}chair_userdetails.php?userid={authorid}{&SID}">Robby Rabbit:</a>
+    </th>
+  </tr>
+  <tr>
+    <td colspan="2">
+      Abstract:<br>This Paper is about some teenage angst phenomena and so on...
+    </td>
+  </tr>
+  <tr>
+    <form action="" method="post">
+      <input type="hidden" name="paperid" value="{paperid}" />
+      <input type="submit" name="submit" value="view" class="button" />      
+    </form>
   </tr>
   <tr>
     <td colspan="2">
