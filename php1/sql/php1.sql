@@ -60,3 +60,10 @@ CREATE TABLE IF NOT EXISTS PaperData
 ) TYPE = INNODB;
 
 
+-- Sonst bekommt man Message Leichen, die man per Hand aufräumen müsste!!
+ALTER TABLE Message
+{
+  CHANGE forum_id forum_id INT NOT NULL,
+  ADD FOREIGN KEY (forum_id) REFERENCES Forum (id)
+       ON DELETE CASCADE
+}
