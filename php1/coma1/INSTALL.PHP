@@ -40,19 +40,24 @@ elseif (isset($_GET['4'])) {
   a:hover { color: #004DFF; }
   div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
     width: 60%; font-size: 13px; font-weight: bold; text-align: center;
+    vertical-align: top; margin: 10px 10px; padding: 10px 10px; color: #222222; 
+    background-color: #dddddd; border: 1px solid #222222; }
+  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
+    width: 60%; font-size: 13px; font-weight: bold; text-align: center;
     vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
-  div.area { color: #222222; background-color: #dddddd; border: 1px solid #222222; }
-  div.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; }
-  div.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; }
+  p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; }
+  p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; }
   -->
   </style>
 </head>
 <body>
-  <div class="area">
-    1. <a href="INSTALL.PHP?1">Generate Configuration</a><br>
-    2. <a href="INSTALL.PHP?2">Create Database</a><br>
-    3. <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
-    4. <a href="INSTALL.PHP?4">Delete INSTALL.PHP</a><br>
+  <div>
+    <p class="menu">
+      1. <a href="INSTALL.PHP?1">Generate Configuration</a><br>
+      2. <a href="INSTALL.PHP?2">Create Database</a><br>
+      3. <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
+      4. <a href="INSTALL.PHP?4">Delete INSTALL.PHP</a><br>
+    </p>
 <?php
 if ($STEP == 1){
   // TODO
@@ -123,16 +128,16 @@ elseif ($STEP == 2) {
     }
   }
   if (empty($errors)) {
-    echo "    <div class=\"message-ok\">Database successfully created!</div>";
+    echo "    <p class=\"message-ok\">Database successfully created!</p>";
   }
   else {
-    echo "    <div class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
+    echo "    <p class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
     foreach ($errors as $error) {
       echo "      ".$error."<br>\n";
     }
     echo "      <br><br>\n";
     echo "      Please check 'include/config.inc.php' for correct values!\n";
-    echo "    </div>\n";
+    echo "    </p>\n";
   }
 }
 elseif ($STEP == 3) {
