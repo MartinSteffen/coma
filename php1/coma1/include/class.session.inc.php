@@ -57,8 +57,8 @@ class Session {
    * @see getLastError()
    *
    */
-  function Session($mySql) {
-    $this->mySql = $mySql;
+  function Session(&$mySql) {
+    $this->mySql =& $mySql;
 
     session_name('coma1');
     session_cache_limiter('nocache');

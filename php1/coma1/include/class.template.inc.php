@@ -106,6 +106,7 @@ class Template {
    * @return true Erfolg
    * @access public
    * @TODO Check ob gueltiges Objekt!!!
+   * @TODO nicht ersetzte Tags ueberpruefen!!!
    *
    */
   function parse() {

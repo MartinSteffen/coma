@@ -42,8 +42,8 @@ class DBAccess {
    * @see error()
    * @see getLastError()
    */
-  function DBAccess($mySql) {
-    $this->mySql = $mySql;
+  function DBAccess(&$mySql) {
+    $this->mySql =& $mySql;
 
     return true;
   }
