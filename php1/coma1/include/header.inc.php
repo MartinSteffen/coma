@@ -18,7 +18,6 @@ function checkError($class) {
 
 require_once('class.mysql.inc.php');
 require_once('class.session.inc.php');
-require_once('class.template.inc.php');
 require_once('class.dbaccess.inc.php');
 
 $mySql = new MySql();

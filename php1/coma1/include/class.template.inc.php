@@ -66,7 +66,7 @@ class Template {
     if (empty($strContents)) {
       return $this->error("Could not read Template [$strFilename]");
     }
-    $this->strTemplate = $strContents;
+    $this->strTemplate =& $strContents;
     return true;
   }
   
@@ -89,7 +89,7 @@ class Template {
    * @access public
    *
    */
-  function assign($strAssocs) {
+  function assign(&$strAssocs) {
     if(!is_array($strAssocs)) {
       return $this->error('Not an Array');
     }
@@ -108,10 +108,27 @@ class Template {
    *
    */
   function parse() {
-    $strKeys = array_keys($this->strAssocs);
-    $strKeys = array_map(create_function('$s', 'return "<(?i){".$s."}>";'), $strKeys);
-    $this->strOutput = preg_replace($strKeys, array_values($this->strAssocs), $this->strTemplate);
+    foreach ($this->strAssocs as &$key => &$value) {
+      $key = '<(?i){'.$key.'}>';
+      if (isObject($value)) {
+        //$value
+      }
+    }
+    $this->strOutput = preg_replace(array_keys($this->strAssocs), array_values($this->strAssocs), $this->strTemplate);
     return true;
+  }
+  
+  /**
+   * Ausgabe
+   *
+   * Die Methode gibt ein (geparstet) Template aus.
+   * 
+   * @return true Erfolg
+   * @access public
+   *
+   */
+  function getOutput() {
+    return $this->strOutput;
   }
   
   /**
