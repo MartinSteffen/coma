@@ -44,13 +44,21 @@ if (!empty($objPapers)) {
       $ifArray[] = 5;
     }
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+    $objReviews = $myDBAccess->getReviewsOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('get review list of chair',$myDBAccess->getLastError());
+    }
+    $objReviewers = $myDBAccess->getAssignedReviewsOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('get review list of chair',$myDBAccess->getLastError());
+    }
+    $strItemAssocs['num_reviews'] = encodeText(count($objReviews).'/'.count($objReviewers));
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
     else {
       $strItemAssocs['avg_rating'] = ' - ';
     }    
-    $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'chair_reviewlistitem.tpl');
     $paperItem->assign($strItemAssocs);

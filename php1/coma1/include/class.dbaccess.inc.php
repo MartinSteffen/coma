@@ -1006,6 +1006,39 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert ein Array von Person-Objekten zurueck, die als Reviewer des Papers $intPaperId
+   * zugeteilt worden sind.
+   *
+   * @param int $intPaperId ID des Papers
+   * @return Person [] Ein leeres Array, falls dem Paper keine Reviewer zugeteilt wurden.
+   * @access public
+   * @author Tom (26.01.05)
+   */
+  function getAssignedReviewersOfPaper($intPaperId) {
+    $s = sprintf("SELECT   reviewer_id".
+                 " FROM    Distribution".
+                 " WHERE   paper_id = '%d'",
+                           s2db($intPaperId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getAssignedReviewersOfPaper', $this->mySql->getLastError());
+    }
+    $objReviewers = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objReviewer = $this->getPerson($data[$i]['reviewer_id']);
+      if ($this->mySql->failed()) {
+        return $this->error('getAssignedReviewersOfPaper', $this->mySql->getLastError());
+      }
+      else if(empty($objReviewer)) {
+        return $this->error('getAssignedReviewersOfPaper', 'Fatal error: Database inconsistency!',
+                            'reviewer_id = '.$data[$i]['reviewer_id']);
+      }
+      $objReviewers[] = $objReviewer;
+    }
+    return $this->success($objReviewers);
+  }
+
+  /**
    * Liefert ein Array von Person-Objekten zurueck, die Reviewer des Papers $intPaperId sind.
    *
    * @param int $intPaperId ID des Papers
@@ -1029,7 +1062,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
       }
       else if(empty($objReviewer)) {
-        return $this->error('getReviewsOfPaper', 'Fatal error: Database inconsistency!',
+        return $this->error('getReviewersOfPaper', 'Fatal error: Database inconsistency!',
                             'reviewer_id = '.$data[$i]['reviewer_id']);
       }
       $objReviewers[] = $objReviewer;
