@@ -1,6 +1,6 @@
 <tr class="listitem-{line_no}">
   <td class="listitem-{line_no}" colspan="3">
-    <span class="emph">{name}</span>
+    <a href="{link}"><span class="emph">{name}</span></a>
   </td>
   <td class="listitem-{line_no}">
     {startdate} - {enddate}

@@ -51,6 +51,7 @@ if (!empty($objConferences)) {
     }
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['confid'] = $objConference->intId;
+    $strItemAssocs['link'] = $objConference->strHomepage;
     $strItemAssocs['name'] = $objConference->strName;
     $strItemAssocs['startdate'] = $objConference->strStart;
     $strItemAssocs['enddate'] = $objConference->strEnd;

@@ -31,7 +31,7 @@ if ($objPerson->hasRole(CHAIR, session('confid'))) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu1'] = $submenu->getOutput();
+  $strMenuAssocs['menu1'] = $submenu->output();
 }
 
 if ($objPerson->hasRole(REVIEWER, session('confid'))) {
@@ -40,7 +40,7 @@ if ($objPerson->hasRole(REVIEWER, session('confid'))) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu2'] = $submenu->getOutput();
+  $strMenuAssocs['menu2'] = $submenu->output();
 }
 
 if ($objPerson->hasRole(AUTHOR, session('confid'))) {
@@ -49,7 +49,7 @@ if ($objPerson->hasRole(AUTHOR, session('confid'))) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu3'] = $submenu->getOutput();
+  $strMenuAssocs['menu3'] = $submenu->output();
 }
 
 if ($objPerson->hasRole(PARTICIPANT)) {
@@ -58,7 +58,7 @@ if ($objPerson->hasRole(PARTICIPANT)) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu4'] = $submenu->getOutput();
+  $strMenuAssocs['menu4'] = $submenu->output();
 }
 
 $menu->assign($strMenuAssocs);
