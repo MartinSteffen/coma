@@ -133,6 +133,17 @@ function decodeText($_str) {
   return($_str);
 }
 
+/** 
+ * This function makes an encoded String URL valid (gives an valid Link!)
+ *
+ * @param string $_str String to encode
+ * @return string encoded string
+ */
+function encodeURL($_str) {
+  // Add some Code :)
+  return($_str);
+}
+
 // Debugging Einstellungen:
 error_reporting(E_ALL);
 ini_set('display_errors', '1');         // später 0 ??
