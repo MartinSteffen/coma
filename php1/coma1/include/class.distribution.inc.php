@@ -190,7 +190,7 @@ class Distribution extends ErrorHandling {
         $p_num_revs[$pindex]++;
         $p_num_revs_total_left[$pindex]--;
         $r_num_papers[$i]++;
-        $color[$i][$pindex] = 'FFFF00';
+        $color[$i][$pindex] = '999999';
       }
       // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
@@ -370,7 +370,7 @@ class Distribution extends ErrorHandling {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
         if ($matrix[$i][$j] == SUGGESTED && $color[$i][$j] == 'FFFFFF') {
-          $color[$i][$j] = 'FFAAAA';
+          $color[$i][$j] = 'FFFF00';
         }
         echo('<td bgcolor='.$color[$i][$j].'>'.$matrix[$i][$j].'</td>');
       }
