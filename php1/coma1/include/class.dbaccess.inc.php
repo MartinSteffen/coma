@@ -1237,7 +1237,7 @@ class DBAccess extends ErrorHandling {
     // echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addRole ' $this->mySql->getLastError());
+      return $this->error('addRole ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1257,7 +1257,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCoAuthor ' $this->mySql->getLastError());
+      return $this->error('addCoAuthor ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1278,7 +1278,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCoAuthorName ' $this->mySql->getLastError());
+      return $this->error('addCoAuthorName ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1317,9 +1317,9 @@ class DBAccess extends ErrorHandling {
       if ($blnOk) {
         return $intId;
       }
-      return $this->error('addPaper '.$this->getLastError());
+      return $this->error('addPaper ', $this->getLastError());
     }
-    return $this->error('addPaper '.$this->mySql->getLastError());
+    return $this->error('addPaper ', $this->mySql->getLastError());
   }
 
   /**
@@ -1343,7 +1343,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addReviewReport ' $this->mySql->getLastError());
+      return $this->error('addReviewReport ', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1366,7 +1366,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCriterion ' $this->mySql->getLastError());
+      return $this->error('addCriterion ', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1389,7 +1389,7 @@ class DBAccess extends ErrorHandling {
      for ($i = 0; $i < count($objCriterions) && empty($objCriterions) == false; $i++) {
         $this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
         if ($this->mySql->failed()) {
-          return $this->error('createNewReviewReport ' $this->mySql->getLastError());
+          return $this->error('createNewReviewReport ', $this->mySql->getLastError());
         }    
      }
      return $this->success($intReviewId);
@@ -1406,6 +1406,7 @@ class DBAccess extends ErrorHandling {
    *             aufgetreten ist
    * @access public
    * @author Sandro (18.12.04)
+   * @todo Statt '3' die Konstante fuer den Artikelforen-Typ einfuegen!
    */
   function addForum($intConferenceId, $strTitle, $intForumType, $intPaperId = 0) {
     if ($intForumType <> 3) {  // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
@@ -1416,7 +1417,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addForum ' $this->mySql->getLastError());
+      return $this->error('addForum ', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1443,7 +1444,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addMessage ' $this->mySql->getLastError());
+      return $this->error('addMessage ', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1471,7 +1472,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCriterion ' $this->mySql->getLastError());
+      return $this->error('addCriterion ', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1492,7 +1493,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addDeniesPaper ' $this->mySql->getLastError());
+      return $this->error('addDeniesPaper ', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1512,7 +1513,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addIsAboutTopic ' $this->mySql->getLastError());
+      return $this->error('addIsAboutTopic ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1532,7 +1533,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addPrefersTopic' $this->mySql->getLastError());
+      return $this->error('addPrefersTopic', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1552,7 +1553,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addPrefersPaper ' $this->mySql->getLastError());
+      return $this->error('addPrefersPaper ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1572,7 +1573,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addDeniesPaper ' $this->mySql->getLastError());
+      return $this->error('addDeniesPaper ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
