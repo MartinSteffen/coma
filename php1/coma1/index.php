@@ -23,16 +23,32 @@ if (!isset($_SESSION['confid'])) {
   redirect('main_start.php');  
 }
 // Eingeloggt und hab ne Konfernez gewaehlt -> Userlevel bestimmen
-$myDBAccess->getPerson(session('uid'));
-echo session('uid');
+// Sicherheitshalber einfahc mal ueberpruefen
+if (!isset($_SESSION['uid'])) {
+  // UID setzen
+  $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
+  if ($myDBAccess->failed()) {
+    session_delete('uid');
+    error('checkLogin',$myDBAccess->getLastError());
+  }
+}
+$objIch = $myDBAccess->getPerson(session('uid'));
 if ($myDBAccess->failed()) {
   error('index.php -> chooseHighestUserlevel',$myDBAccess->getLastError());
 }
-redirect('chair_start.php');
-redirect('reviewer_start.php');
-redirect('author_start.php');
-redirect('participant_start.php');
-// falls man kein Userlevel haben sollte, sollte man auchnicht eingeloggt sein!
-redirect('user_conference.php');
+if ($objIch->hasRole(CHAIR)) {
+  redirect('chair_start.php');
+}
+if ($objIch->hasRole(REVIEWER)) {
+  redirect('reviewer_start.php');
+}
+if ($objIch->hasRole(AUTHOR)) {
+  redirect('author_start.php');
+}
+if ($objIch->hasRole(PARTICIPANT)) {  
+  redirect('participant_start.php');
+}
+// falls man kein Userlevel haben sollte, sollte man auch nicht hier sein!
+error('detect UserLevel','Unknown UserLevel!');
 
 ?>
