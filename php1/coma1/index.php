@@ -34,7 +34,7 @@ if (!isset($_SESSION['uid'])) {
 }
 $objIch = $myDBAccess->getPerson(session('uid'));
 if ($myDBAccess->failed()) {
-  error('chooseHighestUserlevel',$myDBAccess->getLastError());
+  error('chooseHighestRole',$myDBAccess->getLastError());
 }
 if ($objIch->hasRole(CHAIR)) {
   redirect('chair_start.php');
@@ -49,6 +49,6 @@ if ($objIch->hasRole(PARTICIPANT)) {
   redirect('participant_start.php');
 }
 // falls man kein Userlevel haben sollte, sollte man auch nicht hier sein!
-error('detect UserLevel','Unknown UserLevel!');
+error('chooseHighestRole','Unknown Role!');
 
 ?>
