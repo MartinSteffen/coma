@@ -116,19 +116,21 @@ discussion-wise during semester.
 
 \begin{table}[htbp]
   \centering
-  \begin{tabular}[t]{ll|cc|ccccccc|}
+  \begin{tabular}[t]{lll|cc|ccccccc|}
     \hline
-    name & description & \multicolumn{2}{|c|}{installed at} & \multicolumn{7}{|c|}{needed by}
+    name & version & description & \multicolumn{2}{|c|}{installed at} & \multicolumn{7}{|c|}{needed by}
     \\
+    &
     &
     &
     &
     &
     \multicolumn{5}{c}{developers}
     &
-    \multicolumn{2}{c}{users}
+    \multicolumn{2}{c}{customers}
     \\
-    & & 
+    & &
+    &
     snert
     &
     lab
@@ -143,13 +145,15 @@ discussion-wise during semester.
     &
     org
     &
-    admin
+    server side
     &
-    external
+    client side
     \\\hline%%%%
     \href{http://ant.apache.org/}{ant} 
     &
-    build tool 
+    %% version
+    &
+    build tool % description
     & 
     +  % snert
     & 
@@ -169,13 +173,15 @@ discussion-wise during semester.
     &
     - % external user
     \\
-    \href{http://subversion.tigris.org/}{Subversion}
+    \href{http://subversion.tigris.org/}{subversion}
     &
-    CM
+    %% version
+    & 
+    CM % description
     & 
     +  % snert
     & 
-    +  % lab
+    [+]  % lab
     &
     + %p1
     &
@@ -191,20 +197,89 @@ discussion-wise during semester.
     &
     - % external user
     \\
+    \href{http://www.apache.org}{apache}
+    &
+    %% version
+    & 
+    web server % description
+    & 
+    +  % snert
+    & 
+    [-]  % lab
+    &
+    + %p1
+    &
+    + %p2
+    &
+    + %j
+    &
+    + % t
+    & 
+    - %o
+    &
+    + % server side
+    &
+    - % client side
+    \\
+    \href{http://jakarta.apache.org/tomcat/index.html}{Jacarta Tomcat}
+    &
+    %% version
+    & 
+    web server % description
+    & 
+    +  % snert
+    & 
+    -  % lab
+    &
+    - %p1
+    &
+    - %p2
+    &
+    + %j
+    &
+    + % t
+    & 
+    - %o
+    &
+    + % server side
+    &
+    - % client side
+    \\
+    \href{http://www.mysql.org}{mysql}
+    &
+    %% version
+    & 
+    data base % description
+    & 
+    +  % snert
+    & 
+    [-]  % lab
+    &
+    + %p1
+    &
+    + %p2
+    &
+    + %j
+    &
+    + % t
+    & 
+    - %o
+    &
+    + % server side
+    &
+    - % client side
+    \\
   \end{tabular}
   \caption{Tools, Software, etc}
   \label{tab:tools}
 \end{table}
 \begin{itemize}
-\item \href{http://www.apache.org}{Apache}
-\item \href{http://www.mysql.org}{Mysql}
 \item \href{http://java.sun.com/j2se/index.jsp}{J2SE}
 \item \href{http://java.sun.com/j2ee/index.jsp}{J2EE}
 \item \href{http://java.sun.com/products/ejb/}{EJB}
 \item \href{http://java.sun.com/products/jsp/index.jsp}{JSP}
 \item \href{http://java.sun.com/products/servlet/index.jsp}{Servelets}
 \item \href{http://www.mysql.com/products/connector/j/}{JDBC}
-\item \href{http://jakarta.apache.org/tomcat/index.html}{Jacarta Tomcat}
 \item \href{http://www.jboss.org/}{JBoss App. Server}
 \item \href{http://subversion.tigris.org/}{Subversion}
 \item \href{http://www.sebastian-bergmann.de/en/phpunit.php}{Unit-testing} for PHP
