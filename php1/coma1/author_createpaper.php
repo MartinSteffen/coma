@@ -13,6 +13,7 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+$ifArray = array();
 
 // Lade die Daten des Autoren
 $objAuthor = $myDBAccess->getPersonDetailed(session('uid'));
@@ -30,6 +31,49 @@ if ($myDBAccess->failed()) {
 $content = new Template(TPLPATH.'create_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 
+// Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
+if (isset($_POST['action'])) {    
+  // Anlegen des Papers in der Datenbank
+  if (isset($_POST['submit'])) {
+    // Teste, ob alle Pflichtfelder ausgefuellt wurden
+    if (empty($_POST['title'])) {  
+      $strMessage = 'You have to fill in the field <b>Title</b>!';
+    }
+    // Versuche einzutragen
+    else {
+      $result = $myDBAccess->addPaper(session('confid'), $objAuthor->intId,
+                                      $_POST['title'], $_POST['description'], '', '',
+                                      $strCoAuthors, $intTopicIds);                                     
+    if (!empty($result)) {
+      // Erfolg (kehre zurueck zur Artikelliste)
+      $_SESSION['message'] = 'Paper was successfully created.<br>'.
+                             'Please upload the document file soon.';
+      $content = new Template(TPLPATH.'author_papers.tpl');
+    }
+    else if ($myDBAccess->failed()) {
+      // Datenbankfehler?
+      error('Error during creating new paper.', $myDBAccess->getLastError());
+    }
+  }
+}
+else {
+  $strContentAssocs['title']       = '';
+  $strContentAssocs['abstract']    = '';  
+  $intCoAuthorNum = $_POST['coauthors_num'];
+  $strCoAuthors = array();
+  $intTopics = array();
+  $strContentAssocs['topic_lines'] = '';
+  for ($i = 0; $i < count($objAllTopics); $i++) {
+    $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
+    $strTopicAssocs = defaultAssocArray();
+    $strTopicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
+    $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
+    $strTopicAssocs['if'] = array();
+    $topicForm->assign($strTopicAssocs);
+    $topicForm->parse();
+    $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
+  }
+}
 
 $strContentAssocs['author_name'] = encodeText($objAuthor->getName());
 $strContentAssocs['coauthors_num'] = encodeText(count($strCoAuthors));
