@@ -2285,6 +2285,7 @@ nur fuer detaillierte?
   function addPrefersPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO PrefersPaper (person_id, paper_id)".
         "         VALUES ('$intPersonId', '$intPaperId')";
+    echo("$s");
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersPaper', $this->mySql->getLastError());
