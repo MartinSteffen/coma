@@ -68,7 +68,7 @@ else{
 if (in_array('toc', $strArrayHelpTopics)){
   $toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
   $tocassocs = defaultAssocArray();
-  $tocassocs['chapter-no'] = '0.';
+  $tocassocs['chapter-no'] = '0';
   $tocassocs['chapter-title'] = 'Table of contents';
   $tocassocs['related-topics'] = '';
   $tocassocs['special'] = '';
@@ -91,7 +91,7 @@ if (in_array('toc', $strArrayHelpTopics)){
 if (in_array('nothing', $strArrayHelpTopics)){
   $toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
   $tocassocs = defaultAssocArray();
-  $tocassocs['chapter-no'] = '0.';
+  $tocassocs['chapter-no'] = '0';
   $tocassocs['chapter-title'] = 'Table of contents';
   $tocassocs['related-topics'] = '';
   $tocassocs['special'] = '';
@@ -114,7 +114,7 @@ if (in_array('nothing', $strArrayHelpTopics)){
 if (in_array('comapages', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH . 'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
-  $strArrayChapterAssocs['chapter-no'] = '2.';
+  $strArrayChapterAssocs['chapter-no'] = '2';
   $strArrayChapterAssocs['chapter-title'] = 'Detailed explanations about the different pages in CoMa';
   $strArrayChapterAssocs['related-topics'] = '';
   $strArrayChapterAssocs['special'] = '';
@@ -131,7 +131,7 @@ if (in_array('comapages', $strArrayHelpTopics)){
 if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH . 'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
-  $strArrayChapterAssocs['chapter-no'] = '2.1.';
+  $strArrayChapterAssocs['chapter-no'] = '2.1';
   $strArrayChapterAssocs['chapter-title'] = 'The login page / logging into your account';
   $strArrayChapterAssocs['related-topics'] = 'related topics:';
   $strArrayChapterAssocs['special'] = '';
