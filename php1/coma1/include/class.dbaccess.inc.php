@@ -369,7 +369,7 @@ class DBAccess extends ErrorHandling {
     if ($intPerson
     $s = "SELECT  id, first_name, last_name, email, title".
         " FROM    Person".
-        " WHERE   id = $intPersonId";
+        " WHERE   id = '$intPersonId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPerson', $this->mySql->getLastError());
