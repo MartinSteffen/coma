@@ -294,7 +294,7 @@ else{
   
   
   if (DEBUG){
-    $contentAssocs['message'] = $contentAssocs[''message''] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>'
+    $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>'
   }
   
   //foren holen
@@ -366,7 +366,7 @@ else{
       $forumtemplate = $forumtemplate . buildForumtemplates($forums, $_SESSION['forum_forumselect'], $selecttree, $_SESSION['select'], $contentAssocs);
     }
     else{
-      $contentAssocs[''message''] = $contentAssocs[''message''] . '<br>posting failed';
+      $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
     }
   }
 
