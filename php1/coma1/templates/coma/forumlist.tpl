@@ -1,4 +1,4 @@
 {message}<br>
-<table class="list">
+<table class="formtable" width="80%">
   {forumtypes}
 </table>
