@@ -67,12 +67,13 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-		QUERY = "SELECT * FROM Person WHERE";
+		QUERY = "SELECT * FROM Person, Role WHERE";
 		boolean idFlag = false;
 		boolean emailFlag = false;
 		boolean nameFlage = false;
 		boolean firstNameFlag = false;
 		boolean stateFlag = false;
+		boolean roleFlag = false;
 
 		if (p.getId() >= 0) {
 			QUERY += " id = ?";
@@ -107,9 +108,26 @@ public class ReadServiceImpl extends Service implements ReadService {
 					stateFlag = true;
 					and = true;
 				}
+				if (p.getRole_type() != null && p.getRole_type().length > 0) {
+					if (and) {
+						QUERY += " AND ";
+						and = true;
+					}
+					roleFlag = true;
+					QUERY += " Role.person_id IN (";
+					for (int i = 0; i < p.getRole_type().length; i++) {
+						QUERY += p.getRole_type()[i];
+						if (i < p.getRole_type().length - 1) {
+							QUERY += ",";
+						}
+					}
+					QUERY += ")";
+					QUERY += " AND Person.id = Role.person_id";
+				}
+				System.out.println(QUERY);
 			}
 		}
-		if (!(idFlag || emailFlag || stateFlag || nameFlage || firstNameFlag)) {
+		if (!(idFlag || emailFlag || stateFlag || nameFlage || firstNameFlag || roleFlag)) {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
@@ -184,7 +202,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						+ " Role.role_type IN (";
 				for (int i = 0; i < role_type.length; i++) {
 					QUERY += role_type[i];
-					if (i < role_type.length-1) {
+					if (i < role_type.length - 1) {
 						QUERY += ",";
 					}
 				}
@@ -196,7 +214,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(QUERY);
 					LinkedList<Person> ll = new LinkedList<Person>();
-					while(rs.next()){
+					while (rs.next()) {
 						ll.add(eCreater.getPerson(rs));
 					}
 					persons = new Person[ll.size()];

@@ -56,9 +56,12 @@ public class ReadServiceTest extends TestCase{
 		if(!run){
 			return;
 		}
-		Person p = new Person(1);
+		Person p = new Person(-1);
 		//p.setLast_name("Susi");
-		p.setEmail("test@web.de");
+		//p.setEmail("test@web.de");
+		int[] role = new int[3];
+		role[0] = 0; role[1] = 1; role[2] = 2; 
+		p.setRole_type(role);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPerson(p);
 		
