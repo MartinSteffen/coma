@@ -151,4 +151,44 @@ function session_delete($strName) {
   }
 }
 
+/**
+ * Liefert die Integer-Repraesentation des Booleans $blnProgram zur Speicherung
+ * in der Datenbank.
+ *
+ * @param bool $blnProgram Boolean
+ * @return int 0, falls $blnProgram = false, und 1 sonst.
+ * @author Tom (12.01.05)
+ * @access protected
+ */
+function b2db($blnProgram) {
+  return ($blnProgram ? 1 : 0);
+}
+
+/**
+ * Liefert die Boolean-Repraesentation des Datenbank-Integers $intDatabase zur
+ * Verwendung im Programm.
+ *
+ * @param int $intDatabase Integer
+ * @return bool false gdw. $intDatabase leer (bzw. 0) ist.
+ * @author Tom (12.01.05)
+ * @access protected
+ */
+function db2b($intDatabase) {
+  return (empty($intDatabase) ? false : true);
+}
+
+/**
+ * Liefert einen gueltigen String zur Speicherung in der Datenbank.
+ *
+ * @param string $strSql zu speichernder String
+ * @return string korrekt kodierter String
+ * @author Jan (18.01.05)
+ * @access protected
+ */
+function s2db($strSql) {
+  // muss hier noch mehr? PHP 4.3!!!
+  $strSql = mysql_real_escape_string($strSql);
+  return $strSql;
+}
+
 ?>
