@@ -12,7 +12,6 @@
  * @ignore
  */
 define('IN_COMA1',true);
-
 require_once('./include/header.inc.php');
 
 if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
@@ -26,6 +25,23 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   redirect('start.php');
 }
 else {
+<<<<<<< .mine
+$mainPage = new Template(TPLPATH.'main.tpl');
+$menue = new Template(TPLPATH.'nav_index.tpl');
+$loginPage = new Template(TPLPATH.'login.tpl');
+
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
+$strMainAssocs['content'] = ' <h2 align="center"> Bitte Einloggen oder Registrieren </h2>';
+$strMainAssocs['body'] = & $loginPage;
+$strMainAssocs['menue'] =& $menue;
+$strMainAssocs['submenue'] = '<a href="index_regi.php" class="menue"> Registrieren </a>';
+
+// $strMenueAssocs['loginName'] = $_SESSION['uname'];
+if (isset($_SESSION['message'])) {
+  $strMessage = $_SESSION['message'];
+  unset($_SESSION['message']);
+=======
   $mainPage = new Template(TPLPATH.'main.tpl');
   $menue = new Template(TPLPATH.'nav_index.tpl');
   $loginPage = new Template(TPLPATH.'logreg.tpl');
@@ -57,5 +73,28 @@ else {
   
   $mainPage->parse();
   $mainPage->output();
+>>>>>>> .r979
 }
+<<<<<<< .mine
+else {
+  $strMessage = '';
+}
+
+$strLoginAssocs = defaultAssocArray();
+$strLoginAssocs['message'] = $strMessage;
+
+$mainPage->assign($strMainAssocs);
+$menue->assign(defaultAssocArray());
+$menue->assign($strMenueAssocs);
+
+$loginPage->assign($strLoginAssocs);
+
+$mainPage->parse();
+$mainPage->output();
+
+ }
+
+
+=======
+>>>>>>> .r979
 ?>
