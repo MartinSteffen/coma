@@ -320,7 +320,7 @@ class DBAccess {
       for ($i = 0; $i < count($data); $i++) {
       	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
       	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], getNextMessages($data[$i]['id']))));
+      	                 $data[$i]['text'], getNextMessages($data[$i]['id'])));
       }
       return $messages;
     }
