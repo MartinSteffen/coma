@@ -41,16 +41,13 @@ if (isset($_GET['paperid'])) {
     error('Error occured retrieving paper', 'File not found!');
   }
   // Sende das File
-  $name = $file[0];
-  $type = $file[1];
-  $size = $file[2];
   header("Pragma: public");
   header("Expires: 0");
   header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
   header("Cache-Control: public");
-  header("Content-type: $type");
-  header("Content-length: $size");
-  header("Content-Disposition: attachment; filename=$name");
+  header("Content-type: {$file[1]}");
+  header("Content-length: {$file[2]}");
+  header("Content-Disposition: attachment; filename={$file[0]}");
   header("Content-Description: Downloadable Paper");
   header("Content-Transfer-Encoding: binary");
   echo $file[3];
