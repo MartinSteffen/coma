@@ -1,6 +1,8 @@
 
 <h2>Willkommen bei CoMa!</h2>
 
+{message}
+
 <p class="center">
 <form action="{basepath}login.php?{SID}" method="post">
 
@@ -11,17 +13,18 @@
   <tr>
     <td>Email-Addresse:</td>
     <td>
-      <input type="text" name="userMail" size="30" maxlength="127" />
+      <input type="text" name="user_name" size="30" maxlength="127" />
     </td>
   </tr>
   <tr>
     <td>Passwort:</td>
     <td>
-       <input type="password" name="userPassword" size="30" maxlength="127" />
+       <input type="password" name="user_password" size="30" maxlength="127" />
     </td>
   </tr>
   <tr>
     <td colspan="2">
+      <input type="hidden" name="action" value="login" />
       <input type="submit" name="submit" value="Login" class="button" />
     </td>
   </tr>

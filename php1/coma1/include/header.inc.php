@@ -109,7 +109,7 @@ $ROLES = array(array(2, 'Chair'), array(3, 'Reviewer'), array(4, 'Author'),
 // End CoMa Konstanten
 
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
-// Stellt ausserdem sicher das uid und password nur genau dann gesetzt sind,
+// Stellt ausserdem sicher das uname und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
 if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
@@ -121,8 +121,8 @@ if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   if (isset($_SESSION['password'])) {
     unset($_SESSION['password']);
   }
-  if (isset($_SESSION['uid'])) {
-    unset($_SESSION['uid']);
+  if (isset($_SESSION['uname'])) {
+    unset($_SESSION['uname']);
   }
   redirect('index.php');
 }

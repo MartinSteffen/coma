@@ -7,42 +7,26 @@
 /***/
 
 define('IN_COMA1', true);
-define('NEED_NO_LOGIN', true);
+define('NEED_NO_LOGIN', false);
 require_once('./include/header.inc.php');
 
-if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
-  /* Einlog-Versuch */
-  if (isset($_POST['user_name'])) {
-    $_SESSION['uname'] = $_POST['user_nail'];
-  }
-  if (isset($_POST['user_password'])) {
-    $_SESSION['password'] = sha1($_POST['user_password']);
-  }
-  redirect('start_conferences.php');
-}
-
-$content = new Template(TPLPATH.'login.tpl');
+$content = new Template(TPLPATH.'conference_list.tpl');
 $strContentAssocs = defaultAssocArray()
 $strContentAssocs['message'] = '';
-
-if (isset($_SESSION['message'])) {
-  $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
-  unset($_SESSION['message']);
-}
 $content->assign($strContentAssocs);
 
-$menu = new Template(TPLPATH.'startmenu.tpl');
+$menu = new Template(TPLPATH.'mainmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
 $strMenuAssocs['menu'] = array(1, 2, 3, 4);
 $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Login';
+$strMainAssocs['title'] = 'Liste aller Konferenzen';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array('CoMa'=>'', 'Login'=>'');
+$strPath = array('CoMa'=>$_SESSION[uname], 'Konferenzen'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
