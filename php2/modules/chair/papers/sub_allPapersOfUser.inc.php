@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Person($_GET['userID']))
 {
 	$SQL = "select title, first_name, last_name from person where id = ".$_GET['userID'];

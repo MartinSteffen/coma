@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Paper($_GET['paperID']))
 {
 	// call the PTRA Algorithm (Gunnar)

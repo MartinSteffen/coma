@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 $output = array();
 
 //check if should update the database

@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isset($_SESSION['userID']))
 {
 	$SQL = "SELECT role.role_type, role.state, conference.id, conference.name 

@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Conference($_GET['confID']))
 {
 if(isChair_Topic($_GET['topicID']))

@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Paper($_POST['paperID']))
 {	
 	if (isset($_POST['Submit']) && isset($_POST['reviewers']))

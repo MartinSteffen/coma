@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Overall())
 {
 	$SQL = "select conference.id, conference.name, conference.description from conference, role 

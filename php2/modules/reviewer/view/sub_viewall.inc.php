@@ -1,4 +1,6 @@
 <?  //Do not change please
+$sql = new SQL();
+$sql->connect();
 if(isReviewer_Overall())
 {
 	$output = array();

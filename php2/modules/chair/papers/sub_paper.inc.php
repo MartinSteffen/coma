@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Paper($_GET['paperID']))
 {
 	$SQL = "select paper.title, paper.abstract, paper.last_edited, paper.version, paper.state, 

@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Conference($_GET['confID']))
 {
 	$SQL = "SELECT name, homepage, description, abstract_submission_deadline, paper_submission_deadline,

@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Conference($_POST['confID']))
 {
 	if(isset($_POST['Submit']))

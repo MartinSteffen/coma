@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Conference($_GET['confID']))
 {
 	$SQL = "select name from conference where id = ".$_GET['confID'];

@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Paper($_GET['paperID']))
 {
 	$SQL = "SELECT conference.min_reviews_per_paper FROM conference, paper

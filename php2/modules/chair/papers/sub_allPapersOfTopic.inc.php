@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Topic($_GET['topicID']))
 {
 	$SQL = "select name from topic where id = ".$_GET['topicID'];

@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Paper($_GET['paperID']))
 {
 	if(isChair_Person($_GET['reviewerID']))

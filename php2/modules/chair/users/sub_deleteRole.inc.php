@@ -1,4 +1,6 @@
 <?
+$sql = new SQL();
+$sql->connect();
 if(isChair_Person($_POST['personID']))
 {
 if(isChair_Conference($_POST['confID']))

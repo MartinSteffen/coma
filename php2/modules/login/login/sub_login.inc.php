@@ -1,4 +1,7 @@
 <?
+$sql = new SQL();
+$sql->connect();
+
 	$error = $_GET['error'];
 	if(isset($_SESSION['userID']))
 	{
