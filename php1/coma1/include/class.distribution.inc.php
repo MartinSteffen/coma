@@ -346,7 +346,7 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
-        echo('<td>'.$matrix[$i][$j].'</td>');
+        echo('<td background=FF0000>'.$matrix[$i][$j].'</td>');
       }
       echo('</tr>');
     }
