@@ -57,13 +57,77 @@
                           Session</a></td>
                       </tr>
                       <tr> 
+                        <td class="menus"><a href="index.php?m=admin" class="menus">Admin</a></td>
+                      </tr>
+			<? if($_SESSION['role']=="Admin")
+			   {  ?>
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+							    <td class="menus"><a href="index.php?m=admin&a=action" class="menus">Action (bitte selber bearbeiten!)</a></td>
+						    </tr>
+						  </table>					  
+					    </td>
+					  </tr>
+	        <? } ?>					  
+                      <tr> 
                         <td class="menus"><a href="index.php?m=chair" class="menus">Chair</a></td>
                       </tr>
+			<? if($_SESSION['role']=="Chair")
+			   {  ?>
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+							    <td class="menus"><a href="index.php?m=chair&a=papers" class="menus">Papers</a></td>
+						    </tr>
+						  </table>					  
+					    </td>
+					  </tr>
+	        <? } ?>
+                      <tr> 
+                        <td class="menus"><a href="index.php?m=reviewer" class="menus">Reviewer</a></td>
+                      </tr>
+			<? if($_SESSION['role']=="Reviewer")
+			   {  ?>
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+							    <td class="menus"><a href="index.php?m=reviewer&a=action" class="menus">Action (bitte selber bearbeiten!)</a></td>
+						    </tr>
+						  </table>					  
+					    </td>
+					  </tr>
+	        <? } ?>						  
+                      <tr> 
+                        <td class="menus"><a href="index.php?m=author" class="menus">Author</a></td>
+                      </tr>
+			<? if($_SESSION['role']=="Author")
+			   {  ?>
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+							    <td class="menus"><a href="index.php?m=author&a=action" class="menus">Action (bitte selber bearbeiten!)</a></td>
+						    </tr>
+						  </table>					  
+					    </td>
+					  </tr>
+	        <? } ?>					  
+                      <tr> 
+                        <td class="menus"><a href="index.php?m=forum" class="menus">Forum</a></td>
+                      </tr>					  					  					  					  
                     </table>
                   </td>
                 </tr>
               </table>
             </div>
           </td>
-          <td width="100%">
+          <td width="100%" valign="top">
             <div align="center">

@@ -1,3 +1,3 @@
 <?
-  config['defaultsubaction'] = "view";
+  $config['defaultsubaction'] = "view";
 ?>

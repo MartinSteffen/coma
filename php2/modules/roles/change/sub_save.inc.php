@@ -9,7 +9,7 @@ if(isset($_POST['role'])){
 			$role = "Chair";
 			break;
 		case 3:
-			$role = "Lector";
+			$role = "Reviewer";
 			break;
 		case 4:
 			$role = "Author";

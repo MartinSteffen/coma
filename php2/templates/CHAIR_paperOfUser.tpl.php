@@ -14,13 +14,13 @@ $userPaperConf = d("chair");
   <tr>
     <td> 
       <p><span class="textBold">Paper title : </span> <span class="text"> 
-        <? echo $userPaperConf['paperID'] ?>
+        <? echo $userPaperConf['paperName'] ?>
         </span> <br>
         <span class="textBold">By user : </span> <span class="text"> 
-        <? echo $userPaperConf['userID'] ?>
+        <? echo $userPaperConf['userName'] ?>
         </span> <br>
         <span class="textBold">In conference :</span><span class="text"> 
-        <? echo $userPaperConf['confID'] ?>
+        <? echo $userPaperConf['confName'] ?>
         </span></p>
       </td>
   </tr>

@@ -1,3 +1,3 @@
 <?
-  config['defaultsubaction'] = "form";
+  $config['defaultsubaction'] = "form";
 ?>
