@@ -81,6 +81,9 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
+      if (DEBUGMODE){
+        echo('calling getThreadsOfForum(' . $forum->intId . ')<br>');
+      }
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
       if (DEBUGMODE){
         //echo('count(getThreadsOfForum)=' . count($messes));
