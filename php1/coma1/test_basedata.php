@@ -14,7 +14,7 @@ define('NEED_NO_LOGIN', true);
 require_once('include/header.inc.php');
 
 $conferences = 1;
-$persons = 100;
+$persons = 1000;
 $criterions = 3;
 $papers = $persons/2-$persons/10;
 $topics = 10;
@@ -22,12 +22,12 @@ $topics = 10;
 echo '<br>Conference:<br>';
 $i = 0;
 while ($i < $conferences) {
-echo 'C';
+echo '.';
   $myDBAccess->addConference('Conference'.$i, 'Homepage'.$i, 'Description'.$i,
     '2001-01-01', '2001-01-01', '2001-01-01', '2001-01-01',
     '2001-01-01', '2001-01-01', '2001-01-01',2,3,10,1000,0.5,1,1,1,2);
   if ($myDBAccess->failed()) {
-    echo('Fehler: '.$myDBAccess->getLastError());
+    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
   $i++;
 }
@@ -41,7 +41,7 @@ echo '.';
     'State'.$i, 'Country'.$i, 'Phone'.$i, 'Fax'.$i,
     'pw');
   if ($myDBAccess->failed()) {
-    echo('Fehler: '.$myDBAccess->getLastError());
+    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
   $i++;
 }
@@ -52,7 +52,7 @@ $myDBAccess->addPerson('Sandro', 'Surname', 'sae@me.de', 'The wise',
     'SH', 'Germany', '1234567', '0910',
     'pw');
 if ($myDBAccess->failed()) {
-    echo('Fehler: '.$myDBAccess->getLastError());
+    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
 
 echo 'Sandro Spezialrechte<br>';
@@ -62,7 +62,7 @@ $j = 2;
 while($j < 6){
 $myDBAccess->addRole($persons+1, $j, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
 $j++;
 }
@@ -78,7 +78,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addRole($j+1, 2, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -87,7 +87,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addRole($j+1, 3, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -96,7 +96,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addRole($j+1, 4, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -105,7 +105,7 @@ while ($i < $conferences) {
   echo '.';
       $myDBAccess->addRole($j+1, 5, $i+1);
       if ($myDBAccess->failed()) {
-	    echo('Fehler: '.$myDBAccess->getLastError());
+	    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -120,7 +120,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addTopic($i+1, 'Name'.$i.$j);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -136,7 +136,7 @@ while ($i < $conferences) {
     $myDBAccess->addPaper($i+1, $j+1, 'Title'.$i.$j, 'Abstract'.$i.$j,
       array(), array(rand(1,$topics/2),rand($topics/2+1,$topics)));
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -145,11 +145,11 @@ while ($i < $conferences) {
 
 $myDBAccess->addCoAuthor(1, 1);
       if ($myDBAccess->failed()) {
-	    echo('Fehler: '.$myDBAccess->getLastError());
+	    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
 $myDBAccess->addCoAuthorName(2, 'Co Author Name');
       if ($myDBAccess->failed()) {
-	    echo('Fehler: '.$myDBAccess->getLastError());
+	    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
 /*
 echo '<br>ReviewReports:<br>';
@@ -164,7 +164,7 @@ while ($j < $papers) {
     $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
  $reports++;
 }
@@ -187,7 +187,7 @@ while ($i < $conferences) {
     $myDBAccess->addCriterion($i+1, 'Name'.$i.$j, 'Description'.$i.$j, rand(6,10), $weight/100);
     $totalWeight += $weight;
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -202,7 +202,7 @@ $j = 0;
   echo '.';
     $myDBAccess->addRating($i+1, $j+1, rand(1,6), 'Comment'.$i.$j);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 	  }
     $j++;
   }
@@ -217,7 +217,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addForum($i+1, 'title'.$i.$j, $j,0);
     if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
+	  echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
     $j++;
   }
@@ -230,7 +230,7 @@ while ($i < $conferences * 3) {
 echo '.';
   $myDBAccess->addMessage('Subject'.$i, 'Text'.$i, 1, $i+1,0);
   if ($myDBAccess->failed()) {
-    echo('Fehler: '.$myDBAccess->getLastError());
+    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
   $i++;
 }
@@ -243,7 +243,7 @@ echo '.';
     if (rand(0,100) < 50+ ($k==0?40:0)) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
       if ($myDBAccess->failed()) {
-          echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
+          echo('<br>Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
       }
     }
   }
@@ -258,7 +258,7 @@ echo '.';
     if (rand(0,100) < 50+ ($k==0?40:0)) {
       $myDBAccess->addPrefersPaper($i+1, rand(1,$papers-1));
       if ($myDBAccess->failed()) {
-          echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
+          echo('<br>Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
       }
     }
   }
@@ -273,7 +273,7 @@ echo '.';
     if (rand(0,100) < 50+ ($k==0?40:0)) {
       $myDBAccess->addDeniesPaper($i+1, rand(1,$papers-2));
       if ($myDBAccess->failed()) {
-          echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
+          echo('<br>Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
       }
     }
   }
@@ -288,7 +288,7 @@ echo '.';
     if (rand(0,100) < 50+ ($k==0?40:0)) {
       $myDBAccess->addExcludesPaper($i+1, rand(2,$papers-1));
       if ($myDBAccess->failed()) {
-          echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
+          echo('<br>Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
       }
     }
   }
