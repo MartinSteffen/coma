@@ -26,10 +26,9 @@ $strMainAssocs = defaultAssocArray();
 if (isset($_SESSION['uname'])) {
   $strMainAssocs['navigator'] = session('uname').'  |  Help';
   if (isset($_SESSION['confid'])) {
-    $menu = new Template(TPLPATH.'usermenu.tpl');
-    $strMenuAssocs = defaultAssocArray();
-    $strMenuAssocs['if'] = array();
-    $menu->assign($strMenuAssocs);    
+    $actMenu = 0;
+    $actMenuItem = 0;
+    include('./include/usermenu.inc.php');
   }
   else {
     $menu = new Template(TPLPATH.'mainmenu.tpl');
