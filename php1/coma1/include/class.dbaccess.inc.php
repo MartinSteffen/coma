@@ -265,8 +265,8 @@ class DBAccess {
    * @author Tom (12.12.04)
    */
   function getPaperDetailed($intPaperId) {
-    $s = 'SELECT  author_id, title, state, abstract, mime_type, last_edited, filename'.
-        ' FROM    Paper AS'.
+    $s = 'SELECT  author_id, title, state, abstract, format, last_edited, filename'.
+        ' FROM    Paper'.
         ' WHERE   id = '.$intPaperId;
     $data = $this->mySql->select($s);
     if (!empty($data)) {
@@ -292,7 +292,7 @@ class DBAccess {
                 $strCoAuthors, $data[0]['abstract'], $data[0]['format'],
                 $data[0]['last_edited'], $data[0]['filename']));
     }
-    return $this->error($this->mySql->getLastError());
+    return $this->error('getPaperDetailed '.$this->mySql->getLastError());
   }
 
   /**
