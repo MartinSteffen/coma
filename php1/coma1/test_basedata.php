@@ -14,7 +14,7 @@ define('NEED_NO_LOGIN', true);
 require_once('include/header.inc.php');
 
 $conferences = 1;
-$persons = 500;
+$persons = 100;
 $criterions = 3;
 $papers = $persons/2-$persons/10;
 $topics = 10;
@@ -151,7 +151,7 @@ $myDBAccess->addCoAuthorName(2, 'Co Author Name');
       if ($myDBAccess->failed()) {
 	    echo('<br>Fehler: '.$myDBAccess->getLastError());
 }
-/*
+
 echo '<br>ReviewReports:<br>';
 $j = 0;
 $reports = 0;
@@ -208,7 +208,7 @@ $j = 0;
   }
   $i++;
 }
-*/
+
 echo '<br>Forum:<br>';
 $i = 0;
 while ($i < $conferences) {
@@ -269,7 +269,7 @@ echo '<br>DeniesPapers:<br>';
 $i = 0;
 while ($i < $persons) {
 echo '.';
-  for ($k = 0; $k < min(10, $papers-1); $k++) {
+  for ($k = 0; $k < min(20, $papers-1); $k++) {
     if (rand(0,100) < 50+ ($k==0?40:0)) {
       $myDBAccess->addDeniesPaper($i+1, rand(1,$papers-2));
       if ($myDBAccess->failed()) {
@@ -284,7 +284,7 @@ echo '<br>ExclPapers:<br>';
 $i = 0;
 while ($i < $persons) {
 echo '.';
-  for ($k = 0; $k < min(10, $papers-1); $k++) {
+  for ($k = 0; $k < min(20, $papers-1); $k++) {
     if (rand(0,100) < 50+ ($k==0?40:0)) {
       $myDBAccess->addExcludesPaper($i+1, rand(2,$papers-1));
       if ($myDBAccess->failed()) {
