@@ -15,11 +15,11 @@
   </tr>  
   <tr>
     <td class="submenu"><a href="{basepath}chair_reviews.php?{SID}" class="{if4 marked}submenu">
-      Distribute papers</a>
+      Manage Reviews</a>
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}chair_config.php?{SID}" class="{if5 marked}submenu">
+    <td class="submenu"><a href="{basepath}chair_confconfig.php?{SID}" class="{if5 marked}submenu">
       Config. conference</a>
     </td>
   </tr>    
