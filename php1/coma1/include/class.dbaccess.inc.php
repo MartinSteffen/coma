@@ -1703,7 +1703,7 @@ nur fuer detaillierte?
    */
   function uploadPaperFile($intPaperId, $strFilePath) {
     //Hochladen des Papers
-    $strReposFilePath = $strFilePath
+    $strReposFilePath = $strFilePath;
     $s = sprintf("UPDATE   Paper".
                  " SET     filename = '%s'".
                  " WHERE   id = '%d'",
