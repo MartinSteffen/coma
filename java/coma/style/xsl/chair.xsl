@@ -717,7 +717,6 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 	<th>Title</th>
 	<th>Author</th>
 	<th>State</th>
-	<th>average Mark</th>
 	<th colspan="2">options</th>
 </tr>
 </thead>
