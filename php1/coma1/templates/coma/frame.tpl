@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>CoMa - Your Conference Manager - {title}</title>
-<link rel="stylesheet" type="text/css" href="{path}styles.css">
+<link rel="stylesheet" type="text/css" href="{path}styles2.css">
 </head>
 
 <body>

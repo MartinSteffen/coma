@@ -1,0 +1,15 @@
+/* Allgemeine Styles */
+body
+{
+  background-image: none;
+  font: 12px "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
+  vertical-align: super;
+  text-transform: none;
+  color: black;
+  direction: ltr;
+  text-indent: 0px;
+  letter-spacing: normal;
+  background-color: transparent;
+  text-align: center;
+  text-decoration: none;
+}
