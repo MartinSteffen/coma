@@ -37,7 +37,7 @@
       Default number of reviewers per paper:
     </td>
     <td>      
-      <input type="text" name="def_reviews" size="8" maxlength="8" value="{def_reviews}"/ >
+      <input type="text" name="def_reviews" size="8" maxlength="8" value="{def_reviews}" />
     </td>
   </tr>
   <tr>
@@ -45,32 +45,26 @@
       Critical variance of different paper ratings:
     </td>
     <td>      
-      <input type="text" name="variance" size="8" maxlength="8" value="{variance}"/ >
+      <input type="text" name="variance" size="8" maxlength="8" value="{variance}" />
     </td>
   </tr>
-
-      <input type="hidden" name="auto_actaccount" value="{auto_actaccount}" />
-      <input type="hidden" name="auto_paperforum" value="{auto_paperforum}" />
-      <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
-      <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
-   
+  
   <tr>
     <td colspan="2"> 
       Activate accounts automatically
-      <input type="checkbox" name="auto_actaccount" value="" checked hidden> 
-      <input type="checkbox" name="auto_actaccount" value="checked" {auto_actaccount}>{auto_actaccount}
+      <input type="checkbox" name="auto_actaccount" value="checked" {auto_actaccount} />
     </td>
   </tr>
   <tr>
     <td colspan="2"> 
       Start discussion of critical papers automatically
-      <input type="checkbox" name="auto_paperforum" value="checked" {auto_paperforum}>      
+      <input type="checkbox" name="auto_paperforum" value="checked" {auto_paperforum} />      
     </td>
   </tr>
   <tr>
     <td colspan="2"> 
       Auto Account activation    
-      <input type="checkbox" name="auto_addreviewer" value="checked" {auto_addreviewer}>
+      <input type="checkbox" name="auto_addreviewer" value="checked" {auto_addreviewer} />
     </td>
   </tr>
   <tr>
@@ -78,7 +72,7 @@
       Number of automatically added reviewers:
     </td>
     <td>      
-      <input type="text" name="notification" size="16" maxlength="20" value="{auto_numreviewer}">
+      <input type="text" name="auto_numreviewer" size="16" maxlength="20" value="{auto_numreviewer}" />
     </td>
   </tr>
 
