@@ -16,18 +16,18 @@
 		<tr>
 			<td>
 				<p>Description<br>
-				<textarea name="summary" cols="60" rows="10">Please enter a short summary of your paper.
-				</textarea>
+				<textarea name="summary" cols="60" rows="10">Please enter a short summary of your paper.</textarea>
 				</p>
 			</td>
 		</tr>
-		<tr>
+<!--		<tr>
 			<td>
 				<p>Coauthors (optional)<br>
-			<textarea name="coauthors" cols="60" rows="8"><? echo $cid ?></textarea>
+			<textarea name="coauthors" cols="60" rows="8"></textarea>
 				</p>
 			</td>
 		</tr>
+--!>
 		<tr>
 			<td>
 				<p>Please select your paper<br>
