@@ -40,7 +40,7 @@
   </tr>
   <tr>
     <td>
-      Critical variance of different paper ratings:
+      Ambiguity of different paper ratings:
     </td>
     <td>
       <input type="text" name="variance" size="8" maxlength="8" value="{variance}">
@@ -85,10 +85,9 @@
       <input type="hidden" name="review_dl" value="{review_dl}">
       <input type="hidden" name="final_dl" value="{final_dl}">
       <input type="hidden" name="notification" value="{notification}">
-
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit_adv" value="Submit Changes" class="button">
-      <input type="submit" name="simple_config" value="Simple settings" class="button">
+      <input type="submit" name="simple_config_adv" value="Simple settings" class="button">
     </td>
   </tr>
 </table>
