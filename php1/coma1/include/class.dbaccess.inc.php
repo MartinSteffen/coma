@@ -1877,13 +1877,13 @@ nur fuer detaillierte?
       return $this->error('uploadPaperFile', $this->mySql->getLastError());
     }
     // add Paper    
-    $s = sprintf("INSERT  INTO PaperData (paper_id, fil)".
+    $s = sprintf("INSERT  INTO PaperData (paper_id, file)".
                  "        VALUES ('%d', '%s')",
                  s2db($intPaperId),
                  s2db($strContents));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addPaper', $this->mySql->getLastError());
+      return $this->error('uploadPaperFile', $this->mySql->getLastError());
     }
     return $this->success(true);
   }
