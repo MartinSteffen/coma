@@ -1,6 +1,8 @@
+DO NOT MODIFY ANYTHING IT IS IN WORK!
+
 <?php
 /**
- * @version $Id: apply_reviewer.php 2515 2005-01-20 08:10:46Z esquivel $
+ * @version $Id$
  * @package coma1
  * @subpackage Forum
  */
