@@ -40,13 +40,10 @@ function getCriticalPapers(&$myDBAccess, $method = 'variance') {
       if ($method == 'variance'){
         $avgrating = $reviews[0]->fltAverageRating;
         $val = 0.0;
-	echo('calculating (');
         foreach ($reviews as $review){
           $val = $val + pow(($review->fltReviewRating - $avgrating),2);
-	  echo('(' . $review->fltReviewRating . ' - ' . $avgrating . ')^2+');
         }
         $val = $val / count($reviews);
-	echo(')/' . count($reviews) . '=' . $val . '<br>');
         $confdet = $myDBAccess->getConferenceDetailed($cid);
 	$var = $confdet->fltCriticalVariance;
         if ($val > $var){
