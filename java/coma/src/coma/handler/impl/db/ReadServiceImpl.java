@@ -33,6 +33,26 @@ public class ReadServiceImpl extends Service implements ReadService {
         super.init();
     }
 
+    /**
+     * searchs for person(s) specified in <code>SearchCriretia</code> sc.
+     * The Search function is defined as following:
+     * <lo>
+     * <li>1. if sc.Person.id >= 0, then search for the person corresponding to this id.
+     * </li>
+     * <li>
+     * If 1 not ablicable, then:<br>
+     * 2. if sc.Person.email != null, then search for the person corresponding to this email address.
+     * </li>
+     * <li>
+     * If 2 not ablicable:<br>
+     * 3. if sc.Person.last_name != null, then search for persons with  this lastname
+     * 4. if sc.Person.first_name != null, then searchfor persons with this firstname
+     * </li>
+     * </lo>
+     * 
+     * @param <code>SearchCriteria</code> sc, crtiteria to use for searching.
+     * @return <code>SearchResult</code> result
+     */
     public SearchResult getPerson(SearchCriteria sc) {
 
         StringBuffer info = new StringBuffer();
@@ -133,6 +153,11 @@ public class ReadServiceImpl extends Service implements ReadService {
         return result;
     }
 
+    /**
+     * Searchs for a conference specified by a given id, sc.Conference.id
+     * @param <code>SearchCriteria</code> sc, Criteria to use for searching
+     * @return <code>SearchResult</code> result
+     */
     public SearchResult getConference(SearchCriteria sc) {
         StringBuffer info = new StringBuffer();
         SearchResult result = new SearchResult();
@@ -203,6 +228,16 @@ public class ReadServiceImpl extends Service implements ReadService {
         return result;
     }
 
+    /**
+     * Searchs for Paper(s) spcified by <code>SearchCriteria</code> sc.
+     * The search function is defined as following:
+     * <lo>
+     * <li></li>
+     * <li></li>
+     * </lo>
+     * @param <code>SearchCriteria</code> sc, Criteria to use for searching.
+     * @return <code>SearchResult</code> result
+     */
     public SearchResult getPaper(SearchCriteria sc) {
 
         StringBuffer info = new StringBuffer();
