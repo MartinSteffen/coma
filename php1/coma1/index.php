@@ -16,5 +16,5 @@ define('IN_COMA1',true);
 require_once('./include/header.inc.php');
 
 // Hauptsächlich Redirect auf entsprechende Seite...
-redirect('test_login.php');
+redirect('chair.php');
 ?>
