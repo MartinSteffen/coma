@@ -1,10 +1,10 @@
 <p class="center">
 
-<table class="formtable">
-  <tr>
+<table class="viewtable">
+  <tr class="viewheader">
     <th colspan="2">User Profile:</th>
   </tr>
-  <tr>
+  <tr class="viewline">
     <td>
       Name:
     </td>
@@ -12,7 +12,7 @@
       {name_title} {first_name} {last_name}
     </td>
   </tr>
-  <tr>
+  <tr class="viewline">
     <td>
       E-mail address:
     </td>
@@ -20,7 +20,7 @@
       <a href="{email_link}" class="email">{email}</a>
     </td>
   </tr>
-  <tr>
+  <tr class="viewline">
     <td>
       Affiliation:
     </td>
@@ -28,7 +28,7 @@
       {affiliation}
     </td>
   </tr>
-  <tr>
+  <tr class="viewline">
     <td>
       Phone number:
     </td>
@@ -36,7 +36,7 @@
       {phone}
     </td>
   </tr>
-  <tr>
+  <tr class="viewline">
     <td>
       Fax number:
     </td>
@@ -44,7 +44,7 @@
       {fax}
     </td>
   </tr>
-  <tr>
+  <tr class="viewline">
     <td>
       Address:
     </td>

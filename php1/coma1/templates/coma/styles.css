@@ -294,7 +294,7 @@ input.button120
   padding: 2px 8px;
 }
 
-/* Tabelle Darstellung von Listen */
+/* Tabelle zur Darstellung von Listen */
 table.list
 {
   border-style: solid;
@@ -347,6 +347,26 @@ a.list:active
 a.list:hover
 {
   color: #2F2F2F;
+}
+
+/* Tabelle zur Darstellung von Profilen, Datentabellen etc */
+table.formtable
+{
+  font-size: 13px;
+  background-color: #DEEBEF;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #404040;
+  margin: 6px 10px;
+  padding: 8px;
+}
+.viewheader
+{
+  font-weight: bold;
+}
+.viewline
+{  
+  top-bottom: 1px #404040 solid;  
 }
 
 /* Meldungen */
