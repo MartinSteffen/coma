@@ -1256,10 +1256,10 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
       return $this->error('updateCoAuthors', $this->mySql->getLastError());
     }
     // Co-Autoren einfuegen...
-    for ($i = 0; $i < count($objPaperDetailed->intCoAuthors); $i++) {
-      if (!empty($objPaperDetailed->intCoAuthors[$i])) {
+    for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
+      if (!empty($objPaperDetailed->intCoAuthorIds[$i])) {
         $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
-            "         VALUES ('".$objPaperDetailed->intCoAuthors[$i]."', '$intPaperId')";
+            "         VALUES ('".$objPaperDetailed->intCoAuthorIds[$i]."', '$intPaperId')";
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateCoAuthors', $this->mySql->getLastError());
