@@ -303,7 +303,7 @@ function generatePostMethodArray($strArrayPostvars){
     $intPostresult = false;
     //auf einen Beitrag antworten
     if (($strArrayPvars['posttype'] == 'reply') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid'])) && (!empty($strArrayPvars['reply-to']))){
-      $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
+      $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], session('uid'), $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
     }
     /** @TODO einen Beitrag updaten - DBAccess Methode dazu fehlt noch*/
     //if (($strArrayPvars['posttype'] == 'update') && (!empty($strArrayPvars['reply-to'])) && (!empty($strArrayPvars['subject'])) && (!empty($strArrayPvars['text']))){
@@ -311,7 +311,7 @@ function generatePostMethodArray($strArrayPostvars){
     //}
     //einen neuen Thread starten
     if (($strArrayPvars['posttype'] == 'newthread') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid']))){
-      $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid']);
+      $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], session('uid'), $strArrayPvars['forumid']);
     }
     // hat geklappt :)
     if (!empty($intPostresult)){
