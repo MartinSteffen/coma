@@ -31,3 +31,20 @@ CREATE TABLE IF NOT EXISTS ConferenceConfig
    number_of_auto_add_reviewers INT NOT NULL,
    PRIMARY KEY (id)
 ) TYPE = INNODB;
+
+
+
+CREATE TABLE IF NOT EXISTS Distribution
+(
+   paper_id                     INT NOT NULL,
+   reviewer_id                  INT NOT NULL,
+   PRIMARY KEY (paper_id, reviewer_id),
+   INDEX (paper_id),
+   INDEX (reviewer_id),
+   FOREIGN KEY (paper_id) REFERENCES Paper (id)
+       ON DELETE CASCADE,
+   FOREIGN KEY (reviewer_id) REFERENCES Person (id)
+       ON DELETE CASCADE
+) TYPE = INNODB;
+
+
