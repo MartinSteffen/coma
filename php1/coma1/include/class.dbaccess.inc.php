@@ -194,8 +194,10 @@ class DBAccess extends ErrorHandling {
    * @access private
    */
   function is_a($obj, $strClass) {
-    $s = strtolower($strClass);
-    return (strtolower(get_class($obj)) == $s || is_subclass_of($obj, $s));
+    // Wegen Kompatibilitaet zu PHP < 4.2 urspruenglich:
+    //$s = strtolower($strClass);
+    //return (strtolower(get_class($obj)) == $s || is_subclass_of($obj, $s));
+    return is_a($obj, $strClass);
   }
   
   /**
