@@ -81,7 +81,7 @@ if (!empty($objPapers)) {
         $assIfArray[] = 1;
       }
       $strReviewersAssocs['rev_id'] = $objReviewers->intId;
-      $strReviewersAssocs['rev_name'] = $objReviewers->strName;
+      $strReviewersAssocs['rev_name'] = $objReviewers->getName();
     }
     $strReviewersAssocs['if'] = $assIfArray;
     $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
