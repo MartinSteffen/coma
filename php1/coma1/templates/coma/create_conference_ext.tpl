@@ -102,7 +102,7 @@
           <th class="formlistheader">weight</th>          
           <th class="formlistheader">&nbsp;</th>
         </tr>
-        {criterion_lines}
+        {crit_lines}
         <tr class="formlistitem">
           <td class="formlistitem">
             <input type="text" name="crit_name" size="32" maxlength="127" value="">
