@@ -34,8 +34,8 @@ CoMa - Your Conference Manager
    2. Upload all the files contained in this archive (retaining the directory
       structure)to a web accessible directory on your server or hosting account.
    3. Using your web browser visit the location you placed CoMa with the
-      addition of /ISNTALL.PHP, e.g.
-      http://www.mydomain.com/coma1/ISNTALL.PHP,
+      addition of /INSTALL.PHP, e.g.
+      http://www.mydomain.com/coma1/INSTALL.PHP,
       http://www.mydomain.com/~username/coma1/INSTALL.PHP etc.
    4. Follow the steps 1.-3.
    5. CoMa should now be available.
@@ -65,7 +65,7 @@ CoMa - Your Conference Manager
 
   Once all the files have been uploaded to your site you should point your 
   browser at this location with the addition of INSTALL.PHP (please note that 
-  if you changed the extension from php, see Section 3.i below, you should alter
+  if you changed the extension from php, see Section 1. below, you should alter
   INSTALL.PHP appropriately). For example if your domain name is 
   www.mydomain.tld and you placed CoMa in a directory /coma1 off your web root 
   you would enter http://www.mydomain.tld/coma1/INSTALL.PHP into your browser. 
