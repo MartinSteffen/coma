@@ -324,7 +324,7 @@ class Distribution extends ErrorHandling {
               }
               if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
                 $matrix[$rindex][$i] = 0;
-                $p_num_revs_total_left[$pi]--;
+                $p_num_revs_total_left[$i]--;
               }
             }
           }
