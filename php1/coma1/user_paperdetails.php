@@ -45,7 +45,7 @@ $strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version'] = encodeText($objPaper->intVersion);
 $strContentAssocs['coauthors'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
-  if (empty($strContentAssocs['coauthors'])) {
+  if (!empty($strContentAssocs['coauthors'])) {
     $strContentAssocs['coauthors'] .= ', ';
   }
   $strContentAssocs['coauthors'] .= $objPaper->strCoAuthors[$i];
