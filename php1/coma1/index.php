@@ -53,7 +53,7 @@ else {
 
   $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
   $strMainAssocs['menue'] =& $menue;
-  $strMainAssocs['submenue'] = '<a href="index_regi.php" class="menue"> Registrieren </a>';
+  $strMainAssocs['submenue'] = '';
 
   $strLoginAssocs = defaultAssocArray();
   $strLoginAssocs['message'] = $strMessage;
