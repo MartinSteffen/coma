@@ -12,7 +12,7 @@
 
   <tr class="listitem-1"> 
     <td class="listitem-1"> 
-      <a href="{basepath}reviewer_editreview.php?reviewid={reviewid}{&SID}">
+      <a href="{basepath}reviewer_editreview.php?reviewid=1{reviewid}{&SID}">
       Neueste Rezepte</a>
     </td> 
     <td class="listitem-1"> 
@@ -33,7 +33,7 @@
 
   <tr class="listitem-2"> 
     <td class="listitem-2"> 
-      <a href="{basepath}reviewer_editreview.php?reviewid={reviewid}{&SID}">
+      <a href="{basepath}reviewer_editreview.php?reviewid=1{reviewid}{&SID}">
       Insomnia - Probleme eines Studenten</a>
     </td> 
     <td class="listitem-2"> 
