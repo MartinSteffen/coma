@@ -17,7 +17,7 @@
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">
-  {if0<form action="{basepath}author_createpaper.php{?SID}" method="post" accept-charset="UTF-8">
+  {if8<form action="{basepath}author_createpaper.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="submit" name="addpaper" value="Add new paper" class="button">
       </form>}
     </th>
@@ -30,6 +30,6 @@
 <p class="message">
   Click on any paper, to edit the common information about the paper
   and to upload new versions of the document.<br>
-  Click on <span class="emph">View</span> to download and read the paper.<br>
-  Do you want to <a href="{basepath}author_createpaper.php{?SID}" class="link">create a new paper</a>?
+  Click on <span class="emph">View</span> to download and read the paper.
+  {if8<br>Do you want to <a href="{basepath}author_createpaper.php{?SID}" class="link">create a new paper</a>?}
 </p>

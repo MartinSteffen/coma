@@ -54,7 +54,7 @@ else if (empty($objConference)) {
   error('conference '.session('confid').' does not exist in database.','');
 }
 if (strtotime("now") < strtotime($objConference->strPaperDeadline)) {
-  //$ifArray[] = 0;
+  $ifArray[] = 8;
 }
 
 $content = new Template(TPLPATH.'author_paperlist.tpl');
