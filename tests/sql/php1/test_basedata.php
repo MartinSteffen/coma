@@ -23,6 +23,7 @@ $topics = 10;
 echo '.';
 $i = 0;
 while ($i < $conferences) {
+echo 'C';
   $myDBAccess->addConference('Conference'.$i, 'Homepage'.$i, 'Description'.$i,
     'AbstractDeadline', 'PaperDeadline', 'ReviewDeadline', 'FinalDeadline',
     'Notification', 'ConferenceStart', 'ConferenceEnd',2,3,10,1000,0.5,1,1,1,2,'Topics'.$i,
@@ -33,6 +34,7 @@ while ($i < $conferences) {
 echo '.';
 $i = 0;
 while ($i < $persons) {
+echo 'P';
   $myDBAccess->addPerson('Myname'.$i, 'Surname'.$i, $i.'email@mail.de', 'Title'.$i,
     'Affiliation'.$i, 'Street'.$i, 'City'.$i, 'Code'.$i,
     'State'.$i, 'Country'.$i, 'Phone'.$i, 'Fax'.$i,
@@ -46,21 +48,25 @@ while ($i < $conferences) {
   $j = 0;
 
   while($j < $persons/10) {
+  echo 'R1';
     $myDBAccess->addRole($j+1, 2, $i+1);
     $j++;
   }
   $j = 0;
   while($j < $persons/3) {
+  echo 'R2';
     $myDBAccess->addRole($j+1, 3, $i+1);
     $j++;
   }
   $j = $persons/10;
   while($j < $persons/2) {
+  echo 'R3';
     $myDBAccess->addRole($j+1, 4, $i+1);
     $j++;
   }
   $j = $persons/3;
   while($j < $persons) {
+  echo 'R4';
       $myDBAccess->addRole($j+1, 5, $i+1);
     $j++;
   }
@@ -75,6 +81,7 @@ $i = 0;
 while ($i < $conferences) {
   $j = $persons/10;
   while ($j < $persons/2) {
+  echo 'Pa';
     $myDBAccess->addPaper($i+1, $j+1, 'Title'.$i.$j, 'Abstract'.$i.$j,
       'Filepath'.$i.$j, 'Mime'.$i.$j, '');
     $j++;
@@ -88,6 +95,7 @@ while ($j < $papers) {
 
   while ($i < $persons/3) {
   if(rand(1,3) < 3) {
+  echo 'Rep';
     $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
   }
@@ -101,6 +109,7 @@ $i = 0;
 while ($i < $reports) {
   $j = 0;
   while($j < $criterions) {
+  echo 'Ra';
     $myDBAccess->addRating($i+1, $j+1, rand(1,6), 'Comment'.$i.$j);
     $j++;
   }
@@ -112,6 +121,7 @@ $i = 0;
 while ($i < $conferences) {
   $j = 1;
   while ($j < 4) {
+  echo 'F';
     $myDBAccess->addForum($i+1, 'title'.$i.$j, $j,0);
     $j++;
   }
@@ -121,6 +131,7 @@ while ($i < $conferences) {
 echo '.';
 $i = 0;
 while ($i < $conferences * 3) {
+echo 'M';
   $myDBAccess->addMessage('Subject'.$i, 'Text'.$i, 1, $i+1,0);
   $i++;
 }
@@ -130,6 +141,7 @@ $i = 0;
 while ($i < $conferences) {
   $j = 0;
   while ($j < $criterions) {
+  echo 'Cr';
     $myDBAccess->addCriterion($i+1, 'Name'.$i.$j, 'Description'.$i.$j, rand(6,10),rand(0,100) );
     $j++;
   }
@@ -141,6 +153,7 @@ $i = 0;
 while ($i < $conferences) {
   $j = 0;
   while ($j < $topics) {
+  echo 'T';
     $myDBAccess->addTopic($i+1, 'Name'.$i.$j);
     $j++;
   }
@@ -152,6 +165,7 @@ $i = 0;
 while ($i < $topics) {
   $j = $papers/$topics*$i;
   while ($j < $papers/$topics*($i+1)) {
+  echo 'AT';
     $myDBAccess->addIsAboutTopic($j+1, $i+1);
     $j++;
   }
@@ -161,7 +175,7 @@ while ($i < $topics) {
 echo '.';
 $i = 0;
 while ($i < $persons) {
-
+echo 'PT';
   $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
   $i++;
 
@@ -170,7 +184,7 @@ while ($i < $persons) {
 echo '.';
 $i = 0;
 while ($i < $persons) {
-
+echo 'PP';
   $myDBAccess->addPrefersPaper($i+1, rand(1,$papers-1));
   $i++;
 
@@ -179,7 +193,7 @@ while ($i < $persons) {
 echo '.';
 $i = 0;
 while ($i < $persons) {
-
+echo 'DP';
   $myDBAccess->addDeniesPaper($i+1, rand(1,$papers-2));
   $i++;
 
@@ -188,7 +202,7 @@ while ($i < $persons) {
 echo '.';
 $i = 0;
 while ($i < $persons) {
-
+echo 'EP';
   $myDBAccess->addExcludesPaper($i+1, rand(2,$papers-1));
   $i++;
 
