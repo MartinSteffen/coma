@@ -30,13 +30,14 @@ function checkError(&$class) {
  * Diese Funktion lenkt den Benutzer auf einen anderen Skript weiter, in
  * dem die Bearbeitung fortgeführt wird. Dabei wird sichergestellt, das
  * Sessioninformationen erhalten bleiben.
- * WICHTIG: nur vor irgedwelchen Ausgaben aufrufen!
+ * WICHTIG: nur vor irgendwelchen Ausgaben aufrufen!
  *
  * @param string $strName Das aufzurufende Skript.
  */
 function redirect($strName) {
   session_write_close();
-  header('Location:'.COREURL.$strName.$mySession->getUrlId());
+  var_dump($mySession);
+  header('Location:' . COREURL . $strName . $mySession->getUrlId());
 }
 
 /**
