@@ -20,7 +20,7 @@
 <ul>
   <li>
     Step three: <u> Specify your preferences und manage your reviews </u> <br>
-    The item 'Edit my preferences' enables you to specify what topics you prefer. <br>
+    The item '<a href="./help.php?for=reviewer_reviews{&popup}{&SID}"> Edit my preferences  </a>' enables you to specify what topics you prefer. <br>
     You can download papers, which are assigned to you, and review them at the item 'Manage your reviews'. <br>
     You are able to discuss the paper in the forum with other reviewers of this paper.<br>
     Please pay attention to the 'deadline for reviews'. <br>
