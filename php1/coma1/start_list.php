@@ -38,13 +38,13 @@ $tabKopf = '
 
 /** Lesen der Konferenzen und Rollen aus der Datenbank */
 $conferences = $myDBAccess->getAllConferences();
-$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
+$id = $myDBAccess->getPersonIdByEmail($_SESSION['uname']);
 
 $zeilen =''; //die Zeilen der Tabelle
 for ($i = 0; $i < count($conferences); $i++) {
   $person = $myDBAccess->getRoles($id,$conferences[$i]->intId);
   $cname = (string) $conferences[$i]->strName; 
-  $zeilen = $zeilen.'<tr> <td class="z1" >'.$cname.'</td> <td>';
+  $zeilen = $zeilen.'<tr> <td class="z1" >'.$cname.'</td> <td align="right">';
   for ($j = 0; $j < count($person); $j++){
     $zeilen = $zeilen.'&nbsp; <a href="'.strtolower($person[$j]).'.php">'.$person[$j].'</a> &nbsp;'; 
   } 
