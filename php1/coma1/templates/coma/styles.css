@@ -99,13 +99,14 @@ a.email {
   color: #00D048;
 }
 
-/* Allgemeine Tabellen */
-table
+/* Allgemeine Tabellen und Formulare */
+table, form
 {
   border-style: none;
   border-spacing: 0px;
   padding: 0px;
   margin: 0px;
+  line-space: 0px;
 }
 
 /* Tabelle fuer das linke Menue */
