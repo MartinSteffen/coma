@@ -9,9 +9,10 @@ if (!defined('IN_COMA1')) {
 }
 
 /**#@+ Konstanten fuer die Forentypen */
-define('FORUM_PUBLIC',  1);
-define('FORUM_PRIVATE', 2);
-define('FORUM_PAPER',   3);
+define('FORUM_PUBLIC',  1);  // konferenzinterne Foren fuer alle Teilnehmer
+define('FORUM_PRIVATE', 2);  // konferenzinterne Foren fuer Kommiteemitglieder
+define('FORUM_PAPER',   3);  // konferenzinterne Foren fuer Paperreviewer
+define('FORUM_GLOBAL',  4);  // globale konferenzuebergreifende Foren
 /**#@-*/
 
 /**

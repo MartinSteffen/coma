@@ -158,7 +158,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getAllConferences', $this->mySql->getLastError());
     }
     $objConferences = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $data[$i]['conference_start'] = emptyDBtime($data[$i]['conference_start']);
       $data[$i]['conference_end'] = emptyDBtime($data[$i]['conference_end']);
       $objConferences[] = (new Conference($data[$i]['id'], $data[$i]['name'],
@@ -250,7 +250,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getCriterionsOfConference', $this->mySql->getLastError());
     }
     $objCriterions = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $fltWeight = $data[$i]['quality_rating'] / 100.0;
       $objCriterions[] = (new Criterion($data[$i]['id'], $data[$i]['name'],
                             $data[$i]['description'], $data[$i]['max_value'], $fltWeight));
@@ -277,7 +277,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getTopicsOfConference', $this->mySql->getLastError());
     }
     $objTopics = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
     }
     return $this->success($objTopics);
@@ -342,7 +342,7 @@ class DBAccess extends ErrorHandling {
       if ($this->mySql->failed()) {
         return $this->error('getPerson', $this->mySql->getLastError());
       }
-      for ($i = 0; $i < count($role_data); $i++) {
+      for ($i = 0; $i < count($role_data) && !empty($role_data); $i++) {
         $objPerson->addRole($role_data[$i]['role_type'], $role_data[$i]['state']);
       }
     }
@@ -412,7 +412,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getPersonAlgorithmic', $this->mySql->getLastError());
     }
-    for ($i = 0; $i < count($role_data); $i++) {
+    for ($i = 0; $i < count($role_data) && !empty($role_data); $i++) {
       $objPersonAlgorithmic->addRole($role_data[$i]['role_type'], $role_data[$i]['state']);
     }
 
@@ -460,7 +460,7 @@ class DBAccess extends ErrorHandling {
       if ($this->mySql->failed()) {
         return $this->error('getPersonDetailed', $this->mySql->getLastError());
       }
-      for ($i = 0; $i < count($role_data); $i++) {
+      for ($i = 0; $i < count($role_data) && !empty($role_data); $i++) {
         $objPersonDetailed->addRole($role_data[$i]['role_type'], $role_data[$i]['state']);
       }
     }
@@ -494,7 +494,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getUsersOfConference', $this->mySql->getLastError());
     }
     $objPersons = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objPerson = (new Person($data[$i]['id'], $data[$i]['first_name'], $data[$i]['last_name'],
                       $data[$i]['email'], 0, $data[$i]['title']));
       $s = sprintf("SELECT   role_type, state".
@@ -507,7 +507,7 @@ class DBAccess extends ErrorHandling {
       if ($this->mySql->failed()) {
         return $this->error('getUsersOfConference', $this->mySql->getLastError());
       }
-      for ($j = 0; $j < count($role_data); $j++) {
+      for ($j = 0; $j < count($role_data) && !empty($role_data); $j++) {
         $objPerson->addRole($role_data[$j]['role_type'], $role_data[$j]['state']);
       }
       if ($objPerson->hasAnyRole() || $objPerson->hasAnyRoleRequest()) {
@@ -674,7 +674,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
     }
     $objPapers = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfAuthor', $this->getLastError());
@@ -736,7 +736,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
     }
     $objPapers = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->failed()) {
          return $this->error('getPapersOfReviewer', $this->getLastError());
@@ -792,7 +792,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
     }
     $objPapers = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->failed()) {
          return $this->error('getPapersOfConference', $this->getLastError());
@@ -867,7 +867,7 @@ class DBAccess extends ErrorHandling {
     }
     $intCoAuthorIds = array();
     $strCoAuthors = array();
-    for ($i = 0; $i < count($cadata); $i++) {
+    for ($i = 0; $i < count($cadata) && !empty($cadata); $i++) {
       $intCoAuthorIds[] = $cadata[$i]['coauthor_id'];
       $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
       if ($this->failed()) {
@@ -912,7 +912,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getTopicsOfPaper', $this->mySql->getLastError());
     }
     $objTopics = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
     }
     return $this->success($objTopics);
@@ -947,7 +947,7 @@ class DBAccess extends ErrorHandling {
       return $this->success(false);
     }
     $sum = 0;
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $sum += $data[$i]['total_rating'];
     }
     return $this->success($sum / count($data));
@@ -1034,7 +1034,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
     }
     $objReviews = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objReview = $this->getReview($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getReviewsOfReviewer', $this->getLastError());
@@ -1235,7 +1235,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
     }
     $objReviewers = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objReviewer = $this->getPerson($data[$i]['reviewer_id']);
       if ($this->mySql->failed()) {
         return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
@@ -1270,7 +1270,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReviewsOfPaper', $this->mySql->getLastError());
     }
     $objReviews = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objReview = $this->getReview($data[$i]['id']);
       if ($this->mySql->failed()) {
         return $this->error('getReviewsOfPaper', $this->mySql->getLastError());
@@ -1431,7 +1431,7 @@ class DBAccess extends ErrorHandling {
     $intRatings = array();
     $strComments = array();
     $objCriterions = array();
-    for ($i = 0; $i < count($rating_data); $i++) {
+    for ($i = 0; $i < count($rating_data) && !empty($rating_data); $i++) {
       $intRatings[] = $rating_data[$i]['grade'];
       $strComments[] = $rating_data[$i]['comment'];
       $objCriterions[] = (new Criterion($rating_data[$i]['id'], $rating_data[$i]['name'],
@@ -1511,7 +1511,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getNextMessages', $this->mySql->getLastError());
     }
     $messages = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time'], 'r');
       $messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
                        $data[$i]['send_time'], $data[$i]['subject'],
@@ -1541,7 +1541,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getThreadsOfForum', $this->mySql->getLastError());
     }
     $objThreads = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time'], 'r');
       $objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
                          $data[$i]['send_time'], $data[$i]['subject'],
@@ -1554,27 +1554,35 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array von Forum-Objekten der Konferenz $intConferenceId zurueck.
+   * Liefert ein Array von Forum-Objekten der Konferenz $intConferenceId zurueck
+   * bzw. die globalen Foren, wenn keine Konferenz-ID angegeben wurde.
    *
    * @param int $intConferenceId Die ID der Konferenz, deren Foren ermittelt werden sollen.
-   * @return Forum [] Ein leeres Array, falls kein Forum in der Konferenz existiert.
+   *                             Optional: Bei Nichtangabe werden die globalen Foren ermittelt.
+   * @return Forum [] Ein leeres Array, falls kein Forum existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
   function getAllForums($intConferenceId=false) {
     if (empty($intConferenceId)) {
-      return $this->success(array());
+      $s = sprintf("SELECT   id, title, forum_type, paper_id".
+                   " FROM    Forum".
+                   " WHERE   forum_type = '%d'",
+                             s2db(FORUM_GLOBAL));
     }
-    $s = sprintf("SELECT   id, title, forum_type, paper_id".
-                 " FROM    Forum".
-                 " WHERE   conference_id = '%d'",
-                           s2db($intConferenceId));
+    else {
+      $s = sprintf("SELECT   id, title, forum_type, paper_id".
+                   " FROM    Forum".
+                   " WHERE   conference_id = '%d'".
+                   " OR      forum_type = '%d'",
+                             s2db($intConferenceId), s2db(FORUM_GLOBAL));
+    }
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getAllForums', $this->mySql->getLastError());
     }
     $objForums = array();
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'],
                                 $intConferenceId, $data[$i]['forum_type'],
                                ($data[$i]['forum_type'] == FORUM_PAPER) ?
@@ -1725,7 +1733,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getPreferredTopics', $this->mySql->getLastError());
     }
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
     return $this->success($objTopics);
@@ -1755,7 +1763,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getPreferredPapers', $this->mySql->getLastError());
     }
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objPapers[] = $this->getPaperSimple($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getPreferredPapers', $this->getLastError());
@@ -1788,7 +1796,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getDeniedPapers', $this->mySql->getLastError());
     }
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objPapers[] = $this->getPaperSimple($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getDeniedPapers', $this->getLastError());
@@ -1821,7 +1829,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getExcludedPapers', $this->mySql->getLastError());
     }
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $objPapers[] = $this->getPaperSimple($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getExcludedPapers', $this->getLastError());
@@ -2051,7 +2059,7 @@ nur fuer detaillierte?
       return $this->error('updateCoAuthors', $this->mySql->getLastError());
     }
     // Co-Autoren einfuegen...
-    for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
+    for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds) && !empty($objPaperDetailed->intCoAuthorIds); $i++) {
       if (!empty($objPaperDetailed->intCoAuthorIds[$i])) {
         $s = sprintf("INSERT   INTO IsCoAuthorOf (person_id, paper_id)".
                      " VALUES  ('%d', '%d')",
@@ -2091,7 +2099,7 @@ nur fuer detaillierte?
     if (count($objPaperDetailed->intCoAuthorIds) != count($objPaperDetailed->strCoAuthors)) {
       return $this->error('updateCoAuthorNames', 'Co-Author arrays have different length');
     }
-    for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
+    for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds) && !empty($objPaperDetailed->intCoAuthorIds); $i++) {
       if (empty($objPaperDetailed->intCoAuthorIds[$i]) &&
           !empty($objPaperDetailed->strCoAuthors[$i])) {
         $s = sprintf("INSERT   INTO IsCoAuthorOf (paper_id, name)".
@@ -2262,7 +2270,7 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updateReviewReport', $this->mySql->getLastError());
     }
-    for ($i = 0; $i < count($objReviewDetailed->intRatings); $i++) {
+    for ($i = 0; $i < count($objReviewDetailed->intRatings) && !empty($objReviewDetailed->intRatings); $i++) {
       $s = sprintf("UPDATE   Rating".
                    " SET     grade = '%d', comment = '%s'".
                    " WHERE   review_id = '%d'".
@@ -2422,7 +2430,7 @@ nur fuer detaillierte?
     }
     // Topics einfuegen...
     $objTopics = $objPaperSimple->objTopics;
-    for ($i = 0; $i < count($objTopics); $i++) {
+    for ($i = 0; $i < count($objTopics) && !empty($objTopics); $i++) {
       if (!empty($objTopics[$i])) {
         $s = sprintf("INSERT   INTO IsAboutTopic (paper_id, topic_id)".
                      " VALUES  ('%d', '%d')",
@@ -2460,7 +2468,7 @@ nur fuer detaillierte?
     if ($this->failed()) {
       return $this->error('updatePreferredTopics', $this->getLastError());
     }
-    for ($i = 0; $i < count($objTopics); $i++) {
+    for ($i = 0; $i < count($objTopics) && !empty($objTopics); $i++) {
       $this->deletePrefersTopic($intPersonId, $objTopics[$i]->intId);
       if ($this->failed()) {
         return $this->error('updatePreferredTopics', $this->getLastError());
@@ -2471,7 +2479,7 @@ nur fuer detaillierte?
     }
     $objTopics = $objPersonAlgorithmic->objPreferredTopics;
     // Topics einfuegen...
-    for ($i = 0; $i < count($objTopics); $i++) {
+    for ($i = 0; $i < count($objTopics) && !empty($objTopics); $i++) {
       if (!empty($objTopics[$i])) {
         $this->addPrefersTopic($intPersonId, $objTopics[$i]->intId);
         if ($this->failed()) {
@@ -2506,7 +2514,7 @@ nur fuer detaillierte?
     if ($this->failed()) {
       return $this->error('updatePreferredPapers', $this->getLastError());
     }
-    for ($i = 0; $i < count($objPapers); $i++) {
+    for ($i = 0; $i < count($objPapers) && !empty($objPapers); $i++) {
       $this->deletePrefersPaper($intPersonId, $objPapers[$i]->intId);
       if ($this->failed()) {
         return $this->error('updatePreferredPapers', $this->getLastError());
@@ -2517,7 +2525,7 @@ nur fuer detaillierte?
     }
     $objPapers = $objPersonAlgorithmic->objPreferredPapers;
     // Papers einfuegen...
-    for ($i = 0; $i < count($objPapers); $i++) {
+    for ($i = 0; $i < count($objPapers) && !empty($objPapers); $i++) {
       if (!empty($objPapers[$i])) {
         $this->addPrefersPaper($intPersonId, $objPapers[$i]->intId);
         if ($this->failed()) {
@@ -2552,7 +2560,7 @@ nur fuer detaillierte?
     if ($this->failed()) {
       return $this->error('updateDeniedPapers', $this->getLastError());
     }
-    for ($i = 0; $i < count($objPapers); $i++) {
+    for ($i = 0; $i < count($objPapers) && !empty($objPapers); $i++) {
       $this->deleteDeniesPaper($intPersonId, $objPapers[$i]->intId);
       if ($this->failed()) {
         return $this->error('updateDeniedPapers', $this->getLastError());
@@ -2563,7 +2571,7 @@ nur fuer detaillierte?
     }
     $objPapers = $objPersonAlgorithmic->objDeniedPapers;
     // Papers einfuegen...
-    for ($i = 0; $i < count($objPapers); $i++) {
+    for ($i = 0; $i < count($objPapers) && !empty($objPapers); $i++) {
       if (!empty($objPapers[$i])) {
         $this->addDeniesPaper($intPersonId, $objPapers[$i]->intId);
         if ($this->failed()) {
@@ -2598,7 +2606,7 @@ nur fuer detaillierte?
     if ($this->failed()) {
       return $this->error('updateExcludedPapers', $this->getLastError());
     }
-    for ($i = 0; $i < count($objPapers); $i++) {
+    for ($i = 0; $i < count($objPapers) && !empty($objPapers); $i++) {
       $this->deleteExcludesPaper($intPersonId, $objPapers[$i]->intId);
       if ($this->failed()) {
         return $this->error('updateExcludedPapers', $this->getLastError());
@@ -2609,7 +2617,7 @@ nur fuer detaillierte?
     }
     $objPapers = $objPersonAlgorithmic->objExcludedPapers;
     // Papers einfuegen...
-    for ($i = 0; $i < count($objPapers); $i++) {
+    for ($i = 0; $i < count($objPapers) && !empty($objPapers); $i++) {
       if (!empty($objPapers[$i])) {
         $this->addExcludesPaper($intPersonId, $objPapers[$i]->intId);
         if ($this->failed()) {
