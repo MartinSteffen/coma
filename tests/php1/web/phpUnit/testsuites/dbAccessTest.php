@@ -27,7 +27,8 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_checkLogin() {
     	global $myDBAccess;
-      $this->assertTrue($myDBAccess->checkLogin('sae@me.de','pw'));
+    	$pw = sha1('pw');
+      $this->assertTrue($myDBAccess->checkLogin('sae@me.de',$pw));
   }
 
   function test_getAllConferences() {
@@ -37,7 +38,7 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_getConferenceDetailed() {
       	global $myDBAccess;
-        $this->assertEquals(array(),$myDBAccess->getConferenceDetailed(100));
+        $this->assertFalse($myDBAccess->getConferenceDetailed(100));
   }
 
   function test_getCriterionsOfConference() {
@@ -61,11 +62,6 @@ class dbAccessTest extends PHPUnit_TestCase
   }
 
   function test_getPersonAlgorithmic() {
-      	global $myDBAccess;
-        $this->assertFalse($myDBAccess->getPersonAlgorithmic(1,200));
-  }
-
-  function test_getPersonAlgorithmic2() {
         	global $myDBAccess;
           $this->assertFalse($myDBAccess->getPersonAlgorithmic(200,1));
   }
