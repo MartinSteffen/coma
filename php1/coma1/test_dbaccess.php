@@ -17,7 +17,7 @@ define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
 
-$p = $MyDBAccess->getPerson(1);
+$p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
 for ($i = 0; $i < count($ROLES); $i++) {
   if ($p->hasRole($ROLES[$i][0]))
