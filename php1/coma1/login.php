@@ -13,7 +13,7 @@ require_once('./include/header.inc.php');
 if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   /* Einlog-Versuch */
   if (isset($_POST['user_name'])) {
-    $_SESSION['uname'] = $_POST['user_nail'];
+    $_SESSION['uname'] = $_POST['user_name'];
   }
   if (isset($_POST['user_password'])) {
     $_SESSION['password'] = sha1($_POST['user_password']);
