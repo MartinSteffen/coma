@@ -22,7 +22,7 @@ if ($myDBAccess->failed()) {
 }
 
 $conferences = 1;
-$persons = 100;
+$persons = 30;
 $criterions = 3;
 $papers = $persons/2-$persons/10;
 $topics = 10;
