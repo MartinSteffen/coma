@@ -366,10 +366,9 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPerson($intPersonId, $intConferenceId=false) {
-    if ($intPerson
     $s = "SELECT  id, first_name, last_name, email, title".
         " FROM    Person".
-        " WHERE   id = '$intPersonId'";
+        " WHERE   id = $intPersonId";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPerson', $this->mySql->getLastError());
