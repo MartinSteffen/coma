@@ -53,7 +53,7 @@ if (!empty($objPapers)) {
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
+    $objReviewers = $myDBAccess->getAssignedReviewersOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
