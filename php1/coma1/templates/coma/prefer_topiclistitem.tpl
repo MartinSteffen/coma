@@ -1,7 +1,5 @@
  <tr class="listitem-{line_no}"> 
-    <td class="listitem-{line_no}">
-      <a href="{basepath}user_paperdetails.php?paperid={topic_id}{&SID}">{topic}</a>
-    </td> 
+    <td class="listitem-{line_no}">{topic}</td> 
     <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}" colspan="2">
       {if0<input type="radio" name="topic-{topic_id}" value="0" checked>
