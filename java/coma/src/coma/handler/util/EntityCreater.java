@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import coma.entities.Conference;
 import coma.entities.Criterion;
@@ -15,6 +16,8 @@ import coma.entities.Person;
 import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.Topic;
+import coma.servlet.util.FormParameters;
+import coma.servlet.util.SessionAttribs;
 
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Albari </a>"
@@ -184,6 +187,9 @@ public class EntityCreater {
 	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException {
 		Paper paper = new Paper(-1); // new Paper
 		Enumeration paramNames = request.getParameterNames();
+		HttpSession session = request.getSession(true);
+		Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
+		Conference theConf = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 		String parName = "";
 		String parValue = "";
 		while(paramNames.hasMoreElements()){
@@ -191,15 +197,15 @@ public class EntityCreater {
 			parValue =request.getParameter(parName);
 			if (parValue.equals("")) throw new IllegalArgumentException("Missing Form entry "+parName);
 		    }
-		paper.setAbstract("");//(request.getParameter("abstract"));
-		paper.setAuthor_id(-1);//(theAuthor.getId());
-		paper.setVersion(-1);
+		paper.setAbstract(request.getParameter(FormParameters.ABSTRACT));
+		paper.setAuthor_id(theLogedPerson.getId());
+		paper.setVersion(1);
 		paper.setLast_edited(new Date());
-		paper.setConference_id(-1);//(theConference.getId());
-		paper.setFilename("");
-		paper.setMim_type("");//(mpr.getContentType(theSystemFileName));
-		paper.setState(-1);
-		paper.setTitle("");//(request.getParameter("title"));
+		paper.setConference_id(theConf.getId());
+		//paper.setFilename(""); //set in WriteFile.java
+		//paper.setMim_type("");///set in WriteFile.java
+		paper.setState(0);
+		paper.setTitle(request.getParameter(FormParameters.TITLE));
 
 			
 		return paper;

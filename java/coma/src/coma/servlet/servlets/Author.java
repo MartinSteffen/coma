@@ -69,6 +69,7 @@ public class Author extends HttpServlet {
 	HttpSession session = request.getSession(true);
 	
 	Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
+	Conference theConf = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 	Navcolumn myNavCol = new Navcolumn(session);
 	String path = getServletContext().getRealPath("");
 	String xslt = path+"/style/xsl/author.xsl";
@@ -95,7 +96,7 @@ public class Author extends HttpServlet {
     	break;
 	case SUBMITPAPER: // submit form for a paper
 		/*Topic mySearchTopic = new Topic(-1);
-		mySearchTopic.setConferenceId(((Conference)session.getAttribute(SessionAttribs.CONFERENCE)).getId());
+		mySearchTopic.setConferenceId(theconf.getId());
 		SearchCriteria mysc = new SearchCriteria();
 		mysc.(my);
 		SearchResult mySR = myReadService.getPerson(mysc);
@@ -104,6 +105,8 @@ public class Author extends HttpServlet {
 			String info = mySR.getInfo();
 		}*/
 		result.append(XMLHelper.tagged("submitpaper",""));
+		break;
+	case UPDATEPAPER: // make a update to an previous submitted paper
 		break;
     case PROCESSPAPER: // process submitted paper
     	EntityCreater myCreater = new EntityCreater();

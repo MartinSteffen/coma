@@ -16,6 +16,10 @@ package coma.servlet.util;
    not, of course, the names).
  */
 public class FormParameters {
+	/** for paper submission*/
+	public static final String ABSTRACT="abstract";
+	public static final String TITLE="title";
+	
 	public static final String EMAIL="email";
 	public static final String ACTION="action";
 	public static final String PASSWORD="password";

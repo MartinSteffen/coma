@@ -2,14 +2,14 @@ THINGS THAT ARE STILL TO DO:
 
 Please change TODO to DONE when you've done it.
 
-TODO: Login. At least something that fills the Session Attributes.
+DONE: Login. At least something that fills the Session Attributes.
  by monday mti owu
 
 TODO: Assignment. The Reviewer<->Paper relation. At least manual
       version iwth lots of checkboxes for the chair.
  by monday pka hba
 
-TODO: Person.isChair(), Person.isAuthor(), Person.isReviewer()
+DONE: Person.isChair(), Person.isAuthor(), Person.isReviewer()
      add Role
  by monday ziad mti
 
@@ -26,6 +26,9 @@ TODO: Red markings if deviation too big in ShowReports
 
 TODO: Ziad's build.xml the way Marcel likes: commit it!
  ziad
+
+TODO: ANT-Script: give TOMCAT permission to write in /papers
+e.g. chmod 777 /papers
 
 TODO: Email notification where appropriate
  all

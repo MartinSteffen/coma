@@ -21,6 +21,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import coma.entities.Paper;
+import coma.entities.SearchResult;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
@@ -61,15 +62,15 @@ public class WriteFile extends HttpServlet {
 				new DefaultFileRenamePolicy());
 		
 		Enumeration fileNames = mpr.getFileNames();
-		
-		String theSystemFileName =mpr.getFilesystemName((String) fileNames.nextElement());
+		String theNewFile = (String) fileNames.nextElement();
+		String theSystemFileName =mpr.getFilesystemName(theNewFile);
 		
 		// get session attributes
 		HttpSession session= request.getSession(true);
 		
 		Paper theNewPaper = (Paper) session.getAttribute(SessionAttribs.PAPER);
 		theNewPaper.setFilename(theSystemFileName);
-		
+		theNewPaper.setMim_type(mpr.getContentType(theNewFile));
 		
 		
 		
@@ -77,8 +78,13 @@ public class WriteFile extends HttpServlet {
 		
 		
 		InsertServiceImpl myInsertservice = new InsertServiceImpl();
-		//myInsertservice.insertPaper(theNewPaper);
-		result.append(XMLHelper.tagged("success",""));
+		SearchResult mySR = myInsertservice.insertPaper(theNewPaper);
+		if (mySR.SUCCESS)
+			result.append(XMLHelper.tagged("success",theNewPaper.toXML()));
+		else {
+			result.append(XMLHelper.tagged("failed",""));
+			result.append(XMLHelper.tagged("error",mySR.info));
+		}
 		result.append(theNewPaper.toXML());
 	} catch (Exception e) {
 		result.append(XMLHelper.tagged("failed",""));

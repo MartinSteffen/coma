@@ -48,7 +48,8 @@ public class Login extends HttpServlet {
 			action = ACTIONS.valueOf(request.getParameter(FormParameters.ACTION).toUpperCase());
 		} catch (RuntimeException e) {
 				// TODO Auto-generated catch block
-			e.printStackTrace();
+			// no action selected => do the LOGIN action
+			//e.printStackTrace();
 		}
 		
 		StringBuffer result = new StringBuffer();

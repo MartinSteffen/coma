@@ -7,6 +7,7 @@ import static coma.entities.Entity.XMLMODE.SHALLOW;
 import coma.handler.impl.db.DeleteServiceImpl;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.impl.db.ReadServiceImpl;
+import coma.servlet.util.User;
 import coma.servlet.util.XMLHelper;
 import static coma.util.logging.Severity.WARN;
 
@@ -237,13 +238,13 @@ public class Person extends Entity {
 	}
 
     public boolean isChair(){
-    	return isInRole(role_type, 0);
+    	return isInRole(role_type, User.CHAIR);
     }
     public boolean isAuthor(){
-    	return isInRole(role_type, 1);
+    	return isInRole(role_type, User.AUTHOR);
     }
     public boolean isReviewer(){
-    	return isInRole(role_type, 2);
+    	return isInRole(role_type, User.REVIEWER);
     }
 	
     private boolean isInRole(Vector roles, int role){

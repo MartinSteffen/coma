@@ -33,6 +33,19 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select="/author/success" />
 <xsl:apply-templates select="/author/submitpaper"/>
 <xsl:apply-templates select="/author/writefile" />
+
+<div> <!-- if no action is performed -->
+<table>
+	 <xsl:for-each select="/paper_list//paper">
+                      <tr>
+                      	<td>
+                        <xsl:value-of select="id"/>
+                        </td>
+                      </tr>
+                    </xsl:for-each>
+</table>	
+</div> 
+
 </div> <!-- Main content end -->
 
 </body>
@@ -104,6 +117,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 <xsl:template match="author/success">
 <h3>Your Paper is successfully added to your database!</h3>
+<div>
+<xsl:value-of select="."/> 
+</div>
 </xsl:template>
 
 
