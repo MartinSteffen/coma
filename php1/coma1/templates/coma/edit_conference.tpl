@@ -5,7 +5,7 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Configurate conference:</th>
+    <th colspan="2">Enter conference data:</th>
   </tr>
   <tr>
     <td>
@@ -36,7 +36,7 @@
       Starts:
     </td>
     <td>
-      <input type="text" name="start_date" size="16" maxlength="16" value="{start_date}">
+      <input type="text" name="start_date" size="16" maxlength="16" value="{start_date}"> *
     </td>
   </tr>
   <tr>
@@ -52,7 +52,7 @@
       Deadline for abstracts:
     </td>
     <td>
-      <input type="text" name="abstract_dl" size="16" maxlength="16" value="{abstract_dl}">
+      <input type="text" name="abstract_dl" size="16" maxlength="16" value="{abstract_dl}"> *
     </td>
   </tr>
   <tr>
@@ -60,7 +60,7 @@
       Deadline for paper submission:
     </td>
     <td>
-      <input type="text" name="paper_dl" size="16" maxlength="16" value="{paper_dl}">
+      <input type="text" name="paper_dl" size="16" maxlength="16" value="{paper_dl}"> *
     </td>
   </tr>
   <tr>
@@ -68,7 +68,7 @@
       Deadline for reviews:
     </td>
     <td>
-      <input type="text" name="review_dl" size="16" maxlength="16" value="{review_dl}">
+      <input type="text" name="review_dl" size="16" maxlength="16" value="{review_dl}"> *
     </td>
   </tr>
   <tr>
@@ -76,7 +76,7 @@
       Deadline for final versions:
     </td>
     <td>
-      <input type="text" name="final_dl" size="16" maxlength="16" value="{final_dl}">
+      <input type="text" name="final_dl" size="16" maxlength="16" value="{final_dl}"> *
     </td>
   </tr>
   <tr>
@@ -95,17 +95,20 @@
       <input type="hidden" name="min_papers" value="{min_papers}">
       <input type="hidden" name="max_papers" value="{max_papers}">
       <input type="hidden" name="variance" value="{variance}">
-      <input type="hidden" name="criteria" value="{criteria}">
+      <input type="hidden" name="criterions" value="{criterions}">
       <input type="hidden" name="topics" value="{topics}">
       <input type="hidden" name="crit_max" value="{crit_max}">
       <input type="hidden" name="crit_descr" value="{crit_descr}">
+      <input type="hidden" name="crit_weight" value="{crit_weight}">
+      <input type="hidden" name="num_topics" value="{num_topics}">
+      <input type="hidden" name="num_criterions" value="{num_criterions}">      
       <input type="hidden" name="auto_actaccount" value="{if2 1}">
       <input type="hidden" name="auto_paperforum" value="{if3 1}">
       <input type="hidden" name="auto_addreviewer" value="{if4 1}">
       <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}">
 
       <input type="hidden" name="action" value="submit">
-      <input type="submit" name="submit" value="Submit changes" class="button">
+      <input type="submit" name="submit" value="Submit Changes" class="button">
       <input type="submit" name="adv_config" value="Advanced settings" class="button">
     </td>
   </tr>

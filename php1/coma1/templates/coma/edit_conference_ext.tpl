@@ -5,7 +5,7 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Configurate conference (advanced):</th>
+    <th colspan="2">Enter conference data (advanced):</th>
   </tr>
   <tr>
     <td>
@@ -74,9 +74,9 @@
       <input type="text" name="auto_numreviewer" size="8" maxlength="8" value="{auto_numreviewer}">
     </td>
   </tr>
-
   <tr>
     <td colspan="2">
+      <input type="hidden" name="advanced" value="1">
       <input type="hidden" name="name" value="{name}">
       <input type="hidden" name="description" value="{description}">
       <input type="hidden" name="homepage" value="{homepage}">
@@ -87,13 +87,16 @@
       <input type="hidden" name="review_dl" value="{review_dl}">
       <input type="hidden" name="final_dl" value="{final_dl}">
       <input type="hidden" name="notification" value="{notification}">
-      <input type="hidden" name="criteria" value="{criteria}">
+      <input type="hidden" name="criterions" value="{criterions}">
       <input type="hidden" name="topics" value="{topics}">
       <input type="hidden" name="crit_max" value="{crit_max}">
       <input type="hidden" name="crit_descr" value="{crit_descr}">
-
+      <input type="hidden" name="crit_weight" value="{crit_weight}">
+      <input type="hidden" name="num_topics" value="{num_topics}">
+      <input type="hidden" name="num_criterions" value="{num_criterions}"> 
+      
       <input type="hidden" name="action" value="submit">
-      <input type="submit" name="submit" value="Submit changes" class="button">
+      <input type="submit" name="submit" value="Submit Changes" class="button">
       <input type="submit" name="simple_config" value="Simple settings" class="button">
     </td>
   </tr>
