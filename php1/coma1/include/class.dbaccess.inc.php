@@ -537,7 +537,7 @@ class DBAccess extends ErrorHandling {
                                       " AND     role_type = '%d'",
                                       s2db($intPersonId),
                                       s2db($intConferenceId),
-                                      s2db($intRoleType);
+                                      s2db($intRoleType));
                             : sprintf("SELECT   role_type, state".
                                       " FROM    Role".
                                       " WHERE   person_id = '%d'".
