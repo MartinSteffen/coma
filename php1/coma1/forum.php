@@ -34,7 +34,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   $typepaperassocs = deflautAssocArray();
   $typepaperassocs['type'] = 'Paper forums';
   $forumtypechair = new Template(TPLPATH . 'forumtypes.tpl');
-  $typechairassocs = deflautAssocArray();
+  $typechairassocs = defaultAssocArray();
   $typechairassocs['type'] = 'Chair forums';
   $openforumtemplates = array();
   $paperforumtemplates = array();
