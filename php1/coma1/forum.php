@@ -1,6 +1,6 @@
 <?php
 
-define('DEBUG', true);
+define('DEBUG', false);
 define('IN_COMA1', true);
 
 require_once('./include/header.inc.php');
