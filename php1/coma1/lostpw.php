@@ -58,9 +58,9 @@ if (isset($_POST['submit'])) {
   }
   else {
     if ($myDBAccess->failed()) {
-      error('Check e-mail failed.',$myDBAccess->getLastError());
+      error('Check Email failed.',$myDBAccess->getLastError());
     }
-    $strContentAssocs['message'] = 'Please enter correct Username (E-mail)';
+    $strContentAssocs['message'] = 'Please enter correct Username (Email)';
     $strContentAssocs['if'] = array(1);
   }
 }

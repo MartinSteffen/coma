@@ -12,7 +12,7 @@
   </tr>
   <tr class="viewline">
     <td class="viewline" width="15%">
-      E-mail address:
+      Email address:
     </td>
     <td class="viewline">
       {email} <span class="emph">(= username)</span>
@@ -56,5 +56,5 @@
 
 <p class="message-ok">
   User was successfully registered! Please login on
-  <a href="{basepath}index.php{?SID}" class="link">start page</a> with your E-mail address as Username!
+  <a href="{basepath}index.php{?SID}" class="link">start page</a> with your Email address as Username!
 </p>

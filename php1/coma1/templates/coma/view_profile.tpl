@@ -12,7 +12,7 @@
   </tr>
   <tr class="viewline">
     <td class="viewline" width="15%">
-      E-mail address:
+      Email address:
     </td>
     <td class="viewline">
       <a href="{email_link}" class="email">{email}</a>

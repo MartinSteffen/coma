@@ -110,7 +110,7 @@ if (!defined('NEED_NO_LOGIN')) {
   }
   else {
     if (!isset($_SESSION['uname'])) {
-      $_SESSION['message'] = 'Please login with your Username (E-mail) and Password!';
+      $_SESSION['message'] = 'Please login with your Username (Email) and Password!';
     }
     session_delete('uname');
     session_delete('password');

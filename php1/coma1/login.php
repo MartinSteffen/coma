@@ -39,7 +39,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
     redirect('index.php');
   }
   else {
-    $_SESSION['message'] = 'Please enter your Username (E-mail) and your Password.';
+    $_SESSION['message'] = 'Please enter your Username (Email) and your Password.';
   }
 }
 

@@ -8,7 +8,7 @@
     <th colspan="2">Your Username (E-mail):</th>
   </tr>
   <tr>
-    <td>E-mail Address:</td>
+    <td>Email Address:</td>
     <td>
       <input type="text" name="user_name" size="30" maxlength="127" value="{uname}">
     </td>
@@ -24,6 +24,6 @@
 <p>&nbsp;</p>
 
 <p class="message">
-  Please enter your E-Mail Address and proceed according to the E-mail you get.<br>
+  Please enter your Email address and proceed according to the Email you get.<br>
   If you have not registered yet, <a href="{basepath}register.php{?SID}" class="link">please register!</a>
 </p>
