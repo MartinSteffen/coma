@@ -46,10 +46,10 @@ if (isset($_POST['action'])) {
   if (isset($_POST['add_coauthor']) && !empty($_POST['coauthor'])) {
     $strCoAuthors[] = encodeText($_POST['coauthor']);    
   }    
-  $intTopics = array();
+  $intTopicIds = array();
   for ($i = 0; $i < count($objAllTopics); $i++) {
     if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
-      $intTopics[] = $objAllTopics[$i]->intId;
+      $intTopicIds[] = $objAllTopics[$i]->intId;
     }
   }  
   $strContentAssocs['topic_lines'] = '';
@@ -95,7 +95,7 @@ else {
   $strContentAssocs['abstract']    = '';  
   $intCoAuthorNum = 0;
   $strCoAuthors = array();
-  $intTopics = array();
+  $intTopicIds = array();
   $strContentAssocs['topic_lines'] = '';
   for ($i = 0; $i < count($objAllTopics); $i++) {
     $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
