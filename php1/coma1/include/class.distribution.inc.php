@@ -354,12 +354,13 @@ class Distribution extends ErrorHandling {
 
       $blnChanged = false;
 
-      // Paper mit den dem niedrigsten Faktor n/m (n=Anzahl Reviewer, m=gewunschte Reviewer)
+      // Paper mit dem niedrigsten Faktor n/m (n=Anzahl Reviewer, m=gewunschte Reviewer)
       // ermitteln... (Paper mit hoeherem m bei gleichem Faktor bevorzugen.)
       $minFactor = 1; $wanted = -1; $pindex = -1;
       for ($i = 0; $i < count($p_id); $i++) {
         // nur solche, fuer die noch Reviewer in Frage kommen
         if ($p_num_revs_total_left[$i] > 0) {
+          echo("    [$minFactor / $wanted / ".$p_num_revs[$i] / $intWantedReviewers[$p_id[$i]].']');
           if($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] < $minFactor ||
               (abs($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] - $minFactor) <= 0.005 &&
                $intWantedReviewers[$p_id[$i]] > $wanted)) {
@@ -370,7 +371,7 @@ class Distribution extends ErrorHandling {
         }
       }
       if ($pindex >= 0) {
-        // am geeignetsten Reviewer nehmen
+        // geeignetsten Reviewer nehmen
         $max = 0; $rindex = -1;
         for ($i = 0; $i < count($r_id); $i++) {
           if ($matrix[$i][$pindex] > $max) {
