@@ -24,9 +24,17 @@ $topics = 10;
 $i = 0;
 
 while ($i < $conferences) {
-	$myDBAccess->addConference('Conference'.$i,'Homepage'.$i,'Description'.$i,'AbstractDeadline',
-                         'PaperDeadline', 'ReviewDeadline', 'FinalDeadline',
-                         'Notification', 'ConferenceStart', 'ConferenceEnd');
+	$myDBAccess->addConference('Conference'   .$i,
+	                           'Homepage'     .$i,
+	                           'Description'  .$i,
+	                           'AbstractDeadline',
+                             'PaperDeadline'   , 
+                             'ReviewDeadline'  , 
+                             'FinalDeadline'   ,
+                             'Notification'    , 
+                             'ConferenceStart' , 
+                             'ConferenceEnd'
+                            );
     $i++;
     }
 
