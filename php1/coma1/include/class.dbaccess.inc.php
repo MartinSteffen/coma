@@ -3238,7 +3238,7 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addMessage($strSubject, $strText, $intSenderId, $intForumId, $intReplyTo=false) {
-    if empty($intReplyTo) {
+    if (empty($intReplyTo)) {
       $intReplyTo = 'NULL';
     }
     $s = sprintf("INSERT  INTO Message (subject, text, sender_id, forum_id, send_time, reply_to)".
