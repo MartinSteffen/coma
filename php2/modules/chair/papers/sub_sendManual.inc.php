@@ -11,8 +11,7 @@ if(isChair_Paper($_POST['paperID']))
 					VALUES (".$reviewer.", ".$_POST['paperID'].")";
 			$result=mysql_query($SQL);					
 		}
-		$SQL = "update paper set state = 1 where id = ".$_POST['paperID'];
-		$result=mysql_query($SQL);
+		makePaperState($_POST['paperID']);
 	}
 
 	redirect("chair","papers","paper","paperID=".$_POST['paperID']);	

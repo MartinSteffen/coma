@@ -234,4 +234,37 @@ function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = "")
 }
 
 
+
+function makePaperState($paperID)
+{
+	$SQL = "SELECT id FROM reviewreport WHERE paper_id = ".$paperID;
+	$result=mysql_query($SQL);	
+	$numberOfReviewers=0;
+	while ($list = mysql_fetch_row ($result)) 	
+	{
+		$numberOfReviewers++;
+	}
+	
+	$SQL = "SELECT conference.min_reviews_per_paper FROM paper, conference 
+		    WHERE paper.id = ".$paperID."
+			AND paper.conference_id=conference.id";
+	$result=mysql_query($SQL);	
+	$minimum=0;
+	while ($list = mysql_fetch_row ($result)) 	
+	{
+		$minimum = $list[0];
+	}	
+	
+	$stateID = 1;
+	if($numberOfReviewers<$minimum)
+	{
+		$stateID=0;
+	}
+
+
+	$SQL = "update paper set state = ".$stateID." where id = ".$paperID;
+	$result=mysql_query($SQL);	
+}
+
+
 ?>
