@@ -47,8 +47,7 @@ if (get_magic_quotes_gpc()) {
 
 // check auf INSTALL.PHP
 if (@file_exists($ServerPathTranslated . '/INSTALL.PHP')) {
-  error('INSTALL.PHP', 
-        'You have to delete the file INSTALL.PHP in order to use this tool (security reasons!)');
+  //error('INSTALL.PHP', 'You have to delete the file INSTALL.PHP in order to use this tool (security reasons!)');
 }
 
 /**#@+ Konstanten fuer die Rollenverteilung */
