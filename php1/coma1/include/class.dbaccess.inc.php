@@ -1861,7 +1861,7 @@ nur fuer detaillierte?
     $s = sprintf("UPDATE   Person".
                  " SET     password = '%s'".
                  " WHERE   id = '%d'",
-                           s2db(),
+                           s2db($strPassword),
                            s2db($intPersonId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
