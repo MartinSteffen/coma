@@ -1,0 +1,10 @@
+#
+#
+#
+#
+#
+__version__ = '@VERSION@'
+
+__copyright__ = """
+Copyright (c) 2005 by Marcel Kyas
+"""

@@ -10,6 +10,7 @@ Source0:	http://www.informatik.uni-kiel.de/~mky/coma/%{name}-%{version}.tar.gz
 BuildRequires:	python >= 2.3, mod_python >= 3.1
 BuildRequires:	postgresql-python >= 7.4, MySQL-python >= 0.9
 Requires:	python >= 2.3, mod_python >= 3.1
+Requires:	pycoma-connector = %{version}
 BuildRoot:	%{_tmppath}/coma-root
 
 %define pythondir /usr/lib/python2.3/site-packages
@@ -24,6 +25,7 @@ It requires a data base module.
 Summary:	Coma using postgresql
 Group:		Other
 Requires:	%{name} = %{version}, postgresql-python >= 7.4
+Provides:	pycoma-connector = %{version}
 
 %description psql
 Coma is a simple conference manager written in python and using postgresql.
@@ -32,6 +34,7 @@ Coma is a simple conference manager written in python and using postgresql.
 Summary:	Coma using MySQL
 Group:		Other
 Requires:	%{name} = %{version}, MySQL-python >= 0.9
+Provides:	pycoma-connector = %{version}
 
 %description mysql
 Coma is a simple conference manager written in python and using postgresql.
@@ -45,6 +48,10 @@ rm -rf ${RPM_BUILD_ROOT}
 make
 
 %install
+# Manually install the apache configuration file, we do not do it
+# automatically.
+mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/httpd/conf.d
+install -m 0644 pycoma.conf ${RPM_BUILD_ROOT}%{_sysconfdir}/httpd/conf.d
 %makeinstall
 
 %clean
@@ -54,20 +61,23 @@ rm -rf ${RPM_BUILD_ROOT}
 %defattr(-,root,root)
 %doc ChangeLog README COPYING
 %{_bindir}/comasetup
-%{_sbindir}/comaprocmail
+%{_libexecdir}/%{name}/comaprocmail
 # Common python library.
+%{pythondir}/%{name}/__init__.py
+%ghost %{pythondir}/%{name}/__init__.pyc
+%ghost %{pythondir}/%{name}/__init__.pyo
 %{pythondir}/%{name}/coma.py
-%{pythondir}/%{name}/coma.pyc
-%{pythondir}/%{name}/coma.pyo
-%{pythondir}/%{name}/comadb.py
-%{pythondir}/%{name}/comadb.pyc
-%{pythondir}/%{name}/comadb.pyo
-%{pythondir}/%{name}/coma_setup.py
-%{pythondir}/%{name}/coma_setup.pyc
-%{pythondir}/%{name}/coma_setup.pyo
-%{pythondir}/%{name}/coma_procmail.py
-%{pythondir}/%{name}/coma_procmail.pyc
-%{pythondir}/%{name}/coma_procmail.pyo
+%ghost %{pythondir}/%{name}/coma.pyc
+%ghost %{pythondir}/%{name}/coma.pyo
+%{pythondir}/%{name}/database.py
+%ghost %{pythondir}/%{name}/database.pyc
+%ghost %{pythondir}/%{name}/database.pyo
+%{pythondir}/%{name}/setup.py
+%ghost %{pythondir}/%{name}/setup.pyc
+%ghost %{pythondir}/%{name}/setup.pyo
+%{pythondir}/%{name}/procmail.py
+%ghost %{pythondir}/%{name}/procmail.pyc
+%ghost %{pythondir}/%{name}/procmail.pyo
 # Stylesheet
 %{_datadir}/%{name}/coma.css
 # Email Templates
@@ -94,13 +104,15 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_datadir}/%{name}/summary.xml
 # Index page of a coma instance.
 %{_datadir}/%{name}/index.py
+# Configuration
+%config(noreplace) %{_sysconfdir}/%{name}/config.py
 
 %files mysql
 %defattr(-,root,root)
 # Connector for postgresql
-%{pythondir}/%{name}/comamysql.py
-%{pythondir}/%{name}/comamysql.pyc
-%{pythondir}/%{name}/comamysql.pyo
+%{pythondir}/%{name}/connmysql.py
+%ghost %{pythondir}/%{name}/connmysql.pyc
+%ghost %{pythondir}/%{name}/connmysql.pyo
 # Database schemas for postgres.
 %{_datadir}/%{name}/coma-mysql.sql
 %{_datadir}/%{name}/coma-mysql-del.sql
@@ -108,9 +120,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %files psql
 %defattr(-,root,root)
 # Connector for postgresql
-%{pythondir}/%{name}/comapsql.py
-%{pythondir}/%{name}/comapsql.pyc
-%{pythondir}/%{name}/comapsql.pyo
+%{pythondir}/%{name}/connpsql.py
+%ghost %{pythondir}/%{name}/connpsql.pyc
+%ghost %{pythondir}/%{name}/connpsql.pyo
 # Database schemas for postgres.
 %{_datadir}/%{name}/coma-psql.sql
 %{_datadir}/%{name}/coma-psql-del.sql

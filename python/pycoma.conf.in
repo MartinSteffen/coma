@@ -1,0 +1,23 @@
+# -*- apache -*-
+# Example httpd.conf snippet for my python implementation of the coma
+# conference manager.
+#
+Alias /coma \"%(comaroot)s\"
+
+<Directory %(comaroot)s>
+    SetHandler mod_python
+    PythonHandler mod_python.publisher
+    PythonDebug on
+</Directory>
+
+<Directory %(comaroot)s/papers>
+    AllowOverride	None
+    Order		deny,allow
+    Deny from all
+</Directory>
+
+<Directory %(comaroot)s/templates>
+    AllowOverride	None
+    Order		deny,allow
+    Deny from all
+</Directory>

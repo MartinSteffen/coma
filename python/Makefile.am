@@ -23,10 +23,13 @@ do_subst	= sed -e 's,[@]pkgpythondir[@],$(pkgpythondir),g' \
 		      -e 's,[@]VERSION[@],$(VERSION),g' \
 		      -e 's,[@]CHCON[@],$(CHCON),g'
 
-comasetup: comasetup.in Makefile
+comasetup: $(srcdir)/comasetup.in Makefile
 	$(do_subst) < $(srcdir)/comasetup.in > comasetup
 	chmod +x comasetup
 
-comaprocmail: comaprocmail.in Makefile
+comaprocmail: $(srcdir)/comaprocmail.in Makefile
 	$(do_subst) < $(srcdir)/comaprocmail.in > comaprocmail
 	chmod +x comaprocmail
+
+pycoma.conf: $(srcdir)/pycoma.conf.in Makefile
+	$(do_subst) < $(srcdir)/comaprocmail.in > comaprocmail
