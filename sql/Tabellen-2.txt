@@ -1,0 +1,141 @@
+Überarbeitung des Vorschlags für die SQL-Tabellenstruktur.
+Es wurde folgende Änderungen vorgenommen:
+
+- Bezeichnungskonventionen: Tabellennamen groß, Attributnamen klein,
+  durchgängig englische Bezeichner, Assoziationsrelationen sind als
+  Verben formuliert, Objekttabellen als Substantive.
+- Erweiterung um die Tabellen für das Forum (Forum, Message) und um
+  Relationen zum Präferieren/Ablehnen von Artikeln (prefersPaper,
+  deniesPaper).
+- Ergänzung fehlender Attribute aus dem UML-Diagramm des Datenmodells.
+- Bewertungskriterien und die Bewertungen in den einzelnen Kriterien
+  sind in eigene Tabellen ausgelagert. Vorteil: Die Liste der Bewertungs-
+  kriterien ist dynamisch und nicht statisch auf 10 festgelegt.
+- Erweiterung der Co-Autoren-Tabelle um den Namen des Co-Autoren.
+  Zweck: Co-Autoren müssen keine User sein. Das Feld ID wird die ID des
+  Co-Autoren eventuell eingetragen, wenn CoMa erkennt, dass dieser auch
+  User des Systems ist.
+
+ + + + Sandro
+
+Tabelle Conference
+~~~~~~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+title			Varchar 127
+description		Text
+place			Varchar 127
+date			Date
+homepage		Varchar 127
+paperDeadline		Date
+reviewDeadline		Date
+abstractDeadline	Date
+finalDeadline		Date
+minPapers		Int
+maxPapers		Int
+
+Tabelle User
+~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+confId			BigInt		-> Conference, ID
+roles			Int		xxxxx
+					||||+-- Admin
+					|||+--- Chair
+					||+---- Reviewer
+					|+----- Autor
+					+------ Teilnehmer
+name			Varchar 127
+firstname		Varchar 127
+phone			Varchar 20
+email			Varchar 127
+postalCode		Varchar 20
+city			Varchar 127
+username		Varchar 32
+password		Varchar 32
+
+Tabelle Paper
+~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+confId			BigInt		-> Conference, ID
+authorId		BigInt		-> User, ID
+title			Varchar 127
+description		Text
+createDate		Date
+editDate		Date
+version			Float 		(alternativ Int?)
+
+Tabelle isCoAuthorOf
+~~~~~~~~~~~~~~~~~~~~
+confId			BigInt		-> Conference, ID
+paperId			BigInt		-> Paper, ID
+name			Varchar 127
+userId			BigInt		-> User, ID oder NULL
+
+Tabelle Topic
+~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+confId			BigInt		-> Conference, ID
+label			Varchar 127
+
+Tabelle IsAboutTopic
+~~~~~~~~~~~~~~~~~~~~
+paperId			BigInt		-> Paper, ID
+topicId			BigInt		-> Topic, ID
+
+Tabelle PrefersTopic (welche Themenbereiche den User interessieren)
+~~~~~~~~~~~~~~~~~~~~
+userId			BigInt		-> User, ID
+topicId			BigInt		-> Topic, ID
+
+Tabelle PrefersPaper (welche Artikel den User interessieren)
+~~~~~~~~~~~~~~~~~~~~
+userId			BigInt		-> User, ID
+paperId			BigInt		-> Paper, ID
+
+Tabelle DeniesPaper (welche Artikel der User ablehnt)
+~~~~~~~~~~~~~~~~~~~~
+userId			BigInt		-> User, ID
+paperId			BigInt		-> Paper, ID
+
+Tabelle Review
+~~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+confId			BigInt		-> Conference, ID
+paperId			BigInt		-> Paper, ID
+
+Tabelle Rating
+~~~~~~~~~~~~~~
+reviewId		BigInt		-> Review, ID
+grade			Int
+comment			Text
+
+Tabelle ReviewCriterion
+~~~~~~~~~~~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+confId			BigInt		-> Conference, ID
+label			Varchar 127
+
+Tabelle Program (alle angenommenen Artikel)
+~~~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+confId			BigInt		-> Conference, ID
+paperId			BigInt		-> Paper, ID
+
+Tabelle Forum
+~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+confId			BigInt		-> Conference, ID
+title			Varchar 127
+description		Text
+
+Tabelle Message
+~~~~~~~~~~~~~~~
+id			BigInt		Autoinc., Prim., Uniq.
+senderId		BigInt		-> User, ID
+sendTime		TimeAndDate
+subject			Varchar 127
+text			Text
+
+Tabelle hasThread
+~~~~~~~~~~~~~~~~~
+forumId			BigInt		-> Forum, ID
+messageId		BigInt		-> Message, ID
