@@ -27,6 +27,7 @@ Datum    Autor   Änderung(en)
                  ergänzt, Verzeichnisstruktur ergänzt
 09.12.04 jwa     Typos entfernt, Templates ergänzt
 09.12.04 sae     Noch mehr Typos entfernt
+23.12.04 jwa     Systemvorraussetzungen hinzugefügt
 
 
 
@@ -63,6 +64,7 @@ Konventionen für dieses Dokument (ups, ganz schön viele...):
   1. Überblick über das Konzept
   2. Das Datenmodell (SQL)
   3. Das Datenmodell (PHP)
+App. Systemvorraussetzungen
 App. Verantwortlichkeiten / Ansprechpartner
 App. Verzeichnisstruktur
 App. Tests
@@ -225,6 +227,32 @@ Die Attribute und Methoden sind in PHP immer public, jedoch ist durch die
 vorgesehene Zugriffsrecht erkennbar.
 Sonstige Details sind den entsprechenden Verweisen (s.u.) sowie [PHPDoc] zu
 entnehmen.
+
+
+
+============================================================================
+  APPENDIX: SYSTEMVORRAUSSETZUNGEN
+============================================================================
+
++--------------------------------------------------------------------------+
+| Programm    | Version  | Warum diese??                                   |
++------------------------+-------------------------------------------------|
+| Apache(??)  | ?        | (muss es überhaupt unbedingt Apache sein?)      |
+|             |          |                                                 |
+| PHP         | 4.3.0+   | sha1 erst ab da verfügbar (Alternative: (*) )   |
+|             |          |                                                 |
+| MySQL       | ?        |                                                 |
+|             |          |                                                 |
+| WebBrowser  | ?        |                                                 |
+|             |          |                                                 |
++--------------------------------------------------------------------------+
+
+(*) Code für class.session.inc.php (ähnlich wie in Parser)
+//  BACKWARDS COMPATIBILITY WITH PHP VERSIONS < 4.3.0
+//  BC for sha1()
+if (!function_exists('sha1')) {
+  // Implementierung von sha1 (siehe z.B. www.php.net -> sha1)
+}
 
 
 
