@@ -1,0 +1,12 @@
+----------------------------
+ CoMa-Prototyp Flash-Movie:
+----------------------------
+
+Das Flash-Movie coma-prototyp.swf soll als Diskussionsgrundlage
+und Anschauungsmaterial zur Klärung von Designfragen und Fragen
+die Benutzerführung betreffend dienen.
+
+Es dient nur der gruppeninternen Diskussion und ist insbesondere
+von Testfällen der Testgruppe auszuschließen.
+
+- zuletzt geändert von: sae, 09.01.2005
