@@ -4,6 +4,7 @@
     <th class="listheader">Date</th>
   </tr>  
   {lines}
+  {if1 HALLO}
   {if1
   <tr class="listitem-1" colspan="3">
     <td class="listitem-1">

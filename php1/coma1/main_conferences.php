@@ -25,13 +25,14 @@ $objConferences = $myDBAccess->getAllConferences();
 $strContentAssocs['lines'] = '';  
 if (!empty($objConferences)) {
   $lineNo = 1;
-  $strContentAssocs['if'] = array(0);  
+  $strContentAssocs['if'] = array();  
   foreach ($objConferences as $objConference) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['confid'] = $objConference->intId;
     $strItemAssocs['name'] = $objConference->strName;
     $strItemAssocs['startdate'] = $objConference->strStart;
     $strItemAssocs['enddate'] = $objConference->strEnd;
+    $strItemAssocs['if'] = array(1, 2, 3);  
     $conferenceItem->assign($strItemAssocs);
     $conferenceItem->parse();
     $strContentAssocs['lines'] .= $conferenceItem->getOutput();
