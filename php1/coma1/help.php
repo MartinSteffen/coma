@@ -122,7 +122,7 @@ if (!$popup) {
 else {
   $main = new Template(TPLPATH.'popup_frame.tpl');
 }
-$strMainAssocs['title'] = 'Helping you when you are in a CoMa';
+$strMainAssocs['title'] = 'Helping you when you are in a CoMa-tose condition';
 $strMainAssocs['content'] = &$content;
 
 $main->assign($strMainAssocs);
