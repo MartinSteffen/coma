@@ -100,7 +100,6 @@ elseif ($STEP == 1){
   echo "      </form>\n";
   
   echo "    <p class=\"menu\">\n";  
-  echo "      <hr>\n";
   highlight_string($confFile);
   echo "    </p>\n";
 
