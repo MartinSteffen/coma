@@ -37,8 +37,8 @@ if (!empty($objPapers)) {
     $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $strItemAssocs['paper_id'] = $objPaper->intId;
-    $strItemAssocs['author_id'] = $objPaper->intAuthorId;
+    $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
+    $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     $paperItem = new Template(TPLPATH.'prefer_paperlistitem.tpl');
@@ -52,18 +52,18 @@ else {
   // Artikelliste ist leer.
 }
 $strContentAssocs['topic_lines'] = '';
-if (!empty($objTopic)) {
+if (!empty($objTopics)) {
   $lineNo = 1;
   foreach ($objTopics as $objTopic) {    
     $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['topic'] = encodeText($objTopic->strName);
-    $strItemAssocs['topic_id'] = $objTopic->intId;    
+    $strItemAssocs['topic_id'] = encodeText($objTopic->intId);
     $strItemAssocs['if'] = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
-    $paperItem = new Template(TPLPATH.'prefer_topiclistitem.tpl');
-    $paperItem->assign($strItemAssocs);
-    $paperItem->parse();
-    $strContentAssocs['topic_lines'] .= $paperItem->getOutput();    
+    $topicItem = new Template(TPLPATH.'prefer_topiclistitem.tpl');
+    $topicItem->assign($strItemAssocs);
+    $topicItem->parse();
+    $strContentAssocs['topic_lines'] .= $topicItem->getOutput();    
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
   }
 }
