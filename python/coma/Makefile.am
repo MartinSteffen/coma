@@ -1,11 +1,9 @@
 
 SUBDIRS	=		templates
 
-CGI_SCRIPT	= index.py login.py logout.py new-account.py \
-		  new-conference.py new-paper.py
-CGI_LIB		= comadb.py coma.py session.py
-CSS_FILE	= coma.css
-EXTRA_DIST	= procmail.py $(CSS_FILES)
+CGI_SCRIPT	= index.py new-account.py new-conference.py new-paper.py
+CGI_LIB		= comadb.py coma.py
+EXTRA_DIST	= procmail.py
 
 pkgpython_PYTHON =	$(CGI_SCRIPT) $(CGI_LIB)
 

@@ -19,11 +19,32 @@ def process_template(file, dictionary, mimetype = 'text/html'):
     print
     print template % dictionary
 
+def redirect(uri):
+    """Redirect to a page given by uri."""
+    print """HTTP/1.1 201 Created
+Location: %(uri)s
+Content-Type: text/html
+
+<?xml version="1.0" encoding="UTF-8"?>
+<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>COMA Redirection</title>
+    <meta http-equiv="Refresh" content="0; url=%(uri)s"/>
+  </head>
+  <body onload="try { self.location.href='%(uri)s' } catch (e) { }">
+    <p>
+      If your browser does not support automatic redirection, follow this
+      <a href="%(uri)s">link</a>.
+    </p>
+</html>""" % { 'uri' : uri }
+    sys.exit(0)
 
 
 
 
-def download_paper(file, mimetype = 'application/octet-stream'):
+
+def download_paper(filename, localname, mimetype = 'application/octet-stream'):
     """When the user wants to download a paper, send it to him.  Also, set
     the correct mime type.
 
@@ -31,15 +52,35 @@ def download_paper(file, mimetype = 'application/octet-stream'):
 	mimetype:  The mime type of the file.  This usually should be set, but
 	defaults to application/octet-stream (arbitrary binary data).
     """
-    print mimetype
+    _stat = os.stat(localname)
+    if _stat:
+        length = _stat.st_size
+    else
+        redirect("download-error.xml")
+
+    print """Pragma: public
+Expires: 0
+Cache-Control: must-revalidate, post-check=0, pre-check=0
+Cache-Control: private
+Content-Description: File Transfer
+Content-Type: %(mimetype)s
+Content-Disposition: attachement; filename="%(filename)s";
+Content-Transfer-Encoding: binary
+Content-Length: %(length)d""" % { 'mimetype' : mimetype,
+                                  'filename' : filename,
+                                  'length' : length }
     print
-    sys.stdout.write(open(file, 'rb').read())
+    sys.stdout.write(open(localname, 'rb').read())
+
+
 
 
 
 def build_action(label, action, session):
     return ('<tr><td><a href="%s.py?session=%s">%s</a></td></tr>' %
 	    (action, session.id, label))
+
+
 
 
 

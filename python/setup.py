@@ -76,7 +76,10 @@ defaults = { 'dbname' : 'coma',
 	     'port' : -1,
 	     'opt' : None,
 	     'tty' : None,
-             'comaroot' : '/home/mky/projects/coma/trunk/python/coma' }
+             'comaroot' : '/home/mky/projects/coma/python/coma',
+             'adminmail' : 'mky@localhost',
+             'adminname' : 'Marcel',
+             'smtpserver' : 'localhost' }
 
 def save_config(filename, config, settings):
     try:
