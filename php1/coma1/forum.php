@@ -440,11 +440,14 @@ else{
 
   $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs);
   if (DEBUG){
-    echo($contentAssocs['forumtypes']);
+    //echo($contentAssocs['forumtypes']);
   }
 
   $content->assign($contentAssocs);
   $content->parse();
+  if (DEBUG){
+    echo($content->getOutput());
+  }
 
   include('./include/usermenu.inc.php');
 
