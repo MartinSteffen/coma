@@ -20,9 +20,50 @@ $submenue = new Template(TPLPATH.'nav_start_konf.tpl');
 
 
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['content'] =  'Liste aller Konferenzen';
+$strMainAssocs['content'] =  '<h2 align="center"> Liste aller Konferenzen </h2>';
 $strMenueAssocs['loginName'] = $_SESSION['uname'];
-$strMainAssocs['body'] =
+
+
+/**
+  * Anlegen der Tabelle mir allen Konferenzen
+  */
+$tabKopf = '
+<div align= "center"> 
+<table width="750" class="list"> 
+  <tr> 
+     <td class="listhead"> Konferenzname </td>  
+     <td class="listhead"> Login </td>  
+  </tr>
+';
+
+/** Lesen der Konferenzen und Rollen aus der Datenbank */
+$conferences = $myDBAccess->getAllConferences();
+$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
+
+$zeilen =''; //die Zeilen der Tabelle
+for ($i = 0; $i < count($conferences); $i++) {
+  $person = $myDBAccess->getRoles($id,$conferences[$i]->intId);
+  $cname = (string) $conferences[$i]->strName; 
+  $zeilen = $zeilen.'<tr> <td class="z1" >'.$cname.'</td> <td>';
+  for ($j = 0; $j < count($person); $j++){
+    $zeilen = $zeilen.'&nbsp; <a href="'.strtolower($person[$j]).'.php">'.$person[$j].'</a> &nbsp;'; 
+  } 
+  $zeilen = $zeilen.'</td> </tr>'; 
+ }
+$tabEnde = '</table> </div> ';
+
+
+$strMainAssocs['body'] = $tabKopf.$zeilen.$tabEnde;
+
+
+
+/*
+'
+;
+*/
+
+
+/* $strMainAssocs['body'] =
 '
 <div align="center">
 <table width="750" class="list">
@@ -44,6 +85,8 @@ $strMainAssocs['body'] =
 </table>
 </div>
 ';
+
+*/
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;
 
