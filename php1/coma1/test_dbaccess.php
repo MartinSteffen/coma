@@ -24,6 +24,11 @@ function bit($b) {
   return true;
 }
 
+$myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
+                           '', '', '', '', '', '', '', '', '');
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
 
 $p = $myDBAccess->getPerson(1, 1);
 if ($myDBAccess->failed()) {

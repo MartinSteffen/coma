@@ -1088,6 +1088,21 @@ class DBAccess extends ErrorHandling {
   // Definition der Update-Funktionen
   // ---------------------------------------------------------------------------
 
+/* =============================================================================
+Bitte beachten: Methoden sollten analog zu den anderen die _vollstaendigen_
+Bezeichnungen beinhalten, also updatePersonDetailed statt updatePerson.
+Ebenso sollten die Parameter-Objekte, die übergeben werden, $objPersonDetailed
+statt $objPerson heissen, weil es sonst schnell zu ungewollten Fehlern kommen
+kann, die zwar beim ersten Aufruf der Methode auffliegen wuerden, aber doch
+unnoetig sind.
+(Liegt halt an der fehlenden Typisierung von PHP, dass man da ein bisschen
+penibeloes sein muss.)
+---------------------------------------------------------------------------
+Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
+(z.B. Person) ueberhaupt benoetigt, wenn es die detailliertere Methode gibt
+(updatePersonDetailed).
+============================================================================= */
+
 
   /**
    * Aktualisiert den Datensatz der Person mit den Daten des PersonDetailed-Objekts $objPerson.
@@ -1103,29 +1118,29 @@ class DBAccess extends ErrorHandling {
    *       Dazu Anmerkung von Tom: Habe Funktion updateRoles hinzugefuegt, die
    *       Du dafuer benutzen solltest.
    */
-  function updatePerson($objPerson, $intConferenceId=false) {
+  function updatePersonDetailed($objPersonDetailed, $intConferenceId=false) {
     $s = "UPDATE  Person".
-        " SET     first_name = '$objPerson->strFirstName',".
-        "         last_name = '$objPerson->strLastName',".
-        "         email = '$objPerson->strEmail',".
-        "         title = '$objPerson->strTitle',".
-        "         affiliation = '$objPerson->strAffiliation',".
-        "         street = '$objPerson->strStreet',".
-        "         city = '$objPerson->strCity',".
-        "         postal_code = '$objPerson->strPostalCode',".
-        "         state = '$objPerson->strState',".
-        "         country = '$objPerson->strCountry',".
-        "         phone_number = '$objPerson->strPhone',".
-        "         fax_number = '$objPerson->strFax'".
-        " WHERE   id = $objPerson->intId";
+        " SET     first_name = '$objPersonDetailed->strFirstName',".
+        "         last_name = '$objPersonDetailed->strLastName',".
+        "         email = '$objPersonDetailed->strEmail',".
+        "         title = '$objPersonDetailed->strTitle',".
+        "         affiliation = '$objPersonDetailed->strAffiliation',".
+        "         street = '$objPersonDetailed->strStreet',".
+        "         city = '$objPersonDetailed->strCity',".
+        "         postal_code = '$objPersonDetailed->strPostalCode',".
+        "         state = '$objPersonDetailed->strState',".
+        "         country = '$objPersonDetailed->strCountry',".
+        "         phone_number = '$objPersonDetailed->strPhone',".
+        "         fax_number = '$objPersonDetailed->strFax'".
+        " WHERE   id = $objPersonDetailed->intId";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('updatePerson', $this->mySql->getLastError());
+      return $this->error('updatePersonDetailed', $this->mySql->getLastError());
     }
     if (!empty($intConferenceId)) {
-      $this->updateRoles($objPerson, $intConferenceId);
+      $this->updateRoles($objPersonDetailed, $intConferenceId);
       if ($this->failed()) {
-        return $this->error('updatePerson', $this->getLastError());
+        return $this->error('updatePersonDetailed', $this->getLastError());
       }
     }
     return $this->success(true);
@@ -1136,7 +1151,7 @@ class DBAccess extends ErrorHandling {
    * $intConferenceId in der Datenbank.
    *
    * @param int $intConferenceId Konferenz-ID
-   * @param int $objPerson       Person-Objekt
+   * @param Person $objPerson       Person-Objekt
    * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
    * @access private
    * @author Tom (11.05.04)
@@ -1177,20 +1192,21 @@ class DBAccess extends ErrorHandling {
    * @access public
    * @author Sandro (10.01.05)
    * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Co-Autoren des Papers.
+   * @todo Anm. v. Tom: Aenderungen an Unterobjekten fehlen auch noch (Topics, ...)
    */
-  function updatePaper($objPaper) {
+  function updatePaperDetailed($objPaperDetailed) {
     $s = "UPDATE  Paper".
-        " SET     title = '$objPaper->strTitle',".
-        "         author_id = $objPaper->intAuthorId,".
-        "         abstract = '$objPaper->strAbstract',".
-        "         format = '$objPaper->strMimeType',".
-        "         last_edited = '$objPaper->strLastEdit',".
-        "         filename = '$objPaper->strFilePath',".
-        "         state = $objPaper->intStatus".
-        " WHERE   id = $objPaper->intId";
+        " SET     title = '$objPaperDetailed->strTitle',".
+        "         author_id = $objPaperDetailed->intAuthorId,".
+        "         abstract = '$objPaperDetailed->strAbstract',".
+        "         format = '$objPaperDetailed->strMimeType',".
+        "         last_edited = '$objPaperDetailed->strLastEdit',".
+        "         filename = '$objPaperDetailed->strFilePath',".
+        "         state = $objPaperDetailed->intStatus".
+        " WHERE   id = $objPaperDetailed->intId";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('updatePaper', $this->mySql->getLastError());
+      return $this->error('updatePaperDetailed', $this->mySql->getLastError());
     }
     return $this->success(true);
   }
@@ -1202,36 +1218,40 @@ class DBAccess extends ErrorHandling {
   /**
    * Legt eine neue Konferenz an.
    *
-   * @param string $strName                 Name der Konferenz
-   * @param string $strHomepage             URL der Homepage
-   * @param string $strDescription          Beschreibung
-   * @param string $strAbstractDeadline
-   * @param string $strPaperDeadline       :?
-   * @param string $strReviewDeadline         :?
-   * @param string $strFinalDeadline   :?
-   * @param string $strNotification           :?
-   * @param string $strConverenceStart        :?
-   * @param string $strConferenceEnd          :?
-   * @param string $strMinRevPerPaper         :?
+   * @param string $strAbstractDeadline Deadline fuer die Einsendung der Abstracts
+   * @param string $strPaperDeadline    Deadline fuer die Einsendung der Paper zum Review
+   * @param string $strReviewDeadline   Deadline fuer die Reviews
+   * @param string $strFinalDeadline    Deadline fuer die Einsendung der finale Version der Paper (?)
    *
    * @access public
    * @author Daniel (31.12.04), ueberarbeitet von Tom (13.01.05)
    * @todo Automatisch auch neuen ConferenceConfig-Datensatz einfuegen!
    */
-  function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline,
-                         $strPaperSubDeadline, $strReviewDeadline, $strFinalVersionDeadline,
-                         $strNotification, $strConverenceStart, $strConferenceEnd,
-                         $strMinRevPerPaper) {
+  function addConference($strName, $strHomepage, $strDescription, $strAbstractDeadline,
+                         $strPaperDeadline, $strReviewDeadline, $strFinalDeadline,
+                         $strNotification, $strConverenceStart, $strConferenceEnd) {
     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
         "                          paper_submission_deadline, review_deadline,".
         "                          final_version_deadline, notification, conference_start,".
-        "                          conference_end, min_reviews_per_paper)".
+        "                          conference_end)".
         "         VALUES  ('$strName', '$strHomepage', '$strDescription,'$strAbsSubDeadline,".
         "                  '$strPaperSubDeadline', '$strReviewDeadline',".
         "                  '$strFinalVersionDeadline', '$strNotification', '$strConverenceStart',".
-        "                  '$strConferenceEnd', '$strMinRevPerPaper')";
+        "                  '$strConferenceEnd')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
+      return $this->error('addConference', $this->mySql->getLastError());
+    }
+    $s = "INSERT  INTO ConferenceConfig (id)".
+        "         VALUES ($intId)";
+    if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+      $strError = $this->mySql->getLastError();
+      $s = "DELETE  FROM Conference".
+          " WHERE   id = $intId";
+      if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+        return $this->error('addConference', 'Fatal error: Database inconsistency!',
+                            "$this->mySql->getLastError() / $strError");
+      }
       return $this->error('addConference', $this->mySql->getLastError());
     }
     return $this->success($intId);
@@ -1368,7 +1388,7 @@ class DBAccess extends ErrorHandling {
         $this->mySql->delete($s);
         if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
-                              $this->mySql->getLastError());
+                              "$this->mySql->getLastError() / $this->getLastError()");
         }
         return $this->error('addPaper', $this->getLastError());
       }
