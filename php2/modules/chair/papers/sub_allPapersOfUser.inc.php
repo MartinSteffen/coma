@@ -1,6 +1,6 @@
 <?
-	$link = mysql_connect ("localhost","testUser","testPass");
-	$base = mysql_select_db ("testComma");
+if(isChair_Person($_GET['userID']))
+{
 	$SQL = "select title, first_name, last_name from person where id = ".$_GET['userID'];
     $result=mysql_query($SQL);
 	
@@ -64,4 +64,6 @@ $output['papers'] = $papers;
 $TPL['chair'] = $output;
 template("CHAIR_allPapersOfUser");
 $TPL['chair'] = "";
+}
+else redirect("logout");		
 ?>

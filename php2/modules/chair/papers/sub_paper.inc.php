@@ -1,6 +1,6 @@
 <?
-	$link = mysql_connect ("localhost","testUser","testPass");
-	$base = mysql_select_db ("testComma");
+if(isChair_Paper($_GET['paperID']))
+{
 	$SQL = "select paper.title, paper.abstract, paper.last_edited, paper.version, paper.state, 
 	        person.id, person.title, person.first_name, person.last_name, 
 			conference.id, conference.name
@@ -63,4 +63,6 @@ $output['paper'] = $paper;
 $TPL['chair'] = $output;
 template("CHAIR_paper");
 $TPL['chair'] = "";
+}
+else redirect("logout");		
 ?>

@@ -1,7 +1,7 @@
 <?
 
 /* ----- FOR CHAIR ------------------------------------------------------ */
-function isChair_User_Paper($paperID)
+function isChair_Paper($paperID)
 {
   if($_SESSION['userID'])
   {
@@ -21,7 +21,7 @@ function isChair_User_Paper($paperID)
   return false;
 }
 
-function isChair_User_Conference($confID)
+function isChair_Conference($confID)
 {
   if(isset($_SESSION['userID']))
   {
@@ -36,6 +36,27 @@ function isChair_User_Conference($confID)
 	{
 		return true;
 	}
+  }
+  return false;
+}
+
+function isChair_Person($userID)
+{
+  if(isset($_SESSION['userID']))
+  {
+	$SQL = "select X.person_id
+			from role X, role Y  
+			where X.role_type = 2
+			and X.state = 1 
+			and X.person_id = ".$_SESSION['userID']."
+			and X.conference_id = Y.conference_id
+			and Y.state = 1
+			and Y.person_id = ".$userID;
+    $result=mysql_query($SQL);	
+    if ($dummy = mysql_fetch_row ($result)) 	
+	{
+		return true;
+	}				  
   }
   return false;
 }
@@ -60,7 +81,7 @@ function isChair_Overall()
 
 
 /* ----- FOR ADMIN ------------------------------------------------------ */
-function isAdmin_User_Paper($paperID)
+function isAdmin_Paper($paperID)
 {
   if(isset($_SESSION['userID']))
   {
@@ -80,7 +101,7 @@ function isAdmin_User_Paper($paperID)
   return false;
 }
 
-function isAdmin_User_Conference($confID)
+function isAdmin_Conference($confID)
 {
   if(isset($_SESSION['userID']))
   {
@@ -119,7 +140,7 @@ function isAdmin_Overall()
 
 
 /* ----- FOR AUTHOR ------------------------------------------------------ */
-function isAuthor_User_Paper($paperID)
+function isAuthor_Paper($paperID)
 {
   if(isset($_SESSION['userID']))
   {
@@ -139,7 +160,7 @@ function isAuthor_User_Paper($paperID)
   return false;
 }
 
-function isAuthor_User_Conference($confID)
+function isAuthor_Conference($confID)
 {
   if(isset($_SESSION['userID']))
   {
@@ -178,7 +199,7 @@ function isAuthor_Overall()
 
 
 /* ----- FOR REVIEWER ------------------------------------------------------ */
-function isReviewer_User_Paper($paperID)
+function isReviewer_Paper($paperID)
 {
   if(isset($_SESSION['userID']))
   {
@@ -198,7 +219,7 @@ function isReviewer_User_Paper($paperID)
   return false;
 }
 
-function isReviewer_User_Conference($confID)
+function isReviewer_Conference($confID)
 {
   if(isset($_SESSION['userID']))
   {
