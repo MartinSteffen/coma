@@ -11,6 +11,7 @@
     />
 
   <xsl:include href="navcolumn.xsl" />
+  <xsl:include href="stderror.xsl" />
 
   <xsl:template match="//servletState">
     <input type="hidden" name="servletState" value="{@state}"></input>
@@ -38,6 +39,7 @@
     <div class="content">
       <form action="RatePaper" method="post">
         <xsl:apply-templates select="//servletState" />
+        <xsl:call-template name="stderror" />
 
         <xsl:choose>
 
@@ -104,8 +106,7 @@
               <!-- XXX ugly. Figure out meta refresh?-->
             </div>
           </xsl:when>
-
-
+          
           <xsl:otherwise>
             <div>
               <font size="+3"  color="#ff0000">
@@ -230,7 +231,6 @@
   <xsl:param name="maxValue">2</xsl:param>
 
   <option>
-    <!-- check, whether it is in XML -->
     <xsl:if test="$grade = $i">
       <xsl:attribute name="selected">selected</xsl:attribute>
     </xsl:if>

@@ -1,21 +1,12 @@
 package coma.servlet.servlets;
 
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.util.Collection;
-import java.util.HashSet;
-
-import java.util.Set;
-import java.util.TreeMap;
-
 import java.io.*;
 import java.util.*;
 
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.stream.StreamSource;
@@ -43,9 +34,6 @@ public class ShowReports extends HttpServlet {
     StringBuffer result = new StringBuffer();
     XMLHelper helper = new XMLHelper();
 
-//     public void init(ServletConfig config) {
-// 	super.init(config);
-//     }
     
     /**
        handle the request. 
@@ -68,10 +56,10 @@ public class ShowReports extends HttpServlet {
 	    result.append("<result>\n");
 	    result.append(new Navcolumn(request).toString());
 
+	    HttpSession session = request.getSession(true);
+
 	    try {
-		theUser = 
-		    (coma.entities.Person)request.getSession(true)
-		    .getAttribute(SessionAttribs.PERSON);
+		theUser = (coma.entities.Person)session.getAttribute(SessionAttribs.PERSON);
 	    } catch (IllegalStateException ise) {
 		
 		LOG.log(ERROR,"cannot look at session attributes", ise);
@@ -85,12 +73,35 @@ public class ShowReports extends HttpServlet {
 	    try {
 
 		ReviewReport theReport 
-		    = (ReviewReport)request.getSession(false).getAttribute(SessionAttribs.REPORT);
+		    = (ReviewReport)session.getAttribute(SessionAttribs.REPORT);
 
 		
 		if (theReport==null){
-		    // nope, let the user select one, then.
-		    throw new Exception("Goto! Goto! Goto!");
+
+		    // if anything fails, catch is below.
+
+		    // try 2: maybe the reportid is valid.
+		    Integer theReportId = null; 
+		    try {
+			theReportId
+			    = 0+(Integer)session.getAttribute(SessionAttribs.REPORTID);
+		    } catch (Exception exce) {
+			// try 3: maybe there's a form parameter
+			theReportId
+			    = Integer.parseInt(request.getParameter(FormParameters.REPORTID));
+		    }
+
+		    SearchCriteria theSC=new SearchCriteria();
+		    theSC.setReviewReport(new ReviewReport(theReportId));
+		    theReport = 
+			((ReviewReport[])(new coma.handler.impl.db.ReadServiceImpl()
+				    .getReviewReport(theSC).getResultObj()))[0];
+
+		    if (theReport == null){
+			
+			// nope, let the user select one, then.
+			throw new Exception("Goto! Goto! Goto!");
+		    }
 		}
 
 		Paper thePaper = theReport.getPaper();
@@ -104,10 +115,12 @@ public class ShowReports extends HttpServlet {
 		    throw new Exception("nope, can't see that one"); 
 		}
 
+		result.append(helper.tagged("pagetitle", "Detailed Review Report"));
+		result.append(UserMessage.DETAILEDREPORT);
 		result.append(theReport.toXML());
 		
 
-	    } catch (Throwable tbl) { // on any error, display selection list instead.
+	    } catch (Exception tbl) { // on any error, display selection list instead.
 
 		result.append(UserMessage.ALLREPORTSINTRO);
 		result.append(helper.tagged("pagetitle","All reports")); //XXX
@@ -360,117 +373,4 @@ class DatabaseDownException extends Exception{
     public DatabaseDownException(String reason){super(reason);}
 }
 
-/**
-   A helper class for statistics.
 
-   Throw in a lot of ReviewReports, get out average and rms-estimate
-   for each Criterion involved.
-
-   we use the following formula for rms, when we have n reports, and i
-   always runs over n:
-
-   mean = 1/n \sum_i x_i
-
-   rms  = sqrt((N\sum_i x_i^2 -(\sum_i x_i)^2 )/n) 
-
-   TODO: Currently, we do not care about those priority factors.
-*/
-class MultiMathReporter {
-
-    /** A dummy var that indicates Array of Integer to Collection.toArray*/
-    private static final Integer[] INTARRAY_MOLD=null;
-
-    java.util.Map<String, Collection<Integer>> ratings
-	= new TreeMap<String, Collection<Integer>>();
-
-    java.util.Map<String, Integer> maxvals
-	= new TreeMap<String, Integer>();
-
-    java.util.Map<String, Integer> prios
-	= new TreeMap<String, Integer>();
-
-    
-    public MultiMathReporter(){;}
-
-    /**
-       put in another ReviewReport that should go into the maths.
-    */
-    public void addReportRatings(ReviewReport rr){
-	for (Rating rat: rr.getRatings()){
-
-	    Criterion crit = rat.getCriterion();
-	    
-	    Collection<Integer> grades = ratings.get(crit.getName());
-	    if (grades==null){
-		grades = new java.util.ArrayList<Integer>();
-	    }
-	    grades.add(rat.getGrade());
-	    ratings.put(crit.getName(), grades);
-	    maxvals.put(crit.getName(), crit.getMaxValue());
-	    prios.put(crit.getName(), crit.getQualityRating());
-	}
-    }
-
-    /**
-       calculate and return all that we know.
-    */
-    public CharSequence toXML(){
-	StringBuilder result = new StringBuilder();
-	result.append("<statistics>");
-	for (String critname: ratings.keySet()){
-	    result.append("<criterion name=\""+critname+"\">");
-	    result.append(XMLHelper.tagged("mean", mean(ratings.get(critname).toArray(INTARRAY_MOLD))));
-	    result.append(XMLHelper.tagged("rms", rms(ratings.get(critname).toArray(INTARRAY_MOLD))));
-	    result.append("</criterion>");
-	}
-	result.append("</statistics>");
-	return result;
-    }
-
-    /**
-       Return the mean of all passed integers that are at least 1.
-       
-       We skip all other integers. This means that this is safe for
-       almost any kind of initialisation the Chair people make up for
-       Reports.
-    */
-    Double mean(Integer... xs){
-	Double result = 0.0;
-	int n = 0;
-	for (Integer x: xs){
-	    if (x==null) continue;
-	    if (x >= 1){
-		result += x;
-		n++;
-	    }
-	}
-	return result/(1.0*n);
-    }
-
-    /**
-       Return the rms of all passed integers that are at least 1.
-       
-       We skip all other integers. This means that this is safe for
-       almost any kind of initialisation the Chair people make up for
-       Reports.
-
-       rms is a measure of the deviation of the points, i.e. high
-       values are a sign of equivocality.
-    */
-    Double rms(Integer... xs){
-	Double sqsum = 0.0;
-	Double sum = 0.0;
-	double n = 0;
-	for (Integer x:xs){
-	    if (x==null) continue;
-	    if (x >= 1){
-		sum += x;
-		sqsum += (x*x);
-		n++;
-	    }
-	}
-	return Math.sqrt((n*sqsum - sum*sum)/(n*n));
-	
-    }
-
-}

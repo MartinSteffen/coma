@@ -32,14 +32,76 @@
        <xsl:template match="/result">
          <div class="header"><h1><xsl:value-of select="pagetitle" /></h1></div>
          <div class="content">
+           <xsl:call-template name="stderror" />
+           <!--
            <xsl:apply-templates select="noSession" />
            <xsl:apply-templates select="databaseError" />
-           <xsl:apply-templates select="unauthorized" />
+           <xsl:apply-templates select="unauthorized" /> 
+           -->
 
-           <xsl:if test="allReportsIntro">
-             These are all the reports visible to you at this time.
-             <xsl:apply-templates select="info" />
-           </xsl:if>
+           <xsl:choose>
+
+             <xsl:when test="allReportsIntro">
+               These are all the reports visible to you at this time.
+               <xsl:apply-templates select="info" />
+             </xsl:when>
+
+             <xsl:when test="detailedReportView">
+               <xsl:apply-templates select="ReviewReport" />
+             </xsl:when>
+
+             <xsl:otherwise>Neither report selected, nor showing all
+             reports: Nothing to do here?</xsl:otherwise>
+           </xsl:choose>
+         </div>
+       </xsl:template>
+
+       <xsl:template match="ReviewReport">
+         <h2>Review Report</h2>
+         <div>
+           <table>
+             <tr>
+               <th>On:</th> 
+               <td>
+                 <xsl:value-of select="paper/person/last_name" />,
+                 <a>
+                   <xsl:attribute name="href">
+                     /papers/<xsl:value-of select="paper/filename" />
+                   </xsl:attribute>
+                   <xsl:value-of select="paper/title" />
+                 </a>
+               </td>
+             </tr>
+             <tr>
+               <th>By:</th>
+               <td>
+                 <xsl:value-of select="person/first_name" />
+                 <xsl:value-of select="person/last_name" />
+               </td>
+             </tr>
+             <tr>
+               <th>Remarks:</th><td><xsl:value-of select="remarks" /></td>
+             </tr>
+             <xsl:for-each select="rating">
+               <tr>
+                 <th><xsl:value-of select="criterion/name" />:</th>
+                 <td>
+                   <xsl:value-of select="grade" /> 
+                   (out of <xsl:value-of select="criterion/maxValue" />):
+                   <xsl:value-of select="comment" />
+                 </td>
+               </tr>
+             </xsl:for-each>
+             <tr>
+               <th>Summary:</th><td><xsl:value-of select="summary" /></td>
+             </tr>
+             <xsl:if test="ancestor-or-self:://navcolumn//isChair">
+               <!--yes, that's a hack :-D -->
+               <tr>
+                 <th>Confidental remarks</th><td><xsl:value-of select="confidental" /></td>
+               </tr>
+             </xsl:if>
+           </table>
          </div>
        </xsl:template>
 
@@ -49,7 +111,13 @@
            <xsl:if test="paper">
              <div><h2>On 
              <xsl:value-of select="paper/person/last_name" />:
-             <i><xsl:value-of select="paper/title" /></i> </h2></div>
+             <i><a>
+             <xsl:attribute name="href">
+               /papers/<xsl:value-of select="paper/filename" />
+             </xsl:attribute>
+               <xsl:value-of select="paper/title" />
+             </a>
+             </i> </h2></div>
            </xsl:if>
            <xsl:for-each select="ReviewReport">
              <div>

@@ -148,10 +148,16 @@ public class RatePaper extends HttpServlet{
 		    = Integer.parseInt(request.getParameter(SessionAttribs.PAPERID));
 		session.setAttribute(SessionAttribs.PAPERID, new Integer(thePaperID));
 
+		theSC.setPaper(new Paper(thePaperID));
+		theSR = dbRead.getPaper(theSC);
+		session.setAttribute(SessionAttribs.PAPER,
+				     ((Paper[])theSR.getResultObj())[0]);
+
 		result.append(UserMessage.EDITREPORT);
 
+		// theSC still has the Paper set.
 		theSC.setPerson(thePerson);
-		theSC.setPaper(new Paper(thePaperID));
+
 
 		theSR = dbRead.getReviewReport(theSC);
 
@@ -291,6 +297,10 @@ public class RatePaper extends HttpServlet{
 			result.append(UserMessage.ERRDATABASEDOWN);
 		    } finally {
 			pagestate.set(STATE.SELECTPAPER);
+			// forget about the report, else we'll have problems
+			// ever rating anything else.
+			session.setAttribute(SessionAttribs.REPORTID, null);
+			session.setAttribute(SessionAttribs.REPORT, null);
 		    }
 		}
 	    }

@@ -36,4 +36,7 @@ public class FormParameters {
     public static final String PREFERREDTOPICS="preferredtopics";
     
     public static final String CONFERENCE_ID="conference_id";
+
+    /** for immediate selection of detailed view in ShowReports */
+    public static final String REPORTID="reportid";
 }

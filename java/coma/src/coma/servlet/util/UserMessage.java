@@ -40,4 +40,7 @@ public class UserMessage {
 
     /** "Sorry, failed: the deadline is already over" */
     public static final String ERRTOOLATE="<tooLate />";
+
+    /** "This is the complete report of foo on bar: baz" */
+    public static final String DETAILEDREPORT="<detailedReportView />";
 }

@@ -120,8 +120,9 @@ public class Admin extends HttpServlet
 		/*
 		 * 
 		 */
-		boolean VALID = checker.EmailCheck(0);
+	    boolean VALID = false; //checker.EmailCheck(0); FIXME FIXME FIXME NOBUILD 
 		boolean SENDED = false;
+		String[] formular= null; // FIXME FIXME FIXME NOBUILD 
 		if (VALID)
 		{
 		     /*
@@ -131,14 +132,14 @@ public class Admin extends HttpServlet
 			SMTPClient MyE = new SMTPClient("127.0.0.1","localHost",
 				formular[0],formular[1],formular[2]);
 			SENDED=MyE.send();		
-			session = req.getSession(true);
-			String user = session.getAttribute("user").toString();
+			// FIXME FIXME FIXME NOBUILD session = req.getSession(true);
+			String user = ""; // FIXME FIXME FIXME NOBUILD session.getAttribute("user").toString();
 			if(SENDED)
 			{
 				info.append(XMLHelper.tagged("content",""));
 				info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate()));
 				String tag = "email";
-				commit(res,tag);
+				//FIXME FIXME FIXME NOBUILD commit(res,tag);
 			}
 		}	
 //Case of Error, defining handler here; addTaged(subj),..., to fill textfields again
@@ -154,7 +155,7 @@ public class Admin extends HttpServlet
 			info.append(XMLHelper.tagged("cont",formular[2]));
 			info.append("</content>");
 			String tag = "email";
-			commit(res,tag);
+			// FIXME FIXME FIXME NOBUILD commit(res,tag);
 		}
 	}
 	

@@ -194,7 +194,8 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			</tr>
 		</table>
 	</form>
-	<div>If you plan to attend the conference or act as a
+	<div>Red fields are mandatory. If you plan to attend the
+        conference or act as a
         reviewer, it is useful to go to User Data when logged in to enter
         additional data like mailable address and phone number.</div> 
 
