@@ -13,7 +13,8 @@ import coma.servlet.util.XMLHelper;
 
 /**
    Wrapper class for the DB Rating entries.
-   
+
+   @author ums   
 */
 public class Rating extends Entity {
 
@@ -113,6 +114,7 @@ public class Rating extends Entity {
 	    
 	case DEEP:
 	    return XMLHelper.tagged("rating",
+				    // XXX better reduce to just RR-ID?!
 				    getReviewReport().toXML(XMLMODE.SHALLOW),
 				    getCriterion().toXML(XMLMODE.SHALLOW),
 				    XMLHelper.tagged("grade", ""+grade),

@@ -115,6 +115,7 @@ public class Criterion extends Entity {
 				    XMLHelper.tagged("id", ""+getId()),
 				    XMLHelper.tagged("name", getName()),
 				    XMLHelper.tagged("description", getDescription()),
+				    // XXX maybe don't need Conference at all here?
 				    // XXX not an Entitiy yet getConference().toXML(XMLMODE.SHALLOW),
 				    XMLHelper.tagged("maxValue", ""+getMaxValue()),
 				    XMLHelper.tagged("qualityRating", ""+getQualityRating())

@@ -113,8 +113,10 @@ public class RatePaper extends HttpServlet{
 		    = new HashSet<ReviewReport>(asList((ReviewReport[])theSR.getResultObj()));
 
 		/*
-		  TODO: the xslt should transform <selectpaper>(paper)</selectpaper> to a radio button
-		  that will leave its ID in request.getParameter(SessionAttribs.PAPERID).
+		  TODO: the xslt should transform
+		  <selectpaper>(paper)</selectpaper> to a radio button
+		  that will leave its ID in
+		  request.getParameter(SessionAttribs.PAPERID).
 
 		*/
 		for (ReviewReport report: reports){
@@ -136,7 +138,8 @@ public class RatePaper extends HttpServlet{
 		  "You can now make changes to your RReport"
 		*/
 
-		int thePaperID = Integer.parseInt(request.getParameter(SessionAttribs.PAPERID));
+		int thePaperID 
+		    = Integer.parseInt(request.getParameter(SessionAttribs.PAPERID));
 		session.setAttribute(SessionAttribs.PAPERID, new Integer(thePaperID));
 
 		result.append(UserMessage.EDITREPORT);
@@ -156,8 +159,10 @@ public class RatePaper extends HttpServlet{
 
 		    ReviewReport theReport = ((ReviewReport[])theSR.getResultObj())[0];
 
-		    session.setAttribute(SessionAttribs.REPORTID, new Integer(theReport.getId()));
-		    session.setAttribute(SessionAttribs.REPORT, theReport);
+		    session.setAttribute(SessionAttribs.REPORTID, 
+					 new Integer(theReport.getId()));
+		    session.setAttribute(SessionAttribs.REPORT, 
+					 theReport);
 
 		    /*
 		      TODO: the XSLT should generate editable fields
