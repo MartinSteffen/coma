@@ -36,7 +36,7 @@
     </tr>
     <tr bgcolor="#DBE9EC">
      <td height="25" width="100">&nbsp;</td>
-     <td colspan="2" height="25" valign="middle"">
+     <td colspan="2" height="25" valign="middle">
       {submenue}
      </td>
     </tr>   
