@@ -10,7 +10,7 @@ if (isset($_REQUEST['cid'])) {
 }
 
 //get filenameextension from filename
-$name = $_REQUEST['file']['name'];
+$name = $_FILES['file']['name'];
 //but only there is a filename
 if ($name == "") {
 	redirect("author", "new", "create", "cid=". $content['conference_id']."&msg=<font style=color:red>Please select a valid file to upload.</font>");
@@ -45,7 +45,7 @@ $content['abstract'] = $_REQUEST['summary'];
 $content['last_edited'] = date('Y-m-d');
 $content['filename'] = "";
 $content['state'] = 0;
-$content['mime_type'] = $_REQUEST['file']['type'];
+$content['mime_type'] = $_FILES['file']['type'];
 
 
 //insert new db entry
@@ -61,7 +61,8 @@ $ftphandle=@ftp_connect($ftphost);
 
 // errorhandling, to be improved
 if (!$ftphandle) {
-	cleanup_ftp($paper_id, 1, $ftphandle);
+	$msg = cleanup_ftp($paper_id, 1, $ftphandle);
+	redirect("author", "view", "papers", "msg=". $msg);
 //	die("Gott ist scheisse! FTP-host unauffindbar!");
 }
 // login or give errormessage if login failed
@@ -89,7 +90,7 @@ $localfilename = $_FILES['file']['tmp_name'];
 
 // put file, auto-creating a filename styled $paperid.$ending, or die in error
 if (! @ftp_put($ftphandle, $remotefilename, $localfilename ,FTP_BINARY)) {
-       cleanup_ftp($paper_id, 5, $ftphandle); //die("Hochladen nach '$ftppath / $remotefilename' irgendwie fehlgeschlagen. Schade. Aber ich hab noch Erdbeertoertchen...");
+	$msg = cleanup_ftp($paper_id, 5, $ftphandle); //die("Hochladen nach '$ftppath / $remotefilename' irgendwie fehlgeschlagen. Schade. Aber ich hab noch Erdbeertoertchen...");
 	redirect("author", "view", "papers", "msg=". $msg);
 }
        
