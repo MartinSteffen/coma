@@ -1,10 +1,22 @@
 package coma.entities;
 
+import coma.util.logging.ALogger;
+import coma.util.logging.Severity;
+import static coma.util.logging.Severity.*;
+
+import static java.util.Arrays.asList;
+import java.util.Set;
+import java.util.*;
+
+import coma.servlet.util.XMLHelper;
+import coma.handler.db.ReadService;
+
+
 /**
  * @author mti
  */
 
-public class Person {
+public class Person extends Entity {
 	
 	private int id;
     private String first_name;
@@ -197,4 +209,39 @@ public class Person {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	public StringBuilder toXML(XMLMODE mode){
+		
+		switch (mode){
+		case SHALLOW:
+		    return XMLHelper.tagged("Person",
+					    XMLHelper.tagged("id", ""+getId()),
+					    XMLHelper.tagged("last_name", ""+getLast_name()),
+					    XMLHelper.tagged("first_name", ""+getFirst_name()),
+					    XMLHelper.tagged("title", ""+getTitle()),
+					    XMLHelper.tagged("affiliation", getAffiliation()),
+					    XMLHelper.tagged("email", getEmail()),
+					    XMLHelper.tagged("phone_number", getPhone_number()),
+						XMLHelper.tagged("fax_number", getFax_number()),
+						XMLHelper.tagged("street", getStreet()),
+						XMLHelper.tagged("postal_code", getPostal_code()),
+						XMLHelper.tagged("city", getCity()),
+						XMLHelper.tagged("state", getState()),
+						XMLHelper.tagged("country", getCountry())
+						// maybe dangerous XMLHelper.tagged("password", getPassword())
+					    );
+		case DEEP:
+			 return XMLHelper.tagged("Person",
+			 			XMLHelper.tagged("id", ""+getId()),
+						XMLHelper.tagged("last_name", ""+getLast_name()),
+						XMLHelper.tagged("email", getEmail())
+					    );
+		  
+		default:
+		    coma.util.logging.ALogger.log.log(WARN, 
+						      "unknown XMLMODE in",
+						      this, ':', mode);
+		    return null;
+		}
+	    }
 }
