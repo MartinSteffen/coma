@@ -1512,8 +1512,7 @@ nur fuer detaillierte?
 
   /**
    * Aktualisiert den Datensatz der Konferenz $objConferenceDetailed in der Datenbank.
-   * Die Kriterien der Konferenz werden ebenfalls aktualisiert (jedoch nicht das
-   * Loeschen oder Hinzufuegen eines Kriteriums).
+   * Die Kriterien und Topics der Konferenz werden dabei ignoriert.
    *
    * @param ConferenceDetailed $objConferenceDetailed Konferenz-Objekt
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
@@ -1566,14 +1565,14 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
     }
-    $this->updateCriterions($objConferenceDetailed);
+    /*$this->updateCriterions($objConferenceDetailed);
     if ($this->failed()) {
       return $this->error('updateConference', $this->getLastError());
     }
     $this->updateTopics($objConferenceDetailed);
     if ($this->failed()) {
       return $this->error('updateConference', $this->getLastError());
-    }
+    }*/
     return $this->success();
   }
 
