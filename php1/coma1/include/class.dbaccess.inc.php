@@ -1576,12 +1576,10 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
     }
-    echo("Up. top.");
     $this->updateTopicsOfPaper($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaper', $this->getLastError());
     }
-    echo("OK");
     $this->updateCoAuthors($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaper', $this->getLastError());
@@ -1714,19 +1712,18 @@ nur fuer detaillierte?
     }
     $intId = $objPaperSimple->intId;
     // Topics loeschen...
-    /*$s = "DELETE  FROM IsAboutTopic".
-        " WHERE   paper_id = '$intId'";*/
     $s = sprintf("DELETE   FROM IsAboutTopic".
                  " WHERE   paper_id = '%d'",
                  s2db($intId));
-    echo("$s<br>");
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
     }
+    echo("OK1");
     if (empty($objPaperSimple->intTopics)) {
       return $this->success();
     }
+    echo("OK2");
     // Topics einfuegen...
     for ($i = 0; $i < count($objPaperSimple->intTopics); $i++) {
       /*$s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
@@ -1740,6 +1737,7 @@ nur fuer detaillierte?
         return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
       }
     }
+    echo("OK3");
     return $this->success();
   }
 
