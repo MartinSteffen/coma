@@ -1113,6 +1113,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		} else {
 			if (conference_id > 0) {
 				QUERY += "conference_id=" + conference_id;
+			}else{
+				ok = false;
 			}
 		}
 		if (ok) {
