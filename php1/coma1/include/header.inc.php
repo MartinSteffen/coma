@@ -74,22 +74,28 @@ if (!DEBUG) {
 require_once(INCPATH.'class.mysql.inc.php');
 require_once(INCPATH.'class.session.inc.php');
 require_once(INCPATH.'class.dbaccess.inc.php');
+require_once(INCPATH.'class.distribution.inc.php');
 // Nur hier weil das eh jeder braucht, eventuell besser in jeden einzelnen rein!!
 require_once(INCPATH.'class.template.inc.php');
 
 $mySql = new MySql();
 if ($mySql->failed()) {
-  error('Erzeugen den Standard-Objekte',$mySql->getLastError());
+  error('Erzeugen der Standard-Objekte',$mySql->getLastError());
 }
 
 $mySession = new Session($mySql, 'coma1', 7200);
 if ($mySession->failed()) {
-  error('Erzeugen den Standard-Objekte',$mySession->getLastError());
+  error('Erzeugen der Standard-Objekte',$mySession->getLastError());
 }
 
 $myDBAccess = new DBAccess($mySql);
 if ($myDBAccess->failed()) {
-  error('Erzeugen den Standard-Objekte',$myDBAccess->getLastError());
+  error('Erzeugen der Standard-Objekte',$myDBAccess->getLastError());
+}
+
+$myDist = new Distribution($mySql);
+if ($myDBAccess->failed()) {
+  error('Erzeugen der Standard-Objekte', $myDist->getLastError());
 }
 // End Standard Klassen
 

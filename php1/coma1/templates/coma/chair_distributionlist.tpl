@@ -8,9 +8,9 @@
   <span class="diststatus-3">The reviewer prefers the topic of the paper.</span><br>
   <span class="diststatus-4">The reviewer explicitly wants to review the paper.
     </span><br><br>
-  For each paper, you may deselect assigned/suggested reviewers.
+  For each paper, you may deselect assigned/suggested reviewers.<br>
   <span class="emph">Note:</span> Be careful with unselecting papers assigned to
-    a reviewer since he/she may have started to work with it.<br>
+    a reviewer since he/she may have started to review it.<br>
   Finally, you can either confirm or dismiss the distribution.
 </p>
 

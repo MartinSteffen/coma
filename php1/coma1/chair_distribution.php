@@ -13,7 +13,6 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
-require_once(INCPATH.'class.distribution.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
@@ -48,7 +47,6 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
   redirect('chair_reviews.php');
 }
 else {
-  $myDist = new Distribution($mySql);
   $dist = $myDist->getDistribution(session('confid'));
   if ($myDist->failed()) {
     error('get distribution suggestion',$myDist->getLastError());
