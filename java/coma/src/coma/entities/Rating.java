@@ -105,6 +105,7 @@ public class Rating extends Entity {
 	    return XMLHelper.tagged("rating",
 				    XMLHelper.tagged("reviewReportId", ""+getReviewReportId()),
 				    XMLHelper.tagged("criterionId", ""+getCriterionId()),
+				    getCriterion().toXML(XMLMODE.SHALLOW),
 				    XMLHelper.tagged("grade", ""+getGrade()),
 				    XMLHelper.tagged("comment", getComment())
 				    );
