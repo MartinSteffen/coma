@@ -2,7 +2,7 @@
 /**
  * @version $Id$
  * @package coma1
- * @subpackage Testing
+ * @subpackage core
  */
 /***/
 

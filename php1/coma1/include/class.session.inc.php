@@ -79,7 +79,7 @@ class Session {
    *
    * Falls ein Cookie gesetzt wurde, gibt die Funktion leer zurueck. Ansonsten
    * wird '?SessionNmae=SessionId' zurueck gegeben. Dieses kann also einfach an 
-   * alle Skript-Verweise angehaengt werden
+   * alle Skript-Verweise angehaengt werden.
    *
    * @return string Anhang fuer URL
    * @access public

@@ -9,7 +9,15 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-function checkError($class) {
+/**
+ * Fehler in Klasse ueberpruefen und ausgeben
+ *
+ * Diese Funktion ueberprueft eine Klasse ob ein Fehler generiert wurde
+ * und gibt diesen auch eventuell zurueck.
+ *
+ * @param object $class Ein coma1-Objekt das die Methode getLastError() unterstuetzt.
+ */
+function checkError(&$class) {
   $s = $class->getLastError();
   if (!empty($s)) {
     echo $s;
