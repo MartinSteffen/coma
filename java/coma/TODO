@@ -15,7 +15,8 @@ TODO: Person.isChair(), Person.isAuthor(), Person.isReviewer()
 
 TODO: Common menu on the left, with own xsl, and disabling entries for
       chair etc. if not appropriate.
- by next friday ums 
+ by next friday ums
+  MOSTLY DONE, links still need fixing, and depends on bug55 
 
 TODO: author: update, delete, paper overview
  mti owu
