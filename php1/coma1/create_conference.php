@@ -38,9 +38,12 @@ if (isset($_POST['action'])) {
   $strContentAssocs['topics']       = $_POST['topics'];
   $strContentAssocs['crit_max']     = $_POST['crit_max'];
   $strContentAssocs['crit_descr']   = $_POST['crit_descr'];
-  $strContentAssocs['auto_actaccount']  = $_POST['auto_actaccount'];
-  $strContentAssocs['auto_paperforum']  = $_POST['auto_paperforum'];
-  $strContentAssocs['auto_addreviewer'] = $_POST['auto_addreviewer'];
+  $strContentAssocs['auto_actaccount']  =
+   (isset($_POST['auto_actaccount']) ? $_POST['auto_actaccount'] : '');
+  $strContentAssocs['auto_paperforum']  =
+   (isset($_POST['auto_paperforum']) ? $_POST['auto_paperforum'] : '');
+  $strContentAssocs['auto_addreviewer'] =
+   (isset($_POST['auto_addreviewer']) ? $_POST['auto_addreviewer'] : '');
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
 
   // Anlegen der Person in der Datenbank
