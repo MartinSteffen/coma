@@ -66,7 +66,7 @@ class PersonDetailed extends Person {
   }
   
   function getCountry() {
-    $strAddress = $this->strState
+    $strAddress = $this->strState;
     if (!empty($this->strState) && !empty($this->strCountry)) {
       $strAddress .= ' ';
     }
