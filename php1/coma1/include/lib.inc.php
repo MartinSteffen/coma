@@ -334,8 +334,6 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
   $strMsg = str_replace("\n", "\r\n", $strMsg);
   $strMsg = utf8_encode("\r\n".$strMsg);
   $strSubject = utf8_encode('[CoMa] '.$strSubject);
-  echo $strMsg;
-  echo $strSubject;
   return mail('', $strSubject, $strMsg,
               'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
               "From: $strFrom\r\n".
