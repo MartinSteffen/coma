@@ -17,7 +17,6 @@ require_once('./include/header.inc.php');
  
 if (isset($_POST['anmeldung'])){
   $myDBAccess->addRole($_POST['anmeldung'],$myDBAccess->getPersonIdByEmail($_SESSION['uname']),0);
-  echo $_POST['anmeldung'];
   unset($_POST['anmeldung']);
 
 }
