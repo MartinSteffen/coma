@@ -74,6 +74,10 @@ public class Author extends HttpServlet {
 	
 	Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
 	Conference theConf = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+	
+	if (!theLogedPerson.isAuthor())
+		response.sendRedirect("/coma/Login?action=logout");
+	
 	Navcolumn myNavCol = new Navcolumn(session);
 	String path = getServletContext().getRealPath("");
 	String xslt = path+"/style/xsl/author.xsl";
@@ -143,6 +147,7 @@ public class Author extends HttpServlet {
 					if (thePapers.length==1) theOldPaper=thePapers[0];
 				}
 				result.append("<submitpaper>\n");
+				session.setAttribute(SessionAttribs.PAPER,theOldPaper);
 				result.append(theOldPaper.toXML());
 				for (int i = 0; i < topicArray.length; i++) {
 					result.append(topicArray[i].toXML());
@@ -163,8 +168,10 @@ public class Author extends HttpServlet {
 			session.setAttribute(SessionAttribs.PAPER,theNewPaper);
 		} catch (Exception e) {
 			result.append("<failed>\n");
+			result.append(XMLHelper.tagged("info",e.toString()));
 			String[] checkboxes = request.getParameterValues(FormParameters.TOPICS);
-			for (int i = 0; i < checkboxes.length; i++) {
+			if (checkboxes!=null)
+				for (int i = 0; i < checkboxes.length; i++) {
 				 result.append(XMLHelper.tagged("info",checkboxes[i]));
 			} 
 			

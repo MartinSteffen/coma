@@ -61,7 +61,7 @@ public class WriteFile extends HttpServlet {
 
 			try {
 				renameFile.renameTo(backupFile);
-			} catch (RuntimeException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				result.append(XMLHelper.tagged("error", e1.toString()));
 			}
@@ -88,7 +88,7 @@ public class WriteFile extends HttpServlet {
 				if (mySR.SUCCESS)
 					result.append(XMLHelper.tagged("success", mySR.info));
 				else {
-					result.append(XMLHelper.tagged("failed", ""));
+					result.append(XMLHelper.tagged("failed", "insert"));
 					result.append(XMLHelper.tagged("error", mySR.info));
 				}
 			} else {
@@ -97,7 +97,7 @@ public class WriteFile extends HttpServlet {
 				if (mySR.SUCCESS)
 					result.append(XMLHelper.tagged("success", mySR.info));
 				else {
-					result.append(XMLHelper.tagged("failed", ""));
+					result.append(XMLHelper.tagged("failed", "update"));
 					result.append(XMLHelper.tagged("error", mySR.info));
 				}
 
@@ -107,7 +107,7 @@ public class WriteFile extends HttpServlet {
 			result.append(XMLHelper.tagged("failed", ""));
 			result.append(XMLHelper.tagged("error", e.toString()));
 		}
-
+		session.removeAttribute(SessionAttribs.PAPER);
 		result.append(myNavCol.toString());
 		result.append("</author>\n");
 		response.setContentType("text/html; charset=ISO-8859-15");

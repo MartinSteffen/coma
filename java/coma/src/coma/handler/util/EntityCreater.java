@@ -164,38 +164,22 @@ public class EntityCreater {
 		return paper;
 	}
 
-	/**
-	 * FIXME Problem: forms with enctype="multipart/form-data" cannot be read with
-	 *  .getParameterNames(); and MultipartRequest stores the file before checking the other inputs
-	 * 
-	 * @author mti
-	 * @version 0.1
-	 * <b>This will need the com.oreilly.servlet.* packets</b>
-	 * available <a href="http://snert.informatik.uni-kiel.de:8080/~wprguest3/downloads/">here!</a>
-	 * @param request the form elements
-	 * @return the paper submitted by the form
-	 * 
-	 * changes:
-	 * <ul>
-	 * <li> 14.12: getAttribute now uses constants from public class SessionAttribs </li> 
-	 * </ul> 
-	 * maybe missing error handling
-	 * 
-	 * consistency check of the form inputs:
-	 * - linits the file size to 5 MB
-	 * - stores the file on the disk
-	 * - renames the filename to a unique one
-	 * 
-	 */
+	
 	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException {
 		Enumeration paramNames = request.getParameterNames();
 		HttpSession session = request.getSession(true);
 		Paper paper = (Paper) session.getAttribute(SessionAttribs.PAPER);//get an old paper, if existing
 		String[] checkboxes = request.getParameterValues(FormParameters.TOPICS);
 		if (checkboxes==null) throw new IllegalArgumentException("no topic choosen");
-		Integer[] topicids = new Integer[checkboxes.length];
-		for (int i = 0; i < topicids.length; i++) 
-			topicids[i] = Integer.parseInt(checkboxes[i]);
+		Integer[] topicids;
+		try {
+			topicids = new Integer[checkboxes.length];
+			for (int i = 0; i < topicids.length; i++) 
+				topicids[i] = Integer.parseInt(checkboxes[i]);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("topic processing "+e.toString());
+			
+		}
 		 
 		if (paper==null) paper= new Paper(-1); // new Paper
 		
@@ -217,7 +201,7 @@ public class EntityCreater {
 		//paper.setMim_type("");///set in WriteFile.java
 		paper.setState(0);
 		paper.setTitle(request.getParameter(FormParameters.TITLE));
-		paper.setTopics(topicids);	
+		//paper.setTopics(topicids);	
 		return paper;
 		
 	}
