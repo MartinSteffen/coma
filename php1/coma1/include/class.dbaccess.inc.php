@@ -1822,11 +1822,10 @@ nur fuer detaillierte?
     }
     $s = sprintf("UPDATE   Paper".
                  " SET     title = '%s', author_id = '%d', abstract = '%s', ".
-                 "         last_edited = '%s', version = '%d', state = '%d'".
+                 "         last_edited = '%s', state = '%d'".
                  " WHERE   id = '%d'",
                  s2db($objPaperDetailed->strTitle), s2db($objPaperDetailed->intAuthorId),
-                 s2db($objPaperDetailed->strAbstract),
-                 s2db(date("Y-m-d H:i:s")), s2db($objPaperDetailed->intVersion + 1),
+                 s2db($objPaperDetailed->strAbstract), s2db(date("Y-m-d H:i:s")),
                  s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -1860,8 +1859,8 @@ nur fuer detaillierte?
    */
   function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, $strContents) {
     $s = sprintf("UPDATE   Paper".
-                 " SET     filename = '%s', mime_type = '%s'".
-                 "         last_edited = '%s'".
+                 " SET     filename = '%s', mime_type = '%s', ".
+                 "         version = version + 1, last_edited = '%s'".
                  " WHERE   id = '%d'",
                  s2db($strFilePath), s2db($intPaperId), 
                  s2db(date("Y-m-d H:i:s")), s2db($strMimeType));

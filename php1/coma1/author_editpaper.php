@@ -71,8 +71,7 @@ if (isset($_POST['action'])) {
         // Datenbankfehler?
         error('Error during updating paper.', $myDBAccess->getLastError());
       }
-      else if (!empty($result)) {      	
-      	$objPaper->intVersion++;
+      else if (!empty($result)) {
       	$objPaper->strLastEdit = date('r');
         $strMessage = 'Paper was updated successfully.';
       }
@@ -95,7 +94,8 @@ if (isset($_POST['action'])) {
       }
     }
   }
-  else if (isset($_POST['upload'])) {    
+  else if (isset($_POST['upload'])) {
+    var_dump($binFile);
     var_dump($_POST['binFile']);
     if (empty($_POST['binFile'])) {
       $strMessage = 'You have to select a file for uploading!';
@@ -114,7 +114,8 @@ if (isset($_POST['action'])) {
         // Datenbankfehler?
         error('Error during uploading paper.', $myDBAccess->getLastError());
       }
-      else if (!empty($result)) {        
+      else if (!empty($result)) {
+      	$objPaper->intVersion++;        
         $strMessage = 'Document was uploaded successfully.';        
       }
     }
