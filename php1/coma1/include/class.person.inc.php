@@ -40,6 +40,10 @@ class Person {
   function hasRole($intRole) {
     return (($this->intRoles & (1 << $intRole)) != 0);
   }
+
+  function hasAnyRole($intRole) {
+    return ($this->intRoles != 0);
+  }
   
   /**
    * Liefert den vollstaendigen Namen der Person wahlweise in der Form
