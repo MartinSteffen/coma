@@ -21,20 +21,38 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$menu = new Template(TPLPATH.'startmenu.tpl');
-$strMenuAssocs = defaultAssocArray();
-$strMenuAssocs['if'] = array(3);
-$menu->assign($strMenuAssocs);
+$strMainAssocs = defaultAssocArray();
+
+if (isset($_SESSION('uname'))) {
+  $strMainAssocs['navigator'] = session('uname').'  |  Help';
+  if (isset($_SESSION('confid'))) {
+    $menu = new Template(TPLPATH.'usermenu.tpl');
+    $strMenuAssocs = defaultAssocArray();
+    $strMenuAssocs['if'] = array();
+    $menu->assign($strMenuAssocs);    
+  }
+  else {
+    $menu = new Template(TPLPATH.'mainmenu.tpl');
+    $strMenuAssocs = defaultAssocArray();
+    $strMenuAssocs['if'] = array();
+    $menu->assign($strMenuAssocs);    
+  }  
+}
+else {
+  $menu = new Template(TPLPATH.'startmenu.tpl');
+  $strMenuAssocs = defaultAssocArray();
+  $strMenuAssocs['if'] = array(3);
+  $menu->assign($strMenuAssocs);
+  $strMainAssocs['navigator'] = 'CoMa  |  Help';
+}
 
 $content = new Template(TPLPATH.'helpmain.tpl');
 $content->assign(defaultAssocArray());
 
 $main = new Template(TPLPATH.'frame.tpl');
-$strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Getting started with CoMa';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = 'CoMa  |  Help';
 
 $main->assign($strMainAssocs);
 $main->parse();
