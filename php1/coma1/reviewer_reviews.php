@@ -14,8 +14,46 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
+$objReviews = $myDBAccess->getReviewsOfReviewer(session('uid'), session('confid'));
+if ($myDBAccess->failed()) {
+  error('get review list of reviewer',$myDBAccess->getLastError());
+}
+
 $content = new Template(TPLPATH.'reviewer_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['lines'] = '';
+if (!empty($objReviews)) {
+  $lineNo = 1;
+  foreach ($objReviews as $objReview) {
+    $ifArray = array();
+    $strItemAssocs['line_no'] = $lineNo;
+    $strItemAssocs['review_id'] = $objReview->intId;
+    $strItemAssocs['paper_id'] = $objReview->intPaperId;
+    $strItemAssocs['title'] = $objReview->strPaperTitle;
+    $strItemAssocs['author_id'] = $objReview->intAuthorId;
+    $strItemAssocs['author_name'] = $objReview->strAuthorName;
+    $objPaper = $myDBAccess->getPaper($objReview->intPaperId);
+    if ($myDBAccess->failed()) {
+      error('get paper in review list of reviewer', $myDBAccess->getLastError());
+    }
+    else if (!empty($objPaper)) {
+      $ifArray[] = $objPaper->intStatus;
+    }    
+    $strItemAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 10) / 10);
+    $strItemAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 10) / 10);
+    $strItemAssocs['max_rating'] = encodeText('TODO');    
+    $strItemAssocs['if'] = $ifArray;
+    $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
+    $paperItem->assign($strItemAssocs);
+    $paperItem->parse();
+    $strContentAssocs['lines'] .= $paperItem->getOutput();
+    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+  }
+}
+else {
+  // Reviewliste ist leer.
+}
+
 $content->assign($strContentAssocs);
 
 $actMenu = REVIEWER;

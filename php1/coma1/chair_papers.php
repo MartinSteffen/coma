@@ -14,21 +14,19 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$content = new Template(TPLPATH.'chair_paperlist.tpl');
-$strContentAssocs = defaultAssocArray();
-
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get paper list of chair',$myDBAccess->getLastError());
 }
 
-$strContentAssocs['message'] = session('message', false);
-session_delete('message');
+$content = new Template(TPLPATH.'chair_paperlist.tpl');
+$strContentAssocs = defaultAssocArray();
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
+    $ifArray = array();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = $objPaper->intId;
     $strItemAssocs['author_id'] = $objPaper->intAuthorId;

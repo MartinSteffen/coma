@@ -1014,7 +1014,7 @@ class DBAccess extends ErrorHandling {
                           "intAuthorId = $objPaper->intAuthorId");
     }
     $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $paper_data[0]['title'],
-                   $objAuthor->strEmail, $objAuthor->getName(), getReviewRating($intReviewId),
+                   $objAuthor->intId, $objAuthor->getName(), getReviewRating($intReviewId),
                    getAverageRatingOfPaper($paper_data[0]['id']), $objReviewer->strEmail,
                    $objReviewer->getName()));
     return $this->success($objReview);
@@ -1092,7 +1092,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
-                   $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
+                   $paper_data[0]['title'], $objAuthor->intId, $objAuthor->getName(),
                    $objReviewRating, $fltAvgRating, $objReviewer->strEmail,
                    $objReviewer->getName(), $data[0]['summary'], $data[0]['remarks'],
                    $data[0]['confidential'], $intRatings, $strComments, $objCriterions));

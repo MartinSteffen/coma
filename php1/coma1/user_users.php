@@ -14,8 +14,6 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$content = new Template(TPLPATH.'user_userlist.tpl');
-$strContentAssocs = defaultAssocArray();
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
@@ -24,6 +22,8 @@ if ($myDBAccess->failed()) {
 global $intRoles;
 global $strRoles;
 
+$content = new Template(TPLPATH.'user_userlist.tpl');
+$strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = array();

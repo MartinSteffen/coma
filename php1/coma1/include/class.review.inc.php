@@ -31,7 +31,7 @@ class Review {
   var $intId;
   var $intPaperId;
   var $strPaperTitle;
-  var $strAuthorEmail;
+  var $intAuthorId;
   var $strAuthorName;
   var $fltReviewRating;    // Gesamtbewertung des Papers in diesem Review;
                            // ist Durchschnitt der Kriterien! (am 20.01. geaendert!)
@@ -39,12 +39,12 @@ class Review {
   var $strReviewerEmail;
   var $strReviewerName;
 
-  function Review($intId, $intPaperId, $strPaperTitle, $strAuthorEmail, $strAuthorName,
+  function Review($intId, $intPaperId, $strPaperTitle, $intAuthorId, $strAuthorName,
                   $fltReviewRating, $fltAverageRating, $strReviewerEmail, $strReviewerName) {
     $this->intId = $intId;
     $this->intPaperId = $intPaperId;
     $this->strPaperTitle = $strPaperTitle;
-    $this->strAuthorEmail = $strAuthorEmail;
+    $this->intAuthorId = $intAuthorId;
     $this->strAuthorName = $strAuthorName;
     $this->fltReviewRating = $fltReviewRating;
     $this->fltAverageRating = $fltAverageRating;
