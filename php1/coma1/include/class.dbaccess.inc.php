@@ -269,7 +269,6 @@ class DBAccess {
         ' FROM    Paper AS'.
         ' WHERE   id = '.$intPaperId;
     $data = $this->mySql->select($s);
-    echo($s);
     if (!empty($data)) {
       $objAuthor = $this->getPerson($data[0]['author_id']);
       $strAuthor = $objAuthor->getName();
@@ -293,7 +292,7 @@ class DBAccess {
                 $strCoAuthors, $data[0]['abstract'], $data[0]['format'],
                 $data[0]['last_edited'], $data[0]['filename']));
     }
-    return $this->error($this->mySql->error());
+    return $this->error($this->mySql->getLastError());
   }
 
   /**
