@@ -21,9 +21,6 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-// Security :)
-checkAccess(0);
-
 $popup = (isset($_GET['popup'])) ? true : false;
 
 $strMainAssocs = defaultAssocArray();
@@ -32,9 +29,10 @@ if (checklogin()) {
   $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Help';
   if (!$popup) {
     if (isset($_SESSION['confid'])) {
+      checkAccess(0);
       $_SESSION['menu'] = 0;
       $_SESSION['menuitem'] = 5;
-      include('./include/usermenu.inc.php');
+      include(INCPATH.'usermenu.inc.php');
     }
     else {
       $menu = new Template(TPLPATH.'mainmenu.tpl');
