@@ -15,11 +15,6 @@
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}forum.php?showforums=1{&SID}" class="{if4 marked}menu">
-      Forum</a>
-    </td>
-  </tr>
-  <tr>
     <td class="menu"><a href="{basepath}help.php{?SID}" class="{if5 marked}menu">
       Help</a>
     </td>

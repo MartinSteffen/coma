@@ -53,6 +53,14 @@ else {
 
 $content = new Template(TPLPATH.'helpmain.tpl');
 $strContentAssocs = defaultAssocArray();
+
+if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
+  $strContentAssocs['keyword'] = encodeText($_GET['keyword']);
+}
+else {
+  $strContentAssocs['keyword'] = '';
+}
+
 $strContentAssocs['localhelp'] = 'TODO: This should be a localized help text for every Situation '.
   '(get location out of Session? or via GET?)<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );

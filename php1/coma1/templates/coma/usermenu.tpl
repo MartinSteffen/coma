@@ -28,12 +28,6 @@
       Forums</a>
     </td>
   </tr>
-  <!-- ausprogrammierung der messages ausgelassen  -->
-  <!-- tr>
-    <td class="menu"><a href="{basepath}user_messages.php{?SID}" class="{if4 marked}menu">
-      Messages</a>
-    </td>
-  </tr -->
   <tr>
     <td class="menu"><a href="{basepath}help.php{?SID}" class="{if5 marked}menu">
       Help</a>
