@@ -40,7 +40,7 @@ if (isset($_POST['action'])) {
   $strCoAuthors = array();
   for ($i = 0; $i < $intCoAuthorNum; $i++) {
     if (!isset($_POST['del_coauthor-'.($i+1)])) {
-      $strCoAuthors[] = encodeText($_POST['coauthor-'.($i+1)]);
+      $strCoAuthors[] = $_POST['coauthor-'.($i+1)];
     }
   }
   if (isset($_POST['add_coauthor']) && !empty($_POST['coauthor'])) {
