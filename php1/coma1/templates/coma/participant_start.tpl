@@ -2,15 +2,15 @@
   <tr class="viewheader">
     <th class="viewheader">
       Welcome to CoMa - Your Conference Manager!
-    </th>    
+    </th>
   </tr>
   <tr class="viewline">
-    <td class="viewline">      
+    <td class="viewline">
       As <span class="emph">participant</span> you can choose between the following tasks:
     </td>
   </tr>
   <tr class="viewline">
-    <td class="viewline">      
+    <td class="viewline">
       Select <a href="{basepath}participant_settings.php{?SID}" class="link">'Edit my participation'</a>
       to edit information regarding your participation in this conference, as well as
       your payment details.
