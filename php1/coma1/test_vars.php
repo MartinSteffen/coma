@@ -1,6 +1,14 @@
 <?php
+/**
+ * @version $Id
+ * @package coma1
+ * @subpackage Testing
+ */
+/***/
 
+/*** @ignore */
 define('IN_COMA1', true);
+/*** @ignore */
 define('NEED_NO_LOGIN', true);
 
 include('./include/header.inc.php');

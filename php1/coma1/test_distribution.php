@@ -6,13 +6,9 @@
  */
 /***/
 
-/**
- * Wichtig damit Coma1 Dateien eingebunden werden koennen
- *
- * @ignore
- */
-
+/*** @ignore */
 define('IN_COMA1', true);
+/*** @ignore */
 define('NEED_NO_LOGIN', true);
 
 require_once('./include/header.inc.php');

@@ -17,6 +17,16 @@ if (!defined('INCPATH')) {
 require_once(INCPATH.'header.inc.php');
 require_once(INCPATH.'class.conferencedetailed.inc.php');
 
+/**
+ * Klasse Distribution
+ *
+ * @author Tom Scherzer <tos@informatik.uni-kiel.de>
+ * @copyright Copyright (c) 2004, Gruppe: PHP1
+ * @package coma1
+ * @subpackage core
+ * @access public
+ *
+ */
 class Distribution extends ErrorHandling {
   /**#@+
    * @access private
