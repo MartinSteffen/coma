@@ -349,8 +349,7 @@ function generatePostMethodArray($strArrayPostvars){
   //evtl. neues Forum erzeugen
   var_dump($_POST);
   if ((!empty($_POST['title'])) && (!empty($_POST['type'])) && (!empty($_POST['createforum']))){
-    echo('<br>type:'.($_POST['type'] == FORUM_PAPER));
-    echo('<br>pid:'.(empty($_POST['paperid']) == false));
+    echo('<br>both:'.((($_POST['type'] == FORUM_PAPER) && (empty($_POST['paperid']))) == false));
     if ((($_POST['type'] == FORUM_PAPER) && (empty($_POST['paperid']))) == false){
       if (empty($_POST['paperid'])){
         $pid = false;
