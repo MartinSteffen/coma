@@ -491,7 +491,7 @@ class DBAccess extends ErrorHandling {
 
     // konferenzspezifische Attribute
     $objPersonAlgorithmic->objPreferredTopics =
-      $this->getPreferredTopics($objPersonAlgorithmic, $intConferenceId);
+      $this->getPreferredTopics($intPersonId, $intConferenceId);
     if ($this->failed()) {
       return $this->error('getPersonAlgorithmic', $this->getLastError());
     }
@@ -1220,35 +1220,29 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array der bevorzugten Topics der Person $objPersonAlgorithmic
+   * Liefert ein Array der bevorzugten Topics der Person mit ID $intPersonAlgorithmic
    * bei der Konferenz $intConferenceId.
    *
-   * @param PersonAlgorithmic $objPersonAlgorithmic PersonAlgorithmic-Objekt
+   * @param int $intPersonAlgorithmic ID der Person
    * @param int $intConferenceId Konferenz-ID
    * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
    * @access private
    * @author Tom (18.01.05)
    */
-  function getPreferredTopics($objPersonAlgorithmic, $intConferenceId) {
-    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
-      return $this->success(false);
-    }
-    $objTopics = array();
+  function getPreferredTopics($intPersonAlgorithmicId, $intConferenceId) {
     $s = "SELECT  p.topic_id AS topic_id, t.name AS name".
         " FROM    PrefersTopic p".
         " INNER   JOIN Topic t".
         " ON      t.id = p.topic_id".
         " AND     t.conference_id = '$intConferenceId'".
-        " WHERE   p.person_id = '$objPersonAlgorithmic->intId'";
+        " WHERE   p.person_id = '$intPersonAlgorithmicId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPreferredTopics', $this->mySql->getLastError());
     }
-    else if (empty($data)) {
-      return $this->success($objTopics);
-    }
+    $objTopics = array();
     for ($i = 0; $i < count($data); $i++) {
-      $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i], $data[$i]['name']);
+      $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
     return $this->success($objTopics);
   }
