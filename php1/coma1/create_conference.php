@@ -59,6 +59,7 @@ if (isset($_POST['action'])) {
   $strCritDescripts = encodeTextArray($_POST['crit_descr']);
   $strCritMaxVals   = encodeTextArray($_POST['crit_max']);
   $strCritWeights   = encodeTextArray($_POST['crit_weight']);
+
   if (isset($_POST['advanced'])) {
     $intTopicNum = count($strTopics);
     $intCritNum  = count($strCriterions);
@@ -213,6 +214,17 @@ if (isset($_POST['action'])) {
       $strMessage =  $strMessage.
                      'Your number of automatically added reviewers should be greater or equal than zero!<br>';
     }
+
+    /**
+     * Durch Löschen der Defaultwerte ist es möglich versehentlich 
+     * ein leeres Kriterium in die Datenbank einzutragen !!!
+     */
+    foreach ($strCriterions as $key => $crit){
+      if ( empty($crit) ){
+	$crit=NULL;
+      }
+      } 
+
     foreach ($strCritMaxVals as $key => $critMax){
       if ( !(0 <= $critMax )){
         $strMessage =  $strMessage.
@@ -220,6 +232,7 @@ if (isset($_POST['action'])) {
                        '\' shoud be greater or equal than zero!<br>';
       }
     }
+
     foreach ($strCritWeights as $key => $critWeights){
       if ( !(0 < $critWeights )){
       $strMessage =  $strMessage.
