@@ -166,7 +166,7 @@ class Template extends ErrorHandling {
     $renderTime = chronometer();
     $version = VERSION;
     if (DEBUG) {
-      $version .= 'DEBUG';
+      $version .= '(debugging version)';
     }
     $this->strOutput = str_replace('/RENDERTIME/', $renderTime, $this->strOutput);
     $this->strOutput = str_replace('/VERSION/', $version, $this->strOutput);
