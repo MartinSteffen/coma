@@ -151,7 +151,7 @@ $myDBAccess->addCoAuthorName(2, 'Co Author Name');
       if ($myDBAccess->failed()) {
 	    echo('Fehler: '.$myDBAccess->getLastError());
 }
-
+/*
 echo '<br>ReviewReports:<br>';
 $j = 0;
 $reports = 0;
@@ -172,7 +172,7 @@ while ($j < $papers) {
   }
   $j++;
 }
-/*
+
 echo '<br>Criterions:<br>';
 $i = 0;
 while ($i < $conferences) {
