@@ -77,17 +77,17 @@ Formulare: - Benutzername und Passwort für Login
 Optionen:  - Login (-> II. Konferenzauswahl, Benutzermenü)
            - Registrieren (-> Neuen Benutzer registrieren)
 
-Neuen Benutzer registrieren
+Neuen Benutzer registrieren  [register.php]
 ----------------------------
 Formulare: - Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail, ...)
 Optionen:  - Registrierung bestätigen (-> Startseite)
            - Registrierung abbrechen (-> Startseite)
 
-Hilfe
+Hilfe  [help.php]
 ------
 Inhalt:    - Kurze Hilfe zur Anmeldung und Benutzerführung
 
-Impressum
+Impressum  [impressum.php]
 ----------
 Inhalt:    - Über das Programm, Autoren, etc.
 
@@ -95,7 +95,7 @@ Inhalt:    - Über das Programm, Autoren, etc.
 
   II. NAVIGATION NACH LOGIN:
 
-Benutzermenü
+Benutzermenü  [mainmenu.tpl]
 -------------
 Menü:      - Profil (-> Profil einstellen)
            - Foren  (-> Forenübersicht)
@@ -103,12 +103,12 @@ Menü:      - Profil (-> Profil einstellen)
            - Konferenzauswahl (-> Konferenzauswahl)
            - Logout (-> Startseite)
 
-Profil einstellen
+Profil einstellen  [main_profile.php]
 ------------------
 Formulare: - Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail, ...)
 Optionen:  - Einstellungen übernehmen
 
-Konferenzauswahl
+Konferenzauswahl  [main_conferences.php]
 -----------------
 Inhalt:    - Liste der verfügbaren Konferenzen
 Optionen:  - Login zu den Konferenzen (-> III. Konferenz-Startseite, Konferenzmenü)
