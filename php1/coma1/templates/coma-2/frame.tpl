@@ -44,7 +44,9 @@
  <tr>
   <td class="menu">{menu}
   </td>
-  <td>{content}
+  <td>
+    <h2>{title}</h2>
+    {content}
   </td>
  </tr>
 </table>

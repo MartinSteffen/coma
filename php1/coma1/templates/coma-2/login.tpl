@@ -1,6 +1,4 @@
 
-<h2>Willkommen bei CoMa!</h2>
-
 {message}
 
 <p class="center">

@@ -46,7 +46,7 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Login';
+$strMainAssocs['title'] = 'Willkommen bei CoMa!';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
