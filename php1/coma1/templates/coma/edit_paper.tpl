@@ -114,7 +114,6 @@
       </select>
     </td>
 </table>
-</form>
 
 <table class="formtable">
   <tr>
