@@ -34,12 +34,15 @@
         <input type="submit" name="submit" value="enter" class="button" />
       </form> 
     </td>   
-  </tr>
-  <tr>
     <td>      
       <input type="submit" name="submit" value="View" class="button" />
     </td>
   </tr>
+  <tr>
+    <td colspan="6">
+    Description: This paper is about serious infections of teenage angst.
+    </td>
+  <tr>
 </table>
 </form>
 
