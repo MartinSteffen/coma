@@ -413,9 +413,13 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 	 * 
 	 * @see coma.handler.db.UpdateService#updateCriterion(coma.entities.Criterion)
 	 */
-	public SearchResult updateCriterion(Criterion criterion) {
-		// TODO Auto-generated method stub
-		return null;
+	public SearchResult updateCriterion(Criterion criterion) 
+	{
+		final String QUERY = "UPDATE Criterion SET id = "+criterion.getId()+
+		",conference_id = "+criterion.getConferenceId()+",name = "+criterion.getName()+
+		",description = "+ criterion.getDescription()+"max_value = "+criterion.get_max_value()+
+		",quality_rating = "+criterion.get_quality_rating();
+		return executeQuery(QUERY);
 	}
 
 }
