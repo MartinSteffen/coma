@@ -1119,7 +1119,7 @@ class DBAccess extends ErrorHandling {
    */
   function hasPaperBeenReviewed($intPaperId, $intReviewerId) {
     $s = sprintf("SELECT   reviewer_id".
-                 " FROM    ReviewRating".
+                 " FROM    ReviewReport".
                  " WHERE   paper_id = '%d'".
                  " AND     reviewer_id = '%d'",
                            s2db($intPaperId), s2db($intReviewerId));
