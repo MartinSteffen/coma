@@ -40,6 +40,14 @@ if ($intRoleRequests > 0) {
   $strContentAssocs['request_no'] = encodeText($intRoleRequests);
   $strContentAssocs['if'] = array(1);
 }
+$intUndistributedPapers = $myDBAccess->getUndistributedPapers(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get num of undistributed papers',$myDBAccess->getLastError());
+}
+if ($intUndistributedPapers > 0) {
+  $strContentAssocs['papers_no'] = encodeText($intUndistributedPapers);
+  $strContentAssocs['if'] = array(3);
+}
 $content->assign($strContentAssocs);
 
 $_SESSION['menu'] = CHAIR;

@@ -58,7 +58,7 @@
     <td class="listitem-{line_no}">
       <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Edit</a>
     </td>
-    <td class="listitem-{line_no}">
+    <td class="listitem-{line_no}" nowrap>
       {reviewers}
     </td>
   </tr>
