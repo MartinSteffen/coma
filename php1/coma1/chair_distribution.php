@@ -42,9 +42,6 @@ if (isset($_POST['confirm'])) {
       }
       else $s .= ' ass';
     }
-    if (empty($dist[$pid])) {
-      $dist[$pid] = array();
-    }
     $s .= '<br>Length of dist['.$pid.']: '.count($dist[$pid]);
     next($dist);
   }
@@ -81,7 +78,7 @@ if (!empty($dist)) {
     $assignedReviewers = new Template(TPLPATH.'chair_distributionlistreviewers.tpl');
     $strReviewersAssocs = defaultAssocArray();
     $arrReviewers = $dist[$objPaper->intId];
-    for ($i = 0; $i < count($arrReviewers); $i++) {
+    for ($i = 0; $i < count($arrReviewers) && !empty($arrReviewers); $i++) {
       $objReviewer = $myDBAccess->getPerson($arrReviewers[$i]['reviewer_id']);
       if ($myDBAccess->failed()) {
         error('get suggested reviewer',$myDBAccess->getLastError());
