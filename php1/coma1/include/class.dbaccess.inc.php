@@ -1799,7 +1799,7 @@ nur fuer detaillierte?
     // Topics einfuegen...
     for ($i = 0; $i < count($objTopics); $i++) {
       $s = "INSERT  INTO PrefersTopic (person_id, topic_id)".
-          "         VALUES ('$intPersonId', '$objTopic->intId')";
+          "         VALUES ('$intPersonId', '".$objTopics[$i]->intId."')";
       $this->mySql->insert($s);
       if ($this->mySql->failed()) {
         return $this->error('updatePreferredTopics', $this->mySql->getLastError());
