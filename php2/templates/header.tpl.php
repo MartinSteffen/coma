@@ -19,7 +19,14 @@
             <table width="108%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="19%"><img src="templates/images/logoDown.gif" width="200" height="49"></td>
-                <td width="81%" align="left" valign="middle" class="text"><? /* Hello <? echo($_SESSION['name']; */ ?></td>
+                <td width="81%" align="left" valign="middle" class="text">
+				    <? 
+					   if(isset($_SESSION['userID'])) 
+					   {
+					   		echo "Hello ".$_SESSION['userName'];
+					   }
+					?>
+			    </td>
               </tr>
             </table>
           </td>
@@ -30,7 +37,7 @@
 				   <?
 				     if(isset($_SESSION['userID']))
 					 {   ?>
-					    <b><a href="index.php?logout=1" class="logout">Logout</a></b>
+					    <b><a href="index.php?m=logout" class="logout">Logout</a></b>
 				   <? } ?>
 				</td>
                 <td width="21"></td>

@@ -3,5 +3,5 @@ if(isChair_Paper($_GET['paperID']))
 {
 	/* make manual */	
 }
-else redirect("logout");		
+else redirect("logout","","","mode=1");		
 ?>

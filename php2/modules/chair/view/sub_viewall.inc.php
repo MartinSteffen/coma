@@ -43,5 +43,5 @@ $TPL['chair'] = $output;
 template("CHAIR_viewall");
 $TPL['chair'] = "";
 }
-else redirect("logout");	
+else redirect("logout","","","mode=1");	
 ?>

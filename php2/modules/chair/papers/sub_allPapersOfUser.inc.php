@@ -65,5 +65,5 @@ $TPL['chair'] = $output;
 template("CHAIR_allPapersOfUser");
 $TPL['chair'] = "";
 }
-else redirect("logout");		
+else redirect("logout","","","mode=1");		
 ?>
