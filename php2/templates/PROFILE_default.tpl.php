@@ -17,10 +17,6 @@ include("header.tpl.php");
           <td><a href="index.php?m=profile&a=participate" class="menus">Participate in conferences.</a></td>
         </tr>	  
         <tr align="left" valign="middle"> 
-          <td><img src="templates/images/arrow.gif" width="30" height="17"></td>
-          <td><a href="index.php?m=profile&a=beReviewer" class="menus">I would like to be a reviewer.</a></td>
-        </tr>
-        <tr align="left" valign="middle"> 
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>				

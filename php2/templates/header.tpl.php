@@ -86,7 +86,10 @@ function toggle(id)
                       </tr>
                       <tr> 
                         <td class="menus"><a href="index.php?m=profile" class="menus">My profile</a></td>
-                      </tr>					  					
+                      </tr>						  
+                      <tr>                         
+                        <td class="menus">&nbsp;</td>
+                      </tr>								  				  					
 	        <? if(isAdmin_Overall())
 			   { ?>
                       <tr> 
@@ -205,10 +208,13 @@ function toggle(id)
 					  </tr>
 	            <? 
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
-			   }} ?>				  
+			   }} ?>
+                      <tr>                         
+                        <td class="menus">&nbsp;</td>
+                      </tr>						   	
                       <tr> 
                         <td class="menus"><a href="index.php?m=forum" class="menus">Forum</a></td>
-                      </tr>					  					  					  					  
+                      </tr>						   			  		  					  					  					  
                     </table>
                   </td>
                 </tr>
