@@ -42,6 +42,7 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
       if ($myDBAccess->failed()) {
         error('update paper status', $myDBAccess->getLastError());
       }
+      $startForum = createPaperForumIfCritical($myDBAccess, $pid);      
     }
     next($dist);
   }

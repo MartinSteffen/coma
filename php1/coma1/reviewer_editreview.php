@@ -59,7 +59,7 @@ if (isset($_POST['action'])) {
       if (!empty($result)) {
       	$strMessage = 'Review report was updated successfully.';
       	$intPaperId = $objReview->intPaperId;      	
-      	$startForum = createPaperForum($myDBAccess, $objPaper->intId);
+      	$startForum = createPaperForumIfCritical($myDBAccess, $objPaper->intId);
       	if ($startForum) {
             $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
                            'paper has been opened.';

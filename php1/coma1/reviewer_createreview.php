@@ -91,10 +91,9 @@ if (isset($_POST['action'])) {
       if (!empty($result)) {
       	$strMessage = 'Review report was created successfully.';
       	$startForum = createPaperForumIfCritical($myDBAccess, $objPaper->intId);      	  
-      	  if ($startForum) {
-            $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
-                           'paper has been opened.';
-          }
+      	if ($startForum) {
+          $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
+                         'paper has been opened.';
         }
         $_SESSION['message'] = $strMessage;
         redirect("reviewer_editreview.php?reviewid=".$result);
