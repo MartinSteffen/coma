@@ -1,0 +1,92 @@
+Ich bin ein TODO :)
+
+Ne, im Ernst:
+
+hier soll die Spezifikation für CoMa von Gruppe PHP2 drinne entstehen. Sprache der Wahl ist deutsch, segmentiert nach den besprochenen Modulen. Jeder ist für sein Modul verantwortlich, also auch für die Specs zu seinem Modul.
+
+Dieser Kommentar wird demnächst gelöscht.
+
+==============================
+Spezifikation der Gruppe PHP2
+==============================
+
+Versionslog:
+------------
+
+Version	Datum		Ersteller	Kommentare
+0.1	14.12.04	mje		Grobgliederung
+
+
+Inhaltsverzeichnis:
+-------------------
+
+-Globale Aspekte (Technologie, Datenbank etc)
+-Ausflistung und Abgrenzung der Module
+-Einzelbeschreibungen für alle Module incl. Angabe des Verantwortlichen und des aktuellen Status
+
+Globale Aspekte:
+----------------
+
+CoMa ist ein webbasiertes Konferenz-Management-Tool, das auf einer PHP-4.x-MySQL-3.x-Architektur aufbaut.
+
+Die Module:
+-----------
+
+Jeder Teilnehmer einer Konferenz nimmt bezüglich Dieser eine (oder mehr) gewissen Rolle(n) an. Jeder dieser Rollen sind bestimmte Zugriffsrechte und Funktionalitäten zugeordnet. Darin findet sich die Abgrenzung der ersten 4 Module:
+
+*Admin & Installation
+*Chair
+*Reviewer
+*Author
+
+Darüber hinaus durchläuft eine Konferenz zur Lebenszeit gewissen Phasen, an deren Übergängen mitunter größere interne Berechnungen erforderlich sind, die einen höheren Grad an Komplexität aufweisen. Diese haben wir deshalb in eigene Module aufgegliedert (obwohl sie ansonsten durchaus einer bestimmten Rolle zuzuordnen wären).
+Diese Module sind:
+
+*RTPA (Rating-To-Program-Algorithm)
+*PTRA (Paper-To-Reviewer-Algorithm)
+*Forum
+
+Schließlich gibt es einige Aspekte von globaler Natur, die für alle Module gleichermaßen notwendig sind. Diese haben wir zu eigenen Modulen zusammengefasst:
+
+*Templates & Design
+*Rollen & Rechte
+
+Die Module im Einzelnen:
+------------------------
+
+-Admin & Install:
+-----------------
+mje, tdz
+
+-Chair:
+-------
+ist
+
+-Reviewer:
+----------
+mhe
+
+-Author:
+--------
+tif
+
+-RTPA:
+------
+mje
+
+-PTRA:
+------
+gbi
+
+-Forum:
+-------
+gbi
+
+-Templates & Design:
+--------------------
+ist
+
+-Rollen & Rechte:
+-----------------
+tdz, tif
+
