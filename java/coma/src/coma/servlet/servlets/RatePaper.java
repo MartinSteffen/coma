@@ -74,7 +74,12 @@ public class RatePaper extends HttpServlet{
 	SearchCriteria theSC = new SearchCriteria();
 	Person thePerson = (Person)session.getAttribute(SessionAttribs.PERSON);	
  
+	x.addXMLHead(result);
+	result.append("<content>");
+
 	try {
+
+	    
 
 	    state = (Character)session.getAttribute(SessionAttribs.RATEPAPER_STATE);
 	    if (state == null) {
@@ -86,7 +91,7 @@ public class RatePaper extends HttpServlet{
 		/*
 		  "These are the papers you can rate."
 		*/
-		x.addContent(UserMessage.PAPERS_TO_RATE, result);
+		result.append(UserMessage.PAPERS_TO_RATE);
 
 
 		theSC.setPerson(thePerson);
@@ -264,6 +269,8 @@ public class RatePaper extends HttpServlet{
 	    }
 		break;
 	    }
+
+	    result.append("</content>");
 
 	    /*FIXME FIXME FIXME*/
 	    String xslt = "jakarta-tomcat-5.0.28/webapps/coma/style/xsl/login.xsl";

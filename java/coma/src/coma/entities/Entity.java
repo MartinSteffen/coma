@@ -7,7 +7,13 @@ package coma.entities;
  */
 public abstract class Entity {
 
-    static enum XMLMODE {DEEP, SHALLOW};
+    /**
+       All the kinds of XML representations there can be.
+
+       2005JAN03 made public because otherwise, it's hard to call
+       toXML from the outside.
+     */
+    public static enum XMLMODE {DEEP, SHALLOW};
 
     /**
        return an XML representation of this object. 

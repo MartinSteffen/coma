@@ -136,7 +136,11 @@ public class XMLHelper {
 		    result.append(' ');
 		}
 	    }
-	    result.deleteCharAt(result.length()-1);
+	    // FIXED 2005JAN03 ums: having null or empty members would
+	    // result in > being chopped off. Whoopsie!
+	    if (result.charAt(result.length()-1) == ' '){
+		result.deleteCharAt(result.length()-1);
+	    }
 	    result.append("</"+tagname+">");
 	}
 	return result;
