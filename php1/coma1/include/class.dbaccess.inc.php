@@ -2981,6 +2981,25 @@ nur fuer detaillierte?
     return $this->success();
   }
 
+  /**
+   * Fuegt einen Datensatz in die Tabelle Distribution ein.
+   *
+   * @param int $intReviewerId  ID der Person
+   * @param int $intPaperId     ID des Papers
+   * @return bool true gdw. erfolgreich
+   * @access public
+   * @author Tom (28.01.05)
+   */
+  function addDistribution($intReviewerId, $intPaperId) {
+    $s = sprintf("INSERT  INTO Distribution (reviewer_id, paper_id)".
+                 "VALUES ('%d', '%d')",
+                 s2db($intReviewerId), s2db($intPaperId));
+    $result = $this->mySql->insert($s);
+    if ($this->mySql->failed()) {
+      return $this->error('addDistribution', $this->mySql->getLastError());
+    }
+    return $this->success();
+  }
 
   // ---------------------------------------------------------------------------
   // Definition der Delete-Funktionen
@@ -3285,6 +3304,21 @@ nur fuer detaillierte?
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteExcludesPaper', $this->mySql->getLastError());
+    }
+    return $this->success();
+  }
+
+  /**
+   */
+  function deleteDistribution($intReviewerId, $intPaperId) {
+    $s = sprintf("DELETE   FROM Distribution".
+                 " WHERE   reviewer_id = '%d'".
+                 " AND     paper_id = '%d'",
+                           s2db($intReviewerId),
+                           s2db($intPaperId));
+    $result = $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('deleteDistribution', $this->mySql->getLastError());
     }
     return $this->success();
   }

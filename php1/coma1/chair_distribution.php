@@ -24,7 +24,6 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-$s = '';
 if (!isset($_SESSION['dist'])) {
   redirect('chair_reviews.php');
 }
@@ -32,17 +31,16 @@ if (isset($_POST['confirm'])) {
   $dist = $_SESSION['dist'];
   reset($dist);
   while ($pid = key($dist)) {
-    $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($dist[$pid]); $j++) {
       if ($dist[$pid][$j]['status'] != ASSIGNED) {
-        $s .= ' '.$dist[$pid][$j]['reviewer_id'].'/'.$dist[$pid][$j]['status'];
-        if(!isset($_POST['p'.$pid.'ridx'.$j])) {
-          $dist[$pid][$j] = false;
+        if(isset($_POST['p'.$pid.'ridx'.$j])) {
+          $myDBAccess->addDistribution($dist[$pid][$j]['reviewer_id'], $pid);
+          if ($myDBAccess->failed()) {
+            error('Error occured while adding distribution data.', $myDBAccess->getLastError());
+          }
         }
       }
-      else $s .= ' ass';
     }
-    $s .= '<br>Length of dist['.$pid.']: '.count($dist[$pid]);
     next($dist);
   }
 }
@@ -79,9 +77,6 @@ if (!empty($dist)) {
     $strReviewersAssocs = defaultAssocArray();
     $arrReviewers = $dist[$objPaper->intId];
     for ($i = 0; $i < count($arrReviewers); $i++) {
-      if ($arrReviewers[$i] == false) {
-        continue;
-      }
       $objReviewer = $myDBAccess->getPerson($arrReviewers[$i]['reviewer_id']);
       if ($myDBAccess->failed()) {
         error('get suggested reviewer',$myDBAccess->getLastError());
@@ -124,7 +119,7 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Distribution suggestion:<br>'.$s;
+$strMainAssocs['title'] = 'Distribution suggestion';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers';
