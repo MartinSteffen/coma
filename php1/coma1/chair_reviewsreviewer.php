@@ -99,7 +99,7 @@ if (!empty($r_id)) {
     foreach ($objTopics as $objTopic) {
       if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
         $strItem2Assocs = defaultAssocArray();
-        $strItem2Assocs['topic'] = $objTopic->strName;
+        $strItem2Assocs['topic'] = $objTopic->strName.'NAME';
         $strItem2Assocs['if'] = array(0);
         for ($i = 0; $i < count($objPaper->objTopics); $i++) {
           if ($objTopic->intId == $objPaper->objTopics[$i]->intId) {
