@@ -24,6 +24,9 @@ require_once('./include/header.inc.php');
   if (isset($_SESSION['uid'])) {
     unset($_SESSION['uid']);
   }
+  if (isset($_SESSION['confid'])) {
+    unset($_SESSION['confid']);
+  }
   $_SESSION['message'] = 'Erfolgreich abgemeldet!';
 
 redirect('index.php');

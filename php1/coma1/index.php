@@ -35,20 +35,19 @@ else {
 
   $strMainAssocs['content'] = '';
 
-  if (isset($_SESSION['message'])) {
+  if(isset($_SESSION['message'])) {
     $strMessage = $_SESSION['message'];
     unset($_SESSION['message']);
-   }
-   else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
+  }
+  else if( isset($_SESSION['uid']) || isset($_SESSION['password'])) {
     $strMessage = 'Sie sind bereits eingeloggt !!! <BR>'
                  .'Bitte <a href="logout.php"> ausloggen </a> oder zur&uuml;ck '
                  .'zur <a  href="start.php"> Startseite</a>';
     $strMainAssocs['body'] = & $emptyPage;
-   }
-   else {
+  }
+  else {
     $strMessage = '';
     $strMainAssocs['content'] = ' <h2 align="center"> Bitte Einloggen oder Registrieren </h2>';
-
   }
 
   $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
