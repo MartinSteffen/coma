@@ -14,6 +14,25 @@ if (!defined('INCPATH')) {
 }
 require_once(INCPATH.'class.mysql.inc.php');
 
+/*
+ * ACHTUNG: aktuellste Version der Tabelle in Spezifikation
+ *          hier nur zur schnellen Referenz!
+ *
+ *
+--
+-- Tabellenstruktur für Tabelle 'Session'
+-- sid normalerweise 128 oder 160
+--
+CREATE TABLE IF NOT EXISTS Session (
+  sid VARCHAR(255) NOT NULL DEFAULT '',
+  sname VARCHAR(25) NOT NULL DEFAULT '',
+  sdata TEXT,
+  stime TIMESTAMP(14) NOT NULL,
+  PRIMARY KEY  (sid, sname),
+  KEY stime (stime)
+) TYPE=MyISAM COMMENT='Session-Verwaltung';
+*/
+
 /**
  * Klasse Session
  *
