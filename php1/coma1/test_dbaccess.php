@@ -46,13 +46,13 @@ for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
 //$p->intCoAuthorIds[] = $p->intCoAuthorIds[0];
 //$p->strCoAuthors[] = false;
 //$p->intCoAuthorIds[0] = false;
-//$p->strCoAuthors[0] = false;*/
+//$p->strCoAuthors[0] = false;
 $myDBAccess->updatePaperDetailed($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 echo('OK');
-*/
+
 /*$id = $myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
                            '', '', '', '', '', '', '', '', '');
 if ($myDBAccess->failed()) {
