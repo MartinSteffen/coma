@@ -18,32 +18,6 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <h3 style="text-align:center">Java Conference Manager</h3>
 </div>
 
-<!-- status-line -->
-<div class="status-line">
-<xsl:apply-templates select = "/result/login/status"/>
-<xsl:apply-templates select = "/result/email/status"/>
-<xsl:apply-templates select = "/result/invite/status"/>
-<xsl:apply-templates select = "/result/show_papers/status"/>
-<xsl:apply-templates select = "/result/showauthors/status"/>
-<xsl:apply-templates select = "/result/showreviewers/status"/>
-<xsl:apply-templates select = "/result/showreviewers_data/status"/>
-<xsl:apply-templates select = "/result/showauthors_data/status"/>
-<xsl:apply-templates select = "/result/setup/status"/>
-<xsl:apply-templates select = "/result/setup_topics/status"/>
-<xsl:apply-templates select = "/result/show_topics/status"/>
-<xsl:apply-templates select = "/result/show_criterions/status"/>
-<xsl:apply-templates select = "/result/criteria/status"/>
-<xsl:apply-templates select = "/result/criterion_add/status"/>
-<xsl:apply-templates select = "/result/save_initial/status"/>
-<xsl:apply-templates select = "/result/add_topics/status"/>
-<xsl:apply-templates select = "/result/invitation_send/status"/>
-<xsl:apply-templates select = "/result/assign/status"/>
-<xsl:apply-templates select = "/result/criterion_change/status"/>
-<xsl:apply-templates select = "/result/program/status"/>
-<xsl:apply-templates select = "/result/proshow/status"/>
-<xsl:apply-templates select = "/result/statistic/status"/>
-</div>
-<!-- status-line end -->
 
 <!-- Site navigation menu -->
 <xsl:call-template name="navcolumn"/>
@@ -79,6 +53,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="/result/login/content">
+<xsl:apply-templates select = "/result/login/status"/><br/>
 <xsl:if test="//abstract">
 <xsl:value-of select="//abstract"/><br/>
 </xsl:if>
@@ -97,6 +72,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="/result/criterion_change/content">
+<xsl:apply-templates select = "/result/criterion_change/status"/>
 <form method="post">
 <xsl:attribute name = "action">Chair?action=criterion&amp;target=criteria&amp;
 criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/content/id"/>
@@ -148,6 +124,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/statistic/content">
+<xsl:apply-templates select = "/result/statistic/status"/>
 <h4 style="color_black">Statistic for this Conference</h4> 
 <table class="chair" cellpadding="5">
 <tr>
@@ -224,6 +201,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 
 <xsl:template match="/result/criteria/content">
+<xsl:apply-templates select = "/result/criteria/status"/><br/>
 <table class="chair">
 <xsl:if test="/result/criteria/content/criterion">
 <tr>
@@ -282,6 +260,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/criterion_add/content">
+<xsl:apply-templates select = "/result/criterion_add/status"/>
 <form method="post" action="Chair?action=criterion&amp;target=criteria&amp;criterion_target=save">
 <table class="chair">
 <tr>
@@ -330,6 +309,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/show_topics/content">
+<xsl:apply-templates select = "/result/show_topics/status"/>
 <table class="chair">
 <tr>
 	<th> Name
@@ -353,6 +333,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 
 <xsl:template match="/result/show_criterions/content">
+<xsl:apply-templates select = "/result/show_criterions/status"/>
 <table class="chair" cellpadding="5">
 <tr>
 	<th> Name
@@ -388,6 +369,8 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 
 <xsl:template match="/result/invite/content">
+<xsl:apply-templates select = "/result/invite/status"/>
+<xsl:apply-templates select = "/result/invitation_send/status"/>
 	<div class="formular">
 		<form action="Chair?action=send_invitation" method="post">
 		<table style="color:black">
@@ -451,6 +434,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/showauthors/content">
+<xsl:apply-templates select = "/result/showauthors/status"/>
 	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
@@ -481,6 +465,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/showauthors_data/content">
+<xsl:apply-templates select = "/result/showauthors_data/status"/>
 	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
@@ -506,7 +491,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 							</td>
 							<td width="200">
 								<a>
-                                                                  <xsl:attribute name = "href">papers/<xsl:value-of select="filename"/><!--.<xsl:value-of select="mim_type"/>-->
+									<xsl:attribute name = "href">papers/<xsl:value-of select="filename"/><!--.<xsl:value-of select="mim_type"/>-->
 									</xsl:attribute>
 								<xsl:value-of select="title"/>
 								</a>
@@ -583,6 +568,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/showreviewers/content">
+<xsl:apply-templates select = "/result/showreviewers/status"/>
 	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
@@ -614,6 +600,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 
 <xsl:template match="/result/showreviewers_data/content">
+<xsl:apply-templates select = "/result/showreviewers_data/status"/>
 	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
@@ -637,7 +624,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 							</td>
 							<td width="200">
 								<a>
-                                                                  <xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/><!--.<xsl:value-of select="paper/mim_type"/>-->
+									<xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/><!--.<xsl:value-of select="paper/mim_type"/>-->
 									</xsl:attribute><xsl:value-of select="paper/title"/>
 								<xsl:value-of select="title"/>
 								</a>
@@ -722,6 +709,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 
 <xsl:template match="/result/show_papers/content">
+<xsl:apply-templates select = "/result/show_papers/status"/>
 <table class="chair" cellpadding="2">
 <thead>
 <tr align="center">
@@ -737,7 +725,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 <tr>
 	<td>
 		<a>
-                  <xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/><!--.<xsl:value-of select="paper/mim_type"/>-->
+			<xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/>.<xsl:value-of select="paper/mim_type"/>
 			</xsl:attribute>
 			<xsl:value-of select="paper/title"/>
 			</a>
@@ -746,9 +734,9 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
    <td>
    	<xsl:value-of select="paper/state"/>
    </td>
-   <td>
+  <!-- <td>
    	<xsl:value-of select="avg"/>
-   </td>
+   </td>-->
    <td>
    	<a>
 		<xsl:attribute name = "href">Chair?action=assign&amp;id=<xsl:value-of select="paper/id"/></xsl:attribute>
@@ -764,6 +752,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 
 <xsl:template match="/result/assign/content">
+<xsl:apply-templates select = "/result/assign/status"/>
 <h5 align="left" style="color:black"><u>Paper:</u></h5>
 <table class="chair" cellpadding="5">
 	<thead>
@@ -903,6 +892,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 <!-- EMAIL-Darstellung-->
 <xsl:template match="/result/email/content">
+<xsl:apply-templates select = "/result/email/status"/>
 <form action="Chair?action=send_email" method="post">
 <table style="color:black">
 <tr>
@@ -951,6 +941,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/program/content">
+<xsl:apply-templates select = "/result/program/status"/>
 <h4 align="left" style="color:black">Paper</h4>
 <form method="POST" action="Chair?action=programCommit">	
 <table class="chair" cellpadding="5">
@@ -1003,7 +994,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 
 <xsl:template match="/result/proshow/content">
-
+<xsl:apply-templates select = "/result/proshow/status"/>
 <table class="chair" cellpadding="5">
 <xsl:for-each select="/result/proshow/content/day">
 	<tr align="center">
