@@ -56,7 +56,8 @@ class Session {
    *
    * @param MySql $mySql Ein MySql Objekt
    * @param string $strSessName Der Name der Session (default: 'sid')
-   * @param int $intMaxLifeTime Die Zeit, die die Session gueltig bleibt in Sekunden. (default: 7200)
+   * @param int $intMaxLifeTime Die Zeit, die die Session gueltig bleibt in 
+   *                            Sekunden. (default: 7200)
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
    * @see getLastError()
@@ -124,16 +125,31 @@ class Session {
 
   /**
   * @param string $strSessId Alphanumerischer Sessions-Name.
-  * @return mixed Serialisierter String wenn die Session gefunden wurde, '' wenn keine Session gefunden wurde, false bei Fehler
+  * @return mixed Serialisierter String wenn die Session gefunden wurde, '' 
+  *               wenn keine Session gefunden wurde, false bei Fehler
   * @access private
   */
   function sessionRead($strSessId) {
     $strSessId = $this->strSessName . $strSessId;
     // Check ob Session veraltet!!!
-    $results = $this->mySql->select("SELECT sdata FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName' AND UNIX_TIMESTAMP(stime)>(UNIX_TIMESTAMP(NOW())-$this->intMaxLifeTime)");
+    $sql = "SELECT  sdata ".
+          " FROM    Sessions ".
+          " WHERE   sid   = '$strSessId' ".
+          " AND     sname = '$this->strSessName' ".
+          " AND     UNIX_TIMESTAMP(stime) > (UNIX_TIMESTAMP()-'$this->intMaxLifeTime)' ";
+    $results = $this->mySql->select($sql);
     if (!$results) {
-      $this->mySql->delete("DELETE FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
-      $this->mySql->insert("INSERT INTO Sessions (sid, sname, sdata, stime) VALUES ('$strSessId', '$this->strSessName', NULL, NOW())");
+      $sql = "DELETE ".
+            " FROM  Sessions ".
+            " WHERE sid   = '$strSessId' ".
+            " AND   sname = '$this->strSessName' ";
+      $this->mySql->delete($sql);
+      $sql = "INSERT ".
+            " INTO  Sessions ".
+            "       (sid,          sname,                sdata, stime) ".
+            " VALUES ".
+            "       ('$strSessId', '$this->strSessName', NULL,  NOW()) ";
+      $this->mySql->insert($sql);
       $s = $this->mySql->getLastError();
       if (!empty($s)) {
         return $this->error('Fehler beim Schreiben der Session. '.$s);
@@ -153,7 +169,12 @@ class Session {
   */
   function sessionWrite($strSessId, $strData) {
     $strSessId = $this->strSessName . $strSessId;
-    $this->mySql->update("UPDATE Sessions SET sdata='$strData', stime=NOW() WHERE sid='$strSessId' AND sname='$this->strSessName'");
+    $sql = "UPDATE  Sessions ".
+          " SET     sdata = '$strData', ".
+          "         stime = NOW() ".
+          " WHERE   sid   = '$strSessId' ".
+          " AND     sname = '$this->strSessName' ";
+    $this->mySql->update($sql);
     return true;
   }
 
@@ -164,17 +185,25 @@ class Session {
   */
   function sessionDestroy($strSessId) {
     $strSessId = $this->strSessName . $strSessId;
-    $this->mySql->delete("DELETE FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
+    $sql = "DELETE ".
+          " FROM  Sessions ".
+          " WHERE sid   = '$strSessId' ".
+          " AND   sname = '$this->strSessName' ";
+    $this->mySql->delete($sql);
     return true;
   }
 
   /**
-  * @param int $intMaxLifeTime Maximale Zeit die eine Session gespeichert werden soll
+  * @param int $intMaxLifeTime Maximale Zeit die eine Session gespeichert wird
   * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
   * @access private
   */
   function sessionGC($intMaxLifeTime) {
-    $this->mySql->delete("DELETE FROM Sessions WHERE UNIX_TIMESTAMP(stime)<(UNIX_TIMESTAMP(NOW())-$intMaxLifeTime) AND sname='$this->strSessName'");
+    $sql = "DELETE ".
+          " FROM  Sessions ".
+          " WHERE sname = '$this->strSessName' ".
+          " AND   UNIX_TIMESTAMP(stime) < (UNIX_TIMESTAMP()-$intMaxLifeTime) ";
+    $this->mySql->delete($sql);
     return true;
   }
 
