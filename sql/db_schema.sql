@@ -1,12 +1,12 @@
----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
 -- Skript zur Erstellung der gemeinsamen DB
 -- erstellt von Tom, 16.12.04, auf Basis von db_schema.txt V. 816
----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
 -- Bemerkungen:
 -- - optionale Felder werden mit erzeugt (ohne NOT-NULL-Bedingung)
 -- - Fremdschluesselbeziehungen und optionale Tabellen muessen durch
 --   zusaetzliche Skripte erzeugt werden
----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
 -- Aenderungen im Vergleich zu db_schema.txt V. 816:
 -- - Role: Primaerschluessel geaendert
 -- - IsCoAuthorOf: NOT-NULL-Constraint bei name entfernt (Redundanz, falls
@@ -16,12 +16,12 @@
 -- - PrefersTopic: Primaerschluessel hinzugefuegt
 -- - PrefersPaper/DeniesPaper/ExcludesPaper: Primaerschluessel hinzugefuegt
 -- - Rating: Primaerschluessel hinzugefuegt
----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
 -- Fragen / Diskussion:
 -- - ReviewReport: Wozu id? Primaerschluessel waere ebensogut
 --   (paper_id, reviewer_id). Dann braeuchte man aber bei FK-Verweis auf
 --   ReviewReport ueber review_id den Verweis auf (paper_id, reviewer_id).
----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
 
 CREATE TABLE Conference
 (
@@ -47,7 +47,7 @@ CREATE TABLE Person
    last_name    VARCHAR(127) NOT NULL,
    title        VARCHAR(32),
    affiliation  VARCHAR(127),
-   email        VARCHAR(127) UNIQUE NOT NULL,
+   email        VARCHAR(127) UNIQUE NOT NULL, -- UNIQUE wird ignoriert (?)
    phone_number VARCHAR(20),
    fax_number   VARCHAR(20),
    street       VARCHAR(127),
