@@ -22,7 +22,7 @@ $reviewers = $report['reviewers'];
   </tr>
   <tr> 
     <td class="textBold" align="left" valign="top" width="117">Author</td>
-    <td class="text" align="left" valign="top"> <a href="index.php?m=chair&a=users&s=user&userID=<? echo $paper['authorID'] ?>" class="normal"> 
+    <td class="text" align="left" valign="top"> <a href="index.php?m=chair&a=users&s=user&personID=<? echo $paper['authorID'] ?>" class="normal"> 
       <? echo $paper['authorName'] ?>
       </a> </td>
     <td class="text" align="left" valign="top" width="257"><a href="index.php?m=chair&a=papers&s=allPapersOfUser&userID=<? echo $paper['authorID'] ?>" class="normal">List 

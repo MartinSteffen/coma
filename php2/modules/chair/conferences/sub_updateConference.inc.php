@@ -10,7 +10,7 @@ if(isChair_Conference($_POST['confID']))
 		$description = $_POST['description'];
 		if ($_POST['abstractSubmissionHidden'] == "")
 		{
-			$abstractSubmission = NULL;
+			$abstractSubmission = "NULL";
 		}
 		else
 		{
@@ -19,7 +19,7 @@ if(isChair_Conference($_POST['confID']))
 		
 		if ($_POST['paperSubmissionHidden'] == "")
 		{
-			$paperSubmission = NULL;
+			$paperSubmission = "NULL";
 		}
 		else
 		{
@@ -28,7 +28,7 @@ if(isChair_Conference($_POST['confID']))
 		
 		if ($_POST['reviewSubmissionHidden'] == "")
 		{
-			$reviewSubmission = NULL;
+			$reviewSubmission = "NULL";
 		}
 		else
 		{
@@ -37,7 +37,7 @@ if(isChair_Conference($_POST['confID']))
 		
 		if ($_POST['finalVersionHidden'] == "")
 		{
-			$finalVersion = NULL;
+			$finalVersion = "NULL";
 		}
 		else
 		{
@@ -46,7 +46,7 @@ if(isChair_Conference($_POST['confID']))
 		
 		if ($_POST['notificationHidden'] == "")
 		{
-			$notification = NULL;
+			$notification = "NULL";
 		}
 		else
 		{
@@ -55,7 +55,7 @@ if(isChair_Conference($_POST['confID']))
 		
 		if ($_POST['conferenceStartHidden'] == "")
 		{
-			$conferenceStart = NULL;
+			$conferenceStart = "NULL";
 		}
 		else
 		{
@@ -64,7 +64,7 @@ if(isChair_Conference($_POST['confID']))
 		
 		if ($_POST['conferenceEndHidden'] == "")
 		{
-			$conferenceEnd = NULL;
+			$conferenceEnd = "NULL";
 		}
 		else
 		{
@@ -86,7 +86,7 @@ if(isChair_Conference($_POST['confID']))
 		conference_end = $conferenceEnd,
 		min_reviews_per_paper = $minimum
 		WHERE id = ".$_POST['confID'];
-		
+
 		$result=mysql_query($SQL);
 	}
 	redirect("chair","conferences","conference","confID=".$_POST['confID']);

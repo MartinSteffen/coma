@@ -19,8 +19,17 @@ if(isChair_Paper($_GET['paperID']))
 	{	
 		$paper['paperID'] = $_GET['paperID'];
 		$paper['paperName'] = $list[0];
-		$paper['paperDesc'] = $list[1];	
-		$paper['lastEdited'] = date("j F Y" , strtotime($list[2]));
+		$paper['paperDesc'] = $list[1];
+		
+	    if($list[2] == NULL)
+	    {
+		 	$paper['lastEdited'] = NULL;   
+	    }
+	    else
+	    {
+	 	   $paper['lastEdited'] = date("j F Y" , strtotime($list[2]));   
+	    }		
+			
 		$paper['version'] = $list[3];
 		$paper['stateID'] = $list[4];
 		if($list[4]==0)
@@ -131,7 +140,7 @@ $output['paper'] = $paper;
 			$ratings[$ratingCount] = $rating;
 			$ratingCount++;
 		}
-		if($CriterionCount == $ratingCount)
+		if (($CriterionCount == $ratingCount) & ($CriterionCount > 0))
 		{
 			$reviewer['totalGrade'] = ($totalGrade/100)."%";
 			$reviewer['totalGradeColor'] = "textGreen";
