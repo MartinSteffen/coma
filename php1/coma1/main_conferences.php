@@ -19,6 +19,7 @@ $content = new Template(TPLPATH.'conference_list.tpl');
 $strContentAssocs = defaultAssocArray();
 
 $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
+$strItemAssocs = defaultAssocArray();
 
 $objConferences = $myDBAccess->getAllConferences();
 $strContentAssocs['lines'] = '';  
@@ -26,7 +27,6 @@ if (!empty($objConferences)) {
   $lineNo = 1;
   $strContentAssocs['if'] = array();  
   foreach ($objConferences as $objConference) {
-    $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['confid'] = $objConference->intId;
     $strItemAssocs['name'] = $objConference->strName;
