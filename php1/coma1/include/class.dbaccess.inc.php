@@ -222,6 +222,8 @@ class DBAccess {
         ' WHERE   c.id = '.$_SESSION['confid'];
     $data = $this->mySql->select($s);
     if (!empty($data)) {
+      // hier: Fehler, wenn kein Kriterium bzw. Topic festgelegt wurde (eigentlich Unsinn!)
+      /*
       $objCriterions = $this->getCriterionsOfConference();
       if (empty($objCriterions)) {
         return $this->error('getConferenceDetailed '.$this->getLastError());
@@ -230,6 +232,11 @@ class DBAccess {
       if (empty($objTopics)) {
         return $this->error('getConferenceDetailed '.$this->getLastError());
       }
+      */
+      // erstmal: schweigend hinnehmen
+      $objCriterions = $this->getCriterionsOfConference();
+      $objTopics = $this->getTopicsOfConference();
+
       return (new ConferenceDetailed($data[0]['id'], $data[0]['name'], $data[0]['homepage'],
                     $data[0]['description'], $data[0]['conference_start'],
                     $data[0]['conference_end'], $data[0]['abstract_submission_deadline'],
