@@ -14,6 +14,15 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
+// Pruefe Zugriffsberechtigung auf die Seite
+$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'));
+if ($myDBAccess->failed()) {
+  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+}
+else if (!$checkRole) {
+  error('You have no permission to view this page.', '');	
+}
+
 if (isset($_GET['order'])) {
   if ((int)session('orderpapers', false) != $_GET['order']) {
     $_SESSION['orderpapers'] = $_GET['order'];

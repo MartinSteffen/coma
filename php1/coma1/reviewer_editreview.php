@@ -27,6 +27,15 @@ else if (empty($objReview)) {
   error('Review does not exist in database.', '');
 }
 
+// Pruefe Zugriffsberechtigung auf die Seite
+$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER);
+if ($myDBAccess->failed()) {
+  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+}
+else if (!$checkRole || !($objReview->intReviewerId == session('uid'))) {
+  error('You have no permission to view this page.', '');	
+}
+
 // Aktualisiere Review mit den mitgeschickten Daten
 if (isset($_POST['action'])) {  
   $objReview->strSummary      = $_POST['summary'];

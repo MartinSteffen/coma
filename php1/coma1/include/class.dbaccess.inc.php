@@ -556,6 +556,34 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Prueft, ob die Person $intPersonId in der Konferenz $intConferenceId die
+   * Rolle $intRoleType besitzt.
+   *
+   * @param int $intPersonId ID der Person
+   * @param int $intConferenceId ID der Konferenz
+   * @param int $intRoleType Wert der Rolle (CHAIR, AUTHOR, REVIEWER, PARTICIPANT),
+   *                         0 = irgendeine Rolle
+   * @return Person true gdw. die Person in der Konferenz die Rolle besitzt.
+   * @access public
+   * @author Sandro (27.01.05)
+   */
+  function hasRoleInConference($intPersonId, $intConferenceId, $intRoleType) {
+    $s = sprintf("SELECT   role_type, state".
+                 " FROM    Role".
+                 " WHERE   person_id = '%d'".
+                 " AND     conference_id = '%d'".                 
+                 ($intRoleType != 0 ? " AND     role_type = '%d'" : ""),
+                           s2db($intPersonId),
+                           s2db($intConferenceId),
+                           s2db($intRoleType));
+    $role_data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('hasRoleInConference', $this->mySql->getLastError());
+    }    
+    return $this->success(!empty($role_data));
+  }
+
+  /**
    * Liefert das PaperSimple-Objekt mit der ID $intPaperId zurueck.
    *
    * @param int $intPaperId ID des Papers

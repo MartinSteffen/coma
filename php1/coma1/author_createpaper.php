@@ -28,6 +28,15 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 
+// Pruefe Zugriffsberechtigung auf die Seite
+$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), AUTHOR);
+if ($myDBAccess->failed()) {
+  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+}
+else if (!$checkRole) {
+  error('You have no permission to view this page.', '');	
+}
+
 $content = new Template(TPLPATH.'create_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 
