@@ -164,8 +164,39 @@ function chair_task()
 			$count++;
 		}
 	}
+	
+	//Find the new conferences that have no dates  ----------------------------------
+	$SQL = "select conference.id, conference.name
+			from conference,role
+			where role.role_type = 2
+			and role.state = 1
+			and role.person_id = ".$_SESSION['userID']."
+			and role.conference_id = conference.id
+			and (
+			(conference.abstract_submission_deadline = '1970-01-01') OR
+			(conference.paper_submission_deadline = '1970-01-01') OR
+			(conference.review_deadline = '1970-01-01') OR
+			(conference.final_version_deadline = '1970-01-01') OR
+			(conference.notification = '1970-01-01') OR
+			(conference.conference_start = '1970-01-01') OR
+			(conference.conference_end = '1970-01-01') OR
+			(conference.min_reviews_per_paper = '1970-01-01'))";
 
-	//Find the conferences that have no topics and/or no criterions -----------------------------------------
+    $result=mysql_query($SQL);
+    while ($list = mysql_fetch_row ($result))
+	{
+		$conferenceID = $list[0];
+		$conferenceName = $list[1];
+
+		    $task = array();
+			$task[] = array("text"=>"Conference", "action"=>$conferenceName);
+			$taskLink = "<a href=\"index.php?m=chair&a=conferences&s=conference&confID=$conferenceID\" class=\"normal\">This is a new conference. You must add the dates.</a>";
+			$task[] = array("text"=>"Task", "action"=>$taskLink);
+			$tasks[$count] = $task;
+			$count++;
+	}	
+
+	//Find the conferences that have no topics and/or no criterions  ----------------------------------
 	$SQL = "select conference.id, conference.name
 			from conference,role
 			where role.role_type = 2
