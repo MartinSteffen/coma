@@ -258,6 +258,8 @@ Ordner [navigation] ersichtlich. Bei der Benennung von Menue und Submenue-
 punkten sollte, soweit sinnvoll, darauf geachtet werden, dass der Dateiname
 mit der Wurzel beginnt - z.B. start_neue.
 
+4.5 Templates
+siehe Kapitel 1.4.
 
 
 ============================================================================
