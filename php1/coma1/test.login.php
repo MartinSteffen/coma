@@ -37,8 +37,7 @@ if (! isset($_SESSION['count'])) {
    $_SESSION['count']++;
 }
 
-checkError($mySession);
-
+echo SID;
 echo $_SESSION['count'];
 
 ?>
