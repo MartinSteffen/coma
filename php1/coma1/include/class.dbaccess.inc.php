@@ -1466,7 +1466,7 @@ nur fuer detaillierte?
                                       $this->s2db($objPersonDetailed->strCountry),
                                       $this->s2db($objPersonDetailed->strPhone),
                                       $this->s2db($objPersonDetailed->strFax),
-                                      $objPersonDetailed->intId);
+                                      $this->s2db($objPersonDetailed->intId));
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());
@@ -2263,7 +2263,7 @@ nur fuer detaillierte?
    * @access public
    * @author Sandro (18.12.04)
    */
-  function addMessage($strSubject, $strText, $strSenderId, $strForumId, $strReplyTo = 0) {
+  function addMessage($strSubject, $strText, $intSenderId, $intForumId, $strReplyTo = 0) {
     $strSendTime = date("d.m.Y H:i");
     $s = "INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
         "         VALUES ('$strSubject', '$strText', '$intSenderId', '$intForumId',".
