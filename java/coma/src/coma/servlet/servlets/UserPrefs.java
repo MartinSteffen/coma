@@ -136,7 +136,7 @@ public class UserPrefs extends HttpServlet {
 
     public void doPost(
 		       HttpServletRequest request,
-		       HttpServletResponse response) {
+		       HttpServletResponse response) throws Exception {
 	doGet(request, response);
     }
 
