@@ -164,11 +164,11 @@ class Template extends ErrorHandling {
    */
   function output() {
     global $_renderTime;
-    if (isset($renderTime)) {
+    if (isset($_renderTime)) {
       list($usec, $sec) = explode(" ", microtime());
       $renderTime = ((float)$usec + (float)$sec);
       $renderTime = $renderTime - $_renderTime;
-      $this->strOutput(strrplace('/RenderTime/', $renderTime, $this->strOutput));
+      $this->strOutput(str_replace('/RenderTime/', $renderTime, $this->strOutput));
     }
     print($this->strOutput);
     return $this->success();
