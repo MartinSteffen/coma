@@ -206,7 +206,7 @@ elseif ($STEP == 3) {
   if (file_exists('INSTALL.PHP')) {
     echo "    <p class=\"message-failed\">\n";
     echo "      Failed to delete file 'INSTALL.PHP'!<br>\n";
-    echo "      You have to remove the file manually before you can continue using CoMa\n";
+    echo "      You have to remove the file manually before you can continue using CoMa!\n";
     echo "    </p>\n";
   }
   else {
