@@ -27,6 +27,11 @@ function bit($b) {
 
 echo('<br>');
 
+
+$myDBAccess->addTopic(1, 'Ein Thema');
+$myDBAccess->addTopic(1, 'Zweites Thema');
+$myDBAccess->addTopic(1, 'Drittes Thema');
+$myDBAccess->addTopic(1, 'Viertes Thema');
 echo('Get<br>');
 $p = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
