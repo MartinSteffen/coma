@@ -38,7 +38,7 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
           error('Error occured while deleting distribution data', $myDBAccess->getLastError());
         }
       }
-      &myDBAccess->updatePaperStatus($pid);
+      $myDBAccess->updatePaperStatus($pid);
       if ($myDBAccess->failed()) {
         error('update paper status', $myDBAccess->getLastError());
       }
