@@ -208,17 +208,6 @@ echo 'M<br>';
 
 echo '.';
 $i = 0;
-while ($i < $papers) {
-  echo 'AT<br>';
-    $myDBAccess->addIsAboutTopic($i+1, $i/($topics+1)+1);
-    if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
-}
-  $i++;
-}
-
-echo '.';
-$i = 0;
 while ($i < $persons) {
 echo 'PT<br>';
   $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
