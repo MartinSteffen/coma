@@ -7,6 +7,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <xsl:template match="/result/setup/content" name="setup_conference">
 <xsl:if test="//setup//content">
+<xsl:apply-templates select = "/result/setup/status"/>
 <table class="chair" cellpadding="2">
 <form action="Chair?action=send_setup&amp;target=conference" method="post">
 <tr>
@@ -74,7 +75,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </tr>-->
 <tr>
 	<td>
-	min reviewer per paper:
+	min reviewer(s) per paper:
 	</td>
 	<td> 
 		<xsl:apply-templates select="/result/setup/content/conference/min"/>
@@ -159,7 +160,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </tr>
 <tr>
 	<td>
-	Abstract submission: 
+	Abstract Submission: 
 	</td>
 	<td> 
 		<xsl:apply-templates select="/result/setup/content/conference//abstract"/>
@@ -175,14 +176,14 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
   				</input>
 			</xsl:when>
 			<xsl:otherwise>	
-				deadline terminate
+				deadline terminated
 			</xsl:otherwise>
 		</xsl:choose>
 	</td>
 </tr>
 <tr>
 	<td>
-	Paper submission: 
+	Paper Submission: 
 	</td>
 	<td> 
 		<xsl:apply-templates select="/result/setup/content/conference//paper"/>
@@ -198,14 +199,14 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
   				</input>
 			</xsl:when>
 			<xsl:otherwise>	
-				deadline terminate
+				deadline terminated
 			</xsl:otherwise>
 		</xsl:choose>
 	</td>
 </tr>
 <tr>
 	<td>
-	review: 
+	Review: 
 	</td>
 	<td> 
 		<xsl:apply-templates select="/result/setup/content/conference//review"/>
@@ -221,14 +222,14 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
   				</input>
 			</xsl:when>
 			<xsl:otherwise>	
-				deadline terminate
+				deadline terminated
 			</xsl:otherwise>
 		</xsl:choose>
 	</td>
 </tr>
 <tr>
 	<td>
-	final submission:
+	Final Submission:
 	</td>
 	<td> 
 		 <xsl:apply-templates select="/result/setup/content/conference//final"/>
@@ -244,7 +245,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
   				</input>
 			</xsl:when>
 			<xsl:otherwise>	
-				deadline terminate
+				deadline terminated
 			</xsl:otherwise>
 		</xsl:choose>
 	</td>
@@ -265,6 +266,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <xsl:template match="/result/setup_topics/content" name="setup_topics">
 <xsl:if test="//setup_topics//content">
+<xsl:apply-templates select = "/result/setup_topics/status"/>
 <table class="chair">
 	<tr>
 		<th>Topic name
@@ -316,6 +318,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <xsl:template match="/result/add_topics/content" name="add_topics">
 <xsl:if test="//add_topics//content">
+<xsl:apply-templates select = "/result/add_topics/status"/>
 <table class="chair">
 	<form action="Chair?action=topic&amp;topic_target=save&amp;target=topics" method="post">
 		<xsl:for-each select="result/add_topics/content/topic">
