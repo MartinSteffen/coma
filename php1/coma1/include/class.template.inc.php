@@ -163,7 +163,7 @@ class Template extends ErrorHandling {
    *
    */
   function output() {
-    $_renderTime = chronometer();
+    $renderTime = chronometer();
     $this->strOutput = str_replace('/RenderTime/', $renderTime, $this->strOutput);
     print($this->strOutput);
     return $this->success();
