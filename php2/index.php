@@ -1,5 +1,7 @@
 <?php
 include("/includes/login.inc.php");
+include("/includes/tools.inc.php");
+include("/includes/templates.inc.php");
 session_start();
 
 /*	wenn der login mal kommt
