@@ -24,11 +24,13 @@ class Template {
   
   /**#@+@access private*/
   /**@var string*/
-  var $template='';
+  var $strTemplate='';
   /**@var string*/
-  var $errString = '';
+  var $strOutput='';
+  /**@var string*/
+  var $strError = '';
   /**@var array*/
-  var $assocArray = array();
+  var $strAssocs = array();
   /**#@-*/
   
   /**
@@ -36,14 +38,14 @@ class Template {
    *
    * Der Konstruktor liest eine Template Datei ein.
    * 
-   * @param string $filename Der Dateiname des Templates
+   * @param string $strFilename Der Dateiname des Templates
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
    * @see getLastError()
    *
    */
-  function Template($filename) {
-    return $this->readTemplate($filename);
+  function Template($strFilename) {
+    return $this->readTemplate($strFilename);
   }
 
   /**
@@ -52,19 +54,19 @@ class Template {
    * Die Methode liest ein (neues) Template ein.
    * Sollte nicht verwendet werdem, stattdessen besser neues Objekt erzeugen!
    * 
-   * @param string $filenmae Der Dateiname des Templates
+   * @param string $strFilename Der Dateiname des Templates
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
    * @see getLastError()
    * @access protected
    *
    */
-  function readTemplate($filename) {
-    $contents = file_get_contents($filename);
-    if (empty($contents)) {
-      return $this->error("Could not read Template [$filename]");
+  function readTemplate($strFilename) {
+    $strContents = file_get_contents($strFilename);
+    if (empty($strContents)) {
+      return $this->error("Could not read Template [$strFilename]");
     }
-    $this->template = $contents;
+    $this->strTemplate = $strContents;
     return true;
   }
   
@@ -80,18 +82,18 @@ class Template {
    * </code>
    * Hierbei wird das Tag {key} durch den Wert "wert" ersetzt.
    * 
-   * @param array $assocArray Das Array mit Zuweisungen
+   * @param array $strAssocs Das Array mit Zuweisungen
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
    * @see getLastError()
    * @access public
    *
    */
-  function assign($assocArray) {
-    if(!is_array($assocArray)) {
+  function assign($strAssocs) {
+    if(!is_array($strAssocs)) {
       return $this->error('Not an Array');
     }
-    $this->assocArray = array_merge($this->assocArray, $assocArray);
+    $this->strAssocs = array_merge($this->strAassocs, $strAssocs);
     return true;
   }
   
@@ -101,17 +103,29 @@ class Template {
    * Die Methode uebernimmt das tatsächliche Parsen des Templates.
    * Alle mit assign uebergebenen Ersetzungenw erden durchgefuehrt.
    * 
-   * @return string Das Template mit ersetzen Tags
+   * @return true Erfolg
    * @access public
    *
    */
   function parse() {
-    $template = $this->template;
-    $assocArray = $this->assocArray;
-    $keyArray = array_keys($assocArray);
-    $keyArray = array_map(create_function('$s', 'return "<{" . $s . "}>";'), $keyArray);
-    $template = preg_replace($keyArray, array_values($assocArray), $template);
-    return $template;
+    $strKeys = array_keys($this->strAssocs);
+    $strKeys = array_map(create_function('$s', 'return "<{" . $s . "}>";'), $strKeys);
+    $this->strOutput = preg_replace($strKeys, array_values($strAssocs), $this->strTemplate);
+    return true;
+  }
+  
+  /**
+   * Ausgabe
+   *
+   * Die Methode gibt ein (geparstet) Template aus.
+   * 
+   * @return true Erfolg
+   * @access public
+   *
+   */
+  function print() {
+    print($this->strOutput);
+    return true;
   }
   
   /**
@@ -126,7 +140,7 @@ class Template {
    *
    */
   function error($text='') {
-    $this->errString = $text;
+    $this->strError = $text;
     return false;
   }
 
@@ -142,9 +156,9 @@ class Template {
    *
    */
   function getLastError() {
-    $errString = $this->errString;
-    $this->errString = '';
-    return $errString;
+    $strError = $this->strError;
+    $this->strError = '';
+    return $strError;
   }
 
 } // end class Template

@@ -24,7 +24,9 @@ $assocArray = array(
 
 $myTemplate->assign($assocArray);
 
-echo $myTemplate->parse();
+$myTemplate->parse();
+
+$myTemplate->print();
 
 
 ?>
