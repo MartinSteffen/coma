@@ -25,7 +25,7 @@ $conferences = 1;
 $persons = 30;
 $criterions = 3;
 $papers = $persons/2-$persons/10;
-$topics = 10;
+$topics = 6;
 
 echo '<br>Conference:<br>';
 $i = 0;
@@ -160,7 +160,7 @@ $myDBAccess->addCoAuthorName(2, 'Co Author Name');
       echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
 
-echo '<br>ReviewReports/Distribution:<br>';
+/*echo '<br>ReviewReports/Distribution:<br>';
 $j = 0;
 $reports = 0;
 while ($j < $papers) {
@@ -183,7 +183,7 @@ while ($j < $papers) {
     $i++;
   }
   $j++;
-}
+}*/
 
 echo '<br>Criterions:<br>';
 $i = 0;
@@ -206,7 +206,7 @@ while ($i < $conferences) {
   $i++;
 }
 
-echo '<br>Ratings:<br>';
+/*echo '<br>Ratings:<br>';
 $i = 0;
 while ($i < $reports) {
 $j = 0;
@@ -219,7 +219,7 @@ $j = 0;
     $j++;
   }
   $i++;
-}
+}*/
 
 echo '<br>Forum:<br>';
 $i = 0;
@@ -255,7 +255,7 @@ echo '<br>PrefTopics:<br>';
 $i = 0;
 while ($i < $persons) {
 echo '.';
-  for ($k = 0; $k < min(3, $topics-1); $k++) {
+  for ($k = 0; $k < min(5, $topics-1); $k++) {
     if (rand(0,100) < 50+ ($k==0?40:0)) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
       if ($myDBAccess->failed()) {
@@ -270,7 +270,7 @@ echo '<br>PrefPapers:<br>';
 $i = 0;
 while ($i < $persons) {
 echo '.';
-  for ($k = 0; $k < min(5, $papers-1); $k++) {
+  for ($k = 0; $k < min(4, $papers-1); $k++) {
     if (rand(0,100) < 20+ ($k==0?40:0)) {
       $myDBAccess->addPrefersPaper($i+1, rand(1,$papers-1));
       if ($myDBAccess->failed()) {
@@ -285,7 +285,7 @@ echo '<br>DeniesPapers:<br>';
 $i = 0;
 while ($i < $persons) {
 echo '.';
-  for ($k = 0; $k < min(20, $papers-1); $k++) {
+  for ($k = 0; $k < min(4, $papers-1); $k++) {
     if (rand(0,100) < 20+ ($k==0?40:0)) {
       $myDBAccess->addDeniesPaper($i+1, rand(1,$papers-2));
       if ($myDBAccess->failed()) {
@@ -300,7 +300,7 @@ echo '<br>ExclPapers:<br>';
 $i = 0;
 while ($i < $persons) {
 echo '.';
-  for ($k = 0; $k < min(20, $papers-1); $k++) {
+  for ($k = 0; $k < min(3, $papers-1); $k++) {
     if (rand(0,100) < 20+ ($k==0?40:0)) {
       $myDBAccess->addExcludesPaper($i+1, rand(2,$papers-1));
       if ($myDBAccess->failed()) {
