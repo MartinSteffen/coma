@@ -2602,7 +2602,7 @@ nur fuer detaillierte?
                     $strCoAuthors, $intTopicIds) {
     $s = sprintf("INSERT  INTO Paper (conference_id, author_id, title, abstract, filename, mime_type, version, state, last_edited)".
                  "VALUES ('%d', '%d', '%s', '%s', '', '', '1', '0', '%s')",
-                 s2db($intConferenceId), s2db($intAuthorId, s2db($strTitle), s2db($strAbstract), s2db(date("Y-m-d H:i:s")));
+                 s2db($intConferenceId), s2db($intAuthorId), s2db($strTitle), s2db($strAbstract), s2db(date("Y-m-d H:i:s")));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPaper', $this->mySql->getLastError());
