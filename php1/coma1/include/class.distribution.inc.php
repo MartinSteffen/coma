@@ -168,12 +168,12 @@ class Distribution extends ErrorHandling {
       $r_id_index[$r_id[$i]] = $i; // wie bei Papern
     }
 
-    echo('<br>'.count($r_id).' Reviewers found:');
+    //echo('<br>'.count($r_id).' Reviewers found:');
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
     $initial_matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
     $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUT));
-    $color = array_fill(0, count($r_id), array_fill(0, count($p_id), 'FFFFFF'));
+    //$color = array_fill(0, count($r_id), array_fill(0, count($p_id), 'FFFFFF'));
 
     //$p_num_revs_pref_left = array_fill(0, count($p_id), 0);
     $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
@@ -201,7 +201,7 @@ class Distribution extends ErrorHandling {
         $p_num_revs[$pindex]++;
         $p_num_revs_total_left[$pindex]--;
         $r_num_papers[$i]++;
-        $color[$i][$pindex] = '999999';
+        //$color[$i][$pindex] = '999999';
       }
       // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
@@ -223,7 +223,7 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] > 0) {
           $p_num_revs_total_left[$pindex]--;
           $matrix[$i][$pindex] = 0;
-          $color[$i][$pindex] = '990000';
+          //$color[$i][$pindex] = '990000';
         }
       }
       // Abgelehnte Paper
@@ -246,7 +246,7 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] > 0) {
           $matrix[$i][$pindex] = 0;
           $p_num_revs_total_left[$pindex]--;
-          $color[$i][$pindex] = 'FF00000';
+          //$color[$i][$pindex] = 'FF00000';
         }
       }
       // Bevorzugte Themen
@@ -271,7 +271,7 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] == NEUT) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = PREF;
-          $color[$i][$pindex] = '009900';
+          //$color[$i][$pindex] = '009900';
         }
       }
       // Gewuenschte Paper
@@ -295,12 +295,12 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] >= NEUT) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = WANT;
-          $color[$i][$pindex] = '00FF00';
+          //$color[$i][$pindex] = '00FF00';
         }
       }
     }
 
-    echo('<br><br><br>');
+    //echo('<br><br><br>');
 
     // $intWantedReviewers mit Average-Werten belegen, falls nicht explizit
     // ein anderer Wert gesetzt wurde.
@@ -378,7 +378,7 @@ class Distribution extends ErrorHandling {
     // (...)
 
     // Debug: Ausgabe
-    for ($i = 0; $i < count($matrix); $i++) {
+    /*for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
         echo(' '.$matrix[$i][$j]);
@@ -410,7 +410,7 @@ class Distribution extends ErrorHandling {
     echo('<br>NumRevs:');
     print_r($p_num_revs);
     echo('<br>NumPapers:');
-    print_r($r_num_papers);
+    print_r($r_num_papers);*/
 
     // Keine gueltige Verteilung?
     for ($i = 0; $i < count($p_num_revs); $i++) {
