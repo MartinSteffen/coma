@@ -1236,7 +1236,7 @@ class DBAccess extends ErrorHandling {
     }
     $messages = array();
     for ($i = 0; $i < count($data); $i++) {
-      $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time']);
+      $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time'], 'r');
       $messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
                        $data[$i]['send_time'], $data[$i]['subject'],
                        $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
@@ -1265,7 +1265,7 @@ class DBAccess extends ErrorHandling {
     }
     $objThreads = array();
     for ($i = 0; $i < count($data); $i++) {
-      $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time']);
+      $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time'], 'r');
       $objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
                          $data[$i]['send_time'], $data[$i]['subject'],
                          $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
