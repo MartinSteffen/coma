@@ -71,8 +71,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean emailFlag = false;
 		boolean nameFlage = false;
 		boolean firstNameFlag = false;
-		boolean stateFlage = false;
-		boolean roleFlage = false;
+		boolean stateFlag = false;
+		boolean roleFlag = false;
 		if (p.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
@@ -103,7 +103,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						QUERY += " AND ";
 					}
 					QUERY += " Person.state = ?";
-					stateFlage = true;
+					stateFlag = true;
 					and = true;
 				}
 				if (p.getRole_type() > 0) {
@@ -111,12 +111,12 @@ public class ReadServiceImpl extends Service implements ReadService {
 						QUERY += " AND ";
 					}
 					QUERY += " Role.role_type = ? AND Role.person_id = Person.id";
-					roleFlage = true;
+					roleFlag = true;
 					and = true;
 				}
 			}
 		}
-		if (!(idFlag || emailFlag || nameFlage || firstNameFlag)) {
+		if (!(idFlag || roleFlag || emailFlag || stateFlag || nameFlage || firstNameFlag)) {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
@@ -139,13 +139,12 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (firstNameFlag) {
 						pstmt.setString(++pstmtCounter, p.getFirst_name());
 					}
-					if (stateFlage) {
+					if (stateFlag) {
 						pstmt.setString(++pstmtCounter, p.getState());
 					}
-					if (roleFlage) {
+					if (roleFlag) {
 						pstmt.setInt(++pstmtCounter, p.getRole_type());
 					}
-
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
@@ -360,8 +359,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
-						Paper paper = eCreater.getPaper(resSet);
-						ll.add(p);
+						Paper paper = eCreater.getPaper(resSet);;
+						ll.add(paper);
 					}
 					resSet.close();
 					resSet = null;
