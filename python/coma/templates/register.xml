@@ -12,7 +12,7 @@
     You will have to enter a working e-mail address in order to work with
     CoMa.</p>
     <form action="createaccount" method="post" enctype="multipart/form-data">
-      <table class="login">
+      <table class="register">
 	<tr class="required">
 	  <td>Your e-mail address*</td>
 	  <td><input type="text" name="email"/></td>
@@ -33,11 +33,11 @@
 	</tr>
 	<tr class="required">
 	  <td>First Name*</td>
-	  <td><input type="text" name="firstname"/></td>
+	  <td><input type="text" name="first_name"/></td>
 	</tr>
 	<tr class="required">
 	  <td>Last Name*</td>
-	  <td><input type="text" name="lastname"/></td>
+	  <td><input type="text" name="last_name"/></td>
 	</tr>
 	<tr class="required">
 	  <td>Affiliation*</td>
@@ -45,15 +45,19 @@
 	</tr>
 	<tr>
 	  <td>Phone Number</td>
-	  <td><input type="text" name="phonenumber"/></td>
+	  <td><input type="text" name="phone_number"/></td>
 	</tr>
 	<tr>
 	  <td>Fax Number</td>
-	  <td><input type="text" name="faxnumber"/></td>
+	  <td><input type="text" name="fax_number"/></td>
 	</tr>
 	<tr>
 	  <td>Street</td>
 	  <td><input type="text" name="street"/></td>
+	</tr>
+	<tr>
+	  <td>Postal Code</td>
+	  <td><input type="text" name="postal_code"/></td>
 	</tr>
 	<tr>
 	  <td>City</td>
@@ -74,6 +78,10 @@
       </p>
     </form>
     <hr/>
-    <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
+    <p>
+      <a href="http://localhost/w3c-validator/check?uri=referer">
+	Valid XHTML 1.1
+      </a>
+    </p>
   </body>
 </html>

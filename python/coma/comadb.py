@@ -6,6 +6,11 @@
 import datetime
 import re
 
+import comaconf
+
+# XXX Only for now:
+from comapsql import Connection
+
 
 
 ##############################################################################
@@ -14,7 +19,7 @@ import re
 #
 ##############################################################################
 
-def _parse_date(date):
+def parse_date(date):
     _match_date_iso = re.compile(
 	"(?P<year>\d\d|\d\d\d\d)-(?P<month>\d\d)-(?P<day>\d\d)")
     _match = _match_date_iso.match(date);
@@ -28,6 +33,21 @@ def _parse_date(date):
     if _year < 100:
 	_year += 2000
     return datetime.date(_year, _month, _day)
+
+
+
+
+
+def _required(string):
+    return "'" + string + "'"
+
+def _optional(string):
+    if string:
+	return "'" + string + "'"
+    else:
+	return 'NULL'
+
+
 
 
 
@@ -94,10 +114,37 @@ class User:
 	self.city = row[10]
 	self.state = row[11]
 	self.country = row[12]
-        self.sys_role = row[13]
+	self.sys_role = row[13]
 
     def get_title(self):
 	return title_name[self.title]
+
+    def as_query_string(self):
+	_result = ""
+	_result += "'" + self.email + "', "
+	_result += "'" + self.password + "', "
+	_result += self.title.__str__() + ', '
+	_result += "'" + self.firstname + "', "
+	_result += "'" + self.lastname + "', "
+	_result += "'" + self.affiliation + "', "
+	_result += _optional(self.phone_number) + ', '
+	_result += _optional(self.fax_number) + ', '
+	_result += _optional(self.street) + ', '
+	_result += _optional(self.postal_code) + ', '
+	_result += _optional(self.city) + ', '
+	_result += _optional(self.state) + ', '
+	_result += _optional(self.country) + ', '
+	if self.sys_role:
+	    _result += "B'"
+	    for each in self.sys_role:
+		if each:
+		    _result += '1'
+		else:
+		    _result += '0'
+	    _result += "'"
+	else:
+	    _result += "DEFAULT"
+	return _result
 
 
 
@@ -171,4 +218,35 @@ class Paper(Forum):
 
 
 
+class DataBase:
+    """This abstracts from the implementation of a data base and provides
+    a unified interface to the rest of the tool."""
 
+    def __init__(self):
+	"""Create a new database connection"""
+	self.connection = Connection()
+
+    def get_user_by_mail(self, email):
+	"""Get a user by his e-mail address."""
+	_rows = self.connection.query(
+	    "SELECT * FROM users WHERE email = '%s';" % (email))
+	if _rows and _rows[0]:
+	    return User(_rows[0])
+	else:
+	    return None
+
+    def put_user(self, user):
+	"""Insert a user into the database"""
+	_result = self.connection.query(
+	    """INSERT INTO users (email, password, title, first_name,
+	    last_name, affiliation, phone_number, fax_number, street,
+	    postal_code, city, state, country, sys_role) VALUES (%s)""" %
+	    (user.as_query_string()))
+
+
+
+
+
+def get_database_connection():
+    """Get a database connection"""
+    return DataBase()

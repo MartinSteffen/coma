@@ -1,44 +1,37 @@
 #!/usr/bin/python
 #
-# This is the main cgi script.
-#
-import cgi
+
+"""This is the main library of coma.  Most methods and functions are
+defined here, except for the data base part.  This is defined in the
+module comadb"""
+
 import sys
-import session
+import comaconf
 import comadb
+import random
+
+from mod_python import Session
 
 
 
 
-# The mimetype 'application/xhtml+xml' yields somewhat broken results.
-#
-def process_template(file, dictionary, mimetype = 'text/html'):
-    """Read a template xml file, process it, and then print it."""
-    template = open(file).read()
-    print "Content-Type: %s" % (mimetype)
-    print
-    print template % dictionary
+# XXX: The mimetype 'application/xhtml+xml' yields somewhat broken results.
 
-def redirect(uri):
-    """Redirect to a page given by uri."""
-    print """HTTP/1.1 201 Created
-Location: %(uri)s
-Content-Type: text/html
+def process_template(req, file, dictionary = { }, mimetype = 'text/html'):
+    """Read a template xml file, process it, and return it."""
+    req.content_type = mimetype
+    return open(comaconf.templates + '/' + file).read() % dictionary
 
-<?xml version="1.0" encoding="UTF-8"?>
-<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-  <head>
-    <title>COMA Redirection</title>
-    <meta http-equiv="Refresh" content="0; url=%(uri)s"/>
-  </head>
-  <body onload="try { self.location.href='%(uri)s' } catch (e) { }">
-    <p>
-      If your browser does not support automatic redirection, follow this
-      <a href="%(uri)s">link</a>.
-    </p>
-</html>""" % { 'uri' : uri }
-    sys.exit(0)
+
+
+
+
+def send_mail(sender, receiver, file, dictionary = { }):
+    """Process a template and send it as an email to the receiver."""
+    mailbody = open(comaconf.templates + '/' + file).read() % dictionary
+    conn = smtplib.SMTP(comaconf.smtpserver)
+    conn.sendmail(comaconf.administrator, [email], mailbody)
+    conn.quit()
 
 
 
@@ -54,9 +47,9 @@ def download_paper(filename, localname, mimetype = 'application/octet-stream'):
     """
     _stat = os.stat(localname)
     if _stat:
-        length = _stat.st_size
+	length = _stat.st_size
     else:
-        redirect("download-error.xml")
+	redirect("download-error.xml")
 
     print """Pragma: public
 Expires: 0
@@ -67,8 +60,8 @@ Content-Type: %(mimetype)s
 Content-Disposition: attachement; filename="%(filename)s";
 Content-Transfer-Encoding: binary
 Content-Length: %(length)d""" % { 'mimetype' : mimetype,
-                                  'filename' : filename,
-                                  'length' : length }
+				  'filename' : filename,
+				  'length' : length }
     print
     sys.stdout.write(open(localname, 'rb').read())
 
@@ -76,66 +69,128 @@ Content-Length: %(length)d""" % { 'mimetype' : mimetype,
 
 
 
-def build_action(label, action, session):
-    return ('<tr><td><a href="%s.py?session=%s">%s</a></td></tr>' %
-	    (action, session.id, label))
+def build_action(label, action, clss = None):
+    if clss:
+	return ('<tr class="%s"><td><a href="%s">%s</a></td></tr>' %
+		(clss, action, label))
+    else:
+	return '<tr><td><a href="%s">%s</a></td></tr>' % (action, label)
 
 
 
 
-
-def setup_actions(sid, user = None, role = None):
-    assert sid
-    if not sid.user:
-	_result  = build_action('Log In', 'login', sid)
-	_result += build_action('Create Account', 'new-account', sid)
-	return _result
-    # User logged in.
-    assert user and sid.user == user.email and sid.user <> 'None'
-    _result  = build_action('Log Out', 'logout', sid)
-    _result += build_action('Participate in Conference', 'conference', sid)
-    # _result += build_action('View Papers', 'list-papers', sid)
-    if role:
-        assert role and sid.conference == role.conference and \
-            sid.conference == 'None'
-        if role.role[3]:  # The user is an author of this conference.
-            _result += build_action('Submit Paper', 'paper-new', sid)
-            _result += build_action('Update Submission', 'paper-edit', sid)
-            _result += build_action('View Review', 'paper-new', sid)
-	if role.role[2]:  # The user is a programm commitee member.
-            _result += build_action('Update Review', 'review-edit', sid)
-        if role.role[1]:  # The user is a programm chair.
-            _result += build_action('Assign Review', 'review-assign', sid)
-        if role.role[0]:  # The user is the administrator of the conference.
-            _result += build_action('Edit User', 'conf-user-edit', sid)
-    if user.sys_role[0]:  # The user has the right to view and modify users.
-	_result += build_action('Edit Users', 'user-edit', sid)
-    if user.sys_role[1]:  # The user has the right to create a new conference.
-        _result += build_action('Create a Conference', 'new-conference', sid)
+def action_menu(user = None):
+    """Create an action menu."""
+    _result = ""
+    if not user:
+	_result += build_action('Log In', 'login', 'guest')
+	_result += build_action('Register', 'register', 'guest')
+    elif user.email <> 'None':
+	_result += build_action('Log Out', 'logout', 'user')
+	_result += build_action('Participate in Conference', 'participate',
+				'user')
+	if user.role.role[3]:
+	    _result += build_action('Submit Paper', 'submit', 'author')
+	    _result += build_action('View Papers', 'list_paper', 'author')
+	if user.role.role[2]:
+	    _result += build_action('View Reviews', 'reviews', 'reviewer')
+	if user.role.role[1]:
+	    _result += build_action('Assign Review', 'assign', 'chair')
+	if user.role.role[0]:
+	    _result += build_action('Edit User', 'edit_user', 'chair')
+	if user.role[0]:
+	    _result += build_action('Edit Users', 'edit_user', 'global')
+	if user.role[1]:
+	    _result += build_action('Create Conference', 'createconf',
+				    'global')
     return _result
 
 
 
 
 
-##############################################################################
-# Show the index page.
-##############################################################################
+def error_list(errors):
+    """Format a list of errors to HTML"""
+    result = ''
+    for each in errors:
+	result += '<li class="error">' + each + '</li>\n'
+    return result
 
-def index(db, sid, user):
-    #assert sid and sid.user and sid.user <> 'None'
-    #assert user and sid.user == user.email
 
-    _actions = setup_actions(sid)
-    _conferences = get_conferences(db, user)
-    _papers = get_papers(db, user)
-    _reviews = get_reviews(db, user)
-    process_template('./templates/index-user.xml',
-		     { 'actions': _actions,
-		       'firstname' : user.firstname,
-		       'conferences' : _conferences,
-		       'papers' : _papers,
-		       'reviews' : _reviews })
+
+
+
+def password():
+    c = '!\"#$%&/()=0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    g = random.Random()
+    result = ''
+    for each in range(0,8):
+	result += c[g.randint(0, len(c)-1)]
+    return result
+
+
+
+
+
+def setup(req, sid):
+    session = Session.Session(req, sid = sid, timeout = 1800)
+    db = comadb.get_database_connection()
+    if not session.is_new():
+	if not session.has_key('email'):
+	    user = None
+	else:
+	    user = db.get_user_by_mail(session['email'])
+    else:
+	user = None
+    return session, user, db
+
+
+
+
+
+def createaccount(req, sid, email, title, first_name, last_name, affiliation,
+		  phone_number, fax_number, street, city, postal_code, state,
+		  country, sys_role = [ False, False ]):
+    """Process a register form by creating a new account."""
+    session, user, db = setup(req, sid)
+    errors = []
+    if not email:
+	errors.append('You have to enter an e-mail address.')
+    else:
+	user = db.get_user_by_mail(email)
+	if user:
+	    errors.append('A user with the e-mail address %s already exists' %
+			  (email))
+    if not first_name:
+	errors.append('You have to enter your first name.')
+    if not last_name:
+	last_name = "" # Handle the case of robby.
+    if not affiliation:
+	errors.append('You have to enter your affiliation.')
+    if errors:
+	return process_template(req, 'register-error.xml',
+                                { 'errors' : error_list(errors) })
+    # Generate a new password.
+    _password = password()
+    # Enter the new user into the data base.
+    _result = [ email, _password, int(title), first_name, last_name,
+                affiliation, phone_number, fax_number, street, postal_code,
+                city, state, country, sys_role ]
+    db.put_user(comadb.User(_result))
+    # Update the session.
+    session['email'] = email
+    session.save()
+    # Send the confirmation mail.
+    maildict = { 'email' : email,
+                 'title' : comadb.title_name[int(title)],
+                 'firstname' : first_name,
+                 'lasname' : last_name,
+		 'password' : _password,
+                 'administrator' : comaconf.adminmail,
+		 'signature' : comaconf.adminname }
+    send_mail(comaconf.administrator, [email], 'register-mail.txt', maildict)
+    # Provide feedback to the user.
+    return process_template(req, 'register-success.xml')
 
 
 
@@ -152,9 +207,9 @@ def get_conferences(db, user):
     if _query:
 	_result = """<table class=\"conferences\">
 	<tr>
-        <th>Conference</th>
-        <th>Role</th>
-        </tr>"""
+	<th>Conference</th>
+	<th>Role</th>
+	</tr>"""
 	for each in _result:
 	    _result += (
 		"""<tr class="conference">
@@ -364,7 +419,7 @@ def process_new_conference(sid, db, form):
 	db.put_conference(_conf)
 	# After we have created the conference we make the conference
 	# administrator of this conference.
-	_role = comadb.Role((sid.user, _result[0], 
+	_role = comadb.Role((sid.user, _result[0],
 			     [True, True, False, False]))
 	db.put_role(_role)
 
