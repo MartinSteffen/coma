@@ -192,6 +192,7 @@ td.menu
   background-color: #F5FBFF;
   vertical-align: top;
   margin-bottom: 10px;
+  white-space: nowrap;
 }
 td.submenu
 {
@@ -200,6 +201,7 @@ td.submenu
   vertical-align: top;
   padding-left: 10px;
   margin-bottom: 4px;
+  white-space: nowrap;
 }
 
 /* Links im Menue */
@@ -318,6 +320,7 @@ table.formlist {
 {
   padding: 0px 8px;
   border-bottom: 1px #404040 solid;
+  white-space: nowrap;
 }
 
 /* Schaltflaechen und Eingabefelder */
@@ -394,6 +397,7 @@ table.list
   padding: 1px 8px;
   margin: 0px;
   background-color: #FAFAFA;
+  white-space: nowrap;
 }
 .listitem-2
 {
@@ -402,6 +406,7 @@ table.list
   padding: 1px 8px;
   margin: 0px;
   background-color: #E4E4E4;
+  white-space: nowrap;
 }
 
 a.list:link
@@ -450,6 +455,7 @@ table.subviewtable
 .viewline
 {
   border-top: 1px #808080 solid;
+  white-space: nowrap;
 }
 
 /* Meldungen */
