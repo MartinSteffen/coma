@@ -3654,11 +3654,9 @@ nur fuer detaillierte?
     }
     return $this->success();
   }
-
+  
   /**
-   * Loescht die Person mit der ID $intPersonId und legt stattdessen einen
-   * Gastaccount fuer die Person an, auf die alle Nachrichten und Foreneintraege
-   * verweisen.
+   * Loescht die Person mit der ID $intPersonId.
    *
    * @param int $intPersonId ID der zu loeschenden Person.
    * @return bool true gdw. erfolgreich
@@ -3666,11 +3664,6 @@ nur fuer detaillierte?
    * @author Sandro (06.02.05)
    */
   function deletePerson($intPersonId) {
-    $this->mySql->startTransaction();
-    if ($this->mySql->failed()) { // Fehler bei Start Transaction => fatal!
-      return $this->error('deletePerson', 'Fatal error: Transaction start failed!',
-                          $this->mySql->getLastError());
-    }
     $s = sprintf("DELETE   FROM Person".
                  " WHERE   id = '%d'",
                  s2db($intPersonId));
