@@ -16,7 +16,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$p = $myDBAccess->getPerson(1);
+$p = $myDBAccess->getPerson(1, 1);
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
@@ -30,7 +30,7 @@ else if($p->hasRole(3) == false && $p->hasRole(4) == true) {
   $p->intRoles = $p->intRoles + 8 - 16;
 }
 else {
-  echo('FEHLER: KEINE AENDERUNGEN GEMACHT!');
+  echo('KEINE AENDERUNGEN GEMACHT!<br>');
 }
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
