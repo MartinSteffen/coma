@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" >
 <head>
   <title>JCoMa:: a Conference Manager</title>
-  <link rel="stylesheet" type="text/css" href="comastyle.css" />
+  <link rel="stylesheet" type="text/css" href="style/css/comastyle.css" />
 </head>
 <body>
 
@@ -14,18 +14,22 @@
 <h3 style="text-align:center">Java Conference Manager</h3>
 </div>
 
+<div class="status-line">
+
+</div>
+
 <!-- Site navigation menu -->
 <div class="navbar">
 <ul>
   <li><a href="index.html">Home page</a></li>
   <li>
-  	<form action="#" method="post">
+  	<form action="Login" method="post">
   	<fieldset>
 				<label for="name">Name</label><br />
-				<input type="text" id="name" class="input-box" />
+				<input type="text" name= "userID" id="user-name" class="input-box" />
 				<br />
 				<label for="passwd">Password</label><br />
-				<input type="password" id="passwd" class="input-box" />
+				<input type="password" name ="passwd" id="passwd" class="input-box" />
 				<br />
 				<a href="index.html">Forgot your Password?</a>
 				<br />
