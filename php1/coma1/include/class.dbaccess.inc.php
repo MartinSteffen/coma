@@ -313,7 +313,8 @@ class DBAccess {
   function getMessagesOfForum($intForumId) {
     $s = 'SELECT  id, sender_id, send_time, subject, text'.
         ' FROM    Message'.
-        ' WHERE   forum_id = \''.$intForumId.'\'';
+        ' WHERE   forum_id = \''.$intForumId.'\''.
+        ' AND     reply_to IS NULL';
     $data = $this->mySql->select($s);
     $messages = array();
     if ($data) {
