@@ -139,7 +139,7 @@ class Template {
       }
     }
     // Alle nicht zugeordneten rauswerfen!
-    $strKeys[] = '/(?i){(.*)}/';
+    $strKeys[] = '/(?i){.*?}/';
     $strValues[] = '';
     $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
     return true;
