@@ -40,7 +40,6 @@ else {
   error('No User selected!', '');
 }
 
-$ifMainArray = array();
 $content = new Template(TPLPATH.'view_profile.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['userid']      = encodeText($objPerson->intId);
@@ -118,10 +117,11 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
   $strContentAssocs['author_papers'] = $paperList->getOutput();  
 }
 if ($checkChairRole && $objPerson->hasRole(REVIEWER)) {	
-  $ifMainArray[] = 1;
+  $strContentAssocs['if'] = array(1);
 }
-
-$strContentAssocs['if'] = $ifMainArray;
+else {
+  $strContentAssocs['if'] = array();
+}
 $content->assign($strContentAssocs);
 $strMainAssocs['content'] = &$content;
 

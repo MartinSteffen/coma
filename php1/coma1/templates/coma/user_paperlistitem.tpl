@@ -3,9 +3,7 @@
       <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}" class="link">{title}</a>
     </td> 
     <td class="listitem-{line_no}"> 
-      {if6<a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">}
-      {author_name}
-      {if6</a>}
+      {if6<a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>}
     </td>
     <td class="listitem-{line_no}">
       {if0<span class="status-unreviewed">unreviewed</span>}
