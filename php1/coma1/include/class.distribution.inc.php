@@ -287,7 +287,7 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($p_id); $j++) {
         if ($matrix[$i][$j] == WANT) {
           $this->suggest($matrix, $i, $j, $p_id, $avg_revs,
-                         $p_num_revs_total_left, $p_num_revs, $r_num_paper, SUGGESTED);
+                         $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGGESTED);
         }
       }
     }
@@ -345,7 +345,7 @@ class Distribution extends ErrorHandling {
           }
         }*/
         $this->suggest($matrix, $rindex, $pindex, $p_id, $avg_revs,
-                       $p_num_revs_total_left, $p_num_revs, $r_num_paper, SUGGESTED);
+                       $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGGESTED);
       }
     }
     
