@@ -33,6 +33,9 @@
         {if8<a href="{basepath}forum.php?forumsel={forum_id}{&SID}"
                class="buttonlink">Enter discussion</a>}&nbsp;
           </td>
+          <td class="listitem-{line_no}">
+            <a href="{basepath}reviewer_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a> 
+          </td>
         </tr>
       </table>
     </td>

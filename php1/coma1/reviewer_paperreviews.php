@@ -15,7 +15,7 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
-checkAccess(CHAIR);
+checkAccess(REVIEWER);
 
 // Lade die Daten der Reviews des Papers
 if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
@@ -33,17 +33,27 @@ if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
   if ($myDBAccess->failed()) {
     error('get review report', $myDBAccess->getLastError());
   }
+  // Pruefe ob der Reviewer den Reviewreport sehen darf
   $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
   if ($myDBAccess->failed()) {
     error('gather list of reviewers', $myDBAccess->getLastError());
   }
+  $isReviewerOfPaper = false;
+  for ($i = 0; $i < count($objReviewers) && !empty($objReviewers) && !$isReviewerOfPaper; $i++) {
+    if ($objReviewers[$i]->intId == session('uid')) {
+      $isReviewerOfPaper = true;
+    }
+  }
+  if (!$isReviewerOfPaper) {
+    error('You have no permission to view this page!', '');
+  }  
   $objCriterions = $myDBAccess->getCriterionsOfConference(session('confid'));
   if ($myDBAccess->failed()) {
     error('gather rating criteria', $myDBAccess->getLastError());
   }
 }
 else {
-  redirect('chair_reviews.php');
+  redirect('reviewer_reviews.php');
 }
 
 $ifArray = array();
@@ -104,7 +114,7 @@ if (!empty($objReviewers)) {
       $strRowAssocs['reviewer_name'] = encodeText($objReview->strReviewerName);
       $strRowAssocs['reviewer_id'] = encodeText($objReview->intReviewerId);
       $strRowAssocs['total_rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
-      $strRowAssocs['targetpage'] = 'chair_reviewdetails.php';
+      $strRowAssocs['targetpage'] = 'reviewer_reviewdetails.php';
       $strRowAssocs['rating_cols'] = '';
       for ($i = 0; $i < count($objReview->intRatings); $i++) {
         $strColAssocs = defaultAssocArray();
@@ -138,7 +148,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review report for paper';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Paper review report';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Reviewer  |  Paper review report';
 
 $main->assign($strMainAssocs);
 $main->parse();

@@ -15,7 +15,7 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
-checkAccess(CHAIR);
+checkAccess(REVIEWER);
 
 // Lade die Daten des Reviewreports
 if (isset($_GET['reviewid']) || isset($_POST['reviewid'])) {
@@ -29,9 +29,23 @@ if (isset($_GET['reviewid']) || isset($_POST['reviewid'])) {
   }
   // Pruefe ob Review zur aktuellen Konferenz gehoert
   checkPaper($objReview->intPaperId);
+  // Pruefe ob der Reviewer den Reviewreport sehen darf
+  $objReviewers = $myDBAccess->getReviewersOfPaper($objReview->intPaperId);
+  if ($myDBAccess->failed()) {
+    error('gather list of reviewers', $myDBAccess->getLastError());
+  }
+  $isReviewerOfPaper = false;
+  for ($i = 0; $i < count($objReviewers) && !empty($objReviewers) && !$isReviewerOfPaper; $i++) {
+    if ($objReviewers[$i]->intId == session('uid')) {
+      $isReviewerOfPaper = true;
+    }
+  }
+  if (!$isReviewerOfPaper) {
+    error('You have no permission to view this page!', '');
+  }
 }
 else {
-  redirect('chair_reviews.php');
+  redirect('reviewer_reviews.php');
 }
 
 $content = new Template(TPLPATH.'view_review.tpl');
@@ -93,7 +107,7 @@ if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
 else {
   $strMenu = 'Conference';
 }
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Paper review details';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Reviewer  |  Paper review details';
 
 $main->assign($strMainAssocs);
 $main->parse();
