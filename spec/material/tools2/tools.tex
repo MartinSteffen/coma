@@ -1,0 +1,102 @@
+\documentclass{beamer}
+
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25]
+% Oder was auch immer.
+
+\usetheme{Warsaw}
+%\setbeamertemplate{headline}{}
+%\setbeamertemplate{footline}{}
+\setbeamersize{text margin left=0.5cm}
+  
+\usepackage[german]{babel}
+% Oder was auch immer
+
+\usepackage[latin1]{inputenc}
+% Oder was auch immer
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Oder was auch immer. Zu beachten ist, das Font und Encoding passen
+% müssen. Falls T1 nicht funktioniert, kann man versuchen, die Zeile
+% mit fontenc zu löschen.
+\title{Gruppe Tools 2}
+\author{H.Brandt, P.Kaufels, M.Tiedje}
+
+\begin{document}
+
+\begin{frame}
+	\frametitle{	Welche Sprachen sollen verwendet werden? \textsc{Java, Sql92}}
+	\begin{itemize}
+  	\item \textsc{Java (Servlets/JSP)}
+    \begin{itemize}
+    	\item im Kurs am verbreitetsten
+    	\item nur eine Sprache $\Rightarrow$ einfachere Integration
+    	\item echte Objektorientierung 
+    	\item robust, effizient, einfach
+    	\item gute Fehleranalyse/-behandlung: viele Fehler treten schon zur Compilezeit auf
+ 			\item gute Wartbarkeit, sehr gute Dokumentation
+    	\item Datenaustausch und Kommunikation:\\- Servlets können sich Daten teilen\\- XML Verarbeitung mit SAX/DOM
+    	\item Klassenbibliotheken für Session-Trecking, Formulare oder Cookies
+    	\item Datenbankanbindung via JDBC
+    \end{itemize}
+    \item \textsc{Sql92}
+    \begin{itemize}
+    	\item ist der Industriestandard für Datenbanken, damit interoperabel 
+    \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ Welche Software soll verwendet werden? \textsc{Tomcat, MySql}}
+  \begin{itemize}
+  	\item \textsc{Tomcat:}
+    \begin{itemize}
+    	\item	offizielle Referenzimplementierung von Servlets/JSP
+    	\item frei, weit verbreitet
+    	\item hervorragend dokumentiert
+    \end{itemize}
+    \item \textsc{Mysql:}
+    \begin{itemize} 
+    	\item für Entwickler frei, weit verbreitet
+    	\item ist ANSI SQL92 kompatibel
+    	\item "`schlank"'
+    	\item viele freie Tools verfügbar z.B. phpMyAdmin
+   	\end{itemize}
+   	\item sämtliche Software kann in einer lokalen Umgebung (z.B.: zu Hause) installiert werden
+ 	\end{itemize}
+ 	
+\end{frame}	
+
+\begin{frame}
+	\frametitle{Versionen,Quellen und Doku}
+  \begin{itemize} 
+  	\item \textsc{Java: J2SE 5.0}
+  	\begin{itemize} 
+  		\item generische Programmierung
+  		\item für Tomcat 5.5 erforderlich
+  		\item http://java.sun.com/j2se/1.5.0/download.jsp
+  		\item Online Buch: http://www.galileocomputing.de/openbook/javainsel4/
+  	\end{itemize}
+  	\item \textsc{Tomcat: 5.5}
+  	\begin{itemize} 
+  		\item http://mirrorspace.org/apache/jakarta/tomcat-5/v5.5.4/
+  		\item Doku: http://jakarta.apache.org/tomcat/tomcat-5.5-doc/index.html
+  	\end{itemize}	
+  		\item \textsc{MySql 4.1}
+  	\begin{itemize} 
+  		\item http://dev.mysql.com/downloads/mysql/4.1.html
+  		\item Doku: http://dev.mysql.com/doc/mysql/en/index.html
+  	\end{itemize}
+  	\item \textsc{Xhtml 1.1}
+  	\begin{itemize} 
+  	\item vollständig XML konform, modular
+  	\item Trennung von Inhalt und Layout mit CSS
+  	\item Doku:\\ - http://www.w3.org/TR/xhtml11/ \\ - http://de.selfhtml.org/
+  	\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\end{document}
+
+
