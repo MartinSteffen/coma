@@ -60,7 +60,7 @@ $content = new Template(TPLPATH.'chair_distributionlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
-if (!empty($dist) && 1==0) {
+if (!empty($dist)) {
   $lineNo = 1;
   $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
   if ($myDBAccess->failed()) {
