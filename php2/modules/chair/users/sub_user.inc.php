@@ -26,23 +26,70 @@ if(isChair_Person($_GET['personID']))
 	
 	
 	//Get the roles
-/*	$SQL = "SELECT id, name from topic WHERE conference_id = ".$_GET['confID'];
+	$SQL = "SELECT Y.role_type, Y.state, conference.id, conference.name 
+		    FROM role X, role Y, conference
+			WHERE X.role_type = 2
+			AND X.state = 1
+			AND X.person_id = ".$_SESSION['userID']."
+			AND X.conference_id = Y.conference_id
+			AND Y.conference_id = conference.id
+			AND Y.person_id = ".$_GET['personID']."
+			ORDER BY conference.id";
     $result=mysql_query($SQL);
-    $topics = array();
+    $roles = array();
 	$count = 0;
     while ($list = mysql_fetch_row ($result)) 	
     {
-		$topic = array();
-		$topic['topicID'] = $list[0];
-		$topic['topicName'] = $list[1];
-		$topics[$count] = $topic;
+		$selRole = array();
+		$selRole['roleType'] = $list[0];
+		$selRole['state'] = $list[1];
+		$selRole['confID'] = $list[2];
+		$selRole['confName'] = $list[3];
+		if ($list[0] == 1)
+		{
+			$selRole['roleTypeText'] = "Admin";
+		}
+		if ($list[0] == 2)
+		{
+			$selRole['roleTypeText'] = "Chair";
+		}
+		if ($list[0] == 3)
+		{
+			$selRole['roleTypeText'] = "Reviewer";
+		}
+		if ($list[0] == 4)
+		{
+			$selRole['roleTypeText'] = "Author";
+		}
+		if ($list[0] == 5)
+		{
+			$selRole['roleTypeText'] = "Participant";
+		}
+		
+		if ($list[1] == 1)
+		{
+			$selRole['stateText'] = "Active";
+			$selRole['stateColor'] = "textBlue";			
+		}	
+		if ($list[1] == 2)
+		{
+			$selRole['stateText'] = "Denied invitation";
+			$selRole['stateColor'] = "textRed";				
+		}	
+		if ($list[1] == 3)
+		{
+			$selRole['stateText'] = "Invited";
+			$selRole['stateColor'] = "textGreen";				
+		}					
+
+		$roles[$count] = $selRole;
 		$count++;
-	} */
+	} 
 	
 		
 	$output = array();
 	$output['person'] = $person;				
-//	$output['topics'] = $topics;
+	$output['roles'] = $roles;
 
 $TPL['chair'] = $output;
 template("CHAIR_user");
