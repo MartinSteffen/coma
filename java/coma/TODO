@@ -1,0 +1,45 @@
+THINGS THAT ARE STILL TO DO:
+
+Please change TODO to DONE when you've done it.
+
+TODO: Login. At least something that fills the Session Attributes.
+ by monday mti owu
+
+TODO: Assignment. The Reviewer<->Paper relation. At least manual
+      version iwth lots of checkboxes for the chair.
+ by monday pka hba
+
+TODO: Person.isChair(), Person.isAuthor(), Person.isReviewer()
+     add Role
+ by monday ziad mti
+
+TODO: Common menu on the left, with own xsl, and disabling entries for
+      chair etc. if not appropriate.
+ by next friday ums 
+
+TODO: author: update, delete, paper overview
+ mti owu
+
+TODO: Red markings if deviation too big in ShowReports
+ ums
+
+TODO: Ziad's build.xml the way Marcel likes: commit it!
+ ziad
+
+TODO: Email notification where appropriate
+ all
+
+TODO: Exception handling in web.xml
+ owu mti
+
+TODO: Forum
+ ald
+
+THINGS THAT MIGHT GET DONE, UNLIKELY:
+
+MAYBE: Automatic Assignment
+
+MAYBE: Handle Co-authors
+
+THINGS THAT HAVE BEEN DONE:
+

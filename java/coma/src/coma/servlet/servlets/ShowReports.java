@@ -88,6 +88,12 @@ public class ShowReports extends HttpServlet {
 		ReviewReport theReport 
 		    = (ReviewReport)request.getSession(false).getAttribute(SessionAttribs.REPORT);
 
+		
+		if (theReport==null){
+		    // nope, let the user select one, then.
+		    throw new Exception("Goto! Goto! Goto!");
+		}
+
 		Paper thePaper = theReport.getPaper();
 		
 		if (!(getVisibleReviewReports(theUser, thePaper).contains(theReport))){

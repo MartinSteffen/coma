@@ -105,12 +105,19 @@
             </xsl:for-each>
           </xsl:when>
 
-        <xsl:when test="updateInProgress">
-          <div>
-            Now updating... press reload to select another paper.
-            <!-- XXX ugly. Figure out meta refresh?-->
-          </div>
-        </xsl:when>
+          <xsl:when test="tooLate">
+            <div>
+              I am very sorry to inform you that the deadline for this
+              has already passed.
+            </div>
+          </xsl:when>
+
+          <xsl:when test="updateInProgress">
+            <div>
+              Now updating... press reload to select another paper.
+              <!-- XXX ugly. Figure out meta refresh?-->
+            </div>
+          </xsl:when>
 
 
           <xsl:otherwise>
