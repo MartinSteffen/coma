@@ -199,34 +199,22 @@ if (isset($_POST['action'])) {
       $strMessage .= "Your number of automatically added reviewers should be greater or equal than zero!\n";
     }
 
-    /**
-     * Durch Löschen der Defaultwerte ist es möglich versehentlich 
-     * ein leeres Kriterium in die Datenbank einzutragen !!!
-     */
-    foreach ($strCriterions as $key => $crit){
-      if ( empty($crit) ){
-	      unset($crit);
-      }
-    } 
-
     foreach ($strCritMaxVals as $key => $critMax){
       if ( !(0 <= $critMax )){
-        $strMessage .= "The maximum value of the criterion '{$strCriterions[$key]}' shoud be greater or equal than zero!\n";
+        $strMessage .= "The maximum value of the criterion '{$strCriterions[$key]}' should be greater or equal than zero!\n";
       }
     }
 
     foreach ($strCritWeights as $key => $critWeights){
       if ( !(0 < $critWeights )){
-        $strMessage .= "The weight of the criterion '{$strCriterions[$key]}'shoud be greater then zero!\n";
+        $strMessage .= "The weight of the criterion '{$strCriterions[$key]}'should be greater then zero!\n";
       }
     }
- 
     
-    foreach ($strCritWeights as $key => $critWeights) {
-      if ( !($critWeights <= 1 )){
-        $strMessage .= "The weight of the criterion '{$strCriterions[$key]}' shoud be less then one!\n";
-      }
+    if (array_sum($strCritWeights) != 1) {
+      $strMessage .= "The weight of the criterions should sum to one!\n";
     }
+    
     // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
     if (empty($strMessage)) { // keine Fehler
       $intConfId = $myDBAccess->addConference($_POST['name'],
