@@ -38,7 +38,7 @@ elseif (isset($_GET['4'])) {
   a:visited { color: #111111; }
   a:active { color: #000000; }
   a:hover { color: #000000; }
-  div { width: 100%; font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; width: 100%; 
+  div { width: 80%; font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
     font-size: 13px; font-weight: bold; text-align: center; vertical-align: top; 
     margin: 10px; padding: 10px; color: #222222; background-color: #dddddd; 
     border: 1px solid #222222; }
