@@ -1,17 +1,9 @@
 package coma.entities;
 
-import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
 import static coma.util.logging.Severity.*;
 
-import static java.util.Arrays.asList;
-import java.util.Set;
-import java.util.*;
-
 import coma.servlet.util.XMLHelper;
-import coma.handler.db.ReadService;
 import coma.handler.impl.db.ReadServiceImpl;
-
 
 /**
  * @author mti
@@ -28,11 +20,24 @@ public class Person extends Entity {
     private String phone_number;
     private String fax_number;
     private String street; 
+	/**
+	 * @return Returns the role_type.
+	 */
+	public int getRole_type() {
+		return role_type;
+	}
+	/**
+	 * @param role_type The role_type to set.
+	 */
+	public void setRole_type(int role_type) {
+		this.role_type = role_type;
+	}
     private String postal_code;
     private String city;
     private String state; 
     private String country; 
     private String password;
+    private int role_type;
 
 	
 	/**
