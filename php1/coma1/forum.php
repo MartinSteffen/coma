@@ -1,6 +1,6 @@
 <?php
 
-define('DEBUG', false);
+define('DEBUG', true);
 define('IN_COMA1', true);
 
 require_once('./include/header.inc.php');
@@ -215,7 +215,7 @@ function isChairForum($forum){
 
 function generatePostMethodArray($postvars){
   $pma = array();
-  if (empty($postvars['posttype']){
+  if (empty($postvars['posttype'])){
     $pma['posttype'] = 'reply';
   }
   else{
