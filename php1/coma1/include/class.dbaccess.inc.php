@@ -1580,6 +1580,33 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert ein einfaches Forum-Objekt mit den Daten des Forums $intForumId zurueck.   
+   *
+   * @return Forum false, falls das Forum nicht existiert.
+   * @access public
+   * @author Sandro (28.01.05)
+   */
+  function getForum($intForumId) {
+    $s = sprintf("SELECT   id, title, forum_type, paper_id, conference_id".
+                 " FROM    Forum".
+                 " WHERE   id = '%d'",
+                           s2db($intForumId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getForumDetailed', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    $forum = (new Forum($data[0]['id'], $data[0]['title'],
+                        $data[0]['conference_id'],
+                        $data[0]['forum_type'],
+                       ($data[0]['forum_type'] == FORUM_PAPER ?
+                        $data[0]['paper_id'] : false));
+    return $this->success($forum);
+  }
+
+  /**
    * Liefert ein ForumDetailed-Objekt mit den Daten des Forums $intForumId zurueck.
    * Das ForumDetailed-Objekt enthaelt den kompletten Message-Baum des Forums.
    *
