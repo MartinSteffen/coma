@@ -98,7 +98,7 @@ if (isset($_POST['email'])){
       $strMailAssocs['name'] = encodeText($objPerson->getName(2));
       $mailRegistered->assign($strMailAssocs);
       $mailRegistered->parse();
-      sendMail($result, '[CoMa] Welcome to CoMa', $mailRegistered->getOutput());
+      sendMail($result, 'Welcome to CoMa', $mailRegistered->getOutput());
     }
     elseif ($myDBAccess->failed()) {
       // Datenbankfehler?
