@@ -1783,10 +1783,10 @@ nur fuer detaillierte?
     // Topics loeschen...
     $s = "DELETE  FROM PrefersTopic AS pt".
         " WHERE   person_id = '$intPersonId'".
-        " AND     topic_id IN (
+        " AND     topic_id IN (".
         "         SELECT  id".
         "         FROM    Topic".
-        "         WHERE   conference_id = '$intConferenceId')".
+        "         WHERE   conference_id = '$intConferenceId')";
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePreferredTopics', $this->mySql->getLastError());
