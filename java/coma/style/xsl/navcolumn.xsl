@@ -67,7 +67,13 @@
         <ul>
         	<!-- logout button -->
           <li><a href="Login?action=logout">Logout!</a></li>
+          <xsl:choose>
+          <xsl:when test="//navcolumn//isAdmin">
+          </xsl:when>
+          <xsl:otherwise>
           <li><a href="UserPrefs">Edit User Data</a></li>
+          </xsl:otherwise>
+          </xsl:choose>
         </ul>
         </li>
         <xsl:if test="//navcolumn//isChair">
