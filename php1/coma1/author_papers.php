@@ -34,6 +34,7 @@ $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
+    $strItemAssocs = defaultAssocArray();
     $ifArray = array();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
