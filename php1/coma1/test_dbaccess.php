@@ -33,7 +33,7 @@ else if (empty($p)) {
   exit(-1);
 }
 $c->blnAutoOpenPaperForum = false;
-$myDBAccess->updateConference($c)
+$myDBAccess->updateConference($c);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
