@@ -160,6 +160,7 @@ class Distribution extends ErrorHandling {
 
     // Reviewer-ID's holen
     $r_id = $this->getAvailableReviewerIdsOfConference($intConferenceId);
+    return $this->error('Anz. Revs: ', count($r_id));
     if ($this->failed()) {
       return $this->error('getDistribution', $this->getLastError());
     }
