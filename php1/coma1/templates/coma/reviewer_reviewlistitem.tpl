@@ -20,22 +20,20 @@
       <table width="100%">
         <tr>
           <td>
-            <form action="{basepath}reviewer_editreview.php{?SID}" method="post" accept-charset="UTF-8">
-              <input type="hidden" name="reviewid" value="{review_id}">
-              <input type="submit" name="editreview" value="Edit review" class="button">
+        {if6<a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}"
+               class="buttonlink">Edit review</a>}
             </form>
           </td>
           <td>
-            <form action="{basepath}user_paperdetails.php{?SID}" method="post" accept-charset="UTF-8">
-              <input type="hidden" name="paperid" value="{paper_id}">
-              <input type="submit" name="view" value="See paper details" class="button">
+            <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}"
+               class="buttonlink">See paper details</a>}
             </form>
           </td>
           <td>
-            <form action="{basepath}forum.php{?SID}" method="post" accept-charset="UTF-8">
-              <input type="hidden" name="paperid" value="{paper_id}">
-              <input type="submit" name="forum" value="Enter discussion" class="button">
-            </form>
+        {if7<a href="{basepath}create_forum.php?paperid={paper_id}{&SID}"
+               class="buttonlink">Start discussion</a>}
+        {if8<a href="{basepath}forum.php?paperid={paper_id}{&SID}"
+               class="buttonlink">Enter discussion</a>}
           </td>
         </tr>
       </table>

@@ -41,5 +41,6 @@ if ($objPaper->intStatus == PAPER_CRITICAL) {
                    'paper has been opened.';
   }
 }
+}
 
 ?>

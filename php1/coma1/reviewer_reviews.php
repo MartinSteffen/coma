@@ -22,6 +22,15 @@ if ($myDBAccess->failed()) {
   error('get review list of reviewer',$myDBAccess->getLastError());
 }
 
+// Hole Konferenz fuer Contraintsbestimmungen
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get conference details',$myDBAccess->getLastError());
+}
+else if (empty($objConference)) {
+  error('conference '.session('confid').' does not exist in database.','');
+}
+
 $content = new Template(TPLPATH.'reviewer_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['lines'] = '';
@@ -36,7 +45,9 @@ if (!empty($objPapers)) {
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
-    $strItemAssocs['if'] = $ifArray;
+    if (strtotime("now") < strtotime($objConference->strReviewDeadline)) {
+      $ifArray[] = 6;
+    }
     $isReviewed = $myDBAccess->hasPaperBeenReviewed($objPaper->intId, session('uid'));
     if ($myDBAccess->failed()) {
       error('Error during review status check.',$myDBAccess->getLastError());
@@ -70,10 +81,22 @@ if (!empty($objPapers)) {
       else {
         $strItemAssocs['avg_rating'] = ' - ';
       }
+      // Pruefe Zugang zum Paperforum
+      $objPaperForum = $myDBAccess->getForumOfPaper($intPaperId);
+      if ($myDBAccess->failed()) {
+        error('Error occured retrieving forum of paper.', $myDBAccess->getLastError());
+      }      
+      if (empty($objPaperForum)) {
+      	$ifArray[] = 7;
+      }
+      else {
+      	$ifArray[] = 8;
+      }
     }
     else {
       $paperItem = new Template(TPLPATH.'reviewer_newreviewlistitem.tpl');
     }
+    $strItemAssocs['if'] = $ifArray;
     $paperItem->assign($strItemAssocs);
     $paperItem->parse();
     $strContentAssocs['lines'] .= $paperItem->getOutput();
