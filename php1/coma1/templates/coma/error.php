@@ -12,9 +12,11 @@ if (!defined('IN_COMA1')) {
   die('Hacking attempt');
 }
 if (!defined('SID')) {
+  /**@ignore*/
   define('SID','');
 } 
 elseif (SID != '') {
+  /**@ignore*/
   define('SID','?'.SID);
 }
 ?>
