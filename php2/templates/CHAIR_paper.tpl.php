@@ -54,8 +54,8 @@ $paper = $input['paper'];
       <? echo $paper['state']; ?>
     </td>
     <td width="100%"> 
-      <form name="form1" method="post" action="">
-        <select name="newStateID">
+      <form name="form1" method="post" action="index.php?m=chair&a=papers&s=updateState">
+        <select name="stateID">
           <option value="0" <? if($paper['stateID']==0) echo "selected" ?>>Open</option>
           <option value="1" <? if($paper['stateID']==1) echo "selected" ?>>Being 
           reviewed</option>
@@ -64,6 +64,7 @@ $paper = $input['paper'];
           <option value="3" <? if($paper['stateID']==3) echo "selected" ?>>Accepted</option>
           <option value="4" <? if($paper['stateID']==4) echo "selected" ?>>Rejected</option>
         </select>
+        <input type="hidden" name="paperID" value="<? echo $paper['paperID'] ?>">
         <input type="submit" name="Submit" value="Change">
       </form>
     </td>

@@ -12,6 +12,10 @@ function redirect($m = false, $a = false, $s = false, $mehr = false){
 	if ($s){
 		$s = "&s=$s";
 	}
+	if ($mehr) 
+	{
+		$mehr = "&".$mehr;
+	} 
   if (headers_sent()){
         print("<a href=\"http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}\">Zum Fortfahren bitte hier klicken!</a>");
     }else{
