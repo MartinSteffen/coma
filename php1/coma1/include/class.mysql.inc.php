@@ -167,7 +167,7 @@ class MySql {
    * getLastError()
    *
    * Die Funktion <b>getLastError()</b> gibt die letzte mit error
-   * gesicherte Fehlermeldung zurueck udn loescht diese aus dem Speicher.
+   * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
    * 
    * @return string Die letzte Fehlermeldung
    * @see error()
