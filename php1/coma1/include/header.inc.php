@@ -57,7 +57,7 @@ checkError($myDBAccess);
 // End Standard Klassen
 
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
-if ((basename($_SERVER['PHP_SELF'])!='login.php')&&($myDBAccess->checkLogin())) {
+if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin())) {
   session_write_close();
   header('Location:'.COREPATH.'login.php');
 }
