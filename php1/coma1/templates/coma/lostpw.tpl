@@ -24,5 +24,7 @@
 <p>&nbsp;</p>
 
 <p class="message">
-  Please enter your E-Mail Address and proceed according to the E-mail you get.
+  Please enter your E-Mail Address and proceed according to the E-mail you get.<br>
+  Go back and <a href="{basepath}login.php{?SID}" class="link">login.</a><br>
+  If you have not registered yet, <a href="{basepath}register.php{?SID}" class="link">please register!</a>
 </p>
