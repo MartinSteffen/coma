@@ -41,6 +41,11 @@ class Distribution extends ErrorHandling {
   }
 
   /**
+   * @return mixed false, falls keine Verteilung gefunden werden konnte bzw.
+   *               die Konferenz-ID ungueltig ist; leeres Array, falls keine
+   *               weitere Verteilung noetig ist, sonst die Matrix(rev x pap)
+   *               mit den hinzuzufuegenden Zuordnungen.
+   *
    * @todo Noch ne ganze Menge UND PHPDoc :-)
    */
   function getDistribution($intConferenceId) {
@@ -50,16 +55,52 @@ class Distribution extends ErrorHandling {
     define('DENIES', 3); // Paper
     define('EXCLUDED', 4); // Paper
 
+    define('FAC_PREF', 2000.0); // Faktor fuer Preferred Topic
+    define('FAC_WANT', 10000.0); // Faktor fuer Preferred Paper
+
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
 
     // Paper-Indizierungsarray
-    $p_id = array(); // enthaelt ID's von Papern
-    $p_id_index = array(); // enthaelt Indexposition der ID im Array $p_id
+    $p_id = array(); // Zuordnung [0..n-1] -> [PapID1, ... PapIDn]
+    $p_id_index = array(); // Zuordnung [PapID1, ... PapIDn] -> [0..n-1]
+    // Reviewer-Indizierungsarray
+    $r_id = array(); // Zuordnung [0..n-1] -> [RevID1, ... RevIDn]
+    $r_id_index = array(); // Zuordnung [RevID1, ... RevIDn] -> [0..n-1]
     // Anzahl moeglicher Reviewer fuer das Paper unter Beruecksichtigung der Wuensche
-    $p_revs_left = array();
+    $p_num_revs_pref_left = array();
+    // Anzahl moeglicher Reviewer fuer das Paper insgesamt
+    $p_num_revs_total_left = array();
+    // Verteilte Reviewer fuer Paper
+    $p_num_revs = array();
+    // Matrix
+    $matrix = array();
 
+    // Konfigurationsdaten holen
+    $s = sprintf("SELECT min_reviews_per_paper FROM Conference WHERE id = '%d'",
+                 s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getDistribution', $this->mySql->getLastError());
+    }
+    if (empty($data)) {
+      return $this->error('getDistribution', 'Fatal error: Database inconsistency!',
+                          "intConferenceId = $intConferenceId");
+    }
+    $min_revs = $data[0]['min_reviews_per_paper'];
+
+    $s = sprintf("SELECT default_reviews_per_paper FROM ConferenceConfig WHERE id = '%d'",
+                 s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getDistribution', $this->mySql->getLastError());
+    }
+    if (empty($data)) {
+      return $this->error('getDistribution', 'Fatal error: Database inconsistency!',
+                          "intConferenceId = $intConferenceId");
+    }
+    $avg_revs = $data[0]['default_reviews_per_paper'];
 
     // Paper-ID's holen
     $s = sprintf("SELECT id FROM Paper WHERE conference_id = '%d' ORDER BY id ASC",
@@ -69,7 +110,7 @@ class Distribution extends ErrorHandling {
       return $this->error('getDistribution', $this->mySql->getLastError());
     }
     if (empty($data)) {
-      return array();
+      return $this->success(array());
     }
 
     echo('<br>'.count($data).' Papers found:');
@@ -93,11 +134,9 @@ class Distribution extends ErrorHandling {
       return $this->error('getDistribution', $this->mySql->getLastError());
     }
     if (empty($data)) {
-      return array();
+      return $this->success(false);
     }
-    // Reviewer-Indizierungsarray erstellen
-    $r_id = array(); // enthaelt ID's von Reviewern
-    $r_id_index = array(); // enthaelt ID's von Reviewern
+
     echo('<br>'.count($data).' Reviewers found:');
     for ($i = 0; $i < count($data); $i++) {
       $r_id[$i] = $data[$i]['id']; // wie bei Papern
@@ -106,7 +145,11 @@ class Distribution extends ErrorHandling {
     }
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
-    $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), 0));
+    $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), 1));
+
+    $p_num_revs_pref_left = array_fill(0, count($p_id), 0);
+    $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
+    
     for ($i = 0; $i < count($r_id); $i++) {
       // Bereits zugeteilte Paper
       $s = sprintf("SELECT   d.paper_id AS paper_id".
@@ -121,7 +164,46 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($assigned); $j++) {
-        $this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
+        //$this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
+        $matrix[$i][$p_id_index[$assigned[$j]['paper_id']]] = 0;
+        $p_num_revs[$j]++;
+        $p_num_revs_total_left[$j]--;
+      }
+      // Ausgeschlossene Paper
+      $s = sprintf("SELECT   pp.paper_id AS paper_id".
+                   " FROM    ExcludesPaper AS pp".
+                   " INNER   JOIN Paper p".
+                   " ON      p.id = pp.paper_id".
+                   " AND     pp.person_id = '%d'".
+                   " AND     p.conference_id = '%d'",
+                   s2db($r_id[$i]), s2db($intConferenceId));
+      $excluded = $this->mySql->select($s);
+      if ($this->mySql->failed()) {
+        return $this->error('getDistribution', $this->mySql->getLastError());
+      }
+      for ($j = 0; $j < count($excluded); $j++) {
+        //$this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
+        $matrix[$i][$p_id_index[$excluded[$j]['paper_id']]] = 0;
+        $p_num_revs_total_left[$j]--;
+      }
+      // Abgelehnte Paper
+      $s = sprintf("SELECT   pp.paper_id AS paper_id".
+                   " FROM    DeniesPaper AS pp".
+                   " INNER   JOIN Paper p".
+                   " ON      p.id = pp.paper_id".
+                   " AND     pp.person_id = '%d'".
+                   " AND     p.conference_id = '%d'",
+                   s2db($r_id[$i]), s2db($intConferenceId));
+      $denies = $this->mySql->select($s);
+      if ($this->mySql->failed()) {
+        return $this->error('getDistribution', $this->mySql->getLastError());
+      }
+      for ($j = 0; $j < count($denies); $j++) {
+        //$this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
+        if ($matrix[$i][$p_id_index[$denies[$j]['paper_id']]] != 0) {
+          $matrix[$i][$p_id_index[$denies[$j]['paper_id']]] = 0;
+          $p_num_revs_total_left[$j]--;
+        }
       }
       // Bevorzugte Themen
       $s = sprintf("SELECT   p.id AS paper_id".
@@ -138,7 +220,11 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($prefers); $j++) {
-        $this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
+        //$this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
+        if ($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]] != 0) {
+          $matrix[$i][$p_id_index[$prefers[$j]['paper_id']]] *= FAC_PREF;
+          $p_num_revs_pref_left[$j]++;
+        }
       }
       // Gewuenschte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
@@ -153,53 +239,51 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($wants); $j++) {
-        $this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
-      }
-      // Abgelehnte Paper
-      $s = sprintf("SELECT   pp.paper_id AS paper_id".
-                   " FROM    DeniesPaper AS pp".
-                   " INNER   JOIN Paper p".
-                   " ON      p.id = pp.paper_id".
-                   " AND     pp.person_id = '%d'".
-                   " AND     p.conference_id = '%d'",
-                   s2db($r_id[$i]), s2db($intConferenceId));
-      $denies = $this->mySql->select($s);
-      if ($this->mySql->failed()) {
-        return $this->error('getDistribution', $this->mySql->getLastError());
-      }
-      for ($j = 0; $j < count($denies); $j++) {
-        $this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
-        $this->deleteBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], PREFERS);
-        $this->deleteBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], WANTS);
-      }
-      // Ausgeschlossene Paper
-      $s = sprintf("SELECT   pp.paper_id AS paper_id".
-                   " FROM    ExcludesPaper AS pp".
-                   " INNER   JOIN Paper p".
-                   " ON      p.id = pp.paper_id".
-                   " AND     pp.person_id = '%d'".
-                   " AND     p.conference_id = '%d'",
-                   s2db($r_id[$i]), s2db($intConferenceId));
-      $excluded = $this->mySql->select($s);
-      if ($this->mySql->failed()) {
-        return $this->error('getDistribution', $this->mySql->getLastError());
-      }
-      for ($j = 0; $j < count($excluded); $j++) {
-        $this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
-        $this->deleteBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], PREFERS);
-        $this->deleteBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], WANTS);
-      }
-    }
-
-    for ($i = 0; $i < count($matrix); $i++) {
-      for ($j = 0; $j < count($matrix[$i]); $j++) {
-        if ($this->isBit($matrix[$i][$j], PREFERS) || $this->isBit($matrix[$i][$j], WANTS)
-        $p_revs_left[$j]++;
+        //$this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
+        if ($matrix[$i][$p_id_index[$wants[$j]['paper_id']]] != 0) {
+          if ($matrix[$i][$p_id_index[$wants[$j]['paper_id']]] == 1) {
+            $p_num_revs_pref_left[$j]++;
+          }
+          $matrix[$i][$p_id_index[$wants[$j]['paper_id']]] = FAC_WANT;
+        }
       }
     }
 
     // Debug: Ausgabe
-    $text = array(0 => 'assigned', 'prefers', 'wants', 'denies', 'excluded');
+    for ($i = 0; $i < count($matrix); $i++) {
+      echo('<br>Reviewer '.$r_id[$i].':');
+      for ($j = 0; $j < count($matrix[$i]); $j++) {
+        echo(' '.$matrix[$i][$j]);
+      }
+    }
+
+    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
+    echo('<br>NumRevsPrefLeft:');
+    print_r($p_num_revs_pref_left);
+    echo('<br>NumRevsTotalLeft:');
+    print_r($p_num_revs_total_left);
+    echo('<br>NumRevs:');
+    print_r($p_num_revs);
+
+    // Verteilungsschleife
+    $blnChanged = true;
+    $blnBreak = false;
+    while ($blnChanged && !$blnBreak) {
+      $blnChanged = false;
+      for ($i = 0; $i < count($p_num_revs); $i++) {
+        if ($p_num_revs[$i] >= $avg_revs) {
+          $blnBreak = true;
+        }
+      }
+    }
+    // Keine gueltige Verteilung?
+    for ($i = 0; $i < count($p_num_revs); $i++) {
+      if ($p_num_revs[$i] < $min_revs) {
+        return $this->success(false);
+      }
+    }
+
+    /*$text = array(0 => 'assigned', 'prefers', 'wants', 'denies', 'excluded');
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
@@ -209,7 +293,7 @@ class Distribution extends ErrorHandling {
           }
         }
       }
-    }
+    }*/
 
     return $matrix;
   }
