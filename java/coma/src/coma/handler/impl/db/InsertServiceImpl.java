@@ -9,6 +9,8 @@ import org.apache.log4j.Category;
 
 import coma.entities.Conference;
 import coma.entities.Criterion;
+import coma.entities.Forum;
+import coma.entities.Message;
 import coma.entities.Paper;
 import coma.entities.Person;
 import coma.entities.Rating;
@@ -129,7 +131,8 @@ public class InsertServiceImpl extends Service implements InsertService {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				info.append(e.toString());
+				// info.append(e.toString());
+				System.out.println(e);
 			}
 		}
 		if (ok) {
@@ -144,7 +147,8 @@ public class InsertServiceImpl extends Service implements InsertService {
 				pstmt.setInt(2, report.getReviewerId());
 				pstmt.setString(3, report.getSummary());
 				pstmt.setString(4, report.getRemarks());
-				
+				pstmt.setString(5, report.getConfidental());
+
 				int rows = pstmt.executeUpdate();
 				if (rows != 1) {
 					conn.rollback();
@@ -155,7 +159,8 @@ public class InsertServiceImpl extends Service implements InsertService {
 					info.append("ReviewReport inserted successfully\n");
 				}
 			} catch (SQLException e) {
-				info.append(e.toString());
+				// info.append(e.toString());
+				System.out.println(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -165,8 +170,9 @@ public class InsertServiceImpl extends Service implements InsertService {
 				} catch (Exception e) {
 					info
 							.append("ERROR: clould not close database connection\n");
-					;
-					info.append(e.toString());
+
+					// info.append(e.toString());
+					System.out.println(e);
 				}
 			}
 		}
@@ -194,13 +200,14 @@ public class InsertServiceImpl extends Service implements InsertService {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				info.append(e.toString());
+				// info.append(e.toString());
+				System.out.println(e);
 			}
 		}
 		if (ok) {
 			String INSERT_QUERY = "INSERT INTO Paper "
 					+ "(conference_id, author_id, title, abstract,"
-					+ "filename,state,mim_type) " + "VALUES(?,?,?,?,?,?,?)";
+					+ "filename,state,mime_type) " + "VALUES(?,?,?,?,?,?,?)";
 
 			try {
 				conn.setAutoCommit(false);
@@ -212,7 +219,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				pstmt.setString(5, paper.getFilename());
 				pstmt.setInt(6, paper.getState());
 				pstmt.setString(7, paper.getMim_type());
-				
+
 				int rows = pstmt.executeUpdate();
 				if (rows != 1) {
 					conn.rollback();
@@ -223,6 +230,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				info.append(e.toString());
+				System.out.println(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -232,8 +240,9 @@ public class InsertServiceImpl extends Service implements InsertService {
 				} catch (Exception e) {
 					info
 							.append("ERROR: clould not close database connection\n");
-					
+
 					info.append(e.toString());
+					System.out.println(e);
 				}
 			}
 		}
@@ -375,7 +384,8 @@ public class InsertServiceImpl extends Service implements InsertService {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				info.append(e.toString());
+				// info.append(e.toString());
+				System.out.println(e);
 			}
 		}
 		if (ok) {
@@ -390,7 +400,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				pstmt.setInt(2, rating.get_criterion_id());
 				pstmt.setInt(3, rating.getGrade());
 				pstmt.setString(4, rating.getComment());
-				
+
 				int rows = pstmt.executeUpdate();
 				if (rows != 1) {
 					conn.rollback();
@@ -401,7 +411,8 @@ public class InsertServiceImpl extends Service implements InsertService {
 					info.append("rerson inserted successfully\n");
 				}
 			} catch (SQLException e) {
-				info.append(e.toString());
+				// info.append(e.toString());
+				System.out.println(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -411,8 +422,9 @@ public class InsertServiceImpl extends Service implements InsertService {
 				} catch (Exception e) {
 					info
 							.append("ERROR: clould not close database connection\n");
-					;
-					info.append(e.toString());
+
+					// info.append(e.toString());
+					System.out.println(e);
 				}
 			}
 		}
@@ -441,6 +453,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				info
 						.append("Coma could not establish a connection to the database\n");
 				info.append(e.toString());
+				System.out.println(e);
 			}
 		}
 		if (ok) {
@@ -456,7 +469,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				pstmt.setString(3, criterion.getDescription());
 				pstmt.setInt(4, criterion.getMaxValue());
 				pstmt.setInt(5, criterion.getQualityRating());
-				
+
 				int rows = pstmt.executeUpdate();
 
 				if (rows != 1) {
@@ -469,6 +482,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				info.append(e.toString());
+				System.out.println(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -478,13 +492,65 @@ public class InsertServiceImpl extends Service implements InsertService {
 				} catch (Exception e) {
 					info
 							.append("ERROR: clould not close database connection\n");
-					;
+
 					info.append(e.toString());
+					System.out.println(e);
 				}
 			}
 		}
 		result.setInfo(info.toString());
 		return result;
+	}
+
+	public SearchResult insertForum(Forum forum) {
+		// TODO
+		return null;
+	}
+
+	public SearchResult insertMessage(Message msg) {
+		// TODO
+		return null;
+	}
+
+	public SearchResult excludesPaper(int paper_id, int person_id) {
+		// TODO
+		return null;
+	}
+
+	public SearchResult deniesPaper(int paper_id, int person_id) {
+		// TODO
+		return null;
+	}
+
+	public SearchResult prefersPaper(int paper_id, int person_id) {
+		// TODO
+		return null;
+	}
+
+	public SearchResult prefersTopuc(int topic_id, int person_id) {
+		// TODO
+		return null;
+	}
+
+	public SearchResult insertTopic(int conference_id, String name) {
+		// TODO
+		return null;
+	}
+
+	public SearchResult setPersonRole(int person_id, int conference_id,
+			int role_type, int state) {
+		// TODO
+		return null;
+	}
+	
+	public SearchResult setCoAuthorOf(int paper_id, int person_id, String name){
+		//TODO
+		return null;
+	}
+	
+	public SearchResult setAboutTopic(int paper_id, int topic_id){
+		//TODO
+		return null;
 	}
 
 }
