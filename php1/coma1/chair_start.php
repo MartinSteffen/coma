@@ -61,9 +61,15 @@ else if (empty($objConference)) {
   error('conference '.session('confid').' does not exist in database.','');
 }
 if (strtotime($objConference->strReviewDeadline) <= strtotime("now")) {
-  $strContentAssocs['acc_papers_no'] = encodeText($intUndistributedPapers);
-  $strContentAssocs['acc_date'] = encodeText(emptytime(strtotime($objConference->strNotification)));
-  $ifArray[] = 4;  
+  $intAcceptedPapers = $myDBAccess->getNumberOfPapersWithStatus(session('confid'), PAPER_ACCEPTED);
+  if ($myDBAccess->failed()) {
+    error('get num of accepted papers',$myDBAccess->getLastError());
+  }
+  if ($objConference->intMinNumberOfPapers > $intAcceptedPapers) {
+    $strContentAssocs['acc_papers_no'] = encodeText($objConference->intMinNumberOfPapers - $intAcceptedPapers);
+    $strContentAssocs['acc_date'] = encodeText(emptytime(strtotime($objConference->strNotification)));
+    $ifArray[] = 4;
+  }
 }
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);

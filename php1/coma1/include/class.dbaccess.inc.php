@@ -1119,6 +1119,29 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert die Anzahl der Paper mit dem Status $intStatus in der Konferenz
+   * $intConferenceId zurueck.
+   * 
+   * @param int $intStatus Status des Papers (PAPER_ACCEPTED, PAPER_REJECTED, PAPER_CRITICAL).
+   * @param int $intConferenceId ID der Konferenz.
+   * @return int Anzahl der Paper des Status.
+   * @access public
+   * @author Sandro (01.02.05)
+   */
+  function getNumberOfPapersWithStatus($intStatus, $intConferenceId) {
+    $s = sprintf("SELECT   COUNT(*) AS num".
+                 " FROM    Paper AS p".
+                 " WHERE   p.state = '%d'".
+                 " AND     p.conference_id = '%d'",
+                           s2db($intStatus), s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getNumberOfPapersWithStatus', $this->mySql->getLastError());
+    }
+    return $this->success(!empty($data) ? $data[0]['num'] : 0);
+  }
+
+  /**
    * Prueft, ob das Paper $intPaperId vom Reviewer $intReviewerId bereits
    * bewertet worden ist.
    *
