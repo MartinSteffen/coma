@@ -82,7 +82,8 @@ function createPaperForum(&$myDBAccess, $intPaperId) {
                $mail->getOutput(), $strFrom);
     }    
     return true;
-  }  
+  }
+  echo($objPaperForum);
   return false;
 }
 
