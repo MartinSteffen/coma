@@ -236,7 +236,7 @@ elseif ($STEP == 4) {
   echo "    <p class=\"message-failed\">\n";
   include('test_basedata.php');
   echo "    </p>\n";
-  echo "    <p class=\"message-ok\">Data were hopefully successfully inserted! Check above for errors!</p>\n";
+  echo "    <p class=\"message-ok\">Data was hopefully inserted successfully! Check above for errors!</p>\n";
 }
 ?>
   </div>
