@@ -59,7 +59,7 @@ if ($myDBAccess->failed()) {
   exit(-1);
 }
 echo('<br>Neuladen der Person:<br>');
-$p = $myDBAccess->getPerson(1);
+$p = $myDBAccess->getPerson(1, 1);
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
