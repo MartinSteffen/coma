@@ -49,11 +49,12 @@ if (isset($_POST['action'])) {
   $strContentAssocs['review_dl']        = encodeText(emptytime($review_dl));
   $strContentAssocs['final_dl']         = encodeText(emptytime($final_dl));
   $strContentAssocs['notification']     = encodeText(emptytime($notification));
-  $strContentAssocs['min_reviews']      = encodeText($_POST['min_reviews']);
-  $strContentAssocs['def_reviews']      = encodeText($_POST['def_reviews']);
-  $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
-  $strContentAssocs['max_papers']       = encodeText($_POST['max_papers']);
-  $strContentAssocs['variance']         = encodeText($_POST['variance']);
+  $strContentAssocs['min_reviews']      = encodeText($min_reviews);
+  $strContentAssocs['def_reviews']      = encodeText($def_reviews);
+  $strContentAssocs['min_papers']       = encodeText($min_papers);
+  $strContentAssocs['max_papers']       = encodeText($max_papers);
+  $strContentAssocs['variance']         = encodeText($variance);
+  //$strContentAssocs['auto_numreviewer'] = encodeText($auto_numreviewer);
   $strTopics        = encodeTextArray($_POST['topics']);
   $strCriterions    = encodeTextArray($_POST['criterions']);
   $strCritDescripts = encodeTextArray($_POST['crit_descr']);
@@ -241,15 +242,15 @@ if (isset($_POST['action'])) {
                                               emptytime($notification, 'Y-m-d'),
                                               emptytime($start_date, 'Y-m-d'),
                                               emptytime($end_date, 'Y-m-d'),
-                                              $_POST['min_reviews'],
-                                              $_POST['def_reviews'],
-                                              $_POST['min_papers'],
-                                              $_POST['max_papers'],
-                                              $_POST['variance']/100,
+                                              $min_reviews,
+                                              $def_reviews,
+                                              $min_papers,
+                                              $max_papers,
+                                              $variance/100,
                                               (!empty($_POST['auto_actaccount']) ? '1' : '0'),
                                               (!empty($_POST['auto_paperforum']) ? '1' : '0'),
                                               (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
-                                              $_POST['auto_numreviewer'],
+                                              $auto_numreviewer,
                                               $strTopics, $strCriterions, $strCritDescripts,
                                               $strCritMaxVals, $strCritWeights);
       if ($myDBAccess->failed()) {
