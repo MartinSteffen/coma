@@ -269,9 +269,8 @@ class DBAccess {
         ' FROM    Paper AS p'.
         ' WHERE   id = '.$intPaperId;
     $data = $this->mySql->select($s);
-    echo('DATA:');
+    echo($s);
     if (!empty($data)) {
-      echo('not empty');
       $objAuthor = $this->getPerson($data[0]['author_id']);
       $strAuthor = $objAuthor->getName();
       $fltAvgRating = $this->getAverageRatingOfPaper($data[0]['id']);
