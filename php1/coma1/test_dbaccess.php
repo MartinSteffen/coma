@@ -56,7 +56,7 @@ else if (empty($c)) {
   echo('EMPTY');
   exit(-1);
 }
-$c->objCriterions[1]->strName = 'Ganz hartes Kriterium';
+$c->objCriterions[1]->strName = 'HARTES Kriterium';
 $myDBAccess->updateConference($c);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());

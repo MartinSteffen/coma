@@ -1448,6 +1448,11 @@ nur fuer detaillierte?
 
   /**
    * Aktualisiert die Kriterien der Konferenz $objConferenceDetailed in der Datenbank.
+   * @warning Anders als bei den anderen Updatemethoden wird kein Loeschen und Wiedereinfuegen
+   *          durchgefuehrt, weil ansonsten die Auto-ID-Verweise ungueltig wuerden. Stattdessen
+   *          findet ein gewoehnliches Update statt, d.h. neu hinzugekommene Kriterien im Array
+   *          werden ignoriert und aus dem Array entfernte Kriterien ebenfalls!
+   *          Fuer die anderen Faelle gibt es die Funktionen addCriterion und deleteCriterion.
    *
    * @param ConferenceDetailed [] $objConferenceDetailed Das Konferenz-Objekt
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
@@ -1458,24 +1463,19 @@ nur fuer detaillierte?
     if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
-    $intId = $objConferenceDetailed->intId;
-    // Kriterien loeschen...
-    $s = "DELETE  FROM Criterion".
-        " WHERE   conference_id = '$intId'";
-    $this->mySql->delete($s);
-    if ($this->mySql->failed()) {
-      return $this->error('updateCriterions', $this->mySql->getLastError());
-    }
-    // Kriterien einfuegen...
     for ($i = 0; $i < count($objConferenceDetailed->objCriterions); $i++) {
       $objCriterion = $objConferenceDetailed->objCriterions[$i];
-      $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
-          "         VALUES ('$intId', '$objCriterion->strName', '$objCriterion->strDescription',".
-          "                 '$objCriterion->intMaxValue', '$objCriterion->fltWeight')";
-      $this->mySql->insert($s);
-      if ($this->mySql->failed()) {
-        return $this->error('updateCriterions', $this->mySql->getLastError());
-      }
+      $s = "UPDATE  Criterion".
+          " SET     conference_id = '$objConferenceDetailed->intId',".
+          "         name = '$objCriterion->strName',".
+          "         description = '$objCriterion->strDescription',".
+          "         max_value = '$objCriterion->intMaxValue',".
+          "         quality_rating = '$objCriterion->fltWeight'".
+          " WHERE   id = '$objCriterion->intId'";
+    }
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateCriterions', $this->mySql->getLastError());
     }
     return $this->success();
   }
