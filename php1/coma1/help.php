@@ -352,7 +352,63 @@ if (in_array('step', $strArrayHelpTopics) && in_array('reviewer', $strArrayHelpT
   $strContentAssocs['chapter-01'] = $objChaptertemplate->getOutput();
 }
 
+/**
+ * chapther-01-03.tpl
+ */ 
+if (in_array('step', $strArrayHelpTopics) && in_array('author', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '1.3';
+  $strArrayChapterAssocs['chapter-title'] = 'How to submit your papers';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-03.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-01'] = $objChaptertemplate->getOutput();
+}
 
+/**
+ * chapther-01-03.tpl
+ */ 
+if (in_array('step', $strArrayHelpTopics) && in_array('participant', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '1.4';
+  $strArrayChapterAssocs['chapter-title'] = 'How to get information for participation at a conference ';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-04.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-01'] = $objChaptertemplate->getOutput();
+}
 
 
 
