@@ -52,7 +52,7 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, $myDBAccess){
+function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, &$myDBAccess){
   if (DEBUGMODE){
     echo('forums: ' . count($forums) . '<br>');
   }
@@ -279,7 +279,7 @@ function emptystring($s){
   return ($s == '');
 }
 
-function getUID($cid, $myDBAccess){
+function getUID($cid, &$myDBAccess){
   $uid = session('uid', false);
   if (emptystring($uid)){
     if (DEBUGMODE){ //ja, sehr haesslich, weiss ich selbst
@@ -296,7 +296,7 @@ function getUID($cid, $myDBAccess){
   return $uid;
 }
 
-function getCID($myDBAccess){
+function getCID(&$myDBAccess){
   $cid = session('confid', false);
   if (emptystring($cid)){
     if (DEBUGMODE){ //siehe DEBUGMODE-kommentar zu getUID
