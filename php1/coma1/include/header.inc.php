@@ -3,7 +3,7 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
- */ 
+ */
 /***/
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
@@ -28,7 +28,7 @@ function checkError(&$class) {
  * Verweis auf anderen Skript
  *
  * Diese Funktion lenkt den Benutzer auf einen anderen Skript weiter, in
- * dem die Bearbeitung fortgeführt wird. Dabei wird sichergestellt, das 
+ * dem die Bearbeitung fortgeführt wird. Dabei wird sichergestellt, das
  * Sessioninformationen erhalten bleiben.
  * WICHTIG: nur vor irgedwelchen Ausgaben aufrufen!
  *
