@@ -2,6 +2,8 @@
   include('header.tpl.php');
   $cid = d('cid');
 ?>
+<fieldset>
+<legend class="textBold"><? echo d('name'); ?></legend>
 <form action="index.php?m=author&a=new&s=save&cid=<? echo $cid ?>" method="post" enctype="multipart/form-data">
   <table>
 	  <tr>
