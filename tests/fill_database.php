@@ -20,15 +20,16 @@ define('IN_COMA1', true);
  * @ignore
  */
 
-define('NEED_NO_LOGIN', false);
+define('NEED_NO_LOGIN', true);
 require_once('../php1/coma1/include/header.inc.php');
 
 $i = 100;
 $j = 101;
 
 while ($i < $j) {
-	addConference('Conference'.$i,'Homepage'.$i,'Description'.$i,'AbstractDeadline',
+	$myDBAccess->addConference('Conference'.$i,'Homepage'.$i,'Description'.$i,'AbstractDeadline',
                          'PaperDeadline', 'ReviewDeadline', 'FinalDeadline',
                          'Notification', 'ConferenceStart', 'ConferenceEnd');
     $i++;
     }
+?>
