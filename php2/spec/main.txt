@@ -16,6 +16,7 @@ Versionslog:
 Version	Datum		Ersteller	Kommentare
 0.1	14.12.04	mje		Grobgliederung
 0.12	4.1.05		mje		Admin&Install
+0.2   6.1.05   Ivan   Chair,Login,Logout und Sicherheit,tasks,profile, Verzeichnisse
 
 
 Inhaltsverzeichnis:
@@ -23,6 +24,7 @@ Inhaltsverzeichnis:
 
 -Globale Aspekte (Technologie, Datenbank etc)
 -Ausflistung und Abgrenzung der Module
+-Verzeichnisse
 -Einzelbeschreibungen für alle Module incl. Angabe des Verantwortlichen und des aktuellen Status
 
 Globale Aspekte:
@@ -51,13 +53,58 @@ Schließlich gibt es einige Aspekte von globaler Natur, die für alle Module gleic
 
 *Templates & Design
 *Rollen & Rechte
+*Tasks
+*Profile
+*Sicherheit
+
+Die Verzeichnisse
+-----------------
+- includes
+Für dieses Verzeichnis sind alle Mitglieder der PHP2 Gruppe zuständig. Sie beinhaltet Funktionen, die für alle Module wichtig sind, wie zB Verbindung
+mit der Datenbank. Einige wichtige Dateien in includes sind:
+	o config.inc.php  (Meiko, Torben)
+	  Hier sind alle Parameter, die für die Verbindung mit der DB sinn haben. (Server, user name, password, ftp folder usw.)
+	o rights.inc.php (Ivan)
+	  Stellt viele Funktionen zur Verfügung, die für die Sicherheit des Systems wichtig sind. Die Funktionen prüfen und "antworten" mit ja oder nein,
+	  ob ein Benutzer im Bezug einer Rolle Zugriffsrechte auf ein Papier, Konferenz, Topic usw. hat.
+	o rtp.lib.php (Meiko)
+	  Der RTPA Algorithmus
+	o sql.class.php (Torben)
+	  Diese Datei beinhaltet alle Funktionen, die für die Kommunikation mit der Datenbank wichtig sind.
+	  (Nur Funktionen!!! Die Parametern user name, password usw sind in config.inc.php)
+	o tasks.inc.php (Alle: jeder für sein Modul zuständig)
+	  Liefert alle Tasks die eine Person für eine bestimmte Rolle zu tun hat
+	  -> Admin (Torben, Meiko)
+	  -> Chair (Ivan)
+	     Alle neue Papers melden (sie müssen zu den Reviewers weitergeleitet werden)
+	     Alle vollständig vom Reviewers bewertete Papers melden (sie müssen akzeptiert oder abgelehnt werden)
+	     Alle Konferenzen ohne Topics melden (die Konferenzen sollen einige Topics haben)
+	  -> Reviewer (Marco)
+	  -> Author (Tim)
+	  -> Participant (Ivan)
+	     Falls es eine Einladung zu einer Rolle besteht, wird dies gemeldet.
+	o templates.inc.php (Torben)
+	  Wichtige Funktionen für die Templates
+	o tools.inc.php (Torben)
+	  Einige Funktionen die unsere Arbeit leichter machen.
+
+- modules 
+Dieses Verzeichnis beinhaltet alle Module. Jedes Modul ist in einem Unterverzeichnis. Jeder ist zuständig für das Verzeichnis, das sein Modul beinhaltet.
+
+- templates
+Alle Templates, header, footer (also alle php Skripte die HTML erzeugen) sind hier zusammengefasst. 
+
+- spec
+Beinhaltet dieses Dokument
+	  
+
 
 Die Module im Einzelnen:
 ------------------------
 
 -Admin & Install:
 -----------------
-mje, tdz
+Meiko, Torben
 
 Die Installation soll nach Vorbild der Installation eines PHPBB laufen, d.h.:
 	-der Benutzer lädt sich von der Webseite ein Archiv mit allen PHP-Sourcen runter
@@ -80,23 +127,76 @@ Die Administration beschränkt sich auf 2 Teilbereiche:
 
 -Chair:
 -------
-ist
+Ivan
+
+Das Modul Chair ist in 3 Hauptteilen geteilt:
+
+-> Manage Papers
+Wie die Name schon sagt, geht es um die Verwaltung von den papers.
+Der Chair wählt erstmal eine Konferenz aus. Dann wird eine Auflistung aller Papiere in der ausgewählten Konferenz angezeigt.
+Der Chair wählt ein paper aus. Er gelingt auf die Verwaltung dieses papers.
+Es wird ein komplexer Algorithmus automatisch aufgerufen, der die Ratings der Reviewern bewertet. Wenn alle Reviewers für alle Kriterien eine Note 
+gegeben haben, wird die gesamte Note berechnet und ausgegeben.
+Der Chair darf einigen Reviewers aus dem Paper entfernen. Alle Noten von diesem Reviewer werden damit auch gelöscht. Falls alle Reviewers entfernt werden,
+bekommt das Paper den Status "open - 0".
+Der Chair darf manuell das Paper zu einigen Reviewers schicken. Es wird geprüft, ob die minimale Anzahl von Reviewer erfüllt ist. Falls das Paper zu 
+mindestens einem Reviewer geschickt wird, bekommt es den Status "beeing reviewed - 1"
+Ausserdem darf der Chair das Paper automatisch zu den Reviewers schicken (Algorithmus von Gunnar)
+Falls ein Paper vollständig vom Reviewer benotet ist, bekommt der Chair die möglichkeit manuell das Paper zu akzeptieren oder abzulehnen. Das Paper
+bekommt dann die entsprechende Status "accepted - 3" oder "rejected - 4".
+Ausserdem hat der Chair noch die möglichkeit das Akzeptieren oder Ablehnen des Papers dem System zu überlassen. (Algorithmus von Meiko)
+
+-> Manage Conferences
+Wie die Name schon sagt, geht es um die Verwaltung von den Konferenzen.
+Der Chair wählt erstmal eine Konferenz aus. Er gelingt auf die Verwaltung dieser Konferenz.
+Der Chair darf alle Eigenschaften einer Konferenz ändern, wie Name, Description, alle Datums usw.
+Alle Datums werden im Format "YYYY-MM-DD" (zB 2005-01-06)in der Datenbank gespeichert. Für die Benutzerfreundlichkeit des Systems, werden aber die Datums im Format
+"D Month YYYY" angezeigt (zB 6 January 2005). Ein Javascript macht das Auswählen eines Datums leichter und mehr Benutzerfreundlich. 
+Der Chair hat auch die Möglichkeit ein neues Topic in der Konferenz zu erzeugen, oder ein die Name eines bestehendes zu ändern.
+Der Chair darf auch ein Topic löschen. Die Papers werden NICHT gelöscht, sondern wird nur die Beziehung zu dem Topic gelöscht (isabouttopic).
+
+-> Manage Users
+Wie die Name schon sagt, geht es um die Verwaltung von den Benutzern des Systems.
+Der Chair wählt erstmal eine Konferenz aus. Dann wird eine Auflistung aller Benutzer mit deren Rollen in der ausgewählten Konferenz angezeigt.
+Der Chair wählt einen Benutzer aus. Er gelingt auf die Verwaltung des Benutzers.
+Der Chair kann alle Daten vom Benutzer sehen, aber nicht ändern.
+Der Chair kann alle Rolen des Benutzers sehen. Der Chair darf die Rollen löschen (aber nicht die Rolle Admin).
+Der Chair hat auch die Möglichkeit den Benutzer in einigen Rollen in einigen Konferenzen einzuladen (aber nicht die Rolle Admin).
+
+Achtung: 
+Wenn eine Rolle gelöscht wird, wird erstmal geprüft, ob der User noch mehr Rollen in der Konferenz hat. Falls ja, dann wird die Rolle einfach
+aus der Tabelle "role" gelöscht. Falls nicht (also ist die letzte Rolle in der Konferenz) wird die Rolle den Typ 0 (keine Rolle) bekommen. Dies ist eine
+Lösung des folgenden Bugs:
+Angenommen Chair ist nur Chair in der Konferenz A.
+Angenommen der User X ist Author in der Konferenz A und hat das Paper P geschickt und hat keine andere Rolle in keiner anderen Konferenz. 
+Der Chair löscht die Rolle Author für den User X in der Konferenz A. (Also X hat keine Rollen mehr in der Tabelle "role")
+Das Paper P wird natürlich nicht gelöscht. 
+Angenommen der Chair verwaltet das Paper P und klickt auf dem Link "view all papers of this author". Also alle Papiere des Users X. 
+Das Modul rights.inc.php wird ein false ausgeben, weil der Chair den User X nicht sehen darf, weil X in der Konferenz A keine Rolle hat.
+Der Chair wird automatisch aus Sicherheitsgründen ausgeloggt.
+
+Lösung: X bekommt die Rolle 0 (keine Rolle) für die Konferenz A. Das Modul rights.inc.php sieht das X eine Rolle in A hat, und der Chair darf die Papers
+des Benutzers X in der Konferenz A sehen (also das Paper P).
+
+dH : Die Rolle 0 bedeutet dass der User eine Rolle in der Konferenz früher hatte, aber nicht mehr.
+
+
 
 -Reviewer:
 ----------
-mhe
+Marco
 
 -Author:
 --------
-tif
+Tim
 
 -RTPA:
 ------
-mje
+Meiko
 
 -PTRA:
 ------
-gbi
+Gunnar
 
 	Der Algorithmus läuft das erste mal, sobald 
 	  Conference.paper_submission_deadline überschritten ist, und
@@ -134,13 +234,73 @@ gbi
 
 -Forum:
 -------
-gbi
+Gunnar
 
 -Templates & Design:
 --------------------
-ist
+Ivan
+
+In header.tpl.php wird der HTML Code erzeugt, der für alle Templates gleich ist.
+Der header beinhaltet auch den Aufbau der Menü. Das Menü wird in zusammenhang mit dem includes/right.inc.php aufgebaut. Es werden nur die Module 
+im Menü angezeigt, die der eingeloggte User aufrufen darf.
+
 
 -Rollen & Rechte:
 -----------------
-tdz, tif
+Torben, Tim
+
+
+-Register:
+----------
+Ivan
+
+Jede Person darf sich in Coma registrieren. Die Registrierung ist sehr simple. 
+Das Skript prüft erstmal ob alle wichtige Felder (email, password, last name) eingefüllt sind. Falls nicht, werden die entsprechenden Fehlermeldungen
+ausgegeben. Zunächts wird geprüft, ob die Email Addresse den richtigen Format hat (also foo@foo.foo). Falls alles ok, werden die Daten in der Tabelle
+"person" eingetragen. Das Passwort wird in MD5 geschlüsselt gespeichert.Die Registrierung ist erfolgreich und die Person kann sich gleich einloggen.
+
+
+-Login:
+-------
+Ivan
+
+Eine einfache Login Seite. Es wird geprüft ob es ein 'match' mit email/password in der Tabelle "person" gibt. Wenn nicht, wird die entsprechende
+Fehlermeldung (wrong email or password) ausgegeben. Wenn ja, wird die userID in dem Session gespeichert und der User ist eingeloggt.
+
+
+-Tasks:
+-------
+Ivan
+
+Hier werden alle Tasks vom include/tasks.inc.php aufgerufen und gruppiert ausgegeben.
+
+
+-Profile:
+---------
+Ivan
+
+Dieses Modul ist in 4 Teile geteilt:
+1. Participate in conference
+   Der Benutzer darf Konferenzen auswählen, die er Besuchen möchte.
+2. View my roles
+   Der Benutzer darf eine Auflistung seiner Rollen sehen. Er darf Rollen ablehnen. Falls er für eine Rolle eingeladen ist, darf er sich entscheiden
+   ob er die Rolle akzeptiert oder ablehnt.
+3. Change my data
+   Der Benutzer darf seine Daten ändern.
+4. Change my password
+   Hier hat der Benutzer die Möglichkeit sein Passwort zu ändern. Das aktuelle Passwort muss angegeben werden (aus Sicherheitsgründen).
+
+
+-Logout:
+--------
+Ivan
+
+Logout hat 2 Aufgaben. 
+Die ertste Aufgabe ist falls ein User sich ausloggen möchte. Dann werden alle Sessions Variablen gelöscht, und der Benutzer gelangt wieder in der
+Login Seite.
+
+Die zweite Aufgabe ist in Zusammenarbeit mit includes/rights.inc.php. Falls der Benutzer ein Modul aufrufen möchte, bei dem er keine Rechte hat, wird 
+er automatisch ausgeloggt und eine Fehlermeldung ausgegeben. Bei einem normalen Zustand des Coma, soll so was nicht passieren. Das könnte aber passieren
+falls der Benutzer das System "hacken" möchte : zB in der Addresszeile die Parametern ändern. Eine mögliche Erweiturung wäre, solche Aktivitäten dem
+Admin zu informieren (wir brauchen aber eine extra Tabelle in der Datenbank).
 
