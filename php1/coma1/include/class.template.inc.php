@@ -134,7 +134,7 @@ class Template {
         $strValues[] = $value->getOutput();
       }
       elseif (is_array($value)) {
-        $strKeys[] = '/(?i){'.$key.'=*}/';
+        $strKeys[] = '/(?i){'.$key.'=(.*)}/';
         $strValues[] = '';
         var_dump($strKeys);
       }
