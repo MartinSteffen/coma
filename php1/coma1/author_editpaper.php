@@ -130,7 +130,6 @@ $strContentAssocs['author_name']    = encodeText($objPaper->strAuthor);
 $strContentAssocs['avg_rating']     = encodeText(round($objPaper->fltAvgRating * 10) / 10);
 $strContentAssocs['last_edited']    = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version']        = encodeText($objPaper->intVersion);
-$strContentAssocs['mimetype']       = encodeText($objPaper->strMimeType);
 $strContentAssocs['coauthors_num']  = encodeText(count($objPaper->strCoAuthors));
 $strContentAssocs['coauthor_lines'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
