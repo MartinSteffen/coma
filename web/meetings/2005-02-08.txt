@@ -1,0 +1,127 @@
+Vorab-Rundmail
+---------
+
+Hier, eine checkliste f"ur Euch (und f"ur uns), nochmal.
+----
+Vorhanden ist.
+
+      o 2 laptops (als clients), mit
+          Suse (9.0), 
+
+          - accounts keine speziellen accounts, sondern man kann dort
+                     meinen nehmen, oder einen den wir einrichten.
+
+            Wer will, kann (in 1 H ungef"ahr, jenachdem wie schnell
+            wir sind, aucb den Client-laptop testen
+
+
+               coma@m-020.informatik.uni-kiel.de 
+
+            von dort weiter auf snert mit ssh ohne passphrase.
+
+
+          - browser: firefox 1.0 und dem opera wie er bei Suse bei war
+
+          - acroread l"auft
+
+         - beide im Netz (wir Organisieren 2 Kabel)
+
+         - mehr spezielle Software l"auft dort nicht (da ich (auch nach
+           anfrage) keine requests bekommen habe, sie zu installieren
+           z.b. puretest l"auft nicht)
+
+         - die Laptops sind nicht ``direkt ueberkreuz'' verbunden (ausser
+           "uber das Internet)
+
+     o 2 Beamer, kompatibel mit unseren 2 Laptops (getestet)
+                      
+
+     o 4 neue, leere accounts auf snert
+
+          - wpguest1, wpuest2, wpguest3, wpguest4
+           
+
+          Diese 4 accounts sind _leer_. In welchem sinne leer?
+
+        Nun, wir schalten sie jetzt bereits frei.
+
+        D.h., Ihr k"onnte sie bereits heute testen ob die Installation
+        klappt, ob Ihr Euch einloggen k"onnt etc. Ihr kommt mit den selben
+        ssh-keys rein, wie ihr auch auf wprguest-x kommt.
+
+        Aber: weil die Installation ja auf einem frischen 
+        account stattfinden soll, wird morgen fr"uh
+
+
+              ALLES 
+
+
+       was auf den neuen wpguest-x accounts liegt, gel"oscht
+       (bis auf irgendwelche rc-Dateien etc und die ssh-keys.)
+
+
+        [Unwichtige Nebenbemerkung: uns f"allt heute auf, das die
+         accounts wprguest<x>
+                    ^^^
+
+        die ihr momentan benutzt, eigentlich ``ungeplant'' waren.  wir
+        brauchten accounts, die es ``wirklich'' im Uni-system gibt;
+        allerdings wprguest<x> gibt es gar nicht! Sie heissen in
+        Wirklichkeit 
+                        wpguest.
+
+        Scheint keine Probleme gemacht zu haben.... (normalerweise koennen
+        nur existierende Benutzer emails verschicken, alles andere sollte
+        der Theorie nach gefiltert werden. Vielleicht, war das der Grund
+        das manche emails solange gebraucht haben? Aber das ist eher
+        unerkl"arlich, denn die Theorie sagt: emails von
+        nicht-existierenden Benutzern _scheitern_ und nicht emails von
+        nicht-existierenden Benutzern dauern 10 Minuten. Naja, egal.
+
+        Ende der Nebenbemerkung]
+
+
+    o Bachelors bzw. M"ochte-Gern-Bachelors: 
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Uns ist _EIN_ Teilnehmer mit Ziel Bachelor bekannt.
+        Der hat seine ``Formalitaeten'' erfuellt (Unterschrift).
+
+        Wer Bachelor ist und es uns nicht gesagt hat (oder es nicht weiss
+        ob er Bachelor ist oder nicht, oder sich mittlerweile von Diplom
+        auf Bachelor umorientiert hat): sofort melden!!!!
+
+        Bachalor-Kandidaten muessen _VOR_ der Pruefung diesen
+        Zettel unterschreibe!!!!!
+
+
+     o FTP-account: PHP2 braucht/beantragt einen ``FTP-account'', sobald
+        wir genau wissen, was ben"otigt ist, wird das auch bereit gestellt.
+
+
+     o Reihenfolge: Die Gruppe PHP2 hat beantragt, die Reihenfolge
+          der Pr"asnetationen zu vertauschen Test -> PHP1 -> Java -> PHP2
+       ich habe der Java-Gruppe gebeten, da es sie betrifft, zu sagen: ja,
+       ist ok, oder nein. Wir haben keine Antwort in dieser Hinsicht.
+
+        damit, denke ich, machen wir es wie von PHP2 beantragt.
+
+
+
+    o Folien: wer uns seine PDF Folien oder was auch immer bis morgen 7:30
+        zuschickt, dem k"onnen wir sie auf den Laptop kopieren. Wer sie bis
+        heute abend (ohne genaue deadline, kommt drauf an wann Feierabend
+        ist), f"ur den k"onnen wir das PDF-Elaborat vorher auch auf
+        Darstellbarkeit testen (PDF ist ``portable'' wie es so
+        sch"on heisst, aber, wie es ebenfalls heist, man hat schon
+        Pferde kotzen gesehen...:-)
+
+
+    o Abwesend: Malte Tiedke, Torben Dziuk, rest anwesend.
+
+
+
+
+        
+
+        
+
