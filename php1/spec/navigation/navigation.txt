@@ -1,0 +1,366 @@
+============================================================================
+  SPEZIFIKATION - NAVIGATION UND SEITENSTRUKTUR
+============================================================================
+
+Zusatz zur Technischen Spezifikation [main.txt] der Gruppe PHP1,
+beschreibt die Seitenstruktur der php-Dokumente, aus welchem CoMa besteht,
+mit ihrem Inhalt, Formular- und Interaktionselementen, sowie die Navigation
+zwischen verschiedenen Seiten.
+
+
+
+============================================================================
+  STAND UND HISTORIE DIESES DOKUMENTS:
+============================================================================
+
+Datum    Autor   Änderung(en)
+----------------------------------------------------------------------------
+10.02.04 sae     Dokument erstellt: Kapitel 1, 2.I-III, Anmerkungen
+
+
+
+============================================================================
+  INHALT
+============================================================================
+  1. Beschreibung des Rahmenlayouts
+  2. Die Seitenstrukur und ihre Navigation
+       I. Navigation ohne Login 
+      II. Navigation nach Login
+     III. Navigation nach Login zu einer Konferenz
+App. Anmerkungen zur Notation
+
+
+
+============================================================================
+  1. BESCHREIBUNG DES RAHMENLAYOUTS
+============================================================================
+
+Beschreibung der Rahmenstruktur:
+
+Am oberen Bildrand werden Logo, Login-Name und aktueller Pfad
+innerhalb der Navigationsstruktur von CoMa angezeigt
+(z.B. 'user@coma.de | Testkonferenz | Chair | Benutzer verwalten')
+
+Die Menüpunkte werden am linken Bildrand angezeigt.
+Der aktuelle Menüpunkt ist hervorgehoben.
+
+Am unteren Bildrand wird das Impressum angezeigt (Autoren, ...),
+sowie eventuell eine Statuszeile (Loginzeit, Sessiondauer, aktuelle
+Zeit oder ähnliche Daten). [?]
+
+Formulare (Eingabefelder), Inhalt (statische Information) und
+Optionen (Schaltflächen, Links) werden im restlichen Bild angezeigt.  
+
+
+
+============================================================================
+  2. DIE SEITENSTRUKTUR UND IHRE NAVIGATION
+============================================================================
+  
+Aufruf der index.html (-> I. Startseite, Startmenü)
+
+   I. NAVIGATION OHNE LOGIN:
+
+Startmenü
+----------
+Menü:      - Login (-> Startseite)
+           - Registrieren (-> Neuen Benutzer registrieren)
+           - Hilfe (-> Hilfe)
+           - Impressum (-> Impressum)
+
+Startseite
+-----------
+Inhalt:    - Begrüßungstext
+Formulare: - Benutzername und Passwort für Login
+Optionen:  - Login (-> II. Konferenzauswahl, Benutzermenü)
+           - Registrieren (-> Neuen Benutzer registrieren)
+
+Neuen Benutzer registrieren
+----------------------------
+Formulare: - Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail, ...)
+Optionen:  - Registrierung bestätigen (-> Startseite)
+           - Registrierung abbrechen (-> Startseite)
+
+Hilfe
+------
+Inhalt:    - Kurze Hilfe zur Anmeldung und Benutzerführung
+
+Impressum
+----------
+Inhalt:    - Über das Programm, Autoren, etc.
+
+
+
+  II. NAVIGATION NACH LOGIN:
+
+Benutzermenü
+-------------
+Menü:      - Profil (-> Profil einstellen)
+           - Foren  (-> Forenübersicht)
+           - Nachrichten (-> Nachrichtenübersicht)
+           - Konferenzauswahl (-> Konferenzauswahl)
+           - Logout (-> Startseite)
+
+Profil einstellen
+------------------
+Formulare: - Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail, ...)
+Optionen:  - Einstellungen übernehmen
+
+Konferenzauswahl
+-----------------
+Inhalt:    - Liste der verfügbaren Konferenzen
+Optionen:  - Login zu den Konferenzen (-> III. Konferenz-Startseite, Konferenzmenü)
+           - Anmeldung zu den einzelnen Konferenzen
+             - als Autor (-> Autorenanmeldung)
+             - als Teilnehmer (-> Teilnehmeranmeldung)
+           - Neue Konferenz erstellen (-> Neue Konferenz [einfach])
+
+Neue Konferenz [einfach]
+---------------
+Formulare: - Einfache Konferenzdaten (Titel, Beschreibung, Zeit, ...)
+Optionen:  - Erweiterte Einstellungen  (-> Neue Konferenz [erweitert])
+           - Konferenz anlegen (-> Konferenzauswahl)
+           - Abbrechen (-> Konferenzauswahl)
+
+Neue Konferenz [erweitert]
+---------------
+Formulare: - Erweiterte Konferenzdaten (Kritische Varianz, ...)
+           - Liste der Themen, Eingabefeld für neues Thema
+           - Liste der Bewertungskriterien, Eingabefeld für neues
+             Bewertungskriterium (Bezeichnung, Bewertungsskala, Gewichtung)
+Optionen:  - Thema hinzufügen / entfernen
+           - Bewertungskriterium hinzufügen / entfernen
+           - Einfache Einstellungen  (-> Neue Konferenz [einfach])
+           - Konferenz anlegen (-> Konferenzauswahl)
+           - Abbrechen (-> Konferenzauswahl)
+
+Autorenanmeldung
+-----------------
+Optionen:  - Anmeldung bestätigen (-> Konferenzauswahl)
+           - Anmeldung abbrechen (-> Konferenzauswahl)
+
+
+Teilnehmeranmeldung
+--------------------
+Optionen:  - Anmeldung bestätigen (-> Konferenzauswahl)
+           - Anmeldung abbrechen (-> Konferenzauswahl)
+
+Forenübersicht
+---------------
+Inhalt:    - Liste der (sichtbaren ?) Foren
+Optionen:  - Forum öffnen (-> Forum [erweitert])
+           - 
+
+Forum  [erweitert]
+------
+Inhalt:    - Liste der Threads und deren einzelne Messages (Titel, Text, Zeit, Autor, ...)
+Optionen:  - Neuen Thread eröffnen (-> Thread eröffnen) [rollen-/forenabhängig]
+           - Thread löschen [nur Chair]
+           - Auf eine Message antworten (-> Message erstellen)
+           - Message editieren / löschen [nur Chair oder Autor der Message]
+
+Thread eröffnen
+----------------
+Formular:  - Titel des Threads
+           - Text der ersten Message
+Optionen:  - Thread eröffnen (-> Forum [erweitert])
+           - Abbrechen (-> Forum [erweitert])
+
+Message erstellen
+------------------
+Formular:  - Text der Message
+Optionen:  - Message posten (-> Forum [erweitert])
+           - Abbrechen (-> Forum [erweitert])
+
+Nachrichtenübersicht
+---------------------
+Inhalt:    - Liste der Nachrichten (Text, Zeit) (-> [evtl. Link zur entsprechenden Seite])
+Optionen:  - Einzelne / Alle Nachrichten löschen
+
+
+
+ III. NAVIGATION NACH LOGIN ZU EINER KONFERENZ:
+
+Konferenzmenü
+--------------
+Menü:      - Profil (-> Profil einstellen)           
+           - Rollenabhängige Menüs:
+             - Chair-Menü (s.u.)
+             - Reviewer-Menü (s.u.)
+             - Autoren-Menü (s.u.)
+             - Teilnehmer-Menü (s.u.)
+           - Foren  (-> Forenübersicht)
+           - Nachrichten (-> Nachrichtenübersicht)
+           - Konferenzinfo (-> Konferenzinfo)
+           - Logout (-> Konferenzauswahl oder -> Startseite) [?]
+
+Chair-Menü
+-----------
+Untermenü: - Chair (-> CHAIR-Startseite)
+           - Benutzer verwalten (-> CHAIR-Benutzerverwaltung)
+           - Artikel verwalten (-> CHAIR-Artikelverwaltung)
+           - Artikelreviews verteilen (-> CHAIR-Artikelverteilung)
+           - Konferenz konfigurieren (-> CHAIR-Konferenzkonfiguration [einfach])
+
+Reviewer-Menü
+--------------
+Untermenü: - Reviewer (-> REVIEWER-Startseite)
+           - Präferenzen einstellen (-> REVIEWER-Präferenzen)
+           - Eigene Reviews (-> REVIEWER-Reviews)
+
+Autoren-Menü
+-------------
+Untermenü: - Autor (-> AUTOR-Startseite)
+           - Eigene Artikel (-> AUTOR-Artikel)
+
+Teilnehmer-Menü
+----------------
+Untermenü: - Teilnehmer (-> TEILNEHMER-Startseite)
+           - Teilnahmeeinstellungen (-> TEILNEHMER-Einstellungen)
+
+
+Konferenz-Startseite
+---------------------
+= CHAIR-, REVIEWER-, AUTOR- oder TEILNEHMER-Startseite (in dieser Reihenfolge),
+  je nachdem, welche Rolle der eingeloggte Benutzer als erste erfüllt.
+
+CHAIR-Startseite
+-----------------
+Inhalt:    - Information über die einzelnen Chair-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Chair-Menü
+
+REVIEWER-Startseite
+--------------------
+Inhalt:    - Information über die einzelnen Reviewer-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Reviewer-Menü
+
+AUTOR-Startseite
+-----------------
+Inhalt:    - Information über die einzelnen Autoren-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Autor-Menü
+
+TEILNEHMER-Startseite
+----------------------
+Inhalt:    - Information über die einzelnen Teilnehmer-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Teilnehmer-Menü
+
+
+CHAIR-Benutzerverwaltung
+-------------------------
+Inhalt:    - Liste der Benutzer* (Name, Vorname, Rollen, ...)
+Optionen:  - Benutzer löschen
+           - Rollen hinzufügen / entfernen
+
+CHAIR-Artikelverwaltung
+------------------------
+Inhalt:    - Liste der Artikel* (Titel, Autor*, Status, ...)
+Optionen:  - Download der einzelnen Artikel
+           - Infos zu den Artikeln anzeigen (-> Artikelinfo)
+           - Artikel löschen
+           - Artikelstatus ändern (annehmen, ablehnen)
+
+CHAIR-Artikelverteilung
+------------------------
+Inhalt:    - Liste der Artikel* (Titel, Autor*, Status, Bewertung)
+             - Liste der Reviewer* des Artikels (Name, Vorname, ...)
+             - Liste ausgeschlossener / bevorzugter Reviewer* des Artikels
+Optionen:  - Einzelne Artikel als zu verteilen markieren
+           - Reviewer entfernen / hinzufügen
+           - Ausgeschlossene / Bevorzugte Reviewer entfernen / hinzufügen
+           - Verteilung berechnen lassen
+           - Einstellungen übernehmen / rückgängig machen
+
+CHAIR-Konferenzkonfiguration [einfach]
+-----------------------------
+Formulare: - Einfache Konferenzdaten (Titel, Beschreibung, Zeit, ...)
+Optionen:  - Erweiterte Einstellungen  (-> CHAIR-Konferenzkonfiguration [erweitert])
+           - Einstellungen übernehmen / rückgängig machen
+
+CHAIR-Konferenzkonfiguration [erweitert]
+-----------------------------
+Formulare: - Erweiterte Konferenzdaten (Kritische Varianz, ...)
+           - Liste der Themen
+           - Liste der Bewertungskriterien (Bezeichnung, Bewertungsskala, Gewichtung)
+Optionen:  - Einfache Einstellungen  (-> CHAIR-Konferenzkonfiguration [einfach])
+           - Einstellungen übernehmen / rückgängig machen
+
+REVIEWER-Präferenzen
+---------------------
+Inhalt:    - Liste aller Themen
+           - Liste aller (unverteilten ?) Artikel* (Titel, Autor*, Status, Themen ?)
+Optionen:  - Einzelne Themen als gewünscht markieren
+           - Einzelne Artikel als gewünscht / nicht gewünscht / ausgeschlossen markieren
+
+REVIEWER-Reviews
+-----------------
+Inhalt:    - Liste aller eigenen Reviews (Artikel*, Autor*, evtl. Artikelstatus,
+             eigene Bewertung, evtl. akt. Gesamtbewertung, Diskussionsforum)
+             - Liste der beteiligten Reviewer*
+Optionen:  - Review bearbeiten (-> REVIEWER-Review bearbeiten)
+           - Diskussionsforen betreten (-> Forum [erweitert])
+
+AUTOR-Artikel
+--------------
+Inhalt:    - Liste der Artikel* (Titel, Autor*, Status ?, ...)
+Optionen:  - Artikelversion uploaden [?]
+           - Download der einzelnen Artikel
+           - Artikeldaten bearbeiten (-> AUTOR-Artikel bearbeiten)
+           - Artikel löschen
+
+AUTOR-Artikel bearbeiten
+-------------------------
+Formular:  - Alle Artikeldaten (Titel, Beschreibung, Autor, Themen, Datum, Format, ...)
+           - Liste der Co-Autoren, Eingabefeld für neuen Co-Autoren
+Optionen:  - Artikelversion uploaden
+           - Download des Artikels
+           - Co-Autor hinzufügen / entfernen
+           - Einstellungen übernehmen / rückgängig machen (-> AUTOR-Artikel)
+
+TEILNEHMER-Einstellungen
+-------------------------
+Formular:  - Teilnahmedaten (die berüchtigten 'dietary rescrictions'...)
+Optionen:  - Einstellungen übernehmen / rückgängig machen
+
+
+Konferenzinfo
+--------------
+Inhalt:    - Öffentliche Konferenzdaten (Titel, Beschreibung, Zeit, ...)
+           - Liste aller Benutzer* (öffentliche Daten)
+           - Liste aller Artikel* (Titel, Status ?)
+Optionen:  - Download der einzelnen Artikel
+           - Infos zu den Artikeln anzeigen (-> Artikelinfo)
+           - Öffentliches Profil der Benutzer anzeigen (-> Öffentliches Profil)
+
+Öffentliches Profil
+--------------------
+Inhalt:    - Öffentliche Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail)
+Optionen:  - Zurück (-> [Herkunftsseite])
+
+Artikelinfo
+------------
+Inhalt:    - Alle Artikeldaten (Titel, Beschreibung, Autor*, Themen, Datum, Format, ...)
+Optionen:  - Download des Artikels
+           - Zurück (-> [Herkunftsseite])
+
+============================================================================
+  APPENDIX: Anmerkungen zur Notation
+============================================================================
+
+ *  Artikel bzw. Benutzer enthält einen Link auf -> Artikelinfo bzw. -> Öffentliches Profil
+ ?  Anzeige dieses Attributs muss noch diskutiert werden bzw. ist optional
+[?] Option muss noch diskutiert werden bzw. ist optional
+
+(-> [S]) kennzeichnet einen Link bzw. einen Übergang auf Seite [S].
+
+(-> [S], [M]) kennzeichnet einen Link / Übergang auf Seite [S] mit
+dem Hinweis, dass die Seite und alle folgenden das Menü [M] verwenden.
+
+

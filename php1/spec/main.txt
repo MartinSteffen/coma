@@ -33,6 +33,8 @@ Datum    Autor   Änderung(en)
 07.01.05 dmi     Hinweis auf db_schema.txt und Bedeutung für uns in Kapitel 2.2
 08.01.05 tos     Kapitel 2 geändert
 09.01.05 dmi     Kapitel 4 Design hinzugefügt
+10.01.05 sae     Anmerkung 4.5 (Designstudie) in Kapitel 4 hinzugefuegt,
+                 entsprechende Dateien im Appendix Verweise hinzugefuegt. 
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -248,19 +250,25 @@ Doctype: 4.0 Transitional
 4.3 die Navigation
 Einen Überblick über die Navigation durch die Seiten ist im Ordner 
 [navigation] zu finden. Dort sind UML-Diagramme zu finden, die 
-eine Bausstuktur darstellen. Die obersten Klassen in den UML-Diagrammen
-stellen die jeweilen Wurzel des Baumes und somit den Ausgangspunkt der 
+eine Baumstuktur darstellen. Die obersten Klassen in den UML-Diagrammen
+stellen die jeweilige Wurzel des Baumes und somit den Ausgangspunkt der 
 Navigation auf dieser Seite dar. 
 
-4.4 Benennung von Dateinamen
+4.4 Benennung von Dateien (php-Seiten)
 Die Benennung der Knotenpunkte der Navigation ist aus den UML-Diagrammen im
 Ordner [navigation] ersichtlich. Bei der Benennung von Menue und Submenue-
 punkten sollte, soweit sinnvoll, darauf geachtet werden, dass der Dateiname
-mit der Wurzel beginnt - z.B. start_neue.
+der entspechrenden php-Seite mit der Wurzel beginnt - z.B. start_neue.php.
 
 4.5 Templates
 siehe Kapitel 1.4.
 
+4.6 Prototyp (Designstudie)
+Das Flash-Movie coma-prototyp.swf soll als Diskussionsgrundlage
+und Anschauungsmaterial zur Klärung von Designfragen und Fragen
+die Benutzerführung betreffend dienen.
+Es dient nur der gruppeninternen Diskussion und ist insbesondere
+von Testfällen der Testgruppe auszuschließen.
 
 ============================================================================
   APPENDIX: SYSTEMVORRAUSSETZUNGEN
@@ -389,6 +397,9 @@ CoMa/Spez Ermittlung der Gesamtbewertung (Berechnung gewichteter
 
 Die Dateien befinden sich zurzeit im Verzeichnis (...)/php1/architecture/.
 
+[coma-prototyp.fla]
+[coma-prototyp.swf]
+[coma-prototyp.txt]
 [liste_interessen.jpg]
 [navigator.pdf]
 [programmschema.jpg]
