@@ -33,9 +33,6 @@ TODO: Email notification where appropriate
 TODO: Exception handling in web.xml
  owu mti
 
-TODO: Forum
- ald
-
 TODO: Setup, Deploy
 
 TODO: Users' Manual
@@ -45,11 +42,19 @@ TODO: Presentation
  TeXnical aspects: ums
  contents: all
 
+TODO: Automatic Assignment
+ ald
+ CHANGED TO TODO: FEB18 ums
+
+TODO: Topics
+ ums,  (mti, ziad, ald)
+ CHANGED TO TODO: FEB18 ums
+
 THINGS THAT MIGHT GET DONE, UNLIKELY:
 
-MAYBE: Topics
-
-MAYBE: Automatic Assignment
+MAYBE: Forum
+ ald
+ CHANGED TO MAYBE: FEB18 ums
 
 MAYBE: Handle Co-authors
 

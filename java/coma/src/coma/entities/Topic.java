@@ -12,6 +12,12 @@ public class Topic extends Entity {
     private int conference_id;
     private String name;
 
+    public Topic(int id){
+	this();
+	this.id=id;
+    }
+    public Topic(){;}
+
     public int getId(){return id;}
     public void setId(int i){this.id=i;}
     public int getConferenceId(){return conference_id;}

@@ -216,6 +216,10 @@ public class Person extends Entity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+    public boolean isChair(){throw new Error("ENOTIMPLEMENTED");}
+    public boolean isAuthor(){throw new Error("ENOTIMPLEMENTED");}
+    public boolean isReviewer(){throw new Error("ENOTIMPLEMENTED");}
 	
 	public Paper[] getPapers() throws Exception{
 		
