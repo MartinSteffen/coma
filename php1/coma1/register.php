@@ -64,6 +64,7 @@ if (isset($_POST['email'])){
                                      $_POST['phone'],
                                      $_POST['fax'],
                                      $_POST['user_password']);
+    vardump($result);
     if (!empty($result)) {
       // Erfolg (also anderes Template)
       $content = new Template(TPLPATH.'confirm_register.tpl');
