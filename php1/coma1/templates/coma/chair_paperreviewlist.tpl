@@ -7,7 +7,8 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">The paper is currently being reviewed by
-      <span class="emph">{reviews_num}</span> reviewers.
+      <span class="emph">{reviewers_num}</span> reviewers.<br>
+      <span class="emph">{reviews_num}</span> reviews have been submitted already.<br>
     </td>
   </tr>
   <tr class="viewline">

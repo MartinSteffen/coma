@@ -36,6 +36,10 @@ if (isset($_POST['paperid'])) {
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving review report.', $myDBAccess->getLastError());
   }
+  $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
+  if ($myDBAccess->failed()) {
+    error('Error occured during retrieving reviewer list.', $myDBAccess->getLastError());
+  }
   $objCriterions = $myDBAccess->getCriterionsOfConference(session('confid'));
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving rating criteria.', $myDBAccess->getLastError());
@@ -53,6 +57,7 @@ $strContentAssocs['author_id'] = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);
 $strContentAssocs['cols'] = encodeText(count($objCriterions));
 $strContentAssocs['reviews_num'] = encodeText(count($objReviews));
+$strContentAssocs['reviewers_num'] = encodeText(count($objReviewers));
 $strContentAssocs['title'] = encodeText($objPaper->strTitle);
 if (!empty($objPaper->fltAvgRating)) {
   $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
@@ -81,7 +86,7 @@ if (!empty($objCriterions)) {
 }
 $strContentAssocs['review_lines'] = '';
 if (!empty($objReviews)) {  
-  foreach ($objReviews as $objReview) {  	
+  foreach ($objReviews as $objReview) {
     $objReviewDetailed = $myDBAccess->getReviewDetailed($objReview->intId);
     if ($myDBAccess->failed()) {
       error('Error occured during retrieving review details.', $myDBAccess->getLastError());
