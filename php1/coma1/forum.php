@@ -309,11 +309,14 @@ function isGlobalForum($objForum){
 
 function generatePostMethodArray($strArrayPostvars){
   $strArrayPma = array();
-  if (empty($strArrayPostvars['posttype'])){
-    $strArrayPma['posttype'] = 'reply';
+  if (isset($strArrayPostvars['newthread'])){
+    $strArrayPma['posttype'] = 'newthread';
   }
-  else{
-    $strArrayPma['posttype'] = $strArrayPostvars['posttype'];
+  if (isset($strArrayPostvars['update'])){
+    $strArrayPma['posttype'] = 'update';
+  }
+  if (isset($strArrayPostvars['reply'])){
+    $strArrayPma['posttype'] = 'reply';
   }
   $strArrayPma['reply-to'] = $strArrayPostvars['reply-to']; //wenn geupdated wird, dann ist reply-to gleich der id der Message die geupdated werden soll
   $strArrayPma['text']     = $strArrayPostvars['text'];
