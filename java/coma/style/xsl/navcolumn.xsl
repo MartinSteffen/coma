@@ -29,11 +29,11 @@
                 <div>
                 <div>
                   <label for="email">E-Mail</label>
-                  <input type="text" id="email" class="input-box" />
+                  <input type="text" name="email" class="input-box" />
                 </div>
                 <div>
                   <label for="password">Password</label>
-                  <input type="password" id="password" class="input-box" />
+                  <input type="password" name="password" class="input-box" />
                 </div>
                 <div>
                   <input type="submit" value="login" class="submit-button" />

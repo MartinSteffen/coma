@@ -69,7 +69,9 @@ anywhere ...</p>
 </xsl:template>
 
 <xsl:template match="login/password_error">
-<h3>An Error has occurred,plaese check your password and email!</h3>
+<h3>An Error has occurred,plaese check your password and email!
+<xsl:value-of select="/"/>
+</h3>
 </xsl:template>
 <xsl:template match="login/form_error">
 <h3>An Error has occurred,plaese check your data!</h3>
