@@ -68,6 +68,9 @@ if (!empty($objPersons)) {
     if ($objPerson->hasRole(REVIEWER)) {
       $strItemAssocs['if'] = array(1);
     }
+    else {
+      $strItemAssocs['if'] = array();
+    }
     $userItem = new Template(TPLPATH.'user_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
     $userItem->parse();
