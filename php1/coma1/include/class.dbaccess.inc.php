@@ -2174,7 +2174,7 @@ nur fuer detaillierte?
        $s = sprintf("SELECT   c.critical_variance, p.state".
                     " FROM    Conference AS c".
                     " INNER   JOIN Paper AS p".
-                    " WHERE   c.id = p.conference_id".
+                    " ON      c.id = p.conference_id".
                     " AND     p.id = '%d'",
                               s2db($intPaperId));
        $data = $this->mySql->select($s);
