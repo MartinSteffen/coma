@@ -14,8 +14,48 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
+// Lade die Daten des Artikels
+if (isset($_GET['paperid'])) {
+  $objPaper = $myDBAccess->getPaperDetailed($_GET['paperid']);
+  if ($myDBAccess->failed()) {
+    error('Error occured during retrieving paper.', $myDBAccess->getLastError());
+  }
+  else if (empty($objPaper)) {
+    error('Paper does not exist.', $myDBAccess->getLastError());
+  }
+}
+else {
+  redirect('user_papers.php');
+}
+
 $content = new Template(TPLPATH.'view_paper.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['message'] = session('message', false);
+session_delete('message');
+$ifArray = array();
+//$ifArray[] = $objPaper->intStatus;
+$strContentAssocs['paper_id'] = $objPaper->intId;
+$strContentAssocs['title'] = encodeText($objPaper->strTitle);
+$strContentAssocs['abstract'] = encodeText($objPaper->strAbstract);
+$strContentAssocs['author_id'] = $objPaper->intAuthorId;
+$strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);      
+$strContentAssocs['file_link'] = encodeURL($objPaper->strFilePath);
+$strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
+$strContentAssocs['last_edited'] = encodeText($objPaper->last_edited);
+$strContentAssocs['coauthors'] = '';
+for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
+  if (empty($strContentAssocs['coauthors'])) {
+    $strContentAssocs['coauthors'] .= ', ';
+  }
+  $strContentAssocs['coauthors'] .= $objPaper->strCoAuthors[$i];
+}
+if (!empty($objPaper->strFilePath)) {
+  $ifArray[] = 5;
+}
+else {
+  $ifArray[] = 6;
+}
+$strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
 $actMenu = 0;

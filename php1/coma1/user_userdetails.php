@@ -14,11 +14,14 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-// Lade die Daten der Konferenz
+// Lade die Daten des Benutzers
 if (isset($_GET['userid'])) {
-  $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
+  $objPerson = $myDBAccess->getPersonDetailed($_GET['userid']);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving person.', $myDBAccess->getLastError());
+  }
+  else if (empty($objPerson)) {
+    error('Person does not exist.', $myDBAccess->getLastError());
   }
 }
 else {
@@ -27,6 +30,8 @@ else {
 
 $content = new Template(TPLPATH.'view_profile.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['message'] = session('message', false);
+session_delete('message');
 $strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
 $strContentAssocs['last_name']   = encodeText($objPerson->strLastName);
 $strContentAssocs['email']       = encodeText($objPerson->strEmail);

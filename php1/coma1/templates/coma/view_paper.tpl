@@ -3,50 +3,52 @@
 
 <form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
 
-<table class="formtable">
-  <tr>
-    <th colspan="2">Details of paper:</th>
+<table class="viewtable">
+  <tr class="viewheader">
+    <th colspan="2" class="viewheader">Details of paper:</th>
   </tr>
-  <tr>
-    <td>
+  <tr class="viewline">
+    <td class="viewline">
       Title:
     </td>
-    <td>{title}</td>
+    <td class="viewline">{title}</td>
   </tr>
-  <tr>
-    <td>
+  <tr class="viewline">
+    <td class="viewline">
       Abstract:
     </td>
-    <td>{abstract}</td>
+    <td class="viewline">{abstract}</td>
   </tr>
-  <tr>
-    <td>
+  <tr class="viewline">
+    <td class="viewline">
       Author:
     </td>
-    <td><a href="#">{authorname}</a></td>
+    <td class="viewline">
+      <a href="{basepath}user_persondetails.php?personid={author_id}{&SID}">{author_name}</a>
+    </td>
   </tr>
-  <tr>
-    <td>
+  <tr class="viewline">
+    <td class="viewline">
       Co-Authors:
     </td>
-    <td>{co-authornames}</td>
+    <td class="viewline">{coauthors}</td>
   </tr>
-  <tr>
-    <td>
+  <tr class="viewline">
+    <td class="viewline">
       Version:
     </td>
-    <td>{version}</td>
+    <td class="viewline">{version}</td>
   </tr>
-  <tr>
-    <td>
+  <tr class="viewline">
+    <td class="viewline">
       Last edited:
     </td>
-    <td>{last-edited}</td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <input type="hidden" name="action" value="view">
-      <input type="submit" name="submit" value="View document" class="button">      
+    <td class="viewline">{last_edited}</td>
+  </tr>  
+  <tr class="viewline" colspan="2">
+    <td class="viewline">
+      {if5<a href="{file_link}">view paper</a>}
+      {if6<span class="emph">There is no document available yet.</span>}
     </td>
   </tr>
 </table>
