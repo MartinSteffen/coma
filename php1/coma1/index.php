@@ -47,10 +47,12 @@ if (isset($_SESSION['message'])) {
   $strMessage = 'Sie sind bereits eingeloggt !!! <BR>
   Bitte <a href="logout.php"> ausloggen </a> oder zurück zur <a  href="start.php"> Startseite</a>';
   $strMainAssocs['body'] = & $emptyPage;
+
  }
  else {
   $strMessage = '';
   $strMainAssocs['content'] = ' <h2 align="center"> Bitte Einloggen oder Registrieren </h2>';
+
 }
 
 $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
