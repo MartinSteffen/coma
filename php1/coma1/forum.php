@@ -321,14 +321,14 @@ if ((emptystring(session('uid', false))) && (!DEBUGMODE)){
 else{
 
   if (DEBUGMODE){
-    
+    /*
     echo('<h1>BEGIN VARDUMP $HTTP_POST_VARS</h1><br>');
     var_dump($HTTP_POST_VARS);
     echo('<h1>END VARDUMP $HTTP_POST_VARS</h1><br>');
     echo('<h1>BEGIN VARDUMP $HTTP_GET_VARS</h1><br>');
     var_dump($HTTP_GET_VARS);
     echo('<h1>END VARDUMP $HTTP_GET_VARS</h1><br>');
-    
+    */
   }
 
   $cid = getCID($myDBAccess);
