@@ -48,12 +48,13 @@ public class Service {
 			if (!configured) {
 				init();
 			}
-			if (configured) {
-				result = dataSource.getConnection();
+			if (false) {
+			    System.out.println("Connection pool initialized ok");
+			    result = dataSource.getConnection();
 			} else {
 				DriverManager.setLoginTimeout(10);
 				try {
-					prop.load(new FileInputStream("db.properties"));
+					prop.load(new FileInputStream("db.pproperties"));
 					String driver = prop.getProperty("db.driver");
 					String url = prop.getProperty("db.url");
 					String user = prop.getProperty("db.user");

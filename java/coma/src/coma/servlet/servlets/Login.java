@@ -56,7 +56,7 @@ public class Login extends HttpServlet
 		XMLHelper helper = new XMLHelper();
 		String path = getServletContext().getRealPath("");
 		String xslt = path + "/style/xsl/index.xsl";
-		PrintWriter out = response.getWriter();
+	     
 		helper.addXMLHead(result);
 		result.append("<login>\n");
 		switch (action) 
@@ -102,10 +102,10 @@ public class Login extends HttpServlet
 							result.append(myConference.toXML());
 							result.append(myPerson.toXML());
 							result.append("</success>");
-							if(myPerson.isAdmin())	
-							    response.sendRedirect("/coma/Admin?action=setup");
-							if (myPerson.isChair())
-							    response.sendRedirect("/coma/Chair?action=login");
+						        //if(myPerson.isAdmin())	
+							//   response.sendRedirect("/coma/Admin?action=setup");
+							//if (myPerson.isChair())
+							//    response.sendRedirect("/coma/Chair?action=login");
 						}
 						else 
 						{
@@ -139,6 +139,7 @@ public class Login extends HttpServlet
 		result.append(myNavCol.toString());
 		result.append("</login>\n");
 		response.setContentType("text/html; charset=ISO-8859-15");
+		PrintWriter out = response.getWriter();
 		StreamSource xmlSource = new StreamSource(new StringReader(result
 				.toString()));
 		StreamSource xsltSource = new StreamSource(xslt);
