@@ -12,7 +12,7 @@
        &nbsp; <b> Subject: </b>  <br><input type="text" size="80" name="subject" value="{subject}"><br>
        &nbsp; <b> Message: </b>  <br><textarea cols="80" rows="5" name="text">{text}</textarea><br>
        {editform}
-       <input type="submit" class="button" value="send"></form>
+       <input type="submit" name="reply" class="button" value="send"></form>
     </td>
   </tr>
 </table>

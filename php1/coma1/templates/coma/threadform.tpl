@@ -1,1 +1,1 @@
-<input type="hidden" name="posttype" value="newthread"><br>
+<input type="hidden" name="newthread" value="true"><br>
