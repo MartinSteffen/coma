@@ -2446,7 +2446,7 @@ nur fuer detaillierte?
     $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
         "                     mime_type, state, last_edited)".
         "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
-        "                 '$strAbstract', '$strFilePath', '$strMimeType', 0,".
+        "                 '$strAbstract', '$strFilePath', '$strMimeType', '0',".
         "                 '".s2db(date("Y-m-d"))."')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
