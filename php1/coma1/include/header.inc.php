@@ -36,7 +36,7 @@ function checkError(&$class) {
  */
 function redirect($strName) {
   session_write_close();
-  header('Location:'.COREURL.$strName);
+  header('Location:'.COREURL.$strName.$mySession->getUrlId());
 }
 
 /**
