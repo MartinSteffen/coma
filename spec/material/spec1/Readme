@@ -9,3 +9,7 @@ compilable for all.
 
 Waller: The new Material is optimized for pdf-Output only...
   This should be our complete Specification (~20 pages)
+
+removed datenmodell.tex (it's just an old Version of spezifiaktion.tex)
+
+spezifikation.texx should compile without problems with pdflatex
