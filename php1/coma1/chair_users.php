@@ -17,17 +17,14 @@ require_once('./include/header.inc.php');
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
 if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+  error('Error retrieving conference topics', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('checkRole', 'You have no permission to view this page!');	
 }
 
 $content = new Template(TPLPATH.'chair_userlist.tpl');
 $strContentAssocs = defaultAssocArray();
-
-//global $intRoles;
-//global $strRoles;
 
 if (isset($_POST['action'])) {
   if ($_POST['action'] == 'delete') {
@@ -40,20 +37,38 @@ if (isset($_POST['action'])) {
     if ($_POST['submit'] == 'add') {
       $myDBAccess->addRole($intPersonId, $intRoleType, session('confid'), true);
       if ($myDBAccess->failed()) {
-        error('Error updating role table.', $myDBAccess->getLastError());
+        error('Error updating role table', $myDBAccess->getLastError());
       }
+      $objPerson = $myDBAccess->getPerson($intPersonId);
+      if ($myDBAccess->failed()) {
+        error('Error retrieving person data', $myDBAccess->getLastError());
+      }
+      $objConference = $myDBAccess->getConference(session('confid'));
+      if ($myDBAccess->failed()) {
+        error('Error retrieving conference data', $myDBAccess->getLastError());
+      }
+      $mail = new Template(TPLPATH.'mail_registered.tpl');
+      $strMailAssocs = defaultAssocArray();
+      $strMailAssocs['name'] = encodeText($objPerson->getName(2));
+      $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
+      $strMailAssocs['conference'] = encodeText($objConference->strName);
+      $mail->assign($strMailAssocs);
+      $mail->parse();
+      sendMail($result, "New role in conference '$strMailAssocs['conference']'", $mail->getOutput());
     }
     else if ($_POST['submit'] == 'accept') {
       $myDBAccess->acceptRole($intPersonId, $intRoleType, session('confid'));
       if ($myDBAccess->failed()) {
         error('Error updating role table.', $myDBAccess->getLastError());
       }
+      //
     }
     else if ($_POST['submit'] == 'remove' || $_POST['submit'] == 'reject') {
       $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
       if ($myDBAccess->failed()) {
         error('Error updating role table.', $myDBAccess->getLastError());
       }
+      //
     }
   }
 }
