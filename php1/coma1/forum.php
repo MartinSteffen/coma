@@ -445,17 +445,14 @@ else{
   }
 
   $content->assign($contentAssocs);
-  $content->parse();
-  if (DEBUG){
-    //echo($content->getOutput());
-  }
+  //$content->parse();
 
   include('./include/usermenu.inc.php');
 
   $main = new Template(TPLPATH . 'frame.tpl');
   $mainassocs = defaultAssocArray();
   $mainassocs['title'] = 'Forums of ' . encodeText(session('uname', false));
-  $mainassocs['content'] = $content->getOutput();
+  $mainassocs['content'] = &$content;
   $mainassocs['menu'] = &$menu;
   $mainassocs['navigator'] = encodeText(session('uname', false)) . '  |  Forums';
 
