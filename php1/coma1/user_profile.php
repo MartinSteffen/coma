@@ -20,7 +20,7 @@ $strContentAssocs = defaultAssocArray();
 // Lade die Daten der Person
 $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
 if ($myDBAccess->failed()) {
-  error('get actual person',$myDBAccess->getLastError());
+  error('Error occurred retrieving actual person.', $myDBAccess->getLastError());
 }
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.

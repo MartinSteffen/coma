@@ -30,11 +30,9 @@ if (!empty($objConferences)) {
   $lineNo = 1;
   foreach ($objConferences as $objConference) {
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
-    /*
     if ($myDBAcess->failed()) {
-      $_SESSION['message'] = 'An error occured during processing the conference list!<br>'.
-                             $myDBAccess->getLastError();
-      redirect('error.php');
+      error('An error occured during processing the conference list!',
+            $myDBAccess->getLastError());
     }
     */
     $ifArray = array();
