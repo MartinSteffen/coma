@@ -90,7 +90,7 @@ if (isset($_POST['action'])) {
                                                    $intRatings, $strComments, $objCriterions);
       if (!empty($result)) {
       	$strMessage = 'Review report was created successfully.';
-      	 $startForum = createPaperForumIfCritical($myDBAccess, $objPaper->intId);      	  
+      	$startForum = createPaperForumIfCritical($myDBAccess, $objPaper->intId);      	  
       	  if ($startForum) {
             $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
                            'paper has been opened.';
