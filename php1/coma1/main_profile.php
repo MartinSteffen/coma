@@ -59,7 +59,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $objPerson->strPhone       = $_POST['phone'];
     $objPerson->strFax         = $_POST['fax'];
 
-    $result = $myDBAccess->updatePerson($objPerson);
+    $result = $myDBAccess->updatePersonDetailed($objPerson);
     if (!empty($result)) {
       $_SESSION['uname'] = $objPerson->strEmail;
       $strMessage = 'Your account has been updated sucessfully.';
