@@ -30,7 +30,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {
   if ($dist[$pid][$rindex]['reviewer_id'] != $rid) {
     error('get distribution suggestion of session', 'Wrong index.');
   }
-  error('Einfach so.','');
   unset($dist[$pid][$rindex]);
 }
 else {
