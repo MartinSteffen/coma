@@ -201,7 +201,6 @@ class DBAccess {
         ' WHERE   author_id = '.$intAuthorId;
     $data = $this->mySql->select($s);
     if ($data) {
-      var $papers;
       for ($i = 0; $i < count($data); $i++) {
       	$reviews = getReviewsOfPaper($data[i]['id']);
       	$fltAvgRating = 0;
