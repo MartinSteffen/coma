@@ -14,7 +14,7 @@ if(isReviewer_Overall())
       WHERE
             (paper.id = ".$_POST['paperID'].")
         AND (conference.review_deadline >= CURRENT_DATE)
-        AND (paper.state = 1)";
+        AND (paper.state = 0)";
 
 	$result = mysql_query($SQL);
 	$count = 0;
@@ -40,20 +40,20 @@ if(isReviewer_Overall())
 		{
 			// Datensatz bereits vorhanden, nur update durchführen
 			$SQL =
-			  "UPDATE rating SET grade = '".$criterionlist[$i]['value']."' , comment = '".htmlentities($criterionlist[$i]['comment'])."'
+			  "UPDATE rating SET grade = '".$criterionlist[$i]['value']."' , comment = '".($criterionlist[$i]['comment'])."'
 			  WHERE (review_id = ".$_POST['reviewreportID'].")
 				AND (criterion_id = ".$criterionlist[$i]['id'].")";
 			$result = mysql_query($SQL);
 		} else {
 			$SQL =
 			  "INSERT INTO rating
-			  VALUES (".$_POST['reviewreportID'].", ".$criterionlist[$i]['id'].", '".$criterionlist[$i]['value']."', '".htmlentities($criterionlist[$i]['comment'])."')";
+			  VALUES (".$_POST['reviewreportID'].", ".$criterionlist[$i]['id'].", '".$criterionlist[$i]['value']."', '".($criterionlist[$i]['comment'])."')";
 			$result = mysql_query($SQL);
 		}
 	}
 
 	$SQL =
-	  "UPDATE reviewreport SET summary = '".nl2br(htmlentities($_POST['summary']))."', remarks = '".nl2br(htmlentities($_POST['remarks']))."', confidential = '".nl2br(htmlentities($_POST['confidential']))."'
+	  "UPDATE reviewreport SET summary = '".(($_POST['summary']))."', remarks = '".(($_POST['remarks']))."', confidential = '".(($_POST['confidential']))."'
 	  WHERE (paper_id = ".$_POST['paperID'].")
 	  AND (reviewer_id = ".$_SESSION['userID'].")";
 
