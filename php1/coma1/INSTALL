@@ -154,6 +154,11 @@ CoMa - Your Conference Manager
        get_magic_quotes_gpc "0"
        session.auto_start "0"
 
-
+  3. Imprint seems weird
+       Nobody knows what kind of Imprint is need for you.
+       If the default disclaimer doesn't fit, just add the stuff you need,
+       e.g your Name, Address, etc to the file "imprint.tpl" located in your
+       template folder.
+       e.g "/coma1/templates/coma/imprint.tpl"
 
 $Id$
