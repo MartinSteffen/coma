@@ -39,55 +39,91 @@ if (isset($_POST['name'])){
      $rec = false;
   }
   // Test, ob das Datumsformat stimmt
+   $abstract_submission_deadline  =(int)$_POST['abstract_submission_deadline_d'].
+                                   (int)$_POST['abstract_submission_deadline_m'].
+                                   (int)$_POST['abstract_submission_deadline_y'];
+   $paper_submission_deadline     =(int)$_POST['paper_submission_deadline_d'].
+                                   (int)$_POST['paper_submission_deadline_m'].
+                                   (int)$_POST['paper_submission_deadline_y']; 
+   $review_deadline               =(int)$_POST['review_deadline_d'].
+                                   (int)$_POST['review_deadline_m']. 
+                                   (int)$_POST['review_deadline_y'];
+   $final_version_deadline        =(int)$_POST['final_version_deadline_d'].
+		                   (int)$_POST['final_version_deadline_m'].
+                                   (int)$_POST['final_version_deadline_y'];
+   $notification                  =(int)$_POST['notification_d'].
+		                   (int)$_POST['notification_m'].
+                                   (int)$_POST['notification_y'];
+   $conference_start              =(int)$_POST['conference_start_d'].
+		                   (int)$_POST['conference_start_m'].
+                                   (int)$_POST['conference_start_y'];
+   $conference_end                =(int)$_POST['conference_end_d'].
+                                   (int)$_POST['conference_end_m'].
+                                   (int)$_POST['conference_end_y'];
+   /**
+    *  Duch die Bedingung '... & $abstract_submission_deadline != '000'' in den folgenden if Abfragen
+    *  werden leere Datumsfelder zugelassen.
+    */ 
   if (!checkdate((int)$_POST['abstract_submission_deadline_m'],
 		 (int)$_POST['abstract_submission_deadline_d'],
-		 (int)$_POST['abstract_submission_deadline_y'])){
-     $strMessage =  $strMessage.' abstrakte Deadline konnte nicht gelesen werden 
-                                  - Datumsformat TTMMJJJJ <br>';
+		 (int)$_POST['abstract_submission_deadline_y']) & $abstract_submission_deadline != '000'){
+     $strMessage =  $strMessage.' abstrakte Deadline ('. $abstract_submission_deadline.')konnte nicht 
+                                  gelesen werden - Datumsformat TTMMJJJJ <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
   }
   if (!checkdate((int)$_POST['paper_submission_deadline_m'],
 		 (int)$_POST['paper_submission_deadline_d'],
-		 (int)$_POST['paper_submission_deadline_y'])){
-     $strMessage =  $strMessage.' Deadline zum Einreichen von Paper konnte nicht gelesen werden 
-                                  - Datumsformat TTMMJJJJ <br>';
+		 (int)$_POST['paper_submission_deadline_y']) & $paper_submission_deadline != '000'){
+     $strMessage =  $strMessage.' Deadline zum Einreichen von Paper ('.$paper_submission_deadline.')
+                                  konnte nicht gelesen werden - Datumsformat TTMMJJJJ <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
   }
   if (!checkdate((int)$_POST['review_deadline_m'],
       		 (int)$_POST['review_deadline_d'],
-      		 (int)$_POST['review_deadline_y'])){
-     $strMessage =  $strMessage.'Review Deadline ('.(int)$_POST['review_deadline_d'].
-		    (int)$_POST['review_deadline_m'].(int)$_POST['review_deadline_y'].
-                    ') konnte nicht gelesen werden - Datumsformat TTMMJJJJ <br>';
+      		 (int)$_POST['review_deadline_y'])& $review_deadline !='000'){
+     $strMessage =  $strMessage.'Review Deadline ('.$review_deadline.') konnte nicht gelesen werden 
+                                 - Datumsformat TTMMJJJJ <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
   }
   if (!checkdate((int)$_POST['final_version_deadline_m'],
 		 (int)$_POST['final_version_deadline_d'],
-		 (int)$_POST['final_version_deadline_y'])){
-     $strMessage =  $strMessage.'Final Version Deadline  konnte nicht gelesen werden 
+		 (int)$_POST['final_version_deadline_y']) & $final_version_deadline!='000'){
+     $strMessage =  $strMessage.'Final Version Deadline ('.$final_version_deadline.') konnte nicht gelesen werden 
                                  - Datumsformat TTMMJJJJ <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
   }
+
+  if (!checkdate((int)$_POST['notification_m'],
+		 (int)$_POST['notification_d'],
+		 (int)$_POST['notification_y']) & $notification!='000'){
+     $strMessage =  $strMessage.' Notification ('.$notification.') konnte nicht gelesen werden 
+                                  - Datumsformat TTMMJJJJ <br>';
+     $strMainAssocs['message'] = $strMessage; 
+  }
+
+   
   if (!checkdate((int)$_POST['conference_start_m'],
 		 (int)$_POST['conference_start_d'],
-		 (int)$_POST['conference_start_y'])){
-     $strMessage =  $strMessage.' Konferenzstart konnte nicht gelesen werden 
+		 (int)$_POST['conference_start_y']) & $conference_start!='000'){
+     $strMessage =  $strMessage.' Konferenzstart ('.$conference_start.') konnte nicht gelesen werden 
                                   - Datumsformat TTMMJJJJ <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
   }
+   
   if (!checkdate((int)$_POST['conference_end_m'],
 		 (int)$_POST['conference_end_d'],
-		 (int)$_POST['conference_end_y'])){
-     $strMessage =  $strMessage.' Konferenzende konnte nicht gelesen werden 
+		 (int)$_POST['conference_end_y']) & $conference_end!='000'){
+     $strMessage =  $strMessage.' Konferenzende ('.$conference_end.') konnte nicht gelesen werden 
                                   - Datumsformat TTMMJJJJ <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
-  }
+   }
+   
 }
 
 
@@ -104,7 +140,7 @@ if ($rec==true){
 
   $strMainAssocs = defaultAssocArray();
   $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
-  
+  $strMenueAssocs['loginName'] = $_SESSION['uname'];
   $strMainAssocs['content'] = ' ';
   $msg=$myDBAccess->addConference( $_POST['name'],
                                    $_POST['homepage'],
@@ -132,7 +168,7 @@ if ($rec==true){
                                    $_POST['conference_end_d'],
                                    $_POST['min_reviews_per_paper'] );
 
-    
+  $msgRole=$myDBAccess->addRole($msg,$myDBAccess->getPersonIdByEmail($_SESSION['uname']),3);
     
   if ($msg == false){
     $strMessage = 'Ein Fehler beim Anlegen der Konferenz in der Datenbank ist aufgetreten ' ;
@@ -169,7 +205,7 @@ if ($rec==true){
    $strMainAssocs = defaultAssocArray();
    $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
    $strMainAssocs['content'] = '
-   <h2 align="center"> Der Ersteller der Konferenz automatisch auch der Chair für diese Konferenz !!! </h2>';
+   <h2 align="center"> Der Ersteller der Konferenz ist automatisch auch der Chair für diese Konferenz !!! </h2>';
    $strMainAssocs['body'] = & $loginPage;
    $strMainAssocs['menue'] =& $menue;
    $strMainAssocs['submenue'] = '';
@@ -188,5 +224,4 @@ if ($rec==true){
    $mainPage->parse();
    $mainPage->output();
   }
-
 ?>
