@@ -272,7 +272,8 @@ class Distribution extends ErrorHandling {
     // Debug: Ausgabe
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
-      for ($j = 0; $j < count($matrix[$i]); $j++) {
+      //for ($j = 0; $j < count($matrix[$i]); $j++) {
+      for ($j = 1; $j <= 1; $j++) {
         echo(' '.$matrix[$i][$j]);
       }
     }
@@ -294,8 +295,7 @@ class Distribution extends ErrorHandling {
     $blnBreak = false;
     while ($blnChanged && !$blnBreak) {
       $blnChanged = false;
-      //for ($i = 0; $i < count($p_num_revs); $i++) {
-      for ($i = 1; $i <= 1; $i++) {
+      for ($i = 0; $i < count($p_num_revs); $i++) {
         if ($p_num_revs[$i] >= $avg_revs) {
           $blnBreak = true;
         }
