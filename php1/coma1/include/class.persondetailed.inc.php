@@ -61,16 +61,16 @@ class PersonDetailed extends Person {
     if (!empty($this->strPostalCode) && !empty($this->strCity)) {
       $strAddress .= ' ';
     }
-    $strAddress .= $this->strCity;    
+    $strAddress .= $this->strCity;
     return $strAddress;
   }
-  
+
   function getCountry() {
     $strAddress = $this->strState;
     if (!empty($this->strState) && !empty($this->strCountry)) {
       $strAddress .= ' ';
     }
-    $strAddress .= $this->strCountry;    
+    $strAddress .= $this->strCountry;
     return $strAddress;
   }
 

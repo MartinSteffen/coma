@@ -40,17 +40,17 @@ class ReviewerAttitude {
     $this->intPaperAttitudes = array();
     $this->intTopicAttitudes = array();
   }
-  
+
   function getPaperAttitude ($intPaperId) {
     if (!isset($this->intPaperAttitudes[$intPaperId])) {
-    	$this->intPaperAttitudes[$intPaperId] = ATTITUDE_NONE;
+      $this->intPaperAttitudes[$intPaperId] = ATTITUDE_NONE;
     }
     return $this->intPaperAttitudes[$intPaperId];
   }
 
   function getTopicAttitude ($intTopicId) {
     if (!isset($this->intTopicAttitudes[$intTopicId])) {
-    	$this->intTopicAttitudes[$intTopicId] = ATTITUDE_NONE;
+      $this->intTopicAttitudes[$intTopicId] = ATTITUDE_NONE;
     }
     return $this->intTopicAttitudes[$intTopicId];
   }
@@ -58,7 +58,7 @@ class ReviewerAttitude {
   function setPaperAttitude ($intPaperId, $intAttitude) {
     if ($intAttitude == ATTITUDE_NONE || $intAttitude == ATTITUDE_PREFER ||
         $intAttitude == ATTITUDE_DENY || $intAttitude == ATTITUDE_EXCLUDE) {
-      $this->intPaperAttitudes[$intPaperId] = $intAttitude;    
+      $this->intPaperAttitudes[$intPaperId] = $intAttitude;
       return true;
     }
     return false;

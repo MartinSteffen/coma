@@ -35,7 +35,7 @@ class PaperSimple extends Paper {
   var $fltAvgRating; // false, falls kein Rating/Reviw existiert
   var $strFilePath;
   var $objTopics;
-  
+
   function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
                        $strLastEdit, $fltAvgRating, $strFilePath, $objTopics) {
     $this->Paper($intId);
@@ -51,7 +51,7 @@ class PaperSimple extends Paper {
 
   /**
    * Testes, ob das Paper das Topic $intTopicId besitzt.
-   *   
+   *
    * @param int $intTopicId ID des zu testenden Topics
    * @return bool true gdw. das Paper das zu testende Topic besitzt.
    * @access public

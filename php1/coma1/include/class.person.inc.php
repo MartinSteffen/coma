@@ -34,7 +34,7 @@ class Person {
     $this->strFirstName = $strFirstName;
     $this->strLastName = $strLastName;
     $this->strEmail = $strEmail;
-    $this->intRoles = $intRoles;    
+    $this->intRoles = $intRoles;
     $this->strTitle = $strTitle;
     $this->intRequestedRoles = 0;
   }
@@ -77,7 +77,7 @@ class Person {
 
   /**
    * Aendert die Rolle $intRole der Person ().
-   * 
+   *
    * Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
    *
    * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)

@@ -43,7 +43,7 @@ class Conference {
     }
     else if (!strcmp($this->strStart, $this->strEnd) || empty($this->strEnd)) {
       return $this->strStart;
-    }    
+    }
     return $this->strStart.' to '.$this->strEnd;
   }
 

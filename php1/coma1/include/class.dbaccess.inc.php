@@ -509,7 +509,7 @@ class DBAccess extends ErrorHandling {
     $s = sprintf("SELECT   role_type, state".
                  " FROM    Role".
                  " WHERE   person_id = '%d'".
-                 " AND     conference_id = '%d'".                 
+                 " AND     conference_id = '%d'".
                  ($intRoleType != 0 ?
                  " AND     role_type = '%d'" : ""),
                            s2db($intPersonId),
@@ -518,7 +518,7 @@ class DBAccess extends ErrorHandling {
     $role_data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('hasRoleInConference', $this->mySql->getLastError());
-    }    
+    }
     return $this->success(!empty($role_data));
   }
 
@@ -613,7 +613,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intAuthorId ID des Autors
    * @param int $intConferenceId ID der Konferenz
    * @param int $intOrder Gibt an, wonach sortiert werden soll
-   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)   
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Autors
    *                        $intAuthorId gefunden wurden.
    * @access public
@@ -640,7 +640,7 @@ class DBAccess extends ErrorHandling {
     if (!empty($intOrder)) {
       if ($intOrder == 1) {
         $s .= " ORDER BY title";
-      }      
+      }
       else if ($intOrder == 5) {
         $s .= " ORDER BY last_edited";
       }
@@ -676,7 +676,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intReviewerId ID des Reviewers
    * @param int $intConferenceId ID der Konferenz
    * @param int $intOrder Gibt an, wonach sortiert werden soll
-   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)   
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Reviewers
    *                        $intReviewerId gefunden wurden.
    * @access public
@@ -1002,7 +1002,7 @@ class DBAccess extends ErrorHandling {
                  " AND     r.reviewer_id = '%d'".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
-                 " AND     d.reviewer_id = r.reviewer_id",                 
+                 " AND     d.reviewer_id = r.reviewer_id",
                            s2db($intConferenceId),
                            s2db($intReviewerId));
     $data = $this->mySql->select($s);
@@ -1038,7 +1038,7 @@ class DBAccess extends ErrorHandling {
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
                  " AND     d.reviewer_id = r.reviewer_id".
-                 " WHERE   r.paper_id = '%d'",     
+                 " WHERE   r.paper_id = '%d'",
                            s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1055,7 +1055,7 @@ class DBAccess extends ErrorHandling {
    * bewertet worden ist.
    *
    * @param int $intPaperId ID des Papers
-   * @param int $intReviewerId ID des Reviewers   
+   * @param int $intReviewerId ID des Reviewers
    * @return bool true gdw. das Paper bereits bewertet worden ist
    * @access public
    * @author Sandro (28.01.05)
@@ -1067,12 +1067,12 @@ class DBAccess extends ErrorHandling {
                  " ON      d.paper_id = r.paper_id".
                  " AND     d.reviewer_id = r.reviewer_id".
                  " WHERE   paper_id = '%d'".
-                 " AND     reviewer_id = '%d'",                                
+                 " AND     reviewer_id = '%d'",
                            s2db($intPaperId), s2db($intReviewerId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('hasPaperBeenReviewed', $this->mySql->getLastError());
-    }    
+    }
     return $this->success(!empty($data));
   }
 
@@ -1080,7 +1080,7 @@ class DBAccess extends ErrorHandling {
    * Prueft, ob das Paper $intPaperId dem Reviewer $intReviewerId zugeteilt ist.
    *
    * @param int $intPaperId ID des Papers
-   * @param int $intReviewerId ID des Reviewers   
+   * @param int $intReviewerId ID des Reviewers
    * @return bool true gdw. das Paper bereits bewertet worden ist
    * @access public
    * @author Sandro (28.01.05)
@@ -1094,7 +1094,7 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('isPaperDistributedTo', $this->mySql->getLastError());
-    }    
+    }
     return $this->success(!empty($data));
   }
 
@@ -1170,7 +1170,7 @@ class DBAccess extends ErrorHandling {
    * Papers $intPaperId zurueck.
    *
    * @param int $intReviewerId ID des Reviewers
-   * @param int $intPaperId ID des Papers   
+   * @param int $intPaperId ID des Papers
    * @return int ID des Reviews bzw. false, falls der Reviewer das Paper nicht bewertet.
    * @access public
    * @author Sandro (28.01.05)
@@ -1182,7 +1182,7 @@ class DBAccess extends ErrorHandling {
                  " ON      d.paper_id = r.paper_id".
                  " AND     d.reviewer_id = r.reviewer_id".
                  " WHERE   r.paper_id = '%d'".
-                 " AND     r.reviewer_id = '%d'",                 
+                 " AND     r.reviewer_id = '%d'",
                            s2db($intPaperId), s2db($intReviewerId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1200,7 +1200,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intReviewId ID des Reviews
    * @return Review false, falls das Review nicht existiert.
    * @access public
-   * @author Sandro (14.12.04)   
+   * @author Sandro (14.12.04)
    */
   function getReview($intReviewId) {
     $s = sprintf("SELECT   r.id, r.paper_id, r.reviewer_id".
@@ -1208,7 +1208,7 @@ class DBAccess extends ErrorHandling {
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
                  " AND     d.reviewer_id = r.reviewer_id".
-                 " WHERE   r.id = '%d'",                 
+                 " WHERE   r.id = '%d'",
                            s2db($intReviewId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1333,20 +1333,20 @@ class DBAccess extends ErrorHandling {
                    $objReviewer->getName(1), $data[0]['summary'], $data[0]['remarks'],
                    $data[0]['confidential'], $intRatings, $strComments, $objCriterions));
     return $this->success($objReview);
-  } 
+  }
 
   /**
    * Prueft, ob die Person $objPerson Zugang zum Forum $objForum hat.
    *
    * @param Person $objPerson Die zu pruefende Person.
-   * @param Forum $objForum Das zu pruefende Forum.   
+   * @param Forum $objForum Das zu pruefende Forum.
    * @return bool Gibt true zurueck gdw. die Person Zugriff auf das Forum hat
    * @access public
    * @author Sandro (27.02.05)
    * @todo Zu klaeren: Duerfen Reviewer zu allen Foren Zugang haben?
    */
-  function checkAccessToForum($objPerson, $objForum) {    
-    $blnAccess = false;    
+  function checkAccessToForum($objPerson, $objForum) {
+    $blnAccess = false;
     if ($objForum->intForumType == FORUM_PUBLIC) {
       if ($objPerson->hasAnyRole()) {
         $blnAccess = true;
@@ -1364,7 +1364,7 @@ class DBAccess extends ErrorHandling {
       }
       else if (empty($objPaper)) {
         return $this->error('checkAccessToForum', 'Paper does not exist in database.');
-      }    	
+      }
       if (($objPerson->hasRole(CHAIR) || $objPerson->hasRole(REVIEWER)) &&
           ($intPersonId != $objPaper->intAuthorId)) {
         $blnAccess = true;
@@ -1440,7 +1440,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intConferenceId Die ID der Konferenz, deren Foren ermittelt werden sollen.
    * @return Forum [] Ein leeres Array, falls kein Forum in der Konferenz existiert.
    * @access public
-   * @author Sandro (14.12.04)   
+   * @author Sandro (14.12.04)
    */
   function getAllForums($intConferenceId=false) {
     if (empty($intConferenceId)) {
@@ -1459,7 +1459,7 @@ class DBAccess extends ErrorHandling {
       $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'],
                                 $intConferenceId, $data[$i]['forum_type'],
                                ($data[$i]['forum_type'] == FORUM_PAPER) ?
-                                $data[$i]['paper_id'] : false));      
+                                $data[$i]['paper_id'] : false));
     }
     return $this->success($objForums);
   }
@@ -1527,7 +1527,7 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein einfaches Forum-Objekt mit den Daten des Forums $intForumId zurueck.   
+   * Liefert ein einfaches Forum-Objekt mit den Daten des Forums $intForumId zurueck.
    *
    * @return Forum false, falls das Forum nicht existiert.
    * @access public
@@ -1577,7 +1577,7 @@ class DBAccess extends ErrorHandling {
                                 $data[0]['conference_id'],
                                 $data[0]['forum_type'],
                                ($data[0]['forum_type'] == FORUM_PAPER ?
-                                $data[0]['paper_id'] : false),                                
+                                $data[0]['paper_id'] : false),
                                 $this->getThreadsOfForum($intForumId)));
     return $this->success($forum);
   }
@@ -1871,7 +1871,7 @@ nur fuer detaillierte?
   }
 
   /**
-   * Aendert fuer die Person mit der Id $intPersonId in der Datenbank das 
+   * Aendert fuer die Person mit der Id $intPersonId in der Datenbank das
    * Passwort.
    *
    * @param int $intPersonId Person, die in der Datenbank aktualisiert werden soll
@@ -2037,7 +2037,7 @@ nur fuer detaillierte?
    * @access public
    * @author Sandro (28.01.05)
    */
-  function updatePaperStatus($intPaperId, $intStatus) {    
+  function updatePaperStatus($intPaperId, $intStatus) {
     $s = sprintf("UPDATE   Paper".
                  " SET     state = '%d'".
                  " WHERE   id = '%d'",
@@ -2199,7 +2199,7 @@ nur fuer detaillierte?
   function updateMessage($objMessage) {
     if (!(is_a($objMessage, 'Message'))) {
       return $this->success(false);
-    }    
+    }
     $s = sprintf("UPDATE   Message".
                  " SET     sender_id = '%d', send_time = '%s', subject = '%s', text = '%s'",
                  s2db($objMessage->intSender), s2db(date("Y-m-d H:i:s")),
@@ -2900,7 +2900,7 @@ nur fuer detaillierte?
 
    function createNewReviewReport($intPaperId, $intReviewerId, $strSummary,
                            $strRemarks, $strConfidential,
-                           $intRatings, $strComments, $objCriterions) {     
+                           $intRatings, $strComments, $objCriterions) {
      $intReviewId = $this->addReviewReport($intPaperId, $intReviewerId,
                                            $strSummary, $strRemarks, $strConfidential);
      if ($this->failed()) {
@@ -2926,7 +2926,7 @@ nur fuer detaillierte?
    * @return int ID des erzeugten Forums
    *
    * @access public
-   * @author Sandro (18.12.04)   
+   * @author Sandro (18.12.04)
    */
   function addForum($intConferenceId, $strTitle, $intForumType, $intPaperId=false) {
     if ($intForumType != FORUM_PAPER) {
@@ -2951,7 +2951,7 @@ nur fuer detaillierte?
    * @param string $intSenderId  ID des Erstellers der Message
    * @param int $intForumId      ID des Forums, in das die Message eingefuegt wird
    * @param int $intReplyTo      ID der Nachricht, auf welche die Message antwortet
-   * @return int ID der erzeugten Message   
+   * @return int ID der erzeugten Message
    *
    * @access public
    * @author Sandro (18.12.04)

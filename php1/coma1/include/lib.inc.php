@@ -331,7 +331,7 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
               'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
               "From: $strFrom\r\n"
              );
-  
+
 }
 
 

@@ -192,7 +192,7 @@ class Distribution extends ErrorHandling {
     $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
     $p_num_revs = array_fill(0, count($p_id), 0);
     $r_num_papers = array_fill(0, count($r_id), 0);
-    
+
     for ($i = 0; $i < count($r_id); $i++) {
       // Bereits zugeteilte Paper
       $s = sprintf("SELECT   d.paper_id AS paper_id".
@@ -320,7 +320,7 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($p_id); $i++) {
       if (!isset($intWantedReviewers[$p_id[$i]]) || $intWantedReviewers[$p_id[$i]] <= 0) {
         $intWantedReviewers[$p_id[$i]] = $avg_revs_per_paper;
-      } 
+      }
     }
 
     // Paper-Wuensche zuerst beruecksichtigen
@@ -385,7 +385,7 @@ class Distribution extends ErrorHandling {
                        $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
     }
-    
+
     // Korrekturen: Reviewer mit neutralem Paper gegen gewuenschtes tauschen,
     // wenn es dem Partner egal ist
     // (...)
@@ -397,7 +397,7 @@ class Distribution extends ErrorHandling {
         echo(' '.$matrix[$i][$j]);
       }
     }*/
-    
+
     /*echo('<table>');
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
@@ -410,7 +410,7 @@ class Distribution extends ErrorHandling {
       echo('</tr>');
     }
     echo('</table>');*/
-    
+
     /*echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs_per_paper);
     echo('<br>p_id_index:');
     print_r($p_id_index);
@@ -431,7 +431,7 @@ class Distribution extends ErrorHandling {
         return $this->success(false);
       }
     }
-    
+
     // Ausgabearray aufbereiten:
     // Laenge = Anzahl Papers (mit Indizes der DB-Paper-ID)
     // Pro Zeile: Ein Reviewer-Array 'reviewers', welches wiederum pro Zeile ein
@@ -483,7 +483,7 @@ class Distribution extends ErrorHandling {
     }
     return $a;
   }
-  
+
   /**
    * @access private
    */
@@ -491,7 +491,7 @@ class Distribution extends ErrorHandling {
     $m |= (1 << $intBit);
     return true;
   }
-  
+
   /**
    * @access private
    */
