@@ -2,7 +2,10 @@
 <p class="message">
   <span class="emph">Note:</span> A reviewer's name in one of the following
     colors means:<br><br>
-  <span class="diststatus-0">The paper is already assigned to the reviewer.</span><br>
+  <span class="diststatus-0">The paper is already assigned to the reviewer.
+    Be careful with unselecting assigned papers. The reviewer may have started
+    with reading the paper.
+  </span><br>
   <span class="diststatus-2">The reviewer neither explicitly wants to review the
     paper nor prefers the topic of the paper.</span><br>
   <span class="diststatus-3">The reviewer prefers the topic of the paper.</span><br>
@@ -23,7 +26,5 @@
     {lines}
   </table>
   <input type="submit" name="confirm" value="Confirm distribution" class="button">
-  <span class="emph">Note:</span> The distribution is obligatory after confirmation.<br>
   <input type="submit" name="dismiss" value="Dismiss distribution" class="button">
-  <span class="emph">Note:</span> You can restart the suggestion process later whenever you want.
 </form>
