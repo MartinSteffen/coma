@@ -14,7 +14,13 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$objPapers = $myDBAccess->getPapersOfConference(session('confid'));
+if (isset($_GET['order']) || isset($_POST['order'])) {
+  $intOrder = (isset($_GET['order']) ? $_GET['order'] : $_POST['order']);
+}
+else {
+  $intOrder = 0;
+}
+$objPapers = $myDBAccess->getPapersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('get paper list',$myDBAccess->getLastError());
 }

@@ -519,7 +519,7 @@ class DBAccess extends ErrorHandling {
    */
   function getUsersOfConference($intConferenceId, $intOrder=false) {
     $s = "SELECT  id, first_name, last_name, email, title".
-        " FROM    Person";
+         " FROM    Person";   
     if (!empty($intOrder)) {
       if ($intOrder == 1) {
         $s .= " ORDER BY last_name";
@@ -757,16 +757,26 @@ class DBAccess extends ErrorHandling {
    * Liefert ein Array von PaperSimple-Objekten der Konferenz $intConferenceId.
    *
    * @param int $intConferenceId ID der Konferenz
-   * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.
+   * @param int $intOrder Gibt an, wonach sortiert werden soll
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)
+   * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.   
    * @access public
    * @author Sandro (19.01.05)
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
-  function getPapersOfConference($intConferenceId) {
+  function getPapersOfConference($intConferenceId, $intOrder=false) {
     $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
                  " FROM    Paper".
                  " WHERE   conference_id = '%d'",
-                           s2db($intConferenceId));
+                           s2db($intConferenceId));    
+    if (!empty($intOrder)) {
+      if ($intOrder == 1) {
+        $s .= " ORDER BY title";
+      }
+      else if ($intOrder == 5) {
+        $s .= " ORDER BY last_edited";
+      }
+    }                              
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
