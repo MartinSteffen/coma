@@ -1004,7 +1004,7 @@ class DBAccess {
     for ($i = 0; $i < count($ROLES); $i++) {
       if ($objPerson->hasRole($ROLES[$i][0])) {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-        '             VALUES ('.$intConferenceId.', '.$intPersonId.', '.$ROLES[$i][0].');
+             '        VALUES ('.$intConferenceId.', '.$intPersonId.', '.$ROLES[$i][0].')';
         echo($s.' /// ');
         //$result = $this->mySql->update($s);
         if (empty($result)) {
