@@ -333,7 +333,6 @@ public class Chair extends HttpServlet
         ReadServiceImpl readService = new ReadServiceImpl();
         SearchResult search_result = readService.getPerson(search);
         Person[] result = (Person[])search_result.getResultObj();
-        System.out.println(result.length);
 		if (result==null || result.length ==0)
         {
 			info.append(XMLHelper.tagged("status","" + user + ": no authors available"));
@@ -456,7 +455,6 @@ public class Chair extends HttpServlet
         	for (int i=0;i<result.length;i++)
         	{
         		p = result[i];
-        		System.out.println(p.getAbstract());
         		info.append(p.toXML());
         	}
         	info.append("</content>");
