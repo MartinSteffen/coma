@@ -31,7 +31,7 @@ require_once('class.dbaccess.inc.php');
 $mySql = new MySql();
 checkError($mySql);
 
-$mySession = new Session($mySql);
+$mySession = new Session($mySql, 'coma1', 7200);
 checkError($mySession);
 
 $myDBAccess = new DBAccess($mySql);

@@ -46,7 +46,7 @@ class Session {
   /**@var int*/
   var $intMaxLifeTime = 7200;
   /**@var string*/
-  var $strSessName = 'coma1';
+  var $strSessName = 'sid';
   /**#@-*/
 
   /**
@@ -55,16 +55,19 @@ class Session {
    * Der Konstrukter stellt die allgemeine Session-Verwaltung ein.
    *
    * @param MySql $mySql Ein MySql Objekt
+   * @param string $strSessName Der Name der Session (default: 'sid')
+   * @param int $intMaxLifeTime Die Zeit, die die Session gueltig bleibt in Sekunden. (default: 7200)
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
    * @see getLastError()
    *
    */
-  function Session(&$mySql) {
+  function Session(&$mySql, $strSessName = 'sid', $intMaxLifeTime = 7200) {
     if (ini_get('session.auto_start') != '0') {
       return $this->error('Konnte Sessionmanger nicht initialisieren (session.auto_start 0 ist erforderlich!');
     }
-    ini_set('session.gc_maxlifetime', $this->intMaxLifeTime);
+    $this->intMaxLifeTime = $intMaxLifeTime;
+    ini_set('session.gc_maxlifetime', $intMaxLifeTime);
     // GC 1% Wahrscheinlichkeit
     ini_set('session.gc_probability', '1');
     ini_set('session.gc_divisor', '100');
@@ -72,7 +75,8 @@ class Session {
     
     $this->mySql =& $mySql;
 
-    session_name($this->strSessName);
+    session_name($strSessName);
+    $this->strSessName = $strSessName;
     session_cache_limiter('nocache');
     if (!session_set_save_handler(array(& $this,'sessionOpen'),
                                   array(& $this,'sessionClose'),
@@ -107,8 +111,6 @@ class Session {
   * @access private
   */
   function sessionOpen($strSavePath, $strSessName) {
-    $this->strSessName = $strSessName;
-    //$this->sessionGC($this->intMaxLifeTime);
     return true;
   }
 
@@ -117,7 +119,6 @@ class Session {
   * @access private
   */
   function sessionClose() {
-    //$this->sessionGC($this->intMaxLifeTime);
     return true;
   }
 

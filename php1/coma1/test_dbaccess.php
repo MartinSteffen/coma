@@ -23,6 +23,7 @@ $dbAccess = new DBAccess($mySql);
 $s = $dbAccess->getLastError();
 
 if (!empty($s)) {
+  // einfacher: exit($S); // Jan
   echo($s);
   die();
 }
