@@ -57,6 +57,9 @@ if (isset($_POST['email'])){
   }
   // Teste, ob die Email bereits vorhanden ist
   else if ($myDBAccess->checkEmail($_POST['email'])) {
+    if ($myDBAccess->failed()) {
+      error('check E-mail',$myDBAccess->getLastError());
+    }
     $strMessage = 'Account with the given E-mail address is already existing! '.
                   'Please use that account or enter another E-mail address!';
   }
@@ -81,9 +84,7 @@ if (isset($_POST['email'])){
     }
     else if ($myDBAccess->failed()) {
       // Datenbankfehler?
-      $strMessage = 'An error occured during your registration:<br>'
-                   .$myDBAccess->getLastError()
-                   .'<br>Please try again to register!';
+      error('creating account', $myDBAccess->getLastError()';
     }
   }
 }

@@ -48,26 +48,24 @@ if (isset($_POST['action'])) {
 
   // Anlegen der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
-  
+
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['name'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
     }
     // Versuche die neue Konferenz einzutragen
     else {
-      $result = false; // [TODO] Konferenz einfuegen   
+      $result = false; // [TODO] Konferenz einfuegen
       if (!empty($result)) {
         // Erfolg (also anderes Template)
         $content = new Template(TPLPATH.'confirm_conference.tpl');
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        $strMessage = 'An error occured during creating your conference:<br>'
-                     .$myDBAccess->getLastError()
-                     .'<br>Please try again!';
+        error('creating conference', $myDBAccess->getLastError()';
       }
     }
-  }  
+  }
   // Oeffnen der erweiterten Einstellungen
   else if (isset($_POST['adv_config'])) {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');

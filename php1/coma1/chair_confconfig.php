@@ -48,23 +48,21 @@ if (isset($_POST['action'])) {
 
   // Aktualisieren der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
-  
+
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['name'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
     }
     // Versuche die Konferenz zu aktualisieren
     else {
-      $result = false; // [TODO] Konferenz aktualisieren   
+      $result = false; // [TODO] Konferenz aktualisieren
       if (!empty($result)) {
         // Erfolg
-        $strMessage = 'Conference setting was changed.';        
+        $strMessage = 'Conference setting was changed.';
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        $strMessage = 'An error occured during updating conference settings:<br>'
-                     .$myDBAccess->getLastError()
-                     .'<br>Please try again!';        
+        error('updating conference', $myDBAccess->getLastError()';
       }
     }
   }
@@ -85,7 +83,7 @@ else {
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(1);  
+  $strContentAssocs['if'] = array(1);
 }
 
 $content->assign($strContentAssocs);
