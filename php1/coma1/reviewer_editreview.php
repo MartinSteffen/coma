@@ -51,7 +51,7 @@ if (isset($_POST['action'])) {
     // Uebernimm die Aenderungen
     if (isset($_POST['submit']) ) {
       // Trage Review in die Datenbank ein
-      $result = $myDBAccess->updateReviewReport($objReviewReport);
+      $result = $myDBAccess->updateReviewReport($objReview);
       if (!empty($result)) {        
         $strMessage = 'Review report was updated successfully.';
       }
