@@ -53,12 +53,12 @@ public class Chair extends HttpServlet
 {
 	static final long serialVersionUID = 1;
 	DataSource ds = null;
-	static StringBuffer info = new StringBuffer();
-	static StringBuffer result = new StringBuffer();
-	static XMLHelper helper = new XMLHelper();
+	StringBuffer info = new StringBuffer();
+	StringBuffer result = new StringBuffer();
+	XMLHelper helper = new XMLHelper();
 	StringBuffer status = new StringBuffer();
-	static String path = null;
-	static String user = null;
+	String path = null;
+	String user = null;
 
 	public void init(ServletConfig config) 
 	{
@@ -125,16 +125,16 @@ public class Chair extends HttpServlet
 	
 	public void login(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 		{
-			helper.tagged("content","Welcome to Coma, " + user + "\n", info);
-			helper.tagged("status","Welcome chair\n ",info);
+			info.append(XMLHelper.tagged("content","Welcome to Coma, " + user + "\n"));
+			info.append(XMLHelper.tagged("status","Welcome chair\n "));
 			String tag = "login";
 			commit(res,tag); 
 		}
 		
 	public void invite_person(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		helper.tagged("content","",info);
-		helper.tagged("status","" + user + ": invite a person\n",info);
+		info.append(XMLHelper.tagged("content",""));
+		info.append(XMLHelper.tagged("status","" + user + ": invite a person\n"));
 		String tag = "invite";
 		commit(res,tag);
 	}
@@ -156,8 +156,8 @@ public class Chair extends HttpServlet
 			p.setState(req.getParameter("invite as"));
 			InsertServiceImpl insert = new InsertServiceImpl();
 			insert.insertPerson(p);
-		    helper.tagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name"),info);
-			helper.tagged("content","",info);
+		    info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name")));
+		    info.append(XMLHelper.tagged("content",""));
 		    String tag = "invitation_send";
 		    commit(res,tag);
 		}
@@ -165,11 +165,11 @@ public class Chair extends HttpServlet
 		{
 		    info.delete(0,info.length());
 		    info.append("<content>");
-			helper.tagged("first",formular[0],info);
-			helper.tagged("last",formular[1],info);
-			helper.tagged("email",formular[2],info);
+		    info.append(XMLHelper.tagged("first",formular[0]));
+		    info.append(XMLHelper.tagged("last",formular[1]));
+		    info.append(XMLHelper.tagged("email",formular[2]));
 			info.append("</content>");
-			helper.tagged("status","" + user + ": you have to fill out all *-fields",info);
+			info.append(XMLHelper.tagged("status","" + user + ": you have to fill out all *-fields"));
 			String tag = "invite";
 			commit(res,tag);
 		}
@@ -186,27 +186,27 @@ public class Chair extends HttpServlet
 	    if (result==null || result.length==0)
 	    {
 	    String tag = "setup_new";
-		helper.tagged("status","" + user + ": Setup a new conference",info);
-		helper.tagged("content","",info);
+		info.append(XMLHelper.tagged("status","" + user + ": Setup a new conference"));
+		info.append(XMLHelper.tagged("content",""));
 		commit(res,tag);
 	    }
 	    else
 	    {
 	    	c = result[0];
 	    	String tag = "setup";
-			helper.tagged("status","" + user + ": there is a conference: "+c.getName(),info);
+			info.append(XMLHelper.tagged("status","" + user + ": there is a conference: "+c.getName()));
 			info.append("<content>");
-			helper.tagged("name",c.getName(),info);
-			helper.tagged("home",c.getHomepage(),info);
-			helper.tagged("desc",c.getDescription(),info);
-			helper.tagged("start",c.getConference_start().toString(),info);
-			helper.tagged("end",c.getConference_end().toString(),info);
-			helper.tagged("abstract",c.getAbstract_submission_deadline().toString(),info);
-			helper.tagged("paper",c.getPaper_submission_deadline().toString(),info);
-			helper.tagged("final",c.getFinal_version_deadline().toString(),info);
-			helper.tagged("review",c.getReview_deadline().toString(),info);
-			helper.tagged("not",c.getNotification().toString(),info);
-			helper.tagged("min",String.valueOf(c.getMin_review_per_paper()),info);
+			info.append(XMLHelper.tagged("name",c.getName()));
+			info.append(XMLHelper.tagged("home",c.getHomepage()));
+			info.append(XMLHelper.tagged("desc",c.getDescription()));
+			info.append(XMLHelper.tagged("start",c.getConference_start().toString()));
+			info.append(XMLHelper.tagged("end",c.getConference_end().toString()));
+			info.append(XMLHelper.tagged("abstract",c.getAbstract_submission_deadline().toString()));
+			info.append(XMLHelper.tagged("paper",c.getPaper_submission_deadline().toString()));
+			info.append(XMLHelper.tagged("final",c.getFinal_version_deadline().toString()));
+			info.append(XMLHelper.tagged("review",c.getReview_deadline().toString()));
+			info.append(XMLHelper.tagged("not",c.getNotification().toString()));
+			info.append(XMLHelper.tagged("min",String.valueOf(c.getMin_review_per_paper())));
 			info.append("</content>");
 			commit(res,tag);
 	    }
@@ -256,40 +256,40 @@ public class Chair extends HttpServlet
 		    c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min_reviewers")));
 		    InsertServiceImpl insert = new InsertServiceImpl();
 		    insert.insertConference(c);
-			helper.tagged("status","" + user + ": Congratulations you have setup the conference: "+ req.getParameter("conference name"),info);
-			helper.tagged("content","",info);
+			info.append(XMLHelper.tagged("status","" + user + ": Congratulations you have setup the conference: "+ req.getParameter("conference name")));
+			info.append(XMLHelper.tagged("content",""));
 			commit(res,tag);
 		}
 		else
 		{
 			info.delete(0,info.length());
 			info.append("<content>");
-			helper.tagged("name",formular[0],info);
-			helper.tagged("home",formular[1],info);
-			helper.tagged("start_year",formular[2],info);
-			helper.tagged("start_month",formular[3],info);
-			helper.tagged("start_day",formular[4],info);
-			helper.tagged("end_year",formular[5],info);
-			helper.tagged("end_month",formular[6],info);
-			helper.tagged("end_day",formular[7],info);
-			helper.tagged("abstract_year",formular[8],info);
-			helper.tagged("abstract_month",formular[9],info);
-			helper.tagged("abstract_day",formular[10],info);
-			helper.tagged("paper_year",formular[11],info);
-			helper.tagged("paper_month",formular[12],info);
-			helper.tagged("paper_day",formular[13],info);
-			helper.tagged("final_year",formular[14],info);
-			helper.tagged("final_month",formular[15],info);
-			helper.tagged("final_day",formular[16],info);
-			helper.tagged("review_year",formular[17],info);
-			helper.tagged("review_month",formular[18],info);
-			helper.tagged("review_day",formular[19],info);
-			helper.tagged("not_year",formular[20],info);
-			helper.tagged("not_month",formular[21],info);
-			helper.tagged("not_day",formular[22],info);
-			helper.tagged("min",formular[23],info);
+			info.append(XMLHelper.tagged("name",formular[0]));
+			info.append(XMLHelper.tagged("home",formular[1]));
+			info.append(XMLHelper.tagged("start_year",formular[2]));
+			info.append(XMLHelper.tagged("start_month",formular[3]));
+			info.append(XMLHelper.tagged("start_day",formular[4]));
+			info.append(XMLHelper.tagged("end_year",formular[5]));
+			info.append(XMLHelper.tagged("end_month",formular[6]));
+			info.append(XMLHelper.tagged("end_day",formular[7]));
+			info.append(XMLHelper.tagged("abstract_year",formular[8]));
+			info.append(XMLHelper.tagged("abstract_month",formular[9]));
+			info.append(XMLHelper.tagged("abstract_day",formular[10]));
+			info.append(XMLHelper.tagged("paper_year",formular[11]));
+			info.append(XMLHelper.tagged("paper_month",formular[12]));
+			info.append(XMLHelper.tagged("paper_day",formular[13]));
+			info.append(XMLHelper.tagged("final_year",formular[14]));
+			info.append(XMLHelper.tagged("final_month",formular[15]));
+			info.append(XMLHelper.tagged("final_day",formular[16]));
+			info.append(XMLHelper.tagged("review_year",formular[17]));
+			info.append(XMLHelper.tagged("review_month",formular[18]));
+			info.append(XMLHelper.tagged("review_day",formular[19]));
+			info.append(XMLHelper.tagged("not_year",formular[20]));
+			info.append(XMLHelper.tagged("not_month",formular[21]));
+			info.append(XMLHelper.tagged("not_day",formular[22]));
+			info.append(XMLHelper.tagged("min",formular[23]));
 			info.append("</content>");
-			helper.tagged("status","" + user + ": please fill out all *-fields",info);
+			info.append(XMLHelper.tagged("status","" + user + ": please fill out all *-fields"));
 			commit(res,tag);
 		} 
 	}
@@ -317,7 +317,7 @@ public class Chair extends HttpServlet
         Person[] result = (Person[])search_result.getResultObj();
 		if (result==null || result.length ==0)
         {
-        	helper.tagged("status","" + user + ": no authors available",info);
+			info.append(XMLHelper.tagged("status","" + user + ": no authors available"));
         	commit(res,tag);
         }
         else
@@ -330,9 +330,9 @@ public class Chair extends HttpServlet
         	}
         	info.append("</content>");
         	if (PAPER)
-        		helper.tagged("status","" + user + ": list of author for paper ?" ,info);
+        		info.append(XMLHelper.tagged("status","" + user + ": list of author for paper ?"));
         	else
-        		helper.tagged("status","" + user + ": list of all authors",info);	
+        		info.append(XMLHelper.tagged("status","" + user + ": list of all authors"));	
         	commit(res,tag);
         }
 	}
@@ -349,7 +349,7 @@ public class Chair extends HttpServlet
         Person[] result = (Person[])search_result.getResultObj();
 		 if (result==null || result.length ==0)
 	        {
-	        	helper.tagged("status","" + user + ": no reviewers available",info);
+		 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
 	        	commit(res,tag);
 	        }
 	        else
@@ -361,12 +361,12 @@ public class Chair extends HttpServlet
 	        		info.append(p.toXML());
 	        	}
 	        	info.append("</content>");
-	        	helper.tagged("status","" + user + ": list of all reviewers",info);
+	        	info.append(XMLHelper.tagged("status","" + user + ": list of all reviewers"));
 	        	commit(res,tag);	
 	        }
 	}
 	
-	public static void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	public void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
 	    String tag = "showpapers";
         Paper p = new Paper(-1);
@@ -377,7 +377,7 @@ public class Chair extends HttpServlet
         Paper[] result = (Paper[])search_result.getResultObj();
         if (result==null || result.length ==0)
         {
-        	helper.tagged("status","" + user + ": no papers available",info);
+        	info.append(XMLHelper.tagged("status","" + user + ": no papers available"));
         	commit(res,tag);
         }
         else
@@ -389,15 +389,15 @@ public class Chair extends HttpServlet
         		info.append(p.toXML());
         	}
         	info.append("</content>");
-        	helper.tagged("status","" + user + ": all papers",info);
+        	info.append(XMLHelper.tagged("status","" + user + ": all papers"));
         	commit(res,tag);	
         }
 }
 	
 	public void email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-	        helper.tagged("content","",info);
-			helper.tagged("status","" + user + ": please write an email",info);
+			info.append(XMLHelper.tagged("content",""));
+			info.append(XMLHelper.tagged("status","" + user + ": please write an email"));
 			String tag="email";
 			commit(res,tag);		
 	}
@@ -423,8 +423,8 @@ public class Chair extends HttpServlet
 			String user = session.getAttribute("user").toString();
 			if(SENDED)
 			{
-				helper.tagged("content","",info);
-				helper.tagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate(),info);
+				info.append(XMLHelper.tagged("content",""));
+				info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate()));
 				String tag = "email";
 				commit(res,tag);
 			}
@@ -433,19 +433,19 @@ public class Chair extends HttpServlet
 		if(!SENDED || !VALID)
 		{
 			if(VALID && !SENDED)
-				helper.tagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN",info);
+				info.append(XMLHelper.tagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN"));
 			if(!VALID)
-				helper.tagged("status","ENTER A VALID EMAIL ADDRESS",info);
-			helper.tagged("subj",formular[1],info);
-			helper.tagged("recv",formular[0],info);
-			helper.tagged("cont",formular[2],info);
-			helper.tagged("content","",info);
+				info.append(XMLHelper.tagged("status","ENTER A VALID EMAIL ADDRESS"));
+			info.append(XMLHelper.tagged("subj",formular[1]));
+			info.append(XMLHelper.tagged("recv",formular[0]));
+			info.append(XMLHelper.tagged("cont",formular[2]));
+			info.append(XMLHelper.tagged("content",""));
 			String tag = "email";
 			commit(res,tag);
 		}
 	}
 	
-	private static void commit(HttpServletResponse res, String tag) 
+	private void commit(HttpServletResponse res, String tag) 
 	{
 	    try
 	    {
@@ -458,7 +458,6 @@ public class Chair extends HttpServlet
 			result.append("</" +tag + ">\n");
 			result.append("</result>\n");
 			String xslt = path + "/style/xsl/chair.xsl";
-			System.out.println(result);
 		    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);
 			XMLHelper.process(xmlSource, xsltSource, out);
