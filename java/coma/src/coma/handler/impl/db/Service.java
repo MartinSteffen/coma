@@ -51,17 +51,24 @@ public class Service {
 			if (configured) {
 				result = dataSource.getConnection();
 			} else {
-				// prop.load(new FileInputStream("coma/db.props"));
-				// String driver = prop.getProperty("driver");
-				// String url = prop.getProperty("url");
-				// String user = prop.getProperty("user");
-				// String pass = prop.getProperty("password");
-				// result = DriverManager.getConnection(url,user,pass);
-				String driver = "org.gjt.mm.mysql.Driver";
-				String url = "jdbc:mysql://vs170142.vserver.de/coma3";
-				Class.forName(driver);
-				result = DriverManager.getConnection(url, "coma3",
-						"TervArHorhy");
+				try {
+					prop.load(new FileInputStream("db.properties"));
+					String driver = prop.getProperty("db.driver");
+					String url = prop.getProperty("db.url");
+					String user = prop.getProperty("db.user");
+					String pass = prop.getProperty("db.password");
+
+					result = DriverManager.getConnection(url, user, pass);
+				} catch (FileNotFoundException e2) {
+					System.out.println(e2);
+					String driver = "org.gjt.mm.mysql.Driver";
+					String url = "jdbc:mysql://vs170142.vserver.de/coma3";
+					Class.forName(driver);
+					result = DriverManager.getConnection(url, "coma3",
+							"TervArHorhy");
+				} catch (IOException e2) {
+					System.out.println(e2);
+				}
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getClass() + e.getMessage().toString());

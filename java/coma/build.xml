@@ -2,11 +2,11 @@
 
 <project name="coma" default="compile" basedir=".">
 
-	<property name="compile.debug" value="true"/>
-	<property name="compile.deprecation" value="false"/>
-	<property name="compile.optimize" value="true"/>
-	<property environment="env"/>
-	
+	<property name="compile.debug" value="true" />
+	<property name="compile.deprecation" value="false" />
+	<property name="compile.optimize" value="true" />
+	<property environment="env" />
+
 	<property name="app.name" value="coma" />
 	<property name="basedir" value="." />
 	<property name="src" value="${basedir}/src" />
@@ -15,43 +15,39 @@
 	<property name="dist" value="${basedir}/dist" />
 	<property name="style" value="${basedir}/style" />
 	<property name="papers" value="${basedir}/${papers}" />
-	<property file="${basedir}/build.props" name="setup.params" location="${basedir}"/>
-    
+	<property file="${basedir}/build.props" name="setup.params" location="${basedir}" />
+
 	<path id="compile.classpath">
 		<fileset dir="${env.LIB_HOME}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
- 
+
 	<target name="clean" description="deleting old build ...">
-			<delete dir="${bin}" />
-			<delete dir="${doc}" />
-			<delete dir="${dist}" />
-			<delete dir="${app.name}" />
-    </target>
-	
+		<delete dir="${bin}" />
+		<delete dir="${doc}" />
+		<delete dir="${dist}" />
+		<delete dir="${app.name}" />
+	</target>
+
 	<target name="compile" depends="" description="compiling sources ...">
 		<mkdir dir="${bin}" />
-		<javac srcdir="${src}" destdir="${bin}"
-		       deprecation="${compile.deprecation}"
-			   debug="${compile.debug}"
-			   optimize="${compile.optimize}"
-		>	
+		<javac srcdir="${src}" destdir="${bin}" deprecation="${compile.deprecation}" debug="${compile.debug}" optimize="${compile.optimize}">
 			<classpath refid="compile.classpath" />
 		</javac>
 	</target>
 	<target name="doc" depends="clean" description="generating java docs ...">
-			<mkdir dir="${doc}/api" />
-			<javadoc sourcepath="${src}" destdir="${doc}/api" packagenames="*">
-				<classpath refid="compile.classpath" />
-			</javadoc>
+		<mkdir dir="${doc}/api" />
+		<javadoc sourcepath="${src}" destdir="${doc}/api" packagenames="*">
+			<classpath refid="compile.classpath" />
+		</javadoc>
 	</target>
 
 	<target name="install" depends="compile" description="installing application">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
-		<mkdir dir="${dist}/${app.name}/papers"/>
+		<mkdir dir="${dist}/${app.name}/papers" />
 		<mkdir dir="${dist}/${app.name}/doc" />
 		<chmod perm="u=rwx,g=rx,o=x">
 			<fileset dir="${dist}/${app.name}/papers" />
@@ -67,31 +63,30 @@
 			<fileset dir="${doc}" />
 		</copy-->
 		<copy todir="${dist}/${app.name}/style">
-			<fileset dir="${style}/"/>
+			<fileset dir="${style}/" />
 		</copy>
 		<copy todir="${dist}/${app.name}/WEB-INF" file="${basedir}/web.xml" />
-		<copy file="${basedir}/${app.name}.xml" 
-			tofile="${dist}/${app.name}/META-INF/context.xml" 
-			overwrite="true">
+		<copy file="${basedir}/${app.name}.xml" tofile="${dist}/${app.name}/META-INF/context.xml" overwrite="true">
 			<filterset>
-				<filter token="WEBAPPS_HOME" value="${env.WEBAPPS_HOME}"/>
-				<filter token="DATABASE_DRIVER" value="${db.driver}"/>
-				<filter token="URL" value="${db.url}"/>
-				<filter token="USER_NAME" value="${db.user}"/>
-				<filter token="PASSWORD" value="${db.password}"/>
+				<filter token="WEBAPPS_HOME" value="${env.WEBAPPS_HOME}" />
+				<filter token="DATABASE_DRIVER" value="${db.driver}" />
+				<filter token="URL" value="${db.url}" />
+				<filter token="USER_NAME" value="${db.user}" />
+				<filter token="PASSWORD" value="${db.password}" />
 			</filterset>
 		</copy>
-		<copy todir="${env.WEBAPPS_HOME}/webapps" overwrite="true">
+		<copy file="${basedir}/build.props" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
+		</copy>
+		<copy todir="${env.WEBAPPS_HOME}" overwrite="true">
 			<fileset dir="${dist}/" />
 		</copy>
-		<get dest="" src=""/>
 	</target>
-	
-	<target name="remote-install" depends="">
+
+	<target name="remote-install" depends="compile">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
-		<mkdir dir="${dist}/${app.name}/papers"/>
+		<mkdir dir="${dist}/${app.name}/papers" />
 		<mkdir dir="${dist}/${app.name}/doc" />
 		<chmod perm="u=rwx,g=rx,o=x">
 			<fileset dir="${dist}/${app.name}/papers" />
@@ -103,36 +98,28 @@
 			<fileset dir="${lib.home}" />
 		</copy>
 		<copy todir="${dist}/${app.name}/style">
-			<fileset dir="${style}/"/>
+			<fileset dir="${style}/" />
 		</copy>
 		<copy todir="${dist}/${app.name}/WEB-INF" file="${basedir}/web.xml" />
-		<copy file="${basedir}/${app.name}.xml" 
-			  todir="${dist}/${app.name}" 
-			  overwrite="true">
-			  <filterset>
-				 <filter token="WEBAPPS_HOME" value="${webapps.home}"/>
-				 <filter token="DATABASE_DRIVER" value="${db.driver}"/>
-				 <filter token="URL" value="${db.url}"/>
-				 <filter token="USER_NAME" value="${db.user}"/>
-				 <filter token="PASSWORD" value="${db.password}"/>
-			 </filterset>
+		<copy file="${basedir}/${app.name}.xml" todir="${dist}/${app.name}" overwrite="true">
+			<filterset>
+				<filter token="WEBAPPS_HOME" value="${webapps.home}" />
+				<filter token="DATABASE_DRIVER" value="${db.driver}" />
+				<filter token="URL" value="${db.url}" />
+				<filter token="USER_NAME" value="${db.user}" />
+				<filter token="PASSWORD" value="${db.password}" />
+			</filterset>
+		</copy>
+		<copy file="${basedir}/build.props" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
 		</copy>
 		<copy todir="${webapps.home}" overwrite="true">
 			<fileset dir="${dist}/" />
 		</copy>
-		<get src="${tomcat.url}/${tomcat.deploy_path}" 
-		  	 dest="status.html"
-			 username="${tomcat.manager.user}"
-			 password="${tomcat.manager.password}"
-		/>
+		<get src="${tomcat.url}/${tomcat.deploy_path}" dest="status.html" username="${tomcat.manager.user}" password="${tomcat.manager.password}" />
 	</target>
-	
+
 	<target name="remote-uninstall">
-		<get src="${tomcat.url}/${tomcat.undeploy_path}" 
-			 dest="status.html"
-			 username="${tomcat.manager.user}"
-			 password="${tomcat.manager.password}"
-		/>
+		<get src="${tomcat.url}/${tomcat.undeploy_path}" dest="status.html" username="${tomcat.manager.user}" password="${tomcat.manager.password}" />
 	</target>
 
 </project>
