@@ -1,5 +1,7 @@
 <?php
 /**
+ * Funktionen und Konstanten fuer alle Skripte
+ *
  * @version $Id$
  * @package coma1
  * @subpackage core
@@ -13,6 +15,26 @@ if (!defined('INCPATH')) {
   /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
+
+/**#@+ Konstanten fuer die Rollenverteilung */
+define('CHAIR',       2);
+define('REVIEWER',    3);
+define('AUTHOR',      4);
+define('PARTICIPANT', 5);
+$intRoles = array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT);
+$strRoles = array(CHAIR       => 'Chair',
+                  REVIEWER    => 'Reviewer',
+                  AUTHOR      => 'Author',
+                  PARTICIPANT => 'Participant');
+/**#@-*/
+
+/**#@+ Konstanten fuer die Artikelstatuswerte */
+define('PAPER_UNREVIEWED',  0);
+define('PAPER_REVIEWED',    1);
+define('PAPER_CONFLICTED',  2);
+define('PAPER_ACCEPTED',    3);
+define('PAPER_REJECTED',    4);
+/**#@-*/
 
 /**
  * Fehler auf hoechster Ebene abfangen und ausgeben
