@@ -23,6 +23,13 @@ function bit($b) {
   echo('<br>');
   return true;
 }
+
+$p = $myDBAccess->deactivateAccount(1);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else echo($p);
+
 /*
 $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
