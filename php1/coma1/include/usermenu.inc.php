@@ -24,41 +24,56 @@ $strMenuAssocs['menu2'] = '';
 $strMenuAssocs['menu3'] = '';
 $strMenuAssocs['menu4'] = '';
 $strMenuAssocs['if'] = array();
+if ($actMenu == 0) {
+  $strMenuAssocs['if'] = array($actMenuItem);
+}
 
 if ($objPerson->hasRole(CHAIR, session('confid'))) {
   $submenu = new Template(TPLPATH.'chairmenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
+  if ($actMenu == CHAIR) {
+    $strMenuAssocs['if'] = array($actMenuItem);
+  }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu1'] = $submenu->output();
+  $strMenuAssocs['menu1'] = $submenu->getOutput();
 }
 
 if ($objPerson->hasRole(REVIEWER, session('confid'))) {
   $submenu = new Template(TPLPATH.'reviewermenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
+  if ($actMenu == REVIEWER) {
+    $strMenuAssocs['if'] = array($actMenuItem);
+  }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu2'] = $submenu->output();
+  $strMenuAssocs['menu2'] = $submenu->getOutput();
 }
 
 if ($objPerson->hasRole(AUTHOR, session('confid'))) {
   $submenu = new Template(TPLPATH.'authormenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
+  if ($actMenu == AUTHOR) {
+    $strMenuAssocs['if'] = array($actMenuItem);
+  }  
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu3'] = $submenu->output();
+  $strMenuAssocs['menu3'] = $submenu->getOutput();
 }
 
 if ($objPerson->hasRole(PARTICIPANT)) {
   $submenu = new Template(TPLPATH.'participantmenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
+  if ($actMenu == PARTICIPANT) {
+    $strMenuAssocs['if'] = array($actMenuItem);
+  }  
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs['menu4'] = $submenu->output();
+  $strMenuAssocs['menu4'] = $submenu->getOutput();
 }
 
 $menu->assign($strMenuAssocs);

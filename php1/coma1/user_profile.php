@@ -87,11 +87,13 @@ $strContentAssocs['fax']         = $objPerson->strFax;
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(1);
+  $strContentAssocs['if'] = array(1);    
 }
 
 $content->assign($strContentAssocs);
 
+$actMenu = 0;
+$actMenuItem = 1;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
