@@ -16,7 +16,7 @@
 </table>
 
 <p class="message2">Upload new paper:<br>
-  <form action="{basepath}author_papers.php?{SID}" method="post" enctype="multipart/form-data">
+  <form action="{basepath}author_papers.php{?SID}" method="post" enctype="multipart/form-data">
     <table>
       <tr>
         <td>Title:</td><td><input type="text" size="50" name="title"></td>
