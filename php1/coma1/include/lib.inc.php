@@ -316,8 +316,9 @@ function sendMail($intUserID, $strSubject, $strMsg)
   if ($myDBAccess->failed()) {
     error('sendMail',$myDBAccess->getLastError());
   }
-  return mail($objPerson->strEmail, $strSubject, $strMsg,
-              'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n"
+  return mail('', $strSubject, $strMsg,
+              'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
+              "From: CoMa - Your Conference Manager\r\n"
              );
   
 }
