@@ -136,12 +136,12 @@ class DBAccess {
    */
   function getPersonDetailed($intPersonId) {
     $s = 'SELECT  id, email, first_name, last_name, title, affiliation,'.
-        '         street, city, postal_code, state, country, phone, fax'.
+        '         street, city, postal_code, state, country, phone_number,'.
+        '         fax_number'.
         ' FROM    Person'.
         ' WHERE   id = '.$intPersonId;
     $data = $this->mySql->select($s);
     if ($data) {
-      echo('Echo... Echo...');
       $s = 'SELECT  role_type'.
           ' FROM    Role'.
           ' WHERE   person_id = '.$data[0]['id'];
