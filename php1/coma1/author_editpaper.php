@@ -141,12 +141,12 @@ for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
 $strContentAssocs['topic_lines'] = '';
 for ($i = 0; $i < count($objAllTopics); $i++) {
   $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
-  $topicAssocs = defaultAssocArray();
-  $topicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
-  $topicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
-  $topicAssocs['if'] = array();
+  $strTopicAssocs = defaultAssocArray();
+  $strTopicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
+  $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
+  $strTopicAssocs['if'] = array();
   if ($objPaper->hasTopic($objAllTopics[$i]->intId)) {
-    $topicAssocs['if'] = array(1);  	
+    $strTopicAssocs['if'] = array(1);  	
   }
   $topicForm->assign($strTopicAssocs);
   $topicForm->parse();
