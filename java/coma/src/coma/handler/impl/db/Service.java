@@ -48,7 +48,7 @@ public class Service {
 			if (!configured) {
 				init();
 			}
-			if (false) {
+			if (configured) {
 			    System.out.println("Connection pool initialized ok");
 			    result = dataSource.getConnection();
 			} else {
