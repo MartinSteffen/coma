@@ -51,13 +51,13 @@ public class Service {
 			if (configured) {
 				result = dataSource.getConnection();
 			} else {
+				DriverManager.setLoginTimeout(10);
 				try {
 					prop.load(new FileInputStream("db.properties"));
 					String driver = prop.getProperty("db.driver");
 					String url = prop.getProperty("db.url");
 					String user = prop.getProperty("db.user");
 					String pass = prop.getProperty("db.password");
-
 					result = DriverManager.getConnection(url, user, pass);
 				} catch (FileNotFoundException e2) {
 					System.out.println(e2);
