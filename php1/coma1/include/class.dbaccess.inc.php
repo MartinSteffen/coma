@@ -14,8 +14,9 @@ if (!defined('INCPATH')) {
 
 
 /* =============================================================================
-WICHTIGE NEUIGKEITEN 14.01.05:
-------------------------------
+WICHTIGE NEUIGKEITEN 14.01.05 / 18.01.05:
+-----------------------------------------
+- Objekt PersonAlgorithmic hinzugefuegt; entsprechende DBAccess-Methonden
 - Bitte bei ALLEN Datentypen (nicht nur Strings) in SQL-Statements immer
   Anfuehrungszeichen verwenden, weil sonst leere Integer (=false) als Nullstring
   in den SQL-String eingesetzt werden mit der Folge, dass Anfragen wie
@@ -399,8 +400,7 @@ class DBAccess extends ErrorHandling {
    * Liefert die ID der Person, deren E-Mail-Adresse $strEmail ist.
    *
    * @param string $strEmail E-Mail-Adresse der Person.
-   * @return int ID bzw. <b>false</b>, falls keine Person mit E-Mail-Adresse
-   *             $strEmail gefunden wurde.
+   * @return int false, falls keine Person mit E-Mail-Adresse $strEmail gefunden wurde.
    * @access public
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
@@ -459,8 +459,64 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein PersonDetailed-Objekt mit den Daten der Person $intPersonId bzw. erzeugt einen
-   * Fehler, falls $intPersonId nicht existiert.
+   * Liefert ein PersonAlgorithmic-Objekt mit den Daten der Person $intPersonId.
+   *
+   * @param int $intPersonId ID der Person
+   * @param int $intConferenceId ID der Konferenz, zu der die spezifischen Attribute
+   *                             der Person geholt werden.
+   * @return PersonAlgorithmic false, falls keine Person mit ID $intPersonId gefunden wurde.
+   * @access public
+   * @author Tom (18.01.05)
+   */
+  function getPersonAlgorithmic($intPersonId, $intConferenceId) {
+    if (empty($intConferenceId)) {
+      return $this->success(false);
+    }
+    
+    // Basisdaten
+    $s = "SELECT  id, first_name, last_name, email, title".
+        " FROM    Person".
+        " WHERE   id = '$intPersonId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPersonAlgorithmic', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+
+    $objPersonAlgorithmic = (new PersonAlgorithmic($data[0]['id'], $data[0]['first_name'],
+                              $data[0]['last_name'], $data[0]['email'], 0,
+                              $data[0]['title']);
+
+    // konferenzspezifische Attribute
+    $objPersonAlgorithmic->intPreferredTopics =
+      $this->getPreferredTopics($objPersonAlgorithmic, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('getPersonAlgorithmic', $this->getLastError());
+    }
+    $intPreferredPapers = array();
+    $intDeniedPapers = array();
+    $intExcludedPapers = array();
+
+    // Rollen der Person
+    $s = "SELECT  role_type".
+        " FROM    Role".
+        " WHERE   person_id = '".$data[0]['id']."'".
+        " AND     conference_id = '$intConferenceId'";
+    $role_data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPersonAlgorithmic', $this->mySql->getLastError());
+    }
+    for ($i = 0; $i < count($role_data); $i++) {
+      $objPersonAlgorithmic->addRole($role_data[$i]['role_type']);
+    }
+
+    return $this->success($objPersonAlgorithmic);
+  }
+
+  /**
+   * Liefert ein PersonDetailed-Objekt mit den Daten der Person $intPersonId.
    *
    * @param int $intPersonId ID der Person
    * @param int $intConferenceId ID der Konferenz, zu der die Rollen der Person ermittelt
@@ -988,7 +1044,7 @@ class DBAccess extends ErrorHandling {
    * @return bool Gibt true zurueck gdw. die Person Zugriff auf das Forum hat
    * @access public
    * @author Sandro (12.01.05)
-   * @todo Muss noch implementiert werden!
+   * @todo (Sandros Job) Muss noch implementiert werden!
    */
   function checkAccessToForum($intPersonId, $intForumId) {
     return false;
@@ -1079,7 +1135,7 @@ class DBAccess extends ErrorHandling {
   /**
    * Liefert das Forum-Objekt des Forums zurueck, das mit Paper $intPaperId assoziiert ist.
    *
-   * @return Forum <b>false</b>, falls kein Forum zu dem Paper existiert.
+   * @return Forum false, falls kein Forum zu dem Paper existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -1102,8 +1158,8 @@ class DBAccess extends ErrorHandling {
    * Liefert ein Array von Forum-Objekten aller Foren zurueck, welche die Person
    * $intPersonId in der Konferenz $intConferenceId einsehen darf.
    *
-   * @param $intPersonId Die ID der zu pruefenden Person.
-   * @param $intConferenceId Die ID der Konferenz, aus der die Foren ermittelt werden sollen.
+   * @param int $intPersonId Die ID der zu pruefenden Person.
+   * @param int $intConferenceId Die ID der Konferenz, aus der die Foren ermittelt werden sollen.
    * @return Forum [] Ein leeres Array, falls keine solchen Foren existieren.
    * @access public
    * @author Sandro (14.12.04)
@@ -1138,11 +1194,12 @@ class DBAccess extends ErrorHandling {
     return $this->success($objForums);
   }
 
+
   /**
    * Liefert ein ForumDetailed-Objekt mit den Daten des Forums $intForumId zurueck.
    * Das ForumDetailed-Objekt enthaelt den kompletten Message-Baum des Forums.
    *
-   * @return ForumDetailed <b>false</b>, falls das Forum nicht existiert
+   * @return ForumDetailed false, falls das Forum nicht existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -1162,6 +1219,39 @@ class DBAccess extends ErrorHandling {
     return $this->success($forum);
   }
 
+  /**
+   * Liefert ein Array der bevorzugten Topics der Person $objPersonAlgorithmic
+   * bei der Konferenz $intConferenceId.
+   *
+   * @param PersonAlgorithmic $objPersonAlgorithmic PersonAlgorithmic-Objekt
+   * @param int $intConferenceId Konferenz-ID
+   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @access private
+   * @author Tom (18.01.05)
+   */
+  function getPreferredTopics($objPersonAlgorithmic, $intConferenceId) {
+    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
+      return $this->success(false);
+    }
+    $objTopics = array();
+    $s = "SELECT  t.topic_id AS topic_id, t.name AS name".
+        " FROM    PrefersTopic p".
+        " INNER   JOIN Topic t".
+        " ON      t.id = p.topic_id".
+        " AND     t.conference_id = '$intConferenceId'".
+        " WHERE   p.person_id = '$objPersonAlgorithmic->intId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPreferredTopics', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->success($objTopics);
+    }
+    for ($i = 0; $i < count($data); $i++) {
+      $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i], $data[$i]['name']);
+    }
+    return $this->success($objTopics);
+  }
 
   // ---------------------------------------------------------------------------
   // Definition der Update-Funktionen
@@ -1434,7 +1524,7 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo
+   * @todo (Sandros Job)
    */
   function updateReviewReport($objReviewDetailed) {
     if (!($this->is_a($objReviewDetailed, 'ReviewDetailed'))) {
@@ -1444,7 +1534,7 @@ nur fuer detaillierte?
   }
   
   /**
-   * @todo
+   * @todo (Sandros Job)
    * @access private
    */
   function updateRating($objReviewDetailed) {
@@ -1455,7 +1545,7 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo
+   * @todo (Sandros Job)
    */
   function updateForum($objForumDetailed) {
     if (!($this->is_a($objForumDetailed, 'ForumDetailed'))) {
@@ -1573,19 +1663,11 @@ nur fuer detaillierte?
     return $this->success();
   }
 
-  // Zu den folgenden Updatemethoden:
-  // --------------------------------
-  // Machen Sinn, falls wir in PersonDetailed noch diese Attribute hinzufuegen:
-  // $intConferenceId, $intPreferredTopics[], $intPreferredPapers[], $intDeniedPapers[],
-  // $intExcludedPapers[].
-  // Es empfiehlt sich m.E., die Methoden analog zu updateCriterions und updateTopics
-  // zu implementieren (beachte @warning-Hinweis im PHPDoc).
-
   /**
-   * @todo
+   * @todo (Toms Job)
    * @access private
    */
-  function updatePrefersTopic($objPersonConference) {
+  function updatePreferredTopics($objPersonConference) {
     if (!($this->is_a($objPersonConference, 'PersonConference'))) {
       return $this->success(false);
     }
@@ -1593,10 +1675,10 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo
+   * @todo (macht Tom)
    * @access private
    */
-  function updatePrefersPaper($objPersonConference) {
+  function updatePreferredPapers($objPersonConference) {
     if (!($this->is_a($objPersonConference, 'PersonConference'))) {
       return $this->success(false);
     }
@@ -1604,10 +1686,10 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo
+   * @todo (macht Tom)
    * @access private
    */
-  function updateDeniesPaper($objPersonConference) {
+  function updateDeniedPapers($objPersonConference) {
     if (!($this->is_a($objPersonConference, 'PersonConference'))) {
       return $this->success(false);
     }
@@ -1615,10 +1697,10 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo
+   * @todo (macht Tom)
    * @access private
    */
-  function updateExcludesPaper($objPersonConference) {
+  function updateExcludedPapers($objPersonConference) {
     if (!($this->is_a($objPersonConference, 'PersonConference'))) {
       return $this->success(false);
     }

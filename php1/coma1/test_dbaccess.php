@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id$
+ * @version $Id
  * @package coma1
  * @subpackage Testing
  */
@@ -24,8 +24,17 @@ function bit($b) {
   return true;
 }
 
-
-
+$p = $myDBAccess->getPersonAlgorithmic(1, 5);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else if (empty($p)) {
+  echo('EMPTY');
+  die(-1);
+}
+for ($i = 0; $i < count($p->objPreferredTopics); $i++)
+  echo ('<br>'.$p->objPreferredTopics[$i]);
+}
 
 
 
@@ -47,7 +56,7 @@ if ($myDBAccess->failed()) {
 }
 echo('OK');*/
 
-
+/*
 $c = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -61,7 +70,7 @@ $myDBAccess->updateConference($c);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo ('OK');
+echo ('OK');*/
 
 
 /*
