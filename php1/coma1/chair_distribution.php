@@ -34,10 +34,10 @@ if (isset($_POST['confirm'])) {
   while ($pid = key($dist)) {
     $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($dist[$pid]); $j++) {
-      if ($dist[$pid][$j]['status'] != ASSIGNED) {
+      if ($dist[$pid][$j]['status'] != ASSIGNED && rand(1, 3) <= 1) {
         $s .= ' '.$dist[$pid][$j]['reviewer_id'].'/'.$dist[$pid][$j]['status'];
 //        if(!isset($_POST['p'.$pid.'ridx'.$j])) {
-          unset($dist[$pid][$j]);
+          $dist[$pid][$j] = false;
 //        }
       }
       else $s .= ' ass';
@@ -81,6 +81,9 @@ if (!empty($dist) && 1==0) {
     $strReviewersAssocs = defaultAssocArray();
     $arrReviewers = $dist[$objPaper->intId];
     for ($i = 0; $i < count($arrReviewers); $i++) {
+      if ($arrReviewers[$i] == false) {
+        continue;
+      }
       $objReviewer = $myDBAccess->getPerson($arrReviewers[$i]['reviewer_id']);
       if ($myDBAccess->failed()) {
         error('get suggested reviewer',$myDBAccess->getLastError());
