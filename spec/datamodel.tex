@@ -118,6 +118,7 @@ the conferences being hosted by the server. We propose that there exists as
 default conference is charakterized by the empty string. Most of the
 entries in the table should be self-explanatory. For the deadlines, the
 following ones are foreseen, in the order of events:
+\index{deadlines}
 \begin{enumerate}
 \item The \emph{abstract submission deadline.} This typically is a
   (secondary) deadline for \emph{authors} shortly before the paper
@@ -161,12 +162,13 @@ a password (cf.\ Listing~\ref{code:sql.person}).  An
 
 \medskip{}
 
+\index{role}
 Crucial for the interaction of persons with he tool are the \emph{roles}
-the persons play (cf~\ref{code.sql.role}. Some of them were mentioned
+the persons play (cf~\ref{code:sql.role}. Some of them were mentioned
 informally in the requirements specification \cite{coma:requirements}. In
 the course of the semester, we reached at \emph{no agreement} how to
 represent the role. Thus, neither the representation no the exact choice of
-roles are indicated in the shown SQL-code. 
+roles are indicated in the shown SQL-code.
 
 \lstinputlisting[caption=Role,label=code:sql.role,firstline=65,lastline=79]{../sql/db_schema.sql}%
 
@@ -174,7 +176,7 @@ roles are indicated in the shown SQL-code.
 In the textual representation which is agreed upon as supplementary global
 spec, we fixed the roles of Table~\ref{tab:roles} to be mandatory. The
 numbers indicate the numerical representation, if no enumeration and
-additional table \texttt{Roles} is chosen.
+additional table \texttt{Roles} is chosen.  \index{roles}
 
 \begin{table}[htbp]
   \centering
@@ -202,11 +204,63 @@ additional table \texttt{Roles} is chosen.
 
 \medskip%
 
-\emph{Papers} are the things that the authors produce and upload
-via the tool in the process called \emph{submission.}
+\emph{Papers} are the things that the authors produce and upload via the
+tool in the process called \emph{submission.} In general, it's some form of
+document, typcally in postscript or as pdf format; each document must have
+an \emph{author} and belongs to one particular conference. The person
+indicated here as author is also called the \emph{corresponding author}
+which refers to the one from the authors who takes main resposability to
+interact with the system.
+\index{author!corresponding}%
+The \emph{abstract} of a paper is a short text which summarizes in a few
+lines the content of the paper.
 
-\lstinputlisting[caption=Paper,label=code:sql.role,firstline=80,lastline=100]{../sql/db_schema.sql}%
+\lstinputlisting[caption=Paper,label=code:sql.paper,firstline=80,lastline=100]{../sql/db_schema.sql}%
 
+The \emph{state} of a paper is used in the reviewing phase to indicate
+certain high-level information concerning the result of the discussion.
+\index{paper!state} The states agreed upon are shown in
+Table~\ref{tab:paper.state}. The numerical representation is included for
+those implementations, that do not want to use an extra table.
+
+
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ll}
+    state & num. representation
+    \\\hline
+    no special state (not being reviewed) & 00
+    \\
+    being reviewed
+    & 
+    01
+    \\
+    being reviewed, conflicting
+    &
+    02
+    \\
+    accepted
+    &
+    03
+    \\
+    rejected
+    &
+    04
+  \end{tabular}
+  \caption{State}
+  \label{tab:paper.state}
+\end{table}
+
+
+Each paper has at least one author, as a paper does not write itself. A
+paper may have more than one author, though, and the additional ones are
+called in the context of \Coma\ coauthors.\footnote{In real life, of course,
+  all are authors, but on the model, one particular author is singled out,
+  and the others, if any, are called coauthors of the paper.}
+\index{coauthor}%
+
+\lstinputlisting[caption=Coauthor,label=code:sql.iscoauthorof,firstline=101,lastline=110]{../sql/db_schema.sql}%
 %\input{abstract}
 %\tableofcontents{}
 
