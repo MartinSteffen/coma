@@ -18,10 +18,10 @@ if (isset($_GET['paperid'])) {
   // Hole dir das File
   $file = $myDBAccess->getPaperFile($_GET['paperid']);
   if ($myDBAccess->failed()) {
-    error('Error occured retrieving paper.', $myDBAccess->getLastError());
+    error('Error occured retrieving paper', $myDBAccess->getLastError());
   }
   if (empty($file)) {
-    error('Error occured retrieving paper.', 'File not found!');
+    error('Error occured retrieving paper', 'File not found!');
   }
   // Sende das File
   $name = $file[0];
