@@ -1,6 +1,6 @@
-<table class="center">
+<table width="100%">
 <tr>
-<td>
+<td class="center">
 <form action="{basepath}index.php?{SID}" method="post">
 <table class="formtable">
   <tr>

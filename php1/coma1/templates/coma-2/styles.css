@@ -68,7 +68,7 @@ table.formtable { font-size: 13px;
                   padding: 10px;
                 }
 
-table.center { text-align: center; width: 100%; }
+.center { text-align: center; }
 
 /* tabelle mit linien zur darstellung von listen */
 table.list  { border-style: groove; }
