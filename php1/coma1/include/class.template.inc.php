@@ -50,7 +50,7 @@ class Template {
    * Neues Template
    *
    * Die Methode liest ein (neues) Template ein.
-   * Sollte nicht verwendet werdem, stattdessen besser neues Object erzeugen!
+   * Sollte nicht verwendet werdem, stattdessen besser neues Objekt erzeugen!
    * 
    * @param string $filenmae Der Dateiname des Templates
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
@@ -115,7 +115,7 @@ class Template {
   }
   
   /**
-   * error()
+   * Fehler erzeugen
    *
    * Die Funktion <b>error()</b> speichert Fehler diese.
    * 
@@ -131,7 +131,7 @@ class Template {
   }
 
   /**
-   * getLastError()
+   * Letzten Fehler ueberpruefen
    *
    * Die Funktion <b>getLastError()</b> gibt die letzte mit error
    * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.

@@ -146,7 +146,7 @@ class MySql {
   }
 
   /**
-   * error()
+   * Fehler erzeugen / abfragen
    *
    * Die Funktion <b>error()</b> checkt auf MySql Fehler und speichert diese.
    * 
@@ -164,7 +164,7 @@ class MySql {
   }
 
   /**
-   * getLastError()
+   * Letzten Fehler ueberpruefen
    *
    * Die Funktion <b>getLastError()</b> gibt die letzte mit error
    * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
