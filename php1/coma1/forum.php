@@ -164,7 +164,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
 
 function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs, &$myDBAccess){
   if (DEBUGMODE){
-    echo('Messages: ' . count($messages). '<br>');
+    echo('<br>Messages: ' . count($messages));
   }
   $tempstring = '';
   foreach ($messages as $message){
@@ -211,7 +211,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
         $messes = $message->getNextMessages();
         if (DEBUGMODE){
-          echo('count(getNextMessages)=' . count($messes));
+          echo('<br>count(getNextMessages)=' . count($messes));
         }
         $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs, $myDBAccess);
       }
@@ -316,7 +316,7 @@ function getCID(&$myDBAccess){
 //Main-Code
 
 if ((emptystring(session('uid', false))) && (!DEBUGMODE)){
-  redirect('login.php');
+  redirect('index.php');
 }
 else{
 
@@ -329,6 +329,7 @@ else{
     var_dump($HTTP_GET_VARS);
     echo('<h1>END VARDUMP $HTTP_GET_VARS</h1><br>');
     */
+    var_dump($_SESSION);
   }
 
   $cid = getCID($myDBAccess);
