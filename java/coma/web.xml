@@ -19,55 +19,67 @@
 	   </servlet-class>
 	</servlet>
 	-->
-    <servlet>
+	
+	<servlet>
+     <servlet-name>Author</servlet-name>
+     <servlet-class>coma.servlet.servlets.Author</servlet-class>
+    </servlet>
+	
+	<servlet>
+     <servlet-name>Chair</servlet-name>
+     <servlet-class>coma.servlet.servlets.Chair</servlet-class>
+    </servlet>
+	
+	<servlet>
+     <servlet-name>invite</servlet-name>
+     <servlet-class>coma.servlet.servlets.invite</servlet-class>
+    </servlet>
+	
+	<servlet>
+     <servlet-name>Index</servlet-name>
+     <servlet-class>coma.servlet.servlets.Index</servlet-class>
+    </servlet>
+		
+	<servlet>
      <servlet-name>Login</servlet-name>
      <servlet-class>coma.servlet.servlets.Login</servlet-class>
     </servlet>
     
     <servlet>
-     <servlet-name>Chair</servlet-name>
-     <servlet-class>coma.servlet.servlets.Chair</servlet-class>
+     <servlet-name>RatePaper</servlet-name>
+     <servlet-class>coma.servlet.servlets.RatePaper</servlet-class>
     </servlet>
-       
+     
     <servlet>
-     <servlet-name>Index</servlet-name>
-     <servlet-class>coma.servlet.servlets.Index</servlet-class>
+     <servlet-name>ShowReports</servlet-name>
+     <servlet-class>coma.servlet.servlets.ShowReports</servlet-class>
     </servlet>
-    
+      
     <servlet>
      <servlet-name>Subscribe</servlet-name>
      <servlet-class>coma.servlet.servlets.Subscribe</servlet-class>
     </servlet>
+      
+    <servlet>
+     <servlet-name>UserPrefs</servlet-name>
+     <servlet-class>coma.servlet.servlets.UserPrefs</servlet-class>
+    </servlet>   
     
     <servlet>
-     <servlet-name>Author</servlet-name>
-     <servlet-class>coma.servlet.servlets.Author</servlet-class>
-    </servlet>
+     <servlet-name>WriteFile</servlet-name>
+     <servlet-class>coma.servlet.servlets.WriteFile</servlet-class>
+    </servlet>   
     
-    <servlet>
-     <servlet-name>Logout</servlet-name>
-     <servlet-class>coma.servlet.servlets.Logout</servlet-class>
-    </servlet>
+    
+    
+    
+    
    <!--
     <servlet-mapping>
        <servlet-name>default</servlet-name>
        <url-pattern>/</url-pattern>
     </servlet-mapping>
     -->
-    <servlet-mapping>
-      <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-      <servlet-name>Chair</servlet-name>
-    <url-pattern>/chair</url-pattern>
-    </servlet-mapping>
-
-    
-    <servlet-mapping>
-    <servlet-name>Index</servlet-name>
-    <url-pattern>/index.html</url-pattern>
-    </servlet-mapping>
     
     <servlet-mapping>
     <servlet-name>Author</servlet-name>
@@ -75,21 +87,52 @@
     </servlet-mapping>
     
     <servlet-mapping>
+      <servlet-name>Chair</servlet-name>
+    <url-pattern>/chair</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/index.html</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>invite</servlet-name>
+    <url-pattern>/invite</url-pattern>
+    </servlet-mapping>
+        
+    <servlet-mapping>
+      <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>RatePaper</servlet-name>
+    <url-pattern>/RatePaper</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>ShowReports</servlet-name>
+    <url-pattern>/ShowReports</url-pattern>
+    </servlet-mapping>
+        
+    <servlet-mapping>
     <servlet-name>Subscribe</servlet-name>
     <url-pattern>/Subscribe</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    <servlet-name>Logout</servlet-name>
-    <url-pattern>/Logout</url-pattern>
+    <servlet-name>UserPrefs</servlet-name>
+    <url-pattern>/UserPrefs</url-pattern>
     </servlet-mapping>
     
+    <servlet-mapping>
+    <servlet-name>WriteFile</servlet-name>
+    <url-pattern>/WriteFile</url-pattern>
+    </servlet-mapping>
     
+        
     
-    
-    <welcome-file-list>
-      <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
 
   <!-- Define a Security Constraint on this Application
  <security-constraint>
