@@ -13,7 +13,7 @@ if(isReviewer_Overall())
 	$SQL =
 	  "INSERT INTO rejectedpapers VALUES (".$_SESSION['userID'].",".$_GET['paperID'].")";
 
-	echo $SQL;
+//	echo $SQL;
 
 	$result = mysql_query($SQL);
 

@@ -1,6 +1,23 @@
 <?
 $sql = new SQL();
 $sql->connect();
+
+function isPreferredPaper($paperID)
+{
+  global $sql;
+	if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
+	  {
+		$SQL = "SELECT paper_id, person_id FROM preferspaper WHERE (person_id = ".$_SESSION['userID'].") AND (paper_id = ".$paperID.")";
+
+		$result=$sql->query($SQL);
+		if ($result)
+		{
+			return true;
+		}
+	  }
+	  return false;
+}
+
 if(isReviewer_Overall())
 {
 	$SQL =
@@ -21,7 +38,10 @@ if(isReviewer_Overall())
 	{
 		$paper = array ();
 		$paper = array ("conference"=>$list[8],"paper"=>$list[4],"paperid"=>$list[2]);
-		$paperlist[] = $paper;
+		if (!isReviewer_Paper($paper['paperid']) AND !isPreferredPaper($paper['paperid']))
+		{
+			$paperlist[] = $paper;
+		}
 	}
 
 	$TPL['paperlist'] = $paperlist;

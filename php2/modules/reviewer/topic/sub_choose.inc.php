@@ -13,10 +13,10 @@ if(isReviewer_Overall())
 	$SQL =
 	 "SELECT role.conference_id, role.person_id, role.role_type,
 	   topic.id, topic.conference_id, topic.name,
-	   conference.name, conference.id
+	   conference.name, conference.id, role.state
 	  FROM role INNER JOIN topic ON (role.conference_id = topic.conference_id)
 	  INNER JOIN conference ON (role.conference_id = conference.id)
-	  WHERE (role.person_id = ".$_SESSION['userID'].") ORDER BY topic.conference_id, topic.name";
+	  WHERE (role.person_id = ".$_SESSION['userID'].") AND (role.state = 1) ORDER BY topic.conference_id, topic.name";
 
 	$result = mysql_query($SQL);
 
