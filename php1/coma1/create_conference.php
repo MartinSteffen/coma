@@ -46,7 +46,7 @@ if (isset($_POST['action'])){
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
 
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
-  if (empty($_POST['name']) {
+  if (empty($_POST['name'])) {
     $strMessage = 'You have to fill in the field <b>Title</b>!';
   }
 
