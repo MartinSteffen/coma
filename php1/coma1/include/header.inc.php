@@ -73,7 +73,7 @@ function defaultAssocArray() {
  * @return string Wert der Variablen
  */
 function session($strName, $blnRedirect=true) {
-  if (!isset($_SESSION[$strName]) {
+  if (!isset($_SESSION[$strName])) {
     if (!$blnRedirect) {
       return '';
     }
