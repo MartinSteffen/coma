@@ -61,5 +61,13 @@ else {
 }
 */
 
+function test($int1 = -1, $int2 = -2) {
+  echo('->'.$int1.'/'.$int2);
+}
+
+test();
+test(1);
+test(1, 2);
+test(, 2);
 
 ?>

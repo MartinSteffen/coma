@@ -89,6 +89,9 @@ class DBAccess {
     return $strError;
   }
 
+  // ---------------------------------------------------------------------------
+  // Definition der Selektoren
+  // ---------------------------------------------------------------------------
 
   /**
    */
@@ -742,6 +745,42 @@ class DBAccess {
     }
     return $this->error('getForumDetailed '.$this->mySql->getLastError());
   }
+
+  
+  // ---------------------------------------------------------------------------
+  // Definition der Update-Funktionen
+  // ---------------------------------------------------------------------------
+
+
+  // ---------------------------------------------------------------------------
+  // Definition der Insert-Funktionen
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Fuegt einen Datensatz in die Tabelle Person ein.
+   *
+   * @param int $intId ID der Person
+   * @return PersonDetailed <b>false</b>, falls keine Person mit ID $intPersonId
+   *   gefunden wurde
+   * @access public
+   * @author Sandro, Tom (03.12.04, 12.12.04)
+   */
+   
+  function addPerson($strEmail, $strFirstname, $strLastname, $intRole = 0,
+                          $strTitle = '', $strAffiliation = '', $strStreet = '',
+                          $strCity = '', $strPostalCode = '', $strState = '',
+                          $strCountry = '', $strPhone = '', $strFax = '') {
+    $s = 'INSERT  id, email, first_name, last_name, title, affiliation,'.
+        '         street, city, postal_code, state, country, phone_number,'.
+        '         fax_number'.
+        ' FROM    Person'.
+        ' WHERE   id = '.$intPersonId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+    }
+    return $this->error('getPersonDetailed '.$this->mySql->getLastError());
+  }
+
 
 }
 
