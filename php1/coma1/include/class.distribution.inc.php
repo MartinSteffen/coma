@@ -179,9 +179,10 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($assigned); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
-        $matrix[$i][$p_id_index[$assigned[$j]['paper_id']]] = 0;
-        $p_num_revs[$j]++;
-        $p_num_revs_total_left[$j]--;
+        $pid = $p_id_index[$assigned[$j]['paper_id']];
+        $matrix[$i][$pid] = 0;
+        $p_num_revs[$pid]++;
+        $p_num_revs_total_left[$pid]--;
         $r_num_papers[$i]++;
       }
       // Ausgeschlossene Paper
@@ -198,8 +199,9 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($excluded); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
-        $matrix[$i][$p_id_index[$excluded[$j]['paper_id']]] = 0;
-        $p_num_revs_total_left[$j]--;
+        $pid = $p_id_index[$excluded[$j]['paper_id']];
+        $matrix[$i][$pid] = 0;
+        $p_num_revs_total_left[$pid]--;
       }
 /*      // Abgelehnte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
