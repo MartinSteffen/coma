@@ -5,9 +5,7 @@
     <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}">
       {if0<span class="status-noattitude">no attitude</span>}
-      {if1<span class="status-prefer">prefer</span>}
-      {if2<span class="status-deny">deny</span>}
-      {if3<span class="status-exclude">exclude</span>}
+      {if1<span class="status-prefer">prefer</span>}      
     </td>    
     <td class="listitem-{line_no}">
       <select name="topic-{topic_id}" size="3">

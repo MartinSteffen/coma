@@ -1420,29 +1420,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (22.01.05)
    */
   function getReviewerAttitude($intPersonId, $intConferenceId) {    
-    $s = "SELECT  id".
-        " FROM    Topic".
-        " WHERE   conference_id = '$intConferenceId'";
-    $data = $this->mySql->select($s);
-    if ($this->mySql->failed()) {
-      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
-    }  
-    $intTopicIds = array();  
-    for ($i = 0; $i < count($data); $i++) {
-      $intTopicIds[] = $data[$i]['id'];
-    }
-    $s = "SELECT  id".
-        " FROM    Paper".
-        " WHERE   conference_id = '$intConferenceId'";
-    $data = $this->mySql->select($s);
-    if ($this->mySql->failed()) {
-      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
-    }  
-    $intPaperIds = array();  
-    for ($i = 0; $i < count($data); $i++) {
-      $intPaperIds[] = $data[$i]['id'];
-    }
-    $objReviewerAttitude = (new ReviewerAttitude($intPaperIds, $intTopicIds));
+    $objReviewerAttitude = new ReviewerAttitude();
     $objPapers = $this->getPreferredPapers($intPersonId, $intConferenceId);
     if ($this->mySql->failed()) {
       return $this->error('getReviewerAttitude', $this->mySql->getLastError());

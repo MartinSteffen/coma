@@ -32,22 +32,22 @@ class ReviewerAttitude {
   var $intPaperAttitudes;
   var $intTopicAttitudes;
 
-  function ReviewerAttitude($intAllPaperIds, $intAllTopicIds) {
+  function ReviewerAttitude() {
     $this->intPaperAttitudes = array();
     $this->intTopicAttitudes = array();
-    foreach ($intAllPaperIds as $intPaperId) {
-      $this->intPaperAttitudes[$intPaperId] = ATTITUDE_NONE;
-    }
-    foreach ($intAllTopicIds as $intTopicId) {
-      $this->intTopicAttitudes[$intTopicId] = ATTITUDE_NONE;
-    }
   }
   
   function getPaperAttitude ($intPaperId) {
+    if (!isset($this->intPaperAttitudes[$intPaperId])) {
+    	$this->intPaperAttitudes[$intPaperId] = ATTITUDE_NONE;
+    }
     return $this->intPaperAttitudes[$intPaperId];
   }
 
   function getTopicAttitude ($intTopicId) {
+    if (!isset($this->intTopicAttitudes[$intTopicId])) {
+    	$this->intTopicAttitudes[$intTopicId] = ATTITUDE_NONE;
+    }
     return $this->intTopicAttitudes[$intTopicId];
   }
 
