@@ -52,6 +52,9 @@ if (!empty($objPapers)) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
+    if (!empty($objPaper->intAuthorId)) {
+      $ifArray[] = 6;
+    }
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);    
     $ifArray[] = $objPaper->intStatus;
     if (!empty($objPaper->strFilePath)) {
