@@ -115,17 +115,20 @@ public class EntityCreater {
 
 		Person p = new Person(-1);
 
-		if (request.getParameter("last_name").equals("")
-				|| request.getParameter("password").equals("")
-				|| request.getParameter("password").length()<6)
-			throw new IllegalArgumentException("PWshort");
+		if (request.getParameter("last_name").equals(""))
+		    throw new NoLastNameException("no last name given");
+
+		if (request.getParameter("password").equals("")
+		    || request.getParameter("password").length()<6)
+		    throw new UnsafePasswordException("password too short");
 
 		if (!Pattern.matches("\\b[a-z0-9._%-]+@[a-z0-9._%-]+\\.[a-z]{2,6}\\b",
 				request.getParameter("email").toLowerCase()))
-			throw new IllegalArgumentException("invalidMail");
+			throw new InvalidEMailAddressException("invalidMail");
+
 		if (!(request.getParameter("password").equals(request
 				.getParameter("repassword"))))
-			throw new IllegalArgumentException("PWmistyped");
+			throw new PasswordMismatchException("PWmistyped");
 
 		p.setFirst_name(request.getParameter("first_name"));
 		p.setLast_name(request.getParameter("last_name"));
@@ -308,4 +311,29 @@ public class EntityCreater {
 		}
 		return paper;
 	}
+}
+
+class NoLastNameException extends IllegalArgumentException {
+
+    public NoLastNameException(String reason){
+	super(reason);
+    }
+}
+class UnsafePasswordException extends IllegalArgumentException {
+
+    public UnsafePasswordException(String reason){
+	super(reason);
+    }
+}
+class InvalidEMailAddressException extends IllegalArgumentException {
+
+    public InvalidEMailAddressException(String reason){
+	super(reason);
+    }
+}
+class PasswordMismatchException extends IllegalArgumentException {
+
+    public PasswordMismatchException(String reason){
+	super(reason);
+    }
 }
