@@ -60,6 +60,7 @@ $path = $_SERVER['PHP_SELF'];
 <?php
 if ($STEP1){
 
+}
 elseif ($STEP2) {
   // Block neuanlegen der Datenbank
   /**@ignore */
