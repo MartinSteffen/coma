@@ -9,17 +9,33 @@
 -- 
 -- Datenbank: `coma1`
 -- 
-USE coma1;
 
 -- --------------------------------------------------------
 
+-- 
+-- Tabellenstruktur für Tabelle `ConferenceConfig`
+-- 
+
+CREATE TABLE `ConferenceConfig` (
+  `id` int(11) NOT NULL default '0',
+  `default_reviews_per_paper` int(11) NOT NULL default '0',
+  `min_number_of_papers` int(11) NOT NULL default '0',
+  `max_number_of_papers` int(11) NOT NULL default '0',
+  `critical_variance` float NOT NULL default '0.5',
+  `auto_activate_account` int(11) NOT NULL default '1',
+  `auto_open_paper_forum` int(11) NOT NULL default '1',
+  `auto_add_reviewers` int(11) NOT NULL default '1',
+  `number_of_auto_add_reviewers` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=InnoDB;
+
+-- --------------------------------------------------------
 
 -- 
 -- Tabellenstruktur für Tabelle `Session`
 -- 
 
-DROP TABLE IF EXISTS `Session`;
-CREATE TABLE IF NOT EXISTS `Session` (
+CREATE TABLE `Session` (
   `sid` varchar(255) NOT NULL default '',
   `sname` varchar(25) NOT NULL default '',
   `sdata` text,
@@ -27,10 +43,6 @@ CREATE TABLE IF NOT EXISTS `Session` (
   PRIMARY KEY  (`sid`,`sname`),
   KEY `stime` (`stime`)
 ) TYPE=MyISAM COMMENT='Session-Verwaltung';
-
--- 
--- Daten für Tabelle `Session`
--- 
 
 -- --------------------------------------------------------
 
