@@ -52,6 +52,31 @@ public class XMLHelper {
 		return result.toString();
 	}
 	
+    /**
+       Puts the content in the tagname.
+
+       If content is not present, creates a <... /> tag.
+       This cannot handle attributes. The result is not threadsafe.
+     */
+    public static StringBuilder tagged(String tagname, CharSequence... content){
+	StringBuilder result = new StringBuilder();
+	if (content == null){
+	    // yes, String+String is expensive, but these are short,
+	    // so it shouldn't be quite so bad.
+	    result.append("<"+tagname+" />");
+	} else {
+	    result.append("<"+tagname+">");
+	    for (CharSequence s: content){
+		// however, the content might be long, so we don't risk +.
+		result.append("\n  ");
+		result.append(s);
+	    }
+	    result.append("\n</"+tagname+">");
+	}
+	result.append('\n');
+	return result;
+    }
+
 	public static void process(StreamSource xmlSource,StreamSource xslSource,PrintWriter out) 
 	{
 		try 

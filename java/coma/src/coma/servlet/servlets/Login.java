@@ -62,6 +62,7 @@ public class Login extends HttpServlet {
 			if ((user == null || user.equals(""))
 				|| (passwd == null || passwd.equals(""))) 
 			{
+			// XXX maybe adapt to coma.servlet.util.SessionAttribs. Ulrich
 				session.setAttribute("login", null);
 				helper.addContent("Please give me more\n",info);
 			}
@@ -69,6 +70,7 @@ public class Login extends HttpServlet {
 			// forward to chair, only a test
 			if (validatePasswd(user, passwd)) 
 			{
+			    // XXX maybe adapt to coma.servlet.util.SessionAttribs. Ulrich
 				session.setAttribute("person",person);
 				session.setAttribute("user", new String(user));
 				session.setAttribute("login", new String("ok"));
@@ -77,13 +79,16 @@ public class Login extends HttpServlet {
 			
 			else 
 			{
-				session.setAttribute("login", null);
+			// XXX maybe adapt to coma.servlet.util.SessionAttribs. Ulrich
+			        session.setAttribute("login", null);
 				helper.addContent("Wrong password, please try again\n", info);
 				helper.addStatus("login not correct",info);
 			}
 			
 			//Logout
+			// XXX maybe adapt to coma.servlet.util.SessionAttribs. Ulrich
 			if(request.getParameter("logout") != null){
+			    // XXX maybe adapt to coma.servlet.util.SessionAttribs. Ulrich
 				session.setAttribute("login", null);
 			}
 			/*FIXME: Path xslt */

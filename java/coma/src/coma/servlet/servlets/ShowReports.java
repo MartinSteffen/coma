@@ -28,13 +28,16 @@ import coma.util.logging.ALogger;
 import coma.util.logging.Severity;
 import static coma.util.logging.Severity.*;
 
+import coma.servlet.util.SessionAttribs;
+import coma.servlet.util.UserMessage;
+
 import coma.handler.db.*;
 import coma.entities.*;
 
 /**
  * Flashy report concerning what's been rated how so far.
  *
- * CURRENTLY NOT WORKING OR COMPILABLE AT ALL.
+ * CURRENTLY NOT WORKING MUCH. Well, there's no db to check against anyway.
  *
  * @author ums, based on mal's work.
  */
@@ -42,7 +45,8 @@ public class ShowReports extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private final ALogger LOG = ALogger.create(this.getClass().getCanonicalName());
+    private final ALogger LOG 
+	= ALogger.create(this.getClass().getCanonicalName());
 
     StringBuffer info = new StringBuffer();
     StringBuffer result = new StringBuffer();
@@ -51,13 +55,31 @@ public class ShowReports extends HttpServlet {
     public void init(ServletConfig config) {
 	LOG.log(DEBUG, "I'm alive!");
     }
+    
+    /**
+       handle the request. 
+
+       This servlet has one state, in which 
+     */
     public void doGet(
 		      HttpServletRequest request,
 		      HttpServletResponse response) {
 	try {
 
-	    /*FIXME: get theUser */
 	    coma.entities.Person theUser = null;
+
+	    try {
+		theUser = 
+		    (coma.entities.Person)request.getSession(true)
+		    .getAttribute(SessionAttribs.PERSON);
+	    } catch (IllegalStateException ise) {
+		
+		LOG.log(ERROR,"cannot look at session attributes", ise);
+		helper.addError(UserMessage.ERRNOSESSION, result);
+
+		// go on as usual, the rest must be able to handle
+		// theUser==null.
+	    }
 			
 	    String path = getServletContext().getRealPath("");
 	    String xslt = path + "/" + "style/xsl/report.xsl";
@@ -65,15 +87,8 @@ public class ShowReports extends HttpServlet {
 			
 	    result.append("<?xml version=\"1.0\" encoding=\"ISO-8859-15\"?>\n");
 	    result.append("<result>\n");
-	    /* XXX
-	       Define allReportsIntro in XSL. It should probably read something like
-	       
-	       These are all review reports you are allowed to see.
-	       If you cannot see any, then to reports have been submitted yet,
-	       or you are not authorized to see them.
 
-	     */
-	    result.append("<allReportsIntro />");
+	    result.append(UserMessage.ALLREPORTSINTRO);
 	    result.append("<info>\n");
 
 	    try{
@@ -84,30 +99,22 @@ public class ShowReports extends HttpServlet {
 		    for (coma.entities.ReviewReport theReport: 
 			     getVisibleReviewReports(theUser, thePaper)){
 			
-			result.append(theReport.toString());
+			result.append(theReport.toXML());
 		    }
 		}
 	    } catch (DatabaseDownException dbdown){
-		/* XXX
-		   Define databaseError in XSL.
-		 */
-	    //use helper.addError("errorrMessage"); Mohamed 
-		result.append("<error><databaseError /></error>");
+		helper.addError(UserMessage.ERRDATABASEDOWN, result);
 	    } catch (UnauthorizedException unauth){
-		/* XXX
-		   Define notLoggedIn in XSL.
-		 */
-       //use helper.addWarning("message"); Mohamed 
-		result.append("<note><notLoggedIn /></note>");
+		helper.addWarning(UserMessage.ERRUNAUTHORIZED, result);
 	    }
 
 	    result.append("</info>\n");
 	    result.append("</result>\n");
 			
 	    response.setContentType("text/html; charset=ISO-8859-1");
-	    Source xmlSource =
+	    StreamSource xmlSource =
 		new StreamSource(new StringReader(result.toString()));
-	    Source xsltSource = new StreamSource(xslt);
+	    StreamSource xsltSource = new StreamSource(xslt);
 	    XMLHelper.process(xmlSource, xsltSource, out);
 	    out.flush();
 

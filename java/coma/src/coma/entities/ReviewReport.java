@@ -2,11 +2,17 @@ package coma.entities;
 
 import java.util.*;
 
+import coma.util.logging.ALogger;
+import coma.util.logging.Severity;
+import static coma.util.logging.Severity.*;
+
+import coma.servlet.util.XMLHelper;
+
 /**
  * @author mal, ums
  *
  */
-public class ReviewReport {
+public class ReviewReport extends Entity {
 
     private int id;
     private int paperId;
@@ -49,6 +55,24 @@ public class ReviewReport {
 	/* FIXME */
 	assert (result != null) 
 	    : "violates spec: result null";
+	return result;
+    }
+
+    public StringBuilder toXML(XMLMODE mode){
+
+	StringBuilder result = new StringBuilder();
+
+	switch (mode){ /* FIXME */
+	case SHALLOW:
+	    return XMLHelper.tagged("ReviewReport"
+				    );
+	case DEEP:
+	    break;
+	default:
+	    coma.util.logging.ALogger.log.log(WARN, 
+					      "unknown XMLMODE in",
+					      this, ':', mode);
+	}
 	return result;
     }
 }

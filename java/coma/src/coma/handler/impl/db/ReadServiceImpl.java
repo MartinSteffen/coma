@@ -94,7 +94,8 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setString(++pstmtCounter, p.getFirst_name());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList ll = new LinkedList();
+                    LinkedList<Person> ll = new LinkedList<Person>(); 
+		      // ^^^ FIXED: gave [unchecked] warning. Ulrich
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -107,7 +108,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     Person[] persons = new Person[ll.size()];
                     for (int i = 0; i < persons.length; i++) {
-                        persons[i] = (Person) ll.get(i);
+                        persons[i] = ll.get(i);
                     }
                     result.setResultObj(persons);
                 } else {
@@ -164,7 +165,8 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setInt(++pstmtCounter, c.getId());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList ll = new LinkedList();
+                    LinkedList<Conference> ll = new LinkedList<Conference>();
+		    // ^^^ FIXED: gave [unchecked] warning. Ulrich
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -177,7 +179,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     Conference[] conference = new Conference[ll.size()];
                     for (int i = 0; i < conference.length; i++) {
-                        conference[i] = (Conference) ll.get(i);
+                        conference[i] = ll.get(i);
                     }
                     result.setResultObj(conference);
                 } else {
@@ -274,7 +276,8 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setInt(++pstmtCounter, p.getState());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList ll = new LinkedList();
+                    LinkedList<Paper> ll = new LinkedList<Paper>();
+		      // ^^^ FIXED: gave [unchecked] warning. Ulrich
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -287,7 +290,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     Paper[] papers = new Paper[ll.size()];
                     for (int i = 0; i < papers.length; i++) {
-                        papers[i] = (Paper) ll.get(i);
+                        papers[i] = ll.get(i);
                     }
                     result.setResultObj(papers);
                 } else {
@@ -371,7 +374,8 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setInt(++pstmtCounter, report.getReviewerId());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList ll = new LinkedList();
+                    LinkedList<ReviewReport> ll = new LinkedList<ReviewReport>();
+		      // ^^^ FIXED: gave [unchecked] warning. Ulrich
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -384,7 +388,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     ReviewReport[] reports = new ReviewReport[ll.size()];
                     for (int i = 0; i < reports.length; i++) {
-                        reports[i] = (ReviewReport) ll.get(i);
+                        reports[i] = ll.get(i);
                     }
                     result.setResultObj(reports);
                 } else {
