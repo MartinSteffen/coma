@@ -20,7 +20,7 @@ if(isChair_Overall())
 	}
 
 $TPL['chair'] = $conferences;
-template("CHAIR_chooseConf");
+template("CHAIR_program_chooseConf");
 $TPL['chair'] = "";
 }
 else redirect("logout",false,false,"error=1");	

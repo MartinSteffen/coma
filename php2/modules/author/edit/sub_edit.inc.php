@@ -7,7 +7,8 @@ $paper_id = $_REQUEST['pid'];
 
 if ($_FILES['file']['size'] > 0) {
 
-	if ((! isset($_REQUEST['filename'])) or ($_REQUEST['filename'] == "")) {
+	// var_dump($_REQUEST);
+	if ((! isset($_REQUEST['file'])) or ($_REQUEST['file'] == "")) {
 		redirect("author", "view", "papers", 'msg=Error:(author_edit_edit) $_REQUEST[filename] is missing');
 	}
 
@@ -56,8 +57,10 @@ if ($_FILES['file']['size'] > 0) {
 	$localfilename = $_FILES['file']['tmp_name'];
 
 	// delete old version of file
-	if (! @ftp_delete($ftphandle, $oldfilename)) {
-		redirect("author", "view", "papers", "msg=Error:(author_edit_edit) ftp_delete failed");
+	if ($oldfilename != "") {
+		if (! @ftp_delete($ftphandle, $oldfilename)) {
+			redirect("author", "view", "papers", "msg=Error:(author_edit_edit) ftp_delete failed");
+		}
 	}
 
 	// put file, auto-creating a filename styled $paperid.$ending, or die in error
@@ -66,7 +69,7 @@ if ($_FILES['file']['size'] > 0) {
 	} 
 
 	// change SQL entries
-	$SQL = "UPDATE paper SET title = '" . $_REQUEST['title'] . "', abstract = '" . $_REQUEST['summary'] . "', filename = '" . $remotefilename . "', mime_type = '" . $mime_type . "' WHERE id = " . $_REQUEST['pid'];
+	$SQL = "UPDATE paper SET title = '" . htmlentities ($_REQUEST['title']) . "', abstract = '" . htmlentities ($_REQUEST['summary']) . "', filename = '" . $remotefilename . "', mime_type = '" . $mime_type . "' WHERE id = " . $_REQUEST['pid'];
 	$result = $sql->insert($SQL);
 
 	// close ftp connection
@@ -74,7 +77,7 @@ if ($_FILES['file']['size'] > 0) {
 }
 else {
 	// change only the rest
-	$SQL = "UPDATE paper SET title = '" . $_REQUEST['title'] . "', abstract = '" . $_REQUEST['summary'] . "' WHERE id = " . $_REQUEST['pid'];
+	$SQL = "UPDATE paper SET title = '" . htmlentities ($_REQUEST['title']) . "', abstract = '" . htmlentities ($_REQUEST['summary']) . "' WHERE id = " . $_REQUEST['pid'];
 	$result = $sql->insert($SQL);
 }
 
