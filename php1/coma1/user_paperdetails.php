@@ -32,28 +32,28 @@ $content = new Template(TPLPATH.'view_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 //$ifArray[] = $objPaper->intStatus;
-$strContentAssocs['paper_id'] = $objPaper->intId;
+$strContentAssocs['paper_id'] = encodeText($objPaper->intId);
 $strContentAssocs['title'] = encodeText($objPaper->strTitle);
 $strContentAssocs['abstract'] = encodeText($objPaper->strAbstract);
-$strContentAssocs['author_id'] = $objPaper->intAuthorId;
+$strContentAssocs['author_id'] = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);      
 $strContentAssocs['file_link'] = encodeURL($objPaper->strFilePath);
 $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
-$strContentAssocs['last_edited'] = encodeText(emptytime(strtotime($objPaper->strLastEdit)));
+$strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version'] = encodeText($objPaper->intVersion);
 $strContentAssocs['coauthors'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   if ($i > 0) {
     $strContentAssocs['coauthors'] .= ', ';
   }
-  $strContentAssocs['coauthors'] .= $objPaper->strCoAuthors[$i];
+  $strContentAssocs['coauthors'] .= encodeText($objPaper->strCoAuthors[$i]);
 }
 $strContentAssocs['topics'] = '';
 for ($i = 0; $i < count($objPaper->objTopics); $i++) {
   if ($i > 0) {
     $strContentAssocs['topics'] .= ', ';
   }
-  $strContentAssocs['topics'] .= $objPaper->objTopics[$i]->strName;
+  $strContentAssocs['topics'] .= encodeText($objPaper->objTopics[$i]->strName);
 }
 
 if (!empty($objPaper->strFilePath)) {
