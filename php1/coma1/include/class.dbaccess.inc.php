@@ -485,8 +485,8 @@ class DBAccess extends ErrorHandling {
       return $this->success(false);
     }
 
-    $objPersonAlgorithmic = (new PersonAlgorithmic($data[0]['id'], $data[0]['first_name'],
-                              $data[0]['last_name'], $data[0]['email'], 0, $data[0]['title']);
+    $objPersonAlgorithmic = new PersonAlgorithmic($data[0]['id'], $data[0]['first_name'],
+                             $data[0]['last_name'], $data[0]['email'], 0, $data[0]['title']);
 
     // konferenzspezifische Attribute
     $objPersonAlgorithmic->intPreferredTopics =
