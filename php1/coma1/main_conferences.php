@@ -48,11 +48,11 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Liste aller Konferenzen';
+$strMainAssocs['title'] = 'Conferences Overview';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array(session('uname')=>'', 'Konferenzen'=>'');
+$strPath = array(session('uname')=>'', 'Conferences'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 

@@ -94,11 +94,11 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Pers&ouml;nliche Angaben von '.session('uname');
+$strMainAssocs['title'] = 'Personal data of User '.session('uname');
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array(session('uname')=>'', 'Profil'=>'');
+$strPath = array(session('uname')=>'', 'Profile'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
