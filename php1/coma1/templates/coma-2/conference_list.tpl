@@ -1,3 +1,6 @@
+
+{if1<p class="message">{message}</p>}
+
 <table class="list">
   <tr class="listheader">
     <th class="listheader" colspan="3">Conference title</th>

@@ -9,7 +9,7 @@
 <tr class="listitem-{line_no}">
   <td class="listitem-{line_no}">&nbsp;
   {if1
-    <form action="{basepath}conference_login.php?{SID}" method="post">
+    <form action="{basepath}login_conference.php?{SID}" method="post">
       <input type="hidden" name="confid" value="{confid}"></input>
       <input type="submit" name="submit" value="Login" class="button"></input>
     </form>

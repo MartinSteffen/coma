@@ -22,6 +22,8 @@ $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
 $strItemAssocs = defaultAssocArray();
 
 $objConferences = $myDBAccess->getAllConferences();
+$strContentAssocs['message'] = session('message', false);
+session_delete(message);
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
 if (!empty($objConferences)) {
