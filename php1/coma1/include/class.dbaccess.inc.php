@@ -156,7 +156,8 @@ class DBAccess {
                 $data[0]['first_name'], $data[0]['last_name'], $role_type,
                 $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
                 $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
-                $data[0]['country'], $data[0]['phone'], $data[0]['fax']));
+                $data[0]['country'], $data[0]['phone_number'],
+                $data[0]['fax_number']));
     }
     return false;
   }
