@@ -75,7 +75,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
 	$strArrayOptAssocs['papertitle'] = $objPaper->strTitle;
 	$objOptTemplate->assign($strArrayOptAssocs);
 	$objOptTemplate->parse();
-	$strArrayCreateAssocs['paperoptions'] = $objOptTemplate->getOutput();
+	$strArrayCreateAssocs['paperoptions'] = $strArrayCreateAssocs['paperoptions'] . $objOptTemplate->getOutput();
       }
     }
     $objCreateTemplate->assign($strArrayCreateAssocs);
