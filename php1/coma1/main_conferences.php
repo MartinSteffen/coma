@@ -48,18 +48,18 @@ if (!empty($objConferences)) {
       if (!($objPerson->hasRole(REVIEWER)) && !($objPerson->hasRequestedRole(REVIEWER))) {
         $ifArray[] = 2;
       }
+      else if ($objPerson->hasRequestedRole(REVIEWER)) {
+        $ifArray[] = 5;
+      }
       if (!($objPerson->hasRole(AUTHOR)) && !($objPerson->hasRequestedRole(AUTHOR))) {
         $ifArray[] = 3;
       }
-      if (!($objPerson->hasRole(PARTICIPANT)) && !($objPerson->hasRequestedRole(PARTICIPANT))) {
-        $ifArray[] = 4;
-      }
-      if ($objPerson->hasRequestedRole(REVIEWER)) {
-        $ifArray[] = 5;
-      }
-      if ($objPerson->hasRequestedRole(AUTHOR)) {
+      else if ($objPerson->hasRequestedRole(AUTHOR)) {
         $ifArray[] = 6;
       }
+      if (!($objPerson->hasRole(PARTICIPANT)) && !($objPerson->hasRequestedRole(PARTICIPANT))) {
+        $ifArray[] = 4;
+      }      
     }
     $strItemAssocs['line_no'] = encodeText($lineNo);
     $strItemAssocs['confid'] = encodeText($objConference->intId);

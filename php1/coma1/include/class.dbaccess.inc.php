@@ -2291,7 +2291,7 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function addRole($intPersonId, $intRoleType, $intConferenceId, $blnAccepted=true) {
-    if (!empty($blnAccepted)) {
+    if ($blnAccepted) {
       $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
           "         VALUES ('$intConferenceId', '$intPersonId', '$intRoleType')";
     }
