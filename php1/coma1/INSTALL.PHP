@@ -42,7 +42,7 @@ elseif (isset($_GET['4'])) {
     font-size: 13px; font-weight: bold; text-align: center; vertical-align: top; 
     margin: 10px; padding: 10px; color: #222222; background-color: #dddddd; 
     border: 1px solid #222222; }
-  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px; 
+  p { width: 50%; font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px; 
     font-weight: bold; vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
   p.menu { color: #111111; background-color: #EEEEEE; border: 1px solid #FFFFFF; 
     text-align: left; }
