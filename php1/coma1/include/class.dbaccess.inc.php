@@ -1175,8 +1175,8 @@ nur fuer detaillierte?
         "         review_deadline = '$objConferenceDetailed->strReviewDeadline',".
         "         final_version_deadline = '$objConferenceDetailed->strFinalDeadline',".
         "         notification = '$objConferenceDetailed->strNotification',".
-        "         conference_start = '$objConferenceDetailed->strConferenceStart',".
-        "         conference_end = '$objConferenceDetailed->strConferenceEnd,".
+        "         conference_start = '$objConferenceDetailed->strStart',".
+        "         conference_end = '$objConferenceDetailed->strEnd,".
         "         min_reviews_per_paper = '$objConferenceDetailed->intMinReviewsPerPaper'".
         " WHERE   conference_id = '$objConferenceDetailed->intId'";
     $this->mySql->update($s);
