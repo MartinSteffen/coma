@@ -437,7 +437,7 @@ function sortPapersByAmbiguity($objPapers) {
   if (!empty($objPapers)) {
     $fltVariance = array();
     for ($i = 0; $i < count($objPapers); $i++) {
-      $fltVariance[] = $myDBAccess->getVarianceOfPaper($objPapers[$i]->intId);
+      $fltVariance[$i] = $myDBAccess->getVarianceOfPaper($objPapers[$i]->intId);
       if ($myDBAccess->failed()) {
         error('get paper ambiguity', $myDBAccess->getLastError());
       }
