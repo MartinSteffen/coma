@@ -156,7 +156,7 @@ class DBAccess extends ErrorHandling {
    * Prueft, ob die angegebenen User-Daten gueltig sind.
    *
    * @param string $strUserName Der zu ueberpruefende Benutzername
-   * @param string $strPassword Das zu ueberpruefende Passwort
+   * @param string $strPassword Das zu ueberpruefende Passwort (verschluesselt)
    * @return bool true gdw. die Daten in der Person-Tabelle hinterlegt sind
    * @access public
    * @author Tom (15.12.04)
