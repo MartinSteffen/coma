@@ -43,7 +43,7 @@ function redirect($strName) {
   global $mySession;
   session_write_close();
   $strTarget = COREURL . $strName . $mySession->getUrlId('?');
-  //header('Location:' . $strTarget);
+  header('Location:' . $strTarget);
   die('Going to: '.$strName.'<br>'.
       'If your Browser does not support automatical redirection please use '.
       '<a href="'.$strTarget.'">this link!</a>');
