@@ -83,9 +83,9 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
       $forumassocs['plusorminus'] = '-';
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
       if (DEBUGMODE){
-        echo('count(getThreadsOfForum)=' . count($messes));
+        //echo('count(getThreadsOfForum)=' . count($messes));
       }
-      $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
+      $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs, $myDBAccess);
       //Thread-neu
       $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
       $threadassocs = defaultAssocArray();
@@ -162,7 +162,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
   return $assocArray;
 }
 
-function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs){
+function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs, &$myDBAccess){
   if (DEBUGMODE){
     //echo('Messages: ' . count($messages). '<br>');
   }
@@ -213,7 +213,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         if (DEBUGMODE){
           echo('count(getNextMessages)=' . count($messes));
         }
-        $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs);
+        $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs, $myDBAccess);
       }
     }
     else{
@@ -347,7 +347,7 @@ else{
   //evtl. posten einleiten
   if (((!empty($HTTP_POST_VARS['reply-to'])) || ((!empty($HTTP_POST_VARS['posttype'])) && ($HTTP_POST_VARS['posttype'] == 'newthread'))) && (!empty($HTTP_POST_VARS['text']))){
     if (DEBUGMODE){
-      echo('posten wird eingeleitet<br>');
+      //echo('posten wird eingeleitet<br>');
     }
     $pvars = generatePostMethodArray($HTTP_POST_VARS);
     $postresult = false;
@@ -391,12 +391,12 @@ else{
       $_SESSION['forum_msgselect'] = $selecttree;
     }
     else{
-      echo('posten fehlgeschlagen');
+      //echo('posten fehlgeschlagen');
       $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
     }
   }
   else{
-    echo('kein posten<br>');
+    //echo('kein posten<br>');
   }
 
   //foren holen
