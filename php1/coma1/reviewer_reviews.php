@@ -33,6 +33,7 @@ else if (empty($objConference)) {
 }
 
 if (isset($GET_['createforum'])) {
+  echo('!!!');
   $startForum = createPaperForum($myDBAccess, $_GET['paperid']);
   if ($startForum) {
     redirect("forum.php?paperid=".$_GET['paperid']);
