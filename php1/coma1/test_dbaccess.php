@@ -27,6 +27,25 @@ function bit($b) {
 
 echo('<br>');
 
+$p = $myDBAccess->getPersonDetailed(1);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else if (empty($p)) {
+  echo('EMPTY');
+  die(-1);
+}
+$myDBAccess->updatePerson($p);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else if (empty($p)) {
+  echo('EMPTY');
+  die(-1);
+}
+
+
+
 /*$p = $myDBAccess->getPersonAlgorithmic(1, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());

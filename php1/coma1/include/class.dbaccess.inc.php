@@ -167,7 +167,7 @@ class DBAccess extends ErrorHandling {
    * @access private
    * @todo Statische Funktion, falls moeglich
    */
-  function booleanToDatabase($blnProgram) {
+  function b2db($blnProgram) {
     return $this->success($blnProgram ? 1 : 0);
   }
 
@@ -181,7 +181,7 @@ class DBAccess extends ErrorHandling {
    * @access private
    * @todo Statische Funktion, falls moeglich
    */
-  function booleanFromDatabase($intDatabase) {
+  function db2b($intDatabase) {
     return $this->success(empty($intDatabase) ? false : true);
   }
 
@@ -211,12 +211,11 @@ class DBAccess extends ErrorHandling {
    * @access private
    * @todo Statische Funktion, falls moeglich
    */
-  function stringToDatabase($strSql) {
-    // muss hier nochmehr? PHP4.3!!!
+  function s2db($strSql) {
+    // muss hier noch mehr? PHP 4.3!!!
     $strSql = mysql_real_escape_string($strSql);
     return $this->success($strSql);
   }
-
 
   // ---------------------------------------------------------------------------
   // Definition der Selektoren
@@ -338,9 +337,9 @@ class DBAccess extends ErrorHandling {
                              $data[0]['default_reviews_per_paper'],
                              $data[0]['min_number_of_papers'], $data[0]['max_number_of_papers'],
                              $data[0]['critical_variance'],
-                             $this->booleanFromDatabase($data[0]['auto_activate_account']),
-                             $this->booleanFromDatabase($data[0]['auto_open_paper_forum']),
-                             $this->booleanFromDatabase($data[0]['auto_add_reviewers']),
+                             $this->db2b($data[0]['auto_activate_account']),
+                             $this->db2b($data[0]['auto_open_paper_forum']),
+                             $this->db2b($data[0]['auto_add_reviewers']),
                              $data[0]['number_of_auto_add_reviewers'], $objCriterions,
                              $objTopics);
     return $this->success($objConferenceDetailed);
@@ -1398,11 +1397,11 @@ nur fuer detaillierte?
         "         max_number_of_papers = 'objConferenceDetailed->intMaxNumberOfPapers',".
         "         critical_variance = 'objConferenceDetailed->fltCriticalVariance',".
         "         auto_activate_account = '".
-                    $this->booleanToDatabase($objConferenceDetailed->blnAutoActivateAccount)."',".
+                    $this->b2db($objConferenceDetailed->blnAutoActivateAccount)."',".
         "         auto_open_paper_forum = '".
-                    $this->booleanToDatabase($objConferenceDetailed->blnAutoOpenPaperForum)."',".
+                    $this->b2db($objConferenceDetailed->blnAutoOpenPaperForum)."',".
         "         auto_add_reviewers = '".
-                    $this->booleanToDatabase($objConferenceDetailed->blnAutoAddReviewers)."',".
+                    $this->b2db($objConferenceDetailed->blnAutoAddReviewers)."',".
         "         number_of_auto_add_reviewers = '".
         "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
         " WHERE   id = '$objConferenceDetailed->intId'";
@@ -1437,7 +1436,7 @@ nur fuer detaillierte?
     if (!($this->is_a($objPersonDetailed, 'PersonDetailed'))) {
       return $this->success(false);
     }
-    $s = "UPDATE  Person".
+    /*$s = "UPDATE  Person".
         " SET     first_name = '$objPersonDetailed->strFirstName',".
         "         last_name = '$objPersonDetailed->strLastName',".
         "         email = '$objPersonDetailed->strEmail',".
@@ -1450,7 +1449,26 @@ nur fuer detaillierte?
         "         country = '$objPersonDetailed->strCountry',".
         "         phone_number = '$objPersonDetailed->strPhone',".
         "         fax_number = '$objPersonDetailed->strFax'".
-        " WHERE   id = '$objPersonDetailed->intId'";
+        " WHERE   id = '$objPersonDetailed->intId'";*/
+    sprintf($s, "UPDATE  Person".
+               " SET     first_name = '%s', last_name = '%s', email = '%s', title = '%s',".
+               "         affiliation = '%s', street = '%s', city = '%s', postal_code = '%s',".
+               "         state = '%s', country = '%s', phone_number = '%s', fax_number = '%s'".
+               " WHERE   id = '%d'", $this->s2db($objPersonDetailed->strFirstName),
+                                     $this->s2db($objPersonDetailed->strLastName),
+                                     $this->s2db($objPersonDetailed->strEmail),
+                                     $this->s2db($objPersonDetailed->strTitle),
+                                     $this->s2db($objPersonDetailed->strAffiliation),
+                                     $this->s2db($objPersonDetailed->strStreet),
+                                     $this->s2db($objPersonDetailed->strCity),
+                                     $this->s2db($objPersonDetailed->strPostalCode),
+                                     $this->s2db($objPersonDetailed->strState),
+                                     $this->s2db($objPersonDetailed->strCountry),
+                                     $this->s2db($objPersonDetailed->strPhone),
+                                     $this->s2db($objPersonDetailed->strFax),
+                                     $objPersonDetailed->intId);
+    echo("$s");
+    return $this->success(false);
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());
