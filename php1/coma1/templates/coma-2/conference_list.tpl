@@ -1,7 +1,7 @@
 <table class="list">
-  <th class="list">
-    <td>Konferenz</td>
-    <td>...</td>
-  </th>
+  <tr>
+    <th class="list">Konferenz</th>
+    <th class="list">...</th>
+  </tr>
   {lines}
 </table>

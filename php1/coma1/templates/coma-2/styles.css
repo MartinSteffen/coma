@@ -39,6 +39,7 @@ table      { border-style: none;
              padding: 0px;
              margin: 0px;
            }
+th         { text-align: left; font-weight: bold; }
 
 /* Tabelle fuer das linke Menue */
 table.menu  { border-style: none;
