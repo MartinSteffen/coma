@@ -56,7 +56,12 @@ class Distribution extends ErrorHandling {
    *               weitere Verteilung noetig ist, sonst die Matrix(rev x pap)
    *               mit den hinzuzufuegenden Zuordnungen.
    *
-   * @todo Noch ne ganze Menge UND PHPDoc :-) $color entfernen! $p_num_revs_pref_left kann raus
+   * @todo Noch ne ganze Menge UND PHPDoc :-)
+   * @todo $color entfernen! $p_num_revs_pref_left kann raus
+   * @todo Nach-Verteilung neuer Paper testen
+   * @todo zusaetzliche Reviewer suchen und verteilen
+   * @todo Vorschlaege fuer einzelne Paper: Reviewer, die am geeignetsten sind
+   *       (z.B. 5 Stueck) und die, die am wenigsten zu tun haben...
    */
   function getDistribution($intConferenceId) {
     define('ASSIGNED', -2); // bereits vorher verteilt
@@ -143,6 +148,7 @@ class Distribution extends ErrorHandling {
                  " INNER   JOIN Role AS r".
                  " ON      r.person_id = p.id".
                  " AND     r.role_type = '%d'".
+                 " AND     r.state IS NULL".
                  " WHERE   r.conference_id = '%d'".
                  " ORDER   BY p.id ASC",
                  s2db(REVIEWER), s2db($intConferenceId));

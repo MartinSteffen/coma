@@ -13,22 +13,75 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+/*
+if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
+  $myDBAccess->deletePaper($_POST['paperid']);
+  if ($myDBAccess->failed()) {
+    error('Error deleting paper.', $myDBAccess->getLastError());
+  }
+}
+*/
+$objPapers = $myDBAccess->getPapersOfConference(session('confid'));
+if ($myDBAccess->failed() || 1) {
+  error('get paper list of chair',$myDBAccess->getLastError());
+}
 
-$content = new Template(TPLPATH.'chair_reviewlist.tpl');
+$content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['message'] = '';
+$strContentAssocs['if'] = array();
+$strContentAssocs['lines'] = '';
+if (!empty($objPapers)) {
+  $lineNo = 1;
+  foreach ($objPapers as $objPaper) {
+    $strItemAssocs = defaultAssocArray();
+    $ifArray = array();
+    $strItemAssocs['line_no'] = $lineNo;
+    $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
+    $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);      
+    $ifArray[] = $objPaper->intStatus;
+    if (!empty($objPaper->strFilePath)) {
+      $ifArray[] = 5;
+    }
+    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+    if (!empty($objPaper->fltAvgRating)) {
+      $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
+    }
+    else {
+      $strItemAssocs['avg_rating'] = ' - ';
+    }    
+    $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
+    $strItemAssocs['if'] = $ifArray;
+    $paperItem = new Template(TPLPATH.'chair_paperlistitem.tpl');
+    $paperItem->assign($strItemAssocs);
+    $paperItem->parse();
+    $strContentAssocs['lines'] .= $paperItem->getOutput();
+    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+  }
+}
+else {
+  // Artikelliste ist leer.
+  $strItemAssocs = defaultAssocArray();
+  $strItemAssocs['colspan'] = '8';
+  $strItemAssocs['text'] = 'There are no papers available.';
+  $emptyList = new Template(TPLPATH.'empty_list.tpl');
+  $emptyList->assign($strItemAssocs);
+  $emptyList->parse();
+  $strContentAssocs['lines'] = $emptyList->getOutput();  
+}
+
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
-$actMenuItem = 4;
+$actMenuItem = 3;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Distribute papers and manage reviews';
+$strMainAssocs['title'] = 'Distribute and manage papers';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers';
 
 $main->assign($strMainAssocs);
 $main->parse();
