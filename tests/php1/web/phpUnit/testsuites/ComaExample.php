@@ -16,7 +16,7 @@ class ComaExample extends PHPUnit_TestCase
       $this->assertTrue(TRUE);
   }
 
-  function testTrue() {
+  function testString() {
         $this->assertEquals('sae@me.de',"sae@me.de");
   }
 
