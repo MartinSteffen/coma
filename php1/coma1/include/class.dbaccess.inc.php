@@ -115,7 +115,7 @@ class DBAccess {
    * @return int ID bzw. <b>false</b>, falls keine Person mit E-Mail-Adresse
    *   $strEmail gefunden wurde
    * @access public
-   * @author Sandro, Tom (03.12.04)
+   * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPersonIdByEmail($strEmail) {
     $s = 'SELECT  id'.
@@ -125,7 +125,7 @@ class DBAccess {
     if (!empty($data)) {
       return $data[0]['id'];
     }
-    return false;
+    return $this->error('getPersonByEmail '.$this->mySql->getLastError());
   }
   
   /**
@@ -135,7 +135,7 @@ class DBAccess {
    * @return Person <b>false</b>, falls keine Person mit ID $intPersonId
    *   gefunden wurde
    * @access public
-   * @author Sandro, Tom (03.12.04)
+   * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPerson($intPersonId) {
     $s = 'SELECT  id, email, first_name, last_name'.
@@ -156,7 +156,7 @@ class DBAccess {
       return (new Person($data[0]['id'], $data[0]['email'],
                 $data[0]['first_name'], $data[0]['last_name'], $role_type));
     }
-    return false;
+    return $this->error('getPerson '.$this->mySql->getLastError());
   }
 
   /**
@@ -166,7 +166,7 @@ class DBAccess {
    * @return PersonDetailed <b>false</b>, falls keine Person mit ID $intPersonId
    *   gefunden wurde
    * @access public
-   * @author Sandro, Tom (03.12.04)
+   * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPersonDetailed($intPersonId) {
     $s = 'SELECT  id, email, first_name, last_name, title, affiliation,'.
@@ -193,7 +193,7 @@ class DBAccess {
                 $data[0]['country'], $data[0]['phone_number'],
                 $data[0]['fax_number']));
     }
-    return false;
+    return $this->error('getPersonDetailed '.$this->mySql->getLastError());
   }
 
   /**
@@ -221,7 +221,7 @@ class DBAccess {
       }
       return $objPapers;
     }
-    return false;
+    return $this->error('getPapersOfAuthor '.$this->mySql->getLastError());
   }
   
 
@@ -309,7 +309,7 @@ class DBAccess {
    * @param int $intPaperId ID des Papers
    * @return flt <b>false</b>, falls keine Bewertungen des Papers gefunden wurden.
    * @access private
-   * @author Sandro, Tom (06.12.04)
+   * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
     $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.        
@@ -328,7 +328,7 @@ class DBAccess {
       }
       return $sum / count($data);
     }
-    return false;
+    return $this->error('getAverageRatingOfPaper '.$this->mySql->getLastError());
   }
 
   /**
@@ -338,7 +338,7 @@ class DBAccess {
    * @param int $intReviewId ID des Reviews
    * @return int <b>false</b>, falls das Review nicht existiert
    * @access private
-   * @author Sandro, Tom (06.12.04)
+   * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getReviewRating($intReviewId) {
     $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.
@@ -350,7 +350,7 @@ class DBAccess {
     if (!empty($data)) {
       return $data[0]['total_rating'];
     }
-    return false;
+    return $this->error('getReviewRating '.$this->mySql->getLastError());
   }
 
   /**
