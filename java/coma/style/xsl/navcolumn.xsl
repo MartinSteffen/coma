@@ -85,8 +85,40 @@
           <li>Chair
           <ul>
             <li>
-              <a href="Chair?action=setup">Setup</a></li>
-              <li><a href="Chair?action=invite_person">invite person</a></li>
+           		<form action="Chair?action=setup&amp;target=conference" method="post">
+  					<input type="submit" value="conference setup" class="submit-button" />
+  				</form>
+  			</li>
+  			<li>
+           		<form action="Chair?action=setup&amp;target=topics" method="post">
+  					<input type="submit" value="topics setup" class="submit-button" />
+  				</form>
+  			</li>
+            <li>
+ 				<form action="Chair?action=invite_person" method="post">
+  					<input type="submit" value="invite person" class="submit-button" />
+  				</form>
+ 			</li>
+ 			<li>
+ 				<form action="Chair?action=show_authors" method="post">
+  					<input type="submit" value="list of authors" class="submit-button" />
+  				</form>
+ 			</li>
+ 			<li>
+ 				<form action="Chair?action=show_reviewers" method="post">
+  					<input type="submit" value="list of reviewers" class="submit-button" />
+  				</form>
+ 			</li>
+ 			<li>
+ 				<form action="Chair?action=show_papers" method="post">
+  					<input type="submit" value="list of papers" class="submit-button" />
+  				</form>
+ 			</li>
+ 			<li>
+ 				<form action="Chair?action=email" method="post">
+  					<input type="submit" value="email" class="submit-button" />
+  				</form>
+ 			</li>	
             </ul>
           </li>
         </xsl:if>
