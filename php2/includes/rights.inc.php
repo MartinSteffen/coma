@@ -106,64 +106,13 @@ function isChair_Overall()
 
 
 /* ----- FOR ADMIN ------------------------------------------------------ */
-function isAdmin_Paper($paperID)
-{
-  global $sql;
-if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
-  {
-	$SQL = "select role.person_id from paper, role 
-			where role.role_type = 1
-			and role.state = 1 
-			and role.person_id = ".$_SESSION['userID']."
-			and role.conference_id = paper.conference_id 
-			and paper.id = ".$paperID; 
-
-    $result=$sql->query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
-	{
-		return true;
-	}
-  }
-  return false;
-}
-
-function isAdmin_Conference($confID)
-{
-
-  global $sql;
-if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
-  {
-	$SQL = "select role.person_id from role 
-			where role.role_type = 1
-			and role.state = 1 
-			and role.person_id = ".$_SESSION['userID']."
-			and role.conference_id = ".$confID; 
-
-    $result=$sql->query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
-	{
-		return true;
-	}
-  }
-  return false;
-}
 
 function isAdmin_Overall()
 {
 
-	global $sql;
   if(isset($_SESSION['userID']))
   {
-	$SQL = "select role.person_id from role 
-			where role.role_type = 1
-			and role.state = 1 
-			and role.person_id = ".$_SESSION['userID']; 
-
-    $result=$sql->query($SQL);	
-    if($result) 	
-	{
-		return true;
-	}
+	return $_SESSION['userID']==1;
   }
   return false;
 }
