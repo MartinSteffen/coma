@@ -63,7 +63,7 @@ elseif (isset($_GET['4'])) {
       4. <a href="INSTALL.PHP?4">Delete INSTALL.PHP</a><br>
     </p>
     <p>
-      Please selct your next Step of Installation from the table above...<br>
+      Please select your next Step of Installation from the table above...<br>
       Your current step is: <?php echo $STEP; ?> <br>
     </p>
 <?php
