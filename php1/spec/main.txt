@@ -1,8 +1,8 @@
-============================================================================
+s============================================================================
   TECHNISCHE SPEZIFIKATION DER GRUPPE PHP1
 ============================================================================
 
-Auf Grundlage der Spec-1 (spec-1.pdf)
+Auf Grundlage von [spec-1.pdf]
 von Sandro Esquivel, Tom Scherzer und Jan Waller.
 
 Gruppe PHP1:
@@ -27,7 +27,8 @@ Datum    Autor   Änderung(en)
 
 
 
-Konventionen für dieses Dokument:
+Konventionen für dieses Dokument (ups, ganz schön viele...):
+
 - Historie weiterführen, damit der Stand schnell anhand des Datums erkennbar
   ist.
 - Neue Rechtschreibung nach bestem Wissen; zumindest keine Schlamperei!
@@ -37,15 +38,19 @@ Konventionen für dieses Dokument:
 - Keine Worttrennungen am Zeilenende durch Bindestriche (sonst Aufwand bei
   nachträglichen Änderungen), es sei denn, ein überlanges Wort zerstört
   sonst den Lesefluss.
+- Lieber häufiger mal einen neuen Absatz anfangen (bessere Wartbarkeit des
+  Dokuments bei Änderungen, Einfügungen usw.)
 - Vor jedem Kapitel drei Zeilen Abstand, nach der Überschrift (eingerahmt
   von Linien aus Gleichheitszeichen) eine Leerzeile. Beispiel: siehe
   Kapitel 1.
 - Vor jedem Unterpunkt zwei Zeilen Abstand. Unterpunkt und dessen
   Überschrift in eine Zeile, gefolgt vom Text direkt in der nächsten Zeile.
   Beispiel: siehe Unterpunkt 1.1.
-- Ein Beispiel für eine Tabelle (aber nicht verbindlich) ist in Appendix A.
+- Ein unverbindliches Beispiel für eine Tabelle ist in Appendix A.
 - Inhaltsverzeichnis aktuell halten.
-- Verweise auf andere Quellen auch im Appendix eintragen.
+- Verweise auf andere Quellen stets in eckige Klammern setzen (um schnelles
+  Finden bei Änderungen usw. zu ermöglichen) und die Verweise auch ins
+  Appendix eintragen.
 - Bei Missachtung der Konventionen droht strafrechtliche Verfolgung. ;-)
 - Jan: Im Deutschen schreibt man zusammengesetzte Wörter ZUSAMMEN oder aber
   mit BINDE-STRICHEN verbunden und niemals AUS EIN AN DER!!!
@@ -70,14 +75,14 @@ App. Verweise
   1. ÜBERBLICK ÜBER DAS KONZEPT
 ============================================================================
 
-Das grobe Konzept unseres Entwurfs ist in programmschema.jpg dargestellt.
+Das grobe Konzept unseres Entwurfs ist in [programmschema.jpg] dargestellt.
 
 
 1.1 Skripte, Formulare, Funktionen
 Eine zentrale Rolle nehmen in diesem Konzept die (PHP-)Skripte ein, welche
 letztlich den Programmablauf steuern. Formulare sind solche Skriptdateien,
 die als GUI dienen, d.h. letztlich dem Benutzer angezeigt werden (siehe
-auch navigator.pdf) und Interaktionsmöglichkeiten bieten, während
+auch [navigator.pdf]) und Interaktionsmöglichkeiten bieten, während
 gewöhnliche Skripte neben der Steuerung des Programms auch weniger komplexe
 Funktionen (z.B. Berechtigungsprüfungen) durchführen. I.d.R. treten
 Formulare mit Skripten (z.B. im Header) gemeinsam auf. Skripte wie
@@ -110,9 +115,9 @@ ausreicht, um alle benötigten Informationen zu erhalten.
 1.3 Objekte
 Unsere Objekte sind - losgelöst von der Datenbankstruktur - in solche
 Einheiten gegliedert, die uns für die Skripte besonders günstig erscheinen
-(siehe auch conference.jpg, forum.jpg, paper.jpg, review.jpg). Insbesondere
-fassen Objekte i.d.R. Informationen aus verschiedenen Datenbanktabellen
-"sinnvoll" zusammen.
+(siehe auch [conference.jpg], [forum.jpg], [paper.jpg], [review.jpg]).
+Insbesondere fassen Objekte i.d.R. Informationen aus verschiedenen
+Datenbanktabellen "sinnvoll" zusammen.
 Die Motivation für diese Einteilung ist zum einen, dass die Skripte schnell
 und komfortabel auf relevante Informationen zugreifen können, zum anderen
 spielen Strukturierungsaspekte (Modularisierung) sowie Effizienz eine Rolle.
@@ -163,13 +168,40 @@ voneinander zu trennen.
 
 
 ============================================================================
+  2. DAS DATENMODELL (SQL)
+============================================================================
+
+Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
+dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
+die Datenbank wie folgt für uns anpasst:
+
+- Tabelle Sessions wird hinzugefügt.
+
+
+
+============================================================================
+  3. DAS DATENMODELL (PHP)
+============================================================================
+
+Die wesentlichen Aspekte unserer Modellierung sollten aus Kapitel 1 deutlich
+werden. Insbesondere der Abschnitt 1.3 geht in allgemeiner Form auf unsere
+Objekte ein.
+Die Attribute und Methoden sind in PHP immer public, jedoch ist durch die
+@access-Anmerkung (public/protected/private) im [PHPDoc]-Kommentar das
+vorgesehene Zugriffsrecht erkennbar.
+Sonstige Details sind den entsprechenden Verweisen (s.u.) sowie [PHPDoc] zu
+entnehmen.
+
+
+
+============================================================================
   APPENDIX: VERANTWORTLICHKEITEN / ANSPRECHPARTNER
 ============================================================================
 
 Wir haben für jedes Thema (Ausnahme: Objekte) einen offiziellen
 Verantwortlichen. Da aber i.d.R. mehrere Personen an einem Modul arbeiten,
 sind diese hier mit aufgeführt.
-Im Code sollen außerdem möglichst durchgängig PHPDoc-Kommentare zu finden
+Im Code sollen außerdem möglichst durchgängig [PHPDoc]-Kommentare zu finden
 sein, die auch die Namen der Autoren jeder einzelnen Methode enthalten.
 
 +--------------------------------------------------------------------------+
@@ -184,7 +216,7 @@ sein, die auch die Namen der Autoren jeder einzelnen Methode enthalten.
 | Sessions    | jwa      |                                                 |
 +--------------------------------------------------------------------------+
 
-Siehe auch: liste_interessen.jpg
+Siehe auch: [liste_interessen.jpg]
 
 
 
@@ -207,7 +239,7 @@ Unterverzeichnisse dienen als "private" Testumgebung.
   APPENDIX: TESTS
 ============================================================================
 
-Dieser Abschnitt enthält Informationen über Module, Klassen, Methoden,
+Dieser Anhang enthält Informationen über Module, Klassen, Methoden,
 Funktionen usw., die eines ausführlichen Tests bedürfen, sowie die
 Ergebnisse der Tests.
 
@@ -234,7 +266,7 @@ Insbesondere ist das Verhalten bei Sonderfällen zu überwachen.
   APPENDIX: OFFENE PUNKTE
 ============================================================================
 
-Dieser Abschnitt enthält offene Punkte, die geklärt bzw. durchgeführt werden
+Dieser Anhang enthält offene Punkte, die geklärt bzw. durchgeführt werden
 müssen, und wird demnach häufiger mal aktualisiert. In dieser Phase wird
 jedoch darauf verzichtet, sämtliche fehlende Teile zu dokumentieren.
 Offene Punkte, die (technische) Spezifikation betreffend, werden ebenfalls
@@ -247,9 +279,11 @@ Spez      Algorithmen spezifizieren (insbesondere Verteilungsalgorithmus und
 Spez      Dateien, auf die verwiesen wird (vgl. Appendix), auf Aktualität
           prüfen und beizeiten in das spec-Verzeichnis schieben
 CoMaSpez  einheitliche Fehlerbehandlungsroutinen einführen und dokumentieren
-CoMa      PHPDoc-Kommentare einfügen und möglichst konsistent halten
+CoMa      [PHPDoc]-Kommentare einfügen und möglichst konsistent halten
 CoMa/Spez Ermittlung der Gesamtbewertung (Berechnung gewichteter
           Einzelnoten) korrigieren und dokumentieren
+Spez      Ort der mit PHPDoc generierten Dateien im Appendix "Verweise"
+          einfügen
 
 
 
@@ -259,14 +293,17 @@ CoMa/Spez Ermittlung der Gesamtbewertung (Berechnung gewichteter
 
 Die Dateien befinden sich zurzeit im Verzeichnis (...)/php1/architecture/.
 
-liste_interessen.jpg
-navigator.pdf
-programmschema.jpg
-spec-1.pdf (Original, unverändert und z.T. überholt)
-conference.jpg (Unterverzeichnis objects)
-forum.jpg (Unterverzeichnis objects)
-paper.jpg (Unterverzeichnis objects)
-review.jpg (Unterverzeichnis objects)
+[liste_interessen.jpg]
+[navigator.pdf]
+[programmschema.jpg]
+[spec-1.pdf] (Original, unverändert und z.T. überholt)
+[conference.jpg] (Unterverzeichnis objects)
+[forum.jpg] (Unterverzeichnis objects)
+[paper.jpg] (Unterverzeichnis objects)
+[review.jpg] (Unterverzeichnis objects)
+
+Ferner:
+[PHPDoc] (Verzeichnis unbekannt)
 
 Wir sind bemüht, diese Dateien möglichst aktuell zu halten, jedoch kann
 dies während des Entwicklungsprozesses nicht immer garantiert werden. Wir
