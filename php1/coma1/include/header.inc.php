@@ -3,7 +3,7 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
- */
+ */ 
 /***/
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
@@ -50,6 +50,7 @@ function redirect($strName) {
 function defaultAssocArray() {
   global $mySession;
   return array(
+               'imgpath'  => IMAGES,
                'path'     => TPLURL,
                'basepath' => COREURL,
                'SID'      => $mySession->getUrlId()
@@ -68,8 +69,10 @@ ini_set('warn_plus_overloading', '1');
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/sandro/');
+/** Template-Pfad-Images (als absolut) */
+define('TPLURL',dirname($_SERVER['PHP_SELF']).'/images/');
 /** Template-Pfad (als URL)*/
-define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/sandro/');
+define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/');
 /** Haupt-Pfad (als URL)*/
 define('COREURL',dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
