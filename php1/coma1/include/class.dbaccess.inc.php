@@ -847,6 +847,7 @@ class DBAccess {
         '                 \''.$strPostalCode.'\', \''.$strCity.'\', \''.$strState.'\','.
         '                 \''.$strCountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
         '                 \''.sha1($strPassword).'\')';
+    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
@@ -868,8 +869,8 @@ class DBAccess {
     $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
         '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
         '                 \''.$intRoleType.'\')';
+    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    echo('Return-ID: '.$intId.'<br>');
     if (!empty($intId)) {
       return true;
     }
@@ -877,15 +878,65 @@ class DBAccess {
   }
 
   /**
+   * Fuegt dem Paper $intPaperId den Namen $strName eines Co-Autoren hinzu,
+   * der nicht als Person im System vorkommt.
+   *
+   * @param int $intPaperId Paper-ID
+   * @param str $strName    Name des Co-Autors
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
    */
-  function addIsCoAuthorOf() {
-    return $this->error('addIsCoAuthorOf '.$this->mySql->getLastError());
+  function addCoAuthorName($intPaperId, $strName) {
+    $s = 'INSERT  INTO IsCoAuthorOf (paper_id, name)'.
+        '         VALUES (\''.$intPaperId.'\', \''.$strName.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return true;
+    }
+    return $this->error('addCoAuthorName '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Fuegt dem Paper $intPaperId den Co-Autor $intPersonId hinzu.
+   *
+   * @param int $intPaperId  Paper-Id
+   * @param int $intPersonId Personen-ID des Co-Autors
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
+   */
+  function addCoAuthor($intPaperId, $intPersonId) {
+    $s = 'INSERT  INTO IsCoAuthorOf (person_id, paper_id)'.
+        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return true;
+    }
+    return $this->error('addCoAuthor '.$this->mySql->getLastError());
   }
 
   /**
    */
-  function addPaper($strTitle, $intAuthorId, $strAbstract, $strFilePath,
-                    $strMimeType, $strCoAuthors) {
+  function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
+                    $strFilePath, $strMimeType, $strCoAuthors) {
+    $s = 'INSERT  INTO Paper (conference_id, title, author_id, abstract, filename, mime_type)'.
+        '         VALUES (\''.$intConferenceId.'\', \''.$intAuthorId.'\', \''.$strTitle.'\','.
+        '                 \''.$strAbstract.'\', \''.$strFilePath.'\', \''.$strMimeType.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      $blnOk = true;
+      for ($i = 0; $i < count($strCoAuthors); $i++) {
+        $blnOk &= $this->addCoAuthorName($intId, $strCoAuthors[$i]);
+        echo('{'.$blnOk.'}');
+      }
+      if ($blnOk) {
+        return $intId;
+      }
+    }
     return $this->error('addPaper '.$this->mySql->getLastError());
   }
 

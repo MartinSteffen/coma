@@ -23,7 +23,8 @@ echo($p->strFirstName.' ist '.($p->hasRole(1)?'':'k').'ein Chair.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br><br>');
 
-$myDBAccess->addRole(1, 1, 1);
+$a[0] = 'Meister Lampe'; $a[1] = 'Mr. X';
+$myDBAccess->addPaper(1, 1, 'Neueste Rezepte', 'Ein abstraktes Abstract...', '', '', $a);
 
 /*
 $p = $myDBAccess->getPapersOfAuthor(1);
