@@ -87,7 +87,7 @@ function session($strName, $blnRedirect=true) {
 /**
  * Loeschen von Session-Variablen
  *
- * Diese Funktion löscht eine Sessionvariable aus dem Speicher
+ * Diese Funktion loescht eine Sessionvariable aus dem Speicher
  *
  * @param string $strName Der Name der Variablen.
  */
@@ -154,10 +154,20 @@ $strRoles = array(CHAIR       => 'Chair',
 if (!defined('NEED_NO_LOGIN')) {
   if ($myDBAccess->checkLogin()) {
     if (!isset($_SESSION['uid'])) {
+      // UID setzen
       $_SESSION['uid'] = $myDBAccess->getUserIdByEmail(session(uname));
+      if ($myDBAccess->failed) {
+        session_delete('uid');
+        print($myDBAccess->getLastError());
+      }
     }
   }
   else {
+    // nicht korrekt eingeloggt
+    session_delete('password');
+    session_delete('uname');
+    session_delete('uid');
+    session_delete('confid');
     if ($myDBAccess->failed) {
       print($myDBAccess->getLastError());
     }
@@ -167,10 +177,6 @@ if (!defined('NEED_NO_LOGIN')) {
     else {
       $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
     }
-    session_delete('password');
-    session_delete('uname');
-    session_delete('uid');
-    session_delete('confid');
     redirect('login.php');
   }
 }
