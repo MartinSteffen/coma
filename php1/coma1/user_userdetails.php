@@ -53,12 +53,11 @@ $strContentAssocs['address']     = encodeText($objPerson->getAddress());
 $strContentAssocs['country']     = encodeText($objPerson->getCountry());
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
-$strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
+$strContentAssocs['navlink']     = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $strContentAssocs['author_papers'] = '';
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'User profile';
-$strMainAssocs['content'] = &$content;
 
 // Pruefe Zugriffsberechtigung auf die Artikelliste
 $checkChairRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
@@ -123,6 +122,7 @@ if ($checkChairRole && $objPerson->hasRole(REVIEWER)) {
 
 $strContentAssocs['if'] = $ifMainArray;
 $content->assign($strContentAssocs);
+$strMainAssocs['content'] = &$content;
 
 if (!$popup) {
   include('./include/usermenu.inc.php');
