@@ -361,7 +361,7 @@ class DBAccess {
         ' WHERE   id = \''.$intForumId.'\'';
     $data = $this->mySql->select($s);    
     if ($data) {      
-      $threads = getMessagesOfForum($intForumId);      
+      $threads = $this->getMessagesOfForum($intForumId);      
       $forum = (new ForumDetailed($data[$i]['id'], $data[$i]['title'],
                   0, false, $threads));
       return $forum;
