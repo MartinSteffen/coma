@@ -67,6 +67,7 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
   $strPapersAssocs = defaultAssocArray();
   $strPapersAssocs['message']     = '';
   $strPapersAssocs['user_id']     = encodeText($objPerson->intId);
+  $strPapersAssocs['&popup']      = ($popup ? '&amp;popup' : '');
   $strPapersAssocs['author_name'] = encodeText($objPerson->getName(0));
   $strPapersAssocs['targetpage']  = 'user_userdetails.php';
   $strPapersAssocs['lines']       = '';
