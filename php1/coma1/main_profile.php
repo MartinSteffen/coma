@@ -27,21 +27,15 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   $strMessage = '';
 
   /* Aktualisieren der Person in der Datenbank */
-  
-  // [TODO] Darf die Email, also der Benutzername hier geaendert werden?!
- 
+    
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
-  if ($_POST['last_name'] == '' || $_POST['email'] == '' || $_POST['user_password'] == '' ||
-      $_POST['password_repeat'] == '') {    
-    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, <b>Email</b> und <b>Passwort</b> '.
-                  'ausf&uuml;llen!';
+  if ($_POST['last_name'] == '' || $_POST['email'] == '') {
+    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b> und <b>Email</b> ausf&uuml;llen!';
     $confirmFailed = true;
   }
-  // Teste, ob Passwort mit der Wiederholung uebereinstimmt
-  else if ( $_POST['user_password'] !=  $_POST['password_repeat']) {
-    $strMessage = 'Ihr Passwort stimmt nicht mit der Wiederholung des Passwortes &uuml;berein!';
-    $confirmFailed = true;
-  }  
+  
+  // [TODO] Darf die Email, also der Benutzername hier geaendert werden?!
+  
   // Teste, ob die Email gueltig ist
   else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
     $strMessage = 'Geben Sie eine g&uuml;ltige Email-Adresse ein!';
