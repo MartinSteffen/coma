@@ -1,14 +1,17 @@
 package coma.handler.util;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.regex.*;
 
 import coma.entities.Conference;
+import coma.entities.Criterion;
 import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.Rating;
 import coma.entities.ReviewReport;
 
 /**
@@ -19,14 +22,14 @@ public class EntityCreater {
 
 	HttpServletRequest request;
 
-	ResultSet resSet;
+	ResultSet rSet;
 
 	public EntityCreater(HttpServletRequest request) {
 		this.request = request;
 	}
 
 	public EntityCreater(ResultSet resSet) {
-		this.resSet = resSet;
+		this.rSet = resSet;
 	}
 
 	public EntityCreater() {
@@ -40,14 +43,50 @@ public class EntityCreater {
 
 	public Conference getConference(ResultSet resSet) {
 		Conference conference = new Conference();
-		//TODO
+		try {
+			
+			conference.setAbstract_submission_deadline(resSet.getDate("abstract_submission_deadline"));
+			conference.setConference_end(resSet.getDate("conference_end"));
+			conference.setConference_start(resSet.getDate("conference_start"));
+			conference.setDescription(resSet.getString("description"));
+			conference.setFinal_version_deadline(resSet.getDate("final_version_deadline"));
+			conference.setHomepage(resSet.getString("homepage"));
+			conference.setId(resSet.getInt("id"));
+			conference.setMin_review_per_paper(resSet.getInt("min_review_per_paper"));
+			conference.setName(resSet.getString("name"));
+			conference.setNotification(resSet.getDate("notification"));
+			conference.setPaper_submission_deadline(resSet.getDate("paper_submission_deadline"));
+			conference.setReview_deadline(resSet.getDate("review_deadline"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return conference;
 	}
 
 	public Person getPerson(ResultSet resSet) {
-		Person p = new Person(-1);
-
-		return p;
+		Person person = new Person(-1);
+		try{
+			
+		person.setAffiliation(resSet.getString("affilication"));
+		person.setCity(resSet.getString("city"));
+		person.setCountry(resSet.getString("country"));
+		person.setEmail(resSet.getString("email"));
+		person.setFax_number(resSet.getString("fax_number"));
+		person.setFirst_name(resSet.getString("first_name"));
+		person.setId(resSet.getInt("id"));
+		person.setLast_name(resSet.getString("last_name"));
+		person.setPassword(resSet.getString("password"));
+		person.setPhone_number(resSet.getString("phone_number"));
+		person.setPostal_code(resSet.getString("postal_code"));
+		person.setState(resSet.getString("state"));
+		person.setStreet(resSet.getString("street"));
+		person.setTitle(resSet.getString("title"));
+		
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return person;
 	}
 
 	public Person getPerson(HttpServletRequest request)
@@ -86,7 +125,22 @@ public class EntityCreater {
 
 	public Paper getPaper(ResultSet resSet) {
 		Paper paper = new Paper(-1);
-		//TODO
+		try {
+			
+			paper.setAbstract(resSet.getString("abstract"));
+			paper.setAuthor_id(resSet.getInt("author_id"));
+			paper.setConference_id(resSet.getInt("conference_id"));
+			paper.setFilename(resSet.getString("filename"));
+			paper.setId(resSet.getInt("id"));
+			paper.setLast_edited(resSet.getDate("last_edited"));
+			paper.setMim_type(resSet.getString("mim_type"));
+			paper.setState(resSet.getInt("state"));
+			paper.setTitle(resSet.getString("title"));
+			paper.setVersion(resSet.getInt("version"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return paper;
 	}
 
@@ -98,7 +152,19 @@ public class EntityCreater {
 
 	public ReviewReport getReviewReport(ResultSet resSet) {
 		ReviewReport report = new ReviewReport();
-		//TODO
+		
+		try {
+			report.setConfidental(resSet.getString("confidential"));
+			report.setId(resSet.getInt("id"));
+			report.setPaperId(resSet.getInt("paper_id"));
+			report.setRemarks(resSet.getString("remarks"));
+			report.setReviewerId(resSet.getInt("reviewer_id"));
+			report.setSummary(resSet.getString("summary"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return report;
 	}
 
@@ -106,5 +172,50 @@ public class EntityCreater {
 		ReviewReport report = new ReviewReport();
 		//TODO
 		return report;
+	}
+	
+	public Criterion getCriterion(HttpServletRequest request){
+		//TODO
+		return null;
+	}
+	
+	public Criterion getCriterion(ResultSet resSet){
+		Criterion criterion = new Criterion();
+		
+		try {
+			criterion.setConferenceId(resSet.getInt("conference_id"));
+			criterion.setDescription(resSet.getString("description"));
+			criterion.setId(resSet.getInt("id"));
+			criterion.setMaxValue(resSet.getInt("max_value"));
+			criterion.setName(resSet.getString("name"));
+			criterion.setQualityRating(resSet.getInt("quality_rating"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return criterion;
+	}
+	
+	public Rating getRating(HttpServletRequest request){
+		Rating rating = new Rating();
+		//TODO
+		return rating;
+	}
+	
+	public Rating getRating(ResultSet resSet){
+		Rating rating = new Rating();
+		
+		try {
+			rating.setComment(resSet.getString("comment"));
+
+			rating.setCriterionId(resSet.getInt("criterion_id"));
+			rating.setGrade(resSet.getInt("grad"));
+			rating.setReviewReportId(resSet.getInt("review_id"));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rating;
 	}
 }
