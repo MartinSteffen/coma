@@ -63,7 +63,7 @@ if (isset($_POST['action'])) {
       }
     } 	
     if (isset($_POST['add_topic'])) {  
-      if (isset($_POST['topic_name'])  && !empty(encodeText($_POST['topic_name']))) {
+      if (!empty($_POST['topic_name'])) {
         $strTopics[] = encodeText($_POST['topic_name']);
       }
     }
