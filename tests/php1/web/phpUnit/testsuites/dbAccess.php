@@ -37,7 +37,7 @@ class ComaExample extends PHPUnit_TestCase
 
   function test_getConferenceDetailed() {
       	global $myDBAccess;
-        $this->assertEquals([],getConferenceDetailed(100));
+        $this->assertEquals(array(),getConferenceDetailed(100));
   }
 
   function test_getCriterionsOfConference() {
