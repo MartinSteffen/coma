@@ -137,7 +137,7 @@ class MySql extends ErrorHandling {
       return $this->error('select', 'No database connection');
     }
     $results = mysql_query($strSql, $this->mySqlConnection);
-    if (!empty($results)) {
+    if (empty($results)) {
       $strError = mysql_error($this->mySqlConnection);
       @mysql_free_result($results);
       return $this->error('select', $strError);
