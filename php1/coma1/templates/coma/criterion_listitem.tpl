@@ -13,7 +13,8 @@
           </td>          
         </tr>
         <tr>
-          <td class="formlistitem">
+          <td class="formlistitem" colspan="3">
             Description: <textarea name="crit_descr-{crit_no}" rows="1" cols="48">{crit_descr}</textarea>
           </td>
+          <td class="formlistitem">&nbsp;</td>          
         </tr>
