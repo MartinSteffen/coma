@@ -12,7 +12,7 @@
     <th class="listheader">Edit paper properties</th>
     <th class="listheader">Delete this paper</th>
   </tr>
-  {paper-rows}
+  {paper_rows}
 </table>
 
 <p class="message2">Upload new paper:<br>

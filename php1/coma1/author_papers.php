@@ -27,7 +27,7 @@ $paper0topics = array('Schaum', 'Blasen');
 $testpapers[0] = new PaperDetailed(23, 'Schaumparties', 1, 'Kuh', 0, 2.3, $paper0ids, $paper0names, 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', 'text/html', '01-01-2005', 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', $paper0topics);
 var_dump($testpapers);
 $none = true;
-$strContentAssocs['paper-rows'] = '';
+$strContentAssocs['paper_rows'] = '';
 foreach ($testpapers as $paper){
   $none = false;
   $papertemplate = new Template(TPLPATH . 'author_paperlistitem.tpl');
@@ -35,20 +35,20 @@ foreach ($testpapers as $paper){
   $paperassocs['title'] = $paper->strTitle;
   $paperassocs['status'] = $paper->intStatus;
   $paperassocs['avgrating'] = $paper->fltAvgRating;
-  $paperassocs['abstract-link'] = $paper->strAbstract;
-  $paperassocs['last-edited'] = $paper->strLastEdit;
-  $paperassocs['paper-id'] = $paper->intId;
-  $paperassocs['co-authors'] = '';
+  $paperassocs['abstract_link'] = $paper->strAbstract;
+  $paperassocs['last_edited'] = $paper->strLastEdit;
+  $paperassocs['paper_id'] = $paper->intId;
+  $paperassocs['co_authors'] = '';
   foreach ($paper->strCoAuthors as $coauthor){
-    $paperassocs['co-authors'] = $paperassocs['co-authors'] . $coauthor;
+    $paperassocs['co_authors'] = $paperassocs['co_authors'] . $coauthor;
   }
   $papertemplate->assign($paperassocs);
   $papertemplate->parse();
-  $strContentAssocs['paper-rows'] = $strContentAssocs['paper-rows'] . $papertemplate->getOutput();
+  $strContentAssocs['paper_rows'] = $strContentAssocs['paper_rows'] . $papertemplate->getOutput();
 }
 
 if ($none){
-  $strContentAssocs['paper-rows'] = 'There are no items in this category. Use the form below to upload papers.';
+  $strContentAssocs['paper_rows'] = 'There are no items in this category. Use the form below to upload papers.';
 }
 
 $actMenu = AUTHOR;
