@@ -7,7 +7,7 @@
 /***/
 
 /**
- * Wichtig damit Coma1 Datein eingebunden werden koennen
+ * Wichtig damit Coma1 Dateien eingebunden werden koennen
  *
  * @ignore
  */
