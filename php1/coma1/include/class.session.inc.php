@@ -125,7 +125,7 @@ class Session {
   */
   function sessionWrite($strSessId, $strData) {
     $strSessId = $this->strSessName . $strSessId;
-    $this->mySql->update("UPDATE sessions SET sdata='$strData', stime=NOW() WHERE sid='$strSessId' AND sname='$this->strSessName'");
+    $this->mySql->update("UPDATE Sessions SET sdata='$strData', stime=NOW() WHERE sid='$strSessId' AND sname='$this->strSessName'");
     return true;
   }
 
