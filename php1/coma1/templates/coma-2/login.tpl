@@ -11,19 +11,19 @@
   <tr>
     <td>E-mail Address:</td>
     <td>
-      <input type="text" name="user_name" size="30" maxlength="127" />
+      <input type="text" name="user_name" size="30" maxlength="127">
     </td>
   </tr>
   <tr>
     <td>Password:</td>
     <td>
-       <input type="password" name="user_password" size="30" maxlength="127" />
+       <input type="password" name="user_password" size="30" maxlength="127">
     </td>
   </tr>
   <tr>
     <td colspan="2">
-      <input type="hidden" name="action" value="login" />
-      <input type="submit" name="submit" value="Login" class="button" />
+      <input type="hidden" name="action" value="login">
+      <input type="submit" name="submit" value="Login" class="button">
     </td>
   </tr>
 </table>
@@ -37,7 +37,7 @@
   This will mean that you can get access to information relevant to you.
   If you have not registered, please register below:<br>
 <form action="{basepath}register.php?{SID}" method="post">
-  <input type="submit" name="submit" value="Register" class="button" />
+  <input type="submit" name="submit" value="Register" class="button">
 </form>
 </p>
 
