@@ -70,8 +70,8 @@ conference_start              Date
 conference_end                Date
 min_reviews_per_paper         Int
 
-Tabelle User
-~~~~~~~~~~~~
+Tabelle Person
+~~~~~~~~~~~~~~
 id		BigInt		Autoincrement, Primary Key
 conference	BigInt		-> Conference, id
 rights		BigInt		-> Rights, id
@@ -147,6 +147,24 @@ paper_id	BigInt          -> Paper, id
 
 Tabelle ReviewReport
 ~~~~~~~~~~~~~~~~~~~~
+<<<<<<< .mine
+<<<<<<< .mine
+id			BigInt		Autoincrement, Primary Key
+conference		Varchar 20	-> Conference, abbreviation
+paper_id		BigInt		-> Paper, ID
+reviewer		Varchar 127	-> User, email
+summary			Text
+remarks			Text
+confidential		Text
+=======
+id            BigInt          Autoincrement, Primary Key
+conference    Varchar 20      -> Conference, abbreviation
+paper_id      BigInt          -> Paper, ID
+reviewer      Varchar 127     -> User, email
+summary       Text
+remarks       Text
+confidential  Text
+=======
 id		BigInt		Autoincrement, Primary Key
 conference	BigInt		-> Conference, id
 paper_id	BigInt		-> Paper, id
@@ -155,6 +173,8 @@ status		Int
 summary		Text
 remarks		Text
 confidential	Text
+>>>>>>> .r193
+>>>>>>> .r172
 
 Tabelle Rating
 ~~~~~~~~~~~~~~
