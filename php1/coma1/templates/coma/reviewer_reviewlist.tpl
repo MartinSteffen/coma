@@ -127,3 +127,57 @@
 
   </tr>
 </table>
+
+<!--  --------------------------  Artikel ---------------------------------- -->
+<table class="list">
+  <tr class="listheader">
+    <td class="listheader" colspan="2"> Neueste Rezepte </td>
+  </tr>
+  <tr class="listitem-1">
+    <td class="listitem-1">  abstract: </td>
+    <td class="listitem-1">  Ein abstraktes Abstract...</td> 
+  </tr>
+  <tr class="listitem-1">
+    <td class="listitem-1" colspan="2">        
+       <form action="" method="post">
+       <input type="hidden" name="confid" value="{confid}" />
+       <input type="submit" name="submit" value="download pdf" class="button" />
+       </form>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"> &nbsp;</td>
+  </tr>
+  <tr class="listheader">
+    <td class="listheader" colspan="2"> Criteria <br>  Evaluation</td>
+  </tr>
+  <tr>
+    <td colspan="2"> 
+    <form action="" method="post"> &nbsp;  &nbsp;
+      overal rating:
+      <input type="text" size="2"  name="overal rating" value="3"/> &nbsp;  &nbsp;
+      originality:
+      <input type="text" size="2" name="originality" value="1"/> &nbsp;  &nbsp;
+      soundness:
+      <input type="text" size="2"  name="soundness" value="5"/> &nbsp;  &nbsp;
+      relevance:
+      <input type="text" size="2"  name="relevance" value="2"/> &nbsp;  &nbsp;
+      style: 
+      <input type="text" size="2"  name="style" value="4"/> &nbsp;  &nbsp;
+      confidence: 
+      <input type="text" size="2"  name="confidence" value="1"/> &nbsp;  &nbsp;
+     </form>
+   </td>
+  <tr>
+    <td> 
+     <form action="" method="post">
+     <input type="hidden" name="confid" value="{confid}" />
+     <input type="submit" name="submit" value="submit" class="button" />
+     </form>
+    </td>
+
+  </tr>
+
+
+  </tr>
+</table>
