@@ -20,6 +20,9 @@ if (isset($_GET['confid'])) {
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
   }
+  else if (empty($objConference)) {
+    error('Conference does not exist in database.', $myDBAccess->getLastError());
+  }
 }
 else {
   redirect('main_conferences.php');
@@ -27,6 +30,25 @@ else {
 
 $content = new Template(TPLPATH.'conference_info.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['if'] = array();
+$strContentAssocs['name'] = encodeText($objConference->strName);
+$strContentAssocs['description'] = encodeText($objConference->strDescription);
+$strContentAssocs['date'] = $objConference->getDateString();
+if (!empty($objConference->strHomepage)) {
+  $strContentAssocs['if'] = array(1);  	
+  $strContentAssocs['link'] = $objConference->strHomepage;
+}
+else {  
+  strContentAssocs['link'] = 'No homepage available';
+}
+$strContentAssocs['paper_number'] = encodeText($objConference->intMinNumberOfPapers.' - '.
+                                               $objConference->intMaxNumberOfPapers);
+$strContentAssocs['abstract_deadline'] = encodeText($objConference->strAbstractDeadline);
+$strContentAssocs['paper_deadline'] = encodeText($objConference->strPaperDeadline);
+$strContentAssocs['review_deadline'] = encodeText($objConference->strReviewDeadline);
+$strContentAssocs['final_deadline'] = encodeText($objConference->strFinalDeadline);
+$strContentAssocs['notification'] = encodeText($objConference->strNotification);
+$strContentAssocs['return_page'] = 'main_conferences.php';
 $content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');
