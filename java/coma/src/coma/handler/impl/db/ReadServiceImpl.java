@@ -783,8 +783,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				+ " paper_id = " + paper_id + " AND person_id = " + person_id;
 		if (ok) {
 			try {
-
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					Statement pstmt = conn.createStatement();
@@ -844,8 +842,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				+ " paper_id = " + paper_id + " AND topic_id = " + topic_id;
 		if (ok) {
 			try {
-
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					Statement pstmt = conn.createStatement();
@@ -902,8 +898,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				+ " person_id = " + person_id;
 		if (ok) {
 			try {
-
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					Statement pstmt = conn.createStatement();
@@ -961,8 +955,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				+ " person_id = " + person_id;
 		if (ok) {
 			try {
-
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					Statement pstmt = conn.createStatement();
@@ -1020,8 +1012,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				+ " person_id = " + person_id;
 		if (ok) {
 			try {
-
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					Statement pstmt = conn.createStatement();
@@ -1095,8 +1085,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				+ " person_id = " + person_id;
 		if (ok) {
 			try {
-
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					Statement pstmt = conn.createStatement();
@@ -1163,8 +1151,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 		}
 		if (ok) {
 			try {
-
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					Statement pstmt = conn.createStatement();

@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 import coma.entities.SearchResult;
 
 /**
- * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Albari </a>
+ * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Z. Albari </a>
  *         Created on Dec 2, 2004 11:09:51 PM
  */
 
@@ -45,7 +45,9 @@ public class Service {
 		Connection result = null;
 
 		try {
-			init();
+			if (!configured) {
+				init();
+			}
 			if (configured) {
 				result = dataSource.getConnection();
 			} else {
@@ -77,7 +79,6 @@ public class Service {
 		Connection conn = null;
 
 		try {
-			// conn = dataSource.getConnection();
 			conn = getConnection();
 		} catch (Exception e) {
 			ok = false;

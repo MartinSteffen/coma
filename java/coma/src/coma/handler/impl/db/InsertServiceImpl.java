@@ -47,7 +47,6 @@ public class InsertServiceImpl extends Service implements InsertService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
@@ -151,13 +150,11 @@ public class InsertServiceImpl extends Service implements InsertService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				// info.append(e.toString());
 				System.out.println(e);
 			}
 		}
@@ -220,13 +217,11 @@ public class InsertServiceImpl extends Service implements InsertService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();#
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				// info.append(e.toString());
 				System.out.println(e);
 			}
 		}
@@ -300,7 +295,6 @@ public class InsertServiceImpl extends Service implements InsertService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
@@ -414,13 +408,11 @@ public class InsertServiceImpl extends Service implements InsertService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				// info.append(e.toString());
 				System.out.println(e);
 			}
 		}
@@ -482,13 +474,11 @@ public class InsertServiceImpl extends Service implements InsertService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				info.append(e.toString());
 				System.out.println(e);
 			}
 		}

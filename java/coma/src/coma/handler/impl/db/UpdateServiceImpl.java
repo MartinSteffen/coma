@@ -46,13 +46,12 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				info.append(e.toString() + "\n");
+				System.out.println(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -116,13 +115,12 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				info.append(e.toString() + "\n");
+				System.out.println(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -173,13 +171,12 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				info.append(e.toString() + "\n");
+				System.out.println(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -235,13 +232,12 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				info.append(e.toString() + "\n");
+				System.out.println(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -348,13 +344,12 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				// conn = dataSource.getConnection();
 				conn = getConnection();
 			} catch (Exception e) {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				info.append(e.toString() + "\n");
+				System.out.println(e.toString() + "\n");
 			}
 		}
 		if (ok) {
