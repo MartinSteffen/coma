@@ -1216,7 +1216,7 @@ class DBAccess extends ErrorHandling {
     // echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addPerson ' $this->mySql->getLastError());
+      return $this->error('addPerson ', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
