@@ -49,7 +49,7 @@ $input = d("register");
           <tr> 
             <td class="textBold" width="29%">Title</td>
             <td width="37%"> 
-              <input type="text" name="title" size="30" maxlength="127" value="<? echo $input['title'] ?>">
+              <input type="text" name="title" size="30" maxlength="32" value="<? echo $input['title'] ?>">
             </td>
             <td width="34%" class="textRed">&nbsp;</td>
           </tr>
@@ -87,7 +87,7 @@ $input = d("register");
           <tr> 
             <td class="textBold" width="29%">Postal code</td>
             <td width="37%"> 
-              <input type="text" name="postal" size="30" maxlength="127" value="<? echo $input['postal'] ?>">
+              <input type="text" name="postal" size="20" maxlength="20" value="<? echo $input['postal'] ?>">
             </td>
             <td width="34%" class="textRed">&nbsp;</td>
           </tr>
@@ -115,14 +115,14 @@ $input = d("register");
           <tr> 
             <td class="textBold" width="29%">Phone number</td>
             <td width="37%"> 
-              <input type="text" name="phone" size="30" maxlength="127" value="<? echo $input['phone'] ?>">
+              <input type="text" name="phone" size="20" maxlength="20" value="<? echo $input['phone'] ?>">
             </td>
             <td width="34%" class="textRed">&nbsp;</td>
           </tr>
           <tr> 
             <td class="textBold" width="29%">Fax number</td>
             <td width="37%"> 
-              <input type="text" name="fax" size="30" maxlength="127" value="<? echo $input['fax'] ?>">
+              <input type="text" name="fax" size="20" maxlength="20" value="<? echo $input['fax'] ?>">
             </td>
             <td width="34%" class="textRed">&nbsp;</td>
           </tr>
