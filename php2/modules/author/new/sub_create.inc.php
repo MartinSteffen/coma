@@ -10,6 +10,9 @@ if (isset ($_REQUEST['cid']))
 	$SQL = "SELECT name FROM conference WHERE id = ".$TPL['cid'];
 	$result = $sql->query($SQL);
 	$TPL['name'] = $result[0]['name'];
+	$SQL = "SELECT id, name FROM topic WHERE conference_id = " . $TPL['cid'];
+	$result = $sql->query($SQL);
+	$TPL['topic'] = $result;
 }else{
   echo ('Error: no conference_id!');
 }

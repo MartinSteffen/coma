@@ -1,6 +1,7 @@
 <?
 $content = array();
 
+
 //check for conference_id
 if (isset($_REQUEST['cid'])) {
 	$content['conference_id'] = $_REQUEST['cid'];
@@ -8,6 +9,7 @@ if (isset($_REQUEST['cid'])) {
   echo('Error(m=author&a=new&s=save): no conference_id in "$_REQUEST"');
   exit();
 }
+
 
 // check if title is valid
 if ($_REQUEST['title'] == "") {
@@ -46,6 +48,18 @@ else {
 	$content['mime_type'] = "";
 }
 
+// check for topiccheckboxes
+
+$SQL = "SELECT id FROM topic WHERE conference_id = ". $content['conference_id'];
+$topic = $sql->query($SQL);
+foreach ($topic as $value) {
+	if (isset ($_REQUEST[$value['id']])) {
+		$content['topic'][] = $_REQUEST[$value['id']];
+	}
+}
+
+
+
 
 
 //fill content array with values for db
@@ -64,6 +78,13 @@ $result = $sql->insert($SQL);
 
 //get paper_id
 $paper_id = mysql_insert_id();
+
+// insert topics
+foreach ($content['topic'] as $value) {
+	$SQL = "INSERT INTO isabouttopic (paper_id, topic_id) VALUES ('" . $paper_id . "', '" . $value . "')";
+	$result = $sql->insert($SQL);
+}
+
 
 // get fTP handle
 $ftphandle = @ftp_connect($ftphost);
@@ -110,6 +131,7 @@ if ((isset ($_FILES['file'])) and ($_FILES['file']['size'] > 0)) {
 // do not forget to close connection. Your FTP-provider says thanks :)
 // ftp_close() throws error, so use here ftp_quit()
 ftp_quit($ftphandle);
+
 
 redirect("author", "view", "papers");
 //done at last! Good luck!

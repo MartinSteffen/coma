@@ -4,6 +4,46 @@ if ((! isset($_REQUEST['pid'])) or ($_REQUEST['pid'] == "")) {
 }
 $paper_id = $_REQUEST['pid'];
 
+$SQL = "SELECT conference_id FROM paper WHERE id = " . $paper_id;
+$conference_id = $sql->query($SQL);
+$conference_id = $conference_id[0]['conference_id'];
+
+// make possible changes in topics
+
+$SQL = "SELECT id, name FROM topic WHERE conference_id = " . $conference_id;
+$topic = $sql->query($SQL);
+foreach ($topic as $value) {
+	if (isset ($_REQUEST[$value['id']])) {
+		$topic_now[] = $_REQUEST[$value['id']];
+	}
+}
+
+$SQL = "SELECT topic_id FROM isabouttopic WHERE paper_id = " . $_REQUEST['pid'];
+$result = $sql->query($SQL);
+foreach ($result as $value) {
+	$topic_checked[] = $value['topic_id'];
+}
+
+$topic_to_uncheck = array_diff ($topic_checked, $topic_now);
+$topic_to_check = array_diff ($topic_now, $topic_checked);
+foreach ($topic_to_check as $value) {
+	$SQL = "INSERT INTO isabouttopic (paper_id, topic_id) VALUES ('" . $paper_id . "', '" . $value . "')";
+	$result = $sql->insert($SQL);
+}
+foreach ($topic_to_uncheck as $value) {
+	$SQL = "DELETE FROM isabouttopic WHERE paper_id = " . $paper_id . " AND topic_id = " . $value;
+	$result = $sql->insert($SQL);
+}
+/*
+var_dump($topic);
+var_dump($topic_checked);
+var_dump($topic_now);
+var_dump($topic_to_check);
+var_dump($topic_to_uncheck);
+exit();
+*/
+
+// make possible changes in paper
 
 if ($_FILES['file']['size'] > 0) {
 
@@ -22,7 +62,7 @@ if ($_FILES['file']['size'] > 0) {
 	$name = $_FILES['file']['name'];
 	//but only there is a filename
 	if ($name == "") {
-		redirect("author", "new", "create", "cid=". $content['conference_id']."&msg=<font style=color:red>Please select a valid file to upload.</font>");
+		redirect("author", "new", "create", "cid=" . $conference_id . "&msg=<font style=color:red>Please select a valid file to upload.</font>");
 	}
 	$a = explode(".", $name);
 	//or a filenameextension
