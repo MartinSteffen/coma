@@ -63,48 +63,11 @@ function defaultAssocArray() {
 /**
  * This function encodes the string.
  *
- * You can safetly use this function to save its result in a
- * database. It eliminates any space in the beginning ou end
- * of the string, HTML and PHP tags, and encode any special
- * char to the usual HTML entities (&[...];), eliminating the
- * possibility of bugs in inserting data on a table
- *
  * @param string $_str String to encode
  * @return string encoded string
  */
 function encodeText($_str) {
-  $trans_tbl = get_html_translation_table(HTML_ENTITIES);
-  $trans_tbl["\\"] = "\\\\";
-  $trans_tbl["\x00"] = "\\\x00";
-  $trans_tbl["\n"] = '<BR>';
-  $trans_tbl["\r"] = '';
-  $trans_tbl["\t"] = ' ';
-  $trans_tbl["'"] = '&#039;';
-  $trans_tbl["\x1a"] = "\\\x1a";
-  $trans_tbl['"'] = '&#039;'; // keine Doppelquotes zulassen!
-  $_str = strtr($_str, $trans_tbl);
-  $_str = trim($_str);
-  return($_str);
-}
-
-/**
- * This function decodes the string.
- *
- * Was ist mit quotes? " ist nicht benutzbar!!
- *
- * @param string $_str String to decode
- * @return string decoded string
- */
-function decodeText($_str) {
-  $trans_tbl = get_html_translation_table (HTML_ENTITIES);
-  $trans_tbl["\\"] = "\\\\";
-  $trans_tbl["\x00"] = "\\\x00";
-  $trans_tbl["\n"] = '<BR>';
-  $trans_tbl["'"] = '&#039;';
-  $trans_tbl["\x1a"] = "\\\x1a";
-  $trans_tbl = array_flip($trans_tbl);
-  $_str = strtr($_str, $trans_tbl);
-  return($_str);
+  return htmlentities($_str);
 }
 
 /**
@@ -124,7 +87,7 @@ function encodeURL($_str) {
   {
     $_str = '';
   }
-  return($_str);
+  return $_str;
 }
 
 // Debugging Einstellungen:

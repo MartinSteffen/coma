@@ -46,18 +46,18 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
                   'Please use enter another E-mail address!';
   }
   else {
-    $objPerson->strFirstName   = encodeText($_POST['first_name']);
-    $objPerson->strLastName    = encodeText($_POST['last_name']);
-    $objPerson->strEmail       = encodeText($_POST['email']);
-    $objPerson->strAffiliation = encodeText($_POST['affiliation']);
-    $objPerson->strTitle       = encodeText($_POST['name_title']);
-    $objPerson->strStreet      = encodeText($_POST['street']);
-    $objPerson->strCity        = encodeText($_POST['city']);
-    $objPerson->strPostalCode  = encodeText($_POST['postalcode']);
-    $objPerson->strState       = encodeText($_POST['state']);
-    $objPerson->strCountry     = encodeText($_POST['country']);
-    $objPerson->strPhone       = encodeText($_POST['phone']);
-    $objPerson->strFax         = encodeText($_POST['fax']);
+    $objPerson->strFirstName   = $_POST['first_name'];
+    $objPerson->strLastName    = $_POST['last_name'];
+    $objPerson->strEmail       = $_POST['email'];
+    $objPerson->strAffiliation = $_POST['affiliation'];
+    $objPerson->strTitle       = $_POST['name_title'];
+    $objPerson->strStreet      = $_POST['street'];
+    $objPerson->strCity        = $_POST['city'];
+    $objPerson->strPostalCode  = $_POST['postalcode'];
+    $objPerson->strState       = $_POST['state'];
+    $objPerson->strCountry     = $_POST['country'];
+    $objPerson->strPhone       = $_POST['phone'];
+    $objPerson->strFax         = $_POST['fax'];
 
     $result = $myDBAccess->updatePerson($objPerson);
     if (!empty($result)) {
@@ -71,18 +71,18 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   }
 }
 
-$strContentAssocs['first_name']  = decodeText($objPerson->strFirstName);
-$strContentAssocs['last_name']   = decodeText($objPerson->strLastName);
-$strContentAssocs['email']       = decodeText($objPerson->strEmail);
-$strContentAssocs['name_title']  = decodeText($objPerson->strTitle);
-$strContentAssocs['affiliation'] = decodeText($objPerson->strAffiliation);
-$strContentAssocs['street']      = decodeText($objPerson->strStreet);
-$strContentAssocs['city']        = decodeText($objPerson->strCity);
-$strContentAssocs['postalcode']  = decodeText($objPerson->strPostalCode);
-$strContentAssocs['state']       = decodeText($objPerson->strState);
-$strContentAssocs['country']     = decodeText($objPerson->strCountry);
-$strContentAssocs['phone']       = decodeText($objPerson->strPhone);
-$strContentAssocs['fax']         = decodeText($objPerson->strFax);
+$strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
+$strContentAssocs['last_name']   = encodeText($objPerson->strLastName);
+$strContentAssocs['email']       = encodeText($objPerson->strEmail);
+$strContentAssocs['name_title']  = encodeText($objPerson->strTitle);
+$strContentAssocs['affiliation'] = encodeText($objPerson->strAffiliation);
+$strContentAssocs['street']      = encodeText($objPerson->strStreet);
+$strContentAssocs['city']        = encodeText($objPerson->strCity);
+$strContentAssocs['postalcode']  = encodeText($objPerson->strPostalCode);
+$strContentAssocs['state']       = encodeText($objPerson->strState);
+$strContentAssocs['country']     = encodeText($objPerson->strCountry);
+$strContentAssocs['phone']       = encodeText($objPerson->strPhone);
+$strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
@@ -99,10 +99,10 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Personal data of User '.session('uname');
+$strMainAssocs['title'] = 'Personal data of User '. encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Profile';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Profile';
 
 $main->assign($strMainAssocs);
 $main->parse();
