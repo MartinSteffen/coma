@@ -154,7 +154,7 @@ $i = 0;
 while ($i < $reports) {
 $j = 0;
   while($j < $criterions) {
-  echo 'Ra<br>';
+  echo 'Ra'.$i.$j.'<br>';
     $myDBAccess->addRating($i+1, $j+1, rand(1,6), 'Comment'.$i.$j);
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
