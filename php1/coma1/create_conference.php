@@ -297,7 +297,7 @@ else {
 
 $strContentAssocs['message'] = '';
 if (!empyt($strMessage)) {
-  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['message'] = nl2tag($strMessage);
   $ifArray[] = 9;
 }
 
