@@ -97,151 +97,78 @@
             </input>
           </td>
         </tr>
-        <!--
-             <tr>
-               <td >Affiliation: </td>
-               <td >
-                 <input class="input-box" type="text" name="affiliation" size="20" >
-                   <xsl:attribute name="value">
-                     <xsl:value-of select="affiliation"/>
-                   </xsl:attribute>
-                 </input>
-               </td>
-             </tr>
-             -->
-             <tr>
-               <td>Your email: </td>
-               <td>
-                 <input class="input-box" style="border:1px solid red" type="text" name="email" size="20" >
-                   <xsl:attribute name="value">
-                     <xsl:value-of select="email"/>
-                   </xsl:attribute>
-                 </input>
-               </td>
-             </tr>
-             <!-- much commented out because we do that in userprefs now.
-                  <tr>
-                    <td >Phone number: </td>
-                    <td >
-                      <input class="input-box" type="text" name="phone_number" size="20" >
-                        <xsl:attribute name="value">
-                          <xsl:value-of select="phone_number"/>
-                        </xsl:attribute>
-                      </input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td >Fax number: </td>
-                    <td >
-                      <input class="input-box" type="text" name="fax_number" size="20" >
-                        <xsl:attribute name="value">
-                          <xsl:value-of select="fax_number"/>
-                        </xsl:attribute>
-                      </input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td >Street: </td>
-                    <td >
-                      <input class="input-box" type="text" name="street" size="20" >
-                        <xsl:attribute name="value">
-                          <xsl:value-of select="street"/>
-                        </xsl:attribute>
-                      </input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td >Postal code: </td>
-                    <td >
-                      <input class="input-box" type="text" name="postal_code" size="20" >
-                        <xsl:attribute name="value">
-                          <xsl:value-of select="postal_code"/>
-                        </xsl:attribute>
-                      </input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td >City: </td>
-                    <td >
-                      <input class="input-box" type="text" name="city" size="20" >
-                        <xsl:attribute name="value">
-                          <xsl:value-of select="city"/>
-                        </xsl:attribute>
-                      </input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td >State: </td>
-                    <td >
-                      <input class="input-box" type="text" name="state" size="20" >
-                        <xsl:attribute name="value">
-                          <xsl:value-of select="state"/>
-                        </xsl:attribute>
-                      </input>
-                    </td>
-                  </tr>-->
-                  <tr>
-                    <td >Country: </td>
-                    <td >
-                      <input class="input-box" type="text" name="country" size="20" >
-                        <xsl:attribute name="value">
-                          <xsl:value-of select="country"/>
-                        </xsl:attribute>
-                      </input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Author status:</th>
-                    <td><input type="checkbox" name="willbeauthor" value="yes!" />
-                      I might want to submit a paper to this conference.</td>
-                  </tr>
-                  <tr>
-                    <td >Password: min 6 chars </td>
-                    <td >
-                      <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td > Re-type password: </td>
-                    <td >
-                      <input class="input-box" style="border:1px solid red" type="password" name="repassword" size="20" />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input class="submit-button" type="submit" value="Submit Info" />
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <div>Red fields are mandatory. If you plan to attend the
-              conference or act as a
-              reviewer, it is useful to go to User Data when logged in to enter
-              additional data like mailable address and phone number.</div> 
 
-            </xsl:template>
+        <tr>
+          <td>Your email: </td>
+          <td>
+            <input class="input-box" style="border:1px solid red" type="text" name="email" size="20" >
+              <xsl:attribute name="value">
+                <xsl:value-of select="email"/>
+              </xsl:attribute>
+            </input>
+          </td>
+        </tr>
+        <!-- much commented out because we do that in userprefs now. -->
+        <tr>
+          <td >Country: </td>
+          <td >
+            <input class="input-box" type="text" name="country" size="20" >
+              <xsl:attribute name="value">
+                <xsl:value-of select="country"/>
+              </xsl:attribute>
+            </input>
+          </td>
+        </tr>
+        <tr>
+          <th>Author status:</th>
+          <td><input type="checkbox" name="willbeauthor" value="yes!" />
+          I might want to submit a paper to this conference.</td>
+        </tr>
+        <tr>
+          <td >Password: min 6 chars </td>
+          <td >
+            <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td > Re-type password: </td>
+          <td >
+            <input class="input-box" style="border:1px solid red" type="password" name="repassword" size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input class="submit-button" type="submit" value="Submit Info" />
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div>Red fields are mandatory. If you plan to attend the
+    conference or act as a
+    reviewer, it is useful to go to User Data when logged in to enter
+    additional data like mailable address and phone number.</div> 
 
-            <xsl:template match="subscribe/person">
-              <form action="Login" method="post">
-                <fieldset>
-                  <label for="name">E-mail</label><br />
-                  <input type="text" id="e-mail" class="input-box">
-                    <xsl:attribute name="value">
-                      <xsl:value-of select="email"/>
-                    </xsl:attribute>
-                  </input>	 
-                  <br />
-                  <i>(Your conference is remembered.)</i><br />
-                  <label for="passwd">Password</label><br />
-                  <input type="password" id="password" class="input-box" />
-                  <br />
-                  <input type="submit" value="login" class="submit-button" />
-                  <input type="hidden" name="conference_id">
-                    <xsl:attribute name="value"><xsl:value-of select="../confid" /></xsl:attribute>
-                  </input>
-                </fieldset>
-              </form>
-            </xsl:template>
+  </xsl:template>
+
+  <xsl:template match="subscribe/person">
+    <form action="Login" method="post">
+      <fieldset>
+        <label for="name">E-mail</label><br />
+        <input type="text" id="e-mail" class="input-box">
+          <xsl:attribute name="value"><xsl:value-of select="email"/></xsl:attribute>
+        </input>	 
+        <br />
+        <i>(Your conference is remembered.)</i><br />
+        <label for="passwd">Password</label><br />
+        <input type="password" name="passwd" id="passwd" class="input-box" />
+        <br />
+        <input type="submit" value="login" class="submit-button" />
+        <input type="hidden" name="conference_id" id="conference_id">
+          <xsl:attribute name="value"><xsl:value-of select="../confid" /></xsl:attribute>
+        </input>
+      </fieldset>
+    </form>
+  </xsl:template>
 
 
-          </xsl:stylesheet>
+</xsl:stylesheet>

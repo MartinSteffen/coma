@@ -16,6 +16,9 @@ public class Topic extends Entity {
     private int conference_id;
     private String name;
 
+    private static ReadService theRS 
+	= new coma.handler.impl.db.ReadServiceImpl();
+
     public Topic(int id){
 	this();
 	this.id=id;
@@ -30,8 +33,6 @@ public class Topic extends Entity {
     public void setName(String s){name=s;}
 
     public static Topic byId(int i, int confid){
-	ReadService theRS 
-	    = new coma.handler.impl.db.ReadServiceImpl();
 	Topic theTopic = new Topic(i);
 	SearchResult theSR = null;
 	theSR = theRS.getTopic(i, confid);
@@ -40,8 +41,8 @@ public class Topic extends Entity {
     }
 
     public static Set<Topic> allTopics(Conference theConference){
-	ReadService theRS 
-	    = new coma.handler.impl.db.ReadServiceImpl();
+// 	ReadService theRS 
+// 	    = new coma.handler.impl.db.ReadServiceImpl();
 	SearchResult theSR = null; 
 	theSR =theRS.getTopic(-1, theConference.getId());
 	// FIXME no error handling
