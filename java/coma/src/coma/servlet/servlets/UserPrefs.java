@@ -10,20 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
-import coma.entities.Conference;
-import coma.entities.Person;
-import coma.entities.SearchResult;
-import coma.entities.Topic;
-import coma.entities.Entity.XMLMODE;
+import coma.entities.*;
 import coma.handler.db.UpdateService;
-import coma.servlet.util.FormParameters;
-import coma.servlet.util.Navcolumn;
-import coma.servlet.util.PageStateHelper;
-import coma.servlet.util.SessionAttribs;
-import coma.servlet.util.UserMessage;
-import coma.servlet.util.XMLHelper;
+import coma.servlet.util.*;
 import coma.util.logging.ALogger;
-import static coma.util.logging.Severity.DEBUG;
+import static coma.util.logging.Severity.*;
+import static coma.entities.Entity.XMLMODE;
 
 /**
    Servlet to let a user edit their preferences. Currently, only their
@@ -101,12 +93,15 @@ public class UserPrefs extends HttpServlet {
 	    
 	    // FIXME: many things omitted: stuff other than Topics is not my business. ums.
 
-	    //FIXME
+
 	    //thePerson.deletePreferredTopics();
+	    for (Topic t: thePerson.getPreferredTopics()){
+		thePerson.deletePreferredTopic(t);
+	    }
 	    final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
 	    for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
-		//FIXME
-		//thePerson.addTopic(Topic.byId(Integer.parseInt(s)));
+		
+		thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s)));
 	    }
 
 	    SearchResult theSR;
