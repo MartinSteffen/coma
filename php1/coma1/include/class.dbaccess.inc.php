@@ -48,7 +48,7 @@ class DBAccess {
 
     $s = $this->mySql->getLastError();
     if (!empty($s)) {
-      return this->error('Fehler beim Instanziieren. '.$s);
+      return $this->error('Fehler beim Instanziieren. '.$s);
     }
 
     return true;
