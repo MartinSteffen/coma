@@ -613,18 +613,20 @@ class DBAccess extends ErrorHandling {
    */
   function getPapersOfAuthor($intAuthorId, $intConferenceId) {
     $objAuthor = $this->getPerson($intAuthorId);
-    if ($this->failed()) { // ARGH!!! getPerson ist keine mySql-Funktion, ergo auch nicht $this->mySql->failed() abfragen!!!
+    if ($this->failed()) {
        return $this->error('getPapersOfAuthor', $this->getLastError()); // dito!
     }
     else if (empty($objAuthor)) {
-      return $this->success(false); // laut Jan und Sandro: Ungueltige Id uebergeben wie Nullpointer; erhalte "leer" zurueck, aber keinen Fehler!!!
+      return $this->success(false);
+      // laut Jan und Sandro: Ungueltige Id uebergeben wie Nullpointer;
+      // erhalte "leer" zurueck, aber keinen Fehler!!!
     }
     $strAuthor = $objAuthor->getName();
     $s = sprintf("SELECT   id, author_id, title, state, filename".
                  " FROM    Paper".
                  " WHERE   author_id = '%d'".
                  " AND     conference_id = '%d'",
-                           s2db($intPaperId),
+                           s2db($intAuthorId),
                            s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
