@@ -17,17 +17,18 @@
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE Conferences (
-    abbreviation                 varchar(20) primary key,
-    name                         varchar(127) not null,
-    homepage                     varchar(127) not null,
-    abstract_submission_deadline date null,
-    paper_submission_deadline    date not null,
-    review_deadline              date not null,
-    notification_deadline        date not null,
-    final_version_deadline       date not null,
-    conference_start             date not null,
-    conference_end               date not null,
-    min_reviews_per_paper        smallint not null default 1
+    abbreviation     varchar(20)  PRIMARY KEY CHECK (abbreviation <> ''),
+    name             varchar(127) NOT NULL CHECK (name <> ''),
+    homepage         varchar(127) NOT NULL CHECK (homepage <> ''),
+    abstract_submission_deadline  date,
+    paper_submission_deadline     date not null,
+    review_deadline               date not null,
+    notification_deadline         date not null,
+    final_version_deadline        date not null,
+    conference_start              date not null,
+    conference_end                date not null,
+    min_reviews_per_paper  smallint DEFAULT 1 NOT NULL
+          CHECK(min_reviews_per_paper > 0)
 );
 
 
@@ -35,9 +36,11 @@ CREATE TABLE Conferences (
 
 
 CREATE TABLE Topics (
-    name                         varchar(127) primary key,
-    conference                   varchar(20) references Conferences
-);
+    name         varchar(127) UNIQUE NOT NULL CHECK (name <> ''),
+    conference   varchar(20) REFERENCES Conferences
+	 ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (name, conference)
+) WITHOUT OIDS;
 
 
 
@@ -45,12 +48,6 @@ CREATE TABLE Topics (
 
 -- ---------------------------------------------------------------------------
 -- Users
---
--- roles is a bit-vector, where index 
--- 1 identifies the user as admin
--- 2 identifies the user as chair
--- 3 identifies the user as reviewer
--- 4 identifies the user as author
 --
 -- title is a number, where
 -- 0 is Mr
@@ -63,24 +60,46 @@ CREATE TABLE Topics (
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE Users (
-    email                        varchar(127) primary key,
-    conference                   varchar(20) references Conferences,
-    roles			 bit(4) not null,
-    first_name                   varchar(20) not null,
-    last_name                    varchar(20),
-    title                        smallint not null,
-    affiliation                  varchar(127) not null,
+    email                        varchar(255) PRIMARY KEY,
+    password                     varchar(20)  NOT NULL,
+    title                        smallint     NOT NULL,
+    first_name                   varchar(255) NOT NULL,
+    last_name                    varchar(255) NOT NULL,
+    affiliation                  varchar(127) NOT NULL,
     phone_number                 varchar(20),
     fax_number                   varchar(20),
     street                       varchar(127),
     postal_code                  varchar(20),
     city                         varchar(127),
     state                        varchar(127),
-    country                      varchar(127),
-    password                     varchar(20) not null
+    country                      varchar(127)
 );
 
 
+
+-- ---------------------------------------------------------------------------
+-- Users
+--
+-- roles is a bit-vector, where index 
+-- 1 identifies the user as admin
+-- 2 identifies the user as chair
+-- 3 identifies the user as reviewer
+-- 4 identifies the user as author
+-- If all bits are false, the user is not active anymore.
+--
+-- As an assertion we may want to require that if the users password
+-- is empty, he is also not active anymore.
+--
+-- ---------------------------------------------------------------------------
+
+CREATE TABLE Roles (
+    email        varchar(255) REFERENCES Users
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    conference   varchar(20)  REFERENCES Conferences
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    role         bit(4) NOT NULL ,
+    PRIMARY KEY(email, conference)
+);
 
 
 
@@ -90,7 +109,8 @@ CREATE TABLE Users (
 
 CREATE TABLE Forum (
     id                            serial primary key,
-    conference                    varchar(20) references Conference,
+    conference                    varchar(20) REFERENCES Conferences
+        ON DELETE CASCADE ON UPDATE CASCADE,
     title                         varchar(127) not null,
     description                   text not null
 );
@@ -112,8 +132,10 @@ CREATE TABLE Message (
 
 
 CREATE TABLE Threads (
-    forum_id                      integer references Forum,
-    message_id                    varchar(127) references Message,
+    forum_id                      integer REFERENCES Forum
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    message_id                    varchar(127) REFERENCES Message
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     UNIQUE(forum_id, message_id)
 );
 
@@ -128,10 +150,14 @@ CREATE TABLE Threads (
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE Papers (
-    contactauthor                varchar(127) references Users,
+    contactauthor                varchar(127) REFERENCES Users
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    confernece                   varchar(20) REFERENCES Conferences
+        ON DELETE CASCADE ON UPDATE CASCADE,
     filename                     varchar(127) unique not null,
     state                        smallint not null,
-    format                       smallint not null
+    format                       smallint not null,
+    PRIMARY KEY(id)
 ) INHERITS(Forum);
 
 
@@ -139,10 +165,10 @@ CREATE TABLE Papers (
 
 
 CREATE TABLE CoAuthors (
-    conference                   varchar(20) references Conferences,
-    paper_id                     integer references Papers,
+    paper_id                     integer REFERENCES Papers
+        ON DELETE CASCADE ON UPDATE CASCADE,
     first_name                   varchar(127) not null,
-    last_name                    varchar(127) null
+    last_name                    varchar(127)
 );
 
 
@@ -152,9 +178,13 @@ CREATE TABLE CoAuthors (
 
 -- Associate topics to papers
 CREATE TABLE AboutTopics (
-    paper_id                     integer     references Papers,
-    topic                        varchar(20) references Topics,
-    PRIMARY KEY (paper_id, topic)
+    paper_id                     integer     references Papers
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    topic varchar(127),
+    conference varchar(20),
+    FOREIGN KEY (topic, conference) REFERENCES Topics(name, conference)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (paper_id, topic, conference)
 );
 
 
@@ -163,9 +193,13 @@ CREATE TABLE AboutTopics (
 
 -- Associate topics to reviewers
 CREATE TABLE PreferedTopics (
-    email                        varchar(127) REFERENCES Users,
-    topic                        varchar(127) REFERENCES Topics,
-    PRIMARY KEY (email, topic)
+    email                        varchar(127) REFERENCES Users
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    topic varchar(127),
+    conference varchar(20),
+    FOREIGN KEY (topic, conference) REFERENCES Topics(name, conference)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (email, topic, conference)
 );
 
 
@@ -174,8 +208,10 @@ CREATE TABLE PreferedTopics (
 
 -- Associate papers to reviewers
 CREATE TABLE PreferedPapers (
-    email                        varchar(127) REFERENCES Users,
-    paper_id                     integer      REFERENCES Papers,
+    email                        varchar(127) REFERENCES Users
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    paper_id                     integer      REFERENCES Papers
+        ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (email, paper_id)
 );
 
@@ -190,9 +226,11 @@ CREATE TABLE PreferedPapers (
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE ExcludedPapers (
-    email                        varchar(127) REFERENCES Users,
-    paper_id                     integer      REFERENCES Papers,
-    explenation                  text         NULL,
+    email                        varchar(127) REFERENCES Users
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    paper_id                     integer      REFERENCES Papers
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    explenation                  text NOT NULL CHECK(explenation <> ''),
     PRIMARY KEY(email, paper_id)
 );
 
@@ -207,9 +245,11 @@ CREATE TABLE ExcludedPapers (
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE DeniedPapers (
-    email                        varchar(127) REFERENCES Users,
-    paper_id                     integer      REFERENCES Papers,
-    explenation                  text         NULL,
+    email                        varchar(127) REFERENCES Users
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    paper_id                     integer      REFERENCES Papers
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    explenation                  text NOT NULL CHECK(explenation <> ''),
     PRIMARY KEY(email, paper_id)
 );
 
@@ -226,13 +266,16 @@ CREATE TABLE DeniedPapers (
 
 CREATE TABLE ReviewReports (
     id                           serial       PRIMARY KEY,
-    conference                   varchar(20)  NOT NULL REFERENCES Conferences,
-    paper_id                     integer      NOT NULL REFERENCES Papers,
-    responsible                  varchar(127) NOT NULL REFERENCES Users,
-    reviewer                     varchar(127) NULL,
-    summary                      text         NULL,
-    remarks                      text         NULL,
-    confidential                 text         NULL,
+    conference                   varchar(20)  REFERENCES Conferences
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    paper_id                     integer      REFERENCES Papers
+        ON DELETE CASCADE ON UPDATE RESTRICT,
+    responsible                  varchar(127) REFERENCES Users
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    reviewer                     varchar(127),
+    summary                      text,
+    remarks                      text,
+    confidential                 text,
     UNIQUE(paper_id, responsible)
 );
 
@@ -248,7 +291,8 @@ CREATE TABLE ReviewReports (
 
 CREATE TABLE Criteria (
     name                         varchar(20) PRIMARY KEY,
-    conference                   varchar(20) REFERENCES Conference,
+    conference                   varchar(20) REFERENCES Conferences
+        ON DELETE CASCADE ON UPDATE CASCADE,
     description                  text        NOT NULL,
     max_value                    smallint    NOT NULL CHECK (max_value > 0)
 );
@@ -258,15 +302,16 @@ CREATE TABLE Criteria (
 
 
 -- ---------------------------------------------------------------------------
--- Rating:
+-- Ratings:
 -- Describe a particular rating of a criterion.  grade must be a value from 
 -- the range 0 to its criterion's max_value
 -- An additional constraint of a rating is:  For each criterion and each of
 -- its admissible ratings there exists a row in the table describing it.
 -- ---------------------------------------------------------------------------
 
-CREATE TABLE Rating (
-    criterion                    varchar(20) REFERENCES Criterion,
+CREATE TABLE Ratings (
+    criterion                    varchar(20) REFERENCES Criteria
+        ON DELETE CASCADE ON UPDATE CASCADE,
     grade                        integer     NOT NULL CHECK (grade >= 0),
     description                  text        NOT NULL,
     PRIMARY KEY (criterion, grade)
@@ -283,8 +328,10 @@ CREATE TABLE Rating (
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE PaperRating (
-    report_id                    integer     REFERENCES ReviewReport,
-    criterion                    varchar(20) REFERENCES Criterion,
+    report_id                    integer     REFERENCES ReviewReports
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    criterion                    varchar(20) REFERENCES Criteria
+        ON DELETE CASCADE ON UPDATE CASCADE,
     rating                       integer     NOT NULL CHECK (rating >= 0),
     PRIMARY KEY (report_id, criterion)
 );

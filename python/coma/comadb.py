@@ -73,11 +73,11 @@ class Conference:
 class User:
     title = ['Mr', 'Ms', 'Mrs', 'Dr', 'Prof', 'Prof Dr']
 
-    def __init__(self, login, realname, password, roles, affiliation,
+    def __init__(self, email, password, first_name, last_name, affiliation,
 		 phone_number, fax_number, street, postal_code):
 	self.email = login
-	self.realname = realname
 	self.password = password
+	self.realname = realname
 	self.roles = roles
 	self.affiliation = affiliation
 	self.phone_number = phone_number
@@ -92,20 +92,18 @@ class User:
     def __init__(self, row):
 	"""Initialize the object from a mysql row"""
 	self.email = row[0]
-	self.conference = row[1]
-	self.roles = row[2]
+        self.password = row[1]
+	self.title = row[2]
 	self.firstname = row[3]
 	self.lastname = row[4]
-	self.title = row[5]
-	self.affiliation = row[6]
-	self.phone_number = row[7]
-	self.fax_number = row[8]
-	self.street = row[9]
-	self.postal_code = row[10]
-	self.city = row[11]
-	self.state = row[12]
-	self.country = row[13]
-	self.password = row[14]
+	self.affiliation = row[5]
+	self.phone_number = row[6]
+	self.fax_number = row[7]
+	self.street = row[8]
+	self.postal_code = row[9]
+	self.city = row[10]
+	self.state = row[11]
+	self.country = row[12]
 
 
 
@@ -169,7 +167,7 @@ class ComaDB:
 				     user = config.user,
 				     passwd = config.password)
 
-    def __query__(self, query):
+    def query(self, query):
 	"""Send a query to the data base and handle errors."""
 	__result__ = self.connection.query(query)
 	if __result__:
@@ -180,17 +178,18 @@ class ComaDB:
     def get_conference(self, abbrev):
 	"""Get the conference from the data base.  The user must know the
 	abbreviation of his conference."""
-	__result__ = self.__query__("SELECT * FROM Conferences WHERE "
-				    "abbrev = '%s';" % (abbrev))
+	__result__ = self.query("SELECT * FROM Conferences WHERE "
+				"abbrev = '%s';" % (abbrev))
 	if __result__:
 	    assert __result__.ntuples() == 1
 	    return comadb.Conference(__result__.getresult())
 
     def get_user(self, login):
 	"""Get a user from the data base."""
-	__result__ = self.__query__("" % { 'login' : login })
-	if __result__:
-	    return comadb.User()
+	_result = self.query("SELECT * FROM Users WHERE email = '%(login)s'"
+                             % { 'login' : login })
+	if _result:
+	    return comadb.User(_result)
 	else:
 	    return None
 

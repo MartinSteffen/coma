@@ -3,12 +3,19 @@
 # This little application will be used to set up coma.
 
 import sys
+import pg
+
+def welcome(scr):
+    """This is the initial welcome screen."""
+    scr.clear()
+    scr.addstr(1,1,'Welcome to the CoMa Set up Program.')
+    scr.refresh()
+    
 
 def save_config(filename, settings):
     config = """#! /usr/bin/python
 #
-\"\"\"Settings for the data base.
-\"\"\"
+\"\"\"Settings for the data base.\"\"\"
 
 dbname = \'%(dbname)s\'
 user = \'%(user)s'
@@ -17,10 +24,11 @@ host = %(host)s
 port = %(port)s
 opt = %(opt)s
 tty = %(tty)s
+conference = %(conf)s
 
 if (__name__ == \"__main__\"):
     import sys
-    sys.stderr.write(\"Hacking attempt.\n\")
+    sys.stderr.write(\"Hacking attempt.\\n\")
     print \"Content-Type: text/html\"
     print
     print \"\"\"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -34,12 +42,31 @@ if (__name__ == \"__main__\"):
 </html>
 \"\"\"
 """ % settings
-    print config
+    file = open('filename', 'w')
+    file.write(config)
+    file.close()
+
+def test_pgsql_config(settings):
+    while True:
+        try:
+            db = pg.connect(dbname = settings['dbname'],
+                            user = settings['user'],
+                            passwd = settings['passwd'],
+                            host = settings['host'],
+                            port = settings['port'])
+        except:
+            print
+            settings = ask_for_settings()
+        else:
+            break
 
 def main():
-    defaults = {"dbname": "coma", "user": "coma", "passwd": "$$coma04",
-		"host": "None", "port": "-1", "opt": "None", "tty": "None"}
-    save_config("config.py", defaults)
+    """Ask for some settings."""
+    print "Welcome to the CoMa Conference Manager set-up program."
+    print
+    print "Before you can start using CoMa, we first need to check some settings."
+    print
+
 
 if (__name__ == "__main__"):
     main()
