@@ -239,7 +239,7 @@ function emptytime($str, $format='M d, Y') {
  * @access protected
  */
 function emptyDBtime($str, $format='M d, Y') {
-  return empty($str) ? '' : date($format, strtotime($str));
+  return (empty($str) || ($str == '0000-00-00')) ? '' : date($format, strtotime($str));
 }
 
 ?>
