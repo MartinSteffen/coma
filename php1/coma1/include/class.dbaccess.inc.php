@@ -124,6 +124,8 @@ class DBAccess extends ErrorHandling {
    * Prueft, ob die globalen User-Daten gueltig sind.
    * Falls die Daten korrekt sind, wird in $_SESSION['uid'] die Userid gespeichert.
    *
+   * @param string $strUserName Der zu ueberpruefende Benutzername
+   * @param string $strPassword Das zu ueberpruefende Passwort
    * @return bool <b>true</b> gdw. die Daten in der Person-Tabelle hinterlegt sind
    * @access public
    * @author Tom (15.12.04)
@@ -132,7 +134,7 @@ class DBAccess extends ErrorHandling {
     $s = "SELECT  email, password".
         " FROM    Person".
         " WHERE   email = '$strUserName'".
-        " AND     password = '$strPassword.'";
+        " AND     password = '$strPassword'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('checkLogin', $this->mySql->getLastError());
