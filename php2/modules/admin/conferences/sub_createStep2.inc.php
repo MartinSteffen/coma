@@ -40,9 +40,9 @@ if ($_POST['submit']) {
 					paper_submission_deadline, review_deadline, final_version_deadline,
 					notification, conference_start, conference_end, min_reviews_per_paper)
 				VALUES (
-					'{$TPL['confname']}','{$TPL['confhomepage']}','{$TPL['confdescription']}','1970-01-01',
-					'1970-01-01','1970-01-01','1970-01-01',
-					'1970-01-01','1970-01-01','1970-01-01','3')";
+					'{$TPL['confname']}','{$TPL['confhomepage']}','{$TPL['confdescription']}','1970-02-01',
+					'1970-02-01','1970-02-01','1970-02-01',
+					'1970-02-01','1970-02-01','1970-02-01','3')";
 			$dbok=$sql->insert($insertstatement);
 			if (is_array($dbok)) {
 				$errors[]=$dbok['text'];
