@@ -8,7 +8,7 @@ define('NEED_NO_LOGIN', true);
 include('../coma1/include/header.inc.php');
 
 
-class ComaExample extends PHPUnit_TestCase
+class dbAccess extends PHPUnit_TestCase
 {
 
   function testTrue() {
