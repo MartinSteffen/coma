@@ -18,9 +18,9 @@
     <td colspan="2" class="viewline">
       <table class="viewtable" width="100%">
         <tr class="viewheader">
-          <th class="viewline">Rating criterion</th>
-          <th class="viewline">Score</th>
-          <th class="viewline">Comment</th>
+          <th class="viewheader">Rating criterion</th>
+          <th class="viewheader">Score</th>
+          <th class="viewheader">Comment</th>
         </tr>
         {crit_lines}
       </table>
