@@ -63,7 +63,7 @@ Die Verzeichnisse
 Für dieses Verzeichnis sind alle Mitglieder der PHP2 Gruppe zuständig. Sie beinhaltet Funktionen, die für alle Module wichtig sind, wie zB Verbindung
 mit der Datenbank. Einige wichtige Dateien in includes sind:
 	o config.inc.php  (Meiko, Torben)
-	  Hier sind alle Parameter, die für die Verbindung mit der DB sinn haben. (Server, user name, password, ftp folder usw.)
+	  Hier sind alle Parameter, die für die Verbindung mit der DB Sinn haben. (Server, user name, password, ftp folder usw.)
 	o rights.inc.php (Ivan)
 	  Stellt viele Funktionen zur Verfügung, die für die Sicherheit des Systems wichtig sind. Die Funktionen prüfen und "antworten" mit ja oder nein,
 	  ob ein Benutzer im Bezug einer Rolle Zugriffsrechte auf ein Papier, Konferenz, Topic usw. hat.
@@ -79,6 +79,7 @@ mit der Datenbank. Einige wichtige Dateien in includes sind:
 	     Alle neue Papers melden (sie müssen zu den Reviewers weitergeleitet werden)
 	     Alle vollständig vom Reviewers bewertete Papers melden (sie müssen akzeptiert oder abgelehnt werden)
 	     Alle Konferenzen ohne Topics melden (die Konferenzen sollen einige Topics haben)
+	     Alle Konferenzen ohne Criteriums melden (die Konferenzen sollen einige Criteriums haben)
 	  -> Reviewer (Marco)
 	  -> Author (Tim)
 	  -> Participant (Ivan)
@@ -152,8 +153,11 @@ Der Chair wählt erstmal eine Konferenz aus. Er gelingt auf die Verwaltung dieser
 Der Chair darf alle Eigenschaften einer Konferenz ändern, wie Name, Description, alle Datums usw.
 Alle Datums werden im Format "YYYY-MM-DD" (zB 2005-01-06)in der Datenbank gespeichert. Für die Benutzerfreundlichkeit des Systems, werden aber die Datums im Format
 "D Month YYYY" angezeigt (zB 6 January 2005). Ein Javascript macht das Auswählen eines Datums leichter und mehr Benutzerfreundlich. 
-Der Chair hat auch die Möglichkeit ein neues Topic in der Konferenz zu erzeugen, oder ein die Name eines bestehendes zu ändern.
+Der Chair hat auch die Möglichkeit ein neues Topic in der Konferenz zu erzeugen, oder die Name eines bestehendes zu ändern.
 Der Chair darf auch ein Topic löschen. Die Papers werden NICHT gelöscht, sondern wird nur die Beziehung zu dem Topic gelöscht (isabouttopic).
+Der Chair hat auch die Möglichkeit ein neues Criterium in der Konferenz zu erzeugen, oder eine bestehendes zu ändern.
+Der Chair darf auch ein Criterium löschen. Alle ratings im Bezug dieses Criteriums werden gelöscht.
+
 
 -> Manage Users
 Wie die Name schon sagt, geht es um die Verwaltung von den Benutzern des Systems.

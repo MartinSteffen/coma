@@ -130,7 +130,7 @@ function chair_task()
 		}
 	}
 	
-	//Find the conferences that have no topics --------------------------------------------------------------
+	//Find the conferences that have no topics and/or no criterions -----------------------------------------
 	$SQL = "select conference.id, conference.name 
 			from conference,role 
 			where role.role_type = 2
@@ -155,6 +155,18 @@ function chair_task()
 			$tasks[$count] = $task;
 			$count++;							
 		} 
+		//Look if it has criterions
+		$SQL2 = "SELECT id FROM criterion WHERE conference_id = ".$conferenceID;
+		$result2=mysql_query($SQL2);
+		if (!($list2 = mysql_fetch_row ($result2)))
+		{
+		    $task = array();	
+			$task[] = array("text"=>"Conference", "action"=>$conferenceName);
+			$taskLink = "<a href=\"index.php?m=chair&a=conferences&s=conference&confID=$conferenceID\" class=\"normal\">The conference has no criterions. You must add some.</a>";		
+			$task[] = array("text"=>"Task", "action"=>$taskLink);	
+			$tasks[$count] = $task;
+			$count++;							
+		} 		
 	}			
 
 	return $tasks;
