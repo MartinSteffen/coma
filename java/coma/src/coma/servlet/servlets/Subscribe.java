@@ -77,6 +77,17 @@ public class Subscribe  extends HttpServlet {
 	    try {
 		Person mynewPerson = myCreater.getPerson(request);
 
+		Person oldPerson = new Person(-1);
+		oldPerson.setEmail(mynewPerson.getEmail());
+		SearchCriteria sc = new SearchCriteria();
+		sc.setPerson(oldPerson);
+
+		int oldId = -1;
+		try {
+		    oldId= ((Person[])new coma.handler.impl.db.ReadServiceImpl()
+			    .getPerson(sc).getResultObj())[0].getId();
+		} catch (Exception exc){;}
+
 		int confid 
 		    = Integer.parseInt(request.getParameter(FormParameters.CONFERENCE_ID));
 
@@ -88,8 +99,16 @@ public class Subscribe  extends HttpServlet {
 		mynewPerson.setRole_type(new int[]{willBeAuthor? User.AUTHOR
 						   : User.PARTICIPANT});
 		
+		SearchResult sr;
 		InsertServiceImpl myInsertservice = new InsertServiceImpl();
-		SearchResult sr = myInsertservice.insertPerson(mynewPerson);
+		if (oldId == -1){
+		    sr = myInsertservice.insertPerson(mynewPerson);
+		} else {
+		    sr = myInsertservice.setPersonRole(oldId, confid, 
+						       willBeAuthor? User.AUTHOR
+						                   : User.PARTICIPANT,
+						       0);
+		}
 
 		ALogger.log.log(DEBUG, sr.getInfo());
 
