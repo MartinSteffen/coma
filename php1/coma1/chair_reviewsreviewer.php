@@ -107,6 +107,7 @@ if (!empty($r_id)) {
       $strItemAssocs['if'][] = 7; // Checkbox ohne Haekchen setzen
     }
 
+    $strItemAssocs['topics'] = '';
     foreach ($objTopics as $objTopic) {
       if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
         $strItem2Assocs = defaultAssocArray();
@@ -121,7 +122,7 @@ if (!empty($r_id)) {
         $strTopicItem = new Template(TPLPATH.'reviewertopic.tpl');
         $strTopicItem->assign($strItem2Assocs);
         $strTopicItem->parse();
-        $strRevItem['topics'] .= $strTopicItem->getOutput();
+        $strItemAssocs['topics'] .= $strTopicItem->getOutput();
       }
     }    
     $strRevItem = new Template(TPLPATH.'reviewerattitudes.tpl');
