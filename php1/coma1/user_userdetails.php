@@ -92,7 +92,8 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
         $strItemAssocs['avg_rating'] = ' - ';
       }
       $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
-      $strItemAssocs['if'] = $ifArray;
+      $strItemAssocs['&popup']      = ($popup ? '&amp;popup' : '');
+      $strItemAssocs['if']          = $ifArray;      
       $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
       $paperItem->assign($strItemAssocs);
       $paperItem->parse();
