@@ -56,7 +56,7 @@
         <tr>
           <th>Conference:</th>
           <td>
-            <select name="conference_id" size="1">
+            <select name="conference_id" size="1" style="border:red">
               <xsl:for-each select="conference">
                 <option>
                   <xsl:attribute name="value"><xsl:value-of select="id" /></xsl:attribute>

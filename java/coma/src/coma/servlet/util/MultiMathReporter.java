@@ -20,7 +20,7 @@ import java.util.*;
 
    TODO: Currently, we do not care about those priority factors.
 */
-class MultiMathReporter {
+public class MultiMathReporter {
 
     /** A dummy var that indicates Array of Integer to Collection.toArray*/
     private static final Integer[] INTARRAY_MOLD=null;

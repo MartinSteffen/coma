@@ -331,31 +331,6 @@ public class ShowReports extends HttpServlet {
 	}
     }
 
-    // Just test routines.
-    public static void main(String[] args){
-	
-	MultiMathReporter mmr = new MultiMathReporter();
-	System.err.println(mmr.mean(3,4,5,6));
-	System.err.println(mmr.rms(3,4,5,6));
-	/* ==> 4.5, 1.1180...  */
-
-	System.err.println(mmr.rms(6,6,6,7));
-	System.err.println(mmr.rms(3,3,3,4));
-
-	System.err.println(mmr.mean(1,4,5,8));
-	System.err.println(mmr.rms(1,4,5,8));
-	/* ==> 4.5, 2.5 */
-
-	System.err.println(mmr.mean(1,0,4,5,8,0,0,0));
-	System.err.println(mmr.rms(1,0,4,5,0,8));
-	/* ==> 4.5, 2.5 */
-
-	System.err.println(mmr.mean(1,0,4,5,8,0,-3,-666));
-	System.err.println(mmr.rms(1,0,4,5,-666,8));
-	/* ==> 4.5, 2.5 */
-
-	System.err.println(mmr.toXML());
-    }
 
 }
 
