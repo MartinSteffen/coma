@@ -106,8 +106,7 @@ class DBAccess {
   function checkLogin() {
     if (!isset($_SESSION['uname']) || !isset($_SESSION['password'])) {
       return $this->error('checkLogin (Session: User oder Passwort nicht gesetzt)');
-    }
-    echo($_SESSION['password']);
+    }    
     $s = 'SELECT  id, email, password'.
         ' FROM    Person'.
         ' WHERE   email = \''.$_SESSION['uname'].'\''.
