@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import org.apache.log4j.Category;
 
@@ -83,8 +84,9 @@ public class InsertServiceImpl extends Service implements InsertService {
 				int rows = pstmt.executeUpdate();
 				ResultSet keyRes = pstmt.getGeneratedKeys();
 				int person_id = 0;
-				if(keyRes.next()) person_id = keyRes.getInt(1);
-				
+				if (keyRes.next())
+					person_id = keyRes.getInt(1);
+
 				if (rows != 1) {
 					conn.rollback();
 					info
@@ -230,19 +232,28 @@ public class InsertServiceImpl extends Service implements InsertService {
 		}
 		if (ok) {
 			String INSERT_QUERY = "INSERT INTO Paper "
-					+ "(conference_id, author_id, title, abstract,"
-					+ "filename,state,mime_type) " + "VALUES(?,?,?,?,?,?,?)";
+					+ " (conference_id, author_id, title, abstract,"
+					+ "last_edited, version,filename,state,mime_type) "
+					+ " VALUES(?,?,?,?,?,?,?, ?, ?)";
 
 			try {
 				conn.setAutoCommit(false);
 				PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
-				pstmt.setInt(1, paper.getConference_id());
-				pstmt.setInt(2, paper.getAuthor_id());
-				pstmt.setString(3, paper.getTitle());
-				pstmt.setString(4, paper.getAbstract());
-				pstmt.setString(5, paper.getFilename());
-				pstmt.setInt(6, paper.getState());
-				pstmt.setString(7, paper.getMim_type());
+				int counter = 0;
+				pstmt.setInt(++counter, paper.getConference_id());
+				pstmt.setInt(++counter, paper.getAuthor_id());
+				pstmt.setString(++counter, paper.getTitle());
+				pstmt.setString(++counter, paper.getAbstract());
+				if (paper.getLast_edited() != null) {
+					pstmt.setDate(++counter, new java.sql.Date(paper
+							.getLast_edited().getTime()));
+				}else{
+					pstmt.setDate(++counter, new java.sql.Date(new Date().getTime()));
+				}
+				pstmt.setInt(++counter, paper.getVersion());
+				pstmt.setString(++counter, paper.getFilename());
+				pstmt.setInt(++counter, paper.getState());
+				pstmt.setString(++counter, paper.getMim_type());
 
 				int rows = pstmt.executeUpdate();
 				if (rows != 1) {
@@ -252,13 +263,14 @@ public class InsertServiceImpl extends Service implements InsertService {
 					result.setSUCCESS(true);
 					info.append("Paper inserted successfully\n");
 				}
+				pstmt.close();
 			} catch (SQLException e) {
 				info.append(e.toString());
 				System.out.println(e);
 			} finally {
 				try {
 					if (conn != null) {
-						conn.setAutoCommit(false);
+						conn.setAutoCommit(true);
 						conn.close();
 					}
 				} catch (Exception e) {

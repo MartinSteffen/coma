@@ -56,13 +56,14 @@ public class InsertServiceTest extends TestCase {
 	}
 
 	public void testInsertPaper() {
-		boolean run = false;
+		boolean run = true;
 		if (run) {
-			Paper paper = new Paper(-1);
+			Paper paper = new Paper(2);
 			paper.setConference_id(1);
-			paper.setAuthor_id(2);
-			paper.setState(1);
+			paper.setAuthor_id(127);
+			paper.setState(0);
 			paper.setTitle("This is a test paper");
+			paper.setFilename("paper1");
 			SearchResult sr = insert.insertPaper(paper);
 			System.out.println(sr.SUCCESS);
 			System.out.println(sr.getInfo());
@@ -70,7 +71,7 @@ public class InsertServiceTest extends TestCase {
 	}
 
 	public void testInsertPerson() {
-		boolean run = true;
+		boolean run = false;
 		if (run) {
 			Person p = new Person(-1);
 			p.setFirst_name("Testperson14");
