@@ -1833,7 +1833,8 @@ nur fuer detaillierte?
       return $this->error('updatePreferredPapers', $this->getLastError());
     }
     for ($i = 0; $i < count($objPapers); $i++) {
-      $this->deletePrefersTopic($intPersonId, $objPapers[$i]->intId);
+      echo('Del. pref. Paper: '.$objPapers[$i]->intId.'<br>');
+      $this->deletePrefersPaper($intPersonId, $objPapers[$i]->intId);
       if ($this->failed()) {
         return $this->error('updatePreferredPapers', $this->getLastError());
       }
