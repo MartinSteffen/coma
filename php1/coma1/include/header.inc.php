@@ -15,7 +15,7 @@ require_once('config.inc.php');
 if (!defined('DEBUG')) {
   define('DEBUG', false);
 }
-/**@ignore */
+/** Version of Coma */
 define('VERSION', '0.M2');
 
 
@@ -52,6 +52,9 @@ if (DEBUG) {
   ini_set('warn_plus_overloading', '1');
 }
 // End Debugging
+
+// Das Skript sollte immer bis zu Ende laufen, egal was der User macht!
+ignore_user_abort(TRUE);
 
 // Magic Quotes machen uns eh nur Aerger... Verbieten?
 ini_set('magic_quotes_runtime', '0');
