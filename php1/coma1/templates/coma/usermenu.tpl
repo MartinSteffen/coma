@@ -37,7 +37,7 @@
 
   <tr>
     <td class="menu"><a href="{basepath}logout_conference.php{?SID}" class="{if5 marked}menu">
-      change Conference</a>
+      Select Conference</a>
     </td>
   </tr>
 
