@@ -1,0 +1,77 @@
+
+
+\documentclass{article}
+\usepackage[german]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amssymb}
+
+\begin{document}
+
+\section*{Status PHP2, 18.01.2005}
+\subsection*{Grobe Modul"ubersicht und ''Stand der Dinge'':}
+\begin{description}
+\item[Admin \& Install] Die Implementierung dieses Moduls ist
+  abgeschlossen, d.h. der gew"unschte Funktionsumfang ist vorhanden.  Es
+  besteht eine Spec-Beschreibung, die den Zweck einer README erf"ullt.  Das
+  Modul wird zur Zeit getestet.
+\item[Chair] Das Chairmodul ist ebenfalls komplett implementiert und
+  "ubernimmt zus"atzlich einige Funktionen, die nicht direkt in seinen
+  Bereich fallen, zB die Benutzerer-Registrierung und die Rollenzuweisung
+  an neue Teilnehmer einer Konferenz.  Es besteht eine Spec-Beschreibung,
+  die die Funktionalit"aten erkl"art.  Das Modul wir zur Zeit getestet.
+\item[Reviewer] Das Modul Reviewer ist nahezu komplett spezifiziert, was
+  die Implementierung erleichtert. Diese \emph{Implementierung} steht
+  allerdings noch aus.  Die im spec-Verzeichnis aufgef"uhrten Eintr"age,
+  geben einen "Uberblick "uber das Modul.
+\item[Author] Das Modul Author ist zum Teil implementiert, es fehlt jedoch
+  mit der Datei-Verwaltung via FTP noch das Kernst"uck. Dieses wird in
+  absehbarer Zeit hinzugef"ugt. (Siehe dazu auch unten) Es besteht bisher
+  keine schriftliche Spezifikation.
+\item[Forum] Das Forum ist spezifiziert, die Implementierung ist jedoch
+  hintenangestellt, bis die kritischen Bereiche abgeschlossen sind.
+\item[Algorithmen] Die zwei wesentlichen Algorithmen,
+  (PaperToReviewerAlgorithm, RatingToProgramAlgorithm) sind spezifiziert
+  und werden zur Zeit implementiert.
+\item[Struktur, Rechte, Rollen] Das Grundsystem des Tools ist lauff"ahig
+  und erprobt, es ist essentiell f"ur die Modulverwaltung zur Laufzeit. Aus
+  diesem Bereich sind keine Fehler zu erwarten.  Das Rechtesystem l"auft
+  zur Zeit stumm mit und wird durch Sicherheitsabfragen aufgefangen, es
+  kann jedoch ohne grossen Aufwand hinzugenommen werden.
+\item[Templates \& Design] Eine auf dem Grundger"ust aufsetzende
+  Templateverwaltung regelt die Ausgabe des Tools. Diese funktioniert
+  bisher fehlerlos. Auch aus dieser Richtung sind keine weiteren Fehler zu
+  erwarten.  Die Templates selber sind Teil jedes Moduls und werden vom
+  jeweiligen Verantwortlichen selbst erstellt. Somit ist dieses Modul erst
+  mit allen anderen Modulen zusammen abgeschlossen, es fehlen hier jedoch
+  keine kritischen Bereiche mehr.
+\end{description}
+
+\subsection*{Deadline 31.01.2005}
+Es besteht eine "Ubereinkunft innerhalb der Gruppe, dass das Tool bis zum
+31.01.2005 einschliesslich fertiggestellt werden muss, um den Testern
+wenigstens einen minimalen Zeitraum mit vollem Funktionsumfang zu geben.
+
+Da noch in einigen Bereichen wesentliche, kritische Teile fehlen, ist
+dieser Termin verpflichtend f"ur alle. Bis dahin m"ussen fertiggestellt
+sein:\ 
+\begin{quote}
+  Dateiverwaltung des Authormoduls, Bewertungsfunktionen des Reviewermoduls
+\end{quote} 
+Ausserdem sollen fertiggestellt sein:
+\begin{quote}
+  PaperToReviewerAlgorithm, RatingToProgramAlgorithm
+\end{quote}
+  
+  Als ''Plan B'' wird lediglich wie bereits erw"ahnt, das Forum als
+  entbehrlich angesehen, da dieses auch zB durch die Eingliederung eines
+  PHPBB ersetzt werden kann. Die Algorithmen k"onnen (aber sollen nicht)
+  durch zB einfachste Randomverteilungen ersetzt werden, dies sit jedoch
+  nicht w"unschenswert.
+  
+\end{document}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
