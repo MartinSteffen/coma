@@ -82,7 +82,7 @@ class Person {
   }
   
   function hasRole($intRole) {
-    return (($this->intRoles & (1 << $intRole)) != 0);
+    return ($this->intRoles & (1 << $intRole));
   }
 
   function hasAnyRole() {
