@@ -1,6 +1,3 @@
-
-<p class="center">
-
 <table class="formtable">
   <tr>
     <th colspan="2">{name}</th>
@@ -21,10 +18,7 @@
     </td>
   </tr>
 </table>
-</p>
 
-<form action="{basepath}main_conferences.php{?SID}" method="post">
-  <input type="submit" name="submit" value="Return" class="button" />
-</form>
+<a href="{basepath}main_conferences.php{?SID}">Return to the main Page!</a>
 
 <p>&nbsp;</p>
