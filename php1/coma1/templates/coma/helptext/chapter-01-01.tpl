@@ -21,7 +21,7 @@
     <a href="./help.php?for=chair_users{&popup}{&SID}">manage users</a>, 
     <a href="./help.php?for=chair_papers{&popup}{&SID}">papers</a>,
     <a href="./help.php?for=chair_reviews{&popup}{&SID}">reviews</a> and 
-    <a href="./help.php?for=chair_settings{&popup}{&SID}">change the settings</a>
+    <a href="./help.php?for=chair_confconfig{&popup}{&SID}">change the settings</a>
     of the conference.  <br> 
   </li>
 </ul>
