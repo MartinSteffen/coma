@@ -242,6 +242,7 @@ class DBAccess {
         '         AND     r.review_id = rr.id) AS average'.
         ' FROM    ReviewReport AS rr'.
         ' WHERE   rr.paper_id = '.$intPaperId;
+    echo($s.'<br>');
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       return $data[0]['average'];
