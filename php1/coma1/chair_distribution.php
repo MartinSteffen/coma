@@ -58,7 +58,7 @@ $content = new Template(TPLPATH.'chair_distributionlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
-if (!empty($dist)) {
+if (!empty($dist) && 1==0) {
   $lineNo = 1;
   $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
   if ($myDBAccess->failed()) {
@@ -78,7 +78,7 @@ if (!empty($dist)) {
     $assignedReviewers = new Template(TPLPATH.'chair_distributionlistreviewers.tpl');
     $strReviewersAssocs = defaultAssocArray();
     $arrReviewers = $dist[$objPaper->intId];
-    for ($i = 0; $i < count($arrReviewers) && !empty($arrReviewers); $i++) {
+    for ($i = 0; $i < count($arrReviewers); $i++) {
       $objReviewer = $myDBAccess->getPerson($arrReviewers[$i]['reviewer_id']);
       if ($myDBAccess->failed()) {
         error('get suggested reviewer',$myDBAccess->getLastError());
