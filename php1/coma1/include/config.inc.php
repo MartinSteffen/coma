@@ -9,7 +9,7 @@
 /***/
 if ( !defined('IN_COMA1') )
 {
-        exit('Hacking attempt');
+  exit('Hacking attempt');
 }
 
 /**#@+
@@ -17,7 +17,7 @@ if ( !defined('IN_COMA1') )
  */
 $sqlServer = 'localhost';
 $sqlUser = 'coma1';
-$sqlPassword = 'Rhashdeak';
+$sqlPassword = '_Rhashdeak';
 $sqlDatabase = 'coma1';
 
 $ftpServer = 'localhost';
