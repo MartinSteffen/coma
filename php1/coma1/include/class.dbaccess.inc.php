@@ -1230,6 +1230,7 @@ class DBAccess extends ErrorHandling {
    * @author Tom (18.01.05)
    */
   function getPreferredTopics($intPersonAlgorithmicId, $intConferenceId) {
+    echo("OK1");
     $objTopics = array();
     $s = "SELECT  p.topic_id AS topic_id, t.name AS name".
         " FROM    PrefersTopic p".
@@ -1244,6 +1245,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success($objTopics);
     }
+    echo("OK2");
     for ($i = 0; $i < count($data); $i++) {
       $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
