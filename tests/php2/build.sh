@@ -1,18 +1,25 @@
 #!/bin/sh
+##
+# Universitaet Kiel
+# Programming in the Many - WS 2004 / 2005
+#
+# This script controls the generation and execution
+# of test scripts for the CoMa php2 project 
+#
+# Author    : Thiago Tonelli Bartolomei
+##
 
-# Environment Configurations (FEEL FREE TO CHANGE - COMMAND LINE OVERWRITE!)
-WEB_ROOT=/home/wprguest4/public_html/php2
-CONFIG_INC=config/config.inc.php
-PACKAGE=../../php2
-PACKAGE_IN_SERVER=php2
-TESTS_IN_SERVER=php2tests
-
-# Internal Configurations (DON'T CHANGE)
-WEB=web
+# Configurations for the script are taken from:
+# 1) config/tests.conf file
+# 2) command line, which overwrite!
+#
+. config/tests.conf
 
 # Internal Variables (DON'T CHANGE)
 silence=0
 create_config=0
+run_tests=1
+cleanup=1
 
 # HTML "templates"
 HEADER="<html>
@@ -29,11 +36,25 @@ HEADER="<html>
 "
 
 FOOTER="
-<a href=\"phpunit\">Unit Tests</a>
+<a href=\"phpunit\">Unit Tests</a><br>
+<a href=\"regression\">Regression Tests Results</a>
 </table>
 </center>
 </body>
 </html>"
+
+install_db() {
+        if [ $silence = 0 ]; then
+                echo "Installing the database scripts..."
+        fi
+	# generate sql scripts
+	util/createDrop.sh
+	util/convertInstall.sh
+	util/convertBaseData.sh
+
+	# run the sql scripts
+	util/installDb.sh
+}
 
 install_php2() {
 	if [ $silence = 0 ]; then 
@@ -87,15 +108,43 @@ generate_index() {
 	
 }
 
+run_testcases() {
+        if [ $silence = 0 ]; then
+                echo "Running testcases..."
+        fi
+	
+	# Create testcases from templates
+	util/convertTemplates.sh
+
+	# Execute the testcases script
+	util/runTestcases.sh
+}
+
+clean_up() {
+        if [ $silence = 0 ]; then
+                echo "Clean up..."
+        fi
+	# Remove generated testcases
+	rm -f testcases/*
+	rm -f tmp/*
+	rm -f web/regression/index.html
+
+	# Remove the sql scripts
+	rm -f sql/*.sql
+
+}
+
 ##
 # Prints the usage
 ##
 print_usage() {
-    echo $"Usage: $0 [-hsn] [-c config_file] [-w webroot_dir] [-t trunk_dir] [-p package_dir]"
+    echo $"Usage: $0 [-hmsnr] [-c config_file] [-w webroot_dir] [-t trunk_dir] [-p package_dir]"
     echo
     echo $" -h              Help"
+    echo $" -m              Cleanup and Make dirs  [OFF]"
     echo $" -s              Disable messages       [ON]"
     echo $" -n              Disable configuration  [ON]"
+    echo $" -r              Run testcases          [OFF]"
     echo $" -c config_file  Use config_file        [config/config.inc.php]" 
     echo $" -w webroot_dir  Use webroot_dir        [/home/wprguest4/public_html/php2]" 
     echo $" -p package_dir  Use package_dir        [../../php2]"
@@ -106,7 +155,7 @@ print_usage() {
 ##
 # Get the user options
 ##
-while getopts "hsnc:w:t:p:" args $OPTIONS;
+while getopts "hsmnrc:w:t:p:" args $OPTIONS;
   do
   
   # Help - print usage and exit
@@ -149,16 +198,53 @@ while getopts "hsnc:w:t:p:" args $OPTIONS;
   if [ "$args" = "t" ]; then
       TESTS_IN_SERVER="${OPTARG}"
   fi
+
+  # Run tests
+  if [ "$args" = "r" ]; then
+      run_tests=0
+  fi
+
+  # Cleanup
+  if [ "$args" = "m" ]; then
+      cleanup=0
+  fi
+
+
 done
 
 ##
 # Execute the script
 ##
-install_php2
-install_tests
+# Cleanup is used only to clean and get out
+if [ $cleanup = 0 ]; then
+    clean_up
+    echo "Done."
+else
 
-if [ $create_config = 0 ]; then
-    install_config
+    # Clean the database
+    install_db
+
+    # Install the php2 sources in the server
+    install_php2
+
+    # Check if we should use our configuration
+    if [ $create_config = 0 ]; then
+        install_config
+    fi
+
+    # Check if we should run the testcases
+    if [ $run_tests = 0 ]; then
+        run_testcases
+    fi
+
+    # Install test results and unit tests in the server
+    install_tests
+
+    # Generate the index file
+    generate_index
+
+    # Done
+    if [ $silence = 0 ]; then
+    	echo "Done."
+    fi
 fi
-
-generate_index

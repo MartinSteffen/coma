@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PureLoad version="1.1">
+  <!--This document is automatically generated. Be careful when editing!-->
+  <Scenarios>
+    <Scenario Name="WrongLogin">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Login" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=login</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere.de</KeyValue>
+            <KeyValue Key="pass">wrongpass</KeyValue>
+            <KeyValue Key="Submit">Login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+    <Scenario Name="Change Wrong Password">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Login" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=login</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere.de</KeyValue>
+            <KeyValue Key="pass">pass</KeyValue>
+            <KeyValue Key="Submit">Login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">welcomeUser</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="My Profile - Password" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">profile</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">profile</KeyValue>
+            <KeyValue Key="a">password</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Change Wrong Password" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=profile&amp;a=password</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="oldPass">wrongpass</KeyValue>
+            <KeyValue Key="pass">newpass</KeyValue>
+            <KeyValue Key="passRetype">newpass</KeyValue>
+            <KeyValue Key="Submit">Change</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString">The current password is wrong!</TaskParameter>
+          <TaskParameter Method="ErrorString"></TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Logout" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">logout</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+    <Scenario Name="Change Wrong Data">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Login" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=login</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere.de</KeyValue>
+            <KeyValue Key="pass">pass</KeyValue>
+            <KeyValue Key="Submit">Login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">welcomeUser</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="My Profile - Data" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">profile</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">profile</KeyValue>
+            <KeyValue Key="a">data</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Change Data" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=profile&amp;a=data&amp;s=saveData</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere.de</KeyValue>
+            <KeyValue Key="title">MyTitleChanged</KeyValue>
+            <KeyValue Key="first_name">MyFirstNameChanged</KeyValue>
+            <KeyValue Key="last_name"></KeyValue>
+            <KeyValue Key="affiliation">MyAffiliationChanged</KeyValue>
+            <KeyValue Key="street">MyStreetChanged</KeyValue>
+            <KeyValue Key="postal">MyPostalCodeChanged</KeyValue>
+            <KeyValue Key="city">MyCityChanged</KeyValue>
+            <KeyValue Key="state">MyStateChanged</KeyValue>
+            <KeyValue Key="country">MyCountryChanged</KeyValue>
+            <KeyValue Key="phone">555-000-000</KeyValue>
+            <KeyValue Key="fax">555-001-000</KeyValue>
+            <KeyValue Key="Submit">Change</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode"></TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString"> Please fill out your last name!</TaskParameter>
+          <TaskParameter Method="ErrorString"></TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Logout" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">logout</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+    <Scenario Name="Change Wrong Email">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Login" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=login</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere.de</KeyValue>
+            <KeyValue Key="pass">pass</KeyValue>
+            <KeyValue Key="Submit">Login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">welcomeUser</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="My Profile - Data" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">profile</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">profile</KeyValue>
+            <KeyValue Key="a">data</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Change Email" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=profile&amp;a=data&amp;s=saveData</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere</KeyValue>
+            <KeyValue Key="title">MyTitleChanged</KeyValue>
+            <KeyValue Key="first_name">MyFirstNameChanged</KeyValue>
+            <KeyValue Key="last_name">MyLastNameChanged</KeyValue>
+            <KeyValue Key="affiliation">MyAffiliationChanged</KeyValue>
+            <KeyValue Key="street">MyStreetChanged</KeyValue>
+            <KeyValue Key="postal">MyPostalCodeChanged</KeyValue>
+            <KeyValue Key="city">MyCityChanged</KeyValue>
+            <KeyValue Key="state">MyStateChanged</KeyValue>
+            <KeyValue Key="country">MyCountryChanged</KeyValue>
+            <KeyValue Key="phone">555-000-000</KeyValue>
+            <KeyValue Key="fax">555-001-000</KeyValue>
+            <KeyValue Key="Submit">Change</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode"></TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString">This email is invalid!</TaskParameter>
+          <TaskParameter Method="ErrorString"></TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Logout" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">logout</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">302</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">login</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+    <Scenario Name="Register with Wrong Email">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Register" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">register</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Fill Register Form" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=register</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere</KeyValue>
+            <KeyValue Key="pass">pass</KeyValue>
+            <KeyValue Key="passRetype">pass</KeyValue>
+            <KeyValue Key="title">MyTitle</KeyValue>
+            <KeyValue Key="first_name">MyFirstName</KeyValue>
+            <KeyValue Key="last_name">MyLastName</KeyValue>
+            <KeyValue Key="affiliation">MyAffiliation</KeyValue>
+            <KeyValue Key="street">MyStreet</KeyValue>
+            <KeyValue Key="postal">MyPostalCode</KeyValue>
+            <KeyValue Key="city">MyCity</KeyValue>
+            <KeyValue Key="state">MyState</KeyValue>
+            <KeyValue Key="country">MyCountry</KeyValue>
+            <KeyValue Key="phone">555-000</KeyValue>
+            <KeyValue Key="fax">555-001</KeyValue>
+            <KeyValue Key="Submit">Register</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode"></TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString">This email is invalid!</TaskParameter>
+          <TaskParameter Method="ErrorString"></TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+    <Scenario Name="Register without Data">
+      <Distribution Type="none">
+        <Param Key="param.stop">1</Param>
+        <Param Key="param.instances">1</Param>
+        <Param Key="param.points">4</Param>
+        <Param Key="param.start">0</Param>
+      </Distribution>
+      <Task Name="HttpInitTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpInitTask">
+        <TaskParameter Method="UserAgent">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0</TaskParameter>
+        <TaskParameter Method="AuthUser"></TaskParameter>
+        <TaskParameter Method="AuthPw"></TaskParameter>
+        <TaskParameter Method="contentTypes">text/</TaskParameter>
+        <TaskParameter Method="UseURLRewriting">false</TaskParameter>
+        <TaskParameter Method="PreIDPattern">;$sessionid$</TaskParameter>
+        <TaskParameter Method="ProxyHost"></TaskParameter>
+        <TaskParameter Method="ProxyPort">-1</TaskParameter>
+        <TaskParameter Method="ProxyAuthUser"></TaskParameter>
+        <TaskParameter Method="ProxyAuthPw"></TaskParameter>
+      </Task>
+      <TaskSequence Name="Register" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpGetTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="m">register</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+      </TaskSequence>
+      <TaskSequence Name="Fill Register Form" Instances="1">
+        <Task Name="/php2/index.php" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpPostTask">
+          <TaskParameter Method="Timeout">-1</TaskParameter>
+          <TaskParameter Method="URL">http://localhost/php2/index.php?m=register</TaskParameter>
+          <TaskParameter Method="RequestParameters">
+            <KeyValue Key="email">anewmail@nowhere.de</KeyValue>
+            <KeyValue Key="pass"></KeyValue>
+            <KeyValue Key="passRetype"></KeyValue>
+            <KeyValue Key="title">MyTitle</KeyValue>
+            <KeyValue Key="first_name">MyFirstName</KeyValue>
+            <KeyValue Key="last_name"></KeyValue>
+            <KeyValue Key="affiliation">MyAffiliation</KeyValue>
+            <KeyValue Key="street">MyStreet</KeyValue>
+            <KeyValue Key="postal">MyPostalCode</KeyValue>
+            <KeyValue Key="city">MyCity</KeyValue>
+            <KeyValue Key="state">MyState</KeyValue>
+            <KeyValue Key="country">MyCountry</KeyValue>
+            <KeyValue Key="phone">555-000</KeyValue>
+            <KeyValue Key="fax">555-001</KeyValue>
+            <KeyValue Key="Submit">Register</KeyValue>
+          </TaskParameter>
+          <TaskParameter Method="ResponseCode">200</TaskParameter>
+          <TaskParameter Method="ExtractVariables"></TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode"></TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString">Please enter a password!</TaskParameter>
+          <TaskParameter Method="ErrorString"></TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+        <Task Name="HttpVerifyResponseTask" Instances="1" Class="com.pureload.task.tasks.newhttp.HttpVerifyResponseTask">
+          <TaskParameter Method="ResponseCode"></TaskParameter>
+          <TaskParameter Method="Headers" />
+          <TaskParameter Method="VerifyString">Please fill out your last name!</TaskParameter>
+          <TaskParameter Method="ErrorString"></TaskParameter>
+          <TaskParameter Method="UseRegExp">false</TaskParameter>
+        </Task>
+      </TaskSequence>
+    </Scenario>
+  </Scenarios>
+  <ParameterGenerators />
+</PureLoad>
+

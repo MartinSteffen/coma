@@ -6,12 +6,8 @@
 # @author Thiago Tonelli Bartolomei
 #
 
-DEST=../sql/drop.sql
-DB=comadb
-
-if [ "$1x" != "x" ];then
-        DB=$1;
-fi
+# Source configs
+. config/tests.conf
 
 echo "
 --
@@ -38,5 +34,5 @@ DROP TABLE IF EXISTS reviewreport;
 DROP TABLE IF EXISTS rights;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS roledescription;
-DROP TABLE IF EXISTS topic;" > $DEST
+DROP TABLE IF EXISTS topic;" > $DROP
 

@@ -7,18 +7,13 @@
 # @author Thiago Tonelli Bartolomei
 #
 
-SRC=../../../php2/install/install.sql.php
-DEST=../sql/install.sql
-DB=comadb
-
-if [ "$1x" != "x" ];then
-        DB=$1;
-fi
+# Source configs
+. config/tests.conf
 
 # Insert use database to be sure where we are messing
-echo "USE $DB;" > $DEST
+echo "USE $DB;" > $INSTALL
 
 # Read each line and put a ";" in the end
-sed -e'a;' $SRC >> $DEST
+sed -e'a;' $INSTALL_SRC >> $INSTALL
 
 

@@ -7,16 +7,11 @@
 # @author Thiago Tonelli Bartolomei
 #
 
-SRC=../../sql/databases/basedata.sql
-DEST=../sql/basedata.sql
-DB=comadb
-
-if [ "$1x" != "x" ];then
-	DB=$1;
-fi
+# Source configs
+. config/tests.conf
 
 # Insert use database to be sure where we are messing
-echo "USE $DB;" > $DEST
+echo "USE $DB;" > $BASEDATA
 
 # Rules: 
 #    1) Convert the old password to the word "pass" in php2 style (MD5)
@@ -47,5 +42,5 @@ s/Role/role/g
 s/RoleDescription/roledescription/g
 s/Topic/topic/g
 s/NULL/1/g
-}' $SRC | grep -v rating | grep -v reviewreport >> $DEST
+}' $BASEDATA_SRC | grep -v rating | grep -v reviewreport >> $BASEDATA
 
