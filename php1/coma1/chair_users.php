@@ -75,7 +75,8 @@ if (!empty($objPersons)) {
       $strRolesAssocs['targetform'] = 'chair_users.php';
       $strRolesAssocs['user_id'] = $objPerson->intId;
       $strRolesAssocs['role_type'] = $intRoles[$i];
-      $strRolesAssocs['role_name'] = $strRoles[$intRoles[$i]];
+      $strRolesAssocs['role_name'] = encodeText($strRoles[$intRoles[$i]]);
+      $strRolesAssocs['line_no'] = $lineNo;
       if ($objPerson->hasRole($intRoles[$i])) {
       	if ($objPerson->intId != session('uid') || $intRoles[$i] != CHAIR) {
       	  $strRolesAssocs['if'] = array(1);
@@ -94,7 +95,6 @@ if (!empty($objPersons)) {
       $roles->parse();
       $strItemAssocs['roles'] .= $roles->getOutput();
     }   
-    $strItemAssocs['if'] = array(1);
     $userItem = new Template(TPLPATH.'chair_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
     $userItem->parse();

@@ -1,4 +1,4 @@
-      <td>
+      <td class="listitem-{line_no}">
         <form action="{basepath}{targetform}{?SID}" method="post" accept-charset="UTF-8">      
           <input type="hidden" name="action" value="editrole" class="button">
           <input type="hidden" name="userid" value="{user_id}">

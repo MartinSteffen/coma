@@ -5,13 +5,7 @@
     <td class="listitem-{line_no}">
       <a href="{email_link}" class="email">{email}</a>
     </td>    
-    <td class="listitem-{line_no}">
-      {if1<table>      
-            <tr>
-              {roles}
-            </tr>
-          </table>}
-    </td>
+    {roles}
     <td class="listitem-{line_no}"> 
       <form action="{basepath}{targetform}{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
