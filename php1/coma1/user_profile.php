@@ -73,6 +73,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
 $strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
 $strContentAssocs['last_name']   = encodeText($objPerson->strLastName);
 $strContentAssocs['email']       = encodeText($objPerson->strEmail);
+$strContentAssocs['email_link']  = 'mailto:'.$objPerson->strEmail;
 $strContentAssocs['name_title']  = encodeText($objPerson->strTitle);
 $strContentAssocs['affiliation'] = encodeText($objPerson->strAffiliation);
 $strContentAssocs['street']      = encodeText($objPerson->strStreet);
