@@ -164,10 +164,12 @@ if (isset($_POST['action'])) {
     // Versuche die Konferenz zu aktualisieren
     else {
       $objCriterions = array();
+      $strCIds = explode('|', $_POST['criterionsID']);
       for ($i = 0; $i < count($strCriterions); $i++) {
         $objCriterions[$i] = new Topic($strCIds[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
       }
       $objTopics = array();
+      $strTIds = explode('|', $_POST['topicsID']);
       for ($i = 0; $i < count($strTopics); $i++) {
         $objTopics[$i] = new Topic($strTIds[$i], $strTopics[$i]);
       }
