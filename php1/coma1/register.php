@@ -92,7 +92,7 @@ if (isset($_POST['email'])){
       $strContentAssocs['address'] = encodeText($objPerson->getAddress());
       $strContentAssocs['country'] = encodeText($objPerson->getCountry());
       $mailRegistered = new Template(TPLPATH.'mail_registered.tpl');
-      $strMailAssocs = defaulAssocArray();
+      $strMailAssocs = defaultAssocArray();
       $strMailAssocs['email'] = encodeText($_POST['user_password']);
       $strMailAssocs['password'] = encodeText($_POST['email']);
       $strMailAssocs['password'] = encodeText($_POST['email']);
