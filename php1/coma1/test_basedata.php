@@ -201,7 +201,7 @@ while ($i < $conferences) {
   }
   $i++;
 }
-/*
+
 echo '<br>Ratings:<br>';
 $i = 0;
 while ($i < $reports) {
@@ -216,7 +216,7 @@ $j = 0;
   }
   $i++;
 }
-*/
+
 echo '<br>Forum:<br>';
 $i = 0;
 while ($i < $conferences) {
