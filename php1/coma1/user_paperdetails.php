@@ -64,8 +64,6 @@ else {
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
-$actMenu = 0;
-$actMenuItem = 7;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

@@ -33,8 +33,8 @@ if ($intRoleRequests > 0) {
 }
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
-$actMenuItem = 1;
+$_SESSION['menu'] = CHAIR;
+$_SESSION['menuitem'] = 1;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

@@ -18,8 +18,8 @@ $content = new Template(TPLPATH.'author_start.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = AUTHOR;
-$actMenuItem = 1;
+$_SESSION['menu'] = AUTHOR;
+$_SESSION['menuitem'] = 1;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

@@ -11,8 +11,14 @@ if (!defined('IN_COMA1')) {
 
 $objPerson = $myDBAccess->getPerson(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
-  error('Processing the user menu', $myDBAccess->getLastError());
+  error('Error processing the user menu.', $myDBAccess->getLastError());
 }
+else if (empty($objPerson)) {
+  error('User does not exist in database.', $myDBAccess->getLastError());
+}
+
+$actMenu     = (int)session('menu', false);
+$actMenuItem = (int)session('menuitem', false);
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
 $strMenuAssocs = defaultAssocArray();
@@ -21,6 +27,7 @@ $strMenuAssocs['menu2'] = '';
 $strMenuAssocs['menu3'] = '';
 $strMenuAssocs['menu4'] = '';
 $strMenuAssocs['if'] = array();
+
 if ($actMenu == 0) {
   $strMenuAssocs['if'] = array($actMenuItem);
 }

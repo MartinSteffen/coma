@@ -23,8 +23,8 @@ if (isset($strMessage)) {
 }
 $content->assign($strContentAssocs);
 
-$actMenu = PARTICIPANT;
-$actMenuItem = 2;
+$_SESSION['menu'] = PARTICIPANT;
+$_SESSION['menuitem'] = 2;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

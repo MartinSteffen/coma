@@ -100,8 +100,6 @@ if (isset($strMessage) && !empty($strMessage)) {
 }
 $content->assign($strContentAssocs);
 
-$actMenu = REVIEWER;
-$actMenuItem = 2;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

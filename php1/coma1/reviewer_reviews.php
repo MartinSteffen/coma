@@ -72,8 +72,8 @@ else {
 
 $content->assign($strContentAssocs);
 
-$actMenu = REVIEWER;
-$actMenuItem = 2;
+$_SESSION['menu'] = REVIEWER;
+$_SESSION['menuitem'] = 2;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

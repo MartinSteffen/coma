@@ -106,8 +106,8 @@ if (isset($strMessage)) {
 $strContentAssocs['targetpage'] = 'reviewer_prefers.php';
 $content->assign($strContentAssocs);
 
-$actMenu = REVIEWER;
-$actMenuItem = 3;
+$_SESSION['menu'] = REVIEWER;
+$_SESSION['menuitem'] = 3;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

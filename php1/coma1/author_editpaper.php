@@ -165,8 +165,6 @@ if (isset($strMessage)) {
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
-$actMenu = AUTHOR;
-$actMenuItem = 2;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

@@ -46,8 +46,8 @@ $strContentAssocs['notification'] = encodeText($objConference->strNotification);
 $content->assign($strContentAssocs);
 
 
-$actMenu = 0;
-$actMenuItem = 2;
+$_SESSION['menu'] = 0;
+$_SESSION['menuitem'] = 2;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

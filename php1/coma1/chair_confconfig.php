@@ -177,8 +177,8 @@ if (isset($strMessage)) {
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
-$actMenuItem = 5;
+$_SESSION['menu'] = CHAIR;
+$_SESSION['menuitem'] = 5;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

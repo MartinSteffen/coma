@@ -45,8 +45,6 @@ $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $content->assign($strContentAssocs);
 
-$actMenu = 0;
-$actMenuItem = 6;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

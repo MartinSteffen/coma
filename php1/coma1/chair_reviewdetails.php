@@ -68,8 +68,6 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
 }
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
-$actMenuItem = 3;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

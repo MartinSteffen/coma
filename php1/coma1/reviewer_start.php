@@ -18,8 +18,8 @@ $content = new Template(TPLPATH.'reviewer_start.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = REVIEWER;
-$actMenuItem = 1;
+$_SESSION['menu'] = REVIEWER;
+$_SESSION['menuitem'] = 1;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

@@ -95,8 +95,8 @@ if (isset($strMessage)) {
 $strContentAssocs['targetpage'] = 'user_profile';
 $content->assign($strContentAssocs);
 
-$actMenu = 0;
-$actMenuItem = 1;
+$_SESSION['menu'] = 0;
+$_SESSION['menuitem'] = 1;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

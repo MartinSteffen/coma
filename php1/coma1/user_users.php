@@ -73,8 +73,8 @@ else {
 
 $content->assign($strContentAssocs);
 
-$actMenu = 0;
-$actMenuItem = 6;
+$_SESSION['menu'] = 0;
+$_SESSION['menuitem'] = 6;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

@@ -101,8 +101,8 @@ else {
 
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
-$actMenuItem = 3;
+$_SESSION['menu'] = CHAIR;
+$_SESSION['menuitem'] = 3;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

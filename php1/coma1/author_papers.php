@@ -77,8 +77,8 @@ if (!empty($strMessage)) {
 }
 $content->assign($strContentAssocs);
 
-$actMenu = AUTHOR;
-$actMenuItem = 2;
+$_SESSION['menu'] = AUTHOR;
+$_SESSION['menuitem'] = 2;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

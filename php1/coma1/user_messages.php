@@ -18,8 +18,8 @@ $content = new Template(TPLPATH.'user_messagelist.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = 0;
-$actMenuItem = 4;
+$_SESSION['menu'] = 0;
+$_SESSION['menuitem'] = 4;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
