@@ -34,7 +34,6 @@ if (!empty($objConferences)) {
       error('An error occured during processing the conference list!',
             $myDBAccess->getLastError());
     }
-    */
     $ifArray = array();
     if (!empty($objPerson)) {
       if ($objPerson->hasAnyRole()) {
