@@ -399,7 +399,6 @@ class DBAccess extends ErrorHandling {
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
-
     // Basisdaten
     $s = sprintf("SELECT   id, first_name, last_name, email, title".
                  " FROM    Person".
