@@ -8,7 +8,10 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('./class.review.inc.php');
+if (!defined('INCPATH')) {
+  define('INCPATH', dirname(__FILE__).'/');
+}
+require_once(INCPATH.'./class.review.inc.php');
 
 /**
  * Klasse ReviewDetailed

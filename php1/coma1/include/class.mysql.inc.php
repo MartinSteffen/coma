@@ -9,7 +9,7 @@ if (!defined('IN_COMA1')) {
 }
 
 if (!defined('INCPATH')) {
-  define('INCPATH', dirname(_FILE_).'/');
+  define('INCPATH', dirname(__FILE__).'/');
 }
 
 /**

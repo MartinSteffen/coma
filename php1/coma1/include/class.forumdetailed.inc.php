@@ -8,6 +8,11 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
+if (!defined('INCPATH')) {
+  define('INCPATH', dirname(__FILE__).'/');
+}
+require_once(INCPATH.'class.forum.inc.php');
+
 /**
  * Klasse ForumDetailed
  *
