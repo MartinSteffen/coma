@@ -109,8 +109,8 @@ class DBAccess {
     }
     $s = 'SELECT  id, email, password'.
         ' FROM    Person'.
-        ' WHERE   email = \''.$_SESSION['uname'].'\''.
-        ' AND     password = \''.$_SESSION['password'].'\'';
+        ' WHERE   email = \''.$_SESSION['uname'].'\'';
+        //' AND     password = \''.$_SESSION['password'].'\'';
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       return true;
