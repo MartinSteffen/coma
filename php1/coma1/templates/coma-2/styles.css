@@ -31,7 +31,10 @@ a.menu:hover   { color: #2F2F2F; }
 a.markedmenuitem { font-size: 13px; text-decoration: none; font-weight : bold; color: #FF0000; }
 
 /* startmenue */
-table.menu  { border: 0px;
+table.menu  { border-style: none;
+              width: 150px;
+              min-height: 450px; 
+              padding: 10px;
               vertical-align: top;
               text-align: left;
               background-color: #F7FBFF; }
