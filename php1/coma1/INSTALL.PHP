@@ -47,7 +47,7 @@ $sql = '
 DROP TABLE IF EXISTS `Conference`;
 CREATE TABLE IF NOT EXISTS `Conference` (
   `id` int(11) NOT NULL auto_increment,
-  `name` varchar(127) NOT NULL default '',
+  `name` varchar(127) NOT NULL default \'\',
   `homepage` varchar(127) default NULL,
   `description` text,
   `abstract_submission_deadline` date default NULL,
@@ -69,15 +69,15 @@ CREATE TABLE IF NOT EXISTS `Conference` (
 
 DROP TABLE IF EXISTS `ConferenceConfig`;
 CREATE TABLE IF NOT EXISTS `ConferenceConfig` (
-  `id` int(11) NOT NULL default '0',
-  `default_reviews_per_paper` int(11) NOT NULL default '0',
-  `min_number_of_papers` int(11) NOT NULL default '0',
-  `max_number_of_papers` int(11) NOT NULL default '0',
-  `critical_variance` float NOT NULL default '0.5',
-  `auto_activate_account` int(11) NOT NULL default '1',
-  `auto_open_paper_forum` int(11) NOT NULL default '1',
-  `auto_add_reviewers` int(11) NOT NULL default '1',
-  `number_of_auto_add_reviewers` int(11) NOT NULL default '0',
+  `id` int(11) NOT NULL default \'0\',
+  `default_reviews_per_paper` int(11) NOT NULL default \'0\',
+  `min_number_of_papers` int(11) NOT NULL default \'0\',
+  `max_number_of_papers` int(11) NOT NULL default \'0\',
+  `critical_variance` float NOT NULL default \'0.5\',
+  `auto_activate_account` int(11) NOT NULL default \'1\',
+  `auto_open_paper_forum` int(11) NOT NULL default \'1\',
+  `auto_add_reviewers` int(11) NOT NULL default \'1\',
+  `number_of_auto_add_reviewers` int(11) NOT NULL default \'0\',
   PRIMARY KEY  (`id`)
 ) TYPE=InnoDB;
 
@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS `ConferenceConfig` (
 DROP TABLE IF EXISTS `Criterion`;
 CREATE TABLE IF NOT EXISTS `Criterion` (
   `id` int(11) NOT NULL auto_increment,
-  `conference_id` int(11) NOT NULL default '0',
-  `name` varchar(127) NOT NULL default '',
+  `conference_id` int(11) NOT NULL default \'0\',
+  `name` varchar(127) NOT NULL default \'\',
   `description` text,
   `max_value` int(11) default NULL,
   `quality_rating` int(11) default NULL,
@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS `Criterion` (
 
 DROP TABLE IF EXISTS `DeniesPaper`;
 CREATE TABLE IF NOT EXISTS `DeniesPaper` (
-  `person_id` int(11) NOT NULL default '0',
-  `paper_id` int(11) NOT NULL default '0',
+  `person_id` int(11) NOT NULL default \'0\',
+  `paper_id` int(11) NOT NULL default \'0\',
   PRIMARY KEY  (`person_id`,`paper_id`),
   KEY `person_id` (`person_id`),
   KEY `paper_id` (`paper_id`)
@@ -122,8 +122,8 @@ CREATE TABLE IF NOT EXISTS `DeniesPaper` (
 
 DROP TABLE IF EXISTS `Distribution`;
 CREATE TABLE IF NOT EXISTS `Distribution` (
-  `paper_id` int(11) NOT NULL default '0',
-  `reviewer_id` int(11) NOT NULL default '0',
+  `paper_id` int(11) NOT NULL default \'0\',
+  `reviewer_id` int(11) NOT NULL default \'0\',
   PRIMARY KEY  (`paper_id`,`reviewer_id`),
   KEY `paper_id` (`paper_id`),
   KEY `reviewer_id` (`reviewer_id`)
@@ -137,8 +137,8 @@ CREATE TABLE IF NOT EXISTS `Distribution` (
 
 DROP TABLE IF EXISTS `ExcludesPaper`;
 CREATE TABLE IF NOT EXISTS `ExcludesPaper` (
-  `person_id` int(11) NOT NULL default '0',
-  `paper_id` int(11) NOT NULL default '0',
+  `person_id` int(11) NOT NULL default \'0\',
+  `paper_id` int(11) NOT NULL default \'0\',
   PRIMARY KEY  (`person_id`,`paper_id`),
   KEY `person_id` (`person_id`),
   KEY `paper_id` (`paper_id`)
@@ -153,9 +153,9 @@ CREATE TABLE IF NOT EXISTS `ExcludesPaper` (
 DROP TABLE IF EXISTS `Forum`;
 CREATE TABLE IF NOT EXISTS `Forum` (
   `id` int(11) NOT NULL auto_increment,
-  `conference_id` int(11) NOT NULL default '0',
-  `title` varchar(127) NOT NULL default '',
-  `forum_type` int(11) NOT NULL default '0',
+  `conference_id` int(11) NOT NULL default \'0\',
+  `title` varchar(127) NOT NULL default \'\',
+  `forum_type` int(11) NOT NULL default \'0\',
   `paper_id` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `conference_id` (`conference_id`),
@@ -170,8 +170,8 @@ CREATE TABLE IF NOT EXISTS `Forum` (
 
 DROP TABLE IF EXISTS `IsAboutTopic`;
 CREATE TABLE IF NOT EXISTS `IsAboutTopic` (
-  `paper_id` int(11) NOT NULL default '0',
-  `topic_id` int(11) NOT NULL default '0',
+  `paper_id` int(11) NOT NULL default \'0\',
+  `topic_id` int(11) NOT NULL default \'0\',
   PRIMARY KEY  (`paper_id`,`topic_id`),
   KEY `paper_id` (`paper_id`),
   KEY `topic_id` (`topic_id`)
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `IsAboutTopic` (
 DROP TABLE IF EXISTS `IsCoAuthorOf`;
 CREATE TABLE IF NOT EXISTS `IsCoAuthorOf` (
   `person_id` int(11) default NULL,
-  `paper_id` int(11) NOT NULL default '0',
+  `paper_id` int(11) NOT NULL default \'0\',
   `name` varchar(127) default NULL,
   KEY `paper_id` (`paper_id`)
 ) TYPE=InnoDB;
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `Message` (
   `id` int(11) NOT NULL auto_increment,
   `forum_id` int(11) default NULL,
   `reply_to` int(11) default NULL,
-  `sender_id` int(11) NOT NULL default '0',
+  `sender_id` int(11) NOT NULL default \'0\',
   `send_time` datetime default NULL,
   `subject` varchar(127) default NULL,
   `text` text,
@@ -219,14 +219,14 @@ CREATE TABLE IF NOT EXISTS `Message` (
 DROP TABLE IF EXISTS `Paper`;
 CREATE TABLE IF NOT EXISTS `Paper` (
   `id` int(11) NOT NULL auto_increment,
-  `conference_id` int(11) NOT NULL default '0',
-  `author_id` int(11) NOT NULL default '0',
-  `title` varchar(127) NOT NULL default '',
+  `conference_id` int(11) NOT NULL default \'0\',
+  `author_id` int(11) NOT NULL default \'0\',
+  `title` varchar(127) NOT NULL default \'\',
   `abstract` text,
   `last_edited` datetime default NULL,
   `version` int(11) default NULL,
   `filename` varchar(127) default NULL,
-  `state` int(11) NOT NULL default '0',
+  `state` int(11) NOT NULL default \'0\',
   `mime_type` varchar(127) default NULL,
   PRIMARY KEY  (`id`),
   KEY `conference_id` (`conference_id`),
@@ -243,10 +243,10 @@ DROP TABLE IF EXISTS `Person`;
 CREATE TABLE IF NOT EXISTS `Person` (
   `id` int(11) NOT NULL auto_increment,
   `first_name` varchar(127) default NULL,
-  `last_name` varchar(127) NOT NULL default '',
+  `last_name` varchar(127) NOT NULL default \'\',
   `title` varchar(32) default NULL,
   `affiliation` varchar(127) default NULL,
-  `email` varchar(127) NOT NULL default '',
+  `email` varchar(127) NOT NULL default \'\',
   `phone_number` varchar(20) default NULL,
   `fax_number` varchar(20) default NULL,
   `street` varchar(127) default NULL,
@@ -254,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `Person` (
   `city` varchar(127) default NULL,
   `state` varchar(127) default NULL,
   `country` varchar(127) default NULL,
-  `password` varchar(127) NOT NULL default '',
+  `password` varchar(127) NOT NULL default \'\',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `email` (`email`)
 ) TYPE=InnoDB;
@@ -267,8 +267,8 @@ CREATE TABLE IF NOT EXISTS `Person` (
 
 DROP TABLE IF EXISTS `PrefersPaper`;
 CREATE TABLE IF NOT EXISTS `PrefersPaper` (
-  `person_id` int(11) NOT NULL default '0',
-  `paper_id` int(11) NOT NULL default '0',
+  `person_id` int(11) NOT NULL default \'0\',
+  `paper_id` int(11) NOT NULL default \'0\',
   PRIMARY KEY  (`person_id`,`paper_id`),
   KEY `person_id` (`person_id`),
   KEY `paper_id` (`paper_id`)
@@ -282,8 +282,8 @@ CREATE TABLE IF NOT EXISTS `PrefersPaper` (
 
 DROP TABLE IF EXISTS `PrefersTopic`;
 CREATE TABLE IF NOT EXISTS `PrefersTopic` (
-  `person_id` int(11) NOT NULL default '0',
-  `topic_id` int(11) NOT NULL default '0',
+  `person_id` int(11) NOT NULL default \'0\',
+  `topic_id` int(11) NOT NULL default \'0\',
   PRIMARY KEY  (`person_id`,`topic_id`),
   KEY `person_id` (`person_id`),
   KEY `topic_id` (`topic_id`)
@@ -297,9 +297,9 @@ CREATE TABLE IF NOT EXISTS `PrefersTopic` (
 
 DROP TABLE IF EXISTS `Rating`;
 CREATE TABLE IF NOT EXISTS `Rating` (
-  `review_id` int(11) NOT NULL default '0',
-  `criterion_id` int(11) NOT NULL default '0',
-  `grade` int(11) NOT NULL default '0',
+  `review_id` int(11) NOT NULL default \'0\',
+  `criterion_id` int(11) NOT NULL default \'0\',
+  `grade` int(11) NOT NULL default \'0\',
   `comment` text,
   PRIMARY KEY  (`review_id`,`criterion_id`),
   KEY `review_id` (`review_id`),
@@ -315,8 +315,8 @@ CREATE TABLE IF NOT EXISTS `Rating` (
 DROP TABLE IF EXISTS `ReviewReport`;
 CREATE TABLE IF NOT EXISTS `ReviewReport` (
   `id` int(11) NOT NULL auto_increment,
-  `paper_id` int(11) NOT NULL default '0',
-  `reviewer_id` int(11) NOT NULL default '0',
+  `paper_id` int(11) NOT NULL default \'0\',
+  `reviewer_id` int(11) NOT NULL default \'0\',
   `summary` text,
   `remarks` text,
   `confidential` text,
@@ -333,9 +333,9 @@ CREATE TABLE IF NOT EXISTS `ReviewReport` (
 
 DROP TABLE IF EXISTS `Role`;
 CREATE TABLE IF NOT EXISTS `Role` (
-  `conference_id` int(11) NOT NULL default '0',
-  `person_id` int(11) NOT NULL default '0',
-  `role_type` int(11) NOT NULL default '0',
+  `conference_id` int(11) NOT NULL default \'0\',
+  `person_id` int(11) NOT NULL default \'0\',
+  `role_type` int(11) NOT NULL default \'0\',
   `state` int(11) default NULL,
   PRIMARY KEY  (`conference_id`,`person_id`,`role_type`),
   KEY `conference_id` (`conference_id`),
@@ -350,13 +350,13 @@ CREATE TABLE IF NOT EXISTS `Role` (
 
 DROP TABLE IF EXISTS `Session`;
 CREATE TABLE IF NOT EXISTS `Session` (
-  `sid` varchar(255) NOT NULL default '',
-  `sname` varchar(25) NOT NULL default '',
+  `sid` varchar(255) NOT NULL default \'\',
+  `sname` varchar(25) NOT NULL default \'\',
   `sdata` text,
   `stime` timestamp(14) NOT NULL,
   PRIMARY KEY  (`sid`,`sname`),
   KEY `stime` (`stime`)
-) TYPE=MyISAM COMMENT='Session-Verwaltung';
+) TYPE=MyISAM COMMENT=\'Session-Verwaltung\';
 
 -- --------------------------------------------------------
 
@@ -367,8 +367,8 @@ CREATE TABLE IF NOT EXISTS `Session` (
 DROP TABLE IF EXISTS `Topic`;
 CREATE TABLE IF NOT EXISTS `Topic` (
   `id` int(11) NOT NULL auto_increment,
-  `conference_id` int(11) NOT NULL default '0',
-  `name` varchar(127) NOT NULL default '',
+  `conference_id` int(11) NOT NULL default \'0\',
+  `name` varchar(127) NOT NULL default \'\',
   PRIMARY KEY  (`id`),
   KEY `conference_id` (`conference_id`)
 ) TYPE=InnoDB;
