@@ -309,7 +309,6 @@ function isGlobalForum($objForum){
 
 function generatePostMethodArray($strArrayPostvars){
   $strArrayPma = array();
-  var_dump($strArrayPostvars);
   if (isset($strArrayPostvars['newthread'])){
     $strArrayPma['posttype'] = 'newthread';
   }
