@@ -36,6 +36,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
   $strContentAssocs['max_papers']       = encodeText($_POST['max_papers']);
   $strContentAssocs['variance']         = encodeText($_POST['variance']);
+  echo($_POST['topics']);
   $strTopics        = encodeTextArray($_POST['topics']);
   $strCriterions    = encodeTextArray($_POST['criterions']);
   $strCritDescripts = encodeTextArray($_POST['crit_descr']);
