@@ -16,11 +16,12 @@ define('IN_COMA1', true);
 
 require_once('./include/header.inc.php');
 
-$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
+/*$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
 echo('<br>ID = '.$id.'<br>');
 $p = $myDBAccess->getRoles($id,1);
-echo $p[0];
+echo $p[0];*/
 
+echo('Konferenz-ID: '.$_SESSION['confid']);
 
 /*
 $id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
