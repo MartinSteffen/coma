@@ -26,7 +26,10 @@ function checkError(&$class) {
 
 //Debugging Einstellungen:
 ini_set('error_reporting', '4095'); // E_ALL & E_STRICT
-phpinfo();
+ini_set('display_errors', '1'); // später 0 ??
+ini_set('display_startup_errors', '1'); // später 0 !!
+ini_set('track_errors', '1');
+ini_set('warn_plus_overloading', '1');
 
 require_once('class.mysql.inc.php');
 require_once('class.session.inc.php');
