@@ -10,6 +10,7 @@ if (!defined('IN_COMA1')) {
 
 // by Jan: verbesserter Include
 if (!defined('INCPATH')) {
+  /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
 require_once(INCPATH.'class.mysql.inc.php');

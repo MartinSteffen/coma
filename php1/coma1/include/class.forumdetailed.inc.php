@@ -9,6 +9,7 @@ if (!defined('IN_COMA1')) {
 }
 
 if (!defined('INCPATH')) {
+  /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
 require_once(INCPATH.'class.forum.inc.php');
