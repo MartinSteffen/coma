@@ -1,0 +1,840 @@
+-- phpMyAdmin SQL Dump
+-- version 2.6.0-pl3
+-- http://www.phpmyadmin.net
+-- 
+-- Host: localhost
+-- Erstellungszeit: 06. Februar 2005 um 23:36
+-- Server Version: 4.1.9
+-- PHP-Version: 4.3.9
+-- 
+-- Datenbank: `coma3`
+-- 
+
+-- 
+-- Daten für Tabelle `conference`
+-- 
+
+INSERT INTO `Conference` VALUES (1, 'Conference0', 'Homepage0', 'Description0', 0x303030302d30302d3030, 0x303030302d30302d3030, 0x303030302d30302d3030, 0x303030302d30302d3030, 0x303030302d30302d3030, 0x303030302d30302d3030, 0x303030302d30302d3030, 2);
+
+-- 
+-- Daten für Tabelle `criterion`
+-- 
+
+INSERT INTO `Criterion` VALUES (1, 1, 'C', 'C', 0, 0);
+INSERT INTO `Criterion` VALUES (2, 1, 'Name00', 'Description00', 10, 6100);
+INSERT INTO `Criterion` VALUES (3, 1, 'Name01', 'Description01', 9, 1000);
+INSERT INTO `Criterion` VALUES (4, 1, 'Name02', 'Description02', 6, 1900);
+
+INSERT INTO `Person` VALUES (1, 'Myname0', 'Surname0', 'Title0', 'Affiliation0', '0email@mail.de', 'Phone0', 'Fax0', 'Street0', 'Code0', 'City0', 'State0', 'Country0', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (2, 'Myname1', 'Surname1', 'Title1', 'Affiliation1', '1email@mail.de', 'Phone1', 'Fax1', 'Street1', 'Code1', 'City1', 'State1', 'Country1', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (3, 'Myname2', 'Surname2', 'Title2', 'Affiliation2', '2email@mail.de', 'Phone2', 'Fax2', 'Street2', 'Code2', 'City2', 'State2', 'Country2', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (4, 'Myname3', 'Surname3', 'Title3', 'Affiliation3', '3email@mail.de', 'Phone3', 'Fax3', 'Street3', 'Code3', 'City3', 'State3', 'Country3', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (5, 'Myname4', 'Surname4', 'Title4', 'Affiliation4', '4email@mail.de', 'Phone4', 'Fax4', 'Street4', 'Code4', 'City4', 'State4', 'Country4', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (6, 'Myname5', 'Surname5', 'Title5', 'Affiliation5', '5email@mail.de', 'Phone5', 'Fax5', 'Street5', 'Code5', 'City5', 'State5', 'Country5', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (7, 'Myname6', 'Surname6', 'Title6', 'Affiliation6', '6email@mail.de', 'Phone6', 'Fax6', 'Street6', 'Code6', 'City6', 'State6', 'Country6', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (8, 'Myname7', 'Surname7', 'Title7', 'Affiliation7', '7email@mail.de', 'Phone7', 'Fax7', 'Street7', 'Code7', 'City7', 'State7', 'Country7', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (9, 'Myname8', 'Surname8', 'Title8', 'Affiliation8', '8email@mail.de', 'Phone8', 'Fax8', 'Street8', 'Code8', 'City8', 'State8', 'Country8', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (10, 'Myname9', 'Surname9', 'Title9', 'Affiliation9', '9email@mail.de', 'Phone9', 'Fax9', 'Street9', 'Code9', 'City9', 'State9', 'Country9', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (11, 'Myname10', 'Surname10', 'Title10', 'Affiliation10', '10email@mail.de', 'Phone10', 'Fax10', 'Street10', 'Code10', 'City10', 'State10', 'Country10', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (12, 'Myname11', 'Surname11', 'Title11', 'Affiliation11', '11email@mail.de', 'Phone11', 'Fax11', 'Street11', 'Code11', 'City11', 'State11', 'Country11', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (13, 'Myname12', 'Surname12', 'Title12', 'Affiliation12', '12email@mail.de', 'Phone12', 'Fax12', 'Street12', 'Code12', 'City12', 'State12', 'Country12', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (14, 'Myname13', 'Surname13', 'Title13', 'Affiliation13', '13email@mail.de', 'Phone13', 'Fax13', 'Street13', 'Code13', 'City13', 'State13', 'Country13', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (15, 'Myname14', 'Surname14', 'Title14', 'Affiliation14', '14email@mail.de', 'Phone14', 'Fax14', 'Street14', 'Code14', 'City14', 'State14', 'Country14', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (16, 'Myname15', 'Surname15', 'Title15', 'Affiliation15', '15email@mail.de', 'Phone15', 'Fax15', 'Street15', 'Code15', 'City15', 'State15', 'Country15', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (17, 'Myname16', 'Surname16', 'Title16', 'Affiliation16', '16email@mail.de', 'Phone16', 'Fax16', 'Street16', 'Code16', 'City16', 'State16', 'Country16', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (18, 'Myname17', 'Surname17', 'Title17', 'Affiliation17', '17email@mail.de', 'Phone17', 'Fax17', 'Street17', 'Code17', 'City17', 'State17', 'Country17', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (19, 'Myname18', 'Surname18', 'Title18', 'Affiliation18', '18email@mail.de', 'Phone18', 'Fax18', 'Street18', 'Code18', 'City18', 'State18', 'Country18', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (20, 'Myname19', 'Surname19', 'Title19', 'Affiliation19', '19email@mail.de', 'Phone19', 'Fax19', 'Street19', 'Code19', 'City19', 'State19', 'Country19', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (21, 'Myname20', 'Surname20', 'Title20', 'Affiliation20', '20email@mail.de', 'Phone20', 'Fax20', 'Street20', 'Code20', 'City20', 'State20', 'Country20', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (22, 'Myname21', 'Surname21', 'Title21', 'Affiliation21', '21email@mail.de', 'Phone21', 'Fax21', 'Street21', 'Code21', 'City21', 'State21', 'Country21', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (23, 'Myname22', 'Surname22', 'Title22', 'Affiliation22', '22email@mail.de', 'Phone22', 'Fax22', 'Street22', 'Code22', 'City22', 'State22', 'Country22', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (24, 'Myname23', 'Surname23', 'Title23', 'Affiliation23', '23email@mail.de', 'Phone23', 'Fax23', 'Street23', 'Code23', 'City23', 'State23', 'Country23', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (25, 'Myname24', 'Surname24', 'Title24', 'Affiliation24', '24email@mail.de', 'Phone24', 'Fax24', 'Street24', 'Code24', 'City24', 'State24', 'Country24', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (26, 'Myname25', 'Surname25', 'Title25', 'Affiliation25', '25email@mail.de', 'Phone25', 'Fax25', 'Street25', 'Code25', 'City25', 'State25', 'Country25', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (27, 'Myname26', 'Surname26', 'Title26', 'Affiliation26', '26email@mail.de', 'Phone26', 'Fax26', 'Street26', 'Code26', 'City26', 'State26', 'Country26', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (28, 'Myname27', 'Surname27', 'Title27', 'Affiliation27', '27email@mail.de', 'Phone27', 'Fax27', 'Street27', 'Code27', 'City27', 'State27', 'Country27', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (29, 'Myname28', 'Surname28', 'Title28', 'Affiliation28', '28email@mail.de', 'Phone28', 'Fax28', 'Street28', 'Code28', 'City28', 'State28', 'Country28', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (30, 'Myname29', 'Surname29', 'Title29', 'Affiliation29', '29email@mail.de', 'Phone29', 'Fax29', 'Street29', 'Code29', 'City29', 'State29', 'Country29', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (31, 'Myname30', 'Surname30', 'Title30', 'Affiliation30', '30email@mail.de', 'Phone30', 'Fax30', 'Street30', 'Code30', 'City30', 'State30', 'Country30', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (32, 'Myname31', 'Surname31', 'Title31', 'Affiliation31', '31email@mail.de', 'Phone31', 'Fax31', 'Street31', 'Code31', 'City31', 'State31', 'Country31', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (33, 'Myname32', 'Surname32', 'Title32', 'Affiliation32', '32email@mail.de', 'Phone32', 'Fax32', 'Street32', 'Code32', 'City32', 'State32', 'Country32', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (34, 'Myname33', 'Surname33', 'Title33', 'Affiliation33', '33email@mail.de', 'Phone33', 'Fax33', 'Street33', 'Code33', 'City33', 'State33', 'Country33', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (35, 'Myname34', 'Surname34', 'Title34', 'Affiliation34', '34email@mail.de', 'Phone34', 'Fax34', 'Street34', 'Code34', 'City34', 'State34', 'Country34', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (36, 'Myname35', 'Surname35', 'Title35', 'Affiliation35', '35email@mail.de', 'Phone35', 'Fax35', 'Street35', 'Code35', 'City35', 'State35', 'Country35', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (37, 'Myname36', 'Surname36', 'Title36', 'Affiliation36', '36email@mail.de', 'Phone36', 'Fax36', 'Street36', 'Code36', 'City36', 'State36', 'Country36', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (38, 'Myname37', 'Surname37', 'Title37', 'Affiliation37', '37email@mail.de', 'Phone37', 'Fax37', 'Street37', 'Code37', 'City37', 'State37', 'Country37', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (39, 'Myname38', 'Surname38', 'Title38', 'Affiliation38', '38email@mail.de', 'Phone38', 'Fax38', 'Street38', 'Code38', 'City38', 'State38', 'Country38', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (40, 'Myname39', 'Surname39', 'Title39', 'Affiliation39', '39email@mail.de', 'Phone39', 'Fax39', 'Street39', 'Code39', 'City39', 'State39', 'Country39', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (41, 'Myname40', 'Surname40', 'Title40', 'Affiliation40', '40email@mail.de', 'Phone40', 'Fax40', 'Street40', 'Code40', 'City40', 'State40', 'Country40', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (42, 'Myname41', 'Surname41', 'Title41', 'Affiliation41', '41email@mail.de', 'Phone41', 'Fax41', 'Street41', 'Code41', 'City41', 'State41', 'Country41', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (43, 'Myname42', 'Surname42', 'Title42', 'Affiliation42', '42email@mail.de', 'Phone42', 'Fax42', 'Street42', 'Code42', 'City42', 'State42', 'Country42', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (44, 'Myname43', 'Surname43', 'Title43', 'Affiliation43', '43email@mail.de', 'Phone43', 'Fax43', 'Street43', 'Code43', 'City43', 'State43', 'Country43', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (45, 'Myname44', 'Surname44', 'Title44', 'Affiliation44', '44email@mail.de', 'Phone44', 'Fax44', 'Street44', 'Code44', 'City44', 'State44', 'Country44', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (46, 'Myname45', 'Surname45', 'Title45', 'Affiliation45', '45email@mail.de', 'Phone45', 'Fax45', 'Street45', 'Code45', 'City45', 'State45', 'Country45', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (47, 'Myname46', 'Surname46', 'Title46', 'Affiliation46', '46email@mail.de', 'Phone46', 'Fax46', 'Street46', 'Code46', 'City46', 'State46', 'Country46', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (48, 'Myname47', 'Surname47', 'Title47', 'Affiliation47', '47email@mail.de', 'Phone47', 'Fax47', 'Street47', 'Code47', 'City47', 'State47', 'Country47', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (49, 'Myname48', 'Surname48', 'Title48', 'Affiliation48', '48email@mail.de', 'Phone48', 'Fax48', 'Street48', 'Code48', 'City48', 'State48', 'Country48', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (50, 'Myname49', 'Surname49', 'Title49', 'Affiliation49', '49email@mail.de', 'Phone49', 'Fax49', 'Street49', 'Code49', 'City49', 'State49', 'Country49', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (51, 'Myname50', 'Surname50', 'Title50', 'Affiliation50', '50email@mail.de', 'Phone50', 'Fax50', 'Street50', 'Code50', 'City50', 'State50', 'Country50', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (52, 'Myname51', 'Surname51', 'Title51', 'Affiliation51', '51email@mail.de', 'Phone51', 'Fax51', 'Street51', 'Code51', 'City51', 'State51', 'Country51', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (53, 'Myname52', 'Surname52', 'Title52', 'Affiliation52', '52email@mail.de', 'Phone52', 'Fax52', 'Street52', 'Code52', 'City52', 'State52', 'Country52', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (54, 'Myname53', 'Surname53', 'Title53', 'Affiliation53', '53email@mail.de', 'Phone53', 'Fax53', 'Street53', 'Code53', 'City53', 'State53', 'Country53', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (55, 'Myname54', 'Surname54', 'Title54', 'Affiliation54', '54email@mail.de', 'Phone54', 'Fax54', 'Street54', 'Code54', 'City54', 'State54', 'Country54', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (56, 'Myname55', 'Surname55', 'Title55', 'Affiliation55', '55email@mail.de', 'Phone55', 'Fax55', 'Street55', 'Code55', 'City55', 'State55', 'Country55', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (57, 'Myname56', 'Surname56', 'Title56', 'Affiliation56', '56email@mail.de', 'Phone56', 'Fax56', 'Street56', 'Code56', 'City56', 'State56', 'Country56', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (58, 'Myname57', 'Surname57', 'Title57', 'Affiliation57', '57email@mail.de', 'Phone57', 'Fax57', 'Street57', 'Code57', 'City57', 'State57', 'Country57', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (59, 'Myname58', 'Surname58', 'Title58', 'Affiliation58', '58email@mail.de', 'Phone58', 'Fax58', 'Street58', 'Code58', 'City58', 'State58', 'Country58', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (60, 'Myname59', 'Surname59', 'Title59', 'Affiliation59', '59email@mail.de', 'Phone59', 'Fax59', 'Street59', 'Code59', 'City59', 'State59', 'Country59', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (61, 'Myname60', 'Surname60', 'Title60', 'Affiliation60', '60email@mail.de', 'Phone60', 'Fax60', 'Street60', 'Code60', 'City60', 'State60', 'Country60', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (62, 'Myname61', 'Surname61', 'Title61', 'Affiliation61', '61email@mail.de', 'Phone61', 'Fax61', 'Street61', 'Code61', 'City61', 'State61', 'Country61', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (63, 'Myname62', 'Surname62', 'Title62', 'Affiliation62', '62email@mail.de', 'Phone62', 'Fax62', 'Street62', 'Code62', 'City62', 'State62', 'Country62', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (64, 'Myname63', 'Surname63', 'Title63', 'Affiliation63', '63email@mail.de', 'Phone63', 'Fax63', 'Street63', 'Code63', 'City63', 'State63', 'Country63', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (65, 'Myname64', 'Surname64', 'Title64', 'Affiliation64', '64email@mail.de', 'Phone64', 'Fax64', 'Street64', 'Code64', 'City64', 'State64', 'Country64', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (66, 'Myname65', 'Surname65', 'Title65', 'Affiliation65', '65email@mail.de', 'Phone65', 'Fax65', 'Street65', 'Code65', 'City65', 'State65', 'Country65', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (67, 'Myname66', 'Surname66', 'Title66', 'Affiliation66', '66email@mail.de', 'Phone66', 'Fax66', 'Street66', 'Code66', 'City66', 'State66', 'Country66', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (68, 'Myname67', 'Surname67', 'Title67', 'Affiliation67', '67email@mail.de', 'Phone67', 'Fax67', 'Street67', 'Code67', 'City67', 'State67', 'Country67', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (69, 'Myname68', 'Surname68', 'Title68', 'Affiliation68', '68email@mail.de', 'Phone68', 'Fax68', 'Street68', 'Code68', 'City68', 'State68', 'Country68', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (70, 'Myname69', 'Surname69', 'Title69', 'Affiliation69', '69email@mail.de', 'Phone69', 'Fax69', 'Street69', 'Code69', 'City69', 'State69', 'Country69', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (71, 'Myname70', 'Surname70', 'Title70', 'Affiliation70', '70email@mail.de', 'Phone70', 'Fax70', 'Street70', 'Code70', 'City70', 'State70', 'Country70', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (72, 'Test', 'User', '', '', 'test@test.de', '', '', '', '', '', '', '', '1a91d62f7ca67399625a4368a6ab5d4a3baa6073');
+INSERT INTO `Person` VALUES (73, 'Myname71', 'Surname71', 'Title71', 'Affiliation71', '71email@mail.de', 'Phone71', 'Fax71', 'Street71', 'Code71', 'City71', 'State71', 'Country71', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (74, 'Myname72', 'Surname72', 'Title72', 'Affiliation72', '72email@mail.de', 'Phone72', 'Fax72', 'Street72', 'Code72', 'City72', 'State72', 'Country72', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (75, 'Myname73', 'Surname73', 'Title73', 'Affiliation73', '73email@mail.de', 'Phone73', 'Fax73', 'Street73', 'Code73', 'City73', 'State73', 'Country73', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (76, 'Myname74', 'Surname74', 'Title74', 'Affiliation74', '74email@mail.de', 'Phone74', 'Fax74', 'Street74', 'Code74', 'City74', 'State74', 'Country74', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (77, 'Myname75', 'Surname75', 'Title75', 'Affiliation75', '75email@mail.de', 'Phone75', 'Fax75', 'Street75', 'Code75', 'City75', 'State75', 'Country75', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (78, 'Myname76', 'Surname76', 'Title76', 'Affiliation76', '76email@mail.de', 'Phone76', 'Fax76', 'Street76', 'Code76', 'City76', 'State76', 'Country76', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (79, 'Myname77', 'Surname77', 'Title77', 'Affiliation77', '77email@mail.de', 'Phone77', 'Fax77', 'Street77', 'Code77', 'City77', 'State77', 'Country77', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (80, 'Myname78', 'Surname78', 'Title78', 'Affiliation78', '78email@mail.de', 'Phone78', 'Fax78', 'Street78', 'Code78', 'City78', 'State78', 'Country78', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (81, 'Myname79', 'Surname79', 'Title79', 'Affiliation79', '79email@mail.de', 'Phone79', 'Fax79', 'Street79', 'Code79', 'City79', 'State79', 'Country79', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (82, 'Myname80', 'Surname80', 'Title80', 'Affiliation80', '80email@mail.de', 'Phone80', 'Fax80', 'Street80', 'Code80', 'City80', 'State80', 'Country80', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (83, 'Myname81', 'Surname81', 'Title81', 'Affiliation81', '81email@mail.de', 'Phone81', 'Fax81', 'Street81', 'Code81', 'City81', 'State81', 'Country81', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (84, 'Myname82', 'Surname82', 'Title82', 'Affiliation82', '82email@mail.de', 'Phone82', 'Fax82', 'Street82', 'Code82', 'City82', 'State82', 'Country82', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (85, 'Myname83', 'Surname83', 'Title83', 'Affiliation83', '83email@mail.de', 'Phone83', 'Fax83', 'Street83', 'Code83', 'City83', 'State83', 'Country83', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (86, 'Myname84', 'Surname84', 'Title84', 'Affiliation84', '84email@mail.de', 'Phone84', 'Fax84', 'Street84', 'Code84', 'City84', 'State84', 'Country84', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (87, 'Myname85', 'Surname85', 'Title85', 'Affiliation85', '85email@mail.de', 'Phone85', 'Fax85', 'Street85', 'Code85', 'City85', 'State85', 'Country85', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (88, 'Myname86', 'Surname86', 'Title86', 'Affiliation86', '86email@mail.de', 'Phone86', 'Fax86', 'Street86', 'Code86', 'City86', 'State86', 'Country86', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (89, 'Myname87', 'Surname87', 'Title87', 'Affiliation87', '87email@mail.de', 'Phone87', 'Fax87', 'Street87', 'Code87', 'City87', 'State87', 'Country87', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (90, 'Myname88', 'Surname88', 'Title88', 'Affiliation88', '88email@mail.de', 'Phone88', 'Fax88', 'Street88', 'Code88', 'City88', 'State88', 'Country88', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (91, 'Myname89', 'Surname89', 'Title89', 'Affiliation89', '89email@mail.de', 'Phone89', 'Fax89', 'Street89', 'Code89', 'City89', 'State89', 'Country89', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (92, 'Myname90', 'Surname90', 'Title90', 'Affiliation90', '90email@mail.de', 'Phone90', 'Fax90', 'Street90', 'Code90', 'City90', 'State90', 'Country90', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (93, 'Myname91', 'Surname91', 'Title91', 'Affiliation91', '91email@mail.de', 'Phone91', 'Fax91', 'Street91', 'Code91', 'City91', 'State91', 'Country91', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (94, 'Myname92', 'Surname92', 'Title92', 'Affiliation92', '92email@mail.de', 'Phone92', 'Fax92', 'Street92', 'Code92', 'City92', 'State92', 'Country92', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (95, 'Myname93', 'Surname93', 'Title93', 'Affiliation93', '93email@mail.de', 'Phone93', 'Fax93', 'Street93', 'Code93', 'City93', 'State93', 'Country93', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (96, 'Myname94', 'Surname94', 'Title94', 'Affiliation94', '94email@mail.de', 'Phone94', 'Fax94', 'Street94', 'Code94', 'City94', 'State94', 'Country94', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (97, 'Myname95', 'Surname95', 'Title95', 'Affiliation95', '95email@mail.de', 'Phone95', 'Fax95', 'Street95', 'Code95', 'City95', 'State95', 'Country95', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (98, 'Myname96', 'Surname96', 'Title96', 'Affiliation96', '96email@mail.de', 'Phone96', 'Fax96', 'Street96', 'Code96', 'City96', 'State96', 'Country96', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (99, 'Myname97', 'Surname97', 'Title97', 'Affiliation97', '97email@mail.de', 'Phone97', 'Fax97', 'Street97', 'Code97', 'City97', 'State97', 'Country97', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (100, 'Myname98', 'Surname98', 'Title98', 'Affiliation98', '98email@mail.de', 'Phone98', 'Fax98', 'Street98', 'Code98', 'City98', 'State98', 'Country98', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (101, 'Myname99', 'Surname99', 'Title99', 'Affiliation99', '99email@mail.de', 'Phone99', 'Fax99', 'Street99', 'Code99', 'City99', 'State99', 'Country99', 'f73f614d3d6a5597bbf5274485f64e4443038005');
+INSERT INTO `Person` VALUES (102, 'Sascha', 'Derenbach', '', NULL, 'sascha@mail.de', NULL, NULL, NULL, NULL, NULL, NULL, '', 'sietch');
+
+
+
+-- 
+-- Daten für Tabelle `topic`
+-- 
+
+INSERT INTO `Topic` VALUES (1, 1, 'Topic1');
+INSERT INTO `Topic` VALUES (2, 1, 'Topic2');
+INSERT INTO `Topic` VALUES (3, 1, 'Topic3');
+INSERT INTO `Topic` VALUES (4, 1, 'Topic4');
+INSERT INTO `Topic` VALUES (5, 1, 'Topic5');
+INSERT INTO `Topic` VALUES (6, 1, 'Topic6');
+INSERT INTO `Topic` VALUES (7, 1, 'Topic7');
+INSERT INTO `Topic` VALUES (8, 1, 'Topic8');
+INSERT INTO `Topic` VALUES (9, 1, 'Topic9');
+INSERT INTO `Topic` VALUES (10, 1, 'Topic10');
+INSERT INTO `Topic` VALUES (11, 1, 'Topic11');
+
+-- 
+-- Daten für Tabelle `Paper` 
+-- 
+
+INSERT INTO `Paper`  VALUES (1, 1, 11, 'Title010', 'Abstract010', NULL, NULL, 'Filepath010', 0, 'Mime010');
+INSERT INTO `Paper`  VALUES (2, 1, 12, 'Title011', 'Abstract011', NULL, NULL, 'Filepath011', 0, 'Mime011');
+INSERT INTO `Paper`  VALUES (3, 1, 13, 'Title012', 'Abstract012', NULL, NULL, 'Filepath012', 0, 'Mime012');
+INSERT INTO `Paper`  VALUES (4, 1, 14, 'Title013', 'Abstract013', NULL, NULL, 'Filepath013', 0, 'Mime013');
+INSERT INTO `Paper`  VALUES (5, 1, 15, 'Title014', 'Abstract014', NULL, NULL, 'Filepath014', 0, 'Mime014');
+INSERT INTO `Paper`  VALUES (6, 1, 16, 'Title015', 'Abstract015', NULL, NULL, 'Filepath015', 0, 'Mime015');
+INSERT INTO `Paper`  VALUES (7, 1, 17, 'Title016', 'Abstract016', NULL, NULL, 'Filepath016', 0, 'Mime016');
+INSERT INTO `Paper`  VALUES (8, 1, 18, 'Title017', 'Abstract017', NULL, NULL, 'Filepath017', 0, 'Mime017');
+INSERT INTO `Paper`  VALUES (9, 1, 19, 'Title018', 'Abstract018', NULL, NULL, 'Filepath018', 0, 'Mime018');
+INSERT INTO `Paper`  VALUES (10, 1, 20, 'Title019', 'Abstract019', NULL, NULL, 'Filepath019', 0, 'Mime019');
+INSERT INTO `Paper`  VALUES (11, 1, 21, 'Title020', 'Abstract020', NULL, NULL, 'Filepath020', 0, 'Mime020');
+INSERT INTO `Paper`  VALUES (12, 1, 22, 'Title021', 'Abstract021', NULL, NULL, 'Filepath021', 0, 'Mime021');
+INSERT INTO `Paper`  VALUES (13, 1, 23, 'Title022', 'Abstract022', NULL, NULL, 'Filepath022', 0, 'Mime022');
+INSERT INTO `Paper`  VALUES (14, 1, 24, 'Title023', 'Abstract023', NULL, NULL, 'Filepath023', 0, 'Mime023');
+INSERT INTO `Paper`  VALUES (15, 1, 25, 'Title024', 'Abstract024', NULL, NULL, 'Filepath024', 0, 'Mime024');
+INSERT INTO `Paper`  VALUES (16, 1, 26, 'Title025', 'Abstract025', NULL, NULL, 'Filepath025', 0, 'Mime025');
+INSERT INTO `Paper`  VALUES (17, 1, 27, 'Title026', 'Abstract026', NULL, NULL, 'Filepath026', 0, 'Mime026');
+INSERT INTO `Paper`  VALUES (18, 1, 28, 'Title027', 'Abstract027', NULL, NULL, 'Filepath027', 0, 'Mime027');
+INSERT INTO `Paper`  VALUES (19, 1, 29, 'Title028', 'Abstract028', NULL, NULL, 'Filepath028', 0, 'Mime028');
+INSERT INTO `Paper`  VALUES (20, 1, 30, 'Title029', 'Abstract029', NULL, NULL, 'Filepath029', 0, 'Mime029');
+INSERT INTO `Paper`  VALUES (21, 1, 31, 'Title030', 'Abstract030', NULL, NULL, 'Filepath030', 0, 'Mime030');
+INSERT INTO `Paper`  VALUES (22, 1, 32, 'Title031', 'Abstract031', NULL, NULL, 'Filepath031', 0, 'Mime031');
+INSERT INTO `Paper`  VALUES (23, 1, 33, 'Title032', 'Abstract032', NULL, NULL, 'Filepath032', 0, 'Mime032');
+INSERT INTO `Paper`  VALUES (24, 1, 34, 'Title033', 'Abstract033', NULL, NULL, 'Filepath033', 0, 'Mime033');
+INSERT INTO `Paper`  VALUES (25, 1, 35, 'Title034', 'Abstract034', NULL, NULL, 'Filepath034', 0, 'Mime034');
+INSERT INTO `Paper`  VALUES (26, 1, 36, 'Title035', 'Abstract035', NULL, NULL, 'Filepath035', 0, 'Mime035');
+INSERT INTO `Paper`  VALUES (27, 1, 37, 'Title036', 'Abstract036', NULL, NULL, 'Filepath036', 0, 'Mime036');
+INSERT INTO `Paper`  VALUES (28, 1, 38, 'Title037', 'Abstract037', NULL, NULL, 'Filepath037', 0, 'Mime037');
+INSERT INTO `Paper`  VALUES (29, 1, 39, 'Title038', 'Abstract038', NULL, NULL, 'Filepath038', 0, 'Mime038');
+INSERT INTO `Paper`  VALUES (30, 1, 40, 'Title039', 'Abstract039', NULL, NULL, 'Filepath039', 0, 'Mime039');
+INSERT INTO `Paper`  VALUES (31, 1, 41, 'Title040', 'Abstract040', NULL, NULL, 'Filepath040', 0, 'Mime040');
+INSERT INTO `Paper`  VALUES (32, 1, 42, 'Title041', 'Abstract041', NULL, NULL, 'Filepath041', 0, 'Mime041');
+INSERT INTO `Paper`  VALUES (33, 1, 43, 'Title042', 'Abstract042', NULL, NULL, 'Filepath042', 0, 'Mime042');
+INSERT INTO `Paper`  VALUES (34, 1, 44, 'Title043', 'Abstract043', NULL, NULL, 'Filepath043', 0, 'Mime043');
+INSERT INTO `Paper`  VALUES (35, 1, 45, 'Title044', 'Abstract044', NULL, NULL, 'Filepath044', 0, 'Mime044');
+INSERT INTO `Paper`  VALUES (36, 1, 46, 'Title045', 'Abstract045', NULL, NULL, 'Filepath045', 0, 'Mime045');
+INSERT INTO `Paper`  VALUES (37, 1, 47, 'Title046', 'Abstract046', NULL, NULL, 'Filepath046', 0, 'Mime046');
+INSERT INTO `Paper`  VALUES (38, 1, 48, 'Title047', 'Abstract047', NULL, NULL, 'Filepath047', 0, 'Mime047');
+INSERT INTO `Paper`  VALUES (39, 1, 49, 'Title048', 'Abstract048', NULL, NULL, 'Filepath048', 0, 'Mime048');
+INSERT INTO `Paper`  VALUES (40, 1, 50, 'Title049', 'Abstract049', NULL, NULL, 'Filepath049', 0, 'Mime049');
+
+
+-- 
+-- Daten für Tabelle `IsAboutTopic`
+-- 
+
+INSERT INTO `IsAboutTopic` VALUES (1, 1);
+INSERT INTO `IsAboutTopic` VALUES (2, 1);
+INSERT INTO `IsAboutTopic` VALUES (3, 1);
+INSERT INTO `IsAboutTopic` VALUES (4, 1);
+INSERT INTO `IsAboutTopic` VALUES (5, 2);
+INSERT INTO `IsAboutTopic` VALUES (6, 2);
+INSERT INTO `IsAboutTopic` VALUES (7, 2);
+INSERT INTO `IsAboutTopic` VALUES (8, 2);
+INSERT INTO `IsAboutTopic` VALUES (9, 3);
+INSERT INTO `IsAboutTopic` VALUES (10, 3);
+INSERT INTO `IsAboutTopic` VALUES (11, 3);
+INSERT INTO `IsAboutTopic` VALUES (12, 3);
+INSERT INTO `IsAboutTopic` VALUES (13, 4);
+INSERT INTO `IsAboutTopic` VALUES (14, 4);
+INSERT INTO `IsAboutTopic` VALUES (15, 4);
+INSERT INTO `IsAboutTopic` VALUES (16, 1);
+INSERT INTO `IsAboutTopic` VALUES (16, 4);
+INSERT INTO `IsAboutTopic` VALUES (17, 5);
+INSERT INTO `IsAboutTopic` VALUES (18, 5);
+INSERT INTO `IsAboutTopic` VALUES (19, 5);
+INSERT INTO `IsAboutTopic` VALUES (20, 5);
+INSERT INTO `IsAboutTopic` VALUES (21, 6);
+INSERT INTO `IsAboutTopic` VALUES (22, 6);
+INSERT INTO `IsAboutTopic` VALUES (23, 6);
+INSERT INTO `IsAboutTopic` VALUES (24, 6);
+INSERT INTO `IsAboutTopic` VALUES (25, 7);
+INSERT INTO `IsAboutTopic` VALUES (26, 7);
+INSERT INTO `IsAboutTopic` VALUES (27, 7);
+INSERT INTO `IsAboutTopic` VALUES (28, 7);
+INSERT INTO `IsAboutTopic` VALUES (29, 8);
+INSERT INTO `IsAboutTopic` VALUES (30, 8);
+INSERT INTO `IsAboutTopic` VALUES (31, 8);
+INSERT INTO `IsAboutTopic` VALUES (32, 8);
+INSERT INTO `IsAboutTopic` VALUES (33, 9);
+INSERT INTO `IsAboutTopic` VALUES (34, 9);
+INSERT INTO `IsAboutTopic` VALUES (35, 9);
+INSERT INTO `IsAboutTopic` VALUES (36, 9);
+INSERT INTO `IsAboutTopic` VALUES (37, 10);
+INSERT INTO `IsAboutTopic` VALUES (38, 10);
+INSERT INTO `IsAboutTopic` VALUES (39, 10);
+INSERT INTO `IsAboutTopic` VALUES (40, 10);
+
+--
+-- Daten für Tabelle `DeniesPaper`
+-- 
+
+INSERT INTO `DeniesPaper` VALUES (1, 15);
+INSERT INTO `DeniesPaper` VALUES (2, 36);
+INSERT INTO `DeniesPaper` VALUES (3, 10);
+INSERT INTO `DeniesPaper` VALUES (4, 38);
+INSERT INTO `DeniesPaper` VALUES (5, 33);
+INSERT INTO `DeniesPaper` VALUES (6, 10);
+INSERT INTO `DeniesPaper` VALUES (7, 6);
+INSERT INTO `DeniesPaper` VALUES (8, 6);
+INSERT INTO `DeniesPaper` VALUES (9, 20);
+INSERT INTO `DeniesPaper` VALUES (10, 8);
+INSERT INTO `DeniesPaper` VALUES (11, 18);
+INSERT INTO `DeniesPaper` VALUES (12, 18);
+INSERT INTO `DeniesPaper` VALUES (13, 9);
+INSERT INTO `DeniesPaper` VALUES (14, 9);
+INSERT INTO `DeniesPaper` VALUES (15, 38);
+INSERT INTO `DeniesPaper` VALUES (16, 37);
+INSERT INTO `DeniesPaper` VALUES (17, 29);
+INSERT INTO `DeniesPaper` VALUES (18, 3);
+INSERT INTO `DeniesPaper` VALUES (19, 22);
+INSERT INTO `DeniesPaper` VALUES (20, 34);
+INSERT INTO `DeniesPaper` VALUES (21, 37);
+INSERT INTO `DeniesPaper` VALUES (22, 21);
+INSERT INTO `DeniesPaper` VALUES (23, 16);
+INSERT INTO `DeniesPaper` VALUES (24, 1);
+INSERT INTO `DeniesPaper` VALUES (25, 18);
+INSERT INTO `DeniesPaper` VALUES (26, 8);
+INSERT INTO `DeniesPaper` VALUES (27, 37);
+INSERT INTO `DeniesPaper` VALUES (28, 36);
+INSERT INTO `DeniesPaper` VALUES (29, 8);
+INSERT INTO `DeniesPaper` VALUES (30, 25);
+INSERT INTO `DeniesPaper` VALUES (31, 1);
+INSERT INTO `DeniesPaper` VALUES (32, 22);
+INSERT INTO `DeniesPaper` VALUES (33, 22);
+INSERT INTO `DeniesPaper` VALUES (34, 11);
+INSERT INTO `DeniesPaper` VALUES (35, 22);
+INSERT INTO `DeniesPaper` VALUES (36, 16);
+INSERT INTO `DeniesPaper` VALUES (37, 20);
+INSERT INTO `DeniesPaper` VALUES (38, 27);
+INSERT INTO `DeniesPaper` VALUES (39, 22);
+INSERT INTO `DeniesPaper` VALUES (40, 2);
+INSERT INTO `DeniesPaper` VALUES (41, 34);
+INSERT INTO `DeniesPaper` VALUES (42, 1);
+INSERT INTO `DeniesPaper` VALUES (43, 19);
+INSERT INTO `DeniesPaper` VALUES (44, 4);
+INSERT INTO `DeniesPaper` VALUES (45, 10);
+INSERT INTO `DeniesPaper` VALUES (46, 18);
+INSERT INTO `DeniesPaper` VALUES (47, 22);
+INSERT INTO `DeniesPaper` VALUES (48, 1);
+INSERT INTO `DeniesPaper` VALUES (49, 21);
+INSERT INTO `DeniesPaper` VALUES (50, 5);
+INSERT INTO `DeniesPaper` VALUES (51, 34);
+INSERT INTO `DeniesPaper` VALUES (52, 19);
+INSERT INTO `DeniesPaper` VALUES (53, 26);
+INSERT INTO `DeniesPaper` VALUES (54, 12);
+INSERT INTO `DeniesPaper` VALUES (55, 19);
+INSERT INTO `DeniesPaper` VALUES (56, 5);
+INSERT INTO `DeniesPaper` VALUES (57, 19);
+INSERT INTO `DeniesPaper` VALUES (58, 18);
+INSERT INTO `DeniesPaper` VALUES (59, 2);
+INSERT INTO `DeniesPaper` VALUES (60, 26);
+INSERT INTO `DeniesPaper` VALUES (61, 4);
+INSERT INTO `DeniesPaper` VALUES (62, 3);
+INSERT INTO `DeniesPaper` VALUES (63, 10);
+INSERT INTO `DeniesPaper` VALUES (64, 26);
+INSERT INTO `DeniesPaper` VALUES (65, 14);
+INSERT INTO `DeniesPaper` VALUES (66, 31);
+INSERT INTO `DeniesPaper` VALUES (67, 4);
+INSERT INTO `DeniesPaper` VALUES (68, 34);
+INSERT INTO `DeniesPaper` VALUES (69, 20);
+INSERT INTO `DeniesPaper` VALUES (70, 25);
+INSERT INTO `DeniesPaper` VALUES (71, 35);
+INSERT INTO `DeniesPaper` VALUES (72, 15);
+INSERT INTO `DeniesPaper` VALUES (73, 26);
+INSERT INTO `DeniesPaper` VALUES (74, 16);
+INSERT INTO `DeniesPaper` VALUES (75, 19);
+INSERT INTO `DeniesPaper` VALUES (76, 36);
+INSERT INTO `DeniesPaper` VALUES (77, 34);
+INSERT INTO `DeniesPaper` VALUES (78, 2);
+INSERT INTO `DeniesPaper` VALUES (79, 36);
+INSERT INTO `DeniesPaper` VALUES (80, 16);
+INSERT INTO `DeniesPaper` VALUES (81, 7);
+INSERT INTO `DeniesPaper` VALUES (82, 32);
+INSERT INTO `DeniesPaper` VALUES (83, 34);
+INSERT INTO `DeniesPaper` VALUES (84, 32);
+INSERT INTO `DeniesPaper` VALUES (85, 5);
+INSERT INTO `DeniesPaper` VALUES (86, 15);
+INSERT INTO `DeniesPaper` VALUES (87, 37);
+INSERT INTO `DeniesPaper` VALUES (88, 24);
+INSERT INTO `DeniesPaper` VALUES (89, 32);
+INSERT INTO `DeniesPaper` VALUES (90, 38);
+INSERT INTO `DeniesPaper` VALUES (91, 12);
+INSERT INTO `DeniesPaper` VALUES (92, 36);
+INSERT INTO `DeniesPaper` VALUES (93, 3);
+INSERT INTO `DeniesPaper` VALUES (94, 21);
+INSERT INTO `DeniesPaper` VALUES (95, 24);
+INSERT INTO `DeniesPaper` VALUES (96, 16);
+INSERT INTO `DeniesPaper` VALUES (97, 14);
+INSERT INTO `DeniesPaper` VALUES (98, 27);
+INSERT INTO `DeniesPaper` VALUES (99, 12);
+INSERT INTO `DeniesPaper` VALUES (100, 33);
+
+-- 
+-- Daten für Tabelle `ExcludesPaper`
+-- 
+
+INSERT INTO `ExcludesPaper` VALUES (1, 15);
+INSERT INTO `ExcludesPaper` VALUES (2, 9);
+INSERT INTO `ExcludesPaper` VALUES (3, 10);
+INSERT INTO `ExcludesPaper` VALUES (4, 3);
+INSERT INTO `ExcludesPaper` VALUES (5, 25);
+INSERT INTO `ExcludesPaper` VALUES (6, 29);
+INSERT INTO `ExcludesPaper` VALUES (7, 38);
+INSERT INTO `ExcludesPaper` VALUES (8, 21);
+INSERT INTO `ExcludesPaper` VALUES (9, 31);
+INSERT INTO `ExcludesPaper` VALUES (10, 36);
+INSERT INTO `ExcludesPaper` VALUES (11, 36);
+INSERT INTO `ExcludesPaper` VALUES (12, 38);
+INSERT INTO `ExcludesPaper` VALUES (13, 30);
+INSERT INTO `ExcludesPaper` VALUES (14, 32);
+INSERT INTO `ExcludesPaper` VALUES (15, 31);
+INSERT INTO `ExcludesPaper` VALUES (16, 21);
+INSERT INTO `ExcludesPaper` VALUES (17, 9);
+INSERT INTO `ExcludesPaper` VALUES (18, 29);
+INSERT INTO `ExcludesPaper` VALUES (19, 20);
+INSERT INTO `ExcludesPaper` VALUES (20, 3);
+INSERT INTO `ExcludesPaper` VALUES (21, 29);
+INSERT INTO `ExcludesPaper` VALUES (22, 31);
+INSERT INTO `ExcludesPaper` VALUES (23, 38);
+INSERT INTO `ExcludesPaper` VALUES (24, 32);
+INSERT INTO `ExcludesPaper` VALUES (25, 13);
+INSERT INTO `ExcludesPaper` VALUES (26, 24);
+INSERT INTO `ExcludesPaper` VALUES (27, 10);
+INSERT INTO `ExcludesPaper` VALUES (28, 26);
+INSERT INTO `ExcludesPaper` VALUES (29, 12);
+INSERT INTO `ExcludesPaper` VALUES (30, 21);
+INSERT INTO `ExcludesPaper` VALUES (31, 21);
+INSERT INTO `ExcludesPaper` VALUES (32, 25);
+INSERT INTO `ExcludesPaper` VALUES (33, 28);
+INSERT INTO `ExcludesPaper` VALUES (34, 30);
+INSERT INTO `ExcludesPaper` VALUES (35, 27);
+INSERT INTO `ExcludesPaper` VALUES (36, 14);
+INSERT INTO `ExcludesPaper` VALUES (37, 19);
+INSERT INTO `ExcludesPaper` VALUES (38, 26);
+INSERT INTO `ExcludesPaper` VALUES (39, 33);
+INSERT INTO `ExcludesPaper` VALUES (40, 10);
+INSERT INTO `ExcludesPaper` VALUES (41, 22);
+INSERT INTO `ExcludesPaper` VALUES (42, 30);
+INSERT INTO `ExcludesPaper` VALUES (43, 8);
+INSERT INTO `ExcludesPaper` VALUES (44, 12);
+INSERT INTO `ExcludesPaper` VALUES (45, 22);
+INSERT INTO `ExcludesPaper` VALUES (46, 38);
+INSERT INTO `ExcludesPaper` VALUES (47, 8);
+INSERT INTO `ExcludesPaper` VALUES (48, 30);
+INSERT INTO `ExcludesPaper` VALUES (49, 28);
+INSERT INTO `ExcludesPaper` VALUES (50, 26);
+INSERT INTO `ExcludesPaper` VALUES (51, 31);
+INSERT INTO `ExcludesPaper` VALUES (52, 18);
+INSERT INTO `ExcludesPaper` VALUES (53, 18);
+INSERT INTO `ExcludesPaper` VALUES (54, 30);
+INSERT INTO `ExcludesPaper` VALUES (55, 10);
+INSERT INTO `ExcludesPaper` VALUES (56, 30);
+INSERT INTO `ExcludesPaper` VALUES (57, 14);
+INSERT INTO `ExcludesPaper` VALUES (58, 18);
+INSERT INTO `ExcludesPaper` VALUES (59, 17);
+INSERT INTO `ExcludesPaper` VALUES (60, 24);
+INSERT INTO `ExcludesPaper` VALUES (61, 37);
+INSERT INTO `ExcludesPaper` VALUES (62, 36);
+INSERT INTO `ExcludesPaper` VALUES (63, 10);
+INSERT INTO `ExcludesPaper` VALUES (64, 26);
+INSERT INTO `ExcludesPaper` VALUES (65, 26);
+INSERT INTO `ExcludesPaper` VALUES (66, 36);
+INSERT INTO `ExcludesPaper` VALUES (67, 39);
+INSERT INTO `ExcludesPaper` VALUES (68, 5);
+INSERT INTO `ExcludesPaper` VALUES (69, 22);
+INSERT INTO `ExcludesPaper` VALUES (70, 32);
+INSERT INTO `ExcludesPaper` VALUES (71, 14);
+INSERT INTO `ExcludesPaper` VALUES (72, 5);
+INSERT INTO `ExcludesPaper` VALUES (73, 22);
+INSERT INTO `ExcludesPaper` VALUES (74, 21);
+INSERT INTO `ExcludesPaper` VALUES (75, 15);
+INSERT INTO `ExcludesPaper` VALUES (76, 5);
+INSERT INTO `ExcludesPaper` VALUES (77, 19);
+INSERT INTO `ExcludesPaper` VALUES (78, 22);
+INSERT INTO `ExcludesPaper` VALUES (79, 33);
+INSERT INTO `ExcludesPaper` VALUES (80, 8);
+INSERT INTO `ExcludesPaper` VALUES (81, 8);
+INSERT INTO `ExcludesPaper` VALUES (82, 24);
+INSERT INTO `ExcludesPaper` VALUES (83, 24);
+INSERT INTO `ExcludesPaper` VALUES (84, 24);
+INSERT INTO `ExcludesPaper` VALUES (85, 15);
+INSERT INTO `ExcludesPaper` VALUES (86, 32);
+INSERT INTO `ExcludesPaper` VALUES (87, 14);
+INSERT INTO `ExcludesPaper` VALUES (88, 27);
+INSERT INTO `ExcludesPaper` VALUES (89, 11);
+INSERT INTO `ExcludesPaper` VALUES (90, 29);
+INSERT INTO `ExcludesPaper` VALUES (91, 12);
+INSERT INTO `ExcludesPaper` VALUES (92, 8);
+INSERT INTO `ExcludesPaper` VALUES (93, 26);
+INSERT INTO `ExcludesPaper` VALUES (94, 20);
+INSERT INTO `ExcludesPaper` VALUES (95, 33);
+INSERT INTO `ExcludesPaper` VALUES (96, 12);
+INSERT INTO `ExcludesPaper` VALUES (97, 16);
+INSERT INTO `ExcludesPaper` VALUES (98, 32);
+INSERT INTO `ExcludesPaper` VALUES (99, 16);
+INSERT INTO `ExcludesPaper` VALUES (100, 37);
+
+-- 
+-- Daten für Tabelle `forum`
+-- 
+
+
+
+
+-- 
+-- Daten für Tabelle `iscoauthorof`
+-- 
+
+
+-- 
+-- Daten für Tabelle `message`
+-- 
+
+
+-- 
+-- Daten für Tabelle `PrefersPaper`
+-- 
+
+INSERT INTO `PrefersPaper` VALUES (1, 3);
+INSERT INTO `PrefersPaper` VALUES (2, 2);
+INSERT INTO `PrefersPaper` VALUES (3, 15);
+INSERT INTO `PrefersPaper` VALUES (4, 21);
+INSERT INTO `PrefersPaper` VALUES (5, 5);
+INSERT INTO `PrefersPaper` VALUES (6, 5);
+INSERT INTO `PrefersPaper` VALUES (7, 18);
+INSERT INTO `PrefersPaper` VALUES (8, 8);
+INSERT INTO `PrefersPaper` VALUES (9, 25);
+INSERT INTO `PrefersPaper` VALUES (10, 1);
+INSERT INTO `PrefersPaper` VALUES (10, 20);
+INSERT INTO `PrefersPaper` VALUES (11, 4);
+INSERT INTO `PrefersPaper` VALUES (12, 4);
+INSERT INTO `PrefersPaper` VALUES (12, 8);
+INSERT INTO `PrefersPaper` VALUES (12, 9);
+INSERT INTO `PrefersPaper` VALUES (13, 11);
+INSERT INTO `PrefersPaper` VALUES (14, 12);
+INSERT INTO `PrefersPaper` VALUES (14, 27);
+INSERT INTO `PrefersPaper` VALUES (16, 18);
+INSERT INTO `PrefersPaper` VALUES (16, 27);
+INSERT INTO `PrefersPaper` VALUES (17, 16);
+INSERT INTO `PrefersPaper` VALUES (18, 25);
+INSERT INTO `PrefersPaper` VALUES (19, 16);
+INSERT INTO `PrefersPaper` VALUES (20, 1);
+INSERT INTO `PrefersPaper` VALUES (20, 7);
+INSERT INTO `PrefersPaper` VALUES (21, 18);
+INSERT INTO `PrefersPaper` VALUES (22, 36);
+INSERT INTO `PrefersPaper` VALUES (23, 9);
+INSERT INTO `PrefersPaper` VALUES (24, 12);
+INSERT INTO `PrefersPaper` VALUES (25, 39);
+INSERT INTO `PrefersPaper` VALUES (26, 26);
+INSERT INTO `PrefersPaper` VALUES (27, 33);
+INSERT INTO `PrefersPaper` VALUES (28, 10);
+INSERT INTO `PrefersPaper` VALUES (29, 1);
+INSERT INTO `PrefersPaper` VALUES (30, 32);
+INSERT INTO `PrefersPaper` VALUES (31, 14);
+INSERT INTO `PrefersPaper` VALUES (32, 3);
+INSERT INTO `PrefersPaper` VALUES (33, 34);
+INSERT INTO `PrefersPaper` VALUES (34, 29);
+INSERT INTO `PrefersPaper` VALUES (35, 24);
+INSERT INTO `PrefersPaper` VALUES (36, 38);
+INSERT INTO `PrefersPaper` VALUES (37, 34);
+INSERT INTO `PrefersPaper` VALUES (38, 2);
+INSERT INTO `PrefersPaper` VALUES (39, 6);
+INSERT INTO `PrefersPaper` VALUES (40, 20);
+INSERT INTO `PrefersPaper` VALUES (41, 22);
+INSERT INTO `PrefersPaper` VALUES (42, 10);
+INSERT INTO `PrefersPaper` VALUES (43, 28);
+INSERT INTO `PrefersPaper` VALUES (44, 33);
+INSERT INTO `PrefersPaper` VALUES (45, 21);
+INSERT INTO `PrefersPaper` VALUES (46, 15);
+INSERT INTO `PrefersPaper` VALUES (47, 11);
+INSERT INTO `PrefersPaper` VALUES (48, 36);
+INSERT INTO `PrefersPaper` VALUES (49, 1);
+INSERT INTO `PrefersPaper` VALUES (50, 27);
+INSERT INTO `PrefersPaper` VALUES (51, 39);
+INSERT INTO `PrefersPaper` VALUES (52, 18);
+INSERT INTO `PrefersPaper` VALUES (53, 23);
+INSERT INTO `PrefersPaper` VALUES (54, 8);
+INSERT INTO `PrefersPaper` VALUES (55, 30);
+INSERT INTO `PrefersPaper` VALUES (56, 23);
+INSERT INTO `PrefersPaper` VALUES (57, 34);
+INSERT INTO `PrefersPaper` VALUES (58, 24);
+INSERT INTO `PrefersPaper` VALUES (59, 32);
+INSERT INTO `PrefersPaper` VALUES (60, 34);
+INSERT INTO `PrefersPaper` VALUES (61, 16);
+INSERT INTO `PrefersPaper` VALUES (62, 7);
+INSERT INTO `PrefersPaper` VALUES (63, 37);
+INSERT INTO `PrefersPaper` VALUES (64, 10);
+INSERT INTO `PrefersPaper` VALUES (65, 35);
+INSERT INTO `PrefersPaper` VALUES (66, 22);
+INSERT INTO `PrefersPaper` VALUES (67, 9);
+INSERT INTO `PrefersPaper` VALUES (68, 29);
+INSERT INTO `PrefersPaper` VALUES (69, 24);
+INSERT INTO `PrefersPaper` VALUES (70, 15);
+INSERT INTO `PrefersPaper` VALUES (71, 10);
+INSERT INTO `PrefersPaper` VALUES (72, 7);
+INSERT INTO `PrefersPaper` VALUES (73, 25);
+INSERT INTO `PrefersPaper` VALUES (74, 37);
+INSERT INTO `PrefersPaper` VALUES (75, 39);
+INSERT INTO `PrefersPaper` VALUES (76, 6);
+INSERT INTO `PrefersPaper` VALUES (77, 12);
+INSERT INTO `PrefersPaper` VALUES (78, 11);
+INSERT INTO `PrefersPaper` VALUES (79, 3);
+INSERT INTO `PrefersPaper` VALUES (80, 12);
+INSERT INTO `PrefersPaper` VALUES (81, 37);
+INSERT INTO `PrefersPaper` VALUES (82, 2);
+INSERT INTO `PrefersPaper` VALUES (83, 30);
+INSERT INTO `PrefersPaper` VALUES (84, 21);
+INSERT INTO `PrefersPaper` VALUES (85, 10);
+INSERT INTO `PrefersPaper` VALUES (86, 21);
+INSERT INTO `PrefersPaper` VALUES (87, 4);
+INSERT INTO `PrefersPaper` VALUES (88, 4);
+INSERT INTO `PrefersPaper` VALUES (89, 5);
+INSERT INTO `PrefersPaper` VALUES (90, 35);
+INSERT INTO `PrefersPaper` VALUES (91, 38);
+INSERT INTO `PrefersPaper` VALUES (92, 21);
+INSERT INTO `PrefersPaper` VALUES (93, 3);
+INSERT INTO `PrefersPaper` VALUES (94, 36);
+INSERT INTO `PrefersPaper` VALUES (95, 31);
+INSERT INTO `PrefersPaper` VALUES (96, 37);
+INSERT INTO `PrefersPaper` VALUES (97, 19);
+INSERT INTO `PrefersPaper` VALUES (98, 1);
+INSERT INTO `PrefersPaper` VALUES (99, 27);
+INSERT INTO `PrefersPaper` VALUES (100, 4);
+
+-- 
+-- Daten für Tabelle `PrefersTopic`
+-- 
+
+INSERT INTO `PrefersTopic` VALUES (1, 2);
+INSERT INTO `PrefersTopic` VALUES (2, 9);
+INSERT INTO `PrefersTopic` VALUES (3, 5);
+INSERT INTO `PrefersTopic` VALUES (4, 6);
+INSERT INTO `PrefersTopic` VALUES (5, 7);
+INSERT INTO `PrefersTopic` VALUES (6, 2);
+INSERT INTO `PrefersTopic` VALUES (7, 1);
+INSERT INTO `PrefersTopic` VALUES (8, 3);
+INSERT INTO `PrefersTopic` VALUES (9, 8);
+INSERT INTO `PrefersTopic` VALUES (10, 3);
+INSERT INTO `PrefersTopic` VALUES (10, 8);
+INSERT INTO `PrefersTopic` VALUES (11, 8);
+INSERT INTO `PrefersTopic` VALUES (12, 4);
+INSERT INTO `PrefersTopic` VALUES (13, 1);
+INSERT INTO `PrefersTopic` VALUES (14, 7);
+INSERT INTO `PrefersTopic` VALUES (16, 3);
+INSERT INTO `PrefersTopic` VALUES (17, 7);
+INSERT INTO `PrefersTopic` VALUES (18, 8);
+INSERT INTO `PrefersTopic` VALUES (19, 3);
+INSERT INTO `PrefersTopic` VALUES (20, 5);
+INSERT INTO `PrefersTopic` VALUES (21, 5);
+INSERT INTO `PrefersTopic` VALUES (22, 8);
+INSERT INTO `PrefersTopic` VALUES (23, 7);
+INSERT INTO `PrefersTopic` VALUES (24, 6);
+INSERT INTO `PrefersTopic` VALUES (25, 6);
+INSERT INTO `PrefersTopic` VALUES (26, 3);
+INSERT INTO `PrefersTopic` VALUES (27, 6);
+INSERT INTO `PrefersTopic` VALUES (28, 4);
+INSERT INTO `PrefersTopic` VALUES (29, 8);
+INSERT INTO `PrefersTopic` VALUES (30, 8);
+INSERT INTO `PrefersTopic` VALUES (31, 2);
+INSERT INTO `PrefersTopic` VALUES (32, 9);
+INSERT INTO `PrefersTopic` VALUES (33, 8);
+INSERT INTO `PrefersTopic` VALUES (34, 6);
+INSERT INTO `PrefersTopic` VALUES (35, 6);
+INSERT INTO `PrefersTopic` VALUES (36, 6);
+INSERT INTO `PrefersTopic` VALUES (37, 7);
+INSERT INTO `PrefersTopic` VALUES (38, 6);
+INSERT INTO `PrefersTopic` VALUES (39, 8);
+INSERT INTO `PrefersTopic` VALUES (40, 6);
+INSERT INTO `PrefersTopic` VALUES (41, 4);
+INSERT INTO `PrefersTopic` VALUES (42, 7);
+INSERT INTO `PrefersTopic` VALUES (43, 9);
+INSERT INTO `PrefersTopic` VALUES (44, 5);
+INSERT INTO `PrefersTopic` VALUES (45, 5);
+INSERT INTO `PrefersTopic` VALUES (46, 1);
+INSERT INTO `PrefersTopic` VALUES (47, 7);
+INSERT INTO `PrefersTopic` VALUES (48, 2);
+INSERT INTO `PrefersTopic` VALUES (49, 8);
+INSERT INTO `PrefersTopic` VALUES (50, 1);
+INSERT INTO `PrefersTopic` VALUES (51, 7);
+INSERT INTO `PrefersTopic` VALUES (52, 3);
+INSERT INTO `PrefersTopic` VALUES (53, 9);
+INSERT INTO `PrefersTopic` VALUES (54, 4);
+INSERT INTO `PrefersTopic` VALUES (55, 9);
+INSERT INTO `PrefersTopic` VALUES (56, 5);
+INSERT INTO `PrefersTopic` VALUES (57, 7);
+INSERT INTO `PrefersTopic` VALUES (58, 6);
+INSERT INTO `PrefersTopic` VALUES (59, 8);
+INSERT INTO `PrefersTopic` VALUES (60, 6);
+INSERT INTO `PrefersTopic` VALUES (61, 5);
+INSERT INTO `PrefersTopic` VALUES (62, 1);
+INSERT INTO `PrefersTopic` VALUES (63, 6);
+INSERT INTO `PrefersTopic` VALUES (64, 3);
+INSERT INTO `PrefersTopic` VALUES (65, 7);
+INSERT INTO `PrefersTopic` VALUES (66, 2);
+INSERT INTO `PrefersTopic` VALUES (67, 8);
+INSERT INTO `PrefersTopic` VALUES (68, 5);
+INSERT INTO `PrefersTopic` VALUES (69, 8);
+INSERT INTO `PrefersTopic` VALUES (70, 7);
+INSERT INTO `PrefersTopic` VALUES (71, 1);
+INSERT INTO `PrefersTopic` VALUES (72, 3);
+INSERT INTO `PrefersTopic` VALUES (73, 5);
+INSERT INTO `PrefersTopic` VALUES (74, 1);
+INSERT INTO `PrefersTopic` VALUES (75, 7);
+INSERT INTO `PrefersTopic` VALUES (76, 9);
+INSERT INTO `PrefersTopic` VALUES (77, 1);
+INSERT INTO `PrefersTopic` VALUES (78, 5);
+INSERT INTO `PrefersTopic` VALUES (79, 1);
+INSERT INTO `PrefersTopic` VALUES (80, 9);
+INSERT INTO `PrefersTopic` VALUES (81, 6);
+INSERT INTO `PrefersTopic` VALUES (82, 7);
+INSERT INTO `PrefersTopic` VALUES (83, 2);
+INSERT INTO `PrefersTopic` VALUES (84, 5);
+INSERT INTO `PrefersTopic` VALUES (85, 2);
+INSERT INTO `PrefersTopic` VALUES (86, 1);
+INSERT INTO `PrefersTopic` VALUES (87, 9);
+INSERT INTO `PrefersTopic` VALUES (88, 9);
+INSERT INTO `PrefersTopic` VALUES (89, 7);
+INSERT INTO `PrefersTopic` VALUES (90, 8);
+INSERT INTO `PrefersTopic` VALUES (91, 5);
+INSERT INTO `PrefersTopic` VALUES (92, 2);
+INSERT INTO `PrefersTopic` VALUES (93, 8);
+INSERT INTO `PrefersTopic` VALUES (94, 1);
+INSERT INTO `PrefersTopic` VALUES (95, 5);
+INSERT INTO `PrefersTopic` VALUES (96, 5);
+INSERT INTO `PrefersTopic` VALUES (97, 3);
+INSERT INTO `PrefersTopic` VALUES (98, 4);
+INSERT INTO `PrefersTopic` VALUES (99, 9);
+INSERT INTO `PrefersTopic` VALUES (100, 1);
+
+-- 
+-- Daten für Tabelle `Role`
+-- 
+
+INSERT INTO `Role` VALUES (1, 1, 2, NULL);
+INSERT INTO `Role` VALUES (1, 1, 3, NULL);
+INSERT INTO `Role` VALUES (1, 2, 2, NULL);
+INSERT INTO `Role` VALUES (1, 2, 3, NULL);
+INSERT INTO `Role` VALUES (1, 3, 2, NULL);
+INSERT INTO `Role` VALUES (1, 3, 3, NULL);
+INSERT INTO `Role` VALUES (1, 4, 2, NULL);
+INSERT INTO `Role` VALUES (1, 4, 3, NULL);
+INSERT INTO `Role` VALUES (1, 5, 2, NULL);
+INSERT INTO `Role` VALUES (1, 5, 3, NULL);
+INSERT INTO `Role` VALUES (1, 6, 2, NULL);
+INSERT INTO `Role` VALUES (1, 6, 3, NULL);
+INSERT INTO `Role` VALUES (1, 7, 2, NULL);
+INSERT INTO `Role` VALUES (1, 7, 3, NULL);
+INSERT INTO `Role` VALUES (1, 8, 2, NULL);
+INSERT INTO `Role` VALUES (1, 8, 3, NULL);
+INSERT INTO `Role` VALUES (1, 9, 2, NULL);
+INSERT INTO `Role` VALUES (1, 9, 3, NULL);
+INSERT INTO `Role` VALUES (1, 10, 2, NULL);
+INSERT INTO `Role` VALUES (1, 10, 3, NULL);
+INSERT INTO `Role` VALUES (1, 11, 3, NULL);
+INSERT INTO `Role` VALUES (1, 11, 4, NULL);
+INSERT INTO `Role` VALUES (1, 12, 3, NULL);
+INSERT INTO `Role` VALUES (1, 12, 4, NULL);
+INSERT INTO `Role` VALUES (1, 13, 3, NULL);
+INSERT INTO `Role` VALUES (1, 13, 4, NULL);
+INSERT INTO `Role` VALUES (1, 14, 3, NULL);
+INSERT INTO `Role` VALUES (1, 14, 4, NULL);
+INSERT INTO `Role` VALUES (1, 15, 3, NULL);
+INSERT INTO `Role` VALUES (1, 15, 4, NULL);
+INSERT INTO `Role` VALUES (1, 16, 3, NULL);
+INSERT INTO `Role` VALUES (1, 16, 4, NULL);
+INSERT INTO `Role` VALUES (1, 17, 3, NULL);
+INSERT INTO `Role` VALUES (1, 17, 4, NULL);
+INSERT INTO `Role` VALUES (1, 18, 3, NULL);
+INSERT INTO `Role` VALUES (1, 18, 4, NULL);
+INSERT INTO `Role` VALUES (1, 19, 3, NULL);
+INSERT INTO `Role` VALUES (1, 19, 4, NULL);
+INSERT INTO `Role` VALUES (1, 20, 3, NULL);
+INSERT INTO `Role` VALUES (1, 20, 4, NULL);
+INSERT INTO `Role` VALUES (1, 21, 3, NULL);
+INSERT INTO `Role` VALUES (1, 21, 4, NULL);
+INSERT INTO `Role` VALUES (1, 22, 3, NULL);
+INSERT INTO `Role` VALUES (1, 22, 4, NULL);
+INSERT INTO `Role` VALUES (1, 23, 3, NULL);
+INSERT INTO `Role` VALUES (1, 23, 4, NULL);
+INSERT INTO `Role` VALUES (1, 24, 3, NULL);
+INSERT INTO `Role` VALUES (1, 24, 4, NULL);
+INSERT INTO `Role` VALUES (1, 25, 3, NULL);
+INSERT INTO `Role` VALUES (1, 25, 4, NULL);
+INSERT INTO `Role` VALUES (1, 26, 3, NULL);
+INSERT INTO `Role` VALUES (1, 26, 4, NULL);
+INSERT INTO `Role` VALUES (1, 27, 3, NULL);
+INSERT INTO `Role` VALUES (1, 27, 4, NULL);
+INSERT INTO `Role` VALUES (1, 28, 3, NULL);
+INSERT INTO `Role` VALUES (1, 28, 4, NULL);
+INSERT INTO `Role` VALUES (1, 29, 3, NULL);
+INSERT INTO `Role` VALUES (1, 29, 4, NULL);
+INSERT INTO `Role` VALUES (1, 30, 3, NULL);
+INSERT INTO `Role` VALUES (1, 30, 4, NULL);
+INSERT INTO `Role` VALUES (1, 31, 3, NULL);
+INSERT INTO `Role` VALUES (1, 31, 4, NULL);
+INSERT INTO `Role` VALUES (1, 32, 3, NULL);
+INSERT INTO `Role` VALUES (1, 32, 4, NULL);
+INSERT INTO `Role` VALUES (1, 33, 3, NULL);
+INSERT INTO `Role` VALUES (1, 33, 4, NULL);
+INSERT INTO `Role` VALUES (1, 34, 3, NULL);
+INSERT INTO `Role` VALUES (1, 34, 4, NULL);
+INSERT INTO `Role` VALUES (1, 34, 5, NULL);
+INSERT INTO `Role` VALUES (1, 35, 4, NULL);
+INSERT INTO `Role` VALUES (1, 35, 5, NULL);
+INSERT INTO `Role` VALUES (1, 36, 4, NULL);
+INSERT INTO `Role` VALUES (1, 36, 5, NULL);
+INSERT INTO `Role` VALUES (1, 37, 4, NULL);
+INSERT INTO `Role` VALUES (1, 37, 5, NULL);
+INSERT INTO `Role` VALUES (1, 38, 4, NULL);
+INSERT INTO `Role` VALUES (1, 38, 5, NULL);
+INSERT INTO `Role` VALUES (1, 39, 4, NULL);
+INSERT INTO `Role` VALUES (1, 39, 5, NULL);
+INSERT INTO `Role` VALUES (1, 40, 4, NULL);
+INSERT INTO `Role` VALUES (1, 40, 5, NULL);
+INSERT INTO `Role` VALUES (1, 41, 4, NULL);
+INSERT INTO `Role` VALUES (1, 41, 5, NULL);
+INSERT INTO `Role` VALUES (1, 42, 4, NULL);
+INSERT INTO `Role` VALUES (1, 42, 5, NULL);
+INSERT INTO `Role` VALUES (1, 43, 4, NULL);
+INSERT INTO `Role` VALUES (1, 43, 5, NULL);
+INSERT INTO `Role` VALUES (1, 44, 4, NULL);
+INSERT INTO `Role` VALUES (1, 44, 5, NULL);
+INSERT INTO `Role` VALUES (1, 45, 4, NULL);
+INSERT INTO `Role` VALUES (1, 45, 5, NULL);
+INSERT INTO `Role` VALUES (1, 46, 4, NULL);
+INSERT INTO `Role` VALUES (1, 46, 5, NULL);
+INSERT INTO `Role` VALUES (1, 47, 4, NULL);
+INSERT INTO `Role` VALUES (1, 47, 5, NULL);
+INSERT INTO `Role` VALUES (1, 48, 4, NULL);
+INSERT INTO `Role` VALUES (1, 48, 5, NULL);
+INSERT INTO `Role` VALUES (1, 49, 4, NULL);
+INSERT INTO `Role` VALUES (1, 49, 5, NULL);
+INSERT INTO `Role` VALUES (1, 50, 4, NULL);
+INSERT INTO `Role` VALUES (1, 50, 5, NULL);
+INSERT INTO `Role` VALUES (1, 51, 5, NULL);
+INSERT INTO `Role` VALUES (1, 52, 5, NULL);
+INSERT INTO `Role` VALUES (1, 53, 5, NULL);
+INSERT INTO `Role` VALUES (1, 54, 5, NULL);
+INSERT INTO `Role` VALUES (1, 55, 5, NULL);
+INSERT INTO `Role` VALUES (1, 56, 5, NULL);
+INSERT INTO `Role` VALUES (1, 57, 5, NULL);
+INSERT INTO `Role` VALUES (1, 58, 5, NULL);
+INSERT INTO `Role` VALUES (1, 59, 5, NULL);
+INSERT INTO `Role` VALUES (1, 60, 5, NULL);
+INSERT INTO `Role` VALUES (1, 61, 5, NULL);
+INSERT INTO `Role` VALUES (1, 62, 5, NULL);
+INSERT INTO `Role` VALUES (1, 63, 5, NULL);
+INSERT INTO `Role` VALUES (1, 64, 5, NULL);
+INSERT INTO `Role` VALUES (1, 65, 5, NULL);
+INSERT INTO `Role` VALUES (1, 66, 5, NULL);
+INSERT INTO `Role` VALUES (1, 67, 5, NULL);
+INSERT INTO `Role` VALUES (1, 68, 5, NULL);
+INSERT INTO `Role` VALUES (1, 69, 5, NULL);
+INSERT INTO `Role` VALUES (1, 70, 5, NULL);
+INSERT INTO `Role` VALUES (1, 71, 5, NULL);
+INSERT INTO `Role` VALUES (1, 72, 5, NULL);
+INSERT INTO `Role` VALUES (1, 73, 5, NULL);
+INSERT INTO `Role` VALUES (1, 74, 5, NULL);
+INSERT INTO `Role` VALUES (1, 75, 5, NULL);
+INSERT INTO `Role` VALUES (1, 76, 5, NULL);
+INSERT INTO `Role` VALUES (1, 77, 5, NULL);
+INSERT INTO `Role` VALUES (1, 78, 5, NULL);
+INSERT INTO `Role` VALUES (1, 79, 5, NULL);
+INSERT INTO `Role` VALUES (1, 80, 5, NULL);
+INSERT INTO `Role` VALUES (1, 81, 5, NULL);
+INSERT INTO `Role` VALUES (1, 82, 5, NULL);
+INSERT INTO `Role` VALUES (1, 83, 5, NULL);
+INSERT INTO `Role` VALUES (1, 84, 5, NULL);
+INSERT INTO `Role` VALUES (1, 85, 5, NULL);
+INSERT INTO `Role` VALUES (1, 86, 5, NULL);
+INSERT INTO `Role` VALUES (1, 87, 5, NULL);
+INSERT INTO `Role` VALUES (1, 88, 5, NULL);
+INSERT INTO `Role` VALUES (1, 89, 5, NULL);
+INSERT INTO `Role` VALUES (1, 90, 5, NULL);
+INSERT INTO `Role` VALUES (1, 91, 5, NULL);
+INSERT INTO `Role` VALUES (1, 92, 5, NULL);
+INSERT INTO `Role` VALUES (1, 93, 5, NULL);
+INSERT INTO `Role` VALUES (1, 94, 5, NULL);
+INSERT INTO `Role` VALUES (1, 95, 5, NULL);
+INSERT INTO `Role` VALUES (1, 96, 5, NULL);
+INSERT INTO `Role` VALUES (1, 97, 5, NULL);
+INSERT INTO `Role` VALUES (1, 98, 5, NULL);
+INSERT INTO `Role` VALUES (1, 99, 5, NULL);
+INSERT INTO `Role` VALUES (1, 100, 5, NULL);
+INSERT INTO `Role` VALUES (1, 102, 2, NULL);
+
+        
