@@ -34,45 +34,6 @@ CREATE TABLE IF NOT EXISTS Session (
 */
 
 /**
- * geschuetztes Lesen von Session-Variablen
- *
- * Diese Funktion liest eine Sessionvariable aus, und stellt dabei sicher
- * das diese auch gesetzt ist! Im Fehlerfall wird der Benutzer
- * normalerweise auf die index-Seite geleitet.
- * Ist jedoch Parameter $blnRedirect==false, so wird stattdessen ''
- * geliefert.
- *
- * @see redirect()
- * @param string $strName Der Name der Variablen.
- * @param bool $blnRedirect Soll eine Weiterleitung stattfinden
- * @return string Wert der Variablen
- */
-function session($strName, $blnRedirect=true) {
-  if (!isset($_SESSION[$strName])) {
-    if (!$blnRedirect) {
-      return '';
-    }
-    redirect('index.php');
-  }
-  else {
-    return $_SESSION[$strName];
-  }
-}
-
-/**
- * Loeschen von Session-Variablen
- *
- * Diese Funktion loescht eine Sessionvariable aus dem Speicher
- *
- * @param string $strName Der Name der Variablen.
- */
-function session_delete($strName) {
-  if (isset($_SESSION[$strName])) {
-    unset($_SESSION[$strName]);
-  }
-}
-
-/**
  * Klasse Session
  *
  * Eine einfache Klasse die eine Session-Verwaltung per Datenbank ermoeglicht.
