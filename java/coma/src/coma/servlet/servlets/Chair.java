@@ -141,9 +141,6 @@ public class Chair extends HttpServlet
 	
 	public void send_invitation(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		/*FIXME
-		 * fix parameter invite as(int) insert service for DB not correct
-		 */
 		String[] formular = new String[] {req.getParameter("first name"),req.getParameter("last name")
 				,req.getParameter("email")};
 		FormularChecker checker = new FormularChecker(formular);
@@ -156,8 +153,10 @@ public class Chair extends HttpServlet
 			p.setFirst_name(formular[0]);
 			p.setLast_name(formular[1]);
 			p.setEmail(formular[2]);
-			p.setRole_type(1);
-			//p.setState(req.getParameter("invite as"));
+			if (req.getParameter("invite as")=="author")
+				p.setRole_type(1);
+			else
+				p.setRole_type(2);
 			InsertServiceImpl insert = new InsertServiceImpl();
 			insert.insertPerson(p);
 		    info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name")));
@@ -319,12 +318,8 @@ public class Chair extends HttpServlet
 		}
 		if (req.getParameter("id")==null)
 		{
-			/*FIXME
-			 * get Person with role
-			 */
 			p = new Person(0);
-			p.setState("author");
-			// p.setRole_type(2)???;
+			p.setRole_type(1);
 			tag = "showauthors";
 		}
 		else
@@ -338,6 +333,7 @@ public class Chair extends HttpServlet
         ReadServiceImpl readService = new ReadServiceImpl();
         SearchResult search_result = readService.getPerson(search);
         Person[] result = (Person[])search_result.getResultObj();
+        System.out.println(result.length);
 		if (result==null || result.length ==0)
         {
 			info.append(XMLHelper.tagged("status","" + user + ": no authors available"));
@@ -408,13 +404,9 @@ public class Chair extends HttpServlet
 			}
 			else
 			{
-				/* FIXME
-				 * int role_type? for reviewer;
-				 */
 				tag = "showreviewers";
 		        Person p = new Person(0);
-		        p.setState("reviewer");
-		        //p.setRole_type(1);???
+		        p.setRole_type(2);
 		        SearchCriteria search = new SearchCriteria();
 		        search.setPerson(p);
 		        ReadServiceImpl readService = new ReadServiceImpl();
