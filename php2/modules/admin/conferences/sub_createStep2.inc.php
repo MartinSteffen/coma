@@ -12,7 +12,7 @@ if ($_POST['submit']) {
 	//if(!isset($TPL['confname'])){
 	//	echo("Conference Name not set but required. Please hit the 'Back' Button in your Browser an fill in the information");
 	//	exit();
-	}
+	//}
 	if(!preg_match("/^\d*$/", $TPL['confmin_reviews'])){
 		echo("Min reviews per paper is no Number. Please hit the 'Back' Button in your Browser and correct the filled in information");
 		exit();
