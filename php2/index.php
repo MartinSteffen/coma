@@ -4,44 +4,9 @@ include("/includes/tools.inc.php");
 include("/includes/templates.inc.php");
 session_start();
 
-/*	wenn der login mal kommt
-if (isset($_POST['pass']) && !check_login())
-{
-	login();
-}
-
-if (check_login())
-{
-	$header["showLogin"] = 0;
-	$rights = getRights($_SESSION['id']);
-}
-else
-{
-	$header["showLogin"] = 1;
-	$rights = getRights("000000");
-}
-*/
 if (isset($_REQUEST['Role'])){
 	loginas($_REQUEST['Role']);
 }
-
-if (isset($_SESSION['timeout']) && $_SESSION['timeout']){
-	$header['timeout'] = true;
-	$header['user'] = $_SESSION['user'];
-}else{
-	$header['timeout'] = false;
-	if (isset($_COOKIE['user']))	{
-		$header['user'] = $_COOKIE['user'];
-	}
-}
-
-if (isset($_SESSION['name'])){
-	$header["name"] = $_SESSION['name'];
-}
-$header["get"] = getParameter($_GET);
-$header["post"] = postParameter($_POST);
-
-$TPL["header"] = $header;
 
 if (is_readable("modules/config.inc.php")){
 	require_once("modules/config.inc.php");
