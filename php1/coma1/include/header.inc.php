@@ -111,10 +111,10 @@ function session_delete($strName) {
  * @return string encoded string
  */
 function encodeText($_str) {
-  $_str = strip_tags($_str);
+  //$_str = strip_tags($_str);
   $_str = trim($_str);
-  $_str = htmlentities($_str);
-  $_str = str_replace('\'', '&#039;', $_str);
+  $_str = htmlentities($_str, ENT_QUOTES);
+  //$_str = str_replace('\'', '&#039;', $_str);
   $_str = str_replace('\r', '', $_str);
   $_str = str_replace('\n', "<BR>", $_str);
   return($_str);
