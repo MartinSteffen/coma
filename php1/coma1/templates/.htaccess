@@ -1,1 +1,5 @@
+<Files *.tpl>
+Order deny,allow
+Deny from all
+</Files>
 DirectoryIndex index.htm
