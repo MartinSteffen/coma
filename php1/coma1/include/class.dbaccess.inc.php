@@ -1031,7 +1031,7 @@ class DBAccess extends ErrorHandling {
     	return $this->success(false);
     }
     $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'], 0, false,
-                                $this->getThreadsOfForum($intForumId));
+                                $this->getThreadsOfForum($intForumId)));
     return $this->success($forum);
   }
 
@@ -1134,7 +1134,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError);
     }
-    return $this->success(true)
+    return $this->success(true);
   }
 
   // ---------------------------------------------------------------------------
