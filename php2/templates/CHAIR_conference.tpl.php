@@ -4,6 +4,7 @@ $input = d('chair');
 $conference = $input['conference'];
 $topics = $input['topics'];
 $criterions = $input['criterions'];
+$forums = $input['forums'];
 ?>
 
 <script language="JavaScript" src="templates/calendar.js"></script>
@@ -357,6 +358,88 @@ $criterions = $input['criterions'];
   <tr>
 	<td><img height="1" width="120" src="/templates/images/spacer.gif"></td> 
 	<td></td>   
+  </tr>
+</table>
+</form>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+<? if (count($forums) == 0)
+   {  ?>
+    <td class="textBold" width="100%">There are no forums for this conference</td>
+<? }
+   else
+   {  ?>
+    <td class="textBold" width="100%">List of forums:</td>   
+<?  } ?>   
+  </tr>
+</table>
+<br>
+<? if (!(count($forums) == 0))
+   {  ?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="textBold" width="400">Title</td>
+    <td class="textBold" width="100%">Type</td>
+  </tr>
+  <?
+  foreach ($forums as $forum)
+  {  ?>  
+  <tr>
+    <td class="text" width="400">
+      <? echo $forum['title'] ?>
+    </td>
+    <td class="text" width="100%">
+      <? echo $forum['forum_type'] ?>
+    </td>
+  </tr> 
+<?  } ?> 
+  <tr>
+    <td><img height="1" width="400" src="/templates/images/spacer.gif"></td>
+	<td></td>	
+  </tr>
+</table>
+<br>
+<?  } ?> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+  <tr> 
+    <td class="textBold" width="100%" align="left">Insert a new forum:</td>
+  </tr>
+  <tr> 
+	<td class="text" width="100%">&nbsp;</td>
+  </tr> 
+</table>
+<form name="formForForum" method="post" action="index.php?m=forum&a=newforum">
+<input type="hidden" name="confID" value="<? echo $conference['confID'] ?>">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+      <td class="textBold" width="100">Title</td>
+      <td class="text" width="100%"> 
+        <input type="text" name="title" size="80" maxlength="127">
+      </td>
+  </tr>
+  <tr>
+      <td class="textBold" width="100">Type</td>
+      <td class="text" width="100%"> 
+        <select name="type" size="1">
+          <option value="1">Open forum</option>
+          <option value="2">Comittee forum</option>
+        </select>
+      </td>
+  </tr>
+  <tr>
+      <td class="textBold" width="100">&nbsp;</td>
+      <td class="text" width="100%">&nbsp; </td>
+  </tr>   
+  <tr>
+      <td class="textBold" width="100">&nbsp;</td>
+      <td class="text" width="100%"> 
+        <input type="submit" name="Submit" value="Add forum">
+      </td>
+  </tr>  
+  <tr>
+  	   <td><img height="1" width="100" src="/templates/images/spacer.gif"></td>
+	   <td></td>	   	   
   </tr>
 </table>
 </form>

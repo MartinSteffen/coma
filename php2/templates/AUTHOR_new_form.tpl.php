@@ -44,7 +44,7 @@ if (array_key_exists('msg', $TPL)) {
 				</p>
 			</td>
 		</tr>
---!>
+-->
 		<tr>
 			<td>
 				<p>Please select your paper<br>

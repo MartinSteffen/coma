@@ -120,12 +120,39 @@ if(isChair_Conference($_GET['confID']))
 		$criterion['qualityRating'] = $list[4];
 		$criterions[$count] = $criterion;
 		$count++;
-	}	
-		
+	}
+	
+	
+	//Get the forums
+	$SQL = "SELECT title, forum_type
+		    FROM forum 
+			WHERE conference_id = ".$_GET['confID']."
+			AND ((forum_type = 1) OR (forum_type=2))";
+    $result=mysql_query($SQL);
+    $forums = array();
+	$count = 0;
+    while ($list = mysql_fetch_row ($result)) 	
+    {
+		$forum = array();
+		$forum['title'] = $list[0];
+		$forum_type = $list[1];
+		if($forum_type == 1)
+		{
+			$forum['forum_type'] = "Open forum";
+		} 
+		else
+		{
+			$forum['forum_type'] = "Comittee forum";
+		}
+		$forums[$count] = $forum;
+		$count++;
+	}
+			
 	$output = array();
 	$output['conference'] = $conference;				
 	$output['topics'] = $topics;
 	$output['criterions'] = $criterions;
+	$output['forums'] = $forums;
 
 $TPL['chair'] = $output;
 template("CHAIR_conference");
