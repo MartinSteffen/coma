@@ -27,7 +27,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Details of paper';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Chair  |  Papers';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers';
 
 $main->assign($strMainAssocs);
 $main->parse();
