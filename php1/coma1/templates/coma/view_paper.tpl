@@ -5,7 +5,7 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Edit paper:</th>
+    <th colspan="2">Details of paper:</th>
   </tr>
   <tr>
     <td>
