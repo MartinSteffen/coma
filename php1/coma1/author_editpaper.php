@@ -36,7 +36,7 @@ $ifArray = array();
 if (isset($_POST['action'])) {  
   $objPaper->strTitle = $_POST['title'];
   $objPaper->strAbstract = $_POST['description'];
-  $intCoAuthorNum = count($objPaper->strCoAuthors);  
+  $intCoAuthorNum = $_POST['coauthors_num']
   $objPaper->strCoAuthors = array();
   $objPaper->intCoAuthorIds = array();
   for ($i = 0; $i < $intCoAuthorNum; $i++) {
@@ -67,16 +67,17 @@ if (isset($_POST['action'])) {
     }
   }
 }
-$strContentAssocs['targetpage']  = 'author_editpaper.php';
-$strContentAssocs['paper_id']    = encodeText($objPaper->intId);
-$strContentAssocs['title']       = encodeText($objPaper->strTitle);
-$strContentAssocs['abstract']    = encodeText($objPaper->strAbstract);
-$strContentAssocs['author_id']   = encodeText($objPaper->intAuthorId);
-$strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);      
-$strContentAssocs['file_link']   = encodeURL($objPaper->strFilePath);
-$strContentAssocs['avg_rating']  = encodeText(round($objPaper->fltAvgRating * 10) / 10);
-$strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
-$strContentAssocs['version']     = encodeText($objPaper->intVersion);
+$strContentAssocs['targetpage']     = 'author_editpaper.php';
+$strContentAssocs['paper_id']       = encodeText($objPaper->intId);
+$strContentAssocs['title']          = encodeText($objPaper->strTitle);
+$strContentAssocs['abstract']       = encodeText($objPaper->strAbstract);
+$strContentAssocs['author_id']      = encodeText($objPaper->intAuthorId);
+$strContentAssocs['author_name']    = encodeText($objPaper->strAuthor);      
+$strContentAssocs['file_link']      = encodeURL($objPaper->strFilePath);
+$strContentAssocs['avg_rating']     = encodeText(round($objPaper->fltAvgRating * 10) / 10);
+$strContentAssocs['last_edited']    = encodeText($objPaper->strLastEdit);
+$strContentAssocs['version']        = encodeText($objPaper->intVersion);
+$strContentAssocs['coauthors_num']  = encodeText(count($objPaper->strCoAuthors));
 $strContentAssocs['coauthor_lines'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   $coauthorForm = new Template(TPLPATH.'coauthor_listitem.tpl');

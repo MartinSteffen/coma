@@ -64,6 +64,7 @@
     <td colspan="2">
       <input type="hidden" name="action" value="update">
       <input type="hidden" name="paperid" value="{paper_id}">
+      <input type="hidden" name="coauthors_num" value="{coauthors_num}">
       <input type="submit" name="submit" value="Accept changes" class="button">
       <input type="reset"  name="reset" value="Reset settings" class="button">
     </td>
