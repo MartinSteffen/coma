@@ -1,5 +1,7 @@
 <?php
 
+define('IN_COMA1', true);
+
 include('./include/getCriticalPapers.inc.php');
 $papervars = getCriticalPapers();
 echo ('<html><body>');
