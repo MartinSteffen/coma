@@ -92,14 +92,18 @@ if (!empty($objPapers)) {
       $ifArray[] = 5;
     }
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-/*    if (!empty($objPaper->fltAvgRating)) {
+    if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
+    }
+    else {
+      $strItemAssocs['avg_rating'] = ' - ';
+    }
+    if (!empty($objPaper->fltVariance)) {
       $strItemAssocs['variance'] = encodeText(sprintf('%.2f', $objPaper->fltVariance));
     }
-    else {*/
-      $strItemAssocs['avg_rating'] = ' - ';
+    else {
       $strItemAssocs['variance'] = ' - ';
-//    }
+    }
     $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'chair_paperlistitem.tpl');

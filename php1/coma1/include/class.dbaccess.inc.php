@@ -961,21 +961,21 @@ class DBAccess extends ErrorHandling {
    * @author Falk, Tom (20.01.05)
    */
   function getVarianceOfPaper($intPaperId, $strMethod = 'variance') {
-    /*$objReviews = $this->getReviewsOfPaper($intPaperId);
+    $objReviews = $this->getReviewsOfPaper($intPaperId);
     if (!empty($objReviews)) {
       if ($method == 'variance') {
         $fltAvgRating = $objReviews[0]->fltAverageRating;
-        $fltVal = 0.0;
+        $fltVariance = 0.0;
         foreach ($objReviews as $objReview){
-          $fltVal = $fltVal + pow(($objReview->fltReviewRating - $fltAvgRating),2);
+          $fltVariance = $fltVariance + pow(($objReview->fltReviewRating - $fltAvgRating),2);
         }
-        $fltVal = $fltVal / count($objReviews);
-        return $this->success($fltVal);
+        $fltVariance = $fltVariance / count($objReviews);
+        return $this->success($fltVariance);
       }
       else {
         return $this->error('getVarianceOfPaper', 'Unknown method parameter.');
       }
-    }*/
+    }
     return $this->success(false);
   }
 
@@ -1250,14 +1250,9 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getReview', $this->getLastError());
     }
-    $fltVariance = $this->getVarianceOfPaper($data[0]['paper_id']);
-    if ($this->failed()) {
-      return $this->error('getReview', $this->getLastError());
-    }
     $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $objPaper->strTitle,
                    $objAuthor->intId, $objAuthor->getName(1), $this->getReviewRating($intReviewId),
-                   $fltAvgRating, $objReviewer->intId,
-                   $objReviewer->getName(1), $fltVariance));
+                   $fltAvgRating, $objReviewer->intId, $objReviewer->getName(1)));
     return $this->success($objReview);
   }
 
@@ -1334,16 +1329,11 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
-    $fltVariance = $this->getVarianceOfPaper($data[0]['paper_id']);
-    if ($this->failed()) {
-      return $this->error('getReviewDetailed', $this->getLastError());
-    }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
                    $objPaper->strTitle, $objAuthor->intId, $objAuthor->getName(1),
                    $fltReviewRating, $fltAvgRating, $objReviewer->intId,
                    $objReviewer->getName(1), $data[0]['summary'], $data[0]['remarks'],
-                   $data[0]['confidential'], $intRatings, $strComments, $objCriterions,
-                   $fltVariance));
+                   $data[0]['confidential'], $intRatings, $strComments, $objCriterions));
     return $this->success($objReview);
   } 
 
