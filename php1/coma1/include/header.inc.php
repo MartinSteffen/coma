@@ -69,7 +69,7 @@ ini_set('warn_plus_overloading', '1');
 /** Include-Pfad (als absolut)*/
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
 /** Das zu verwendende Design (Verzeichniss-Name)*/
-define('DESIGN', 'design1');
+define('DESIGN', 'simplecoma');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/'.DESIGN.'/');
 /** Template-Pfad (als URL)*/
