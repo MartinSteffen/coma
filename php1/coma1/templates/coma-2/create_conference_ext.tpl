@@ -92,9 +92,8 @@
       <input type="hidden" name="crit_max" value="{crit_max}" />
       <input type="hidden" name="crit_descr" value="{crit_descr}" />
             
-      <input type="hidden" name="action" value="submit" />
-      <input type="submit" name="submit" value="Create conference" class="button" />
-      <input type="submit" name="simple_config" value="Simple settings" class="button" />      
+      <input type="submit" name="submit" value="submit" class="button">Create Conference</input>
+      <input type="submit" name="simple_config" value="adv_config" class="button">Simple settings</input>
     </td>
   </tr>
 </table>

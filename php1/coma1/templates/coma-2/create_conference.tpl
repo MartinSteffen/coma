@@ -103,10 +103,9 @@
       <input type="hidden" name="auto_paperforum" value="{auto_paperforum}" />
       <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
       <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
-            
-      <input type="hidden" name="action" value="submit" />
-      <input type="submit" name="submit" value="Create conference" class="button" />
-      <input type="submit" name="adv_config" value="Advanced settings" class="button" />
+                  
+      <input type="submit" name="submit" value="submit" class="button">Create Conference</input>
+      <input type="submit" name="adv_config" value="adv_config" class="button">Advanced settings</input>
     </td>
   </tr>
 </table>
