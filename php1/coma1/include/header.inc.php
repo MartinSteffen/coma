@@ -79,7 +79,7 @@ function session($strName, $blnRedirect=true) {
     }
     redirect('index.php');
   }
-  else
+  else {
     return $_SESSION[$strName];
   }
 }
