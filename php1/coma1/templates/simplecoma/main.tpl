@@ -46,17 +46,8 @@
 </table>
 <!-- - - - - - - - - - - - - - - - - - - - Body - - - - - - - - - - - - - - - -  -->
 
-<table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
- <tr>
-  <td>
-   <h2 align="left">&nbsp;</h2>
-   <h2 align="left">{content}<br>&nbsp;</h2>
-  </td>
-  <td>
-   <p align="left">&nbsp;</p>
-  </td>
- </tr>
-</table>
+{content}
+
 {body}
 <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
  <tr>

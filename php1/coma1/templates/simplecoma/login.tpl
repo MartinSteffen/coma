@@ -1,7 +1,25 @@
-<b>{message}</b><br /><br />
-<form action="{basepath}login.php{SID}" method="post">
-  Email-Addresse: <input type="text" name="userMail" size="30" maxlength="127" /><br />
-  Password: <input type="password" name="userPassword" size="30" maxlength="127" /><br />
-  <input type="hidden" name="action" value="login" /><br />
-  <input type="submit" name="submit" value="Login" /><br />
-</form>
+
+<p class="message" align="center"> {message} </p>
+
+
+<div align="center">
+<table>
+<tr> <td> <b> Einloggen </b> </td> </tr>
+
+<tr>
+  <td> <form action="{basepath}index.php{SID}" method="post"> 
+       Email-Addresse: 
+  </td>
+  <td> <input type="text" name="userMail" size="30" maxlength="127" /> &nbsp; &nbsp;
+  </td>
+</tr>
+<tr>
+  <td> Password: </td>
+  <td> <input type="password" name="userPassword" size="30" maxlength="127" />
+  <input type="hidden" name="action" value="login" />
+  <input type="submit" name="submit" value="Login" />
+  </form>
+  </td>
+</tr>
+</table>
+</div>
