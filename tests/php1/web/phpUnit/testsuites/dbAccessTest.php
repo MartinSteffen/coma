@@ -22,13 +22,13 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_checkEmail() {
   	global $myDBAccess;
-    $this->assertTrue($myDBAccess->checkEmail('sae@me.de'));
+    $this->assertTrue($myDBAccess->checkEmail('gub75@gmx.de'));
   }
 
   function test_checkLogin() {
     	global $myDBAccess;
-    	$pw = sha1('pw');
-      $this->assertTrue($myDBAccess->checkLogin('sae@me.de',$pw));
+    	$pw = sha1('gctgct');
+      $this->assertTrue($myDBAccess->checkLogin('gub75@gmx.de',$pw));
   }
 
   function test_getAllConferences() {
@@ -53,7 +53,7 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_getPersonIdByEmail() {
       	global $myDBAccess;
-        $this->assertEquals(31,$myDBAccess->getPersonIdByEmail('sae@me.de'));
+        $this->assertEquals(1,$myDBAccess->getPersonIdByEmail('gub75@gmx.de'));
   }
 
   function test_getPerson() {
@@ -88,7 +88,7 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_getPaperFile2($intPaperId) {
         	global $myDBAccess;
-          $this->assertFalse($myDBAccess->getPaperFile(1));
+          $this->assertTrue($myDBAccess->getPaperFile(1));
   }
 
 
