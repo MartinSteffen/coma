@@ -32,7 +32,7 @@ $content = new Template(TPLPATH.'create_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-if (isset($_POST['action'])) {    
+if (isset($_POST['action'])) {
   $strContentAssocs['title']       = encodeText($_POST['title']);
   $strContentAssocs['abstract']    = encodeText($_POST['description']);
   $strContentAssocs['author_name'] = encodeText($objAuthor->getName());
@@ -40,18 +40,18 @@ if (isset($_POST['action'])) {
   $strCoAuthors = array();
   for ($i = 0; $i < $intCoAuthorNum; $i++) {
     if (!isset($_POST['del_coauthor-'.($i+1)])) {
-      $strCoAuthors[] = encodeText($_POST['coauthor-'.($i+1)]);      
+      $strCoAuthors[] = encodeText($_POST['coauthor-'.($i+1)]);
     }
   }
   if (isset($_POST['add_coauthor']) && !empty($_POST['coauthor'])) {
-    $strCoAuthors[] = encodeText($_POST['coauthor']);    
-  }    
+    $strCoAuthors[] = $_POST['coauthor'];
+  }
   $intTopicIds = array();
   for ($i = 0; $i < count($objAllTopics); $i++) {
     if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
       $intTopicIds[] = $objAllTopics[$i]->intId;
     }
-  }  
+  }
   $strContentAssocs['topic_lines'] = '';
   for ($i = 0; $i < count($objAllTopics); $i++) {
     $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
@@ -60,7 +60,7 @@ if (isset($_POST['action'])) {
     $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
     $strTopicAssocs['if'] = array();
     if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
-      $strTopicAssocs['if'] = array(1);  	
+      $strTopicAssocs['if'] = array(1);
     }
     $topicForm->assign($strTopicAssocs);
     $topicForm->parse();
@@ -69,14 +69,14 @@ if (isset($_POST['action'])) {
   // Anlegen des Papers in der Datenbank
   if (isset($_POST['submit'])) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
-    if (empty($_POST['title'])) {  
+    if (empty($_POST['title'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
     }
     // Versuche einzutragen
     else {
       $result = $myDBAccess->addPaper(session('confid'), $objAuthor->intId,
                                       $_POST['title'], $_POST['description'],
-                                      $strCoAuthors, $intTopicIds);                                     
+                                      $strCoAuthors, $intTopicIds);
       if (!empty($result)) {
         // Erfolg (kehre zurueck zur Artikelliste)
         $_SESSION['message'] = 'Paper was successfully created. '.
@@ -92,7 +92,7 @@ if (isset($_POST['action'])) {
 }
 else {
   $strContentAssocs['title']       = '';
-  $strContentAssocs['abstract']    = '';  
+  $strContentAssocs['abstract']    = '';
   $intCoAuthorNum = 0;
   $strCoAuthors = array();
   $intTopicIds = array();
@@ -116,7 +116,7 @@ for ($i = 0; $i < count($strCoAuthors); $i++) {
   $coauthorForm = new Template(TPLPATH.'paper_coauthorlistitem.tpl');
   $strCoauthorAssocs = defaultAssocArray();
   $strCoauthorAssocs['coauthor_no'] = encodeText($i+1);
-  $strCoauthorAssocs['coauthor']    = encodeText($strCoAuthors[$i]);    
+  $strCoauthorAssocs['coauthor']    = encodeText($strCoAuthors[$i]);
   $strCoauthorAssocs['if'] = array();
   $coauthorForm->assign($strCoauthorAssocs);
   $coauthorForm->parse();
