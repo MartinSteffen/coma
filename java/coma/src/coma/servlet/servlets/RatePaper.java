@@ -2,6 +2,7 @@ package coma.servlet.servlets;
 
 import  java.util.*;
 import java.io.*;
+import static java.util.Arrays.asList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
@@ -64,10 +65,16 @@ public class RatePaper extends HttpServlet{
 	HttpSession session;
 	session = request.getSession(true);
 	Character state = null;
+	StringBuffer result = new StringBuffer();
+	XMLHelper x = new XMLHelper();
 
-	try {
-	    StringBuffer result = new StringBuffer();
+	ReadService dbRead = new coma.handler.impl.db.ReadServiceImpl();
+	SearchResult theSR;
+	SearchCriteria theSC = new SearchCriteria();
+	Person thePerson = (Person)session.getAttribute(SessionAttribs.PERSON);	
  
+	try {
+
 	    state = (Character)session.getAttribute(SessionAttribs.RATEPAPER_STATE);
 	    if (state == null) {
 		state='0'; // default state
@@ -78,6 +85,32 @@ public class RatePaper extends HttpServlet{
 		/*
 		  "These are the papers you can rate."
 		 */
+		x.addContent(UserMessage.PAPERS_TO_RATE, result);
+
+
+		theSC.setPerson(thePerson);
+		theSR = dbRead.getReviewReport(theSC);
+		if (!theSR.isSUCCESS())
+		    throw new Exception("Can't happen"); // XXX, but ziad asserts this.
+		Set<ReviewReport> reports 
+		    = new HashSet<ReviewReport>(asList((ReviewReport[])theSR.getResultObj()));
+
+		/*
+		  TODO: the xslt should transform <selectpaper>(paper)</selectpaper> to a radio button
+		        that will leave its ID in SessionAttribs.PAPERID.
+			FIXME It actually cannot put it into a S.A. directly.
+		 */
+		for (ReviewReport report: reports){
+		    // FIXME Paper isn't Entity yet.
+		    result.append(x.tagged("selectpaper", report.getPaper().toString()/*XXX XML()*/));
+		}
+		result.append(UserMessage.SUBMITBUTTON);
+
+		if (thePerson != null){
+		    state = '1';
+		} else {
+		    state='e';
+		}
 
 		break;
 	    case '1':
@@ -85,11 +118,47 @@ public class RatePaper extends HttpServlet{
 		  "You can now make changes to your RReport"
 		 */
 
+
+		int thePaperID = ((Integer)session.getAttribute(SessionAttribs.PAPERID)).intValue();
+
+		result.append(UserMessage.EDITREPORT);
+		
+
+		theSC.setPerson(thePerson);
+		theSC.setPaper(new Paper(thePaperID));
+
+		theSR = dbRead.getReviewReport(theSC);
+
+		if ((!theSR.isSUCCESS())
+		    || (((ReviewReport[])theSR.getResultObj()).length != 1)){
+
+		    LOG.log(ERROR, "DB inconsistency: !=1 RReports", theSR);
+		    state = '0';
+
+		} else { // all is well in the land of Denmark.
+
+		    ReviewReport theReport = ((ReviewReport[])theSR.getResultObj())[0];
+
+		    session.setAttribute(SessionAttribs.REPORTID, new Integer(theReport.getId()));
+		    session.setAttribute(SessionAttribs.REPORT, theReport);
+
+		    /*
+		      TODO: the XSLT should generate editable fields
+		      for the Report, with uneditable fields for
+		      things like paper name etc.
+		     */
+		    result.append(x.tagged("editReport", theReport.toXML()));
+		    
+		    result.append(UserMessage.SUBMITBUTTON);
+		    state = '2';
+
+		}
 		break;
 	    case '2':
 		/*
 		  "Thank you for your cooperation."
 		 */
+		
 
 		break;
 	    case 'e':
@@ -102,10 +171,20 @@ public class RatePaper extends HttpServlet{
 	    default:
 	    }
 
+	    /*FIXME FIXME FIXME*/
+	    String xslt = "jakarta-tomcat-5.0.28/webapps/coma/style/xsl/login.xsl";
+	    PrintWriter out = response.getWriter();
+	    response.setContentType("text/html; charset=ISO-8859-1");
+	    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
+	    StreamSource xsltSource = new StreamSource(xslt);
+	    XMLHelper.process(xmlSource, xsltSource, out);
+	    out.flush();
+
 	} catch (Exception exc) { // safety net
 
 	    LOG.log(ERROR, exc);
 	} finally {
+
 
 	    if (session != null){
 		session.setAttribute(SessionAttribs.RATEPAPER_STATE, state);

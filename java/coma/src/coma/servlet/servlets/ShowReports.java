@@ -128,7 +128,11 @@ public class ShowReports extends HttpServlet {
     }
 
     /**
-       get all papers from the DB that the user is allowed to see
+       get all papers from the DB that the user is allowed to see.
+
+       A user is allowed to see a paper iff
+        the user is a chair,
+	or the user is a reviewer of the paper and has already rated it.
 
        @param thePerson 
        the person that is asking for the information.
@@ -164,7 +168,7 @@ public class ShowReports extends HttpServlet {
 	   pretty much the same reason, i.e. they're not impartial?
 	   and all the info.	  
 	*/
-	if ((Math.random()>0.5)/*thePerson.isChair()*/){ //FIXME
+	if (false /*FIXME not present yet. thePerson.isChair()*/){
 
 	    theSearchResult = dbRead.getPaper(new SearchCriteria());
 	    postAccess(theSearchResult);
