@@ -38,12 +38,13 @@ if (isset($_POST['action'])) {
   }
   // Teste Gueltigkeit der Daten
   $noError = true;
-  for ($i = 0; $i < count($objReview->intRatings); $i++) {
-  if ($objReview->intRatings[$i] < 0 ||
-      $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
-    $noError = false;
-    $strMessage = 'There are invalid ratings. Please check if all ratings are '.
-                  'within their respective range.';
+  for ($i = 0; $i < count($objReview->intRatings) && !empty($noError); $i++) {
+    if ($objReview->intRatings[$i] < 0 ||
+        $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
+      $noError = false;
+      $strMessage = 'There are invalid ratings. Please check if all ratings are '.
+                    'within their respective range.';
+    }
   }
   if (!empty($noError)) {
     $objReview->recalcRating();
