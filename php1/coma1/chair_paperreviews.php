@@ -32,6 +32,7 @@ else {
   redirect('chair_reviews.php');
 }
 
+$ifArray = array();
 $content = new Template(TPLPATH.'chair_paperreviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['paper_id'] = encodeText($objPaper->intId);
@@ -43,10 +44,17 @@ if (!empty($objPaper->fltAvgRating)) {
 }
 else {
   $strContentAssocs['avg_rating'] = ' - ';
-}    
+} 
+if (isset($strMessage) && !empty($strMessage)) {
+  $strContentAssocs['message'] = $strMessage;
+  $ifArray[] = 9;
+}
+else {
+  $strContentAssocs['message'] = '';
+}	
 // Pruefe noch, ob der reviewte Artikel kritisch ist.
-$strContentAssocs['if'] = array();
 
+$strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
