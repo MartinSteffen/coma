@@ -216,7 +216,7 @@ function ptraMain()
 			$SQL =
 			  "SELECT paper.id, paper.conference_id, paper.author_id, paper.state FROM paper
 			   WHERE (paper.conference_id = ".$wert.")
-			   AND (paper.state = 0)";
+			   AND (paper.state < 3)";
 
 			$result = mysql_query($SQL);
 			while ($list = mysql_fetch_row($result))
@@ -294,7 +294,8 @@ function ptraMain()
 						addreviewer($pt[$selected], $list[0]);
 						$papercount--;
 						// Unset in PHP ist problematisch
-						unset($pt[$selected]);
+						// unset($pt[$selected]);
+						$pt = array_merge(array_slice($pt, 0, $selected), array_slice($pt, $selected+1, count($pt)-$selected+1));
 					}
 					sort($rest);
 //					echo $papercount." REST: ".count($rest)."<br>";
