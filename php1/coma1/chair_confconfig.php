@@ -39,6 +39,14 @@ if (isset($_POST['action'])) {
   $start_date = empty($_POST['start_date']) ? '' : strtotime($_POST['start_date']);
   $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
 
+  // als eingabe sind nur Interger-Werte erlaubt
+  $min_reviews = (int) $_POST['min_reviews'];
+  $def_reviews = (int) $_POST['def_reviews'];
+  $min_papers  = (int) $_POST['min_papers'];
+  $max_papers  = (int) $_POST['max_papers'];
+  $variance    = (int) $_POST['variance'];
+  $auto_numrev = (int) $_POST['auto_numreviewer'];
+
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
@@ -53,7 +61,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['def_reviews']      = encodeText($_POST['def_reviews']);
   $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
   $strContentAssocs['max_papers']       = encodeText($_POST['max_papers']);
-  $strContentAssocs['variance']         = encodeText(intval($_POST['variance']*100));
+  $strContentAssocs['variance']         = encodeText(intval($_POST['variance']));
   $strContentAssocs['auto_numreviewer'] = encodeText($_POST['auto_numreviewer']);
   if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
     $ifArray[] = 2;
@@ -101,6 +109,30 @@ if (isset($_POST['action'])) {
     elseif ($review_dl > $start_date) {
       $strMessage = 'Your Notification time should be before your Start Date!';
     }
+    elseif ($review_dl > $start_date) {
+      $strMessage = 'Your Notification time should be before your Start Date!';
+    }
+    elseif ( !($min_reviews <= $max_reviews)){
+      $strMessage = 'The minimum number of reviewers should not be greater than the maximum number of reviews!';
+    }
+    elseif ( !($min_reviews >= 0)){
+      $strMessage = 'The minimum number of reviews should be greater or equel to zero!';
+    }
+    elseif ( !($min_paper >= 0)){
+      $strMessage = 'The number of papers should be greater or equal to zero!';
+    }
+    elseif ( !($min_paper <= $max_paper)){
+      $strMessage = 'The minimum number of papers should not be greater than the maximum number of paper!';
+    }
+    elseif ( !($min_reviews <= $def_reviews)){
+      $strMessage = 'The minimum number of reviews should not be greater than the default number of reviews!';
+    }
+    elseif ( !(0 <= $variance) || !($variance > 100)){
+      $strMessage = 'The ambiguity should be greater than zero und less than hundred!';
+    }
+    elseif ( !(0 <= $auto_numrev )){
+      $strMessage = 'The  number of automatically added reviewers should be greater or equal than zero!';
+    }
     // Versuche die Konferenz zu aktualisieren
     else {
       $objCriterions = array();
@@ -141,7 +173,7 @@ if (isset($_POST['action'])) {
   // Oeffnen der erweiterten Einstellungen
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
       !isset($_POST['simple_config']) &&  !isset($_POST['submit']))) {
-    $content = new Template(TPLPATH.'edit_conference_ext.tpl');
+      $content = new Template(TPLPATH.'edit_conference_ext.tpl');
   }
 }
 // Wenn keine Daten geliefert worden, uebernimm die Werte aus der Datenbank
