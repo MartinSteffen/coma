@@ -21,7 +21,7 @@ $sql->connect();
 	$SQL =
 	"SELECT id, conference_id, title, forum_type, paper_id
 	FROM forum
-	WHERE (conference_id = ".$_GET['confID'].")";
+	WHERE (conference_id = ".$_GET['confID'].") ";
 
 	if (!isChair_Overall() AND !isReviewer_Overall())
 	{
@@ -41,9 +41,7 @@ $sql->connect();
 		  WHERE (reviewreport.reviewer_id = ".$_SESSION['userID'].")
 		  AND (forum.conference_id = ".$_GET['confID'].")";
 
-//		  echo $SQL;
-
-		  $paper = $sql->query($SQL);
+		  $paperlist = $sql->query($SQL);
 
 		  $SQL =
 			"SELECT id, conference_id, title, forum_type, paper_id
@@ -53,7 +51,7 @@ $sql->connect();
 	}
 
 	$list = $sql->query($SQL);
-	$list = array_merge($list, $paper);
+	$list = array_merge($list, $paperlist);
 
 	$TPL['Forumliste'] = $list;
 
