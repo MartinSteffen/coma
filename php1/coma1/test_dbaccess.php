@@ -32,7 +32,9 @@ else if (empty($c)) {
   echo('EMPTY');
   exit(-1);
 }
+$c->blnAutoActivateAccount = true;
 $c->blnAutoOpenPaperForum = false;
+$c->blnAutoAddReviewers = true;
 $myDBAccess->updateConference($c);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
