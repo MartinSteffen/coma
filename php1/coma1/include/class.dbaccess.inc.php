@@ -12,14 +12,15 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 
-// ACHTUNG!! FEHLER!
-// Bei for-Schleifen ist vor der Benutzung von count unbedingt zu pruefen, ob
-// nicht etwa FALSE zurueckgegeben wurde => count(FALSE)=1 !!!
-// Das ist sicherlich nicht das gewuenschte Ergebnis...
-
-
-// OFFENE PUNKTE (nur diese Klasse betreffend, daher nicht in Spec):
-// -----------------------------------------------------------------
+// ACHTUNG!! FALLE:
+// Bei for-Schleifen bei der Benutzung von count unbedingt zu pruefen, ob
+// nicht etwa FALSE zurueckgegeben wurde => count(FALSE)=1 !!! Bei SQL-Statements
+// ist dies nicht der Fall (weil wir das leere Array zurueckbekommen), aber bei
+// Methodenaufrufen von DBAccess ist dies durchaus moeglich.
+//
+// Die aktuellen Vorkommen (2) davon habe ich gefixt.
+// Ein Beispiel, wie dies elegant geschieht aus getForumsOfPerson:
+// for ($i = 0; $i < count($objAllForums) && empty($objAllForums) == false; $i++)
 
 
 require_once(INCPATH.'header.inc.php');
@@ -85,7 +86,7 @@ class DBAccess extends ErrorHandling {
   function booleanToDatabase($blnProgram) {
     return $this->success($blnProgram ? 1 : 0);
   }
-  
+
   /**
    * Liefert die Boolean-Repraesentation des Datenbank-Integers $intDatabase zur
    * Verwendung im Programm.
@@ -167,7 +168,7 @@ class DBAccess extends ErrorHandling {
     $objConferences = array();
     for ($i = 0; $i < count($data); $i++) {
       $objConferences[] = (new Conference($data[$i]['id'], $data[$i]['name'],
-                            $data[$i]['homepage'], $data[$i]['description'], 
+                            $data[$i]['homepage'], $data[$i]['description'],
                             $data[$i]['conference_start'], $data[$i]['conference_end']));
     }
     return $this->success($objConferences);
@@ -242,13 +243,13 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getCriterionsOfConference', $this->mySql->getLastError());
-    }    
+    }
     $objCriterions = array();
     for ($i = 0; $i < count($data); $i++) {
       $fltWeight = $data[$i]['quality_rating'] / 100.0;
       $objCriterions[] = (new Criterion($data[$i]['id'], $data[$i]['name'],
                             $data[$i]['description'], $data[$i]['max_value'], $fltWeight));
-    }    
+    }
     return $this->success($objCriterions);
   }
 
@@ -268,7 +269,7 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getTopicsOfConference', $this->mySql->getLastError());
-    }    
+    }
     $objTopics = array();
     for ($i = 0; $i < count($data); $i++) {
       $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
@@ -383,7 +384,7 @@ class DBAccess extends ErrorHandling {
                    $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
                    $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
                    $data[0]['country'], $data[0]['phone_number'],
-                   $data[0]['fax_number']));    
+                   $data[0]['fax_number']));
     return $this->success($objPerson);
   }
 
@@ -482,7 +483,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
     }
-    $objPapers = array();   
+    $objPapers = array();
     for ($i = 0; $i < count($data); $i++) {
       $objReviewer = $this->getPerson($intReviewerId);
       if ($this->mySql->failed()) {
@@ -545,7 +546,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPaperDetailed', $this->mySql->getLastError());
     }
     $intCoAuthorIds = array();
-    $strCoAuthors = array();    
+    $strCoAuthors = array();
     for ($i = 0; $i < count($cadata); $i++) {
       $intCoAuthorIds[] = $cadata[$i]['coauthor_id'];
       $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
@@ -620,7 +621,7 @@ class DBAccess extends ErrorHandling {
     for ($i = 0; $i < count($data); $i++) {
       $sum += $data[$i]['total_rating'];
     }
-    return $this->success($sum / count($data));    
+    return $this->success($sum / count($data));
   }
 
   /**
@@ -663,7 +664,7 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
-    }    
+    }
     $objReviews = array();
     for ($i = 0; $i < count($data); $i++) {
       $objReview = $this->getReview($data[$i]['id']);
@@ -675,7 +676,7 @@ class DBAccess extends ErrorHandling {
                             "id = $data[$i]['id']");
       }
       $objReviews[] = $objReview;
-    }    
+    }
     return $this->success($objReviews);
   }
 
@@ -694,7 +695,7 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
-    }    
+    }
     $objReviewers = array();
     for ($i = 0; $i < count($data); $i++) {
       $objReviewer = $this->getPerson($data[$i]['reviewer_id']);
@@ -737,7 +738,7 @@ class DBAccess extends ErrorHandling {
                             "id = $data[$i]['id']");
       }
       $objReviews[] = $objReview;
-    }    
+    }
     return $this->success($objReviews);
   }
 
@@ -806,7 +807,7 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewDetailed', $this->mySql->getLastError());
-    }    
+    }
     else if (empty($data)) {
     	return $this->success(false);
     }
@@ -846,14 +847,14 @@ class DBAccess extends ErrorHandling {
     }
     $intRatings = array();
     $strComments = array();
-    $objCriterions = array();      
+    $objCriterions = array();
     for ($i = 0; $i < count($rating_data); $i++) {
       $intRatings[] = $rating_data[$i]['grade'];
       $strComments[] = $rating_data[$i]['comment'];
       $objCriterions[] = (new Criterion($rating_data[$i]['id'], $rating_data[$i]['name'],
                             $rating_data[$i]['description'], $rating_data[$i]['max_value'],
                             $rating_data[$i]['quality_rating'] / 100.0));
-    }      
+    }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
                    $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
                    getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
@@ -867,7 +868,7 @@ class DBAccess extends ErrorHandling {
    * Prueft, ob die Person $intPersonId Zugang zum Forum $intForumId hat.
    *
    * @param int $intPersonId Die zu pruefende Person.
-   * @param int $intForumId Das zu pruefende Forum.   
+   * @param int $intForumId Das zu pruefende Forum.
    * @return boolean Gibt true zurueck gdw. die Person Zugriff auf das Forum hat.
    * @access public
    * @author Sandro (12.01.05)
@@ -949,7 +950,7 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getAllForums', $this->mySql->getLastError());
-    }    
+    }
     $objForums = array();
     for ($i = 0; $i < count($data); $i++) {
       $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
@@ -977,7 +978,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($data)) {
       return $this->success(false);
-    }    
+    }
     $forum = (new Forum($data[0]['id'], $data[0]['title'], $data[0]['forum_type'], $intPaperId));
     return $this->success($forum);
   }
@@ -1000,14 +1001,14 @@ class DBAccess extends ErrorHandling {
     $objAllForums = getAllForums();
     if ($this->mySql->failed()) {
       return $this->error('getForumsOfPerson', $this->mySql->getLastError());
-    }    
+    }
     $objForums = array();
-    for ($i = 0; $i < count($objAllForums); $i++) {
+    for ($i = 0; $i < count($objAllForums) && empty($objAllForums) == false; $i++) {
       if ($this->checkAccessToForum($objPerson, $objAllForums[$i])) {
         $objForums[] = $objAllForums[$i];
       }
     }
-    return $this->success($objForums);      
+    return $this->success($objForums);
   }
 
   /**
@@ -1031,7 +1032,7 @@ class DBAccess extends ErrorHandling {
     }
     $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'], 0, false,
                                 $this->getThreadsOfForum($intForumId)));
-    return $this->success($forum);    
+    return $this->success($forum);
   }
 
 
@@ -1043,7 +1044,7 @@ class DBAccess extends ErrorHandling {
   /**
    * Aktualisiert den Datensatz der Person mit den Daten des PersonDetailed-Objekts $objPerson.
    *
-   * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll   
+   * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll
    * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
    * @access public
    * @author Sandro (10.01.05)
@@ -1086,7 +1087,7 @@ class DBAccess extends ErrorHandling {
   function updateRoles($objPerson, $intConferenceId) {
     global $intRoles;
     $intId = $objPerson->intId;
-    
+
     // Rollen loeschen...
     $s = 'DELETE  FROM Role'.
         ' WHERE   person_id = '.$intId;
@@ -1110,10 +1111,10 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Aktualisiert den Datensatz des Artikels mit den Daten des PaperDetailed-Objekts $objPaper.   
+   * Aktualisiert den Datensatz des Artikels mit den Daten des PaperDetailed-Objekts $objPaper.
    * Sorgt nicht (!) dafuer, die aktuelle Dateiversion hochzuladen.
    *
-   * @param PaperDetailed $objPaper Artikel, der in der Datenbank aktualisiert werden soll   
+   * @param PaperDetailed $objPaper Artikel, der in der Datenbank aktualisiert werden soll
    * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
    * @access public
    * @author Sandro (10.01.05)
@@ -1144,7 +1145,7 @@ class DBAccess extends ErrorHandling {
    * Legt eine neue Konferenz an.
    * @param $strName                   :max. 127 Zeichen
    * @param $strHomepage               :max. 127 Zeichen
-   * @param $strDescription       
+   * @param $strDescription
    * @param $strAbsSubDeadline         :?
    * @param $strPaperSubDeadline       :?
    * @param $strReviewDeadline         :?
@@ -1153,21 +1154,21 @@ class DBAccess extends ErrorHandling {
    * @param $strConverenceStart        :?
    * @param $strConferenceEnd          :?
    * @param $strMinRevPerPaper         :?
-   * 
-   * Datum wird übergeben im Format Jahr-Monat-Tag z.B. 2012115 
+   *
+   * Datum wird übergeben im Format Jahr-Monat-Tag z.B. 2012115
    *
    * @access public
    * @author Daniel (31.12.04)
    */
-   
+
    /* TODO: automatisch auch neuen ConferenceConfig-Datensatz einfuegen! (Tom) */
-   function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline, 
-                         $strPaperSubDeadline, $strReviewDeadline, $strFinalVersionDeadline, 
+   function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline,
+                         $strPaperSubDeadline, $strReviewDeadline, $strFinalVersionDeadline,
                          $strNotification, $strConverenceStart, $strConferenceEnd, $strMinRevPerPaper){
-     $s = 'INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline, 
+     $s = 'INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,
                                     paper_submission_deadline, review_deadline, final_version_deadline,
-                                    notification, conference_start, conference_end, min_reviews_per_paper)'. 
-                 ' VALUES          ( \''.$strName.'\', 
+                                    notification, conference_start, conference_end, min_reviews_per_paper)'.
+                 ' VALUES          ( \''.$strName.'\',
                                      \''.$strHomepage.'\',
                                      \''.$strDescription.'\',
                                      \''.$strAbsSubDeadline.'\',
@@ -1321,7 +1322,7 @@ class DBAccess extends ErrorHandling {
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       $blnOk = true;
-      for ($i = 0; $i < count($strCoAuthors); $i++) {
+      for ($i = 0; $i < count($strCoAuthors) && empty($strCoAuthors) == false; $i++) {
         if ($this->addCoAuthorName($intId, $strCoAuthors[$i]) == false) {
           $blnOk = false;
         }
@@ -1394,7 +1395,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('createNewReviewReport '.$this->mySql->getLastError());
      }
      $objCriterions = $this->getCriterionsOfConference($intConferenceId);
-     for ($i = 0; $i < count($objCriterions); $i++) {
+     for ($i = 0; $i < count($objCriterions) && empty($objCriterions) == false; $i++) {
         $this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
      }
      return $intReviewId;
