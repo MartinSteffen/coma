@@ -86,11 +86,11 @@ input, button { font-size: 12px;
         border-width: 1px;
         border-color: #404040;
         margin: 2px 4px;
-        padding: 2px 8px;
+        padding: 2px 4px;
       }
 
 input.button, button { font-weight: bold; background-color: #CEDBEF;
-                       min-width: 100px; text-align: center; }
+                       min-width: 100px; text-align: center; padding: 2px 8px; }
 
 /* Tabelle mit Linien zur Darstellung von Listen */
 table.list { border-style: solid;
