@@ -1,28 +1,3 @@
-From: "Olle Nebendahl" <jon@informatik.uni-kiel.de>
-Subject: Test deliv
-To: "Martin Steffen" <ms@informatik.uni-kiel.de>
-Cc: "Oliver Niemann" <gub75@gmx.de>,
-        "Tonelli Bartolomei Thiago" <thiagobart@gmail.com>,
-        "Gunnar Biederbeck" <gbi@informatik.uni-kiel.de>
-Date: Tue, 23 Nov 2004 00:14:43 +0100 (MET)
-
-Moin,
-
-da wir nun gegen Anfang des Projektes noch nicht allzu viel zu tun haben,
-treffen wir uns wenig und verlassen uns viel auf die jeweils anderen
-Partner.... Hinzu kommen übereifrige Spamfilter, die mittlerweile auf
-Praktikumskonzepte höchtwichtiger Kieler Informatikprojekte
-ansprechen...Hier eine Rekonstruktion dessen, was vor einer Woche schon
-verloren ging.
-
-Leider nur in Plain-Text und gemäß verschiedensten aktuellen und
-veralteten Rechtschreibregeln - es kann nur ordentlicher werden...
-Soll das nocheinmal ins Angelsächsische übersetzt werden?
-
-für die Testriege,
-viele Grüße,
-Olle
-
 KONZEPT:
 
 Automatisches Testen:
@@ -93,28 +68,3 @@ sind die Moderatoren von BugZilla! Hugh!
 
 
 
->
->
->
->
-> Moin.
->
-> Wie sieht es eigentlich mit Euren Deliv's aus
->
->            Tool-1
->            Test
->
-> aus der ersten Phase?
->
-> Ich hatte Tools-1 bereits letzte Woche ``gepingt'', aber bislang keine
-> R"uckmeldung?
->
->
-> PS: Tool-2 hatte ich f"alschlich gemahnt (die hatten was abgegeben, aber
-> ich hatte es "ubersehen) aber auch von der Testgruppe haben wir nix
-> schriftliches bekommen.
->
-> Martin
->
->
->
