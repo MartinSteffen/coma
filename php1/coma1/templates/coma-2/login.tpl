@@ -1,4 +1,6 @@
-<div align="center">
+<table class="center">
+<tr>
+<td>
 <form action="{basepath}index.php?{SID}" method="post">
 <table class="formtable">
   <tr>
@@ -23,4 +25,6 @@
   </tr>
 </table>
 </form>
-</div>
+</td>
+</tr>
+</table>
