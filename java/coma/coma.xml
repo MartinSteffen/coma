@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Context docBase="/home/tomcat/tomcat/webapps/coma" path="/coma"
+<Context docBase="/home/webapps/coma" path="/coma"
 	 debug="99" reloadable="true" crossContext="true">
 	
  
@@ -31,7 +31,7 @@
     </parameter>
     <parameter>
       <name>url</name>
-      <value>jdbc:mysql://snert/authority</value>
+      <value>jdbc:mysql://localhost/authority</value>
     </parameter>
     <parameter>
       <name>username</name>
