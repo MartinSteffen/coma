@@ -28,7 +28,7 @@ function bit($b) {
 echo('<br>');
 
 echo('Get<br>');
-$p = $myDBAccess->getPaperDetailed(30);
+$p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -38,15 +38,6 @@ else if (empty($p)) {
 }
 
 echo('Update<br>');
-
-$myDBAccess->addCoAuthor(30, 60);
-if ($myDBAccess->failed()) {
-  echo($myDBAccess->getLastError());
-}
-$myDBAccess->addCoAuthorName(30, 'Hanswurst');
-if ($myDBAccess->failed()) {
-  echo($myDBAccess->getLastError());
-}
 
 $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
