@@ -27,12 +27,12 @@ require_once(INCPATH.'./class.review.inc.php');
  */
 class ReviewDetailed extends Review {
 
-  var $strSummary;
-  var $strRemarks;
-  var $strConfidential;
-  var $intRatings;
-  var $strComments;
-  var $objCriterions;
+  var $strSummary;       // Zusammenfassung des Reviewers unter seinen Report
+  var $strRemarks;       // Bemerkungen des Reviewers unter seinen Report
+  var $strConfidential;  // Notiz des Chairs zu einem Reviewreport
+  var $intRatings;       // Punkte in den einzelnen Kriterien
+  var $strComments;      // Kommentare zu den einzelnen Kriterien
+  var $objCriterions;    // die einzelnen Kriterien selbst
 
   function ReviewDetailed($intId, $intPaperId, $strPaperTitle, $strAuthorEmail,
                           $strAuthorName, $intReviewRating, $fltAverageRating,

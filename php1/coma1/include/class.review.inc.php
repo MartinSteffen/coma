@@ -20,14 +20,21 @@ if (!defined('IN_COMA1')) {
  *
  */
 class Review {
+  // Das Kriterium fuer die Gesamtnote fiel dem Zeitmangel zum Opfer.
+  // Konsequenz: Bedeutung von fltReviewRating hat sich komplett geaendert
+  // und entspricht jetzt der Bewertung des Papers durch EINEN Reviewer, d.h.
+  // der gewichteten Summe der Einzelkriterien.
+  // Der Durchschnitt dieser Paperbewertungen verschiedener Reviewer
+  // (fltAverageRating) ist dann letztlich entscheidend, ob ein Paper angenommen
+  // oder abgelehnt wird.
 
   var $intId;
   var $intPaperId;
   var $strPaperTitle;
   var $strAuthorEmail;
   var $strAuthorName;
-  var $fltReviewRating;    // Gesamtbewertung des Papers in diesem Review
-                           // (ist Durchschnitt der Kriterien)
+  var $fltReviewRating;    // Gesamtbewertung des Papers in diesem Review;
+                           // ist Durchschnitt der Kriterien! (am 20.01. geaendert!)
   var $fltAverageRating;   // Durchschnitt aller Gesamtbewertungen des Papers
   var $strReviewerEmail;
   var $strReviewerName;
