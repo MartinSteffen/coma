@@ -456,7 +456,7 @@ p.message-ok
 }
 p.message2
 {
-  width: 60%;
+  width: auto;
 }
 
 /* Statusanzeigen fuer Dokumente, Rollen etc. */
