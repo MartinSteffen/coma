@@ -593,6 +593,7 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPaperSimple', $this->getLastError());
     }
+    $data[0]['last_edited'] = emptyDBtime($data[0]['last_edited']);
     $objPaper = (new PaperSimple($intPaperId, $data[0]['title'], $data[0]['author_id'],
                   $strAuthor, $data[0]['state'], $data[0]['last_edited'], $fltAvgRating,
                   $data[0]['filename'], $objTopics));
@@ -642,6 +643,7 @@ class DBAccess extends ErrorHandling {
       if ($this->failed()) {
         return $this->error('getPapersOfAuthor', $this->getLastError());
       }
+      $data[$i]['last_edited'] = emptyDBtime($data[$i]['last_edited']);
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
@@ -702,6 +704,7 @@ class DBAccess extends ErrorHandling {
       if ($this->failed()) {
         return $this->error('getPapersOfReviewer', $this->getLastError());
       }
+      $data[$i]['last_edited'] = emptyDBtime($data[$i]['last_edited']);
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
@@ -747,6 +750,7 @@ class DBAccess extends ErrorHandling {
       if ($this->failed()) {
         return $this->error('getPapersOfConference', $this->getLastError());
       }
+      $data[$i]['last_edited'] = emptyDBtime($data[$i]['last_edited']);
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
@@ -818,6 +822,7 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPaperDetailed', $this->getLastError());
     }
+    $data[0]['last_edited'] = emptyDBtime($data[0]['last_edited']);
     $objPaper = (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
                   $strAuthor, $data[0]['state'], $data[0]['last_edited'], $fltAvgRating,
                   $intCoAuthorIds, $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
@@ -1571,14 +1576,6 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
     }
-    /*$this->updateCriterions($objConferenceDetailed);
-    if ($this->failed()) {
-      return $this->error('updateConference', $this->getLastError());
-    }
-    $this->updateTopics($objConferenceDetailed);
-    if ($this->failed()) {
-      return $this->error('updateConference', $this->getLastError());
-    }*/
     return $this->success();
   }
 
