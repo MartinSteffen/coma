@@ -49,8 +49,8 @@
 		<mkdir dir="${dist}/${app.name}/style" />
 		<mkdir dir="${dist}/${app.name}/papers" />
 		<mkdir dir="${dist}/${app.name}/doc" />
-		<chmod perm="u=rwx,g=rx,o=x">
-			<fileset dir="${dist}/${app.name}/papers" />
+		<chmod perm="u=rwx,g=rwx,o=rwx">
+			<dirset dir="${dist}/${app.name}/papers" />
 		</chmod>
 		<mkdir dir="${dist}/${app.name}/META-INF" />
 		<copy todir="${dist}/${app.name}/WEB-INF/classes">
