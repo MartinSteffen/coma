@@ -4,7 +4,7 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">
-<-- Needed for Germany!
+<!-- Needed for Germany!
      1. den Namen und die Anschrift, unter der Telediensteanbieter niedergelassen sind,
          bei juristischen Personen zus&auml;tzlich den Vertretungsberechtigten,<br>
      2. Angaben, die eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation
@@ -22,7 +22,7 @@
      <br>
      <br>
 -->
-<-- American default Disclaimer -->
+<!-- American default Disclaimer -->
       THIS SOFTWARE IS PROVIDED BY THE COMA1 DEVELOPMENT TEAM 'AS IS' AND
       ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
       THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
