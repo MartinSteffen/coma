@@ -63,6 +63,7 @@
   <tr>
     <td colspan="2">
       <input type="hidden" name="action" value="update">
+      <input type="hidden" name="paperid" value="{paper_id}">
       <input type="submit" name="submit" value="Accept changes" class="button">
       <input type="reset"  name="reset" value="Reset settings" class="button">
     </td>
@@ -70,24 +71,26 @@
 </table>
 </form>
 
-<form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
 <table class="formtable">
   <tr>
     <th>Upload new document:</th>
     <td colspan="2">
       <input type="hidden" name="action" value="upload">
+      <input type="hidden" name="paperid" value="{paper_id}">
       <input type="file" name="paperfile">      
       <input type="submit" name="submit" value="Upload" class="button">
     </td>
 </table>
 </form>
 
-<form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
 <table class="formtable">
   <tr>
-    <td colspan="2">      
-      <input type="checkbox" name="verify_delete" value="1">
+    <td colspan="2">            
+      <input type="hidden" name="paperid" value="{paper_id}">
       <input type="hidden" name="action" value="delete">
+      <input type="checkbox" name="verify_delete" value="1">
       <input type="submit" name="submit" value="Delete paper" class="button">
     </td>
   </tr>
