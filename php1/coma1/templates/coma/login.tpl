@@ -35,11 +35,7 @@
 <p class="message2">
   If you have registered for the site, please enter your username and password.
   You have to login in order to access information that is relevant to you.<br>
-  If you have not registered yet, please register below:<br>
+  If you have not registered yet, <a href="{basepath}register.php{?SID}"please register!</a>
 </p>
-
-<form action="{basepath}register.php{?SID}" method="post" accept-charset="UTF-8">
-  <input type="submit" name="submit" value="Register" class="button" />
-</form>
 
 <p>&nbsp;</p>
