@@ -441,7 +441,7 @@ else{
   $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs);
   if (DEBUG){
     //echo($contentAssocs['forumtypes']);
-    var_dump($contentAssocs);
+    //var_dump($contentAssocs);
   }
 
   $content->assign($contentAssocs);
