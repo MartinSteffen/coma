@@ -16,6 +16,14 @@ h3 { font-size: 13px; }
 
 a { font-size: 13px; text-decoration: none; font-weight : bold; }
 a:link    { color: #AD351A; }
-a:visited { color: #78534A; }
+a:visited { color: #AD351A; }
+/* #78534A; */
 a:active  { color: #000000; }
 a:hover   { color: #FF4D00; }
+
+/* links im menue */
+a.menue { font-size: 13px; text-decoration: none; font-weight : bold; }
+a.menue:link    { color: #000000; }
+a.menue:visited { color: #000000; }
+a.menue:active  { color: #000000; }
+a.menue:hover   { color: #2F2F2F; }
