@@ -39,6 +39,7 @@ public class Admin extends HttpServlet
 	String path = null;
 	String user = null;
 	Navcolumn myNavCol = null;
+	Person user_person;
 	
 	
 	public void doGet(HttpServletRequest req,HttpServletResponse res) 
@@ -48,13 +49,12 @@ public class Admin extends HttpServlet
 		String action = req.getParameter("action");
 		HttpSession session= req.getSession(true);
 		path = getServletContext().getRealPath("");
-		Person p = (Person)session.getAttribute(SessionAttribs.PERSON);
+		user_person = (Person)session.getAttribute(SessionAttribs.PERSON);
 		myNavCol = new Navcolumn(req.getSession(true));
-		myNavCol.addExtraData("<isAdmin/>");
 		if (action.equals("setup"))
 		{
 			String tag="setup";
-			info.append(XMLHelper.tagged("status","setup of a new chair"));
+			info.append(XMLHelper.tagged("status","Setup new chair"));
 			info.append(XMLHelper.tagged("content",""));
 			commit(res,tag);
 		}
@@ -100,7 +100,7 @@ public class Admin extends HttpServlet
 			int id = result_conference[0].getId();
 			p.setConference_id(id);
 			insert.insertPerson(p);
-			info.append(XMLHelper.tagged("status","Setup successful"));
+			info.append(XMLHelper.tagged("status","Setup successfull"));
 			info.append(XMLHelper.tagged("status",""));
 			//send_email(email);
 		}
