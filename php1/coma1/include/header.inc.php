@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * @version $Id$
  * @package coma1
@@ -59,7 +59,7 @@ $intRoles = array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT);
 $strRoles = array(CHAIR       => 'Chair',
                   REVIEWER    => 'Reviewer',
                   AUTHOR      => 'Author',
-                  PARTICIPANT => 'Participant');                  
+                  PARTICIPANT => 'Participant');
 /**#@-*/
 
 /**#@+ Konstanten fuer die Artikelstatuswerte */
@@ -98,7 +98,7 @@ if ($myDBAccess->failed()) {
 // wenn der Benutzer korrekt eingeloggt ist!
 // Setzt uid korrekt
 if (!defined('NEED_NO_LOGIN')) {
-  if (checkLogin()) {    
+  if (checkLogin()) {
     if (!isset($_SESSION['uid'])) {
       // UID setzen
       $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
