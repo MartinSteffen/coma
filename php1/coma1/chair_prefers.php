@@ -127,7 +127,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'View preferences of reviewer '.encodeText($objPerson->getName(0));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conference  |  Preferences';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Preferences';
 
 $main->assign($strMainAssocs);
 $main->parse();
