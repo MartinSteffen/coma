@@ -91,6 +91,7 @@ if (isset($strMessage)) {
   $strContentAssocs['if'] = array(1);        
 }
 
+$strContentAssocs['targetpage'] = 'user_profile';
 $content->assign($strContentAssocs);
 
 $actMenu = 0;

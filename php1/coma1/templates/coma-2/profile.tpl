@@ -2,7 +2,7 @@
 {if1<p class="message">{message}</p>}
 
 <p class="center">
-<form action="{basepath}main_profile.php?{SID}" method="post">
+<form action="{basepath}{targetpage}.php?{SID}" method="post">
 
 <table class="formtable">
   <tr>
