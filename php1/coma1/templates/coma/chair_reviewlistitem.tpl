@@ -59,6 +59,6 @@
       {reviewers}
     </td>
     <td class="listitem-{line_no}">
-      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Add/Del reviewers</a>
+      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Add/Del&nbsp;reviewers</a>
     </td>
   </tr>
