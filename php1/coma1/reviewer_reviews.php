@@ -91,17 +91,22 @@ if (!empty($objPapers)) {
         $strItemAssocs['avg_rating'] = ' - ';
       }
       // Pruefe Zugang zum Paperforum
-      $objPaperForum = $myDBAccess->getForumOfPaper($objReview->intPaperId);
-      if ($myDBAccess->failed()) {
-        error('get forum of paper', $myDBAccess->getLastError());
-      }      
-      if (empty($objPaperForum)) {
-      	$ifArray[] = 7;
-      	$strItemAssocs['forum_id'] = '';
+      if ($objReview->intAuthorId != session('uid') {
+        $objPaperForum = $myDBAccess->getForumOfPaper($objReview->intPaperId);
+        if ($myDBAccess->failed()) {
+          error('get forum of paper', $myDBAccess->getLastError());
+        }      
+        if (empty($objPaperForum)) {
+      	  $ifArray[] = 7;
+      	  $strItemAssocs['forum_id'] = '';
+        }
+        else {
+      	  $ifArray[] = 8;
+      	  $strItemAssocs['forum_id'] = encodeText($objPaperForum->intId);
+        }
       }
       else {
-      	$ifArray[] = 8;
-      	$strItemAssocs['forum_id'] = encodeText($objPaperForum->intId);
+        $strItemAssocs['forum_id'] = '';
       }
     }
     else {

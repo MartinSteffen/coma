@@ -111,17 +111,22 @@ if (!empty($objPapers)) {
       $ifArray[] = 7;
     }
     // Pruefe Zugang zum Paperforum
-    $objPaperForum = $myDBAccess->getForumOfPaper($objPaper->intId);
-    if ($myDBAccess->failed()) {
-      error('Error occured retrieving forum of paper.', $myDBAccess->getLastError());
-    }      
-    if (empty($objPaperForum)) {
-      $ifArray[] = 8;
-      $strItemAssocs['forum_id'] = '';
+    if ($objPaper->intAuthorId != session('uid') {    
+      $objPaperForum = $myDBAccess->getForumOfPaper($objPaper->intId);
+      if ($myDBAccess->failed()) {
+        error('Error occured retrieving forum of paper.', $myDBAccess->getLastError());
+      }      
+      if (empty($objPaperForum)) {
+        $ifArray[] = 8;
+        $strItemAssocs['forum_id'] = '';
+      }
+      else {
+        $ifArray[] = 9;
+        $strItemAssocs['forum_id'] = encodeText($objPaperForum->intId);
+      }
     }
     else {
-      $ifArray[] = 9;
-      $strItemAssocs['forum_id'] = encodeText($objPaperForum->intId);
+      $strItemAssocs['forum_id'] = '';
     }
     $strItemAssocs['if'] = $ifArray;    
     // Zugeteilte Reviewer
