@@ -1322,7 +1322,7 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array der durch die Person $intPersonId zum Reviw abgelehnten Paper
+   * Liefert ein Array der fuer die Person mit ID $intPersonId ausgeschlossenen Paper
    * bei der Konferenz $intConferenceId.
    *
    * @param int $intPersonId ID der Person
@@ -1763,11 +1763,56 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo (Toms Job)
+   * Aktualisiert die bevorzugten Themen der Person $objPersonAlgorithmic bei der
+   * Konferenz mit ID $intConferenceId.
+   *
+   * @param PersonAlgorithmic $objPersonAlgorithmic Die Person.
+   * @param int $intConferenceId Konferenz-ID.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access private
+   * @author Tom (18.01.05)
+   */
+  function updatePreferredTopics($objPersonAlgorithmic, $intConferenceId) {
+    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
+      return $this->success(false);
+    }
+    if (empty($intConferenceId)) {
+      return $this->success(false);
+    }
+    $intPersonId = $objPersonAlgorithmic->intId;
+    // Topics loeschen...
+    $s = "DELETE  PrefersTopic".
+        " FROM    PrefersTopic pt".
+        " INNER   JOIN Topic t".
+        " ON      t.id = pt.topic_id".
+        " AND     t.conference_id = '$intConferenceId'".
+        " WHERE   pt.person_id = '$intPersonId'";
+    $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updatePreferredTopics', $this->mySql->getLastError());
+    }
+    if (empty($objPersonAlgorithmic->objPreferredTopics)) {
+      return $this->success();
+    }
+    $objTopics = $objPersonAlgorithmic->objPreferredTopics;
+    // Topics einfuegen...
+    for ($i = 0; $i < count($objTopics); $i++) {
+      $s = "INSERT  INTO PrefersTopic (person_id, topic_id)".
+          "         VALUES ('$intPersonId', '$objTopic->intId')";
+      $this->mySql->insert($s);
+      if ($this->mySql->failed()) {
+        return $this->error('updatePreferredTopics', $this->mySql->getLastError());
+      }
+    }
+    return $this->success();
+  }
+
+  /**
+   * @todo (macht Tom)
    * @access private
    */
-  function updatePreferredTopics($objPersonConference) {
-    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
+  function updatePreferredPapers($objPersonAlgorithmic) {
+    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
     }
     return $this->success();
@@ -1777,8 +1822,8 @@ nur fuer detaillierte?
    * @todo (macht Tom)
    * @access private
    */
-  function updatePreferredPapers($objPersonConference) {
-    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
+  function updateDeniedPapers($objPersonAlgorithmic) {
+    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
     }
     return $this->success();
@@ -1788,19 +1833,8 @@ nur fuer detaillierte?
    * @todo (macht Tom)
    * @access private
    */
-  function updateDeniedPapers($objPersonConference) {
-    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
-      return $this->success(false);
-    }
-    return $this->success();
-  }
-
-  /**
-   * @todo (macht Tom)
-   * @access private
-   */
-  function updateExcludedPapers($objPersonConference) {
-    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
+  function updateExcludedPapers($objPersonAlgorithmic) {
+    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
     }
     return $this->success();
