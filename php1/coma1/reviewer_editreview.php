@@ -13,6 +13,7 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+require_once('./include/paperdiscussion.inc.php');
 
 if (!isset($_GET['reviewid']) && !isset($_POST['reviewid'])) {
   redirect("reviewer_reviews.php");
@@ -57,8 +58,12 @@ if (isset($_POST['action'])) {
       $result = $myDBAccess->updateReviewReport($objReview);
       if (!empty($result)) {
       	$strMessage = 'Review report was updated successfully.';
-      	$intPaperId = $objReview->intPaperId;
-      	include('./include/paperdiscussion.inc.php');
+      	$intPaperId = $objReview->intPaperId;      	
+      	$startForum = createPaperForum($myDBAccess, $objPaper->intId);
+      	if ($startForum) {
+            $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
+                           'paper has been opened.';
+        }
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?

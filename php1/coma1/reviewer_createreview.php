@@ -13,6 +13,7 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+require_once('./include/paperdiscussion.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(REVIEWER);
@@ -89,7 +90,12 @@ if (isset($_POST['action'])) {
                                                    $intRatings, $strComments, $objCriterions);
       if (!empty($result)) {
       	$strMessage = 'Review report was created successfully.';
-      	include('./include/paperdiscussion.inc.php');
+      	 $startForum = createPaperForumIfCritical($myDBAccess, $objPaper->intId);      	  
+      	  if ($startForum) {
+            $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
+                           'paper has been opened.';
+          }
+        }
         $_SESSION['message'] = $strMessage;
         redirect("reviewer_editreview.php?reviewid=".$result);
       }

@@ -1331,6 +1331,29 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Prueft, ob das Paper $intPaperId kritisch ist.
+   *
+   * @param int $intPaperId ID des Papers   
+   * @return bool true gdw. das Paper kritisch ist
+   * @access public
+   * @author Sandro (04.02.05)
+   */
+  function isPaperCritical($intPaperId) { 
+    $s = sprintf("SELECT   state".
+                 " FROM    Paper".
+                 " WHERE   id = '%d'",
+                           s2db($intPaperId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('isPaperCritical', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->error('isPaperCritical', 'Paper '.$intPaperId.'does not exist in database.');
+    }
+    return $this->success($data[0]['state'] == PAPER_CRITICAL);
+  }
+
+  /**
    * Liefert ein Array von Person-Objekten zurueck, die Reviewer des Papers $intPaperId sind.
    *
    * @param int $intPaperId ID des Papers
