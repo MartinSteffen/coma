@@ -75,7 +75,7 @@ function defaultAssocArray() {
  * @return string encoded string
  */
 function encodeText($_str) {
-  return htmlentities($_str, ENT_QUOTES, 'UTF-8');
+  return htmlentities(trim($_str), ENT_QUOTES, 'UTF-8');
 }
 
 /**
@@ -88,7 +88,7 @@ function encodeText($_str) {
 function encodeTextArray($_str) {
   $retArray = explode('|', $_str);
   for ($i = 0; $i < count($retArray); $i++) {
-    $retArray[$i] = htmlentities($retArray[$i], ENT_QUOTES, 'UTF-8');
+    $retArray[$i] = encodeText($retArray[$i]);
   }
   return $retArray;
 }

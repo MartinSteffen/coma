@@ -80,8 +80,8 @@ if (isset($_POST['action'])) {
     for ($i = 0; $i < count($strTopics); $i++) {
       $topicForm = new Template(TPLPATH.'topic_listitem.tpl');
       $strTopicAssocs = defaultAssocArray();
-      $strTopicAssocs['topic_no']   = $i+1;
-      $strTopicAssocs['topic_name'] = $strTopics[$i];
+      $strTopicAssocs['topic_no']   = encodeText($i+1);
+      $strTopicAssocs['topic_name'] = encodeText($strTopics[$i]);
       $topicForm->assign($strTopicAssocs);
       $topicForm->parse();
       $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
@@ -89,11 +89,11 @@ if (isset($_POST['action'])) {
     for ($i = 0; $i < count($strCriterions); $i++) {
       $critForm = new Template(TPLPATH.'criterion_listitem.tpl');
       $strCritAssocs = defaultAssocArray();
-      $strCritAssocs['crit_no']     = $i+1;
-      $strCritAssocs['crit_name']   = $strCriterions[$i];
-      $strCritAssocs['crit_descr']  = $strCritDescripts[$i];
-      $strCritAssocs['crit_max']    = $strCritMaxVals[$i];
-      $strCritAssocs['crit_weight'] = $strCritWeights[$i];
+      $strCritAssocs['crit_no']     = encodeText($i+1);
+      $strCritAssocs['crit_name']   = encodeText($strCriterions[$i]);
+      $strCritAssocs['crit_descr']  = encodeText($strCritDescripts[$i]);
+      $strCritAssocs['crit_max']    = encodeText($strCritMaxVals[$i]);
+      $strCritAssocs['crit_weight'] = encodeText($strCritWeights[$i]);
       $critForm->assign($strCritAssocs);
       $critForm->parse();
       $strContentAssocs['crit_lines'] .= $critForm->getOutput();
@@ -104,8 +104,8 @@ if (isset($_POST['action'])) {
   $strContentAssocs['crit_max']       = '';
   $strContentAssocs['crit_descr']     = '';
   $strContentAssocs['crit_weight']    = '';
-  $strContentAssocs['num_topics']     = count($strTopics);
-  $strContentAssocs['num_criterions'] = count($strCriterions);
+  $strContentAssocs['num_topics']     = encodeText(count($strTopics));
+  $strContentAssocs['num_criterions'] = encodeText(count($strCriterions));
   for ($i = 0; $i < count($strTopics); $i++) {
     $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($strTopics[$i]);
   }
