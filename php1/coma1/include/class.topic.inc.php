@@ -22,7 +22,7 @@ if (!defined('IN_COMA1')) {
 class Topic {
 
   var $intId;
-  var $intConferenceId
+  var $intConferenceId;
   var $strName;
 
   function Topic($intId, $intConferenceId, $strName) {
