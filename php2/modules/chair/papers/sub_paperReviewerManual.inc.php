@@ -20,7 +20,7 @@ if(isChair_Paper($_GET['paperID']))
 		  AND role.person_id = person.id
 		  AND role.conference_id = paper.conference_id
 		  AND paper.id = ".$_GET['paperID']."
-		  AND (NOT (person.id = ".$_SESSION['userID']."))";
+		  AND (NOT (paper.author_id = person.id))";
 	$reviewers = array();
 	$count = 0;
 	$result=mysql_query($SQL);
