@@ -26,7 +26,21 @@ public class SearchCriteria {
     public Paper paper;
     public Person person;
     public ReviewReport reviewReport;
+    public Rating rating;
+    public Criterion criterion;
     
+    public Criterion getCriterion() {
+        return criterion;
+    }
+    public void setCriterion(Criterion criterion) {
+        this.criterion = criterion;
+    }
+    public Rating getRating() {
+        return rating;
+    }
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
     public SearchCriteria(){
     }
     
