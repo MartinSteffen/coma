@@ -79,7 +79,9 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
   }
   // Aktualisieren der Konferenz in der Datenbank
   if (isset($_POST['submit']) || isset($_POST['submit_adv'])) {
-    // auf korrkete Daten pruefen
+    // Prüfen, ob die Eingaben gültig sind.
+    // Wenn die Eingaben gültig sind ist $strMessage leer.
+    $strMessage=''; 
     if (empty($_POST['name'])
     ||  empty($paper_dl)
     ||  empty($review_dl)
@@ -87,56 +89,71 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     ||  empty($start_date)
     ||  empty($abstract_dl))
     {
-      $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
-                    'and <b>Deadlines</b>!';
+      $strMessage =  $strMessage.
+                     'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
+                    'and <b>Deadlines</b>!<br> <br>';
     }
-    elseif ((!empty($end_date)) && ($start_date > $end_date)) {
-      $strMessage = 'Your Start Date should be before your End Date!';
+    if ((!empty($end_date)) && ($start_date > $end_date)) {
+      $strMessage =  $strMessage.
+                     'Your Start Date should be before your End Date! <br>';
     }
-    elseif ($abstract_dl > $paper_dl) {
-      $strMessage = 'Your Abstract Deadline should be before your Paper Deadline!';
+    if ($abstract_dl > $paper_dl) {
+      $strMessage =  $strMessage.
+                     'Your Abstract Deadline should be before your Paper Deadline! <br>';
     }
-    elseif ($paper_dl > $final_dl) {
-      $strMessage = 'Your Paper Deadline should be before your Final Version Deadline!';
+    if ($paper_dl > $final_dl) {
+      $strMessage =  $strMessage.
+                     'Your Paper Deadline should be before your Final Version Deadline!<br>';
     }
-    elseif ($final_dl > $start_date) {
-      $strMessage = 'Your Final Version Deadline should be before your Start Date!';
+    if ($final_dl > $start_date) {
+      $strMessage =  $strMessage.
+                     'Your Final Version Deadline should be before your Start Date!<br>';
     }
-    elseif ($paper_dl > $review_dl) {
-      $strMessage = 'Your Paper Deadline should be before your Review Deadline!';
+    if ($paper_dl > $review_dl) {
+      $strMessage =  $strMessage.
+                     'Your Paper Deadline should be before your Review Deadline!<br>';
     }
-    elseif ((!empty($notification)) && ($review_dl > $notification)) {
-      $strMessage = 'Your Review Deadline should be before your Notification time!';
+    if ((!empty($notification)) && ($review_dl > $notification)) {
+      $strMessage =  $strMessage.
+                     'Your Review Deadline should be before your Notification time!<br>';
     }
-    elseif ((!empty($notification)) && ($notification > $start_date)) {
-      $strMessage = 'Your Notification time should be before your Start Date!';
+    if ((!empty($notification)) && ($notification > $start_date)) {
+      $strMessage =  $strMessage.
+                     'Your Notification time should be before your Start Date!<br>';
     }
-    elseif ($review_dl > $start_date) {
-      $strMessage = 'Your Notification time should be before your Start Date!';
+
+    if ($review_dl > $start_date) {
+      $strMessage =  $strMessage.
+                     'Your Notification time should be before your Start Date!<br>';
     }
-    elseif ($review_dl > $start_date) {
-      $strMessage = 'Your Notification time should be before your Start Date!';
+    if ( !($min_reviews >= 0)){
+      $strMessage =  $strMessage.
+                     'Your minimum number of reviews should be greater or equel to zero!<br>';
     }
-    elseif ( !($min_reviews >= 0)){
-      $strMessage = 'Your minimum number of reviews should be greater or equel to zero!';
+    if ( !($min_papers >= 0)){
+      $strMessage =  $strMessage.
+                     'Your number of papers should be greater or equal to zero!<br>';
     }
-    elseif ( !($min_papers >= 0)){
-      $strMessage = 'Your number of papers should be greater or equal to zero!';
+    if ( !($min_papers <= $max_papers)){
+      $strMessage =  $strMessage.
+                     'Your minimum number of papers should not be greater than the maximum number 
+                      of paper!<br>';
     }
-    elseif ( !($min_papers <= $max_papers)){
-      $strMessage = 'Your minimum number of papers should not be greater than the maximum number of paper!';
+    if ( !($min_reviews <= $def_reviews)){
+      $strMessage =  $strMessage.
+                     'Your minimum number of reviews should not be greater than the default 
+                      number of reviews!<br>';
     }
-    elseif ( !($min_reviews <= $def_reviews)){
-      $strMessage = 'Your minimum number of reviews should not be greater than the default number of reviews!';
+    if ( !(0 < $variance) || !($variance < 100)){
+      $strMessage =  $strMessage.'Your ambiguity should be greater than zero and less than hundred!<br>';
     }
-    elseif ( !(0 < $variance) || !($variance < 100)){
-      $strMessage = 'Your ambiguity should be greater than zero and less than hundred!';
-    }
-    elseif ( !(0 <= $auto_numrev )){
-      $strMessage = 'Your number of automatically added reviewers should be greater or equal than zero!';
+    if ( !(0 <= $auto_numrev )){
+      $strMessage =  $strMessage.
+                     'Your number of automatically added reviewers should be greater or 
+                     equal than zero!<br>';
     }
     // Versuche die Konferenz zu aktualisieren
-    else {
+    else if ($strMessage=='' ){
       $objCriterions = array();
       $objTopics = array();
       $objConferenceDetailed =
