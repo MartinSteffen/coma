@@ -69,10 +69,13 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during updating account.', $myDBAccess->getLastError());
+        error('Error updating your account.', $myDBAccess->getLastError());
       }
       if ($_POST['password'] != '') {
-        updatePersonPassword(seesion(uid), $_POST['password');
+        $myDBAccess->updatePersonPassword(session(uid), $_POST['password']);
+        if ($myDBAccess->failed()) {
+          error('Error updating your account.', $myDBAccess->getLastError());
+        }
       }
     }
   }
