@@ -40,7 +40,7 @@ function getCriticalPapers(&$myDBAccess, $method = 'variance') {
       if ($method == 'variance'){
         $val = 0.0;
         foreach ($reviews as $review){
-          $val = $val + (($review->fltReviewRating - $review->fltAvgRating)^2);
+          $val = $val + (($review->fltReviewRating - $review->fltAverageRating)^2);
         }
         $val = $val / count($reviews);
         $val = ($val - $avgrating)/$val;
