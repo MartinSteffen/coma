@@ -1,7 +1,7 @@
 
 {if1<p class="message">{message}</p>}
 
-<form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}{targetpage}.php{?SID}" method="post">
 
 <table class="formtable">
   <tr>

@@ -8,10 +8,7 @@
 <table class="formtable">
   <tr>
     <th colspan="2">Review paper:</th>
-  </tr>
-  <tr>
-    <td>Title:</td>
-    <td>Holy Shit!</td>
+    <td>Holy Shit! by Robby Rabbit</td>
   </tr>
   <tr>
     <td colspan="2">      

@@ -14,7 +14,7 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$content = new Template(TPLPATH.'profile.tpl');
+$content = new Template(TPLPATH.'edit_profile.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Lade die Daten der Person
