@@ -3,7 +3,7 @@
 	error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 include("includes/config.inc.php");
-if(is_dir("install/")){
+ if(is_dir("install/")){
 	if(COMA_INSTALLED){
 		echo("You alreade have installed CoMa onto your System.<br>Please delete the folder '/install' in your CoMa-Directory to have CoMa run properly onto your System.");
 		exit();
@@ -15,7 +15,7 @@ if(is_dir("install/")){
 			header("Location: http://{$_SERVER['HTTP_HOST']}".dirname($uri)."/install/install.php");
 		}
 	}
-}
+} 
 foreach($_REQUEST as $key => $value) {
 	$$key=$value;
 }
