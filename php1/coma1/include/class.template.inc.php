@@ -131,7 +131,7 @@ class Template extends ErrorHandling {
       }
       elseif (is_array($value)) {
         foreach ($value as $val) {
-          $strKeys[] = '/(?is){'.$key.$val.'(.*)}/';
+          $strKeys[] = '/(?is){'.$key.$val.'(.*?)}/';
           $strValues[] = '\\1';
         }
       }
