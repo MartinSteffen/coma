@@ -1,5 +1,5 @@
 <?
-  include('/templates/header.tpl.php');
+  include('templates/header.tpl.php');
 ?>
   <table>
     <tr>
@@ -9,5 +9,5 @@
     </tr>
   </table>
 <?  
-  include('/templates/footer.tpl.php');
+  include('templates/footer.tpl.php');
   ?>
