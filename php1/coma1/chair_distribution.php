@@ -37,9 +37,9 @@ if (isset($_POST['confirm'])) {
     $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($arrR); $j++) {
       if ($arrR[$j]['status'] != ASSIGNED) {
-        $s .= ' '.$arrR[$j]['reviewer_id'].'/'.$arrR[$j]['status']);
+        $s .= ' '.$arrR[$j]['reviewer_id'].'/'.$arrR[$j]['status'];
 //        if(!isset($_POST['p'.$pid.'ridx'.$j])) {
-          unset($arrR[$j]);
+//          unset($arrR[$j]);
 //        }
       }
       else $s .= ' ass';
