@@ -28,8 +28,8 @@ $p = $myDBAccess->getPerson(1, 1);
 
 $p->intRoles = 10;
 bit($p->intRoles);
-bit(~$p->intRoles);
-bit($p->intRoles ^ 8);
+$p->addRole(1);
+bit($p->intRoles);
 
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
