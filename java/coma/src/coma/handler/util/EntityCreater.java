@@ -185,9 +185,11 @@ public class EntityCreater {
 	 * 
 	 */
 	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException {
-		Paper paper = new Paper(-1); // new Paper
 		Enumeration paramNames = request.getParameterNames();
 		HttpSession session = request.getSession(true);
+		Paper paper = (Paper) session.getAttribute(SessionAttribs.PAPER);//get an old paper, if existing
+		if (paper==null) paper= new Paper(-1); // new Paper
+		
 		Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
 		Conference theConf = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 		String parName = "";
@@ -199,7 +201,7 @@ public class EntityCreater {
 		    }
 		paper.setAbstract(request.getParameter(FormParameters.ABSTRACT));
 		paper.setAuthor_id(theLogedPerson.getId());
-		paper.setVersion(1);
+		paper.setVersion(paper.getVersion()+1);
 		paper.setLast_edited(new Date());
 		paper.setConference_id(theConf.getId());
 		//paper.setFilename(""); //set in WriteFile.java

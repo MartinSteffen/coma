@@ -8,7 +8,7 @@ import coma.handler.db.ReadService;
 import coma.servlet.util.XMLHelper;
 import static coma.util.logging.Severity.WARN;
 /**
- * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Z. Albari</a>
+ * @author mal,mti,owu
  *
  */
 public class Paper extends Entity {
@@ -19,7 +19,7 @@ public class Paper extends Entity {
     String title;
     String Abstract;
     Date last_edited;
-    int version;
+    int version = 0;
     String filename;
     int state;
     String mim_type;
@@ -92,8 +92,16 @@ public class Paper extends Entity {
 	SearchCriteria sc = new SearchCriteria();
 	sc.setPerson(new Person(getAuthor_id()));
 	SearchResult sr = rs.getPerson(sc);
-	// XXX ugly, dangerous.
-	return ((Person[])sr.getResultObj())[0];
+	if(sr!=null){
+		Person[] personArray = (Person[])sr.getResultObj();
+		if (personArray.length>0)
+			return ((Person[])sr.getResultObj())[0];
+		else
+			return null;
+			
+	}
+	else
+		return null;
     }
 
     public StringBuilder toXML(XMLMODE mode){

@@ -20,6 +20,8 @@ public class FormParameters {
 	public static final String ABSTRACT="abstract";
 	public static final String TITLE="title";
 	
+	public static final String SELECTION_ID="selection_id";
+	
 	public static final String EMAIL="email";
 	public static final String ACTION="action";
 	public static final String PASSWORD="password";

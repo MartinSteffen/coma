@@ -6,8 +6,10 @@ package coma.servlet.servlets;
 
 
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -23,12 +25,13 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import coma.entities.Paper;
 import coma.entities.SearchResult;
 import coma.handler.impl.db.InsertServiceImpl;
+import coma.servlet.util.Navcolumn;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 
 /**
- * @author mti
- * @version 0.1
+ * @author mti,owu
+ * @version 0.9
  * 
  * process a form with enctype="multipart/form-data" attribute
  * to store a file on the disk
@@ -36,8 +39,7 @@ import coma.servlet.util.XMLHelper;
  */
 public class WriteFile extends HttpServlet {
 	
-	
-	
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, java.io.IOException {
 	
@@ -51,6 +53,21 @@ public class WriteFile extends HttpServlet {
 	String path = getServletContext().getRealPath("");
 	String xslt = path+"/style/xsl/author.xsl";
 	PrintWriter out = response.getWriter();
+	HttpSession session= request.getSession(true);
+	Navcolumn myNavCol = new Navcolumn(session);
+	Paper theNewPaper = (Paper) session.getAttribute(SessionAttribs.PAPER);
+	if (theNewPaper.getId()!=-1){ //update paper: rename the old, so a new one can be created
+		File renameFile = new File(path+"/paper",theNewPaper.getFilename());
+		File backupFile = new File(path+"/paper",theNewPaper.getFilename()+theNewPaper.getVersion());
+		
+		try {
+			renameFile.renameTo(backupFile);
+		} catch (RuntimeException e1) {
+			// TODO Auto-generated catch block
+			result.append(XMLHelper.tagged("error",e1.toString()));
+		}
+		
+	}
 	try {
 		
 		
@@ -66,9 +83,9 @@ public class WriteFile extends HttpServlet {
 		String theSystemFileName =mpr.getFilesystemName(theNewFile);
 		
 		// get session attributes
-		HttpSession session= request.getSession(true);
 		
-		Paper theNewPaper = (Paper) session.getAttribute(SessionAttribs.PAPER);
+		
+		
 		theNewPaper.setFilename(theSystemFileName);
 		theNewPaper.setMim_type(mpr.getContentType(theNewFile));
 		
@@ -92,7 +109,7 @@ public class WriteFile extends HttpServlet {
 	}
 	
 	
-	
+	result.append(myNavCol.toString());
 	result.append("</author>\n");
 	response.setContentType("text/html; charset=ISO-8859-15");
 	StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));

@@ -31,8 +31,8 @@ import coma.servlet.util.Navcolumn;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 /**
- * @author mti
- * @version 0.1
+ * @author mti,owu
+ * @version 1.1
  * 
  * The Author servlet is responsible for all functions the auther can do.
  * 
@@ -103,10 +103,21 @@ public class Author extends HttpServlet {
 		if (mySR != null){
 			Person[] personArray = (Person[]) mySR.getResultObj();
 			String info = mySR.getInfo();
-		}*/
+		}
+		*/
 		result.append(XMLHelper.tagged("submitpaper",""));
 		break;
 	case UPDATEPAPER: // make a update to an previous submitted paper
+		Paper[] thePapers = (Paper[])session.getAttribute(SessionAttribs.PAPER);
+		try {
+				int selection = Integer.parseInt(request.getParameter(FormParameters.SELECTION_ID));
+				Paper theOldPaper = thePapers[selection];
+				session.setAttribute(SessionAttribs.PAPER,theOldPaper);
+				result.append(XMLHelper.tagged("submitpaper",theOldPaper.toXML()));
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				result.append(XMLHelper.tagged("error",e1.toString()));
+			}
 		break;
     case PROCESSPAPER: // process submitted paper
     	EntityCreater myCreater = new EntityCreater();
