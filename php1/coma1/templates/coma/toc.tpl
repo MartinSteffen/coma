@@ -10,7 +10,7 @@
   </ol>
 
   <li><a class="menu" href="./help.php?for=comapages{&popup}{&SID}">
-      Detailed explanations about the different pages in Coma</a>
+      Detailed explanations about the different pages in Coma</a> </li>
     <ol>
       <li><a class="submenu" href="./help.php?for=layout{&popup}{&SID}">General layout of the CoMa pages</a></li>
       <li><a class="submenu" href="./help.php?for=login{&popup}{&SID}">
