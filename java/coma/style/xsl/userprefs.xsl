@@ -32,13 +32,13 @@
       <body>
         <div class="content">
           <xsl:call-template name="stderrors" />
-        <xsl:call-template name="navcolumn" />
-        <form action="UserPrefs" method="post">
-          <xsl:apply-templates select="//servletState" />
-          <xsl:apply-templates select="//editable" />
-          <xsl:apply-templates select="//noneditable" />
-        </form>
-      </div>
+          <xsl:call-template name="navcolumn" />
+          <form action="UserPrefs" method="post">
+            <xsl:apply-templates select="//servletState" />
+            <xsl:apply-templates select="//editable" />
+            <xsl:apply-templates select="//noneditable" />
+          </form>
+        </div>
       </body>
     </html>
   </xsl:template>
@@ -68,7 +68,8 @@
       <tr>
         <td >Last name: </td>
         <td >
-          <input class="input-box" style="border:1px solid red" type="text" name="last_name" size="20" >
+          <input class="input-box" style="border:1px solid red" 
+            type="text" name="last_name" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/last_name"/>
             </xsl:attribute>
@@ -78,7 +79,8 @@
       <tr>
         <td >Title: </td>
         <td >
-          <input class="input-box" type="text" name="title" size="20" >
+          <input class="input-box" 
+            type="text" name="title" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/title"/>
             </xsl:attribute>
@@ -88,7 +90,8 @@
       <tr>
         <td >Affiliation: </td>
         <td >
-          <input class="input-box" type="text" name="affiliation" size="20" >
+          <input class="input-box" 
+            type="text" name="affiliation" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/affiliation"/>
             </xsl:attribute>
@@ -98,7 +101,8 @@
       <tr>
         <td>Your email: </td>
         <td>
-          <input class="input-box" style="border:1px solid red" type="text" name="email" size="20" >
+          <input class="input-box" style="border:1px solid red" 
+            type="text" name="email" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/email"/>
             </xsl:attribute>
@@ -108,7 +112,8 @@
       <tr>
         <td >Phone number: </td>
         <td >
-          <input class="input-box" type="text" name="phone_number" size="20" >
+          <input class="input-box" 
+            type="text" name="phone_number" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/phone_number"/>
             </xsl:attribute>
@@ -118,7 +123,8 @@
       <tr>
         <td >Fax number: </td>
         <td >
-          <input class="input-box" type="text" name="fax_number" size="20" >
+          <input class="input-box" 
+            type="text" name="fax_number" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/fax_number"/>
             </xsl:attribute>
@@ -128,7 +134,8 @@
       <tr>
         <td >Street: </td>
         <td >
-          <input class="input-box" type="text" name="street" size="20" >
+          <input class="input-box" 
+            type="text" name="street" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/street"/>
             </xsl:attribute>
@@ -138,7 +145,8 @@
       <tr>
         <td >Postal code: </td>
         <td >
-          <input class="input-box" type="text" name="postal_code" size="20" >
+          <input class="input-box" 
+            type="text" name="postal_code" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/postal_code"/>
             </xsl:attribute>
@@ -148,7 +156,8 @@
       <tr>
         <td >City: </td>
         <td >
-          <input class="input-box" type="text" name="city" size="20" >
+          <input class="input-box" 
+            type="text" name="city" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/city"/>
             </xsl:attribute>
@@ -158,7 +167,8 @@
       <tr>
         <td >State: </td>
         <td >
-          <input class="input-box" type="text" name="state" size="20" >
+          <input class="input-box" 
+            type="text" name="state" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/state"/>
             </xsl:attribute>
@@ -168,7 +178,8 @@
       <tr>
         <td >Country: </td>
         <td >
-          <input class="input-box" type="text" name="country" size="20" >
+          <input class="input-box" 
+            type="text" name="country" size="20" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/country"/>
             </xsl:attribute>
@@ -178,61 +189,66 @@
     </table>
   </div>
 
-    <div><h3>Preferred Topics</h3>
-    <p>Please select your areas of expertise from the list below. This
-    will help the committee to give you papers that are interesting to
-    you, should you become or be a reviewer.</p>
-    <select name="preferredtopics" size="5" multiple="multiple">
-      <xsl:for-each select="topics/topic">
-        <option>
-          <xsl:attribute name="value">
-            <xsl:value-of select="id" />
-          </xsl:attribute>
-          <xsl:value-of select="name" />
-        </option>
-      </xsl:for-each>
-    </select>
-    <span class="fasthelp">
-      You can select multiple entries by holding the Control key.
-    </span>
-  </div>
+  <xsl:if test="topics/topic">
+    
+    <div>
+      <h3>Preferred Topics</h3>
+      <p>Please select your areas of expertise from the list below. This
+      will help the committee to give you papers that are interesting to
+      you, should you become or be a reviewer.</p>
+      <select name="preferredtopics" size="5" multiple="multiple">
+        <xsl:for-each select="topics/topic">
+          <option>
+            <xsl:attribute name="value">
+              <xsl:value-of select="id" />
+            </xsl:attribute>
+            <xsl:value-of select="name" />
+          </option>
+        </xsl:for-each>
+      </select>
+      <span class="fasthelp">
+        You can select multiple entries by holding the Control key.
+      </span>
+    </div>
+  </xsl:if>
+
   <div>
     Enter your password:
     <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />
     to confirm, then press
-      <input value="Save" type="submit" class="submit-button" />
-    </div>
-  </xsl:template>
+    <input value="Save" type="submit" class="submit-button" />
+  </div>
+</xsl:template>
 
-  <xsl:template match="noneditable">
-    Thank you. The following data has been saved:
-    <table style="border:0">
-      <tr>
-        <th>Name:</th>
-        <td>
-          <xsl:value-of select="Person/first_name" />
-          <xsl:value-of select="Person/last_name" />, 
-          <xsl:value-of select="Person/title" />
-        </td>
-      </tr>
-      <tr>
-        <th>with</th><td><xsl:value-of select="Person/affiliation" />,</td>
-      </tr>
-      <tr>
-        <th>eMail:</th><td><xsl:value-of select="Person/email" /></td>
-        <th>Phone:</th><td><xsl:value-of select="Person/phone_number" /></td>
-        <th>Fax:  </th><td><xsl:value-of select="Person/fax_number" /></td>
-        <th>Postal Address:</th>
-        <td>
-          <xsl:value-of select="Person/street" /><br/>
-          <xsl:value-of select="Person/city" /> 
-          <xsl:value-of select="Person/postal_code" /><br />
-          <!-- Person/state: drunk :-D -->
-          <xsl:value-of select="Person/state" /><br />
-          <xsl:value-of select="Person/country" />
-        </td>
-      </tr>
-    </table>
-  </xsl:template>
+<xsl:template match="noneditable">
+  Thank you. The following data has been saved:
+  <table style="border:0">
+    <tr>
+      <th>Name:</th>
+      <td>
+        <xsl:value-of select="Person/first_name" />
+        <xsl:value-of select="Person/last_name" />, 
+        <xsl:value-of select="Person/title" />
+      </td>
+    </tr>
+    <tr>
+      <th>with</th><td><xsl:value-of select="Person/affiliation" />,</td>
+    </tr>
+    <tr>
+      <th>eMail:</th><td><xsl:value-of select="Person/email" /></td>
+      <th>Phone:</th><td><xsl:value-of select="Person/phone_number" /></td>
+      <th>Fax:  </th><td><xsl:value-of select="Person/fax_number" /></td>
+      <th>Postal Address:</th>
+      <td>
+        <xsl:value-of select="Person/street" /><br/>
+        <xsl:value-of select="Person/city" /> 
+        <xsl:value-of select="Person/postal_code" /><br />
+        <!-- Person/state: drunk :-D -->
+        <xsl:value-of select="Person/state" /><br />
+        <xsl:value-of select="Person/country" />
+      </td>
+    </tr>
+  </table>
+</xsl:template>
 
 </xsl:stylesheet>

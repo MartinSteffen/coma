@@ -338,7 +338,7 @@ public class Person extends Entity {
 	
 	public Topic[] getPreferredTopics(){
 		Topic[] result = new Topic[0];
-		SearchResult sr = myReadService.getPreferedTpoic(this.id);
+		SearchResult sr = myReadService.getPreferedTopic(this.id);
 		if(sr != null){
 			result = (Topic[])sr.getResultObj();
 		}
