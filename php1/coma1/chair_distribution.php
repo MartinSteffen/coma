@@ -12,8 +12,8 @@
  * @ignore
  */
 define('IN_COMA1', true);
-require_once('./include/header.inc.php');
-require_once('./include/class.distribution.inc.php');
+require_once(INCPATH.'header.inc.php');
+require_once(INCPATH.'class.distribution.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
