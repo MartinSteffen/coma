@@ -184,9 +184,9 @@ elseif ($STEP == 2) {
   $sql[] = "DROP TABLE IF EXISTS Forum";
   $sql[] = "CREATE TABLE Forum ( id INT NOT NULL AUTO_INCREMENT, conference_id INT NOT NULL, title VARCHAR(127) NOT NULL, forum_type INT NOT NULL, paper_id INT, PRIMARY KEY (id), INDEX (conference_id), INDEX (forum_type), FOREIGN KEY (conference_id) REFERENCES Conference (id) ON DELETE CASCADE ) TYPE = INNODB";
   $sql[] = "DROP TABLE IF EXISTS Message";
-  //$sql[] = "CREATE TABLE Message ( id INT NOT NULL AUTO_INCREMENT, forum_id INT, reply_to INT, sender_id INT NOT NULL, send_time DATETIME, subject VARCHAR(127), text TEXT, PRIMARY KEY (id), INDEX (sender_id), FOREIGN KEY (sender_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
+  $sql[] = "CREATE TABLE Message ( id INT NOT NULL AUTO_INCREMENT, forum_id INT, reply_to INT, sender_id INT NOT NULL, send_time DATETIME, subject VARCHAR(127), text TEXT, PRIMARY KEY (id), INDEX (sender_id), FOREIGN KEY (sender_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
   // Version with better Constraints but differs to original!!
-  $sql[] = "CREATE TABLE Message ( id INT NOT NULL AUTO_INCREMENT, forum_id INT NOT NULL, reply_to INT, sender_id INT NOT NULL, send_time DATETIME, subject VARCHAR(127), text TEXT, PRIMARY KEY (id), INDEX (sender_id), FOREIGN KEY (sender_id) REFERENCES Person (id) ON DELETE CASCADE, FOREIGN KEY (forum_id) REFERENCES Forum (id) ON DELETE CASCADE  ) TYPE = INNODB";
+  // $sql[] = "CREATE TABLE Message ( id INT NOT NULL AUTO_INCREMENT, forum_id INT NOT NULL, reply_to INT, sender_id INT NOT NULL, send_time DATETIME, subject VARCHAR(127), text TEXT, PRIMARY KEY (id), INDEX (sender_id), FOREIGN KEY (sender_id) REFERENCES Person (id) ON DELETE CASCADE, FOREIGN KEY (forum_id) REFERENCES Forum (id) ON DELETE CASCADE  ) TYPE = INNODB";
   $sql[] = "DROP TABLE IF EXISTS Session";
   $sql[] = "CREATE TABLE Session ( sid VARCHAR(255) NOT NULL DEFAULT '', sname VARCHAR(25) NOT NULL DEFAULT '', sdata TEXT, stime TIMESTAMP(14) NOT NULL, PRIMARY KEY (sid, sname), KEY stime (stime) ) TYPE=MyISAM COMMENT='Session-Verwaltung'";
   $sql[] = "DROP TABLE IF EXISTS ConferenceConfig";
