@@ -27,7 +27,7 @@
     <td>
       Author:
     </td>
-    <td><a href="{basepath}user_userdetails.php?userid={author_id}{&SID}>{author_name}</a></td>
+    <td><a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a></td>
   </tr>
   <tr>
     <td>
