@@ -3,6 +3,8 @@ include("header.tpl.php");
 $input = d('chair');
 $paper = $input['paper'];
 ?>
+<link rel="stylesheet" href="style.css" type="text/css">
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td class="textBold">Manage a paper</td>
@@ -87,6 +89,118 @@ $paper = $input['paper'];
     <td height="1"><img height="1" width="116" src="/templates/images/spacer.gif"></td>
     <td><img height="1" width="204" src="/templates/images/spacer.gif"></td>
     <td></td>
+  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="100%"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="86" class="textBold">Reviewer</td>
+          <td width="274" class="text">Reviewer A</td>
+          <td width="100%">Remove this reviewer</td>
+        </tr>
+        <tr> 
+          <td height="1"><img height="1" width="86" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="274" src="/templates/images/spacer.gif"></td>
+          <td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="86">&nbsp;</td>
+          <td width="95" class="textBold">Criterion</td>
+          <td width="100%" class="text">Criterion A</td>
+        </tr>
+        <tr> 
+          <td height="1"><img height="1" width="86" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="95" src="/templates/images/spacer.gif"></td>
+          <td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="86">&nbsp;</td>
+          <td width="95" class="textBold">Summary</td>
+          <td width="100%" class="text">Summary A</td>
+        </tr>
+        <tr> 
+          <td height="1"><img height="1" width="86" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="95" src="/templates/images/spacer.gif"></td>
+          <td></td>
+        </tr>		
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 	  
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="86">&nbsp;</td>
+          <td width="95" class="textBold">Remarks</td>
+          <td width="100%" class="text">Remarks A</td>
+        </tr>
+        <tr> 
+          <td height="1"><img height="1" width="86" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="95" src="/templates/images/spacer.gif"></td>
+          <td></td>
+        </tr>		
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 	  
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="86">&nbsp;</td>
+          <td width="95" class="textBold">Confidential</td>
+          <td width="100%" class="text">Confidential A</td>
+        </tr>
+        <tr> 
+          <td height="1"><img height="1" width="86" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="95" src="/templates/images/spacer.gif"></td>
+          <td></td>
+        </tr>		
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 	  
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="86">&nbsp;</td>
+          <td width="95" class="textBold">Grade</td>
+          <td width="70" class="text">Grade A</td>
+          <td width="45" class="textBold">Ratio</td>
+          <td width="100%" class="text">Ratio A</td>
+        </tr>
+        <tr> 
+          <td height="1"><img height="1" width="86" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="95" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="70" src="/templates/images/spacer.gif"></td>
+          <td><img height="1" width="45" src="/templates/images/spacer.gif"></td>		  		  
+          <td></td>
+        </tr>		
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 	  
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="100%">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
   </tr>
 </table>
 <br>
