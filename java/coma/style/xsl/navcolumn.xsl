@@ -29,6 +29,18 @@
               <fieldset>
                 <div>
                 <div>
+                  <select name="conferences">
+                    <xsl:for-each select="conference">
+                      <option>
+                        <xsl:attribute name="value">
+                          <xsl:value-of select="id"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="name"/>
+                      </option>
+                    </xsl:for-each>
+                  </select>
+                </div>
+                <div>
                   <label for="email">E-Mail</label>
                   <input type="text" name="email" class="input-box" />
                 </div>
