@@ -92,14 +92,14 @@ if (isset($_POST['email'])){
                     $_POST['country'], $_POST['phone'], $_POST['fax']);
       $strContentAssocs['address'] = encodeText($objPerson->getAddress());
       $strContentAssocs['country'] = encodeText($objPerson->getCountry());
-      $mailRegistered = new Template(TPLPATH.'mail_registered.tpl');
+      $mail = new Template(TPLPATH.'mail_registered.tpl');
       $strMailAssocs = defaultAssocArray();
       $strMailAssocs['email'] = $_POST['email'];
       $strMailAssocs['password'] = $_POST['user_password'];
       $strMailAssocs['name'] = $objPerson->getName(2);
-      $mailRegistered->assign($strMailAssocs);
-      $mailRegistered->parse();
-      sendMail($result, 'Welcome to CoMa', $mailRegistered->getOutput());
+      $mail->assign($strMailAssocs);
+      $mail->parse();
+      sendMail($result, 'Welcome to CoMa', $mail->getOutput());
     }
     elseif ($myDBAccess->failed()) {
       // Datenbankfehler?

@@ -1,4 +1,5 @@
 {if1<p class="message-failed">{message}</p>}
+{if2<p class="message-ok">{message}</p>}
 
 <form action="{basepath}lostpw.php{?SID}" method="post" accept-charset="UTF-8">
 

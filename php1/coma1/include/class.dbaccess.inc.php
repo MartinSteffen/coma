@@ -70,6 +70,30 @@ class DBAccess extends ErrorHandling {
   // Definition der Selektoren
   // ---------------------------------------------------------------------------
 
+  /**
+   * Gibt eine Eindeutige geheime(!!) Information ueber einen Benutzer zurueck
+   * Also das verschluesselte Passwort...
+   *
+   * @param int $intUId Die UserId
+   * @return string Das Verschluesselte Passwort
+   * @access public
+   * @author Jan (01.02.05)
+   */
+  function getKeyOfPerson($intUId) {
+    $s = sprintf("SELECT   password".
+                 " FROM    Person".
+                 " WHERE   id = '%d'".,
+                           s2db($intUId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getKeyOfPerson', $this->mySql->getLastError());
+    }
+    if (!empty($data)) {
+      return $this->success($data[0]['password']);
+    }
+    return $this->success(false);
+  }
+
  /**
    * Prueft, ob die Email-Adresse in der Datenbank gespeichert wurde.
    *

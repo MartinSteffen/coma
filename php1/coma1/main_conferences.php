@@ -87,7 +87,7 @@ if (!empty($objConferences)) {
 else {
   $strItemAssocs = defaultAssocArray();
   $strItemAssocs['colspan'] = '6';
-  $strItemAssocs['text'] = 'There are no users available.';
+  $strItemAssocs['text'] = 'There are no conferences available.';
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();

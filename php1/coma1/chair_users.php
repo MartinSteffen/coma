@@ -34,11 +34,11 @@ if (isset($_POST['action'])) {
     $intPersonId = $_POST['userid'];
     $intRoleType = $_POST['roletype'];
 
-    $objPerson = $myDBAccess->getPerson(session('uid'));
+    $objChair = $myDBAccess->getPerson(session('uid'));
     if ($myDBAccess->failed()) {
       error('Error retrieving chair data', $myDBAccess->getLastError());
     }
-    $strFrom = '"'.$objPerson->getName(2).'" <'.$objPerson->strEmail.'>';
+    $strFrom = '"'.$objChair->getName(2).'" <'.$objChair->strEmail.'>';
     $objPerson = $myDBAccess->getPerson($intPersonId);
     if ($myDBAccess->failed()) {
       error('Error retrieving person data', $myDBAccess->getLastError());
@@ -48,7 +48,7 @@ if (isset($_POST['action'])) {
       error('Error retrieving conference data', $myDBAccess->getLastError());
     }
     $strMailAssocs = defaultAssocArray();
-    $strMailAssocs['chair'] = $objPerson->getName(2);
+    $strMailAssocs['chair'] = $objChair->getName(2);
     $strMailAssocs['name'] = $objPerson->getName(2);
     $strMailAssocs['conference'] = $objConference->strName;
     $strMailAssocs['role'] = $strRoles[$intRoleType];
