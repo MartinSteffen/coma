@@ -24,15 +24,16 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
+$s = '';
 if (isset($_POST['action'])) {
-  error($_POST['action'], '');
-  if (!isset($_POST['confirm']) || !isset($_SESSION['dist'])) {
+  $s = $_POST['action'];
+/*  if (!isset($_POST['confirm']) || !isset($_SESSION['dist'])) {
     redirect('chair_reviews.php');
   }
   redirect('chair_start.php');
   $dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
-/*    print_r($pid.'=>'.$arrR);
+    print_r($pid.'=>'.$arrR);
     for ($j = 0; $j < count($arrR); $j++) {
       if ($arrR[$j]['status'] != ASSIGNED) {
         if(!isset($_POST['p'.$pid.'ridx'.$j])) {
@@ -40,10 +41,9 @@ if (isset($_POST['action'])) {
         }
       }
       print_r($arrR);
-    }*/
+    }
     echo('<br>.');
-  }
-  unset($dist);
+  }*/
 }
 else {
   $myDist = new Distribution($mySql);
@@ -120,7 +120,7 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Distribution suggestion';
+$strMainAssocs['title'] = 'Distribution suggestion:<br>'.$s;
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers';
