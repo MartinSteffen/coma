@@ -9,7 +9,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	color: #fff;
+	color:  #4C5C5C;
 	font-family: verdana, sans-serif;
 	}
 	
@@ -55,7 +55,7 @@ body {
 	color: #fff;
 	 }
 	
-.label {
+.navbar label {
 	width: 4em;
 	float: left;
 	text-align: left;
