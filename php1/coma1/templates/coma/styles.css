@@ -254,7 +254,7 @@ input, textarea, button
   border-style: solid;
   border-width: 1px;
   border-color: #404040;
-  margin: 2px 4px;
+  margin: 0px 4px;
   padding: 2px 4px;
 }
 textarea
@@ -307,15 +307,15 @@ table.list
 {
   text-align: left;
   font-size: 12px;
-  padding: 0px 0px;
+  padding: 0px 8px;
   margin: 0px;
-  background-color: #F4F4F4;
+  background-color: #FAFAFA;
 }
 .listitem-2
 {
   text-align: left;
   font-size: 12px;
-  padding: 0px 0px;
+  padding: 0px 8px;
   margin: 0px;
   background-color: #E4E4E4;
 }
