@@ -91,7 +91,7 @@ public class Paper extends Entity {
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
 	SearchCriteria sc = new SearchCriteria();
 	sc.setPerson(new Person(getAuthor_id()));
-	SearchResult sr = rs.getConference(sc);
+	SearchResult sr = rs.getPerson(sc);
 	// XXX ugly, dangerous.
 	return ((Person[])sr.getResultObj())[0];
     }
@@ -123,7 +123,7 @@ public class Paper extends Entity {
 						 XMLHelper.tagged("author_id", ""+getAuthor_id()),
 						 XMLHelper.tagged("title", ""+getTitle()),
 						 XMLHelper.tagged("Abstract", getAbstract()),
-						 XMLHelper.tagged("last_edited", getLast_edited().toString()),
+						 XMLHelper.tagged("last_edited", convert_date(getLast_edited())),
 						 XMLHelper.tagged("version", ""+getVersion()),
 						 XMLHelper.tagged("filename", ""+getFilename()),
 						 XMLHelper.tagged("state", ""+getState()),
@@ -137,4 +137,26 @@ public class Paper extends Entity {
 		    return null;
 		}
 	    }
+    
+    public String convert_date(Date date)
+    {
+    	if (date!=null)
+    	{
+	    	StringBuffer result=new StringBuffer();
+	    	String sqlDate = date.toString();
+	    	result.append(sqlDate.charAt(8));
+	    	result.append(sqlDate.charAt(9));
+	    	result.append(".");
+	    	result.append(sqlDate.charAt(5));
+	    	result.append(sqlDate.charAt(6));
+	    	result.append(".");
+	    	result.append(sqlDate.charAt(0));
+	    	result.append(sqlDate.charAt(1));
+	    	result.append(sqlDate.charAt(2));
+	    	result.append(sqlDate.charAt(3));
+	    	return result.toString();
+    	}
+    	else
+    		return null;	
+    }
 }
