@@ -82,6 +82,7 @@ public class Subscribe  extends HttpServlet {
 				InsertServiceImpl myInsertservice = new InsertServiceImpl();
 				SearchResult sr = myInsertservice.insertPerson(mynewPerson);
 
+				
 				// now, refresh.
 				SearchCriteria theSC = new SearchCriteria();
 				theSC.setPerson(mynewPerson);
@@ -89,12 +90,16 @@ public class Subscribe  extends HttpServlet {
 				mynewPerson = ((Person[])new coma.handler.impl.db.ReadServiceImpl()
 					       .getPerson(theSC).getResultObj())[0];
 
+				if (mynewPerson.getId() > 0){
+
 				myInsertservice.setPersonRole(mynewPerson.getId(), 
 							      confid, 
 							      willBeAuthor? User.AUTHOR 
 							                  : User.PARTICIPANT,
 							      User.ACTIVE);
-
+				} else {
+				    throw new ServletException("updaterefresh didn't: "+mynewPerson.getId());
+				}
 				result.append(XMLHelper.tagged("success",sr.getInfo()));
 				result.append(mynewPerson.toXML());
 				result.append(XMLHelper.tagged("confid", confid));
