@@ -11,6 +11,7 @@ Version	Datum		Ersteller	Kommentare
 0.12	4.1.05		mje		Admin&Install
 0.2	6.1.05		Ivan		Chair,Login,Logout und Sicherheit,tasks,profile, Verzeichnisse
 1.0	12.01.2005	gbi		PTRA-Algorithmus, Tabelle umbenannt
+1.1	25.01.2005	mje		RTPA
 
 
 Inhaltsverzeichnis:
@@ -108,17 +109,30 @@ Die Installation soll nach Vorbild der Installation eines PHPBB laufen, d.h.:
 	-das Script erkennt selbständig, daß die Installation noch nicht abgeschlossen wurde, und lenkt den Benutzer auf eine Seite um, auf der er die notwendigen Zugangsdaten für Datenbank und FTP-Account eingeben soll.
 	-hat der Benutzer das Formular ausgefüllt und abgeschickt, testet das Script die Daten auf Gültigkeit und wiederholt evtl. die Eingabe.
 	-dann generiert das Script aus den vom Benutzer gemachten Eingaben eine Datei "config.inc.php" mit eben diesen Zugangsdaten in PHP-Quellcode, und versucht, diese Datei durch direkten Schreibzugriff im Verzeichnis "includes" seiner eigenen Installation abzulegen.
-	-schlägt dies fehl, versucht es dasselbe per FTP.
-	-schlägt auch dies fehl, wird der Benutzer darüber informiert, er erhält die generierte config.inc.php zum Download, und dazu die Anleitung, wohin er diese Datei zu kopieren hat.
-	-Sobald die generierte config.inc.php an ihrer richtigen Stelle liegt, erkennt das Script bei erneutem Besuch der index.php, daß die Installation komplett ist, und gibt die normale Benutzung frei.
+	-schlägt dies fehl, wird der Benutzer darüber informiert, er erhält die generierte config.inc.php zum Download, und dazu die Anleitung, wohin er diese Datei zu kopieren hat.
+	-Sobald die generierte config.inc.php an ihrer richtigen Stelle liegt, und das Verzeichnis "install" gelöscht wurde, erkennt das Script bei erneutem Besuch der index.php, daß die Installation komplett ist, und gibt die normale Benutzung frei.
 	-Installation abgeschlossen.
 
 Die Administration beschränkt sich auf 2 Teilbereiche:
 	-Änderung der Zugangsdaten über Webformular, evtl. mit dem gleichen Hochladeweg wie beim Installationsscript.
 	-Verwaltung der Konferenzdaten:
 		* Einrichtung einer (leeren) Konferenz
+			Hier werden nur die Pflichtfelder abgefragt, der Rest auf Standardwerte gesetzt.
+			Die Änderungen daran soll der Chair selbst übernehmen.
+			Das ist sinnvoll, da der Admin nicht unbedingt Ahnung von den benötigten Daten hat (und so auch nicht haben braucht)
 		* Löschung einer Konferenz
-		* Einrichtung/Löschung/Änderung des/eines ersten Chair-Accounts.
+			Es werden zunächst alle Paper der zu löschenden Konferenz gesucht und für jedes Einzelne
+			werden alle FTP-Daten auf dem FTP-Space gelöscht.
+			Danach wird die conference in der Datenbank gelöscht.
+			Leider wird das ON DELETE CASCADE nur bei einer InnoDB unterstützt, was bedeutet,
+			daß in einer Nicht-InnoDB-Mysql das Tool nach dem Löschen einer Konferenz in einen
+			inkonsistenten Zustand gerät.
+		* Einrichtung eines ersten Chair-Accounts.
+			Der Admin kann entweder eine neue, unvergebene Email-Adresse eintragen (zeitgleich mit der Erstellung einer Konferenz),
+			oder er kann die E-Mail-Adresse eines bereits existenten Users angeben. Nach einer Rückfrage wird der existente User als Chair
+			der neuen Konferenz eingetragen, ist die E-Mail-Adresse neu, wird ein neuer User mit Status Chair für die neue Konferenz
+			angelegt (nur mit seinen Pflichtdaten: Lastname, Email, Passwort).
+		* Änderung und/oder Löschung eines Chair-Accounts sind nicht vorgesehen, bzw. Löschung erfolgt beim Löschen der Konferenz automatisch.
 
 -Chair:
 -------
@@ -205,6 +219,38 @@ Tim
 -RTPA:
 ------
 Meiko
+
+	Die Funktionsbibliothek zur Auswertung der Ratings der Reviewer zu den einzelnen Papers umfasst eine Sammlung von Methoden,
+	die die Gesamtbewertungen für ein Paper, einen ReviewReport oder alle Paper einer Conference berechnet und als Array zurückgibt.
+	Auf die Funktionen soll aus allen Modulen zugegriffen werden, wenn die Reviewing-Ergebnisse für ein Objekt angezeigt werden sollen.
+	Die wichtigste Funktionalität besteht darin, die Gesamtbewertung für jedes Paper einer Conference einzeln zu berechnen und daraus ein sortiertes 
+	Array zu erzeugen, das dem Chair als Grundlage für die Entscheidung "paper accept/reject" dienen soll. Im Modul Chair wird also eine
+	Liste von Papers angezeigt, die nach den berechneten Bewertungen der Papers (in %) sortiert ist. Paper, die bereits angenommen oder abgelehnt sind,
+	werden in zwei anderen Funktionen bereitgestellt, so daß alle Paper sich im Modul Chair mit ihrem Zustand und ihrer Bewertung anzeigen lassen.
+
+	Der Algorithmus zur Auswertung der Ratings läuft dabei wie folgt:
+
+		-für alle paper der Conference:
+			-für alle ReviewReports des Papers:
+				-bilde die Gesamtbewertung für diesen ReviewReport (siehe unten)
+			-bilde das Mittel der Gesamtbewertungen aller ReviewReports als Gesamtbewertung des Papers
+		-sortiere die Paper nach ihrer Gesamtbewertung.
+
+	Die Gesamtbewertung eines ReviewReports ergibt sich dabei wie folgt:
+
+		-für alle Criteria der Conference:
+			-teile die vergebene Punktezahl durch die maximal erreichbare Punktezahl dieses Criterions.
+			 Das ist die "ungewichtete" Bewertung bezüglich des aktuellen Criterions (liegt zwischen 0 und 1)
+			-multipliziere die ungewichtete Bewertung mit (Criterion.quality-rating/100), und erhalte die "gewichtete" Bewertung.
+			 Dabei wird vorausgesetzt, daß die Werte von quality-rating für alle Criteria dieser Conference in der Summe gerade 100 ergeben.
+			 Die gewichtete Bewertung liegt wieder zwischen 0 und 1.
+		-bilde das Mittel über alle gewichteten Bewertungen, erhalte die Gesamtnote des ReviewReports.
+
+	Die Interpretation der Bewertungen ist stets dergestalt, daß 100% als beste, 0% als schlechteste Bewertung angesehen werden.
+
+	Aufgrund akuter Zeitknappheit wurde der Umfang der Bibliothek und insbesondere ihre Einbindung in die tatsächlich vorhandenen Module stark eingeschränkt.
+	Das Modul Chair greift noch immer auf eigene, vorläufige Algorithmen zu, die nicht immer ein korrektes Ergebnis erzielen.
+			
 
 -PTRA:
 ------
