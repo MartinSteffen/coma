@@ -213,6 +213,78 @@ class MySql extends ErrorHandling {
     return $this->success(mysql_insert_id());
   }
 
+  /**
+   * startTransaction()
+   *
+   * Die Funktion <b>startTransaction()</b> leitet eine Folge von SQL-Befehlen
+   * ein, die nicht automatisch in die Datenbank &uuml;bernommen werden, sonder
+   * erst bei Aufruf eines folgenden commit()-Befehles. Die &Auml;nderungen k&ouml;nnen
+   * au&szlig;erdem mit einem rollback()-Befehl r&uuml;ckg&auml;ngig gemacht werden.
+   *   
+   * @return false gdwl. ein Fehler auftrat.
+   * @see error()
+   * @see getLastError()
+   * @access public
+   *
+   */
+  function startTransaction() {
+    if (empty($this->mySqlConnection)) {
+      return $this->error('start transaction', 'No database connection');
+    }
+    $results = mysql_query('START TRANSACTION', $this->mySqlConnection);
+    if (empty($results)) {
+      return $this->error('start transaction', mysql_error());
+    }
+    return $this->success($results);
+  }
+
+  /**
+   * rollback()
+   *
+   * Die Funktion <b>rollback()</b> macht die &Auml;nderungen seit Aufruf des
+   * startTransaction()-Befehls r&uuml;ckg&auml;ngig und stellt den Ausgangszustand der
+   * Datenbank wieder her.
+   *   
+   * @return false gdwl. ein Fehler auftrat.
+   * @see error()
+   * @see getLastError()
+   * @access public
+   *
+   */
+  function rollback() {
+    if (empty($this->mySqlConnection)) {
+      return $this->error('rollback', 'No database connection');
+    }
+    $results = mysql_query('ROLLBACK', $this->mySqlConnection);
+    if (empty($results)) {
+      return $this->error('rollback', mysql_error());
+    }
+    return $this->success($results);
+  }
+  
+  /**
+   * commit()
+   *
+   * Die Funktion <b>commit()</b> f&uuml;hrt die &Auml;nderungen seit Aufruf des
+   * startTransaction()-Befehls aus und &uuml;berf&uuml;hrt sie in die Datenbank.
+   *   
+   * @return false gdwl. ein Fehler auftrat.
+   * @see error()
+   * @see getLastError()
+   * @access public
+   *
+   */
+  function commit() {
+    if (empty($this->mySqlConnection)) {
+      return $this->error('commit', 'No database connection');
+    }
+    $results = mysql_query('COMMIT', $this->mySqlConnection);
+    if (empty($results)) {
+      return $this->error('commit', mysql_error());
+    }
+    return $this->success($results);
+  }
+
 } // end class MySql
 
 ?>
