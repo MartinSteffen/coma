@@ -199,6 +199,9 @@ else {
   if (!empty($objConference->blnAutoAddReviewers)) {
     $ifArray[] = 4;
   }
+  if (isset($_GET['advancedconfig'])) {
+    $content = new Template(TPLPATH.'edit_conference_ext.tpl');
+  }
 }
 
 $strContentAssocs['message'] = '';

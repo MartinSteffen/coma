@@ -9,7 +9,7 @@
   'Auto add reviewers' flag is activated, CoMa will try to suggest n+m
   reviewers for ambiguous papers if possible, where n ist the default number of
   reviewers per paper and m is the number of additional reviewers.
-  (See <a href="{basepath}chair_confconfig.php{?SID}" class="link">Conference
+  (See <a href="{basepath}chair_confconfig.php?advancedconfig{&SID}" class="link">Conference
   Config</a> for more information.)<br>
   You may edit the suggested distribution and afterwards confirm it.<br>
   Later, you can assign several papers by hand (this formular) or restart the
