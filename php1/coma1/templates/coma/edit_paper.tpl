@@ -84,11 +84,14 @@
 <table class="formtable">
   <tr>
     <td>Upload new document:</td>
-    <td colspan="2">
+    <td>
       <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
       <input type="file"   name="userfile" maxlength="2097152" accept="*">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
       <input type="submit" name="upload" value="Upload" class="button">
-
       <select name="mimetype" size="1">
         <option>image/gif</option>
         <option>image/jpeg</option>
@@ -109,6 +112,7 @@
         <option>application/zip</option>
       </select>
     </td>
+  </tr>
 </table>
 
 <table class="formtable">
