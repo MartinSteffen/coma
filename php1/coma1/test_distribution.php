@@ -31,7 +31,7 @@ echo('<br>');
 
 $myDist = new Distribution($mySql);
 
-$myDist->getDistribution();
+$myDist->getDistribution(1);
 if ($myDist->failed()) {
   echo($myDist->getLastError());
 }
