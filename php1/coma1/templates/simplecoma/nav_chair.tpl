@@ -4,4 +4,4 @@
 <a href="{basepath}chair_arti.php{SID}">Artikelverwaltung</a>&nbsp;|&nbsp;&nbsp;
 
 <a href="{basepath}chair_verw.php{SID}">Verwaltung</a>&nbsp;|&nbsp;&nbsp;
-<a href="{basepath}chair_verw.php{SID}">Nachrichten</a>&nbsp;&nbsp;&nbsp;
+<a href="{basepath}chair_nach.php{SID}">Nachrichten</a>&nbsp;&nbsp;&nbsp;
