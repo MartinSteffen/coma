@@ -60,11 +60,11 @@ function redirect($strName) {
 function defaultAssocArray() {
   global $mySession;
   return array(
-               'path'      => TPLURL,
-               'basepath'  => COREURL,
-               'filename'  => basename($_SERVER['PHP_SELF'],'.php'),
-               '?SID'       => $mySession->getUrlId('?'),
-               '&SID'       => $mySession->getUrlId('&')
+               'path'      => encodeText(TPLURL),
+               'basepath'  => encodeText(COREURL),
+               'filename'  => encodeText(basename($_SERVER['PHP_SELF'],'.php')),
+               '?SID'       => encodeText($mySession->getUrlId('?')),
+               '&SID'       => encodeText($mySession->getUrlId('&')),
               );
 }
 
@@ -75,8 +75,8 @@ function defaultAssocArray() {
  * @return string encoded string
  */
 function encodeText($_str) {
-  $cleanStr = strtr(trim($_str), "|", " ");
-  return htmlentities($cleanStr, ENT_QUOTES, 'UTF-8');
+  $_str = strtr(trim($_str), "|", " ");
+  return htmlentities($_str, ENT_QUOTES, 'UTF-8');
 }
 
 /**
@@ -243,5 +243,18 @@ function emptyDBtime($str, $format='M d, Y') {
   return (empty($str) || ($str == '0000-00-00') || ($str == '0000-00-00 00:00:00')) ? 
     '' : date($format, strtotime($str));
 }
+
+/**
+ * Liefert ein float mit der aktuellen Zeit in Sekunden
+ *
+ * @return float die Zeit (nicht die Zeitung!)
+ * @author Jan (25.01.05)
+ * @access protected
+ */
+function getTime() {
+  list($usec, $sec) = explode(" ", microtime());
+  return ((float)$usec + (float)$sec);
+}
+
 
 ?>

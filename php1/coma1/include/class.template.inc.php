@@ -163,6 +163,11 @@ class Template extends ErrorHandling {
    *
    */
   function output() {
+    global $renderTime;
+    if (isset($renderTime)) {
+      $renderTime = getTime() - $renderTime;
+      $this->strOutput(strrplace('/RenderTime/', $renderTime, $this->strOutput));
+    }
     print($this->strOutput);
     return $this->success();
   }

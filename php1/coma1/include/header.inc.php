@@ -12,6 +12,9 @@ if (!defined('IN_COMA1')) {
 /**@ignore */
 define('DEBUG', true);
 
+// Zeit merken
+$_renderTime = getTime();
+
 // Header fuer die korrekte Ausgabe
 header('Content-type: text/html; charset=utf-8');
 
