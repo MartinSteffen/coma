@@ -72,7 +72,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     $ifArray[] = 4;
   }
   // Aktualisieren der Konferenz in der Datenbank
-  if (isset($_POST['submit'])) {
+  if (isset($_POST['submit']) || isset($_POST['submit_adv'])) {
     // Prüfen, ob die Eingaben gültig sind.
     // Wenn die Eingaben gültig sind ist $strMessage leer.
     $strMessage=''; 
