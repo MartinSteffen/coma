@@ -1,0 +1,107 @@
+/* core stylesheet for jComa
+ *
+ *
+ * @version 0.1
+ * @author mti
+ *
+ *
+ */
+body {
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	font-family: verdana, sans-serif;
+	}
+	
+.content {
+	margin-top: 9.5em;
+	margin-left: 12em;
+	margin-right: 0;
+	padding: 1em;
+	color: #4C5C5C;
+	}
+	
+.header	{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 7em;
+	color: #fff;
+	}
+.status-line	{
+	top: 7em;
+	left: 0;
+	width: 100%;
+	height: 2.5em;
+	color: #fff;
+	}	
+.navbar {
+	position: absolute;
+  margin: 0;
+	padding: 0;
+	left: 0;
+  top: 9.5em;
+  width: 12em;
+  color: #fff;
+	}
+	
+.navbar li {
+	list-style-type: none;
+	background: #6A7389;
+	margin-left: 0;
+	margin: 0.5em 0;
+	padding: 0.3em;
+	color: #fff;
+	 }
+	
+.label {
+	width: 4em;
+	float: left;
+	text-align: left;
+	clear: both;
+	padding: 0.3em;
+	color: #fff;
+	}
+
+.input-box {
+	width: 6em;
+	float: left;
+	margin-bottom: 10px;
+	color: #fff;
+	background: #D9DBE1;
+	border:1px solid #9097A2;
+}
+
+.submit-button {
+	clear: both;
+	background: #6A7389;
+color: #fff;
+padding: 1px 4px;
+border-right: 1px solid #283043;
+border-bottom: 1px solid #283043;
+border-top: 1px solid #9097A2;
+border-left: 1px solid #9097A2;
+	}
+
+fieldset {
+	border: 0;
+	width: 8em
+	}
+
+		
+body>.header, body>.navbar,body>.status-line,.status-line>.content
+	{
+	position: fixed;
+	
+	}
+
+/* settings for appearance alone */
+body { background: #455372; }
+.content { background: #E0E9E9; }
+.navbar { background: #455372; }
+.header { background: #455372; }
+.status-line { background: #455372; }
+a {
+	color: #fff;
+	}
