@@ -58,8 +58,3 @@
 </form>
 
 <p>&nbsp;</p>
-
-<form action="{basepath}reviewer_reviews.php{?SID}" method="post" accept-charset="UTF-8">  
-  <input type="submit" name="cancel" value="Cancel" class="button" />
-</form>
-
