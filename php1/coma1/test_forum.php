@@ -47,8 +47,8 @@ echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
 
 $messages = $dbAccess->getMessagesOfForum(1);
 if ($messages) {
-  echo('<b>'.count($messages).' Nachricht'.(count($messages) <> 1 ? 'en' : '').
-       ' in Forum (ID 1):</b><br><br>'); 
+  echo('<b>'.count($messages).' Thread'.(count($messages) <> 1 ? 's' : '').
+       ' in Forum #1:</b><br><br>'); 
   for ($n = 0; $n < count($messages); $n++) {
     printMessage($messages[$n], 1);
   } 
