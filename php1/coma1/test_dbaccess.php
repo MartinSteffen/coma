@@ -13,15 +13,27 @@
  */
 
 define('IN_COMA1', true);
-
+define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
+
+
+echo 'Roles:<br>'
+for ($i = 0; $i < count($ROLES); $i++) {
+  echo $ROLES[$i][0].' -> '.$ROLES[$i][1].'<br>';
+}
+
+
+
+
+
+
 
 /*$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
 echo('<br>ID = '.$id.'<br>');
 $p = $myDBAccess->getRoles($id,1);
 echo $p[0];*/
 
-$_SESSION['confid'] = 1;
+/*$_SESSION['confid'] = 1;
 echo('<br>Konferenz-ID: '.$_SESSION['confid']);
 $cd = $myDBAccess->getConferenceDetailed();
 if (!empty($cd)) {
@@ -37,7 +49,7 @@ if (!empty($cd)) {
 }
 else {
   echo('<br>LastError: '.$myDBAccess->getLastError());
-}
+}*/
 
 
 /*

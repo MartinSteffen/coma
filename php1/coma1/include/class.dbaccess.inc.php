@@ -110,24 +110,24 @@ class DBAccess {
   /**
    * Liefert einen Array mit allen Konferenzen zurück.
    *
-   * @return Conferences[] bzw. <b>false</b>, falls keine Konferenz angelegt ist.
+   * @return Conference [] bzw. <b>false</b>, falls keine Konferenz angelegt ist.
    * @access public
    * @author Daniel (29.12.04)
    */
 
   function  getAllConferences(){
-    $s = 'SELECT  id, name, homepage, description, conference_start,  conference_end '.
+    $s = 'SELECT  id, name, homepage, description, conference_start, conference_end'.
         ' FROM    Conference';
     $data = $this->mySql->select($s);
     if (!empty($data)) {
-      $objConferenceNames= array();
+      $objConferences = array();
       for ($i = 0; $i < count($data); $i++) {
-        $objConferenceNames[$i] = (new Conference($data[$i]['id'], $data[$i]['name'],
-                                                $data[$i]['homepage'], $data[$i]['description'], 
-                                                $data[$i]['conference_start'],
-                                                $data[$i]['conference_end']));
+        $objConferences[$i] = (new Conference($data[$i]['id'], $data[$i]['name'],
+                                              $data[$i]['homepage'], $data[$i]['description'], 
+                                              $data[$i]['conference_start'],
+                                              $data[$i]['conference_end']));
       }
-      return $objConferenceNames;
+      return $objConferences;
     }
     return $this->error('getAllConferences'.$this->mySql->getLastError());
   }
@@ -164,8 +164,8 @@ class DBAccess {
       }
    }
    return $strRoles;
- 
   }
+  
  /**
    * Prueft, ob die Email-Adresse in der Datenbank gespeichert wurde.
    *
@@ -938,9 +938,12 @@ class DBAccess {
   // Definition der Update-Funktionen
   // ---------------------------------------------------------------------------
 
+
   /**
    * Aktualisiert den Datensatz der Person mit den Daten des PersonDetailed-Objekts $objPerson.
    * [TODO] Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Rollen der Person.
+   *        Dazu Anmerkung von Tom: Habe Funktion updateRoles hinzugefuegt, die
+   *        Du dafuer benutzen solltest.
    *
    * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll   
    * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
@@ -967,6 +970,32 @@ class DBAccess {
       return true;
     }
     return $this->error('updatePaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Aktualisiert die Rollen der Person $objPerson bzgl. der Konferenz
+   * $intConferenceId in der Datenbank.
+   *
+   * @param int $intConferenceId Konferenz-ID
+   * @param int $objPerson       Person-Objekt
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access private
+   * @author Tom (11.05.04)
+   */
+  function updateRoles($intConferenceId, $objPerson) {
+/*    $intId = $objPerson->intId;
+    $s = 'DELETE  FROM Role'.
+        ' WHERE   person_id = '.$intId;
+      for ($i = 0; $i < count($data); $i++) {
+    $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
+        '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
+        '                 \''.$intRoleType.'\')';
+    // echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
+      return true;
+    }*/
+    return $this->error('updateRoles '.$this->mySql->getLastError());
   }
 
   /**

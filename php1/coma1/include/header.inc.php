@@ -102,6 +102,10 @@ define('CHAIR', 2);
 define('REVIEWER', 3);
 define('AUTHOR', 4);
 define('PARTICIPANT', 5);
+
+// von Tom: [TODO] obige Konstanten evtl. entfernen, dafuer dieses Array benutzen:
+$ROLES = array('2' => 'Chair', '3' => Reviewer', '4' => 'Author', '5' => 'Participant');
+
 // End CoMa Konstanten
 
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
