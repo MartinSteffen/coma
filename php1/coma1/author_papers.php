@@ -17,7 +17,7 @@ require_once('./include/header.inc.php');
 $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 
-$objPapers = $myDBAccess->getPapersOfAuthor(session('userid'), 1);//session('confid'));
+$objPapers = $myDBAccess->getPapersOfAuthor(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
   error('get paper list of author',$myDBAccess->getLastError());
 }
