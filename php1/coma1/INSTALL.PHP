@@ -9,34 +9,39 @@
  * @subpackage core
  */
 /***/
-
-function HeadOfPage() {
-  print('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n');
-  print('<html>\n');
-  print('<head>\n');
-  print('  <title>CoMa - Your Conference Manager - Error</title>\n');
-  print('</head>\n');
-  print('<body>\n');
-  print('  <list>\n');
+define(STEP1, false);
+define(STEP2, false);
+define(STEP3, false);
+if (isset($_GET['1'])) {
+  define(STEP1, true);
+  echo 1;
 }
-
-function MenuOfPage() {
-  print('    <ul>Generate Configuration\n');
-  print('    <ul>Create Database\n');
-  print('    <ul>Add Tutorial Data\n');
+elseif (isset($_GET['2'])) {
+  define(STEP2, true);
+  echo 2;
 }
-
-function FootOfPage() {
-  print('  </list>\n');
-  print('</body>\n');
-  print('</html>\n');
+elseif (isset($_GET['3'])) {
+  define(STEP3, true);
+  echo 3;
 }
-
-HeadOfPage();
-MenuOfPage();
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>CoMa - Your Conference Manager - Error</title>
+</head>
+<body>
+  <ol>
+    <li><a href="?1">Generate Configuration</a></li>
+    <li><a href="?2">Create Database</a></li>
+    <li><a href="?3">Add Tutorial Data</a></li>
+  </ol>
+</body>
+</html>
+<?php
 
 // Block neuanlegen der Datenbank
-if (false) {
+if (STEP2) {
   /**@ignore */
   define('IN_COMA1', true);
   require_once('./include/config.inc.php');
@@ -101,7 +106,5 @@ if (false) {
   }
   echo "<br><br>Done.";
 }
-
-FootOfPage();
 
 ?>
