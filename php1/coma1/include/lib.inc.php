@@ -335,7 +335,6 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
             "From: $strFrom\n".
             "MIME-Version: 1.0\n".
             "Content-type: text/plain; charset=utf-8";
-  echo $header;
   return mail('', $strSubject, $strMsg, $header);
 }
 
