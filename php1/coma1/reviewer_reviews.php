@@ -45,7 +45,7 @@ if (!empty($objPapers)) {
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
-    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthorName);
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
     $strItemAssocs['if'] = $ifArray;
     if ($isReviewed) {
     	$paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
