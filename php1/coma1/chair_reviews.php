@@ -75,15 +75,10 @@ if (!empty($objPapers)) {
     $strItemAssocs['if'] = $ifArray;
     // Zugeteilte Reviewer
     $strReviewersAssocs = defaultAssocArray();
-    $assIfArray = array();
     for ($i = 0; $i < count($objReviewers); $i++) {
-      if ($i > 0) {
-        $assIfArray[] = 1;
-      }
       $strReviewersAssocs['rev_id'] = $objReviewers[$i]->intId;
       $strReviewersAssocs['rev_name'] = $objReviewers[$i]->getName();
     }
-    $strReviewersAssocs['if'] = $assIfArray;
     $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
     $assignedReviewers->assign($strReviewersAssocs);
     $assignedReviewers->parse();
