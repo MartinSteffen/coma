@@ -69,7 +69,6 @@ public class Login extends HttpServlet
 		} 
 		catch (NumberFormatException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if ((email == null || email.equals(""))
@@ -88,11 +87,12 @@ public class Login extends HttpServlet
 				mysc.setConference(myConference);
 				SearchResult mySR = myReadService.getConference(mysc);
 				info += mySR.getInfo();
-				
-				
+		        //if(myPerson.isAdmin())	
+		        //	response.sendRedirect("/coma/Admin?action=setup");
+		        //else
+		        {
 					if (mySR != null)
 					{
-						System.out.println("Hallo");
 						Conference[] conferencesArray = (Conference[]) mySR.getResultObj();
 						if(conferencesArray.length == 1)
 						{			
@@ -102,10 +102,8 @@ public class Login extends HttpServlet
 							result.append(myConference.toXML());
 							result.append(myPerson.toXML());
 							result.append("</success>");
-						        //if(myPerson.isAdmin())	
-							//   response.sendRedirect("/coma/Admin?action=setup");
 							//if (myPerson.isChair())
-							//    response.sendRedirect("/coma/Chair?action=login");
+							//	response.sendRedirect("/coma/Chair?action=login");
 						}
 						else 
 						{
@@ -118,7 +116,7 @@ public class Login extends HttpServlet
 						session.setAttribute(SessionAttribs.PERSON, null);
 						result.append(XMLHelper.tagged("conf_not_found",conference_id));
 					}	
-				
+		        }
 			}
 			else 
 			{
@@ -138,8 +136,8 @@ public class Login extends HttpServlet
 		Navcolumn myNavCol = new Navcolumn(session);
 		result.append(myNavCol.toString());
 		result.append("</login>\n");
-		response.setContentType("text/html; charset=ISO-8859-15");
 		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=ISO-8859-15");
 		StreamSource xmlSource = new StreamSource(new StringReader(result
 				.toString()));
 		StreamSource xsltSource = new StreamSource(xslt);
