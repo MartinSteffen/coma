@@ -14,9 +14,9 @@ require_once('class.persondetailed.inc.php');
 require_once('class.paper.inc.php');
 require_once('class.papersimple.inc.php');
 require_once('class.paperdetailed.inc.php');
-require_once('./include/class.message.inc.php');
-require_once('./include/class.forum.inc.php');
-require_once('./include/class.forumdetailed.inc.php');
+require_once('class.message.inc.php');
+require_once('class.forum.inc.php');
+require_once('class.forumdetailed.inc.php');
 
 /**
  * Klasse DBAccess
