@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: index.php 721 2004-12-12 14:01:30Z waller $
+ * @version $Id: start.php 803 2004-12-13 22:55:56Z miesling $
  * @package coma1
  * @subpackage core
  */
@@ -15,6 +15,50 @@ define('IN_COMA1',true);
 
 require_once('./include/header.inc.php');
 
-// Hauptsächlich Redirect auf entsprechende Seite...
-redirect('chair.php');
+if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
+// Einlog-Versuch
+  if (isset($_POST['userMail'])) {
+    $_SESSION['uname'] = $_POST['userMail'];
+  }
+  if (isset($_POST['userPassword'])) {
+    $_SESSION['password'] = sha1($_POST['userPassword']);
+  }
+  redirect('start.php');
+}
+else {
+$mainPage = new Template(TPLPATH.'main.tpl');
+$menue = new Template(TPLPATH.'nav_index.tpl');
+$loginPage = new Template(TPLPATH.'logreg.tpl');
+
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
+$strMainAssocs['content'] =& $loginPage;
+$strMainAssocs['body'] = '';
+
+$strMainAssocs['menue'] =& $menue;
+$strMainAssocs['submenue'] = '';
+// $strMenueAssocs['loginName'] = $_SESSION['uname'];
+
+if (isset($_SESSION['message'])) {
+  $strMessage = $_SESSION['message'];
+  unset($_SESSION['message']);
+}
+else {
+  $strMessage = '';
+}
+
+$strLoginAssocs = defaultAssocArray();
+$strLoginAssocs['message'] = $strMessage;
+
+$mainPage->assign($strMainAssocs);
+$menue->assign(defaultAssocArray());
+$menue->assign($strMenueAssocs);
+$loginPage->assign($strLoginAssocs);
+
+$mainPage->parse();
+$mainPage->output();
+
+ }
+
+
 ?>
