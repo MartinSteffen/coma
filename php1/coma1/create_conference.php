@@ -313,7 +313,7 @@ else {
 }
 
 $strContentAssocs['message'] = '';
-if (!empyt($strMessage)) {
+if (!empty($strMessage)) {
   $strContentAssocs['message'] = nl2tag($strMessage);
   $ifArray[] = 9;
 }
