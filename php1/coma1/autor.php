@@ -21,7 +21,7 @@ $menue = new Template(TPLPATH.'nav_autor.tpl');
 
 
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['loginName'] =''.$_SESSION['uname']; 
+$strMainAssocs['loginName'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['titel'] = 'Autor-Verwaltung';
 $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['menue'] =& $menue;
