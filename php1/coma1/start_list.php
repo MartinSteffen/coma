@@ -26,7 +26,7 @@ $strMainAssocs['body'] =
   <td> Konferenz A </td> <td> <a href="login.php"> login </a> </td> <td> (register) </td>
 </tr>
 <tr>
-  <td> Konferenz b </td> <td> login </td> <td> register </td>
+  <td> Konferenz B </td> <td> <a href="login.php"> login </a> </td> <td> (register) </td>
 </tr>
 ';
 $strMainAssocs['menue'] =& $menue;
