@@ -28,7 +28,7 @@ $popup = (isset($_GET['popup'])) ? true : false;
 // Lade die Daten des Benutzers
 if (isset($_GET['userid']) || isset($_POST['userid'])) {
   $intPersonId = (isset($_GET['userid']) ? $_GET['userid'] : $_POST['userid']);
-  $objPerson = $myDBAccess->getPersonDetailed($intPersonId);
+  $objPerson = $myDBAccess->getPersonDetailed($intPersonId, session('confid'));
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving person.', $myDBAccess->getLastError());
   }
