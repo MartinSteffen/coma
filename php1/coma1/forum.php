@@ -35,7 +35,7 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray, $fshow){
+function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, $fshow){
   global $myDBAccess;
   
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
@@ -70,7 +70,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $threadassocs = defaultAssocArray();
       $threadassocs['replystring'] = 'Start new thread';
       $threadassocs['message-id'] = '';
-      $threadassocs['forum-id'] = $forum->intId;
+      $threadassocs['forum-id'] = encodeText($forum->intId);
       $threadassocs['subject'] = '';
       $threadassocs['text'] = '';
       $edittemplate = new Template(TPLPATH . 'threadform.tpl');
@@ -84,8 +84,8 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
     }
     else{
       $forumassocs['selectorunselect'] = 'forumsel';
-      $forumassocs['forum-id'] = $forum->intId;
-      $forumassocs['forum-title'] = $forum->strTitle;
+      $forumassocs['forum-id'] = encodeText($forum->intId);
+      $forumassocs['forum-title'] = encodeText($forum->strTitle);
       $forumassocs['plusorminus'] = '+';
       $forumassocs['messages'] = '';
       $forumassocs['thread-new'] = '';
@@ -119,7 +119,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
     }
   }
   else{
-    $typepaperassocs['forum'] = $typepaperassocs['forum'] . 'No forums available in this category';
+    $typepaperassocs['forum'] = 'No forums available in this category';
   }
   if (!empty($chairforumtemplates)){
     foreach ($chairforumtemplates as $ftemp){
@@ -127,7 +127,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
     }
   }
   else{
-    $typechairassocs['forum'] = $typechairassocs['forum'] . 'No forums available in this category';
+    $typechairassocs['forum'] = 'No forums available in this category';
   }
   $forumtypeopen->assign($typeopenassocs);
   $forumtypeopen->parse();
@@ -149,9 +149,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
 
 function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs){
   global $myDBAccess;
-  if (DEBUG){
-    //echo('<br>Messages: ' . count($messages));
-  }
+
   $tempstring = '';
   foreach ($messages as $message){
     $messagetemplate = new Template(TPLPATH . 'message.tpl');
@@ -159,19 +157,19 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
     $sender = $myDBAccess->getPerson($message->intSender);
     if (notemptyandtrue($msgselection, $message->intId)){
       $messageassocs['selectorunselect'] = 'unselect';
-      $messageassocs['message-id'] = $message->intId;
+      $messageassocs['message-id'] = encodeText($message->intId);
       $messageassocs['plusorminus'] = '-';
-      $messageassocs['sender-title'] = $sender->strTitle;
-      $messageassocs['sender-firstname'] = $sender->strFirstName;
-      $messageassocs['sender-lastname'] = $sender->strLastName;
-      $messageassocs['message-subject'] = $message->strSubject;
-      $messageassocs['message-sendtime'] = $message->strSendTime;
-      $messageassocs['message-text'] = $message->strText;
+      $messageassocs['sender-title'] = encodeText($sender->strTitle);
+      $messageassocs['sender-firstname'] = encodeText($sender->strFirstName);
+      $messageassocs['sender-lastname'] = encodeText($sender->strLastName);
+      $messageassocs['message-subject'] = encodeText($message->strSubject);
+      $messageassocs['message-sendtime'] = encodeText($message->strSendTime);
+      $messageassocs['message-text'] = encodeText($message->strText);
       $messageassocs['colon'] = ':';
       $messageassocs['postfix'] = 'wrote:';
       $replylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
       $replyassocs = defaultAssocArray();
-      $replylinkassocs['message-id'] = $message->intId;
+      $replylinkassocs['message-id'] = encodeText($message->intId);
       $replylinktemplate->assign($replylinkassocs);
       $replylinktemplate->parse();
       $messageassocs['replylink'] = $replylinktemplate->getOutput();
@@ -180,12 +178,12 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $messageassocs['replylink'] = '';
         $formtemplate = new Template(TPLPATH . 'messageform.tpl');
         $formassocs = defaultAssocArray();
-        $formassocs['message-id'] = $message->intId;
-        $formassocs['forum-id'] = $forumid;
-        $formassocs['subject'] = 'Re: ' . $message->strSubject;
-        $formassocs['text'] = $message->strText;
+        $formassocs['message-id'] = encodeText($message->intId);
+        $formassocs['forum-id'] = encodeText($forumid);
+        $formassocs['subject'] = 'Re: ' . encodeText($message->strSubject);
+        $formassocs['text'] = encodeText($message->strText);
         $formassocs['newthread'] = '';
-/*        if (($sender->intId == getUID(getCID($myDBAccess), $myDBAccess)) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID(getCID($myDBAccess), $myDBAccess))))){
+        if (($sender->intId == session('uid')) || (isChair($myDBAccess->getPerson(session('uid'))))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -194,26 +192,26 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
           $edittemplate->parse();
           $formassocs['editform'] = $edittemplate->getOutput();
         }
-        else{*/
+        else{
           //neu
           $formassocs['replystring'] = 'Post a reply to this message';
           $formassocs['editform'] = '';
-//        }
+        }
         $formtemplate->assign($formassocs);
         $formtemplate->parse();
         $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
       }
       $messes = $message->getNextMessages();
-      $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs, $myDBAccess);
+      $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs);
     }
     else{
       $messageassocs['selectorunselect'] = 'select';
-      $messageassocs['message-id'] = $message->intId;
+      $messageassocs['message-id'] = encodeText($message->intId);
       $messageassocs['plusorminus'] = '+';
       $messageassocs['sender-title'] = '';
       $messageassocs['sender-firstname'] = '';
       $messageassocs['sender-lastname'] = '';
-      $messageassocs['message-subject'] = $message->strSubject;
+      $messageassocs['message-subject'] = encodeText($message->strSubject);
       $messageassocs['message-sendtime'] = '';
       $messageassocs['message-text'] = '';
       $messageassocs['edit-reply-form'] = '';
@@ -222,7 +220,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
       $messageassocs['postfix'] = '';
       $replylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
       $replyassocs = defaultAssocArray();
-      $replylinkassocs['message-id'] = $message->intId;
+      $replylinkassocs['message-id'] = encodeText($message->intId);
       $replylinktemplate->assign($replylinkassocs);
       $replylinktemplate->parse();
       $messageassocs['replylink'] = $replylinktemplate->getOutput();
