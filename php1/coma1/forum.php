@@ -82,7 +82,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
-      $messes = displayMessages($messes, $msgselection, $select, $forumassocs);
+      $messes = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
     }
     else{
       $forumassocs['selectorunselect'] = 'forumsel';
