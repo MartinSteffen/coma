@@ -46,9 +46,14 @@ if (isset($_POST['submit'])) {
     $strMailAssocs['link'] = COREURL . "lostpw.php?id=$uid&key=$key";
     $mail->assign($strMailAssocs);
     $mail->parse();
-    sendMail($uid, 'Get a new Password', $mail->getOutput());
-    $strContentAssocs['message'] = 'A mail with further instructions has been sent to you!';
-    $strContentAssocs['if'] = array(2);
+    if (sendMail($uid, 'Get a new Password', $mail->getOutput())) {
+      $strContentAssocs['message'] = 'An Email with further instructions has been sent to you!';
+      $strContentAssocs['if'] = array(2);
+    }
+    else {
+      $strContentAssocs['message'] = 'Failed to send Email!';
+      $strContentAssocs['if'] = array(1);
+    }
   }
   else {
     if ($myDBAccess->failed()) {
