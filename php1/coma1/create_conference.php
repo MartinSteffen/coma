@@ -128,12 +128,167 @@ if (isset($_POST['action'])) {
   // Anlegen der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
 
-    // Teste, ob alle Pflichtfelder ausgefuellt wurden
+    /**
+     *   Fehler bei der Eingabe abfangen
+     *   noErrors = true, solange kein Fehler gefunden wurde
+     */
+    $noErrors = true;
     if (empty($_POST['name'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
+      $noErrors = false;
     }
-    // Versuche die neue Konferenz einzutragen
-    else {
+    // Test, ob das Datumsformat stimmt
+    $abstract_submission_deadline_d= substr( $_POST['abstract_dl'],0,2);
+    $abstract_submission_deadline_m= substr( $_POST['abstract_dl'],3,2);
+    $abstract_submission_deadline_y= substr( $_POST['abstract_dl'],6,4);
+    $paper_submission_deadline_d   = substr( $_POST['paper_dl'],0,2);
+    $paper_submission_deadline_m   = substr( $_POST['paper_dl'],3,2);
+    $paper_submission_deadline_y   = substr( $_POST['paper_dl'],6,4);
+    $review_deadline_d             = substr( $_POST['review_dl'],0,2);
+    $review_deadline_m             = substr( $_POST['review_dl'],3,2);
+    $review_deadline_y             = substr( $_POST['review_dl'],6,4);
+    $final_version_deadline_d      = substr( $_POST['final_dl'],0,2);
+    $final_version_deadline_m      = substr( $_POST['final_dl'],3,2);
+    $final_version_deadline_y      = substr( $_POST['final_dl'],6,4);
+    $notification_d                = substr( $_POST['notification'],0,2);
+    $notification_m                = substr( $_POST['notification'],3,2);
+    $notification_y                = substr( $_POST['notification'],6,4);
+    $conference_start_d            = substr( $_POST['start_date'],0,2);
+    $conference_start_m            = substr( $_POST['start_date'],3,2);
+    $conference_start_y            = substr( $_POST['start_date'],6,4);
+    $conference_end_d              = substr( $_POST['end_date'],0,2);
+    $conference_end_m              = substr( $_POST['end_date'],3,2);
+    $conference_end_y              = substr( $_POST['end_date'],6,4);
+
+
+    if (!checkdate((int)$abstract_submission_deadline_m,
+                   (int)$abstract_submission_deadline_d,
+		   (int)$abstract_submission_deadline_y) & $_POST['abstract_dl'] != '000'){
+      $strMessage =  $strMessage.' <br> Wrong format in the \'deadline for abstracts\':'.
+	             $_POST['abstract_dl'];
+      $noErrors = false;
+    }
+    if (!checkdate((int)$paper_submission_deadline_m,
+	           (int)$paper_submission_deadline_d,
+		   (int)$paper_submission_deadline_y) & $_POST['paper_dl']!= '000'){
+      $strMessage =  $strMessage.'<br> Wrong format in the \'deadline for paper submission \':'.
+	             $_POST['paper_dl'];
+      $noErrors = false;
+    }
+    if (!checkdate((int)$review_deadline_m,
+		   (int)$review_deadline_d,
+      		   (int)$review_deadline_y) & $_POST['review_dl']!='000'){
+      $strMessage =  $strMessage.'<br> Wrong format in the \' deadline for reviews \' :'.
+                     $_POST['review_dl'];
+      $noErrors = false;
+    }
+    if (!checkdate((int)$final_version_deadline_m,
+		   (int)$final_version_deadline_d,
+		   (int)$final_version_deadline_y) & $_POST['final_dl']!='000'){
+     $strMessage =  $strMessage.'<br> Wrong format in the \'deadline for final versions \':'.
+                    $_POST['final_dl']; 
+     $noErrors = false;
+    }
+
+    if (!checkdate((int)$notification_m,
+		   (int)$notification_d,
+		   (int)$notification_y) & $_POST['notification']!='000'){
+     $strMessage =  $strMessage.'<br> Wrong format in the \'date for notification\':'.
+                    $_POST['notification'];
+     $noErrors = false;
+    }
+
+    if (!checkdate((int)$conference_start_m,
+		   (int)$conference_start_d,
+		   (int)$conference_start_y) & $_POST['start_date']!='000'){
+     $strMessage =  $strMessage.'<br> Wrong format in the \'date of start\':'.
+                    $_POST['start_date'];
+     $noErrors = false;
+    }
+   
+    if (!checkdate((int)$conference_end_m,
+		   (int)$conference_end_d,
+		   (int)$conference_end_y) & $_POST['end_date']!='000'){
+     $strMessage = $strMessage.'<br> Wrong format in the \' date of end \':'.
+                   $_POST['end_date'];
+     $noErrors = false;
+   }
+
+  /**
+   * Test, ob die Datumsangaben plausibel sind 
+   *
+   */
+  if ( !(( $abstract_submission_deadline_d.
+           $abstract_submission_deadline_m.
+           $abstract_submission_deadline_y 
+           <= 
+           $paper_submission_deadline_d. 
+           $paper_submission_deadline_m. 
+           $paper_submission_deadline_y 
+         )
+         &&
+	 ( $paper_submission_deadline_d.
+           $paper_submission_deadline_m.
+           $paper_submission_deadline_y
+           <= 
+           $notification_d.
+           $notification_m.
+           $notification_y
+	 )
+         &&
+         ( $notification_d.
+           $notification_m.
+           $notification_y
+           <  
+           $conference_start_d.
+           $conference_start_m.
+           $conference_start_y
+         ) 
+         &&
+         ( $conference_start_d.
+           $conference_start_m.
+           $conference_start_y            
+           <= 
+           $conference_end_d.
+           $conference_end_m.
+           $conference_end_y
+	 ) 
+         &&
+         ( $paper_submission_deadline_d.
+           $paper_submission_deadline_m.
+           $paper_submission_deadline_y
+	   <= 
+           $final_version_deadline_d.
+           $final_version_deadline_m.
+           $final_version_deadline_y
+         ) 
+         &&
+         ( $final_version_deadline_d.
+           $final_version_deadline_m.
+           $final_version_deadline_y
+           <= 
+           $conference_start_d.
+           $conference_start_m.
+           $conference_start_y
+	  )
+	 ) && !($noErrors==false) //nur aufrufen, wenn hier auch der Fehler vorliegt!
+         ){
+     $strMessage =  $strMessage.'<br> <br> You have contradictions in the dates !!! <br>'
+                       .$_POST['abstract_dl'].'
+                    <='.$_POST['paper_dl'].'
+                    <='.$_POST['notification'].'
+                     <'.$_POST['start_date'].'
+                    <='.$_POST['end_date'].'
+                    <br> <br>'
+                       .$_POST['paper_dl'].'
+                    <='.$_POST['final_dl'].'
+                    <='.$_POST['start_date'];
+     $strMainAssocs['message'] = $strMessage; 
+     $noErrors = false;
+   }   
+  
+    // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
+    if ($noErrors==true){
       $result = $myDBAccess->addConference($_POST['name'],
                                            $_POST['homepage'],
                                            $_POST['description'],
