@@ -30,6 +30,9 @@ else {
   $loginPage = new Template(TPLPATH.'login.tpl');
   $emptyPage = new Template(TPLPATH.'empty.tpl');
 
+  // SID und basepath in Links einfügen
+  $links = defaultAssocArray();
+
   $strMainAssocs = defaultAssocArray();
   $strMainAssocs['body'] = & $loginPage;
 
@@ -41,8 +44,9 @@ else {
   }
   else if( isset($_SESSION['uid']) || isset($_SESSION['password'])) {
     $strMessage = 'Sie sind bereits eingeloggt !!! <BR>'
-                 .'Bitte <a href="logout.php"> ausloggen </a> oder zur&uuml;ck '
-                 .'zur <a  href="start.php"> Startseite</a>';
+                 .'Bitte <a href="'.$links['basepath'].'logout.php'.$links['SID']
+                 .'"> ausloggen </a> oder zur&uuml;ck '.'zur <a  href="'.$links['basepath']
+                 .'start.php'.$links['SID'].'"> Startseite</a>';
     $strMainAssocs['body'] = & $emptyPage;
   }
   else {

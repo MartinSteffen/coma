@@ -21,6 +21,9 @@ $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_start.tpl');
 $submenue = new Template(TPLPATH.'nav_start_konf.tpl');
 
+// SID und basepath in Links einfügen
+$links = defaultAssocArray();
+
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['content'] =  '<h2 align="center"> Liste der  Konferenzen bei denen Sie bereits 
                               angemeldet sind </h2>';
@@ -51,7 +54,8 @@ for ($i = 0; $i < count($conferences); $i++) {
     $zeilen = $zeilen.'<tr> <td class="z1" >'.$cname.'</td> <td align="left">';
     // lese alle Rollen aus
     for ($j = 0; $j < count($roles); $j++){
-      $zeilen = $zeilen.'&nbsp; <a href="'.strtolower($roles[$j]).'.php">'.$roles[$j].'</a> &nbsp;'; 
+      $zeilen = $zeilen.'&nbsp; <a href="'.$links['basepath'].strtolower($roles[$j]).'.php'.
+      $links['SID'].'">'.$roles[$j].'</a> &nbsp;'; 
     } 
     $zeilen = $zeilen.'</td> </tr>'; 
   }

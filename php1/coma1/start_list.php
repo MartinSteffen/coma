@@ -25,6 +25,9 @@ $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_start.tpl');
 $submenue = new Template(TPLPATH.'nav_start_konf.tpl');
 
+// SID und basepath in Links einfügen
+$links = defaultAssocArray();
+
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['content'] =  '<h2 align="center"> Liste aller Konferenzen </h2>';
 $strMenueAssocs['loginName'] = $_SESSION['uname'];
@@ -54,14 +57,15 @@ for ($i = 0; $i < count($conferences); $i++) {
   if (count($roles)!=NULL){
     // lese alle Rollen aus
     for ($j = 0; $j < count($roles); $j++){
-      $zeilen = $zeilen.'&nbsp; <a href="'.strtolower($roles[$j]).'.php">'.$roles[$j].'</a> &nbsp;'; 
+      $zeilen = $zeilen.'&nbsp; <a href="'.$links['basepath'].strtolower($roles[$j]).'.php'.
+                $links['SID'].'">'.$roles[$j].'</a> &nbsp;'; 
     } 
     $zeilen = $zeilen.'</td> </tr>'; 
   }
   else {
     // falls Benutzer keine Rolle hat kann er sich als Teilnehmer anmelden
     $zeilen = $zeilen.
-    ' <form action="start_list.php" method="post">  
+    ' <form action="'.$links['basepath'].'start_list.php'.$links['SID'].'" method="post">  
       <input type="hidden" name="anmeldung" value="'.$conferences[$i]->intId.'" /> 
       <input type="submit" name="submit" value="Anmeldung" /> 
       </form>

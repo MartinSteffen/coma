@@ -20,6 +20,9 @@ if (isset($_POST['email'])){
   $menue = new Template(TPLPATH.'nav_index.tpl');
   $loginPage = new Template(TPLPATH.'empty.tpl');
 
+  // SID und basepath in Links einfügen
+  $links = defaultAssocArray();
+
   $strMainAssocs = defaultAssocArray();
   $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
   $strMainAssocs['content'] = 
@@ -98,7 +101,8 @@ if (isset($_POST['email'])){
      $strMainAssocs['message'] = $strMessage; 
      }
      else {
-     $strMessage = 'Benutzer erfolgreich angelegt, bitte <a href="index.php"> einloggen</a> ' ;
+     $strMessage = 'Benutzer erfolgreich angelegt, bitte <a href="'
+                   .$links['basepath'].'index.php'.$links['SID'].'"> einloggen</a> ' ;
      $strMainAssocs['message'] = $strMessage; 
      }
   }
