@@ -23,7 +23,10 @@ public class Conference {
     
     public Conference(){
     }
-    
+
+    public Conference(int id){ // ADDED by ums, needed for DB lookup by Criterion
+	this.id=id;
+    }
     
     public Date getAbstract_submission_deadline() {
         return abstract_submission_deadline;

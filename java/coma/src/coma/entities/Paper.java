@@ -19,6 +19,7 @@ public class Paper {
     int state;
     String mim_type;
     
+    public Paper(int id){this.id=id;}
     
     public String getAbstract() {
         return Abstract;
