@@ -97,19 +97,19 @@ a
 }
 a:link
 {
-  color: #AD351A;
+  color: #1A35AD;
 }
 a:visited
 {
-  color: #AD351A;
-}
+  color: #1A35AD;
+}}
 a:active
 {
   color: #000000;
 }
 a:hover
 {
-  color: #FF4D00;
+  color: #004DFF;
 }
 a.email {
   color: #00D048;
@@ -159,19 +159,19 @@ a.menu
 }
 a.menu:link
 {
-  color: #9D351A;
+  color: #1A35AD;
 }
 a.menu:visited
 {
-  color: #9D351A;
+  color: #1A35AD;
 }
 a.menu:active
 {
-  color: #FF4D00;
+  color: #004DFF;
 }
 a.menu:hover
 {
-  color: #FF4D00;
+  color: #004DFF;
 }
 
 a.submenu
@@ -182,19 +182,19 @@ a.submenu
 }
 a.submenu:link
 {
-  color: #9D351A;
+  color: #1A359D;
 }
 a.submenu:visited
 {
-  color: #9D351A;
+  color: #1A359D;
 }
 a.submenu:active
 {
-  color: #FF4D00;
+  color: #004DFF;
 }
 a.submenu:hover
 {
-  color: #FF4D00;
+  color: #004DFF;
 }
 
 a.markedmenu
