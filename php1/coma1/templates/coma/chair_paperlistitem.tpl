@@ -17,6 +17,8 @@
     <td class="listitem-{line_no}">
       {if5<button name="viewpaper" type="button" class="smallbutton" value="view paper"
                   onClick="self.location.href='{file_link}'">view paper</button>}
+    </td>
+    <td class="listitem-{line_no}">                  
       <button name="viewpaper" type="button" class="smallbutton" value="view paper"
               onClick="self.location.href='{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}'">
               view review report</button>
