@@ -238,7 +238,7 @@ echo '.';
 $i = 0;
 while ($i < $persons) {
 echo 'PT<br>';
-  for ($k = 0; $k < min(8, $topics-1); $k++) {
+  for ($k = 0; $k < min(3, $topics-1); $k++) {
     if (rand(0,100) < 50+ ($k==0?40:0)) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
       if ($myDBAccess->failed()) {
