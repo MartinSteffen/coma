@@ -47,6 +47,14 @@ echo 'P<br>';
   $i++;
 }
 
+$myDBAccess->addPerson('Sandro', 'Surname', 'sae@me.de', 'The wise',
+    'Not affiliated', 'Sesamestreet', 'Kiel', '24116',
+    'SH', 'Germany', '1234567', '0910',
+    'pw');
+if ($myDBAccess->failed()) {
+    echo('Fehler: '.$myDBAccess->getLastError());
+}
+
 echo '.';
 $i = 0;
 while ($i < $conferences) {
