@@ -41,7 +41,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   $chairforumtemplates = array();
 
   foreach ($forums as $forum){
-    $forum = new Template(TPLPATH . 'forum.tpl');
+    $forumtemplate = new Template(TPLPATH . 'forum.tpl');
     $forumassocs = defaultAssocArray();
     if ($forumselection[$forum->intId]){
       $forumassocs['selectorunselect'] = 'forumunsel';
@@ -74,8 +74,8 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
     $threadtemplate->parse();
     $forumassocs['thread-new'] = $threadtemplate->getOutput();
 
-    $forum->assign($forumassocs);
-    $forum->parse();
+    $forumtemplate->assign($forumassocs);
+    $forumtemplate->parse();
     $tempstring = $tempstring . $forum->getOutput();
     if (isOpenForum($forum)){
       $openforumtemplates[$forum->intId] = $forum;
