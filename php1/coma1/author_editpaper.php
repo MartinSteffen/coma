@@ -120,7 +120,7 @@ if (isset($_POST['action'])) {
     }
   }
   // Datei hochladen
-  else if (isset($_POST['upload'])
+  else if (isset($_POST['upload']) &&
            (strtotime($objConference->strFinalDeadline) > strtotime("now"))) {     
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (!isset($_FILES['userfile']) ||
