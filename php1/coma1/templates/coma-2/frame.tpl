@@ -28,7 +28,7 @@
       <a href="{basepath}help.php?{SID}"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
      </td>
     </tr>
-    <tr height="25">
+    <tr>
      <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
      <td colspan="2" height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
       {navigator}
