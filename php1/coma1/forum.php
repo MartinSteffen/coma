@@ -396,7 +396,7 @@ function generatePostMethodArray($strArrayPostvars){
   $strArrayMainAssocs['title'] = 'Forums of ' . encodeText(session('uname'));
   $strArrayMainAssocs['content'] = &$objContenttemplate;
   $strArrayMainAssocs['menu'] = &$menu;
-  $strArrayMainAssocs['navigator'] = encodeText(session('uname') . '  |  Forums';
+  $strArrayMainAssocs['navigator'] = encodeText(session('uname')) . '  |  Forums';
 
   $objMaintemplate->assign($strArrayMainAssocs);
   $objMaintemplate->parse();
