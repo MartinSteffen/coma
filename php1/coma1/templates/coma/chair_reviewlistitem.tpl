@@ -1,4 +1,4 @@
-  <tr class="listitem-{line_no}">
+  <tr class="listitem-{line_no}" nowrap>
     <td class="listitem-{line_no}">
       <!--<a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}" class="link">{title}</a>-->
       <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="link">{title}</a>
