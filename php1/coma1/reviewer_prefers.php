@@ -34,6 +34,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'submit') {
   foreach ($objTopics as $objTopic) {
     $objReviewerAttitude->setTopicAttitude($objTopic->intId, $_POST['topic-'.$objTopic->intId]);
   }
+  // Schreibe in die Datenbank
+  $myDBAccess->updateReviewerAttitude($objReviewerAttitude);
+  if ($myDBAccess->failed()) {
+    error('insert new preference into database',$myDBAccess->getLastError());
+  }
 }
 
 $content = new Template(TPLPATH.'reviewer_prefers.tpl');
