@@ -18,7 +18,7 @@ require_once(INCPATH.'header.inc.php');
 require_once(INCPATH.'class.conferencedetailed.inc.php');
 
 
-// Globale Konstanten (nach aussen)
+// Globale Konstanten (nach aussen; auch im CSS benutzt!)
 define('ASSIGNED', 0); // Paper
 define('SUGGESTED', 1); // Paper
 define('NEUTRAL', 2); // Topic
@@ -389,7 +389,7 @@ class Distribution extends ErrorHandling {
       }
     }*/
     
-    echo('<table>');
+    /*echo('<table>');
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
@@ -414,19 +414,7 @@ class Distribution extends ErrorHandling {
     echo('<br>NumRevs:');
     print_r($p_num_revs);
     echo('<br>NumPapers:');
-    print_r($r_num_papers);
-
-    /*$text = array(0 => 'assigned', 'prefers', 'wants', 'denies', 'excluded');
-    for ($i = 0; $i < count($matrix); $i++) {
-      echo('<br>Reviewer '.$r_id[$i].':');
-      for ($j = 0; $j < count($matrix[$i]); $j++) {
-        for ($k = ASSI; $k <= EXCLUDED; $k++) {
-          if ($this->isBit($matrix[$i][$j], $k)) {
-            echo(' '.$text[$k].' Paper #'.$p_id[$j]);
-          }
-        }
-      }
-    }*/
+    print_r($r_num_papers);*/
 
     // Keine gueltige Verteilung?
     for ($i = 0; $i < count($p_num_revs); $i++) {
