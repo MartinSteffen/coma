@@ -1,4 +1,4 @@
-<a href="{basepath}reviewer.php{SID}" class="menue">  {loginName} (Reviewer) </a>&nbsp;|&nbsp;&nbsp;
+<a href="{basepath}start.php{SID}" class="menue">  {loginName} (Reviewer) </a>&nbsp;|&nbsp;&nbsp;
 <a href="#"> Artikelverwaltung </a>&nbsp;|&nbsp;&nbsp;
 
 

@@ -1,4 +1,4 @@
-<a href="{basepath}chair.php{SID}" class="menue"> {loginName} (Chair) </a>&nbsp;|&nbsp;&nbsp;
+<a href="{basepath}start.php{SID}" class="menue"> {loginName} (Chair) </a>&nbsp;|&nbsp;&nbsp;
 <a href="{basepath}chair_konf.php{SID}">Konfiguration</a>&nbsp;|&nbsp;&nbsp;
 <a href="{basepath}chair_benu.php{SID}">Benutzerverwaltung</a>&nbsp;|&nbsp;&nbsp;
 <a href="{basepath}chair_arti.php{SID}">Artikelverwaltung</a>&nbsp;|&nbsp;&nbsp;
