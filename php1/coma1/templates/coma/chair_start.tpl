@@ -1,7 +1,7 @@
 <table class="viewtable">
   <tr class="viewheader">
     <th class="viewheader">
-      Welcome to CoMa, the Conference Management system.
+      Welcome to CoMa - Your Conference Manager!
     </th>    
   </tr>
   <tr class="viewline">
