@@ -26,7 +26,7 @@
     <td class="listitem-1">
        <form action="" method="post">
        <input type="hidden" name="confid" value="{confid}" />
-       <input type="submit" name="submit" value="show" class="button" />
+       <input type="submit" name="submit" value="download PDF" class="button" />
        </form>
     </td>
     <td class="listitem-1">
@@ -61,7 +61,7 @@
     <td class="listitem-2">
        <form action="" method="post">
        <input type="hidden" name="confid" value="{confid}" />
-       <input type="submit" name="submit" value="show" class="button" />
+       <input type="submit" name="submit" value="download PDF" class="button" />
        </form>
     </td>
     <td class="listitem-2">
@@ -95,7 +95,7 @@
     <td class="listitem-1">
        <form action="" method="post">
        <input type="hidden" name="confid" value="{confid}" />
-       <input type="submit" name="submit" value="show" class="button" />
+       <input type="submit" name="submit" value="download PDF" class="button" />
        </form>
     </td>
     <td class="listitem-1">
@@ -134,7 +134,7 @@
     <td class="listitem-2">
        <form action="" method="post">
        <input type="hidden" name="confid" value="{confid}" />
-       <input type="submit" name="submit" value="show" class="button" />
+       <input type="submit" name="submit" value="download PDF" class="button" />
        </form>
     </td>
     <td class="listitem-2">
