@@ -40,9 +40,9 @@
 </table>
 <!-- - - - - - - - - - - - - - - - - - - - Body - - - - - - - - - - - - - - - -  -->
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table class="body">
  <tr>
-  <td width="150">{menu}</td>
+  <td>{menu}</td>
   <td>{content}</td>
  </tr>
 </table>
