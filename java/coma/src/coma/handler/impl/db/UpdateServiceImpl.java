@@ -211,18 +211,18 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 					Vector<Topic> topics = paper.getTopics();
 					if (topics != null) {
 						conn.setAutoCommit(true);
+						UPDATE_QUERY = " DELETE FROM IsAboutTopic "
+							+ " WHERE paper_id = "+paper.getId();
+						Statement stmt = conn.createStatement();
+						int rows = stmt.executeUpdate(UPDATE_QUERY);
+						if (rows < 1) {
+							info
+									.append("Error: Could not delete topics for  Paper!");
+							conn.rollback();
+						}
+						InsertServiceImpl insert = new InsertServiceImpl();
 						for (int i = 0; i < topics.size(); i++) {
-							UPDATE_QUERY = " UPDATE IsAboutTopic SET topic_id = ? "
-									+ " WHERE paper_id = ?";
-							pstmt = conn.prepareStatement(UPDATE_QUERY);
-							pstmt.setInt(1, topics.elementAt(i).getId());
-							int rows = pstmt.executeUpdate();
-							if (rows < 1) {
-								info
-										.append("Error: could not update Topic nummber ("
-												+i+ ") for this Paper!");
-								conn.rollback();
-							}
+							insert.setAboutTopic(paper.getId(), ((Topic)topics.elementAt(i)).getId());
 						}
 					}
 				    result.setSUCCESS(true);

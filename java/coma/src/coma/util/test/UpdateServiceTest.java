@@ -49,9 +49,9 @@ public class UpdateServiceTest extends TestCase{
 		sc.setPaper(p);
 		SearchResult sr = read.getPaper(sc);
 		p = ((Paper[])sr.getResultObj())[0];
-		Vector topics = new Vector();
-		topics.add(new Integer(25));
-		topics.add(new Integer(26));
+		Integer[] topics = new Integer[2];
+		topics[0]=new Integer(6);
+		topics[1]=new Integer(7);
 		p.setTopics(topics);
 		
 		sr = update.updatePaper(p);
