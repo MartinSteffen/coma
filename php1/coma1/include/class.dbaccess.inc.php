@@ -101,6 +101,7 @@ class DBAccess {
     $s = ' SELECT  id'.
          ' FROM    Person'.
          ' WHERE   email = \''.$strEmail.'\'';
+    echo($s);
     $data = $this->mySql->select($s);
     if ($data) {
       return $data[0]['id'];
