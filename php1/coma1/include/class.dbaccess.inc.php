@@ -1239,7 +1239,6 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         "         VALUES ('$strName', '$strHomepage', '$strDescription', '$strAbstractDeadline',".
         "                 '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline',".
         "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd')";    
-    echo("<br>$s<br>");
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addConference', $this->mySql->getLastError());

@@ -25,7 +25,7 @@ function bit($b) {
 }
 
 $myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
-                           'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a');
+                           '', '', '', '', '', '', '', '', '');
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
