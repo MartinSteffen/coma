@@ -23,7 +23,7 @@
 
     $result=mysql_query($SQL);
 	$count = 0;	
-    if ($list = mysql_fetch_row ($result)) 	
+    while ($list = mysql_fetch_row ($result)) 	
 	{
 		$paper = array();
 		$paper['paperID'] = $list[0];
