@@ -16,6 +16,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
+$x = CHAIR;
 
 $p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');

@@ -22,8 +22,6 @@ if (!defined('INCPATH')) {
   /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
-require_once(INCPATH.'header.inc.php');
-
 require_once(INCPATH.'class.mysql.inc.php');
 
 require_once(INCPATH.'class.conference.inc.php');
@@ -988,27 +986,20 @@ class DBAccess {
   function updateRoles($intConferenceId, $objPerson) {
     $intId = $objPerson->intId;
     
-    // Rollen, die nicht mehr gelten, loeschen...
+    // Rollen loeschen...
     $s = 'DELETE  FROM Role'.
         ' WHERE   person_id = '.$intId;
-    for ($i = 0; $i < count($ROLES); $i++) {
-      if ($objPerson->hasRole($ROLES[$i][0])) {
-        $s = $s.' AND role_id <> '.$ROLES[$i][0];
-      }
-    }
-    $result=true;//$result = $this->mySql->update($s);
-    echo($s.' /// ');
+    $result = $this->mySql->delete($s);
     if (empty($result)) {
       return $this->error('updateRoles '.$this->mySql->getLastError());
     }
-    
-    // neu hinzugekommene Rollen einfuegen...
-    for ($i = 0; $i < count($ROLES); $i++) {
-      if ($objPerson->hasRole($ROLES[$i][0])) {
+
+    // Rollen einfuegen...
+    for ($i = $MIN_ROLE; $i <= $MAX_ROLE; $i++) {
+      if ($objPerson->hasRole($i)) {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-             '        VALUES ('.$intConferenceId.', '.$intPersonId.', '.$ROLES[$i][0].')';
-        echo($s.' /// ');
-        $result=true;//$result = $this->mySql->update($s);
+            ' SELECT  '.$intConferenceId.', '.$intPersonId.', '.$i.
+        $result = $this->mySql->insert($s);
         if (empty($result)) {
           return $this->error('updateRoles '.$this->mySql->getLastError());
         }
