@@ -1,4 +1,8 @@
 <?php
+/**
+ * @version $Id$
+ * @package coma1
+ */
 
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
@@ -7,7 +11,7 @@ if (!defined('IN_COMA1')) {
 /**
  * Klasse zum Parsen der Templates
  *
- * $Id$
+ * @author  Jan Waller <jwa@informatik.uni-kiel.de>
  *
  */
 class Template {
@@ -19,7 +23,7 @@ class Template {
   function Template($filename) {
     return $this->readTemplate($filename);
   }
-  
+
   function readTemplate($filename) {
     // vor PHP 4.3 waere es das gewesen:
     // $contents = implode("", @file($filename) );
@@ -30,14 +34,14 @@ class Template {
     $this->template = $contents;
     return true;
   }
-  
+
   function assign($assocArray) {
     if(!is_array($assocArray)) {
       return $this->error('Not an Array');
     }
     $this->assocArray = array_merge($this->assocArray, $assocArray);
   }
-  
+
   function parse() {
     $template = $this->template;
     $assocArray = $this->assocArray;
@@ -46,12 +50,12 @@ class Template {
     $template = preg_replace($keyArray, array_values($assocArray), $template);
     return $template;
   }
-  
+
   function error($text) {
     $this->errString = $text;
     return false;
   }
-  
+
   function getLastError() {
     $errString = $this->errString;
     $this->errString = '';

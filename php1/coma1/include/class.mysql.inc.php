@@ -1,4 +1,8 @@
 <?php
+/**
+ * @version $Id$
+ * @package coma1
+ */
 
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
@@ -8,8 +12,6 @@ if (!defined('IN_COMA1')) {
  * simple Klasse zum Zugriff auf die MySQL Datenbank
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
- * @version $Id$
- * @package coma1
  *
  */
 class MySql {
