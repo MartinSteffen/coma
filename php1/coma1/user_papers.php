@@ -121,7 +121,7 @@ if ($showAuthorPapers) {
   $strMainAssocs['title'] = 'Papers of author';
 }
 else if ($showAcceptedPapers) {
-  $strMainAssocs['title'] = 'Accepted paper for conference';
+  $strMainAssocs['title'] = 'Accepted papers for conference';
 }
 else {
   $strMainAssocs['title'] = 'All papers in conference';
