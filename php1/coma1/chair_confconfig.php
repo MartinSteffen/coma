@@ -31,8 +31,6 @@ if (isset($_POST['action'])) {
   $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
 
   $strContentAssocs['id']               = encodeText($_POST['id']);
-  $strContentAssocs['criterionsID']     = encodeText($_POST['criterionsID']);
-  $strContentAssocs['topicsID']         = encodeText($_POST['topicsID']);
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
@@ -53,6 +51,8 @@ if (isset($_POST['action'])) {
   $strCritDescripts = encodeTextArray($_POST['crit_descr']);
   $strCritMaxVals   = encodeTextArray($_POST['crit_max']);
   $strCritWeights   = encodeTextArray($_POST['crit_weight']);
+  $intCIDs     = encodeTextArray($_POST['criterionsID']);
+  $intTIDs     = encodeTextArray($_POST['topicsID']);
   if (isset($_POST['advanced'])) {
     $intTopicNum = count($strTopics);
     $intCritNum  = count($strCriterions);
@@ -106,9 +106,11 @@ if (isset($_POST['action'])) {
   $strContentAssocs['num_topics']     = encodeText(count($strTopics));
   $strContentAssocs['num_criterions'] = encodeText(count($strCriterions));
   for ($i = 0; $i < count($strTopics); $i++) {
-    $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($strTopics[$i]);
+    $strContentAssocs['topicsID'].= (($i > 0) ? '|' : '') . encodeText($intTIDs[$i]);
+    $strContentAssocs['topics']  .= (($i > 0) ? '|' : '') . encodeText($strTopics[$i]);
   }
   for ($i = 0; $i < count($strCriterions); $i++) {
+    $strContentAssocs['criterionsID'].= (($i > 0) ? '|' : '').encodeText($intCIDs[$i]);
     $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($strCriterions[$i]);
     $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($strCritDescripts[$i]);
     $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($strCritMaxVals[$i]);
@@ -164,14 +166,12 @@ if (isset($_POST['action'])) {
     // Versuche die Konferenz zu aktualisieren
     else {
       $objCriterions = array();
-      $strCIds = explode('|', $_POST['criterionsID']);
       for ($i = 0; $i < count($strCriterions); $i++) {
-        $objCriterions[] = new Topic($strCIds[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
+        $objCriterions[] = new Topic($intCIds[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
       }
       $objTopics = array();
-      $strTIds = explode('|', $_POST['topicsID']);
       for ($i = 0; $i < count($strTopics); $i++) {
-        $objTopics[] = new Topic($strTIds[$i], $strTopics[$i]);
+        $objTopics[] = new Topic($intTIds[$i], $strTopics[$i]);
       }
       var_dump($objTopics);
       $objConferenceDetailed =
@@ -243,7 +243,7 @@ else {
   $strContentAssocs['crit_descr']     = '';
   $strContentAssocs['crit_weight']    = '';
   for ($i = 0; $i < count($objConference->objCriterions); $i++) {
-    $strContentAssocs['criterionsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intId);
+    $strContentAssocs['criterionsID'].= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intId);
     $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strName);
     $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strDescription);
     $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intMaxValue);
@@ -251,8 +251,8 @@ else {
   }
   $strContentAssocs['topics']         = '';
   for ($i = 0; $i < count($objConference->objTopics); $i++) {
-    $strContentAssocs['topicsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objTopics[$i]->intId);
-    $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($objConference->objTopics[$i]->strName);
+    $strContentAssocs['topicsID'] .= (($i > 0) ? '|' : '') . encodeText($objConference->objTopics[$i]->intId);
+    $strContentAssocs['topics']   .= (($i > 0) ? '|' : '') . encodeText($objConference->objTopics[$i]->strName);
   }
   $strContentAssocs['num_topics']     = encodeText(count($objConference->objTopics));
   $strContentAssocs['num_criterions'] = encodeText(count($objConference->objCriterions));
