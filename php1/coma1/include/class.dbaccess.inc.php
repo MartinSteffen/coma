@@ -883,9 +883,50 @@ class DBAccess {
   // ---------------------------------------------------------------------------
 
   /**
+   * Legt eine neue Konferenz an.
+   * @param $strName                   :max. 127 Zeichen
+   * @param $strHomepage               :max. 127 Zeichen
+   * @param $strDescription       
+   * @param $strAbsSubDeadline         :?
+   * @param $strPaperSubDeadline       :?
+   * @param $strReviewDeadline         :?
+   * @param $strFinalVersionDeadline   :?
+   * @param $strNotification           :?
+   * @param $strConverenceStart        :?
+   * @param $strConferenceEnd          :?
+   * @param $strMinRevPerPaper         :?
+   * 
+   * Datum wird übergeben im Format Jahr-Monat-Tag z.B. 2012115 
+   *
+   * @access public
+   * @author Daniel (31.12.04)
    */
-  function addConference() {
-    return $this->error('addConference '.$this->mySql->getLastError());
+   function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline, 
+                         $strPaperSubDeadline, $strReviewDeadline, $strFinalVersionDeadline, 
+                         $strNotification, $strConverenceStart, $strConferenceEnd, $strMinRevPerPaper){
+     $s = 'INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline, 
+                                    paper_submission_deadline, review_deadline, final_version_deadline,
+                                    notification, conference_start, conference_end, min_reviews_per_paper)'. 
+                 ' VALUES          ( \''.$strName.'\', 
+                                     \''.$strHomepage.'\',
+                                     \''.$strDescription.'\',
+                                     \''.$strAbsSubDeadline.'\',
+                                     \''.$strPaperSubDeadline.'\',
+                                     \''.$strReviewDeadline.'\',
+                                     \''.$strFinalVersionDeadline.'\',
+                                     \''.$strNotification.'\',
+                                     \''.$strConverenceStart.'\',
+                                     \''.$strConferenceEnd.'\',
+                                     \''.$strMinRevPerPaper.'\')';
+     //echo('<br>SQL: '.$s.'<br>');
+     $intId = $this->mySql->insert($s);
+     if (!empty($intId)) {
+       return $intId;
+     }
+     else {
+       return false;
+       echo $this->error('addConference '.$this->mySql->getLastError());
+    }
   }
 
   /**
