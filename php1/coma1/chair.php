@@ -19,7 +19,7 @@ require_once('./include/header.inc.php');
 $mainPage = new Template(TPLPATH.'main.tpl');
 
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['content'] = 'Eingeloggt!';
+$strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 
 
 $mainPage->assign($strMainAssocs);
