@@ -453,11 +453,11 @@ table.subviewtable
 {
   font-weight: bold;
 }
-.viewline
+.viewlineWrap
 {
   border-top: 1px #808080 solid;
 }
-.viewlineNoWrap
+.viewline
 {
   border-top: 1px #808080 solid;
   white-space: nowrap;

@@ -2,43 +2,43 @@
   <tr class="viewheader">
     <th class="viewheader" colspan="2">{name}&nbsp;</th>
   </tr>
-  <tr class="viewlinep">
-    <td class="viewline" colspan="2">{description}&nbsp;</td>
+  <tr class="viewlineWrap">
+    <td class="viewlineWrap" colspan="2">{description}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Takes place at:</td>
-    <td class="viewlineNoWrap">{date}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Takes place at:</td>
+    <td class="viewline">{date}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Website:</td>
-    <td class="viewlineNoWrap">{if1<a href="{link}" target="_blank" class="link">}{link}{if1</a>}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Website:</td>
+    <td class="viewline">{if1<a href="{link}" target="_blank" class="link">}{link}{if1</a>}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap" colspan="2">&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline" colspan="2">&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Number of papers to chose:</td>
-    <td class="viewlineNoWrap">{paper_number}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Number of papers to chose:</td>
+    <td class="viewline">{paper_number}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Submit paper abstracts until:</td>
-    <td class="viewlineNoWrap">{abstract_deadline}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Submit paper abstracts until:</td>
+    <td class="viewline">{abstract_deadline}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Submit papers until:</td>
-    <td class="viewlineNoWrap">{paper_deadline}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Submit papers until:</td>
+    <td class="viewline">{paper_deadline}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Submit final paper version until:</td>
-    <td class="viewlineNoWrap">{final_deadline}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Submit final paper version until:</td>
+    <td class="viewline">{final_deadline}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Submit reviews until:</td>
-    <td class="viewlineNoWrap">{review_deadline}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Submit reviews until:</td>
+    <td class="viewline">{review_deadline}&nbsp;</td>
   </tr>
-  <tr class="viewlineNoWrap">
-    <td class="viewlineNoWrap">Decide papers until:</td>
-    <td class="viewlineNoWrap">{notification}&nbsp;</td>
+  <tr class="viewline">
+    <td class="viewline">Decide papers until:</td>
+    <td class="viewline">{notification}&nbsp;</td>
   </tr>
 </table>
 
