@@ -67,7 +67,7 @@ public class Service {
 			} else {
 				DriverManager.setLoginTimeout(10);
 				try {
-					prop.load(new FileInputStream("db.pproperties"));
+					prop.load(new FileInputStream("db.properties"));
 					String driver = prop.getProperty("db.driver");
 					String url = prop.getProperty("db.url");
 					String user = prop.getProperty("db.user");
