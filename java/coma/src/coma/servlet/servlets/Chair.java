@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import javax.xml.transform.stream.StreamSource;
 
 import coma.entities.Conference;
+import java.util.Vector;
 import coma.entities.*;
 import coma.servlet.util.XMLHelper;
 import coma.handler.impl.db.*;
@@ -55,10 +56,6 @@ public class Chair extends HttpServlet
 	String path = null;
 	String user = null;
 	Navcolumn myNavCol = null;
-
-	public void init(ServletConfig config) 
-	{
-	}
 	
 	public void doGet(HttpServletRequest req,HttpServletResponse res) 
 	{
@@ -66,11 +63,8 @@ public class Chair extends HttpServlet
 		result.delete(0,result.length());
 		String action = req.getParameter("action");
 		HttpSession session= req.getSession(true);
-		/*
-		 * FIXME: set relative path
-		 */
-		path = "/home/superingo/jakarta-tomcat-5.0.28/webapps/coma";
-		//path = getServletContext().getRealPath("");
+		//path = "/home/superingo/jakarta-tomcat-5.0.28/webapps/coma";
+		path = getServletContext().getRealPath("");
 		Person p = (Person)session.getAttribute(SessionAttribs.PERSON);
 		myNavCol = new Navcolumn(req.getSession(true));
 		user = p.getFirst_name() + " " + p.getLast_name();
@@ -114,6 +108,14 @@ public class Chair extends HttpServlet
 		{
 			topic(req,res,session);
 		}
+		if (action.equals("assign"))
+		{
+			assign(req,res,session);
+		}
+		if (action.equals("doAssign"))
+		{
+			doAssign(req,res,session);
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
@@ -143,7 +145,7 @@ public class Chair extends HttpServlet
 			p.setFirst_name(formular[0]);
 			p.setLast_name(formular[1]);
 			p.setEmail(formular[2]);
-			if (req.getParameter("invite as")=="author")
+			if (req.getParameter("invite as").equals("author"))
 				p.setRole_type(1);
 			else
 				p.setRole_type(2);
@@ -197,7 +199,6 @@ public class Chair extends HttpServlet
 		if(req.getParameter("topic_target").equals("save"))
 		{
 			int topics = Integer.parseInt(session.getAttribute("number_of_topics").toString());
-			System.out.println(topics);
 			InsertServiceImpl insert = new InsertServiceImpl();
 			Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 			for (int i=0;i<topics;i++)
@@ -207,6 +208,28 @@ public class Chair extends HttpServlet
 			setup(req,res,session);
 		}
 		
+		if(req.getParameter("topic_target").equals("delete"))
+		{
+			int id=Integer.parseInt(req.getParameter("id"));
+			/*
+			 * TODO delete topic from DB
+			 */
+			setup(req,res,session);
+		}
+		
+		/*
+		 * TODO update Topic
+		 */
+		if(req.getParameter("topic_target").equals("update"))
+		{
+			int id=Integer.parseInt(req.getParameter("id"));
+			Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+			UpdateServiceImpl update = new UpdateServiceImpl();
+			Topic t = new Topic(id);
+			t.setConferenceId(c.getId());
+			//update.updateTopic(c);
+			setup(req,res,session);
+		}	
 		
 	}
 	
@@ -215,7 +238,8 @@ public class Chair extends HttpServlet
 		String tag;
 		ReadServiceImpl readService = new ReadServiceImpl();
 	    Topic t = new Topic(-2);
-	    SearchResult search_result = readService.getTopic(-1,t.getId());
+	    Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+	    SearchResult search_result = readService.getTopic(t.getId(),c.getId());
 	    Topic[] topics = (Topic[])search_result.getResultObj();	
 		if (req.getParameter("target").equals("topics"))
 		{
@@ -233,12 +257,11 @@ public class Chair extends HttpServlet
 		
 		if (req.getParameter("target").equals("conference"))
 		{
-			Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
-	    	tag = "setup";
+			tag = "setup";
 			info.append(XMLHelper.tagged("status","you are chair of: "));
 			info.append("<content>");
 			if (c!=null)
-				info.append(c.toXML(Entity.XMLMODE.DEEP));
+				info.append(c.toXML(Entity.XMLMODE.DEEP));	
 			if (c.getMin_review_per_paper()==0)
 				info.append(XMLHelper.tagged("min_setup",""));
 			if (c.getConference_start()==null)
@@ -262,15 +285,15 @@ public class Chair extends HttpServlet
 	{ 
 		GregorianCalendar calendar = null;
 		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
-		int topics = Integer.parseInt(session.getAttribute("topics").toString());
 		if (req.getParameter("conference name")!=null)
 			c.setName(req.getParameter("conference name"));
 		if (req.getParameter("homepage")!=null)
 			c.setHomepage(req.getParameter("homepage"));
 		if (req.getParameter("description")!=null)
 			c.setDescription(req.getParameter("description"));
-		if (!(req.getParameter("min").equals("")))
-			c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min")));	
+		if (req.getParameter("min")!=null)
+			if (!(req.getParameter("min").equals("")))
+				c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min")));	
 		if (!(req.getParameter("abstract_day").equals("")) && (req.getParameter("abstract_month").equals("")) && (req.getParameter("abstract_year").equals("")))
 		{
 			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("abstract_year")),
@@ -283,18 +306,20 @@ public class Chair extends HttpServlet
 		    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
 		    c.setFinal_version_deadline(calendar.getTime());
 		}
-		if (!(req.getParameter("start_day").equals("")) && !(req.getParameter("start_month").equals("")) && !(req.getParameter("start_year").equals("")))
-		{
-		calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("start_year")),
-	    		Integer.parseInt(req.getParameter("start_month"))-1,Integer.parseInt(req.getParameter("start_day")));
-		    c.setConference_start(calendar.getTime());
-		}
-		if (!(req.getParameter("end_day").equals("")) && (req.getParameter("end_month").equals("")) && !(req.getParameter("end_year").equals("")))
-		{
-			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("end_year")),
-		    		Integer.parseInt(req.getParameter("end_month"))-1,Integer.parseInt(req.getParameter("end_day")));
-		    c.setConference_end(calendar.getTime());
-		}
+		if (req.getParameter("start_day")!=null)
+			if (!(req.getParameter("start_day").equals("")) && !(req.getParameter("start_month").equals("")) && !(req.getParameter("start_year").equals("")))
+			{
+			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("start_year")),
+		    		Integer.parseInt(req.getParameter("start_month"))-1,Integer.parseInt(req.getParameter("start_day")));
+			    c.setConference_start(calendar.getTime());
+			}
+		if (req.getParameter("end_day")!=null)
+			if (!(req.getParameter("end_day").equals("")) && !(req.getParameter("end_month").equals("")) && !(req.getParameter("end_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("end_year")),
+			    		Integer.parseInt(req.getParameter("end_month"))-1,Integer.parseInt(req.getParameter("end_day")));
+			    c.setConference_end(calendar.getTime());
+			}
 		if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && !(req.getParameter("paper_year").equals("")))
 		{
 			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
@@ -494,7 +519,7 @@ public class Chair extends HttpServlet
         	for (int i=0;i<result.length;i++)
         	{
         		p = result[i];
-        		info.append(p.toXML());
+        		info.append(p.toXML(Entity.XMLMODE.SHALLOW));
         	}
         	info.append("</content>");
         	info.append(XMLHelper.tagged("status","" + user + ": all papers"));
@@ -562,6 +587,143 @@ public class Chair extends HttpServlet
 			commit(res,tag);
 		}
 	}
+	
+	public void assign(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	{	
+		Paper p =null;
+		int PaperID;
+		if(req.getParameter("id")!= null)
+		{
+			PaperID = Integer.parseInt(req.getParameter("id"));
+			session.setAttribute("PaperID",req.getParameter("id"));
+			p = new Paper(PaperID);
+		}
+		else
+		{
+			PaperID = Integer.parseInt(((String)session.getAttribute("PaperID")));
+			p = new Paper(PaperID);
+		}
+        SearchCriteria search = new SearchCriteria();
+        search.setPaper(p);
+        ReadServiceImpl readService = new ReadServiceImpl();
+        SearchResult search_resultP = readService.getPaper(search); 
+        Paper[] resultP = (Paper[])search_resultP.getResultObj(); 
+        ReviewReport RR = new ReviewReport();
+        RR.setPaperId(PaperID);    
+        search.setReviewReport(RR);
+        SearchResult search_resultR = readService.getReviewReport(search); 
+        ReviewReport[] resultR = (ReviewReport[])search_resultR.getResultObj();
+        info.append("<content>");
+        String tag = "assign";
+        if (resultP==null || resultP.length ==0)
+        {
+        	info.append(XMLHelper.tagged("status","" + user + ": no papers available"));
+        	commit(res,tag);
+        }
+        else
+        {
+        	for (int i=0;i<resultP.length;i++)
+        	{
+        		p = resultP[i];
+        		System.out.println(p.getAbstract());
+        		info.append(p.toXML());
+        	}
+	        Person p1 = new Person(0);
+	        /*
+	         * FIXME state setzen
+	         */
+	        p1.setState("reviewer");
+			SearchCriteria search1 = new SearchCriteria();
+	        search.setPerson(p1);
+	        ReadServiceImpl readService1 = new ReadServiceImpl();
+	        SearchResult search_result1 = readService.getPerson(search);
+	        Person[] result1 = (Person[])search_result1.getResultObj();  
+	   	 	if (result1==null || result1.length ==0)
+	        {
+		 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
+	        	commit(res,tag);
+	        }
+	        else
+	        {
+	        	Vector CheckedReviewers = new Vector();
+	          	for (int i=0;i<result1.length;i++)
+	        	{    
+	          		info.append("<personplus>");
+	        		p1 = result1[i];	        		
+	        		info.append(p1.toXML());
+		        	for (int j=0;j<resultR.length;j++)
+		        	{
+		        		if(result1[i].getId() == resultR[j].get_reviewer_id())
+		        		{        	        		
+		        			info.append(XMLHelper.tagged("checked","checked"));
+		        			CheckedReviewers.addElement(String.valueOf(resultR[j].get_reviewer_id()));
+	        			}
+		        	}        	
+	        		info.append("</personplus>");
+	        	}
+	        	session.setAttribute("CheckedReviewers",CheckedReviewers);
+	        	info.append("</content>");
+	        	info.append(XMLHelper.tagged("status","" + user + ": Assignment"));
+	        	commit(res,tag);
+	        }
+        }
+ 	}
+        
+	private void doAssign(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	{
+	String PaperID = (String)session.getAttribute("PaperID");
+	String[] NewReviewerIDs = req.getParameterValues("CB");
+	Vector OldCheckedReviewers =(Vector)session.getAttribute("CheckedReviewers");
+	session.setAttribute("CheckedReviewers",null);
+	String tag = "assign";
+	if(NewReviewerIDs != null)
+	{
+		for(int j=0;j<OldCheckedReviewers.size();j++)
+		{
+			boolean toDelete=true;
+			for(int i=0;i<NewReviewerIDs.length;i++)
+			{
+				if (((String)OldCheckedReviewers.elementAt(j)).equals(NewReviewerIDs[i]))
+				{
+					NewReviewerIDs[i]=null;
+					toDelete=false;
+					break;				
+				}	
+			}
+			if(toDelete)
+			{
+				System.out.println("TODEL :"+OldCheckedReviewers.elementAt(j).toString());
+				/*
+				 * TODO delete ReviewReport
+				 */
+			}	
+		}
+	    for(int i=0;i<NewReviewerIDs.length;i++)
+	    {
+	    	if(NewReviewerIDs[i] != null)
+	    	{
+	    		System.out.println("RR"+ NewReviewerIDs[i]);
+	    		ReviewReport RR = new ReviewReport(-1);
+	    		InsertServiceImpl insert = new InsertServiceImpl();
+	    		RR.set_paper_Id(Integer.parseInt(PaperID));   
+	    		RR.set_reviewer_id(Integer.parseInt(NewReviewerIDs[i]));
+	    		insert.insertReviewReport(RR);
+	    	}
+	    }
+	}
+	else
+	{
+		for(int j=0;j<OldCheckedReviewers.size();j++)
+		{
+			System.out.println("TODEL :"+OldCheckedReviewers.elementAt(j).toString());
+			/*
+			 * TODO delete ReviewReport
+			 */
+		}
+	}
+	info.append(XMLHelper.tagged("status","" + user + ": Done successfulll: "));
+	assign(req,res,session);
+}
 	
 	private void commit(HttpServletResponse res, String tag) 
 	{
