@@ -173,224 +173,88 @@ public class Chair extends HttpServlet
 	
 	public void setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		
-		/*
-		 * FIXME get conference from session
-		 */
-		Conference c = new Conference(1);
+		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 	    ReadServiceImpl readService = new ReadServiceImpl();
-	    SearchCriteria search = new SearchCriteria();
-	    search.setConference(c);
-	    SearchResult search_result = readService.getConference(search);
-	    Conference[] conferences = (Conference[])search_result.getResultObj();
-	    readService = new ReadServiceImpl();
-	    search = new SearchCriteria();
-	    
-	    /*
-	     * FIXME get all topics
-	     */
 	    Topic t = new Topic(-2);
-	    //search.setTopic(t);
-	    //search_result = readService.getTopic(search);
-	    //Topic[] topics = (Topic[])search_result.getResultObj();
-	    /*
-	     * FIXME andere Bedingung, ob conference setup fertig?
-	     * Ich denke sowas wie conference.getstart==null
-	     */
-	    if (conferences==null || conferences.length==0)
-	    {
-	    	setup_step(req,res,session);
-	    }
-	    else
-	    {
-	    	String tag = "setup";
-			info.append(XMLHelper.tagged("status","" + user + ": you are chair of: "));
-			info.append("<content>");
-			info.append(conferences[0].toXML(Entity.XMLMODE.DEEP));
-			/*for (int i=0;i<topics.length;i++)
-			{
-				info.append(topics[i].toXML());
-			}*/
-			info.append("</content>");
-			commit(res,tag);
-	    }
-	}
-	
-	public void setup_step(HttpServletRequest req,HttpServletResponse res,HttpSession session)
-	{
-		String tag=null;
-		if (req.getParameter("step")==null)
+	    SearchResult search_result = readService.getTopics(t.getId());
+	    Topic[] topics = (Topic[])search_result.getResultObj();
+    	String tag = "setup";
+		info.append(XMLHelper.tagged("status","you are chair of: "));
+		info.append("<content>");
+		if (c!=null)
+			info.append(c.toXML(Entity.XMLMODE.DEEP));
+		if (c.getMin_review_per_paper()==0)
+			info.append(XMLHelper.tagged("min_setup",""));
+		if (c.getConference_start()==null)
+			info.append(XMLHelper.tagged("start_setup",""));
+		if (c.getConference_end()==null)
+			info.append(XMLHelper.tagged("end_setup",""));
+		for (int i=0;i<topics.length;i++)
 		{
-			tag = "setup_new_step1";
-			info.append(XMLHelper.tagged("status","" + user + ": setup a new conference step 1"));
-			info.append(XMLHelper.tagged("content",""));
+			info.append(topics[i].toXML());
 		}
-		else
-		{
-			tag = "setup_new_step2";
-			info.append("<content>");
-			
-			for(int i=0;i<Integer.parseInt(session.getAttribute("topics").toString());i++)
-			{
-				info.append("<topic>");
-				info.append(XMLHelper.tagged("number",i));
-				info.append("</topic>");
-			}
-			info.append("</content>");
-			info.append(XMLHelper.tagged("status","" + user + ": setup a new conference step 2"));
-		}
-		commit(res,tag);	
+		info.append("</content>");
+		commit(res,tag);
 	}
 
 	public void send_setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{ 
-		if (req.getParameter("step").equals("update"))
+		GregorianCalendar calendar = null;
+		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+		if (req.getParameter("conference name")!=null)
+			c.setName(req.getParameter("conference name"));
+		if (req.getParameter("homepage")!=null)
+			c.setHomepage(req.getParameter("homepage"));
+		if (req.getParameter("description")!=null)
+			c.setDescription(req.getParameter("description"));
+		if (req.getParameter("min")!=null)
+			c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min")));	
+		if (!(req.getParameter("abstract_day").equals("")) && (req.getParameter("abstract_month").equals("")) && (req.getParameter("abstract_year").equals("")))
 		{
-			GregorianCalendar calendar = null;
-			/*
-			 * FIXME get conference to update from session
-			 */
-			Conference c = new Conference(1);
-			if (req.getParameter("conference name")!=null)
-				c.setName(req.getParameter("conference name"));
-			if (req.getParameter("homepage")!=null)
-				c.setHomepage(req.getParameter("homepage"));
-			if (req.getParameter("description")!=null)
-				c.setDescription(req.getParameter("description"));
-			if (!(req.getParameter("abstract_day").equals("")) && (req.getParameter("abstract_month").equals("")) && (req.getParameter("abstract_year").equals("")))
-			{
-				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("abstract_year")),
-			    Integer.parseInt(req.getParameter("abstract_month"))-1,Integer.parseInt(req.getParameter("abstract_day")));
-			    c.setAbstract_submission_deadline(calendar.getTime());
-			}
-			if (!(req.getParameter("final_day").equals("")) && (req.getParameter("final_month").equals("")) && (req.getParameter("final_year").equals("")))
-			{
-				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("final_year")),
-			    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
-			    c.setFinal_version_deadline(calendar.getTime());
-			}
-			if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && (req.getParameter("paper_year").equals("")))
-			{
-				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
-			    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
-			    c.setPaper_submission_deadline(calendar.getTime());
-			}
-			if (!(req.getParameter("review_day").equals("")) && (req.getParameter("review_month").equals("")) && (req.getParameter("review_year").equals("")))
-			{
-				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
-			    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
-			    c.setReview_deadline(calendar.getTime());
-			}
-			if (!(req.getParameter("not_day").equals("")) && (req.getParameter("not_month").equals("")) && (req.getParameter("not_year").equals("")))
-			{
-				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
-			    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
-			    c.setNotification(calendar.getTime());
-			}
-			UpdateServiceImpl update = new UpdateServiceImpl();
-			update.updateConference(c);
+			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("abstract_year")),
+		    Integer.parseInt(req.getParameter("abstract_month"))-1,Integer.parseInt(req.getParameter("abstract_day")));
+		    c.setAbstract_submission_deadline(calendar.getTime());
 		}
-		if (req.getParameter("step").equals("1"))
+		if (!(req.getParameter("final_day").equals("")) && (req.getParameter("final_month").equals("")) && (req.getParameter("final_year").equals("")))
 		{
-			GregorianCalendar calendar = null;
-			String[] formular = new String[] {req.getParameter("conference name"),req.getParameter("homepage"),
-			req.getParameter("start_year"),req.getParameter("start_month"),req.getParameter("start_day"),
-			req.getParameter("end_year"),req.getParameter("end_month"),req.getParameter("end_day"),
-			req.getParameter("abstract_year"),req.getParameter("abstract_month"),req.getParameter("abstract_day"),
-			req.getParameter("paper_year"),req.getParameter("paper_month"),req.getParameter("paper_day"),
-			req.getParameter("final_year"),req.getParameter("final_month"),req.getParameter("final_day"),
-			req.getParameter("review_year"),req.getParameter("review_month"),req.getParameter("review_day"),
-			req.getParameter("not_year"),req.getParameter("not_month"),req.getParameter("not_day"),
-			req.getParameter("min_reviewers"),req.getParameter("topics")};
-		    FormularChecker checker = new FormularChecker(formular);
-			if (checker.check())
-			{
-			    Conference c = new Conference(-1);
-			    c.setName(req.getParameter("conference name"));
-			    c.setHomepage(req.getParameter("homepage"));
-			    c.setDescription(req.getParameter("description"));
-			    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("start_year")),
-			    		Integer.parseInt(req.getParameter("start_month"))-1,Integer.parseInt(req.getParameter("start_day")));
-			    c.setConference_start(calendar.getTime());
-			    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("end_year")),
-			    		Integer.parseInt(req.getParameter("end_month"))-1,Integer.parseInt(req.getParameter("end_day")));
-			    c.setConference_end(calendar.getTime());
-			    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("abstract_year")),
-			    		Integer.parseInt(req.getParameter("abstract_month"))-1,Integer.parseInt(req.getParameter("abstract_day")));
-			    c.setAbstract_submission_deadline(calendar.getTime());
-			    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("final_year")),
-			    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
-			    c.setFinal_version_deadline(calendar.getTime());
-			    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
-			    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
-			    c.setPaper_submission_deadline(calendar.getTime());
-			    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
-			    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
-			    c.setReview_deadline(calendar.getTime());
-			    calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
-			    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
-			    c.setNotification(calendar.getTime());
-			    c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min_reviewers")));
-			    InsertServiceImpl insert = new InsertServiceImpl();
-			    insert.insertConference(c);
-			    session.setAttribute("topics",req.getParameter("topics"));
-			    /*
-			     * TODO insert new conference into session;
-			     */
-			    setup_step(req,res,session);
-			}
-			else
-			{
-				String tag="setup_new_step1";
-				info.delete(0,info.length());
-				info.append("<content>");
-				info.append(XMLHelper.tagged("name",formular[0]));
-				info.append(XMLHelper.tagged("home",formular[1]));
-				info.append(XMLHelper.tagged("start_year",formular[2]));
-				info.append(XMLHelper.tagged("start_month",formular[3]));
-				info.append(XMLHelper.tagged("start_day",formular[4]));
-				info.append(XMLHelper.tagged("end_year",formular[5]));
-				info.append(XMLHelper.tagged("end_month",formular[6]));
-				info.append(XMLHelper.tagged("end_day",formular[7]));
-				info.append(XMLHelper.tagged("abstract_year",formular[8]));
-				info.append(XMLHelper.tagged("abstract_month",formular[9]));
-				info.append(XMLHelper.tagged("abstract_day",formular[10]));
-				info.append(XMLHelper.tagged("paper_year",formular[11]));
-				info.append(XMLHelper.tagged("paper_month",formular[12]));
-				info.append(XMLHelper.tagged("paper_day",formular[13]));
-				info.append(XMLHelper.tagged("final_year",formular[14]));
-				info.append(XMLHelper.tagged("final_month",formular[15]));
-				info.append(XMLHelper.tagged("final_day",formular[16]));
-				info.append(XMLHelper.tagged("review_year",formular[17]));
-				info.append(XMLHelper.tagged("review_month",formular[18]));
-				info.append(XMLHelper.tagged("review_day",formular[19]));
-				info.append(XMLHelper.tagged("not_year",formular[20]));
-				info.append(XMLHelper.tagged("not_month",formular[21]));
-				info.append(XMLHelper.tagged("not_day",formular[22]));
-				info.append(XMLHelper.tagged("min",formular[23]));
-				info.append(XMLHelper.tagged("topics",formular[24]));
-				info.append("</content>");
-				info.append(XMLHelper.tagged("status","" + user + ": please fill out all *-fields"));
-				commit(res,tag);
-			}
+			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("final_year")),
+		    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
+		    c.setFinal_version_deadline(calendar.getTime());
 		}
-		
-		if (req.getParameter("step").equals("2"))
+		if (!(req.getParameter("start_day").equals("")) && (req.getParameter("start_month").equals("")) && (req.getParameter("start_year").equals("")))
 		{
-			int topics = Integer.parseInt(session.getAttribute("topics").toString());
-			session.setAttribute("topics",null);
-			/*
-			 * TODO topic der conference zuordnen und in die Datenbank einfügen
-			 */
-			for(int i=0;i<topics;i++)
-			{
-				if (req.getParameter("topic"+i)==null)
-					break;
-				InsertServiceImpl insert = new InsertServiceImpl();
-			    insert.insertTopic(1,req.getParameter("topic"+i));
-			}
-			setup(req,res,session);
+		calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("start_year")),
+	    		Integer.parseInt(req.getParameter("start_month"))-1,Integer.parseInt(req.getParameter("start_day")));
+		    c.setFinal_version_deadline(calendar.getTime());
 		}
+		if (!(req.getParameter("end_day").equals("")) && (req.getParameter("end_month").equals("")) && (req.getParameter("end_year").equals("")))
+		{
+			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("end_year")),
+		    		Integer.parseInt(req.getParameter("end_month"))-1,Integer.parseInt(req.getParameter("end_day")));
+		    c.setFinal_version_deadline(calendar.getTime());
+		}
+		if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && (req.getParameter("paper_year").equals("")))
+		{
+			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
+		    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
+		    c.setPaper_submission_deadline(calendar.getTime());
+		}
+		if (!(req.getParameter("review_day").equals("")) && (req.getParameter("review_month").equals("")) && (req.getParameter("review_year").equals("")))
+		{
+			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
+		    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
+		    c.setReview_deadline(calendar.getTime());
+		}
+		if (!(req.getParameter("not_day").equals("")) && (req.getParameter("not_month").equals("")) && (req.getParameter("not_year").equals("")))
+		{
+			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
+		    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
+		    c.setNotification(calendar.getTime());
+		}
+		UpdateServiceImpl update = new UpdateServiceImpl();
+		update.updateConference(c);
+		session.setAttribute(SessionAttribs.CONFERENCE,c);
+		setup(req,res,session);	
 	}
 	
 	public void show_authors(HttpServletRequest req,HttpServletResponse res,HttpSession session)
