@@ -24,9 +24,13 @@ function bit($b) {
   return true;
 }
 
-$p = $myDBAccess->getPaperDetailed(2);
+$p = $myDBAccess->getPaperDetailed(false);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
+}
+else if (empty($p)) {
+  echo('EMPTY');
+  exit(-1);
 }
 echo("<br>Papertitel: $p->strTitle<br>");
 echo('Co-Autoren:<br>');
