@@ -172,7 +172,7 @@ $end_date = date(strtotime($_POST['end_date']));
                                            $paper_dl,
                                            $review_dl,
                                            $final_dl,
-                                           $notification'],
+                                           $notification,
                                            $start_date,
                                            $end_date,
                                            $_POST['min_reviews'],
