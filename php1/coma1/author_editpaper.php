@@ -103,8 +103,9 @@ if (isset($_POST['action'])) {
       }
     }
   }
-  else if (isset($_FILES['userfile'])) {    
-    if (!is_uploaded_file($_FILES['userfile']['tmp_name'])) {
+  else if (isset($_POST['upload']) {
+    if (!isset($_FILES['userfile']) ||
+        !is_uploaded_file($_FILES['userfile']['tmp_name'])) {
       $strMessage = 'You have to select a correct file for uploading!';
     }
     // Versuche das Paper hochzuladen
