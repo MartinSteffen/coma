@@ -155,6 +155,23 @@ if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02-01'] = $objChaptertemplate->getOutput();
 }
+if (in_array('register', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.2';
+  $strArrayChapterAssocs['chapter-title'] = 'The registration page / signing up for your account';
+  $strArrayChapterAssocs['related-topics'] = '';
+  $strArrayChapterAssocs['special'] = '';
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-02.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-02'] = $objChaptertemplate->getOutput();
+}
 
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $content->assign($strContentAssocs);
