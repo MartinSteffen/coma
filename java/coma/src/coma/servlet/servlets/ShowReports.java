@@ -63,6 +63,9 @@ public class ShowReports extends HttpServlet {
 
 	    coma.entities.Person theUser = null;
 
+	    helper.addXMLHead(result);
+	    result.append("<result>\n");
+
 	    try {
 		theUser = 
 		    (coma.entities.Person)request.getSession(true)
@@ -76,12 +79,6 @@ public class ShowReports extends HttpServlet {
 		// theUser==null.
 	    }
 
-	    /* FIXME this doesn't point anywhere useful. */
-	    String path = getServletContext().getRealPath("");
-	    String xslt = path + "/" + "style/xsl/report.xsl";
-	    PrintWriter out = response.getWriter();
-			
-	    result.append("<result>\n");
 
 	    result.append(UserMessage.ALLREPORTSINTRO);
 	    result.append("<info>\n");
@@ -107,6 +104,11 @@ public class ShowReports extends HttpServlet {
 	    result.append("</result>\n");
 			
 	    response.setContentType("text/html; charset=ISO-8859-1");
+
+	    String path = getServletContext().getRealPath("");
+	    String xslt = path + "/style/xsl/showreports.xsl";
+	    PrintWriter out = response.getWriter();
+
 	    StreamSource xmlSource =
 		new StreamSource(new StringReader(result.toString()));
 	    StreamSource xsltSource = new StreamSource(xslt);

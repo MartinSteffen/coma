@@ -104,7 +104,6 @@ public class RatePaper extends HttpServlet{
 		*/
 		result.append(UserMessage.PAPERS_TO_RATE);
 
-
 		theSC.setPerson(thePerson);
 		theSR = dbRead.getReviewReport(theSC);
 		if (!theSR.isSUCCESS())
@@ -112,13 +111,6 @@ public class RatePaper extends HttpServlet{
 		Set<ReviewReport> reports 
 		    = new HashSet<ReviewReport>(asList((ReviewReport[])theSR.getResultObj()));
 
-		/*
-		  TODO: the xslt should transform
-		  <selectpaper>(paper)</selectpaper> to a radio button
-		  that will leave its ID in
-		  request.getParameter(SessionAttribs.PAPERID).
-
-		*/
 		for (ReviewReport report: reports){
 
 		    result.append(x.tagged("selectpaper", report.getPaper().toXML()));
@@ -164,16 +156,6 @@ public class RatePaper extends HttpServlet{
 		    session.setAttribute(SessionAttribs.REPORT, 
 					 theReport);
 
-		    /*
-		      TODO: the XSLT should generate editable fields
-		      for the Report, with uneditable fields for
-		      things like paper name etc.
-
-		      the field names must match the FormParamater declarations.
-		      the ratings attribs must be reachable by 
-		      FormParameter.RATING_PREFIX+rating.getCriterionID()
-		      + FormParamter.RATING_POSTFIX_FOO
-		    */
 		    result.append(x.tagged("editReport", theReport.toXML()));
 		    
 		    result.append(UserMessage.SUBMITBUTTON);
@@ -224,6 +206,8 @@ public class RatePaper extends HttpServlet{
 		    }
 
 		    result.append(UserMessage.UPDATING);
+		    // XXX ugly vvv does this make the old state data go away? if so, good!
+		    result.append(x.tagged("meta", "<meta http-equiv=\"refresh\" content=\"5\">"));
 		    UpdateService dbUpd = new coma.handler.impl.db.UpdateServiceImpl();
 		    SearchResult sr;
 
@@ -291,8 +275,7 @@ public class RatePaper extends HttpServlet{
 	    result.append(pagestate.toString());
 	    result.append("</content>");
 
-	    /*FIXME FIXME FIXME*/
-	    String xslt = "jakarta-tomcat-5.0.28/webapps/coma/style/xsl/login.xsl";
+	    String xslt = getServletContext().getRealPath("")+"style/xsl/ratepaper.xsl";
 	    PrintWriter out = response.getWriter();
 	    response.setContentType("text/html; charset=ISO-8859-1");
 	    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));

@@ -22,6 +22,7 @@
           JCoMa: 
           <xsl:value-of select="/content/pagetitle" />
         </title>
+        <xsl:value-of select="meta" />
       </head>
       <body>
         <!-- more-or-less verbatim from subscribe.xsl -->
@@ -103,6 +104,13 @@
               </div>
             </xsl:for-each>
           </xsl:when>
+
+        <xsl:when test="updateInProgress">
+          <div>
+            Now updating... press reload to select another paper.
+            <!-- XXX ugly. Figure out meta refresh?-->
+          </div>
+        </xsl:when>
 
 
           <xsl:otherwise>
