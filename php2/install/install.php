@@ -1,6 +1,6 @@
 <?php
 
-	error_reporting(E_FATAL | E_ERROR | E_WARNING | E_PARSE);
+	error_reporting( E_ERROR | E_WARNING | E_PARSE);
 
 include("templates/header.tpl.php");
 
