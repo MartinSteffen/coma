@@ -120,7 +120,7 @@ if (!empty($objPapers)) {
     }
     else {
       $ifArray[] = 9;
-      $strItemAssocs['forum-id'] = $objPaperForum->intId;
+      $strItemAssocs['forum_id'] = $objPaperForum->intId;
     }
     $strItemAssocs['if'] = $ifArray;    
     // Zugeteilte Reviewer
