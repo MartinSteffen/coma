@@ -10,13 +10,15 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-// Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-if (isset($_POST['email'])){
-  $main = new Template(TPLPATH.'frame.tpl');
-  $links = defaultAssocArray();
+$main = new Template(TPLPATH.'frame.tpl');
+$links = defaultAssocArray();
 
-  $content = new Template(TPLPATH.'confirm_register.tpl');
-  $strContentAssocs = defaultAssocArray();  
+$content = new Template(TPLPATH.'register.tpl');
+$strContentAssocs = defaultAssocArray();  
+
+// Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
+
+if (isset($_POST['email'])){
   $confirmFailed = false;
   $strMessage = '';
 
@@ -78,31 +80,33 @@ if (isset($_POST['email'])){
                      'mit ihrer Email-Adresse als Benutzernamen ein!';
      }
   }
-  
-  if (!empty($confirmFailed)) {
-    $content = new Template(TPLPATH.'register.tpl');
-  }
-  
-  $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
-  $content->assign($strContentAssocs);  
-
-  $strMainAssocs = defaultAssocArray();
-  $strMainAssocs['title'] = 'Neuen Benutzer registrieren';
-  $strMainAssocs['content'] = &$content;
-
-  require_once(TPLPATH.'startmenu.php');
-  $strMainAssocs['menu'] = openStartMenuItem(1);
-
-  $strPath = array('CoMa'=>'', 'Registrieren'=>'');
-  require_once(TPLPATH.'navigatoritem.php');
-  $strMainAssocs['navigator'] = createNavigatorContent($strPath);
-
-  $main->assign($strMainAssocs);
-  $main->parse();
-  $main->output();
-} 
-else {
-  redirect('login.php');
+    
+  if (empty($confirmFailed)) {
+    $content = new Template(TPLPATH.'confirm_register.tpl');
+  }  
 }
+ 
+if (!(empty($strMessage)) {
+  $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
+}
+else {
+  $strContentAssocs['message'] = '';
+}
+$content->assign($strContentAssocs);  
+
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['title'] = 'Neuen Benutzer registrieren';
+$strMainAssocs['content'] = &$content;
+
+require_once(TPLPATH.'startmenu.php');
+$strMainAssocs['menu'] = openStartMenuItem(1);
+
+$strPath = array('CoMa'=>'', 'Registrieren'=>'');
+require_once(TPLPATH.'navigatoritem.php');
+$strMainAssocs['navigator'] = createNavigatorContent($strPath);
+
+$main->assign($strMainAssocs);
+$main->parse();
+$main->output();
 
 ?>
