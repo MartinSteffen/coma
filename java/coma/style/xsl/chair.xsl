@@ -84,10 +84,6 @@
 </body>
 </html>
 </xsl:template>
-
-
-
-
 <xsl:template match="/result/login/content">
 <xsl:value-of select='.'/><br></br>
 </xsl:template>
@@ -95,25 +91,57 @@
 <xsl:template match="/result/invite/content">
 	<div class="formular">
 		<form action="chair?action=send_invitation" method="post">
-			<label for="first name">* first name: </label>
-			<input style="margin-left:2cm" type="text" id="first name" name="first name" size="30" maxlength="30"/>
-			<br/>
-			<label for="last name">* last name: </label>
-			<input style="margin-left:2.1cm" type="text" id="last name" name="last name" size="30" maxlength="30"/><br/>
-			<label for="email">* e-mail address: </label>
-			<input style="margin-left:0.76cm" type="text" id="email" name="email" size="30" maxlength="30"/><br/>
-			<label for="text">comment: </label>
-			<textarea id="text" style="margin-left:2.2cm" name="text" rows="3" cols="30" class="textarea"/><br/>
-			invite as:
-				<input type="radio" name="invite as" value="author" checked=""/>author
-				<input type="radio" name="invite as" value="reviewer"/>reviewer<br/>		
-			<input type="submit" value="send" class="submit-button"/>
+		<table style="color:black">
+			<tr>
+				<td>
+					<label for="first name">* first name: </label>
+				</td>
+				<td>
+					<input type="text" id="first name" name="first name" size="30" maxlength="30">
+						<!-- Wie krieg ich diesen Wert in das Formularfeld?
+						<xsl:apply-templates select="/result/invite/content/first"/>	--></input>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="last name">* last name: </label>
+				</td>
+				<td>
+					<input type="text" id="last name" name="last name" size="30" maxlength="30"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="email">* e-mail address: </label>
+				</td>
+				<td>
+					<input type="text" id="email" name="email" size="30" maxlength="30"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="text">comment: </label>
+				</td>
+				<td>
+					<textarea id="text" name="text" rows="3" cols="30" class="textarea"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					invite as:
+					<input type="radio" name="invite as" value="author" checked=""/>author
+					<input type="radio" name="invite as" value="reviewer"/>reviewer
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">		
+					<input type="submit" value="send" class="submit-button"/>
+				</td>
+			</tr>
+		</table>
 		</form>
 	</div>
 </xsl:template>
-
-
-
 
 
 <xsl:template match="/result/showauthors/content">
@@ -132,32 +160,83 @@
 <div class="formular">
 <h3 align="middle">Setup of the Conference</h3><br/>
 <form action="chair?action=send_setup" method="post">
-<b>General</b><br/>
-<label for="conference name">* conference name: </label>
-<input style="margin-left:3.5cm" type="text" id="conference name" name="conference name" size="30" maxlength="30"/><br/>
-
-<label for="homepage">* Homepage: </label>
-<input style="margin-left:5.3cm" type="text" id="homepage" name="homepage" size="30" maxlength="30"/><br/>
-
-<label for="description">description: </label>
-<textarea id="description" style="margin-left:5.65cm" name="description" rows="3" cols="30" class="textarea"/><br/>
-
-<label for="min_reviewers">* minimum reviewers per paper:</label>
-<input id="min_reviewers" style="margin-left:0.1cm" name="min_reviewers" rows="3" cols="5" class="textarea"/><br/>
-
-<b>Time</b><br/>
-<label for="start">* conference start: </label>
-<input style="margin-left:3.8cm" type="text" id="start_day" name="start_day" size="2" maxlength="2"/>.
-<input type="text" id="start_month" name="start_day" size="2" maxlength="2"/>.
-<input type="text" id="start_year" name="start_day" size="4" maxlength="4"/><br/>
-
-<label for="end">* conference end: </label>
-<input style="margin-left:4.02cm" type="text" id="end_day" name="start_day" size="2" maxlength="2"/>.
-<input type="text" id="end_month" name="start_day" size="2" maxlength="2"/>.
-<input type="text" id="end_year" name="start_day" size="4" maxlength="4"/><br/>
-<b>Deadlines</b><br/>
-<label for="abstract">* abstract submission deadline: </label>
-<input style="margin-left:0.25cm" type="text" id="abstract" name="abstract" size="30" maxlength="30"/><br/>
+<table style="color:black">
+<tr>
+	<td colspan="2">
+		<b>General</b><br/>
+	</td>
+</tr>
+<tr>
+	<td width="300">
+		<label for="conference name">* conference name: </label>
+	</td>
+	<td>
+		<input type="text" id="conference name" name="conference name" size="30" maxlength="30"/>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="homepage">* Homepage: </label>
+	</td>
+	<td>
+		<input type="text" id="homepage" name="homepage" size="30" maxlength="30"/><br/>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="description">description: </label>
+	</td>
+	<td>
+		<textarea id="description" name="description" rows="3" cols="30" class="textarea"/><br/>
+	</td>
+</tr>
+<tr>
+	<td valign="middle">
+		<label for="min_reviewers">* minimum reviewers per paper:</label>
+	</td>
+	<td>
+		<input id="min_reviewers" name="min_reviewers" rows="3" cols="5" class="textarea"/><br/>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<b>Time</b>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="start">* conference start: </label>
+	</td>
+	<td>
+		<input type="text" id="start_day" name="start_day" size="2" maxlength="2"/>.
+		<input type="text" id="start_month" name="start_day" size="2" maxlength="2"/>.
+		<input type="text" id="start_year" name="start_day" size="4" maxlength="4"/>
+	</td>
+</tr>	
+<tr>
+	<td>
+		<label for="end">* conference end: </label>
+	</td>
+	<td>
+		<input type="text" id="end_day" name="start_day" size="2" maxlength="2"/>.
+		<input type="text" id="end_month" name="start_day" size="2" maxlength="2"/>.
+		<input type="text" id="end_year" name="start_day" size="4" maxlength="4"/>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<b>Deadlines</b>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="abstract">* abstract submission deadline: </label>
+	</td>
+	<td>
+		<input type="text" id="abstract" name="abstract" size="30" maxlength="30"/>
+	</td>
+</tr>
+</table>
 
 <label for="paper">* paper submission deadline: </label>
 <input style="margin-left:0.87cm" type="text" id="paper" name="paper" size="30" maxlength="30"/><br/>
