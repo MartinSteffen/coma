@@ -16,7 +16,7 @@ if (!defined('DEBUG')) {
   define('DEBUG', false);
 }
 /** Version of Coma */
-define('VERSION', '0.M3');
+define('VERSION', '1.0');
 
 
 // PATH_TRANSLATED patch
