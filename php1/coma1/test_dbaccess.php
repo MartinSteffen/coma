@@ -24,8 +24,8 @@ echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br><br>');
 
 $p = $myDBAccess->getPapersOfAuthor(1);
-if($p) {
-  for($i = 0; $i < count($p); $i++) {
+if (!empty($p)) {
+  for ($i = 0; $i < count($p); $i++) {
     echo('Titel: '.$p[$i]->strTitle.', Autor: '.$p[$i]->strAuthor.'<br>');
   }
 }
@@ -33,5 +33,15 @@ if($p) {
 echo('rating of review #1 = '.$myDBAccess->getReviewRating(1).'<br>');
 echo('rating of review #2 = '.$myDBAccess->getReviewRating(2).'<br>');
 echo('avg rating of paper #1 = '.$myDBAccess->getAverageRatingOfPaper(1).'<br>');
+
+$p->getPaperDetailed(1);
+if (!empty($p)) {
+  echo('Autor (ID) / Titel: '.$p->strAuthor.' ('.$p->intAuthorId.') / '.$p->strTitle.'<br>');
+  echo('Co-Autoren (ID):<br>');
+  for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
+    echo($p->strCoAuthors[$i].' ('.$p->intCoAuthorIds[$i].')');
+  }
+}
+
 
 ?>
