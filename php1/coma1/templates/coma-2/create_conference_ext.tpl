@@ -57,7 +57,7 @@
   <tr>
     <td colspan="2"> 
       Activate accounts automatically
-      <input type="checkbox" name="auto_actaccount" value="x" checked> 
+      <input type="checkbox" name="auto_actaccount" value="" checked hidden> 
       <input type="checkbox" name="auto_actaccount" value="checked" {auto_actaccount}>{auto_actaccount}
     </td>
   </tr>
