@@ -50,8 +50,9 @@ function redirect($strName) {
 function defaultAssocArray() {
   global $mySession;
   return array(
-               'path' => TPLURL, 
-               'SID'  => $mySession->getUrlId()
+               'path'     => TPLURL,
+               'basepath' => COREURL,
+               'SID'      => $mySession->getUrlId()
               );
 }
 
@@ -92,7 +93,7 @@ checkError($myDBAccess);
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
-    $_SESSION['message'] = 'Bitte einloggen!';
+    $_SESSION['message'] = 'Bitte melden Sie sich an!';
   }
   else {
     $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
