@@ -319,10 +319,10 @@ class Distribution extends ErrorHandling {
             if ($matrix[$rindex][$i] > 1) {
               $matrix[$rindex][$i] /= 2.0;
               // Reviewer schon ueber dem Schnitt? Dann nochmal reduzieren!
-              if ($r_num_paper[$rindex] > $avg_revs && $matrix[$rindex][$i] > 1) {
+              if ($r_num_papers[$rindex] > $avg_revs && $matrix[$rindex][$i] > 1) {
                 $matrix[$rindex][$i] /= 2.0;
               }
-              if ($r_num_paper[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
+              if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
                 $matrix[$rindex][$i] = 0;
                 $p_num_revs_total_left[$pi]--;
               }
