@@ -65,7 +65,7 @@ class Session {
    */
   function Session(&$mySql, $strSessName = 'sid', $intMaxLifeTime = 7200) {
     if (ini_get('session.auto_start') != '0') {
-      return $this->error('Konnte Sessionmanger nicht initialisieren (session.auto_start 0 ist erforderlich!');
+      return $this->error('Konnte Sessionmanger nicht initialisieren (session.auto_start != 0');
     }
     $this->intMaxLifeTime = $intMaxLifeTime;
     ini_set('session.gc_maxlifetime', $intMaxLifeTime);
