@@ -37,30 +37,23 @@ if ($myDist->failed()) {
 if (isset($_POST['action']) && $_POST['action'] == 'submit') {
   $s = '';
   foreach ($r_id as $rid) {
-    $s .= '['.$rid;
     $isD = $myDBAccess->isPaperDistributedTo($pid, $rid);
     if ($myDBAccess->failed()) {
       error('get paper/reviewer information', $myDBAccess->getLastError());
     }
     if (isset($_POST['p'.$pid.'r'.$rid]) && !$isD) {
-      $s .= 'JO';
-      $myDBAccess->addDistribution($pid, $rid);
+      $myDBAccess->addDistribution($rid, $pid);
       if ($myDBAccess->failed()) {
         error('add distribution', $myDBAccess->getLastError());
       }
-      $s .= 'ADD';
     }
     elseif (!isset($_POST['p'.$pid.'r'.$rid]) && $isD) {
-      $myDBAccess->deleteDistribution($pid, $rid);
+      $myDBAccess->deleteDistribution($rid, $pid);
       if ($myDBAccess->failed()) {
         error('delete distribution', $myDBAccess->getLastError());
       }
-      $s .= 'DEL';
     }
-    $s .= ']';
   }
-  echo($s);
-  die();
 }
 
 $objPaper = $myDBAccess->getPaperSimple($pid);
