@@ -423,4 +423,42 @@ function sortPapersByAvgRating($objPapers) {
   return $objSortedPapers;
 }
 
+/**
+ * Sortierfunktion fuer Papers nach der Varianz der Bewertungen.
+ *
+ * @param PaperSimple [] Ein Array von Paper-Objekten
+ * return PaperSimple [] Das Eingabearray sortiert nach der Varianz
+ * @author Sandro (06.02.05)
+ * @access public
+ */
+function sortPapersByAmbiguity($objPapers) {
+  global &myDBAccess;
+  $objSortedPapers = array();
+  if (!empty($objPapers)) {
+    $fltVariance = array();
+    for ($i = 0; $i < count($objPapers); $i++) {
+      $fltVariance[] = $myDBAccess->getVarianceOfPaper($objPapers[$i]->intId);
+      if ($myDBAccess->failed()) {
+        error('get paper ambiguity', $myDBAccess->getLastError());
+      }
+    }
+    for ($i = 0; $i < count($objPapers); $i++) {
+      $fltMax = $fltVariance[$i];
+      $maxIdx = $i;
+      if (!is_numeric($fltMax)) {
+      	$fltMax = - 1.0;
+      }      
+      for ($j = $i+1; $j < count($objPapers); $j++) {
+       if (is_numeric($fltVariance[$j] && $fltVariance[$j] > $fltMax) {
+          $fltMax = $fltVariance[$j];
+          $maxIdx = $j;
+       }
+      }      
+      $objSortedPapers[] = $objPapers[$maxIdx];
+      $objPapers[$maxIdx] = $objPapers[$i];
+    }
+  }
+  return $objSortedPapers;
+}
+
 ?>

@@ -664,7 +664,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intAuthorId ID des Autors
    * @param int $intConferenceId ID der Konferenz
    * @param int $intOrder Gibt an, wonach sortiert werden soll
-   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit, 6=Varianz)
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Autors
    *                        $intAuthorId gefunden wurden.
    * @access public
@@ -726,8 +726,13 @@ class DBAccess extends ErrorHandling {
                        $data[$i]['filename'], $objTopics));
       // Anfragen, die Fehler erzeugen koennen (wie $this->getTopics...), nicht inline benutzen!!
     }
-    if (!empty($intOrder) && $intOrder == 4) {
-      $objPapers = sortPapersByAvgRating($objPapers);
+    if (!empty($intOrder)) {
+      if ($intOrder == 4) {
+        $objPapers = sortPapersByAvgRating($objPapers);
+      }
+      else if ($intOrder == 6) {
+        $objPapers = sortPapersByVariance($objPapers);
+      }
     }
     return $this->success($objPapers);    
   }
@@ -776,7 +781,7 @@ class DBAccess extends ErrorHandling {
    * @param int $intReviewerId ID des Reviewers
    * @param int $intConferenceId ID der Konferenz
    * @param int $intOrder Gibt an, wonach sortiert werden soll
-   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit, 6=Varianz)
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Reviewers
    *                        $intReviewerId gefunden wurden.
    * @access public
@@ -845,8 +850,13 @@ class DBAccess extends ErrorHandling {
                        $data[$i]['last_edited'], $fltAvgRating,
                        $data[$i]['filename'], $objTopics));
     }
-    if (!empty($intOrder) && $intOrder == 4) {
-      $objPapers = sortPapersByAvgRating($objPapers);
+    if (!empty($intOrder)) {
+      if ($intOrder == 4) {
+        $objPapers = sortPapersByAvgRating($objPapers);
+      }
+      else if ($intOrder == 6) {
+        $objPapers = sortPapersByVariance($objPapers);
+      }
     }
     return $this->success($objPapers);
   }
@@ -856,7 +866,7 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intConferenceId ID der Konferenz
    * @param int $intOrder Gibt an, wonach sortiert werden soll
-   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit)
+   * (1=Titel, 2=Autor, 3=Status, 4=Rating, 5=Last Edit, 6=Varianz)
    * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.
    * @access public
    * @author Sandro (19.01.05)
@@ -913,8 +923,13 @@ class DBAccess extends ErrorHandling {
                        $data[$i]['last_edited'], $fltAvgRating,
                        $data[$i]['filename'], $objTopics));
     }
-    if (!empty($intOrder) && $intOrder == 4) {
-      $objPapers = sortPapersByAvgRating($objPapers);
+    if (!empty($intOrder)) {
+      if ($intOrder == 4) {
+        $objPapers = sortPapersByAvgRating($objPapers);
+      }
+      else if ($intOrder == 6) {
+        $objPapers = sortPapersByVariance($objPapers);
+      }
     }
     return $this->success($objPapers);
   }
