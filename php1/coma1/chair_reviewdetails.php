@@ -24,13 +24,14 @@ else if (!$checkRole) {
 }
 
 // Lade die Daten des Reviewreports
-if (isset($_POST['reviewid'])) {
-  $objReview = $myDBAccess->getReviewDetailed($_POST['reviewid']);
+if (isset($_GET['reviewid']) || isset($_POST['reviewid'])) {
+  $intReviewId = isset($_GET['reviewid']) ? $_GET['reviewid'] : $_POST['reviewid'];
+  $objReview = $myDBAccess->getReviewDetailed($intReviewId);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving review.', $myDBAccess->getLastError());
   }
   else if (empty($objReview)) {
-    error('Review report does not exist in database.', '');
+    error('Review report '.$intReviewId.'does not exist in database.', '');
   }
 }
 else {
