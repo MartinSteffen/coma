@@ -75,28 +75,6 @@
   </tr>
   <tr>
     <td colspan="2">
-      <table class="formlist" width="100%">
-        <tr class="formlistheader">
-          <th class="formlistheader">Topics</th>
-        </tr>
-        {topic_lines}
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <table class="formlist" width="100%">
-        <tr class="formlistheader">
-          <th class="formlistheader">Criterions</th>
-          <th class="formlistheader">maximum value</th>
-          <th class="formlistheader">weight</th>
-        </tr>
-        {crit_lines}
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
       <input type="hidden" name="advanced" value="1">
       <input type="hidden" name="name" value="{name}">
       <input type="hidden" name="description" value="{description}">
