@@ -30,7 +30,7 @@
         <input type="submit" name="submit" value="reject" class="smallbutton">
       </form>
       }
-      {if3<span class="status-accepted">accepted</span><br>
+      {if3<span class="status-accepted">accepted</span>
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="resetstatus">
         <input type="hidden" name="paperid" value="{paper_id}">
@@ -55,16 +55,19 @@
       {reviewers}
     </td>
   </tr>
-  <tr>    
-    <td class="listitem-{line_no}" colspan="6">
-        <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a>        
-        {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a>}
+  <tr valign="top">    
+    <td class="listitem-{line_no}" >
+        <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a> 
+        <br> <br>        
+        {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a> }
         {if8<a href="{basepath}chair_reviews.php?createforum&amp;paperid={paper_id}{&SID}"
-               class="buttonlink">Start discussion</a>}
+               class="buttonlink">Start discussion</a> <br>}
         {if9<a href="{basepath}forum.php?forumsel={forum_id}{&SID}"
-               class="buttonlink">Enter discussion</a>}
+               class="buttonlink">Enter discussion</a> <br>}
+        <br>
     </td>
-    <td class="listitem-{line_no}">
+    <td class="listitem-{line_no}" colspan="5" > &nbsp; </td>
+    <td class="listitem-{line_no}" >
       <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Edit reviewers</a>
     </td>
   </tr>
