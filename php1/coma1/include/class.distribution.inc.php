@@ -59,14 +59,16 @@ class Distribution extends ErrorHandling {
    * @todo Noch ne ganze Menge UND PHPDoc :-)
    */
   function getDistribution($intConferenceId) {
-    define('ASSIGNED', 0);
+    define('ASSIGNED', -2); // bereits vorher verteilt
+    define('SUGGESTED', -1); // Verteilungsvorschlag
+/*    define('ASSIGNED', 0);
     define('PREFERS', 1); // Topic
     define('WANTS', 2); // Paper
     define('DENIES', 3); // Paper
-    define('EXCLUDED', 4); // Paper
+    define('EXCLUDED', 4); // Paper*/
 
     define('FAC_PREF', 20000.0); // Faktor fuer Preferred Topic
-    define('FAC_WANT', 100000.0); // Faktor fuer Preferred Paper
+    define('FAC_WANT', FAC_PREF*1.5); // 1*FAC_PREF < Faktor fuer Preferred Paper < 2*FAC_PREF
 
     if (empty($intConferenceId)) {
       return $this->success(false);
@@ -180,7 +182,7 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($assigned); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
         $pindex = $p_id_index[$assigned[$j]['paper_id']];
-        $matrix[$i][$pindex] = 0;
+        $matrix[$i][$pindex] = ASSIGNED;
         $p_num_revs[$pindex]++;
         $p_num_revs_total_left[$pindex]--;
         $r_num_papers[$i]++;
@@ -200,9 +202,9 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($excluded); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
         $pindex = $p_id_index[$excluded[$j]['paper_id']];
-        if ($matrix[$i][$pindex] != 0) { // sollte immer != 0 sein...
-          $matrix[$i][$pindex] = 0;
+        if ($matrix[$i][$pindex] > 0) {
           $p_num_revs_total_left[$pindex]--;
+          $matrix[$i][$pindex] = 0;
         }
       }
       // Abgelehnte Paper
@@ -220,7 +222,7 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($denies); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
         $pindex = $p_id_index[$denies[$j]['paper_id']];
-        if ($matrix[$i][$pindex] != 0) {
+        if ($matrix[$i][$pindex] > 0) {
           $matrix[$i][$pindex] = 0;
           $p_num_revs_total_left[$pindex]--;
         }
@@ -272,8 +274,7 @@ class Distribution extends ErrorHandling {
     // Debug: Ausgabe
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
-      //for ($j = 0; $j < count($matrix[$i]); $j++) {
-      for ($j = 3; $j <= 3; $j++) {
+      for ($j = 0; $j < count($matrix[$i]); $j++) {
         echo(' '.$matrix[$i][$j]);
       }
     }
@@ -294,10 +295,44 @@ class Distribution extends ErrorHandling {
     $blnChanged = true;
     $blnBreak = false;
     while ($blnChanged && !$blnBreak) {
-      $blnChanged = false;
+      $blnBreak = true;
       for ($i = 0; $i < count($p_num_revs); $i++) {
-        if ($p_num_revs[$i] >= $avg_revs) {
-          $blnBreak = true;
+        if ($p_num_revs[$i] < $avg_revs) {
+          $blnBreak = false;
+        }
+      }
+      if ($blnBreak) {
+        break;
+      }
+
+      $blnChanged = false;
+      // Paper mit den wenigsten Reviewern ermitteln...
+      $min = count($r_id)+1; $pindex = -1;
+      for ($i = 0; $i < count($p_id); $i++) {
+        // nur solche, fuer die noch Reviewer in Frage kommen
+        if ($p_num_revs_total_left[$i] > 0 && $p_num_revs[$i] < $min) {
+          $min = $p_num_revs[$i];
+          $pindex = $i;
+        }
+      }
+      if ($pindex >= 0) {
+        // besten Reviewer nehmen
+        $max = 0; $rindex = -1;
+        for ($i = 0; $i < count($r_id); $i++) {
+          if ($matrix[$i][$pindex] > $max) {
+            $max = $matrix[$i][$pindex];
+            $rindex = $i;
+          }
+        }
+        if ($rindex >= 0) {
+          $blnChanged = true;
+          $matrix[$rindex][$pindex] = SUGGESTED;
+          // Zeile Reviewer "halbieren"
+          for ($i = 0; $i < count($p_id); $i++) {
+            if ($matrix[$rindex][$i] > 1) {
+              $matrix[$rindex][$i] /= 2.0;
+            }
+          }
         }
       }
     }
