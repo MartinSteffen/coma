@@ -2,9 +2,9 @@
 
 require_once 'PHPUnit.php';
 
-// Coma must be installed in ../php2/
+// Coma must be installed in ../coma1/
 define('NEED_NO_LOGIN', true);
-include('../../coma1/includes/header.inc.php');
+include('../../coma1/include/header.inc.php');
 
 class ComaExample extends PHPUnit_TestCase
 {
