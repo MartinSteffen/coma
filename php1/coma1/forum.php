@@ -47,6 +47,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $strArrayTypeOpenAssocs = defaultAssocArray();
   $strArrayTypeOpenAssocs['type'] = 'Public forums';
   if (isChair($myDBAccess->getPerson(session('uid')))){
+    echo('blubb');
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
     $strArrayCreateAssocs['type'] = 'public';
