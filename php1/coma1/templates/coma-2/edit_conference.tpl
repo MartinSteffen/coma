@@ -1,6 +1,5 @@
 
 {if1<p class="message">{message}</p>}
-{if2<p class="message-ok">{message}</p>}
 
 <form action="{basepath}chair_confconfig.php?{SID}" method="post">
 

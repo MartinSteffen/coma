@@ -1,7 +1,6 @@
 
 {if1<p class="message">{message}</p>}
 
-
 <form action="{basepath}create_conference.php?{SID}" method="post">
 
 <table class="formtable">

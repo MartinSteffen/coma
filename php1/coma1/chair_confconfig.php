@@ -59,14 +59,12 @@ if (isset($_POST['action'])) {
       if (!empty($result)) {
         // Erfolg
         $strMessage = 'Conference setting was changed.';        
-        $strContentAssocs['if'] = array(2);
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
         $strMessage = 'An error occured during updating conference settings:<br>'
                      .$myDBAccess->getLastError()
-                     .'<br>Please try again!';
-        $strContentAssocs['if'] = array(1);
+                     .'<br>Please try again!';        
       }
     }
   }
@@ -86,7 +84,8 @@ else {
 
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
-  $strContentAssocs['message'] = $strMessage;  
+  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['if'] = array(1);  
 }
 
 $content->assign($strContentAssocs);

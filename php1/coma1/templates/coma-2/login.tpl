@@ -1,5 +1,6 @@
 
 {if1<p class="message">{message}</p>}
+{if2<p class="message-ok">{message}</p>}
 
 <form action="{basepath}login.php?{SID}" method="post">
 

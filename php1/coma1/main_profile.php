@@ -30,13 +30,11 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
   ||  empty($_POST['email'])) {
-    $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>E-mail</b>!';
-    $strContentAssocs['if'] = array(1);
+    $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>E-mail</b>!';  
   }
   // Teste, ob die Email gueltig ist
   else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
-    $strMessage = 'Please enter a valid E-mail address!';
-    $strContentAssocs['if'] = array(1);
+    $strMessage = 'Please enter a valid E-mail address!';    
   }
   // Teste, ob die Email bereits vorhanden ist
   else if ($_POST['email'] != $objPerson->strEmail &&
@@ -46,7 +44,6 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     }
     $strMessage = 'Account with the given E-mail address is already existing! '.
                   'Please use enter another E-mail address!';
-    $strContentAssocs['if'] = array(1);                  
   }
   else {
     $objPerson->strFirstName   = $_POST['first_name'];
@@ -65,15 +62,13 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $result = $myDBAccess->updatePerson($objPerson);
     if (!empty($result)) {
       $_SESSION['uname'] = $objPerson->strEmail;
-      $strMessage = 'Your account has been updated sucessfully.';
-      $strContentAssocs['if'] = array(2);
+      $strMessage = 'Your account has been updated sucessfully.';      
     }
     else if ($myDBAccess->failed()) {
       // Datenbankfehler?
       $strMessage = 'An error occured during updating your account:<br>'
                    .$myDBAccess->getLastError()
-                   .'<br>Please try again!';
-      $strContentAssocs['if'] = array(1);
+                   .'<br>Please try again!';      
     }
   }
 }
@@ -94,6 +89,7 @@ $strContentAssocs['fax']         = $objPerson->strFax;
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;  
+  $strContentAssocs['if'] = array(1);
 }
 
 $content->assign($strContentAssocs);
