@@ -1,5 +1,5 @@
 <table>
-  <tr><td><a href="./help.php?for=01{?popup}>1. A step-by-step introduction to Coma</a></td></tr>
+  <tr><td><a href="./help.php?for=01{?popup}">1. A step-by-step introduction to Coma</a></td></tr>
   <tr><td><table>
     ...
   <table></td></tr>
