@@ -45,7 +45,7 @@
   <td class="menu">{menu}
   </td>
   <td>
-    <h2>{title} SANDRO KOMM MAL ICQ</h2>
+    <h2>{title}</h2>
     {content}
   </td>
  </tr>
