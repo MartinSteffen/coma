@@ -155,28 +155,59 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="/result/showpapers/content">
-<table style="color:black; text-align:center">
+<table style="color:black; text-align:center" cellpadding="12">
+<thead>
 <tr align="center">
-	<td>ID</td><td>Conference ID</td><td>Author ID</td><td>Title</td>
-	<td>Abstract</td><td>last edited</td><td>Version</td><td>filename</td>
-	<td>state</td><td>mim_type</td>
+	<!--<td>ID</td><td>Conference ID</td><td>Author ID</td>-->
+	<th>Title</th>
+	<th>Abstract</th>
+	<th>last edited</th>
+	<th>Version</th>
+	<th>filename</th>
+	<th>state</th>
+	<th></th>
 </tr>
+</thead>
 <xsl:for-each select="/result/showpapers/content/paper">
 <tr>
-	<td><xsl:value-of select="id"/></td>	
-	<td><xsl:value-of select="conference_id"/></td>
-	<td><xsl:value-of select="author_id"/></td>
+	<!-- 
+	<td style="margin-left:10mm"><xsl:value-of select="id"/></td>	
+	<td style="margin-left:10mm"><xsl:value-of select="conference_id"/></td>
+	<td style="margin-left:10mm"><xsl:value-of select="author_id"/></td>
+	-->
 	<td><xsl:value-of select="title"/></td>
 	<td><xsl:value-of select="Abstract"/></td>
 	<td><xsl:value-of select="last_edited"/></td>
 	<td><xsl:value-of select="version"/></td>
-	<td><xsl:value-of select="filename"/></td>
-	<td><xsl:value-of select="state"/></td>
-	<td><xsl:value-of select="mim_type"/></td>
+	<td>
+		<a>
+			<xsl:attribute name = "href"><xsl:value-of select="filename"/>.<xsl:value-of select="mim_type"/>
+			</xsl:attribute>
+			<xsl:value-of select="filename"/>.<xsl:value-of select="mim_type"/>
+			</a>
+	</td>
+   <td>
+   	<xsl:choose>
+   	<xsl:when test="state ='0'">
+   		rejected
+   	</xsl:when>
+   	<xsl:when test="state ='1'">
+   		checked
+   	</xsl:when>
+   	</xsl:choose>
+   </td>
+   <td>
+   	<a>
+		<xsl:attribute name = "href">chair?action=show_authors&amp;author=<xsl:value-of select="author_id"/></xsl:attribute>
+		Autorenliste
+		</a>
+   </td>
 </tr>
 </xsl:for-each>
 </table>
 </xsl:template>
+
+
 
 <xsl:template match="/result/setup/content">
 <div class="formular">
