@@ -4,7 +4,7 @@
     <th class="listheader">Title</th>    
     <th class="listheader">Current status</th>
     <th class="listheader">Average rating</th>    
-    <th class="listheader">Version</th>
+    <th class="listheader">Last edited</th>
     <th class="listheader">View paper</th>    
   </tr>
   {paper_rows}

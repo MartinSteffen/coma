@@ -7,7 +7,7 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Review paper:</th>
+    <th>Review paper:</th>
     <td>Holy Shit! by Robby Rabbit</td>
   </tr>
   <tr>
