@@ -729,10 +729,10 @@ class DBAccess extends ErrorHandling {
     for ($i = 0; $i < count($data); $i++) {
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->failed()) {
-         return $this->error('getPapersOfConference', $this->getLastError());
+         return $this->error('getPapersOfReviewer', $this->getLastError());
       }
       else if (empty($objAuthor)) {
-        return $this->error('getPapersOfConference', 'Fatal error: Database inconsistency!',
+        return $this->error('getPapersOfReviewer', 'Fatal error: Database inconsistency!',
                             'author_id = '.$data[$i]['author_id']);
       }
       $strAuthor = $objAuthor->getName(1);
