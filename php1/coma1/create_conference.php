@@ -31,6 +31,14 @@ if (isset($_POST['action'])) {
   $start_date = empty($_POST['start_date']) ? '' : strtotime($_POST['start_date']);
   $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
 
+  // als Eingabe sind nur Interger-Werte erlaubt
+  $min_reviews = (int) $_POST['min_reviews'];
+  $def_reviews = (int) $_POST['def_reviews'];
+  $min_papers  = (int) $_POST['min_papers'];
+  $max_papers  = (int) $_POST['max_papers'];
+  $variance    = (int) $_POST['variance'];
+  $auto_numrev = (int) $_POST['auto_numreviewer'];
+
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
@@ -137,7 +145,9 @@ if (isset($_POST['action'])) {
   }
   // Anlegen der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
-    // auf korrkete Daten pruefen
+    // Prüfen, ob die Eingaben gültig sind.
+    // Wenn die Eingaben gültig sind, so ist $strMessage leer.
+    $strMessage=''; 
     if (empty($_POST['name'])
     ||  empty($paper_dl)
     ||  empty($review_dl)
@@ -146,34 +156,88 @@ if (isset($_POST['action'])) {
     ||  empty($abstract_dl))
     {
       $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
-                    'and <b>Deadlines</b>!';
+                    'and <b>Deadlines</b>! <br> <br>';
     }
-    elseif ((!empty($end_date)) && ($start_date > $end_date)) {
-      $strMessage = 'Your Start Date should be before your End Date!';
+    if ((!empty($end_date)) && ($start_date > $end_date)) {
+      $strMessage = $strMessage.
+                     'Your Start Date should be before your End Date! <br>';
     }
-    elseif ($abstract_dl > $paper_dl) {
-      $strMessage = 'Your Abstract Deadline should be before your Paper Deadline!';
+    if ($abstract_dl > $paper_dl) {
+      $strMessage = $strMessage.
+                     'Your Abstract Deadline should be before your Paper Deadline! <br>';
     }
-    elseif ($paper_dl > $final_dl) {
-      $strMessage = 'Your Paper Deadline should be before your Final Version Deadline!';
+    if ($paper_dl > $final_dl) {
+      $strMessage = $strMessage.'Your Paper Deadline should be before your Final Version Deadline!<br>';
     }
-    elseif ($final_dl > $start_date) {
-      $strMessage = 'Your Final Version Deadline should be before your Start Date!';
+    if ($final_dl > $start_date) {
+      $strMessage = $strMessage.
+                     'Your Final Version Deadline should be before your Start Date! <br>';
     }
-    elseif ($paper_dl > $review_dl) {
-      $strMessage = 'Your Paper Deadline should be before your Review Deadline!';
+    if ($paper_dl > $review_dl) {
+      $strMessage = $strMessage.
+                     'Your Paper Deadline should be before your Review Deadline! <br>';
     }
-    elseif ((!empty($notification)) && ($review_dl > $notification)) {
-      $strMessage = 'Your Review Deadline should be before your Notification time!';
+    if ((!empty($notification)) && ($review_dl > $notification)) {
+      $strMessage = $strMessage.
+                     'Your Review Deadline should be before your Notification time! <br>';
     }
-    elseif ((!empty($notification)) && ($notification > $start_date)) {
-      $strMessage = 'Your Notification time should be before your Start Date!';
+    if ((!empty($notification)) && ($notification > $start_date)) {
+      $strMessage = $strMessage.
+                     'Your Notification time should be before your Start Date! <br>';
     }
-    elseif ($review_dl > $start_date) {
-      $strMessage = 'Your Notification time should be before your Start Date!';
+    if ($review_dl > $start_date) {
+      $strMessage = $strMessage.
+                     'Your Notification time should be before your Start Date! <br>';
+    }
+    if ( !($min_reviews >= 0)){
+      $strMessage =  $strMessage.
+                     'Your minimum number of reviews should be greater or equel to zero!<br>';
+    }
+    if ( !($min_papers >= 0)){
+      $strMessage =  $strMessage.
+                     'Your number of papers should be greater or equal to zero!<br>';
+    }
+    if ( !($min_papers <= $max_papers)){
+      $strMessage =  $strMessage.
+                     'Your minimum number of papers should not be greater than the maximum number of paper!<br>';
+    }
+    if ( !($min_reviews <= $def_reviews)){
+      $strMessage =  $strMessage.
+                     'Your minimum number of reviews should not be greater than the default number of reviews!<br>';
+    }
+    if ( !(0 < $variance) || !($variance <= 100)){
+      $strMessage =  $strMessage.
+                     'Your ambiguity should be greater than zero and less or equal than hundred!<br>';
+    }
+    if ( !(0 <= $auto_numrev )){
+      $strMessage =  $strMessage.
+                     'Your number of automatically added reviewers should be greater or equal than zero!<br>';
+    }
+    foreach ($strCritMaxVals as $key => $critMax){
+      if ( !(0 <= $critMax )){
+        $strMessage =  $strMessage.
+                       'The maximum value of the criterion \''.$strCriterions[$key].
+                       '\' shoud be greater or equal than zero!<br>';
+      }
+    }
+    foreach ($strCritWeights as $key => $critWeights){
+      if ( !(0 < $critWeights )){
+      $strMessage =  $strMessage.
+                     'The weight of the criterion \''.$strCriterions[$key].
+                     '\'shoud be greater then zero! <br>';
+      }
+    }
+ 
+    
+    foreach ($strCritWeights as $key => $critWeights) {
+      if ( !($critWeights <= 1 )){
+        $strMessage =  $strMessage.
+                       'The weight of the criterion \''.$strCriterions[$key].
+                       ' \'shoud be less then one! <br>';
+      }
     }
     // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
-    else { // keine Fehler
+    if ($strMessage=='') { // keine Fehler
       $intConfId = $myDBAccess->addConference($_POST['name'],
                                               $_POST['homepage'],
                                               $_POST['description'],
