@@ -17,7 +17,7 @@ if ( !defined('IN_COMA1') )
  */
 $sqlServer = 'localhost';
 $sqlUser = 'coma1';
-$sqlPassword = 'RhashSdeak';
+$sqlPassword = 'Rhashdeak';
 $sqlDatabase = 'coma1';
 
 $ftpServer = 'localhost';
