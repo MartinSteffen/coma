@@ -39,7 +39,7 @@ if (!empty($objPersons)) {
   foreach ($objPersons as $objPerson) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['user_id'] = $objPerson->intId;    
-    $strItemAssocs['name'] = encodeText($objPerson->getName());
+    $strItemAssocs['name'] = encodeText($objPerson->getName(1));
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
     $strItemAssocs['roles'] = '';

@@ -588,7 +588,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPaperSimple', 'Fatal error: Database inconsistency!',
                           'author_id = '.$data[0]['author_id']);
     }
-    $strAuthor = $objAuthor->getName();
+    $strAuthor = $objAuthor->getName(1);
     $objTopics = $this->getTopicsOfPaper($intPaperId);
     if ($this->failed()) {
       return $this->error('getPaperSimple', $this->getLastError());
@@ -662,7 +662,7 @@ class DBAccess extends ErrorHandling {
       // laut Jan und Sandro: Ungueltige Id uebergeben wie Nullpointer;
       // erhalte "leer" zurueck, aber keinen Fehler!!!
     }
-    $strAuthor = $objAuthor->getName();
+    $strAuthor = $objAuthor->getName(1);
     $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
                  " FROM    Paper".
                  " WHERE   author_id = '%d'".
@@ -735,7 +735,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPapersOfConference', 'Fatal error: Database inconsistency!',
                             'author_id = '.$data[$i]['author_id']);
       }
-      $strAuthor = $objAuthor->getName();
+      $strAuthor = $objAuthor->getName(1);
       $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfReviewer', $this->getLastError());
@@ -791,7 +791,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPapersOfConference', 'Fatal error: Database inconsistency!',
                             'author_id = '.$data[$i]['author_id']);
       }
-      $strAuthor = $objAuthor->getName();
+      $strAuthor = $objAuthor->getName(1);
       $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfConference', $this->getLastError());
@@ -838,7 +838,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPaperDetailed', 'Fatal error: Database inconsistency!',
                           'author_id = '.$data[0]['author_id']);
     }
-    $strAuthor = $objAuthor->getName();
+    $strAuthor = $objAuthor->getName(1);
     $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
     if ($this->failed()) {
       return $this->error('getPaperDetailed', $this->getLastError());
@@ -866,7 +866,7 @@ class DBAccess extends ErrorHandling {
       // Co-Autor nicht im System? => nimm Name aus Tabelle
       $strCoAuthors[] = empty($objCoAuthor) ?
                         $cadata[$i]['name'] :
-                        $objCoAuthor->getName();
+                        $objCoAuthor->getName(1);
     }
     $objTopics = $this->getTopicsOfPaper($intPaperId);
     if ($this->failed()) {
@@ -1115,9 +1115,9 @@ class DBAccess extends ErrorHandling {
                           "intAuthorId = $objPaper->intAuthorId");
     }
     $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $objPaper->strTitle,
-                   $objAuthor->intId, $objAuthor->getName(), $this->getReviewRating($intReviewId),
+                   $objAuthor->intId, $objAuthor->getName(1), $this->getReviewRating($intReviewId),
                    $this->getAverageRatingOfPaper($data[0]['paper_id']), $objReviewer->intId,
-                   $objReviewer->getName()));
+                   $objReviewer->getName(1)));
     return $this->success($objReview);
   }
 
@@ -1195,9 +1195,9 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
-                   $objPaper->strTitle, $objAuthor->intId, $objAuthor->getName(),
+                   $objPaper->strTitle, $objAuthor->intId, $objAuthor->getName(1),
                    $objReviewRating, $fltAvgRating, $objReviewer->intId,
-                   $objReviewer->getName(), $data[0]['summary'], $data[0]['remarks'],
+                   $objReviewer->getName(1), $data[0]['summary'], $data[0]['remarks'],
                    $data[0]['confidential'], $intRatings, $strComments, $objCriterions));
     return $this->success($objReview);
   }
