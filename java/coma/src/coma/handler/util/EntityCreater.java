@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.HttpRequest;
+
 import coma.entities.Conference;
+import coma.entities.Person;
 
 
 /**
@@ -37,6 +40,16 @@ public class EntityCreater {
 	    Conference conference = new Conference();
 	    //TODO
 	    return conference;
+	}
+	public Person getPerson(ResultSet resSet){
+	    Person p = new Person();
+	    
+	    return p;
+	}
+	public Person getPerson(HttpRequest request){
+	    Person p = new Person();
+	    
+	    return p;
 	}
 	
 }
