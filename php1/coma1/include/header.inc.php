@@ -74,15 +74,15 @@ echo $ServerPathTranslated;
 
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
-define('INCPATH',dirname($ServerPathTranslated.'/include/');
+define('INCPATH', $ServerPathTranslated.'/include/');
 /** Das zu verwendende Design (Verzeichniss-Name)*/
 define('DESIGN', 'simplecoma');
 /** Template-Pfad (als absolut)*/
-define('TPLPATH',dirname($ServerPathTranslated.'/templates/'.DESIGN.'/');
+define('TPLPATH', $ServerPathTranslated.'/templates/'.DESIGN.'/');
 /** Template-Pfad (als URL)*/
-define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/'.DESIGN.'/');
+define('TPLURL', dirname($_SERVER['PHP_SELF']).'/templates/'.DESIGN.'/');
 /** Haupt-Pfad (als URL)*/
-define('COREURL',dirname($_SERVER['PHP_SELF']).'/');
+define('COREURL', dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
 
 // Standard Klassen
