@@ -71,7 +71,9 @@ if (isset($_POST['action'])) {
         // Datenbankfehler?
         error('Error during updating paper.', $myDBAccess->getLastError());
       }
-      else if (!empty($result)) {        
+      else if (!empty($result)) {      	
+      	$objPaper->intVersion++;
+      	$objPaper->strLastEdit = date("Y-m-d");
         $strMessage = 'Paper was updated successfully.';
       }
     }
