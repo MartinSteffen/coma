@@ -60,6 +60,8 @@ else {
       $intWantedReviewers[$intPapers[$i]] = $objConference->intDefaultReviewsPerPaper +
                                             $objConference->intNumberOfAutoAddReviewers;
     }
+    print_r($intWantedReviewers);
+    die();
   }
   $dist = $myDist->getDistribution(session('confid'));
   if ($myDist->failed()) {
@@ -142,7 +144,5 @@ $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Revie
 $main->assign($strMainAssocs);
 $main->parse();
 $main->output();
-
-print_r($intWantedReviewers);
 
 ?>
