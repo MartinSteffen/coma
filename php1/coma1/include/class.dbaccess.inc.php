@@ -250,7 +250,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getConferenceDetailed', $this->mySql->getLastError());
     }
-    else if (empty(data)) {
+    else if (empty($data)) {
       return $this->success(false);
     }
     $objCriterions = $this->getCriterionsOfConference($intConferenceId);
