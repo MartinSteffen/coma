@@ -34,9 +34,10 @@ It is necessary that the repository is only accessed by the user
 apache.  To enable administration of the repository, the account
 \texttt{swprakt} is allowed to switch is user to \texttt{apache} and
 execute subversion related commands (\texttt{svn}, \texttt{svnlook},
-and \texttt{svnadmin}).  Generally, issuing a \texttt{sudo -u apache
-  svnadmin recover \~{}/public\_html/svnroot} will get the repository
-running again, if something fails.
+and \texttt{svnadmin}).  If svn is not working, issuing a
+\texttt{sudo -u apache svnadmin recover \~{}/public\_html/svnroot}
+as \texttt{swprakt} on snert will generally get the repository running
+again.
 
 For the same reason it is not possible or advised to access the
 repository using \texttt{file://} URI's to access the repository.
