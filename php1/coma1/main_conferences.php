@@ -27,7 +27,7 @@ $strContentAssocs['lines'] = '';
 if (!empty($objConferences)) {
   $lineNo = 1;  
   foreach ($objConferences as $objConference) {  	  	
-    $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
+    $objPerson = $this->myDBAccess->getPerson(session('uid'), $objConference->intId);
     if ($this->mySql->failed()) {
       echo ($this->error('getPerson', $this->mySql->getLastError()).'<br>');
     }
