@@ -113,7 +113,7 @@ function getUrlId($strPrefix='') {
  */
 function nl2tag($_str) {
   $tag = @file_get_contents(TPLPATH.'newlinetag.tpl');
-  return = strreplace("\n", $tag."\n", $_str);
+  return strreplace("\n", $tag."\n", $_str);
 }
 
 /**
