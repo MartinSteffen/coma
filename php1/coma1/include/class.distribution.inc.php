@@ -272,27 +272,6 @@ class Distribution extends ErrorHandling {
       }
     }
 
-    // Debug: Ausgabe
-    for ($i = 0; $i < count($matrix); $i++) {
-      echo('<br>Reviewer '.$r_id[$i].':');
-      for ($j = 0; $j < count($matrix[$i]); $j++) {
-        echo(' '.$matrix[$i][$j]);
-      }
-    }
-    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
-    echo('<br>p_id_index:');
-    print_r($p_id_index);
-    echo('<br>r_id_index:');
-    print_r($r_id_index);
-    //echo('<br>NumRevsPrefLeft:');
-    //print_r($p_num_revs_pref_left);
-    echo('<br>NumRevsTotalLeft:');
-    print_r($p_num_revs_total_left);
-    echo('<br>NumRevs:');
-    print_r($p_num_revs);
-    echo('<br>NumPapers:');
-    print_r($r_num_papers);
-    
     echo('<br><br><br>');
 
     // Verteilungsschleife
@@ -356,12 +335,23 @@ class Distribution extends ErrorHandling {
     }
 
     // Debug: Ausgabe
-    for ($i = 0; $i < count($matrix); $i++) {
+    /*for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
         echo(' '.$matrix[$i][$j]);
       }
+    }*/
+    
+    echo('<table>');
+    for ($i = 0; $i < count($matrix); $i++) {
+      echo('<td><tr>Reviewer '.$r_id[$i].'</tr>');
+      for ($j = 0; $j < count($matrix[$i]); $j++) {
+        echo('<tr>'.$matrix[$i][$j].'</tr>');
+      }
+      echo('</td>');
     }
+    echo('</table>');
+    
     echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
     echo('<br>p_id_index:');
     print_r($p_id_index);
