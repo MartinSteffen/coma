@@ -16,10 +16,6 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <h3 style="text-align:center">Java Conference Manager</h3>
 </div>
 
-<div class="status-line">
-<xsl:apply-templates select = "/result/setup/status"/>
-<xsl:apply-templates select = "/result/setup_complete/status"/>
-</div>
 
 <!-- Site navigation menu -->
 <xsl:call-template name="navcolumn"/>
@@ -84,6 +80,7 @@ to insert a conference please fill out the chair data
 </xsl:template>
 
 <xsl:template match="/result/setup_complete/content">
+<xsl:apply-templates select = "/result/setup_complete/status"/><br/>
 Thank You!
 </xsl:template>
 
