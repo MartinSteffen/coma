@@ -1860,10 +1860,10 @@ nur fuer detaillierte?
   function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, $strContents) {
     $s = sprintf("UPDATE   Paper".
                  " SET     filename = '%s', mime_type = '%s', ".
-                 "         version = version + 1, last_edited = '%s'".
+                 "         version = 'version + 1', last_edited = '%s'".
                  " WHERE   id = '%d'",
-                 s2db($strFilePath), s2db($intPaperId), 
-                 s2db(date("Y-m-d H:i:s")), s2db($strMimeType));
+                 s2db($strFilePath), s2db($strMimeType),
+                 s2db(date("Y-m-d H:i:s")), s2db($intPaperId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('uploadPaperFile', $this->mySql->getLastError());
