@@ -265,7 +265,7 @@ textarea
   font-family: Arial, Sans-Serif;
   font-size: 11px;
 }
-input.button, button.button
+.button
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
@@ -274,7 +274,7 @@ input.button, button.button
   padding: 2px 8px;
 }
 
-input.smallbutton, button.smallbutton
+.smallbutton
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-size: 10px;
@@ -284,7 +284,7 @@ input.smallbutton, button.smallbutton
   padding: 1px 2px;
 }
 
-input.button120, button.button120
+.button120
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
