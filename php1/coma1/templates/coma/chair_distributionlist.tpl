@@ -1,7 +1,8 @@
 
 <p class="message2">
-  Note: Reviewer names written in the following colors means:<br>
-  <span class="diststatus-0">The paper is even assigned to the reviewer.</span><br>
+  <span class="emph">Note:</span> Reviewer names in the following colors
+    means:<br>
+  <span class="diststatus-0">The paper is already assigned to the reviewer.</span><br>
   <span class="diststatus-2">The reviewer neither explicitly wants to review the
     paper nor prefers the topic of the paper.</span><br>
   <span class="diststatus-3">The reviewer prefers the topic of the paper.</span><br>
