@@ -32,7 +32,7 @@ $content = new Template(TPLPATH.'conference_info.tpl');
 $strContentAssocs = defaultAssocArray();
 //$strContentAssocs['if'] = array();
 $strContentAssocs['name'] = encodeText($objConference->strName);
-$strContentAssocs['description'] = encodeText($objConference->strDescription);
+$strContentAssocs['description'] = encodeText($objConference->strDescription, true);
 $strContentAssocs['date'] = encodeText($objConference->getDateString());
 if (!empty($objConference->strHomepage)) {
   $strContentAssocs['link'] = encodeURL($objConference->strHomepage);
