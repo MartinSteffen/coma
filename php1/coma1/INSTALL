@@ -58,6 +58,10 @@ CoMa - Your Conference Manager
   directory structure and filenames) to your host. Please ensure that the cases
   of filenames are retained, do NOT force filenames to all lower or upper case
   doing so will cause errors later.
+  
+  Equally if you do not have FTP access or do not wish to use it, you will need
+  to have shell access. If you are unsure how to do so, please read your ssh 
+  manual.
 
   All .php and .tpl files should be uploaded in ASCII mode, while all graphics
   should be uploaded in BINARY mode. If you are unfamiliar with what this means
@@ -123,6 +127,8 @@ CoMa - Your Conference Manager
       a warning message will be displayed.
 
   4. Enjoy CoMa - Your Conference Manager
+     You may now Register a new User. Later (using this User) you can create and
+     manage multiple Conferences. See Help for mor Infos.
 
 
 
@@ -136,6 +142,8 @@ CoMa - Your Conference Manager
        upload_max_filesize "2M" (or even more)
        post_max_size "greater than upload_max_filesize"
        memory_limit "greater than post_max_size"
+       
+  2. Error MSG XYZ
 
 
 $Id$
