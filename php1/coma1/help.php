@@ -57,7 +57,7 @@ $strContentAssocs = defaultAssocArray();
 
 //angeforderte hilfethemen bestimmen und template zusammenbauen
 if (!empty($_GET['for'])){
-  $strArrayHelpTopics = explode(' ',$_GET['for']);
+  $strArrayHelpTopics = explode('_',$_GET['for']);
 }
 else{
   $strArrayHelpTopics = array('nothing');
