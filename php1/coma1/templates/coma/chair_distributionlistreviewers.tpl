@@ -1,6 +1,6 @@
 <a href="{basepath}user_userdetails.php?userid={rev_id}{&SID}" class="link">
   <span class="diststatus-{status}">{rev_name}</span>
-<form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
   <input type="hidden" name="action" value="dismiss">
   <input type="hidden" name="paperid" value="{paper_id}">
   <input type="hidden" name="reviewerid" value="{rev_id}">
