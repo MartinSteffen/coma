@@ -1091,6 +1091,9 @@ class DBAccess extends ErrorHandling {
    * Aktualisiert den Datensatz der Person mit den Daten des PersonDetailed-Objekts $objPerson.
    *
    * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll
+   * @param int $intConferenceId ID der Konferenz, zu der die Rollen der Person aktualisiert
+   *                             werden sollen. Optional: Ist $intConfereceId nicht
+   *                             angegeben, werden keine Rollen fuer die Person aktualisiert.
    * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
    * @access public
    * @author Sandro (10.01.05)
@@ -1098,7 +1101,7 @@ class DBAccess extends ErrorHandling {
    *       Dazu Anmerkung von Tom: Habe Funktion updateRoles hinzugefuegt, die
    *       Du dafuer benutzen solltest.
    */
-  function updatePerson($objPerson) {
+  function updatePerson($objPerson, $intConferenceId=false) {
     $s = "UPDATE  Person".
         " SET     first_name = '$objPerson->strFirstName',".
         "         last_name = '$objPerson->strLastName',".
@@ -1116,6 +1119,12 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());
+    }
+    if (!empty($intConferenceId)) {
+      $this->updateRoles($objPerson, $intConferenceId);
+      if ($this->failed()) {
+        return $this->error('updatePerson', $this->getLastError());
+      }
     }
     return $this->success(true);
   }
@@ -1136,7 +1145,8 @@ class DBAccess extends ErrorHandling {
 
     // Rollen loeschen...
     $s = "DELETE  FROM Role".
-        " WHERE   person_id = $intId";
+        " WHERE   person_id = $intId".
+        " AND     conference_id = $intConferenceId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
