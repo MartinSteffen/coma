@@ -51,6 +51,27 @@ class PersonDetailed extends Person {
     $this->strFax = $strFax;
   }
 
+  function getAddress() {
+    $strAddress = $this->strStreet;
+    if (!empty($this->strStreet)) {
+      $strAddress .= ', ';
+    }
+    $strAddress .= $this->strPostalCode;
+    if (!empty($this->strPostalCode) && !empty($this->strCity)) {
+      $strAddress .= ' ';
+    }
+    $strAddress .= $this->strCity;
+    if ( !empty($strAddress) &&
+        (!empty($this->strState) || !empty($this->strCountry)) {
+      $strAddress .= '<br>';
+    }
+    $strAddress .= $this->strState;
+    if (!empty($this->strState) && !empty($this->strCountry)) {
+      $strAddress .= ', ';
+    }
+    $strAddress .= $this->strCountry;
+  }
+
 } // end class PersonDetailed
 
 ?>

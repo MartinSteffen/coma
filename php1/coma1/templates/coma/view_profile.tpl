@@ -47,8 +47,7 @@
       Address:
     </td>
     <td class="viewline">
-      {street} &nbsp;&nbsp;&nbsp;&nbsp; {postalcode} {city} <br>
-      {state} {country}
+      {address}
     </td>
   </tr>
 </table>
