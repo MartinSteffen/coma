@@ -42,12 +42,12 @@ class ComaExample extends PHPUnit_TestCase
 
   function test_getCriterionsOfConference() {
       	global $myDBAccess;
-        $this->assertEquals([],$myDBAccess->getCriterionsOfConference(100));
+        $this->assertEquals(array(),$myDBAccess->getCriterionsOfConference(100));
   }
 
   function test_getTopicsOfConference() {
       	global $myDBAccess;
-        $this->assertEquals([],getTopicsOfConference(100));
+        $this->assertEquals(array(),getTopicsOfConference(100));
   }
 
   function test_getPersonIdByEmail() {
