@@ -7,7 +7,9 @@
       <a href="{basepath}{targetpage}?order=1{&SID}" class="order{if1-active}">Title</a>
     </th>
     <th class="listheader">&nbsp;</th>
-    <th class="listheader">Current status</th>
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=3{&SID}" class="order{if3-active}">Current status</a>
+    </th>
     <th class="listheader">
       <a href="{basepath}{targetpage}?order=4{&SID}" class="order{if4-active}">Average rating</a>
     </th>
