@@ -5,7 +5,15 @@ include("includes/definitions.inc.php");
 include("includes/login.inc.php");
 include("includes/tools.inc.php");
 include("includes/templates.inc.php");
+include("includes/rights.inc.php");
 session_start();
+
+/* DEBUG - delete later!!! */
+if (!isset($_SESSION['userID']))
+{
+	$_SESSION['userID'] = 1;
+}
+/* END DEBUG */
 
 if (isset($_REQUEST['Role'])){
 	loginas($_REQUEST['Role']);
