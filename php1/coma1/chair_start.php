@@ -16,7 +16,7 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'chair_start.tpl');
 $strContentAssocs = defaultAssocArray();
-
+$strContentAssocs['request_no'] = '';
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
