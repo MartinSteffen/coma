@@ -363,9 +363,10 @@ class Distribution extends ErrorHandling {
           if($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] < $minFactor ||
               ($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] == $minFactor &&
                $intWantedReviewers[$p_id[$i]] > $wanted)) {
-          $minFactor = $p_num_revs[$i];
-          $wanted = $intWantedReviewers[$p_id[$i]];
-          $pindex = $i;
+            $minFactor = $p_num_revs[$i];
+            $wanted = $intWantedReviewers[$p_id[$i]];
+            $pindex = $i;
+          }
         }
       }
       if ($pindex >= 0) {
