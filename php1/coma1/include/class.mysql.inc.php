@@ -23,7 +23,7 @@ if (!defined('IN_COMA1')) {
  *
  */
 class MySql {
-  
+
   /**#@+
    * @access private
    * @var string
@@ -37,7 +37,7 @@ class MySql {
   /**
    * Ein Verweiss auf das aktuelle Handle der Datenbank.
    * Sollte nur in Ausnahmefaellen direkt genutzt werden!
-   * 
+   *
    * @access protected
    * @var resource
    */
@@ -49,14 +49,14 @@ class MySql {
    * Der Konstruktor stellt eine Verbindung mit der Datenbank her und
    * stellt die Databse ein. Die Daten werden dabei aus der Konfigurations
    * datei gelesen.
-   * 
+   *
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
    * @see getLastError()
    *
    */
   function MySql() {
-    require_once('./config.inc.php');
+    require_once('config.inc.php');
     $this->mySqlServer = sqlServer;
     $this->mySqlUser = sqlUser;
     $this->mySqlPassword = sqlPassword;
@@ -74,14 +74,14 @@ class MySql {
     $this->conn = $conn;
     return true;
   }
-  
+
   /**
    * select()
    *
    * Die Funktion <b>select()</b> ermoeglicht select Anfragen an die Datenbank.
    * Dabei werden einfache Fehlerchecks durchgefuert. Das Ergebniss wird
    * automatisch in ein array umgewandelt.
-   * 
+   *
    * @param string $sql Eine SQL <b>select</b> Anfrage an die Datenbank
    * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
@@ -119,7 +119,7 @@ class MySql {
    *
    * Die Funktion <b>insert()</b> ermoeglicht insert Anfragen an die Datenbank.
    * Dabei werden einfache Fehlerchecks durchgefuert.
-   * 
+   *
    * @param string $sql Eine SQL <b>insert</b> Anfrage an die Datenbank
    * @return int|false Die id des letzten auto_increment Wertes oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
@@ -149,7 +149,7 @@ class MySql {
    * Fehler erzeugen / abfragen
    *
    * Die Funktion <b>error()</b> checkt auf MySql Fehler und speichert diese.
-   * 
+   *
    * @param string $text Eine optionale Angabe einer Fehlerursache
    * @return false Es wird immer <b>false</b> zurueck gegeben
    * @see getLastError()
@@ -168,7 +168,7 @@ class MySql {
    *
    * Die Funktion <b>getLastError()</b> gibt die letzte mit error
    * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
-   * 
+   *
    * @return string Die letzte Fehlermeldung
    * @see error()
    * @access public
