@@ -1838,7 +1838,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     $s = "UPDATE  Person".
         " SET     password = NULL".
         " WHERE   id = '$intPersonId'";
-    $result = $this->mySql->delete($s);
+    $result = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('deactivateAccount', $this->mySql->getLastError());
     }
