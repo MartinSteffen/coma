@@ -180,10 +180,10 @@ if (!defined('NEED_NO_LOGIN')) {
       error('checkLogin',$myDBAccess->getLastError());
     }
     if (!isset($_SESSION['uname'])) {
-      $_SESSION['message'] = 'Bitte melden Sie sich an!';
+      $_SESSION['message'] = 'Please login with your Username and Password!';
     }
     else {
-      $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
+      $_SESSION['message'] = 'Username or Password is wrong!';
     }
     redirect('login.php');
   }
