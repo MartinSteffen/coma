@@ -1,0 +1,63 @@
+Name:		@PACKAGE_TARNAME@
+Version:	@VERSION@
+Release:	1
+Summary:	Coma Conference Manager, python version.
+Group:		Other
+License:	GPL
+Packager:       Marcel Kyas <mky@informatik.uni-kiel.de>
+URL:		http://www.informatik.uni-kiel.de/~mky/coma/
+Source0:	http://www.informatik.uni-kiel.de/~mky/coma/%{name}-%{version}.tar.gz
+BuildRequires:	python >= 2.3, mod_python >= 3.1
+BuildRequires:	postgresql-python >= 7.4
+BuildRequires:	MySQL-python >= 0.9
+Requires:	python >= 2.3, mod_python >= 3.1
+BuildRoot:	%{_tmppath}/coma-root
+
+%description
+Coma is a simple conference manager written in python.
+This package contains the common files.
+
+It requires a data base module.
+
+%package psql
+Summary:	Coma using postgresql
+Group:		Other
+Requires:	postgresql-python >= 7.4
+
+%description psql
+Coma is a simple conference manager written in python and using postgresql.
+
+%package mysql
+Summary:	Coma using MySQL
+Group:		Other
+Requires:	MySQL-python >= 0.9
+
+%description mysql
+Coma is a simple conference manager written in python and using postgresql.
+
+%prep
+%setup -q -T -b 0
+
+%build
+%configure
+make
+
+%install
+%makeinstall
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-,root,root)
+%doc ChangeLog README COPYING
+
+%files mysql
+%defattr(-,root,root)
+
+%files psql
+%defattr(-,root,root)
+
+%changelog
+* Wed Jan 27 2005 Marcel Kyas <mky@informatik.uni-kiel.de>
+- Initial version.

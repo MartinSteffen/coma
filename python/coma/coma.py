@@ -55,7 +55,7 @@ def download_paper(filename, localname, mimetype = 'application/octet-stream'):
     _stat = os.stat(localname)
     if _stat:
         length = _stat.st_size
-    else
+    else:
         redirect("download-error.xml")
 
     print """Pragma: public
@@ -251,136 +251,6 @@ def check_session(session, db):
 
 
 
-
-
-
-def process_login(sid, db, form):
-    """Validate the login form and try to log him in."""
-    if form['email'].value:
-	if form['password'].value:
-	    _user = db.get_user(form['email'].value)
-	    if _user:
-		if _user.password == form['password'].value:
-		    sid = session.change_login(db, sid, form['email'].value)
-		    return _user, sid
-		else:
-		    process_template('./templates/login-failed.xml',
-				     { 'error' :
-				       'The password does not match '
-				       'the login' })
-	    else:
-		process_template('./templates/login-failed.xml',
-				 { 'error' : 'This user does not exist' })
-	else:
-	    process_template('./templates/login-failed.xml',
-			     { 'error' : 'You must enter a password' })
-    else:
-	process_template('./templates/login-failed.xml',
-			 { 'error' : 'You must enter an e-mail address.'})
-    sys.exit()
-
-
-def process_new_user(sid, db, form):
-    """Validate the form submitted to create a new user.  If validation
-    succeeds, this function returns a list in the format returned by the
-    data base connector functions."""
-    _errors = []
-    _result = []
-
-    if form.has_key('email') and form['email'].value:
-	email = form['email'].value
-	_user = db.get_user(email)
-	if not _user:
-	    _result.append(email)
-	else:
-	    _errors.append("""There already exists a user with the e-mail
-	    address %s""" % (email))
-    else:
-	_errors.append('You have to enter an e-mail address')
-
-#    if form.has_key('password') and form['password'].value:
-#	if form.has_key('password2') and form['password2'].value:
-#	    if form['password'].value == form['password2'].value:
-#		_result.append(form['password'].value)
-#	    else:
-#		_errors.append('The password and its confirmation differ.')
-#	else:
-#	    _errors.append('You have to confirm your password.')
-#    else:
-#	_errors.append('You have to enter a password.')
-
-    if form.has_key('title') and form['title'].value:
-	_result.append(int(form['title'].value))
-    else:
-	_errors.append('You have to enter your title.')
-
-    if form.has_key('first-name') and form['first-name'].value:
-	_result.append(form['first-name'].value)
-    else:
-	_errors.append('You have to enter your first name.')
-
-    if form.has_key('last-name') and form['last-name'].value:
-	_result.append(form['last-name'].value)
-    else:
-	_errors.append('You have to enter your last name.')
-
-    if form.has_key('affiliation') and form['affiliation'].value:
-	_result.append(form['affiliation'].value)
-    else:
-	_errors.append('You have to enter your affiliation.')
-
-    if form.has_key('phone-number'):
-	_result.append(form['phone-number'].value)
-    else:
-	_result.append(None)
-
-    if form.has_key('fax-number'):
-	_result.append(form['fax-number'].value)
-    else:
-	_result.append(None)
-
-    if form.has_key('street'):
-	_result.append(form['street'].value)
-    else:
-	_result.append(None)
-
-    if form.has_key('postal-code'):
-	_result.append(form['postal-code'].value)
-    else:
-	_result.append(None)
-
-    if form.has_key('city'):
-	_result.append(form['city'].value)
-    else:
-	_result.append(None)
-
-    if form.has_key('state'):
-	_result.append(form['state'].value)
-    else:
-	_result.append(None)
-
-    if form.has_key('country'):
-	_result.append(form['country'].value)
-    else:
-	_result.append(None)
-
-    # We have now checked the form.  If there were errors, we send an error
-    # message.  Otherwise we put the result into the data base and send him
-    # to the next page.
-    if _errors:
-	# We had errors.
-	_result = None
-	__format_errors('./templates/new-account-error.xml', _errors)
-	sys.exit()
-    else:
-	# We don't have errors.  Add him to the data base.
-	_user = comadb.User(_result)
-	db.put_user(_user)
-	# Update the session.
-	sid.user = email
-	session.update(db, sid)
-	# Show him his index.
-	index(db, sid, _user)
 
 
 def process_submit_paper(sid, db, form):

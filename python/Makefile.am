@@ -1,7 +1,8 @@
 
 SUBDIRS			= coma
 python_PYTHON		= coma-setup.py coma-procmail.py
-data_DATA		= coma.sql coma-aux.sql coma-del.sql coma.conf
+dist_pkgdata_DATA	= coma.sql coma-aux.sql coma-del.sql
+EXTRA_DIST		= pycoma.spec
 
 MOSTLYCLEANFILES	= *~
 CLEANFILES		= *.pyc *.pyo
