@@ -731,7 +731,7 @@ class DBAccess extends ErrorHandling {
         $objPapers = sortPapersByAvgRating($objPapers);
       }
       else if ($intOrder == 6) {
-        $objPapers = sortPapersByVariance($objPapers);
+        $objPapers = sortPapersByAmbiguity($objPapers);
       }
     }
     return $this->success($objPapers);    
@@ -855,7 +855,7 @@ class DBAccess extends ErrorHandling {
         $objPapers = sortPapersByAvgRating($objPapers);
       }
       else if ($intOrder == 6) {
-        $objPapers = sortPapersByVariance($objPapers);
+        $objPapers = sortPapersByAmbiguity($objPapers);
       }
     }
     return $this->success($objPapers);
@@ -928,7 +928,7 @@ class DBAccess extends ErrorHandling {
         $objPapers = sortPapersByAvgRating($objPapers);
       }
       else if ($intOrder == 6) {
-        $objPapers = sortPapersByVariance($objPapers);
+        $objPapers = sortPapersByAmbiguity($objPapers);
       }
     }
     return $this->success($objPapers);
