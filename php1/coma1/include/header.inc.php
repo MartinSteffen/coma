@@ -16,7 +16,7 @@ define(DEBUG, true);
 header('Content-type: text/html; charset=utf-8');
 
 // Debugging Einstellungen:
-if (defined(DEBUG) {
+if (defined(DEBUG)) {
   error_reporting(E_ALL);
   ini_set('display_errors', '1');         // spaeter 0 ??
   ini_set('display_startup_errors', '1'); // spaeter 0 !!
