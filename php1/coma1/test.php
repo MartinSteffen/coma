@@ -13,16 +13,20 @@
  */
 define('IN_COMA1',true);
 
+require_once('./include/class.mysql.inc.php');
 require_once('./include/class.dbaccess.inc.php');
 
-$dbAccess = new DBAccess();
+$mySql = new MySql();
+$dbAccess = new DBAccess($mySql);
 $s = $dbAccess->getLastError();
 
 if (!empty($s)) {
   echo($s);
+  die();
 }
-else {
-  echo('Else: "Alles roger in Kambodscher."');
-}
+echo('Else: "Alles roger in Kambodscher."');
+
+$dbAccess->getPersonIdByEmail('hase@braten.org');
+
 
 ?>

@@ -37,14 +37,13 @@ class DBAccess {
    *
    * Der Konstruktor erzeugt eine Verbindung mit der Datenbank.
    *
-   * @param MySql $mySql Ein MySql Objekt
+   * @param MySql $mySql Ein MySql-Objekt
    * @return bool <b>true</b> bei Erfolg, <b>false</b> bei Fehler
    * @see error()
    * @see getLastError()
    */
   function DBAccess(&$mySql) {
-    $this->mySql =& $mySql;
-
+    $this->mySql = &$mySql;
     return true;
   }
 
@@ -78,8 +77,6 @@ class DBAccess {
   }
 
 
-
-
   /**
    */
   function getAllConferences() {
@@ -100,25 +97,33 @@ class DBAccess {
 
   /**
    */
-  function getPerson($strUserEmail) {
+  function getPersonIdByEmail($strEmail) {
+    //$this->mySql->select('SELECT id FROM Person WHERE email = '''.
+    echo('Ein einfaches Apostroph \' im String.');
+    return true;
+  }
+  
+  /**
+   */
+  function getPerson($intPersonId) {
     return true;
   }
 
   /**
    */
-  function getPersonDetailed($strUserEmail) {
+  function getPersonDetailed($intPersonId) {
     return true;
   }
 
   /**
    */
-  function getPapersOfAuthor($strAuthorEmail) {
+  function getPapersOfAuthor($intAuthorId) {
     return true;
   }
 
   /**
    */
-  function getPapersOfReviewer($strReviewerEmail) {
+  function getPapersOfReviewer($intReviewerId) {
     return true;
   }
 
@@ -130,7 +135,7 @@ class DBAccess {
 
   /**
    */
-  function getReviewsOfReviewer($strReviewerEmail) {
+  function getReviewsOfReviewer($intReviewerId) {
     return true;
   }
 
