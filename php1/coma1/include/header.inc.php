@@ -68,7 +68,7 @@ ini_set('warn_plus_overloading', '1');
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
-/** Das zu verwendende Design*/
+/** Das zu verwendende Design (Verzeichniss-Name)*/
 define('DESIGN', 'design1');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/'.DESIGN.'/');

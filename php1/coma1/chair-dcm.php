@@ -17,7 +17,7 @@ require_once('./include/header.inc.php');
 
 
 
-$headerPage = new Template(TPLPATH.'header.tpl');
+$headerPage = new Template(TPLPATH.'main.tpl');
 
 
 $strMainAssocs = defaultAssocArray();
