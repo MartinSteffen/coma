@@ -13,7 +13,7 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
-require_once('./include/class.dbaccess.inc.php');
+require_once('./include/class.distribution.inc.php');
 
 /*if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
   $myDBAccess->deletePaper($_POST['paperid']);
