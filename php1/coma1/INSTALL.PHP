@@ -276,10 +276,10 @@ elseif ($STEP == 4) {
     }
   }
   if (empty($errors)) {
-    echo "    <p class=\"message-ok\">Database successfully created!</p>";
+    echo "    <p class=\"message-ok\">Tutorial Data successfully added!</p>";
   }
   else {
-    echo "    <p class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
+    echo "    <p class=\"message-failed\">\n    Failed to add Tutorial Data!<br><br>\n";
     foreach ($errors as $error) {
       echo "      ".$error."<br>\n";
     }
