@@ -52,12 +52,14 @@
       <input type="checkbox" name="auto_actaccount" value="1"{if2 checked}>
     </td>
   </tr>
-  <tr>
-    <td colspan="2">
-      Start discussion of critical papers automatically
-      <input type="checkbox" name="auto_paperforum" value="1"{if3 checked}>
-    </td>
-  </tr>
+<!-- Ist vorerst nicht implementiert. -->
+  <!--<tr>
+        <td colspan="2">
+          Start discussion of critical papers automatically
+          <input type="checkbox" name="auto_paperforum" value="1"{if3 checked}>
+        </td>
+      </tr>
+  -->
   <tr>
     <td colspan="2">
       Add reviewers to critical papers automatically
@@ -85,6 +87,8 @@
       <input type="hidden" name="review_dl" value="{review_dl}">
       <input type="hidden" name="final_dl" value="{final_dl}">
       <input type="hidden" name="notification" value="{notification}">
+      <input type="hidden" name="auto_paperforum" value="1">      
+      
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit_adv" value="Submit Changes" class="button">
       <input type="submit" name="simple_config_adv" value="Simple settings" class="button">
