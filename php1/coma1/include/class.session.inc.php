@@ -95,6 +95,9 @@ class Session extends ErrorHandling {
       return $this->error('Init', 'Cannot initialize save_handler.');
     }
     session_start();
+    if (!defined('SID')) {
+      define('SID', '');
+    }
     return $this->success(true);
   }
 
