@@ -141,7 +141,7 @@ class Template extends ErrorHandling {
         else {
           $strKeys[] = '/(?is){'.$key.'(.*?)}/';
           $strVal = '';
-          foreach ($values) {
+          foreach ($values as $val) {
             $strVal .= '\\1';
           }
           $strValues[] = $strVal;
