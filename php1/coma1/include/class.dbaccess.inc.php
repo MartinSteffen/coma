@@ -1674,7 +1674,7 @@ nur fuer detaillierte?
     $s = sprintf("UPDATE   Role".
                  " SET     state = ''".
                  " WHERE   person_id = '%d'".
-                 " AND     role_id = '%d'".
+                 " AND     role_type = '%d'".
                  " AND     conference_id = '%d'",                 
                  s2db($intId), s2db($intRoleId), s2db($intConferenceId));
     $this->mySql->update($s);
