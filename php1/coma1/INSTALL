@@ -31,6 +31,8 @@ CoMa - Your Conference Manager
   below.
 
    1. Decompress the CoMa archive to a local directory on your system.
+        o coma1.tar.gz - Linux / Unix version (CR)
+        o coma1.zip    - Windows Version (CR/LF)
    2. Upload all the files contained in this archive (retaining the directory
       structure)to a web accessible directory on your server or hosting account.
    3. Using your web browser visit the location you placed CoMa with the

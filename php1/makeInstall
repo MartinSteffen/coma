@@ -7,6 +7,6 @@ svn export http://snert.informatik.uni-kiel.de:8080/svn/coma/trunk/php1/coma1 ~/
 rm -f ~/coma1/include/config.inc.php
 mv ~/coma1/include/default_config.inc.php ~/coma1/include/config.inc.php
 tar -czf ~/coma1.tar.gz coma1/
-cp ~/coma1.tar.gz ~/public_html/coma1.tar.gz
-zip -rml ~/coma1.tar.gz coma1/
-cp ~/coma1.zip ~/public_html/coma1.zip
+cp ~/coma1.tar.gz ~/public_html/coma_installer/coma1.tar.gz
+zip -rml ~/coma1 coma1
+cp ~/coma1.zip ~/public_html/coma_installer/coma1.zip
