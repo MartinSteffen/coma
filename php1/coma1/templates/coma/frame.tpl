@@ -2,6 +2,8 @@
 <html>
 <head>
 <title>CoMa - Your Conference Manager - {title}</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="expires" content="0">
 <link rel="stylesheet" type="text/css" href="{path}styles.css">
 </head>
 

@@ -2,7 +2,7 @@
 /**
  * Install Skript für Coma1
  *
- * Stand der Tabellen 23.01.2005
+ * Stand der Tabellen 25.01.2005
  *
  * @version $Id$
  * @package coma1
@@ -30,6 +30,24 @@ $path = $_SERVER['PHP_SELF'];
 <html>
 <head>
   <title>CoMa - Your Conference Manager - Error</title>
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <style type="text/css">
+  <!--
+  body, ol { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
+    font-size: 12px; vertical-align: top; background-color: #FFFFFF;
+    margin: 0px; padding: 0px; }
+  a { text-decoration: none; font-weight: bold; }
+  a:link { color: #1A35AD; }
+  a:visited { color: #1A35AD; }
+  a:active { color: #000000; }
+  a:hover { color: #004DFF; }
+  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
+    width: 60%; font-size: 13px; font-weight: bold; text-align: center;
+    vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
+  p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; }
+  p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; }
+  -->
+  </style>
 </head>
 <body>
   <ol>
@@ -38,23 +56,27 @@ $path = $_SERVER['PHP_SELF'];
     <li><a href="<?=$path?>?3">Add Tutorial Data</a></li>
   </ol>
   <p>&nbsp;</p>
-  <p>
+  <p class="message-failed">
 <?php
+if ($STEP1){
 
-// Block neuanlegen der Datenbank
-if ($STEP2) {
+elseif ($STEP2) {
+  // Block neuanlegen der Datenbank
   /**@ignore */
   define('IN_COMA1', true);
   require_once('./include/config.inc.php');
-
+  
+  $errorHappened = false;
   $conn = @mysql_connect($sqlServer, $sqlUser , $sqlPassword);
   if (empty($conn)) {
-    echo("Could not connect to MySQL Server $sqlServer!<br>");
-    echo("Please check 'include/config.inc.php' for correct values!<br><br>");
+    $errorHappened = true;
+    echo("    Could not connect to MySQL Server $sqlServer!<br>\n");
+    echo("    Please check 'include/config.inc.php' for correct values!<br>\n");
   }
   if (!mysql_select_db($sqlDatabase, $conn)) {
-    echo(mysql_error($conn).'<br>');
-    echo("Please check 'include/config.inc.php' for correct values!<br><br>");
+    $errorHappened = true;
+    echo('    '.mysql_error($conn)."<br>\n");
+    echo("    Please check 'include/config.inc.php' for correct values!<br>\n");
   }
 
   $sql = array();
@@ -98,14 +120,22 @@ if ($STEP2) {
   $sql[] = "CREATE TABLE Distribution ( paper_id INT NOT NULL, reviewer_id INT NOT NULL, PRIMARY KEY (paper_id, reviewer_id), INDEX (paper_id), INDEX (reviewer_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE, FOREIGN KEY (reviewer_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
   $sql[] = "DROP TABLE IF EXISTS PaperData";
   $sql[] = "CREATE TABLE PaperData ( paper_id INT NOT NULL, filesize INT NOT NULL, file MEDIUMBLOB NOT NULL, PRIMARY KEY (paper_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE) TYPE = INNODB";
-
-  foreach ($sql as $s) {
-    $result = mysql_query($s, $conn);
-    if (empty($result)) {
-      echo(mysql_error($conn).'<br><br>');
+  
+  if (!$errorHappened) {
+    foreach ($sql as $s) {
+      $result = mysql_query($s, $conn);
+      if (empty($result)) {
+        $errorHappened = true;
+        echo('    '.mysql_error($conn)."<br>\n");
+      }
     }
   }
-  echo "<br><br>Done.";
+  if ($errorHappened) {
+    echo "    <br>Database creation failed! see Errors above...";
+  }
+  else {
+    echo "  </p>\n  <p class=\"message-ok\">Database successfully created!";
+  }
 }
 elseif ($STEP3) {
   // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was machen ;)

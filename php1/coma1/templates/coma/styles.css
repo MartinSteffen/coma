@@ -231,7 +231,7 @@ a.markedmenu
   font-size: 13px;
   text-decoration: none;
   font-weight: bold;
-  color: #FF2600;
+  /* color: #FF2600; */
   border-top: 1px #FF0000 solid;
   border-bottom: 1px #FF0000 solid;
 }
@@ -240,7 +240,7 @@ a.markedsubmenu
   font-size: 12px;
   text-decoration: none;
   font-weight: normal;
-  color: #FF2600;
+  /* color: #FF2600; */
   border-top: 1px #FF0000 solid;
   border-bottom: 1px #FF0000 solid;
 }
