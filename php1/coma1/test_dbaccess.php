@@ -38,6 +38,10 @@ else if (empty($p)) {
 }
 
 echo('Update<br>');
+
+$myDBAccess->addCoAuthorName(30, 'Hanswurst');
+$myDBAccess->addCoAuthor(30, 60);
+
 $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
