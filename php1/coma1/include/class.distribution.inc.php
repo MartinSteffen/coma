@@ -189,7 +189,7 @@ class Distribution extends ErrorHandling {
                    " AND     pp.person_id = '%d'".
                    " AND     p.conference_id = '%d'",
                    s2db($r_id[$i]), s2db($intConferenceId));
-      $denies = $this->mySql->select($s);
+      $excluded = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
