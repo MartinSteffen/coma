@@ -154,9 +154,8 @@ class MySql {
    * Die Funktion <b>update()</b> ermoeglicht update Anfragen an die Datenbank.
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
+   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls Fehler auftrat.
    * @param string $strSql Eine SQL <b>update</b> Anfrage an die Datenbank
-   * @return int|false Die id des letzten auto_increment Wertes (0, falls keiner
-   *                   erzeugt wird) oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
    * @access public
@@ -183,7 +182,8 @@ class MySql {
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
    * @param string $strSql Eine SQL <b>insert</b> Anfrage an die Datenbank
-   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls Fehler auftrat.
+   * @return int|false Die id des letzten auto_increment Wertes (0, falls keiner
+   *                   erzeugt wird) oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
    * @access public
@@ -203,7 +203,15 @@ class MySql {
     if (empty($results)) {
       return $this->error('insert: ');
     }
-    return mysql_insert_id();
+    // Tom: Kein Fehler => gib auch einen Wert <> EMPTY zurueck, wenn keine ID
+    // erzeugt wurde
+    $intId = mysql_insert_id();
+    if (!empty($intId)) {
+      return $intId;
+    }
+    else {
+      return 0;
+    }
   }
 
   /**
