@@ -56,8 +56,7 @@ if (!empty($objConferences)) {
       $ifArray[] = 4;
     }
     $strItemAssocs['name'] = encodeText($objConference->strName);
-    $strItemAssocs['startdate'] = encodeText($objConference->strStart);
-    $strItemAssocs['enddate'] = encodeText($objConference->strEnd);
+    $strItemAssocs['date'] = $objConference->getDateString;
     $strItemAssocs['if'] = $ifArray;
     $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
     $conferenceItem->assign($strItemAssocs);

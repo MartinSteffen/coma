@@ -4,9 +4,7 @@
       <span class="emph">{name}</span>
     </a>
   </td>
-  <td class="listitem-{line_no}">
-    {startdate} - {enddate}
-  </td>
+  <td class="listitem-{line_no}">{date}</td>
   <td>
     {if4 <a href="{link}"><img border="0" alt="website" height="20" width="64"
       src="{path}images/icon_website.gif"></a>}

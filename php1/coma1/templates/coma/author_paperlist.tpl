@@ -5,9 +5,9 @@
     <th class="listheader">Current status</th>
     <th class="listheader">Average rating</th>    
     <th class="listheader">Last edited</th>
-    <th class="listheader">View paper</th>    
+    <th class="listheader">&nbsp;</th>    
   </tr>
-  {paper_rows}
+  {lines}
 </table>
 
 <p class="message2">

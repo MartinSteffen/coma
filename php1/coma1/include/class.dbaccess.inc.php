@@ -549,7 +549,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getPaperSimple($intPaperId) {
-    $s = "SELECT  id, author_id, title, state".
+    $s = "SELECT  id, author_id, title, state, filename".
         " FROM    Paper".
         " WHERE   id = '$intPaperId'";
     $data = $this->mySql->select($s);
@@ -573,7 +573,7 @@ class DBAccess extends ErrorHandling {
     }
     $strAuthor = $objAuthor->getName();
     $objPaper = (new PaperSimple($intPaperId, $data[0]['title'], $data[0]['author_id'],
-                  $strAuthor, $data[0]['state'], $fltAvgRating,
+                  $strAuthor, $data[0]['state'], $fltAvgRating, $data[0]['filename'],
                   $this->getTopicsOfPaper($intPaperId)));
     return $this->success($objPaper);
   }
@@ -589,16 +589,17 @@ class DBAccess extends ErrorHandling {
    */
   function getPapersOfAuthor($intAuthorId) {
     $objAuthor = $this->getPerson($intAuthorId);
-    if ($this->failed()) {
-      return $this->error('getPapersOfAuthor', $this->getLastError());
+    if ($this->mySql->failed()) {
+       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
     }
     else if (empty($objAuthor)) {
-      return $this->success(array());
+      return $this->error('getPapersOfAuthor', 'Fatal error: Database inconsistency!',
+                          "intAuthorId = $intAuthorId";
     }
     $strAuthor = $objAuthor->getName();
-    $s = "SELECT  id, author_id, title, state".
+    $s = "SELECT  id, author_id, title, state, filename".
         " FROM    Paper".
-        " WHERE   author_id = '$intAuthorId'";
+        " WHERE   author_id = $intAuthorId";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
@@ -611,7 +612,8 @@ class DBAccess extends ErrorHandling {
       }
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-                       $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id'])));
+                       $fltAvgRating, $data[$i]['filename'],
+                       $this->getTopicsOfPaper($data[$i]['id'])));
     }
     return $this->success($objPapers);
   }
@@ -620,39 +622,87 @@ class DBAccess extends ErrorHandling {
    * Liefert ein Array von PaperSimple-Objekten des Reviewers $intReviewerId.
    *
    * @param int $intReviewerId ID des Reviewers
-   * @return PaperSimple [] Ein leeres Array, falls keine Reviews des Reviewers
+   * @return PaperSimple [] Ein leeres Array, falls keine Papers des Reviewers
    *                        $intReviewerId gefunden wurden.
    * @access public
    * @author Tom (12.12.04)
    */
   function getPapersOfReviewer($intReviewerId) {
-    $s = "SELECT  p.id AS id, author_id, title, state".
+    $objReviewer = $this->getPerson($intReviewerId);
+    if ($this->mySql->failed()) {
+       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
+    }
+    else if (empty($objAuthor)) {
+      return $this->error('getPapersOfReviewer', 'Fatal error: Database inconsistency!',
+                          "intReviewerId = $intReviewerId";
+    }
+    $s = "SELECT  p.id AS id, author_id, title, state, filename".
         " FROM    Paper AS p".
         " INNER   JOIN ReviewReport AS r".
         " ON      r.paper_id = p.id".
-        " AND     r.reviewer_id = '$intReviewerId'";
+        " AND     r.reviewer_id = $intReviewerId";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
     }
     $objPapers = array();
     for ($i = 0; $i < count($data); $i++) {
-      $objReviewer = $this->getPerson($intReviewerId);
+      $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->mySql->failed()) {
-         return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
+         return $this->error('getPapersOfConference', $this->mySql->getLastError());
       }
-      else if (empty($objReviewer)) {
-        return $this->error('getPapersOfReviewer', 'Fatal error: Database inconsistency!',
-                            "intReviewerId = $intReviewerId");
+      else if (empty($objAuthor)) {
+        return $this->error('getPapersOfConference', 'Fatal error: Database inconsistency!',
+                            'author_id = '.$data[$i]['author_id'].')';
       }
-      $strReviewer = $objReviewer->getName();
+      $strAuthor = $objAuthor->getName();
       $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfReviewer', $this->getLastError());
       }
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
-                       $data[$i]['author_id'], $strReviewer, $data[$i]['state'],
-                       $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id'])));
+                       $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+                       $fltAvgRating, $data[$i]['filename'],
+                       $this->getTopicsOfPaper($data[$i]['id'])));
+    }
+    return $this->success($objPapers);
+  }
+
+  /**
+   * Liefert ein Array von PaperSimple-Objekten der Konferenz $intConferenceId.
+   *
+   * @param int $intConferenceId ID der Konferenz
+   * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.
+   * @access public
+   * @author Sandro (19.01.05)
+   */
+  function getPapersOfConference($intConferenceId) {
+    $s = "SELECT  p.id AS id, author_id, title, state, filename".
+        " FROM    Paper AS p".
+        " WHERE   conference_id = $intConferenceId";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPapersOfConference', $this->mySql->getLastError());
+    }
+    $objPapers = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objAuthor = $this->getPerson($data[$i]['author_id']);
+      if ($this->mySql->failed()) {
+         return $this->error('getPapersOfConference', $this->mySql->getLastError());
+      }
+      else if (empty($objAuthor)) {
+        return $this->error('getPapersOfConference', 'Fatal error: Database inconsistency!',
+                            'intAuthorId = '.$data[$i]['author_id'].')';
+      }
+      $strAuthor = $objAuthor->getName();
+      $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
+      if ($this->failed()) {
+        return $this->error('getPapersOfConference', $this->getLastError());
+      }
+      $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
+                       $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+                       $fltAvgRating, $data[$i]['filename'],
+                       $this->getTopicsOfPaper($data[$i]['id'])));
     }
     return $this->success($objPapers);
   }

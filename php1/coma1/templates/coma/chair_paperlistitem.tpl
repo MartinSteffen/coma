@@ -1,27 +1,30 @@
- <tr class="listitem-1"> 
-    <td class="listitem-1">
-      <a href="{basepath}user_paperdetails.php?paperid={paperid}{&SID}">
-      Neueste Rezepte</a>
+ <tr class="listitem-{line-no}"> 
+    <td class="listitem-{line-no}">
+      <a href="{basepath}user_paperdetails.php?paperid={paperid}{&SID}">{title}</a>
     </td> 
-    <td class="listitem-1"> 
-      <a href="{basepath}user_userdetails.php?userid={authorid}{&SID}">
-      Robby Rabbit</a>
+    <td class="listitem-{line-no}"> 
+      <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a>
     </td>
-    <td class="listitem-1"> 
-      <span class="status-accepted">accepted</span>
+    <td class="listitem-{line-no}">
+      {if0<span class="status-unreviewed">unreviewed</span>}
+      {if1<span class="status-reviewed">reviewed</span>}
+      {if2<span class="status-critical">conflicting</span>}
+      {if3<span class="status-accepted">accepted</span>}
+      {if4<span class="status-rejected">rejected</span>}      
     </td>
-    <td> 3/5 </td> 
-    <td class="listitem-1">
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="paperid" value="{paperid}" />
-        <input type="submit" name="submit" value="reset status" class="button" />        
-      </form>
+    <td class="listitem-{line-no}">{avg_rating}</td>
+    <td class="listitem-{line-no}">{last_edited}</td>
+    <td class="listitem-{line-no}">
+      {if5<a href="{file_link}">}view paper{if5</a>}
     </td>
-    <td>
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="paperid" value="{paperid}" />
-        <input type="submit" name="submit" value="view" class="button" />
-        <input type="submit" name="submit" value="delete" class="button" />
+    <td class="listitem-{line-no}">
+      TODO
+    </td>
+    <td class="listitem-{line-no}">
+      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="paperid" value="{paper_id}">
+        <input type="submit" name="submit" value="delete" class="button">
       </form>
     </td>
   </tr>
