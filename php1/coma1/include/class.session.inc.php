@@ -72,7 +72,7 @@ class Session extends ErrorHandling {
    */
   function Session(&$mySql, $strSessName = 'sid', $intMaxLifeTime = 7200) {
     if (ini_get('session.auto_start') != '0') {
-      return $this->error('Konnte Sessionmanger nicht initialisieren (session.auto_start != 0');
+      return $this->error('Init', 'Cannot initialize Sessionmanager (session.auto_start != 0)');
     }
     $this->intMaxLifeTime = $intMaxLifeTime;
     ini_set('session.gc_maxlifetime', $intMaxLifeTime);
@@ -92,10 +92,10 @@ class Session extends ErrorHandling {
                                   array(& $this,'sessionWrite'),
                                   array(& $this,'sessionDestroy'),
                                   array(& $this,'sessionGC'))) {
-      return $this->error('Konnte Sessionmanger nicht initialisieren (save_handler).');
+      return $this->error('Init', 'Cannot initialize save_handler.');
     }
     session_start();
-    return true;
+    return $this->success(true);
   }
 
   /**
@@ -144,26 +144,31 @@ class Session extends ErrorHandling {
           " AND     sname = '$this->strSessName' ".
           " AND     UNIX_TIMESTAMP(stime) > (UNIX_TIMESTAMP()-'$this->intMaxLifeTime') ";
     $results = $this->mySql->select($sql);
+    if ($this->mySql->failed()) {
+      return $this->error('sessionRead', $this->mySql->getLastError());
+    }
     if (!$results) {
       $sql = "DELETE ".
             " FROM  Session ".
             " WHERE sid   = '$strSessId' ".
             " AND   sname = '$this->strSessName' ";
       $this->mySql->delete($sql);
+      if ($this->mySql->failed()) {
+        return $this->error('sessionRead', $this->mySql->getLastError());
+      }
       $sql = "INSERT ".
             " INTO  Session ".
             "       (sid,          sname,                sdata, stime) ".
             " VALUES ".
             "       ('$strSessId', '$this->strSessName', NULL,  NOW()) ";
       $this->mySql->insert($sql);
-      $s = $this->mySql->getLastError();
-      if (!empty($s)) {
-        return $this->error('Fehler beim Schreiben der Session. '.$s);
+      if ($this->mySql->failed()) {
+        return $this->error('sessionRead', $this->mySql->getLastError());
       }
-      return '';
+      return $this->success('');
     }
     else {
-      return $results[0]['sdata'];
+      return $this->success($results[0]['sdata']);
     }
   }
 
@@ -180,7 +185,10 @@ class Session extends ErrorHandling {
           " WHERE   sid   = '$strSessId' ".
           " AND     sname = '$this->strSessName' ";
     $this->mySql->update($sql);
-    return true;
+    if ($this->mySql->failed()) {
+      return $this->error('sessionWrite', $this->mySql->getLastError());
+    }
+    return $this->success(true);
   }
 
   /**
@@ -195,7 +203,10 @@ class Session extends ErrorHandling {
           " WHERE sid   = '$strSessId' ".
           " AND   sname = '$this->strSessName' ";
     $this->mySql->delete($sql);
-    return true;
+    if ($this->mySql->failed()) {
+      return $this->error('sessionDestroy', $this->mySql->getLastError());
+    }
+    return $this->success(true);
   }
 
   /**
