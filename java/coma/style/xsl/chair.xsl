@@ -415,7 +415,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 					<label for="text">comment: </label>
 				</td>
 				<td>
-					<textarea name="text" rows="3" cols="30">&#160;</textarea>
+					<textarea name="comment" rows="3" cols="30">&#160;</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -730,14 +730,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 	</td>
 	<td><xsl:value-of select="paper/Person/first_name"/>&#160;<xsl:value-of select="paper/Person/last_name"/></td>
    <td>
-   	<xsl:choose>
-   	<xsl:when test="paper/state ='0'">
-   		rejected
-   	</xsl:when>
-   	<xsl:when test="paper/state ='1'">
-   		checked
-   	</xsl:when>
-   	</xsl:choose>
+   	<xsl:value-of select="paper/state"/>
    </td>
    <td>
    	<xsl:value-of select="avg"/>
@@ -775,13 +768,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 			<xsl:value-of select="/result/assign/content/paper/Person/last_name"/>
 		</td>
    		<td>
-   			<xsl:choose>
-   				<xsl:when test="/result/assign/content/paper/state ='0'">
-   					rejected
-   				</xsl:when>
-   				<xsl:when test="/result/assign/content/paper/state ='1'">
-   				</xsl:when>
-   			</xsl:choose>
+   			<xsl:value-of select="/result/assign/content/paper/state"/>
    		</td>
 	</tr>
 </table>
@@ -981,7 +968,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 
 <td>
 	<input type="checkbox" name="CB"><xsl:attribute name = "value"><xsl:value-of select="paper_id"/></xsl:attribute>
-			<xsl:if test="state ='1'">
+			<xsl:if test="state ='3'">
 			<xsl:attribute name = "checked"/>
 			</xsl:if>
 			</input>	
@@ -991,10 +978,10 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </table>
 <p>	<input type="submit" value="Submit Changes"/></p>
 		</form>
-		<form method="POST" action="Chair?action=programCreate">	
+		<form method="POST" action="Chair?action=programShow">	
 		<p>	<input type="submit" value="Program Preview"/></p>
 		</form>
-	<form method="POST" action="Chair?action=programCreate&amp;finish=true">	
+	<form method="POST" action="Chair?action=programShow&amp;finish=true">	
 		<p>	<input type="submit" value="Finish Conference and Create Program"/></p>
 </form>
 </xsl:template>
