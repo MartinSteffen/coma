@@ -81,9 +81,15 @@ elseif ($STEP == 1){
   // Create ConfigFile
   $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = '$sqlServer';\n\$sqlUser = '$sqlUser';\n\$sqlPassword = '$sqlPassword';\n\$sqlDatabase = '$sqlDatabase';\n\n?>";
 
-  $htmlFile = htmlentities($confFile, ENT_QUOTES, 'UTF-8');
-  $htmlFile = str_replace(" ", "&nbsp;", $htmlFile);
-  $htmlFile = str_replace("\n", "<br>\n      ", $htmlFile);
+  $htmlFile = $confFile;
+
+  //$htmlFile = htmlentities($confFile, ENT_QUOTES, 'UTF-8');
+  //$htmlFile = str_replace(" ", "&nbsp;", $htmlFile);
+  //$htmlFile = str_replace("\n", "<br>\n      ", $htmlFile);
+  $htmlFile = highlight_string($htmlFile, true);
+  $htmlFile = preg_replace('#<font color="([^\']*)">([^\']*)</font>#', '<span style="color: \\1">\\2</span>', $htmlFile);
+  $htmlFile = preg_replace('#<font color="([^\']*)">([^\']*)</font>#U', '<span style="color: \\1">\\2</span>', $htmlFile);
+  
   echo "    <p class=\"menu\">\n";
   echo "      " . $htmlFile;
   echo "    </p>\n";
