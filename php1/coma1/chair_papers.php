@@ -21,9 +21,14 @@ require_once('./include/class.papervariance.inc.php');
 //bis hier
 
 if (isset($_POST['action']) && $_POST['action'] == 'delete') {
-  $myDBAccess->deletePaper($_POST['paperid']);
-  if ($myDBAccess->failed()) {
-    error('Error deleting paper.', $myDBAccess->getLastError());
+  if (empty($_POST['confirm_delete'])) {
+    $strMessage = 'You have to check the delete confirm option!';
+  }
+  else {
+    $myDBAccess->deletePaper($_POST['paperid']);
+    if ($myDBAccess->failed()) {
+      error('Error deleting paper.', $myDBAccess->getLastError());
+    }
   }
 }
 
@@ -51,6 +56,14 @@ $critvar = $confdet->fltCriticalVariance;
 
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
+if (isset($_SESSION['message'])) {
+  $strMessage = session('message', false);
+  unset($_SESSION['message']);
+}
+if (isset($strMessage) && !empty($strMessage)) {  
+  $strContentAssocs['message'] = encodeText($strMessage);
+  $ifArray[] = 9;
+}
 $strContentAssocs['if'] = $ifArray;
 $strContentAssocs['targetpage'] = 'chair_papers.php';
 $strContentAssocs['lines'] = '';

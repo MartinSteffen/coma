@@ -44,7 +44,14 @@ if ($myDBAccess->failed()) {
 
 $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['message'] = '';
+if (isset($_SESSION['message'])) {
+  $strMessage = session('message', false);
+  unset($_SESSION['message']);
+}
+if (isset($strMessage) && !empty($strMessage)) {  
+  $strContentAssocs['message'] = encodeText($strMessage);
+  $ifArray[] = 9;
+}
 $strContentAssocs['targetpage'] = 'author_papers.php';
 $strContentAssocs['if'] = $ifArray;
 $strContentAssocs['lines'] = '';
@@ -84,15 +91,6 @@ else {
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
   $strContentAssocs['lines'] = $emptyList->getOutput();  
-}
-
-if (isset($_SESSION['message'])) {
-  $strMessage = session('message', false);
-  unset($_SESSION['message']);
-}
-if (isset($strMessage) && !empty($strMessage)) {  
-  $strContentAssocs['message'] = encodeText($strMessage);
-  $strContentAssocs['if'] = array(9);  
 }
 $content->assign($strContentAssocs);
 
