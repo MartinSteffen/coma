@@ -31,7 +31,7 @@ $strContentAssocs['description'] = encodeText($objConference->strDescription);
 $strContentAssocs['date'] = $objConference->getDateString();
 if (!empty($objConference->strHomepage)) {
   $strContentAssocs['if'] = array(1);  	
-  $strContentAssocs['link'] = encodeURL($objConference->strHomepage);
+  $strContentAssocs['link'] = $objConference->strHomepage;
 }
 else {  
   $strContentAssocs['link'] = 'No homepage available';
