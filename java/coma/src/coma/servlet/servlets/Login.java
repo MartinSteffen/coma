@@ -176,6 +176,7 @@ public class Login extends HttpServlet
 					int[] roles = (int[])mySR.getResultObj();
 					
 					myPerson.setRole_type(roles);
+					myPerson.setConference_id(conference_id);
 				}
 			}	
 		}	
