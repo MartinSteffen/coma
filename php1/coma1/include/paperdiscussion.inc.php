@@ -31,7 +31,7 @@ if ($objPaper->intStatus == PAPER_CRITICAL) {
   }
   // Erzeuge ein Forum zum Paper und benachrichtige die Reviewer
   if (empty($objPaperForum)) {
-    $intForumId = $myDBAccess->addForum($objPaper->intConferenceId,
+    $intForumId = $myDBAccess->addForum(session('confid'),
                                         'Discussion of paper \''.$objPaper->strTitle.'\'',
                                         FORUM_PAPER, $objPaper->intId);
     if ($myDBAccess->failed()) {      
