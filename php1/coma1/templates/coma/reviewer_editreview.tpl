@@ -1,6 +1,6 @@
 
 <form action="{basepath}reviewer_editreview.php{?SID}" method="post" accept-charset="UTF-8">
-  <input type="hidden" name="review_id" value="{review_id}">
+  <input type="hidden" name="reviewid" value="{review_id}">
   <input type="hidden" name="action" value="submit">
 
 <table class="formtable">
