@@ -91,4 +91,15 @@
     </td>
   </tr>
 </table>
+
+<table class="formtable">
+  <tr>
+    <td>Delete this conference?
+      <input type="checkbox" name="confirm_delete" value="1">
+    </td>
+    <td>
+      <input type="submit" name="delete" value="Delete" class="button">
+    </td>
+  </tr>
+</table>
 </form>

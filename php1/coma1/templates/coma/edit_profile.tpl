@@ -135,6 +135,17 @@
     </td>
   </tr>
 </table>
+
+<table class="formtable">
+  <tr>
+    <td>Deactivate this account?
+      <input type="checkbox" name="confirm_delete" value="1">
+    </td>
+    <td>
+      <input type="submit" name="delete" value="Deactivate" class="button">
+    </td>
+  </tr>
+</table>
 </form>
 
 <p>&nbsp;</p>
