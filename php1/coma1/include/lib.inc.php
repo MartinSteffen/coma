@@ -104,7 +104,7 @@ function encodeTextArray($_str) {
  * @return string encoded string
  */
 function encodeURL($_str) {
-  if (empyt($_str)) return '';
+  if (empty($_str)) return '';
   //$_str = decodeText($_str);
   $_str = str_replace('\'', urlencode('\''), $_str);
   $_str = str_replace('"', urlencode('"'), $_str);
