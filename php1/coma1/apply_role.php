@@ -27,7 +27,7 @@ else if (!isset($_POST['roletype']) ||
 $intRoleType = $_POST['roletype'];
 $objConference = $myDBAccess->getConferenceDetailed($_POST['confid']);
 if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference config.', $myDBAccess->getLastError());
+  error('Error occured retrieving conference config.', $myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
   error('Conference does not exist in database.', '');

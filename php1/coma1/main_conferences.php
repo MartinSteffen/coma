@@ -48,13 +48,13 @@ if (!empty($objConferences)) {
       if (!($objPerson->hasRole(REVIEWER)) && !($objPerson->hasRequestedRole(REVIEWER))) {
         $ifArray[] = 2;
       }
-      else if ($objPerson->hasRequestedRole(REVIEWER)) {
+      elseif ($objPerson->hasRequestedRole(REVIEWER)) {
         $ifArray[] = 6;
       }
       if (!($objPerson->hasRole(AUTHOR)) && !($objPerson->hasRequestedRole(AUTHOR))) {
         $ifArray[] = 3;
       }
-      else if ($objPerson->hasRequestedRole(AUTHOR)) {
+      elseif ($objPerson->hasRequestedRole(AUTHOR)) {
         $ifArray[] = 7;
       }
       if (!($objPerson->hasRole(PARTICIPANT)) && !($objPerson->hasRequestedRole(PARTICIPANT))) {
@@ -62,6 +62,9 @@ if (!empty($objConferences)) {
       }
       if (!($objPerson->hasRole(CHAIR)) && !($objPerson->hasRequestedRole(CHAIR))) {
         $ifArray[] = 8;
+      }
+      elseif ($objPerson->hasRequestedRole(CHAIR)) {
+        $ifArray[] = 9;
       }
     }
     $strItemAssocs['line_no'] = encodeText($lineNo);

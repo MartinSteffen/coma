@@ -26,6 +26,14 @@
       <input type="submit" name="submit" value="Apply as Chair" class="smallbutton">
     </form>
   }
+  {if9
+    <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
+      <input type="hidden" name="confid" value="{confid}">
+      <input type="hidden" name="retreat" value="retreat">
+      <input type="hidden" name="roletype" value="{role_chair}">
+      <input type="submit" name="submit" value="Retreat as Chair" class="smallbutton">
+    </form>
+  }
   </td>
   <td class="listitem-{line_no}">&nbsp;
   {if2
