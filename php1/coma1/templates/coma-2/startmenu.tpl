@@ -1,6 +1,6 @@
 <table class="menu">
   <tr>
-    <td><a href="{basepath}login.php?{SID}"><div {marked-1}>Login</div></a></td>
+    <td><a href="{basepath}login.php?{SID}"><div{marked-1}>Login</div></a></td>
   </tr>
   <tr>
     <td><a href="{basepath}register.php?{SID}"{marked-2}>Registrieren</a></td>

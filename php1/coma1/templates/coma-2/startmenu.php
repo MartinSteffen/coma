@@ -5,7 +5,7 @@ function openStartMenuItem ($intItem) {
   for ($i = 1; $i <= 4; $i++) {
     $strMenuAssocs['marked-'.$i] = '';
   }
-  $strMenuAssocs['marked-'.$intItem] = ' class=\"markedmenuitem\"';
+  $strMenuAssocs['marked-'.$intItem] = ' class="markedmenuitem"';
   $menu->assign($strMenuAssocs);
   $menu->parse();
   return $menu->strOutput;
