@@ -233,7 +233,7 @@ while ($i < $conferences) {
 }
     $j++;
   }
-  $myDBAccess->addForum($i+1, 'title'.$i.3, 3, 1);
+  $myDBAccess->addForum($i+1, 'title'.$i.'3', 3, 1);
     if ($myDBAccess->failed()) {
     echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
