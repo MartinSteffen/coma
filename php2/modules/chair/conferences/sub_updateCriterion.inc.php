@@ -5,7 +5,7 @@ if(isChair_Conference($_POST['confID']))
 {
 	if(isset($_POST['Submit']))
 	{
-		if((!($_POST['criterionName']=="")) && (!($_POST['maxValue']=="")) && (!($_POST['qualityRating']=="")))
+		if((!($_POST['criterionName']=="")) && ($_POST['maxValue']>1) && ($_POST['qualityRating']>0))
 		{	
 			$criterionName = $_POST['criterionName'];
 			$criterionDesc = $_POST['criterionDesc'];

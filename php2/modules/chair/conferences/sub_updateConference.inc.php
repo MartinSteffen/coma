@@ -69,9 +69,13 @@ if(isChair_Conference($_POST['confID']))
 		else
 		{
 			$conferenceEnd = "'".$_POST['conferenceEndHidden']."'";
-		}												
+		}														
 
 		$minimum = $_POST['minimum'];
+		if($minimum<1)
+		{
+			$minimum=1;
+		}
 		
 		$SQL = "UPDATE conference 
 		SET name = '$confName',
