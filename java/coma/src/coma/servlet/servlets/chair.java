@@ -439,8 +439,9 @@ public class chair extends HttpServlet
 			if (VALID){
 			     /*
 		         * FIXME get SMTP-SERVER
+		         * test with your own smtp server an mail address
 		         */
-					SMTPClient MyE = new SMTPClient("mail.gxm.de","HarmBrandt@gmx.de",
+					SMTPClient MyE = new SMTPClient("127.0.0.1","localHost",
 						formular[0],formular[1],formular[2]);
 			
 					SENDED=MyE.send();		
