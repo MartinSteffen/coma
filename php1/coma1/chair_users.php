@@ -72,7 +72,12 @@ if (isset($_POST['action'])) {
     }
     elseif ($_POST['submit'] == 'remove') {
       // Bereits zugeordnete Reviewer aus Distribution-Tabelle entfernen
-      $myDBAccess->deleteReviewerDistribution($intPersonId, session('confid'));
+      if ($intRoleType == REVIEWER) {
+        $myDBAccess->deleteReviewerDistribution($intPersonId, session('confid'));
+        if ($myDBAccess->failed()) {
+          error('Error updating distribution table.', $myDBAccess->getLastError());
+        }
+      }
       $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
       if ($myDBAccess->failed()) {
         error('Error updating role table.', $myDBAccess->getLastError());
