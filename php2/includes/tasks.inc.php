@@ -41,7 +41,7 @@ function reviewer_task()
 			  INNER JOIN conference ON (paper.conference_id = conference.id)
 			WHERE
 			  (conference.review_deadline >= CURRENT_DATE)
-			  AND (paper.state = 0)
+			  AND (paper.state = 1)
 			  AND (reviewreport.reviewer_id = ".$_SESSION['userID']." )
 			  AND (reviewreport.summary IS NULL)";
 
