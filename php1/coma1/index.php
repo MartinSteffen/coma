@@ -45,11 +45,8 @@ if (isset($_SESSION['message'])) {
  }
  else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
   $strMessage = 'Sie sind bereits eingeloggt !!! <BR>
-  Bitte ausloggen oder zurück zur <a  href="start.php"> Startseite</a>
-
-  ';
+  Bitte <a href="logout.php"> ausloggen </a> oder zurück zur <a  href="start.php"> Startseite</a>';
   $strMainAssocs['body'] = & $emptyPage;
-  
  }
  else {
   $strMessage = '';
