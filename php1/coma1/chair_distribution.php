@@ -24,7 +24,7 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-$s = '';
+$s = 'Bla: ';
 if (isset($_POST['action'])) {
   $s = $_POST['action'];
 /*  if (!isset($_POST['confirm']) || !isset($_SESSION['dist'])) {
