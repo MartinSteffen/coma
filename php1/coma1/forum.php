@@ -463,7 +463,14 @@ else{
     $fms = array();
   }
 
-  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs, $myDBAccess);
+  if (!empty($HTTP_GET_VARS['select'])){
+    $sel = $HTTP_GET_VARS['select'];
+  }
+  else{
+    $sel = '';
+  }
+
+  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $myDBAccess);
   if (DEBUGMODE){
     //echo($contentAssocs['forumtypes']);
     //echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
