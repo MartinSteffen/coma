@@ -225,7 +225,7 @@ if (isset($_POST['action'])) {
 
   if (!$noErrors) {
     $strMessage .= '<br>Please use the format <b>dd/mm/yyyy</b> for the date fields, '.
-                   'for example <b>01/05/2005</b>!'
+                   'for example <b>01/05/2005</b>!';
   }
 
   /**
