@@ -1833,7 +1833,6 @@ nur fuer detaillierte?
       return $this->error('updatePreferredPapers', $this->getLastError());
     }
     for ($i = 0; $i < count($objPapers); $i++) {
-      echo('Del. pref. Paper: '.$objPapers[$i]->intId.'<br>');
       $this->deletePrefersPaper($intPersonId, $objPapers[$i]->intId);
       if ($this->failed()) {
         return $this->error('updatePreferredPapers', $this->getLastError());
@@ -1843,7 +1842,7 @@ nur fuer detaillierte?
       return $this->success();
     }
     $objPapers = $objPersonAlgorithmic->objPreferredPapers;
-    // Topics einfuegen...
+    // Papers einfuegen...
     for ($i = 0; $i < count($objPapers); $i++) {
       if (!empty($objPapers[$i])) {
         $this->addPrefersPaper($intPersonId, $objPapers[$i]->intId);
