@@ -3,8 +3,7 @@
 
 <table class="viewtable">
   <tr class="viewheader">
-    <th class="viewheader" colspan="{cols}">Review report for '{title}' by {author_name}:</th>
-    <th class="viewheader">&nbsp;</th>
+    <th class="viewheader" colspan="{cols}">Review report for '{title}' by {author_name}:</th>    
   </tr>
   <tr class="viewheader">
     <th class="viewheader">&nbsp;</th>   

@@ -73,4 +73,4 @@
 
 <p>&nbsp;</p>
 
-Return to the <a href="{basepath}chair_paperreview.php?paperid={paper_id}{&SID}">paper review report</a>.
+Return to the <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}">paper review report</a>.
