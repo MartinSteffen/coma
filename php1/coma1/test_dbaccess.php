@@ -16,8 +16,15 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$i = 6;
-echo(~$i);
+function bit($b) {
+  for ($i = 15; $i >= 0; $--) {
+    echo($b&$i ? '1':'0');
+  }
+  return true;
+}
+
+$i = 10;
+bit($i);
 
 $p = $myDBAccess->getPerson(1, 1);
 echo('Roles:<br>');
