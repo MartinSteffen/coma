@@ -694,7 +694,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
     }
     $objPapers = array();
-    echo(count($s));
+    echo(count($data));
     for ($i = 0; $i < count($data); $i++) {
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->mySql->failed()) {
