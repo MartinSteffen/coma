@@ -234,7 +234,7 @@ class DBAccess {
    * @author Sandro, Tom (06.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    $s = 'SELECT  rr.id, SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating,'.        
+    $s = 'SELECT  rr.id, SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.        
         ' FROM    ReviewReport AS rr'.
         ' INNER   JOIN Rating AS r'.
         ' ON      r.review_id = rr.id'.
