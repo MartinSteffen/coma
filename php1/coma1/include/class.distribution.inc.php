@@ -15,6 +15,7 @@ if (!defined('INCPATH')) {
 }
 
 require_once(INCPATH.'header.inc.php');
+require_once(INCPATH.'class.conferencedetailed.inc.php');
 
 class Distribution extends ErrorHandling {
   /**#@+
@@ -62,21 +63,15 @@ class Distribution extends ErrorHandling {
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
-    $s = sprintf("SELECT   p.id AS paper_id, p.title AS title".
+    
+    /*$s = sprintf("SELECT   id AS paper_id".
                  " FROM    Paper AS p".
-                 " LEFT    JOIN Distribution AS d".
-                 " ON      d.paper_id = p.id".
-                 " WHERE   p.conference_id = '%s'".
-                 " AND     d.paper_id IS NULL",
+                 " WHERE   p.conference_id = '%s'",
                  s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getDistribution', $this->mySql->getLastError());
-    }
-    echo('<br>Unverteilte Paper:<br>');
-    for ($i = 0; $i < count($data); $i++) {
-      echo('<br>'.$data[$i]['paper_id'].' / '.$data[$i]['title']);
-    }
+    }*/
     return false;
   }
 

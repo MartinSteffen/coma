@@ -36,7 +36,7 @@ if ($myDist->failed()) {
   echo($myDist->getLastError());
 }
 else if (empty($p)) {
-  echo('EMPTY');
+  echo('<br>EMPTY');
   die(-1);
 }
 echo('OK');
