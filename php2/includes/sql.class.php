@@ -7,13 +7,17 @@ class SQL {
 	var $conn=false;
 	var $last_insert_id=0;
 
-	function connect($host="",$user="",$pass="",$name="") {
-		$this->conn=mysql_connect(
+	function connect($host="",$user="",$pass="",$name="") 
+	{
+		if (!$this->conn) 
+		{
+			$this->conn=mysql_connect(
 				( $host ? $host : $GLOBALS['dbhost']),
 				( $user?$user:$GLOBALS['dbuser']),
 				( $pass?$pass:$GLOBALS['dbpass'])
 				);
-		mysql_select_db(($name?$name:$GLOBALS['dbname']), $this->conn );
+			mysql_select_db(($name?$name:$GLOBALS['dbname']), $this->conn );
+		}
 	}
 
 	function query($queryStr) {

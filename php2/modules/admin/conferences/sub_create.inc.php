@@ -1,7 +1,7 @@
 <? 
 
-include("includes/sql.class.php");
 $sql = new SQL();
+$sql->connect();
 if(isAdmin_Overall())
 {
 

@@ -4,10 +4,10 @@
 $dbhost="";
 
 // user for MySQL-DB-Access
-$dbuser="";
+$dbuser="testUser";
 
 // password for DB-USer (plain text! never commit this to SVN!)
-$dbpass="";
+$dbpass="testPass";
 
 // name of the MySQL-DB-Instance to use
 $dbname="coma2";
@@ -19,7 +19,7 @@ $dbprefix="";
 $httpbaseurl="";
 
 // host for the FTP-Space used
-$ftphost="";
+$ftphost="localhost";
 
 // ftp-username
 $ftpuser="";
@@ -34,6 +34,6 @@ $ftpdir="";
 $httpftpurl="";
 
 // connect to the database
-$link = mysql_connect ("localhost","testUser","testPass");
-$base = mysql_select_db ("coma2");
+//$link = mysql_connect ("localhost","testUser","testPass");
+//$base = mysql_select_db ("coma2");
 
