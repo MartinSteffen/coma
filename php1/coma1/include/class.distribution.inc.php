@@ -159,29 +159,16 @@ class Distribution extends ErrorHandling {
     }
 
     // Reviewer-ID's holen
-    $s = sprintf("SELECT   p.id".
-                 " FROM    Person AS p".
-                 " INNER   JOIN Role AS r".
-                 " ON      r.person_id = p.id".
-                 " AND     r.role_type = '%d'".
-                 " AND     (r.state IS NULL OR r.state = 0)".
-                 " WHERE   r.conference_id = '%d'".
-                 " ORDER   BY p.id ASC",
-                 s2db(REVIEWER), s2db($intConferenceId));
-    $data = $this->mySql->select($s);
-    if ($this->mySql->failed()) {
-      return $this->error('getDistribution', $this->mySql->getLastError());
+    $r_id = $this->getAvailableReviewerIdsOfConference($intConferenceId);
+    if ($this->failed()) {
+      return $this->error('getDistribution', $this->getLastError());
     }
-    if (empty($data)) {
-      return $this->success(false);
+    for ($i = 0; $i < count($r_id); $i++) {
+      //echo(' '.$r_id[$i]);
+      $r_id_index[$r_id[$i]] = $i; // wie bei Papern
     }
 
     //echo('<br>'.count($data).' Reviewers found:');
-    for ($i = 0; $i < count($data); $i++) {
-      $r_id[$i] = $data[$i]['id']; // wie bei Papern
-      //echo(' '.$data[$i]['id']);
-      $r_id_index[$data[$i]['id']] = $i; // wie bei Papern
-    }
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
     $initial_matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
@@ -472,6 +459,32 @@ class Distribution extends ErrorHandling {
     return true;
   }
 
+  function getAvailableReviewersIdsOfConference($intConferenceId) {
+    if (empty($intConferenceId)) {
+      return $this->success(false);
+    }
+    $s = sprintf("SELECT   p.id".
+                 " FROM    Person AS p".
+                 " INNER   JOIN Role AS r".
+                 " ON      r.person_id = p.id".
+                 " AND     r.role_type = '%d'".
+                 " AND     (r.state IS NULL OR r.state = 0)".
+                 " WHERE   r.conference_id = '%d'".
+                 " ORDER   BY p.id ASC",
+                 s2db(REVIEWER), s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getAvailableReviewerIdsOfConference', $this->mySql->getLastError());
+    }
+    $r_id = array();
+    if (empty($data)) {
+      return $this->success($r_id);
+    }
+    for ($i = 0; $i < count($data); $i++) {
+      $r_id[$i] = $data[$i]['id'];
+    }
+    return $r_id;
+  }
 
   /**
    * @access private
