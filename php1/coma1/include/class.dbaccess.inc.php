@@ -98,19 +98,24 @@ class DBAccess {
   /**
    */
   function getPersonIdByEmail($strEmail) {
-    $data = $this->mySql->select('SELECT id FROM Person WHERE email = \''.$strEmail.'\'');
+    $s = ' SELECT  id'.
+         ' FROM    Person'.
+         ' WHERE   email = \''.$strEmail.'\'';
+    $data = $this->mySql->select($s);
     if ($data) {
       return $data[0]['id'];
     }
-    else {
-      return false;
-    }
+    return false;
   }
   
   /**
    */
   function getPerson($intPersonId) {
-    return true;
+    $data = $this->mySql->select('SELECT id, email, first_name, last_name FROM Person WHERE email = \''.$strEmail.'\'');
+    if ($data) {
+      return $data[0]['id'];
+    }
+    return false;
   }
 
   /**
