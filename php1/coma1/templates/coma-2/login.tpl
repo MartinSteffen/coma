@@ -33,10 +33,10 @@
 <p>&nbsp;</p>
 
 <p class="message2">
-<form action="{basepath}register.php?{SID}" method="post">
   If you have registered for the site, please enter your username and password.
   This will mean that you can get access to information relevant to you.
   If you have not registered, please register below:<br>
+<form action="{basepath}register.php?{SID}" method="post">
   <input type="submit" name="submit" value="Register" class="button" />
 </form>
 </p>
