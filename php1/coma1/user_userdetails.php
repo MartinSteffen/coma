@@ -49,6 +49,7 @@ $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $strContentAssocs['navlink']     = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $strContentAssocs['author_papers'] = '';
+$strContentAssocs['&popup']      = ($popup ? '&amp;popup' : '');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'User profile';
