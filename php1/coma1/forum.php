@@ -81,7 +81,8 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
-      displayMessages($myDBAccess->getThreadsOfForum($forum-intId), $msgselection, $select, $forumassocs);
+      $messes = $myDBAccess->getThreadsOfForum($forum-intId);
+      displayMessages(&$messes, $msgselection, $select, $forumassocs);
     }
     else{
       $forumassocs['selectorunselect'] = 'forumsel';
@@ -203,7 +204,8 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
         $formtemplate->assign($formassocs);
         $formtemplate->parse();
         $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
-        displayMessages($message->getNextMessages(), $msgselection, $selected, $forumid, $messageassocs);
+        $messes = $message->getNextMessages();
+        displayMessages(&$messes, $msgselection, $selected, $forumid, $messageassocs);
       }
     }
     else{
@@ -434,9 +436,9 @@ else{
     $fms = array();
   }
 
-  buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs);
+  buildForumtemplates($forums, $ffs, $fms, session('select', false), &$contentAssocs);
   if (DEBUG){
-    echo($contentAssocs['forumtypes']);
+    //echo($contentAssocs['forumtypes']);
   }
 
   $content->assign($contentAssocs);
