@@ -234,15 +234,11 @@ if (isset($_POST['action'])) {
     }
     
     var_dump($strCritWeights);
-    print_r($strCritWeights);
-    $bla = array_sum($strCritWeights);
-    echo $bla;
-    echo ($bla != 1);
     
-    if ((float)$bla != (float)1) {
+    if (array_sum($strCritWeights) != 1) {
       $strMessage .= "The weight of the criterions should sum to one!\n";
     }
-    
+        
     // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
     if (empty($strMessage)) { // keine Fehler
       $intConfId = $myDBAccess->addConference($_POST['name'],
