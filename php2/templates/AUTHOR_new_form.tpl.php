@@ -59,6 +59,13 @@ foreach ($topic as $value) {
 		</tr>
 		<tr>
 			<td>
+				<p>Please name your coauthors, if you have some<br>
+				<textarea name="coauthor" cols="60" rows="3"></textarea>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
 			  <input type="submit" name="save" value="Submit">
 			</td>
 		</tr>

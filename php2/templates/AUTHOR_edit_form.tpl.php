@@ -1,5 +1,6 @@
 <?
 include("templates/header.tpl.php");
+// dump($TPL);
 ?>
 
 <fieldset>
@@ -39,7 +40,7 @@ include("templates/header.tpl.php");
 	?>
 					<input name="<? echo $value['id'] ?>" type="checkbox" value="<? echo $value['id'] ?>" id="<? echo $value['id'] ?>"
 	<?
-	if (in_array ($value['id'], $TPL['topic_checked'])) {
+	if ((isset ($TPL['topic_checked'])) and (in_array ($value['id'], $TPL['topic_checked']))) {
 		?> checked<?
 	}?>><label for="<? echo $value['id'] ?>"><? echo $value['name'] ?></label><br>
 	<?
