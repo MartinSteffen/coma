@@ -3,7 +3,6 @@ package coma.entities;
 import java.util.*;
 
 import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
 import static coma.util.logging.Severity.*;
 
 import static java.util.Arrays.asList;
@@ -11,7 +10,6 @@ import java.util.Set;
 
 import coma.servlet.util.XMLHelper;
 import coma.handler.db.ReadService;
-import coma.servlet.util.XMLHelper;
 
 /**
  *  A Review Report.

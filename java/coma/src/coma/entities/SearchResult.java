@@ -19,7 +19,7 @@ public class SearchResult {
     
     public Object resultObj;
     public String info;
-    public static boolean SUCCESS;
+    public boolean SUCCESS;
     
     /**
      * Gives a message, that will be created during
@@ -52,13 +52,13 @@ public class SearchResult {
      * indicate whether performed transaction was successfully.
      * @return Returns the sUCCESS.
      */
-    public static boolean isSUCCESS() {
+    public  boolean isSUCCESS() {
         return SUCCESS;
     }
     /**
      * @param success The sUCCESS-flag to set.
      */
-    public static void setSUCCESS(boolean success) {
+    public void setSUCCESS(boolean success) {
         SUCCESS = success;
     }
     /**
