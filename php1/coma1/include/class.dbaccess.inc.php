@@ -643,7 +643,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPapersOfAuthor', $this->getLastError());
       }
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
-                       $data[$i]['author_id'], $strAuthor, $data[i]['last_edited'],
+                       $data[$i]['author_id'], $strAuthor, $data[$i]['last_edited'],
                        $data[$i]['state'], $fltAvgRating, $data[$i]['filename'], $objTopics));
       // Anfragen, die Fehler erzeugen koennen (wie $this->getTopics...), nicht inline benutzen!!
     }
