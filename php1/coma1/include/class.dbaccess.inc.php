@@ -250,6 +250,9 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getConferenceDetailed', $this->mySql->getLastError());
     }
+    else if (empty(data)) {
+      return $this->success(false);
+    }
     $objCriterions = $this->getCriterionsOfConference($intConferenceId);
     if ($this->failed()) {
       return $this->error('getConferenceDetailed', $this->getLastError());
@@ -260,20 +263,20 @@ class DBAccess extends ErrorHandling {
     }
     $objConferenceDetailed =
       new ConferenceDetailed($data[0]['id'], $data[0]['name'],
-                               $data[0]['homepage'], $data[0]['description'],
-                               $data[0]['conference_start'], $data[0]['conference_end'],
-                               $data[0]['abstract_submission_deadline'],
-                               $data[0]['paper_submission_deadline'], $data[0]['review_deadline'],
-                               $data[0]['final_version_deadline'], $data[0]['notification'],
-                               $data[0]['min_reviews_per_paper'],
-                               $data[0]['default_reviews_per_paper'],
-                               $data[0]['min_number_of_papers'], $data[0]['max_number_of_papers'],
-                               $data[0]['critical_variance'],
-                               $this->booleanFromDatabase($data[0]['auto_activate_account']),
-                               $this->booleanFromDatabase($data[0]['auto_open_paper_forum']),
-                               $this->booleanFromDatabase($data[0]['auto_add_reviewers']),
-                               $data[0]['number_of_auto_add_reviewers'], $objCriterions,
-                               $objTopics);
+                             $data[0]['homepage'], $data[0]['description'],
+                             $data[0]['conference_start'], $data[0]['conference_end'],
+                             $data[0]['abstract_submission_deadline'],
+                             $data[0]['paper_submission_deadline'], $data[0]['review_deadline'],
+                             $data[0]['final_version_deadline'], $data[0]['notification'],
+                             $data[0]['min_reviews_per_paper'],
+                             $data[0]['default_reviews_per_paper'],
+                             $data[0]['min_number_of_papers'], $data[0]['max_number_of_papers'],
+                             $data[0]['critical_variance'],
+                             $this->booleanFromDatabase($data[0]['auto_activate_account']),
+                             $this->booleanFromDatabase($data[0]['auto_open_paper_forum']),
+                             $this->booleanFromDatabase($data[0]['auto_add_reviewers']),
+                             $data[0]['number_of_auto_add_reviewers'], $objCriterions,
+                             $objTopics);
     return $this->success($objConferenceDetailed);
   }
 
