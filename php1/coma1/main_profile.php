@@ -15,8 +15,8 @@ $strContentAssocs = defaultAssocArray();
 
 // Lade die Daten der Person
 var_dump(session('uid'));
-var_dump($objPerson);
 $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
+var_dump($objPerson);
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
 if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
