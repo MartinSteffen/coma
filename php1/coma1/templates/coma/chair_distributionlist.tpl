@@ -22,7 +22,6 @@
   </tr>
   {lines}
 </table>
-<input type="hidden" name="dist_check" value="{dist_check}">
 <input type="submit" name="confirm" value="Confirm distribution" class="button">
 </form>
 <form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
