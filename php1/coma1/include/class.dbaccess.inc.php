@@ -956,7 +956,7 @@ class DBAccess extends ErrorHandling {
                  " ON      r.review_id = rr.id".
                  " INNER   JOIN Criterion AS c".
                  " ON      c.id = r.criterion_id".
-                 " WHERE   rr.paper_id = '%d'";
+                 " WHERE   rr.paper_id = '%d'",
                            s2db($intPaperId)); 
     $data = $this->mySql->select($s);
     print_r($data);
