@@ -1,7 +1,7 @@
 <table class="list">
   <tr class="listheader">
-    <th>Konferenz</th>
-    <th>...</th>
+    <th class="listheader">Konferenz</th>
+    <th class="listheader">...</th>
   </tr>
   {lines}
 </table>
