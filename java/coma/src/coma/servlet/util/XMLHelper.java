@@ -52,6 +52,19 @@ public class XMLHelper {
 		return result.toString();
 	}
 	
+	/**
+	 * Writes a XML-Header.
+	 * 
+	 * @author mti
+	 * 
+	 * @param result: destination StringBuffer
+	 * @return 
+	 */
+	public String addXMLHead(StringBuffer result) 
+	{
+		result.append("<?xml version=\"1.0\" encoding=\"ISO-8859-15\"?>\n");
+		return result.toString();
+	}
     /**
        Puts the content in the tagname.
 
