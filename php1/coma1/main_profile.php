@@ -4,6 +4,7 @@
  * @package coma1
  * @subpackage core
  * @todo Darf die Email, also der Benutzername hier geaendert werden?!
+ * @todo Fehlende Felder ergänzen!
  */
 /***/
 
@@ -14,9 +15,7 @@ $content = new Template(TPLPATH.'profile.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Lade die Daten der Person
-var_dump(session('uid'));
 $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
-var_dump($objPerson);
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
 if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
@@ -40,46 +39,44 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $strMessage = 'Es existiert bereits ein Benutzer mit dieser Email-Adresse!';
   }
   else {
-    $objPerson->strFirstName = $_POST['first_name'];
-    $objPerson->strLastName = $_POST['last_name'];
-    $objPerson->strEmail = $_POST['email'];
-    $objPerson->strTitle = $_POST['name_title'];
-    $objPerson->strStreet = $_POST['street'];
-    $objPerson->strCity = $_POST['city'];
+    $objPerson->strFirstName  = $_POST['first_name'];
+    $objPerson->strLastName   = $_POST['last_name'];
+    $objPerson->strEmail      = $_POST['email'];
+    $objPerson->strTitle      = $_POST['name_title'];
+    $objPerson->strStreet     = $_POST['street'];
+    $objPerson->strCity       = $_POST['city'];
     $objPerson->strPostalCode = $_POST['postalcode'];
-    $objPerson->strPhone = $_POST['phone'];
-    $objPerson->strFax = $_POST['fax'];
+    $objPerson->strPhone      = $_POST['phone'];
+    $objPerson->strFax        = $_POST['fax'];
 
     $result = $myDBAccess->updatePerson($objPerson);
-    if (empty($result)) {
-      $strContentAssocs = defaultAssocArray();
-      $strMessage = 'Es ist ein Fehler beim Aktualisieren Ihrer Daten aufgetreten:<br>'.
-                    $myDBAccess->getlastError();
-      $confirmFailed = true;
-    }
-    else {
+    if (!empty($result)) {
       $_SESSION['uname'] = $objPerson->strEmail;
       $strMessage = 'Ihre Daten sind erfolgreich ge&auml;ndert worden.';
+    }
+    else {
+      $strMessage = 'Es ist ein Fehler beim Aktualisieren Ihrer Daten aufgetreten:<br>'
+                   .$myDBAccess->getlastError();
     }
   }
 }
 
 $strContentAssocs['first_name'] = $objPerson->strFirstName;
-$strContentAssocs['last_name'] = $objPerson->strLastName;
-$strContentAssocs['email'] = $objPerson->strEmail;
+$strContentAssocs['last_name']  = $objPerson->strLastName;
+$strContentAssocs['email']      = $objPerson->strEmail;
 $strContentAssocs['name_title'] = $objPerson->strTitle;
-$strContentAssocs['street'] = $objPerson->strStreet;
-$strContentAssocs['city'] = $objPerson->strCity;
+$strContentAssocs['street']     = $objPerson->strStreet;
+$strContentAssocs['city']       = $objPerson->strCity;
 $strContentAssocs['postalcode'] = $objPerson->strPostalCode;
-$strContentAssocs['phone'] = $objPerson->strPhone;
-$strContentAssocs['fax'] = $objPerson->strFax;
+$strContentAssocs['phone']      = $objPerson->strPhone;
+$strContentAssocs['fax']        = $objPerson->strFax;
 
-if (!empty($strMessage)) {
-  $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
+$strContentAssocs['message'] = '';
+if (isset($strMessage)) {
+  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['if'] = array(1);
 }
-else {
-  $strContentAssocs['message'] = '';
-}
+
 $content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');
@@ -87,6 +84,7 @@ $strMenuAssocs = defaultAssocArray();
 $strMenuAssocs['if'] = array(1);
 $menu->assign($strMenuAssocs);
 
+$main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Pers&ouml;nliche Angaben von '.session('uname');
 $strMainAssocs['content'] = &$content;
