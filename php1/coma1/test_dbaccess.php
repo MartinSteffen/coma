@@ -34,7 +34,8 @@ else if (empty($p)) {
   echo('EMPTY');
   exit(-1);
 }
-$p->intTopics[] = 3;
+$p->intTopics[0] = 4;
+$p->intTopics[] = 1;
 $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
