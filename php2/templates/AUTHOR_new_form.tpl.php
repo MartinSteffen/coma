@@ -20,7 +20,7 @@ if (array_key_exists('msg', $TPL)) {
 	
 ?>
 <fieldset>
-<legend class="textBold"><? echo d('name'); ?></legend>
+<legend class="text"><font class="textBold">Conference: </font><? echo d('name'); ?></legend>
 <form action="index.php?m=author&a=new&s=save&cid=<? echo $cid ?>" method="post" enctype="multipart/form-data">
   <table>
 	  <tr>
@@ -32,19 +32,11 @@ if (array_key_exists('msg', $TPL)) {
 		</tr>
 		<tr>
 			<td>
-				<p>Summary<br>
-				<textarea name="summary" cols="60" rows="10">Please enter a short summary of your paper.</textarea>
+				<p>Please give an abstract of your paper here<br>
+				<textarea name="summary" cols="60" rows="10"></textarea>
 				</p>
 			</td>
 		</tr>
-<!--		<tr>
-			<td>
-				<p>Coauthors (optional)<br>
-			<textarea name="coauthors" cols="60" rows="8"></textarea>
-				</p>
-			</td>
-		</tr>
--->
 		<tr>
 			<td>
 				<p>Please select your paper<br>
@@ -54,7 +46,7 @@ if (array_key_exists('msg', $TPL)) {
 		</tr>
 		<tr>
 			<td>
-			  <input type="submit" name="save" value="Next">
+			  <input type="submit" name="save" value="Submit">
 			</td>
 		</tr>
 	</table>
