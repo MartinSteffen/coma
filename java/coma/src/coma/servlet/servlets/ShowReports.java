@@ -298,7 +298,7 @@ public class ShowReports extends HttpServlet {
 
 		    Paper thePaper = rr.getPaper();
 		    // @all: wenn's nicht klappt, die folgende Zeile wieder wegwerfen:
-		    if (thePaper.getConference_id() == thePerson.getConference_id())
+		    //if (thePaper.getConference_id() == thePerson.getConference_id())
 			// das result.add muss natuerlich stehenbleiben.
 			result.add(thePaper);
 		}
