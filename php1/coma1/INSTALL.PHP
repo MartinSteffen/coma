@@ -23,9 +23,18 @@ elseif (isset($_GET['4'])) {
   $STEP = 4;
 }
 if (isset($_POST['downloadconfig'])) {
- 
-  die(0); 
+  header("Pragma: public");
+  header("Expires: 0");
+  header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+  header("Cache-Control: public"); 
+  header("Content-type: application/x-httpd-php");
+  header("Content-Disposition: attachment; filename=config.inc.php");
+  header("Content-Description: Download Configuration File");
+  header("Content-Transfer-Encoding: base64");
+  echo $_POST['base64encoded'];
+  die; 
 }
+header('Content-type: text/html; charset=utf-8');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -106,6 +115,7 @@ elseif ($STEP == 1){
   echo "          <tr><td>SQL-Database: </td><td><input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\" value=\"$sqlDatabase\"></td></tr>\n";
   echo "          <tr><td colspan=\"2\"><input type=\"submit\" name=\"submit\" value=\"generate Config\"> <input type=\"submit\" name=\"downloadconfig\" value=\"Download Config File generated below\"></td></tr>\n";
   echo "        </table>\n";
+  echo "        <input type=\"hidden\" value=\"". base64_encode($confFile)."\">
   echo "      </form>\n";
 
   echo "    <p class=\"menu\">\n";
