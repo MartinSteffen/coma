@@ -317,8 +317,8 @@ else{
   }
 
   //evtl. posten einleiten
-  $pvars = generatePostMethodArray($HTTP_POST_VARS);
   if ((!empty($HTTP_POST_VARS['reply-to'])) && (!empty($HTTP_POST_VARS['text']))){
+    $pvars = generatePostMethodArray($HTTP_POST_VARS);
     $postresult = false;
     //auf einen Beitrag antworten
     if (($pvars['posttype'] == 'reply') && (!empty($pvars['text'])) && (!empty($pvars['forumid'])) && (!empty($pvars['reply-to']))){
