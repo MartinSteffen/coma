@@ -33,6 +33,8 @@ You can change all access data at runtime via the admin's control panel. Simply 
 
 4. TROUBLESHOOTING
 
+if you want to use a local MySQL-Database via TCP/IP-Connection you have to specify "127.0.0.1" instead of "localhost" as database host. This will force a network connection instead of directly using local socket.
+
 Well, as this software is free, it might contain several bugs, flaws or mines. Our fault. Your problem. Good luck.
 
 5. GREETINGS
