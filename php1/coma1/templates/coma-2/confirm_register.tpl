@@ -44,7 +44,7 @@
       Adresse: 
     </td>
     <td>      
-      {street}, {postalcode} {city}
+      {street} &nbsp;&nbsp;&nbsp;&nbsp; {postalcode} {city}
     </td>
   </tr>
 </table>
