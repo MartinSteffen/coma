@@ -109,7 +109,7 @@
 
 -->
 
-  <property name="app.name"      value="mkyjcoma"/>
+  <property name="app.name"      value="jcoma-test"/>
   <property name="app.path"      value="/${app.name}"/>
   <property name="app.version"   value="0.1-dev"/>
   <property name="build.home"    value="${basedir}/build"/>
