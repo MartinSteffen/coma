@@ -117,5 +117,6 @@
 
 <p class="message2">
   Dates should be entered in common U.S. writing <b>mm/dd/yyyy</b>! eg <b>01/15/2005</b>.<br>
-  But lots of other formats are accepted, too. (eg <b>Jan 15, 2005</b>)
+  But lots of other formats are accepted, too. (eg <b>Jan 15, 2005</b>)<br>
+  Hint: You can also use stuff like <b>today</b>, <b>1 year</b> and so on...
 </p>
