@@ -57,14 +57,7 @@
               </fieldset>
             </form>
           </li>
-          <li>
-            <form action="Subscribe" method="post">	
-            <fieldset>
-              <label for="subscribe">Not registered?</label><br />
-              <input type="submit" id="subscribe" value="subscribe!" class="submit-button" />
-            </fieldset>
-          </form>
-        </li>
+           <li><a href="Subscribe">Not registered?</a></li>
       </xsl:when>
 
       <!-- any proper content based on the user's role. -->
@@ -72,67 +65,31 @@
         <li>User
         <ul>
         	<!-- logout button -->
-          <li>
-          	<form action="Login" method="post">	
-          	<input type="hidden" name="action" value="logout"/>
-            <input type="submit" name="logout" value="Logout!" class="submit-button" />
-          </form>
-          </li>
+          <li><a href="Login?action=logout">Logout!</a></li>
           <li><a href="UserPrefs">Edit User Data</a></li>
         </ul>
         </li>
         <xsl:if test="//navcolumn//isChair">
-          <li>Chair
-          <ul>
-            <li>
-           		<form action="Chair?action=setup&amp;target=conference" method="post">
-  					<input type="submit" value="conference setup" class="submit-button" />
-  				</form>
-  			</li>
-  			<li>
-           		<form action="Chair?action=setup&amp;target=topics" method="post">
-  					<input type="submit" value="topics setup" class="submit-button" />
-  				</form>
-  			</li>
-            <li>
- 				<form action="Chair?action=invite_person" method="post">
-  					<input type="submit" value="invite person" class="submit-button" />
-  				</form>
- 			</li>
- 			<li>
- 				<form action="Chair?action=show_authors" method="post">
-  					<input type="submit" value="list of authors" class="submit-button" />
-  				</form>
- 			</li>
- 			<li>
- 				<form action="Chair?action=show_reviewers" method="post">
-  					<input type="submit" value="list of reviewers" class="submit-button" />
-  				</form>
- 			</li>
- 			<li>
- 				<form action="Chair?action=show_papers" method="post">
-  					<input type="submit" value="list of papers" class="submit-button" />
-  				</form>
- 			</li>
- 			<li>
- 				<form action="Chair?action=email" method="post">
-  					<input type="submit" value="email" class="submit-button" />
-  				</form>
- 			</li>	
-            </ul>
+			<li>Chair
+          		<ul>
+          			<li><a href="Chair?action=setup&amp;target=conference">conference setup</a></li>
+		          	<li><a href="Chair?action=setup&amp;target=topics">topics setup</a></li> 
+					<li><a href="Chair?action=invite_person">invite person</a></li> 
+            		<li><a href="Chair?action=show_authors">list of authors</a></li> 
+ 					<li><a href="Chair?action=show_reviewers">list of reviewers</a></li>
+ 					<li><a href="Chair?action=show_papers">list of papers</a></li>
+ 					<li><a href="Chair?action=email">email</a></li>
+ 			 	</ul>
           </li>
         </xsl:if>
 
         <xsl:if test="//navcolumn//isAuthor">
-          <li>Author
-          <ul>
-            <li>View Status</li>
-            <li><form action="Author?action=submitpaper" method="post">
-            <input type="submit" value="submit paper" class="submit-button" />
-          </form></li>
-          <li>Update</li>
-          <li>Withdraw</li>
-        </ul></li>
+			<li>Author
+          		<ul>
+					<li><a href="Author">Overview</a></li>
+		            <li><a href="Author?action=submitpaper">submit new paper</a></li>
+		        </ul>
+		    </li>
       </xsl:if>
 
       <xsl:if test="//navcolumn//isReviewer">

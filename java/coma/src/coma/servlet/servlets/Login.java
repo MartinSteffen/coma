@@ -93,8 +93,11 @@ public class Login extends HttpServlet {
 					
 					if(conferencesArray.length == 1){			
 						myConference = conferencesArray[0];
-						session.setAttribute(SessionAttribs.CONFERENCE, myConference);	
-						result.append(XMLHelper.tagged("success",myPerson.toXML()));
+						session.setAttribute(SessionAttribs.CONFERENCE, myConference);
+						result.append("<success>\n");
+						result.append(myConference.toXML());
+						result.append(myPerson.toXML());
+						result.append("</success>");
 					}
 					else {
 						session.setAttribute(SessionAttribs.PERSON, null);
