@@ -289,7 +289,7 @@ function toggle(id)
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
 			?>
                       <tr>
-                        <td class="menus"><a href="index.php?m=author" class="menus">call for papers</a></td>
+                        <td class="menus"><a href="index.php" class="menus">call for papers</a></td>
                       </tr>
 		      <?
 /* ------------------------------------------------------------ MENU FOR CALL FOR PAPERS -------------------------------------------------- */
@@ -314,6 +314,9 @@ function toggle(id)
                       <tr>
                         <td class="menus">&nbsp;</td>
                       </tr>
+		      <tr>
+		        <td class="menus"><a href="index.php" class="menus">Click here to go back to login</a></td>
+		      </tr>
                       <tr>
                         <td class="menus"><a href="index.php?m=forum" class="menus">Forum</a></td>
                       </tr>

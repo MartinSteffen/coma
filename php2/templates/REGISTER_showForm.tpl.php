@@ -5,7 +5,7 @@ $input = d("register");
 
 <table width="576" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td class="textBold">Register to Comma.</td>
+    <td class="textBold">Register to Coma.</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
