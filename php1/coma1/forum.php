@@ -283,7 +283,8 @@ function getCID(){
       $cid = 1;
     }
     else{
-      $cid = session('confid');
+      //$cid = session('confid');
+      redirect('login.php');
     }
   }
   return $cid;
