@@ -46,11 +46,11 @@ public class Topic extends Entity {
 	}
     }
 
-    public static Set<Topic> allTopics(Conference theConference){
+    public static Iterable<Topic> allTopics(Conference theConference){
 	SearchResult theSR = null; 
 	theSR =theRS.getTopic(-1, theConference.getId());
 	try {
-	    return new java.util.HashSet<Topic>
+	    return //new java.util.HashSet<Topic>
 		(java.util.Arrays.asList((Topic[])theSR.getResultObj()));
 	} catch (ClassCastException cce){
 	    coma.util.logging.ALogger.log.log(WARN, 

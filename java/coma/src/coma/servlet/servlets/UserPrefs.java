@@ -89,8 +89,6 @@ public class UserPrefs extends HttpServlet {
 		result.append(x.tagged("topics",
 				       Topic.manyToXML(Topic.allTopics(theConference), 
 						       XMLMODE.DEEP)));
-		LOG.log(DEBUG, "Person ID read: ",thePerson.getId(),
-			"Topics", Topic.allTopics(theConference).size());
 		break;
 	    case STATE.WRITE:
 		pagestate.set(STATE.READ);

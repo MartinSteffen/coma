@@ -64,7 +64,7 @@ public abstract class Entity {
     
        The result is not threadsafe.
      */
-    public static CharSequence manyToXML(java.util.Collection<? extends Entity> entities, XMLMODE mode){
+    public static CharSequence manyToXML(Iterable<? extends Entity> entities, XMLMODE mode){
 
 	StringBuilder result = new StringBuilder();
 	if (entities != null){ // be extra paranoid!
