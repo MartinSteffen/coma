@@ -1234,7 +1234,7 @@ class DBAccess extends ErrorHandling {
       return $this->success(false);
     }
     $objTopics = array();
-    $s = "SELECT  t.topic_id AS topic_id, t.name AS name".
+    $s = "SELECT  p.topic_id AS topic_id, t.name AS name".
         " FROM    PrefersTopic p".
         " INNER   JOIN Topic t".
         " ON      t.id = p.topic_id".
