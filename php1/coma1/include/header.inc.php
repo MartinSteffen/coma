@@ -160,7 +160,7 @@ $strRoles = array(CHAIR       => 'Chair',
 // Stellt ausserdem sicher, dass uname und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
 if (!defined('NEED_NO_LOGIN')) {
-  if ($myDBAccess->checkLogin(session(uname,false), session(password, false))) {
+  if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
     if (!isset($_SESSION['uid'])) {
       // UID setzen
       $_SESSION['uid'] = $myDBAccess->getUserIdByEmail(session(uname));
