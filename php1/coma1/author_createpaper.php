@@ -81,7 +81,7 @@ if (isset($_POST['action'])) {
         // Erfolg (kehre zurueck zur Artikelliste)
         $_SESSION['message'] = 'Paper was successfully created.<br>'.
                                'Please upload the document file soon.';
-        $content = new Template(TPLPATH.'author_papers.tpl');
+        redirect('author_papers.php');
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
