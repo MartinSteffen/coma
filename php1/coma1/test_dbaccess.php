@@ -20,13 +20,17 @@ function bit($b) {
   for ($i = 15; $i >= 0; $i--) {
     echo(($b & (1 << $i)) ? '1':'0');
   }
+  echo('<br>');
   return true;
 }
 
-$i = 10;
-bit($i);
-
 $p = $myDBAccess->getPerson(1, 1);
+
+$p->intRoles = 10;
+bit($p->intRoles);
+bit(~$p->intRoles);
+bit($p->intRoles ^ 8);
+
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
