@@ -61,7 +61,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $result = $myDBAccess->updatePerson($objPerson);
     if (empty($result)) {
       $strContentAssocs = defaultAssocArray();  
-      $strMessage = 'Es ist ein Fehler beim Aktualisieren Ihrer Daten aufgetreten.'; 
+      $strMessage = 'Es ist ein Fehler beim Aktualisieren Ihrer Daten aufgetreten: '.$myDBAccess->getlastError(); 
       $confirmFailed = true;
     }
     else {
