@@ -220,11 +220,11 @@ class DBAccess {
     if (!empty($data)) {
       $objCriterions = $this->getCriterionsOfConference();
       if (empty($objCriterions)) {
-        return $this->error('getConferenceDetailed '.$this->mySql->getLastError());
+        return $this->error('getConferenceDetailed '.$this->getLastError());
       }
       $objTopics = $this->getTopicsOfConference();
       if (empty($objTopics)) {
-        return $this->error('getConferenceDetailed '.$this->mySql->getLastError());
+        return $this->error('getConferenceDetailed '.$this->getLastError());
       }
       return (new ConferenceDetailed($data[0]['id'], $data[0]['name'], $data[0]['homepage'],
                     $data[0]['description'], $data[0]['conference_start'],
