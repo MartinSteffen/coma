@@ -151,17 +151,27 @@ $strRoles = array(CHAIR       => 'Chair',
 // Check, ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 // Stellt ausserdem sicher, dass uname und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
-if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
-  if (!isset($_SESSION['uname'])) {
-    $_SESSION['message'] = 'Bitte melden Sie sich an!';
+if (!defined('NEED_NO_LOGIN')) {
+  if ($myDBAccess->checkLogin()) {
+    if (!isset($_SESSION['uid'])) {
+      $_SESSION['uid'] = $myDBAccess->getUserIdByEmail(session(uname));
+    }
   }
   else {
-    $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
+    if ($myDBAccess->failed) {
+      print($myDBAccess->getLastError());
+    }
+    if (!isset($_SESSION['uname'])) {
+      $_SESSION['message'] = 'Bitte melden Sie sich an!';
+    }
+    else {
+      $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
+    }
+    session_delete('password');
+    session_delete('uname');
+    session_delete('uid');
+    session_delete('confid');
+    redirect('login.php');
   }
-  session_delete('password');
-  session_delete('uname');
-  session_delete('uid');
-  session_delete('confid');
-  redirect('login.php');
 }
 ?>

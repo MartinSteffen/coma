@@ -42,7 +42,7 @@ class ErrorHandling {
    * @see getLastError()
    * @access protected
    */
-  function success($val) {
+  function success($val=true) {
     $this->blnError = false;
     $this->strError = '';
     return $val;

@@ -13,7 +13,7 @@ if (!defined('IN_COMA1')) {
 if (!function_exists('file_get_contents')) {
   function file_get_contents($filename)
   {
-    $fd = fopen($filename, "rb");
+    $fd = fopen($filename, 'rb');
     $content = fread($fd, filesize($filename));
     fclose($fd);
     return $content;
@@ -32,15 +32,13 @@ if (!function_exists('file_get_contents')) {
  * @access public
  *
  */
-class Template {
+class Template extends ErrorHandling {
 
   /**#@+@access private*/
   /**@var string*/
   var $strTemplate='';
   /**@var string*/
   var $strOutput='';
-  /**@var string*/
-  var $strError = '';
   /**@var array*/
   var $strAssocs = array();
   /**#@-*/
@@ -76,10 +74,10 @@ class Template {
   function readTemplate($strFilename) {
     $strContents = file_get_contents($strFilename);
     if (empty($strContents)) {
-      return $this->error("Could not read Template [$strFilename]");
+      return $this->error('readTemplate', "Could not read template $strFilename");
     }
     $this->strTemplate =& $strContents;
-    return true;
+    return $this->success(true);
   }
 
   /**
@@ -103,10 +101,10 @@ class Template {
    */
   function assign(&$strAssocs) {
     if(!is_array($strAssocs)) {
-      return $this->error('Not an Array');
+      return $this->error('assign', "$strAssocs is not an array");
     }
     $this->strAssocs = array_merge($this->strAssocs, $strAssocs);
-    return true;
+    return $this->success(true);
   }
 
   /**
@@ -147,7 +145,7 @@ class Template {
     $strKeys[] = '/(?i){.*?}/';
     $strValues[] = '';
     $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
-    return true;
+    return $this->success(true);
   }
 
   /**
@@ -160,7 +158,7 @@ class Template {
    *
    */
   function getOutput() {
-    return $this->strOutput;
+    return $this->success($this->strOutput);
   }
 
   /**
@@ -174,40 +172,7 @@ class Template {
    */
   function output() {
     print($this->strOutput);
-    return true;
-  }
-
-  /**
-   * Fehler erzeugen
-   *
-   * Die Funktion <b>error()</b> erzeugt und speichert einen Fehlerstring.
-   *
-   * @param string $strError Optionale Angabe einer Fehlerursache
-   * @return false Es wird immer <b>false</b> zurueck gegeben
-   * @see getLastError()
-   * @access protected
-   *
-   */
-  function error($strError='') {
-    $this->strError = "[Templates: $strError ]";
-    return false;
-  }
-
-  /**
-   * Letzten Fehler ueberpruefen
-   *
-   * Die Funktion <b>getLastError()</b> gibt die letzte mit error
-   * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
-   *
-   * @return string Die letzte Fehlermeldung
-   * @see error()
-   * @access public
-   *
-   */
-  function getLastError() {
-    $strError = $this->strError;
-    $this->strError = '';
-    return $strError;
+    return $this->success();
   }
 
 } // end class Template

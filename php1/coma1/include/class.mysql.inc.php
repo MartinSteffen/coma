@@ -53,7 +53,7 @@ class MySql extends ErrorHandling {
    * Konstruktor
    *
    * Der Konstruktor stellt eine Verbindung mit der Datenbank her und
-   * stellt die Databse ein. Die Daten werden dabei aus der Konfigurations
+   * stellt die Database ein. Die Daten werden dabei aus der Konfigurations
    * datei gelesen.
    *
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
@@ -71,15 +71,14 @@ class MySql extends ErrorHandling {
 
     // mysql_pconnect ???? Was ist besser? - Jan
     $conn = @mysql_connect($sqlServer, $sqlUser , $sqlPassword);
-    if (!$conn) {
-      return $this->error("Could not connect to MySQL: ");
+    if (empty($conn)) {
+      return $this->error('MySql', "Could not connect to MySQL Server $sqlServer");
     }
-
-    if (!mysql_select_db($sqlDatabase)) {
-      return $this->error("Could not select Database: ");
+    if (!mysql_select_db($sqlDatabase, $conn)) {
+      return $this->error('MySql', mysql_error($conn));
     }
     $this->mySqlConnection = $conn;
-    return true;
+    return $this->success(true);
   }
 
   /**
@@ -97,16 +96,19 @@ class MySql extends ErrorHandling {
    */
   function delete($strSql='') {
     if (empty($strSql)) {
-      return false;
+      return $this->error('delete', 'Empty SQL statement';
     }
     if (!eregi("^delete",$strSql)) {
-      return $this->error("delete called with $strSql");
+      return $this->error('delete', "Call with $strSql");
     }
     if (empty($this->mySqlConnection)) {
-      return $this->error('delete: Keine Datenbank-Verbindung');
+      return $this->error('delete', 'No database connection');
     }
     $result = mysql_query($strSql, $this->mySqlConnection);
-    return $result;
+    if (empty($result)) {
+      return $this->error('delete', mysql_error($this->mySqlConnection));
+    }
+    return $this->success();
   }
 
   /**
@@ -126,18 +128,19 @@ class MySql extends ErrorHandling {
    */
   function select($strSql='') {
     if (empty($strSql)) {
-      return false;
+      return $this->error('select', 'Empty SQL statement');
     }
     if (!eregi("^select",$strSql)) {
-      return $this->error("select called with $strSql");
+      return $this->error('select', "Call with $strSql.");
     }
     if (empty($this->mySqlConnection)) {
-      return $this->error('select: Keine Datenbank-Verbindung');
+      return $this->error('select', 'No database connection');
     }
     $results = mysql_query($strSql, $this->mySqlConnection);
     if (empty($results)) {
+      $strError = mysql_error($this->mySqlConnection);
       @mysql_free_result($results);
-      return $this->error('select: ');
+      return $this->error('select', $strError);
     }
     $count = 0;
     $data = array();
@@ -146,7 +149,7 @@ class MySql extends ErrorHandling {
       $count++;
     }
     mysql_free_result($results);
-    return $data;
+    return $this->success($data);
   }
 
   /**
@@ -164,16 +167,19 @@ class MySql extends ErrorHandling {
    */
   function update($strSql = '') {
     if (empty($strSql)) {
-      return false;
+      return $this->error('update', 'Empty SQL statement');
     }
     if (!eregi("^update",$strSql)) {
-      return $this->error("update called with $strSql");
+      return $this->error('update', "Call with $strSql");
     }
     if (empty($this->mySqlConnection)) {
-      return $this->error('update: Keine Datenbank-Verbindung');
+      return $this->error('update', 'No database connection');
     }
     $result = mysql_query($strSql, $this->mySqlConnection);
-    return $result;
+    if (empty($result)) {
+      return $this->error('update', mysql_error($this->mySqlConnection));
+    }
+    return $this->success($result);
   }
   
   /**
@@ -183,7 +189,7 @@ class MySql extends ErrorHandling {
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
    * @param string $strSql Eine SQL <b>insert</b> Anfrage an die Datenbank
-   * @return int|false Die id des letzten auto_increment Wertes (0, falls keiner
+   * @return int|false Die ID des letzten auto_increment Wertes (0, falls keiner
    *                   erzeugt wird) oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
@@ -192,19 +198,19 @@ class MySql extends ErrorHandling {
    */
   function insert($strSql = '') {
     if (empty($strSql)) {
-      return false;
+      return $this->error('insert', 'Empty SQL statement');
     }
     if (!eregi("^insert",$strSql)) {
-      return $this->error("insert called with $strSql");
+      return $this->error('insert', "Call with $strSql");
     }
     if (empty($this->mySqlConnection)) {
-      return $this->error('insert: Keine Datenbank-Verbindung');
+      return $this->error('insert', 'No database connection');
     }
-    $results = mysql_query( $strSql, $this->mySqlConnection );
+    $results = mysql_query($strSql, $this->mySqlConnection);
     if (empty($results)) {
-      return $this->error('insert: ');
+      return $this->error('insert', mysql_error());
     }
-    return mysql_insert_id();
+    return $this->success(mysql_insert_id());
   }
 
 } // end class MySql

@@ -77,16 +77,15 @@ class DBAccess extends ErrorHandling {
   // ---------------------------------------------------------------------------
 
   /**
-   * Liefert einen Array mit allen Konferenzen zurück.
+   * Liefert ein Array mit allen Konferenzen zurück.
    *
    * @return Conference [] bzw. <b>false</b>, falls keine Konferenz angelegt ist.
    * @access public
-   * @author Daniel (29.12.04)
+   * @author Daniel (29.12.04), Tom (12.01.05)
    */
-
   function getAllConferences() {
-    $s = 'SELECT  id, name, homepage, description, conference_start, conference_end'.
-        ' FROM    Conference';
+    $s = "SELECT  id, name, homepage, description, conference_start, conference_end".
+        " FROM    Conference";
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       $objConferences = array();
@@ -96,44 +95,9 @@ class DBAccess extends ErrorHandling {
                                               $data[$i]['conference_start'],
                                               $data[$i]['conference_end']));
       }
-      return $this->success(($objConferences);
+      return $this->success($objConferences);
     }
     return $this->error('getAllConferences', $this->mySql->getLastError());
-  }
-
-  // Anmerkung von Tom: [TODO] Anpassen an das neue Rollen-Array
-  /**
-   * Liefert ein Array mit Rollen-Namen zurück.
-   *
-   * @param int $intId ID der Person und  $IntConfId ID der Konferenz
-   * @return Array mit Rollen_Namen (siehe Spec von PHP1)
-   * @access public
-   * @author Daniel (29.12.04)
-   */
-  function  getRoles($intId, $intConfId){
-    $s = 'SELECT  role_type '.
-        ' FROM    Role'.
-        ' WHERE   conference_id = \' '.$intConfId.' \' '.
-        ' AND     person_id= \''.$intId.'\'';
-   $data = $this->mySql->select($s);
-   $strRoles= array();
-   if (!empty($data)) {
-      for ($i = 0; $i < count($data); $i++) {
-        // Rollen die nach der PHP1 Spec nicht verwendet werden dürfen auch in der Datenbank nicht
-	// vorkommen.
-        if (($data[$i]['role_type'] > 4)||($data[$i]['role_type'] == 1)){ 
-          $strRoles[$i] = 'undef';
-          echo 'Rolle: '.$data[$i]['role_type'].' ist in der Funktion getRoles nicht bekannt';
-        }
-        else {
-        if ($data[$i]['role_type'] == 2){$strRoles[$i] = 'Chair';}
-        if ($data[$i]['role_type'] == 3){$strRoles[$i] = 'Reviewer';}
-        if ($data[$i]['role_type'] == 4){$strRoles[$i] = 'Autor';}
-        if ($data[$i]['role_type'] == 0){$strRoles[$i] = 'Teilnehmer';}
-        }
-      }
-   }
-   return $strRoles;
   }
   
  /**
@@ -144,16 +108,18 @@ class DBAccess extends ErrorHandling {
    * @author Daniel (20.12.04)
    */
   function checkEmail($strEmail) {
-    $s = 'SELECT  email '.
-         ' FROM    Person'.
-         ' WHERE   email = \''.$strEmail.'\'';
+    $s = "SELECT  email".
+        " FROM    Person".
+        " WHERE   email = '$strEmail'";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      return true;
+    if ($this->mySql->failed()) {
+      return $this->error('checkEmail', $this->mySql->getLastError());
     }
-    return false;
+    if (!empty($data)) {
+      return $this->success(true);
+    }
+    return $this->succes(false);
   }
-
 
   /**
    * Prueft, ob die globalen User-Daten gueltig sind.
@@ -163,20 +129,19 @@ class DBAccess extends ErrorHandling {
    * @access public
    * @author Tom (15.12.04)
    */
-  function checkLogin() {
-    if (!isset($_SESSION['uname']) || !isset($_SESSION['password'])) {
-      return $this->error('checkLogin (Session: User oder Passwort nicht gesetzt)');
-    }
-    $s = 'SELECT  id, email, password'.
-        ' FROM    Person'.
-        ' WHERE   email = \''.$_SESSION['uname'].'\''.
-        ' AND     password = \''.$_SESSION['password'].'\'';
+  function checkLogin($strUserName, $strPassword) {
+    $s = "SELECT  email, password".
+        " FROM    Person".
+        " WHERE   email = '$strUserName'".
+        " AND     password = '$strPassword.'";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $_SESSION['uid'] = $data[0]['id'];
-      return true;
+    if ($this->mySql->failed()) {
+      return $this->error('checkLogin', $this->mySql->getLastError());
     }
-    return $this->error('checkLogin '.$this->mySql->getLastError());
+    if (!empty($data)) {
+      return $this->success(true);
+    }
+    return $this->success(false);
   }
 
   /**
@@ -259,7 +224,7 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert einen Array von Topic-Objekten zurueck, die als Topics der
+   * Liefert ein Array von Topic-Objekten zurueck, die als Topics der
    * aktuellen Konferenz definiert sind.
    *
    * @return Topic [] bzw. <b>false</b>, falls keine Konferenz aktiv ist, oder
