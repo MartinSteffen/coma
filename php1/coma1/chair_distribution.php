@@ -59,7 +59,7 @@ if (!empty($dist)) {
       }
       $strReviewersAssocs['rev_id'] = $arrReviewers[$i]['reviewer_id'];
       $strReviewersAssocs['rev_name'] = $objReviewer->getName(1);
-      $strReviewersAssocs['status'] = $arrReviewers$[i]['status'];
+      $strReviewersAssocs['status'] = $arrReviewers[$i]['status'];
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
