@@ -21,7 +21,7 @@ function bit($b) {
   return true;
 }
 
-echo('<br>');
+echo('<br>Test:');
 
 
 $myDBAccess->getAverageRatingOfPaper(3);
