@@ -7,7 +7,7 @@
       2. Angaben, die eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation 
          mit ihnen ermöglichen, einschließlich der E-Mail-Adresse,
       <br><br>
-      Denek das reicht, aber <a href="http://www.domain-recht.de/magazin/article.php?id=96">hier gucken</a>
+      Denke das reicht, aber <a href="http://www.domain-recht.de/magazin/article.php?id=96">hier gucken</a>
      </td>
   </tr>
 </table>
