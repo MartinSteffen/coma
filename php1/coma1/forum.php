@@ -52,9 +52,8 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates($forumselection, $msgselection, $select, $assocArray, $fshow){
+function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray, $fshow){
   global $myDBAccess;
-  global $forums;
   
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
@@ -79,10 +78,10 @@ function buildForumtemplates($forumselection, $msgselection, $select, $assocArra
     if (notemptyandtrue($forumselection, $forum->intId)){
       $forumassocs['selectorunselect'] = 'forumunsel';
       $forumassocs['forum-id'] = encodeText($forum->intId);
-      $forumassocs['forum-title'] = encodeTExt($forum->strTitle);
+      $forumassocs['forum-title'] = encodeText($forum->strTitle);
       $forumassocs['plusorminus'] = '-';
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
-      $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs, $myDBAccess);
+      $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
       //Thread-neu
       $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
       $threadassocs = defaultAssocArray();
@@ -165,7 +164,8 @@ function buildForumtemplates($forumselection, $msgselection, $select, $assocArra
   return $assocArray;
 }
 
-function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs, &$myDBAccess){
+function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs){
+  global $myDBAccess;
   if (DEBUG){
     //echo('<br>Messages: ' . count($messages));
   }
@@ -202,7 +202,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == getUID(getCID($myDBAccess), $myDBAccess)) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID(getCID($myDBAccess), $myDBAccess))))){
+/*        if (($sender->intId == getUID(getCID($myDBAccess), $myDBAccess)) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID(getCID($myDBAccess), $myDBAccess))))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -211,11 +211,11 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
           $edittemplate->parse();
           $formassocs['editform'] = $edittemplate->getOutput();
         }
-        else{
+        else{*/
           //neu
           $formassocs['replystring'] = 'Post a reply to this message';
           $formassocs['editform'] = '';
-        }
+//        }
         $formtemplate->assign($formassocs);
         $formtemplate->parse();
         $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
@@ -404,7 +404,7 @@ function generatePostMethodArray($postvars){
     $fshow = 0;
   }
 
-  $contentAssocs = buildForumtemplates($ffs, $fms, $sel, $contentAssocs, $fshow);
+  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $fshow);
   /*if (DEBUG){
     echo($contentAssocs['forumtypes']);
     echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
