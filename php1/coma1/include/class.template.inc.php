@@ -123,7 +123,7 @@ class Template {
    * @access public
    *
    */
-  function print() {
+  function output() {
     print($this->strOutput);
     return true;
   }

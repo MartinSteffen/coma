@@ -26,7 +26,7 @@ $myTemplate->assign($assocArray);
 
 $myTemplate->parse();
 
-$myTemplate->print();
+$myTemplate->output();
 
 
 ?>
