@@ -42,7 +42,7 @@
 
 <table class="body">
  <tr>
-  <td width="150">{menu}</td>
+  <td class="body">{menu}</td>
   <td class="body">{content}</td>
  </tr>
 </table>
