@@ -23,7 +23,7 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-$objReviews = $myDBAccess->getReviewsOfReviewer(session('uid'), session('confid'));
+$objPapers = $myDBAccess->getPapersOfReviewer(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
   error('get review list of reviewer',$myDBAccess->getLastError());
 }
@@ -31,37 +31,48 @@ if ($myDBAccess->failed()) {
 $content = new Template(TPLPATH.'reviewer_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['lines'] = '';
-if (!empty($objReviews)) {
+// Liste der Reviews erzeugen
+if (!empty($objPapers)) {
   $lineNo = 1;
-  foreach ($objReviews as $objReview) {
+  foreach ($objPapers as $objPaper) {
+  	$isReviewed = $myDBAccess->hasPaperBeenReviewed($objPaper->intId, session('uid'));
+  	if ($myDBAccess->failed()) {
+      error('Error during review status check.',$myDBAccess->getLastError());
+    }
     $ifArray = array();
+    $ifArray[] = $objPaper->intStatus;
     $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['review_id'] = encodeText($objReview->intId);
-    $strItemAssocs['paper_id'] = encodeText($objReview->intPaperId);
-    $strItemAssocs['title'] = encodeText($objReview->strPaperTitle);
-    $strItemAssocs['author_id'] = encodeText($objReview->intAuthorId);
-    $strItemAssocs['author_name'] = encodeText($objReview->strAuthorName);
-    $objPaper = $myDBAccess->getPaperSimple($objReview->intPaperId);
-    if ($myDBAccess->failed()) {
-      error('get paper in review list of reviewer', $myDBAccess->getLastError());
-    }
-    else if (!empty($objPaper)) {
-      $ifArray[] = $objPaper->intStatus;
-    }
-    if (!empty($objReview->fltReviewRating)) {
-      $strItemAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
-    }
-    else {
-      $strItemAssocs['rating'] = ' - ';
-    }
-    if (!empty($objReview->fltAverageRating)) {
-      $strItemAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 100).'%');
-    }
-    else {
-      $strItemAssocs['avg_rating'] = ' - ';
-    }
+    $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
+    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+    $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthorName);
     $strItemAssocs['if'] = $ifArray;
-    $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
+    if ($isReviewed) {
+    	$paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
+  	  $objReview = $myDBAccess->getReviewerReviewOfPaper(session('uid'),$objPaper->intId);
+      if ($myDBAccess->failed()) {
+        error('Error receiving review list of reviewer.',$myDBAccess->getLastError());
+      }
+      else if (empty($objReview)) {
+      	 error('Error receiving review list of reviewer.', 'Review does not exist in database.');
+      }
+      $strItemAssocs['review_id'] = encodeText($objReview->intId);
+      if (!empty($objReview->fltReviewRating)) {
+        $strItemAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
+      }
+      else {
+        $strItemAssocs['rating'] = ' - ';
+      }
+      if (!empty($objReview->fltAverageRating)) {
+        $strItemAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 100).'%');
+      }
+      else {
+        $strItemAssocs['avg_rating'] = ' - ';
+      }
+    }
+    else {
+      $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
+    }
     $paperItem->assign($strItemAssocs);
     $paperItem->parse();
     $strContentAssocs['lines'] .= $paperItem->getOutput();

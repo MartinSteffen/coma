@@ -753,9 +753,9 @@ class DBAccess extends ErrorHandling {
     }
     $s = sprintf("SELECT   p.id AS id, author_id, title, last_edited, state, filename".
                  " FROM    Paper AS p".
-                 " INNER   JOIN ReviewReport AS r".
-                 " ON      r.paper_id = p.id".
-                 " AND     r.reviewer_id = '%d'".
+                 " INNER   JOIN Distribution AS d".
+                 " ON      d.paper_id = p.id".
+                 " AND     d.reviewer_id = '%d'".
                  " AND     p.conference_id = '%d'",
                            s2db($intReviewerId),
                            s2db($intConferenceId));
@@ -1108,6 +1108,51 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Prueft, ob das Paper $intPaperId vom Reviewer $intReviewerId bereits
+   * bewertet worden ist.
+   *
+   * @param int $intPaperId ID des Papers
+   * @param int $intReviewerId ID des Reviewers   
+   * @return bool true gdw. das Paper bereits bewertet worden ist
+   * @access public
+   * @author Sandro (28.01.05)
+   */
+  function hasPaperBeenReviewed($intPaperId, $intReviewerId) {
+    $s = sprintf("SELECT   reviewer_id".
+                 " FROM    ReviewRating".
+                 " WHERE   paper_id = '%d'".
+                 " AND     reviewer_id = '%d'",
+                           s2db($intPaperId), s2db($intReviewerId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('hasPaperBeenReviewed', $this->mySql->getLastError());
+    }    
+    return $this->success(!empty($data));
+  }
+
+  /**
+   * Prueft, ob das Paper $intPaperId dem Reviewer $intReviewerId zugeteilt ist.
+   *
+   * @param int $intPaperId ID des Papers
+   * @param int $intReviewerId ID des Reviewers   
+   * @return bool true gdw. das Paper bereits bewertet worden ist
+   * @access public
+   * @author Sandro (28.01.05)
+   */
+  function isPaperDistributedTo($intPaperId, $intReviewerId) {
+    $s = sprintf("SELECT   reviewer_id".
+                 " FROM    Distribution".
+                 " WHERE   paper_id = '%d'".
+                 " AND     reviewer_id = '%d'",
+                           s2db($intPaperId), s2db($intReviewerId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('isPaperDistributedTo', $this->mySql->getLastError());
+    }    
+    return $this->success(!empty($data));
+  }
+
+  /**
    * Liefert ein Array von Person-Objekten zurueck, die Reviewer des Papers $intPaperId sind.
    *
    * @param int $intPaperId ID des Papers
@@ -1117,7 +1162,7 @@ class DBAccess extends ErrorHandling {
    */
   function getReviewersOfPaper($intPaperId) {
     $s = sprintf("SELECT   reviewer_id".
-                 " FROM    ReviewReport".
+                 " FROM    Distribution".
                  " WHERE   paper_id = '%d'",
                            s2db($intPaperId));
     $data = $this->mySql->select($s);
@@ -1169,6 +1214,35 @@ class DBAccess extends ErrorHandling {
       $objReviews[] = $objReview;
     }
     return $this->success($objReviews);
+  }
+
+  /**
+   * Liefert ein Review-Objekt des Reviewers $intReviewerId zum Papers $intPaperId zurueck.
+   *
+   * @param int $intReviewerId ID des Reviewers
+   * @param int $intPaperId ID des Papers   
+   * @return Review bzw. false, falls der Reviewer das Paper nicht bewertet.
+   * @access public
+   * @author Sandro (28.01.05)
+   */
+  function getReviewerReviewOfPaper($intReviewerId, $intPaperId) {
+    $s = sprintf("SELECT   id".
+                 " FROM    ReviewReport".
+                 " WHERE   paper_id = '%d'".
+                 " AND     reviewer_id = '%d'",
+                           s2db($intPaperId), s2db($intReviewerId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerReviewOfPaper', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    $objReview = $this->getReview($data[0]['id']);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerReviewOfPaper', $this->mySql->getLastError());
+    }    
+    return $this->success($objReview);
   }
 
   /**
@@ -1264,7 +1338,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objAuthor)) {
       return $this->error('getReviewDetailed', 'Fatal error: Database inconsistency!',
-                          "intAuthorId = $objPaper->intAuthorId");
+                          'intAuthorId = '.$objPaper->intAuthorId);
     }
     $s = sprintf("SELECT  r.grade, r.comment, c.id, c.name, c.description, c.max_value,".
                  "         c.quality_rating".
@@ -1287,7 +1361,7 @@ class DBAccess extends ErrorHandling {
                             $rating_data[$i]['description'], $rating_data[$i]['max_value'],
                             $rating_data[$i]['quality_rating'] / 100.0));
     }
-    $objReviewRating = $this->getReviewRating($intReviewId);
+    $fltReviewRating = $this->getReviewRating($intReviewId);
     if ($this->failed()) {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
@@ -1297,12 +1371,12 @@ class DBAccess extends ErrorHandling {
     }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
                    $objPaper->strTitle, $objAuthor->intId, $objAuthor->getName(1),
-                   $objReviewRating, $fltAvgRating, $objReviewer->intId,
+                   $fltReviewRating, $fltAvgRating, $objReviewer->intId,
                    $objReviewer->getName(1), $data[0]['summary'], $data[0]['remarks'],
                    $data[0]['confidential'], $intRatings, $strComments, $objCriterions));
     return $this->success($objReview);
-  }
-
+  } 
+ 
   /**
    * Prueft, ob die Person $intPersonId Zugang zum Forum $intForumId hat.
    *
@@ -2711,16 +2785,16 @@ nur fuer detaillierte?
    *
    * @param int $intPaperId          ID des Papers, das bewertet wird
    * @param int $intReviewerId       ID des Reviewers
-   * @param string $strSummary       Zusammenfassender Text fuer die Bewertung (inital: '')
-   * @param string $strRemarks       Anmerkungen fuer den Autoren (inital: '')
-   * @param string $strConfidential  Vertrauliche Anmerkungen fuer das Komitee (inital '')
+   * @param string $strSummary       Zusammenfassender Text fuer die Bewertung
+   * @param string $strRemarks       Anmerkungen fuer den Autoren
+   * @param string $strConfidential  Vertrauliche Anmerkungen fuer das Kommitee
    * @return int ID des erzeugten Review-Reports
    *
    * @access public
    * @author Sandro (18.12.04)
    */
-  function addReviewReport($intPaperId, $intReviewerId, $strSummary = '',
-                           $strRemarks = '', $strConfidential = '') {
+  function addReviewReport($intPaperId, $intReviewerId, $strSummary,
+                           $strRemarks, $strConfidential) {
     $s = sprintf("INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)".
                  "VALUES ('%d', '%d', '%s', '%s', '%s')",
                  s2db($intPaperId), s2db($intReviewerId), s2db($strSummary), s2db($strRemarks), s2db($strConfidential));
@@ -2736,14 +2810,14 @@ nur fuer detaillierte?
    *
    * @param int $intReviewId     ID des Review-Reports, der das Rating beinhaltet
    * @param int $intCriterionId  ID des Bewertungskriteriums
-   * @param int $intGrade        Note, Auspraegung der Bewertung (inital: 0)
-   * @param string $strComment   Anmerkung zur Bewertung in dem Kriterium (inital: '')
+   * @param int $intGrade        Note, Auspraegung der Bewertung
+   * @param string $strComment   Anmerkung zur Bewertung in dem Kriterium
    * @return int ID des erzeugten Ratings
    *
    * @access public
    * @author Sandro (18.12.04)
    */
-  function addRating($intReviewId, $intCriterionId, $intGrade = 0, $strComment = '') {
+  function addRating($intReviewId, $intCriterionId, $intGrade, $strComment) {
     $s = sprintf("INSERT  INTO Rating (review_id, criterion_id, grade, comment)".
                  "VALUES ('%d', '%d', '%d', '%s')",
                  s2db($intReviewId), s2db($intCriterionId), s2db($intGrade), s2db($strComment));
@@ -2755,23 +2829,36 @@ nur fuer detaillierte?
   }
 
   /**
-   * Erstellt einen neuen Review-Report-Datensatz in der Datenbank, sowie die
-   * mit diesem Review-Report assoziierten Ratings (Bewertungen in den einzelnen
-   * Kriterien). Initial sind die Bewertungen 0 und die Kommentartexte leer.
+   * Erstellt einen neuen Review-Report-Datensatz zum Paper $intPaperId und
+   * Reviewer $intReview in der Datenbank mit den angegebenen Werten, sowie die
+   * mit diesem Review-Report assoziierten Ratings.
+   *
+   * @param int $intPaperId          ID des Papers, das bewertet wird
+   * @param int $intReviewerId       ID des Reviewers
+   * @param string $strSummary       Zusammenfassender Text fuer die Bewertung
+   * @param string $strRemarks       Anmerkungen fuer den Autoren
+   * @param string $strConfidential  Vertrauliche Anmerkungen fuer das Kommitee
+   * @param int [] $intRatings       Bewertungen in den einzelnen Kriterien
+   * @param int [] $strComments      Kommentare zu den einzelnen Kriterien
+   * @param Criterion [] $objCriterions Die zu bewertenden Kriterien
+   * @return int ID des erzeugten Review-Reports
+   *
+   * @access public
+   * @author Sandro (28.01.05)
+   * @todo Rollback bei Fehlern beim Eintragen der Ratings
    */
 
-   function createNewReviewReport($intPaperId, $intReviewerId, $intConferenceId) {
-     //$intConferenceId = $_SESSION['confid'];
-     $intReviewId = $this->addReviewReport($intPaperId, $intReviewerId);
-     if ($this->failed()) {
-        return $this->error('createNewReviewReport', $this->getLastError());
-     }
-     $objCriterions = $this->getCriterionsOfConference($intConferenceId);
+   function createNewReviewReport($intPaperId, $intReviewerId, $strSummary,
+                           $strRemarks, $strConfidential,
+                           $intRatings, $strComments, $objCriterions) {     
+     $intReviewId = $this->addReviewReport($intPaperId, $intReviewerId,
+                                           $strSummary, $strRemarks, $strConfidential);
      if ($this->failed()) {
         return $this->error('createNewReviewReport', $this->getLastError());
      }
      for ($i = 0; $i < count($objCriterions) && !empty($objCriterions); $i++) {
-        $this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
+        $this->addRating($intReviewId, $objCriterions[$i]->intId,
+                         $intRatings[$i], $strComments[$i]);
         if ($this->failed()) {
           return $this->error('createNewReviewReport', $this->getLastError());
         }
