@@ -122,7 +122,7 @@ while ($j < $papers) {
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
-  }
+}
     $i++;
   }
   $j++;
@@ -137,7 +137,7 @@ while ($i < $reports) {
     $myDBAccess->addRating($i+1, $j+1, rand(1,6), 'Comment'.$i.$j);
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
-}
+	  }
     $j++;
   }
   $i++;
