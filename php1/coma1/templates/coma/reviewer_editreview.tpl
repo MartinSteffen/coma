@@ -55,9 +55,15 @@
     </td>
   </tr>
   <tr>
-    <td colspan="2">      
-      <input type="submit" name="submit" value="Submit changes" class="button">
-      <input type="reset" name="reset" value="Reset review" class="button">
+    <td colspan="2">
+      {if1
+      <input type="submit" name="submit" value="Update review" class="button">
+      <input type="reset" name="reset" value="Reset review" class="button">}
+      {if2
+      <input type="submit" name="submit" value="Submit review" class="button">
+      <button name="cancel" type="button" class="button" value="Cancel"
+              onClick="self.location.href='{basepath}reviewer_reviews.php{?SID}'">
+              Cancel</button>}
     </td>
   </tr>
 </table>

@@ -110,7 +110,10 @@ if (isset($_SESSION['message'])) {
 }
 if (isset($strMessage) && !empty($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(9);
+  $strContentAssocs['if'] = array(1, 9);
+}
+else {
+	$strContentAssocs['if'] = array(1);
 }
 $content->assign($strContentAssocs);
 

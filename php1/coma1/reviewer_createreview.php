@@ -88,7 +88,7 @@ if (isset($_POST['action'])) {
     if (isset($_POST['submit']) ) {
       // Trage Review in die Datenbank ein
       $result = $myDBAccess->createNewReviewReport($objPaper->intId, $objReviewer->intId,
-                                                   $strRemarks, $strConfidential,
+                                                   $strSummary, $strRemarks, $strConfidential,
                                                    $intRatings, $strComments, $objCriterions);
       if (!empty($result)) {        
         $_SESSION['message'] = 'Review report was created successfully.';
@@ -146,7 +146,10 @@ for ($i = 0; $i < count($objCriterions); $i++) {
 }
 if (isset($strMessage) && !empty($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(9);
+  $strContentAssocs['if'] = array(2, 9);
+}
+else {
+  $strContentAssocs['if'] = array(2);
 }
 $content->assign($strContentAssocs);
 
