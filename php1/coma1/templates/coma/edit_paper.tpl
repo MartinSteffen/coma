@@ -111,7 +111,7 @@
 </form>
 }
 {if2
-<p class="message2">
+<p class="message">
   This paper has been accepted for the conference.
 </p>
 }
