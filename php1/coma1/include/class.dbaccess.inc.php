@@ -1257,7 +1257,7 @@ class DBAccess extends ErrorHandling {
     $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $objPaper->strTitle,
                    $objAuthor->intId, $objAuthor->getName(1), $this->getReviewRating($intReviewId),
                    $fltAvgRating, $objReviewer->intId,
-                   $objReviewer->getName(1)), $fltVariance);
+                   $objReviewer->getName(1), $fltVariance));
     return $this->success($objReview);
   }
 
