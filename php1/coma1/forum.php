@@ -35,209 +35,209 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, $fshow){
+function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolArrayMsgselection, $intSelect, $assocArray, $intFshow){
   global $myDBAccess;
-  
-  $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
-  $typeopenassocs = defaultAssocArray();
-  $typeopenassocs['type'] = 'Public forums';
-  $forumtypepaper = new Template(TPLPATH . 'forumtypes.tpl');
-  $typepaperassocs = defaultAssocArray();
-  $typepaperassocs['type'] = 'Paper forums';
-  $forumtypechair = new Template(TPLPATH . 'forumtypes.tpl');
-  $typechairassocs = defaultAssocArray();
-  $typechairassocs['type'] = 'Committee forums';
-  $openforumtemplates = array();
-  $paperforumtemplates = array();
-  $chairforumtemplates = array();
-  $typeopenassocs['forum'] = '';
-  $typepaperassocs['forum'] = '';
-  $typechairassocs['forum'] = '';
 
-  $tempstring = '';
-  foreach ($forums as $forum){
-    $forumtemplate = new Template(TPLPATH . 'forum.tpl');
-    $forumassocs = defaultAssocArray();
-    if (notemptyandtrue($forumselection, $forum->intId)){
-      $forumassocs['selectorunselect'] = 'forumunsel';
-      $forumassocs['forum-id'] = encodeText($forum->intId);
-      $forumassocs['forum-title'] = encodeText($forum->strTitle);
-      $forumassocs['plusorminus'] = '-';
-      $messes = $myDBAccess->getThreadsOfForum($forum->intId);
+  $objForumTypeOpenTemplate = new Template(TPLPATH . 'forumtypes.tpl');
+  $strArrayTypeOpenAssocs = defaultAssocArray();
+  $strArrayTypeOpenAssocs['type'] = 'Public forums';
+  $objForumTypePaperTemplate = new Template(TPLPATH . 'forumtypes.tpl');
+  $strArrayTypePaperAssocs = defaultAssocArray();
+  $strArrayTypePaperAssocs['type'] = 'Paper forums';
+  $objForumTypeChairTemplate = new Template(TPLPATH . 'forumtypes.tpl');
+  $strArrayTypeChairAssocs = defaultAssocArray();
+  $strArrayTypeChairAssocs['type'] = 'Committee forums';
+  $objArrayOpenForumTemplates = array();
+  $objArrayPaperForumTemplates = array();
+  $objArrayChairForumTemplates = array();
+  $strArrayTypeOpenAssocs['forum'] = '';
+  $strArrayTypePaperAssocs['forum'] = '';
+  $strArrayTypeChairAssocs['forum'] = '';
+
+  //$tempstring = '';
+  foreach ($objArrayForums as $objForum){
+    $objForumTemplate = new Template(TPLPATH . 'forum.tpl');
+    $strArrayForumAssocs = defaultAssocArray();
+    if (notemptyandtrue($boolArrayForumselection, $objForum->intId)){
+      $strArrayForumAssocs['selectorunselect'] = 'forumunsel';
+      $strArrayForumAssocs['forum-id'] = encodeText($objForum->intId);
+      $strArrayForumAssocs['forum-title'] = encodeText($objForum->strTitle);
+      $strArrayForumAssocs['plusorminus'] = '-';
+      $objArrayMesses = $myDBAccess->getThreadsOfForum($objForum->intId);
       if ($myDBAccess->failed()){
         error('An error occurred while trying to retrieve the forum threads from the database.', $myDBAccess->getLastError());
       }
-      $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
+      $strArrayForumAssocs = displayMessages($objArrayMesses, $boolArrayMsgselection, $intSelect, $objForum->intId, $strArrayForumAssocs);
       //Thread-neu
-      $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
-      $threadassocs = defaultAssocArray();
-      $threadassocs['replystring'] = 'Start new thread';
-      $threadassocs['message-id'] = '';
-      $threadassocs['forum-id'] = encodeText($forum->intId);
-      $threadassocs['subject'] = '';
-      $threadassocs['text'] = '';
-      $edittemplate = new Template(TPLPATH . 'threadform.tpl');
-      $editassocs = defaultAssocArray();
-      $edittemplate->assign($editassocs);
-      $edittemplate->parse();
-      $threadassocs['editform'] = $edittemplate->getOutput();
-      $threadtemplate->assign($threadassocs);
-      $threadtemplate->parse();
-      $forumassocs['thread-new'] = $threadtemplate->getOutput();
+      $objThreadtemplate = new Template(TPLPATH . 'messageform.tpl');
+      $strArrayThreadAssocs = defaultAssocArray();
+      $strArrayThreadAssocs['replystring'] = 'Start new thread';
+      $strArrayThreadAssocs['message-id'] = '';
+      $strArrayThreadAssocs['forum-id'] = encodeText($objForum->intId);
+      $strArrayThreadAssocs['subject'] = '';
+      $strArrayThreadAssocs['text'] = '';
+      $objEdittemplate = new Template(TPLPATH . 'threadform.tpl');
+      $strArrayEditAssocs = defaultAssocArray();
+      $objEdittemplate->assign($strArrayEditAssocs);
+      $objEdittemplate->parse();
+      $strArrayThreadAssocs['editform'] = $objEdittemplate->getOutput();
+      $objThreadtemplate->assign($strArrayThreadAssocs);
+      $objThreadtemplate->parse();
+      $strArrayForumAssocs['thread-new'] = $objThreadtemplate->getOutput();
     }
     else{
-      $forumassocs['selectorunselect'] = 'forumsel';
-      $forumassocs['forum-id'] = encodeText($forum->intId);
-      $forumassocs['forum-title'] = encodeText($forum->strTitle);
-      $forumassocs['plusorminus'] = '+';
-      $forumassocs['messages'] = '';
-      $forumassocs['thread-new'] = '';
+      $strArrayForumAssocs['selectorunselect'] = 'forumsel';
+      $strArrayForumAssocs['forum-id'] = encodeText($objForum->intId);
+      $strArrayForumAssocs['forum-title'] = encodeText($objForum->strTitle);
+      $strArrayForumAssocs['plusorminus'] = '+';
+      $strArrayForumAssocs['messages'] = '';
+      $strArrayForumAssocs['thread-new'] = '';
     }
 
-    $forumtemplate->assign($forumassocs);
-    $forumtemplate->parse();
-    $tempstring = $tempstring . $forumtemplate->getOutput();
-    if (isOpenForum($forum)){
-      $openforumtemplates[$forum->intId] = $forumtemplate;
+    $objForumTemplate->assign($strArrayForumAssocs);
+    $objForumTemplate->parse();
+    //$tempstring = $tempstring . $objForumTemplate->getOutput();
+    if (isOpenForum($objForum)){
+      $objArrayOpenForumTemplates[$objForum->intId] = $objForumTemplate;
     }
-    if (isPaperForum($forum)){
-      $paperforumtemplates[$forum->intId] = $forumtemplate;
+    if (isPaperForum($objForum)){
+      $objArrayPaperForumTemplates[$objForum->intId] = $objForumTemplate;
     }
-    if (isChairForum($forum)){
-      $chairforumtemplates[$forum->intId] = $forumtemplate;
+    if (isChairForum($objForum)){
+      $objArrayChairForumTemplates[$objForum->intId] = $objForumTemplate;
     }
   }
 
-  if (!empty($openforumtemplates)){
-    foreach ($openforumtemplates as $ftemp){
-      $typeopenassocs['forum'] = $typeopenassocs['forum'] . $ftemp->getOutput();
+  if (!empty($objArrayOpenForumTemplates)){
+    foreach ($objArrayOpenForumTemplates as $ftemp){
+      $strArrayTypeOpenAssocs['forum'] = $strArrayTypeOpenAssocs['forum'] . $ftemp->getOutput();
     }
   }
   else{
-    $typeopenassocs['forum'] = 'No forums available in this category';
+    $strArrayTypeOpenAssocs['forum'] = 'No forums available in this category';
   }
-  if (!empty($paperforumtemplates)){
-    foreach ($paperforumtemplates as $ftemp){
-      $typepaperassocs['forum'] = $typepaperassocs['forum'] . $ftemp->getOutput();
+  if (!empty($objArrayPaperForumTemplates)){
+    foreach ($objArrayPaperForumTemplates as $ftemp){
+      $strArrayTypePaperAssocs['forum'] = $strArrayTypePaperAssocs['forum'] . $ftemp->getOutput();
     }
   }
   else{
-    $typepaperassocs['forum'] = 'No forums available in this category';
+    $strArrayTypePaperAssocs['forum'] = 'No forums available in this category';
   }
-  if (!empty($chairforumtemplates)){
-    foreach ($chairforumtemplates as $ftemp){
-      $typechairassocs['forum'] = $typechairassocs['forum'] . $ftemp->getOutput();
+  if (!empty($objArrayChairForumTemplates)){
+    foreach ($objArrayChairForumTemplates as $ftemp){
+      $strArrayTypeChairAssocs['forum'] = $strArrayTypeChairAssocs['forum'] . $ftemp->getOutput();
     }
   }
   else{
-    $typechairassocs['forum'] = 'No forums available in this category';
+    $strArrayTypeChairAssocs['forum'] = 'No forums available in this category';
   }
-  $forumtypeopen->assign($typeopenassocs);
-  $forumtypeopen->parse();
-  if (($fshow == 0) || ($fshow == 1)){
-    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypeopen->getOutput();
+  $objForumTypeOpenTemplate->assign($strArrayTypeOpenAssocs);
+  $objForumTypeOpenTemplate->parse();
+  if (($intFshow == 0) || ($intFshow == 1)){
+    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypeOpenTemplate->getOutput();
   }
-  $forumtypepaper->assign($typepaperassocs);
-  $forumtypepaper->parse();
-  if (($fshow == 0) || ($fshow == 3)){
-    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypepaper->getOutput();
+  $objForumTypePaperTemplate->assign($strArrayTypePaperAssocs);
+  $objForumTypePaperTemplate->parse();
+  if (($intFshow == 0) || ($intFshow == 3)){
+    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypePaperTemplate->getOutput();
   }
-  $forumtypechair->assign($typechairassocs);
-  $forumtypechair->parse();
-  if (($fshow == 0) || ($fshow == 2)){
-    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypechair->getOutput();
+  $objForumTypeChairTemplate->assign($strArrayTypeChairAssocs);
+  $objForumTypeChairTemplate->parse();
+  if (($intFshow == 0) || ($intFshow == 2)){
+    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypeChairTemplate->getOutput();
   }
   return $assocArray;
 }
 
-function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs){
+function displayMessages(&$objArrayMessages, $boolArrayMsgselection, $intSelected, $intForumid, $assocs){
   global $myDBAccess;
 
   $tempstring = '';
-  foreach ($messages as $message){
-    $messagetemplate = new Template(TPLPATH . 'message.tpl');
-    $messageassocs = defaultAssocArray();
-    $sender = $myDBAccess->getPerson($message->intSender);
+  foreach ($objArrayMessages as $objMessage){
+    $objMessagetemplate = new Template(TPLPATH . 'message.tpl');
+    $strArrayMessageAssocs = defaultAssocArray();
+    $sender = $myDBAccess->getPerson($objMessage->intSender);
     if ($myDBAccess->failed()){
       error('An error occurred while trying to retrieve the sender of a forum message from the database. This could be a database inconsistency.', $myDBAccess->getLastError());
     }
-    if (notemptyandtrue($msgselection, $message->intId)){
-      $messageassocs['selectorunselect'] = 'unselect';
-      $messageassocs['message-id'] = encodeText($message->intId);
-      $messageassocs['plusorminus'] = '-';
-      $messageassocs['sender-title'] = encodeText($sender->strTitle);
-      $messageassocs['sender-firstname'] = encodeText($sender->strFirstName);
-      $messageassocs['sender-lastname'] = encodeText($sender->strLastName);
-      $messageassocs['message-subject'] = encodeText($message->strSubject);
-      $messageassocs['message-sendtime'] = encodeText($message->strSendTime);
-      $messageassocs['message-text'] = encodeText($message->strText);
-      $messageassocs['colon'] = ':';
-      $messageassocs['postfix'] = 'wrote:';
-      $replylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
-      $replyassocs = defaultAssocArray();
-      $replylinkassocs['message-id'] = encodeText($message->intId);
-      $replylinktemplate->assign($replylinkassocs);
-      $replylinktemplate->parse();
-      $messageassocs['replylink'] = $replylinktemplate->getOutput();
+    if (notemptyandtrue($boolArrayMsgselection, $objMessage->intId)){
+      $strArrayMessageAssocs['selectorunselect'] = 'unselect';
+      $strArrayMessageAssocs['message-id'] = encodeText($objMessage->intId);
+      $strArrayMessageAssocs['plusorminus'] = '-';
+      $strArrayMessageAssocs['sender-title'] = encodeText($sender->strTitle);
+      $strArrayMessageAssocs['sender-firstname'] = encodeText($sender->strFirstName);
+      $strArrayMessageAssocs['sender-lastname'] = encodeText($sender->strLastName);
+      $strArrayMessageAssocs['message-subject'] = encodeText($objMessage->strSubject);
+      $strArrayMessageAssocs['message-sendtime'] = encodeText($objMessage->strSendTime);
+      $strArrayMessageAssocs['message-text'] = encodeText($objMessage->strText);
+      $strArrayMessageAssocs['colon'] = ':';
+      $strArrayMessageAssocs['postfix'] = 'wrote:';
+      $objReplylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
+      $strArrayReplyAssocs = defaultAssocArray();
+      $replylinkassocs['message-id'] = encodeText($objMessage->intId);
+      $objReplylinktemplate->assign($replylinkassocs);
+      $objReplylinktemplate->parse();
+      $strArrayMessageAssocs['replylink'] = $objReplylinktemplate->getOutput();
       //formular anzeigen/aendern
-      if ($message->intId == $selected){
-        $messageassocs['replylink'] = '';
-        $formtemplate = new Template(TPLPATH . 'messageform.tpl');
-        $formassocs = defaultAssocArray();
-        $formassocs['message-id'] = encodeText($message->intId);
-        $formassocs['forum-id'] = encodeText($forumid);
-        $formassocs['subject'] = 'Re: ' . encodeText($message->strSubject);
-        $formassocs['text'] = encodeText($message->strText);
-        $formassocs['newthread'] = '';
-        $ischair = (isChair($myDBAccess->getPerson(session('uid'))));
+      if ($objMessage->intId == $intSelected){
+        $strArrayMessageAssocs['replylink'] = '';
+        $objFormtemplate = new Template(TPLPATH . 'messageform.tpl');
+        $strArrayFormAssocs = defaultAssocArray();
+        $strArrayFormAssocs['message-id'] = encodeText($objMessage->intId);
+        $strArrayFormAssocs['forum-id'] = encodeText($intForumid);
+        $strArrayFormAssocs['subject'] = 'Re: ' . encodeText($objMessage->strSubject);
+        $strArrayFormAssocs['text'] = encodeText($objMessage->strText);
+        $strArrayFormAssocs['newthread'] = '';
+        $boolIschair = (isChair($myDBAccess->getPerson(session('uid'))));
         if ($myDBAccess->failed()){
           error('An error occurred while trying to retrieve your user status from the database. This could be a database inconsistency.', $myDBAccess->getLastError());
         }
-        if (($sender->intId == session('uid')) || $ischair){
+        if (($sender->intId == session('uid')) || $boolIschair){
           //neu/aendern
-          $formassocs['replystring'] = 'Update this message/Post a reply to this message';
-          $edittemplate = new Template(TPLPATH . 'editform.tpl');
-          $editassocs = defaultAssocArray();
-          $edittemplate->assign($editassocs);
-          $edittemplate->parse();
-          $formassocs['editform'] = $edittemplate->getOutput();
+          $strArrayFormAssocs['replystring'] = 'Update this message/Post a reply to this message';
+          $objEdittemplate = new Template(TPLPATH . 'editform.tpl');
+          $strArrayEditAssocs = defaultAssocArray();
+          $objEdittemplate->assign($strArrayEditAssocs);
+          $objEdittemplate->parse();
+          $strArrayFormAssocs['editform'] = $objEdittemplate->getOutput();
         }
         else{
           //neu
-          $formassocs['replystring'] = 'Post a reply to this message';
-          $formassocs['editform'] = '';
+          $strArrayFormAssocs['replystring'] = 'Post a reply to this message';
+          $strArrayFormAssocs['editform'] = '';
         }
-        $formtemplate->assign($formassocs);
-        $formtemplate->parse();
-        $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
+        $objFormtemplate->assign($strArrayFormAssocs);
+        $objFormtemplate->parse();
+        $strArrayMessageAssocs['edit-reply-form'] = $objFormtemplate->getOutput();
       }
-      $messes = $message->getNextMessages();
-      $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs);
+      $objArrayMesses = $objMessage->getNextMessages();
+      $strArrayMessageAssocs = displayMessages($objArrayMesses, $boolArrayMsgselection, $intSelected, $intForumid, $strArrayMessageAssocs);
     }
     else{
-      $messageassocs['selectorunselect'] = 'select';
-      $messageassocs['message-id'] = encodeText($message->intId);
-      $messageassocs['plusorminus'] = '+';
-      $messageassocs['sender-title'] = '';
-      $messageassocs['sender-firstname'] = '';
-      $messageassocs['sender-lastname'] = '';
-      $messageassocs['message-subject'] = encodeText($message->strSubject);
-      $messageassocs['message-sendtime'] = '';
-      $messageassocs['message-text'] = '';
-      $messageassocs['edit-reply-form'] = '';
-      $messageassocs['messages'] = '';
-      $messageassocs['colon'] = '';
-      $messageassocs['postfix'] = '';
-      $replylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
-      $replyassocs = defaultAssocArray();
-      $replylinkassocs['message-id'] = encodeText($message->intId);
-      $replylinktemplate->assign($replylinkassocs);
-      $replylinktemplate->parse();
-      $messageassocs['replylink'] = $replylinktemplate->getOutput();
+      $strArrayMessageAssocs['selectorunselect'] = 'select';
+      $strArrayMessageAssocs['message-id'] = encodeText($objMessage->intId);
+      $strArrayMessageAssocs['plusorminus'] = '+';
+      $strArrayMessageAssocs['sender-title'] = '';
+      $strArrayMessageAssocs['sender-firstname'] = '';
+      $strArrayMessageAssocs['sender-lastname'] = '';
+      $strArrayMessageAssocs['message-subject'] = encodeText($objMessage->strSubject);
+      $strArrayMessageAssocs['message-sendtime'] = '';
+      $strArrayMessageAssocs['message-text'] = '';
+      $strArrayMessageAssocs['edit-reply-form'] = '';
+      $strArrayMessageAssocs['messages'] = '';
+      $strArrayMessageAssocs['colon'] = '';
+      $strArrayMessageAssocs['postfix'] = '';
+      $objReplylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
+      $strArrayReplyAssocs = defaultAssocArray();
+      $strArrayReplyAssocs['message-id'] = encodeText($objMessage->intId);
+      $objReplylinktemplate->assign($strArrayReplyAssocs);
+      $objReplylinktemplate->parse();
+      $strArrayMessageAssocs['replylink'] = $objReplylinktemplate->getOutput();
     }
-    $messagetemplate->assign($messageassocs);
-    $messagetemplate->parse();
-    $tempstring = $tempstring . $messagetemplate->getOutput();
+    $objMessagetemplate->assign($strArrayMessageAssocs);
+    $objMessagetemplate->parse();
+    $tempstring = $tempstring . $objMessagetemplate->getOutput();
   }
   if ($tempstring != ''){
     $assocs['messages'] = $tempstring;
@@ -248,35 +248,35 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
   return $assocs;
 }
 
-function isChair($person){
-  return (($person->intRoles == 1) || ($person->intRoles == 2));
+function isChair($objPerson){
+  return (($objPerson->intRoles == 1) || ($objPerson->intRoles == 2));
 }
 
-function isOpenForum($forum){
-  return ($forum->intForumType == 1);
+function isOpenForum($objForum){
+  return ($objForum->intForumType == 1);
 }
 
-function isPaperForum($forum){
-  return ($forum->intForumType == 3);
+function isPaperForum($objForum){
+  return ($objForum->intForumType == 3);
 }
 
-function isChairForum($forum){
-  return ($forum->intForumType == 2);
+function isChairForum($objForum){
+  return ($objForum->intForumType == 2);
 }
 
-function generatePostMethodArray($postvars){
-  $pma = array();
-  if (empty($postvars['posttype'])){
-    $pma['posttype'] = 'reply';
+function generatePostMethodArray($strArrayPostvars){
+  $strArrayPma = array();
+  if (empty($strArrayPostvars['posttype'])){
+    $strArrayPma['posttype'] = 'reply';
   }
   else{
-    $pma['posttype'] = $postvars['posttype'];
+    $strArrayPma['posttype'] = $strArrayPostvars['posttype'];
   }
-  $pma['reply-to'] = $postvars['reply-to'];
-  $pma['text']     = $postvars['text'];
-  $pma['subject']  = $postvars['subject'];
-  $pma['forumid']  = $postvars['forumid'];
-  return $pma;
+  $strArrayPma['reply-to'] = $strArrayPostvars['reply-to'];
+  $strArrayPma['text']     = $strArrayPostvars['text'];
+  $strArrayPma['subject']  = $strArrayPostvars['subject'];
+  $strArrayPma['forumid']  = $strArrayPostvars['forumid'];
+  return $strArrayPma;
 }
 
 
@@ -293,37 +293,37 @@ function generatePostMethodArray($postvars){
   }
   */
 
-  $content = new Template(TPLPATH . 'forumlist.tpl');
-  $contentAssocs = defaultAssocArray();
-  $contentAssocs['message'] = session('message', false);
+  $objContenttemplate = new Template(TPLPATH . 'forumlist.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['message'] = session('message', false);
   session_delete('message');
-  $contentAssocs['forumtypes'] = '';
+  $strArrayContentAssocs['forumtypes'] = '';
 
   //evtl. posten einleiten
   if (((!empty($_POST['reply-to'])) || ((!empty($_POST['posttype'])) && ($_POST['posttype'] == 'newthread'))) && (!empty($_POST['text']))){
-    $pvars = generatePostMethodArray($_POST);
-    $postresult = false;
+    $strArrayPvars = generatePostMethodArray($_POST);
+    $intPostresult = false;
     //auf einen Beitrag antworten
-    if (($pvars['posttype'] == 'reply') && (!empty($pvars['text'])) && (!empty($pvars['forumid'])) && (!empty($pvars['reply-to']))){
-      $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
+    if (($strArrayPvars['posttype'] == 'reply') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid'])) && (!empty($strArrayPvars['reply-to']))){
+      $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
     }
     // TODO
     //einen Beitrag updaten - DBAccess Methode dazu fehlt noch
-    //if (($pvars['posttype'] == 'update') && (!empty($pvars['reply-to'])) && (!empty($pvars['subject'])) && (!empty($pvars['text']))){
-    //  $postresult = $myDBAccess->updateMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid'], $pvars['reply-to']);
+    //if (($strArrayPvars['posttype'] == 'update') && (!empty($strArrayPvars['reply-to'])) && (!empty($strArrayPvars['subject'])) && (!empty($strArrayPvars['text']))){
+    //  $intPostresult = $myDBAccess->updateMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
     //}
     //einen neuen Thread starten
-    if (($pvars['posttype'] == 'newthread') && (!empty($pvars['text'])) && (!empty($pvars['forumid']))){
-      $postresult = $myDBAccess->addMessage($pvars['subject'], $pvars['text'], $uid, $pvars['forumid']);
+    if (($strArrayPvars['posttype'] == 'newthread') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid']))){
+      $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid']);
     }
     // hat geklappt :)
-    if (!empty($postresult)){
-      $selecttree = session('forum_msgselect', false);
-      if (empty($selecttree)){
-        $selecttree = array();
+    if (!empty($intPostresult)){
+      $boolArraySelecttree = session('forum_msgselect', false);
+      if (empty($boolArraySelecttree)){
+        $boolArraySelecttree = array();
       }
-      $selecttree[$postresult] = true;
-      $_SESSION['forum_msgselect'] = $selecttree;
+      $boolArraySelecttree[$intPostresult] = true;
+      $_SESSION['forum_msgselect'] = $boolArraySelecttree;
     }
     else{
       // posten fehlgeschlagen
@@ -334,12 +334,12 @@ function generatePostMethodArray($postvars){
   }
 
   // Foren holen
-  $forums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid', false));
+  $objArrayForums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid', false));
   if ($myDBAccess->failed()) {
     error('Error getting forum list.', $myDBAccess->getLastError());
   }
-  if (empty($forums)){
-    $forums = array();
+  if (empty($objArrayForums)){
+    $objArrayForums = array();
   }
 
   // selektionen updaten
@@ -397,19 +397,19 @@ function generatePostMethodArray($postvars){
     $fshow = 0;
   }
 
-  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $fshow);
-  $content->assign($contentAssocs);
+  $strArrayContentAssocs = buildForumtemplates($objArrayForums, $ffs, $fms, $sel, $strArrayContentAssocs, $fshow);
+  $objContenttemplate->assign($strArrayContentAssocs);
 
   include(INCPATH.'usermenu.inc.php');
 
-  $main = new Template(TPLPATH . 'frame.tpl');
-  $mainassocs = defaultAssocArray();
-  $mainassocs['title'] = 'Forums of ' . encodeText(session('uname', false));
-  $mainassocs['content'] = &$content;
-  $mainassocs['menu'] = &$menu;
-  $mainassocs['navigator'] = encodeText(session('uname', false)) . '  |  Forums';
+  $objMaintemplate = new Template(TPLPATH . 'frame.tpl');
+  $strArrayMainAssocs = defaultAssocArray();
+  $strArrayMainAssocs['title'] = 'Forums of ' . encodeText(session('uname', false));
+  $strArrayMainAssocs['content'] = &$objContenttemplate;
+  $strArrayMainAssocs['menu'] = &$menu;
+  $strArrayMainAssocs['navigator'] = encodeText(session('uname', false)) . '  |  Forums';
 
-  $main->assign($mainassocs);
-  $main->parse();
-  $main->output();
+  $objMaintemplate->assign($strArrayMainAssocs);
+  $objMaintemplate->parse();
+  $objMaintemplate->output();
 ?>
