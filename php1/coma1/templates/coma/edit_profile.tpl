@@ -9,6 +9,14 @@
   </tr>
   <tr>
     <td>
+      Old Password:
+    </td>
+    <td>
+      <input type="password" name="password" size="48" maxlength="127" value="">
+    </td>
+  </tr>
+  <tr>
+    <td>
       Password:
     </td>
     <td>
@@ -128,3 +136,9 @@
   </tr>
 </table>
 </form>
+
+<p>&nbsp;</p>
+
+<p class="message">
+  If you want to change your Email or your password, please enter your old password, too.<br>
+</p>
