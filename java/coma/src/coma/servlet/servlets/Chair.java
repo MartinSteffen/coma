@@ -300,23 +300,38 @@ public class Chair extends HttpServlet
 	
 	public void show_authors(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		/*
-		 * FIXME: same as in show_reviewers
-		 */
+		String tag;
 		Person p;
 		boolean PAPER = false;
-		if (req.getParameter("author")==null)
+		if(req.getParameter("delete")!=null)
 		{
+			/*FIXME
+			 * delete person from db
+			 */
+			try
+			{
+			res.sendRedirect("/coma/Chair?action=show_authors");
+			}
+			catch(IOException io)
+			{
+				
+			}
+		}
+		if (req.getParameter("id")==null)
+		{
+			/*FIXME
+			 * get Person with role
+			 */
 			p = new Person(0);
 			p.setState("author");
+			tag = "showauthors";
 		}
 		else
 		{
-			p = new Person(Integer.parseInt(req.getParameter("author")));
-			p.setState("author");
+			p = new Person(Integer.parseInt(req.getParameter("id")));
 			PAPER=true;
+			tag = "showauthors_data";
 		}
-		String tag = "showauthors";
         SearchCriteria search = new SearchCriteria();
         search.setPerson(p);
         ReadServiceImpl readService = new ReadServiceImpl();
@@ -337,7 +352,7 @@ public class Chair extends HttpServlet
         	}
         	info.append("</content>");
         	if (PAPER)
-        		info.append(XMLHelper.tagged("status","" + user + ": list of author for paper ?"));
+        		info.append(XMLHelper.tagged("status","" + user + ": statistic for author ?"));
         	else
         		info.append(XMLHelper.tagged("status","" + user + ": list of all authors"));	
         	commit(res,tag);
@@ -346,6 +361,7 @@ public class Chair extends HttpServlet
 
 	public void show_reviewers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
+		String tag;
 		if(req.getParameter("delete")!=null)
 		{
 			/*FIXME
@@ -362,9 +378,9 @@ public class Chair extends HttpServlet
 		}
 		else
 		{
-			if(req.getParameter("status")!=null)
+			if(req.getParameter("id")!=null)
 			{
-				String tag = "showreviewers_data";
+				tag = "showreviewers_data";
 				info.append(XMLHelper.tagged("status","" + user + ":statistic"));
 				Person p = new Person(Integer.parseInt(req.getParameter("id")));
 				SearchCriteria search = new SearchCriteria();
@@ -394,9 +410,10 @@ public class Chair extends HttpServlet
 				/* FIXME
 				 * int role_type? for reviewer;
 				 */
-				String tag = "showreviewers";
+				tag = "showreviewers";
 		        Person p = new Person(0);
-		        p.setRole_type(1);
+		        p.setState("reviewer");
+		        //p.setRole_type(1);
 		        SearchCriteria search = new SearchCriteria();
 		        search.setPerson(p);
 		        ReadServiceImpl readService = new ReadServiceImpl();
@@ -446,6 +463,7 @@ public class Chair extends HttpServlet
         	for (int i=0;i<result.length;i++)
         	{
         		p = result[i];
+        		System.out.println(p.getAbstract());
         		info.append(p.toXML());
         	}
         	info.append("</content>");
