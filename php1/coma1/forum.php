@@ -229,10 +229,14 @@ function generatePostMethodArray($postvars){
   return $pma;
 }
 
+function emptystring($s){
+  return ($s == '');
+}
+
 
 //Main-Code
 
-if ((empty(session('uid'))) && (!DEBUG)){
+if ((emptystring(session('uid'))) && (!DEBUG)){
   redirect('login.php');
 }
 else{
@@ -320,7 +324,7 @@ else{
   }
   if (!empty($HTTP_GET_VARS['unselect'])){
     $tunselect = $HTTP_GET_VARS['unselect'];
-    if (!empty(session('forum_msgselect'))){
+    if (!emptystring(session('forum_msgselect'))){
       $temp = session('forum_msgselect');
       $temp[$tunselect] = false;
       $_SESSION['forum_msgselect'] = $temp;
@@ -334,7 +338,7 @@ else{
   }
   if (!empty($HTTP_GET_VARS['forumunsel'])){
     $tunselect = $HTTP_GET_VARS['forumunsel'];
-    if (!empty(session('forum_forumselect'))){
+    if (!emptystring(session('forum_forumselect'))){
       $temp = session('forum_forumselect');
       $temp[$tunselect] = false;
       $_SESSION['forum_forumselect'] = $temp;
