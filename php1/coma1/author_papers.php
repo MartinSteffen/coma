@@ -21,7 +21,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete') {
   }
 }
 
-$objPapers = $myDBAccess->getPapersOfAuthor(session('uid'), session('confid'));
+if (isset($_GET['order'])) {
+  if ((int)session('orderpapers', false) != $_GET['order']) {
+    $_SESSION['orderpapers'] = $_GET['order'];
+  }
+  else {
+    unset($_SESSION['orderpapers']);
+  }
+}
+$intOrder = (int)session('orderpapers', false);
+$ifArray = array($intOrder);
+
+$objPapers = $myDBAccess->getPapersOfAuthor(session('uid'), session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('get paper list of author',$myDBAccess->getLastError());
 }
@@ -29,6 +40,7 @@ if ($myDBAccess->failed()) {
 $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
+$strContentAssocs['targetpage'] = 'author_papers.php';
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {

@@ -3,11 +3,17 @@
 
 <table class="list">
   <tr class="listheader">
-    <th class="listheader">Title</th>
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=1{&SID}" class="order{if1-active}">Title</a>
+    </th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">Current status</th>
-    <th class="listheader">Average rating</th>    
-    <th class="listheader">Last edited</th>
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=4{&SID}" class="order{if4-active}">Average rating</a>
+    </th>    
+    <th class="listheader">
+      <a href="{basepath}{targetpage}?order=5{&SID}" class="order{if5-active}">Last edited</a>
+    </th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">

@@ -34,6 +34,7 @@ global $strRoles;
 
 $content = new Template(TPLPATH.'user_userlist.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['targetpage'] = 'user_users.php';
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = $ifArray;

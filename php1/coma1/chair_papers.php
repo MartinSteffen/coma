@@ -27,6 +27,17 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete') {
   }
 }
 
+if (isset($_GET['order'])) {
+  if ((int)session('orderpapers', false) != $_GET['order']) {
+    $_SESSION['orderpapers'] = $_GET['order'];
+  }
+  else {
+    unset($_SESSION['orderpapers']);
+  }
+}
+$intOrder = (int)session('orderpapers', false);
+$ifArray = array($intOrder);
+
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get paper list of chair',$myDBAccess->getLastError());
@@ -40,7 +51,8 @@ $critvar = $confdet->fltCriticalVariance;
 
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if'] = array();
+$strContentAssocs['if'] = $ifArray;
+$strContentAssocs['targetpage'] = 'chair_papers.php';
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;

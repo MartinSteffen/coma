@@ -32,6 +32,7 @@ if ($myDBAccess->failed()) {
 
 $content = new Template(TPLPATH.'user_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['targetpage'] = 'user_papers.php';
 $strContentAssocs['if'] = $ifArray;
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {

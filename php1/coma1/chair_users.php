@@ -65,6 +65,7 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
+$strContentAssocs['targetpage'] = 'chair_users.php';
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = $ifArray;
