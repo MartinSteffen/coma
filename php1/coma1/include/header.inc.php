@@ -100,7 +100,9 @@ checkError($myDBAccess);
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 // Stellt ausserdem sicher das uid und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
-if ((basename($_SERVER['PHP_SELF'])!='index.php')&&(!$myDBAccess->checkLogin())) {
+if ( basename($_SERVER['PHP_SELF'])!='index_regi.php') {
+if ((basename($_SERVER['PHP_SELF'])!='index.php') &&
+    (!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
     $_SESSION['message'] = 'Bitte melden Sie sich an!';
   }
@@ -115,5 +117,5 @@ if ((basename($_SERVER['PHP_SELF'])!='index.php')&&(!$myDBAccess->checkLogin()))
   }
   redirect('index.php');
 }
-
+}
 ?>
