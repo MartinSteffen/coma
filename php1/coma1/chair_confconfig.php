@@ -38,7 +38,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
   $min_papers  = (int) $_POST['min_papers'];
   $max_papers  = (int) $_POST['max_papers'];
   $variance    = (int) $_POST['variance'];
-  $auto_numrev = (int) $_POST['auto_numreviewer'];
+  $auto_numreviewer = (int) $_POST['auto_numreviewer'];
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description'], false);
@@ -133,7 +133,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
       $strMessage =  $strMessage.
                      "Your ambiguity should be greater than zero and less or equal than hundred!\n";
     }
-    if ( !(0 <= $auto_numrev )){
+    if ( !(0 <= $auto_numreviewer )){
       $strMessage =  $strMessage.
                      "Your number of automatically added reviewers should be greater or equal than zero!\n";
     }
