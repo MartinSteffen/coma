@@ -344,7 +344,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 			QUERY = "SELECT * FROM Paper";
 			allFlag = true;
 		} else {
-			QUERY += " WHERE ";
 			if (p.getId() > 0) {
 				QUERY += " id = ?";
 				idFlag = true;
@@ -375,6 +374,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					sql_and = true;
 				}
 			}
+			System.out.println(QUERY);
 		}
 		if (!(idFlag || allFlag || conferenceIdFlag || authorIdFlage || stateFlag)) {
 			info.append("No search critera was specified\n");

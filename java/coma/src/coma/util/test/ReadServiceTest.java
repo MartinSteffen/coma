@@ -106,9 +106,9 @@ public class ReadServiceTest extends TestCase{
 			return;
 		}
 		
-		Paper p = new Paper(-2);
-		//p.setAuthor_id(1);
-		//p.setConference_id(1);
+		Paper p = new Paper(-1);
+		p.setAuthor_id(127);
+		p.setConference_id(1);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPaper(p);
 		
