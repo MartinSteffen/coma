@@ -16,13 +16,7 @@ class ComaExample extends PHPUnit_TestCase
       $this->assertTrue(TRUE);
   }
 
---  function test_DBAccess() {
---      $this->assertFalse($myDBAccess->failed());
---  }
---
---  function test_checkEmail() {
---    $this->assertTrue($myDBAccess->checkEmail($strEmail));
---  }
+
 }
 
 ?>
