@@ -31,7 +31,9 @@ if (!empty($objConferences)) {
   foreach ($objConferences as $objConference) {
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
     if ($mySql->failed()) {
-      echo ($mySql->getLastError().'<br>');
+      $_SESSION['message'] = 'An error occured during processing the conference list!<br>'.
+                             $mySql->getLastError();
+      redirect('error.php');
     }
     $ifArray = array();
     if (!empty($objPerson)) {

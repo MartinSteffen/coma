@@ -10,7 +10,9 @@ if (!defined('IN_COMA1')) {
 
 $objPerson = $myDBAccess->getPerson(session('uid', session('confid')));
 if ($mySql->failed()) {
-  echo ($mySql->getLastError().'<br>');
+  $_SESSION['message'] = 'An error occured during processing the user menu!<br>'.
+                         $mySql->getLastError();
+  redirect('error.php');
 }
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
