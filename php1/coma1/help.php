@@ -23,7 +23,7 @@ require_once('./include/header.inc.php');
 
 $strMainAssocs = defaultAssocArray();
 
-if (isset($_SESSION['uname'])) {
+if (checklogin()) {
   $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Help';
   if (isset($_SESSION['confid'])) {
     $actMenu = 0;

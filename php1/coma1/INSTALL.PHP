@@ -34,12 +34,7 @@ if (empty($result)) {
   echo(mysql_error($this->mySqlConnection).'<br><br>');
 }
 
-// Tabellen anlegen
-$sql = 'DROP TABLE `Conference`, `ConferenceConfig`, `Criterion`, `DeniesPaper`,'.
-       '           `Distribution`, `ExcludesPaper`, `Forum`, `IsAboutTopic`,'.
-       '           `IsCoAuthorOf`, `Message`, `Paper`, `Person`, `PrefersPaper`,'.
-       '           `PrefersTopic`, `Rating`, `ReviewReport`, `Role`, `Session`,'.
-       '           `Topic`';
+// Tabellen anlegen 1
 
 $result = mysql_query($sql, $conn);
 if (empty($result)) {
