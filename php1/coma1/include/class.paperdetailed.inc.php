@@ -40,7 +40,7 @@ class PaperDetailed extends PaperSimple {
                          $fltAvgRating, $intCoAuthorIds, $strCoAuthors, $strAbstract, $strMimeType,
                          $intVersion, $strFilePath, $objTopics) {
     $this->PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus, $strLastEdit,
-                       $fltAvgRating, $strFilePath, $objTopics, $fltVariance);
+                       $fltAvgRating, $strFilePath, $objTopics);
     $this->intCoAuthorIds = $intCoAuthorIds;
     $this->strCoAuthors   = $strCoAuthors;
     $this->strAbstract    = $strAbstract;

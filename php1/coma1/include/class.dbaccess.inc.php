@@ -947,7 +947,7 @@ class DBAccess extends ErrorHandling {
       foreach ($objReviews as $objReview){
         $fltVariance = $fltVariance + pow(($objReview->fltReviewRating - $fltAvgRating), 2);
       }
-      $fltVariance = sqrt($fltVariance) / count($objReviews);
+      $fltVariance = $fltVariance / count($objReviews);
       return $this->success($fltVariance);
     }
     return $this->success(false);
