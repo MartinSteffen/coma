@@ -8,7 +8,7 @@
     <td class="listitem-{line_no}">
       {if0<span class="status-unreviewed">unreviewed</span>}
       {if1<span class="status-reviewed">reviewed</span>}
-      {if2<span class="status-critical">conflicting</span>}
+      {if2<span class="status-critical">critical</span>}
       {if3<span class="status-accepted">accepted</span>}
       {if4<span class="status-rejected">rejected</span>}
     </td>

@@ -23,7 +23,7 @@
         <input type="submit" name="submit" value="reject" class="smallbutton">
       </form>
       }
-      {if2<span class="status-critical">conflicting</span><br>
+      {if2<span class="status-critical">critical</span><br>
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="changestatus">
         <input type="hidden" name="paperid" value="{paper_id}">

@@ -30,6 +30,7 @@
       Select <a href="{basepath}chair_reviews.php{?SID}" class="link">'Manage reviews'</a> to distribute papers to
       reviewers and to gather information about the reviewing process of papers.
       {if3<br><span class="alert">There are {papers_no} papers waiting for you to be distributed to reviewers.</span>}
+      {if5<br><span class="alert">There are {crit_papers_no} critical papers that have been rated ambiguously.</span>}
     </td>
   </tr>
   <tr class="viewline">

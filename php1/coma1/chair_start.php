@@ -28,6 +28,7 @@ $objPersons = $myDBAccess->getUsersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
+// Pruefe auf Accountanfragen
 $intRoleRequests = 0;
 foreach ($objPersons as $objPerson) {
   if ($objPerson->hasAnyRoleRequest()) {
@@ -38,6 +39,7 @@ if ($intRoleRequests > 0) {
   $strContentAssocs['request_no'] = encodeText($intRoleRequests);
   $ifArray[] = 1;
 }
+// Pruefe auf nicht verteilte Paper
 $intUndistributedPapers = $myDBAccess->getNumberOfPapers(session('confid')) -
                           $myDBAccess->getNumberOfDistributedPapers(session('confid'));
 if ($myDBAccess->failed()) {
@@ -47,6 +49,7 @@ if ($intUndistributedPapers > 0) {
   $strContentAssocs['papers_no'] = encodeText($intUndistributedPapers);
   $ifArray[] = 3;
 }
+// Pruefe auf fuer die Konferenz auszuwaehlende Paper
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
 if ($myDBAccess->failed()) {
   error('get conference details',$myDBAccess->getLastError());
@@ -70,6 +73,15 @@ if (strtotime($objConference->strReviewDeadline) <= strtotime("now")) {
     $ifArray[] = 4;
   }
 }
+$intCriticalPapers = $myDBAccess->getNumberOfCriticalPapers(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get num of critical papers',$myDBAccess->getLastError());
+}
+if ($intCriticalPapers > 0) {
+  $strContentAssocs['crit_papers_no'] = encodeText($intCriticalPapers);
+  $ifArray[] = 5;
+}
+
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 

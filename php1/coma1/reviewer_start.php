@@ -17,8 +17,23 @@ require_once('./include/header.inc.php');
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(REVIEWER);
 
+$ifArray = array();
 $content = new Template(TPLPATH.'reviewer_start.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['paper_dl'] = '';
+$strContentAssocs['review_dl'] = '';
+$strContentAssocs['crit_papers_no'] = '';
+
+$intCriticalPapers = $myDBAccess->getNumberOfCriticalPapers(session('confid'), session('uid'));
+if ($myDBAccess->failed()) {
+  error('get num of critical papers',$myDBAccess->getLastError());
+}
+if ($intCriticalPapers > 0) {
+  $strContentAssocs['crit_papers_no'] = encodeText($intCriticalPapers);
+  $ifArray[] = 5;
+}
+
+$strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
 $_SESSION['menu'] = REVIEWER;
