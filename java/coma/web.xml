@@ -10,7 +10,15 @@
     <description>
       Conference Management's System
     </description>
-
+    
+    <!--
+	<servlet>
+	   <servlet-name>default</servlet-name>
+	   <servlet-class>
+	      org.apache.catalina.servlets.DefaultServlet
+	   </servlet-class>
+	</servlet>
+	-->
     <servlet>
      <servlet-name>Login</servlet-name>
      <servlet-class>coma.servlet.servlets.Login</servlet-class>
@@ -26,7 +34,12 @@
      <servlet-class>coma.servlet.servlets.invite</servlet-class>
     </servlet>
     
-   
+   <!--
+    <servlet-mapping>
+       <servlet-name>default</servlet-name>
+       <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    -->
     <servlet-mapping>
       <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
@@ -39,6 +52,10 @@
       <servlet-name>invite</servlet-name>
     <url-pattern>/invite</url-pattern>
     </servlet-mapping>
+    
+    <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 
   <!-- Define a Security Constraint on this Application
  <security-constraint>
