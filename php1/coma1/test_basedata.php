@@ -17,7 +17,7 @@ $conferences = 1;
 $persons = 100;
 $criterions = 3;
 $papers = $persons/2-$persons/10;
-$reports = persons/3 * $papers;
+$reports = $persons/3 * $papers;
 $topics = 10;
 
 echo '.';
@@ -92,7 +92,13 @@ while ($i < $conferences) {
 }
 
 $myDBAccess->addCoAuthor(1, 1);
+      if ($myDBAccess->failed()) {
+	    echo('Fehler: '.$myDBAccess->getLastError());
+}
 $myDBAccess->addCoAuthorName(2, 'Co Author Name');
+      if ($myDBAccess->failed()) {
+	    echo('Fehler: '.$myDBAccess->getLastError());
+}
 
 echo '.';
 $i = 0;
@@ -116,7 +122,7 @@ while ($j < $papers) {
 
   while ($i < $persons/3) {
   if(rand(1,3) < 3) {
-  echo 'Rep<br>'.$j.$i;
+  echo 'Rep'.$j.$i.'<br>';
     $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
     if ($myDBAccess->failed()) {
@@ -131,7 +137,7 @@ while ($j < $papers) {
 echo '.';
 $i = 0;
 while ($i < $reports) {
-  $j = 0;
+$j = 0;
   while($j < $criterions) {
   echo 'Ra<br>';
     $myDBAccess->addRating($i+1, $j+1, rand(1,6), 'Comment'.$i.$j);
