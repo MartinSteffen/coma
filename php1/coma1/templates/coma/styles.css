@@ -80,12 +80,12 @@ h3
 .alert
 {
   font-weight: bold;
-  color: #FF2600;  
+  color: #FF2600;
   margin: 2px 10px;
 }
 .invalid
 {
-  color: #FF2600;  
+  color: #FF2600;
   background-color: #FFF0E0;
 }
 .renderTime
@@ -97,7 +97,7 @@ h3
 
 /* Allgemeine Links */
 a
-{  
+{
   text-decoration: none;
   font-weight: bold;
 }
@@ -122,7 +122,7 @@ a.email {
   padding-left: 12px;
   background-image:url('images/mail.gif');
   background-repeat: no-repeat;
-  background-position: left;  
+  background-position: left;
 }
 a.link {
   padding-left: 12px;
@@ -150,7 +150,7 @@ table, form
   border-style: none;
   border-spacing: 0px;
   padding: 0px;
-  margin: 0px;  
+  margin: 0px;
 }
 
 /* Tabelle fuer das linke Menue */
@@ -289,12 +289,12 @@ table.formlist {
 {
   padding: 0px 8px;
   border-top: 1px #404040 solid;
-  border-bottom: 1px #404040 solid;  
+  border-bottom: 1px #404040 solid;
 }
 .formlistitem
-{  
+{
   padding: 0px 8px;
-  border-bottom: 1px #404040 solid;  
+  border-bottom: 1px #404040 solid;
 }
 
 /* Schaltflaechen und Eingabefelder */
@@ -302,7 +302,7 @@ table.formlist {
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
-  background-color: #CEDBEF;  
+  background-color: #CEDBEF;
   text-align: center;
   padding: 2px 8px;
 }
@@ -405,7 +405,7 @@ table.viewtable
   background-color: #F5FBFF;
   border-style: solid;
   border-width: 1px;
-  border-color: #404040;  
+  border-color: #404040;
   margin: 6px 10px;
   padding: 8px;
 }
@@ -425,8 +425,8 @@ table.subviewtable
   font-weight: bold;
 }
 .viewline
-{  
-  border-top: 1px #808080 solid;  
+{
+  border-top: 1px #808080 solid;
 }
 
 /* Meldungen */
@@ -456,7 +456,15 @@ p.message-ok
 }
 p.message2
 {
-  width: auto;
+  width: 60%;
+  color: #111111;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: left;
+  background-color: #EEEEEE;
+  border: 1px solid #FFFFFF;
+  margin: 6px 10px;
+  padding: 4px 12px;
 }
 
 /* Statusanzeigen fuer Dokumente, Rollen etc. */
