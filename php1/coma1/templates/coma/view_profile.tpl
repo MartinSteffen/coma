@@ -17,7 +17,7 @@
       E-mail address:
     </td>
     <td>
-      {email} <span class="emph">(= username)</span>
+      <a href="{email_link}" class="email">{email}</a>
     </td>
   </tr>
   <tr>

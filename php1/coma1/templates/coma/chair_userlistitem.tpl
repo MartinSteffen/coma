@@ -1,40 +1,16 @@
   <tr class="listitem-1"> 
-    <td class="listitem-1">
-      <a href="{basepath}user_userdetails.php?userid={userid}{&SID}">
-      Robby Rabbit</a>
+    <td class="listitem-{line_no}">
+      <a href="{basepath}user_userdetails.php?userid={user_id}{&SID}">{name}</a>
     </td> 
-    <td class="listitem-1"> 
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="userid" value="{userid}">
-        <input type="hidden" name="roletype" value="{roletype}">
-        chair
-        <input type="submit" name="submit" value="deleterole" class="button">       
-      </form> 
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="userid" value="{userid}">
-        <input type="hidden" name="roletype" value="{roletype}">
-        reviewer
-        <input type="submit" name="submit" value="deleterole" class="button">       
-      </form> 
-    </td>
-    <td class="listitem-1"> 
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="userid" value="{userid}">
-        <input type="hidden" name="roletype" value="{roletype}">
-        author
-        <input type="submit" name="submit" value="deleterole" class="button">       
-      </form> 
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="userid" value="{userid}">
-        <input type="hidden" name="roletype" value="{roletype}">
-        participant
-        <input type="submit" name="submit" value="deleterole" class="button">       
-      </form> 
-    </td>
-    <td>
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="userid" value="{userid}" />
-        <input type="submit" name="submit" value="delete" class="button" />
+    <td class="listitem-{line_no}">
+      <a href="{email_link}" class="email">{email}</a>
+    </td>    
+    <td class="listitem-{line-no}">{roles}</td>    
+    <td class="listitem-{line-no}"> 
+      <form action="{basepath}{target_form}{?SID}" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="userid" value="{user_id}">
+        <input type="submit" name="submit" value="delete" class="button">
       </form>
     </td>
   </tr>
