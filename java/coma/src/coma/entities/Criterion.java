@@ -5,15 +5,15 @@ package coma.entities;
 
    @author ums
  */
-public class Criterion extends Entity {
+public class Criterion{
 
     /* the DB's fields. */
-    private final int id;
-    private final int conferenceId;
-    private final String name;
-    private final String description;
-    private final int maxValue;
-    private int qualityRating;
+    private Integer id;
+    private Integer conferenceId;
+    private String name;
+    private String description;
+    private Integer maxValue;
+    private Integer qualityRating;
 
     public Criterion(int id){
 	/* FIXME: get criterion out of database by ID */
@@ -36,7 +36,7 @@ public class Criterion extends Entity {
     public int getQualityRating(){return qualityRating;}
 
     public static Conference getConference(){
-	/* FIXME unclear what the params of E~C~ should do. */
-	return new coma.entity.util.EntityCreator().getConference(null);
+	/* FIXME */
+	return null;
     }
 }

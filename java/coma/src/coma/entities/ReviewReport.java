@@ -6,6 +6,8 @@
  */
 package coma.entities;
 
+import java.util.*;
+
 /**
  * @author ziad, ums
  *
@@ -14,15 +16,18 @@ package coma.entities;
  */
 public class ReviewReport {
 
-    private final int id;
-    private final int paperId;
-    private final int reviewerId;
+    private Integer id;
+    private Integer paperId;
+    private Integer reviewerId;
     private String summary;
     private String remarks;
     private String confidental;
 
     public ReviewReport(int id){
-	
+	this.id=id;
+    }
+
+    public ReviewReport(){
     }
 
     public int getId(){return id;}
@@ -40,5 +45,18 @@ public class ReviewReport {
     public Paper getPaper(){
 	/* FIXME */
 	return null;
+    }
+
+    /**
+       Return a set of all ratings that are part of this review report.
+
+       The set returned may be empty, but it is never null.
+     */
+    public Set<Rating> getRatings(){
+	Set<Rating> result = new HashSet<Rating>();
+	/* FIXME */
+	assert (result != null) 
+	    : "violates spec: result null";
+	return result;
     }
 }
