@@ -3,23 +3,66 @@
 
 	    - Lob an PHP1: 
                  php1/spec/main.txt vorhanden,
-		 vorn allen anderen noch nicht mal ein Verzeichnis
+		 ziemlich sauber gemacht (festlegung bis
+		 auf die Frage der Rechtschreibung... etc)		 
+		 Inhaltsverzeichnis:
+
+	   weitere Pluspunkte
+	       + verantwortlichkeiten
+	       + Dokumentierte Testf"alle (!)
+	       + Verzeichnusstruktur
+	       + Anmerkungen, was eventuell vorl"aufig ist
+	         und was nicht (Status)
+	       + Liste offener Punkte
+	       
+
+		   spezielle: vielleicht sollte man
+		   php1/architecture nach spec tun (oder
+		   als unterverzeichnis).
+
+		   - die Bilder: was mir auff"allt: die Bezeichner
+		     sind auf Deutsch, was ok ist, allerdings nach
+		     draussen w"are einheitlich Englisch besser)
+		     Die Bilder Selbst konnte ich nicht richtig
+		     einordnen
+
+		 Von allen anderen noch nicht mal ein Verzeichnis
+
+ 
 
         - Testeinbindung:
-            o von PHP1 kamm auf BB der Hinweis: sie h"atte bereits
-              was, was man anbinden kann (zumindest Gedanken)
+            o  - von PHP1 kamm auf BB der Hinweis: sie h"atte bereits
+                 was, was man anbinden kann (zumindest Gedanken)
+
+   	         Auch aus der Spezifikation: dort
+                 werden bereits Testf"alle festgehalten
 
             o Meiko von PHP2 hatte ebenfalls einen Vorschlage (ich
               glaube per email an swprakt+org), jedenfalls
-              hat sich anscheienen PHP2 ebenfalls Gedanken gemacht
+              hat sich anscheienen PHP2 ebenfalls Gedanken gemacht:
+
+   Meiko> fiel mir gerade ein: zum testen der Module braucht jede Gruppe
+>     Meiko> natürlich Test-Datensätze in der DB. Die werden sich alle
+>     Meiko> Gruppen selbst erzeugen, immer auf Bedarf, ist ja auch ok.  Aber
+>     Meiko> wie wäre es, wenn sich die Test-Gruppe (die man dafür evtl. als
+>     Meiko> zuständig betrachten könnte, hat immerhin was mit testen zu tun)
+>     Meiko> mal ein SQL-Script entwickelt, das ne Menge Test-Datensätze mit
+>     Meiko> allen möglichen Spezialfällen des Datenmodells enthält.  Quasi
+>     Meiko> eine Testkonferenz in SQL-INSERTs mod
 
             o Java: die hatten ja letztes Mal Zeitplanm"a"sig gesagt: in
                    einer Woche w"aren sie soweit mit
                    ``Testanbindungsf"ahigkeit'' :-)
-
-           D.h., das sollten wir anpacken
+            
+          o auf BB: 
+	      - pushtotest/plone? free open-source test environment
+                http://www.pushtotest.com/
+              - Anfrage von Jan: Browserkomatibilitaet, Weiterleitung
 
         - und: SQL: sind die (wenigen) Dinge vom letzten Mal ausgebuegelt?
+
+
+	
 
 Martin
 
