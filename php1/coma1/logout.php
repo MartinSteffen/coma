@@ -21,16 +21,14 @@ define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
 if (checklogin()) {
-  $_SESSION['message'] = 'You have been successfully signed out.';
+  $message = 'You have been successfully signed out.';
 }
 else {
-  $_SESSION['message'] = 'There was nothing to sign out.';
+  $message = 'There was nothing to sign out.';
 }
 
-session_delete('password');
-session_delete('uname');
-session_delete('uid');
-session_delete('confid');
+// Clear all Session Informations besides message
+$_SESSION = array( 'message' => $message );
 
 redirect('login.php');
 
