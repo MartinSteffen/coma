@@ -1,0 +1,57 @@
+
+
+\usepackage{beamerthemesplit}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% frame option: [allowframebreaks]: keine overlays möglich, 
+
+\pgfdeclareimage[height=2mm,interpolate=true]{caulogo}{/home/ms/tex/inputs/logos/caulogo}%% no
+\pgfdeclareimage[height=2cm,interpolate=true]{christiane}{/home/ms/tex/inputs/logos/christine}%% no
+\logo{\pgfuseimage{caulogo}}     %% must be after the beamer theme
+
+\AtBeginSection[]{\mbox{}\tableofcontents[current]\mbox{}}
+
+\beamertemplatedotitem
+\beamertemplatetextbibitems     %% real citations!
+\beamertemplatetransparentcoveredmedium
+
+
+
+
+\usepackage[dvips]{color}
+\usepackage{fancybox}
+%\usepackage[dvips]{epsfig}
+
+\definecolor{mygreen}{rgb}{0.0,0.40,0}    % dark green
+\definecolor{myred}{rgb}{0.8,0.149,0.149} % 
+
+%% komischerweise: Farbe stimmt nicht: immer lila:
+%\beamersetaveragebackground{red}   
+
+
+
+
+%\colorlet{mystructure}{structure!25}
+
+%% RGB-example colors under /usr/lib/X11/rgb.txt
+
+\providecommand{\important}[1]{\structure{#1}}
+\providecommand{\importantx}[1]{{\color{mygreen} #1}}
+\providecommand{\importantxx}[1]{{\color{myred} #1}}
+\providecommand{\unimportant}[1]{{\color{gray} #1}}
+
+
+
+\usepackage{amsmath, array, graphicx, psfrag, latexsym}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: preamble.tex,v 1.1 2004/10/19 07:58:38 swprakt Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 

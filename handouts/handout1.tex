@@ -1,0 +1,483 @@
+%\newif\ifsolution\solutionfalse
+%\newif\ifworking\workingfalse
+
+\newif\ifweb\webfalse
+
+\documentclass[11pt,nologo,handout]{handout}
+
+
+\dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
+\coursename{P-I-T-M}
+\semester{WS 2004/05}
+\ausgabetermin{9.~November 2005}
+\handouttitle{F}
+\nummer{2.(1)}
+\thema{Platform and software}
+
+\newcommand{\Coma}{\textsl{Coma}}
+
+
+%\usepackage[english, german]{babel}
+
+\usepackage{hevea}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+
+%\uebungfalse
+%\handouttrue
+
+%\input{macros}
+\begin{document}
+
+%\ausgabe{19.~Oktober 2004}
+%\maketitle{x}{Koordination mit CVS}
+
+
+\thispagestyle{empty}
+
+
+The purpose of this handout is to give infomration about the available
+platforms, access methods, the currently available software.
+
+
+\section{Hardware + access}
+
+We have one (not-too fast, not-too-big, not-too-new \ldots) PC hooked up to
+the net, over which we have control. Even it the machine is not a
+high-performance server,  the tool should run
+
+Here is some data descibing the machine.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ll}
+    name & \texttt{snert.informatik.uni-kiel.de}
+    \\
+    IP &  134.245.253.11
+    \\
+    disc & ca. 3G available (/home)
+    \\
+    Mhz & 800Mhz
+    \\
+    main memory & 128M
+    \\
+    swap & ca 256M
+    \\
+    OS & Linux 2.6.8 / Fedora core 2 (+ updates)
+    \\
+  \end{tabular}
+  \label{tab:platform}
+\end{table}
+
+The purpose of the machine is 3fold\footnote{One particular purpose for
+  which we cannot use the machine directly is for \emph{backup,} since it
+  is not part of the network's backup system. As solution, we are running a
+  cronjob which in regular intervals copies relevant data to the sun-pool.}
+\begin{enumerate}
+\item subversion server
+\item test platform
+\item bugzilla server
+\end{enumerate}
+
+More details concerning in particular subversion that below. 
+
+%But in order to access the machine, we
+%need from everybody a separate \emph{password} for subversion access (via
+%apache) i.e.  everyone must physically appear at the machine and pick a
+%password.
+
+
+\section{Subversion}
+\label{sec:subversion}
+
+From the discussion, we learnt that we will use \emph{subversion}, which is
+mandatory for all participants.  Currently, we have on the solaris pool the
+\emph{server side} of subversion running.\footnote{The reason why we can't
+  us a solaris machine also for the server side, which would simplify
+  matter a bit is technical: currently subversion cannot deal with NFS'ed
+  file systems very well, and the sys-admin are currently not (yet) setting
+  up a dedicated svn-server machine.}
+
+The command is
+\begin{quotation}
+  \texttt{/opt/local/bin/snv}
+\end{quotation}
+which (probably) means, it's in your execution path. Later we will discuss
+further rules of the game concerning access to the server, but here are a
+few easy commands to start with. For deeper knowledge, refer to the
+subversion manuals. Their are linked to our course pages.
+
+
+
+\subsection{Technical prerequisites}
+
+To access the repos, you need the client-side part of \emph{subversion}.
+For the solaris pool this is installed (see below). Subversion is also
+shipped in modern Linux distributions. As far as installation on Windows or
+Mac platforms is concerned, there's no experience from our side, but it
+seems that some of the participants have expertise there. If proplems
+should arise there, please share the knowledge.
+
+
+Furthermore, for write access to the repos, you need some \emph{password.}
+We will send more instructions about this later.
+
+
+
+
+
+
+\subsection{First access and survival guide}
+
+
+Luckily, many commands look very similar to the ones you might be used from
+cvs. The most important ones are probably:
+\begin{description}
+\item[checking out], i.e., getting the first copy of the repository into
+  ones own workspace
+\item[update] getting one's own copy into sync with the general development
+\item[commit] writing back own changes
+\end{description}
+
+
+
+\subsubsection{Checkout}
+
+For a read access, checking out the currently rather empty repository, you
+don't yet need a password. Create (or choose)in your workspace some
+appropriate directory, say \texttt{WORKDIR}, and then do
+
+
+\begin{verbatim}
+   cd <WORKDIR>
+   svn co http://snert.informatik.uni-kiel.de:8080/svn/coma 
+\end{verbatim}
+
+As an explanation: \texttt{co} stands for ``checkout'' (also
+\texttt{checkout} instead would do), next comes the url of the
+\emph{repository} which is accessed via http and the apache server running
+on snert. The part \texttt{/svn/coma} gives the \emph{project}
+\texttt{coma} on the repository which is specified by
+\texttt{/snv/}.\footnote{The \texttt{/svn/} is one full repository as seen
+  through apache. At the server side, the actual directory containing the
+  repository is kept at a space in the file system accessible by apache.}
+
+%The last argument \texttt{coma}
+%give the client side (sub-)directory, in which the project is developed. We
+%chose it to have the same name as on the server which is plausible, but not
+%mandatory.
+
+
+
+
+
+
+
+\subsection{Testing}
+
+If new to subversion or and version control, it might be help to play
+around a bit. In order to do this without fear of destroying real work, we
+set up a \emph{second repository} for that purpose. It is completely
+separated from the ``real'' one, so it's not just another project on
+\texttt{/svn/} but is called \texttt{/snvtest/} instead.
+
+So you might try:
+
+\begin{verbatim}
+   svn co http://snert.informatik.uni-kiel.de:8080/svntest/coma comatest
+\end{verbatim}
+
+
+
+
+\subsection*{Example}
+
+The example uses \texttt{\$WORKDIR} as name for the \emph{working
+  directory} you choose appropriately. In principle you can have as many
+working directories at the same time, i.e., more than one checked out copy
+of your project. A typical scenario would be to have one at the university
+pool and one at the workplace at home. With the number of checked out
+working directories, however, the danger of confusion increases; in normal
+situation, one woring directory per ``workplace'' suffices.
+\begin{description}
+\item[check out:] as explained already above, the following gives you
+  the first copy of the \Coma-project:
+\begin{verbatim}
+         mkdir $WORKDIR
+         cd $WORKDIR
+         svn co http://snert.informatik.uni-kiel.de:8080/svn/coma 
+\end{verbatim}
+  As said: Instead of \texttt{svn}, you might wish to play around with
+  \texttt{svntest} for a start.  The ``variable'' \texttt{\$WORKDIR} is
+  here just for illustration, pick yourself an appropriate place.  You can
+  also pick only parts of the repos, for instance
+
+\begin{verbatim}
+        svn co http://snert.informatik.uni-kiel.de:8080/svn/coma/org
+\end{verbatim}
+  gives you info about the groups etc.
+\item[write back:] Once done with your changes, you can hand back the whole 
+  work tree, doing
+\begin{verbatim}
+              cd $WORKDIR/coma
+              svn commit 
+\end{verbatim}
+  Afterwards you will be asked to give a comment about what changes you did in some editor.
+  If you do not have much to say for that revision, you can write back faster by typing
+\begin{verbatim}
+              cd $WORKDIR/coma
+              svn commit -m"Small bug fix"
+\end{verbatim}
+\item[update:] to get the tree in your workspace in sync again, i.e., to
+  obtain possible new changes, is done by:
+\begin{verbatim}
+               cd $WORKDIR/coma
+               svn update
+\end{verbatim}
+  Typically, this should be done when you start working \ldots
+\item[new files and directories] can be added by
+\begin{verbatim}
+               svn add [filename]
+\end{verbatim}
+  They can be removed again by
+\begin{verbatim}
+               svn remove [filename],
+\end{verbatim}
+  Instead of a filename, also a directory can be added. Furthermore,
+  subversion honors regular expression, so it understands things like
+  \texttt{svn add *.java}.
+\item[moving \& copying:] Here's something new for cvs-users: you can move
+  really move directories (and files). The fact, however, that this is
+  possible does not mean, that it is useful to keep the project under
+  constant re-construction. Cf. the remarks about policy below.
+\end{description}
+
+\subsection*{Strategy and policy}
+
+Version control does not guarantee smoothless work. I supports it, however,
+if used with with one's brain switched on and with discipline. From out
+side, we have not yet had experience with subversion (with CVS however),
+therefor more specific do's and don't may follow. The following rules of
+thumb might give first guidance.
+
+\begin{itemize}
+\item In general: if there is danger that changes affect negatively other
+  group's work, clarify this before you check in your changes.
+  In particular
+  \begin{itemize}
+  \item directly changing other persons's work (``I can fix that
+    better/faster than those \ldots''): \emph{only} after \emph{careful
+      reflection} and communication with the concerned group
+  \item No unannounced change in the directory structure. New
+    subdirectories in one's own part are ok, though. No fiddling around
+    with administrative  subversion properties.
+  \item No global \emph{undo} (``quick fix repair'') of other person's
+    changes without communication.
+%  \item Keine ``\emph{watches}'' setzen (au"ser eventuell auf seinen
+%    eigenene Code).
+  \end{itemize}
+\item Later in the course: check in only versins that \emph{integrate} with
+  the rest of the code (for instance, the can compile together). We will
+  work out a strategy for that, probably using \emph{make}. After
+  intergration interface changes (whether the interfaces are formal like
+  Java interfaces or informal such as common agreements) \emph{must be
+    announced} and accepted by concerned parties. (for instance during the
+  meetings or the email list).
+\item \texttt{Makefile}s and \texttt{Readme}s are useful.
+% Der Code f"ur
+%  jedes Pakets soll mittels \texttt{make all} als erstes ``target'' des
+%  Makefiles kompilierbar sein. Im Paket \texttt{absynt} finden sich
+%  Beispiele.
+%\item Der Code soll sinnvoll mittels \textsl{Javadoc} kommentieren werden.
+%  Zumindest der Author/die Autoren sollen dokumentiert sein.  In Paket
+%  \texttt{absynt} kann man sich anschauen, wie man auch cvs-logs
+%  dokumentieren lassen kann, (z.B.\ indem man die Datei
+%  \texttt{templates/classtemplate.txt} verwendet und anpaßt.) Die
+%  generierte Dokumentation wird in regelm"a"sigen Abst"anden im Netz
+%  bereitgestellt.
+\end{itemize}
+
+
+\section{Further software}
+
+There is a number of other software installed on the machine. we give here
+a short overview, a later handout will contain an update, when new stuff
+arrived, but also more specific infos concerning the use and the access.
+
+
+
+\subsection{Bugzilla}
+
+
+\href{http://www.bugzilla.org}{Bugzilla} is some server which helps to
+maintain a common database of bugs during the software devolopment. In
+particular, it helps to keep track of the status of an error, for instance 
+\begin{itemize}
+\item who reported the error?
+\item what kind of error, short description?
+\item who is (probably) responsible?
+\item was it acknowledged?
+\item has it been repaired?
+\end{itemize}
+
+As with subversion, it can be be a helpful tool when used with care, but
+obviously does not guarantee solid development.  For instance, reporting
+bugs and having a nice overviews over the various developments does not
+help in the end, if noone feels responsible for fixing them \ldots In
+previous courses, we used a ``manual'' kind of bug-tracking system and that
+was pretty much the situation. 
+
+With bugzilla such much more powerful and easer to use than some textual
+(but formatted) \emph{error-lists}, different dangers might occur, for
+instance that we are swamped in error logs and we loose the focus. We might
+hunt down one tiny bug after the the other, the statistics looks nice, but
+we loose in ther overall goal.
+
+A further danger could be social. People don't like if someone else spot
+errors in one's own work (and make them public, as well). A reported error
+as such is first of all something useful, but don't take it as
+``\emph{sport}'' to notch as many (big, small, miniscule) errors of others
+on your knife\ldots. And refrain from error reports as \emph{retaliation!}
+(``Now if they find 5 bugs in my part, let's sit down and see what kind of
+shitty code they have, I'll give them back 50, that should teach them''.
+yes, things happen)
+
+
+\medskip
+
+Since we currently don't know, how people will adapt to the situation (till
+next week, we might hand out further hints concerning rules of engagement)
+we will have to monitor whether bugzilla is used to support the aims of the
+project.  Reacall: bugzilla is a \emph{tool} not a \emph{goal} of the
+course.
+
+
+
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ll}
+    php & 4.3.8 
+    \\
+    python & 2.3.3
+    \\
+    mySQL & 3.23.58
+    \\
+    apache httpd &
+    \\
+    ``tomcat'' & partly installed
+    \\
+    ``java'' &  1.4
+  \end{tabular}
+  \caption{further software @ snert}
+  \label{tab:software}
+\end{table}
+
+
+
+
+
+
+
+
+
+\nocite{subversion:manual}
+%\nocite{cvs:www}
+%\nocite{cvs:manual}
+%\nocite{fogel:cvs}
+
+
+\bibliographystyle{alpha}
+
+\addcontentsline{toc}{section}{Bibliography}
+
+
+{%\small
+  \bibliography{string,etc,imperative,oop,types,protocol,functional,logic,crossref}
+}
+
+\end{document}
+
+
+
+\subsection*{Technische Vorraussetzungen}
+
+Man benötigt zwei Dinge, um von Ferne auf das gemeinsame Repositorium
+zugreifen zu können:
+\begin{enumerate}
+\item \textsl{ssh} (secure shell) f"ur den sicheren Zugriff und
+\item \textsl{cvs} + \textsl{rcs} als Versionskontrolle.
+\end{enumerate}
+
+
+Diese Tools sind auf dem Uni-Netz vorhanden. Wer daheim (oder von einem
+sonstigen account) arbeiten will, mu"s daf"ur sorgen, da"s sie installiert
+sind. Sie sind kostenlos f"ur Linux/Unix/Windows/MacOS verf"ugbar.
+
+
+
+\subsubsection*{Angabe des cvs-Servers}
+
+Für das korrekte Funktionieren muß man cvs noch mitteilen, wo sich das
+Repositorium befindet. Dies kann man wie folgt erreichen (bash-Syntax):
+
+\begin{verbatim}
+    export CVSROOT=swprakt@goofy.informatik.uni-kiel.de:/home/swprakt/cvsroot 
+    export CVS_RSH=ssh
+    export CVSEDITOR=emacs
+
+    export CLASSPATH=$WORKDIR/coma/src:
+\end{verbatim}
+
+
+
+wobei \texttt{\$WORKDIR} ein Platzhalter (!) für das Verzeichnis ist, in
+dem man arbeiten wird. Die ersten drei Zeilen sind zum korrekten Steuern
+von cvs gedacht.\footnote{Man kann cvs auch anders steuern, z.B. über
+  .cvsrc, bei Bedarf bitte selbst im Manual nachschlagen oder nachfragen.}
+Anstelle \textsl{emacs} kann man auch \textsl{emacsclient} oder den Editor
+seiner Wahl nehmen.  \textsl{emacsclient} sollte man dann nehmen, wenn man
+ohnehin emacs verwendet und beim starten des emacs' ein
+\texttt{(server-start)} ausgeführt wird.  Die letzte Zeile hat nichts mit
+ssh/cvs, sondern hat mit dem diesj"ahrigen Java-Projekt selbst zu tun.
+
+
+
+
+\section*{Verteiltes Arbeiten unter CVS}
+
+Zu Koordination der einzelnen Gruppen ist die Verwendung von
+``\textit{Concurrent Version Control''} (CVS) vorgeschrieben. Wir werden
+eine kurze Einführung in CVS geben und einen \textit{account} als Server
+f"ur das \emph{Repositorium} zur Verfügung stellen. Die wichtigesten Dinge
+sind auf diesem Handout zusammengefaßt. \ifweb\else Weitere Informationen
+über unsere Webseite. \fi
+
+
+
+
+
+
+\subsubsection*{ssh-Zugriff}
+
+
+
+Für den ersten Punkt, dem Fernzugriff unter \textsl{ssh}, geht man wie
+folgt vor.  Man beschaffe sich einen \textsl{ssh}-Schlüssel Der Schlüssel
+liegt typischerweise unter \texttt{\home{}/.ssh/identity.pub}.  Diesen
+maile man an \texttt{swprakt@informatik.uni-kiel.de}. Wer einen solchen
+Schlüssel nicht hat, muß ihn sich generieren und zwar mittels
+\textsl{ssh-keygen} am besten \texttt{ssh-keygen -tdsa} für einen ssh-2
+Schlüssel.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: handout1.tex,v 1.1 2004/11/08 17:05:55 swprakt Exp $ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
