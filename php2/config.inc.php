@@ -6,13 +6,13 @@
 $dbhost="";
 
 // user for MySQL-DB-Access
-$dbuser="";
+$dbuser="coma2";
 
 // password for DB-USer (plain text! never commit this to SVN!)
 $dbpass="";
 
 // name of the MySQL-DB-Instance to use
-$dbname="";
+$dbname="coma2";
 
 // prefix for all table names, prepended to individual name. For snert, this is always set to ""
 $dbprefix="";
@@ -24,7 +24,7 @@ $httpbaseurl="";
 $ftphost="";
 
 // ftp-username
-$ftpuser="";
+$ftpuser="ftp-php2";
 
 // ftp-password (Plain text! Never check this in to SVN!)
 $ftppass="";
