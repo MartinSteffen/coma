@@ -20,18 +20,18 @@
   </tr>
   <tr>
     <td> 
-      Name:
+      Nachname:
     </td>
     <td>      
-      <input type="text" name="last_name" size="32" maxlength="127" />
+      <input type="text" name="last_name" size="32" maxlength="127" /> *
     </td>
   </tr>
   <tr>
     <td> 
-      Email-Addresse:
+      Email-Adresse:
     </td>
     <td>      
-      <input type="text" name="email" size="32" maxlength="127" />
+      <input type="text" name="email" size="32" maxlength="127" /> *
     </td>
   </tr>
   <tr>
@@ -87,7 +87,7 @@
       Passwort:
     </td>
     <td>      
-      <input type="password" name="user_password" size="32" maxlength="127" />
+      <input type="password" name="user_password" size="32" maxlength="127" /> *
     </td>
   </tr>
   <tr>
@@ -95,7 +95,7 @@
       Passwort wiederholen:
     </td>
     <td>
-      <input type="password" name="password_repeat" size="32" maxlength="127" />
+      <input type="password" name="password_repeat" size="32" maxlength="127" /> *
     </td>
   </tr>
   <tr>
