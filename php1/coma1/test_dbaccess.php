@@ -27,7 +27,7 @@ function bit($b) {
 
 echo('<br>');
 
-$p = $myDBAccess->getPersonAlgorithmic(1, 5);
+/*$p = $myDBAccess->getPersonAlgorithmic(1, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -73,7 +73,7 @@ for ($i = 0; $i < count($p->objExcludedPapers); $i++) {
   echo ('<br>'.$p->objExcludedPapers[$i]->intId.' / '.$p->objExcludedPapers[$i]->strTitle);
 }
 
-
+*/
 
 
 /*
