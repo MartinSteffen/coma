@@ -1390,7 +1390,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	
 	
 	
-	public SearchResult getFinalData(SearchCriteria sc,int OrderNr) {
+	public SearchResult getFinalData(SearchCriteria sc,int OrderNr,int confID) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Finish[] conference = new Finish[0];
@@ -1422,8 +1422,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 			"and (ReviewReport.id = Rating.review_id) " +
 			"and (Person.id= Paper.author_id) " +
 			"and (Topic.id = IsAboutTopic.topic_id) " +
-			"and (Paper.id = IsAboutTopic.paper_id) " +
-			"group by Paper.id " + Order;
+			"and (Paper.id = IsAboutTopic.paper_id) " + "and (Paper.conference_id = "+confID+
+			") group by Paper.id " + Order;
 		}
 		if (ok) {
 			try {
