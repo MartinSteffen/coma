@@ -3,7 +3,7 @@
 
 <table class="viewtable">
   <tr class="viewheader">
-    <th class="viewheader">Review report for '{title}' by {author_name}:</th>    
+    <th class="viewheader">Review report for '{title}' by {author_name}:</th>
   </tr>
   <tr class="viewline">
     <td class="viewline">The paper is currently being reviewed by
@@ -13,8 +13,8 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">
-  
-<table class="subviewtable">  
+
+<table class="subviewtable">
   <tr class="viewheader">
     <th class="viewheader">&nbsp;</th>
     {crit_cols}
@@ -31,11 +31,11 @@
       <span class="emph">{avg_rating}</span>
     </td>
     <td class="viewline">&nbsp;</td>
-  </tr>  
+  </tr>
 </table>
 
     </td>
-  </tr>  
+  </tr>
 </table>
 
 <p>&nbsp;</p>

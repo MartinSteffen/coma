@@ -16,8 +16,8 @@
 <form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
   <table class="list">
     <tr class="listheader">
-      <th class="listheader">Title</th> 
-      <th class="listheader">Author</th> 
+      <th class="listheader">Title</th>
+      <th class="listheader">Author</th>
       <th class="listheader">Suggested reviewers</th>
     </tr>
     {lines}
