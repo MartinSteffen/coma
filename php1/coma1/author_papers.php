@@ -35,7 +35,7 @@ foreach ($testpapers as $paper){
   $paperassocs['title'] = encodeText($paper->strTitle);
   $paperassocs['status'] = $paper->intStatus;
   $paperassocs['avg_rating'] = $paper->fltAvgRating;  
-  $paperassocs['file_link'] = $paper->strFilePath;  
+  $paperassocs['file_link'] = encodeURL($paper->strFilePath);
   $paperassocs['last_edited'] = $paper->strLastEdit;
   $paperassocs['paper_id'] = $paper->intId;
   $papertemplate->assign($paperassocs);
