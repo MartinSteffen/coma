@@ -32,9 +32,6 @@ public class RatePaper extends HttpServlet{
 
     final ALogger LOG = ALogger.create(this.getClass().getCanonicalName());
 
-    public void init(ServletConfig config) {
-	LOG.log(DEBUG, "I'm alive!");
-    }
 
     /*
       N.b: we do not use an enumeration here because we cannot easily
