@@ -86,7 +86,7 @@ function defaultAssocArray() {
                'basepath'  => encodeText(COREURL),
                'filename'  => encodeText(basename($_SERVER['PHP_SELF'],'.php')),
                '?SID'       => encodeText($mySession->getUrlId('?')),
-               '&SID'       => encodeText($mySession->getUrlId('&')),
+               '&SID'       => encodeText($mySession->getUrlId('&amp;')),
               );
 }
 
