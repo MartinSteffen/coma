@@ -350,7 +350,7 @@ function generatePostMethodArray($strArrayPostvars){
   var_dump($_POST);
   if ((!empty($_POST['title'])) && (!empty($_POST['type'])) && (!empty($_POST['createforum']))){
     echo('<br>type:'.($_POST['type'] == FORUM_PAPER));
-    echo('<br>pid:'.(empty($_POST['paperid'])));
+    echo('<br>pid:'.(empty($_POST['paperid']) == true));
     if ((($_POST['type'] == FORUM_PAPER) && (empty($_POST['paperid']))) == false){
       if (empty($_POST['paperid'])){
         $pid = false;
