@@ -1,0 +1,30 @@
+define('IN_COMA1',true);
+require_once('./include/header.inc.php');
+
+$mainPage = new Template(TPLPATH.'main.tpl');
+$menue = new Template(TPLPATH.'nav_start.tpl');
+$submenue = new Template(TPLPATH.'nav_start_konf.tpl');
+
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['content'] =  'Liste aller Konferenzen';
+$strMainAssocs['body'] =
+'
+<tr>
+  <td> Konferenz A </td> <td> login </td> <td> (register) </td>
+</tr>
+<tr>
+  <td> Konferenz b </td> <td> login </td> <td> register </td>
+</tr>
+
+';
+$strMainAssocs['menue'] =& $menue;
+$strMainAssocs['submenue'] =& $submenue;
+
+$menue->assign(defaultAssocArray());
+$submenue->assign(defaultAssocArray());
+$mainPage->assign($strMainAssocs);
+
+$mainPage->parse();
+$mainPage->output();
+
+?
