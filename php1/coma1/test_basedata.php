@@ -238,14 +238,21 @@ echo '.';
 $i = 0;
 while ($i < $persons) {
 echo 'PT<br>';
-  if ((rand(0,100) < 80)
+  if (rand(0,100) < 80) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
-  if ((rand(0,100) < 30)
+    if ($myDBAccess->failed()) {
+      echo('Fehler: '.$myDBAccess->getLastError(). '(aber unkritisch));
+  }
+  if (rand(0,100) < 30) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
-  if ((rand(0,100) < 10)
+    if ($myDBAccess->failed()) {
+      echo('Fehler: '.$myDBAccess->getLastError(). '(aber unkritisch));
+  }
+  if (rand(0,100) < 10) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
-  if ($myDBAccess->failed()) {
-    echo('Fehler: '.$myDBAccess->getLastError(). '(aber unkritisch));
+    if ($myDBAccess->failed()) {
+      echo('Fehler: '.$myDBAccess->getLastError(). '(aber unkritisch));
+  }
 }
   $i++;
 
