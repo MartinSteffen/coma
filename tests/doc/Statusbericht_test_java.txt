@@ -1,0 +1,62 @@
+Ist-Situation:
+
+Aufgrund dessen, dass die Javagruppe noch viel zu tun hat, hat das
+anfänglich wenige Inittiativezeigen meinerseits noch zu keinerlei
+Verzögerung geführt, die mir zuzuschreiben wäre. Ich stehe mit zwei
+Gruppenteilnehmern in regelmäßigem Kontakt. Und werde die
+Zusammenarbeit mit den anderen vertiefen, sobald ich da mehr nütze
+als störe.
+
+
+Milestone I:
+
+jUnittests:
+Das Testen der wichtigsten Klassen mittels jUnittests
+ist in voller Planung und die ersten Klassen würden auch schon
+getestet werden, wenn nur compilebarer Code eingecheckt würde
+und/oder der snapshot
+http://snert.informatik.uni-kiel.de:8080/svn/coma/tags/trunk-235/java
+funktionieren würde. Theorie: Der snapshot "funktioniert" nur auf
+snert selbst. Was dann aber für meine jUnittests ungeeignet ist.
+
+W3C-Conformität/HTML-Ausgabe-Validierung:
+Es macht noch keinen Sinn das zu testen, bevor die Gruppen/Programmierer
+der Javagruppe da ernsthaft am Schleifen sind. Ich werde auch das in
+Angriff nehmen, sobald ich da grünes Licht bekomme.
+
+
+Milestone II:
+
+Im Vordergrund steht dann, die Grundfunktionen zu testen; also dass das,
+was fertig sein wird auch funktioniert. Das Tool wird dann auf Snert/
+Tomcat auf Userebene getestet. Es kommt dann auch TestMaker zum Einsatz.
+Es nimmt mir zwar keine Arbeit ab - dafür ist das Tool nicht mächtig
+genug - aber evtl. auftretende Fehlervorgänge können aufgezeichnet werden,
+falls sie mehrfach auftreten und rekonstruierbar sind, und man muss
+sie sich nicht merken oder aufwendig aufzeichnen.
+jUnittests sind im Milestone II vermutlich nur noch notwending, falls
+es der Fehlerergründung dient.
+
+
+Milestone III :
+
+Es sieht so aus, dass in der Javagruppe Milestone II in Milestone III
+übergehen wird.
+
+
+Risiken:
+
+Die restriktive Rechteverwaltung auf Snert zwang die Javagruppe indirekt
+dazu, zu Zeiten der Testphase die Datenbank woanders laufen zu lassen,
+die (Stand 22.01.05) keine Fremdschlüssel berücksichtigte. Das heißt,
+dass nach dem "Umschalten" auf Snert hoffentlich noch alles laufen muss.
+Da muss ich im schlimmsten Falle noch Schreibrechte auf Snert bekommen
+um da ebenfalls meine jUnittests durchziehen zu können.
+
+
+Gesamteinschätzung & Ausblick:
+
+Es soll keine Ausrede sein, aber "Dank" des Hintertreffens der Javagruppe,
+war ich zunächst nur spät gefordert, in die Hufe zu kommen. Das anfängliche
+Idlen tat auch der Motivation endlich loszulegen nicht gut... Ist aber
+überwunden.
