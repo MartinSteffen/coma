@@ -17,9 +17,9 @@
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">
-      <form action="{basepath}author_createpaper.php{?SID}" method="post" accept-charset="UTF-8">
+  {if0<form action="{basepath}author_createpaper.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="submit" name="addpaper" value="Add new paper" class="button">
-      </form>
+      </form>}
     </th>
   </tr>
   {lines}

@@ -11,9 +11,8 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">
-      Select <a href="{basepath}author_papers.php{?SID}" class="link">'Manage my papers'</a> to edit your papers
-      {if0, <a href="{basepath}author_createpaper.php{?SID}" class="link">add new papers</a>}
-      {if1, or upload documents to existing papers}.      
+      Select <a href="{basepath}author_papers.php{?SID}" class="link">'Manage my papers'</a> to edit your
+      papers{if0, <a href="{basepath}author_createpaper.php{?SID}" class="link">add new papers</a>}{if1, or upload documents to existing papers}.
       {if2<br><span class="alert">There are still abstracts missing that have to be submitted until {abstract_dl}.</span>}
       {if3<br><span class="alert">There are still documents missing that have to be submitted until {paper_dl}.</span>}
       {if4<br><span class="alert">Be aware that the final paper versions have to be submitted until {final_dl}.</span>}

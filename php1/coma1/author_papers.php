@@ -45,6 +45,18 @@ if ($myDBAccess->failed()) {
   error('get paper list of author',$myDBAccess->getLastError());
 }
 
+// Pruefe ob die Paper-Deadline noch nicht erreicht worden ist
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get conference details',$myDBAccess->getLastError());
+}
+else if (empty($objConference)) {
+  error('conference '.session('confid').' does not exist in database.','');
+}
+if (strtotime("now") < strtotime($objConference->strPaperDeadline)) {
+  $ifArray[] = 0;
+}
+
 $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
