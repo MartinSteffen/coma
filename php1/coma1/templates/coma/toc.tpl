@@ -3,7 +3,7 @@
   <tr><td><table>
     ...
   <table></td></tr>
-  <tr><td><a href="./help.php?for=comapages{?popup}>2. Detailed explanations about the different pages in Coma</a></td></tr>
+  <tr><td><a href="./help.php?for=comapages{?popup}">2. Detailed explanations about the different pages in Coma</a></td></tr>
   <table><tr><td>
     <tr><td><a href="./help.php?for=login{?popup}">2.1. The login page / logging in to your account</a></td></tr>
     <tr><td><a href="./help.php?for=register{?popup}">2.2. The registration form page / signing up for your account</a></td></tr>
