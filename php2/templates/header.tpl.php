@@ -58,14 +58,6 @@
                 <tr> 
                   <td bgcolor="#FFFFFF" height="31"> 
                     <table width="239" border="0" cellspacing="0" cellpadding="0">
-                      <tr> 
-                        <td class="menu"><a href="index.php?m=roles" class="menus">Change 
-                          Roles</a></td>
-                      </tr>
-                      <tr> 
-                        <td class="menus"><a href="index.php?m=session" class="menus">Show 
-                          Session</a></td>
-                      </tr>
 	        <? if(isAdmin_Overall())
 			   { ?>
                       <tr> 
