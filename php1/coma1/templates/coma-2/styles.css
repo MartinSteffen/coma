@@ -51,7 +51,7 @@ table.menu  { border-style: none;
 table.body { width: 100%; min-height: 450px; }
 
 /* tabelle fuer die kopfzeile */
-table.footer { width: 100%; background-color: #DBE9EC; }
+table.header { width: 100%; background-color: #DBE9EC; }
 
 /* tabelle fuer die fusszeile */
 table.footer { width: 100%; background-color: #DBE9EC; }
