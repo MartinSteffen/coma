@@ -56,7 +56,7 @@ class Distribution extends ErrorHandling {
    *               weitere Verteilung noetig ist, sonst die Matrix(rev x pap)
    *               mit den hinzuzufuegenden Zuordnungen.
    *
-   * @todo Noch ne ganze Menge UND PHPDoc :-)
+   * @todo Noch ne ganze Menge UND PHPDoc :-) $color entfernen! $p_num_revs_pref_left kann raus
    */
   function getDistribution($intConferenceId) {
     define('ASSIGNED', -2); // bereits vorher verteilt
@@ -161,6 +161,7 @@ class Distribution extends ErrorHandling {
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
     $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
+    $color = array_fill(0, count($r_id), array_fill(0, count($p_id), 'FFFFFF'));
 
     //$p_num_revs_pref_left = array_fill(0, count($p_id), 0);
     $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
@@ -187,6 +188,7 @@ class Distribution extends ErrorHandling {
         $p_num_revs[$pindex]++;
         $p_num_revs_total_left[$pindex]--;
         $r_num_papers[$i]++;
+        $color[$i][$pindex] = 'FFFF00';
       }
       // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
@@ -206,6 +208,7 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] > 0) {
           $p_num_revs_total_left[$pindex]--;
           $matrix[$i][$pindex] = 0;
+          $color[$i][$pindex] = '990000';
         }
       }
       // Abgelehnte Paper
@@ -226,6 +229,7 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] > 0) {
           $matrix[$i][$pindex] = 0;
           $p_num_revs_total_left[$pindex]--;
+          $color[$i][$pindex] = 'FF00000';
         }
       }
       // Bevorzugte Themen
@@ -248,6 +252,7 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] == 1) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = PREF;
+          $color[$i][$pindex] = '009900';
         }
       }
       // Gewuenschte Paper
@@ -265,9 +270,10 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($wants); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
         $pindex = $p_id_index[$wants[$j]['paper_id']];
-        if ($matrix[$i][$pindex] == NEUTRAL) {
+        if ($matrix[$i][$pindex] >= NEUTRAL) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = WANT;
+          $color[$i][$pindex] = '00FF00';
         }
       }
     }
@@ -346,7 +352,7 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
-        echo('<td bgcolor=FF0000>'.$matrix[$i][$j].'</td>');
+        echo('<td bgcolor='.$color[$i][$j].'>'.$matrix[$i][$j].'</td>');
       }
       echo('</tr>');
     }
