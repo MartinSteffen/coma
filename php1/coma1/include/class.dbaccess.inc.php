@@ -530,18 +530,20 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (27.01.05)
    */
   function hasRoleInConference($intPersonId, $intConferenceId, $intRoleType=0) {
-    $s = ($intRoleType != 0 ? sprintf("SELECT   role_type, state".
+    $s = ($intRoleType != 0 ? sprintf("SELECT   state".
                                       " FROM    Role".
                                       " WHERE   person_id = '%d'".
                                       " AND     conference_id = '%d'".
-                                      " AND     role_type = '%d'",
+                                      " AND     role_type = '%d'".
+                                      " AND     isNull(state)",
                                       s2db($intPersonId),
                                       s2db($intConferenceId),
                                       s2db($intRoleType))
-                            : sprintf("SELECT   role_type, state".
+                            : sprintf("SELECT   state".
                                       " FROM    Role".
                                       " WHERE   person_id = '%d'".
-                                      " AND     conference_id = '%d'",
+                                      " AND     conference_id = '%d'".
+                                      " AND     isNull(state)",
                                      s2db($intPersonId),
                                      s2db($intConferenceId)));
     $role_data = $this->mySql->select($s);
