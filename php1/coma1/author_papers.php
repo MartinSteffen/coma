@@ -24,7 +24,7 @@ $testpapers = array();
 $paper0ids = array(3, 2);
 $paper0names = array('Josef Huettenkeueler', 'Franz Hans');
 $paper0topics = array('Schaum', 'Blasen');
-$tespapers[0] = new PaperDetailed(23, 'Schaumparties', 1, 'Kuh', 0, 2.3, $paper0ids, $paper0names, 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', 'text/html', '01-01-2005', 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', $paper0topics);
+$testpapers[0] = new PaperDetailed(23, 'Schaumparties', 1, 'Kuh', 0, 2.3, $paper0ids, $paper0names, 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', 'text/html', '01-01-2005', 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', $paper0topics);
 
 $none = true;
 foreach ($testpapers as $paper){
