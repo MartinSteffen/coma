@@ -34,7 +34,7 @@
       {navigator}
      </td>
      <td height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; " class="renderTime">
-      CoMa - Your Conference Manager - version /VERSION/
+      CoMa - Your Conference Manager - version /VERSION/ &nbsp;&nbsp;
      </td>
     </tr>
    </table>
@@ -68,8 +68,7 @@
  <tr>
   <td>&nbsp;</td>
   <td height="32">&copy; 2005 by Sandro Esquivel, Daniel Miesling, Tom Scherzer, Falk Starke, Jan Waller</td>
-  <td height="32" class="renderTime">Render Time: /RENDERTIME/ ms</td>
-  <td>&nbsp;</td>
+  <td height="32" class="renderTime">Render Time: /RENDERTIME/ ms&nbsp;&nbsp;</td>
  </tr>
 </table>
 
