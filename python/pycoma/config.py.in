@@ -1,0 +1,22 @@
+# This file contains the necessary information needed by coma to find
+# its support files.  This file assumes that mod_python will find it
+# in one of the standard locations as pycoma.config, so that you can
+# use it by simply importing it.
+
+"""This file describes the necessary configuration options for coma to
+find its support files.  Each coma module imports this file."""
+
+# Where to find the templates.
+templates = [ '@pkgdatapath@' ]
+
+# Where to find the database schemas.
+dbschemas = '@pkgdatapath@'
+
+# Where to find the indices.
+docroot   = '@docroot@'
+
+# The version of the package.
+version   = '@VERSION@'
+
+# The name of the package.
+package   = '@PACKAGE@'

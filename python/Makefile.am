@@ -1,5 +1,5 @@
 
-SUBDIRS			= coma
+SUBDIRS			= pycoma
 bin_SCRIPTS		= comasetup
 sbin_SCRIPTS		= comaprocmail
 

@@ -6,7 +6,7 @@ AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([1.9])
 
-AC_CONFIG_SRCDIR([coma/index.py])
+AC_CONFIG_SRCDIR([pycoma/index.py])
 
 AC_PROG_MAKE_SET
 AC_PROG_LN_S
@@ -16,4 +16,4 @@ AC_CHECK_PROGS([CHCON], chcon, :)
 
 dnl ===========================================================================
 dnl creating files.
-AC_OUTPUT([Makefile pycoma.spec coma/Makefile coma/templates/Makefile])
+AC_OUTPUT([Makefile pycoma.spec pycoma/Makefile pycoma/templates/Makefile])
