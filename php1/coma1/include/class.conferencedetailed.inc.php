@@ -38,15 +38,29 @@ class ConferenceDetailed extends Conference {
   var $objCriterions;
   var $objTopics;
   
-  function ConferenceDetailed($strAbstractDeadline, $strPaperDeadline, $strReviewDeadline,
+  function ConferenceDetailed($intId, $strName, $strHomepage, $strDescription, $strStart, $strEnd,
+                              $strAbstractDeadline, $strPaperDeadline, $strReviewDeadline,
                               $strFinalDeadline, $strNotification, $intMinReviewsPerPaper,
+                              $intDefaultReviewsPerPaper, $intMinNumberOfPapers,
+                              $intMaxNumberOfPapers, $fltCriticalVariance,
+                              $blnAutoActivateAccount, $blnAutoOpenPaperForum,
+                              $blnAutoAddReviewers, $intNumberOfAutoAddReviewers,
                               $objCriterions, $objTopics) {
+    $this->Conference($intId, $strName, $strHomepage, $strDescription, $strStart, $strEnd);
     $this->strAbstractDeadline = $strAbstractDeadline;
     $this->strPaperDeadline = $strPaperDeadline;
     $this->strReviewDeadline = $strReviewDeadline;
     $this->strFinalDeadline = $strFinalDeadline;
     $this->strNotification = $strNotification;
     $this->intMinReviewsPerPaper = $intMinReviewsPerPaper;
+    $this->intDefaultReviewsPerPaper = $intDefaultReviewsPerPaper;
+    $this->intMinNumberOfPapers = $intMinNumberOfPapers;
+    $this->intMaxNumberOfPapers = $intMaxNumberOfPapers;
+    $this->fltCriticalVariance = $fltCriticalVariance;
+    $this->blnAutoActivateAccount = $blnAutoActivateAccount;
+    $this->blnAutoOpenPaperForum = $blnAutoOpenPaperForum;
+    $this->blnAutoAddReviewers = $blnAutoAddReviewers;
+    $this->intNumberOfAutoAddReviewers = $intNumberOfAutoAddReviewers;
     $this->objCriterions = $objCriterions;
     $this->objTopics = $objTopics;
   }
