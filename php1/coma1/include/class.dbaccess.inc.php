@@ -249,7 +249,7 @@ class DBAccess {
       for ($i = 0; $i < count($data); $i++) {
         $sum += $data[$i]['total_rating'];
       }
-      return $sum / count($data);
+      return $sum;// / count($data);
     }
     return false;
   }
