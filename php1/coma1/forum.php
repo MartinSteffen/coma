@@ -164,7 +164,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
 
 function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs, &$myDBAccess){
   if (DEBUGMODE){
-    //echo('Messages: ' . count($messages). '<br>');
+    echo('Messages: ' . count($messages). '<br>');
   }
   $tempstring = '';
   foreach ($messages as $message){
