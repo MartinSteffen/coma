@@ -1,5 +1,7 @@
 Datum: 11.Januar.2005
 Anwesend: Gunnar, Marcel, Martin, von jeder Gruppe mindestens 2.
+(weiter unten nach dem Protokoll noch die Sondermeldung 
+ in Bezug auf den Status/Plan)
 --------------------------------------------------------------------------------
 
 
@@ -141,8 +143,132 @@ Moin, hier die Punkte die mir im Ged"achtnis blieben.
 
 Martin
 
+==== ``sondermeldung''==
 
 
+
+Moin.
+
+Das hatten wir vergessen anzumerken, und es ist wichtig, deswegen die
+``Sondermeldung''.
+
+
+Heute stand auf dem Plan: Status/Plan bis zum Ende des Semester.  daraus
+ist nichts geworden, aus dem Umstand heraus, dass sich die Gruppen nach der
+partiellen Weihnachtspause erstmal selbst wieder Gegenseitig abgleichen
+muessen. Genehmigt und ergibt Sinn....
+
+
+Umso _dringender_ ist ein 
+
+        vern"unftiger, koordinierter expliziter Statusbericht
+        und Restplan der Gruppen beim kommenden Mal!
+
+
+--
+Wer, um sich daf"ur zu begeistern, eine Begr"undung braucht:
+
+1) Anders als zuvor, wo man noch Dinge ausgleichen aufholen konnte (oder
+    sich dies zumindest einreden konnte: ``ach, wenn erst mein
+    Seminarvortrag rum ist, an Heiligabend, da arbeite ich doppelt, unterm
+    Weihnachtsbaum kann ich immer gut denken'')
+    ist die Phase nun so da"s 
+
+          Zeit, die man sich jetzt versch"atzt wird man _nicht_ wieder
+         aufholen koennen
+
+   Die Alternativen w"aren: Todesmarsch (tut mir Leid, ist ein Fachwort,
+   kein geschmackvolles, zugegeben) was vermutlich auch nix bringt, oder
+   Ferienarbeit, oder unvollst"andige Deliverables.
+
+        Das heisst: jetzt (oder nie) ist ein wichtiger Moment, realistisch
+        zu sagen, was ist, was kommt noch
+
+
+2) Wir muessen realisieren, da"s wir Zeit zur integration/testen/chill-out
+   brauchen (chill-out = Vorbereitung auf die Demo). Wie gesagt, die
+   Demo wird nicht gehen, wenn man das so plant:
+ 
+           12:00: Letzter Termin da"s jeder  hat seinen code abgegeben hat
+           12:05: Zusammenbau
+           12:10  das erste ``Aaahh, es l"auft alles zusammen''
+
+
+
+--
+
+
+Was meinen wir
+
+Mit ``koordiniertem Statusreport/Zukunftsreport'' meinen wir nicht:
+
+       ------------------------------------------------------------------
+        -> Wie siehts aus, mit Gruppe G, vielleicht sagt Mr x was dazu?
+        <- Oeh, l"auft so, aus meiner Sicht, 3/4 durch, von den andern, 
+            weiss ich nicht so genau.
+        -> Ok, fragen wir sie: und bei Dir, Mr y aus Gruppe G?
+        <- bei mir auch, ich sch"atze ich bin bei 67%
+        -> und bei Dir, Mr z?
+        <- geht so, bei mir ungef"ahr 81%
+        -> also im Durchschnitt bei Gruppe G 75%?
+        <- Jau, kommt hin (bis auf die vielleicht, die nicht da sind, aber
+             wir fragen mal).
+        -> Prima. N"achste Gruppe
+        ------------------------------------------------------------------
+
+
+Was dann: Die Gruppe stellt ihren Status vor, explizit. Einer der f"ur den
+Report die Wortfuehrerschaft "ubernimmt stellt ihn als _gemeinsamen_ Status
+vor (also besser nicht Dinge pr"asentieren wie: 
+
+    ``den Teil von dem Typen, dessen Namen ich vergessen habe, kenn ich
+      nicht so genau''.
+
+Die Vorstellung braucht kein Folienvortrag sein (machen wir ja im Semester
+auch nicht, sollte aber an der Tafel stattfinden, also an der Rampe, und
+nicht bequem von der Hinterbank aus.
+
+Es ist das _Publikum_ der anderen Gruppen (also nicht immer nur wir)
+ermuntert, Kommentare, Fragen, Anregungen, Hilfe oder "ahnliches zu
+"au"sern.  Vielleicht lernen wir sogar voneinander!
+
+
+
+Explizit hei"st nicht nur 
+
+         ``eine Pr"asentation vor dem Klassenraum''
+sondern auch ein 
+
+        schriftliches Statement, welches wir vorher verteilen (und
+ausgedruckt mitbringen). Man k"onnte sich vorstellen, da"s die
+spec/architecture Beschreibung (die ja alle gruppen gemacht haben :-) ein
+Rolle dabei spielen kann.
+
+Worauf wir hinauswollen ist: nehmt das bitte Ernst, wir wollen daruch Euch
+einen etwas gehaltvolleren Statusreport entlocken, als bisher, und durch
+(eventuelle) Diskussion eventuelle Stolpersteine auf dem Weg ins Ziel
+identifieren und wenn m"oglich entsch"arfen (und viel Zeit um Dinge zu
+entsch"arfen ist nicht mehr).
+
+
+Ferner f"anden wir es gut, wenn aus den Gruppen diejenigen die
+Wortf"uhrerschaft "ubernehmen, die sonst sich zur"uckhalten (wer sich
+angesprochen f"uhlt, der ist gemeint :-) 
+
+
+
+Die Gruppe Test ist wieder mal ein Sonderfall. Weil sie auf mehr oder
+minder auf 3 Gruppen zugeteilt ist, wollen wir von von jedem der Tester ein
+solches Statement.
+
+Soviel dazu, was heute mittag hinten runter gefallen war.
+
+
+Martin
+
+
+PS: die zwei W"unsche nach Extra-Terminen (Beratung, Koordination, Planung)
+   f"ur PHP2 und Java bleiben nat"urlich bestehen!
 
 ===== vorankuendigung ====
 
