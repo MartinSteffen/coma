@@ -52,3 +52,9 @@
     </td>
   </tr>
 </table>
+
+<p>&nbsp;</p>
+
+<p class="message2">
+  Return to the <a href="javascript:history.back()" class="link">last page</a>.
+</p>

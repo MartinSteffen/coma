@@ -71,4 +71,6 @@
 
 <p>&nbsp;</p>
 
-Return to the <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="link">paper review report</a>.
+<p class="message2">
+  Return to the <a href="javascript:history.back()" class="link">last page</a>.
+</p>
