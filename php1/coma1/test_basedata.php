@@ -169,14 +169,15 @@ while ($j < $papers) {
   while ($i < $persons/3) {
   if(rand(1,$persons) <= 6) {
   echo '.';
-    $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
+  $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
-    if ($myDBAccess->failed()) {
+  if ($myDBAccess->failed()) {
 	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
-    $myDBAccess->addDistribution($i+1, $j+1);
-    if ($myDBAccess->failed()) {
+	}
+  $myDBAccess->addDistribution($i+1, $j+1);
+  if ($myDBAccess->failed()) {
 	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
-}
+  }
  $reports++;
 }
     $i++;
