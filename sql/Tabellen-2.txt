@@ -30,6 +30,7 @@ paperDeadline		Date
 reviewDeadline		Date
 abstractDeadline	Date
 finalDeadline		Date
+notification		Date
 minPapers		Int
 maxPapers		Int
 
@@ -45,10 +46,15 @@ roles			Int		xxxxx
 					+------ Teilnehmer
 name			Varchar 127
 firstname		Varchar 127
+affiliation		Varchar 127
 phone			Varchar 20
+fax			Varchar 20
 email			Varchar 127
+street			Varchar 127
 postalCode		Varchar 20
 city			Varchar 127
+state			Varchar 127
+country			Varchar 127
 username		Varchar 32
 password		Varchar 32
 
@@ -62,6 +68,9 @@ description		Text
 createDate		Date
 editDate		Date
 version			Float 		(alternativ Int?)
+filename		Varchar 127
+state			Int		(bzw. PaperState)
+format			Int		(bzw. MimeType)
 
 Tabelle isCoAuthorOf
 ~~~~~~~~~~~~~~~~~~~~
@@ -108,11 +117,13 @@ reviewId		BigInt		-> Review, ID
 grade			Int
 comment			Text
 
-Tabelle ReviewCriterion
-~~~~~~~~~~~~~~~~~~~~~~~
+Tabelle Criterion
+~~~~~~~~~~~~~~~~~
 id			BigInt		Autoinc., Prim., Uniq.
 confId			BigInt		-> Conference, ID
 label			Varchar 127
+description		Text
+maxValue		Int
 
 Tabelle Program (alle angenommenen Artikel)
 ~~~~~~~~~~~~~~~
