@@ -108,15 +108,6 @@
       <input type="hidden" name="review_dl" value="{review_dl}">
       <input type="hidden" name="final_dl" value="{final_dl}">
       <input type="hidden" name="notification" value="{notification}">
-      <input type="hidden" name="criterions" value="{criterions}">
-      <input type="hidden" name="topics" value="{topics}">
-      <input type="hidden" name="criterionsID" value="{criterionsID}">
-      <input type="hidden" name="topicsID" value="{topicsID}">
-      <input type="hidden" name="crit_max" value="{crit_max}">
-      <input type="hidden" name="crit_descr" value="{crit_descr}">
-      <input type="hidden" name="crit_weight" value="{crit_weight}">
-      <input type="hidden" name="num_topics" value="{num_topics}">
-      <input type="hidden" name="num_criterions" value="{num_criterions}">   
       
       <input type="hidden" name="id" value="{id}"> 
       <input type="hidden" name="action" value="submit">
