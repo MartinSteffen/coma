@@ -1229,7 +1229,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addConference($strName, $strHomepage, $strDescription, $strAbstractDeadline,
                          $strPaperDeadline, $strReviewDeadline, $strFinalDeadline,
-                         $strNotification, $strConverenceStart, $strConferenceEnd) {
+                         $strNotification, $strConferenceStart, $strConferenceEnd) {
     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
         "                          paper_submission_deadline, review_deadline,".
         "                          final_version_deadline, notification, conference_start,".
