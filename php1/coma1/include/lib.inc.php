@@ -190,7 +190,7 @@ function checkAccess($role) {
  */
 function checkPaper($intPaperId) {
   global $myDBAccess;
-  if (!$myDBAccess->isPaperInConference($intPaperId, session('confid')) {
+  if (!$myDBAccess->isPaperInConference($intPaperId, session('confid'))) {
     if ($myDBAccess->failed()) {
       error('check page access', $myDBAccess->getLastError());
     }
