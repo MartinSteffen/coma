@@ -12,10 +12,10 @@ $objPerson = $myDBAccess->getPerson(session('uid'));
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
 $strMenuAssocs = defaultAssocArray();
-$strMenuAssocs[menu1] = '';
-$strMenuAssocs[menu2] = '';
-$strMenuAssocs[menu3] = '';
-$strMenuAssocs[menu4] = '';
+$strMenuAssocs['menu1'] = '';
+$strMenuAssocs['menu2'] = '';
+$strMenuAssocs['menu3'] = '';
+$strMenuAssocs['menu4'] = '';
 $strMenuAssocs['if'] = array();
 
 if ($objPerson->hasRole(CHAIR)) {
@@ -24,7 +24,7 @@ if ($objPerson->hasRole(CHAIR)) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs[menu1] = $submenu->getOutput();
+  $strMenuAssocs['menu1'] = $submenu->getOutput();
 }
 
 if ($objPerson->hasRole(REVIEWER)) {
@@ -33,7 +33,7 @@ if ($objPerson->hasRole(REVIEWER)) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs[menu1] = $submenu->getOutput();
+  $strMenuAssocs['menu2'] = $submenu->getOutput();
 }
 
 if ($objPerson->hasRole(AUTHOR)) {
@@ -42,7 +42,7 @@ if ($objPerson->hasRole(AUTHOR)) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs[menu1] = $submenu->getOutput();
+  $strMenuAssocs['menu3'] = $submenu->getOutput();
 }
 
 if ($objPerson->hasRole(PARTICIPANT)) {
@@ -51,7 +51,7 @@ if ($objPerson->hasRole(PARTICIPANT)) {
   $strSubmenuAssocs['if'] = array();
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
-  $strMenuAssocs[menu1] = $submenu->getOutput();
+  $strMenuAssocs['menu4'] = $submenu->getOutput();
 }
 
 $menu->assign($strMenuAssocs);
