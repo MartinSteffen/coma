@@ -15,12 +15,13 @@ define('IN_COMA1',true);
 
 require_once('./include/header.inc.php');
 
-// Einlog-Bildschirm
+// Haupt-Ansicht fuer den Chair
 $mainPage = new Template(TPLPATH.'main.tpl');
+$menue = new Template(TPLPATH.'nav_chair.tpl');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
-
+$strMainAssocs['menue'] =& $menue;
 
 $mainPage->assign($strMainAssocs);
 

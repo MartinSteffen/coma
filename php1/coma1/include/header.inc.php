@@ -50,9 +50,10 @@ function redirect($strName) {
 function defaultAssocArray() {
   global $mySession;
   return array(
-               'path'     => TPLURL,
-               'basepath' => COREURL,
-               'SID'      => $mySession->getUrlId()
+               'path'      => TPLURL,
+               'basepath'  => COREURL,
+               'dateiname' => basename($_SERVER['PHP_SELF'],'.php'),
+               'SID'       => $mySession->getUrlId()
               );
 }
 

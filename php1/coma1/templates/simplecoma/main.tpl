@@ -1,12 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<title>CoMa - Das Konferenzmanagement-Tool</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>CoMa - Das Konferenzmanagement-Tool {dateiname} </title>
 <link rel="stylesheet" type="text/css" href="{path}styles.css">
 </head>
 
 <body>
+
 <a name="top"></a>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -21,8 +21,9 @@
      <td width="100">&nbsp;</td>
      <td height="32" align="right" valign="top">
       <a href="#">Impressum</a>&nbsp;|&nbsp;
-      <a href="#">Feedback</a>&nbsp;|&nbsp;
       <a href="#">Forum</a>&nbsp;|&nbsp;
+      <a href="#">Verwaltung</a>&nbsp;|&nbsp;
+      <a href="#">Nachrichten</a>&nbsp;|&nbsp;
       <a href="{basepath}logout.php{SID}">Logout</a>&nbsp;|&nbsp;
      </td>
      <td width="50" align="center" valign="top">
@@ -32,12 +33,8 @@
     <tr bgcolor="#DBE9EC">
      <td style="background-image:url({path}images/menueleft.gif)" height="25" width="100">&nbsp;</td>
      <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
-      <b>Chair</b>&nbsp;|&nbsp;&nbsp;
-      <a href="#">Pers&ouml;nliche Daten</a>&nbsp;|&nbsp;&nbsp;
-      <a href="#">Konferenzeinstellung</a>&nbsp;|&nbsp;&nbsp;
-      <a href="#">Benutzerverwaltung</a>&nbsp;|&nbsp;&nbsp;
-      <a href="#">Artikelverwaltung</a>&nbsp;|&nbsp;&nbsp;
-      <a href="#">Nachrichten</a>&nbsp;|&nbsp;&nbsp;
+      {menue}
+ 
      </td>
     </tr>
    </table>
