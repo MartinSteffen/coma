@@ -370,7 +370,7 @@ class DBAccess extends ErrorHandling {
     $objPerson = (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
                     $data[0]['email'], 0, $data[0]['title']));
     if (!empty($intConferenceId)) {
-      $s = sprintf("SELECT   role_type".
+      $s = sprintf("SELECT   role_type, state".
                    " FROM    Role".
                    " WHERE   person_id = '%d'".
                    " AND     conference_id = '%d'",
@@ -381,7 +381,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPerson', $this->mySql->getLastError());
       }
       for ($i = 0; $i < count($role_data); $i++) {
-        $objPerson->addRole($role_data[$i]['role_type']);
+        $objPerson->addRole($role_data[$i]['role_type'], $role_data[$i]['state']);
       }
     }
     return $this->success($objPerson);
@@ -441,7 +441,7 @@ class DBAccess extends ErrorHandling {
     }
 
     // Rollen der Person
-    $s = sprintf("SELECT   role_type".
+    $s = sprintf("SELECT   role_type, state".
                  " FROM    Role".
                  " WHERE   person_id = '%d'".
                  " AND     conference_id = '%d'",
@@ -452,7 +452,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPersonAlgorithmic', $this->mySql->getLastError());
     }
     for ($i = 0; $i < count($role_data); $i++) {
-      $objPersonAlgorithmic->addRole($role_data[$i]['role_type']);
+      $objPersonAlgorithmic->addRole($role_data[$i]['role_type'], $role_data[$i]['state']);
     }
 
     return $this->success($objPersonAlgorithmic);
@@ -489,7 +489,7 @@ class DBAccess extends ErrorHandling {
                             $data[0]['country'], $data[0]['phone_number'],
                             $data[0]['fax_number']));
     if (!empty($intConferenceId)) {
-      $s = sprintf("SELECT   role_type".
+      $s = sprintf("SELECT   role_type, state".
                    " FROM    Role".
                    " WHERE   person_id = '%d'".
                    " AND     conference_id = '%d'",
@@ -500,7 +500,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPersonDetailed', $this->mySql->getLastError());
       }
       for ($i = 0; $i < count($role_data); $i++) {
-        $objPersonDetailed->addRole($role_data[$i]['role_type']);
+        $objPersonDetailed->addRole($role_data[$i]['role_type'], $role_data[$i]['state']);
       }
     }
     return $this->success($objPersonDetailed);
@@ -527,7 +527,7 @@ class DBAccess extends ErrorHandling {
     for ($i = 0; $i < count($data); $i++) {
       $objPerson = (new Person($data[$i]['id'], $data[$i]['first_name'], $data[$i]['last_name'],
                       $data[$i]['email'], 0, $data[$i]['title']));
-      $s = sprintf("SELECT   role_type".
+      $s = sprintf("SELECT   role_type, state".
                    " FROM    Role".
                    " WHERE   person_id = '%d'".
                    " AND     conference_id = '%d'",
@@ -538,7 +538,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getUsersOfConference', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($role_data); $j++) {
-        $objPerson->addRole($role_data[$j]['role_type']);
+        $objPerson->addRole($role_data[$j]['role_type'], $role_data[$i]['state']);
       }
       if ($objPerson->hasAnyRole()) {
         $objPersons[] = $objPerson;
@@ -1570,13 +1570,12 @@ nur fuer detaillierte?
 
   /**
    * Aktualisiert den Datensatz der Person $objPersonDetailed in der Datenbank.
-   * Die Rollen werden ebenfalls vollstaendig in der Datenbank aktualisiert.
+   * Die Rollen werden NICHT in der Datenbank aktualisiert.
    *
    * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll
    * @param int $intConferenceId ID der Konferenz, zu der die Rollen der Person aktualisiert
-   *                             werden sollen. Optional: Ist $intConfereceId nicht
-   *                             angegeben, werden keine Rollen fuer die Person aktualisiert.
-   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   *                             werden sollen.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte.
    * @access public
    * @author Sandro (10.01.05)
    */
@@ -1606,24 +1605,29 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());
     }
+    /*
     if (!empty($intConferenceId)) {
       $this->updateRoles($objPersonDetailed, $intConferenceId);
       if ($this->failed()) {
         return $this->error('updatePerson', $this->getLastError());
       }
     }
+    */
     return $this->success(true);
   }
 
   /**
+   * Die folgende Funktion ist out of date und wird im folgenden NICHT mehr verwendet!
+   *
    * Aktualisiert die Rollen der Person $objPerson bzgl. der Konferenz
-   * $intConferenceId in der Datenbank.
+   * $intConferenceId in der Datenbank.  
    *
    * @param Person $objPerson    Person-Objekt mit aktuellen Rollen
    * @param int $intConferenceId Konferenz-ID
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
    * @author Tom (11.01.05)
+   * @todo Wird noch geloescht, da out of date
    */
   function updateRoles($objPerson, $intConferenceId) {
     global $intRoles;
@@ -1634,7 +1638,7 @@ nur fuer detaillierte?
     // Rollen loeschen...
     $s = sprintf("DELETE   FROM Role".
                  " WHERE   person_id = '%d'".
-                 " AND     conference_id = '%d'",
+                 " AND     conference_id = '%d'",                
                  s2db($intId), s2db($intConferenceId));
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
@@ -1654,6 +1658,20 @@ nur fuer detaillierte?
           return $this->error('updateRoles', $this->mySql->getLastError());
         }
       }
+    }
+    return $this->success(true);
+  }
+
+  function acceptRole($intPersonId, $intRoleId, $intConferenceId) {    
+    $s = sprintf("UPDATE   Role".
+                 " SET     state = ''".
+                 " WHERE   person_id = '%d'".
+                 " AND     role_id = '%d'".
+                 " AND     conference_id = '%d'",                 
+                 s2db($intId), s2db($intRoleId), s2db($intConferenceId));
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('acceptRole', $this->mySql->getLastError());
     }
     return $this->success(true);
   }
@@ -2272,9 +2290,15 @@ nur fuer detaillierte?
    * @access public
    * @author Tom (26.12.04)
    */
-  function addRole($intPersonId, $intRoleType, $intConferenceId) {
-    $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
-        "         VALUES ('$intConferenceId', '$intPersonId', '$intRoleType')";
+  function addRole($intPersonId, $intRoleType, $intConferenceId, $blnAccepted=true) {
+    if (!empty($blnAccepted)) {
+      $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
+          "         VALUES ('$intConferenceId', '$intPersonId', '$intRoleType')";
+    }
+    else {
+      $s = "INSERT  INTO Role (conference_id, person_id, role_type, state)".
+          "         VALUES ('$intConferenceId', '$intPersonId', '$intRoleType', '1')";
+    }
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addRole', $this->mySql->getLastError());

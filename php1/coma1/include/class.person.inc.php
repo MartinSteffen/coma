@@ -43,12 +43,15 @@ class Person {
    * Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
    *
    * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
+   * @param bool $blnNotAccepted false gdw. die Rolle bereits akzeptiert wurde
    * @return bool konstant: true
    * @access public
    * @author Tom (04.12.04)
    */
-  function addRole($intRole) {
-    $this->intRoles |= (1 << $intRole);
+  function addRole($intRole, $blnNotAccepted=false) {
+    if (empty($blnNotAccepted)) {
+      $this->intRoles |= (1 << $intRole);
+    }
     return true;
   }
 

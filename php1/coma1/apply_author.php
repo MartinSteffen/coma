@@ -14,6 +14,16 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
+if (!isset($_POST['confid'])) {
+  redirect('main_conferences.php');
+}
+
+// Lade die Daten der Person
+$objPerson = $myDBAccess->getPersonDetailed(session('uid'), $_POST('confid'));
+if ($myDBAccess->failed()) {
+  error('Error occured during retrieving actual person.', $myDBAccess->getLastError());
+}
+
 $content = new Template(TPLPATH.'apply_author.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);

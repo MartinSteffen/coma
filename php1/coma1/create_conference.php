@@ -174,38 +174,47 @@ if (isset($_POST['action'])) {
     } 
     // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
     else { // keine Fehler
-      $result = $myDBAccess->addConference($_POST['name'],
-                                           $_POST['homepage'],
-                                           $_POST['description'],
-                                           emptytime($abstract_dl, 'Y-m-d'),
-                                           emptytime($paper_dl, 'Y-m-d'),
-                                           emptytime($review_dl, 'Y-m-d'),
-                                           emptytime($final_dl, 'Y-m-d'),
-                                           emptytime($notification, 'Y-m-d'),
-                                           emptytime($start_date, 'Y-m-d'),
-                                           emptytime($end_date, 'Y-m-d'),
-                                           $_POST['min_reviews'],
-                                           $_POST['def_reviews'],
-                                           $_POST['min_papers'],
-                                           $_POST['max_papers'],
-                                           $_POST['variance'],
-                                           (!empty($_POST['auto_actaccount']) ? '1' : '0'),
-                                           (!empty($_POST['auto_paperforum']) ? '1' : '0'),
-                                           (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
-                                           $_POST['auto_numreviewer'],
-                                           $strTopics, $strCriterions, $strCritDescripts,
-                                           $strCritMaxVals, $strCritWeights);
+      $intConfId = $myDBAccess->addConference($_POST['name'],
+                                              $_POST['homepage'],
+                                              $_POST['description'],
+                                              emptytime($abstract_dl, 'Y-m-d'),
+                                              emptytime($paper_dl, 'Y-m-d'),
+                                              emptytime($review_dl, 'Y-m-d'),
+                                              emptytime($final_dl, 'Y-m-d'),
+                                              emptytime($notification, 'Y-m-d'),
+                                              emptytime($start_date, 'Y-m-d'),
+                                              emptytime($end_date, 'Y-m-d'),
+                                              $_POST['min_reviews'],
+                                              $_POST['def_reviews'],
+                                              $_POST['min_papers'],
+                                              $_POST['max_papers'],
+                                              $_POST['variance'],
+                                              (!empty($_POST['auto_actaccount']) ? '1' : '0'),
+                                              (!empty($_POST['auto_paperforum']) ? '1' : '0'),
+                                              (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
+                                              $_POST['auto_numreviewer'],
+                                              $strTopics, $strCriterions, $strCritDescripts,
+                                              $strCritMaxVals, $strCritWeights);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error during creating conference.', $myDBAccess->getLastError());
       }
-      else {
-        // Erfolg (also anderes Template)
-        $content = new Template(TPLPATH.'confirm_conference.tpl');
-        $strContentAssocs['return_page'] = 'main_conferences.php';
-        $objConference = new Conference(0,'','','', emptytime($start_date), emptytime($end_date));
-        $strContentAssocs['date'] = encodeText($objConference->getDateString());
-        $ifArray = array();
+      // Trage den Ersteller als Chair in die Konferenz ein
+      else if (!empty($intConfId)) {      	
+      	$resultRole = $myDBAccess->addRole(session('uid'), CHAIR, $intConfId);
+        if ($myDBAccess->failed()) {
+          // Datenbankfehler?
+          error('Error during creating chair for conference. '.
+                'Database may contain inaccessible conference. ', $myDBAccess->getLastError());
+        }
+        else {
+          // Erfolg (also anderes Template)
+          $content = new Template(TPLPATH.'confirm_conference.tpl');
+          $strContentAssocs['return_page'] = 'main_conferences.php';
+          $objConference = new Conference(0,'','','', emptytime($start_date), emptytime($end_date));
+          $strContentAssocs['date'] = encodeText($objConference->getDateString());
+          $ifArray = array();
+        }
       }
     }
   }
