@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * @version $Id$
  * @package coma1
