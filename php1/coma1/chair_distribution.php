@@ -28,6 +28,7 @@ if (isset($_POST['action'])) {
   if($_POST['action'] != 'confirm' || !isset($_SESSION['dist'])) {
     redirect('chair_reviews.php');
   }
+  redirect('chair_start.php');
   $dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
 /*    print_r($pid.'=>'.$arrR);
