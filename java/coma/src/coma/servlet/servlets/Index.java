@@ -76,6 +76,7 @@ public class Index extends HttpServlet {
 		
 		if(request.getParameter("name")== null){
 			Conference[] conferenceArray = myNavCol.getConferenceArray();
+			if (conferenceArray != null)
 				for(int i=0;i<conferenceArray.length;i++){
 					File Prog = new File(path + "/papers","Program-"+conferenceArray[i].getName()+".xml");
 						if(Prog.exists()){
