@@ -35,14 +35,22 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select="/author/writefile" />
 <xsl:apply-templates select="/author/showpaper/success" />
 <xsl:apply-templates select="/author/showpaper/failed" />
-
+<xsl:apply-templates select="/author/showdetails"/>
 
 </div> <!-- Main content end -->
 
 </body>
 </html>
 </xsl:template>
-
+<xsl:template match="author/showdetails">
+<h2>Paper Details of: <i><xsl:value-of select="paper/title" /></i></h2>
+<h3>Abstract</h3>
+<p><xsl:value-of select="paper/Abstract" /></p>
+<h3>Topics</h3>
+<xsl:for-each select="paper/topics/topic">
+<p><xsl:value-of select="name" /></p>
+</xsl:for-each>
+</xsl:template>
 
 <xsl:template match="author/showpaper/success">
 <h3>Your submitted papers:</h3>
@@ -62,6 +70,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	<td> <xsl:value-of select="state"/></td>
 	<td><a><xsl:attribute name="href">Author?action=updatepaper&amp;paper_id=<xsl:value-of select="id" /></xsl:attribute>update</a></td>
 	<td><a><xsl:attribute name="href">Author?action=retractpaper&amp;paper_id=<xsl:value-of select="id" /></xsl:attribute>retract</a></td>
+	<td><a><xsl:attribute name="href">Author?action=showpaper&amp;paper_id=<xsl:value-of select="id" /></xsl:attribute>more details</a></td>
 </tr>
 </xsl:for-each>
 </table>
