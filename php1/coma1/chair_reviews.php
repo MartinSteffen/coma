@@ -98,13 +98,19 @@ if (!empty($objPapers)) {
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $strItemAssocs['num_reviews']  = encodeText($intRevs.' of '.count($objReviewers));
+    if (count($objReviewers) > 0) {    
+      $strItemAssocs['num_reviews'] = encodeText($intRevs.' of '.count($objReviewers));
+    }
+    else {
+      $strItemAssocs['num_reviews'] = 'none';
+      $strItemAssocs['line_no']     = 'alert';
+    }
     if ($intRevs > 0) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
     else {
       $strItemAssocs['avg_rating'] = ' - ';
-    }
+    }    
     $fltVariance = $myDBAccess->getVarianceOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
       error('get paper list of chair', $myDBAccess->getLastError());

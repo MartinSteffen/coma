@@ -423,6 +423,17 @@ table.list
   margin: 0px;
   background-color: #E4E4E4;
 }
+.listitem-alert
+{
+  text-align: left;
+  font-size: 12px;
+  padding: 1px 8px;
+  margin: 0px;
+  color: #FF2600;
+  background-color: #FFF0E0;
+  border-top:    1px #FF2600 solid;
+  border-bottom: 1px #FF2600 solid;
+}
 
 a.list:link
 {
