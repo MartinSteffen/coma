@@ -14,19 +14,19 @@ function getPaper($paperId) {
 
 }
 
-// TODO:Doku
+function getReviewCountForPaper($paperId) {
 
-function isCompletelyReviewed($paperId) {
+	global $sql;
 
-	// TODO: all
-	return false;
+	if (!$paperId) {
+		$paperId = "0";
+	}
 
-}
+	$query="SELECT COUNT(*) FROM reviewreport WHERE paper_id=$paperId";
 
-function isNotReviewedAtAll($paperId) {
-
-	// TODO: all
-	return false;
+	$countArr=$sql->query($query);
+	
+	return($countArr[0][0]);
 
 }
 
@@ -44,6 +44,12 @@ function getAllPapersForConferenceSortByTotalScore( $conferenceId) {
 		$conferenceId="0";
 	}
 
+	$reviewQuery="SELECT min_reviews_per_paper FROM conference WHERE id=$conferenceId";
+	
+	$minReviewsArr=$sql->query($reviewQuery);
+
+	$minReviews=$minReviewsArr[0][0];
+
 	$graded = array();
 	$ungraded = array();
 
@@ -55,19 +61,24 @@ function getAllPapersForConferenceSortByTotalScore( $conferenceId) {
 		$paperId=$row['id'];
 		$paperArr=getPaper( $paperId );
 
-		if (isNotReviewedAtAll( $paperId )) {
+		$reviewCount=getReviewCountForPaper( $paperId );
+
+		if ( $reviewCount==0 ) {
 			$paperArr['total_grade'] = 0;
-			$paperArr['reviewStatus'] = "notAtAll";
+			$paperArr['review_count'] = 0;
+			$paperArr['review_status'] = "notAtAll";
 			$ungraded[ ] = $paperArr;
 		} else {
 			$totalGrade=getTotalGradeForPaper( $paperId );
-			if (isCompletelyReviewed( $paperId )) {
+			if ($reviewCount>=$minReviews) {
 				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
-				$paperArr['reviewStatus'] = "complete";
+				$paperArr['review_count'] = $reviewCount;
+				$paperArr['review_status'] = "complete";
 				$graded[ ] = $paperArr;
 			} else {
 				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
-				$paperArr['reviewStatus'] = "partially";
+				$paperArr['review_count'] = $reviewCount;
+				$paperArr['review_status'] = "partially";
 				$graded[ ] = $paperArr;
 			}
 		}
