@@ -53,7 +53,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['def_reviews']      = encodeText($_POST['def_reviews']);
   $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
   $strContentAssocs['max_papers']       = encodeText($_POST['max_papers']);
-  $strContentAssocs['variance']         = encodeText($_POST['variance']);
+  $strContentAssocs['variance']         = encodeText(intval($_POST['variance']*100));
   $strContentAssocs['auto_numreviewer'] = encodeText($_POST['auto_numreviewer']);
   if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
     $ifArray[] = 2;
@@ -121,7 +121,7 @@ if (isset($_POST['action'])) {
                                $_POST['def_reviews'],
                                $_POST['min_papers'],
                                $_POST['max_papers'],
-                               $_POST['variance'],
+                               $_POST['variance']/100,
                                (!empty($_POST['auto_actaccount']) ? '1' : '0'),
                                (!empty($_POST['auto_paperforum']) ? '1' : '0'),
                                (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
