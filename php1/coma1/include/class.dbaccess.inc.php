@@ -1555,7 +1555,7 @@ class DBAccess extends ErrorHandling {
 
   /**
    * Liefert ein Array von Forum-Objekten der Konferenz $intConferenceId zurueck
-   * bzw. die globalen Foren, wenn keine Konferenz-ID angegeben wurde.
+   * bzw. die globalen Konferenzforen, wenn keine Konferenz-ID angegeben wurde.
    *
    * @param int $intConferenceId Die ID der Konferenz, deren Foren ermittelt werden sollen.
    *                             Optional: Bei Nichtangabe werden die globalen Foren ermittelt.
@@ -1573,9 +1573,8 @@ class DBAccess extends ErrorHandling {
     else {
       $s = sprintf("SELECT   id, title, forum_type, paper_id".
                    " FROM    Forum".
-                   " WHERE   conference_id = '%d'".
-                   " OR      forum_type = '%d'",
-                             s2db($intConferenceId), s2db(FORUM_GLOBAL));
+                   " WHERE   conference_id = '%d'",
+                             s2db($intConferenceId));
     }
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {

@@ -34,7 +34,7 @@ class Forum {
   var $intPaperId;
 
   function Forum($intId, $strTitle, $intConferenceId,
-                 $intForumType=0, $intPaperId=false) {
+                 $intForumType, $intPaperId=false) {
     $this->intId = $intId;
     $this->strTitle = $strTitle;
     $this->intConferenceId = $intConferenceId;
