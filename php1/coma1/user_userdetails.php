@@ -66,6 +66,7 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
   $paperList = new Template(TPLPATH.'profile_authorpaperlist.tpl');
   $strPapersAssocs = defaultAssocArray();
   $strPapersAssocs['message']     = '';
+  $strPapersAssocs['userid']      = encodeText($objPerson->intId);
   $strPapersAssocs['author_name'] = encodeText($objPerson->getName(0));
   $strPapersAssocs['targetpage']  = 'user_userdetails.php';
   $strPapersAssocs['lines']       = '';
@@ -75,7 +76,7 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
       $ifArray = array();
       $strItemAssocs = defaultAssocArray();
       $strItemAssocs['line_no']     = $lineNo;
-      $strItemAssocs['paper_id']    = encodeText($objPaper->intId);
+      $strItemAssocs['paper_id']    = encodeText($objPaper->intId);      
       $strItemAssocs['author_id']   = '';
       $strItemAssocs['author_name'] = '';
       $ifArray[] = $objPaper->intStatus;
