@@ -32,11 +32,10 @@ if (!isset($_SESSION['uid'])) {
     error('getUID',$myDBAccess->getLastError());
   }
 }
-$objIch = $myDBAccess->getPerson(session('uid'));
+$objIch = $myDBAccess->getPerson(session('uid'),session('confif'));
 if ($myDBAccess->failed()) {
   error('chooseHighestRole',$myDBAccess->getLastError());
 }
-var_dump($objIch);
 if ($objIch->hasRole(CHAIR)) {
   redirect('chair_start.php');
 }
