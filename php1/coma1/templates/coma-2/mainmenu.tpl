@@ -1,12 +1,12 @@
 <table class="menu">
   <tr>
     <td class="menu"><a href="{basepath}main_profile.php?{SID}"{if1 class="markedmenuitem"}>
-      Profil</a>
+      Profile</a>
     </td>
   </tr>
   <tr>
     <td class="menu"><a href="{basepath}main_conferences.php?{SID}"{if2 class="markedmenuitem"}>
-      Konferenzen</a>
+      Conferences</a>
     </td>
   </tr>
   <tr>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<title>CoMa -  the Conference Manager - {title}</title>
+<title>CoMa - Your Conference Manager - {title}</title>
 <link rel="stylesheet" type="text/css" href="{path}styles.css">
 </head>
 

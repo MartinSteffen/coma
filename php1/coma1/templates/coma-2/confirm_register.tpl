@@ -5,7 +5,7 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Neuen Benutzer angelegt:</th>
+    <th colspan="2">Registered New User:</th>
   </tr>
   <tr>
     <td> 
@@ -17,15 +17,23 @@
   </tr>
   <tr>
     <td> 
-      Email-Adresse:
+      Email address:
     </td>
     <td>      
-      {email} <span class="emph">(dient als Benutzername)</span>
+      {email} <span class="emph">(= username)</span>
     </td>
   </tr>
   <tr>
     <td> 
-      Telefon:
+      Affiliation: 
+    </td>
+    <td>      
+      {affiliation}
+    </td>
+  </tr>  
+  <tr>
+    <td> 
+      Phone number:
     </td>
     <td>      
       {phone}
@@ -33,7 +41,7 @@
   </tr>
   <tr>
     <td> 
-      Fax:
+      Fax number:
     </td>
     <td>      
       {fax}
@@ -41,17 +49,17 @@
   </tr>
   <tr>
     <td> 
-      Adresse: 
+      Address: 
     </td>
     <td>      
-      {street} &nbsp;&nbsp;&nbsp;&nbsp; {postalcode} {city}
+      {street} &nbsp;&nbsp;&nbsp;&nbsp; {postalcode} {city} <br>
+      {state} {country}
     </td>
   </tr>
 </table>
 </p>
 
-Der Benutzer wurde erfolgreich angelegt! Bitte loggen Sie sich auf der 
-<a href="{basepath}index.php?{SID}">Startseite</a> mit ihrer Email-Adresse 
-als Benutzernamen ein!
+User was successfully registered! Please login on
+<a href="{basepath}index.php?{SID}">start page</a> with your Email address as Username!
 
 <p>&nbsp;</p>

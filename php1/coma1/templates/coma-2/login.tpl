@@ -34,11 +34,11 @@
 
 <p class="message2">
   If you have registered for the site, please enter your username and password.
-  This will mean that you can get access to information relevant to you.
+  You have to login in order to access information that is relevant to you.<br>
   If you have not registered, please register below:<br>
-<form action="{basepath}register.php?{SID}" method="post">
-  <input type="submit" name="submit" value="Register" class="button">
-</form>
+  <form action="{basepath}register.php?{SID}" method="post">
+    <input type="submit" name="submit" value="Register" class="button" />
+  </form>
 </p>
 
 <p>&nbsp;</p>

@@ -31,7 +31,7 @@ $content->assign(defaultAssocArray());
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Help for CoMa';
+$strMainAssocs['title'] = 'Getting started with CoMa';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
