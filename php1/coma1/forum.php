@@ -28,7 +28,7 @@ function validSelection($selectarray){
 }
 
 function notemptyandtrue($arr, $index){
-  if (isset($arr[$index]) {
+  if (isset($arr[$index])) {
     return ($arr[$index] == true);
   }
   return false;
