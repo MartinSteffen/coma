@@ -137,10 +137,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (stateFlag) {
 						pstmt.setString(++pstmtCounter, p.getState());
 					}
-					//TODO
-					//if (roleFlag) {
-					//	pstmt.setInt(++pstmtCounter, p.getRole_type());
-					//}
+					// TODO
+					// if (roleFlag) {
+					// pstmt.setInt(++pstmtCounter, p.getRole_type());
+					// }
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
@@ -811,7 +811,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					while (resSet.next()) {
 						if (resSet.getInt(1) > 0) {
 							isAboutTopic = new Boolean(true);
-						} 
+						}
 
 					}
 					resSet.close();
@@ -1042,7 +1042,9 @@ public class ReadServiceImpl extends Service implements ReadService {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see coma.handler.db.ReadService#getTopic(int, int)
 	 */
 	public SearchResult getTopic(int topic_id, int conference_id) {

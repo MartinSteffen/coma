@@ -2,6 +2,8 @@ package coma.entities;
 
 import static coma.entities.Entity.XMLMODE.DEEP;
 import static coma.entities.Entity.XMLMODE.SHALLOW;
+import coma.handler.impl.db.DeleteServiceImpl;
+import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.impl.db.ReadServiceImpl;
 import coma.servlet.util.XMLHelper;
 import static coma.util.logging.Severity.WARN;
@@ -11,6 +13,9 @@ import static coma.util.logging.Severity.WARN;
  */
 
 public class Person extends Entity {
+	private ReadServiceImpl myReadService = new ReadServiceImpl();
+	private DeleteServiceImpl myDeleteService = new DeleteServiceImpl();
+	private InsertServiceImpl myInsertService = new InsertServiceImpl();
 	
 	private int id;
     private String first_name;
@@ -242,7 +247,6 @@ public class Person extends Entity {
 	
 	public Paper[] getPapers() throws Exception{
 		
-		ReadServiceImpl myReadService = new ReadServiceImpl();
 		Paper mySearchPaper = new Paper(-1);
 		mySearchPaper.setAuthor_id(this.id);
 		SearchCriteria mysc = new SearchCriteria();
@@ -292,4 +296,23 @@ public class Person extends Entity {
 		    return null;
 		}
 	    }
+	
+	public Topic[] getPreferredTopics(){
+		Topic[] result = new Topic[0];
+		SearchResult sr = myReadService.getPreferedTpoic(this.id);
+		if(sr != null){
+			result = (Topic[])sr.getResultObj();
+		}
+		return result;
+	}
+
+	public SearchResult deletePreferredTopic(Topic t){
+		return myDeleteService.deletePreferedTopic(this.id, t.getId());
+	
+	}
+	public SearchResult addPreferredTopic(Topic t){
+		return myInsertService.prefersTopic(this.id, t.getId());
+	}
+	
+	
 }

@@ -551,7 +551,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				+ conference_id + ",'" + name + "')";
 		return executeQuery(QUERY);
 	}
-
+	//TODO role_type[]
 	public SearchResult setPersonRole(int person_id, int conference_id,
 			int role_type, int state) {
 		String QUERY = "INSERT INTO Role " + " VALUES(" + conference_id + ","
@@ -564,4 +564,5 @@ public class InsertServiceImpl extends Service implements InsertService {
 				+ "," + paper_id + "," + name + ")";
 		return executeQuery(QUERY);
 	}
+	
 }
