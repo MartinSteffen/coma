@@ -81,3 +81,4 @@ class SQL {
 		return $this->last_insert_id;
 	}
 }
+$GLOBALS['sql']=new SQL();

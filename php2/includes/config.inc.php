@@ -1,36 +1,18 @@
-<?php
+<?PHP
+// This is an automatically generated configuration file for CoMa!!
+// Do not change this file manually unless you exactly know what you are doing!
 
-// server name[: port [/ path]] to MySQL-DB-Instance
-$dbhost="";
+define('COMA_INSTALLED',true);
+$dbhost='localhost'; 
+$dbuser='dziuk'; 
+$dbpass='rethbeff6'; 
+$dbname='coma'; 
 
-// user for MySQL-DB-Access
-$dbuser="testUser";
-
-// password for DB-USer (plain text! never commit this to SVN!)
-$dbpass="testPass";
-
-// name of the MySQL-DB-Instance to use
-$dbname="coma2";
-
-// prefix for all table names, prepended to individual name. For snert, this is always set to ""
-$dbprefix="";
-
-// absolute http-link to the root-most directory of the actual installation of CoMa
-$httpbaseurl="";
-
-// host for the FTP-Space used
-$ftphost="localhost";
-
-// ftp-username
-$ftpuser="";
-
-// ftp-password (Plain text! Never check this in to SVN!)
-$ftppass="";
-
-// remote directory to use for paper relay, for snert this is always set to ""
-$ftpdir="";
-
-// base http url of the directory accessed by FTP, we need this to generate http download links to papers.
-$httpftpurl="";
-
-
+$ftphost='xini.de'; 
+$ftpuser='v037607'; 
+$ftppass='Jj1.1ab'; 
+$ftpdir=''; 
+$httpftpurl='http://www.myftpserver.net/papers/'; 
+ 
+ 
+ 

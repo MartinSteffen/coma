@@ -3,7 +3,8 @@
 /* ----- FOR CHAIR ------------------------------------------------------ */
 function isChair_Paper($paperID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 2
@@ -12,8 +13,8 @@ function isChair_Paper($paperID)
 			and role.conference_id = paper.conference_id 
 			and paper.id = ".$paperID; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -23,7 +24,8 @@ function isChair_Paper($paperID)
 
 function isChair_Conference($confID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 2
@@ -31,8 +33,8 @@ function isChair_Conference($confID)
 			and role.person_id = ".$_SESSION['userID']."
 			and role.conference_id = ".$confID; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -42,7 +44,8 @@ function isChair_Conference($confID)
 
 function isChair_Topic($topicID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($topicID)) && (!($topicID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($topicID)) && (!($topicID == "")))
   {
 	$SQL = "select role.person_id from role, topic 
 			where role.role_type = 2
@@ -51,8 +54,8 @@ function isChair_Topic($topicID)
 			and role.conference_id = topic.conference_id
 			and topic.id = ".$topicID; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -62,7 +65,8 @@ function isChair_Topic($topicID)
 
 function isChair_Person($userID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($userID)) && (!($userID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($userID)) && (!($userID == "")))
   {
 	$SQL = "select X.person_id
 			from role X, role Y  
@@ -71,8 +75,8 @@ function isChair_Person($userID)
 			and X.person_id = ".$_SESSION['userID']."
 			and X.conference_id = Y.conference_id
 			and Y.person_id = ".$userID;
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}				  
@@ -82,6 +86,8 @@ function isChair_Person($userID)
 
 function isChair_Overall()
 {
+
+	global $sql;
   if(isset($_SESSION['userID']))
   {
 	$SQL = "select role.person_id from role 
@@ -89,8 +95,8 @@ function isChair_Overall()
 			and role.state = 1 
 			and role.person_id = ".$_SESSION['userID']; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -102,7 +108,8 @@ function isChair_Overall()
 /* ----- FOR ADMIN ------------------------------------------------------ */
 function isAdmin_Paper($paperID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 1
@@ -111,7 +118,7 @@ function isAdmin_Paper($paperID)
 			and role.conference_id = paper.conference_id 
 			and paper.id = ".$paperID; 
 
-    $result=mysql_query($SQL);	
+    $result=$sql->query($SQL);	
     if ($dummy = mysql_fetch_row ($result)) 	
 	{
 		return true;
@@ -122,7 +129,9 @@ function isAdmin_Paper($paperID)
 
 function isAdmin_Conference($confID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
+
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 1
@@ -130,7 +139,7 @@ function isAdmin_Conference($confID)
 			and role.person_id = ".$_SESSION['userID']."
 			and role.conference_id = ".$confID; 
 
-    $result=mysql_query($SQL);	
+    $result=$sql->query($SQL);	
     if ($dummy = mysql_fetch_row ($result)) 	
 	{
 		return true;
@@ -141,6 +150,8 @@ function isAdmin_Conference($confID)
 
 function isAdmin_Overall()
 {
+
+	global $sql;
   if(isset($_SESSION['userID']))
   {
 	$SQL = "select role.person_id from role 
@@ -148,8 +159,8 @@ function isAdmin_Overall()
 			and role.state = 1 
 			and role.person_id = ".$_SESSION['userID']; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if($result) 	
 	{
 		return true;
 	}
@@ -161,7 +172,10 @@ function isAdmin_Overall()
 /* ----- FOR AUTHOR ------------------------------------------------------ */
 function isAuthor_Paper($paperID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
+
+
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 4
@@ -170,8 +184,8 @@ function isAuthor_Paper($paperID)
 			and role.conference_id = paper.conference_id 
 			and paper.id = ".$paperID; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -181,7 +195,8 @@ function isAuthor_Paper($paperID)
 
 function isAuthor_Conference($confID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 4
@@ -189,8 +204,8 @@ function isAuthor_Conference($confID)
 			and role.person_id = ".$_SESSION['userID']."
 			and role.conference_id = ".$confID; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -200,6 +215,7 @@ function isAuthor_Conference($confID)
 
 function isAuthor_Overall()
 {
+	global $sql;
   if(isset($_SESSION['userID']))
   {
 	$SQL = "select role.person_id from role 
@@ -207,8 +223,8 @@ function isAuthor_Overall()
 			and role.state = 1 
 			and role.person_id = ".$_SESSION['userID']; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -220,7 +236,8 @@ function isAuthor_Overall()
 /* ----- FOR REVIEWER ------------------------------------------------------ */
 function isReviewer_Paper($paperID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 3
@@ -229,8 +246,8 @@ function isReviewer_Paper($paperID)
 			and role.conference_id = paper.conference_id 
 			and paper.id = ".$paperID; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -240,7 +257,8 @@ function isReviewer_Paper($paperID)
 
 function isReviewer_Conference($confID)
 {
-  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
+  global $sql;
+if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 3
@@ -248,8 +266,8 @@ function isReviewer_Conference($confID)
 			and role.person_id = ".$_SESSION['userID']."
 			and role.conference_id = ".$confID; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
@@ -259,6 +277,7 @@ function isReviewer_Conference($confID)
 
 function isReviewer_Overall()
 {
+	global $sql;
   if(isset($_SESSION['userID']))
   {
 	$SQL = "select role.person_id from role 
@@ -266,8 +285,8 @@ function isReviewer_Overall()
 			and role.state = 1 
 			and role.person_id = ".$_SESSION['userID']; 
 
-    $result=mysql_query($SQL);	
-    if ($dummy = mysql_fetch_row ($result)) 	
+    $result=$sql->query($SQL);	
+    if ($result) 	
 	{
 		return true;
 	}
