@@ -966,13 +966,13 @@ class DBAccess extends ErrorHandling {
                  " GROUP   BY c.id, c.max_value, c.quality_rating",
                            s2db($intPaperId)); 
     $data = $this->mySql->select($s);
-    print_r($data);
     if ($this->mySql->failed()) {
       return $this->error('getAverageRatingOfPaper', $this->mySql->getLastError());
     }
     else if (empty($data)) {
       return $this->success(false);
     }
+    print_r($data);
     for ($i = 0; $i < count($data); $i++) {
       
     }
