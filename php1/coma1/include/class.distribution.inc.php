@@ -198,7 +198,7 @@ class Distribution extends ErrorHandling {
       }
     }
     
-    $text = array('assigned', 'prefers', 'wants', 'denies', 'excluded');
+    $text = array('', 'assigned', 'prefers', 'wants', 'denies', 'excluded');
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id_index[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
