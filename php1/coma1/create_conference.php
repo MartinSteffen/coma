@@ -228,7 +228,7 @@ else {
   $strContentAssocs['min_reviews']      = '3';
   $strContentAssocs['def_reviews']      = '4';
   $strContentAssocs['auto_numreviewer'] = '2';
-  $strContentAssocs['variance']         = '0.5';
+  $strContentAssocs['variance']         = '10';
   $strContentAssocs['num_topics']       = '3';
   $strContentAssocs['num_criterions']   = '2';
   $strContentAssocs['topics']           = 'Informatics|Mathematics|Electronics';
