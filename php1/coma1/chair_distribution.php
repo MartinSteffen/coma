@@ -25,13 +25,15 @@ else if (!$checkRole) {
 }
 
 if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
-  if (!isset($_SESSION['dist']) || !isset($_SESSION['dist_check']) || !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
+  if (!isset($_SESSION['dist']) || !isset($_SESSION['dist_check']) ||
+      !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
     unset($_SESSION['dist']);
     unset($_SESSION['dist_check']);
     redirect('chair_reviews.php');
   }
   if ($_POST['dist_check'] != $_SESSION['dist_check']) {
-    error('Conflict.', 'Distribution not updated.');
+    error('Error occured while adding distribution data',
+          'Reason: Maybe not the original browser window?');
   }
   $dist = $_SESSION['dist'];
   reset($dist);
@@ -41,7 +43,7 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
         if(isset($_POST['p'.$pid.'ridx'.$j])) {
           $myDBAccess->addDistribution($dist[$pid][$j]['reviewer_id'], $pid);
           if ($myDBAccess->failed()) {
-            error('Error occured while adding distribution data.', $myDBAccess->getLastError());
+            error('Error occured while adding distribution data', $myDBAccess->getLastError());
           }
         }
       }
