@@ -36,7 +36,7 @@
       Title:
     </td>
     <td>
-      <input type="text" name="name_title" size="16" maxlength="32" value="{name_title}">
+      <input type="text" name="name_title" size="32" maxlength="32" value="{name_title}">
     </td>
   </tr>
   <tr>
@@ -44,7 +44,7 @@
       Affiliation:
     </td>
     <td>
-      <input type="text" name="affiliation" size="16" maxlength="20" value="{affiliation}">
+      <input type="text" name="affiliation" size="32" maxlength="127" value="{affiliation}">
     </td>
   </tr>
   <tr>
@@ -52,7 +52,7 @@
       Phone number:
     </td>
     <td>
-      <input type="text" name="phone" size="16" maxlength="20" value="{phone}">
+      <input type="text" name="phone" size="20" maxlength="20" value="{phone}">
     </td>
   </tr>
   <tr>
@@ -60,7 +60,7 @@
       Fax number:
     </td>
     <td>
-      <input type="text" name="fax" size="16" maxlength="20" value="{fax}">
+      <input type="text" name="fax" size="20" maxlength="20" value="{fax}">
     </td>
   </tr>
   <tr>
@@ -76,7 +76,7 @@
       Postal code:
     </td>
     <td>
-      <input type="text" name="postalcode" size="16" maxlength="20" value="{postalcode}">
+      <input type="text" name="postalcode" size="20" maxlength="20" value="{postalcode}">
     </td>
   </tr>
   <tr>
