@@ -27,7 +27,7 @@ echo('<br><br>');
 
 $myDist = new Distribution($mySql);
 
-$y = $myDist->getDistribution(1);
+$y = $myDist->getDistribution(1, array(1 => 10));
 if ($myDist->failed()) {
   echo($myDist->getLastError());
 }

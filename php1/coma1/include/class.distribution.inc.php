@@ -108,7 +108,7 @@ class Distribution extends ErrorHandling {
     // Durchschnittliche Anzahl von Reviewern pro Paper (falls moeglich)
     $avg_revs_per_paper = false;
     // Maximale Anzahl von Papern pro Reviewer
-    $max_papers_per_rev = false;
+    //$max_papers_per_rev = false;
     // Matrix initial mit bisheriger Verteilung, Wuenschen usw.
     $initial_matrix = array();
     // Vorschlagsmatrix
@@ -127,8 +127,7 @@ class Distribution extends ErrorHandling {
     }
     $min_revs = $data[0]['min_reviews_per_paper'];
 
-    $s = sprintf("SELECT default_reviews_per_paper, max_number_of_papers ".
-                 "FROM ConferenceConfig WHERE id = '%d'",
+    $s = sprintf("SELECT default_reviews_per_paper FROM ConferenceConfig WHERE id = '%d'",
                  s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -139,7 +138,7 @@ class Distribution extends ErrorHandling {
                           "intConferenceId = $intConferenceId");
     }
     $avg_revs_per_paper = $data[0]['default_reviews_per_paper'];
-    $max_papers_per_rev = $data[0]['max_number_of_papers'];
+    //$max_papers_per_rev = $data[0]['???'];
 
     // Paper-ID's holen
     $s = sprintf("SELECT id FROM Paper WHERE conference_id = '%d' ORDER BY id ASC",
@@ -334,7 +333,7 @@ class Distribution extends ErrorHandling {
         }
       }
       for ($j = 0; $j < count($tmp); $j++) {
-        $this->suggest($matrix, $i, $tmp[$j], $p_id, $max_papers_per_rev,
+        $this->suggest($matrix, $i, $tmp[$j], $p_id, count($p_id),
                        $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
     }
@@ -397,7 +396,7 @@ class Distribution extends ErrorHandling {
             }
           }
         }*/
-        $this->suggest($matrix, $rindex, $pindex, $p_id, $max_papers_per_rev,
+        $this->suggest($matrix, $rindex, $pindex, $p_id, count($p_id),
                        $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
     }
