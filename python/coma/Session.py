@@ -8,7 +8,6 @@ import random
 import string
 import os
 import cgi
-import config
 
 class Session:
     """The session object is used to store information on a connection on
@@ -25,12 +24,6 @@ class Session:
 	self.id = id
 	self.user = user
 	self.time = time
-
-    def create(self, user, expires):
-
-    def delete(self):
-
-
 
 class SessionManager:
     """This connects to the data base and maintains a list of sessions."""
@@ -53,8 +46,16 @@ class SessionManager:
             if result:
                 db.query("UPDATE Sessions SET last = %s WHERE sid = %s;" % \
                          (sid))
-                dict = result.
             else:
                 return None
         else:
             return None
+
+def main(db):
+    """Test the session manager."""
+    print db
+
+if (__name__ == "__main__"):
+    import comadb
+    db = comadb.connect()
+    main(db)
