@@ -29,11 +29,11 @@ $objConference = $myDBAccess->getConferenceDetailed($_POST['confid']);
 if ($myDBAccess->failed()) {
   error('Error occured retrieving conference config.', $myDBAccess->getLastError());
 }
-else if (empty($objConference)) {
+elseif (empty($objConference)) {
   error('Conference does not exist in database.', '');
 }
 // Rollenbewerbung zurueckziehen
-else if (isset($_POST['retreat'])) {
+elseif (isset($_POST['retreat'])) {
   $myDBAccess->deleteRole(session('uid'), $intRoleType, $_POST['confid']);
   if ($myDBAccess->failed()) {
     error('Error updating role table.', $myDBAccess->getLastError());
@@ -47,7 +47,7 @@ else {
     $blnAccepted = true;
   }
   // Chairs und Reviewer muessen immer bestaetigt werden
-  else if ($_POST['roletype'] == CHAIR || $_POST['roletype'] == REVIEWER) {
+  elseif ($_POST['roletype'] == CHAIR || $_POST['roletype'] == REVIEWER) {
     $blnAccepted = false;
   }
   else {
