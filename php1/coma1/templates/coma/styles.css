@@ -118,33 +118,37 @@ a:hover
 {
   color: #004DFF;
 }
-a.email {
+a.email
+{
   color: #004DFF;
   padding-left: 12px;
   background-image:url('images/mail.gif');
   background-repeat: no-repeat;
   background-position: left;
 }
-a.link {
+a.link
+{
   padding-left: 12px;
   background-image:url('images/link.gif');
   background-repeat: no-repeat;
   background-position: left;
 }
-a.order {
+a.order
+{
   padding-left: 12px;
   background-image:url('images/order.gif');
   background-repeat: no-repeat;
   background-position: left;
 }
-a.order-active {
+a.order-active
+{
   color: #FF2600;
   padding-left: 12px;
   background-image:url('images/order-active.gif');
   background-repeat: no-repeat;
   background-position: left;
 }
-a.buttonlink {
+a.buttonlink
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-size: 12px;
