@@ -1202,6 +1202,10 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
     }
+    $this->updateCriterions($objConferenceDetailed);
+    if ($this->failed()) {
+      return $this->error('updateConference', $this->getLastError());
+    }
     return $this->success();
   }
 
@@ -1443,11 +1447,35 @@ nur fuer detaillierte?
   }
 
   /**
+   * Aktualisiert die Kriterien der Konferenz $objConferenceDetailed in der Datenbank.
+   *
+   * @param ConferenceDetailed [] $objConferenceDetailed Das Konferenz-Objekt
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
+   * @author Tom (14.01.04)
    */
-  function updateCriterion($objCriterion) {
-    if (!($this->is_a($objCriterion, 'Criterion'))) {
+  function updateCriterions($objConferenceDetailed) {
+    if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
+    }
+    $intId = $objConferenceDetailed->intId;
+    // Kriterien loeschen...
+    $s = "DELETE  FROM Criterion".
+        " WHERE   conference_id = '$intId'";
+    $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateCriterions', $this->mySql->getLastError());
+    }
+    // Kriterien einfuegen...
+    for ($i = 0; $i < count($objConferenceDetailed->intCriterions); $i++) {
+      $objCriterion = $objConferenceDetailed->intCriterion[$i];
+      $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
+          "         VALUES ('$intId', '$objCriterion->strName', '$objCriterion->strDescription',
+          "                 '$objCriterion->intMaxValue', '$objCriterion->fltWeight')";
+      $this->mySql->insert($s);
+      if ($this->mySql->failed()) {
+        return $this->error('updateCriterions', $this->mySql->getLastError());
+      }
     }
     return $this->success();
   }
@@ -1455,8 +1483,8 @@ nur fuer detaillierte?
   /**
    * @access private
    */
-  function updateTopic($objTopic) {
-    if (!($this->is_a($objTopic, 'Topic'))) {
+  function updateTopics($objConferenceDetailed) {
+    if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
     return $this->success();

@@ -26,6 +26,11 @@ function bit($b) {
 
 
 
+
+
+
+
+/*
 $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -40,9 +45,9 @@ $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo('OK');
+echo('OK');*/
 
-/*
+
 $c = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -51,15 +56,13 @@ else if (empty($c)) {
   echo('EMPTY');
   exit(-1);
 }
-$c->blnAutoActivateAccount = true;
-$c->blnAutoOpenPaperForum = false;
-$c->blnAutoAddReviewers = true;
+$c->intTopics[] = array();
 $myDBAccess->updateConference($c);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 echo ('OK');
-*/
+
 
 /*
 $p = $myDBAccess->getPaperDetailed(2);
