@@ -1,6 +1,7 @@
 <?php
 
 define('IN_COMA1', true);
+define('NEED_NO_LOGIN', true);
 
 include('./include/header.inc.php');
 include('./include/getCriticalPapers.inc.php');
