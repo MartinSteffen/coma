@@ -36,7 +36,8 @@ echo('avg rating of paper #1 = '.$myDBAccess->getAverageRatingOfPaper(1).'<br>')
 
 $p = $myDBAccess->getPaperDetailed(1);
 if (!empty($p)) {
-  echo('Autor (ID) / Titel: '.$p->strAuthor.' ('.$p->intAuthorId.') / '.$p->strTitle.'<br>');
+  echo('Autor (ID) / Titel:<br>');
+  echo($p->strAuthor.' ('.$p->intAuthorId.') / '.$p->strTitle.'<br>');
   echo('Co-Autoren (ID):<br>');
   for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
     echo($p->strCoAuthors[$i].' ('.$p->intCoAuthorIds[$i].')<br>');
