@@ -115,8 +115,8 @@
 
 <table class="list">
   <tr class="listheader">
-    <th width="25%" class="listheader"> Reviewer Name  </th> 
-    <th width="25%" class="listheader"> Exclude / Prefere </th> 
+    <th width="50%" class="listheader"> Reviewer Name  </th> 
+    <th width="25%" class="listheader"> exclude / prefer</th> 
   </tr>
 
   <tr class="ft-tr"> 
@@ -142,7 +142,7 @@
 
     <td class="listitem-2"> 
        <form action="" method="post">
-         exclude
+         excluded
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value=" delete choice" class="button" />
        </form>
