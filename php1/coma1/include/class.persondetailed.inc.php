@@ -70,6 +70,7 @@ class PersonDetailed extends Person {
       $strAddress .= ', ';
     }
     $strAddress .= $this->strCountry;
+    return $strAddress;
   }
 
 } // end class PersonDetailed
