@@ -47,7 +47,7 @@ for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
 //$p->strCoAuthors[] = false;
 //$p->intCoAuthorIds[0] = false;
 //$p->strCoAuthors[0] = false;
-$myDBAccess->updatePaperDetailed($p);
+$myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
