@@ -48,8 +48,14 @@ if (isset($_POST['action'])) {
     }
   }
 }
+if (isset($_GET['order']) || isset($_POST['order'])) {
+  $intOrder = (isset($_GET['order']) ? $_GET['order'] : $_POST['order']);
+}
+else {
+  $intOrder = 0;
+}
 
-$objPersons = $myDBAccess->getUsersOfConference(session('confid'));
+$objPersons = $myDBAccess->getUsersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
@@ -68,6 +74,7 @@ if (!empty($objPersons)) {
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
     $strItemAssocs['targetform'] = 'chair_users.php';
+    $strItemAssocs['order'] = $intOrder;
     $strItemAssocs['roles'] = '';
     for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
@@ -77,6 +84,7 @@ if (!empty($objPersons)) {
       $strRolesAssocs['role_type'] = $intRoles[$i];
       $strRolesAssocs['role_name'] = encodeText($strRoles[$intRoles[$i]]);
       $strRolesAssocs['line_no'] = $lineNo;
+      $strRolesAssocs['order'] = $intOrder;
       if ($objPerson->hasRole($intRoles[$i])) {
       	if ($objPerson->intId != session('uid') || $intRoles[$i] != CHAIR) {
       	  $strRolesAssocs['if'] = array(1);

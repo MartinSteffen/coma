@@ -511,14 +511,23 @@ class DBAccess extends ErrorHandling {
    * Konferenz $intConferenceId sind.
    *
    * @param int $intConferenceId ID der Konferenz
+   * @param int $intOrder Gibt an, wonach sortiert werden soll (1=Name, 2=Email)
    * @return Person [] Ist im Regelfall nicht leer.
    * @access public
    * @author Sandro (19.01.05)
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
-  function getUsersOfConference($intConferenceId) {
+  function getUsersOfConference($intConferenceId, $intOrder=false) {
     $s = "SELECT  id, first_name, last_name, email, title".
         " FROM    Person";
+    if (!empty($intOrder)) {
+      if ($intOrder == 1) {
+        $s .= " ORDER BY last_name";
+      }
+      else if ($intOrder == 2) {
+        $s .= " ORDER BY email";
+      }
+    }
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getUsersOfConference', $this->mySql->getLastError());
