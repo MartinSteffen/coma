@@ -140,7 +140,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <tr>
 			<td>Choose your Paper</td>
 			<td>
-				<input  size="50" name="thefile" type="file"/>
+				<input  size="30" name="thefile" type="file"/>
 			</td>
 			</tr>
 				<tr>
@@ -154,9 +154,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <xsl:template match="author/failed">
 <h3>An Error has occurred,plaese check your data!</h3>
-<div>
-<xsl:value-of select="."/>
-</div>
+
 </xsl:template>
 <xsl:template match="author/error">
 <h3>Error: <xsl:value-of select="."/></h3>
