@@ -216,12 +216,16 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $formtemplate->assign($formassocs);
         $formtemplate->parse();
         $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
+	/*
         $messes = $message->getNextMessages();
         if (DEBUGMODE){
           echo('<br>count(getNextMessages)=' . count($messes));
         }
         $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs, $myDBAccess);
+	*/
       }
+      $messes = $message->getNextMessages();
+      $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs, $myDBAccess);
     }
     else{
       $messageassocs['selectorunselect'] = 'select';
