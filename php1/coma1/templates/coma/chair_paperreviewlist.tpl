@@ -19,7 +19,7 @@
   {review_lines}
   <tr class="viewline">
     <td class="viewline">
-      <span class="emph">Average rating</span>
+      <span class="emph">Average rating:</span>
     </td>
     <td class="viewline" colspan="{cols-2}">&nbsp;</td>
     <td class="viewline">
@@ -31,4 +31,4 @@
 
 <p>&nbsp;</p>
 
-Return to the <a href="{basepath}chair_papers.php{?SID}">paper overview</a>.
+Return to the <a href="{basepath}chair_papers.php{?SID}" class="link">paper overview</a>.
