@@ -23,13 +23,13 @@ $ifArray = array();
 if (isset($_POST['action'])) {
 
   // Konvertiere Zeit-Daten in was sinnvolles
-  $abstract_dl = empty($_POST['abstract_dl']) ? '' : date(strtotime($_POST['abstract_dl']));
-  $paper_dl = empty($_POST['paper_dl']) ? '' : date(strtotime($_POST['paper_dl']));
-  $review_dl = empty($_POST['review_dl']) ? '' : date(strtotime($_POST['review_dl']));
-  $final_dl = empty($_POST['final_dl']) ? '' : date(strtotime($_POST['final_dl']));
-  $notification = empty($_POST['notification']) ? '' : date(strtotime($_POST['notification']));
-  $start_date = empty($_POST['start_date']) ? '' : date(strtotime($_POST['start_date']));
-  $end_date = empty($_POST['end_date']) ? '' : date(strtotime($_POST['end_date']));
+  $abstract_dl = empty($_POST['abstract_dl']) ? '' : date(strtotime($_POST['abstract_dl']),'d-M-Y');
+  $paper_dl = empty($_POST['paper_dl']) ? '' : date(strtotime($_POST['paper_dl']),'d-M-Y');
+  $review_dl = empty($_POST['review_dl']) ? '' : date(strtotime($_POST['review_dl']),'d-M-Y');
+  $final_dl = empty($_POST['final_dl']) ? '' : date(strtotime($_POST['final_dl']),'d-M-Y');
+  $notification = empty($_POST['notification']) ? '' : date(strtotime($_POST['notification']),'d-M-Y');
+  $start_date = empty($_POST['start_date']) ? '' : date(strtotime($_POST['start_date']),'d-M-Y');
+  $end_date = empty($_POST['end_date']) ? '' : date(strtotime($_POST['end_date']),'d-M-Y');
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
@@ -140,8 +140,8 @@ if (isset($_POST['action'])) {
     // auf korrkete Daten pruefen
     if (empty($_POST['name']))
     {
-      $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start date</b>, '.
-                    'and the <b>Deadline</b> fields!';
+      $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
+                    'and <b>Deadlines</b>!';
     }
     elseif ($end_dl > $start_dl) {
       $strMessage = 'Your Start Date should be before your End Date!';
