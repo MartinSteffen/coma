@@ -1000,7 +1000,7 @@ class DBAccess {
     for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
       if ($objPerson->hasRole($i)) {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-            '         VALUES ('.$intConferenceId.', '.$intPersonId.', '.$i.')';
+            '         VALUES ('.$intConferenceId.', '.$intId.', '.$i.')';
         $result = $this->mySql->insert($s);
         if (empty($result)) {
           return $this->error('updateRoles '.$this->mySql->getLastError());
