@@ -82,7 +82,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
-      $messes = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
+      $forumassocs = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
       //Thread-neu
       $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
       $threadassocs = defaultAssocArray();
@@ -207,7 +207,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $formtemplate->parse();
         $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
         $messes = $message->getNextMessages();
-        $messes = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs);
+        $messageassocs = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs);
       }
     }
     else{
