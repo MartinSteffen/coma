@@ -10,14 +10,15 @@
   <xsl:template match="//navcolumn" name="navcolumn">
     <!-- Site navigation menu -->
     <xsl:comment>Navbar</xsl:comment>
-
-    <div class="navbar">
-      <ul>
-        <xsl:if test="//navcolumn//theTime">
-          <div class="date">JComa Time:
-            <xsl:value-of select="." />
+	 <xsl:if test="//navcolumn//theTime">
+         <div class="date">JComa Time:
+       <xsl:value-of select="//navcolumn//theTime" />
           </div>
         </xsl:if>
+    
+    
+    <div class="navbar">
+      <ul>
         <xsl:choose>
 
           <!-- Login/Subscribe. This is mut.ex. with
@@ -40,7 +41,6 @@
                 </div>
                 <div>
                   <a href="index.html">Forgot your Password?</a></div>
-
               </div>
             </fieldset>
             </form>
@@ -57,19 +57,12 @@
 
       <!-- any proper content based on the user's role. -->
       <xsl:otherwise>
-        <div>
-        You are logged in.
-        </div>
-	<li>User
-        <ul>
-          <li><a href="UserPrefs">Change preferences</a></li>
-        </ul>
-	</li>
         <xsl:if test="//navcolumn//isChair">
           <li>Chair
           <ul>
-            <li>Assign reviewers</li>
-            <li>User management</li>
+            <li>
+            <a href="Chair?action=setup">Setup</a></li>
+            <li><a href="Chair?action=invite_person">invite person</a></li>
           </ul>
         </li>
       </xsl:if>
@@ -114,3 +107,4 @@
 </xsl:template>
 
 </xsl:stylesheet>
+ 
