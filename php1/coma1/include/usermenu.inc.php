@@ -19,7 +19,7 @@ if ($myDBAccess->failed()) {
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
 $strMenuAssocs = defaultAssocArray();
-$strMenuAssocs['menu1'] = '';
+$strMenuAssocs['menu1'] = ''.$objPerson->intRoles;
 $strMenuAssocs['menu2'] = '';
 $strMenuAssocs['menu3'] = '';
 $strMenuAssocs['menu4'] = '';

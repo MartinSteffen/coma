@@ -1,6 +1,6 @@
 <table class="menu">
   <tr>
-    <td class="menu"><a href="{basepath}main_profile.php?{SID}"{if1 class="markedmenuitem"}>
+    <td class="menu"><a href="{basepath}user_profile.php?{SID}"{if1 class="markedmenuitem"}>
       Profile</a>
     </td>
   </tr>
@@ -9,12 +9,12 @@
   {menu3}
   {menu4}  
   <tr>
-    <td class="menu"><a href="{basepath}main_conferences.php?{SID}"{if2 class="markedmenuitem"}>
+    <td class="menu"><a href="{basepath}user_conferences.php?{SID}"{if2 class="markedmenuitem"}>
       Conferences</a>
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}main_forum.php?{SID}"{if3 class="markedmenuitem"}>
+    <td class="menu"><a href="{basepath}user_forums.php?{SID}"{if3 class="markedmenuitem"}>
       Forum</a>
     </td>
   </tr>
