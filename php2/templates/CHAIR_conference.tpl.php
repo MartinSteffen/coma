@@ -62,7 +62,7 @@ $forums = $input['forums'];
             </td>
           </tr>
           <tr> 
-            <td width="220" class="textBold">Paper submition deadline</td>
+            <td width="220" class="textBold">Paper submission deadline</td>
             <td width="148"> 
               <div id=paperSubmission><span class=text><? echo $conference['paperSubmission'] ?></span></div>
               <input type="hidden" name="paperSubmissionHidden" value="<? echo $conference['paperSubmissionHidden'] ?>">
@@ -80,15 +80,6 @@ $forums = $input['forums'];
             </td>
           </tr>
           <tr> 
-            <td width="220" class="textBold">Final version deadline</td>
-            <td width="148"> 
-              <div id=finalVersion><span class=text><? echo $conference['finalVersion'] ?></span></div>
-              <input type="hidden" name="finalVersionHidden" value="<? echo $conference['finalVersionHidden'] ?>">
-            </td>
-            <td class="text"> <a href="javascript:show_calendar('finalVersion');"><img src="templates/images/b_calendar.png" alt="Calender" border="0"/></a>	
-            </td>
-          </tr>
-          <tr> 
             <td width="220" class="textBold">Notification</td>
             <td width="148"> 
               <div id=notification><span class=text><? echo $conference['notification'] ?></span></div>
@@ -97,6 +88,15 @@ $forums = $input['forums'];
             <td class="text"> <a href="javascript:show_calendar('notification');"><img src="templates/images/b_calendar.png" alt="Calender" border="0"/></a>	
             </td>
           </tr>
+          <tr> 
+            <td width="220" class="textBold">Final version deadline</td>
+            <td width="148"> 
+              <div id=finalVersion><span class=text><? echo $conference['finalVersion'] ?></span></div>
+              <input type="hidden" name="finalVersionHidden" value="<? echo $conference['finalVersionHidden'] ?>">
+            </td>
+            <td class="text"> <a href="javascript:show_calendar('finalVersion');"><img src="templates/images/b_calendar.png" alt="Calender" border="0"/></a>	
+            </td>
+          </tr>		  
           <tr> 
             <td width="220" class="textBold">&nbsp;</td>
             <td width="148">&nbsp;</td>
