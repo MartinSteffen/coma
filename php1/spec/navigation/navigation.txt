@@ -207,7 +207,7 @@ Menü:      - Profil (-> Profil einstellen)
            - Nachrichten (-> Nachrichtenübersicht)
            - Konferenzinfo (-> Konferenzinfo [nach Login])
            - Logout (-> Konferenzauswahl)
-STATUS:    fertig
+STATUS:    fertig bis auf Forenanbindung
 
 Chair-Menü   [chairmenu.tpl]
 -----------
@@ -276,23 +276,21 @@ Optionen:  - siehe Teilnehmer-Menü
 STATUS:    Nachrichten über anstehende Aufgaben fehlen noch
 
 
-CHAIR-Benutzerverwaltung   [chair_userlist.php]
+CHAIR-Benutzerverwaltung   [chair_users.php]
 -------------------------
 Inhalt:    - Liste der Benutzer* (Name, Vorname, Rollen, ...)
 Optionen:  - Benutzer löschen
            - Rollen hinzufügen / entfernen
 STATUS:    fertig
 
-CHAIR-Artikelverwaltung   [chair_paperlist.php]
+CHAIR-Artikelverwaltung   [chair_papers.php]
 ------------------------
 Inhalt:    - Liste der Artikel* (Titel, Autor*, Status, ...)
 Optionen:  - Download der einzelnen Artikel
            - Infos zu den Artikeln anzeigen (-> Artikelinfo)
            - Artikel löschen
            - Artikelstatus ändern (annehmen, ablehnen)
-STATUS:    Funktionalität fehlt:
-           Sortierung fehlt, Angaben fehlen (Gesamtbewertung, Last Edit),
-           Status ändern fehlt, Löschen fehlt, Anzeige fehlt
+STATUS:    Sortierung fehlt, Status ändern fehlt, Download fehlt
 
 CHAIR-Artikelverteilung   [chair_reviews.php]
 ------------------------
@@ -328,7 +326,7 @@ Inhalt:    - Liste aller Themen
            - Liste aller (unverteilten ?) Artikel* (Titel, Autor*, Status, Themen ?)
 Optionen:  - Einzelne Themen als gewünscht markieren
            - Einzelne Artikel als gewünscht / nicht gewünscht / ausgeschlossen markieren
-STATUS:    Übernehmen der Einstellungen in die DB fehlt
+STATUS:    fertig
 
 REVIEWER-Reviews   [reviewer_reviews.php]
 -----------------
@@ -337,7 +335,16 @@ Inhalt:    - Liste aller eigenen Reviews (Artikel*, Autor*, evtl. Artikelstatus,
              - Liste der beteiligten Reviewer*
 Optionen:  - Review bearbeiten (-> REVIEWER-Review bearbeiten)
            - Diskussionsforen betreten (-> Forum [erweitert])
-STATUS:    Angaben fehlen (Liste der Reviewer, Forenlink, Gesamtbewertung)
+STATUS:    Liste der Reviewer fehlt, Link zum Forum fehlt
+
+REVIEWER-Review bearbeiten   [reviewer_editreview.php]
+---------------------------
+Inhalt:    - Summary, Remarks, Confidential
+           - Liste der Bewertungskriterien (Rating, max Rating, Kommentar)
+           - Gesamtbewertung
+Optionen:  - Änderungen übernehmen (-> REVIEWER-Review bearbeiten)
+           - Gesamtbewertung neu berechnen  (-> REVIEWER-Review bearbeiten)
+STATUS:    fertig
 
 AUTOR-Artikel   [author_papers.php]
 --------------
@@ -345,7 +352,7 @@ Inhalt:    - Liste der Artikel* (Titel, Autor*, Status ?, ...)
 Optionen:  - Download der einzelnen Artikel
            - Artikeldaten bearbeiten (-> AUTOR-Artikel bearbeiten)
            - Artikel löschen
-STATUS:    Löschen fehlt, Download fehlt
+STATUS:    Download fehlt
 
 AUTOR-Artikel bearbeiten   [author_editpaper.php]
 -------------------------
@@ -355,7 +362,7 @@ Optionen:  - Artikelversion uploaden
            - Download des Artikels
            - Co-Autor hinzufügen / entfernen
            - Einstellungen übernehmen / rückgängig machen (-> AUTOR-Artikel)
-STATUS:    Download fehlt, Artikelversion uploaden fehlt
+STATUS:    Download fehlt, Artikeldatei uploaden fehlt
 
 TEILNEHMER-Einstellungen    [participant_data.php]
 -------------------------
