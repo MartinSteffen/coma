@@ -112,5 +112,3 @@
   <input type="submit" name="cancel" value="Abbrechen" class="button" />
 </form>
 </p>
-
-<p>&nbsp;</p>

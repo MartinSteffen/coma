@@ -22,7 +22,7 @@ h3 { font-size: 13px; font-weight: bold; }
 
 .center { text-align: center; }
 
-.emph   { font-size: 13px; font-weight: bold; }
+.emph   { font-weight: bold; }
 
 /* Allgemeine Links */
 a         { font-size: 13px; text-decoration: none; font-weight: bold; }

@@ -20,7 +20,7 @@
       Email-Adresse:
     </td>
     <td>      
-      {email} <div class="emph">(dient als Benutzername)</div>
+      {email} <span class="emph">(dient als Benutzername)</span>
     </td>
   </tr>
   <tr>
