@@ -208,7 +208,7 @@ if (isset($_POST['action'])) {
         $content = new Template(TPLPATH.'confirm_conference.tpl');
         $strContentAssocs['return_page'] = 'main_conferences.php';
         $objConference = new Conference(0,'','','', emptytime($start_date), emptytime($end_date));
-        $strContentAssocs['date'] = encodeText(getDateString());
+        $strContentAssocs['date'] = encodeText($objConference->getDateString());
         $ifArray = array();
       }
     }
