@@ -42,6 +42,12 @@
 
   + + + Sandro 
   
+- Role.type nach Role.role_type geaendert, da type reserviertes Schluesselwort ist.
+- Role.status nach Role.state geaendert, da status reserviertes Schluesselwort ist.
+- Forum.type nach Forum.forum_type geaendert (s.o.).
+
+  + + + Sandro & Tom, 02.12.04
+
   
 1.  Tables:
 
@@ -81,8 +87,8 @@ password	Varchar 32      Not Null (encrypted)
 ~~~~~~~~~~~~~
 conference_id	Int		-> Conference, id
 person_id       Int             -> Person, id
-type		Int		(enumeration Roles)
-status		Int		(enumeration Status)
+role_type	Int		(enumeration Roles)
+state		Int		(enumeration Status)
 
  Table Paper
 ~~~~~~~~~~~~~
@@ -99,7 +105,7 @@ mime_type	Varchar 127
 
  Table IsCoAuthorOf
 ~~~~~~~~~~~~~~~~~~~~
-person_id	Int		-> Person, id (may be NULL)
+person_id	Int
 paper_id	Int		-> Paper, id
 name		Varchar 127	Not Null
 
@@ -164,14 +170,14 @@ quality_rating	Int		(in percent)
 id              Int             Primary Key, Autoincrement
 conference_id	Int		-> Conference, id
 title		Varchar 127	Not Null
-type		Int		(enumeration ForumType)
-paper_id	Int		-> Paper, id (may be NULL)
+forum_type	Int		(enumeration ForumType)
+paper_id	Int
 
  Table Message
 ~~~~~~~~~~~~~~~
 id              Int             Primary Key, Autoincrement
-forum_id	Int		-> Forum, id   (may be NULL)
-reply_to	Int		-> Message, id (may be NULL)
+forum_id	Int
+reply_to	Int
 sender_id	Int		-> Person, id
 send_time	TimeAndDate	(automatically set)
 subject		Varchar 127
