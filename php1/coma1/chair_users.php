@@ -21,14 +21,8 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
-//global $intRoles;
-//global $strRoles;
-//[TODO]
-$intRoles = array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT);
-$strRoles = array(CHAIR       => 'Chair',
-                  REVIEWER    => 'Reviewer',
-                  AUTHOR      => 'Author',
-                  PARTICIPANT => 'Participant');                  
+global $intRoles;
+global $strRoles;
 
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
@@ -53,7 +47,7 @@ if (!empty($objPersons)) {
       $strRolesAssocs['if'] = array(($objPerson->hasRole($intRoles[$i])) ? 1 : 2);      
       $roles->assign($strRolesAssocs);
       $roles->parse();
-      $strItemAssocs['roles'] .= '['.$i.']'.$roles->getOutput();
+      $strItemAssocs['roles'] .= $roles->getOutput();
     }    
     $userItem = new Template(TPLPATH.'chair_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
