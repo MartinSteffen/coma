@@ -1,0 +1,47 @@
+digraph bug_life_cycle {
+  initial;
+  subgraph _open {
+    open;
+    reopened;
+  }
+  initial -> open;
+  assigned;
+  verified;
+  closed;
+  subgraph resolved {
+    fixed;
+    invalid;
+    wontfix;
+    remind;
+    worksforme;
+  }
+  open -> assigned;
+  assigned -> fixed;
+  assigned -> invalid;
+  assigned -> wontfix;
+  assigned -> remind;
+  assigned -> worksforme;
+  // open -> fixed;
+  // open -> invalid;
+  // open -> wontfix;
+  // open -> remind;
+  // open -> worksforme;
+  fixed -> reopened;
+  invalid -> reopened;
+  wontfix -> reopened;
+  remind -> reopened;
+  worksforme -> reopened;
+  reopened -> fixed;
+  reopened -> invalid;
+  reopened -> wontfix;
+  reopened -> remind;
+  reopened -> worksforme;
+  fixed -> verified;
+  invalid -> verified;
+  wontfix -> verified;
+  remind -> verified;
+  worksforme -> verified;
+  verified -> closed;
+  verified -> reopened;
+  closed -> reopened;
+}
