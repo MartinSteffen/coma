@@ -409,7 +409,7 @@ $forums = $input['forums'];
 	<td class="text" width="100%">&nbsp;</td>
   </tr> 
 </table>
-<form name="formForForum" method="post" action="index.php?m=forum&a=newforum">
+<form name="formForForum" method="post" action="index.php?m=forum&a=newforum&s=new">
 <input type="hidden" name="confID" value="<? echo $conference['confID'] ?>">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
