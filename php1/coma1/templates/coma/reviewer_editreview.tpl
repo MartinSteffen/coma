@@ -9,26 +9,26 @@
   </tr>
   <tr>
     <td colspan="2">
-      <table class="list">
-        <tr class="listheader">
+      <table class="formlist">
+        <tr class="formlistheader">
           <th>Rating criterion</th>
           <th>Score</th>
           <th>Comment</th>
         </tr>
-        <tr class="listitem-1"> 
-          <td class="listitem-1">Truth:</td>
-          <td class="listitem-1"><input type="text" size="2" name="rating-1" value="2"/>/3</td>
-          <td class="listitem-1"><textarea name="comment-1" rows="1" cols="48">Bla, bla...</textarea></td>
+        <tr class="formlistitem"> 
+          <td>Truth:</td>
+          <td><input type="text" size="2" name="rating-1" value="2"/>/3</td>
+          <td><textarea name="comment-1" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>
-        <tr class="listitem-2"> 
-          <td class="listitem-2">Originality:</td>
-          <td class="listitem-2"><input type="text" size="2" name="rating-2" value="1"/>/5</td>
-          <td class="listitem-2"><textarea name="comment-2" rows="1" cols="48">Bla, bla...</textarea></td>
+        <tr class="formlistitem">
+          <td>Originality:</td>
+          <td><input type="text" size="2" name="rating-2" value="1"/>/5</td>
+          <td><textarea name="comment-2" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>
-        <tr class="listitem-1"> 
-          <td class="listitem-1">Style:</td>
-          <td class="listitem-1"><input type="text" size="2" name="rating-3" value="7"/>/10</td>
-          <td class="listitem-1"><textarea name="comment-3" rows="1" cols="48">Bla, bla...</textarea></td>
+        <tr class="formlistitem">
+          <td>Style:</td>
+          <td><input type="text" size="2" name="rating-3" value="7"/>/10</td>
+          <td><textarea name="comment-3" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>        
       </table>
     </td>  

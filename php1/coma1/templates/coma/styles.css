@@ -235,6 +235,16 @@ table.formtable
   margin: 6px 10px;
   padding: 8px;
 }
+table.formlist {}
+table.formheader
+{
+  border-top: 1px #404040 solid;
+  border-bottom: 1px #404040 solid;  
+}
+tr.formlistitem
+{  
+  border-bottom: 1px #404040 solid;  
+}
 
 /* Schaltflaechen und Eingabefelder */
 input, textarea, button
