@@ -61,7 +61,7 @@ class Person {
    * @author Tom (04.12.04)
    */
   function switchRole($intRole) {
-    $this->intRoles = ~((~$intRole) ^ ($this->intRoles));
+    $this->intRoles = ~((~(1 << $intRole)) ^ ($this->intRoles));
     return true;
   }
 
