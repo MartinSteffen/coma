@@ -74,8 +74,8 @@ $strContentAssocs['paper_id'] = encodeText($objPaper->intId);
 $strContentAssocs['if'] = array();
 $strContentAssocs['reviewer_lines'] = '';
 if (!empty($r_id)) {
-  foreach ($r_id as $rid) {
-    $lineNo = 1;
+	$lineNo = 1;
+  foreach ($r_id as $rid) {    
     $objReviewer = $myDBAccess->getPerson($rid);
     if ($myDBAccess->failed()) {
       error('get reviewer data', $myDBAccess->getLastError());
@@ -114,7 +114,6 @@ if (!empty($r_id)) {
       }
     }    
 
-    $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId);
     if ($myDBAccess->failed()) {
