@@ -271,7 +271,7 @@ elseif ($STEP == 4) {
     foreach ($sql as $s) {
       $result = mysql_query($s, $conn);
       if (empty($result)) {
-        $errors[] = mysql_error($conn);
+        $errors[] = "[$s]: ".mysql_error($conn);
       }
     }
   }
