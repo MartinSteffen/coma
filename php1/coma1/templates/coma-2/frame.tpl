@@ -29,8 +29,8 @@
      </td>
     </tr>
     <tr height="25" bgcolor="#DBE9EC">
-     <td width="70" style="background-image:url({path}images/menueleft2.gif)" height="25"> &nbsp; </td>
-     <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue2.gif)">
+     <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
+     <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
       {navigator}
      </td>
     </tr>
