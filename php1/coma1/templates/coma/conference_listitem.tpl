@@ -21,7 +21,7 @@
   </td>
   <td class="listitem-{line_no}">&nbsp;
   {if2
-    <form action="{basepath}apply_reviewer.php{?SID}" method="post" accept-charset="UTF-8">
+    <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="roleid" value="{roleid_reviewer}">
       <input type="submit" name="submit" value="Apply as Reviewer" class="button">
