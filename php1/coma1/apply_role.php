@@ -45,6 +45,9 @@ else {
   if ($_POST['roletype'] == PARTICIPANT) {
     $blnAccepted = true;
   }
+  else if ($_POST['roletype'] == CHAIR) {
+    $blnAccepted = false;
+  }
   else {
     $blnAccepted = $objConference->blnAutoActivateAccount;
   }

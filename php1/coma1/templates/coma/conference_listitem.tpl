@@ -21,11 +21,20 @@
   }
   </td>
   <td class="listitem-{line_no}">&nbsp;
+  {if8
+    <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
+      <input type="hidden" name="confid" value="{confid}">
+      <input type="hidden" name="roletype" value="{role_chair}">
+      <input type="submit" name="submit" value="Apply as Chair" class="smallbutton">
+    </form>
+  }
+  </td>
+  <td class="listitem-{line_no}">&nbsp;
   {if2
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="roletype" value="{role_reviewer}">
-      <input type="submit" name="submit" value="Apply as Reviewer" class="button">
+      <input type="submit" name="submit" value="Apply as Reviewer" class="smallbutton">
     </form>
   }
   {if6
@@ -33,7 +42,7 @@
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="retreat" value="retreat">
       <input type="hidden" name="roletype" value="{role_reviewer}">
-      <input type="submit" name="submit" value="Retreat as Reviewer" class="button">
+      <input type="submit" name="submit" value="Retreat as Reviewer" class="smallbutton">
     </form>
   }
   </td>
@@ -42,7 +51,7 @@
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="roletype" value="{role_author}">
-      <input type="submit" name="submit" value="Apply as Author" class="button">
+      <input type="submit" name="submit" value="Apply as Author" class="smallbutton">
     </form>
   }
   {if7
@@ -50,7 +59,7 @@
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="retreat" value="retreat">
       <input type="hidden" name="roletype" value="{role_author}">
-      <input type="submit" name="submit" value="Retreat as Author" class="button">
+      <input type="submit" name="submit" value="Retreat as Author" class="smallbutton">
     </form>
   }
   </td>
@@ -59,7 +68,7 @@
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="roletype" value="{role_participant}">
-      <input type="submit" name="submit" value="Sign up as Participant" class="button">
+      <input type="submit" name="submit" value="Sign up as Participant" class="smallbutton">
     </form>
   }
   </td>

@@ -60,12 +60,16 @@ if (!empty($objConferences)) {
       if (!($objPerson->hasRole(PARTICIPANT)) && !($objPerson->hasRequestedRole(PARTICIPANT))) {
         $ifArray[] = 4;
       }
+      if (!($objPerson->hasRole(CHAIR)) && !($objPerson->hasRequestedRole(CHAIR))) {
+        $ifArray[] = 8;
+      }
     }
     $strItemAssocs['line_no'] = encodeText($lineNo);
     $strItemAssocs['confid'] = encodeText($objConference->intId);
     $strItemAssocs['role_author'] = encodeText(AUTHOR);
     $strItemAssocs['role_reviewer'] = encodeText(REVIEWER);
     $strItemAssocs['role_participant'] = encodeText(PARTICIPANT);
+    $strItemAssocs['role_chair'] = encodeText(CHAIR);
     $strItemAssocs['link'] = encodeURL($objConference->strHomepage);
     if (!empty($objConference->strHomepage)) {
       $ifArray[] = 5;

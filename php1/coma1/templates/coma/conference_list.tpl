@@ -3,7 +3,7 @@
 
 <table class="list">
   <tr class="listheader">
-    <th class="listheader" colspan="3">Conference title</th>
+    <th class="listheader" colspan="4">Conference title</th>
     <th class="listheader">Date</th>
     <th class="listheader">Website</th>
   </tr>
