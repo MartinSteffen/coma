@@ -7,7 +7,7 @@
     </td>
     {roles}
     <td class="listitem-{line_no}">
-      {if1<a href="{basepath}chair_prefers.php?userid={user_id}{&SID}" class="buttonlink">view&nbsp;preferences</a>} 
+      {if1<a href="{basepath}chair_prefers.php?userid={user_id}{&SID}" class="buttonlink">view&nbsp;preferences</a>}
     <!--
       <form action="{basepath}{targetform}{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
