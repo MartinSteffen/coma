@@ -50,14 +50,14 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   if ($_POST['password1'] != $_POST['password2']) {
     $strMessage .= 'You have to enter your new Password correctly twice!';
   }
-  if (($_POST['password1'] || ($_POST['email'] != $objPerson->strEmail))
-    && (!$myDBAccess->checkLogin($objPerson->intId, $_POST['password']))) {
+  if ((($_POST['password1'] != '') || ($_POST['email'] != $objPerson->strEmail))
+    && (!$myDBAccess->checkLogin(session('uid'), $_POST['password']))) {
 		if ($myDBAccess->failed()) {
     	error('Error updating your account.', $myDBAccess->getLastError());
     }
   	$strMessage .= 'You have to enter your old password in order to change your Email or passowrd.';
   }
-  if (!empty($strMessage)) {
+  if (empty($strMessage)) {
     $objPerson->strFirstName   = $_POST['first_name'];
     $objPerson->strLastName    = $_POST['last_name'];
     $objPerson->strEmail       = $_POST['email'];
