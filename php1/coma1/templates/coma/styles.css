@@ -86,8 +86,14 @@ h3
 .invalid
 {
   color: #FF2600;  
- background-color: #FFF0E0;
- }
+  background-color: #FFF0E0;
+}
+.renderTime
+{
+  font-size: 10px;
+  font-weight: normal;
+  color: #A0A0A0;
+}
 
 /* Allgemeine Links */
 a
