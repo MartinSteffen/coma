@@ -100,7 +100,7 @@ public class UserPrefs extends HttpServlet {
 		    final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
 		    for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
 		
-			thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s)));
+			thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s), theConference.getId()));
 		    }
 		
 		    SearchResult theSR;
