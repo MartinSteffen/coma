@@ -15,7 +15,7 @@
 <p class="message2">
   Login to the conference of your choice, if you already take part in it.<br>
   Otherwise, select the conference you would like to take part in and
-  apply for a role as an author, or sign up for participating in it.<br>&nbsp;
+  apply for a role as an author, or sign up for participating in it.
 </p>
 
 <p class="message2">
