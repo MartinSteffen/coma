@@ -4,7 +4,7 @@
     </td> 
     <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}" colspan="2">
-      {if0<input type="radio" name="topic-{topic_id}" value="0" selected>
+      {if0<input type="radio" name="topic-{topic_id}" value="0" checked>
           <span class="attitude-none">no attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="topic-{topic_id}" value="1">
           <span class="weak">prefer</span>}

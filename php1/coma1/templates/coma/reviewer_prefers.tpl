@@ -2,7 +2,8 @@
 {if9<p class="message">{message}</p>}
 
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
-
+  <input type="hidden" name="action" value="submit">
+ 
 <table class="list">
   <tr class="listheader">
     <th class="listheader" colspan="2">Attitudes towards papers for reviewing:</th>    
@@ -10,6 +11,12 @@
     <th class="listheader">&nbsp;</th>
   </tr>
   {paper_lines}
+  <tr>
+    <td colspan="2">
+      <input type="submit" name="submit" value="Accept changes" class="button">
+      <input type="reset"  name="reset" value="Reset settings" class="button">
+    </td>
+  </tr>  
 </table>
  
 <table class="list">  
@@ -21,7 +28,6 @@
   {topic_lines}
   <tr>
     <td colspan="2">
-      <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit" value="Accept changes" class="button">
       <input type="reset"  name="reset" value="Reset settings" class="button">
     </td>
