@@ -116,7 +116,7 @@ while ($j < $papers) {
 
   while ($i < $persons/3) {
   if(rand(1,3) < 3) {
-  echo 'Rep<br>';
+  echo 'Rep<br>'.$j.$i;
     $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
     if ($myDBAccess->failed()) {
