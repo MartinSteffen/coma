@@ -1,6 +1,6 @@
 body, table, td, tr, div, p, pre, h1, h2, h3, h4, ul {
     font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif; }
-body, td, div, p, pre, ul { font-size: 13px; }
+body, td, div, p, pre, ul { font-size: 12px; }
 body { background-color: #FFFFFF; margin: 0px; padding: 0px; }
 
 h1 { font-size: 18px; }
@@ -30,13 +30,6 @@ a.menu:hover   { color: #2F2F2F; }
 
 a.markedmenuitem { font-size: 13px; text-decoration: none; font-weight : bold; color: #FF0000; }
 
-table      { border-style: none;
-             width: 100%;
-             vertical-align: top;
-             text-align: left;
-             padding: 0px;
-             margin: 0px;
-           }
 
 /* startmenue */
 table.menu  { border-style: none;
