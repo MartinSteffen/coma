@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * @version $Id$
  * @package coma1
@@ -9,14 +9,19 @@ if (!defined('IN_COMA1')) {
   die('Hacking attempt');
 }
 
+/**@ignore */
+define(DEBUG, true);
+
 // Header fuer die korrekte Ausgabe
 header('Content-type: text/html; charset=utf-8');
 
 // Debugging Einstellungen:
-error_reporting(E_ALL);
-ini_set('display_errors', '1');         // spaeter 0 ??
-ini_set('display_startup_errors', '1'); // spaeter 0 !!
-ini_set('warn_plus_overloading', '1');
+if (defined(DEBUG) {
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');         // spaeter 0 ??
+  ini_set('display_startup_errors', '1'); // spaeter 0 !!
+  ini_set('warn_plus_overloading', '1');
+}
 // End Debugging
 
 // PATH_TRANSLATED patch
@@ -47,7 +52,9 @@ if (get_magic_quotes_gpc()) {
 
 // check auf INSTALL.PHP
 if (@file_exists($ServerPathTranslated . '/INSTALL.PHP')) {
-  //error('INSTALL.PHP', 'You have to delete the file INSTALL.PHP in order to use this tool (security reasons!)');
+  if (!defined(DEBUG)) {
+    error('INSTALL.PHP', 'You have to delete the file INSTALL.PHP in order to use this tool (security reasons!)');
+  }
 }
 
 /**#@+ Konstanten fuer die Rollenverteilung */
