@@ -120,6 +120,10 @@ public class ShowReports extends HttpServlet {
 			     getVisiblePapers(theUser)){
 	
 			MultiMathReporter mr = new MultiMathReporter();
+
+			result.append("<reportblock>");
+			// This is highly redundant, but makes stuff easier.
+			result.append(thePaper.toXML());
 	    
 			for (coma.entities.ReviewReport theReport: 
 				 getVisibleReviewReports(theUser, thePaper)){
@@ -130,6 +134,7 @@ public class ShowReports extends HttpServlet {
 			}
 			
 			result.append(mr.toXML());
+			result.append("</reportblock>");
 
 		    }
 		} catch (DatabaseDownException dbdown){
@@ -322,6 +327,9 @@ public class ShowReports extends HttpServlet {
 	System.err.println(mmr.rms(3,4,5,6));
 	/* ==> 4.5, 1.1180...  */
 
+	System.err.println(mmr.rms(6,6,6,7));
+	System.err.println(mmr.rms(3,3,3,4));
+
 	System.err.println(mmr.mean(1,4,5,8));
 	System.err.println(mmr.rms(1,4,5,8));
 	/* ==> 4.5, 2.5 */
@@ -333,7 +341,8 @@ public class ShowReports extends HttpServlet {
 	System.err.println(mmr.mean(1,0,4,5,8,0,-3,-666));
 	System.err.println(mmr.rms(1,0,4,5,-666,8));
 	/* ==> 4.5, 2.5 */
-	
+
+	System.err.println(mmr.toXML());
     }
 
 }
@@ -374,6 +383,13 @@ class MultiMathReporter {
 
     java.util.Map<String, Collection<Integer>> ratings
 	= new TreeMap<String, Collection<Integer>>();
+
+    java.util.Map<String, Integer> maxvals
+	= new TreeMap<String, Integer>();
+
+    java.util.Map<String, Integer> prios
+	= new TreeMap<String, Integer>();
+
     
     public MultiMathReporter(){;}
 
@@ -391,6 +407,8 @@ class MultiMathReporter {
 	    }
 	    grades.add(rat.getGrade());
 	    ratings.put(crit.getName(), grades);
+	    maxvals.put(crit.getName(), crit.getMaxValue());
+	    prios.put(crit.getName(), crit.getQualityRating());
 	}
     }
 
@@ -406,7 +424,7 @@ class MultiMathReporter {
 	    result.append(XMLHelper.tagged("rms", rms(ratings.get(critname).toArray(INTARRAY_MOLD))));
 	    result.append("</criterion>");
 	}
-	result.append("</criterion>");
+	result.append("</statistics>");
 	return result;
     }
 

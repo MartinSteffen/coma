@@ -3,6 +3,7 @@ package coma.entities;
 import java.util.Date;
 import static coma.util.logging.Severity.*;
 import coma.servlet.util.XMLHelper;
+import coma.handler.db.*;
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Z. Albari</a>
  *
@@ -82,6 +83,16 @@ public class Paper extends Entity {
     public void setVersion(int version) {
         this.version = version;
     }
+
+    public Person getAuthor(){
+	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
+	SearchCriteria sc = new SearchCriteria();
+	sc.setPerson(new Person(getAuthor_id()));
+	SearchResult sr = rs.getConference(sc);
+	// XXX ugly, dangerous.
+	return ((Person[])sr.getResultObj())[0];
+    }
+
     public StringBuilder toXML(XMLMODE mode){
     	 
 		switch (mode){
@@ -89,14 +100,15 @@ public class Paper extends Entity {
 		    return XMLHelper.tagged("paper",
 					    XMLHelper.tagged("id", ""+getId()),
 					    XMLHelper.tagged("conference_id", ""+getConference_id()),
-					    XMLHelper.tagged("author_id", ""+getAuthor_id()),
+					    //XMLHelper.tagged("author_id", ""+getAuthor_id()),
+					    getAuthor().toXML(XMLMODE.SHALLOW),
 					    XMLHelper.tagged("title", ""+getTitle()),
 					    XMLHelper.tagged("Abstract", getAbstract()),
 					    XMLHelper.tagged("last_edited", getLast_edited().toString()),
 					    XMLHelper.tagged("version", ""+getVersion()),
-						XMLHelper.tagged("filename", ""+getFilename()),
-						XMLHelper.tagged("state", ""+getState()),
-						XMLHelper.tagged("mim_type", ""+getMim_type())
+					    XMLHelper.tagged("filename", ""+getFilename()),
+					    XMLHelper.tagged("state", ""+getState()),
+					    XMLHelper.tagged("mim_type", ""+getMim_type())
 						
 						// FIXME not Entity yet getCoAuthors().toXML(XMLMODE.SHALLOW),
 					    // FIXME not Entity yet get???().toXML(XMLMODE.SHALLOW),
