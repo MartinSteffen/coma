@@ -103,6 +103,9 @@ public class Paper extends Entity {
     	return topics;
     }
     
+    public void setTopics(Vector topicids){
+    	this.topics = topicids;
+    }
     public void setTopics(Integer[] topicids){
     	   	
     	this.topics.clear();

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import org.apache.log4j.Category;
 
@@ -15,6 +16,7 @@ import coma.entities.Person;
 import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchResult;
+import coma.entities.Topic;
 import coma.handler.db.UpdateService;
 
 /**
@@ -188,7 +190,8 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 			try {
 				String UPDATE_QUERY = "UPDATE Paper SET "
 						+ " author_id = ? , title = ?, abstract = ?,"
-						+ " filename = ?, state = ?, mime_type = ?"
+						+ " filename = ?, state = ?, mime_type = ?,"
+						+ " version = ?"
 						+ " WHERE id = " + paper.getId();
 				int pstmtCounter = 0;
 				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
@@ -198,13 +201,30 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				pstmt.setString(++pstmtCounter, paper.getFilename());
 				pstmt.setInt(++pstmtCounter, paper.getState());
 				pstmt.setString(++pstmtCounter, paper.getMim_type());
-
+				pstmt.setInt(++pstmtCounter, paper.getVersion());
 				int affRows = pstmt.executeUpdate();
 				pstmt.close();
 				if (affRows != 1 && ok) {
 					info.append("ERROR: Dataset could not be updated\n");
 					conn.rollback();
 				} else {
+					Vector<Topic> topics = paper.getTopics();
+					if (topics != null) {
+						conn.setAutoCommit(true);
+						for (int i = 0; i < topics.size(); i++) {
+							UPDATE_QUERY = " UPDATE IsAboutTopic SET topic_id = ? "
+									+ " WHERE paper_id = ?";
+							pstmt = conn.prepareStatement(UPDATE_QUERY);
+							pstmt.setInt(1, topics.elementAt(i).getId());
+							int rows = pstmt.executeUpdate();
+							if (rows < 1) {
+								info
+										.append("Error: could not update Topic nummber ("
+												+i+ ") for this Paper!");
+								conn.rollback();
+							}
+						}
+					}
 				    result.setSUCCESS(true);
 				}
 			} catch (SQLException e) {

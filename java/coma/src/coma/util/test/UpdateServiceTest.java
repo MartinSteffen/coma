@@ -1,13 +1,19 @@
 package coma.util.test;
 
+import java.util.Vector;
+
 import junit.framework.TestCase;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Category;
 
 import coma.entities.Conference;
+import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
+import coma.entities.Topic;
+import coma.handler.impl.db.ReadServiceImpl;
 import coma.handler.impl.db.UpdateServiceImpl;
 
 /**
@@ -18,6 +24,7 @@ public class UpdateServiceTest extends TestCase{
 	
 	private Category log = Category.getInstance(ReadServiceTest.class);
 	UpdateServiceImpl update = new UpdateServiceImpl();
+	ReadServiceImpl read = new ReadServiceImpl();
 	
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -37,16 +44,29 @@ public class UpdateServiceTest extends TestCase{
 	}
 	
 	public void testUpdatePaper(){
-		//TODO
+		Paper p = new Paper(100);
+		SearchCriteria sc = new SearchCriteria();
+		sc.setPaper(p);
+		SearchResult sr = read.getPaper(sc);
+		p = ((Paper[])sr.getResultObj())[0];
+		Vector topics = new Vector();
+		topics.add(new Integer(25));
+		topics.add(new Integer(26));
+		p.setTopics(topics);
+		
+		sr = update.updatePaper(p);
+		System.out.println(sr.getInfo() + sr.SUCCESS);
+		
+		
 	}
 	
 	public void testUpdatePerson(){
-		Person p = new Person(-1);
-		p.setEmail("max@web.com");
-		p.setLast_name("Mustermann");
-		p.setFirst_name("Max");
-		SearchResult sr = update.updatePerson(p);
-		System.out.println(sr.SUCCESS+ "  "+sr.getInfo());
+//		Person p = new Person(-1);
+//		p.setEmail("max@web.com");
+//		p.setLast_name("Mustermann");
+//		p.setFirst_name("Max");
+//		SearchResult sr = update.updatePerson(p);
+//		System.out.println(sr.SUCCESS+ "  "+sr.getInfo());
 		
 	}
 	
