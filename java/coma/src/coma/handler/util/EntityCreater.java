@@ -42,24 +42,24 @@ public class EntityCreater {
 	    return conference;
 	}
 	public Person getPerson(ResultSet resSet){
-	    Person p = new Person();
+	    Person p = new Person(-1);
 	    
 	    return p;
 	}
 	public Person getPerson(HttpServletRequest request){
-	    Person p = new Person();
+	    Person p = new Person(-1);
 	    //TODO
 	    return p;
 	}
 	
 	public Paper getPaper(ResultSet resSet){
-	    Paper paper = new Paper();
+	    Paper paper = new Paper(-1);
 	    //TODO
 	    return paper;
 	}
 	
 	public Paper getPaper(HttpServletRequest request){
-	    Paper paper = new Paper();
+	    Paper paper = new Paper(-1);
 	    //TODO
 	    return paper;
 	}

@@ -154,7 +154,7 @@ public class ReviewReport extends Entity {
 				    XMLHelper.tagged("remarks", getRemarks()),
 				    XMLHelper.tagged("confidental", getConfidental())
 				    );
-	    break;
+	  
 	default:
 	    coma.util.logging.ALogger.log.log(WARN, 
 					      "unknown XMLMODE in",

@@ -207,7 +207,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 
         StringBuffer info = new StringBuffer();
         SearchResult result = new SearchResult();
-        Paper p = new Paper();
+        Paper p = new Paper(-1);
         boolean ok = true;
         Connection conn = null;
 
