@@ -22,12 +22,10 @@
           <td>
         {if6<a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}"
                class="buttonlink">Edit review</a>}
-            </form>
           </td>
           <td>
             <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}"
-               class="buttonlink">See paper details</a>}
-            </form>
+               class="buttonlink">See paper details</a>
           </td>
           <td>
         {if7<a href="{basepath}create_forum.php?paperid={paper_id}{&SID}"
