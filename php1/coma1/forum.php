@@ -424,8 +424,21 @@ else{
   buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs);
 
   $content->assign($contentAssocs);
-  $content->parse();
-  $content->output();
+
+  $actMenu = FORUMS;
+  $actMenuItem = 3;
+  include('./include/usermenu.inc.php');
+
+  $main = new Template(TPLPATH . 'frame.tpl');
+  $mainassocs = defaultAssocArray();
+  $mainassocs['title'] = 'Forums of ' . encodeText(session('uname', false));
+  $mainassocs['content'] = &$content;
+  $mainassocs['menu'] = &$menu;
+  $mainassocs['navigator'] = encodeText(session('uname', false)) . '  |  Forums';
+
+  $main->assign($mainassocs);
+  $main->parse();
+  $main->output();
 }
 
 ?>
