@@ -52,10 +52,10 @@ if ($myDBAccess->failed()) {
 
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get review list of chair',$myDBAccess->getLastError());
+  error('get conference details',$myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('Conference does not exist in database.', '');
+  error('get conference details', 'Conference does not exist in database.');
 }
 
 $content = new Template(TPLPATH.'chair_reviewlist.tpl');
@@ -97,7 +97,7 @@ if (!empty($objPapers)) {
     }
     if (!empty($fltVariance) || is_numeric($fltVariance)) {
       $strItemAssocs['variance'] = encodeText(round($fltVariance * 100).'%');
-      if ($fltVariance >= $objConference->fltCriticalVariance*2) {
+      if ($fltVariance >= $objConference->fltCriticalVariance) {
         $ifArray[] = 6;
       }
       else {

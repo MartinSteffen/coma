@@ -66,6 +66,14 @@ if ($myDBAccess->failed()) {
   error('get paper list of chair', $myDBAccess->getLastError());
 }
 
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get conference details',$myDBAccess->getLastError());
+}
+else if (empty($objConference)) {
+  error('get conference details', 'Conference does not exist in database.');
+}
+
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
@@ -113,9 +121,16 @@ if (!empty($objPapers)) {
     }
     if (!empty($fltVariance) || is_numeric($fltVariance)) {
       $strItemAssocs['variance'] = encodeText(round($fltVariance * 100).'%');
+      if ($fltVariance >= $objConference->fltCriticalVariance) {
+        $ifArray[] = 6;
+      }
+      else {
+        $ifArray[] = 7;
+      }
     }
     else {
       $strItemAssocs['variance'] = ' - ';
+      $ifArray[] = 7;
     }
     $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
