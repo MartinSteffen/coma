@@ -37,10 +37,10 @@ class PaperDetailed extends PaperSimple {
   var $strFilePath;  
 
   function PaperDetailed($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus, $strLastEdit,
-                         $fltAvgRating, $intCoAuthorIds, $strCoAuthors, $strAbstract, $strMimeType,
-                         $intVersion, $strFilePath, $objTopics, $fltVariance=false) {
+                         $fltAvgRating, $fltVariance, $intCoAuthorIds, $strCoAuthors, $strAbstract, $strMimeType,
+                         $intVersion, $strFilePath, $objTopics) {
     $this->PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus, $strLastEdit,
-                       $fltAvgRating, $strFilePath, $objTopics, $fltVariance);
+                       $fltAvgRating, $fltVariance, $strFilePath, $objTopics, $fltVariance);
     $this->intCoAuthorIds = $intCoAuthorIds;
     $this->strCoAuthors   = $strCoAuthors;
     $this->strAbstract    = $strAbstract;

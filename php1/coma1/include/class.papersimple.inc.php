@@ -38,8 +38,7 @@ class PaperSimple extends Paper {
   var $objTopics;
   
   function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
-                       $strLastEdit, $fltAvgRating, $strFilePath, $objTopics,
-                       $fltVariance=false) {
+                       $strLastEdit, $fltAvgRating, $fltVariance, $strFilePath, $objTopics) {
     $this->Paper($intId);
     $this->strTitle = $strTitle;
     $this->intAuthorId = $intAuthorId;

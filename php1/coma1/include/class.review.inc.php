@@ -36,11 +36,13 @@ class Review {
   var $fltReviewRating;    // Gesamtbewertung des Papers in diesem Review;
                            // ist Durchschnitt der Kriterien! (am 20.01. geaendert!)
   var $fltAverageRating;   // Durchschnitt aller Gesamtbewertungen des Papers
+  var $fltVariance;        // Varianz der Gesamtbewertungen des Papers
   var $intReviewerId;
   var $strReviewerName;
 
   function Review($intId, $intPaperId, $strPaperTitle, $intAuthorId, $strAuthorName,
-                  $fltReviewRating, $fltAverageRating, $intReviewerId, $strReviewerName) {
+                  $fltReviewRating, $fltAverageRating, $fltVariance, $intReviewerId,
+                  $strReviewerName) {
     $this->intId = $intId;
     $this->intPaperId = $intPaperId;
     $this->strPaperTitle = $strPaperTitle;
@@ -48,8 +50,7 @@ class Review {
     $this->strAuthorName = $strAuthorName;
     $this->fltReviewRating = $fltReviewRating;
     $this->fltAverageRating = $fltAverageRating;
-    // Varianz hier nicht speichern, weil sonst Endlosschleife in
-    // DBAccess->getVarianceOfPaper durch Aufruf DBAccess->getReview.
+    $this->fltVariance = $fltVariance;
     $this->intReviewerId = $intReviewerId;
     $this->strReviewerName = $strReviewerName;
   }
