@@ -20,7 +20,7 @@ if (!defined('IN_COMA1')) {
  */
 function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";
-  $strError = "[COMA->$strMethod: $strError$strComment]";
+  $strError = '['.basename($_SERVER['PHP_SELF'],'.php')."->$strMethod: $strError$strComment]";
   die($strError);
   return false;
 }
