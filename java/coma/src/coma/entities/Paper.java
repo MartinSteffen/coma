@@ -1,12 +1,20 @@
 package coma.entities;
 
 import java.util.Date;
+import coma.util.logging.ALogger;
+import coma.util.logging.Severity;
+import static coma.util.logging.Severity.*;
 
+import static java.util.Arrays.asList;
+import java.util.Set;
+import java.util.*;
+
+import coma.servlet.util.XMLHelper;
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Z. Albari</a>
  *
  */
-public class Paper {
+public class Paper extends Entity {
 
     int id;
     int conference_id;
@@ -81,4 +89,44 @@ public class Paper {
     public void setVersion(int version) {
         this.version = version;
     }
+    public StringBuilder toXML(XMLMODE mode){
+    	 
+		switch (mode){
+		case DEEP:
+		    return XMLHelper.tagged("paper",
+					    XMLHelper.tagged("id", ""+getId()),
+					    XMLHelper.tagged("conference_id", ""+getConference_id()),
+					    XMLHelper.tagged("author_id", ""+getAuthor_id()),
+					    XMLHelper.tagged("title", getTitle()),
+					    XMLHelper.tagged("Abstract", getAbstract()),
+					    XMLHelper.tagged("last_edited", getLast_edited().toString()),
+					    XMLHelper.tagged("version", ""+getVersion()),
+						XMLHelper.tagged("filename", getFilename()),
+						XMLHelper.tagged("state", ""+getState()),
+						XMLHelper.tagged("mim_type", getMim_type())
+						
+						// FIXME not Entity yet getCoAuthors().toXML(XMLMODE.SHALLOW),
+					    // FIXME not Entity yet get???().toXML(XMLMODE.SHALLOW),
+					    );
+		case SHALLOW:
+			 return XMLHelper.tagged("Person",
+			 		XMLHelper.tagged("id", ""+getId()),
+				    XMLHelper.tagged("conference_id", ""+getConference_id()),
+				    XMLHelper.tagged("author_id", ""+getAuthor_id()),
+				    XMLHelper.tagged("title", getTitle()),
+				    XMLHelper.tagged("Abstract", getAbstract()),
+				    XMLHelper.tagged("last_edited", getLast_edited().toString()),
+				    XMLHelper.tagged("version", ""+getVersion()),
+					XMLHelper.tagged("filename", getFilename()),
+					XMLHelper.tagged("state", ""+getState()),
+					XMLHelper.tagged("mim_type", getMim_type())
+					    );
+		  
+		default:
+		    coma.util.logging.ALogger.log.log(WARN, 
+						      "unknown XMLMODE in",
+						      this, ':', mode);
+		    return null;
+		}
+	    }
 }
