@@ -1781,12 +1781,13 @@ nur fuer detaillierte?
     }
     $intPersonId = $objPersonAlgorithmic->intId;
     // Topics loeschen...
-    $s = "DELETE  FROM PrefersTopic AS pt".
+    $s = "DELETE  FROM PrefersTopic".
         " WHERE   person_id = '$intPersonId'".
         " AND     topic_id IN (".
         "         SELECT  id".
         "         FROM    Topic".
         "         WHERE   conference_id = '$intConferenceId')";
+    echo("<br>$s<br>");
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePreferredTopics', $this->mySql->getLastError());
