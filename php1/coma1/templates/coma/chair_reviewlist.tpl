@@ -18,7 +18,7 @@
     <th width="20%" class="listheader"> Author           </th> 
     <th width="20%" class="listheader"> Status           </th>
     <th width="20%" class="listheader"> Rating           </th>
-    <th width="20%" class="listheader"> Destribution     </th>
+    <th width="20%" class="listheader"> Distribution     </th>
    </tr>
 
   <tr class="ft-tr"> 
