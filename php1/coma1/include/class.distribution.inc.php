@@ -275,7 +275,7 @@ class Distribution extends ErrorHandling {
     // Matrix relativieren: Eintraege von Papers, die viele hohe Eintraege haben, dividieren
     for ($j = 0; $j < count($p_id); $j++) {
       $sum = 0;
-      for ($i = 0; $j < count($r_id); $j++) {
+      for ($i = 0; $i < count($r_id); $i++) {
         if ($matrix[$i][$j] > 0) {
           $sum += $matrix[$i][$j];
         }
