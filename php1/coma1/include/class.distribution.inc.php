@@ -156,8 +156,9 @@ class Distribution extends ErrorHandling {
                    " FROM    PrefersPaper AS pp".
                    " INNER   JOIN Paper p".
                    " ON      p.id = pp.paper_id".
-                   " AND     pp.person_id = '%d'",
-                   s2db($r_id[$i]));
+                   " AND     pp.person_id = '%d'".
+                   " AND     p.conference_id = '%d'",
+                   s2db($r_id[$i]), s2db($intConferenceId));
       $wants = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
@@ -167,11 +168,12 @@ class Distribution extends ErrorHandling {
       }
       // Abgelehnte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
-                   " FROM    DeniesPaper AS pp".
+                   " FROM    DeniedPaper AS pp".
                    " INNER   JOIN Paper p".
                    " ON      p.id = pp.paper_id".
-                   " AND     pp.person_id = '%d'",
-                   s2db($r_id[$i]));
+                   " AND     pp.person_id = '%d'".
+                   " AND     p.conference_id = '%d'",
+                   s2db($r_id[$i]), s2db($intConferenceId));
       $denies = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
@@ -184,8 +186,9 @@ class Distribution extends ErrorHandling {
                    " FROM    ExcludesPaper AS pp".
                    " INNER   JOIN Paper p".
                    " ON      p.id = pp.paper_id".
-                   " AND     pp.person_id = '%d'",
-                   s2db($r_id[$i]));
+                   " AND     pp.person_id = '%d'".
+                   " AND     p.conference_id = '%d'",
+                   s2db($r_id[$i]), s2db($intConferenceId));
       $denies = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
