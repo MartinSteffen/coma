@@ -1366,7 +1366,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('checkAccessToForum', 'Paper does not exist in database.');
       }
       if (($objPerson->hasRole(CHAIR) || $objPerson->hasRole(REVIEWER)) &&
-          ($intPersonId != $objPaper->intAuthorId)) {
+          ($objPerson->intID != $objPaper->intAuthorId)) {
         $blnAccess = true;
       }
     }
