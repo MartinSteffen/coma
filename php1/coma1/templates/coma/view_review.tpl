@@ -23,7 +23,7 @@
       <span class="emph">Overall rating:</span>
     </td>
     <td class="viewline">
-      <span class="emph">{rating}%</span>      
+      <span class="emph">{rating}</span>      
     </td>
   </tr>
   <tr class="viewline">
@@ -55,7 +55,7 @@
       <span class="emph">Currently average rating:</span>
     </td>
     <td class="viewline">
-      <span class="emph">{avg_rating}%</span><br>
+      <span class="emph">{avg_rating}</span><br>
       {if1<span class="alert">This value is critical because the single reviews of this
           paper are highly different!</span>}
     </td>

@@ -66,13 +66,13 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
 }
 $content->assign($strContentAssocs);
 
-$actMenu = 0;
-$actMenuItem = 7;
+$actMenu = CHAIR;
+$actMenuItem = 3;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'All papers in conference';
+$strMainAssocs['title'] = 'Review report details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conference  |  All papers';
