@@ -995,7 +995,7 @@ class DBAccess extends ErrorHandling {
   function getAllForums($intConferenceId) {
     $s = "SELECT  id, title".
         " FROM    Forum".
-        " WHERE   conferenceId = $intConferenceId";
+        " WHERE   conference_id = $intConferenceId";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getAllForums', $this->mySql->getLastError());
