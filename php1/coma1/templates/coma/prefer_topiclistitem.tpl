@@ -4,8 +4,8 @@
     </td> 
     <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}">
-      {if0<span class="status-noattitude">no attitude</span>}
-      {if1<span class="status-prefer">prefer</span>}      
+      {if0<span class="attitude-none">no attitude</span>}
+      {if1<span class="attitude-prefer">prefer</span>}      
     </td>    
     <td class="listitem-{line_no}">
       <select name="topic-{topic_id}" size="1">

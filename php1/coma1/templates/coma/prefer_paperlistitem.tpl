@@ -6,10 +6,10 @@
       <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a>
     </td>
     <td class="listitem-{line_no}">
-      {if0<span class="status-noattitude">no attitude</span>}
-      {if1<span class="status-prefer">prefer</span>}
-      {if2<span class="status-deny">deny</span>}
-      {if3<span class="status-exclude">exclude</span>}
+      {if0<span class="attitude-none">no attitude</span>}
+      {if1<span class="attitude-prefer">prefer</span>}
+      {if2<span class="attitude-deny">deny</span>}
+      {if3<span class="attitude-exclude">exclude</span>}
     </td>    
     <td class="listitem-{line_no}">
       <select name="paper-{paper_id}" size="1">
