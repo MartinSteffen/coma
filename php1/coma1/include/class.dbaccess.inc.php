@@ -285,13 +285,12 @@ class DBAccess {
       $strCoAuthors = array();
       if (!empty($cadata)) {
         for ($i = 0; $i < count($cadata); $i++) {
+          $intCoAuthorIds[$i] = $cadata[$i]['coauthor_id'];
           $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
           if (empty($objCoAuthor)) { // d.h. Co-Autor nicht im System => nimm Name aus Tabelle
-            $intCoAuthorIds[$i] = NULL;
             $strCoAuthors[$i] = $cadata[$i]['name'];
           }
           else {
-            $intCoAuthorIds[$i] = $cadata[$i]['coauthor_id'];
             $strCoAuthors[$i] = $objCoAuthor->getName();
           }
         }
