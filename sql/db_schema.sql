@@ -1,7 +1,7 @@
--- ------------------------------------------------------------------------
+-- -------------------------------------------------------------------------
 -- Skript zur Erstellung der gemeinsamen DB
 -- erstellt von Tom, 16.12.04, auf Basis von db_schema.txt V. 816
--- ------------------------------------------------------------------------
+-- -------------------------------------------------------------------------
 -- Bemerkungen:
 -- - optionale Felder werden mit erzeugt (ohne NOT-NULL-Bedingung)
 -- - Fremdschluesselbeziehungen und optionale Tabellen muessen durch
