@@ -33,7 +33,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	log = Category.getInstance(ReadServiceImpl.class.getName());
 
 	public ReadServiceImpl() {
-		//super.init();
+		// super.init();
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		}
 		if (ok) {
 			try {
-				//conn = dataSource.getConnection();
+				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
@@ -214,7 +214,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				//conn = dataSource.getConnection();
+				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
@@ -337,7 +337,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				//conn = dataSource.getConnection();
+				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
@@ -438,7 +438,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				//conn = dataSource.getConnection();
+				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
@@ -523,7 +523,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				//conn = dataSource.getConnection();
+				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
@@ -608,7 +608,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (ok) {
 			try {
 
-				//conn = dataSource.getConnection();
+				// conn = dataSource.getConnection();
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
@@ -658,14 +658,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 		result.setInfo(info.toString());
 		return result;
 	}
-	
-	public ResultSet executeQuery(String sqlQuery){
+
+	public ResultSet executeQuery(String sqlQuery) {
 		ResultSet result = null;
-		
+
 		try {
 			Connection conn = getConnection();
-			
-			if(conn != null){
+
+			if (conn != null) {
 				Statement stmt = conn.createStatement();
 				result = stmt.executeQuery(sqlQuery);
 			}
@@ -673,6 +673,392 @@ public class ReadServiceImpl extends Service implements ReadService {
 			System.out.println(e);
 		}
 		return result;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#getPersonRoles(int, int)
+	 */
+	public SearchResult getPersonRoles(int conference_id, int person_id) {
+
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		if (conference_id < 0) {
+			info.append("Conference_id must not be less than 0\n");
+			ok = false;
+		}
+		if (person_id < 0) {
+			info.append("Person_id must not be less than 0\n");
+			ok = false;
+		}
+		String QUERY = "SELECT role_type FROM Role " + " WHERE "
+				+ " conference_id = " + conference_id + " AND person_id = "
+				+ person_id;
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+					List<Integer> ll = new LinkedList<Integer>();
+
+					while (resSet.next()) {
+						ll.add(resSet.getInt("role_type"));
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+					int[] roles = new int[ll.size()];
+					for (int i = 0; i < roles.length; i++) {
+						roles[i] = (Integer) ll.get(i);
+					}
+					result.setResultObj(roles);
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#isCoAuthorOf(int, int)
+	 */
+	public SearchResult isCoAuthorOf(int paper_id, int person_id) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		if (paper_id < 0) {
+			info.append("paper_id must not be less than 0\n");
+			ok = false;
+		}
+		if (person_id < 0) {
+			info.append("person_id must not be less than 0\n");
+			ok = false;
+		}
+		String QUERY = "SELECT COUNT(*) FROM IsCoAuthorOf " + " WHERE "
+				+ " paper_id = " + paper_id + " AND person_id = " + person_id;
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+
+					while (resSet.next()) {
+						if (resSet.getInt(1) > 0) {
+							result.setResultObj(new Boolean(true));
+						} else {
+							result.setResultObj(new Boolean(false));
+						}
+
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#isAboutTopic(int, int)
+	 */
+	public SearchResult isAboutTopic(int paper_id, int topic_id) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		if (paper_id < 0) {
+			info.append("paper_id must not be less than 0\n");
+			ok = false;
+		}
+		if (topic_id < 0) {
+			info.append("topic_id must not be less than 0\n");
+			ok = false;
+		}
+		String QUERY = "SELECT COUNT(*) FROM IsAboutTopic " + " WHERE "
+				+ " paper_id = " + paper_id + " AND topic_id = " + topic_id;
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+
+					while (resSet.next()) {
+						if (resSet.getInt(1) > 0) {
+							result.setResultObj(new Boolean(true));
+						} else {
+							result.setResultObj(new Boolean(false));
+						}
+
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#getPreferedPapers(int)
+	 */
+	public SearchResult getPreferedPapers(int person_id) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		if (person_id < 0) {
+			info.append("Person_id must not be less than 0\n");
+			ok = false;
+		}
+		String QUERY = "SELECT paper_id FROM PrefersPaper " + " WHERE "
+				+ " person_id = " + person_id;
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+					List<Integer> ll = new LinkedList<Integer>();
+
+					while (resSet.next()) {
+						ll.add(resSet.getInt("paper_id"));
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+					int[] paper_ids = new int[ll.size()];
+					for (int i = 0; i < paper_ids.length; i++) {
+						paper_ids[i] = (Integer) ll.get(i);
+					}
+					result.setResultObj(paper_ids);
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#getDeniedPapers(int)
+	 */
+	public SearchResult getDeniedPapers(int person_id) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		if (person_id < 0) {
+			info.append("Person_id must not be less than 0\n");
+			ok = false;
+		}
+		String QUERY = "SELECT paper_id FROM DeniesPaper " + " WHERE "
+				+ " person_id = " + person_id;
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+					List<Integer> ll = new LinkedList<Integer>();
+
+					while (resSet.next()) {
+						ll.add(resSet.getInt("paper_id"));
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+					int[] paper_ids = new int[ll.size()];
+					for (int i = 0; i < paper_ids.length; i++) {
+						paper_ids[i] = (Integer) ll.get(i);
+					}
+					result.setResultObj(paper_ids);
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#getExecludedPapers(int)
+	 */
+	public SearchResult getExecludedPapers(int person_id) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		if (person_id < 0) {
+			info.append("Person_id must not be less than 0\n");
+			ok = false;
+		}
+		String QUERY = "SELECT paper_id FROM ExcludesPaper " + " WHERE "
+				+ " person_id = " + person_id;
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+					List<Integer> ll = new LinkedList<Integer>();
+
+					while (resSet.next()) {
+						ll.add(resSet.getInt("paper_id"));
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+					int[] paper_ids = new int[ll.size()];
+					for (int i = 0; i < paper_ids.length; i++) {
+						paper_ids[i] = (Integer) ll.get(i);
+					}
+					result.setResultObj(paper_ids);
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#getMessages(int, int, int)
+	 */
+	public SearchResult getMessages(int msg_id, int forum_id, int sender_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#getForum(int, int)
+	 */
+	public SearchResult getForum(int forum_id, int conference_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @see coma.handler.db.ReadService#getPreferedTpoic(int)
+	 */
+	public SearchResult getPreferedTpoic(int person_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
