@@ -14,15 +14,18 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 require_once(INCPATH.'class.mysql.inc.php');
+
 require_once(INCPATH.'class.conference.inc.php');
-require_once(INCPATH.'class.person.inc.php');
-require_once(INCPATH.'class.persondetailed.inc.php');
-require_once(INCPATH.'class.paper.inc.php');
-require_once(INCPATH.'class.papersimple.inc.php');
-require_once(INCPATH.'class.paperdetailed.inc.php');
-require_once(INCPATH.'class.message.inc.php');
+require_once(INCPATH.'class.criterion.inc.php');
 require_once(INCPATH.'class.forum.inc.php');
 require_once(INCPATH.'class.forumdetailed.inc.php');
+require_once(INCPATH.'class.message.inc.php');
+require_once(INCPATH.'class.paper.inc.php');
+require_once(INCPATH.'class.paperdetailed.inc.php');
+require_once(INCPATH.'class.papersimple.inc.php');
+require_once(INCPATH.'class.person.inc.php');
+require_once(INCPATH.'class.persondetailed.inc.php');
+require_once(INCPATH.'class.topic.inc.php');
 
 /**
  * Klasse DBAccess
