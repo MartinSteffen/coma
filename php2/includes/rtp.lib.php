@@ -339,6 +339,14 @@ function getTotalGradeForReviewReport($reviewReportId) {
 
 	$weightenedGrades = array();
 
+	$queryStr="SELECT SUM(criterion.quality_rating) FROM reviewreport, paper, criterion
+		     WHERE reviewreport.id = ".$reviewReportId."
+		     AND reviewreport.paper_id = paper.id
+		     AND paper.conference_id = criterion.conference_id";
+	
+	$sumArr=$sql->query($queryStr);
+	$summary = $sumArr[0][0];
+
 	$queryStr="SELECT r.grade, r.criterion_id, c.max_value, c.quality_rating 
 					FROM rating r, criterion c 
 					WHERE r.review_id=$reviewReportId AND r.criterion_id=c.id";
@@ -355,7 +363,7 @@ function getTotalGradeForReviewReport($reviewReportId) {
 			$row['max_value']=10;
 		}		
 
-		$weightenedGrades[ $row['criterion_id'] ] = ( ($row['grade'] -1) / max(($row['max_value'] -1), 1) ) * ( $row['quality_rating'] / 100);
+		$weightenedGrades[ $row['criterion_id'] ] = ( ($row['grade'] -1) / max(($row['max_value'] -1), 1) ) * ( $row['quality_rating'] / $summary);
 	}
 
 
