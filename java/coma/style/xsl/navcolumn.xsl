@@ -89,6 +89,7 @@
             	 	<li><a href="Chair?action=show_authors">list of authors</a></li> 
  					<li><a href="Chair?action=show_reviewers">list of reviewers</a></li>
  					<li><a href="Chair?action=show_papers">list of papers</a></li>
+ 					<li><a href="AllocatePapers">allocate papers</a></li>
  					<li><a href="Chair?action=email">email</a></li>
  					<li><a href="Chair?action=program">create Program</a></li>
           		 </xsl:otherwise>

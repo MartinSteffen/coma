@@ -7,6 +7,7 @@ package coma.servlet.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.sql.ResultSet;
 import java.util.Collection;
 
 import java.util.Iterator;
@@ -24,10 +25,16 @@ import coma.entities.AllocP_PaperList;
 import coma.entities.AllocP_Person;
 import coma.entities.Allocation;
 import coma.entities.Conference;
+import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.Rating;
+import coma.entities.ReviewReport;
+import coma.entities.SearchCriteria;
 import coma.entities.Topic;
 
 import coma.entities.SearchResult;
+import coma.handler.db.DeleteService;
+import coma.handler.db.InsertService;
 import coma.handler.db.ReadService;
 import coma.servlet.util.Navcolumn;
 import coma.servlet.util.PageStateHelper;
@@ -56,6 +63,10 @@ public class AllocatePapers extends HttpServlet {
 	String path = null;
 	int papersPerReviewer=0;
 	Topic[] topics = new Topic[0];
+	int conference_id;
+	ReadService db_read = new coma.handler.impl.db.ReadServiceImpl();;
+	DeleteService db_delete = new coma.handler.impl.db.DeleteServiceImpl();
+	InsertService db_insert = new coma.handler.impl.db.InsertServiceImpl();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, java.io.IOException {
@@ -63,18 +74,29 @@ public class AllocatePapers extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		myNavCol = new Navcolumn(request.getSession(true));
 		PageStateHelper pagestate = new PageStateHelper(request);
-		Person person = (Person)session.getAttribute(SessionAttribs.PERSON);	
+		Person person = (Person)session.getAttribute(SessionAttribs.PERSON);
+		path = getServletContext().getRealPath("");
+		result.delete(0,result.length());
+		if (person == null ) errorXML(response,"noSession");
+		int[] per_role = person.getRole_type();
+		boolean isChair = false;
+		int c = 0;
+		while (!isChair && c < per_role.length){
+			isChair = per_role[c] == 2;
+			c++;
+		}
+		if (!isChair) errorXML(response,"unauthorized");
 		Conference conference 
 		    = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 	 
-		ReadService db_read = new coma.handler.impl.db.ReadServiceImpl();
+		
 		SearchResult resultset;
-		path = getServletContext().getRealPath("");
-		result.delete(0,result.length());
-		int conference_id = 1;  //TODO: conference_id eintragen!
+		
+		
+		int conference_id = conference.getId();
 		
 		paperList = new AllocP_PaperList(conference_id
-						,4); //TODO: min_reviewer eintragen!!	
+						,conference.getMin_review_per_paper());	
 		
 		resultset = db_read.getReviewerList(conference_id); 
 		fillPersonList(resultset);
@@ -83,19 +105,87 @@ public class AllocatePapers extends HttpServlet {
 		topics = (Topic[]) resultset.getResultObj();
 		
 		allocatePapers();
-
+		insertAllocInDB();
+		
 		String action = request.getParameter("action");
 		if (action != null && action.equals("html")) printOut(response);
 		else printXML(response);
-		
+						
 		resetHappiness();
 		happiness = 0;
 		max_happiness = 0;	
-		shift = 0;//(shift+1)%personList.length;
+		shift = 0;
 		
 	}
 	
 	
+	/**
+	 * 
+	 */
+	private void insertAllocInDB() {
+		
+		for (int i = 0 ; i < personList.length; i++){
+			int person_id = personList[i].getPersonID();
+			SearchResult rs = db_delete.deleteReviewReportByReviewerId(person_id);
+			System.out.println(rs.getInfo());
+			Vector<AllocP_Paper> papers = personList[i].getPapers();
+			for (int j = 0; j < papers.size();j++){
+				AllocP_Paper paper = papers.elementAt(j);
+				int paper_id = paper.getPaperID();
+				ReviewReport report = new ReviewReport();
+				report.set_paper_Id(paper_id);
+				report.set_reviewer_id(person_id);
+				db_insert.insertReviewReport(report);
+				
+				
+			}
+//			SearchCriteria sc = new SearchCriteria();
+//			ReviewReport rep = new ReviewReport();
+//			rep.set_reviewer_id(person_id);
+//			sc.setReviewReport(rep);
+//			SearchResult sr = db_read.getReviewReport(sc);
+//			ReviewReport[] reports = (ReviewReport []) sr.getResultObj();
+//			for (int j = 0; j < reports.length; j++){
+//				int rep_id = reports[j].getId();
+//				Rating rating = new Rating();
+//				rating.setReviewReportId(rep_id);
+//				db_insert.insertRating(rating);
+//			}
+		}
+		
+	}
+
+
+	/**
+	 * 
+	 */
+	private void errorXML(HttpServletResponse response,String error) {
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			response.setContentType("text/html; charset=ISO-8859-1");
+			helper.addXMLHead(result);
+			result.append("<stderrors>");
+			result.append("<"+error+">");
+			result.append("</"+error+">");
+			result.append("</stderrors>");			
+			
+		//	System.out.println(result.toString());
+			
+			String xslt = path + "/style/xsl/stderrors.xsl";
+		    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
+			StreamSource xsltSource = new StreamSource(xslt);
+			XMLHelper.process(xmlSource, xsltSource, out);
+			out.flush();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
 	/**
 	 * @param response
 	 */
@@ -201,7 +291,7 @@ public class AllocatePapers extends HttpServlet {
 		result.append("</topics>\n");
 		result.append("</result>\n");
 		
-		System.out.println(result.toString());
+	//	System.out.println(result.toString());
 		
 		String xslt = path + "/style/xsl/allocate.xsl";
 	    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));

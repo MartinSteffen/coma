@@ -183,6 +183,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				// info.append(e.toString());
+				
 				System.out.println(e);
 			} finally {
 				try {

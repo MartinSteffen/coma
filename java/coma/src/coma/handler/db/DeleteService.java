@@ -14,5 +14,7 @@ public interface DeleteService {
 	public SearchResult deletePaper(int paper_id);
 	public SearchResult deleteCriterion(int criterion_id);
 	public SearchResult deleteReviewReport(int report_id);
+	public SearchResult deleteRating(int reviewreport_id);
 	public SearchResult deleteTopic(int topic_id);
+	public SearchResult deleteReviewReportByReviewerId(int reviewer_id);
 }

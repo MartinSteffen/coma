@@ -36,6 +36,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="/result/allocation">
+<a href="#paper">Papers</a>
 <table style="border:0" cellspacing="0" cellpadding="5">
 	<tr>
 		<td>Reviewer</td>
@@ -77,30 +78,29 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<td valign="top">
 			<table style="border:0" cellspacing="0" cellpadding="2">
 			<xsl:for-each select="./paper">
+			<tr>
+				<td valign="top"><table style="border:0" cellspacing="0" cellpadding="2">
 				<tr>
-					<td valign="top"><table style="border:0" cellspacing="0" cellpadding="2">
-						<tr>
-							<td valign="top" class="normal">
-							<xsl:if test="./@pref = 'paper'">
-								<font class="green"><xsl:value-of select="/result/allocation/papers/paper[@id=current()/@id]/@title"/></font>
-							</xsl:if>
-							<xsl:if test="./@pref = 'topic'">
-								<font class="blue"><xsl:value-of select="/result/allocation/papers/paper[@id=current()/@id]/@title"/></font>
-							</xsl:if>
-							<xsl:if test="./@pref = 'none'">
-								<xsl:value-of select="/result/allocation/papers/paper[@id=current()/@id]/@title"/>
-							</xsl:if>
-							</td>
-							
-						</tr>
-						<tr>
-							<td valign="top" class="small">[
-							<xsl:for-each select="/result/allocation/papers/paper[@id=current()/@id]/topic">
-								<xsl:value-of select="/result/topics/topic[@id=current()/@id]/@name"/><xsl:text> </xsl:text>
-							</xsl:for-each>]</td>
-						</tr>
-					</table></td>
+					<td valign="top" class="normal">
+					<xsl:if test="./@pref = 'paper'">
+					<font class="green"><xsl:value-of select="/result/allocation/papers/paper[@id=current()/@id]/@title"/></font>
+					</xsl:if>
+					<xsl:if test="./@pref = 'topic'">
+					<font class="blue"><xsl:value-of select="/result/allocation/papers/paper[@id=current()/@id]/@title"/></font>
+					</xsl:if>
+					<xsl:if test="./@pref = 'none'">
+						<xsl:value-of select="/result/allocation/papers/paper[@id=current()/@id]/@title"/>
+					</xsl:if>
+					</td>
 				</tr>
+				<tr>
+					<td valign="top" class="small">[
+					<xsl:for-each select="/result/allocation/papers/paper[@id=current()/@id]/topic">
+					<xsl:value-of select="/result/topics/topic[@id=current()/@id]/@name"/><xsl:text> </xsl:text>
+					</xsl:for-each>]</td>
+					</tr>
+				</table></td>
+			</tr>
 			</xsl:for-each>	
 			</table>
 		</td>
@@ -109,8 +109,36 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	</tr>
 	</xsl:for-each>
 	
+</table><a name="paper"/>
+<a href="#">Top</a>
+<table style="border:0" cellspacing="0" cellpadding="5">
+<tr>
+	<td>Paper</td>
+	<td width="10"></td>
+	<td>Reviewer</td>
+</tr>
+<xsl:for-each select="/result/allocation/papers/paper">
+<tr>
+	<td class="normal" valign="top"><xsl:value-of select="./@title"/>
+		<br/><font class="small">[# of Reviewer]<br/>
+				<xsl:value-of select="count(./reviewer)"/>
+		</font></td>
+	<td width="10"></td>
+	<td class="normal" valign="top">
+	<table style="border:0" cellspacing="0" cellpadding="1">
+	<xsl:for-each select="./reviewer">
+	<tr>
+		<td><xsl:value-of select="/result/allocation/persons/reviewer[@id=current()/@id]/@title"/><xsl:text> </xsl:text>
+		<xsl:value-of select="/result/allocation/persons/reviewer[@id=current()/@id]/@firstname"/><xsl:text> </xsl:text>
+		<xsl:value-of select="/result/allocation/persons/reviewer[@id=current()/@id]/@lastname"/></td>		
+	</tr>
+	</xsl:for-each>
+	</table>
+	</td>
+</tr>
+</xsl:for-each>
 </table>
-
+<a href="#">Top</a>
 </xsl:template>
 
 </xsl:stylesheet>

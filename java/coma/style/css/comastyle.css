@@ -180,6 +180,11 @@ font.blue
 {
 	color: #1742AF;
 }
+font.small
+{
+	text-align:left;
+	font-size:8pt;
+}
 /* settings for appearance alone */
 body 
 { 
