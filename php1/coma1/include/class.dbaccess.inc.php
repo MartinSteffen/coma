@@ -372,7 +372,7 @@ class DBAccess extends ErrorHandling {
       return $this->success(false);
     }
     $objPerson = (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
-                    $data[0]['email'], $role_type, $data[0]['title']));
+                    $data[0]['email'], 0, $data[0]['title']));
     if (!empty($intConferenceId)) {
       $s = "SELECT  role_type".
           " FROM    Role".
@@ -414,7 +414,7 @@ class DBAccess extends ErrorHandling {
       return $this->success(false);
     }
     $objPersonDetailed = (new PersonDetailed($data[0]['id'], $data[0]['first_name'],
-                            $data[0]['last_name'], $data[0]['email'], $role_type,
+                            $data[0]['last_name'], $data[0]['email'], 0,
                             $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
                             $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
                             $data[0]['country'], $data[0]['phone_number'],
