@@ -21,6 +21,7 @@ import coma.entities.Paper;
 import coma.entities.Person;
 import coma.entities.Rating;
 import coma.entities.ReviewReport;
+import coma.entities.Topic;
 
 import coma.servlet.util.SessionAttribs;
 
@@ -62,7 +63,7 @@ public class EntityCreater {
 			conference.setFinal_version_deadline(resSet.getDate("final_version_deadline"));
 			conference.setHomepage(resSet.getString("homepage"));
 			conference.setId(resSet.getInt("id"));
-			conference.setMin_review_per_paper(resSet.getInt("min_review_per_paper"));
+			conference.setMin_review_per_paper(resSet.getInt("min_reviews_per_paper"));
 			conference.setName(resSet.getString("name"));
 			conference.setNotification(resSet.getDate("notification"));
 			conference.setPaper_submission_deadline(resSet.getDate("paper_submission_deadline"));
@@ -92,6 +93,7 @@ public class EntityCreater {
 		person.setState(resSet.getString("state"));
 		person.setStreet(resSet.getString("street"));
 		person.setTitle(resSet.getString("title"));
+		
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -279,5 +281,21 @@ public class EntityCreater {
 			e.printStackTrace();
 		}
 		return rating;
+	}
+	
+	public Topic getTopic(ResultSet resSet)
+	{
+		Topic topic = new Topic();
+		try
+		{
+			topic.setId(resSet.getInt("id"));
+			topic.setConferenceId(resSet.getInt("conference_id"));
+			topic.setName(resSet.getString("name"));
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return topic;
 	}
 }
