@@ -20,7 +20,7 @@ if ((!isset($_SESSION['uname']))||(!isset($_SESSION['password']))||(!checkLogin(
 }
 // Wenn ich hier bin, bin ich eingeloggt!
 if (!isset($_SESSION['confid'])) {
-  redirect('main_start.php');  
+  redirect('main_conferences.php');  
 }
 // Eingeloggt und hab ne Konfernez gewaehlt -> Userlevel bestimmen
 // Sicherheitshalber einfach mal ueberpruefen
