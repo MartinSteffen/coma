@@ -32,7 +32,7 @@
 
 <p>&nbsp;</p>
 
-<p class="simplemessage">
+<p class="message2">
 <form action="{basepath}register.php?{SID}" method="post">
   If you have registered for the site, please enter your username and password.
   This will mean that you can get access to information relevant to you.
