@@ -20,7 +20,7 @@ require_once(INCPATH.'class.person.inc.php');
 
 //Funktiondefinitionen
 
-//Hilfsfunktion zum feststellen ob eine valide Auswahl vorliegt, 
+//Hilfsfunktion zum feststellen ob eine valide Auswahl vorliegt,
 //iow: es ist ein nichtleeres array in dem mindestens einmal der Wert true steht
 function validSelection($selectarray){
   // false = 0!
@@ -383,7 +383,7 @@ function generatePostMethodArray($strArrayPostvars){
   if (empty($fms)){
     $fms = array();
   }
-  
+
   $sel = '';
   if (!empty($_GET['select'])){
     $sel = $_GET['select'];

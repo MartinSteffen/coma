@@ -54,8 +54,8 @@ CoMa - Your Conference Manager
   If you do not have shell access or do not wish to use it you will need to
   decompress the CoMa archive to a local directory on your system using your
   favourite compression program, e.g. winzip, rar, zip, tar, etc. From there
-  you must FTP upload ALL the files it contains (being sure to retain the 
-  directory structure and filenames) to your host. Please ensure that the cases 
+  you must FTP upload ALL the files it contains (being sure to retain the
+  directory structure and filenames) to your host. Please ensure that the cases
   of filenames are retained, do NOT force filenames to all lower or upper case
   doing so will cause errors later.
 
@@ -66,8 +66,8 @@ CoMa - Your Conference Manager
   you should be sure the files where uploaded correctly as described here.
 
   Once all the files have been uploaded to your site you should point your
-  browser at this location with the addition of coma1/INSTALL.PHP (please note 
-  that if you changed the extension from php, see Section 1. below, you should 
+  browser at this location with the addition of coma1/INSTALL.PHP (please note
+  that if you changed the extension from php, see Section 1. below, you should
   alter INSTALL.PHP appropriately). For example if your domain name is
   www.mydomain.tld and you placed CoMa in a directory /coma1 off your web root
   you would enter http://www.mydomain.tld/coma1/INSTALL.PHP into your browser.

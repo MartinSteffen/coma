@@ -22,7 +22,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during performing permission check.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $checkRoleChair = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
@@ -93,7 +93,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();  
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

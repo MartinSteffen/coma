@@ -165,13 +165,13 @@ if (isset($_POST['action'])) {
     }
     elseif ((!empty($notification)) && ($review_dl > $notification)) {
       $strMessage = 'Your Review Deadline should be before your Notification time!';
-    } 
+    }
     elseif ((!empty($notification)) && ($notification > $start_date)) {
       $strMessage = 'Your Notification time should be before your Start Date!';
-    } 
+    }
     elseif ($review_dl > $start_date) {
       $strMessage = 'Your Notification time should be before your Start Date!';
-    } 
+    }
     // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
     else { // keine Fehler
       $intConfId = $myDBAccess->addConference($_POST['name'],
@@ -200,8 +200,8 @@ if (isset($_POST['action'])) {
         error('Error during creating conference.', $myDBAccess->getLastError());
       }
       // Trage den Ersteller als Chair in die Konferenz ein
-      else if (!empty($intConfId)) {      	
-      	$resultRole = $myDBAccess->addRole(session('uid'), CHAIR, $intConfId);
+      else if (!empty($intConfId)) {
+        $resultRole = $myDBAccess->addRole(session('uid'), CHAIR, $intConfId);
         if ($myDBAccess->failed()) {
           // Datenbankfehler?
           error('Error during creating chair for conference. '.

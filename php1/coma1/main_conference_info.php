@@ -34,11 +34,11 @@ $strContentAssocs = defaultAssocArray();
 $strContentAssocs['name'] = encodeText($objConference->strName);
 $strContentAssocs['description'] = encodeText($objConference->strDescription);
 $strContentAssocs['date'] = encodeText($objConference->getDateString());
-if (!empty($objConference->strHomepage)) {    	
+if (!empty($objConference->strHomepage)) {
   $strContentAssocs['link'] = encodeURL($objConference->strHomepage);
-  $strContentAssocs['if'] = array(1);  	
+  $strContentAssocs['if'] = array(1);
 }
-else {  
+else {
   $strContentAssocs['link'] = 'No homepage available';
 }
 $strContentAssocs['paper_number'] = encodeText($objConference->intMinNumberOfPapers.' - '.

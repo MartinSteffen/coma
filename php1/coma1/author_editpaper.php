@@ -39,16 +39,16 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole || !($objPaper->intAuthorId == session('uid'))) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $content = new Template(TPLPATH.'edit_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 //$ifArray[] = $objPaper->intStatus;
-if (isset($_POST['action'])) {  
+if (isset($_POST['action'])) {
   $objPaper->strTitle = $_POST['title'];
-  $objPaper->strAbstract = $_POST['description'];  
+  $objPaper->strAbstract = $_POST['description'];
   $intCoAuthorNum = $_POST['coauthors_num'];
   $objPaper->strCoAuthors = array();
   $objPaper->intCoAuthorIds = array();
@@ -64,14 +64,14 @@ if (isset($_POST['action'])) {
   if (/*isset($_POST['add_coauthor']) &&*/ !empty($_POST['coauthor'])) {
     $objPaper->strCoAuthors[] = $_POST['coauthor'];
     $objPaper->intCoAuthorIds[] = false;
-  }    
+  }
   // Sammle alle angekreuzten Topics zusammen
   $objPaper->objTopics = array();
   for ($i = 0; $i < count($objAllTopics); $i++) {
-    if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {     
-      $objPaper->objTopics[] = $objAllTopics[$i];      	
-    }    
-  }  
+    if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
+      $objPaper->objTopics[] = $objAllTopics[$i];
+    }
+  }
   // Paper aktualisieren
   if (isset($_POST['submit'])) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
@@ -86,7 +86,7 @@ if (isset($_POST['action'])) {
         error('Error during updating paper.', $myDBAccess->getLastError());
       }
       else if (!empty($result)) {
-      	$objPaper->strLastEdit = date('r');
+        $objPaper->strLastEdit = date('r');
         $strMessage = 'Paper was updated successfully.';
       }
     }
@@ -104,7 +104,7 @@ if (isset($_POST['action'])) {
         // Datenbankfehler?
         error('Error during deleting paper.', $myDBAccess->getLastError());
       }
-      else if (!empty($result)) {        
+      else if (!empty($result)) {
         $_SESSION['message'] = 'Paper was deleted successfully.';
         redirect("author_papers.php");
       }
@@ -118,12 +118,12 @@ if (isset($_POST['action'])) {
       $strMessage = 'You have to select a correct file for uploading!';
     }
     // Versuche das Paper hochzuladen
-    else {      
+    else {
       $tmp = $_FILES['userfile']['tmp_name'];
       $filehandle = fopen($tmp, "rb") or error('Upload File', 'Can\'t read the file!');
       $file = fread($filehandle, filesize($tmp));
-      fclose ($filehandle); 
-      $result = $myDBAccess->uploadPaperFile($objPaper->intId, 
+      fclose ($filehandle);
+      $result = $myDBAccess->uploadPaperFile($objPaper->intId,
                                              $_FILES['userfile']['name'],
                                              $_FILES['userfile']['type'],
                                              $_FILES['userfile']['size'],
@@ -134,8 +134,8 @@ if (isset($_POST['action'])) {
         error('Error during uploading paper.', $myDBAccess->getLastError());
       }
       else if (!empty($result)) {
-      	$objPaper->intVersion++;        
-        $strMessage = 'Document was uploaded successfully.';        
+        $objPaper->intVersion++;
+        $strMessage = 'Document was uploaded successfully.';
       }
     }
   }
@@ -145,7 +145,7 @@ $strContentAssocs['paper_id']       = encodeText($objPaper->intId);
 $strContentAssocs['title']          = encodeText($objPaper->strTitle);
 $strContentAssocs['abstract']       = encodeText($objPaper->strAbstract);
 $strContentAssocs['author_id']      = encodeText($objPaper->intAuthorId);
-$strContentAssocs['author_name']    = encodeText($objPaper->strAuthor);      
+$strContentAssocs['author_name']    = encodeText($objPaper->strAuthor);
 $strContentAssocs['avg_rating']     = encodeText(round($objPaper->fltAvgRating * 10) / 10);
 $strContentAssocs['last_edited']    = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version']        = encodeText($objPaper->intVersion);
@@ -170,7 +170,7 @@ for ($i = 0; $i < count($objAllTopics); $i++) {
   $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
   $strTopicAssocs['if'] = array();
   if ($objPaper->hasTopic($objAllTopics[$i]->intId)) {
-    $strTopicAssocs['if'] = array(1);  	
+    $strTopicAssocs['if'] = array(1);
   }
   $topicForm->assign($strTopicAssocs);
   $topicForm->parse();

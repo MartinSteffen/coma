@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 // Lade die Daten des Reviewreports
@@ -52,7 +52,7 @@ if (!empty($objReview->fltReviewRating)) {
 }
 else {
   $strContentAssocs['rating'] = ' - ';
-}    
+}
 if (!empty($objReview->fltAverageRating)) {
   $strContentAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 100).'%');
 }

@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 if (isset($_POST['action'])) {
@@ -79,7 +79,7 @@ $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
 $strMessage = session('message', false);
 session_delete('message');
-if (!empty($strMessage)) {  
+if (!empty($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
   $ifArray[] = 9;
 }
@@ -94,8 +94,8 @@ if (!empty($objPapers)) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
-    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);      
-    $ifArray[] = $objPaper->intStatus;    
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
+    $ifArray[] = $objPaper->intStatus;
     if (!empty($objPaper->strFilePath)) {
       $ifArray[] = 5;
     }
@@ -149,7 +149,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();  
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

@@ -30,7 +30,7 @@ if (isset($_GET['paperid'])) {
   header("Pragma: public");
   header("Expires: 0");
   header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-  header("Cache-Control: public"); 
+  header("Cache-Control: public");
   header("Content-type: $type");
   header("Content-length: $size");
   header("Content-Disposition: attachment; filename=$name");

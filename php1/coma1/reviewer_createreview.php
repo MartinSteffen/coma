@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $objCriterions = $myDBAccess->getCriterionsOfConference(session('confid'));
@@ -54,14 +54,14 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkReview) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $intRatings  = array();
 $strComments = array();
 
 // Verarbeite mitgeschickte Daten
-if (isset($_POST['action'])) {  
+if (isset($_POST['action'])) {
   for ($i = 0; $i < count($objCriterions) && !empty($objCriterions); $i++) {
     $intRatings[]  = (int)$_POST['rating-'.($i+1)];
     $strComments[] = $_POST['comment-'.($i+1)];
@@ -72,17 +72,17 @@ if (isset($_POST['action'])) {
   $fltRating       = $_POST['rating'];
   // Teste Gueltigkeit der Daten
   $noError = true;
-  for ($i = 0; $i < count($intRatings) && $noError; $i++) {    
+  for ($i = 0; $i < count($intRatings) && $noError; $i++) {
     if ($intRatings[$i] < 0 ||
-        $intRatings[$i] > $objCriterions[$i]->intMaxValue) {      
+        $intRatings[$i] > $objCriterions[$i]->intMaxValue) {
       $noError = false;
       $strMessage = 'There are invalid ratings. Please check if all ratings are '.
                     'within their respective range.';
     }
-  }      
+  }
   if ($noError) {
-  	$fltRating = 0.0;
-  	// Berechne Gesamtbewertung neu
+    $fltRating = 0.0;
+    // Berechne Gesamtbewertung neu
     for ($i = 0; $i < count($intRatings); $i++) {
       $fltRating += (($intRatings[$i] / $objCriterions[$i]->intMaxValue) *
                      $objCriterions[$i]->fltWeight);
@@ -93,7 +93,7 @@ if (isset($_POST['action'])) {
       $result = $myDBAccess->createNewReviewReport($objPaper->intId, $objReviewer->intId,
                                                    $strSummary, $strRemarks, $strConfidential,
                                                    $intRatings, $strComments, $objCriterions);
-      if (!empty($result)) {        
+      if (!empty($result)) {
         $_SESSION['message'] = 'Review report was created successfully.';
         redirect("reviewer_editreview.php?reviewid=".$result);
       }
@@ -102,14 +102,14 @@ if (isset($_POST['action'])) {
         error('Error during creating review report.', $myDBAccess->getLastError());
       }
     }
-  }  
+  }
 }
 else {
   $fltRating = 0.0;
   for ($i = 0; $i < count($objCriterions) && !empty($objCriterions); $i++) {
     $intRatings[]  = 0;
     $strComments[] = '';
-  }	
+  }
   $strSummary      = '';
   $strConfidential = '';
   $strRemarks      = '';

@@ -29,7 +29,7 @@ $strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 if (isset($_POST['email'])){
-  
+
   // Anlegen der Person in der Datenbank
   $strContentAssocs['first_name']  = encodeText($_POST['first_name']);
   $strContentAssocs['last_name']   = encodeText($_POST['last_name']);

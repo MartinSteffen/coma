@@ -21,7 +21,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
@@ -71,7 +71,7 @@ if (!empty($dist)) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
-    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);      
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     $strItemAssocs['if'] = $ifArray;
     // Zugeteilte Reviewer
@@ -111,7 +111,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();  
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

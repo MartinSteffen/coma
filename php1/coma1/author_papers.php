@@ -20,14 +20,14 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'delete') {
   if (empty($_POST['confirm_delete'])) {
     $strMessage = 'You have to check the delete confirm option!';
   }
-  else {	  
+  else {
     $myDBAccess->deletePaper($_POST['paperid']);
     if ($myDBAccess->failed()) {
       error('Error deleting paper.', $myDBAccess->getLastError());
@@ -58,7 +58,7 @@ if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
   $strMessage = session('message', false);
   unset($_SESSION['message']);
 }
-if (isset($strMessage) && !empty($strMessage)) {  
+if (isset($strMessage) && !empty($strMessage)) {
   $strContentAssocs['message'] = encodeText($strMessage);
   $ifArray[] = 9;
 }
@@ -82,7 +82,7 @@ if (!empty($objPapers)) {
     }
     else {
       $strItemAssocs['avg_rating'] = ' - ';
-    }    
+    }
     $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'author_paperlistitem.tpl');
@@ -100,7 +100,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();  
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 $content->assign($strContentAssocs);
 

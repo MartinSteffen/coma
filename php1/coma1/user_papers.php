@@ -33,7 +33,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 if (isset($_GET['order'])) {
@@ -70,7 +70,7 @@ if (!empty($objPapers)) {
       if (!empty($objPaper->intAuthorId)) {
         $ifArray[] = 6;
       }
-      $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);    
+      $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
       $ifArray[] = $objPaper->intStatus;
       if (!empty($objPaper->strFilePath)) {
         $ifArray[] = 5;
@@ -81,7 +81,7 @@ if (!empty($objPapers)) {
       }
       else {
         $strItemAssocs['avg_rating'] = ' - ';
-      }    
+      }
       $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
       $strItemAssocs['if'] = $ifArray;
       $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
@@ -100,7 +100,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();    
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

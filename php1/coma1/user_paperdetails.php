@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $popup = (isset($_GET['popup'])) ? true : false;
@@ -48,7 +48,7 @@ $strContentAssocs['paper_id'] = encodeText($objPaper->intId);
 $strContentAssocs['title'] = encodeText($objPaper->strTitle);
 $strContentAssocs['abstract'] = encodeText($objPaper->strAbstract);
 $strContentAssocs['author_id'] = encodeText($objPaper->intAuthorId);
-$strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);      
+$strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);
 $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
 $strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version'] = encodeText($objPaper->intVersion);

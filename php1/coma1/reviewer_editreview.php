@@ -33,11 +33,11 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole || !($objReview->intReviewerId == session('uid'))) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 // Aktualisiere Review mit den mitgeschickten Daten
-if (isset($_POST['action'])) {  
+if (isset($_POST['action'])) {
   $objReview->strSummary      = $_POST['summary'];
   $objReview->strRemarks      = $_POST['remarks'];
   $objReview->strConfidential = $_POST['confidential'];
@@ -47,9 +47,9 @@ if (isset($_POST['action'])) {
   }
   // Teste Gueltigkeit der Daten
   $noError = true;
-  for ($i = 0; $i < count($objReview->intRatings) && $noError; $i++) {    
+  for ($i = 0; $i < count($objReview->intRatings) && $noError; $i++) {
     if ($objReview->intRatings[$i] < 0 ||
-        $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {      
+        $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
       $noError = false;
       $strMessage = 'There are invalid ratings. Please check if all ratings are '.
                     'within their respective range.';
@@ -61,7 +61,7 @@ if (isset($_POST['action'])) {
     if (isset($_POST['submit']) ) {
       // Trage Review in die Datenbank ein
       $result = $myDBAccess->updateReviewReport($objReview);
-      if (!empty($result)) {        
+      if (!empty($result)) {
         $strMessage = 'Review report was updated successfully.';
       }
       else if ($myDBAccess->failed()) {
@@ -69,7 +69,7 @@ if (isset($_POST['action'])) {
         error('Error during updating review report.', $myDBAccess->getLastError());
       }
     }
-  }  
+  }
 }
 
 $content = new Template(TPLPATH.'edit_review.tpl');
@@ -105,15 +105,15 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $strContentAssocs['crit_lines'] .= $critForm->getOutput();
 }
 if (isset($_SESSION['message'])) {
-	$strMessage = session('message', false);
-	unset($_SESSION['message']);
+  $strMessage = session('message', false);
+  unset($_SESSION['message']);
 }
 if (isset($strMessage) && !empty($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
   $strContentAssocs['if'] = array(1, 9);
 }
 else {
-	$strContentAssocs['if'] = array(1);
+  $strContentAssocs['if'] = array(1);
 }
 $content->assign($strContentAssocs);
 

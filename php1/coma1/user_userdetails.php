@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during performing permission check.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $popup = (isset($_GET['popup'])) ? true : false;
@@ -64,7 +64,7 @@ $checkChairRole = $myDBAccess->hasRoleInConference(session('uid'), session('conf
 if ($myDBAccess->failed()) {
   error('Error occured during performing permission check.', $myDBAccess->getLastError());
 }
-if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {	
+if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
   $objPapers = $myDBAccess->getPapersOfAuthor($objPerson->intId, session('confid'));
   if ($myDBAccess->failed()) {
     error('get paper list of author', $myDBAccess->getLastError());
@@ -94,7 +94,7 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
       }
       else {
         $strItemAssocs['avg_rating'] = ' - ';
-      }    
+      }
       $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
       $strItemAssocs['if'] = $ifArray;
       $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
@@ -103,7 +103,7 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
       $strPapersAssocs['lines'] .= $paperItem->getOutput();
       $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
     }
-  }  
+  }
   else {
     // Artikelliste ist leer.
     $strItemAssocs = defaultAssocArray();
@@ -112,13 +112,13 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
     $emptyList = new Template(TPLPATH.'empty_list.tpl');
     $emptyList->assign($strItemAssocs);
     $emptyList->parse();
-    $strPapersAssocs['lines'] = $emptyList->getOutput();    
+    $strPapersAssocs['lines'] = $emptyList->getOutput();
   }
   $paperList->assign($strPapersAssocs);
   $paperList->parse();
-  $strContentAssocs['author_papers'] = $paperList->getOutput();  
+  $strContentAssocs['author_papers'] = $paperList->getOutput();
 }
-if ($checkChairRole && $objPerson->hasRole(REVIEWER)) {	
+if ($checkChairRole && $objPerson->hasRole(REVIEWER)) {
   $strContentAssocs['if'] = array(1);
 }
 else {

@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 if (isset($_POST['action'])) {
@@ -37,12 +37,12 @@ if (isset($_POST['action'])) {
       error('Error resetting paper status.', $myDBAccess->getLastError());
     }
   }
-/*else if ($_POST['action'] == 'delete') {  
+/*else if ($_POST['action'] == 'delete') {
     $myDBAccess->deletePaper($_POST['paperid']);
     if ($myDBAccess->failed()) {
       error('Error deleting paper.', $myDBAccess->getLastError());
     }
-  }*/  
+  }*/
 }
 
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
@@ -70,7 +70,7 @@ if (!empty($objPapers)) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
-    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);      
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
     $ifArray[] = $objPaper->intStatus;
     if (!empty($objPaper->strFilePath)) {
       $ifArray[] = 5;
@@ -120,7 +120,7 @@ if (!empty($objPapers)) {
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
     }
-    
+
     $paperItem = new Template(TPLPATH.'chair_reviewlistitem.tpl');
     $paperItem->assign($strItemAssocs);
     $paperItem->parse();
@@ -136,7 +136,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();  
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

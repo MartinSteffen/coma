@@ -41,9 +41,9 @@ else if (isset($_POST['retreat'])) {
   redirect('main_conferences.php');
 }
 // Rollen eintragen bzw. Rollenbewerbung eintragen
-else {  
+else {
   if ($_POST['roletype'] == PARTICIPANT) {
-    $blnAccepted = true;	
+    $blnAccepted = true;
   }
   else {
     $blnAccepted = $objConference->blnAutoActivateAccount;

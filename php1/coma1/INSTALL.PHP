@@ -26,13 +26,13 @@ if (isset($_POST['downloadconfig'])) {
   header("Pragma: public");
   header("Expires: 0");
   header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-  header("Cache-Control: public"); 
+  header("Cache-Control: public");
   header("Content-type: application/x-httpd-php");
   header("Content-Disposition: attachment; filename=config.inc.php");
   header("Content-Description: Download Configuration File");
   header("Content-Transfer-Encoding: binary");
   echo base64_decode($_POST['base64encoded']);
-  die; 
+  die;
 }
 header('Content-type: text/html; charset=utf-8');
 ?>

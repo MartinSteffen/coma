@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $content = new Template(TPLPATH.'chair_start.tpl');
@@ -38,7 +38,7 @@ foreach ($objPersons as $objPerson) {
 }
 if ($intRoleRequests > 0) {
   $strContentAssocs['request_no'] = encodeText($intRoleRequests);
-  $strContentAssocs['if'] = array(1);	
+  $strContentAssocs['if'] = array(1);
 }
 $content->assign($strContentAssocs);
 

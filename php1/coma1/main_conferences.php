@@ -28,7 +28,7 @@ if ($myDBAccess->failed()) {
 $strMessage = session('message', false);
 session_delete('message');
 $strContentAssocs['message'] = $strMessage;
-if (!empty($strMessage)) {  
+if (!empty($strMessage)) {
   $strContentAssocs['if'] = array(9);
 }
 $strContentAssocs['lines'] = '';
@@ -59,7 +59,7 @@ if (!empty($objConferences)) {
       }
       if (!($objPerson->hasRole(PARTICIPANT)) && !($objPerson->hasRequestedRole(PARTICIPANT))) {
         $ifArray[] = 4;
-      }      
+      }
     }
     $strItemAssocs['line_no'] = encodeText($lineNo);
     $strItemAssocs['confid'] = encodeText($objConference->intId);
@@ -80,14 +80,14 @@ if (!empty($objConferences)) {
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
   }
 }
-else {  
+else {
   $strItemAssocs = defaultAssocArray();
   $strItemAssocs['colspan'] = '3';
   $strItemAssocs['text'] = 'There are no users available.';
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();  
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

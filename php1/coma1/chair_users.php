@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error retrieving conference topics', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('checkRole', 'You have no permission to view this page!');	
+  error('checkRole', 'You have no permission to view this page!');
 }
 
 $content = new Template(TPLPATH.'chair_userlist.tpl');
@@ -52,7 +52,7 @@ if (isset($_POST['action'])) {
     $strMailAssocs['name'] = encodeText($objPerson->getName(2));
     $strMailAssocs['conference'] = encodeText($objConference->strName);
     $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
-    
+
     // Benutzerrolle bearbeiten
     if ($_POST['submit'] == 'add') {
       $myDBAccess->addRole($intPersonId, $intRoleType, session('confid'), true);
@@ -131,13 +131,13 @@ if (!empty($objPersons)) {
     $strItemAssocs['name'] = encodeText($objPerson->getName(1));
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = encodeText('mailto:'.$objPerson->strEmail);
-    $strItemAssocs['targetform'] = 'chair_users.php';    
+    $strItemAssocs['targetform'] = 'chair_users.php';
     if ($objPerson->hasRole(REVIEWER)) {
       $strItemAssocs['if'] = array(1);
     }
     else {
       $strItemAssocs['if'] = array();
-    }    
+    }
     $strItemAssocs['roles'] = '';
     for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
@@ -146,25 +146,25 @@ if (!empty($objPersons)) {
       $strRolesAssocs['user_id'] = encodeText($objPerson->intId);
       $strRolesAssocs['role_type'] = encodeText($intRoles[$i]);
       $strRolesAssocs['role_name'] = encodeText($strRoles[$intRoles[$i]]);
-      $strRolesAssocs['line_no'] = $lineNo;      
+      $strRolesAssocs['line_no'] = $lineNo;
       if ($objPerson->hasRole($intRoles[$i])) {
-      	if ($objPerson->intId != session('uid') || $intRoles[$i] != CHAIR) {
-      	  $strRolesAssocs['if'] = array(1);
-      	}
-      	else {
-      	  $strRolesAssocs['if'] = array(4);
-      	}
+        if ($objPerson->intId != session('uid') || $intRoles[$i] != CHAIR) {
+          $strRolesAssocs['if'] = array(1);
+        }
+        else {
+          $strRolesAssocs['if'] = array(4);
+        }
       }
       else if ($objPerson->hasRequestedRole($intRoles[$i])) {
         $strRolesAssocs['if'] = array(3);
       }
       else {
         $strRolesAssocs['if'] = array(2);
-      }      
+      }
       $roles->assign($strRolesAssocs);
       $roles->parse();
       $strItemAssocs['roles'] .= $roles->getOutput();
-    }   
+    }
     $userItem = new Template(TPLPATH.'chair_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
     $userItem->parse();
@@ -180,7 +180,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();  
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

@@ -70,7 +70,7 @@ $j = 2;
 while($j < 6){
 $myDBAccess->addRole($persons+1, $j, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
 $j++;
 }
@@ -86,7 +86,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addRole($j+1, 2, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
@@ -95,7 +95,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addRole($j+1, 3, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
@@ -104,7 +104,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addRole($j+1, 4, $i+1);
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
@@ -113,7 +113,7 @@ while ($i < $conferences) {
   echo '.';
       $myDBAccess->addRole($j+1, 5, $i+1);
       if ($myDBAccess->failed()) {
-	    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+      echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
@@ -128,7 +128,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addTopic($i+1, 'Name'.$i.$j);
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
@@ -144,7 +144,7 @@ while ($i < $conferences) {
     $myDBAccess->addPaper($i+1, $j+1, 'Title'.$i.$j, 'Abstract'.$i.$j,
       array(), array(rand(1,$topics/2),rand($topics/2+1,$topics)));
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
@@ -153,11 +153,11 @@ while ($i < $conferences) {
 
 $myDBAccess->addCoAuthor(1, 1);
       if ($myDBAccess->failed()) {
-	    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+      echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
 $myDBAccess->addCoAuthorName(2, 'Co Author Name');
       if ($myDBAccess->failed()) {
-	    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+      echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
 
 echo '<br>ReviewReports/Distribution:<br>';
@@ -172,11 +172,11 @@ while ($j < $papers) {
   $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
   if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
-	}
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+  }
   $myDBAccess->addDistribution($i+1, $j+1);
   if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
   }
  $reports++;
 }
@@ -199,7 +199,7 @@ while ($i < $conferences) {
     $myDBAccess->addCriterion($i+1, 'Name'.$i.$j, 'Description'.$i.$j, rand(6,10), $weight/100);
     $totalWeight += $weight;
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
@@ -214,8 +214,8 @@ $j = 0;
   echo '.';
     $myDBAccess->addRating($i+1, $j+1, rand(1,6), 'Comment'.$i.$j);
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
-	  }
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    }
     $j++;
   }
   $i++;
@@ -229,7 +229,7 @@ while ($i < $conferences) {
   echo '.';
     $myDBAccess->addForum($i+1, 'title'.$i.$j, $j,0);
     if ($myDBAccess->failed()) {
-	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }

@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');       
+  error('You have no permission to view this page.', '');
 }
 
 $objPapers = $myDBAccess->getPapersOfReviewer(session('uid'), session('confid'));
@@ -34,7 +34,7 @@ $strContentAssocs['lines'] = '';
 // Liste der Reviews erzeugen
 if (!empty($objPapers)) {
   $lineNo = 1;
-  foreach ($objPapers as $objPaper) {   
+  foreach ($objPapers as $objPaper) {
     $ifArray = array();
     $ifArray[] = $objPaper->intStatus;
     $strItemAssocs['line_no'] = $lineNo;
@@ -94,7 +94,7 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();    
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 
 $content->assign($strContentAssocs);

@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 $popup = (isset($_GET['popup'])) ? true : false;
@@ -62,7 +62,7 @@ $strContentAssocs['navlink']     = ($popup) ? array( 'CLOSE' ) : array( 'BACK' )
 $strContentAssocs['paper_lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
-  foreach ($objPapers as $objPaper) {   
+  foreach ($objPapers as $objPaper) {
     $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
@@ -85,12 +85,12 @@ else {
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
   $emptyList->parse();
-  $strContentAssocs['lines'] = $emptyList->getOutput();    
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 $strContentAssocs['topic_lines'] = '';
 if (!empty($objTopics)) {
   $lineNo = 1;
-  foreach ($objTopics as $objTopic) {    
+  foreach ($objTopics as $objTopic) {
     $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['topic'] = encodeText($objTopic->strName);
@@ -99,7 +99,7 @@ if (!empty($objTopics)) {
     $topicItem = new Template(TPLPATH.'chair_prefertopiclistitem.tpl');
     $topicItem->assign($strItemAssocs);
     $topicItem->parse();
-    $strContentAssocs['topic_lines'] .= $topicItem->getOutput();    
+    $strContentAssocs['topic_lines'] .= $topicItem->getOutput();
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
   }
 }

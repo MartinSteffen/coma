@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
-  error('You have no permission to view this page.', '');	
+  error('You have no permission to view this page.', '');
 }
 
 // Lade die Daten der Konferenz
@@ -38,11 +38,11 @@ $strContentAssocs['if'] = array();
 $strContentAssocs['name'] = encodeText($objConference->strName);
 $strContentAssocs['description'] = encodeText($objConference->strDescription);
 $strContentAssocs['date'] = $objConference->getDateString();
-if (!empty($objConference->strHomepage)) {    	
+if (!empty($objConference->strHomepage)) {
   $strContentAssocs['link'] = encodeURL($objConference->strHomepage);
   $strContentAssocs['if'] = array(1);
 }
-else {  
+else {
   $strContentAssocs['link'] = 'No homepage available';
 }
 $strContentAssocs['paper_number'] = encodeText($objConference->intMinNumberOfPapers.' - '.
