@@ -24,7 +24,14 @@ echo $p[0];*/
 $_SESSION['confid'] = 1;
 echo('<br>Konferenz-ID: '.$_SESSION['confid']);
 $cd = $myDBAccess->getConferenceDetailed();
-echo('<br>LastError: '.$myDBAccess->getLastError());
+if (!empty($cd)) {
+  echo('<br>AutoActivateAccount: '.$cd->blnAutoActivateAccount);
+  echo('<br>AutoOpenPaperForum:  '.$cd->blnAutoOpenPaperForum);
+  echo('<br>AutoAddReviewers:    '.$cd->blnAutoAddReviewers);
+}
+else {
+  echo('<br>LastError: '.$myDBAccess->getLastError());
+}
 
 
 /*

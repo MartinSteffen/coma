@@ -209,6 +209,9 @@ class DBAccess {
    * @access public
    * @author Tom (08.01.05)
    */
+   
+  /* TODO: Wie ist mit Booleans ($blnAuto...) zu verfahren? */
+   
   function getConferenceDetailed() {
     $s = 'SELECT  c.id, name, homepage, description, abstract_submission_deadline,'.
         '         paper_submission_deadline, review_deadline, final_version_deadline,'.
