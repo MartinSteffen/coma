@@ -80,8 +80,8 @@
       <input type="hidden" name="name" value="{name}">
       <input type="hidden" name="description" value="{description}">
       <input type="hidden" name="homepage" value="{homepage}">
-      <input type="hidden" name="start_date" value="{start_dl}">
-      <input type="hidden" name="end_date" value="{end_dl}">
+      <input type="hidden" name="start_date" value="{start_date}">
+      <input type="hidden" name="end_date" value="{end_date}">
       <input type="hidden" name="abstract_dl" value="{abstract_dl}">
       <input type="hidden" name="paper_dl" value="{paper_dl}">
       <input type="hidden" name="review_dl" value="{review_dl}">
