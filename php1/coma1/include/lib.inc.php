@@ -312,7 +312,6 @@ function chronometer()
  * @param string $strFrom dieses ist 1. optional und 2. der Absender
  * @return bool True gdw. Erfolgreich
  * @author Jan&Tom (31.01.05)
- * @todo TOTALAY UNSURE ABOUT THIS WHOLE \r\n vs \n STUFF NEEDS LOTS OF TESTING
  * @access public
  */
 function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
@@ -330,16 +329,14 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
   }
 
   // TOTALAY UNSURE ABOUT THIS WHOLE \r\n vs \n STUFF NEEDS LOTS OF TESTING
-  // Replace \n by \r\n
-  $strMsg = str_replace("\n", "\r\n", $strMsg);
-  $strMsg = utf8_encode("\r\n".$strMsg);
+  $strMsg = utf8_encode($strMsg);
   $strSubject = utf8_encode('[CoMa] '.$strSubject);
-  return mail('', $strSubject, $strMsg,
-              'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
-              "From: $strFrom\r\n".
-              "MIME-Version: 1.0\r\n".
-              "Content-type: text/plain; charset=utf-8\r\n"
-             );
+  $header = "To: \"{$objPerson->getName(2)}\" <{$objPerson->strEmail}>\n".
+            "From: $strFrom\n".
+            "MIME-Version: 1.0\n".
+            "Content-type: text/plain; charset=utf-8";
+  echo $header;
+  return mail('', $strSubject, $strMsg, $header);
 
 }
 
