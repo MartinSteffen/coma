@@ -1017,7 +1017,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReview', 'Fatal error: Database inconsistency!',
                           "intAuthorId = $objPaper->intAuthorId");
     }
-    $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $paper_data[0]['title'],
+    $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $objPaper->strTitle,
                    $objAuthor->intId, $objAuthor->getName(), $this->getReviewRating($intReviewId),
                    $this->getAverageRatingOfPaper($data[0]['paper_id']), $objReviewer->strEmail,
                    $objReviewer->getName()));

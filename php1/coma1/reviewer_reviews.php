@@ -32,7 +32,7 @@ if (!empty($objReviews)) {
     $strItemAssocs['title'] = $objReview->strPaperTitle;
     $strItemAssocs['author_id'] = $objReview->intAuthorId;
     $strItemAssocs['author_name'] = $objReview->strAuthorName;
-    $objPaper = $myDBAccess->getPaper($objReview->intPaperId);
+    $objPaper = $myDBAccess->getPaperSimple($objReview->intPaperId);
     if ($myDBAccess->failed()) {
       error('get paper in review list of reviewer', $myDBAccess->getLastError());
     }
