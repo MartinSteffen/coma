@@ -307,7 +307,7 @@ table.list
 {
   text-align: left;
   font-size: 12px;
-  padding: 0px 8px;
+  padding: 1px 8px;
   margin: 0px;
   background-color: #FAFAFA;
 }
@@ -315,7 +315,7 @@ table.list
 {
   text-align: left;
   font-size: 12px;
-  padding: 0px 8px;
+  padding: 1px 8px;
   margin: 0px;
   background-color: #E4E4E4;
 }
