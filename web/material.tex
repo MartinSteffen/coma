@@ -116,6 +116,16 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
 ``not required'', and o means ``unclear''. Entries in [brackets] means
 ``not fully available'' or ``almost not available'' or similar.
 
+The \emph{versions} are those from \texttt{snert.}\footnote{Note that for
+  the various java lib's there's a little confusions concerning the numbers
+  (and file names) as some of the jar files which are offered for download
+  at
+  \href{http://snert.informatik.uni-kiel.de:8080/~wprguest3/downloads/}{the
+    download space of the java group} are just duplicates (with the same
+  version number, sometimes different names??) of the jars, which are
+  installed \emph{anyway} on snert as part of tomcat. One should base the
+  tool on the \emph{official} ones, as part of the chosen tomcat
+  installation. Everything else invites trouble. }
 
 
 
@@ -156,7 +166,7 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     \\\hline%%%%
     \href{http://ant.apache.org/}{ant} 
     &
-    %% version
+    1.6.2 %% version
     &
     build tool % description
     & 
@@ -180,7 +190,7 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     \\
     \href{http://subversion.tigris.org/}{subversion}
     &
-    %% version
+    1.0.9 %% version
     & 
     CM % description
     & 
@@ -204,7 +214,7 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     \\
     \href{http://www.apache.org}{apache}
     &
-    %% version
+    2.0.51 %% version
     & 
     web server % description
     & 
@@ -228,7 +238,7 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     \\
     \href{http://jakarta.apache.org/tomcat/index.html}{jacarta tomcat}
     &
-    %% version
+    5.0.30 %% version
     & 
     web server % description
     & 
@@ -252,7 +262,7 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     \\
     \href{http://www.mysql.org}{mysql}
     &
-    %% version
+    3.23.58 %% version
     & 
     data base % description
     & 
@@ -276,7 +286,7 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     \\
     \href{https://www.php.net}{php}
     &
-    %% version
+    4.3.8 %% version
     & 
     scripting lang. % description
     & 
@@ -298,15 +308,39 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     &
     - % client side
     \\
+    \href{http://java.sun.com/j2se/index.jsp}{java}
+    &
+    1.5.0 %% version
+    & 
+    programming lang. % description
+    & 
+    +  % snert
+    & 
+    +  % lab
+    &
+    - %p1
+    &
+    - %p2
+    &
+    + %j
+    &
+    + % t
+    & 
+    - %o
+    &
+    + % server side
+    &
+    - % client side
+    \\
     \href{http://www.informatik.uni-kiel.de/~java}{java lib's}
     &
-    %% version
+    various %% version
     & 
     additional libs % description
     & 
-    [-] % snert
+    [+] % snert
     & 
-    +  % lab
+    [+]  % lab
     &
     - %p1
     &
@@ -392,6 +426,53 @@ Entries + mean ``available'' or ``require'', - means ``not abailable'' or
     &
     - % client side
     \\
+    \href{http://www.latex-project.org/}{\LaTeX}
+    &
+    tetex 2.0.2 %% version
+    & 
+    typesetting % description
+    & 
+    +  % snert
+    & 
+    + % lab
+    &
+    o %p1
+    &
+    o %p2
+    &
+    o %j
+    &
+    o % t
+    & 
+    + %o
+    &
+    o % server side
+    &
+    - % client side
+    \\
+    \href{http://www.phpdoc.org}{php doc}
+    &
+    %% version
+    & 
+    doc generation
+    & 
+    +  % snert
+    & 
+    -  % lab
+    &
+    o %p1
+    &
+    o %p2
+    &
+    - %j
+    &
+    o % t
+    & 
+    - %o
+    &
+    - % server side
+    &
+    - % client side
   \end{tabular}
   \caption{Tools, Software, etc}
   \label{tab:tools}
