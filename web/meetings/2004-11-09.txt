@@ -1,0 +1,138 @@
+(Ungefähr die email an alle:)
+
+Anwesend: nicht alle, aber viele, Marcel Kyas, Marting Steffen, 
+
+Gunnar Schaefer abwesend wg. Krankeit.
+
+
+Sonstiges: Handout 2, 
+
+           ein paar Details zu subversion, was mittlerweile
+           installiert ist. Man kan bereits mit rumspielen
+
+           Es fehlt noch (von unserer Seite): verteilung der Passworte
+           d.h., bislang k"onnen die Teilnehmer nur ``read-only'' auschecken
+           aber nichts "andern
+
+           Weitere info's zu sonstiger Software, aber die nur sehr oberfl"achlich
+           (bugzilla wird morgen nachgeschoben als Handout => Webseite)
+
+
+
+Thema:  Spec-Gruppen, d.h., 2 Gruppen haben die Hauptsache betritten
+
+        Spec 1)  Tom Scherzer 
+                 Sandro Esquivel
+                 Jan Waller 
+
+        Spec2:
+
+                 Ulrich Schwarz
+                 Falk Starke 
+                 Daniel Miesling
+
+
+Spec 1 als erste Vortragenge:
+
+           recht ausgefeiltes Konzept, weitere Details
+           sind auf den Folien nachzulesen (die wir zugeschickt
+           bekommen werden; alternative w"are: einchecken der Folien
+           unter subversion, sobald Ihr die Passworte habt = morgen
+
+           Noch mehr Details (Datenmodell) wird von der Gruppe  
+           bis n"achste Woche geliefert. (wobei der Wunsch unserer
+           seite besteht, eventuell bereits vorversionen zu Gesicht
+           zu bekommen...
+
+        
+
+      Mein pers"onlicher Eindruck: solides Konzept (soweit man das ohne         
+          die Details zu kennen, beurteilen kann, zumindest "uberzeugende
+          Darstellung)
+     
+             Eventuell: etwas zu ambitioniert, was den Umfang betrifft, spezielle
+              ist unklar, wieviel Aufwand  in der implementierung der verschiedenen
+              ``Foren'' besteht. Ein eventueller Ausweg w"are, entsprechende Software von
+              der Stange zu nehmen, aber auch da kann es Haken geben.
+
+
+         Technisch: Ein Punkt, der mir nich so gefallen hatte, war das die Reviewer
+             zu ``wenig sehen, zu sehr unter der Fuchtel der Chairs stehen'' (sie sehen
+            die Autoren erst nicht, sie k"onnen nicht die anderen Reviewer erst sehen )
+
+
+
+        Spezialit"aten (vieles nat"urlich "ahnlich wie in der informellen Spek beschrieben):
+
+             - Die Verteilung von Papieren auf Reviewen beruht alleine auf ``Topics''
+               nicht auf den Papieren
+
+             - Eine spezielle/explite  Note ``unentschieden'' wird verwendet.
+
+             -  lokale Serverinstallation
+
+             - Algorithmus beherrscht (oder soll) die neue Zuteilung von Neuen
+               Papern ber"ucksichtigen, wobei die alte Zuteilung erhalten bleibt,
+               aber dennoch die Zuteilungskriterien w"urdigt.
+
+Spec2: "ahnlicher Vortrag, etwas unter Zeitdruck und der Tatsache leidend, da"s
+        der erste Vortrag bereits machens gekl"art hatte.
+
+        Etwas weniger ausgearbeitet (soweit mein oberfl"achlicher Eindruck)
+
+        Spezialit"aten waren:
+
+             - nicht ganz so ambitioes
+             - allerdings: komplexere Teilnehmnerstruktur. 
+
+                Ich fand die Trennung in Assistent/Chair und auch
+                Interested Person/Some persons nicht ganz "uberzeugend.
+
+                Technisch vermutlich sehr einfach zu machen, aber ich glaube
+                da k"onnen wir trotzdem vereinfachen, ohne das das Tool
+                an Wert verliert.
+
+
+
+
+Noch ein Punkt (nicht in der email vom Dienstag erw"ahnt, betrifft beiden
+                Gruppen): die Tatsache, da"s sich Autoren best"atigen
+                lassen mussen halten wir f"ur unn"otig.
+
+=====
+
+
+sonstiges:
+
+        Der Eindruck ist: arbeitswandsm"a"sig haben die Spec-Leute bislang das 
+         schlechtere Ende erwischt (oder das bessere, weil sie mehr gelernt haben).
+         wir m"ussen schauen, es eventuell auszugleichen oder zumindest nicht auf
+         Dauer ungleich lassen. Aber die Gruppen sind ohnehin nicht entd"uglig
+
+
+    Testgruppe: die ist leider nicht zu Wort gekommen, sie waren aber 
+        nachher noch bei uns. Ich schreibe eventuell morgen noch was
+        ich von ihrem Konzept verstanden habe (oder sie machen selbst
+        eine Kurze Rundmail)
+
+        Dazu produziert die Gruppe, wie die anderen auch, eine entspechendes
+        Dokument bis kommende Woche.
+
+
+
+
+
+   Von Unserer Seite: morgen kommen noch Infos zu Bugzilla, passworte etc.
+   Sowie verst"arkt Fragen der Architekur, Modularisierung, Strukturierung
+   im Repositorium, Strategiern und Spielregeln (auch die Testgruppe wird
+   da eine Rolle spielen etc).
+
+
+PS: ich war noch in der subversion-Infoveranstaltung des RZ und der
+Rechnergruppen. Nicht viel was ich nicht schon wusste und nicht mal viel
+was "uber das Handout hinausging.
+
+        
+
+
+        
