@@ -7,6 +7,13 @@ include("includes/tools.inc.php");
 include("includes/templates.inc.php");
 session_start();
 
+/* DEBUG from Ivan - delete later!!! */
+if (!isset($_SESSION['userID']))
+{
+	$_SESSION['userID'] = 1;
+}
+/* END DEBUG */
+
 if (isset($_REQUEST['Role'])){
 	loginas($_REQUEST['Role']);
 }

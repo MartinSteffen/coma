@@ -1,70 +1,64 @@
 <?
-$userID = $_GET['userID'];
+	$link = mysql_connect ("localhost","testUser","testPass");
+	$base = mysql_select_db ("testComma");
+	$SQL = "select title, first_name, last_name from person where id = ".$_GET['userID'];
+    $result=mysql_query($SQL);
+	
+	$papers = array();
+	$output = array();
+	$output['userID'] = $_GET['userID'];
+    if ($list = mysql_fetch_row ($result)) 	
+    {
+		$output['userName'] = $list[0]." ".$list[1]." ".$list[2];   
+    }	
+	
+	$SQL = "select paper.id, paper.title, paper.abstract, paper.state, conference.id, conference.name 
+			from paper, role, conference  
+			where role.role_type = 2
+			and role.state = 1 
+			and role.person_id = ".$_SESSION['userID']."
+			and role.conference_id = conference.id 
+			and conference.id = paper.conference_id 
+			and paper.author_id = ".$_GET['userID'];	
 
-/* DEBUG START */
-$papers = array();
-$output = array();
-$output['userID'] = $userID;
-if ($userID==1)
-{
-	$output['userName'] = "Author A";
-	$paper = array();
-	$paper['paperID'] = 1;
-	$paper['paperName'] = "Paper A";
-	$paper['paperDesc'] = "Description of paper A";	
-	$paper['condID'] = 1;
-	$paper['confName'] = "Conference A";
-	$papers['0'] = $paper;
-	$paper = array();
-	$paper['paperID'] = 2;
-	$paper['paperName'] = "Paper B";
-	$paper['paperDesc'] = "Description of paper B";	
-	$paper['condID'] = 1;
-	$paper['confName'] = "Conference A";
-	$papers['1'] = $paper;	
-}
-if ($userID==2)
-{
-	$output['userName'] = "Author B";
-	$paper = array();
-	$paper['paperID'] = 3;
-	$paper['paperName'] = "Paper C";
-	$paper['paperDesc'] = "Description of paper C";	
-	$paper['condID'] = 1;
-	$paper['confName'] = "Conference A";
-	$papers['0'] = $paper;
-	$paper = array();
-	$paper['paperID'] = 6;
-	$paper['paperName'] = "Paper F";
-	$paper['paperDesc'] = "Description of paper F";	
-	$paper['condID'] = 2;
-	$paper['confName'] = "Conference B";
-	$papers['1'] = $paper;	
-}
-if ($userID==3)
-{
-	$output['userName'] = "Author C";
-	$paper = array();
-	$paper['paperID'] = 4;
-	$paper['paperName'] = "Paper D";
-	$paper['paperDesc'] = "Description of paper D";	
-	$paper['condID'] = 2;
-	$paper['confName'] = "Conference B";
-	$papers['0'] = $paper;
-}
-if ($userID==4)
-{
-	$output['userName'] = "Author D";
-	$paper = array();
-	$paper['paperID'] = 5;
-	$paper['paperName'] = "Paper E";
-	$paper['paperDesc'] = "Description of paper E";	
-	$paper['condID'] = 2;
-	$paper['confName'] = "Conference B";
-	$papers['0'] = $paper;
-}
-
-/* DEBUG END */
+    $result=mysql_query($SQL);
+	$count = 0;	
+    if ($list = mysql_fetch_row ($result)) 	
+	{
+		$paper = array();
+		$paper['paperID'] = $list[0];
+		$paper['paperName'] = $list[1];
+		$paper['paperDesc'] = $list[2];
+		if($list[3]==0)
+		{
+			$paper['state'] = "Open";
+			$paper['class'] = "textGreen";
+		}
+		if($list[3]==1)
+		{
+			$paper['state'] = "Being reviewed";
+			$paper['class'] = "textGreen";
+		}
+		if($list[3]==2)
+		{
+			$paper['state'] = "Being reviewed, conflicting";
+			$paper['class'] = "textRed";
+		}		
+		if($list[3]==3)
+		{
+			$paper['state'] = "Accepted";
+			$paper['class'] = "textGreen";
+		}
+		if($list[3]==4)
+		{
+			$paper['state'] = "Rejected";
+			$paper['class'] = "textRed";
+		}			
+		$paper['confID'] = $list[4];
+		$paper['confName'] = $list[5];
+		$papers['$count'] = $paper;
+		$count = $count + 1;			
+	}
 
 $output['papers'] = $papers;
 $TPL['chair'] = $output;

@@ -1,9 +1,8 @@
 <? 
 include("header.tpl.php");
-$paper = d('chair');
+$input = d('chair');
+$paper = $input['paper'];
 ?>
-<link rel="stylesheet" href="style.css" type="text/css">
-
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td class="textBold">Manage a paper</td>
@@ -40,12 +39,7 @@ $paper = d('chair');
       <? echo $paper['paperDesc'] ?>
     </td>
     <td class="text" align="left" valign="top" width="257">&nbsp; </td>
-  </tr>
-  <tr> 
-    <td class="textBold" align="left" valign="top" width="117">&nbsp;</td>
-    <td class="text" align="left" valign="top">&nbsp;</td>
-    <td class="text" align="left" valign="top" width="257">&nbsp;</td>
-  </tr>
+  </tr> 
   <tr> 
     <td height="1" width="117"><img height="1" width="117" src="/templates/images/spacer.gif"></td>
     <td></td>
@@ -54,10 +48,47 @@ $paper = d('chair');
 </table>
 <br>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td>Reviewers and so on...</td>
+  <tr align="left" valign="top"> 
+    <td width="116" class="textBold">State</td>
+    <td width="204" class="<? echo $paper['class']; ?>"> 
+      <? echo $paper['state']; ?>
+    </td>
+    <td width="100%"> 
+      <form name="form1" method="post" action="">
+        <select name="newStateID">
+          <option value="0" <? if($paper['stateID']==0) echo "selected" ?>>Open</option>
+          <option value="1" <? if($paper['stateID']==1) echo "selected" ?>>Being 
+          reviewed</option>
+          <option value="2" <? if($paper['stateID']==2) echo "selected" ?>>Being 
+          reviewed, conflicting</option>
+          <option value="3" <? if($paper['stateID']==3) echo "selected" ?>>Accepted</option>
+          <option value="4" <? if($paper['stateID']==4) echo "selected" ?>>Rejected</option>
+        </select>
+        <input type="submit" name="Submit" value="Change">
+      </form>
+    </td>
+  </tr>
+  <tr align="left" valign="top"> 
+    <td width="116" class="textBold">Last edited</td>
+    <td width="204" class="text"> 
+      <? echo $paper['lastEdited'] ?>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr align="left" valign="top"> 
+    <td width="116" class="textBold">Version</td>
+    <td width="204" class="text"> 
+      <? echo $paper['version'] ?>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td height="1"><img height="1" width="116" src="/templates/images/spacer.gif"></td>
+    <td><img height="1" width="204" src="/templates/images/spacer.gif"></td>
+    <td></td>
   </tr>
 </table>
+<br>
 <br>
 <?
 include("footer.tpl.php");

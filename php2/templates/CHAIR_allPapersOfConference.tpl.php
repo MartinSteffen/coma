@@ -2,16 +2,24 @@
 include("header.tpl.php");
 $input = d('chair');
 $confID = $input['confID'];
-$confName = $input['confName'];
+$confName = $input['confName']; 
 $papers = $input['papers'];
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="left" valign="top"><span class="textBold">List of all papers in 
-      conference :</span> <span class="text"> 
+  <? if (!count($papers)==0)
+  	{ ?>
+    <td align="left" valign="top"><span class="textBold">List of all papers in conference :</span> <span class="text"> 
       <? echo $confName ?>
       </span></td>
-  </tr>
+  <? }
+     else
+	 { ?>
+    <td align="left" valign="top"><span class="textBold">There are no papers in this conference.</span> <span class="text"> 
+      <? echo $confName ?>
+      </span></td> 
+  <? } ?>
+  </tr>	  
 </table>
 <br>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -25,6 +33,10 @@ $papers = $input['papers'];
     <td class="textBold">Author</td>
     <td class="text"><? echo $paper['authorName']; ?></td>
   </tr>
+  <tr align="left" valign="top"> 
+    <td class="textBold">State</td>
+    <td class="<? echo $paper['class']; ?>"><? echo $paper['state']; ?></td>
+  </tr>    
   <tr align="left" valign="top"> 
     <td class="textBold">Description</td>
     <td class="text"><? echo $paper['paperDesc']; ?></td>

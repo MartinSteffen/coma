@@ -7,9 +7,18 @@ $papers = $input['papers'];
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
+  <? if (!count($papers)==0)
+  	{ ?>  
     <td align="left" valign="top"><span class="textBold">List of all papers from author :</span> <span class="text"> 
       <? echo $userName ?>
       </span></td>
+  <? }
+     else
+	 { ?>
+    <td align="left" valign="top"><span class="textBold">There are no papers from this author.</span> <span class="text"> 
+      <? echo $confName ?>
+      </span></td>	 
+  <? } ?>	 	  
   </tr>
 </table>
 <br>
@@ -24,6 +33,10 @@ $papers = $input['papers'];
     <td class="textBold">In conference</td>
     <td class="text"><? echo $paper['confName']; ?></td>
   </tr>
+  <tr align="left" valign="top"> 
+    <td class="textBold">State</td>
+    <td class="<? echo $paper['class']; ?>"><? echo $paper['state']; ?></td>
+  </tr>   
   <tr align="left" valign="top"> 
     <td class="textBold">Description</td>
     <td class="text"><? echo $paper['paperDesc']; ?></td>
