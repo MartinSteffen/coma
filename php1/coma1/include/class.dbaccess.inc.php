@@ -1297,6 +1297,10 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     if ($this->mySql->failed()) {
       return $this->error('updatePaperDetailed', $this->mySql->getLastError());
     }
+    $this->updateCoAuthors($objPaperDetailed);
+    if ($this->failed()) {
+      return $this->error('updatePaperDetailed', $this->getLastError());
+    }
     return $this->success(true);
   }
 
