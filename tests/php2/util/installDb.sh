@@ -12,5 +12,6 @@
 # Run the sql scripts
 mysql -u$DB_USER -p$DB_PASS $DB < sql/drop.sql
 mysql -u$DB_USER -p$DB_PASS $DB < sql/install.sql
-mysql -u$DB_USER -p$DB_PASS $DB < sql/basedata.sql
+# We do not need basedata because we will create everything we need from scratch
+#mysql -u$DB_USER -p$DB_PASS $DB < sql/basedata.sql
 
