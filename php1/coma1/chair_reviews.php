@@ -79,7 +79,7 @@ if (!empty($objPapers)) {
     $strReviewersAssocs = defaultAssocArray();
     for ($i = 0; $i < count($objReviewers); $i++) {
       $strReviewersAssocs['rev_id'] = $objReviewers[$i]->intId;
-      $strReviewersAssocs['rev_name'] = $objReviewers[$i]->getName();
+      $strReviewersAssocs['rev_name'] = $objReviewers[$i]->getName(1);
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
