@@ -1,0 +1,136 @@
+--
+Anwesend: Marcel, Gunnar, Martin, + ca 17 Teilnehmer, von jeder Gruppe
+mindestens einer.
+
+
+Stand der Teilnehmer: 21 (d.h. bislang ist eine Person ausgestiegen).
+
+
+
+Material: 2 Ausgeteilte Handouts.
+
+TOPs:
+
+        o Gruppeneinteilung
+        o stand
+        - Org-fehler
+        - subversion, bugzilla, snert, ssh, tex
+        - Kommunikationskanaele (BB)
+        - sonstiges
+            - handout.cls
+            
+===
+
+o Gruppeneinteilung:
+ ------------------
+
+        - die auf dem Handout vorgeschlagene Struktur wurde nach
+          wenig Diskussion angenommen, die Leute haben sich in
+          die Gruppen eingeteilt (einschliesslich der nicht anwesenden
+          die von Bekannten nach vermuteter Meinung eingeordnet wurden.
+
+          Damit haben wir 
+              - 3 parallele  Gruppe (PHP,PHP,Java)
+              - eine Testgruppe 
+              - eine Org gruppe (web-seiten, docu etc)
+          
+         Mehr auf Handout-5. Namentliche Zuteilunge (demn"achst) auf
+         der Webseite.
+
+         Die Deadlines auf dem Handout, die auf Dienstag kommender
+        Woche lauten, sind als einen Tag vorher gemeint....
+
+        
+o Stand:
+========
+
+        - spec-1 hat material bereits abngeliefert (``vor'' der Deadline, die heute ist)
+        - alexander Derenback ebenfalls
+        - die Antwort der anderen Gruppen: `bis heute abend, sp"ater''. 
+
+o Org-fehler:
+=============
+
+        - die deadlines auf Dienstag zu setzen ist nicht gut, es kostet
+          eine Woche Verzug.  Wir k"onnen nicht richtig Diskutieren/die
+          Sitzung vorbereiten , ohne die Unterlangen. In zukunft sollten
+          wir das vermeiden/einplanen.
+
+
+
+o  subversion:
+==============
+
+        - es gab im vorfeld erste Diskussion "uber ``Subversion'' und seine
+          T"ucken. Eine Explizite Diskussion dar"uber wurde untertr"uckt,
+          ausser da"s wir eine Wort "uber die Struktur des Repos verloren
+          haben (trunk/branches/tags). 
+
+          Ergebnis:
+            > wir lassen es erstmal laufen, behalten es im Auge, vermutlich
+              sind keine schwerwiegenden Probleme dort zu erwarten (momentan)
+              solange wir nur die Basics machen. Mit der Zeit werden
+              die Teilnehmer sich daran gew"ohnen.
+
+            > Spezielle Spielregeln werden wir noch ausgeben. 2 Wurden
+              speziell bereits gesagt:
+
+               - (fast nie) generierte Dateien einchecken (aus verschiedenen 
+                  Gruenden
+
+               - am besten keine ``third-party'' Dinge einchecken. Im Idealfall 
+                 ist das, was wir im Repos haben, ``unser'' Produkt. 
+                 Falls (nach Diskussion) dennoch third-party code ins Repos soll
+                 muss klar sein was/wo/warum und zus"atzlich sichergestellt,
+                 dass der Teil am ende nicht mit ``ausgeliefert'' wird!
+
+
+ o weitere tools-geschichten:
+
+           - keine spezielle Einf"uhrung zu Bugzilla,
+                > erstmal den Handout zur Kenntnis nehmen..
+                > die Testgruppe speziell so schauen, ob das mit
+                  Bugzilla (und dem Handout) so in ordnung geht.
+
+               
+
+           - ssh: wir brauchen, neben dem apache - zugriff auch
+                ssh-zugriff.
+         
+                => jeder sendet Marcel (mky) seinen ssh-2 key  (den
+                "offentlichen teil, und zwar nur einen. Das sollte
+                erm"oglichen (durch kopieren) von verschiedenen
+                Stellen aus zuzugreifen
+
+                hinweise: http://www.informatik.uni-kiel.de/~mobij/cvs.html
+
+                  (der Teil der sich mit ssh-keygen besch"aftigt).
+
+
+               Tipps: Unter Windows geht es auch mit putty/open-ssh
+                 (details weiss ich nicht).  ssh-agent kann passphrases
+                 cashen, und man kann ssh-agent automatisch pro
+                 Window-Session starten.
+
+
+
+   
+o Kommunikationskan"ale:
+
+        - Anregung von Meiko: BB
+              Resultat: > Meiko sorgt daf"ur (bravo!)      
+                        > Info dort ist nicht verphlichtend
+                          (anders als der email-verteiler, handouts,
+                           webseite etc)
+
+o Fortildung: PHP
+         - Anregung von Meiko (ein zweites Bravo)
+
+         -  Termin: Freitag 12:30
+         -  Ort: Rechnerraum/diplomandenraum HR3, erster Stock
+
+
+o Tools-treffen/SQL:
+         - Donnerstag 10:00/13:00? (was was war, habe ich vergessen)
+
+
