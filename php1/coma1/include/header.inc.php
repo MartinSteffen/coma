@@ -34,12 +34,12 @@ ini_set('warn_plus_overloading', '1');
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
+/** Template-Pfad (als absolut)*/
+define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/sandro/');
 /** Template-Pfad (als URL)*/
-define('TPLPATH',dirname($_SERVER['PHP_SELF']).'/templates/');
-/** Das von Coma verwendete Template */
-define('TEMPLATE', TPLPATH.'sandro/');
+define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/sandro/');
 /** Haupt-Pfad (als URL)*/
-define('COREPATH',dirname($_SERVER['PHP_SELF']).'/');
+define('COREURL',dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
 
 // Standard Klassen
@@ -61,7 +61,7 @@ checkError($myDBAccess);
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin())) {
   session_write_close();
-  header('Location:'.COREPATH.'login.php');
+  header('Location:'.COREURL.'login.php');
 }
 
 ?>

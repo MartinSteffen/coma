@@ -15,11 +15,11 @@ define('IN_COMA1',true);
 
 require_once('./include/header.inc.php');
 
-$mainPage = new Template(TEMPLATE.'main.tpl');
-$loginPage = new Template(TEMPLATE.'login.tpl');
+$mainPage = new Template(TPLPATH.'main.tpl');
+$loginPage = new Template(TPLPATH.'login.tpl');
 
 $strAssocs = array();
-$strAssocs['path'] = TEMPLATE;
+$strAssocs['path'] = TPLURL;
 $strAssocs['content'] =& $loginPage;
 $strAssocs['SID'] = $mySession->getUrlId();
 
