@@ -14,8 +14,8 @@ header('Content-type: text/html; charset=utf-8');
 
 // Debugging Einstellungen:
 error_reporting(E_ALL);
-ini_set('display_errors', '1');         // sp㳥r 0 ??
-ini_set('display_startup_errors', '1'); // sp㳥r 0 !!
+ini_set('display_errors', '1');         // spaeter 0 ??
+ini_set('display_startup_errors', '1'); // spaeter 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
@@ -52,6 +52,14 @@ $strRoles = array(CHAIR       => 'Chair',
                   REVIEWER    => 'Reviewer',
                   AUTHOR      => 'Author',
                   PARTICIPANT => 'Participant');                  
+/**#@-*/
+
+/**#@+ Konstanten fuer die Artikelstatuswerte */
+define('PAPER_UNREVIEWED',  0);
+define('PAPER_REVIEWED',    1);
+define('PAPER_CONFLICTED'   2);
+define('PAPER_ACCEPTED',    3);
+define('PAPER_REJECTED',    4);
 /**#@-*/
 
 // Library files -> viele bunte Funktionen

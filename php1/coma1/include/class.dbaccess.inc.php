@@ -91,6 +91,7 @@ require_once(INCPATH.'class.personalgorithmic.inc.php');
 require_once(INCPATH.'class.persondetailed.inc.php');
 require_once(INCPATH.'class.review.inc.php');
 require_once(INCPATH.'class.reviewdetailed.inc.php');
+require_once(INCPATH.'class.reviewerattitude.inc.php');
 require_once(INCPATH.'class.topic.inc.php');
 
 /**
@@ -1292,7 +1293,7 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId ID der Person
    * @param int $intConferenceId Konferenz-ID
-   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @return Topic [] Ein leeres Array, falls keine bevorzugten Topics existieren.
    * @access private
    * @author Tom (18.01.05)
    */
@@ -1320,7 +1321,7 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId ID der Person
    * @param int $intConferenceId Konferenz-ID
-   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @return PaperSimple [] Ein leeres Array, falls keine bevorzugten Paper existieren.
    * @access private
    * @author Tom (18.01.05)
    */
@@ -1346,12 +1347,12 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array der durch die Person $intPersonId zum Reviw abgelehnten Paper
+   * Liefert ein Array der durch die Person $intPersonId zum Review abgelehnten Paper
    * bei der Konferenz $intConferenceId.
    *
    * @param int $intPersonId ID der Person
    * @param int $intConferenceId Konferenz-ID
-   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @return PaperSimple [] Ein leeres Array, falls keine abgelehnten Paper existieren.
    * @access private
    * @author Tom (18.01.05)
    */
@@ -1382,7 +1383,7 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId ID der Person
    * @param int $intConferenceId Konferenz-ID
-   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @return PaperSimple [] Ein leeres Array, falls keine ausgeschlossenen Paper existieren.
    * @access private
    * @author Tom (18.01.05)
    */
@@ -1405,6 +1406,72 @@ class DBAccess extends ErrorHandling {
       }
     }
     return $this->success($objPapers);
+  }
+
+  /**
+   * Liefert ein ReviewerAttitude-Objekt zum Reviewer $intPersonId in der Konferenz
+   * $intConferenceId zurueck, also eine Abbildung von Topic- und Paper-IDs auf
+   * Praeferenzen (i.e.: none, prefer, exclude, deny).
+   *
+   * @param int $intPersonId ID des Reviewers
+   * @param int $intConferenceId Konferenz-ID
+   * @return ReviewerAttitude
+   * @access private
+   * @author Sandro (22.01.05)
+   */
+  function getReviewerAttitude($intPersonId, $intConferenceId) {    
+    $s = "SELECT  id".
+        " FROM    Topic".
+        " WHERE   conference_id = '$intConferenceId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
+    }  
+    $intTopicIds = array();  
+    for ($i = 0; $i < count($data); $i++) {
+      $intTopicIds[] = $data[$i]['id'];
+    }
+    $s = "SELECT  id".
+        " FROM    Paper".
+        " WHERE   conference_id = '$intConferenceId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
+    }  
+    $intPaperIds = array();  
+    for ($i = 0; $i < count($data); $i++) {
+      $intPaperIds[] = $data[$i]['id'];
+    }
+    $objReviewerAttitude = (new ReviewerAttitude($intPaperIds, $intTopicIds));
+    $objPapers = $this->getPreferredPapers($intPersonId, $intConferenceId);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
+    }  
+    foreach ($objPapers as $objPaper) {
+      $objReviewerAttitude->setPaperAttitude($objPaper->intId, ATTITUDE_PREFER);
+    }    
+    $objTopics = $this->getPreferredTopics($intPersonId, $intConferenceId);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
+    }  
+    foreach ($objTopics as $objTopic) {
+      $objReviewerAttitude->setTopicAttitude($objTopic->intId, ATTITUDE_PREFER);
+    }    
+    $objPapers = $this->getDeniedPapers($intPersonId, $intConferenceId);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
+    }  
+    foreach ($objPapers as $objPaper) {
+      $objReviewerAttitude->setPaperAttitude($objPaper->intId, ATTITUDE_DENY);
+    }    
+    $objPapers = $this->getExcludedPapers($intPersonId, $intConferenceId);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewerAttitude', $this->mySql->getLastError());
+    }  
+    foreach ($objPapers as $objPaper) {
+      $objReviewerAttitude->setPaperAttitude($objPaper->intId, ATTITUDE_EXCLUDE);
+    }
+    return $this->success($objReviewerAttitude);
   }
 
   // ---------------------------------------------------------------------------

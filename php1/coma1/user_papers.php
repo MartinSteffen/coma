@@ -27,6 +27,7 @@ if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
     $ifArray = array();
+    $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = $objPaper->intId;
     $strItemAssocs['author_id'] = $objPaper->intAuthorId;
