@@ -32,7 +32,7 @@ if (!isset($_SESSION['uid'])) {
     error('getUID',$myDBAccess->getLastError());
   }
 }
-$objIch = $myDBAccess->getPerson(session('uid'),session('confif'));
+$objIch = $myDBAccess->getPerson(session('uid'),session('confid'));
 if ($myDBAccess->failed()) {
   error('chooseHighestRole',$myDBAccess->getLastError());
 }
