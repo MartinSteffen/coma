@@ -276,6 +276,7 @@ public class Chair extends HttpServlet
 	    search.setCriterion(criterion);
 	    Criterion[] criterions = (Criterion[])read.getCriterion(search).getResultObj();
 	    search.setReviewReport(new ReviewReport(-2));
+	    search.setConference(c);
 	    ReviewReport[] reports = (ReviewReport[])read.getReviewReport(search).getResultObj();
 		int number_of_persons = persons.length;
 		int number_of_authors = authors.length;
