@@ -51,6 +51,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     $strArrayCreateAssocs = defaultAssocArray();
     $strArrayCreateAssocs['type'] = 'public';
     $strArrayCreateAssocs['inttype'] = FORUM_PUBLIC;
+    $strArrayCreateAssocs['paperoptions'] = '';
     $objCreateTemplate->assign($strArrayCreateAssocs);
     $objCreateTemplate->parse();
     $strArrayTypeOpenAssocs['createforum'] = $objCreateTemplate->getOutput();
@@ -65,7 +66,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     $strArrayCreateAssocs['inttype'] = FORUM_PAPER;
     $objArrayConfPapers = $myDBAccess->getPapersOfConference(session('confid'));
     if (!empty($objArrayConfPapers)){
-      $strArrayCreateAssocs['if'] = array(1);
+      $strArrayCreateAssocs['if'] = array(1,2);
       $strArrayCreateAssocs['paperoptions'] = '';
       foreach ($objArrayConfPapers as $objPaper){
         $objOptTemplate = new Template(TPLPATH . 'paperoption.tpl');
@@ -79,19 +80,20 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     }
     $objCreateTemplate->assign($strArrayCreateAssocs);
     $objCreateTemplate->parse();
-    $strArrayTypeOpenAssocs['createforum'] = $objCreateTemplate->getOutput();
+    $strArrayTypePaperAssocs['createforum'] = $objCreateTemplate->getOutput();
   }
   $objForumTypeChairTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeChairAssocs = defaultAssocArray();
   $strArrayTypeChairAssocs['type'] = 'Committee forums';
-  if (isChair($myDBAccess->getPerson(session('uid')))){
+  if ((1 == 1) || (isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
     $strArrayCreateAssocs['type'] = 'committee';
     $strArrayCreateAssocs['inttype'] = FORUM_PRIVATE;
+    $strArrayCreateAssocs['paperoptions'] = '';
     $objCreateTemplate->assign($strArrayCreateAssocs);
     $objCreateTemplate->parse();
-    $strArrayTypeOpenAssocs['createforum'] = $objCreateTemplate->getOutput();
+    $strArrayTypeChairAssocs['createforum'] = $objCreateTemplate->getOutput();
   }
   $objForumTypeGlobalTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeGlobalAssocs = defaultAssocArray();
