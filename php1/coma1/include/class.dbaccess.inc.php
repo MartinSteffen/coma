@@ -202,11 +202,12 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if ($data) {
       for ($i = 0; $i < count($data); $i++) {
+      	var $papers;
       	$reviews = getReviewsOfPaper($data[i]['id']);
       	$fltAvgRating = 0;
       	if($reviews != false) {
       	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
-      	  fltAvgRating = -1;
+      	  $fltAvgRating = -1;
         }
       	$author = getPerson($intAuthorId);
         $strAuthorName = '';
