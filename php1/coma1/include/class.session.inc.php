@@ -164,6 +164,7 @@ class Session {
   function sessionGC($intMaxLifeTime) {
     $intMax = min($this->intMaxLifeTime,$intMaxLifeTime); 
     $this->mySql->delete("DELETE FROM Sessions WHERE stime<(UNIX_TIMESTAMP(NOW())-$intMax) AND sname='$this->strSessName'");
+    echo "DELETE FROM Sessions WHERE stime<(UNIX_TIMESTAMP(NOW())-$intMax) AND sname='$this->strSessName'"
     return true;
   }
 
