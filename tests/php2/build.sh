@@ -50,7 +50,8 @@ install_db() {
 	# generate sql scripts
 	util/createDrop.sh
 	util/convertInstall.sh
-	util/convertBaseData.sh
+	# Work with old data. No need to get more
+	#util/convertBaseData.sh
 
 	# run the sql scripts
 	util/installDb.sh
