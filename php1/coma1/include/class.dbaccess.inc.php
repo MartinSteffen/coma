@@ -22,12 +22,7 @@ if (!defined('INCPATH')) {
   /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
-define('MIN_ROLE', 2);
-define('CHAIR', 2);
-define('REVIEWER', 3);
-define('AUTHOR', 4);
-define('PARTICIPANT', 5);
-define('MAX_ROLE', 5);
+require_once(INCPATH.'header.inc.php');
 
 require_once(INCPATH.'class.mysql.inc.php');
 
@@ -1002,7 +997,7 @@ class DBAccess {
     }
 
     // Rollen einfuegen...
-    for ($i = $MIN_ROLE; $i <= $MAX_ROLE; $i++) {
+    for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
       if ($objPerson->hasRole($i)) {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
             ' SELECT  '.$intConferenceId.', '.$intPersonId.', '.$i.
