@@ -30,6 +30,6 @@
 <p class="message">
   Click on any paper, to edit the common information about the paper
   and to upload new versions of the document.<br>
-  Click on <span class="emph">View</span> to download and read the paper.
+  Click on <span class="emph">View Paper</span> to download and read the paper.
   {if8<br>Do you want to <a href="{basepath}author_createpaper.php{?SID}" class="link">create a new paper</a>?}
 </p>
