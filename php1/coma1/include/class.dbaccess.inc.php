@@ -1131,7 +1131,7 @@ class DBAccess extends ErrorHandling {
         " WHERE   id = $objPaper->intId";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('updatePaper', $this->mySql->getLastError);
+      return $this->error('updatePaper', $this->mySql->getLastError());
     }
     return $this->success(true);
   }
