@@ -4,7 +4,7 @@
 <table class="viewtable">
   <tr>
     <th class="viewheader">Review report of paper:</th>
-    <td class="viewline">{title} by {author_name}</td>
+    <td class="viewheader">{title} by {author_name}</td>
   </tr>
   <tr class="viewline">
     <td colspan="2" class="viewline">
