@@ -26,7 +26,7 @@
     <td class="viewline">
       <span class="emph">Average rating:</span>
     </td>
-    <td class="viewline" colspan="{cols}">&nbsp;</td>
+    <td class="viewline" colspan="{colspan}">&nbsp;</td>
     <td class="viewline">
       <span class="emph">{avg_rating}</span>
     </td>
