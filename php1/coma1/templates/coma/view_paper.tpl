@@ -24,7 +24,7 @@
       Author:
     </td>
     <td class="viewline">
-      <a href="{basepath}user_persondetails.php?personid={author_id}{&SID}">{author_name}</a>
+      <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a>
     </td>
   </tr>
   <tr class="viewline">
