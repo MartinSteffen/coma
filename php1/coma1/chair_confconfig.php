@@ -30,6 +30,9 @@ if (isset($_POST['action'])) {
   $start_date = empty($_POST['start_date']) ? '' : strtotime($_POST['start_date']);
   $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
 
+  $strContentAssocs['id']               = encodeText($_POST['id']);
+  $strContentAssocs['criterionsID']     = encodeText($_POST['criterionsID']);
+  $strContentAssocs['topicsID']         = encodeText($_POST['topicsID']);
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
@@ -160,7 +163,37 @@ if (isset($_POST['action'])) {
     } 
     // Versuche die Konferenz zu aktualisieren
     else {
-      $result = false; // [TODO] Konferenz aktualisieren
+      $objCriterions = array();
+      for ($i = 0; $i < count($strCriterions); $i++) {
+        $objCriterions[$i] = new Topic($strCIds[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
+      }
+      $objTopics = array();
+      for ($i = 0; $i < count($strTopics); $i++) {
+        $objTopics[$i] = new Topic($strTIds[$i], $strTopics[$i]);
+      }
+      $objConferenceDetailed =
+        new ConferenceDetailed($_POST['id'],
+                               $_POST['name'],
+                               $_POST['homepage'],
+                               $_POST['description'],
+                               emptytime($start_date, 'Y-m-d'),
+                               emptytime($end_date, 'Y-m-d'),
+                               emptytime($abstract_dl, 'Y-m-d'),
+                               emptytime($paper_dl, 'Y-m-d'),
+                               emptytime($review_dl, 'Y-m-d'),
+                               emptytime($final_dl, 'Y-m-d'),
+                               emptytime($notification, 'Y-m-d'),
+                               $_POST['min_reviews'],
+                               $_POST['def_reviews'],
+                               $_POST['min_papers'],
+                               $_POST['max_papers'],
+                               $_POST['variance'],
+                               (!empty($_POST['auto_actaccount']) ? '1' : '0'),
+                               (!empty($_POST['auto_paperforum']) ? '1' : '0'),
+                               (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
+                               $_POST['auto_numreviewer'],
+                               $objCriterions, $objTopics);
+      $result = updateConference($objConferenceDetailed);
       if (!empty($result)) {
         // Erfolg
         $strMessage = 'Conference configuration is changed.';
@@ -183,6 +216,7 @@ else {
   if ($myDBAccess->failed()) {
     error('Error during retrieving actual conference data.', $myDBAccess->getLastError());
   }
+  $strContentAssocs['id']               = encodeText($objConference->intId);
   $strContentAssocs['name']             = encodeText($objConference->strName);
   $strContentAssocs['description']      = encodeText($objConference->strDescription);
   $strContentAssocs['homepage']         = encodeURL($objConference->strHomepage);
@@ -200,10 +234,12 @@ else {
   $strContentAssocs['variance']         = encodeText($objConference->fltCriticalVariance);
   $strContentAssocs['auto_numreviewer'] = encodeText($objConference->intNumberOfAutoAddReviewers);
   $strContentAssocs['criterions']     = '';
+  $strContentAssocs['criterionsID']     = '';
   $strContentAssocs['crit_max']       = '';
   $strContentAssocs['crit_descr']     = '';
   $strContentAssocs['crit_weight']    = '';
   for ($i = 0; $i < count($objConference->objCriterions); $i++) {
+    $strContentAssocs['criterionsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intID);
     $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strName);
     $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strDescription);
     $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intMaxValue);
@@ -211,6 +247,7 @@ else {
   }
   $strContentAssocs['topics']         = '';
   for ($i = 0; $i < count($objConference->objTopics); $i++) {
+    $strContentAssocs['topicsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objTopics[$i]->intID);
     $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($objConference->objTopics[$i]->strName);
   }
   $strContentAssocs['num_topics']     = encodeText(count($objConference->objTopics));

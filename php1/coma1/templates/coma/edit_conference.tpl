@@ -96,6 +96,8 @@
       <input type="hidden" name="max_papers" value="{max_papers}">
       <input type="hidden" name="variance" value="{variance}">
       <input type="hidden" name="criterions" value="{criterions}">
+      <input type="hidden" name="criterionsID" value="{criterionsID}">
+      <input type="hidden" name="topicsID" value="{topicsID}">
       <input type="hidden" name="topics" value="{topics}">
       <input type="hidden" name="crit_max" value="{crit_max}">
       <input type="hidden" name="crit_descr" value="{crit_descr}">
@@ -107,6 +109,7 @@
       <input type="hidden" name="auto_addreviewer" value="{if4 1}">
       <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}">
 
+      <input type="hidden" name="id" value="{id}"> 
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit" value="Submit Changes" class="button">
       <input type="submit" name="adv_config" value="Advanced settings" class="button">
