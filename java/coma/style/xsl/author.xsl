@@ -71,9 +71,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		</tr>
 		
 		<tr>
-			<td>Enter here your Abstract</td>
+			<td>Your Abstract</td>
 			<td>	
-				<textarea class="input-box" name="abstract" cols="50" rows="10" >
+				<textarea  name="abstract" cols="50" rows="10" >
                                   <!-- <xsl:attribute name="value"> -->
 						 <xsl:value-of select="abstract"/>
                                                  <!-- </xsl:attribute> -->
@@ -81,6 +81,22 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 				 </textarea>
 			</td>
 		</tr>
+		<tr>
+		<td>Your Topics <xsl:value-of select="info"/></td>
+		<xsl:for-each select="topic">
+<tr>
+	
+	<td>
+		<input type="checkbox" name="topics">
+			<xsl:attribute name="value">
+        		<xsl:value-of select="id"/>
+        	</xsl:attribute>
+		</input>
+		<xsl:value-of select="name"/>
+	</td>
+</tr>
+</xsl:for-each>
+</tr>
 		<tr>
 			<td>
 				<input class="submit-button" type="submit" value="go to upload form" />
@@ -111,17 +127,16 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <xsl:template match="author/failed">
 <h3>An Error has occurred,plaese check your data!</h3>
+<div>
+<xsl:value-of select="."/>
+</div>
 </xsl:template>
 <xsl:template match="author/error">
-<div>
-<xsl:value-of select="."/> 
-</div>
+<h3>Error: <xsl:value-of select="."/></h3>
 </xsl:template>
 <xsl:template match="author/success">
-<h3>Your Paper is successfully added to your database!</h3>
-<div>
-<xsl:value-of select="."/> 
-</div>
+<h3>Info: <xsl:value-of select="."/></h3>
+
 </xsl:template>
 
 

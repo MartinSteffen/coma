@@ -101,6 +101,22 @@ body
 	background: #D9DBE1;
 	border:1px solid #9097A2;
 }
+input 
+{
+	
+	
+	color: black;
+	background: #D9DBE1;
+	border:1px solid #9097A2;
+}
+textarea 
+{
+	
+	
+	color: black;
+	background: #D9DBE1;
+	border:1px solid #9097A2;
+}
 select 
 {
 	width: 9em;
