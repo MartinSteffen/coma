@@ -25,6 +25,7 @@ else if (!$checkRole) {
 }
 
 if (isset($_POST['action'])) {
+  echo('IS SET action');
   if($_POST['action'] != 'confirm' || !isset($_SESSION['dist'])) {
     redirect('chair_reviews.php');
   }
