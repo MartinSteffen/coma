@@ -305,7 +305,7 @@ class DBAccess {
       $forums = array();
       if ($allForums) {
     	for ($i = 0; $i < count($allForums); $i++) {
-    	  if ($allForums[$i]->isUserAllowed($userData) {
+    	  if ($allForums[$i]->isUserAllowed($userData)) {
     	    $forums[] = $allForums[$i];
           }
         }    	  
