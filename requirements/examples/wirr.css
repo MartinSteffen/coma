@@ -1,0 +1,35 @@
+body  { background-color:white;}
+body  { color:black;}
+
+
+/* #1f6bd7 */
+
+/* a:link     {color:#7070ff;}  
+a:visited  {color:#407999;}
+
+*/
+
+
+a:link    { text-decoration:none; color:darkblue;}
+a:visited  {color:gray;}
+a:active   {color:red;} 
+
+
+
+.lrg { font-size: 1.8em; font-family: verdana, arial, helvetica, "sans-serif"; }
+.lrgb { font-size: 1.8em; font-family: verdana, arial, helvetica, "sans-serif"; font-weight: bold; }
+
+.sml { font-size: .9em; font-family: verdana, arial, helvetica, "sans-serif"; }
+.smlb { font-size: .9em; font-family: verdana, arial, helvetica, "sans-serif"; font-weight: bold; }
+
+.tny { font-size: .6em; font-family: verdana, arial, helvetica, "sans-serif"; color: #ffffff; }
+
+
+
+
+.bluish { color: #7B799B; }  
+/* .bluish { color: #6A799A; }  vmcai*/
+/* .bluish { color: #1f6bd7; }  */
+.brownish { color: #6B4B40; }
+
+a:hover { color: #9999ff; }
