@@ -972,7 +972,7 @@ class DBAccess {
     if (!empty($data)) {      
       return true;
     }
-    return $this->error('updatePaper '.$this->mySql->getLastError());
+    return $this->error('updatePerson '.$this->mySql->getLastError());
   }
 
   /**

@@ -78,7 +78,8 @@ if (isset($_POST['email'])){
                                      $_POST['fax'], 
                                      $_POST['user_password']);    
     if (empty($result)) {       
-      $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten.<br>'.
+      $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten:<br>'.
+                    $myDBAccess->getLastError().'<br>'.
                     'Bitte versuchen Sie erneut, sich zu registrieren.';
       $confirmFailed = true;
     }
