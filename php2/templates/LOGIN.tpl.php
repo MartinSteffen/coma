@@ -51,7 +51,7 @@ $message = $TPL['login'];
     <td align="center"> 
       <p><span class="textBold">Not a member yet?</span> <a href="index.php?m=register" class="menus">Register 
         now</a>!</p>
-      <p><span class="text">(It is strong </span><span class="textBold">recommended</span><span class="text"> 
+      <p><span class="text">(It is strongly </span><span class="textBold">recommended</span><span class="text"> 
         that you use <br>
         a browser with </span><span class="textBold">javascript</span> <span class="text">enabled!)</span></p>
     </td>
