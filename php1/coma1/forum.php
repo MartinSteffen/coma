@@ -1,5 +1,3 @@
-DO NOT MODIFY ANYTHING IT IS IN WORK!
-
 <?php
 /**
  * @version $Id$
@@ -303,9 +301,6 @@ function generatePostMethodArray($postvars){
     echo('<h1>END VARDUMP $HTTP_GET_VARS</h1><br>');
   }
   */
-  
-  $cid = session('cid', false);
-  $uid = session('uid');
 
   $content = new Template(TPLPATH . 'forumlist.tpl');
   $contentAssocs = defaultAssocArray();
