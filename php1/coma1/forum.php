@@ -262,7 +262,7 @@ function emptystring($s){
   return ($s == '');
 }
 
-function getUID($cid){
+function getUID($cid, $myDBAccess){
   $uid = session('uid', false);
   if (emptystring($uid)){
     if (DEBUG){ //ja, sehr haesslich, weiss ich selbst
@@ -279,7 +279,7 @@ function getUID($cid){
   return $uid;
 }
 
-function getCID(){
+function getCID($myDBAccess){
   $cid = session('confid', false);
   if (emptystring($cid)){
     if (DEBUG){ //siehe debug-kommentar zu getUID
@@ -303,8 +303,8 @@ if ((emptystring(session('uid', false))) && (!DEBUG)){
 }
 else{
 
-  $cid = getCID();
-  $uid = getUID($cid);
+  $cid = getCID($myDBAccess);
+  $uid = getUID($cid, $myDBAccess);
 
   $content = new Template(TPLPATH . 'forumtypes.tpl');
   $contentAssocs = defaultAssocArray();
