@@ -1782,8 +1782,8 @@ nur fuer detaillierte?
     $intPersonId = $objPersonAlgorithmic->intId;
     // Topics loeschen...
     $s = "DELETE  PrefersTopic".
-        " FROM    PrefersTopic pt".
-        " INNER   JOIN Topic t".
+        " FROM    PrefersTopic AS pt".
+        " INNER   JOIN Topic AS t".
         " ON      t.id = pt.topic_id".
         " AND     t.conference_id = '$intConferenceId'".
         " WHERE   pt.person_id = '$intPersonId'";
