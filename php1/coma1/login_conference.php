@@ -12,7 +12,7 @@ require_once('./include/header.inc.php');
 if (isset($_POST['confid'])) {
   /* Einloggen zur Konferenz confid */
   $_SESSION['confid'] = $_POST['confid'];
-  redirect('user_profile.php');
+  redirect('index.php');
 }
 else {
   $_SESSION['message'] = 'Login to conference failed! Please try again!';

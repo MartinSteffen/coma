@@ -133,7 +133,7 @@ function session($strName, $blnRedirect=true) {
     if (!$blnRedirect) {
       return '';
     }
-    redirect('index.php');
+    error('session()',$strName.' nicht gefunden!');
   }
   else {
     return $_SESSION[$strName];
