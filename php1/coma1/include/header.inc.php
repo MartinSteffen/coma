@@ -115,9 +115,10 @@ if (!defined('NEED_NO_LOGIN')) {
     }
   }
   else {
-    if (!isset($_SESSION['uname'])) {
+    if (!isset($_SESSION['uname']) && !isset($_SESSION['deactivated_account'])) {
       $_SESSION['message'] = 'Please login with your Username (Email) and Password!';
     }
+    session_delete('deactivated_account');
     session_delete('uname');
     session_delete('password');
     session_delete('uid');

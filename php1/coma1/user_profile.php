@@ -106,9 +106,8 @@ if (isset($_POST['delete'])) {
       error('deactivating account', $myDBAccess->getLastError());
     }
     else {            
-      $_SESSION['message'] = 'Your account was deactivated successfully.';      
-      session_delete('uid');
-      session_delete('confid');
+      $message = 'Your account was deactivated successfully.';      
+      $_SESSION = array('message' => $message, 'deactivated_account' => true);
       redirect("login.php");
     }
   }
