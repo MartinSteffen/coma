@@ -14,7 +14,7 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$content = new Template(TPLPATH.'chair_userdetails.tpl');
+$content = new Template(TPLPATH.'view_profile.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
@@ -24,7 +24,7 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Manage users';
+$strMainAssocs['title'] = 'User profile';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Users';
