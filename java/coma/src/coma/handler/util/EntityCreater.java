@@ -16,6 +16,7 @@ import coma.entities.Person;
 import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.Topic;
+import coma.entities.Finish;
 import coma.servlet.util.FormParameters;
 import coma.servlet.util.SessionAttribs;
 
@@ -58,6 +59,7 @@ public class EntityCreater {
 			conference.setHomepage(resSet.getString("homepage"));
 			conference.setId(resSet.getInt("id"));
 			conference.setMin_review_per_paper(resSet.getInt("min_reviews_per_paper"));
+			System.out.println("NAME= \n" + resSet.getString("name"));
 			conference.setName(resSet.getString("name"));
 			conference.setNotification(resSet.getDate("notification"));
 			conference.setPaper_submission_deadline(resSet.getDate("paper_submission_deadline"));
@@ -297,5 +299,22 @@ public class EntityCreater {
 			e.printStackTrace();
 		}
 		return topic;
+	}
+	
+	public Finish getFinish(ResultSet resSet) {
+		Finish paper = new Finish();
+		try {
+			
+			paper.setTitle(resSet.getString("title"));
+			paper.setAuthor(resSet.getString("last_name"));
+			paper.setAvgGrade(resSet.getFloat("avg(Grade)"));
+			paper.setTopic(resSet.getString("name"));
+			paper.setState(resSet.getInt("state"));
+			paper.setPaperId(resSet.getInt("id"));
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return paper;
 	}
 }
