@@ -17,7 +17,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
     $_SESSION['uname'] = $_POST['user_name'];  
     $_SESSION['password'] = sha1($_POST['user_password']); 
     if ($myDBAccess->checkLogin()) {
-      redirect('start_conferences.php');
+      redirect('main_start.php');
     }
     else {
       $_SESSION['message'] = 'Falscher Benutzername oder Passwort!';
