@@ -2,6 +2,7 @@
 /**
  * @version $Id$
  * @package coma1
+ * @subpackage core
  */
 /***/
 if (!defined('IN_COMA1')) {
@@ -87,9 +88,9 @@ function encodeURL($_str) {
   if (!preg_match('#^http[s]?:\/\/#i', $_str)) {
     $_str = 'http://' . $_str;
   }
-  if (!preg_match('#^http[s]?\\:\\/\\/[a-z0-9\-]+\.([a-z0-9\-]+\.)?[a-z]+#i', $_str))
+  if (!preg_match('#^http[s]?:\/\/[a-z0-9\-]+\.([a-z0-9\-]+\.)?[a-z]+#i', $_str))
   {
-    $_str = '';
+    $_str = '#';
   }
   return $_str;
 }
