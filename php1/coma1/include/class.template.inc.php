@@ -133,7 +133,7 @@ class Template {
       }
       elseif (is_array($value)) {
         foreach ($value as $val) {
-          $strKeys[] = '/(?i){'.$key.$val.'(.*)}/'
+          $strKeys[] = '/(?i){'.$key.$val.'(.*)}/';
           $strValues[] = '\\1';
         }
       }
