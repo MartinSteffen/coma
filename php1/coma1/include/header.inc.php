@@ -117,7 +117,7 @@ function encodeText($_str) {
   $trans_tbl["\n"] = '<BR>';
   $trans_tbl["\r"] = '';
   $trans_tbl["\t"] = ' ';
-  $trans_tbl["\'"] = '&#039;';
+  $trans_tbl["'"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
   $trans_tbl['"'] = '&#039;'; // keine Doppelquotes zulassen!
   $_str = strtr($_str, $trans_tbl);
@@ -138,7 +138,7 @@ function decodeText($_str) {
   $trans_tbl["\\"] = "\\\\";
   $trans_tbl["\x00"] = "\\\x00";
   $trans_tbl["\n"] = '<BR>';
-  $trans_tbl["\'"] = '&#039;';
+  $trans_tbl["'"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
   $trans_tbl = array_flip($trans_tbl);
   $_str = strtr($_str, $trans_tbl);
