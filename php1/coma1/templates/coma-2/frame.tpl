@@ -13,7 +13,7 @@
  <tr bgcolor="#DBE9EC">
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
-   <a href="{basepath}index.php{SID}">
+   <a href="{basepath}index.php?{SID}">
       <img src="{path}images/logo.jpg" width="150" height="90" align="middle" border="0" alt="">
    </a>
   </td>
@@ -24,12 +24,12 @@
      <td height="32" align="right" valign="top">
       <a href="#">Impressum</a>&nbsp;|&nbsp;
       <a href="#">Forum</a>&nbsp;|&nbsp;
-      <a href="{basepath}logout.php{SID}">Logout</a>&nbsp;&nbsp;
+      <a href="{basepath}logout.php?{SID}">Logout</a>&nbsp;&nbsp;
       <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a> &nbsp;
      </td>
     </tr>
-    <tr bgcolor="#DBE9EC">
-     <td width="70"  style="background-image:url({path}images/menueleft2.gif)" height="50"> &nbsp; </td>
+    <tr height="50" bgcolor="#DBE9EC">
+     <td width="70" style="background-image:url({path}images/menueleft2.gif)" height="50"> &nbsp; </td>
      <td colspan="2" height="50" valign="middle" style="background-image:url({path}images/menue2.gif)">
       {navigator}
      </td>
@@ -40,7 +40,7 @@
 </table>
 <!-- - - - - - - - - - - - - - - - - - - - Body - - - - - - - - - - - - - - - -  -->
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
  <tr>
   <td width="150">{menu}</td>
   <td>{content}</td>

@@ -172,7 +172,7 @@ Beispieldateien.
 
 Beispiele:
 <img src="{path}images/logo.jpg">
-<a href="{basepath}logout.php{SID}">Logout</a>
+<a href="{basepath}logout.php?{SID}">Logout</a>
 
 Dabei verweist {path} auf das Template-Verzeichnis für Bilder, Stylesheets
 etc, während {basepath} auf das Verzeichnis verweist, in dem die zu 
