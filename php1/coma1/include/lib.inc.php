@@ -175,7 +175,7 @@ function checkAccess($role) {
     if ($myDBAccess->failed()) {
       error('Error occured retrieving conference data.', $myDBAccess->getLastError());
     }
-    else if (!$checkRole) {
+    else {
       error('You have no permission to view this page.', '');
     }
   }

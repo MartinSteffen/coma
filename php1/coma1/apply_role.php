@@ -20,7 +20,7 @@ if (!isset($_POST['confid'])) {
 else if (!isset($_POST['roletype']) ||
          ($_POST['roletype'] != CHAIR && $_POST['roletype'] != AUTHOR &&
           $_POST['roletype'] != REVIEWER && $_POST['roletype'] != PARTICIPANT)) {
-  error('Received invalid or empty role as parameter.', '');
+  error('apply as role','Received invalid or empty role as parameter.');
 }
 
 // Lade die Daten der Konferenz
@@ -52,6 +52,12 @@ else {
   }
   else {
     $blnAccepted = $objConference->blnAutoActivateAccount;
+  }
+  if ($myDBAccess->hasRoleInConference(session('uid'), $_POST['confid'], CHAIR)) {
+    $blnAccepted = true; // Chair darf immer
+  }  
+  elseif ($myDBAccess->failed()) {
+    error('Error occured retrieving conference data.', $myDBAccess->getLastError());
   }
   $myDBAccess->addRole(session('uid'), $intRoleType, $_POST['confid'], $blnAccepted);
   if ($myDBAccess->failed()) {
