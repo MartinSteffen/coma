@@ -369,6 +369,7 @@ Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 
 
 <xsl:template match="/result/showpapers/content">
+Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen 
 <table style="color:black;text-align:center;;font-size:12pt" cellpadding="5">
 <thead>
 <tr align="center">
