@@ -812,10 +812,12 @@ public class Chair extends HttpServlet
 	private void show_reviewers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
 		Person p = null;
+		SearchCriteria search = new SearchCriteria();
 		Person[] result;
+		int id = 0;
 		if(req.getParameter("delete")!=null)
 		{
-			int id = Integer.parseInt(req.getParameter("id"));
+			id = Integer.parseInt(req.getParameter("id"));
 			delete.deletePerson(id);
 			try
 			{
@@ -833,12 +835,12 @@ public class Chair extends HttpServlet
 		}
 		else
 		{
-			p = new Person(Integer.parseInt(req.getParameter("id")));
+			id = Integer.parseInt(req.getParameter("id"));
+			p = new Person(id);
 			tag = "showreviewers_data";
-			SearchCriteria search = new SearchCriteria();
 		    search.setPerson(p);
 		    SearchResult search_result = read.getPerson(search);
-	        result = (Person[])search_result.getResultObj();
+	        result = (Person[])search_result.getResultObj();	        
 		}
 		if (result==null || result.length ==0)
         {
@@ -847,11 +849,20 @@ public class Chair extends HttpServlet
         }
 		else
         {
+			ReviewReport RR = new ReviewReport();
+	        RR.set_reviewer_id(id);
+	        search.setReviewReport(RR);
+	        ReviewReport[] result_reports = (ReviewReport[])read.getReviewReport(search).getResultObj();
         	info.append("<content>");
         	for (int i=0;i<result.length;i++)
         	{
         		p = result[i];
         		info.append(p.toXML());
+        	}
+        	for (int i=0;i<result_reports.length;i++)
+        	{
+        		RR = result_reports[i];
+        		info.append(RR.toXML());
         	}
         	info.append("</content>");
         	info.append(XMLHelper.tagged("status","" + user + ": list of all reviewers"));
@@ -861,9 +872,6 @@ public class Chair extends HttpServlet
 	
 	private void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		/*
-		 * FIXME get ReviewReports and Rating from DB
-		 */
         tag = "show_papers";
         Paper p; 
         Paper[] result = (Paper[])session.getAttribute("papers");
@@ -875,11 +883,17 @@ public class Chair extends HttpServlet
         else
         {
         	info.append("<content>");
+        	info.append("<paperPlus>");
+        	SearchCriteria search = new SearchCriteria();
         	for (int i=0;i<result.length;i++)
         	{
         		p = result[i];
+            	search.setPaper(p);
+            	Finish[] f = (Finish[])read.getFinalData(search,0).getResultObj();
+            	info.append(XMLHelper.tagged("avg",f[0].getAvgGrade()));
         		info.append(p.toXML(Entity.XMLMODE.DEEP));
         	}
+        	info.append("</paperPlus>");
         	info.append("</content>\n");
         	info.append(XMLHelper.tagged("status","" + user + ": all papers\n"));
         	commit(res,tag);	
@@ -982,7 +996,7 @@ public class Chair extends HttpServlet
         	for (int i=0;i<resultR.length;i++)
         	{
         		RR = resultR[i];
-        		//if(RR.isEdited());
+        		if(RR.isEdited());
         			info.append(RR.toXML());
         	}	
 	        Person p1 = new Person(-1);
