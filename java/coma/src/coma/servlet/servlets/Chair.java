@@ -185,12 +185,17 @@ public class Chair extends HttpServlet
 	    Conference[] conferences = (Conference[])search_result.getResultObj();
 	    readService = new ReadServiceImpl();
 	    search = new SearchCriteria();
+	    
+	    /*
+	     * FIXME get all topics
+	     */
 	    Topic t = new Topic(-2);
 	    //search.setTopic(t);
 	    //search_result = readService.getTopic(search);
-	    Topic[] topics = (Topic[])search_result.getResultObj();
+	    //Topic[] topics = (Topic[])search_result.getResultObj();
 	    /*
 	     * FIXME andere Bedingung, ob conference setup fertig?
+	     * Ich denke sowas wie conference.getstart==null
 	     */
 	    if (conferences==null || conferences.length==0)
 	    {
@@ -202,10 +207,10 @@ public class Chair extends HttpServlet
 			info.append(XMLHelper.tagged("status","" + user + ": you are chair of: "));
 			info.append("<content>");
 			info.append(conferences[0].toXML(Entity.XMLMODE.DEEP));
-			for (int i=0;i<topics.length;i++)
+			/*for (int i=0;i<topics.length;i++)
 			{
 				info.append(topics[i].toXML());
-			}
+			}*/
 			info.append("</content>");
 			commit(res,tag);
 	    }
@@ -239,9 +244,52 @@ public class Chair extends HttpServlet
 
 	public void send_setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{ 
-		/*
-		 * TODO update conference in DB
-		 */
+		if (req.getParameter("step").equals("update"))
+		{
+			GregorianCalendar calendar = null;
+			/*
+			 * FIXME get conference to update from session
+			 */
+			Conference c = new Conference(1);
+			if (req.getParameter("conference name")!=null)
+				c.setName(req.getParameter("conference name"));
+			if (req.getParameter("homepage")!=null)
+				c.setHomepage(req.getParameter("homepage"));
+			if (req.getParameter("description")!=null)
+				c.setDescription(req.getParameter("description"));
+			if (!(req.getParameter("abstract_day").equals("")) && (req.getParameter("abstract_month").equals("")) && (req.getParameter("abstract_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("abstract_year")),
+			    Integer.parseInt(req.getParameter("abstract_month"))-1,Integer.parseInt(req.getParameter("abstract_day")));
+			    c.setAbstract_submission_deadline(calendar.getTime());
+			}
+			if (!(req.getParameter("final_day").equals("")) && (req.getParameter("final_month").equals("")) && (req.getParameter("final_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("final_year")),
+			    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
+			    c.setFinal_version_deadline(calendar.getTime());
+			}
+			if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && (req.getParameter("paper_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
+			    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
+			    c.setPaper_submission_deadline(calendar.getTime());
+			}
+			if (!(req.getParameter("review_day").equals("")) && (req.getParameter("review_month").equals("")) && (req.getParameter("review_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
+			    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
+			    c.setReview_deadline(calendar.getTime());
+			}
+			if (!(req.getParameter("not_day").equals("")) && (req.getParameter("not_month").equals("")) && (req.getParameter("not_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
+			    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
+			    c.setNotification(calendar.getTime());
+			}
+			UpdateServiceImpl update = new UpdateServiceImpl();
+			update.updateConference(c);
+		}
 		if (req.getParameter("step").equals("1"))
 		{
 			GregorianCalendar calendar = null;
@@ -286,6 +334,9 @@ public class Chair extends HttpServlet
 			    InsertServiceImpl insert = new InsertServiceImpl();
 			    insert.insertConference(c);
 			    session.setAttribute("topics",req.getParameter("topics"));
+			    /*
+			     * TODO insert new conference into session;
+			     */
 			    setup_step(req,res,session);
 			}
 			else
@@ -321,9 +372,10 @@ public class Chair extends HttpServlet
 				info.append("</content>");
 				info.append(XMLHelper.tagged("status","" + user + ": please fill out all *-fields"));
 				commit(res,tag);
-			}	
+			}
 		}
-		else
+		
+		if (req.getParameter("step").equals("2"))
 		{
 			int topics = Integer.parseInt(session.getAttribute("topics").toString());
 			session.setAttribute("topics",null);
