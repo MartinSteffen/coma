@@ -119,8 +119,7 @@
 </xsl:choose>
 
 <li><a href="index.html">Home page</a></li>
-<li><a href="http://snert.informatik.uni-kiel.de:8888/coma/">tomcat directory</a></li>
-<li><a href="http://snert.informatik.uni-kiel.de:8080/svn/coma/">svn repository</a></li>
+
 <li>
   <a href="http://validator.w3.org/check?uri=referer">
     Valid XHTML 1.1?

@@ -46,7 +46,26 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <xsl:template match="author/showpaper/success">
 <h3>Your submitted papers:</h3>
-<xsl:value-of select="."/>
+<table class="table_with_decoration">
+	<tr>
+<th>Title</th>
+<th>last edit</th>
+<th>Version</th>
+<th>State</th>
+
+</tr>
+	<xsl:for-each select="paper">
+	<tr>
+	<td> <xsl:value-of select="title"/></td>
+	<td> <xsl:value-of select="last_edited"/></td>
+	<td> <xsl:value-of select="version"/></td>
+	<td> <xsl:value-of select="state"/></td>
+	<td><a><xsl:attribute name="href">Author?action=updatepaper&amp;paper_id=<xsl:value-of select="id" /></xsl:attribute>update</a></td>
+	<td><a><xsl:attribute name="href">Author?action=retractpaper&amp;paper_id=<xsl:value-of select="id" /></xsl:attribute>retract</a></td>
+</tr>
+</xsl:for-each>
+</table>
+<h3><a href="Author?action=submitpaper">submit new paper</a></h3>
 </xsl:template>
 <xsl:template match="author/showpaper/failed">
 <h3>An Error has occurred:</h3>
@@ -62,9 +81,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<tr>
 			<td>Your Paper Title </td>
 			<td>
-				<input class="input-box" type="text" name="title" size="70">
+				<input type="text" name="title" size="70">
 					 <xsl:attribute name="value">
-						 <xsl:value-of select="title"/>
+						 <xsl:value-of select="paper/title"/>
 					 </xsl:attribute>
 				 </input>
 			</td>
@@ -74,15 +93,15 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			<td>Your Abstract</td>
 			<td>	
 				<textarea  name="abstract" cols="50" rows="10" >
-                                  <!-- <xsl:attribute name="value"> -->
-						 <xsl:value-of select="abstract"/>
-                                                 <!-- </xsl:attribute> -->
-                                         _
-				 </textarea>
+                         <xsl:attribute name="value">your abstract
+						 <xsl:value-of select="/paper/abstract"/>
+						 </xsl:attribute>
+                </textarea>
 			</td>
 		</tr>
 		<tr>
 		<td>Your Topics <xsl:value-of select="info"/></td>
+		<td>
 		<xsl:for-each select="topic">
 <tr>
 	
@@ -96,6 +115,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	</td>
 </tr>
 </xsl:for-each>
+</td>
 </tr>
 		<tr>
 			<td>

@@ -101,6 +101,19 @@ body
 	background: #D9DBE1;
 	border:1px solid #9097A2;
 }
+
+.table_with_decoration{
+	empty-cells:hide;
+	border: 1px solid #9097A2;
+	text-align:center;
+}
+
+.table_with_decoration td {
+	text-align:center;
+   border: 1px solid #9097A2;
+   empty-cells:hide;
+
+}
 input 
 {
 	

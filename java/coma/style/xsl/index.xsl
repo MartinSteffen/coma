@@ -43,7 +43,7 @@ And it has links, even if they don't go
 anywhere ...</p>
 
 
-<table>
+<table class="table_with_decoration">
 <tr>
 <th>Berlin</th>
 <th>Hamburg</th>
