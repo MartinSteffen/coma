@@ -40,7 +40,7 @@
 			<delete dir="${app.name}" />
     </target>
 	
-	<target name="compile" depends="clean" description="compiling sources ...">
+	<target name="compile" depends="" description="compiling sources ...">
 		<mkdir dir="${bin}" />
 		<javac srcdir="${src}" destdir="${bin}"
 		       deprecation="${compile.deprecation}"

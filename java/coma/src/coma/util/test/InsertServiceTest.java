@@ -5,7 +5,11 @@ import java.sql.SQLException;
 
 import junit.framework.TestCase;
 import coma.entities.Conference;
+import coma.entities.Criterion;
+import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.Rating;
+import coma.entities.ReviewReport;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
 import coma.handler.impl.db.InsertServiceImpl;
@@ -22,7 +26,7 @@ public class InsertServiceTest extends TestCase {
 	ReadServiceImpl read = new ReadServiceImpl();
 
 	public void testInsertConference() {
-		boolean run = true;
+		boolean run = false;
 		if (run) {
 			Conference conference = new Conference();
 			conference.setName("Test conference");
@@ -33,40 +37,71 @@ public class InsertServiceTest extends TestCase {
 	}
 
 	public void testInsertCriterion() {
-		// TODO
+		boolean run = true;
+		if (run) {
+			Criterion criterion = new Criterion();
+			criterion.setConferenceId(9);
+			criterion.setName("Test name");
+			SearchResult sr = insert.insertCriterion(criterion);
+			System.out.println(sr.SUCCESS);
+		}
 	}
 
 	public void testInsertPaper() {
-		// TODO
+		boolean run = false;
+		if (run) {
+			Paper paper = new Paper(-1);
+			paper.setConference_id(0);
+			paper.setAuthor_id(1);
+			paper.setState(1);
+			paper.setTitle("This is a test paper");
+			SearchResult sr = insert.insertPaper(paper);
+			System.out.println(sr.SUCCESS);
+		}
 	}
 
 	public void testInsertPerson() {
 		boolean run = false;
-		if(run){
+		if (run) {
 			Person p = new Person(1);
 			p.setFirst_name("Testperson2");
 			p.setLast_name("Testperson2");
 			p.setEmail("test3@web.com");
 			p.setPassword("passwort");
-			SearchResult sr = new SearchResult(); 
-			//sr = insert.insertPerson(p);
-			//System.out.println(sr.getInfo());
-			//System.out.println(sr.SUCCESS);
+			SearchResult sr = new SearchResult();
+			// sr = insert.insertPerson(p);
+			// System.out.println(sr.getInfo());
+			// System.out.println(sr.SUCCESS);
 			SearchCriteria sc = new SearchCriteria();
 			sc.setPerson(p);
 			sr = read.getPerson(sc);
-			Person[] ps = (Person[])(sr.getResultObj());
+			Person[] ps = (Person[]) (sr.getResultObj());
 			for (int i = 0; i < ps.length; i++) {
 				System.out.println(ps[i].toXML());
 			}
 		}
 	}
 
-	public void testInsertRating() {
-		// TODO
+	public void testInsertReviewReport() {
+		boolean run = false;
+		if (run) {
+			ReviewReport report = new ReviewReport();
+			report.setPaperId(1);
+			report.setReviewerId(100);
+			SearchResult sr = insert.insertReviewReport(report);
+			System.out.println(sr.SUCCESS);
+		}
 	}
 
-	public void testInsertReviewReport() {
-		// TODO
+	public void testInsertRating() {
+		boolean run = false;
+		if (run) {
+			Rating rating = new Rating();
+			rating.set_report_id(0);
+			rating.setCriterionId(0);
+			rating.setReviewReportId(0);
+			SearchResult sr = insert.insertRating(rating);
+			System.out.println(sr.SUCCESS);
+		}
 	}
 }

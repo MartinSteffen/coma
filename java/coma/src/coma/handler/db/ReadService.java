@@ -5,7 +5,7 @@ import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
 
 /**
- * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Albari</a>
+ * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Z. Albari</a>
  * Created on Dec 2, 2004  10:59:59 PM
  */
 
