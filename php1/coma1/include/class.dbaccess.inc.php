@@ -931,7 +931,8 @@ class DBAccess {
     if (!empty($intId)) {
       $blnOk = true;
       for ($i = 0; $i < count($strCoAuthors); $i++) {
-        $blnOk &= empty($this->addCoAuthorName($intId, $strCoAuthors[$i]));
+        $tmp = $this->addCoAuthorName($intId, $strCoAuthors[$i]
+        $blnOk = ($blnOk & empty($tmp)));
         echo('{'.$blnOk.'}');
       }
       if ($blnOk) {
