@@ -56,7 +56,7 @@ else if (empty($c)) {
   echo('EMPTY');
   exit(-1);
 }
-$c->objCriterions[1]->strName = 'HARTES Kriterium';
+$c->objTopics[0]->strName = $c->objTopics[0]->strName.' (Update)';
 $myDBAccess->updateConference($c);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());

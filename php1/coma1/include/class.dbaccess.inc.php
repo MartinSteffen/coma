@@ -1157,6 +1157,8 @@ nur fuer detaillierte?
 
   /**
    * Aktualisiert den Datensatz der Konferenz $objConferenceDetailed in der Datenbank.
+   * Die Kriterien der Konferenz werden ebenfalls aktualisiert (jedoch nicht das
+   * Loeschen oder Hinzufuegen eines Kriteriums).
    *
    * @param ConferenceDetailed $objConferenceDetailed Konferenz-Objekt
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
@@ -1206,11 +1208,16 @@ nur fuer detaillierte?
     if ($this->failed()) {
       return $this->error('updateConference', $this->getLastError());
     }
+    $this->updateTopics($objConferenceDetailed);
+    if ($this->failed()) {
+      return $this->error('updateConference', $this->getLastError());
+    }
     return $this->success();
   }
 
   /**
    * Aktualisiert den Datensatz der Person $objPersonDetailed in der Datenbank.
+   * Die Rollen werden ebenfalls vollstaendig in der Datenbank aktualisiert.
    *
    * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll
    * @param int $intConferenceId ID der Konferenz, zu der die Rollen der Person aktualisiert
@@ -1457,7 +1464,7 @@ nur fuer detaillierte?
    * @param ConferenceDetailed [] $objConferenceDetailed Das Konferenz-Objekt
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
-   * @author Tom (14.01.04)
+   * @author Tom (15.01.04)
    */
   function updateCriterions($objConferenceDetailed) {
     if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
@@ -1466,8 +1473,7 @@ nur fuer detaillierte?
     for ($i = 0; $i < count($objConferenceDetailed->objCriterions); $i++) {
       $objCriterion = $objConferenceDetailed->objCriterions[$i];
       $s = "UPDATE  Criterion".
-          " SET     conference_id = '$objConferenceDetailed->intId',".
-          "         name = '$objCriterion->strName',".
+          " SET     name = '$objCriterion->strName',".
           "         description = '$objCriterion->strDescription',".
           "         max_value = '$objCriterion->intMaxValue',".
           "         quality_rating = '$objCriterion->fltWeight'".
@@ -1481,11 +1487,31 @@ nur fuer detaillierte?
   }
 
   /**
+   * Aktualisiert die Themen der Konferenz $objConferenceDetailed in der Datenbank.
+   * @warning Anders als bei den anderen Updatemethoden wird kein Loeschen und Wiedereinfuegen
+   *          durchgefuehrt, weil ansonsten die Auto-ID-Verweise ungueltig wuerden. Stattdessen
+   *          findet ein gewoehnliches Update statt, d.h. neu hinzugekommene Themen im Array
+   *          werden ignoriert und aus dem Array entfernte Themen ebenfalls!
+   *          Fuer die anderen Faelle gibt es die Funktionen addTopic und deleteTopic.
+   *
+   * @param ConferenceDetailed [] $objConferenceDetailed Das Konferenz-Objekt
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
+   * @author Tom (15.01.04)
    */
   function updateTopics($objConferenceDetailed) {
     if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
+    }
+    for ($i = 0; $i < count($objConferenceDetailed->objTopics); $i++) {
+      $objTopic = $objConferenceDetailed->objTopic[$i];
+      $s = "UPDATE  Topic".
+          " SET     name = '$objTopic->strName'".
+          " WHERE   id = '$objTopic->intId'";
+    }
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateTopics', $this->mySql->getLastError());
     }
     return $this->success();
   }
