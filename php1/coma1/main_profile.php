@@ -92,7 +92,7 @@ $content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
-$strMenuAssocs['menu'] = array(1, 2, 3, 4);
+$strMenuAssocs['if'] = array(1);
 $menu->assign($strMenuAssocs);
 
 $strMainAssocs = defaultAssocArray();
