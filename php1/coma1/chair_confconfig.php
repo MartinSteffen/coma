@@ -199,6 +199,23 @@ else {
   $strContentAssocs['max_papers']       = encodeText($objConference->intMaxNumberOfPapers);
   $strContentAssocs['variance']         = encodeText($objConference->fltCriticalVariance);
   $strContentAssocs['auto_numreviewer'] = encodeText($objConference->intNumberOfAutoAddReviewers);
+  $strContentAssocs['criterions']     = '';
+  $strContentAssocs['crit_max']       = '';
+  $strContentAssocs['crit_descr']     = '';
+  $strContentAssocs['crit_weight']    = '';
+  for ($i = 0; $i < count($objConference->objCriterions); $i++) {
+    $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strName);
+    $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strDescription);
+    $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intMaxValue);
+    $strContentAssocs['crit_weight'] .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->fltWeight);
+  }
+  $strContentAssocs['topics']         = '';
+  for ($i = 0; $i < count($objConference->objTopics); $i++) {
+    $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($objConference->objTopics[$i]->strName);
+  }
+  $strContentAssocs['num_topics']     = encodeText(count($objConference->objTopics));
+  $strContentAssocs['num_criterions'] = encodeText(count($objConference->objCriterions));
+
   if (!empty($objConference->blnAutoActivateAccount)) {
     $ifArray[] = 2;
   }
