@@ -192,7 +192,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == getUID(getCID())) || (DEBUGMODE) || (isChair($myDBAccess->getPerson(getUID(getCID()))))){
+        if (($sender->intId == getUID(getCID($myDBAccess), $myDBAccess)) || (DEBUGMODE) || (isChair($myDBAccess->getPerson(getUID(getCID($myDBAccess), $myDBAccess))))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
