@@ -54,14 +54,15 @@ if (isset($_POST['action'])) {
   $strContentAssocs['min_papers']       = encodeText($min_papers);
   $strContentAssocs['max_papers']       = encodeText($max_papers);
   $strContentAssocs['variance']         = encodeText($variance);
-  //$strContentAssocs['auto_numreviewer'] = encodeText($auto_numreviewer);
-  $strTopics        = encodeTextArray($_POST['topics']);
-  $strCriterions    = encodeTextArray($_POST['criterions']);
-  $strCritDescripts = encodeTextArray($_POST['crit_descr']);
-  $strCritMaxVals   = encodeTextArray($_POST['crit_max']);
-  $strCritWeights   = encodeTextArray($_POST['crit_weight']);
 
+  // Arrays wieder holen
+  $strTopics        = unserialize($_POST['topics']);
+  $strCriterions    = unserialize($_POST['criterions']);
+  $strCritDescripts = unserialize($_POST['crit_descr']);
+  $strCritMaxVals   = unserialize($_POST['crit_max']);
+  $strCritWeights   = unserialize($_POST['crit_weight']);
   if (isset($_POST['advanced'])) {
+    echo 'test';
     $intTopicNum = count($strTopics);
     $intCritNum  = count($strCriterions);
     $strTopics        = array();
@@ -135,7 +136,7 @@ if (isset($_POST['action'])) {
     $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($strCritMaxVals[$i]);
     $strContentAssocs['crit_weight'] .= (($i > 0) ? '|' : '').encodeText($strCritWeights[$i]);
   }
-  $strContentAssocs['auto_numreviewer'] = encodeText($_POST['auto_numreviewer']);
+  $strContentAssocs['auto_numreviewer'] = encodeText($auto_numreviewer);
   if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
     $ifArray[] = 2;
   }
