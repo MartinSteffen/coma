@@ -2156,6 +2156,56 @@ nur fuer detaillierte?
   /**
    * Aktualisiert den Status des Papers $intPaper in der Datenbank.
    *
+   * @param int $intPaperId Das Paper, dessen Status aktualisiert werden soll.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Sandro (28.01.05)
+   */
+   function updatePaperStatus($intPaperId) {
+     $intNewStatus = false;
+     $fltVariance = $myDBAccess->getVarianceOfPaper($intPaperId);
+     if (!empty($fltVariance)) {
+       if ($this->failed()) {
+         return $this->error('updatePaperStatus', $this->getLastError());
+       }
+       $s = sprintf("SELECT   c.critical_variance, p.state".
+                    " FROM    Conference AS c".
+                    " INNER   JOIN Paper AS p".
+                    " WHERE   c.id = p.conference_id".
+                    " AND     p.id = '%d'",
+                              s2db($intPaperId));
+       $data = $this->mySql->select($s);
+       if ($this->mySql->failed()) {
+         return $this->error('updatePaperStatus', $this->mySql->getLastError());
+       }
+       else if (empty($data)) {
+         return $this->error('updatePaperStatus', 'Conference or paper does not exist in database.');
+       }
+       $fltCriticalVariance = $data[0]['critical_variance'];
+       $intPaperStatus      = $data[0]['state'];
+       if ($fltVariance >= $fltCriticalVariance) {
+       	 $intNewStatus = PAPER_CRITICAL;         
+       }
+       else {
+         $intNewStatus = PAPER_REVIEWED;
+       }
+     }
+     else {
+     	$intNewStatus = PAPER_UNREVIEWED;
+     }
+     if (!empty($intNewStatus) && $intPaperStatus != $intNewStatus &&
+         $intPaperStatus != PAPER_ACCEPTED && $intPaperStatus != PAPER_REJECTED) {
+       $this->setPaperStatus($intPaperId, $intNewStatus);
+       if ($this->failed()) {
+         return $this->error('updatePaperStatus', $this->getLastError());
+       }
+     }
+     return $this->success(true);
+   }
+
+  /**
+   * Setzt den Status des Papers $intPaper in der Datenbank auf $intStatus.
+   *
    * @param int $intPaperId Das Paper, dessen Status geaendert werden soll.
    * @param int $intStatus Der neue Statuswert (PAPER_REVIEWED, PAPER_UNREVIEWED,
    *                       PAPER_ACCEPTED, PAPER_REJECTED, PAPER_CRITICAL);
@@ -2163,14 +2213,14 @@ nur fuer detaillierte?
    * @access public
    * @author Sandro (28.01.05)
    */
-  function updatePaperStatus($intPaperId, $intStatus) {
+  function setPaperStatus($intPaperId, $intStatus) {
     $s = sprintf("UPDATE   Paper".
                  " SET     state = '%d'".
                  " WHERE   id = '%d'",
                  s2db($intStatus), s2db($intPaperId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('updatePaperStatus', $this->mySql->getLastError());
+      return $this->error('setPaperStatus', $this->mySql->getLastError());
     }
     return $this->success(true);
   }
@@ -2184,18 +2234,13 @@ nur fuer detaillierte?
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Sandro (28.01.05)
-   * @todo Pruefung, ob ein Paper kritisch ist, fehlt noch. In dem Fall wird
-   *       der Status PAPER_CRITICAL gesetzt.
    */
   function resetPaperStatus($intPaperId) {
-    $objReviewers = $this->getReviewersOfPaper($intPaperId);
-    if (empty($objReviewers)) {
-      $intStatus = PAPER_UNREVIEWED;
+    $this->setPaperStatus($intPaperId, PAPER_UNREVIEWED);
+    if ($this->mySql->failed()) {
+      return $this->error('resetPaperStatus', $this->mySql->getLastError());
     }
-    else {
-      $intStatus = PAPER_REVIEWED;
-    }
-    $this->updatePaperStatus($intPaperId, $intStatus);
+    $this->updatePaperStatus($intPaperId);
     if ($this->mySql->failed()) {
       return $this->error('resetPaperStatus', $this->mySql->getLastError());
     }
@@ -2284,6 +2329,10 @@ nur fuer detaillierte?
                             'Update operation could not finish, database may be inconsistent!');
       }
     }
+    $this->updatePaperStatus($objReviewDetailed->intPaperId);
+     if ($this->failed()) {
+       return $this->error('updateReviewReport', $this->getLastError());
+     }
     return $this->success();
   }
 
@@ -3018,6 +3067,7 @@ nur fuer detaillierte?
    * Erstellt einen neuen Review-Report-Datensatz zum Paper $intPaperId und
    * Reviewer $intReview in der Datenbank mit den angegebenen Werten, sowie die
    * mit diesem Review-Report assoziierten Ratings.
+   * Aktualisiert ebenfalls den Status des bewerteten Papers.
    *
    * @param int $intPaperId          ID des Papers, das bewertet wird
    * @param int $intReviewerId       ID des Reviewers
@@ -3048,6 +3098,10 @@ nur fuer detaillierte?
         if ($this->failed()) {
           return $this->error('createNewReviewReport', $this->getLastError());
         }
+     }
+     $this->updatePaperStatus($intPaperId);
+     if ($this->failed()) {
+       return $this->error('createNewReviewReport', $this->getLastError());
      }
      return $this->success($intReviewId);
    }

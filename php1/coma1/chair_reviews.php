@@ -19,7 +19,7 @@ checkAccess(CHAIR);
 
 if (isset($_POST['action'])) {
   if ($_POST['action'] == 'changestatus') {
-    $myDBAccess->updatePaperStatus($_POST['paperid'],
+    $myDBAccess->setPaperStatus($_POST['paperid'],
       ($_POST['submit'] == 'accept' ? PAPER_ACCEPTED : PAPER_REJECTED));
     if ($myDBAccess->failed()) {
       error('Error updating paper status.', $myDBAccess->getLastError());
