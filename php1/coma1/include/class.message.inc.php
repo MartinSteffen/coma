@@ -55,6 +55,6 @@ class Message {
     return false;
   }
   
-} // end class Person
+} // end class Message
 
 ?>

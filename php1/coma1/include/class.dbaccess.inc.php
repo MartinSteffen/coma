@@ -15,6 +15,8 @@ require_once('class.paper.inc.php');
 require_once('class.papersimple.inc.php');
 require_once('class.paperdetailed.inc.php');
 require_once('./include/class.message.inc.php');
+require_once('./include/class.forum.inc.php');
+require_once('./include/class.forumdetailed.inc.php');
 
 /**
  * Klasse DBAccess
@@ -268,24 +270,63 @@ class DBAccess {
   /**
    */
   function getAllForums() {
+    $s = 'SELECT  id, title'.
+        ' FROM    Forum'; //.
+        //' WHERE   conference_id = \''.???.'\'';
+    $data = $this->mySql->select($s);    
+    if ($data) {            
+      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false);
+      return $forum;
+    }
     return false;
   }
 
   /**
    */
   function getForumOfPaper($intPaperId) {
+    $s = 'SELECT  id, title'.
+        ' FROM    Forum'.
+        ' WHERE   paperId = '.$intPaperId; //.
+        //' AND   conference_id = \''.???.'\'';
+    $data = $this->mySql->select($s);    
+    if ($data) {            
+      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false);
+      return $forum;
+    }
     return false;
   }
 
   /**
    */
-  function getForumsOfUser($strUserEmail) {
+  function getForumsOfUser($strUserId) {
+    $userData = getPerson($strUserId);
+    if ($userData) {
+      $allForums = getAllForums();
+      $forums = array();
+      if ($allForums) {
+    	for ($i = 0; $i < count($allForums); $i++) {
+    	  if ($allForums[$i]->isUserAllowed($userData) {
+    	    $forums[] = $allForums[$i];
+          }
+        }    	  
+      }
+    }
     return false;
   }
 
   /**
    */
   function getForumDetailed($intForumId) {
+    $s = 'SELECT  id, title'.
+        ' FROM    Forum'.
+        ' WHERE   id = \''.$intForumId.'\'';
+    $data = $this->mySql->select($s);    
+    if ($data) {      
+      $threads = getMessagesOfForum($intForumId);      
+      $forum = (new ForumDetailed($data[$i]['id'], $data[$i]['title'],
+                  0, false, $threads);
+      return $forum;
+    }
     return false;
   }
 
@@ -299,9 +340,10 @@ class DBAccess {
     $messages = array();
     if ($data) {
       for ($i = 0; $i < count($data); $i++) {
+      	$nextMessages = $this->getNextMessages($data[$i]['id'])
       	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
       	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+      	                 $data[$i]['text'], $nextMessages));
       }
       return $messages;
     }
@@ -319,9 +361,10 @@ class DBAccess {
     $messages = array();
     if ($data) {
       for ($i = 0; $i < count($data); $i++) {
+      	$nextMessages = $this->getNextMessages($data[$i]['id'])
       	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
       	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+      	                 $data[$i]['text'], $nextMessages));
       }
       return $messages;
     }

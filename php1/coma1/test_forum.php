@@ -21,8 +21,7 @@ require_once('./include/class.paper.inc.php');
 require_once('./include/class.papersimple.inc.php');
 require_once('./include/class.paperdetailed.inc.php');*/
 
-function printMessage($objMessage, $indent = 0)
-{ 
+function printMessage($objMessage, $indent = 0) { 
   if ($objMessage) {   
     for ($i = 0; $i < $indent; $i++) {
       echo ('&nbsp;&nbsp;&nbsp;&nbsp;');
@@ -45,13 +44,14 @@ if (!empty($s)) {
 }
 echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
 
-$messages = $dbAccess->getMessagesOfForum(1);
-if ($messages) {
-  echo('<b>'.count($messages).' Thread'.(count($messages) <> 1 ? 's' : '').
-       ' in Forum #1:</b><br><br>'); 
-  for ($n = 0; $n < count($messages); $n++) {
-    printMessage($messages[$n], 1);
-  } 
+$forum = $dbAccess->getDetailedForum(1);
+if ($forum) {  
+  echo('<b>'.count($forum->getThreadCount()).' Thread'.
+       (count($forum->getThreadCount()) <> 1 ? 's' : '').
+       ' in Forum \''.$forum->title.'\':</b><br><br>');   
+  for ($n = 0; $n < $forum->getThreadCount(); $n++) {
+    printMessage($forum->getThread($n), 1);  
+  }
 }
 
 ?>

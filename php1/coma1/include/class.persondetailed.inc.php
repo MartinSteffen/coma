@@ -33,7 +33,9 @@ class PersonDetailed extends Person {
   var $strPhone;
   var $strFax;
   
-  function PersonDetailed($intId, $email, $firstname, $lastname, $role, $title='', $affiliation='', $street='', $city='', $postalcode='', $state='', $country='', $phone='', $fax=''){
+  function PersonDetailed($intId, $email, $firstname, $lastname, $role, $title = '',
+                          $affiliation = '', $street = '', $city = '', $postalcode = '',
+                          $state = '', $country = '', $phone = '', $fax = '') {
     $this->Person($intId, $email, $firstname, $lastname, $role);
     $this->strTitle = $title;
     $this->strAffiliation = $affiliation;
