@@ -1,6 +1,8 @@
-<h2>Login:</h2>
 <form action="{basepath}index.php?{SID}" method="post">
 <table align="center">
+  <tr>
+    <th colspan="2">Login:</th>
+  </tr>
   <tr>
     <td>Email-Addresse:</td>
     <td>
