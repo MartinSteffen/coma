@@ -2,7 +2,7 @@ Mein Vorschlag für eine SQL-Tabellenstruktur:
 Einige Dinge fehlen noch, z.B. die Tabellen für Kommunikation / Forum.
 Es orientiert sich ziemlich am Spec-1 Vorschlag.
 
-Mit "->" bezeichne ich Lookup-Felder für "Tabelle, Feld"
+Mit "->" bezeichne ich Lookup-Felder für "Tabelle, Feld" (Foreign Key Constraint)
 
 -- Gunnar
 
@@ -35,8 +35,8 @@ Kleine Änderungen:
 
 Tabelle Conference
 ~~~~~~~~~~~~~~~~~~
-abbreviation			Varchar 20	Prim., Uniq.
-name				Varchar 127
+abbreviation			Varchar 20	Primary Key
+name				Varchar 127	Not Null
 description			Text
 homepage			Varchar 127
 abstract_submission_deadline	Date
@@ -50,7 +50,7 @@ min_reviews_per_paper		Int
 
 Tabelle User
 ~~~~~~~~~~~~
-email			Varchar 127	Prim., Uniq., Not Empty
+email			Varchar 127	Primary Key
 conference		Varchar 20	-> Conference, abbreviation
 roles			Int		000xxxxx
 					   ||||+-- Admin
@@ -59,7 +59,7 @@ roles			Int		000xxxxx
 					   |+----- Autor
 					   +------ Teilnehmer
 first_name		Varchar 127
-last_name		Varchar 127
+last_name		Varchar 127	Not Null
 title			Int		(bzw. Title)
 affiliation		Varchar 127
 phone_number		Varchar 20
@@ -69,34 +69,33 @@ postal_code		Varchar 20
 city			Varchar 127
 state			Varchar 127
 country			Varchar 127
-username		Varchar 32
-password		Varchar 32
+password		Varchar 32	Not Null (wird codiert gespeichert)
 
 Tabelle Paper
 ~~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
+id			BigInt		Autoincrement, Primary Key
 conference		Varchar 20	-> Conference, abbreviation
 author			Varchar 127	-> User, email
-title			Varchar 127
+title			Varchar 127	Not Null
 abstract		Text
-last_edited		DateAndTime
-version			Int
+last_edited		DateAndTime	(wird automatisch gesetzt)
+version			Int		(wird automatisch gesetzt)
 filename		Varchar 127
 state			Int		(bzw. PaperState)
 format			Int		(bzw. MimeType)
 
-Tabelle isCoAuthorOf
+Tabelle IsCoAuthorOf
 ~~~~~~~~~~~~~~~~~~~~
 conference		Varchar 20	-> Conference, abbreviation
 paper_id		BigInt		-> Paper, ID
-name			Varchar 127
+name			Varchar 127	Not Null
 email			Varchar 127	-> User, email
 
 Tabelle Topic
 ~~~~~~~~~~~~~
 id			BigInt		Autoinc., Prim., Uniq.
 conference		Varchar 20	-> Conference, abbreviation
-name			Varchar 127
+name			Varchar 127	Not Null
 
 Tabelle IsAboutTopic
 ~~~~~~~~~~~~~~~~~~~~
@@ -120,7 +119,7 @@ paper_id		BigInt		-> Paper, ID
 
 Tabelle ReviewReport
 ~~~~~~~~~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
+id			BigInt		Autoincrement, Primary Key
 conference		Varchar 20	-> Conference, abbreviation
 paper_id		BigInt		-> Paper, ID
 summary			Text
@@ -130,22 +129,22 @@ confidential		Text
 Tabelle Rating
 ~~~~~~~~~~~~~~
 review_id		BigInt		-> Review, ID
-grade			Int
+grade			Int		Not Null
 comment			Text
 
 Tabelle Criterion
 ~~~~~~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
+id			BigInt		Autoincrement, Primary Key
 conference		Varchar 20	-> Conference, abbreviation
-name			Varchar 127
+name			Varchar 127	Not Null
 description		Text
 max_value		Int
 
 Tabelle Forum
 ~~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
+id			BigInt		Autoincrement, Primary Key
 conference		Varchar 20	-> Conference, abbreviation
-title			Varchar 127
+title			Varchar 127	Not Null
 description		Text
 
 Tabelle ParticipatesInForum
@@ -155,13 +154,18 @@ participant		Varchar 127	-> User, email
 
 Tabelle Message
 ~~~~~~~~~~~~~~~
-id			Varchar 127	Prim., Uniq., Not Empty
+id			Varchar 127	Primary Key
 sender			Varchar 127	-> User, email
-send_time		TimeAndDate
+send_time		TimeAndDate	(wird automatisch gesetzt)
 subject			Varchar 127
 text			Text
 
-Tabelle hasThread
+Tabelle HasThread
 ~~~~~~~~~~~~~~~~~
 forum_id		BigInt		-> Forum, ID
 message_id		Varchar 127	-> Message, ID
+
+
+(*: Der Contraint "wird automatisch gesetzt" kann vernachlässigt werden
+    und ist nur ein Hinweis, dass diese Felder spaeter automatisch
+    durch CoMa gesetzt werden.)
