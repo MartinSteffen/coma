@@ -1,12 +1,46 @@
-\input{elve}
-\input{handout}
-\renewcommand{\ElveInstitut}{Institut f\"{u}r Informatik und Praktische Mathematik}
-\renewcommand{\ElveProf}{Prof. Dr. W.-P. de Roever}
-\renewcommand{\ElveSemester}{WS 2004/05}
-\renewcommand{\ElveName}{Jan Waller - PHP Gruppe 1}
-%\renewcommand{\ElveDatum}{\today}
-\renewcommand{\ElveUebung}{P-I-T-M - Guidelines}
-\lstset{language=PHP}
+%% Generelle Dokumenteigenschaften
+\documentclass[headexclude,footexclude,12pt,BCOR0pt,DIV15]{scrartcl}
+\parindent0.0em
+%% Silbetrennung, Sprache etc...
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{ae,aecompl}
+%% Listings
+\usepackage[scaled]{luximono}
+\usepackage{listings}
+\usepackage{fancyvrb}
+%\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7\catcode`_=8}]
+% ...
+%\end{Verbatim}
+\lstset{basicstyle=\footnotesize\ttfamily,language=PHP,numbers=left,stepnumber=0,tabsize=2,stringstyle=\emph,numberstyle=\tiny,numbersep=3pt,frame={},breaklines=true}
+%% Headings
+\usepackage{scrpage2}
+\deftripstyle{ElveStyleUebung}[0pt][0.1pt]{Jan Waller - PHP Gruppe 1}{P-I-T-M - Guidelines}{\today}{}{\pagemark}{}
+\pagestyle{ElveStyleUebung}
+%% GRAFIK (PDF)
+\usepackage[pdftex]{graphicx}
+\pdfcompresslevel=9
+\DeclareGraphicsExtensions{.jpg, .pdf, .mps, .png}
+\AtBeginDocument{
+  \begin{minipage}[b]{0.7\textwidth}
+    \begin{center}
+      \textsc{Christian-Albrechts-Universit\"{a}t zu Kiel} \\
+      Institut f\"{u}r Informatik und Praktische Mathematik \\
+      Prof. Dr. W.-P. de Roever \\[2ex]
+      Jan Waller - PHP Gruppe 1\\
+    \end{center}
+  \end{minipage}
+  \begin{minipage}[b]{0.3\textwidth}
+    \begin{center}\includegraphics[height=12ex]{CAU-Siegel}\end{center}
+  \end{minipage}
+
+  \hrulefill
+
+  \noindent WS 2004/05\hfill\textbf{P-I-T-M - Guidelines}\hfill\today
+
+  \vspace*{4ex}
+}
 
 \begin{document}
 \thispagestyle{plain}
