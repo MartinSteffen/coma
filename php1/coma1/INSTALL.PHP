@@ -224,7 +224,7 @@ elseif ($STEP == 3) {
     echo "    </p>\n";
   }
   else {
-    echo "    <p class=\"message-pk\">\n";
+    echo "    <p class=\"message-ok\">\n";
     echo "      Successfully deleted file 'INSTALL.PHP'!\n";
     echo "    </p>\n";
   }
