@@ -30,19 +30,20 @@ function reviewer_task()
 
 	// Alle Paper aller Konferenzen finden, für die der aktuelle Benutzer als Reviewer vorgesehen ist
 	// und die die Deadline der Konferenz nicht überschreiten. Nur Paper anzeigen, die noch nicht
-	// als "reviewed" markiert sind.
+	// als "reviewed" markiert sind. Nur Paper anzeigen, die der Reviewer noch nicht bewertet hat (Summary ist leer)
 
    $SQL = "SELECT
    			reviewreport.reviewer_id, reviewreport.paper_id,
 			paper.id, paper.state, paper.conference_id, paper.title,
-			conference.id, conference.review_deadline, conference.name
+			conference.id, conference.review_deadline, conference.name, reviewreport.summary
 			FROM reviewreport
 			  INNER JOIN paper ON (reviewreport.paper_id = paper.id)
 			  INNER JOIN conference ON (paper.conference_id = conference.id)
 			WHERE
 			  (conference.review_deadline >= CURRENT_DATE)
 			  AND (paper.state = 0)
-			  AND (reviewreport.reviewer_id = ".$_SESSION['userID']." )";
+			  AND (reviewreport.reviewer_id = ".$_SESSION['userID']." )
+			  AND (reviewreport.summary IS NULL)";
 
 	$result = mysql_query($SQL);
 	$count = 0;

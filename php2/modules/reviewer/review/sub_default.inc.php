@@ -1,7 +1,8 @@
 <?
 $sql = new SQL();
 $sql->connect();
-
+if(isReviewer_Overall())
+{
    $SQL = "SELECT
    			reviewreport.reviewer_id, reviewreport.paper_id,
 			paper.id, paper.state, paper.conference_id, paper.title,
@@ -29,5 +30,6 @@ $sql->connect();
 
 	$TPL['paperlist'] = $paperlist;
 
-template("REVIEWER_review");
+	template("REVIEWER_review");
+} else redirect("logout",false,false,"error=1");
 ?>
