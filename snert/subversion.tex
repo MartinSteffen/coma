@@ -1,0 +1,46 @@
+\documentclass[a4paper,11pt]{article}
+
+\begin{document}
+
+\begin{abstract}
+  We document the configuration of subversion on snert.
+\end{abstract}
+
+
+\section{Configuration Files}
+\label{sec:config}
+
+The configuration of the subversion repository can be found in
+\texttt{/etc/httpd/conf.d/repository.conf}.  The apache web server
+will read this file when it is started.
+
+The configuration of the user access rights to the repository for the
+COMA projects can be found in
+\texttt{\~{}swprakt/public\_html/svnaccess}, where the user
+names are defined in
+\texttt{\~{}swprakt/public\_html/svnpasswd}.
+
+The \texttt{svnpasswd} file has to be modified only by using the
+\texttt{htpasswd} tool.  We only use MD5 encryption for passwords, so
+you always have to pass the command line option \texttt{-m} to
+\texttt{htpasswd}.
+
+
+
+\section{Security}
+\label{sec:security}
+
+It is necessary that the repository is only accessed by the user
+apache.  To enable administration of the repository, the account
+\texttt{swprakt} is allowed to switch is user to \texttt{apache} and
+execute subversion related commands (\texttt{svn}, \texttt{svnlook},
+and \texttt{svnadmin}).  Generally, issuing a \texttt{sudo -u apache
+  svnadmin recover \~{}/public\_html/svnroot} will get the repository
+running again, if something fails.
+
+For the same reason it is not possible or advised to access the
+repository using \texttt{file://} URI's to access the repository.
+Only use \texttt{http://snert:8080/svn/coma} as the root of the
+repository.
+
+\end{document}
