@@ -2026,7 +2026,7 @@ nur fuer detaillierte?
                          $strNotification, $strConferenceStart, $strConferenceEnd,
                          $intMinReviews, $intDefaultReviews, $intMinPapers, $intMaxPapers,
                          $fltVariance, $blnAutoActAccount, $blnAutoPaperForum,
-                         $blnAutoAddReviewer, $intNumAutoAddReviewer
+                         $blnAutoAddReviewer, $intNumAutoAddReviewer,
                          $strTopics, $strCriterions, $strCritDescripts,
                          $intCritMaxVals, $fltCritWeights) {
     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
