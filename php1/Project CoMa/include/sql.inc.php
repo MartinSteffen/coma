@@ -6,6 +6,13 @@
  *
  */
 
+class cMySql {
+  
+  function cMySql() {
+    
+  }
+  
+}
 
 
 
