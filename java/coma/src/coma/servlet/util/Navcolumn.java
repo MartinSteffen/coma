@@ -7,7 +7,9 @@ import javax.servlet.http.HttpSession;
 
 import coma.entities.Person;
 import coma.util.logging.ALogger;
-import static coma.util.logging.Severity.ERROR;
+import static coma.util.logging.Severity.*;
+import static coma.servlet.util.XMLHelper.tagged;
+
 
 /**
    Java helper class to create the Navigation columns in the output.

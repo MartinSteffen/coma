@@ -12,25 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
-import coma.entities.Conference;
-import coma.entities.Paper;
-import coma.entities.Person;
-import coma.entities.Rating;
-import coma.entities.ReviewReport;
-import coma.entities.SearchCriteria;
-import coma.entities.SearchResult;
+import coma.entities.*;
 import coma.handler.db.ReadService;
 import coma.handler.db.UpdateService;
-import coma.servlet.util.FormParameters;
-import coma.servlet.util.PageStateHelper;
-import coma.servlet.util.SessionAttribs;
-import coma.servlet.util.UserMessage;
-import coma.servlet.util.XMLHelper;
+import coma.servlet.util.*;
 import coma.util.logging.ALogger;
-import static coma.util.logging.Severity.DEBUG;
-import static coma.util.logging.Severity.ERROR;
-import static coma.util.logging.Severity.WARN;
-
+import static coma.util.logging.Severity.*;
+import static java.util.Arrays.asList;
 
 /** 
     Rating a paper
