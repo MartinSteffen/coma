@@ -49,7 +49,6 @@
   </td>
   <td class="body">
     <h2>{title}</h2>
-    <br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1><br><h1>ICQ</h1>
     {content}
   </td>
  </tr>
