@@ -108,10 +108,10 @@ if (isset($_POST['action'])) {
   $fltContentAssocs['crit_weight']    = '';
   $strContentAssocs['num_topics']     = count($strTopics);
   $strContentAssocs['num_criterions'] = count($strCriterions);
-  for ($i = 0; $i < $intNumTopics; $i++) {
+  for ($i = 0; $i < count($strTopics); $i++) {
     $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($strTopics[$i]);
   } 
-  for ($i = 0; $i < $intNumCrits; $i++) {
+  for ($i = 0; $i < count($strCriterions); $i++) {
     $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($strCriterions[$i]);
     $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($strCritDescripts[$i]);
     $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($strCritMaxVals[$i]);
