@@ -111,8 +111,8 @@ $ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
 define('INCPATH', $ServerPathTranslated.'/include/');
-/** Das zu verwendende Design (Verzeichniss-Name)*/
-define('DESIGN', 'coma-2');
+/** Das zu verwendende Design (Verzeichnis-Name)*/
+define('DESIGN', 'coma');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH', $ServerPathTranslated.'/templates/'.DESIGN.'/');
 /** Template-Pfad (als URL)*/

@@ -70,7 +70,7 @@ if (isset($_POST['action'])) {
   }
   // Oeffnen der erweiterten Einstellungen
   else if (isset($_POST['adv_config'])) {
-    $content = new Template(TPLPATH.'create_conference_ext.tpl');
+    $content = new Template(TPLPATH.'chair_confconfig_ext.tpl');
   }
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte
