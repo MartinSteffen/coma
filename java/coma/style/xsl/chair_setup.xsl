@@ -19,12 +19,12 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	Name:
 	</td>
 	<td width="200"> 
-		<xsl:apply-templates select="/result/setup/content/Conference/name"/>
+		<xsl:apply-templates select="/result/setup/content/conference/name"/>
 	</td>
 	<td>
 		<input type="text" id="conference name" name="conference name" size="30" maxlength="30">
 			<!--<xsl:attribute name="value">
-  				<xsl:apply-templates select="/result/setup/content/Conference/name"/>
+  				<xsl:apply-templates select="/result/setup/content/conference/name"/>
   			</xsl:attribute>-->
   		</input>
 	</td>
@@ -34,35 +34,50 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	Homepage: 
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference/homepage"/>
+		<xsl:apply-templates select="/result/setup/content/conference/homepage"/>
 	</td>
 	<td>
 		<input type="text" id="homepage" name="homepage" size="30" maxlength="30">
 			<!--<xsl:attribute name="value">
-  				<xsl:apply-templates select="/result/setup/content/Conference/homepage"/>
+  				<xsl:apply-templates select="/result/setup/content/conference/homepage"/>
   			</xsl:attribute>-->
   		</input>
 	</td>
 </tr>
 <tr>
 	<td>
+	Description: 
+	</td>
+	<td> 
+		<xsl:apply-templates select="/result/setup/content/conference/description"/>
+	</td>
+	<td>
+		<input type="text" id="description" name="description" size="50" maxlength="50">
+			<!--<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/conference/description"/>
+  			</xsl:attribute>-->
+  		</input>
+	</td>
+</tr>
+<!--<tr>
+	<td>
 	Description:
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference/description"/>
+		<xsl:apply-templates select="/result/setup/content/conference/description"/>
 	</td>
 	<td>
 		<textarea id="description" name="description" rows="3" cols="30" class="textarea" wrap="physical">&#160;
-			<!--<xsl:apply-templates select="/result/setup/content/Conference/description"/>-->
+			<xsl:apply-templates select="/result/setup/content/conference/description"/>
   		</textarea>
 	</td>
-</tr>
+</tr>-->
 <tr>
 	<td>
 	min reviewer per paper:
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference/min"/>
+		<xsl:apply-templates select="/result/setup/content/conference/min"/>
 	</td>
 	<td>
 		<xsl:choose>
@@ -91,7 +106,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 				you can't change this
 			</xsl:otherwise>
 		</xsl:choose>-->
-		<a href="Chair?action=setup&amp;target=topics">configure topics</a>
+		<a href="Chair?action=show_topics">show topics</a>
 	</td>
 </tr>
 <tr>
@@ -99,7 +114,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	Start:
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference/start"/>
+		<xsl:apply-templates select="/result/setup/content/conference/start"/>
 	</td>
 	<td>
 		<xsl:choose>
@@ -122,7 +137,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	End: 
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference/end"/>
+		<xsl:apply-templates select="/result/setup/content/conference/end"/>
 	</td>
 	<td>
 		<xsl:choose>
@@ -145,7 +160,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	Notification:
 	</td>
 	<td> 
-		 <xsl:apply-templates select="/result/setup/content/Conference/notification"/>
+		 <xsl:apply-templates select="/result/setup/content/conference/notification"/>
 	</td>
 	<td>
 		<input type="text" id="not_day" name="not_day" size="2" maxlength="2">
@@ -166,7 +181,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	Abstract submission: 
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference//abstract"/>
+		<xsl:apply-templates select="/result/setup/content/conference//abstract"/>
 	</td>
 		<td>
 		<input type="text" id="abstract_day" name="abstract_day" size="2" maxlength="2">
@@ -182,7 +197,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	Paper submission: 
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference//paper"/>
+		<xsl:apply-templates select="/result/setup/content/conference//paper"/>
 	</td>
 		<td>
 		<input type="text" id="paper_day" name="paper_day" size="2" maxlength="2">
@@ -198,7 +213,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	review: 
 	</td>
 	<td> 
-		<xsl:apply-templates select="/result/setup/content/Conference//review"/>
+		<xsl:apply-templates select="/result/setup/content/conference//review"/>
 	</td>
 	<td>
 		<input type="text" id="review_day" name="review_day" size="2" maxlength="2">
@@ -214,7 +229,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	final submission:
 	</td>
 	<td> 
-		 <xsl:apply-templates select="/result/setup/content/Conference//final"/>
+		 <xsl:apply-templates select="/result/setup/content/conference//final"/>
 	</td>
 	<td>
 		<input type="text" id="final_day" name="final_day" size="2" maxlength="2">
@@ -242,27 +257,50 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:template match="/result/setup_topics/content" name="setup_topics">
 <xsl:if test="//setup_topics//content">
 <table class="chair">
-	<xsl:for-each select="result/setup_topics/content/topic">
+	<tr>
+		<th>Topic name
+		</th>
+		<th colspan="2">
+			options
+		</th>
+	</tr>
+	<xsl:for-each select="result/setup_topics/content/topics">
 		<tr>
 			<td>
-				<xsl:value-of select="name"/>
-			</td>	
-			<td>
-				<a href="Chair?action=topic&amp;target=delete">delete</a>
+				<xsl:value-of select="topic/name"/>
 			</td>
-			<!--<td>
-				<a href="Chair?action=topic&amp;target=update">update</a>
-			</td>-->	
+			<form method="post">
+				<xsl:attribute name="action">Chair?action=topic&amp;topic_target=delete&amp;target=topics&amp;id=<xsl:value-of select="topic/id"/>
+				</xsl:attribute>
+			<td>
+				<input type="submit" value="delete" class="submit-button"/> 
+			</td>
+			</form>
+			<!--<form method="post">
+				<xsl:attribute name="action">Chair?action=topic&amp;topic_target=update&amp;target=topics&amp;id=<xsl:value-of select="id"/>
+  				</xsl:attribute>
+			<td>
+				<input type="text" size="30" maxlength="30" name="new_name"/>	
+			</td>
+			<td>
+				<input type="submit" value="update"/> 
+			</td>
+			</form>-->		
 		</tr>
 	</xsl:for-each>
 	<tr>
 		<td>
+		-----------------------------------------------
+		</td>
+	</tr>
+	<tr>
+		<td>
 			<form action="Chair?action=topic&amp;topic_target=add" method="post">add
-				<input type="text" size="3" maxlength="3" name="topics"/> new topics
+				<input type="text" size="3" maxlength="3" name="topics"/> new topic(s)
 				<input type="submit" value="GO" class="submit-button"/>
 			</form>
 		</td>
-		</tr>
+	</tr>
 </table>
 </xsl:if>
 </xsl:template>
@@ -292,11 +330,37 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<tr>
 			<td align="left">
 				<input type="submit" value="save"/>
-			</td>
+			</td>				 
 		</tr>
 	</form>
 </table>
 </xsl:if>
+</xsl:template>
+
+<xsl:template match="/result/save_initial/content" name="save_initial">
+<xsl:if test="//save_initial//content">
+	<xsl:choose>
+		<xsl:when test="//error">
+			<xsl:for-each select="/result/save_initial/content/error">
+				<xsl:value-of select='.'/>
+			</xsl:for-each> 
+		</xsl:when>
+		<xsl:otherwise>
+		<p align="center">
+			Save the initial setup<br/>
+			you can't change the number of topics and the criteria<br/>
+			if you sure, please choose a name for the conference
+		</p>
+		<form action="Chair?action=setup&amp;target=save_initial" method="post"> 
+			<input type="text" size="30" maxlength="30" name="name" id="name"/>
+			<input type="submit" value="Save" class="submit-button"/>
+		</form>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:if>
+</xsl:template>
+
+<xsl:template match="/result/criteria/content" name="criteria">
 </xsl:template>
 
 </xsl:stylesheet>
