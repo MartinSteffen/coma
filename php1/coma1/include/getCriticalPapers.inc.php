@@ -8,13 +8,11 @@
 if (!defined('IN_COMA1')) {
   die('Hacking attempt');
 }
-
 if (!defined('INCPATH')) {
   /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
 
-require_once(INCPATH.'header.inc.php');
 require_once(INCPATH.'lib.inc.php');
 require_once(INCPATH.'class.conferencedetailed.inc.php');
 require_once(INCPATH.'class.papervariance.inc.php');
