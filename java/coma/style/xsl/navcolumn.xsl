@@ -84,7 +84,7 @@
           		 <xsl:choose>
           		 <xsl:when test="//init">
           		 <li><a href="Chair?action=setup&amp;target=topics">topic(s) setup</a></li>
-          		 <li><a href="Chair?action=setup&amp;target=criteria">rating(s) setup</a></li>
+          		 <li><a href="Chair?action=setup&amp;target=criteria">criterion(s) setup</a></li>
           		 <li><a href="Chair?action=setup&amp;target=save">SAVE</a></li> 
           		 </xsl:when>
           		 <xsl:otherwise>
