@@ -23,7 +23,8 @@ Unsere E-Mailadressen: [...]@informatik.uni-kiel.de
 Datum    Autor   Änderung(en)
 ----------------------------------------------------------------------------
 07.12.04 tos     Dokument erstellt: Kapitel 1, Appendizes, Konventionen
-...
+08.12.04 jwa     Links eingefügt, bissige Kommentare entfernt, Templates 
+                 ergänzt
 
 
 
@@ -52,9 +53,6 @@ Konventionen für dieses Dokument (ups, ganz schön viele...):
   Finden bei Änderungen usw. zu ermöglichen) und die Verweise auch ins
   Appendix eintragen.
 - Bei Missachtung der Konventionen droht strafrechtliche Verfolgung. ;-)
-- Jan: Im Deutschen schreibt man zusammengesetzte Wörter ZUSAMMEN oder aber
-  mit BINDE-STRICHEN verbunden und niemals AUS EIN AN DER!!!
-
 
 
 ============================================================================
@@ -150,6 +148,26 @@ Künstliches Beispiel: <p>Hello {Firstname} <b>{Lastname}</b>.</p>
 
 Anmerkung: Die Templates befinden sich im Unterverzeichnis templates.
 
+Dort ist die Verzeihniss-Struktur derart gedacht, das es Unterverzeichnisse
+gibt die für verschiedene Designs stehen, zZ also zB tempaltes/sandro/.
+In der zentarlen header Datei header.inc.php wird in der Konstanten 
+TPLPATH bzw TPLURL festgelegt welches Design verwendet werden soll (dieses
+ermöglicht eventuell später für den Benutzer ein Umschalten zwischen 
+mehreren Design-Schemata).
+Alle Dateien die zu einem Design gehören sollten dementsprechend in einem
+entsprechenden Unterverzeichniss (zB /templates/sandro/images/) liegen.
+Wie man autoamtisch die korrekten Links setzt zeigen die schon vorhandenen
+Beispieldateien.
+
+Beispiele:
+<img src="{path}images/logo.jpg">
+<a href="{basepath}logout.php{SID}">Logout</a>
+
+Dabei verweist {path} auf das Template Verzeichniss für Bilder, Stylesheets
+etc, während {basepath} auf das Verzeichniss verweisst, in dem die zu 
+startenden Skripte liegen. {SID} sollte man an zu startende Skripte immer
+anhängen, damit bei ausgeschalteten Cookies die SID korrekt übergeben wird.
+
 
 1.5 Parser
 Die Klasse Template enthält einen Parser für Template-Dateien. Für die
@@ -175,8 +193,21 @@ Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
 dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
 die Datenbank wie folgt für uns anpasst:
 
-- Tabelle Sessions wird hinzugefügt.
-
+- Tabelle Sessions wird hinzugefügt:
+**************************************************
+--
+-- Tabellenstruktur für Tabelle `Sessions`
+-- sid normalerweise 128 oder 160
+--
+CREATE TABLE IF NOT EXISTS Sessions (
+  sid varchar(255) NOT NULL default '',
+  sname varchar(25) NOT NULL default '',
+  sdata text,
+  stime timestamp(14) NOT NULL,
+  PRIMARY KEY  (sid, sname),
+  KEY stime (stime)
+) TYPE=MyISAM COMMENT='Session Verwaltung';
+**************************************************
 
 
 ============================================================================
@@ -209,7 +240,7 @@ sein, die auch die Namen der Autoren jeder einzelnen Methode enthalten.
 +------------------------+-------------------------------------------------|
 | Algorithmen | tos      |                                                 |
 | DBAccess    | sae      | tos                                             |
-| Design      | dcm      |                                                 |
+| Design      | dcm      | jwa (wegen Parser-Anbindung)                    |
 | Forum       | fast     | jwa                                             |
 | Objekte     | alle     |                                                 |
 | Parser      | jwa      |                                                 |
@@ -227,6 +258,9 @@ Siehe auch: [liste_interessen.jpg]
 Root-Verzeichnis sei im Folgenden: (...)/php1/coma1.
 
 $/. enthält bislang nur Testdateien. Später wird hier die index.php liegen.
+  Hier liegt die indext.php, (die hauptsächlich eine weiterleitung auf andere
+  hier liegende Skriptdateien vornimmt), sowie alle aufrufbaren Skripte
+  (zB chair.php für die Chair Verwaltung)
 $/include enthält die Klassen.
 $/templates enthält die Templates.
 
@@ -282,9 +316,6 @@ CoMaSpez  einheitliche Fehlerbehandlungsroutinen einführen und dokumentieren
 CoMa      [PHPDoc]-Kommentare einfügen und möglichst konsistent halten
 CoMa/Spez Ermittlung der Gesamtbewertung (Berechnung gewichteter
           Einzelnoten) korrigieren und dokumentieren
-Spez      Ort der mit PHPDoc generierten Dateien im Appendix "Verweise"
-          einfügen
-
 
 
 ============================================================================
@@ -303,7 +334,7 @@ Die Dateien befinden sich zurzeit im Verzeichnis (...)/php1/architecture/.
 [review.jpg] (Unterverzeichnis objects)
 
 Ferner:
-[PHPDoc] (Verzeichnis unbekannt)
+[PHPDoc] http://snert.informatik.uni-kiel.de:8080/~wprguest1/coma1doc/
 
 Wir sind bemüht, diese Dateien möglichst aktuell zu halten, jedoch kann
 dies während des Entwicklungsprozesses nicht immer garantiert werden. Wir
