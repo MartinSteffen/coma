@@ -3,14 +3,19 @@
 -- suitable for MySQL as I wrote it for PostgreSQL.
 --
 
+-- General note:  A person does need a first name.  The last name is
+-- optional.  This covers for the case of "Robby".
 
-
-
--- The description is better put onto the home page.  We are only concerned
+-- ---------------------------------------------------------------------------
+-- Conferences:
+-- Define a conference.  CoMa may manage multiple conferences.
+--
+-- The "description" is better put onto the home page.  We are only concerned
 -- with paper submission.
 --
 -- minimum number of reviews defaults to 1 and may never be null.
---
+-- ---------------------------------------------------------------------------
+
 CREATE TABLE Conferences (
     abbreviation                 varchar(20) primary key,
     name                         varchar(127) not null,
@@ -137,7 +142,7 @@ CREATE TABLE CoAuthors (
     conference                   varchar(20) references Conferences,
     paper_id                     integer references Papers,
     first_name                   varchar(127) not null,
-    last_name                    varchar(127) not null
+    last_name                    varchar(127) null
 );
 
 
@@ -149,7 +154,7 @@ CREATE TABLE CoAuthors (
 CREATE TABLE AboutTopics (
     paper_id                     integer     references Papers,
     topic                        varchar(20) references Topics,
-    UNIQUE(paper_id, topic)
+    PRIMARY KEY (paper_id, topic)
 );
 
 
@@ -158,9 +163,9 @@ CREATE TABLE AboutTopics (
 
 -- Associate topics to reviewers
 CREATE TABLE PreferedTopics (
-    email                        varchar(127) references Users,
-    topic                        varchar(127) references Topics,
-    UNIQUE(email, topic)
+    email                        varchar(127) REFERENCES Users,
+    topic                        varchar(127) REFERENCES Topics,
+    PRIMARY KEY (email, topic)
 );
 
 
@@ -169,31 +174,43 @@ CREATE TABLE PreferedTopics (
 
 -- Associate papers to reviewers
 CREATE TABLE PreferedPapers (
-    email                        varchar(127) references Users,
-    paper_id                     integer references Papers,
-    UNIQUE(email, paper_id)
+    email                        varchar(127) REFERENCES Users,
+    paper_id                     integer      REFERENCES Papers,
+    PRIMARY KEY (email, paper_id)
 );
 
 
 
 
 
--- Associate papers to reviewers
+-- ---------------------------------------------------------------------------
+-- ExcludedPapers:
+-- Associate papers to reviewers which they must not see or review.
+-- subsets SELECT email, paper_id FROM Papers WHERE User is reviewer; 
+-- ---------------------------------------------------------------------------
+
 CREATE TABLE ExcludedPapers (
-    email                        varchar(127) references Users,
-    paper_id                     integer references Papers,
-    UNIQUE(email, paper_id)
+    email                        varchar(127) REFERENCES Users,
+    paper_id                     integer      REFERENCES Papers,
+    explenation                  text         NULL,
+    PRIMARY KEY(email, paper_id)
 );
 
 
 
 
 
--- Associate papers to reviewers
+-- ---------------------------------------------------------------------------
+-- DeniedPapers:
+-- Associate papers to reviewers which they do not want to review.  Allow an
+-- optional explenation.
+-- ---------------------------------------------------------------------------
+
 CREATE TABLE DeniedPapers (
-    email                        varchar(127) references Users,
-    paper_id                     integer references Papers,
-    UNIQUE(email, paper_id)
+    email                        varchar(127) REFERENCES Users,
+    paper_id                     integer      REFERENCES Papers,
+    explenation                  text         NULL,
+    PRIMARY KEY(email, paper_id)
 );
 
 
@@ -201,37 +218,73 @@ CREATE TABLE DeniedPapers (
 
 
 -- ---------------------------------------------------------------------------
--- Review reports.
+-- ReviewReports:
+-- Associate a review report of a responsible to each paper.
+-- Additional constraint: A review is finished, if and only if the reviewer
+-- provides a summary, and remarks, and all grades to Criteria (see below).
 -- ---------------------------------------------------------------------------
 
-CREATE TABLE ReviewReport (
-    id                           integer primary key,
-    conference                   varchar(20) references Conferences,
-    paper_id                     integer references Papers,
-    responsible                  varchar(127) references Users,
-    summary                      Text,
-    remarks                      Text,
-    confidential                 Text,
+CREATE TABLE ReviewReports (
+    id                           serial       PRIMARY KEY,
+    conference                   varchar(20)  NOT NULL REFERENCES Conferences,
+    paper_id                     integer      NOT NULL REFERENCES Papers,
+    responsible                  varchar(127) NOT NULL REFERENCES Users,
+    reviewer                     varchar(127) NULL,
+    summary                      text         NULL,
+    remarks                      text         NULL,
+    confidential                 text         NULL,
     UNIQUE(paper_id, responsible)
 );
 
-CREATE TABLE Criterion (
-    name                         varchar(20) primary key,
-    description                  text,
-    conference                   varchar(20) references Conference,
-    max_value                    integer
+
+
+
+-- ---------------------------------------------------------------------------
+-- Criteria:
+-- Associate numeric review criteria to conferences.  max_value is a grade,
+-- which has to be bigger than 0, with values ranging from 0 to max_value
+-- inclusive.
+-- ---------------------------------------------------------------------------
+
+CREATE TABLE Criteria (
+    name                         varchar(20) PRIMARY KEY,
+    conference                   varchar(20) REFERENCES Conference,
+    description                  text        NOT NULL,
+    max_value                    smallint    NOT NULL CHECK (max_value > 0)
 );
+
+
+
+
+
+-- ---------------------------------------------------------------------------
+-- Rating:
+-- Describe a particular rating of a criterion.  grade must be a value from 
+-- the range 0 to its criterion's max_value
+-- An additional constraint of a rating is:  For each criterion and each of
+-- its admissible ratings there exists a row in the table describing it.
+-- ---------------------------------------------------------------------------
 
 CREATE TABLE Rating (
-    criterion                    varchar(20) refereces Criterion primary key,
-    grade                        integer,
-    description                  text,
-    UNIQUE(criterion, grade)
+    criterion                    varchar(20) REFERENCES Criterion,
+    grade                        integer     NOT NULL CHECK (grade >= 0),
+    description                  text        NOT NULL,
+    PRIMARY KEY (criterion, grade)
 );
 
+
+
+
+-- ---------------------------------------------------------------------------
+-- PaperRating:
+-- Associate to each report and criterion a rating.
+-- Additional constraints:  For each review report and each criterion there
+-- is a rating.
+-- ---------------------------------------------------------------------------
+
 CREATE TABLE PaperRating (
-    paper_id                     integer references Papers,
-    criterion                    varchar(20) references Criterion,
-    rating                       integer,
-    UNIQUE(paper_id, criterion)
+    report_id                    integer     REFERENCES ReviewReport,
+    criterion                    varchar(20) REFERENCES Criterion,
+    rating                       integer     NOT NULL CHECK (rating >= 0),
+    PRIMARY KEY (report_id, criterion)
 );
