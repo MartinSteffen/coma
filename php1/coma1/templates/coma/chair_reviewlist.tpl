@@ -25,7 +25,7 @@
     <th class="listheader">Rating</th>
     <th class="listheader">Variance</th>
     <th class="listheader">&nbsp;</th>
-    <th class="listheader">Reviewers</th>
+    <th class="listheader">&nbsp;</th>
     <th class="listheader">Assigned reviewers</th>
    </tr>
    {lines}
