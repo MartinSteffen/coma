@@ -25,13 +25,13 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <ul>
   <li><a href="index.html">Home page</a></li>
   <li>
-  	<form action="#" method="post">
+  	<form action="LoginServlet" method="post">
   	<fieldset>
 				<label for="name">Name</label><br />
-				<input type="text" id="name" class="input-box" />
+				<input type="text" id="email" class="input-box" />
 				<br />
 				<label for="passwd">Password</label><br />
-				<input type="password" id="passwd" class="input-box" />
+				<input type="password" id="password" class="input-box" />
 				<br />
 				<a href="index.html">Forgot your Password?</a>
 				<br />

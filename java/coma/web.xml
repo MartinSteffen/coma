@@ -20,8 +20,8 @@
 	</servlet>
 	-->
     <servlet>
-     <servlet-name>Login</servlet-name>
-     <servlet-class>coma.servlet.servlets.Login</servlet-class>
+     <servlet-name>LoginServlet</servlet-name>
+     <servlet-class>coma.servlet.servlets.LoginServlet</servlet-class>
     </servlet>
     
     <servlet>
@@ -34,6 +34,26 @@
      <servlet-class>coma.servlet.servlets.invite</servlet-class>
     </servlet>
     
+    
+    <servlet>
+     <servlet-name>Index</servlet-name>
+     <servlet-class>coma.servlet.servlets.Index</servlet-class>
+    </servlet>
+    
+    <servlet>
+     <servlet-name>Subscribe</servlet-name>
+     <servlet-class>coma.servlet.servlets.Subscribe</servlet-class>
+    </servlet>
+    
+    <servlet>
+     <servlet-name>Author</servlet-name>
+     <servlet-class>coma.servlet.servlets.Author</servlet-class>
+    </servlet>
+    
+    <servlet>
+     <servlet-name>LogoutServlet</servlet-name>
+     <servlet-class>coma.servlet.servlets.LogoutServlet</servlet-class>
+    </servlet>
    <!--
     <servlet-mapping>
        <servlet-name>default</servlet-name>
@@ -41,8 +61,8 @@
     </servlet-mapping>
     -->
     <servlet-mapping>
-      <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
+      <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
       <servlet-name>chair</servlet-name>
@@ -52,6 +72,28 @@
       <servlet-name>invite</servlet-name>
     <url-pattern>/invite</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/index.html</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>Author</servlet-name>
+    <url-pattern>/Author</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>Subscribe</servlet-name>
+    <url-pattern>/Subscribe</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    
+    
     
     <welcome-file-list>
       <welcome-file>index.html</welcome-file>

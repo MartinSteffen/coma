@@ -43,16 +43,10 @@ public class Service {
         Properties props = new Properties();
         Connection result = null;
         try {
-            //props.load(
-            //	new
-            // FileInputStream("/home/wprguest3/webapps/coma/conf/db.config"));
             String driver = "org.gjt.mm.mysql.Driver";
-            //String url =
-                   //"jdbc:mysql://localhost/coma3?user=wprguest3;password=TevArHorhy";
-            String url = "jdbc:mysql://localhost/coma3";
-
+            String url = "jdbc:mysql://snert/coma3";
             Class.forName(driver);
-            result = DriverManager.getConnection(url,"ziad","TevArHorhy");
+            result = DriverManager.getConnection(url,"wprguest3","TevArHorhy");
         } catch (SQLException e) {
             System.out.println(e.getClass() + e.getMessage().toString());
         } catch (ClassNotFoundException e1) {

@@ -53,10 +53,10 @@ public class InsertServiceImpl extends Service implements InsertService{
         }
         if(ok){
         	String INSERT_QUERY = "INSERT INTO Person "
-        	 	+ "(first_name, last_name, title, affilication,"
+        	 	+ "(first_name, last_name, title, affiliation,"
 				+ "email, phone_number, fax_number, street,"
-				+ "postal_code, city, state, country)"
-				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "postal_code, city, state, country, password)"
+				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	
         	try {
         		conn.setAutoCommit(false);
@@ -66,6 +66,16 @@ public class InsertServiceImpl extends Service implements InsertService{
 				pstmt.setString(++pstmtCount,person.getLast_name());
 				pstmt.setString(++pstmtCount,person.getTitle());
 				pstmt.setString(++pstmtCount,person.getAffiliation());
+				pstmt.setString(++pstmtCount, person.getEmail());
+				pstmt.setString(++pstmtCount, person.getPhone_number());
+				pstmt.setString(++pstmtCount, person.getFax_number());
+				pstmt.setString(++pstmtCount, person.getStreet());
+				pstmt.setString(++pstmtCount, person.getPostal_code());
+				pstmt.setString(++pstmtCount, person.getCity());
+				pstmt.setString(++pstmtCount, person.getState());
+				pstmt.setString(++pstmtCount, person.getCountry());
+				pstmt.setString(++pstmtCount, person.getPassword());
+				
 				int rows = pstmt.executeUpdate();
 				if(rows != 1){
 					conn.rollback();
@@ -76,6 +86,8 @@ public class InsertServiceImpl extends Service implements InsertService{
 				}
 			} catch (SQLException e) {
 				info.append(e.toString());
+				System.out.println(e.toString());
+				
 			}finally{
 				try {
 					if(conn != null){

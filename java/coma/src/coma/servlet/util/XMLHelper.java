@@ -152,6 +152,7 @@ public class XMLHelper {
 		} 
 		catch (Exception e) 
 		{
+			System.out.println(e.toString());
 			e.printStackTrace(out);
 		}
 	}

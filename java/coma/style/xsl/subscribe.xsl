@@ -59,6 +59,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="subscribe/success">
+<h3>
+<xsl:value-of select="."/>
+</h3>
 <h3>You are successfully added to your database!<br/> You are free to login!</h3>
 </xsl:template>
 

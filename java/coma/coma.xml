@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>mv ap	
+<?xml version='1.0' encoding='utf-8'?>
 <Context docBase="/home/ziad/webapps/coma" path="/coma"
 	 debug="99" reloadable="true" crossContext="true">
 	
@@ -31,15 +31,15 @@
     </parameter>
     <parameter>
       <name>url</name>
-      <value>jdbc:mysql://localhost/authority</value>
+      <value>jdbc:mysql://localhost/coma</value>
     </parameter>
     <parameter>
       <name>username</name>
-      <value>coma</value>
+      <value>root</value>
     </parameter>
     <parameter>
       <name>password</name>
-      <value>passwd</value>
+      <value></value>
     </parameter>
     <parameter>
       <name>maxActive</name>

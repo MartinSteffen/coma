@@ -3,6 +3,10 @@ package coma.servlet.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 //import java.sql.Connection;
 //import java.sql.ResultSet;
 //import java.sql.SQLException;
@@ -18,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import javax.xml.transform.stream.StreamSource;
+
+import org.apache.catalina.realm.RealmBase;
 
 //import org.apache.catalina.realm.RealmBase;
 
@@ -38,17 +44,17 @@ public class Login extends HttpServlet {
 	public void init(ServletConfig config) 
 	{
 	    // The DB-Connection will be done in the handling-class
-//		try 
-//		{
-//			Context initCtx = new InitialContext();
-//			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-//			ds = (DataSource) envCtx.lookup("jdbc/coma");
-//			super.init(config);
-//		} 
-//		catch (Exception e) 
-//		{
-//			helper.addError(e.getMessage().toString(), info);
-//		}
+		try 
+		{
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			ds = (DataSource) envCtx.lookup("jdbc/coma");
+			super.init(config);
+		} 
+		catch (Exception e) 
+		{
+			helper.addError(e.getMessage().toString(), info);
+		}
 	}
 	
 	public void doGet(HttpServletRequest request,HttpServletResponse response) 
@@ -131,18 +137,18 @@ public class Login extends HttpServlet {
 			person = new Person(1);
 			role = "chair";
 		}
-		/*try {
+		try {
 			Connection conn = ds.getConnection();
 			String QUERY =
 				"SELECT Passwort FROM users WHERE login = '" + user + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet resSet = stmt.executeQuery(QUERY);
-			//if (resSet.next()) {
-				//String code = resSet.getString("Passwort");
-				//if (RealmBase.Digest(passwd, "SHA").equals(code)) {
-					//isValid = true;
-				//}
-			//}
+			if (resSet.next()) {
+				String code = resSet.getString("Passwort");
+				if (RealmBase.Digest(passwd, "SHA").equals(code)) {
+					isValid = true;
+				}
+			}
 			resSet.close();
 			resSet = null;
 			stmt.close();
@@ -151,9 +157,9 @@ public class Login extends HttpServlet {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			helper.addInfo(e.getMessage(), info);
+			//helper.addInfo(e.getMessage(), info);
 			e.printStackTrace();
-		}*/
+		}
 		return isValid;
 	}
 

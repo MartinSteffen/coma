@@ -16,6 +16,7 @@ import javax.xml.transform.stream.StreamSource;
 
 
 import coma.entities.Person;
+import coma.entities.SearchResult;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.util.EntityCreater;
 import coma.servlet.util.XMLHelper;
@@ -66,8 +67,9 @@ public class Subscribe  extends HttpServlet {
 			try {
 				Person mynewPerson = myCreater.getPerson(request);
 				InsertServiceImpl myInsertservice = new InsertServiceImpl();
-				myInsertservice.insertPerson(mynewPerson);
-				result.append(XMLHelper.tagged("success",""));
+				SearchResult sr = myInsertservice.insertPerson(mynewPerson);
+				
+				result.append(XMLHelper.tagged("success",sr.getInfo()));
 				result.append(mynewPerson.toXML());
 			} catch (IllegalArgumentException e) {
 				result.append(XMLHelper.tagged("failed",""));
