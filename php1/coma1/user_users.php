@@ -53,6 +53,7 @@ if (!empty($objPersons)) {
   foreach ($objPersons as $objPerson) {
     if (($showChairs && $objPerson->hasRole(CHAIR)) || !$showChairs) {
       $strItemAssocs = defaultAssocArray();
+      $strItemAssocs['&popup'] = ''; // no popup here!
       $strItemAssocs['line_no'] = $lineNo;
       $strItemAssocs['user_id'] = encodeText($objPerson->intId);
       $strItemAssocs['name'] = encodeText($objPerson->getName(1));
