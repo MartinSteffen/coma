@@ -17,4 +17,5 @@ public interface DeleteService {
 	public SearchResult deleteRating(int reviewreport_id);
 	public SearchResult deleteTopic(int topic_id);
 	public SearchResult deleteReviewReportByReviewerId(int reviewer_id, int paper_id);
+	public void deleteAllRatingsNReportsByConfID(int conference_id);
 }

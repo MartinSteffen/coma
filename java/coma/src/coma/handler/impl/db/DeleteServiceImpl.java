@@ -95,7 +95,8 @@ public class DeleteServiceImpl extends Service implements DeleteService {
 		SearchCriteria sc = new SearchCriteria();
 		sc.setReviewReport(rep);
 		SearchResult sr = db_read.getReviewReport(sc);
-		rep = ((ReviewReport[])sr.getResultObj())[0];
+		ReviewReport[] reps = (ReviewReport[]) sr.getResultObj();
+		if (reps.length > 0) rep = reps[0];
 		int rep_id = rep.get_reviewer_id();
 		String QUERRY = "DELETE FROM Rating WHERE review_id = "+ rep_id;
 		executeQuery(QUERRY);
@@ -103,4 +104,8 @@ public class DeleteServiceImpl extends Service implements DeleteService {
 		"AND paper_id = "+paper_id;
 		return executeQuery(QUERY);
 	}
+	public void deleteAllRatingsNReportsByConfID(int conference_id){
+		String QUERRY = "";
+	}
+	
 }
