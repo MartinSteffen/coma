@@ -12,7 +12,7 @@
       First name:
     </td>
     <td>
-      <input type="text" name="first_name" size="32" maxlength="127" value="{first_name}">
+      <input type="text" name="first_name" size="48" maxlength="127" value="{first_name}">
     </td>
   </tr>
   <tr>
@@ -20,7 +20,7 @@
       Last name:
     </td>
     <td>
-      <input type="text" name="last_name" size="32" maxlength="127" value="{last_name}"> *
+      <input type="text" name="last_name" size="48" maxlength="127" value="{last_name}"> *
     </td>
   </tr>
   <tr>
@@ -28,7 +28,7 @@
       Email address:
     </td>
     <td>
-      <input type="text" name="email" size="32" maxlength="127" value="{email}"> *
+      <input type="text" name="email" size="48" maxlength="127" value="{email}"> *
     </td>
   </tr>
   <tr>
@@ -36,7 +36,7 @@
       Title:
     </td>
     <td>
-      <input type="text" name="name_title" size="16" maxlength="32" value="{name_title}">
+      <input type="text" name="name_title" size="32" maxlength="32" value="{name_title}">
     </td>
   </tr>
   <tr>
@@ -44,7 +44,7 @@
       Affiliation:
     </td>
     <td>
-      <input type="text" name="affiliation" size="16" maxlength="20" value="{affiliation}">
+      <input type="text" name="affiliation" size="48" maxlength="48" value="{affiliation}">
     </td>
   </tr>
   <tr>
@@ -52,7 +52,7 @@
       Phone number:
     </td>
     <td>
-      <input type="text" name="phone" size="16" maxlength="20" value="{phone}">
+      <input type="text" name="phone" size="32" maxlength="32" value="{phone}">
     </td>
   </tr>
   <tr>
@@ -60,7 +60,7 @@
       Fax number:
     </td>
     <td>
-      <input type="text" name="fax" size="16" maxlength="20" value="{fax}">
+      <input type="text" name="fax" size="32" maxlength="32" value="{fax}">
     </td>
   </tr>
   <tr>
@@ -68,7 +68,7 @@
       Street:
     </td>
     <td>
-      <input type="text" name="street" size="32" maxlength="127" value="{street}">
+      <input type="text" name="street" size="48" maxlength="127" value="{street}">
     </td>
   </tr>
   <tr>
@@ -76,7 +76,7 @@
       Postal code:
     </td>
     <td>
-      <input type="text" name="postalcode" size="16" maxlength="20" value="{postalcode}">
+      <input type="text" name="postalcode" size="20" maxlength="20" value="{postalcode}">
     </td>
   </tr>
   <tr>
@@ -84,7 +84,7 @@
       City:
     </td>
     <td>
-      <input type="text" name="city" size="32" maxlength="127" value="{city}">
+      <input type="text" name="city" size="48" maxlength="127" value="{city}">
     </td>
   </tr>
   <tr>
@@ -92,7 +92,7 @@
       State:
     </td>
     <td>
-      <input type="text" name="state" size="32" maxlength="127" value="{state}">
+      <input type="text" name="state" size="48" maxlength="127" value="{state}">
     </td>
   </tr>
   <tr>
@@ -100,7 +100,7 @@
       Country:
     </td>
     <td>
-      <input type="text" name="country" size="32" maxlength="127" value="{country}">
+      <input type="text" name="country" size="48" maxlength="127" value="{country}">
     </td>
   </tr>
   <tr>

@@ -15,7 +15,7 @@
       Title:
     </td>
     <td>
-      <input type="text" name="title" size="32" maxlength="127" value="{title}"> *
+      <input type="text" name="title" size="48" maxlength="127" value="{title}"> *
     </td>
   </tr>
   <tr>
@@ -42,7 +42,7 @@
         {coauthor_lines}
         <tr class="formlistitem">
           <td class="formlistitem">
-            <input type="text" name="coauthor" size="32" maxlength="127" value="">
+            <input type="text" name="coauthor" size="48" maxlength="127" value="">
           </td>
           <td class="formlistitem">
             <input type="submit" name="add_coauthor" value="add" class="smallbutton">
