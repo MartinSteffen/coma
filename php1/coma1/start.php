@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: login.php 545 2004-12-08 00:28:45Z waller $
+ * @version $Id$
  * @package coma1
  * @subpackage core
  */

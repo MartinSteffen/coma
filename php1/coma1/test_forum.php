@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: test_dbaccess.php 412 2004-12-04 20:25:19Z scherzer $
+ * @version $Id$
  * @package coma1
  * @subpackage Testing
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: chair_konf.php 618 2004-12-10 12:18:41Z waller $
+ * @version $Id$
  * @package coma1
  * @subpackage core
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: class.review.inc.php 164 2004-11-25 08:10:39Z waller $
+ * @version $Id$
  * @package coma1
  */
 /***/
