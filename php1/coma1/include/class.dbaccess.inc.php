@@ -1374,23 +1374,41 @@ nur fuer detaillierte?
     if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
-    $s = "UPDATE  Conference".
-        " SET     name = '$objConferenceDetailed->strName',".
-        "         homepage = '$objConferenceDetailed->strHomepage',".
-        "         description = '$objConferenceDetailed->strDescription',".
-        "         abstract_submission_deadline = '$objConferenceDetailed->strAbstractDeadline',".
-        "         paper_submission_deadline = '$objConferenceDetailed->strPaperDeadline',".
-        "         review_deadline = '$objConferenceDetailed->strReviewDeadline',".
-        "         final_version_deadline = '$objConferenceDetailed->strFinalDeadline',".
-        "         notification = '$objConferenceDetailed->strNotification',".
-        "         conference_start = '$objConferenceDetailed->strStart',".
-        "         conference_end = '$objConferenceDetailed->strEnd',".
-        "         min_reviews_per_paper = '$objConferenceDetailed->intMinReviewsPerPaper'".
-        " WHERE   id = '$objConferenceDetailed->intId'";
+    $s = sprintf("UPDATE   Conference".
+                 " SET     name = '%s', homepage = '%s', description = '%s',".
+                 "         abstract_submission_deadline = '%s', paper_submission_deadline = '%s',".
+                 "         review_deadline = '%s', final_version_deadline = '%s',".
+                 "         notification = '%s', conference_start = '%s', conference_end = '%s',".
+                 "         min_reviews_per_paper = '%d'".
+                 " WHERE   id = '%d'",
+                           $this->s2db($objConferenceDetailed->strName),
+                           $this->s2db($objConferenceDetailed->strHomepage),
+                           $this->s2db($objConferenceDetailed->strDescription),
+                           $this->s2db($objConferenceDetailed->strAbstractDeadline),
+                           $this->s2db($objConferenceDetailed->strPaperDeadline),
+                           $this->s2db($objConferenceDetailed->strReviewDeadline),
+                           $this->s2db($objConferenceDetailed->strFinalDeadline),
+                           $this->s2db($objConferenceDetailed->strNotification),
+                           $this->s2db($objConferenceDetailed->strStart),
+                           $this->s2db($objConferenceDetailed->strEnd),
+                           $this->s2db($objConferenceDetailed->intMinReviewsPerPaper),
+                           $this->s2db($objConferenceDetailed->intId);
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
     }
+    $s = sprintf("UPDATE   ConferenceConfig".
+                 " SET     default_reviews_per_paper = '%d', min_number_of_papers = '%d',".
+                 "         max_number_of_papers = '%d', critical_variance = '%f'".
+                 "         auto_activate_account = '%d', auto_open_paper_forum = '%d',".
+                 "         auto_add_reviewers = '%d', number_of_auto_add_reviewers = '%d'".
+                 " WHERE   id = '%d'",
+                           $this->s2db($objConferenceDetailed->intDefaultReviewsPerPaper),
+                           $this->s2db($objConferenceDetailed->intMinNumberOfPapers),
+                           $this->s2db($objConferenceDetailed->intMaxNumberOfPapers),
+                           $this->s2db($objConferenceDetailed->flt),
+                 
+    
     $s = "UPDATE  ConferenceConfig".
         " SET     default_reviews_per_paper = '$objConferenceDetailed->intDefaultReviewsPerPaper',".
         "         min_number_of_papers = 'objConferenceDetailed->intMinNumberOfPapers',".
@@ -1436,37 +1454,24 @@ nur fuer detaillierte?
     if (!($this->is_a($objPersonDetailed, 'PersonDetailed'))) {
       return $this->success(false);
     }
-    /*$s = "UPDATE  Person".
-        " SET     first_name = '$objPersonDetailed->strFirstName',".
-        "         last_name = '$objPersonDetailed->strLastName',".
-        "         email = '$objPersonDetailed->strEmail',".
-        "         title = '$objPersonDetailed->strTitle',".
-        "         affiliation = '$objPersonDetailed->strAffiliation',".
-        "         street = '$objPersonDetailed->strStreet',".
-        "         city = '$objPersonDetailed->strCity',".
-        "         postal_code = '$objPersonDetailed->strPostalCode',".
-        "         state = '$objPersonDetailed->strState',".
-        "         country = '$objPersonDetailed->strCountry',".
-        "         phone_number = '$objPersonDetailed->strPhone',".
-        "         fax_number = '$objPersonDetailed->strFax'".
-        " WHERE   id = '$objPersonDetailed->intId'";*/
-    $s = sprintf("UPDATE  Person".
-                " SET     first_name = '%s', last_name = '%s', email = '%s', title = '%s',".
-                "         affiliation = '%s', street = '%s', city = '%s', postal_code = '%s',".
-                "         state = '%s', country = '%s', phone_number = '%s', fax_number = '%s'".
-                " WHERE   id = '%d'", $this->s2db($objPersonDetailed->strFirstName),
-                                      $this->s2db($objPersonDetailed->strLastName),
-                                      $this->s2db($objPersonDetailed->strEmail),
-                                      $this->s2db($objPersonDetailed->strTitle),
-                                      $this->s2db($objPersonDetailed->strAffiliation),
-                                      $this->s2db($objPersonDetailed->strStreet),
-                                      $this->s2db($objPersonDetailed->strCity),
-                                      $this->s2db($objPersonDetailed->strPostalCode),
-                                      $this->s2db($objPersonDetailed->strState),
-                                      $this->s2db($objPersonDetailed->strCountry),
-                                      $this->s2db($objPersonDetailed->strPhone),
-                                      $this->s2db($objPersonDetailed->strFax),
-                                      $this->s2db($objPersonDetailed->intId));
+    $s = sprintf("UPDATE   Person".
+                 " SET     first_name = '%s', last_name = '%s', email = '%s', title = '%s',".
+                 "         affiliation = '%s', street = '%s', city = '%s', postal_code = '%s',".
+                 "         state = '%s', country = '%s', phone_number = '%s', fax_number = '%s'".
+                 " WHERE   id = '%d'",
+                           $this->s2db($objPersonDetailed->strFirstName),
+                           $this->s2db($objPersonDetailed->strLastName),
+                           $this->s2db($objPersonDetailed->strEmail),
+                           $this->s2db($objPersonDetailed->strTitle),
+                           $this->s2db($objPersonDetailed->strAffiliation),
+                           $this->s2db($objPersonDetailed->strStreet),
+                           $this->s2db($objPersonDetailed->strCity),
+                           $this->s2db($objPersonDetailed->strPostalCode),
+                           $this->s2db($objPersonDetailed->strState),
+                           $this->s2db($objPersonDetailed->strCountry),
+                           $this->s2db($objPersonDetailed->strPhone),
+                           $this->s2db($objPersonDetailed->strFax),
+                           $this->s2db($objPersonDetailed->intId));
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());

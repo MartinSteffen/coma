@@ -27,12 +27,10 @@ function bit($b) {
 
 echo('<br>');
 
-$v = '%d';
-$w = "[$x\$v]";
 $s = sprintf("String: %s, Integer: %d, Float: %f",
-             $myDBAccess->s2db($w),
-             $myDBAccess->s2db(35),
-             $myDBAccess->s2db(4.2464));
+             $myDBAccess->s2db('STRING'),
+             $myDBAccess->s2db('35'),
+             $myDBAccess->s2db('4.2464'));
 echo($s);
 
 /*$p = $myDBAccess->getPersonDetailed(1);
