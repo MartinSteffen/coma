@@ -13,10 +13,12 @@ if (!defined('IN_COMA1')) {
 
 class Template {
 
-  var template_ = '';
-  var errString_ = '';
+  var template_;
+  var errString_;
 
   function Template() {
+    template = '';
+    errString = '';
     return true;
   }
   
