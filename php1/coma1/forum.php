@@ -345,7 +345,7 @@ function generatePostMethodArray($strArrayPostvars){
   $strArrayContentAssocs['forumtypes'] = '';
 
   //evtl. neues Forum erzeugen
-  if ((!empty($_POST['title'])) (!empty($_POST['type'])) (!empty($_POST['createforum']))){
+  if ((!empty($_POST['title'])) && (!empty($_POST['type'])) && (!empty($_POST['createforum']))){
     if (empty($_POST['paperid'])){
       $pid = false;
     }
