@@ -105,7 +105,9 @@ foreach($TPL as $key => $value) {
 			?>
 <br>
 <fieldset>
-<legend class="text"><font class="textBold">Conference: </font><? echo $row['conference_name']; ?> -- <font class="textBold" style=color:red>Paper submission deadline is exceeded for this conference.</font></legend>
+<legend class="text"><font class="textBold">Conference: </font><? echo $row['conference_name']; ?></legend>
+<p align="left"><font class="textBold" style=color:red>Paper submission deadline is exceeded for this conference.</font>
+</p>
 <br>
 			<?
 			foreach ($row as $v) {
