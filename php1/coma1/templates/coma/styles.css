@@ -486,8 +486,8 @@ span.attitude-exclude  { font-weight: bold;   color: #FF2600; }
 
 span.diststatus-0   { font-weight: bold; color: #000000; } /* assigned */
 span.diststatus-1 { font-weight: normal; color: #000000; } /* suggested, kommt nicht vor */
-span.diststatus-2   { font-weight: normal;   color: #0000A0; } /* neutral */
-span.diststatus-3   { font-weight: normal;   color: #A0A000; } /* prefers topic */
-span.diststatus-4   { font-weight: normal;   color: #00A000; } /* prefers paper */
+span.diststatus-2   { font-weight: bold;   color: #0000A0; } /* neutral */
+span.diststatus-3   { font-weight: bold;   color: #A0A000; } /* prefers topic */
+span.diststatus-4   { font-weight: bold;   color: #00A000; } /* prefers paper */
 span.diststatus-5   { font-weight: normal;   color: #A00000; } /* denies paper, kommt nicht vor */
 span.diststatus-6   { font-weight: normal;   color: #FF0000; } /* excluded paper, kommt nicht vor */
