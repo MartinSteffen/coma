@@ -114,6 +114,7 @@ else {
 
 $content = new Template(TPLPATH.'reviewer_editreview.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['targetpage']   = "reviewer_createreview.php"
 $strContentAssocs['message'] = '';
 $strContentAssocs['review_id']    = encodeText(0);
 $strContentAssocs['paper_id']     = encodeText($objPaper->intId);
