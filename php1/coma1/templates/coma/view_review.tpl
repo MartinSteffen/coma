@@ -1,5 +1,5 @@
 
-{if9 <p class="message">{message}</p>}
+{if9<p class="message">{message}</p>}
 
 <table class="viewtable">
   <tr>
