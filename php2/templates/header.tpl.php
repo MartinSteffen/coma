@@ -270,6 +270,62 @@ function toggle(id)
           </td>
 		  <? /* END MENU */
 		  	}
+			else
+			{
+			?>
+			          <td width="271" align="left" valign="top">
+            <div align="center">
+              <table width="226" border="0" cellspacing="1" cellpadding="5" bgcolor="#000000" height="78">
+                <tr>
+                  <td bgcolor="#6699FF" height="29"><b><font face="Verdana, Arial, Helvetica, sans-serif">ANNOUNCEMENT</font></b></td>
+                </tr>
+                <tr>
+                  <td bgcolor="#FFFFFF" height="31">
+                    <table width="239" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td class="menus">&nbsp;</td>
+                      </tr>
+		      <?
+/* ---------------------------------------------------------------------------------------------------------------------------------------- */
+			?>
+                      <tr>
+                        <td class="menus"><a href="index.php?m=author" class="menus">call for papers</a></td>
+                      </tr>
+		      <?
+/* ------------------------------------------------------------ MENU FOR CALL FOR PAPERS -------------------------------------------------- */
+			$conf = get_cfp();
+			foreach ($conf as $value) {
+				?>
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+						    <td class="menus"><a href="index.php?m=cfp&a=view&s=view&cid=<? echo $value['id']; ?>" class="menus"><? echo $value['name']; ?></a></td>
+						    </tr>
+						  </table>
+					    </td>
+					  </tr>
+					  
+	            		<?
+				}
+/* ---------------------------------------------------------------------------------------------------------------------------------------- */
+			    ?>
+                      <tr>
+                        <td class="menus">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="menus"><a href="index.php?m=forum" class="menus">Forum</a></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+	  		<?
+			}
+		   /* END MENU */
 		  ?>
           <td width="100%" valign="top">
             <div align="center">
