@@ -208,11 +208,8 @@ class DBAccess extends ErrorHandling {
    * @todo Statische Funktion, falls moeglich
    */
   function stringToDatabase($strSql) {
-    if(version_compare(phpversion(),"4.3.0")=="-1") {
-      $strSql = mysql_escape_string($string);
-    } else {
-      $strSql = mysql_real_escape_string($string);
-    }
+    // muss hier nochmehr? PHP4.3!!!
+    $strSql = mysql_real_escape_string($strSql);
     return $this->success($strSql);
   }
 

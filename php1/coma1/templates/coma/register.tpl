@@ -13,7 +13,7 @@
       First name:
     </td>
     <td>
-      <input type="text" name="first_name" size="32" maxlength="127" value="{first_name}" />
+      <input type="text" name="first_name" size="32" maxlength="127" value="{first_name}">
     </td>
   </tr>
   <tr>
@@ -21,7 +21,7 @@
       Last name:
     </td>
     <td>
-      <input type="text" name="last_name" size="32" maxlength="127" value="{last_name}"/ > *
+      <input type="text" name="last_name" size="32" maxlength="127" value="{last_name}"> *
     </td>
   </tr>
   <tr>
@@ -29,7 +29,7 @@
       Email address:
     </td>
     <td>
-      <input type="text" name="email" size="32" maxlength="127" value="{email}"/ > *
+      <input type="text" name="email" size="32" maxlength="127" value="{email}"> *
     </td>
   </tr>
   <tr>
@@ -37,7 +37,7 @@
       Title:
     </td>
     <td>
-      <input type="text" name="name_title" size="16" maxlength="32" value="{name_title}"/ >
+      <input type="text" name="name_title" size="16" maxlength="32" value="{name_title}">
     </td>
   </tr>
   <tr>
@@ -45,7 +45,7 @@
       Affiliation:
     </td>
     <td>
-      <input type="text" name="affiliation" size="16" maxlength="20" value="{affiliation}"/ >
+      <input type="text" name="affiliation" size="16" maxlength="20" value="{affiliation}">
     </td>
   </tr>
   <tr>
@@ -53,7 +53,7 @@
       Phone number:
     </td>
     <td>
-      <input type="text" name="phone" size="16" maxlength="20" value="{phone}"/ >
+      <input type="text" name="phone" size="16" maxlength="20" value="{phone}">
     </td>
   </tr>
   <tr>
@@ -61,7 +61,7 @@
       Fax number:
     </td>
     <td>
-      <input type="text" name="fax" size="16" maxlength="20" value="{fax}"/ >
+      <input type="text" name="fax" size="16" maxlength="20" value="{fax}">
     </td>
   </tr>
   <tr>
@@ -69,7 +69,7 @@
       Street:
     </td>
     <td>
-      <input type="text" name="street" size="32" maxlength="127" value="{street}"/ >
+      <input type="text" name="street" size="32" maxlength="127" value="{street}">
     </td>
   </tr>
   <tr>
@@ -77,7 +77,7 @@
       Postal code:
     </td>
     <td>
-      <input type="text" name="postalcode" size="16" maxlength="20" value="{postalcode}"/ >
+      <input type="text" name="postalcode" size="16" maxlength="20" value="{postalcode}">
     </td>
   </tr>
   <tr>
@@ -85,7 +85,7 @@
       City:
     </td>
     <td>
-      <input type="text" name="city" size="32" maxlength="127" value="{city}"/ >
+      <input type="text" name="city" size="32" maxlength="127" value="{city}">
     </td>
   </tr>
   <tr>
@@ -93,7 +93,7 @@
       State:
     </td>
     <td>
-      <input type="text" name="state" size="32" maxlength="127" value="{state}"/ >
+      <input type="text" name="state" size="32" maxlength="127" value="{state}">
     </td>
   </tr>
   <tr>
@@ -101,7 +101,7 @@
       Country:
     </td>
     <td>
-      <input type="text" name="country" size="32" maxlength="127" value="{country}"/ >
+      <input type="text" name="country" size="32" maxlength="127" value="{country}">
     </td>
   </tr>
   <tr>
@@ -109,7 +109,7 @@
       Password:
     </td>
     <td>
-      <input type="password" name="user_password" size="32" maxlength="127" /> *
+      <input type="password" name="user_password" size="32" maxlength="127"> *
     </td>
   </tr>
   <tr>
@@ -117,17 +117,13 @@
       Repeat password:
     </td>
     <td>
-      <input type="password" name="password_repeat" size="32" maxlength="127" /> *
+      <input type="password" name="password_repeat" size="32" maxlength="127"> *
     </td>
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="Register" class="button" />
+      <input type="submit" name="submit" value="Register" class="button">
     </td>
   </tr>
 </table>
-</form>
-
-<form action="{basepath}login.php{?SID}" method="post">
-  <input type="submit" name="cancel" value="Cancel" class="button" />
 </form>
