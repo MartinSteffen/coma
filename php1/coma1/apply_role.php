@@ -42,10 +42,12 @@ else if (isset($_POST['retreat'])) {
 }
 // Rollen eintragen bzw. Rollenbewerbung eintragen
 else {
+  // Teilnehmer muessen nie bestaetigt werden
   if ($_POST['roletype'] == PARTICIPANT) {
     $blnAccepted = true;
   }
-  else if ($_POST['roletype'] == CHAIR) {
+  // Chairs und Reviewer muessen immer bestaetigt werden
+  else if ($_POST['roletype'] == CHAIR || $_POST['roletype'] == REVIEWER) {
     $blnAccepted = false;
   }
   else {

@@ -48,7 +48,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      Activate accounts automatically
+      Accept author accounts automatically
       <input type="checkbox" name="auto_actaccount" value="1"{if2 checked}>
     </td>
   </tr>
