@@ -17,7 +17,7 @@
   </tr>
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}" colspan="5">
-      <form action="{basepath}review_editreview.php{?SID}" method="post" accept-charset="UTF-8">        
+      <form action="{basepath}reviewer_editreview.php{?SID}" method="post" accept-charset="UTF-8">        
         <input type="hidden" name="reviewid" value="{review_id}">
         <input type="submit" name="submit" value="Edit review" class="button">
         <input type="submit" name="paper_details" value="See paper details" class="button">
