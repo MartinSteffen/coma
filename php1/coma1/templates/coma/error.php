@@ -74,6 +74,8 @@ elseif (SID != '') {
     <p>You have the following options:</p>
     <ul>
 <?php
+global $popup;
+var_dump($popup);
 if (isset($popup) && ($popup)) {
   echo '      <li>Try again later and <a href="javascript:close()" class="link">close this page</a>!';
 }
