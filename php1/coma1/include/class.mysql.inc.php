@@ -16,9 +16,10 @@ if (!defined('IN_COMA1')) {
  * sowie einfache Fehlerbehandlungsroutinen
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
- * @copyright Copyright &copy; 2004, Jan Waller
+ * @copyright Copyright (c) 2004, Jan Waller
  * @package coma1
  * @subpackage DBAccess
+ * @access protected
  *
  */
 class MySql {
@@ -85,6 +86,7 @@ class MySql {
    * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
+   * @access public
    *
    */
   function select($sql='') {
@@ -122,6 +124,7 @@ class MySql {
    * @return int|false Die id des letzten auto_increment Wertes oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
+   * @access public
    *
    */
   function insert($sql = '') {
@@ -150,6 +153,7 @@ class MySql {
    * @param string $text Eine optionale Angabe einer Fehlerursache
    * @return false Es wird immer <b>false</b> zurueck gegeben
    * @see getLastError()
+   * @access protected
    *
    */
   function error($text='') {
@@ -167,6 +171,7 @@ class MySql {
    * 
    * @return string Die letzte Fehlermeldung
    * @see error()
+   * @access public
    *
    */
   function getLastError() {
