@@ -39,9 +39,6 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
-//global $intRoles;
-//global $strRoles;
-
 $content = new Template(TPLPATH.'user_userlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['targetpage'] = 'user_users.php';
@@ -55,7 +52,7 @@ if (!empty($objPersons)) {
     if (($showChairs && $objPerson->hasRole(CHAIR)) || !$showChairs) {
       $strItemAssocs = defaultAssocArray();
       $strItemAssocs['line_no'] = $lineNo;
-      $strItemAssocs['user_id'] = $objPerson->intId;    
+      $strItemAssocs['user_id'] = encodeText($objPerson->intId);
       $strItemAssocs['name'] = encodeText($objPerson->getName(1));
       $strItemAssocs['email'] = encodeText($objPerson->strEmail);
       $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
@@ -65,7 +62,7 @@ if (!empty($objPersons)) {
           if (!empty($strItemAssocs['roles'])) {
             $strItemAssocs['roles'] .= ', ';
           }
-          $strItemAssocs['roles'] .= $strRoles[$intRoles[$i]];
+          $strItemAssocs['roles'] .= encodeText($strRoles[$intRoles[$i]]);
         }
       }
       if ($objPerson->hasRole(REVIEWER)) {
