@@ -60,10 +60,10 @@ class Distribution extends ErrorHandling {
    * @author Falk, Tom (20.01.05)
    */
   function getDistribution($intConferenceId) {
-    define('ASSIGN', 1);
-    define('WANT', 2);
-    define('DENY', 4);
-    define('EXCLUDE', 8);
+    define('ASSIGN', 0);
+    define('WANT', 1);
+    define('DENY', 2);
+    define('EXCLUDE', 4);
     
     if (empty($intConferenceId)) {
       return $this->success(false);
