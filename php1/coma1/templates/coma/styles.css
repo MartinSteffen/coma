@@ -430,7 +430,7 @@ table.list
   padding: 1px 8px;
   margin: 1px;
   color: #FF2600;
-  background-color: #FFF0E0;
+  background-color: #FFE0E0;
 }
 .listitem-alert-2
 {
@@ -439,7 +439,7 @@ table.list
   padding: 1px 8px;
   margin: 0px;
   color: #FF2600;
-  background-color: #FAF0E0;
+  background-color: #FAC8C8;
 }
 
 a.list:link
