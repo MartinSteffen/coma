@@ -57,7 +57,7 @@ class PersonDetailed extends Person {
       $strAddress .= ', ';
     }
     $strAddress .= $this->strPostalCode;
-    if (!empty($this->strPostalCode) && !empty($this->strCity))) {
+    if (!empty($this->strPostalCode) && !empty($this->strCity)) {
       $strAddress .= ' ';
     }
     $strAddress .= $this->strCity;
@@ -66,7 +66,7 @@ class PersonDetailed extends Person {
       $strAddress .= '<br>';
     }
     $strAddress .= $this->strState;
-    if (!empty($this->strState) && !empty($this->strCountry))) {
+    if (!empty($this->strState) && !empty($this->strCountry)) {
       $strAddress .= ', ';
     }
     $strAddress .= $this->strCountry;
