@@ -155,14 +155,14 @@ if (isset($_POST['action'])) {
                                            encodeText($_POST['auto_numreviewer']),                                           
                                            $strTopics, $strCriterions, $strCritDescripts,
                                            $strCritMaxVals, $strCritWeights);                                           
-      if (!empty($result)) {
-        // Erfolg (also anderes Template)
-        $content = new Template(TPLPATH.'confirm_conference.tpl');
-      }
-      else if ($myDBAccess->failed()) {
+      if ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error during creating conference.', $myDBAccess->getLastError());
       }
+      else {
+        // Erfolg (also anderes Template)
+        $content = new Template(TPLPATH.'confirm_conference.tpl');
+      }      
     }
   }
 }
