@@ -64,8 +64,8 @@ ini_set('display_startup_errors', '1'); // später 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
-echo dirname(__FILE__) . PATH_SEPARATOR . '..' . PATH_SEPARATOR;
-$ServerPathTranslated = realpath(dirname(__FILE__) . PATH_SEPARATOR . '..' . PATH_SEPARATOR);
+echo dirname(__FILE__) . '/../';
+$ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
 echo $ServerPathTranslated;
 
 // PFAD - Konstanten
