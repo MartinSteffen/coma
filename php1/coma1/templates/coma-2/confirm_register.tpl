@@ -59,7 +59,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message">
+<p class="message-okay">
   User was successfully registered! Please login on
   <a href="{basepath}index.php?{SID}">start page</a> with your Email address as Username!
 </p>
