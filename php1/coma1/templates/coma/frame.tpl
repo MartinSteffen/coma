@@ -63,7 +63,7 @@
   <td style="background-image:url({path}images/menue.gif)" height="25">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" height="25">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" width="50" align="center">
-   <a href="#top"><img src="{path}images/top.gif" width="15" height="15" border="0" alt="Top"></a>
+   <a href="#top"><img src="{path}images/top.gif" width="24" height="12" border="0" alt="top"></a>
   </td>
  </tr>
  <tr>
