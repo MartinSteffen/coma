@@ -37,10 +37,9 @@
   You have to login in order to access information that is relevant to you.<br>
   If you have not registered yet, please register below:<br>
 </p>
-  <form action="{basepath}register.php?{SID}" method="post">
-    <input type="submit" name="submit" value="Register" class="button" />
 
-  </form>
-
+<form action="{basepath}register.php?{SID}" method="post">
+  <input type="submit" name="submit" value="Register" class="button" />
+</form>
 
 <p>&nbsp;</p>
