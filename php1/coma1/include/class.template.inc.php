@@ -17,7 +17,7 @@ class Template {
   var $assocArray = array();
 
   function Template($filename) {
-    return readTemplate($filename);
+    return $this->readTemplate($filename);
   }
   
   function readTemplate($filename) {

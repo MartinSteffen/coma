@@ -1,13 +1,15 @@
 <?php
+
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-
 /**
  * simple Klasse zum Zugriff auf die MySQL Datenbank
  *
- * $Id$
+ * @author  Jan Waller <jwa@informatik.uni-kiel.de>
+ * @version $Id$
+ * @package coma1
  *
  */
 class MySql {
@@ -40,7 +42,7 @@ class MySql {
   }
 
   function select( $sql='' ) {
-    if (empty($sql)) { 
+    if (empty($sql)) {
       return false;
     }
     if (!eregi("^select",$sql)) {
@@ -65,7 +67,7 @@ class MySql {
   }
 
   function insert($sql = '') {
-    if (empty($sql)) { 
+    if (empty($sql)) {
       return false;
     }
     if (!eregi("^insert",$sql)) {
@@ -81,14 +83,14 @@ class MySql {
     $results = mysql_insert_id();
     return $results;
   }
-  
+
   function error($text) {
     $no = mysql_errno();
     $msg = mysql_error();
     $this->errString = "[$text] ( $no : $msg )";
     return false;
   }
-  
+
   function getLastError() {
     $errString = $this->errString;
     $this->errString = '';
