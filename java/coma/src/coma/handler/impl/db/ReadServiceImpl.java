@@ -9,8 +9,10 @@ import java.util.LinkedList;
 import org.apache.log4j.Category;
 
 import coma.entities.Conference;
+import coma.entities.Criterion;
 import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
@@ -94,8 +96,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setString(++pstmtCounter, p.getFirst_name());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList<Person> ll = new LinkedList<Person>(); 
-		      // ^^^ FIXED: gave [unchecked] warning. Ulrich
+                    LinkedList ll = new LinkedList(); 
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -108,7 +109,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     Person[] persons = new Person[ll.size()];
                     for (int i = 0; i < persons.length; i++) {
-                        persons[i] = ll.get(i);
+                        persons[i] = (Person)ll.get(i);
                     }
                     result.setResultObj(persons);
                 } else {
@@ -165,8 +166,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setInt(++pstmtCounter, c.getId());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList<Conference> ll = new LinkedList<Conference>();
-		    // ^^^ FIXED: gave [unchecked] warning. Ulrich
+                    LinkedList  ll = new LinkedList();
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -179,7 +179,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     Conference[] conference = new Conference[ll.size()];
                     for (int i = 0; i < conference.length; i++) {
-                        conference[i] = ll.get(i);
+                        conference[i] = (Conference)ll.get(i);
                     }
                     result.setResultObj(conference);
                 } else {
@@ -276,8 +276,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setInt(++pstmtCounter, p.getState());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList<Paper> ll = new LinkedList<Paper>();
-		      // ^^^ FIXED: gave [unchecked] warning. Ulrich
+                    LinkedList ll = new LinkedList();
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -290,7 +289,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     Paper[] papers = new Paper[ll.size()];
                     for (int i = 0; i < papers.length; i++) {
-                        papers[i] = ll.get(i);
+                        papers[i] = (Paper)ll.get(i);
                     }
                     result.setResultObj(papers);
                 } else {
@@ -374,8 +373,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                         pstmt.setInt(++pstmtCounter, report.getReviewerId());
                     }
                     ResultSet resSet = pstmt.executeQuery();
-                    LinkedList<ReviewReport> ll = new LinkedList<ReviewReport>();
-		      // ^^^ FIXED: gave [unchecked] warning. Ulrich
+                    LinkedList ll = new LinkedList();
                     EntityCreater eCreater = new EntityCreater();
 
                     while (resSet.next()) {
@@ -388,7 +386,7 @@ public class ReadServiceImpl extends Service implements ReadService {
                     pstmt = null;
                     ReviewReport[] reports = new ReviewReport[ll.size()];
                     for (int i = 0; i < reports.length; i++) {
-                        reports[i] = ll.get(i);
+                        reports[i] = (ReviewReport)ll.get(i);
                     }
                     result.setResultObj(reports);
                 } else {
@@ -413,12 +411,163 @@ public class ReadServiceImpl extends Service implements ReadService {
     }
 
 	    public SearchResult getRating(SearchCriteria sc){
-        
-        return null;
+	    	 StringBuffer info = new StringBuffer();
+	         SearchResult result = new SearchResult();
+	         Rating rating = sc.getRating();
+	         boolean ok = true;
+	         Connection conn = null;
+
+	         if (rating == null) {
+	             info.append("rating must not be null\n");
+	             ok = false;
+	         }
+	         String QUERY = "SELECT * FROM Rating " + " WHERE ";
+
+	         boolean reportIdFlag = false;
+	         boolean criterionIdFlag = false;
+	         if (rating.getReviewReportId() >= 0) {
+	             QUERY += " review_id = ? ";
+	             reportIdFlag = true;
+	         } 
+	         if(rating.getCriterionId() >= 0){
+	         	if(reportIdFlag){
+	         		QUERY += " AND ";
+	         	}
+	         	QUERY += " criterion_id = ? ";
+	         }
+	         if (!(reportIdFlag || criterionIdFlag)) {
+	             info.append("No search critera was specified\n");
+	             ok = false;
+	         }
+	         if (ok) {
+	             try {
+
+	                 conn = dataSource.getConnection();
+	                 if (conn != null) {
+	                     PreparedStatement pstmt = conn.prepareStatement(QUERY);
+	                     int pstmtCounter = 0;
+	                     if (reportIdFlag) {
+	                         pstmt.setInt(++pstmtCounter, rating.getReviewReportId());
+	                     }
+	                     if (criterionIdFlag) {
+	                         pstmt.setInt(++pstmtCounter, rating.getCriterionId());
+	                     }
+	                     ResultSet resSet = pstmt.executeQuery();
+	                     LinkedList ll = new LinkedList();
+	                     EntityCreater eCreater = new EntityCreater();
+
+	                     while (resSet.next()) {
+	                         Rating rat = eCreater.getRating(resSet);
+	                         ll.add(rat);
+	                     }
+	                     resSet.close();
+	                     resSet = null;
+	                     pstmt.close();
+	                     pstmt = null;
+	                     Rating[] ratings = new Rating[ll.size()];
+	                     for (int i = 0; i < ratings.length; i++) {
+	                         ratings[i] = (Rating)ll.get(i);
+	                     }
+	                     result.setResultObj(ratings);
+	                 } else {
+	                     info.append("ERROR: coma could not establish a "
+	                             + "connection to the database\n");
+	                 }
+	             } catch (SQLException e) {
+	                 info.append("ERROR: " + e.toString() + "\n");
+	             } finally {
+	                 if (conn != null) {
+	                     try {
+	                         conn.close();
+	                         conn = null;
+	                     } catch (SQLException e1) {
+	                         System.out.println(e1.toString());
+	                     }
+	                 }
+	             }
+	         }
+	         result.setInfo(info.toString());
+	         return result;
     }
     public SearchResult getCriterion(SearchCriteria sc){
         
-        return null;
+    	 StringBuffer info = new StringBuffer();
+         SearchResult result = new SearchResult();
+         Criterion criterion = sc.getCriterion();
+         boolean ok = true;
+         Connection conn = null;
+
+         if (criterion == null) {
+             info.append("Crtiterion must not be null\n");
+             ok = false;
+         }
+         String QUERY = "SELECT * FROM Criterion " + " WHERE ";
+
+         boolean idFlag = false;
+         boolean conferenceIdFlag = false;
+         if (criterion.getId() >= 0) {
+             QUERY += " id = ?";
+             idFlag = true;
+         } 
+         if(criterion.getConferenceId() >= 0){
+         	if(idFlag){
+         		QUERY += " AND ";
+         	}
+         	QUERY += " conference_id = ?";
+         }
+         if (!(idFlag || conferenceIdFlag)) {
+             info.append("No search critera was specified\n");
+             ok = false;
+         }
+         if (ok) {
+             try {
+
+                 conn = dataSource.getConnection();
+                 if (conn != null) {
+                     PreparedStatement pstmt = conn.prepareStatement(QUERY);
+                     int pstmtCounter = 0;
+                     if (idFlag) {
+                         pstmt.setInt(++pstmtCounter, criterion.getId());
+                     }
+                     if (conferenceIdFlag) {
+                         pstmt.setInt(++pstmtCounter, criterion.getConferenceId());
+                     }
+                     ResultSet resSet = pstmt.executeQuery();
+                     LinkedList ll = new LinkedList();
+                     EntityCreater eCreater = new EntityCreater();
+
+                     while (resSet.next()) {
+                         Criterion crit = eCreater.getCriterion(resSet);
+                         ll.add(crit);
+                     }
+                     resSet.close();
+                     resSet = null;
+                     pstmt.close();
+                     pstmt = null;
+                     Criterion[] crits = new Criterion[ll.size()];
+                     for (int i = 0; i < crits.length; i++) {
+                         crits[i] = (Criterion)ll.get(i);
+                     }
+                     result.setResultObj(crits);
+                 } else {
+                     info.append("ERROR: coma could not establish a "
+                             + "connection to the database\n");
+                 }
+             } catch (SQLException e) {
+                 info.append("ERROR: " + e.toString() + "\n");
+             } finally {
+                 if (conn != null) {
+                     try {
+                         conn.close();
+                         conn = null;
+                     } catch (SQLException e1) {
+                         System.out.println(e1.toString());
+                     }
+                 }
+             }
+         }
+         result.setInfo(info.toString());
+         return result;
     }
 
 }
