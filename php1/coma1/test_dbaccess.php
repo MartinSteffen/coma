@@ -45,7 +45,7 @@ if ($myDBAccess->failed()) {
 echo('End<br>');*/
 
 echo('Get<br>');
-$p = $myDBAccess->getPaperDetailed(43);
+$p = $myDBAccess->getPaperDetailed(55);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }

@@ -1729,7 +1729,7 @@ nur fuer detaillierte?
     for ($i = 0; $i < count($objPaperSimple->objTopics); $i++) {
       $objTopics = $objPaperSimple->objTopics[$i];
       if (!empty($objTopics)) {
-        $s = sprintf("INSERT   INTO (IsAboutTopic (paper_id, topic_id)".
+        $s = sprintf("INSERT   INTO IsAboutTopic (paper_id, topic_id)".
                      " VALUES  ('%d', '%d')",
                      s2db($intId), s2db($objTopics->intId));
         echo("$s<br>");
