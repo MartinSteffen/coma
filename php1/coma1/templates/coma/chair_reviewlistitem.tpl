@@ -56,7 +56,7 @@
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;paper</a>}
     </td>
     <td class="listitem-{line_no}">
-      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Add/Del&nbsp;reviewers</a>
+      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Edit</a>
     </td>
     <td class="listitem-{line_no}">
       {reviewers}

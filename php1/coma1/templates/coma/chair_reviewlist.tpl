@@ -18,8 +18,8 @@
     <th class="listheader">Rating</th>
     <th class="listheader">Variance</th>
     <th class="listheader">&nbsp;</th>
-    <th class="listheader">&nbsp;</th>
     <th class="listheader">Assigned reviewers</th>
+    <th class="listheader">&nbsp;</th>
    </tr>
    {lines}
 </table>
