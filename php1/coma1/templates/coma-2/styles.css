@@ -42,11 +42,12 @@ table.menu  { border-style: none;
               width: 150px;
               padding: 10px;
               vertical-align: top;
-              /*text-align: left;*/
+              text-align: left;
               background-color: #F7FBFF;
             }
 td.menu { width: 150px; height: 450px; min-height: 450px;
-          background-color: #F7FBFF; vertical-align: top; }
+          background-color: #F7FBFF; vertical-align: top;
+          margin-bottom: 10px; }
 
 /* tabelle fuer den seiteninhalt */
 table.body { width: 100%; min-height: 450px; vertical-align: top; }
@@ -66,6 +67,16 @@ table.formtable { font-size: 13px;
                   margin: 10px;
                   padding: 10px;
                 }
+
+input { font-size: 13px;
+        background-color: #DEEBEF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #000000; /*#CEDBEF;*/
+        margin: 5px;
+        padding: 4px;
+      }
+
 
 .center { text-align: center; }
 
