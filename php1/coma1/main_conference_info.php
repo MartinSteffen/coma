@@ -16,8 +16,8 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
 // Lade die Daten der Konferenz
-if (isset($_POST['confid'])) {
-  $objConference = $myDBAccess->getConferenceDetailed($_POST['confid']);
+if (!empty($confid)) {
+  $objConference = $myDBAccess->getConferenceDetailed($confid);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
   }
