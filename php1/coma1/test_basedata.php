@@ -17,7 +17,6 @@ $conferences = 1;
 $persons = 100;
 $criterions = 3;
 $papers = $persons/2-$persons/10;
-$reports = $persons/3 * $papers;
 $topics = 10;
 
 echo '.';
@@ -117,6 +116,7 @@ while ($i < $conferences) {
 }
 
 $j = 0;
+$reports = 0;
 while ($j < $papers) {
   $i = 0;
 
@@ -129,6 +129,7 @@ while ($j < $papers) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
 }
+ $reports++;
     $i++;
   }
   $j++;
