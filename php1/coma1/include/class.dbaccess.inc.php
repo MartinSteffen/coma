@@ -122,13 +122,9 @@ class DBAccess extends ErrorHandling {
   /**
    * Prueft, ob die angegebenen User-Daten gueltig sind.
    *
-<<<<<<< .mine
-   * @return bool <b>true</b> gdw. die Daten in der Person-Tabelle hinterlegt sind.
-=======
    * @param string $strUserName Der zu ueberpruefende Benutzername
    * @param string $strPassword Das zu ueberpruefende Passwort
    * @return bool <b>true</b> gdw. die Daten in der Person-Tabelle hinterlegt sind
->>>>>>> .r1557
    * @access public
    * @author Tom (15.12.04)
    */
