@@ -25,7 +25,7 @@ include('./include/usermenu.inc.php');
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
-if ($myDBAccess->failed() || empty($objConference) {
+if ($myDBAccess->failed() || empty($objConference)) {
   error('An error occured during retrieving actual conference!',
         $myDBAccess->getLastError());
 }
