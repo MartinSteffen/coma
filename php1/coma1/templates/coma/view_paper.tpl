@@ -58,6 +58,11 @@
 </table>
 </form>
 
+{if7
+<p class="message">
+  This paper has been accepted for the conference.
+</p>
+}
 <p>&nbsp;</p>
 
 <p class="message">

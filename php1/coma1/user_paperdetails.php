@@ -75,6 +75,10 @@ if (!empty($objPaper->strFilePath)) {
 else {
   $ifArray[] = 6;
 }
+if ($objPaper->intStatus == PAPER_ACCEPTED) {
+  $ifArray[] = 7;
+}
+
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
