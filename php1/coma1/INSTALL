@@ -1,49 +1,130 @@
 CoMa - Your Conference Manager
 (C) 2004-05 by
+    Sandro Esquivel <sae@informatik.uni-kiel.de>
     Daniel Miesling <dmi@informatik.uni-kiel.de>
+    Tom Scherzer <tos@informatik.uni-kiel.de>
     Falk Starke <fast@informatik.uni-kiel.de>
     Jan Waller <jwa@informatik.uni-kiel.de>
-    Sandro Esquivel <sae@informatik.uni-kiel.de>
-    Tom Scherzer <tos@informatik.uni-kiel.de>
+
+
 
 1. SYSTEM REQUIREMENTS
 
-  1. Webserver
-     Any capable Webserver, the tool was developed under Apache2.0.51, but 
-     basically any normal Webserver should do the job.
+  Installation of CoMa requires the following:
 
-  2. PHP 4.3.0+
-     It is required to use at least PHP version 4.3.0+. It was developed under
-     4.3.10, so anything above that should fit the requirements :)
+    * A webserver or web hosting account running on any major Operating System
+          o Tested on Apache 2.0.51
+    * A MySQL database system that supports InnoDB (3.23 or higher)
+          o Tested on MySQL 3.23.58
+    * PHP (4.3 and above) with support for MySQL
+          o Tested on PHP 4.3.10
+    * A modern Webbrowser (best capable with CSS)
+          o Tested with IE6, Opera7, Firefox1
 
-  3. MySQL 3.23.58+
-     CoMa uses InnoDB Tables, so you should use any MySQL Version capable to
-     do so, too.
-
-  4. Webbrowser
-     Any modern Webbrowser should suit your needs.
-     CoMa has been tested with IE6, Opera7 and Firefox1
 
 
 2. INSTALLATION
 
-  1. Download the code (coma1.tar.gz)
+  If you have basic knowledge of using FTP and are sure your hosting service
+  or server will run CoMa you can use these steps to quickly get started.
+  For a more detailed explanation you should skip this and go to the section 
+  below.
 
-  2. Extract the code to your Webspace.
-     eg. tar -xzf coma1.tar.gz
+   1. Decompress the CoMa archive to a local directory on your system.
+   2. Upload all the files contained in this archive (retaining the directory
+      structure)to a web accessible directory on your server or hosting account.
+   3. Using your web browser visit the location you placed CoMa with the
+      addition of /ISNTALL.PHP, e.g.
+      http://www.mydomain.com/coma1/ISNTALL.PHP,
+      http://www.mydomain.com/~username/coma1/INSTALL.PHP etc.
+   4. Follow the steps 1.-3.
+   5. CoMa should now be available.
 
-  3. In your Browser -> start "coma1/INSTALL.PHP" and follow the suggestions.
-     Step 1: Creates your config file.
-     Step 2: Tests and creates the database tables.
-     Step 3: Delete the INSTALL.PHP (security risk if not done)
+
+
+3. DETAILED INSTALLATION
+
+  Installation of CoMa will vary according to your server and database. If 
+  you have shell access to your account (via telnet or ssh for example) 
+  you may want to upload the entire CoMa archive (in binary mode!) to a 
+  directory on your host and unarchive it there.
+
+  If you do not have shell access or do not wish to use it you will need to 
+  decompress the CoMa archive to a local directory on your system using your 
+  favourite compression program, e.g. winzip, rar, zip, tar, etc. From there 
+  you must FTP ALL the files it contains (being sure to retain the directory 
+  structure and filenames) to your host. Please ensure that the cases of 
+  filenames are retained, do NOT force filenames to all lower or upper case 
+  doing so will cause errors later.
+
+  All .php and .tpl files should be uploaded in ASCII mode, while all graphics 
+  should be uploaded in BINARY mode. If you are unfamiliar with what this means 
+  please refer to your FTP client documentation. In most cases this is all 
+  handled transparantly by your ftp client but if you encounter problems later 
+  you should be sure the files where uploaded correctly as described here.
+
+  Once all the files have been uploaded to your site you should point your 
+  browser at this location with the addition of INSTALL.PHP (please note that 
+  if you changed the extension from php, see Section 3.i below, you should alter
+  INSTALL.PHP appropriately). For example if your domain name is 
+  www.mydomain.tld and you placed CoMa in a directory /coma1 off your web root 
+  you would enter http://www.mydomain.tld/coma1/INSTALL.PHP into your browser. 
+  When you have done this you should see the Coma Installation screen appear.
+
+  1. Changing the file extension
+     If the file extension used to execute PHP scripts on your server is NOT 
+     .php but for example .php3 or .phtml you should first rename ALL files 
+     ending in .php and change all occurances of .php in all files. In the vast 
+     majority of cases this step will be unncessary.
+
+  2. Installing on MySQL 3 and 4
+     Before proceeding with installation you should ensure you have a database 
+     available. Most good hosting accounts now come with at least one database 
+     as part of the basic package although it may need to be setup before first 
+     use. Ask your provider for details if you are unsure whether you do or not.
+     If you are running your own server and are unsure how to create a database 
+     you should refer to your SQL servers documentation or website, e.g. 
+     http://www.mysql.com/doc/, etc.
      
-     tutorial: (optional) creates a tutorial Conference.
-       Of course you have to do the "tutorial" before deleting INSTALL.PHP
+  3. The INSTALL.PHP
+     
+  3.1 Creating the Cofiguration File
+      In this step you should enter your MySQL Sever details (see above).
+      If you do not have or do not know the database name, database server, etc. 
+      please check with your hosting provider. The database server is typically 
+      localhost but this is NOT universal!
+      
+      After generating the config.inc.php INSTALL.PHP will then attempt to write 
+      to the config.inc.php file which will contain the basic configuration data 
+      used to run CoMa. If the installer cannot write config.inc.php directly 
+      you will be given the option of either downloading the file or manually 
+      copying its content. If you choose to download you should then re-upload 
+      the file to your server, overwriting the existing config.inc.php in the 
+      process. In either case the original Version is located in the /include/
+      subdirectory. eg /coma1/include/config.inc.php
 
+  3.2 Creating the Database
+      There is not that much to do in this step.
+      If anything fails, please doublecheck Step 3.1!
+      
+  3.3 Creating Tutorial Data (optional)
+      Select Step 'Tutorial' to create a Tutorial Conference, which will help
+      getting started.
+      If you do so: you may begin with User: sae@me.de Password: pw
+      (btw. in the Tutorial, all generated Users have Password: pw)
+      
+  3.4 Deleting INSTALL.PHP
+      Due to security risks it is absolutely neccessary to remove the file
+      INSTALL.PHP. The installer tries to do so, but if it fails, you have to
+      do so manually, e.g using your ftp tool.
+      Please note that until this file is removed CoMa will not operate and 
+      a warning message will be displayed.
+      
   4. Enjoy CoMa
 
 
-3. TROUBLESHOOTING
+
+4. TROUBLESHOOTING
 
   1. Paper upload does not work:
 
@@ -53,8 +134,6 @@ CoMa - Your Conference Manager
        upload_max_filesize "2M" (or even more)
        post_max_size "greater than upload_max_filesize"
        memory_limit "greater than post_max_size"
-
-  2.
 
 
 $Id$
