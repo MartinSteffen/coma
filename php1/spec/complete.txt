@@ -4,9 +4,9 @@ ihrer zugehoerigen Templates):
 Dateiname (alphabetisch)         | Letzte Aenderung | Abgenommen
                                  | von  / Rep.Rev.  | von  / Datum
 ---------------------------------+------------------+-----------------
-index.php                        | jwa  / 2502      |
-login.php                        | jwa  / 2170      |
-register.php                     | jwa  / 2356      |
+index.php                        | jwa  / 2507      |
+login.php                        | jwa  / 2507      |
+register.php                     | jwa  / 2506      |
 ---------------------------------+------------------+-----------------
 include/...                      |                  |
 
