@@ -33,12 +33,15 @@ AdminData     ::=
 		      auto-add-reviewers:  boolean false
 		      num-rereviewers:          boolean (true)
 
-CommiteeData  ::=    topicnames*
+CommiteeData  ::=    topicnames*  (common topics)
                      ratingtype  (1: 1--5)
 	             criteria*   (common criteria)
   	             review    :   Date
 
   
+
+Criterion     ::=     name:       String
+	              
 	             
 
 
@@ -57,6 +60,9 @@ Person      :: =      id:        Identifier
 Reviewer   ::=        papers      Set of Paper
 	              reviews     Set of Review
 		      preferences Set of Preference
+
+
+Author     ::=       set of Papers
 
 
 

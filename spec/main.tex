@@ -1,0 +1,98 @@
+
+
+\input{switches}
+\ifweb
+\documentclass[11pt,english]{article}
+
+\title{\Coma\ conference manager: Data specification (v1)}
+\date{17 November, 2004}
+
+
+
+\else
+\documentclass[11pt,english]{handout}
+
+
+
+\dozent{Gunnar Schaefer, Marcel Kyas, Martin Steffen}
+\coursename{\Coma}
+\semester{WS 2004/05}
+\ausgabetermin{\docdate}
+\handouttitle{Data Spec. (v1)}
+\nummer{-}
+\thema{-}
+
+\fi
+
+
+
+
+
+\input{preamble}
+\input{macros}
+
+\begin{document}
+\thispagestyle{empty}
+
+\input{abstract}
+
+\ifweb
+\maketitle{}
+\else
+%\ausgabe{10.\ July 2002}
+%\abgabe{x}
+%\maketitle{Pflichtenheft: \Slime\ (4)}{\Slime\ (4)}
+\fi
+  
+
+
+
+\input{datamodel}
+
+
+
+\appendix
+
+\bibliographystyle{alpha}
+
+\addcontentsline{toc}{section}{Bibliography}
+
+
+{\small
+  \bibliography{coma}
+}
+
+
+
+
+
+\end{document}
+
+
+\begin{verbatim}
+   Reviewreport ::        
+                   author      :  [Person]
+                   responsible :   Reviewer
+                   paper       :   Paper
+                   status:     :   empty | nonempty
+                   evaluation  :   Evaluation
+
+   Evaluation   :: summary     :   String
+                   remarks     :   String
+                   confidential:   String
+                   numerical   :   Numerical
+
+
+   Numerical    :: Class -> 
+
+   Criterion    ::  name        : String
+                    explanation : String
+                    
+\end{verbatim}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 
+
