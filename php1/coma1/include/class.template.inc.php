@@ -92,7 +92,7 @@ class Template {
       return $this->error('Not an Array');
     }
     $this->assocArray = array_merge($this->assocArray, $assocArray);
-    return true
+    return true;
   }
   
   /**
