@@ -588,7 +588,7 @@ class DBAccess extends ErrorHandling {
     $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
     // Co-Autoren
     $s = "SELECT  person_id AS coauthor_id, name".
-        " FROM    IsCoAuthorOf AS ".
+        " FROM    IsCoAuthorOf AS i".
         " LEFT    JOIN Person AS p".
         " ON      p.id = i.person_id".
         " WHERE   paper_id = $intPaperId".
