@@ -27,6 +27,7 @@ $paper0topics = array('Schaum', 'Blasen');
 $testpapers[0] = new PaperDetailed(23, 'Schaumparties', 1, 'Kuh', 0, 2.3, $paper0ids, $paper0names, 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', 'text/html', '01-01-2005', 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', $paper0topics);
 
 $none = true;
+$strContentAssocs['paper-rows'] = '';
 foreach ($testpapers as $paper){
   $none = false;
   $papertemplate = new Template(TPLPATH . 'author_paperlistitem.tpl');
@@ -37,6 +38,7 @@ foreach ($testpapers as $paper){
   $paperassocs['abstract-link'] = $paper->strAbstract;
   $paperassocs['last-edited'] = $paper->strLastEdit;
   $paperassocs['paper-id'] = $paper->intId;
+  $paperassocs['co-authors'] = '';
   foreach ($paper->strCoAuthors as $coauthor){
     $paperassocs['co-authors'] = $paperassocs['co-authors'] . $coauthor;
   }
