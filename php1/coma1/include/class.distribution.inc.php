@@ -271,26 +271,6 @@ class Distribution extends ErrorHandling {
         }
       }
     }
-    
-    // Matrix relativieren: Eintraege von Papers, die viele hohe Eintraege haben, dividieren
-    for ($j = 0; $j < count($p_id); $j++) {
-      $sum = 0;
-      for ($i = 0; $i < count($r_id); $i++) {
-        if ($matrix[$i][$j] > 0) {
-          $sum += $matrix[$i][$j];
-        }
-      }
-      // dividieren
-      $faktor = 0;
-      if ($sum > 0) {
-        $faktor = count($r_id) / $sum;
-      }
-      for ($i = 0; $i < count($r_id); $i++) {
-        if ($matrix[$i][$j] > 0) {
-          $matrix[$i][$j] *= $faktor;
-        }
-      }
-    }
 
     // Debug: Ausgabe
     for ($i = 0; $i < count($matrix); $i++) {
