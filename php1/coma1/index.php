@@ -27,12 +27,12 @@ if (!isset($_SESSION['confid'])) {
 if (!isset($_SESSION['uid'])) {
   // UID setzen
   $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
+  echo($_SESSION['uid']);
   if ($myDBAccess->failed()) {
     session_delete('uid');
-    error('getUID',$myDBAccess->getLastError());
+    error('getUID', $myDBAccess->getLastError());
   }
 }
-echo(session('uid').','.session('confid'));
 $objIch = $myDBAccess->getPerson(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
   error('chooseHighestRole',$myDBAccess->getLastError());
