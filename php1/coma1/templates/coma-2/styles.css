@@ -100,12 +100,12 @@ table.list { border-style: solid;
              padding: 0px;
              background-color: #F7FBFF;
            }
-tr.listheader { text-align: left; font-size: 12px; padding: 2px 8px;
+.listheader { text-align: left; font-size: 12px; padding: 2px 8px;
                 font-weight: bold; background-color: #DBE9EC;
                 border-bottom: 1px #404040 solid; }
-tr.listitem-1 { text-align: left; font-size: 12px; padding: 2px 8px;
+.listitem-1 { text-align: left; font-size: 12px; padding: 2px 8px;
                 background-color: #F7FBFF; }
-tr.listitem-2 { text-align: left; font-size: 12px; padding: 2px 8px;
+.listitem-2 { text-align: left; font-size: 12px; padding: 2px 8px;
                 background-color: #E0E2E4; }
 
 a.list:link    { color: #000000; }
