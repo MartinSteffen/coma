@@ -307,17 +307,17 @@ table.list
 {
   text-align: left;
   font-size: 12px;
-  padding: 0px 8px;
+  padding: 0px 0px;
   margin: 0px;
-  background-color: #F7FBFF;
+  background-color: #F4F4F4;
 }
 .listitem-2
 {
   text-align: left;
   font-size: 12px;
-  padding: 0px 8px;
+  padding: 0px 0px;
   margin: 0px;
-  background-color: #E0E2E4;
+  background-color: #E4E4E4;
 }
 
 a.list:link
