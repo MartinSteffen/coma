@@ -1576,10 +1576,12 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
     }
+    echo("Up. top.");
     $this->updateTopicsOfPaper($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaper', $this->getLastError());
     }
+    echo("OK");
     $this->updateCoAuthors($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaper', $this->getLastError());
