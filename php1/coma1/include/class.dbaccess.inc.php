@@ -217,7 +217,7 @@ class DBAccess {
       }
       $strAuthor = $objAuthor->getName();
       return (new PaperSimple($data[$i]['id'], $data[$i]['title'],
-                $data[$i]['author_id'], $strAuthor, $data[$i]['state'], $fltAvgRating);     
+                $data[$i]['author_id'], $strAuthor, $data[$i]['state'], $fltAvgRating));     
     }
     return $this->error('getPaper '.$this->mySql->getLastError());
   }
