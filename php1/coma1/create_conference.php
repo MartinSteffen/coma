@@ -180,33 +180,51 @@ if (isset($_POST['action'])) {
     if ($review_dl > $start_date) {
       $strMessage .= "Your Notification time should be before your Start Date!\n";
     }
-    if ( !($min_reviews >= 0)){
+    if ($min_reviews < 0){
       $strMessage .= "Your minimum number of reviews should be greater or equel to zero!\n";
     }
-    if ( !($min_papers >= 0)){
+    if ($min_papers < 0){
       $strMessage .= "Your number of papers should be greater or equal to zero!\n";
     }
-    if ( !($min_papers <= $max_papers)){
+    if ($min_papers > $max_papers){
       $strMessage .= "Your minimum number of papers should not be greater than the maximum number of paper!\n";
     }
-    if ( !($min_reviews <= $def_reviews)){
+    if ($min_reviews > $def_reviews){
       $strMessage .= "Your minimum number of reviews should not be greater than the default number of reviews!\n";
     }
-    if ( !(0 < $variance) || !($variance <= 100)){
+    if (($variance <= 0) || ($variance > 100)){
       $strMessage .= "Your ambiguity should be greater than zero and less or equal than hundred!\n";
     }
-    if ( !(0 <= $auto_numreviewer )){
+    if ($auto_numreviewer < 0){
       $strMessage .= "Your number of automatically added reviewers should be greater or equal than zero!\n";
     }
-
+    if (count($strTopics) < 1 ){
+      $strMessage .= "Your number of topics should be greater than zero!\n";
+    }
+    if (count($strCriterions) < 1 ){
+      $strMessage .= "Your number of criterions should be greater than zero!\n";
+    }
+    
+    foreach ($strTopics as $key => $name){
+      if ($name){
+        $strMessage .= "Topic $key is empty!\n";
+      }
+    }
+    
+    foreach ($strCriterions as $key => $name){
+      if ($name){
+        $strMessage .= "Criterion $key is empty!\n";
+      }
+    }
+    
     foreach ($strCritMaxVals as $key => $critMax){
-      if ( !(0 <= $critMax )){
-        $strMessage .= "The maximum value of the criterion '{$strCriterions[$key]}' should be greater or equal than zero!\n";
+      if ($critMax < 1){
+        $strMessage .= "The maximum value of the criterion '{$strCriterions[$key]}' should be greater than zero!\n";
       }
     }
 
     foreach ($strCritWeights as $key => $critWeights){
-      if ( !(0 < $critWeights )){
+      if ($critWeights < 0){
         $strMessage .= "The weight of the criterion '{$strCriterions[$key]}'should be greater then zero!\n";
       }
     }
