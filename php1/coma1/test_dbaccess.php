@@ -28,6 +28,17 @@ function bit($b) {
 echo('<br>');
 
 
+$p = $myDBAccess->addConference('Neue Conf', 'http', '', '', '', '', '', '', '', '',
+                                2, 4, 20, 25, 0.5, false,  true, true, 1,
+                                array(), array(), array(), array(), array());
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else if (empty($p)) {
+  echo('EMPTY');
+  die(-1);
+}
+
 /*echo('Get<br>');
 $p = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
@@ -44,7 +55,7 @@ if ($myDBAccess->failed()) {
 }
 echo('End<br>');*/
 
-echo('Get<br>');
+/*echo('Get<br>');
 $p = $myDBAccess->getPaperDetailed(55);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -62,7 +73,7 @@ $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo('End<br>');
+echo('End<br>');*/
 
 /*$p = $myDBAccess->getPersonAlgorithmic(1, 5);
 if ($myDBAccess->failed()) {
