@@ -1,1 +1,0 @@
-<a href="./forum.php?select={message-id}{&SID}">(reply to this message)</a>

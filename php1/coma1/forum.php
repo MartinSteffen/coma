@@ -71,7 +71,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
       $strArrayForumAssocs['selectorunselect'] = 'forumunsel';
       $strArrayForumAssocs['forum-id'] = encodeText($objForum->intId);
       $strArrayForumAssocs['forum-title'] = encodeText($objForum->strTitle);
-      $strArrayForumAssocs['plusorminus'] = '-';
+      $strArrayForumAssocs['plusorminus'] = '--';
       $objArrayMesses = $myDBAccess->getThreadsOfForum($objForum->intId);
       if ($myDBAccess->failed()){
         error('An error occurred while trying to retrieve the forum threads from the database.', $myDBAccess->getLastError());
@@ -98,7 +98,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
       $strArrayForumAssocs['selectorunselect'] = 'forumsel';
       $strArrayForumAssocs['forum-id'] = encodeText($objForum->intId);
       $strArrayForumAssocs['forum-title'] = encodeText($objForum->strTitle);
-      $strArrayForumAssocs['plusorminus'] = '+';
+      $strArrayForumAssocs['plusorminus'] = '++';
       $strArrayForumAssocs['messages'] = '';
       $strArrayForumAssocs['thread-new'] = '';
     }
@@ -188,7 +188,7 @@ function displayMessages(&$objArrayMessages, $boolArrayMsgselection, $intSelecte
     if (notemptyandtrue($boolArrayMsgselection, $objMessage->intId)){
       $strArrayMessageAssocs['selectorunselect'] = 'unselect';
       $strArrayMessageAssocs['message-id'] = encodeText($objMessage->intId);
-      $strArrayMessageAssocs['plusorminus'] = '-';
+      $strArrayMessageAssocs['plusorminus'] = '--';
       $strArrayMessageAssocs['sender-title'] = encodeText($sender->strTitle);
       $strArrayMessageAssocs['sender-firstname'] = encodeText($sender->strFirstName);
       $strArrayMessageAssocs['sender-lastname'] = encodeText($sender->strLastName);
@@ -197,15 +197,8 @@ function displayMessages(&$objArrayMessages, $boolArrayMsgselection, $intSelecte
       $strArrayMessageAssocs['message-text'] = encodeText($objMessage->strText);
       $strArrayMessageAssocs['colon'] = ':';
       $strArrayMessageAssocs['postfix'] = 'wrote:';
-      $objReplylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
-      $strArrayReplyAssocs = defaultAssocArray();
-      $replylinkassocs['message-id'] = encodeText($objMessage->intId);
-      $objReplylinktemplate->assign($replylinkassocs);
-      $objReplylinktemplate->parse();
-      $strArrayMessageAssocs['replylink'] = $objReplylinktemplate->getOutput();
       //formular anzeigen/aendern
       if ($objMessage->intId == $intSelected){
-        $strArrayMessageAssocs['replylink'] = '';
         $objFormtemplate = new Template(TPLPATH . 'messageform.tpl');
         $strArrayFormAssocs = defaultAssocArray();
         $strArrayFormAssocs['message-id'] = encodeText($objMessage->intId);
@@ -241,7 +234,7 @@ function displayMessages(&$objArrayMessages, $boolArrayMsgselection, $intSelecte
     else{
       $strArrayMessageAssocs['selectorunselect'] = 'select';
       $strArrayMessageAssocs['message-id'] = encodeText($objMessage->intId);
-      $strArrayMessageAssocs['plusorminus'] = '+';
+      $strArrayMessageAssocs['plusorminus'] = '++';
       $strArrayMessageAssocs['sender-title'] = '';
       $strArrayMessageAssocs['sender-firstname'] = '';
       $strArrayMessageAssocs['sender-lastname'] = '';
@@ -252,12 +245,6 @@ function displayMessages(&$objArrayMessages, $boolArrayMsgselection, $intSelecte
       $strArrayMessageAssocs['messages'] = '';
       $strArrayMessageAssocs['colon'] = '';
       $strArrayMessageAssocs['postfix'] = '';
-      $objReplylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
-      $strArrayReplyAssocs = defaultAssocArray();
-      $strArrayReplyAssocs['message-id'] = encodeText($objMessage->intId);
-      $objReplylinktemplate->assign($strArrayReplyAssocs);
-      $objReplylinktemplate->parse();
-      $strArrayMessageAssocs['replylink'] = $objReplylinktemplate->getOutput();
     }
     $objMessagetemplate->assign($strArrayMessageAssocs);
     $objMessagetemplate->parse();
