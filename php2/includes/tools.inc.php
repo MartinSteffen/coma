@@ -183,9 +183,9 @@ function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = "")
 	switch($step_id){
 		case 6:
 			if ($ftphandle == NULL){
-				$ftphandle=@ftp_connect($ftphost) or die("function cleanup_ftp: ftp_connect() failed!");
+				$ftphandle = ftp_connect($ftphost) or die("function cleanup_ftp: ftp_connect() failed!");
 			}
-			@ftp_login($ftphandle, $ftpuser, $ftppass) or die("function cleanup_ftp: ftp_login() failed!");
+			ftp_login($ftphandle, $ftpuser, $ftppass) or die("function cleanup_ftp: ftp_login() failed!");
 			$msg = "<font style=color:green>Paper deleted succssesfully.</font>";
 		case 5:
 			if ($msg == ""){
