@@ -67,7 +67,7 @@ class Session {
                                   array(& $this,'sessionWrite'),
                                   array(& $this,'sessionDestroy'),
                                   array(& $this,'sessionGC'))) {
-      return this->error('Konnte Sessionmanger nicht initialisieren (save_handler).');
+      return $this->error('Konnte Sessionmanger nicht initialisieren (save_handler).');
     }
     session_start();
 
