@@ -32,17 +32,13 @@ class ReviewDetailed extends Review {
   var $strConfidential;
   var $intRatings;
   var $strComments;
-  var $intMaxValues;
-  var $strCritNames;
-  var $strCritDescriptions;
-    
+  var $objCriterions;
+  
   function ReviewDetailed($intId, $intPaperId, $strPaperTitle, $strAuthorEmail,
                           $strAuthorName, $intReviewRating, $fltAverageRating,
-                          $strReviewerEmail, $strReviewerName, $strSummary = '',
-                          $strRemarks = '', $strConfidential = '',
-                          $intRatings = array(), $strComments = array(),
-                          $intMaxValues = array(), $strCritNames = array(),
-                          $strCritDescriptions = array()) {
+                          $strReviewerEmail, $strReviewerName, $strSummary,
+                          $strRemarks, $strConfidential, $intRatings, $strComments,
+                          $objCriterions) {
     $this->Review($intId, $intPaperId, $strPaperTitle, $strAuthorEmail, $strAuthorName,
                   $intReviewRating, $fltAverageRating, $strReviewerEmail, $strReviewerName);
     $this->strSummary = $strSummary;
@@ -50,9 +46,7 @@ class ReviewDetailed extends Review {
     $this->strConfidential = $strConfidential;
     $this->intRatings = $intRatings;
     $this->strComments = $strComments;
-    $this->intMaxValues = $intMaxValues;
-    $this->strCritNames = $strCritNames;
-    $this->strCritDescriptions = $strCritDescriptions;
+    $this->objCriterions = $objCriterions;
   }
 
 } // end class ReviewDetailed
