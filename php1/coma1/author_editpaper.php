@@ -58,7 +58,7 @@ if (isset($_POST['action'])) {
     $intTopicIds = explode(',', $_POST['topics']);
     echo($_POST['topics']);    
     for ($i = 0; $i < count($intTopicIds); $i++) {
-      for ($j = 0; $j < count($objAllTopics); $i++) {
+      for ($j = 0; $j < count($objAllTopics); $j++) {
       	if ($intTopicIds[$i] == $objAllTopics[$j]->intId) {
           echo('Topic'.$objAllTopics[$j]->strName.','.$objAllTopics[$j]->intId);
       	  $objPaper->objTopics[] = $objAllTopics[$j];
