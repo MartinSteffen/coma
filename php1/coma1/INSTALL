@@ -45,7 +45,7 @@ CoMa - Your Conference Manager
 
 3. TROUBLESHOOTING
 
-  1. Paper uplaod does not work:
+  1. Paper upload does not work:
 
      Please ensure that the following PHP Configuration Settings are done:
        file_uploads "1"
