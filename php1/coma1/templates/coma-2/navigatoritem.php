@@ -1,3 +1,4 @@
+<?php
 function createNavigatorContent($strPath) {
   $navigatorItem = new Template(TPLPATH.'navigatoritem.tpl');
   $i = 0;
@@ -14,4 +15,4 @@ function createNavigatorContent($strPath) {
   }
   return $strNavigator;
 }
-
+?>

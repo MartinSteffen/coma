@@ -1,3 +1,4 @@
+<?php
 function openStartMenuItem ($intItem) {
   $menu = new Template(TPLPATH.'startmenu.tpl');
   $strMenuAccocs = defaultAssocArray();
@@ -9,3 +10,4 @@ function openStartMenuItem ($intItem) {
   $menu->parse();
   return $menu->strOutput;
 }
+?>
