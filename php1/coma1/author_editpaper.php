@@ -89,7 +89,7 @@ if (isset($_POST['action'])) {
     }
     // Versuche das Paper hochzuladen
     else {    	      
-      $result = $myDBAccess->uploadPaperFile($objPaper->$intId, $_POST['paper_file']);
+      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['paper_file']);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error during uploading paper.', $myDBAccess->getLastError());

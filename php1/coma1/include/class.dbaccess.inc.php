@@ -1707,7 +1707,7 @@ nur fuer detaillierte?
     $s = sprintf("UPDATE   Paper".
                  " SET     filename = '%s'".
                  " WHERE   id = '%d'",
-                 s2db($objPaperDetailed->strReposFilePath), s2db($objPaperDetailed->intId));
+                 s2db($strReposFilePath), s2db($intPaperId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('uploadPaperFile', $this->mySql->getLastError());
