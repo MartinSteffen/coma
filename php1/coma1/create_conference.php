@@ -40,7 +40,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['paper_dl']         = encodeText(date('d.M Y',$paper_dl));
   $strContentAssocs['review_dl']        = encodeText(date('d.M Y',$review_dl));
   $strContentAssocs['final_dl']         = encodeText(date('d.M Y',$final_dl));
-  $strContentAssocs['notification']     = encodeText(date('d.M Y',$notification=);
+  $strContentAssocs['notification']     = encodeText(date('d.M Y',$notification));
   $strContentAssocs['min_reviews']      = encodeText($_POST['min_reviews']);
   $strContentAssocs['def_reviews']      = encodeText($_POST['def_reviews']);
   $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
