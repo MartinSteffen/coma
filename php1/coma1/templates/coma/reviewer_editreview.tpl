@@ -5,56 +5,13 @@
   <input type="hidden" name="paperid" value="{paperid}" />
   <input type="hidden" name="action" value="submit" />
 
-<table class="list">
-  <tr class="listheader">
-    <th class="listheader">Paper</th> 
-    <th class="listheader">Author</th> 
-    <th class="listheader">Status</th>
-    <th class="listheader">My rating</th>
-    <th class="listheader">Total rating</th>
-    <th class="listheader">Discussion</th>    
-    <th class="listheader">&nbsp;</th>
-   </tr>
-
-  <tr class="listitem-1"> 
-    <td class="listitem-1"> 
-      <a href="{basepath}reviewer_editreview.php?reviewid={reviewid}{&SID}">
-      Neueste Rezepte</a>
-    </td> 
-    <td class="listitem-1"> 
-      <a href="{basepath}user_userdetails.php?userid={authorid}{&SID}">
-      Robby Rabbit</a>
-    </td>
-    <td class="listitem-1"> 
-      <span class="status-reviewed">reviewed</span>
-    </td>
-    <td class="listitem-1"> 5/5 </td>
-    <td class="listitem-1"> 4.2/5 </td>
-    <td class="listitem-1">  
-      <form action="" method="post">
-        <input type="hidden" name="confid" value="{confid}" />
-        <input type="submit" name="submit" value="enter" class="button" />
-      </form> 
-    </td>   
-    <td>      
-      <input type="submit" name="submit" value="View" class="button" />
-    </td>
-  </tr>
-  <tr class="listitem-1">
-    <td colspan="6" class="listitem-1">
-    Description: This paper is about serious infections of teenage angst.
-    </td>
-  <tr>
-</table>
-</form>
-
-<form action="{basepath}reviewer_editreview.php{?SID}" method="post">
-  <input type="hidden" name="paperid" value="{paperid}" />
-  <input type="hidden" name="action" value="submit" />
-
 <table class="formtable">
   <tr>
-    <th colspan="2">Review this paper</th>
+    <th colspan="2">Review paper:</th>
+  </tr>
+  <tr>
+    <td>Title:</td>
+    <td>Holy Shit!</td>
   </tr>
   <tr>
     <td colspan="2">      

@@ -9,7 +9,7 @@
    </tr>
 
   <tr class="listitem-1"> 
-    <td class="listitem-1"> 
+    <td class="listitem-1">
       <a href="{basepath}reviewer_editreview.php?reviewid={reviewid}{&SID}">
       Neueste Rezepte</a>
     </td> 
