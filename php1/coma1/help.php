@@ -111,6 +111,23 @@ if (in_array('nothing', $strArrayHelpTopics)){
   $toctemplate->parse();
   $strContentAssocs['toc'] = $toctemplate->getOutput();
 }
+if (in_array('comapages', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH . 'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2';
+  $strArrayChapterAssocs['chapter-title'] = 'Detailed explanations about the different pages in CoMa';
+  $strArrayChapterAssocs['related-topics'] = '';
+  $strArrayChapterAssocs['special'] = '';
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template('./templates/helptext/chapter-2.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $strArrayChapterAssocs->assign($strArrayChapterAssocs);
+  $strArrayChapterAssocs->parse();
+  $strContentAssocs['toc'] = $strArrayChapterAssocs->getOutput();
+}
 
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $content->assign($strContentAssocs);
