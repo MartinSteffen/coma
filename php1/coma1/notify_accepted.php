@@ -107,7 +107,7 @@ foreach ($objPersons as $objPerson) {
             $strRatingAssocs['comment']    = $objReview->strComments[$j];
             $rating->assign($strRatingAssocs);
             $rating->parse();
-            $strMailAssocs['crit_lines'] .= $rating->getOutput();
+            $strReviewAssocs['crit_lines'] .= $rating->getOutput();
           }          
           $review->assign($strReviewAssocs);
           $review->parse();
