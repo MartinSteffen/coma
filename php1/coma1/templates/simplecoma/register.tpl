@@ -14,14 +14,10 @@
     Titel: <br>
     <input type="text" name="title" size="30" maxlength="127" /> <br> <br>
   </td>
-</tr>
-<tr>
   <td valign="top"> 
     Vorname: <br>
     <input type="text" name="first_name" size="30" maxlength="127" /> <br> <br>
   </td>
-</tr>
-<tr>
   <td valign="top"> 
     Name: <br>
     <input type="text" name="last_name" size="30" maxlength="127" /> <br> <br>
@@ -38,8 +34,6 @@
     Telefon: <br>
     <input type="text" name="telefon" size="30" maxlength="127" /> <br> <br>
   </td>
-</tr>
-<tr>
   <td valign="top"> 
     Fax: <br>
     <input type="text" name="fax" size="30" maxlength="127" /> <br> <br>
@@ -56,8 +50,6 @@
     PLZ: <br>
     <input type="text" name="zip" size="30" maxlength="80" /> <br> 
   </td>
-</tr>
-<tr>
   <td valign="top"> 
     Ort: <br>
     <input type="text" name="city" size="30" maxlength="47" /> <br> <br>
@@ -78,8 +70,6 @@
 <tr>
   <td valign="top">  
     <input type="hidden" name="action" value="register" /> <br> <br> 
-  </td>    
-  <td valign="top">  
     <input type="submit" name="submit" value="Register" /> <br> <br>
   </td>
 </tr>
