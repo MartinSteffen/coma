@@ -40,6 +40,7 @@
         <xsl:apply-templates select="//servletState" />
 
         <xsl:choose>
+
           <xsl:when test="papersToRate">
             <div>
               These are the papers you are allowed to rate. Please select one and

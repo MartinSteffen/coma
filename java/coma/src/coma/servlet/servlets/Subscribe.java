@@ -55,6 +55,7 @@ public class Subscribe  extends HttpServlet {
 		
 		helper.addXMLHead(result);
 		result.append("<subscribe>\n");
+		result.append(new coma.servlet.util.Navcolumn(request));
 		if (emptyEnum){
 				
 			result.append(XMLHelper.tagged("form",""));

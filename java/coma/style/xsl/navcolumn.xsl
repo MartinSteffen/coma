@@ -10,24 +10,24 @@
   <xsl:template match="//navcolumn" name="navcolumn">
     <!-- Site navigation menu -->
     <xsl:comment>Navbar</xsl:comment>
-	 <xsl:if test="//navcolumn//theTime">
-         <div class="date">JComa Time:
-       <xsl:value-of select="//navcolumn//theTime" />
-          </div>
-        </xsl:if>
-    
-    
-    <div class="navbar">
-      <ul>
-        <xsl:choose>
+    <xsl:if test="//navcolumn//theTime">
+      <div class="date">JComa Time:
+      <xsl:value-of select="//navcolumn//theTime" />
+    </div>
+  </xsl:if>
+  
+  
+  <div class="navbar">
+    <ul>
+      <xsl:choose>
 
-          <!-- Login/Subscribe. This is mut.ex. with
-               any other meaningful content of the navbar. -->
-          <xsl:when test="//navcolumn//noUser"> <!-- Login/Subscribe -->
-          <li>
-            <form action="Login" method="post">
-              <fieldset>
-                <div>
+        <!-- Login/Subscribe. This is mut.ex. with
+             any other meaningful content of the navbar. -->
+        <xsl:when test="//navcolumn//noUser"> <!-- Login/Subscribe -->
+        <li>
+          <form action="Login" method="post">
+            <fieldset>
+              <div>
                 <div>
                   <select name="conference_id">
                     <xsl:for-each select="/conference_list/conference">
@@ -53,8 +53,8 @@
                 </div>
                 <div>
                   <a href="index.html">Forgot your Password?</a></div>
-              </div>
-            </fieldset>
+                </div>
+              </fieldset>
             </form>
           </li>
           <li>
@@ -69,23 +69,28 @@
 
       <!-- any proper content based on the user's role. -->
       <xsl:otherwise>
+        <li>User
+        <ul>
+          <li><a href="UserPrefs">Edit User Data</a></li>
+        </ul>
+        </li>
         <xsl:if test="//navcolumn//isChair">
           <li>Chair
           <ul>
             <li>
-            <a href="Chair?action=setup">Setup</a></li>
-            <li><a href="Chair?action=invite_person">invite person</a></li>
-          </ul>
-        </li>
-      </xsl:if>
+              <a href="Chair?action=setup">Setup</a></li>
+              <li><a href="Chair?action=invite_person">invite person</a></li>
+            </ul>
+          </li>
+        </xsl:if>
 
-      <xsl:if test="//navcolumn//isAuthor">
-        <li>Author
-        <ul>
-          <li>View Status</li>
-         <li><form action="Author?action=submitpaper" method="post">
-  		<input type="submit" value="submit paper" class="submit-button" />
-  	</form></li>
+        <xsl:if test="//navcolumn//isAuthor">
+          <li>Author
+          <ul>
+            <li>View Status</li>
+            <li><form action="Author?action=submitpaper" method="post">
+            <input type="submit" value="submit paper" class="submit-button" />
+          </form></li>
           <li>Update</li>
           <li>Withdraw</li>
         </ul></li>
@@ -121,4 +126,4 @@
 </xsl:template>
 
 </xsl:stylesheet>
- 
+

@@ -71,7 +71,8 @@ public class RatePaper extends HttpServlet{
     */
     public void doGet(
 		      HttpServletRequest request,
-		      HttpServletResponse response) {
+		      HttpServletResponse response) 
+    throws java.io.IOException {
 
 	HttpSession session;
 	session = request.getSession(true);
@@ -106,7 +107,7 @@ public class RatePaper extends HttpServlet{
 		// Too late to rate?
 		if (new java.util.Date()
 		    .after(((Conference)session
-			    .getAttribute(SessionAttribs.REPORT))
+			    .getAttribute(SessionAttribs.CONFERENCE))
 			   .getReview_deadline())){
 
 		    result.append(UserMessage.ERRTOOLATE);
@@ -304,6 +305,11 @@ public class RatePaper extends HttpServlet{
 		break;
 	    }
 
+
+	} catch (Exception exc) { // safety net
+
+	    LOG.log(ERROR, exc);
+	} finally {
 	    result.append(pagestate.toString());
 	    result.append("</content>");
 
@@ -314,16 +320,13 @@ public class RatePaper extends HttpServlet{
 	    StreamSource xsltSource = new StreamSource(xslt);
 	    XMLHelper.process(xmlSource, xsltSource, out);
 	    out.flush();
-
-	} catch (Exception exc) { // safety net
-
-	    LOG.log(ERROR, exc);
-	} 
+	}
     }
 
     public void doPost(
 		       HttpServletRequest request,
-		       HttpServletResponse response) {
+		       HttpServletResponse response) 
+	throws java.io.IOException {
 	doGet(request, response);
     }
 

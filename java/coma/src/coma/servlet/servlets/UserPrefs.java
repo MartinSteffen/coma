@@ -22,9 +22,7 @@ import static coma.entities.Entity.XMLMODE;
    preferred topics, and those are only important when the auto-assign
    alg. runs.
 
-   The rest is not my fscking business.
-
-   @author ums
+   @author ums, with large parts taken from the old Subscribe
 */
 public class UserPrefs extends HttpServlet {
 
@@ -32,10 +30,6 @@ public class UserPrefs extends HttpServlet {
 
     final ALogger LOG = ALogger.create(this.getClass().getCanonicalName());
     
-    public void init(ServletConfig config) {
-	LOG.log(DEBUG, "I'm alive!");
-    }
-
     /*
       N.b: we do not use an enumeration here because we cannot easily
       transfer an enum over the html contents. We can do that with
@@ -90,27 +84,35 @@ public class UserPrefs extends HttpServlet {
 
 	    // change thePerson's attribs.
 	    // now, I'd like a functional map operator. And polymorphism.
+
+	    try{
+		int oldid = thePerson.getId();
+		thePerson 
+		    = new coma.handler.util.EntityCreater().getPerson(request);
+		thePerson.setId(oldid); // makes us safer against attacks
 	    
-	    // FIXME: many things omitted: stuff other than Topics is not my business. ums.
-
-
-	    //thePerson.deletePreferredTopics();
-	    for (Topic t: thePerson.getPreferredTopics()){
-		thePerson.deletePreferredTopic(t);
-	    }
-	    final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
-	    for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
+		for (Topic t: thePerson.getPreferredTopics()){
+		    thePerson.deletePreferredTopic(t);
+		}
+		final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
+		for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
 		
-		thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s)));
+		    thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s)));
+		}
+		
+		SearchResult theSR;
+		UpdateService dbWrite 
+		    = new coma.handler.impl.db.UpdateServiceImpl();
+		theSR = dbWrite.updatePerson(thePerson);
+		if (!theSR.isSUCCESS()){
+		    throw new Exception(theSR.getInfo());
+		}
+		session.setAttribute(SessionAttribs.PERSON, thePerson);
+	    } catch (Exception exc){
+		// well, almost true.
+		result.append(UserMessage.ERRDATABASEDOWN);
 	    }
-
-	    SearchResult theSR;
-   	    UpdateService dbWrite 
-		= new coma.handler.impl.db.UpdateServiceImpl();
-	    theSR = dbWrite.updatePerson(thePerson);
-	    // we can fail, but who cares right now?
-	    session.setAttribute(SessionAttribs.PERSON, thePerson);
-	    result.append(x.tagged("noneditable", thePerson.toXML()));
+		result.append(x.tagged("noneditable", thePerson.toXML()));
 	}
 
 	result.append(new Navcolumn(session));

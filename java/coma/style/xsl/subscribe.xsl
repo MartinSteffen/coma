@@ -3,6 +3,8 @@
 <xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
 doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
 
+  <xsl:include href="navcolumn.xsl" />
+
 <xsl:template match="/">
 <html> 
 
@@ -21,26 +23,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 
 <!-- Site navigation menu -->
-<div class="navbar">
-<ul>
-  <li><a href="index.html">Home page</a></li>
-  
-  <li><a href="http://snert.informatik.uni-kiel.de:8888/coma/">tomcat directory</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/svn/coma/">svn repository</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/~wprguest3/phpmyadmin/">phpMyAdmin</a></li>
-  <li>
-  	<a href="http://validator.w3.org/check?uri=referer">
-  		<img src="./img/valid-xhtml11.png" alt="Valid XHTML 1.1!" style="border:0;width:68px;height:20px"  />
-  	</a>
-   	<a href="http://jigsaw.w3.org/css-validator/check/referer">
- 			<img style="border:0;width:68px;height:20px" src="./img/vcss.png" alt="Valid CSS!" />
- 		</a>
- 	</li>
-</ul> 
-
-	
-
-</div><!-- Site navigation menu -->
+<xsl:call-template name="navcolumn" />
 
 <!-- Main content -->
 <div class="content">
@@ -99,6 +82,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 					 </input>
 				</td>
 			</tr>
+                        <!--
 			<tr>
 				<td >Affiliation: </td>
 				<td >
@@ -109,6 +93,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 					 </input>
 				</td>
 			</tr>
+                        -->
 			<tr>
 				<td>Your email: </td>
 		  	<td>
@@ -119,6 +104,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 					 </input>
 				</td>
 			</tr>
+                        <!-- much commented out because we do that in userprefs now.
 			<tr>
 				<td >Phone number: </td>
 				<td >
@@ -178,7 +164,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 					 </xsl:attribute>
 					 </input>
 				</td>
-			</tr>
+			</tr>-->
 			<tr>
 				<td >Country: </td>
 				<td >
@@ -208,7 +194,10 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			</tr>
 		</table>
 	</form>
-	<div>red fields are mandatory</div>
+	<div>If you plan to attend the conference or act as a
+        reviewer, it is useful to go to User Data when logged in to enter
+        additional data like mailable address and phone number.</div> 
+
 </xsl:template>
 
 <xsl:template match="subscribe/person">
