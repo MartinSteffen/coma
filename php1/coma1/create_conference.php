@@ -20,33 +20,33 @@ $ifArray = array();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 if (isset($_POST['action'])) {
-  $strContentAssocs['name']         = $_POST['name'];
-  $strContentAssocs['description']  = $_POST['description'];
-  $strContentAssocs['homepage']     = $_POST['homepage'];
-  $strContentAssocs['start_date']   = $_POST['start_date'];
-  $strContentAssocs['end_date']     = $_POST['end_date'];
-  $strContentAssocs['abstract_dl']  = $_POST['abstract_dl'];
-  $strContentAssocs['paper_dl']     = $_POST['paper_dl'];
-  $strContentAssocs['review_dl']    = $_POST['review_dl'];
-  $strContentAssocs['final_dl']     = $_POST['final_dl'];
-  $strContentAssocs['notification'] = $_POST['notification'];
-  $strContentAssocs['min_reviews']  = $_POST['min_reviews'];
-  $strContentAssocs['def_reviews']  = $_POST['def_reviews'];
-  $strContentAssocs['min_papers']   = $_POST['min_papers'];
-  $strContentAssocs['max_papers']   = $_POST['max_papers'];
-  $strContentAssocs['variance']     = $_POST['variance'];
-  $strContentAssocs['criteria']     = $_POST['criteria'];
-  $strContentAssocs['topics']       = $_POST['topics'];
-  $strContentAssocs['crit_max']     = $_POST['crit_max'];
-  $strContentAssocs['crit_descr']   = $_POST['crit_descr'];
+  $strContentAssocs['name']             = $_POST['name'];
+  $strContentAssocs['description']      = $_POST['description'];
+  $strContentAssocs['homepage']         = $_POST['homepage'];
+  $strContentAssocs['start_date']       = $_POST['start_date'];
+  $strContentAssocs['end_date']         = $_POST['end_date'];
+  $strContentAssocs['abstract_dl']      = $_POST['abstract_dl'];
+  $strContentAssocs['paper_dl']         = $_POST['paper_dl'];
+  $strContentAssocs['review_dl']        = $_POST['review_dl'];
+  $strContentAssocs['final_dl']         = $_POST['final_dl'];
+  $strContentAssocs['notification']     = $_POST['notification'];
+  $strContentAssocs['min_reviews']      = $_POST['min_reviews'];
+  $strContentAssocs['def_reviews']      = $_POST['def_reviews'];
+  $strContentAssocs['min_papers']       = $_POST['min_papers'];
+  $strContentAssocs['max_papers']       = $_POST['max_papers'];
+  $strContentAssocs['variance']         = $_POST['variance'];
+  $strContentAssocs['criteria']         = $_POST['criteria'];
+  $strContentAssocs['topics']           = $_POST['topics'];
+  $strContentAssocs['crit_max']         = $_POST['crit_max'];
+  $strContentAssocs['crit_descr']       = $_POST['crit_descr'];
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
-  if (isset($_POST['auto_actaccount'])) {
+  if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
     $ifArray[] = 2;
   }
-  if (isset($_POST['auto_paperforum'])) {
+  if (isset($_POST['auto_paperforum']) && !empty($_POST['auto_paperforum'])) {
     $ifArray[] = 3;
   }
-  if (isset($_POST['auto_addreviewer'])) {
+  if (isset($_POST['auto_addreviewer']) && !empty($_POST['auto_addreviewers'])) {
     $ifArray[] = 4;
   }
   // Anlegen der Konferenz in der Datenbank
