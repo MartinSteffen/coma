@@ -385,7 +385,7 @@ function generatePostMethodArray($strArrayPostvars){
 
   if (!empty($_GET['showforums'])){
     $temp = $_GET['showforums'];
-    if (($temp >= 0) && ($temp <= 3)){
+    if (($temp >= 0) && ($temp <= 4)){
       $_SESSION['showforums'] = $temp;
     }
   }
