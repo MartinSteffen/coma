@@ -9,11 +9,13 @@ if (!defined('IN_COMA1')) {
 }
 
 $objPerson = $myDBAccess->getPerson(session('uid', session('confid')));
-if ($mySql->failed()) {
+/*
+if ($myDBAccess->failed()) {
   $_SESSION['message'] = 'An error occured during processing the user menu!<br>'.
-                         $mySql->getLastError();
-  redirect('error.php');
+                           $myDBAccess->getLastError();
+  redirect('error.php');  
 }
+*/
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
 $strMenuAssocs = defaultAssocArray();

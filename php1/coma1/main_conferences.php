@@ -30,11 +30,13 @@ if (!empty($objConferences)) {
   $lineNo = 1;
   foreach ($objConferences as $objConference) {
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
-    if ($mySql->failed()) {
+    /*
+    if ($myDBAcess->failed()) {
       $_SESSION['message'] = 'An error occured during processing the conference list!<br>'.
-                             $mySql->getLastError();
+                             $myDBAccess->getLastError();
       redirect('error.php');
     }
+    */
     $ifArray = array();
     if (!empty($objPerson)) {
       if ($objPerson->hasAnyRole()) {
