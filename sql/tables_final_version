@@ -22,7 +22,17 @@
   Attribut auch entfernen, dann faellt das Komitee-Forum raus.
   
   + + + Sandro
- 
+  
+Änderungen (nur zwei kleine):
+- Bei der Tabelle "Person" die Conference-ID entfernt. Wir hatten gesagt,
+  dass die Beziehung Roles-Conference ausreicht, damit ein User mehrere
+  Konferenzen besuchen kann;
+- Ansonsten bin ich damit einverstanden; auch die Enumerations sind schon 
+  gut, da habe ich einen bei Status hinzugefügt.
+  
+  -- Gunnar
+  
+  
 
 1.  Tables:
 
@@ -44,7 +54,6 @@ min_reviews_per_paper         Int
  Table Person
 ~~~~~~~~~~~~~~
 id              Int             Primary Key, Autoincrement
-conference	Int		-> Conference, id
 first_name	Varchar 127
 last_name	Varchar 127	Not Null
 title		Varchar 32
@@ -168,6 +177,7 @@ text		Text
 ~~~~~~~~~~~~~~~~~~~~
 01  active
 02  not active
+03  invited
 ...
 
  Enumeration PaperState
