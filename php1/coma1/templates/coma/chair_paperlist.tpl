@@ -29,6 +29,8 @@
 <p class="message">
   Click on any paper to view the details for the paper.<br>
   Click on any author to view the details for the user.<br>
+  To delete a paper you have to mark the checkbox next to the <span class="emph">delete</span> button
+  for confirmation.<br>
   You can change the status of the paper by using the buttons <span class="emph">Accept</span>,
   <span class="emph">Reject</span>, and <span class="emph">Reset</span> the status.
 </p>
