@@ -15,7 +15,8 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'));
+$showChairs = isset($_GET['showchairs']);
+$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), ($showChairs ? 0 : CHAIR));
 if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
 }
@@ -51,32 +52,34 @@ $strContentAssocs['lines'] = '';
 if (!empty($objPersons)) {
   $lineNo = 1;
   foreach ($objPersons as $objPerson) {
-    $strItemAssocs = defaultAssocArray();
-    $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['user_id'] = $objPerson->intId;    
-    $strItemAssocs['name'] = encodeText($objPerson->getName(1));
-    $strItemAssocs['email'] = encodeText($objPerson->strEmail);
-    $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
-    $strItemAssocs['roles'] = '';
-    for ($i = 0; $i < count($intRoles); $i++) {
-      if ($objPerson->hasRole($intRoles[$i])) {
-        if (!empty($strItemAssocs['roles'])) {
-      	  $strItemAssocs['roles'] .= ', ';
+    if (($showChairs && $objPerson->hasRole(CHAIR)) || !$showChairs) {
+      $strItemAssocs = defaultAssocArray();
+      $strItemAssocs['line_no'] = $lineNo;
+      $strItemAssocs['user_id'] = $objPerson->intId;    
+      $strItemAssocs['name'] = encodeText($objPerson->getName(1));
+      $strItemAssocs['email'] = encodeText($objPerson->strEmail);
+      $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
+      $strItemAssocs['roles'] = '';
+      for ($i = 0; $i < count($intRoles); $i++) {
+        if ($objPerson->hasRole($intRoles[$i])) {
+          if (!empty($strItemAssocs['roles'])) {
+            $strItemAssocs['roles'] .= ', ';
+          }
+          $strItemAssocs['roles'] .= $strRoles[$intRoles[$i]];
         }
-        $strItemAssocs['roles'] .= $strRoles[$intRoles[$i]];
       }
+      if ($objPerson->hasRole(REVIEWER)) {
+        $strItemAssocs['if'] = array(1);
+      }
+      else {
+        $strItemAssocs['if'] = array();
+      }
+      $userItem = new Template(TPLPATH.'user_userlistitem.tpl');
+      $userItem->assign($strItemAssocs);
+      $userItem->parse();
+      $strContentAssocs['lines'] .= $userItem->getOutput();
+      $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
     }
-    if ($objPerson->hasRole(REVIEWER)) {
-      $strItemAssocs['if'] = array(1);
-    }
-    else {
-      $strItemAssocs['if'] = array();
-    }
-    $userItem = new Template(TPLPATH.'user_userlistitem.tpl');
-    $userItem->assign($strItemAssocs);
-    $userItem->parse();
-    $strContentAssocs['lines'] .= $userItem->getOutput();
-    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
   }
 }
 else {

@@ -42,6 +42,8 @@
   </tr>  
 </table>
 
+{chairs_list}
+
 <p>&nbsp;</p>
 
 <p class="message">
