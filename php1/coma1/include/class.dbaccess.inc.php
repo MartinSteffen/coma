@@ -133,28 +133,24 @@ class DBAccess {
         ' WHERE   conference_id = \' '.$confId.' \' '.
         ' AND     person_id= \''.$Id.'\'';
    $data = $this->mySql->select($s);
+   $strRoles= array();
    if (!empty($data)) {
-      $strRoles= array();
       // Jeder Benutzer hat die Rolle Teilnehmer 
-      $strRoles[count($data)] = 'Teilnehmer';
-      for ($i = 0; $i < count($data); $i++) {
-        if ($data[$i]['role_type']==0){$strRoles[$i] = 'Chair';}
-        if ($data[$i]['role_type']==1){$strRoles[$i] = 'Reviewer';}
-        if ($data[$i]['role_type']==2){$strRoles[$i] = 'Autor';}
-        // falls ein role_type in der Datenbank existiert der nicht bekannt Fehler  
-        if ($data[$i]['role_type'] >2){ 
+     for ($i = 0; $i < count($data); $i++) {
+         // falls ein role_type in der Datenbank existiert der nicht bekannt Fehler  
+        if ($data[$i]['role_type'] >3){ 
           $strRoles[$i] = 'undef';
           echo 'Rolle: '.$data[$i]['role_type'].' ist in der Funktion getRoles nicht bekannt';
         }
+        else {
+        if ($data[$i]['role_type']==3){$strRoles[$i] = 'Chair';}
+        if ($data[$i]['role_type']==2){$strRoles[$i] = 'Reviewer';}
+        if ($data[$i]['role_type']==1){$strRoles[$i] = 'Autor';}
+        if ($data[$i]['role_type']==0){$strRoles[$i] = 'Teilnehmer';}
+        }
       }
    }
-    else{
-      $strRoles= array();
-      // Jeder Benutzer hat die Rolle Teilnehmer 
-      $strRoles[0] = 'Teilnehmer';
-   }
- 
-      return $strRoles;
+   return $strRoles;
  
   }
  /**
