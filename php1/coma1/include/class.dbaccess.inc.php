@@ -1417,7 +1417,7 @@ nur fuer detaillierte?
                            s2db($objPersonDetailed->strPhone),
                            s2db($objPersonDetailed->strFax),
                            s2db($objPersonDetailed->intId));
-    $data = $this->mySql->update($s);
+    $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());
     }
@@ -1451,7 +1451,7 @@ nur fuer detaillierte?
                  " WHERE   person_id = '%d'".
                  " AND     conference_id = '%d'",
                  s2db($intId), s2db($intConferenceId));
-    $result = $this->mySql->delete($s);
+    $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
     }
@@ -1464,7 +1464,7 @@ nur fuer detaillierte?
         $s = sprintf("INSERT   INTO Role (conference_id, person_id, role_type)".
                      " VALUES  ('%d', '%d', '%d')",
                      s2db($intConferenceId), s2db($intId), s2db($intRoles[$i]));
-        $result = $this->mySql->insert($s);
+        $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateRoles', $this->mySql->getLastError());
         }
@@ -1572,7 +1572,7 @@ nur fuer detaillierte?
                  s2db($objPaperDetailed->strAbstract), s2db($objPaperDetailed->strMimeType),
                  s2db($objPaperDetailed->strLastEdit), s2db($objPaperDetailed->strFilePath),
                  s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
-    $data = $this->mySql->update($s);
+    $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
     }
@@ -1685,14 +1685,10 @@ nur fuer detaillierte?
     }
     for ($i = 0; $i < count($objConferenceDetailed->objTopics); $i++) {
       $objTopic = $objConferenceDetailed->objTopics[$i];
-      /*$s = "UPDATE  Topic".
-          " SET     name = '$objTopic->strName'".
-          " WHERE   id = '$objTopic->intId'";*/
       $s = sprintf("UPDATE   Topic".
                    " SET     name = '%s'".
                    " WHERE   id = '%d'",
                    s2db($objTopic->strName), s2db($objTopic->intId));
-      echo("<br>$s<br>");
     }
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -1716,9 +1712,13 @@ nur fuer detaillierte?
     }
     $intId = $objPaperSimple->intId;
     // Topics loeschen...
-    $s = "DELETE  FROM IsAboutTopic".
-        " WHERE   paper_id = '$intId'";
-    $result = $this->mySql->delete($s);
+    /*$s = "DELETE  FROM IsAboutTopic".
+        " WHERE   paper_id = '$intId'";*/
+    $s = sprintf("DELETE   FROM IsAboutTopic".
+                 " WHERE   paper_id = '%d'",
+                 s2db($intId));
+    echo("$s<br>");
+    $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
     }
@@ -1727,9 +1727,13 @@ nur fuer detaillierte?
     }
     // Topics einfuegen...
     for ($i = 0; $i < count($objPaperSimple->intTopics); $i++) {
-      $s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
-          "         VALUES ('$intId', '".$objPaperSimple->intTopics[$i]."')";
-      $result = $this->mySql->insert($s);
+      /*$s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
+          "         VALUES ('$intId', '".$objPaperSimple->intTopics[$i]."')";*/
+      $s = sprintf("INSERT   INTO (IsAboutTopic (paper_id, topic_id)".
+                   " VALUES  ('%d', '%d')",
+                   s2db($intId), s2db($objPaperSimple->intTopics[$i]));
+      echo("$s<br>");
+      $this->mySql->insert($s);
       if ($this->mySql->failed()) {
         return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
       }
