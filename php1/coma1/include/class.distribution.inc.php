@@ -135,7 +135,7 @@ class Distribution extends ErrorHandling {
         $this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
       }
       // Bevorzugte Themen
-      $s = sprintf("SELECT   p.id AS paper_id".
+/*      $s = sprintf("SELECT   p.id AS paper_id".
                    " FROM    Paper AS p".
                    " INNER   JOIN IsAboutTopic AS iat".
                    " ON      iat.paper_id = p.id".
@@ -150,7 +150,7 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($prefers); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
-      }
+      }*/
       // Gewuenschte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    PrefersPaper AS pp".
