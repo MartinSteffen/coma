@@ -1,4 +1,4 @@
-<table class="viewtable">
+<table class="viewtable" width="85%">
   <tr class="viewheader">
     <th>CoMa - Your Conference Manager, version /VERSION/</th>
   </tr>
