@@ -126,10 +126,13 @@ class Person {
       case 1:
         $ret = $this->strLastName.', '.$this->strFirstName;
         break;
+      case 2:
+        $ret = "$this->strTitle $this->strFirstName $this->strLastName";
+        break;
       default:
-        $ret = 'Ungueltiger Parameterwert fuer $intStyle in Person.getName().';
+        $ret = 'Invalid value for parameter $intStyle in Person.getName().';
     }
-    return $ret;
+    return trim($ret);
   }
 
 } // end class Person

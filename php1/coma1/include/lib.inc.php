@@ -290,7 +290,7 @@ function chronometer()
 {
   global $CHRONO_STARTTIME;
   $now = (float) array_sum(explode(' ', microtime()));
-  
+
   if ($CHRONO_STARTTIME > 0)
   {
     $retElapsed = round($now * 1000 - $CHRONO_STARTTIME * 1000, 3);
@@ -303,5 +303,24 @@ function chronometer()
     return 0;
   }
 }
+
+/**
+ * Versendet eine E-Mail
+ *
+ *
+ *
+ */
+function sendMail($intUserID, $strSubject, $strMsg)
+{
+  $objPerson = $myDBAccess->getPerson($intUserID);
+  if ($myDBAccess->failed()) {
+    error('sendMail',$myDBAccess->getLastError());
+  }
+  return mail($objPerson->$strEmail, $strSubject, $strMsg,
+              'To: "'.$objPerson->getName(2).'" <'.$objPerson->$strEmail.'>\r\n'
+             );
+  
+}
+
 
 ?>

@@ -91,8 +91,17 @@ if (isset($_POST['email'])){
                     $_POST['country'], $_POST['phone'], $_POST['fax']);
       $strContentAssocs['address'] = encodeText($objPerson->getAddress());
       $strContentAssocs['country'] = encodeText($objPerson->getCountry());
+      $mailRegistered = new Template(TPLPATH.'mail_registered.tpl');
+      $strMailAssocs = defaulAssocArray();
+      $strMailAssocs['email'] = encodeText($_POST['user_password']);
+      $strMailAssocs['password'] = encodeText($_POST['email']);
+      $strMailAssocs['password'] = encodeText($_POST['email']);
+      $strMailAssocs['name'] = encodeText($objPerson->getName(2));
+      $mailRegistered->assign($strMailAssocs);
+      $mailRegistered->parse();
+      sendMail($result, '[CoMa] Welcome to CoMa', $mailRegisterd->getOutput());
     }
-    else if ($myDBAccess->failed()) {
+    elseif ($myDBAccess->failed()) {
       // Datenbankfehler?
       error('Error during creating account.', $myDBAccess->getLastError());
     }
