@@ -82,7 +82,7 @@ class MySql {
    * Dabei werden einfache Fehlerchecks durchgefuert. Das Ergebniss wird
    * automatisch in ein array umgewandelt.
    *
-   * @param string $sql Eine SQL <b>select</b> Anfrage an die Datenbank
+   * @param string $strSql Eine SQL <b>select</b> Anfrage an die Datenbank
    * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
@@ -120,7 +120,7 @@ class MySql {
    * Die Funktion <b>insert()</b> ermoeglicht insert Anfragen an die Datenbank.
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
-   * @param string $sql Eine SQL <b>insert</b> Anfrage an die Datenbank
+   * @param string $strSql Eine SQL <b>insert</b> Anfrage an die Datenbank
    * @return int|false Die id des letzten auto_increment Wertes oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
