@@ -99,7 +99,7 @@ class DBAccess {
   /**
    */
   function checkLogin() {
-    return false;
+    return true;
   }
 
   /**
