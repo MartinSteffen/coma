@@ -2176,7 +2176,7 @@ nur fuer detaillierte?
                     " INNER   JOIN ConferenceConfig AS cc".
                     " ON      cc.conference_id = c.id".
                     " INNER   JOIN Paper AS p".                    
-                    " AND     c.id = p.conference_id".
+                    " ON      c.id = p.conference_id".
                     " AND     p.id = '%d'",
                               s2db($intPaperId));
        $data = $this->mySql->select($s);
