@@ -23,7 +23,7 @@ class ComaExample extends PHPUnit_TestCase
 
   function test_checkEmail() {
   	global $myDBAccess;
-    $this->assertTrue($myDBAccess->checkEmail($strEmail));
+    $this->assertTrue($myDBAccess->checkEmail('sae@me.de'));
   }
 }
 
