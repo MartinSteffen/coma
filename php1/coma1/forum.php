@@ -240,7 +240,7 @@ function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs
       $replylinktemplate = new Template(TPLPATH . 'message_replylink.tpl');
       $replyassocs = defaultAssocArray();
       $replylinkassocs['message-id'] = $message->intId;
-      $replylinktemplate->assing($replylinkassocs);
+      $replylinktemplate->assign($replylinkassocs);
       $replylinktemplate->parse();
       $messageassocs['replylink'] = $replylinktemplate->getOutput();
     }
