@@ -44,7 +44,7 @@
   </td>  
  </tr>
 </table>
-<!--- - - - - - - - - - - - - - - - - - - - Body - - - - - - - - - - - - - - - -  --->
+<!-- - - - - - - - - - - - - - - - - - - - Body - - - - - - - - - - - - - - - -  -->
 <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
  <tr>
   <td>
@@ -64,7 +64,7 @@
 </table>
 
 
-<!--- - - - - - - - - - - - - - - - - - Footer - - - - - - - - - - - - - - - -  --->
+<!-- - - - - - - - - - - - - - - - - - Footer - - - - - - - - - - - - - - - -  -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
  <tr>
   <td style="background-image:url({path}images/menue.gif)" width="50">&nbsp;</td>
