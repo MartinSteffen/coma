@@ -35,7 +35,7 @@
   </xsl:template>
 
   <xsl:template match="/content">
-    <div class="header"><h1><xsl:value-of select="pagetitle" /></h1></div>
+    <!--<div class="header"><h1><xsl:value-of select="//pagetitle" /></h1></div>-->
     <div class="content">
       <form action="RatePaper" method="post">
         <xsl:apply-templates select="//servletState" />

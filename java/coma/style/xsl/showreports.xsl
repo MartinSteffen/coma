@@ -19,7 +19,7 @@
              <link rel="stylesheet" type="text/css" href="style/css/comastyle.css" />
              <title>
                JCoMa: 
-               <xsl:value-of select="/content/pagetitle" />
+               <xsl:value-of select="/result/pagetitle" />
              </title>
              <xsl:value-of select="meta" />
            </head>
@@ -31,7 +31,7 @@
        </xsl:template>
 
        <xsl:template match="/result">
-         <div class="header"><h1><xsl:value-of select="//pagetitle" /></h1></div>
+         <!--<div class="header"><h1><xsl:value-of select="//pagetitle" /></h1></div>-->
          <div class="content">
 
            <xsl:call-template name="stderrors" />
