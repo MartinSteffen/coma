@@ -32,7 +32,7 @@ $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
 
 if (isset($_SESSION['message'])) {
-  $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
+  $strContentAssocs['message'] = '<p class="message">'.$_SESSION['message'].'</p>';
   unset($_SESSION['message']);
 }
 $content->assign($strContentAssocs);
