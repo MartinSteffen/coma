@@ -184,7 +184,7 @@ class Distribution extends ErrorHandling {
         $p_num_revs_total_left[$j]--;
         $r_num_papers[$i]++;
       }
-/*      // Ausgeschlossene Paper
+      // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    ExcludesPaper AS pp".
                    " INNER   JOIN Paper p".
@@ -201,7 +201,7 @@ class Distribution extends ErrorHandling {
         $matrix[$i][$p_id_index[$excluded[$j]['paper_id']]] = 0;
         $p_num_revs_total_left[$j]--;
       }
-      // Abgelehnte Paper
+/*      // Abgelehnte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    DeniesPaper AS pp".
                    " INNER   JOIN Paper p".
