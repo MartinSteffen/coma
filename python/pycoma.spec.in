@@ -8,10 +8,11 @@ Packager:       Marcel Kyas <mky@informatik.uni-kiel.de>
 URL:		http://www.informatik.uni-kiel.de/~mky/coma/
 Source0:	http://www.informatik.uni-kiel.de/~mky/coma/%{name}-%{version}.tar.gz
 BuildRequires:	python >= 2.3, mod_python >= 3.1
-BuildRequires:	postgresql-python >= 7.4
-BuildRequires:	MySQL-python >= 0.9
+BuildRequires:	postgresql-python >= 7.4, MySQL-python >= 0.9
 Requires:	python >= 2.3, mod_python >= 3.1
 BuildRoot:	%{_tmppath}/coma-root
+
+%define pythondir /usr/lib/python2.3/site-packages
 
 %description
 Coma is a simple conference manager written in python.
@@ -22,7 +23,7 @@ It requires a data base module.
 %package psql
 Summary:	Coma using postgresql
 Group:		Other
-Requires:	postgresql-python >= 7.4
+Requires:	%{name} = %{version}, postgresql-python >= 7.4
 
 %description psql
 Coma is a simple conference manager written in python and using postgresql.
@@ -30,12 +31,13 @@ Coma is a simple conference manager written in python and using postgresql.
 %package mysql
 Summary:	Coma using MySQL
 Group:		Other
-Requires:	MySQL-python >= 0.9
+Requires:	%{name} = %{version}, MySQL-python >= 0.9
 
 %description mysql
 Coma is a simple conference manager written in python and using postgresql.
 
 %prep
+rm -rf ${RPM_BUILD_ROOT}
 %setup -q -T -b 0
 
 %build
@@ -51,12 +53,58 @@ rm -rf ${RPM_BUILD_ROOT}
 %files
 %defattr(-,root,root)
 %doc ChangeLog README COPYING
+%{_bindir}/comasetup
+%{_sbindir}/comaprocmail
+# Common python library.
+%{pythondir}/%{name}/coma.py
+%{pythondir}/%{name}/coma.pyc
+%{pythondir}/%{name}/coma.pyo
+%{pythondir}/%{name}/coma_setup.py
+%{pythondir}/%{name}/coma_setup.pyc
+%{pythondir}/%{name}/coma_setup.pyo
+%{pythondir}/%{name}/coma_procmail.py
+%{pythondir}/%{name}/coma_procmail.pyc
+%{pythondir}/%{name}/coma_procmail.pyo
+# Stylesheet
+%{_datadir}/%{name}/coma.css
+# Email Templates
+%{_datadir}/%{name}/register-mail.txt
+# Web Templates
+%{_datadir}/%{name}/bad-page.xml
+%{_datadir}/%{name}/error-login.xml
+%{_datadir}/%{name}/error-user.xml
+%{_datadir}/%{name}/index.xml
+%{_datadir}/%{name}/login-error.xml
+%{_datadir}/%{name}/login-success.xml
+%{_datadir}/%{name}/login.xml
+%{_datadir}/%{name}/logout.xml
+%{_datadir}/%{name}/new-conference-error.xml
+%{_datadir}/%{name}/new-conference.xml
+%{_datadir}/%{name}/new-paper-error.xml
+%{_datadir}/%{name}/new-paper.xml
+%{_datadir}/%{name}/redirect.xml
+%{_datadir}/%{name}/register-error.xml
+%{_datadir}/%{name}/register-success.xml
+%{_datadir}/%{name}/register.xml
+%{_datadir}/%{name}/session-expired.xml
+%{_datadir}/%{name}/session-missing.xml
+%{_datadir}/%{name}/summary.xml
+# Index page of a coma instance.
+%{_datadir}/%{name}/index.py
 
 %files mysql
 %defattr(-,root,root)
 
 %files psql
 %defattr(-,root,root)
+# Connector for postgresql
+%{pythondir}/%{name}/comadb.py
+%{pythondir}/%{name}/comadb.pyc
+%{pythondir}/%{name}/comadb.pyo
+# Database schemas for postgres.
+%{_datadir}/%{name}/coma.sql
+%{_datadir}/%{name}/coma-aux.sql
+%{_datadir}/%{name}/coma-del.sql
 
 %changelog
 * Wed Jan 27 2005 Marcel Kyas <mky@informatik.uni-kiel.de>

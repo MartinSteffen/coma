@@ -1,6 +1,4 @@
-#! /usr/bin/python
-#
-# This little application will be used to set up coma.
+# This library is used to set up an instance of coma.
 
 import sys
 import os
@@ -133,6 +131,3 @@ def main():
     save_config('./coma.conf', apacheconf, defaults)
     import_pgsql_schema('coma.sql', defaults)
     import_pgsql_schema('coma-aux.sql', defaults)
-
-if (__name__ == "__main__"):
-    main()

@@ -1,11 +1,7 @@
 
-SUBDIRS		= templates
-
-CGI_SCRIPT	= index.py new-conference.py new-paper.py
-CGI_LIB		= comadb.py coma.py
-EXTRA_DIST	=
-
-pkgpython_PYTHON =	$(CGI_SCRIPT) $(CGI_LIB)
+SUBDIRS			= templates
+dist_pkgdata_DATA	= index.py
+pkgpython_PYTHON	= coma.py comadb.py
 
 MOSTLYCLEANFILES	= *~
 CLEANFILES		= *.pyc *.pyo
