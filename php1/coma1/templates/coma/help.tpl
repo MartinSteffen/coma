@@ -4,7 +4,7 @@
   {chapter-01-01}
   {chapter-01-02}
   {chapter-01-03}
-  ...
+
   {chapter-02}
   {chapter-02-01}
   {chapter-02-01-01}
