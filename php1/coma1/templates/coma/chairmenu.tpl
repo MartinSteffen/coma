@@ -4,12 +4,12 @@
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}chair_userlist.php?{SID}" class="{if2 marked}submenu">
+    <td class="submenu"><a href="{basepath}chair_users.php?{SID}" class="{if2 marked}submenu">
       Manage users</a>
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}chair_paperlist.php?{SID}" class="{if3 marked}submenu">
+    <td class="submenu"><a href="{basepath}chair_papers.php?{SID}" class="{if3 marked}submenu">
       Manage papers</a>
     </td>
   </tr>  

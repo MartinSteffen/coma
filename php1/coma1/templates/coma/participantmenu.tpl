@@ -3,3 +3,8 @@
       Participant</a>
     </td>
   </tr>
+  <tr>
+    <td class="submenu"><a href="{basepath}participant_settings.php?{SID}" class="{if2 marked}submenu">
+      Edit my participation</a>
+    </td>
+  </tr>
