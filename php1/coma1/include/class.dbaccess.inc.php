@@ -114,7 +114,7 @@ class DBAccess extends ErrorHandling {
    * Konstruktor: Erzeugt eine Verbindung mit der Datenbank.
    *
    * @param MySql $mySql ein MySql-Objekt
-   * @return bool <b>true</b> bei Erfolg, <b>false</b> bei Fehler
+   * @return bool true gdw. erfolgreich
    * @see error()
    * @see getLastError()
    */
@@ -159,7 +159,7 @@ class DBAccess extends ErrorHandling {
  /**
    * Prueft, ob die Email-Adresse in der Datenbank gespeichert wurde.
    *
-   * @return bool true gdw. die Email in der Datenbank gefunden wurde.
+   * @return bool true gdw. die Email in der Datenbank gefunden wurde
    * @access public
    * @author Daniel (20.12.04)
    */
@@ -921,7 +921,7 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId Die zu pruefende Person.
    * @param int $intForumId Das zu pruefende Forum.
-   * @return boolean Gibt true zurueck gdw. die Person Zugriff auf das Forum hat.
+   * @return bool Gibt true zurueck gdw. die Person Zugriff auf das Forum hat
    * @access public
    * @author Sandro (12.01.05)
    * @todo Muss noch implementiert werden!
@@ -1108,13 +1108,13 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
 
 
   /**
-   * Aktualisiert den Datensatz der Person mit den Daten des PersonDetailed-Objekts $objPerson.
+   * Aktualisiert den Datensatz der Person $objPersonDetailed in der Datenbank.
    *
    * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll
    * @param int $intConferenceId ID der Konferenz, zu der die Rollen der Person aktualisiert
    *                             werden sollen. Optional: Ist $intConfereceId nicht
    *                             angegeben, werden keine Rollen fuer die Person aktualisiert.
-   * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Sandro (10.01.05)
    * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Rollen der Person.
@@ -1122,6 +1122,9 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    *       Du dafuer benutzen solltest.
    */
   function updatePersonDetailed($objPersonDetailed, $intConferenceId=false) {
+    if (empty($objPersonDetailed)) {
+      return $this->success(false);
+    }
     $s = "UPDATE  Person".
         " SET     first_name = '$objPersonDetailed->strFirstName',".
         "         last_name = '$objPersonDetailed->strLastName',".
@@ -1153,16 +1156,18 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    * Aktualisiert die Rollen der Person $objPerson bzgl. der Konferenz
    * $intConferenceId in der Datenbank.
    *
+   * @param Person $objPerson    Person-Objekt mit aktuellen Rollen
    * @param int $intConferenceId Konferenz-ID
-   * @param Person $objPerson       Person-Objekt
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
-   * @author Tom (11.05.04)
+   * @author Tom (11.01.05)
    */
   function updateRoles($objPerson, $intConferenceId) {
     global $intRoles;
+    if (empty($objPerson)) {
+      return $this->success(false);
+    }
     $intId = $objPerson->intId;
-
     // Rollen loeschen...
     $s = "DELETE  FROM Role".
         " WHERE   person_id = $intId".
@@ -1171,7 +1176,9 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
     }
-
+    if (empty($objPerson->intRoles)) {
+      return $this->success();
+    }
     // Rollen einfuegen...
     for ($i = 0; $i < count($intRoles); $i++) {
       if ($objPerson->hasRole($intRoles[$i])) {
@@ -1187,17 +1194,53 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
   }
 
   /**
+   * Aktualisiert die Co-Autoren des Papers $objPaperDetailed in der Datenbank.
+   *
+   * @param PaperDetailed [] $objPaperDetailed
+   * @param int [] $intCoAuthors Array von Co-Autor-ID's (Bezug auf Person-ID's in der DB)
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Tom (14.01.04)
+   */
+  function updateCoAuthors($objPaperDetailed) {
+    if (empty($objPaperDetailed)) {
+      return $this->success(false);
+    }
+    // Co-Autoren loeschen...
+    $s = "DELETE  FROM IsCoAuthorOd".
+        " WHERE   paper_id = $intId".
+        " AND     person_id IS NOT NULL";
+    $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateCoAuthors', $this->mySql->getLastError());
+    }
+    // Co-Autoren einfuegen...
+    for ($i = 0; $i < count($objPaperDetailed->intCoAuthors); $i++) {
+      $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
+          "         VALUES ($objPaperDetailed->intCoAuthors[$i], $intPaperId)";
+      $this->mySql->insert($s);
+      if ($this->mySql->failed()) {
+        return $this->error('updateCoAuthors', $this->mySql->getLastError());
+      }
+    }
+    return $this->success(true);
+  }
+
+  /**
    * Aktualisiert den Datensatz des Artikels mit den Daten des PaperDetailed-Objekts $objPaper.
    * Sorgt nicht (!) dafuer, die aktuelle Dateiversion hochzuladen.
    *
    * @param PaperDetailed $objPaper Artikel, der in der Datenbank aktualisiert werden soll
-   * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Sandro (10.01.05)
    * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Co-Autoren des Papers.
    * @todo Anm. v. Tom: Aenderungen an Unterobjekten fehlen auch noch (Topics, ...)
    */
   function updatePaperDetailed($objPaperDetailed) {
+    if (empty($objPaperDetailed)) {
+      return $this->success(false);
+    }
     $s = "UPDATE  Paper".
         " SET     title = '$objPaperDetailed->strTitle',".
         "         author_id = $objPaperDetailed->intAuthorId,".
@@ -1301,14 +1344,14 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
   /**
    * Fuegt der Person $intPersonId die Rolle $intRole hinzu.
    *
-   * @param int $intConferenceId Konferenz-ID
    * @param int $intPersonId     Personen-ID
    * @param int $intRole         Rollen-Enum
+   * @param int $intConferenceId Konferenz-ID
    * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
-  function addRole($intConferenceId, $intPersonId, $intRoleType) {
+  function addRole($intPersonId, $intRoleType, $intConferenceId) {
     $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
         "         VALUES ($intConferenceId, $intPersonId, $intRoleType)";
     $result = $this->mySql->insert($s);
@@ -1750,14 +1793,14 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    * Loescht die Rolle $intRoleType der Person $intPersonId fuer die Konferenz
    * $intConferenceId.
    *
-   * @param int $intConferenceId Konferenz-ID
    * @param int $intPersonId     Personen-ID
    * @param int $intRoleType     Rollen-Enum
+   * @param int $intConferenceId Konferenz-ID
    * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
-  function deleteRole($intConferenceId, $intPersonId, $intRoleType) {
+  function deleteRole($intPersonId, $intRoleType, $intConferenceId) {
     $s = "DELETE  FROM Role".
         " WHERE   conference_id = $intConferenceId".
         " AND     person_id = $intPersonId".

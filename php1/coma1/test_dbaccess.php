@@ -24,7 +24,21 @@ function bit($b) {
   return true;
 }
 
-$id = $myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
+$p = $myDBAccess->getPaperDetailed(2);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+echo('Co-Autoren:');
+for ($i = 0; $i < $p->intCoAuthors; $i++) {
+  echo ("$p->intCoAuthors[$i]<br>");
+}
+for ($i = 0; $i < $p->strCoAuthors; $i++) {
+  echo ("$p->strCoAuthors[$i]<br>");
+}
+
+
+
+/*$id = $myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
                            '', '', '', '', '', '', '', '', '');
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -34,9 +48,9 @@ $myDBAccess->deleteConference($id);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-else echo("Geloescht: $id");
+else echo("Geloescht: $id");*/
 
-$p = $myDBAccess->getPerson(1, 1);
+/*$p = $myDBAccess->getPerson(1, 1);
 if ($myDBAccess->failed()) {
   echo ('Fehler: '.$myDBAccess->getLastError());
   exit(-1);
@@ -65,7 +79,7 @@ for ($i = 0; $i < count($intRoles); $i++) {
     echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
 }
 echo('<br>Update der Rollen in der DB...<br>');
-$myDBAccess->updateRoles($p, 1);
+$myDBAccess->updateRoles($p->intRoles, 1);
 if ($myDBAccess->failed()) {
   echo ('Fehler: '.$myDBAccess->getLastError());
   exit(-1);
@@ -76,7 +90,7 @@ echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
     echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
-}
+}*/
 
 /*$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
 echo('<br>ID = '.$id.'<br>');
