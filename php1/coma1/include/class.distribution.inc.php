@@ -126,6 +126,9 @@ class Distribution extends ErrorHandling {
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
+      for ($j = 0; $j < count($assigned); $j++) {
+        $this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
+      }
       // Bevorzugte Themen
       $s = sprintf("SELECT   p.id AS paper_id".
                    " FROM    Paper AS p".
@@ -139,12 +142,18 @@ class Distribution extends ErrorHandling {
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
+      for ($j = 0; $j < count($prefers); $j++) {
+        $this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
+      }
       // Gewuenschte Paper
       $s = sprintf("SELECT paper_id FROM PrefersPaper WHERE person_id = '%d'",
                    s2db($r_id[$i]));
       $wants = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
+      }
+      for ($j = 0; $j < count($wants); $j++) {
+        $this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
       }
       // Abgelehnte Paper
       $s = sprintf("SELECT paper_id FROM DeniesPaper WHERE person_id = '%d'",
@@ -153,6 +162,9 @@ class Distribution extends ErrorHandling {
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
+      for ($j = 0; $j < count($denies); $j++) {
+        $this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
+      }
       // Ausgeschlossene Paper
       $s = sprintf("SELECT paper_id FROM ExcludesPaper WHERE person_id = '%d'",
                    s2db($r_id[$i]));
@@ -160,12 +172,7 @@ class Distribution extends ErrorHandling {
       if ($this->mySql->failed()) {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
-      // Matrix fuellen
-      for ($j = 0; $j < count($assigned); $j++) {
-        $this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
-        $this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
-        $this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
-        $this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
+      for ($j = 0; $j < count($excluded); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
       }
     }
