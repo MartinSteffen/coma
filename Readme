@@ -26,7 +26,9 @@ Currently, the structure is as follows:
 
     o php1/2:            2 php groups
 
-    o requirements:      informal requirement spec.
+    o test:             the test group(s)
+
+    o requirements:     informal requirement spec.
 
     o sql:              stuff from the sql team
 
@@ -36,10 +38,10 @@ Currently, the structure is as follows:
 
     o python:           some python implementation 
 
-    o org:              internal org. matters
+    o org:              internal org. matters (including email adresses)
 
-
+#############################################
 # $Id$#
-
+#############################################
 
 
