@@ -83,22 +83,22 @@
     <td class="listitem-1">  abstract: </td>
     <td class="listitem-1">  Reasons for insomnia Insomnia in the University ...</td> 
   </tr>
-  <tr class="listheader">
-    <td class="listheader" colspan="2">        
+  <tr class="listitem-1">
+    <td class="listitem-1" colspan="2">        
        <form action="" method="post">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="download pdf" class="button" />
        </form>
     </td>
   </tr>
-</table>
-
-<table class="list">
+  <tr>
+    <td colspan="2"> &nbsp;</td>
+  </tr>
   <tr class="listheader">
-    <td class="listheader"> Criteria <br>  Evaluation</td>
+    <td class="listheader" colspan="2"> Criteria <br>  Evaluation</td>
   </tr>
   <tr>
-    <td> 
+    <td colspan="2"> 
     <form action="" method="post"> &nbsp;  &nbsp;
       overal rating:
       <input type="text" size="2"  name="overal rating" /> &nbsp;  &nbsp;
