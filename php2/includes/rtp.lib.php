@@ -8,8 +8,15 @@
 function getPaper($paperId) {
 
 	// ein Paper ist ein assoziatives Array, das sämtliche Eigenschaften eines Papers als Keys und ihre Werte als Values enthält. Bewertungen bilden evtl. Unter-Arrays in den entsprechenden keys.
+	$sql=$GLOBALS['sql'];
+	$returnArr=$sql->query("SELECT * from paper where id=$paperId");
+	$returnArr=$returnArr[0];
+	$returnArr['reviewReport']=$sql->query("SELECT * from reviewreport where paper_id=$paperId");
 
-	return array(0);
+//	foreach($returnArr['reviewReport'] as $report) {
+//		$returnArr['reviewReport']['rating'][]=$sql->query("SELECT * from rating where review_id=$report['id']");
+//	}
+	return $returnArr;
 
 }
 
