@@ -225,14 +225,18 @@ echo '<br>Forum:<br>';
 $i = 0;
 while ($i < $conferences) {
   $j = 1;
-  while ($j < 4) {
+  while ($j < 3) {
   echo '.';
-    $myDBAccess->addForum($i+1, 'title'.$i.$j, $j,0);
+    $myDBAccess->addForum($i+1, 'title'.$i.$j, $j);
     if ($myDBAccess->failed()) {
     echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
     $j++;
   }
+  $myDBAccess->addForum($i+1, 'title'.$i.3, 1);
+    if ($myDBAccess->failed()) {
+    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+}
   $i++;
 }
 
