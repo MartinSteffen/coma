@@ -43,9 +43,9 @@ public class ShowReports extends HttpServlet {
     StringBuffer result = new StringBuffer();
     XMLHelper helper = new XMLHelper();
 
-    public void init(ServletConfig config) {
-	LOG.log(DEBUG, "I'm alive!");
-    }
+//     public void init(ServletConfig config) {
+// 	super.init(config);
+//     }
     
     /**
        handle the request. 
