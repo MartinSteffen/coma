@@ -14,7 +14,7 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-if (!isset($GET_['reviewid'])) {
+if (!isset($_GET['reviewid'])) {
   redirect("reviewer_reviews.php");
 }
 
