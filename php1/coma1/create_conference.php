@@ -23,12 +23,12 @@ $ifArray = array();
 if (isset($_POST['action'])) {
 
   // Konvertiere Zeit-Daten in was sinnvolles
-  $abstract_dl = empty($_POST['abstract_dl']) ? '' : date(strtotime($_POST['abstract_dl']),'d-M-Y');
+  echo $abstract_dl = empty($_POST['abstract_dl']) ? '' : date(strtotime($_POST['abstract_dl']),'d-M-Y');
   $paper_dl = empty($_POST['paper_dl']) ? '' : date(strtotime($_POST['paper_dl']),'d-M-Y');
   $review_dl = empty($_POST['review_dl']) ? '' : date(strtotime($_POST['review_dl']),'d-M-Y');
   $final_dl = empty($_POST['final_dl']) ? '' : date(strtotime($_POST['final_dl']),'d-M-Y');
   $notification = empty($_POST['notification']) ? '' : date(strtotime($_POST['notification']),'d-M-Y');
-  $start_date = empty($_POST['start_date']) ? '' : date(strtotime($_POST['start_date']),'d-M-Y');
+  echo $start_date = empty($_POST['start_date']) ? '' : date(strtotime($_POST['start_date']),'d-M-Y');
   $end_date = empty($_POST['end_date']) ? '' : date(strtotime($_POST['end_date']),'d-M-Y');
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
