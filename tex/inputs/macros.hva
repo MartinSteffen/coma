@@ -1,3 +1,5 @@
 \newcommand{\Coma}{\textsl{Coma}}
 
+\newcommand{\psfrag}[2]{} 
+
 %%%
