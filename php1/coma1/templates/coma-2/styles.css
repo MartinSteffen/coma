@@ -89,7 +89,8 @@ input, button { font-size: 12px;
         padding: 2px 8px;
       }
 
-input.button, button { background-color: #CEDBEF; min-width: 100px; text-align: center; }
+input.button, button { font-weight: bold; background-color: #CEDBEF;
+                       min-width: 100px; text-align: center; }
 
 /* Tabelle mit Linien zur Darstellung von Listen */
 table.list { border-style: solid;
