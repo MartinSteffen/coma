@@ -4,22 +4,20 @@
 
 <div align="center">
 <table>
-<tr> <td> <b> Einloggen </b> </td> </tr>
-<form action="{basepath}index.php{SID}" method="post"> 
-<tr>
+<tr> <td>&nbsp; </td><td> <b> Einloggen <br>  <br> </b> </td> </tr>
+<tr> 
+  <td valign="middle">
+        Email-Addresse: <br> <br>
+        Passwort: <br> <br> <br>
+  </td>
   <td>
-       Email-Addresse: 
-  </td>
-  <td> <input type="text" name="userMail" size="30" maxlength="127" /> &nbsp; &nbsp;
-  </td>
-</tr>
-<tr>
-  <td> Password: </td>
-  <td> <input type="password" name="userPassword" size="30" maxlength="127" />
-  <input type="hidden" name="action" value="login" />
-  <input type="submit" name="submit" value="Login" />
+       <form action="{basepath}index.php{SID}" method="post"> 
+       <input type="text" name="userMail" size="30" maxlength="127" />  <br> <br>
+       <input type="password" name="userPassword" size="30" maxlength="127" /><br>
+       <input type="hidden" name="action" value="login" />
+       <input type="submit" name="submit" value="Login" />
+       </form>
   </td>
 </tr>
- </form>
 </table>
 </div>
