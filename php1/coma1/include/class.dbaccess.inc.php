@@ -127,8 +127,7 @@ class DBAccess {
       	}
       }
       return (new Person($data[0]['id'], $data[0]['email'],
-                         $data[0]['first_name'], $data[0]['last_name'],
-                         $role_type));
+                $data[0]['first_name'], $data[0]['last_name'], $role_type));
     }
     return false;
   }
@@ -136,7 +135,29 @@ class DBAccess {
   /**
    */
   function getPersonDetailed($intPersonId) {
-    return true;
+    $s = 'SELECT  id, email, first_name, last_name, title, affiliation,'.
+        '         street, city, postal_code, state, country, phone, fax'.
+        ' FROM    Person'.
+        ' WHERE   id = '.$intPersonId;
+    $data = $this->mySql->select($s);
+    if ($data) {
+      $s = 'SELECT  role_type'.
+          ' FROM    Role'.
+          ' WHERE   person_id = '.$data[0]['id'];
+      $role_data = $this->mySql->select($s);
+      $role_type = 0;
+      if ($role_data) {
+      	for ($i = 0; $i < count($role_data); $i++) {
+      	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+      	}
+      }
+      return (new PersonDetailed($data[0]['id'], $data[0]['email'],
+                $data[0]['first_name'], $data[0]['last_name'], $role_type,
+                $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
+                $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
+                $data[0]['country'], $data[0]['phone'], $data[0]['fax']));
+    }
+    return false;
   }
 
   /**
@@ -210,12 +231,6 @@ class DBAccess {
   function getForumDetailed($intForumId) {
     return true;
   }
-
-
-
-
-
-
 
 }
 

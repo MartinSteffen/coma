@@ -23,7 +23,7 @@ require_once('./class.person.inc.php');
  */
 class PersonDetailed extends Person {
 
-  var $strTitle:
+  var $strTitle;
   var $strAffiliation;
   var $strStreet;
   var $strCity;
@@ -33,8 +33,8 @@ class PersonDetailed extends Person {
   var $strPhone;
   var $strFax;
   
-  function PersonDetailed($email, $firstname, $lastname, $role, $title='', $affiliation='', $street='', $city='', $postalcode='', $state='', $country='', $phone='', $fax=''){
-    $this->Person($email, $firstname, $lastname, $role);
+  function PersonDetailed($intId, $email, $firstname, $lastname, $role, $title='', $affiliation='', $street='', $city='', $postalcode='', $state='', $country='', $phone='', $fax=''){
+    $this->Person($intId, $email, $firstname, $lastname, $role);
     $this->strTitle = $title;
     $this->strAffiliation = $affiliation;
     $this->strStreet = $street;

@@ -29,7 +29,7 @@ echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
 
 $id = $dbAccess->getPersonIdByEmail('hase@braten.org');
 echo('ID = '.$id.'<br>');
-$p = $dbAccess->getPerson($id);
+$p = $dbAccess->getPersonDetailed($id);
 echo($p->strFirstName.' '.$p->strLastName.' '.$p->intRoles.'<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(1)?'':'k').'ein Chair.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
