@@ -4,7 +4,7 @@ Figure~\ref{fig:classdiagram}).
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[height=12cm]{../sql/db_schema}
+%  \includegraphics[height=12cm]{../sql/db_schema}
   \caption{Class diagram}
   \label{fig:classdiagram}
 \end{figure}
@@ -109,15 +109,18 @@ start with the main ``entities'', and discuss the ``associations'' later.
 
 Relevant is only the SQL-Spec.
 
-\lstinputlisting[caption=DB: conference,label=code:sql.conference,firstline=27,lastline=44]{../sql/db_schema.sql}%
 
 
 The table conferences (cf.\ Listing~\ref{code:sql.conference}) contains all
 the conferences being hosted by the server. We propose that there exists as
 \emph{default, empty conference} to begin with as entry in the table. This
-default conference is charakterized by the empty string. Most of the
-entries in the table should be self-explanatory. For the deadlines, the
-following ones are foreseen, in the order of events:
+default conference is characterized by the empty string. 
+
+
+\lstinputlisting[caption=DB: conference,label=code:sql.conference,firstline=27,lastline=44]{../sql/db_schema.sql}%
+
+Most of the entries in the table should be self-explanatory.  For the
+deadlines, the following ones are foreseen, in the order of events:
 \index{deadlines}
 \begin{enumerate}
 \item The \emph{abstract submission deadline.} This typically is a
@@ -253,14 +256,112 @@ those implementations, that do not want to use an extra table.
 \end{table}
 
 
-Each paper has at least one author, as a paper does not write itself. A
-paper may have more than one author, though, and the additional ones are
-called in the context of \Coma\ coauthors.\footnote{In real life, of course,
-  all are authors, but on the model, one particular author is singled out,
-  and the others, if any, are called coauthors of the paper.}
+Each paper has at least one author, as a paper does not write itself. A paper
+may have more than one author, though, and the additional ones are called in
+the context of \Coma\ coauthors.\footnote{In real life, of course, all are
+  authors, but on the model, one particular author is singled out, and the
+  others, if any, are called coauthors of the paper.} 
 \index{coauthor}%
+The table \texttt{IsCoauthorOf} associates persons and papers (cf.\ 
+Listing~\ref{code:sql.iscoauthorof}). The name-field is to contain the name of
+the coauthor as string.  As the coauthor does not have a active role in
+connection with the tool, it may suffices to keep the name of the coauthor;
+this avoids a full ``registration'' of the coauthor in the tool.
+Alternatively, the coauthor can be represented as an entry in the table of
+persons. As a constraint, exactly one of the field \texttt{person\_id} or the
+name field may be non-trivially filled in.
 
-\lstinputlisting[caption=Coauthor,label=code:sql.iscoauthorof,firstline=101,lastline=110]{../sql/db_schema.sql}%
+\index{coauthor!name}%
+
+\lstinputlisting[caption=Coauthor,label=code:sql.iscoauthorof,firstline=100,lastline=109]{../sql/db_schema.sql}%
+
+\index{topic}%
+As the name indicates, a \emph{topic} is some area of research of interest for
+a particular conference, and especially of interest for some of the reviewers
+of the conference, and it may be a topic dealt with in the papers (cf.\ 
+Listing~\ref{code:sql.topic}). In general, each conference has a certain
+number of topics, which are selected when planning the conference.  Also the
+number of topics cannot be predefined, some conferences like to concentrate on
+4 chosen topics, others which to cover 20 or more. So a topic is associated
+with a conference, and field carrying the semantic information is the
+\texttt{name}-field, which contains a (usually not too long) descriptive
+string. 
+
+\lstinputlisting[caption=Scientific topics,label=code:sql.topic,firstline=110,lastline=119]{../sql/db_schema.sql}%
+
+
+The topic can be used by authors, which categorize their paper into a number
+of topics given for the conference and which they feel appropriate when
+submitting.  Furthermore, the algorithm which assigns reviewers to papers may
+make use of this table (cf.\ \cite{coma:requirements}). The corresponding
+associations between papers and topics respectively between topics and
+reviewers are shown in Listing~\ref{code:sql.isabouttopic} and
+\ref{code:sql.preferstopic}
+\index{topic!of a paper}%
+\index{topic!preferred topic of a reviewer}%
+
+
+
+
+
+\lstinputlisting[caption=Topic of a paper,label=code:sql.isabouttopic,firstline=120,lastline=132]{../sql/db_schema.sql}%
+
+\lstinputlisting[caption=Preferred topic,label=code:sql.preferstopic,firstline=133,lastline=145]{../sql/db_schema.sql}%
+
+
+
+
+\medskip
+
+Listing~\ref{code:sql.prefersdeniesexcludespaper} shows three further
+associations of persons, in particular reviewers) with papers. The first one
+expresses a preference of a reviewer for a paper with the same intention as
+the preference of a reviewer for a topic, namely for use in the distribution
+of papers to reviewers.
+\index{paper!preferred paper of a reviewer}%
+The remaining to tables express situation where it is not possible for a
+reviewer to review a paper. The first one is the situation where the reviewer
+simply \emph{refuses} to review the paper for some reason, i.e., his
+unwillingness to do work on that particular paper is so extreme, that the
+distribution algorithm guarantees that the reviewer is not assigned this
+paper.\footnote{A typical reason for ``unwillingness'' is that the reviewer is
+  a friend or collegue of the author and thinks he cannot judge the paper
+  without bias.} The association \texttt{ExcludesPaper} is even more severe.
+Is may be the case that a single person acts in the role of a reviewer and in
+the role of an author (or coauthor) in the same conference. In this case he
+\emph{must} not review is paper or take part in the discussion, and even more:
+he is not even allowed to follow passively the disucssion about his paper
+(cf.\ \cite{coma:requirements}).
+
+\lstinputlisting[caption=Reviewer-paper
+associations,label=code:sql.prefersdeniesexcludespaper,firstline=146,lastline=185]{../sql/db_schema.sql}%
+
+
+
+\index{review report} 
+
+A review report is produced by a rewiewer reflecting his opinion about one
+paper. The review is partly free-form text, where the reviewer expression
+freely his opinion and gives hints about possible errors or whatever he feels
+appropriate to remark, but also contains standardized parts such as
+categorized (numerical) grades. The free-form text is stored in the summary-,
+the remarks-, and the confidential-field. The confidential text is the part of
+the review that the author must not see in the end, whereas all other parts of
+the review except the identity of the reviewer itself, will be passed to the
+author. 
+
+\index{review report!confidential part}
+
+\lstinputlisting[caption=Report,label=code:sql.reviewreport,firstline=186,lastline=201]{../sql/db_schema.sql}%
+
+
+
+\lstinputlisting[caption=Rating of papers,label=code:sql.criterionandrating,firstline=202,lastline=230]{../sql/db_schema.sql}%
+
+
+
+
+
 %\input{abstract}
 %\tableofcontents{}
 
