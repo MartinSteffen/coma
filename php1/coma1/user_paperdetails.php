@@ -21,7 +21,7 @@ if (isset($_GET['paperid'])) {
     error('Error occured during retrieving paper.', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
-    error('Paper does not exist in database.', '');
+    error('Display PaperDetailed','Paper '.$_GET['paperid'].' does not exist in database!');
   }
 }
 else {
@@ -74,7 +74,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Details of paper';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conference  |  Papers';
 
 $main->assign($strMainAssocs);
 $main->parse();
