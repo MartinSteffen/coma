@@ -65,7 +65,6 @@ PS: This is an automatic generated email. Please do not reply.";
 			
 			mail($ToName." <".$_POST['email'].">",$ToSubject, $Message, "From: ".$fromName." <".$fromEmail.">");
 			
-//	mail("ivan <ivan@stragalis.de>","test", "test message", "From: bla <bla@bla.com>");
 	
 			//Update the database
 			$SQL = "UPDATE person SET password='".makePassword($newPass)."' WHERE email='".$_POST['email']."'";
