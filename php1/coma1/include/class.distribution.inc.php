@@ -369,6 +369,9 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
+        if ($matrix[$i][$j] == SUGGESTED && $color[$i][$j] == 'FFFFFF') {
+          $color[$i][$j] = 'FFAAAA';
+        }
         echo('<td bgcolor='.$color[$i][$j].'>'.$matrix[$i][$j].'</td>');
       }
       echo('</tr>');
