@@ -27,7 +27,6 @@ import java.util.Date;
 
 //import org.apache.catalina.realm.RealmBase;
 
-import coma.servlet.util.XMLHelper;
 
 /**
  * @author Peter Kauffels & Harm Brandt
