@@ -2081,7 +2081,7 @@ nur fuer detaillierte?
     }    
     $s = sprintf("UPDATE   Message".
                  " SET     sender_id = '%d', send_time = '%s', subject = '%s', text = '%s'",
-                 s2db($objMessage->intSender), s2db(date("Y-m-d H:i:s"),
+                 s2db($objMessage->intSender), s2db(date("Y-m-d H:i:s")),
                  s2db($objMessage->strSubject), s2db($objMessage->strText));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
