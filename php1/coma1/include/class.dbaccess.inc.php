@@ -1417,6 +1417,7 @@ nur fuer detaillierte?
   }
 
   /**
+   * @todo
    */
   function updateReviewReport($objReviewDetailed) {
     if (!($this->is_a($objReviewDetailed, 'ReviewDetailed'))) {
@@ -1426,6 +1427,7 @@ nur fuer detaillierte?
   }
   
   /**
+   * @todo
    * @access private
    */
   function updateRating($objReviewDetailed) {
@@ -1436,6 +1438,7 @@ nur fuer detaillierte?
   }
 
   /**
+   * @todo
    */
   function updateForum($objForumDetailed) {
     if (!($this->is_a($objForumDetailed, 'ForumDetailed'))) {
@@ -1445,6 +1448,7 @@ nur fuer detaillierte?
   }
 
   /**
+   * @todo
    */
   function updateMessage($objMessage) {
     if (!($this->is_a($objMessage, 'Message'))) {
@@ -1554,11 +1558,14 @@ nur fuer detaillierte?
 
   // Zu den folgenden Updatemethoden:
   // --------------------------------
-  // Machen Sinn, falls wir PersonDetailed nochmal ableiten (=> PersonConference)
-  // und dort noch konferenzspezifische Daten ($intConferenceId, $intPreferredTopics[],
-  // $intPreferredPapers[], $intDeniedPapers[], $intExcludedPapers[]) ablegen.
+  // Machen Sinn, falls wir in PersonDetailed noch diese Attribute hinzufuegen:
+  // $intConferenceId, $intPreferredTopics[], $intPreferredPapers[], $intDeniedPapers[],
+  // $intExcludedPapers[].
+  // Es empfiehlt sich m.E., die Methoden analog zu updateCriterions und updateTopics
+  // zu implementieren (beachte @warning-Hinweis im PHPDoc).
 
   /**
+   * @todo
    * @access private
    */
   function updatePrefersTopic($objPersonConference) {
@@ -1569,6 +1576,7 @@ nur fuer detaillierte?
   }
 
   /**
+   * @todo
    * @access private
    */
   function updatePrefersPaper($objPersonConference) {
@@ -1579,6 +1587,7 @@ nur fuer detaillierte?
   }
 
   /**
+   * @todo
    * @access private
    */
   function updateDeniesPaper($objPersonConference) {
@@ -1589,6 +1598,7 @@ nur fuer detaillierte?
   }
 
   /**
+   * @todo
    * @access private
    */
   function updateExcludesPaper($objPersonConference) {
