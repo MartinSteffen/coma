@@ -8,10 +8,10 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('./class.paper.inc.php');
+require_once('./class.person.inc.php');
 
 /**
- * Klasse PaperSimple
+ * Klasse PersonDetailed
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
  * @copyright Copyright (c) 2004, Jan Waller
@@ -20,8 +20,8 @@ require_once('./class.paper.inc.php');
  * @access public
  *
  */
-class PaperSimple extends Paper {
+class PersonDetailed extends Person {
 
-} // end class PaperSimple
+} // end class PersonDetailed
 
 ?>

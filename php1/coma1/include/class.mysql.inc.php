@@ -79,8 +79,8 @@ class MySql {
    * select()
    *
    * Die Funktion <b>select()</b> ermoeglicht select Anfragen an die Datenbank.
-   * Dabei werden einfache Fehlerchecks durchgefuert. Das Ergebniss wird auto
-   * matisch in ein array umgewandelt.
+   * Dabei werden einfache Fehlerchecks durchgefuert. Das Ergebniss wird
+   * automatisch in ein array umgewandelt.
    * 
    * @param string $sql Eine SQL <b>select</b> Anfrage an die Datenbank
    * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein Fehler auftrat.
