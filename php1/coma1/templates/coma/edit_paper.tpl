@@ -1,7 +1,7 @@
 
 {if9<p class="message">{message}</p>}
 
-<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="paperid" value="{paper_id}">
   <input type="hidden" name="coauthors_num" value="{coauthors_num}">
@@ -87,6 +87,7 @@
     <td>Upload new document:</td>
     <td colspan="2">
       <input type="file" name="paper_file">
+      <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
       <input type="submit" name="upload" value="Upload" class="button">
     </td>
   </tr>

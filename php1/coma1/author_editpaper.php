@@ -104,6 +104,9 @@ if (isset($_POST['action'])) {
       if (!empty($_POST['mimetype'])) {
         $objPaper->strMimeType = $_POST['mimetype'];
       }
+      else {
+        $objPaper->strMimeType = 'application/force-download';
+      }
       $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['paper_file'],
                                              $objPaper->strMimeType);
       if ($myDBAccess->failed()) {

@@ -1808,7 +1808,8 @@ nur fuer detaillierte?
 
   /**
    * Aktualisiert den Datensatz des Artikels mit den Daten des PaperDetailed-Objekts $objPaper.
-   * Sorgt nicht (!) dafuer, die aktuelle Dateiversion hochzuladen.
+   * Sorgt nicht (!) dafuer, die aktuelle Dateiversion hochzuladen und aendert
+   * dementsprechend auch nichts an mime_type und filename!!
    *
    * @param PaperDetailed $objPaper Artikel, der in der Datenbank aktualisiert werden soll
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
@@ -1820,11 +1821,11 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     $s = sprintf("UPDATE   Paper".
-                 " SET     title = '%s', author_id = '%d', abstract = '%s', mime_type = '%s',".
+                 " SET     title = '%s', author_id = '%d', abstract = '%s', ".
                  "         last_edited = '%s', version = '%d', state = '%d'".
                  " WHERE   id = '%d'",
                  s2db($objPaperDetailed->strTitle), s2db($objPaperDetailed->intAuthorId),
-                 s2db($objPaperDetailed->strAbstract), s2db($objPaperDetailed->strMimeType),
+                 s2db($objPaperDetailed->strAbstract),
                  s2db(date("Y-m-d H:i:s")), s2db($objPaperDetailed->intVersion + 1),
                  s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
     $this->mySql->update($s);
@@ -1853,19 +1854,37 @@ nur fuer detaillierte?
    * @param int $strFilePath Speicherort der hochzuladenden Datei
    * @return bool true gdw. der Upload korrekt durchgefuehrt werden konnte
    * @access public
-   * @author Sandro (21.01.05)
-   * @todo Ueberpruefung auf Existenz des Papers bzw. des Dokuments
+   * @author Jan (25.01.05)
+   * @todo Delete Add geht vielleicht auch besser
+   * @todo Rollback?
    */
-  function uploadPaperFile($intPaperId, $strFilePath, $strMimeType) {
-    //Hochladen des Papers
-    $strReposFilePath = $strFilePath;
+  function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, $strContents) {
     $s = sprintf("UPDATE   Paper".
                  " SET     filename = '%s', mime_type = '%s'".
+                 "         last_edited = '%s'".
                  " WHERE   id = '%d'",
-                 s2db($strReposFilePath), s2db($intPaperId), s2db($strMimeType));
+                 s2db($strFilePath), s2db($intPaperId), 
+                 s2db(date("Y-m-d H:i:s")), s2db($strMimeType));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('uploadPaperFile', $this->mySql->getLastError());
+    }
+    // remove previous Binary
+    $s = sprintf("DELETE   FROM PaperData".
+                 " WHERE   paper_id = '%d'",
+                           s2db($intPaperId));
+    $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('uploadPaperFile', $this->mySql->getLastError());
+    }
+    // add Paper    
+    $s = sprintf("INSERT  INTO PaperData (paper_id, fil)".
+                 "        VALUES ('%d', '%s')",
+                 s2db($intPaperId),
+                 s2db($strContents));
+    $intId = $this->mySql->insert($s);
+    if ($this->mySql->failed()) {
+      return $this->error('addPaper', $this->mySql->getLastError());
     }
     return $this->success(true);
   }
@@ -2495,8 +2514,6 @@ nur fuer detaillierte?
    * @param int $intAuthorId     Autor-ID
    * @param str $strTitle        Titel
    * @param str $strAbstract     Text des Abstracts
-   * @param str $strFilePath     Dateipfad und -name
-   * @param str $strMimeType     MIME-Typ
    * @param str $strCoAuthors[]  Namen der Co-Autoren
    * @param int $intTopicIds[]   IDs der behandelten Themen
    * @return int ID des erzeugten Papers
@@ -2505,11 +2522,11 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
-                    $strFilePath, $strMimeType, $strCoAuthors, $intTopicIds) {
+                    $strCoAuthors, $intTopicIds) {
     $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
         "                     mime_type, version, state, last_edited)".
         "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
-        "                 '$strAbstract', '$strFilePath', '$strMimeType', '1',".
+        "                 '$strAbstract', '', '', '1',".
         "                 '0', '".s2db(date("Y-m-d H:i:s"))."')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {

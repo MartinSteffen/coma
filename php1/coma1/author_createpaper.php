@@ -75,7 +75,7 @@ if (isset($_POST['action'])) {
     // Versuche einzutragen
     else {
       $result = $myDBAccess->addPaper(session('confid'), $objAuthor->intId,
-                                      $_POST['title'], $_POST['description'], '', '',
+                                      $_POST['title'], $_POST['description'],
                                       $strCoAuthors, $intTopicIds);                                     
       if (!empty($result)) {
         // Erfolg (kehre zurueck zur Artikelliste)
