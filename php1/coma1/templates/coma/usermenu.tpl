@@ -24,24 +24,24 @@
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}forum.php?showforums=0{&SID}" class="{if10 marked}menu">
+    <td class="menu"><a href="{basepath}forum.php?showforums=0{&SID}" class="{ifF0 marked}menu">
       Forums</a>
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}forum.php?showforums=4{&SID}" class="{if14 marked}submenu">Global forums</a>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=4{&SID}" class="{ifF4 marked}submenu">Global forums</a>
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}forum.php?showforums=1{&SID}" class="{if11 marked}submenu">Open forums</a>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=1{&SID}" class="{ifF1 marked}submenu">Open forums</a>
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}forum.php?showforums=3{&SID}" class="{if13 marked}submenu">Paper forums</a>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=3{&SID}" class="{ifF3 marked}submenu">Paper forums</a>
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}forum.php?showforums=2{&SID}" class="{if12 marked}submenu">Chair forums</a>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=2{&SID}" class="{ifF2 marked}submenu">Chair forums</a>
     </td>
   </tr>
   <tr>
