@@ -33,6 +33,10 @@ $papers = $input['papers'];
     <td class="text"><? echo $paper['confName']; ?></td>
   </tr>
   <tr align="left" valign="top"> 
+    <td class="textBold">In topic</td>
+    <td class="text"><? echo $paper['topicName']; ?></td>
+  </tr>  
+  <tr align="left" valign="top"> 
     <td class="textBold">State</td>
     <td class="<? echo $paper['class']; ?>"><? echo $paper['state']; ?></td>
   </tr>   

@@ -37,6 +37,14 @@ $reviewers = $report['reviewers'];
       all papers in the conference</a></td>
   </tr>
   <tr> 
+    <td class="textBold" align="left" valign="top" width="117">In topic</td>
+    <td class="text" align="left" valign="top"> 
+      <? echo $paper['topicName'] ?>
+    </td>
+    <td class="text" align="left" valign="top" width="257"><a href="index.php?m=chair&a=papers&s=allPapersOfTopic&topicID=<? echo $paper['topicID'] ?>" class="normal">List 
+      all papers in the topic</a></td>
+  </tr>  
+  <tr> 
     <td class="textBold" align="left" valign="top" width="117">Description</td>
     <td class="text" align="left" valign="top"> 
       <? echo $paper['paperDesc'] ?>
@@ -143,7 +151,7 @@ foreach ($reviewers as $reviewer)
         <tr> 
           <td width="86" class="textBold" bgcolor="#CCCCCC">Reviewer</td>
           <td width="274" class="text" bgcolor="#CCCCCC"><? echo $reviewer['reviewerName'] ?></td>
-          <td width="100%" bgcolor="#CCCCCC"><a href="index.php?m=chair&a=papers&s=removeReviewer&reviewerID=<? echo $reviewer['reviewerID'] ?>" class="normal" onclick="return confirm('Are you sure you want to remove the reviewer?')">Remove 
+          <td width="100%" bgcolor="#CCCCCC"><a href="index.php?m=chair&a=papers&s=removeReviewer&reviewerID=<? echo $reviewer['reviewerID'] ?>&paperID=<? echo $paper['paperID'] ?>" class="normal" onclick="return confirm('Are you sure you want to remove the reviewer?')">Remove 
             this reviewer</a></td>
         </tr>
         <tr> 

@@ -3,15 +3,17 @@ if(isChair_Paper($_GET['paperID']))
 {
 	$SQL = "select paper.title, paper.abstract, paper.last_edited, paper.version, paper.state, 
 	        person.id, person.title, person.first_name, person.last_name, 
-			conference.id, conference.name
-			from paper, conference, person, role 
+			conference.id, conference.name, topic.id, topic.name
+			from paper, conference, person, role, topic, isabouttopic 
 			where role.role_type = 2
 			and role.state = 1 
 			and role.person_id = ".$_SESSION['userID']."
 			and role.conference_id = conference.id 
 			and conference.id = paper.conference_id 
 			and paper.id = ".$_GET['paperID']." 
-			and paper.author_id = person.id";
+			and paper.author_id = person.id
+			and isabouttopic.paper_id = paper.id
+			and isabouttopic.topic_id = topic.id";
 					
     $result=mysql_query($SQL);
 	$output = array();
@@ -54,6 +56,8 @@ if(isChair_Paper($_GET['paperID']))
 		$paper['authorName'] = $list[6]." ".$list[7]." ".$list[8];
 		$paper['confID'] = $list[9];
 		$paper['confName'] = $list[10];
+		$paper['topicID'] = $list[11];
+		$paper['topicName'] = $list[12];
 	}
 	
 $output['paper'] = $paper;

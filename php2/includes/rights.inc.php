@@ -40,6 +40,26 @@ function isChair_Conference($confID)
   return false;
 }
 
+function isChair_Topic($topicID)
+{
+  if(isset($_SESSION['userID']))
+  {
+	$SQL = "select role.person_id from role, topic 
+			where role.role_type = 2
+			and role.state = 1 
+			and role.person_id = ".$_SESSION['userID']."
+			and role.conference_id = topic.conference_id
+			and topic.id = ".$topicID; 
+
+    $result=mysql_query($SQL);	
+    if ($dummy = mysql_fetch_row ($result)) 	
+	{
+		return true;
+	}
+  }
+  return false;
+}
+
 function isChair_Person($userID)
 {
   if(isset($_SESSION['userID']))
