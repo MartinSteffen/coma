@@ -2765,8 +2765,9 @@ nur fuer detaillierte?
    */
   function addMessage($strSubject, $strText, $intSenderId, $intForumId, $intReplyTo=false) {
     $s = sprintf("INSERT  INTO Message (subject, text, sender_id, forum_id,".
-                 " send_time".(!empty($intReplyTo) ? ", reply_to" : ""). ")";
-                 "VALUES ('%s', '%s', '%d', '%d', '%s', '%d')",
+                 " send_time".(!empty($intReplyTo) ? ", reply_to" : ""). ") ".
+                 "VALUES ('%s', '%s', '%d', '%d', '%s'".
+                 (!empty($intReplyTo) ? ", '%d'" : ""). ")",
                  s2db($strSubject), s2db($strText), s2db($intSenderId), s2db($intForumId),
                  s2db(date("Y-m-d H:i:s"), s2db($intReplyTo)));
     $intId = $this->mySql->insert($s);
