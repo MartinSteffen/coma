@@ -65,7 +65,7 @@ class Session {
    *
    * @param MySql $mySql Ein MySql Objekt
    * @param string $strSessName Der Name der Session (default: 'sid')
-   * @param int $intMaxLifeTime Die Zeit, die die Session gueltig bleibt in 
+   * @param int $intMaxLifeTime Die Zeit, die die Session gueltig bleibt in
    *                            Sekunden. (default: 7200)
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
@@ -82,7 +82,7 @@ class Session {
     ini_set('session.gc_probability', '1');
     ini_set('session.gc_divisor', '100');
     ini_set('session.use_trans_sid','0');
-    
+
     $this->mySql =& $mySql;
 
     session_name($strSessName);
@@ -104,14 +104,14 @@ class Session {
    * Anzuhaengende URL fuer Verweise
    *
    * Falls ein Cookie gesetzt wurde, gibt die Funktion leer zurueck. Ansonsten
-   * wird '?SessionName=SessionId' zurueck gegeben. Dieses kann also einfach an 
+   * wird '?SessionName=SessionId' zurueck gegeben. Dieses kann also einfach an
    * alle Skript-Verweise angehaengt werden.
    *
    * @return string Anhang fuer URL
    * @access public
    */
   function getUrlId() {
-    return (SID == '') ? '' : '?'.strip_tags(SID);
+    return (SID == '') ? '' : strip_tags(SID);
   }
 
   /**
@@ -134,7 +134,7 @@ class Session {
 
   /**
   * @param string $strSessId Alphanumerischer Sessions-Name.
-  * @return mixed Serialisierter String wenn die Session gefunden wurde, '' 
+  * @return mixed Serialisierter String wenn die Session gefunden wurde, ''
   *               wenn keine Session gefunden wurde, false bei Fehler
   * @access private
   */
