@@ -75,7 +75,7 @@ $msg = array();
 			$msg = array("id"=>$list[0][0], "subject"=>$list[0][5], "text"=>$list[0][6], "sender"=>$sender[0][0].' '.$sender[0][1], "reply_to"=>$reply_to[0][0], "send_time"=>$list[0][4]);
 		}
 	}
-	$list = $sql->query("SELECT id, forum_type, paper_id FROM forum WHERE (id=".$_GET['forumID'].")");
+	$list = $sql->query("SELECT id, forum_type, paper_id, conference_id, title FROM forum WHERE (id=".$_GET['forumID'].")");
 
 	$go = false;
 
@@ -101,6 +101,7 @@ $msg = array();
 		main();
 		$TPL['Messageliste'] = $messages;
 		$TPL['msg'] = $msg;
+		$TPL['forum'] = array("confID"=>$list[0][3], "title"=>$list[0][4]);
 		template("FORUM_viewforum");
 	} else {
 		redirect('forum',false, false, false);
