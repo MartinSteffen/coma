@@ -48,14 +48,12 @@ if (isset($_POST['action'])) {
     }
   }
 }
-if (isset($_GET['order']) || isset($_POST['order'])) {
-  $intOrder = (isset($_GET['order']) ? $_GET['order'] : $_POST['order']);
-  $ifArray = array($intOrder);
+
+if (isset($_GET['order'])) {
+  $_SESSION['orderusers'] = $_GET['order'];  
 }
-else {
-  $intOrder = 0;
-  $ifArray = array();
-}
+$intOrder = (int)session('orderusers', false)
+$ifArray = array($intOrder);
 
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
@@ -75,8 +73,7 @@ if (!empty($objPersons)) {
     $strItemAssocs['name'] = encodeText($objPerson->getName(1));
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = encodeText('mailto:'.$objPerson->strEmail);
-    $strItemAssocs['targetform'] = 'chair_users.php';
-    $strItemAssocs['order'] = $intOrder;
+    $strItemAssocs['targetform'] = 'chair_users.php';    
     $strItemAssocs['roles'] = '';
     for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
@@ -85,8 +82,7 @@ if (!empty($objPersons)) {
       $strRolesAssocs['user_id'] = encodeText($objPerson->intId);
       $strRolesAssocs['role_type'] = encodeText($intRoles[$i]);
       $strRolesAssocs['role_name'] = encodeText($strRoles[$intRoles[$i]]);
-      $strRolesAssocs['line_no'] = $lineNo;
-      $strRolesAssocs['order'] = $intOrder;
+      $strRolesAssocs['line_no'] = $lineNo;      
       if ($objPerson->hasRole($intRoles[$i])) {
       	if ($objPerson->intId != session('uid') || $intRoles[$i] != CHAIR) {
       	  $strRolesAssocs['if'] = array(1);
