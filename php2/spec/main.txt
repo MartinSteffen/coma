@@ -15,6 +15,7 @@ Versionslog:
 
 Version	Datum		Ersteller	Kommentare
 0.1	14.12.04	mje		Grobgliederung
+0.12	4.1.05		mje		Admin&Install
 
 
 Inhaltsverzeichnis:
