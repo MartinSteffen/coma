@@ -197,6 +197,7 @@ table.menu
   vertical-align: top;
   text-align: left;
   background-color: #F4F8FF;
+  border-right: 2px #DBE9EC solid;
 }
 td.menu
 {
