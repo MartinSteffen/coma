@@ -13,7 +13,7 @@ At some sites you will find importent informations directly on this sites. <br>
 <ul>
   <li>
     If you have decided to be a reviewer, you will find help in 
-    <a href="./help.php?for=step_review{&popup}{$SID}"> chapter 1.2 </a>.
+    <a href="./help.php?for=step_reviewer{&popup}{$SID}"> chapter 1.2 </a>.
   </li>
 </ul>
 
