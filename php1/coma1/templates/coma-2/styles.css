@@ -62,8 +62,8 @@ table.footer { width: 100%; background-color: #DBE9EC; }
 table.formtable { font-size: 13px;
                   background-color: #DEEBEF;
                   border-style: solid;
-                  border-width: 1px;
-                  border-color: #CEDBEF;
+                  border-width: 2px;
+                  border-color: #DBE9EC;
                   margin: 6px 10px;
                   padding: 8px;
                 }
@@ -71,10 +71,10 @@ table.formtable { font-size: 13px;
 input { font-size: 13px;
         background-color: #F7FBFF;
         border-style: solid;
-        border-width: 1px;
-        border-color: #000000;
+        border-width: 2px;
+        border-color: #DBE9EC; /*#000000;*/
         margin: 2px 4px;
-        padding: 2px 4px;
+        padding: 2px 10px;
       }
 
 input.button { background-color: #CEDBEF; }
