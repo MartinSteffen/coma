@@ -71,9 +71,9 @@ else if (isset($_POST['action']) && $_POST['action'] == 'advanced_config') {
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte
 else {
-  $strContentAssocs['auto_actaccount']  = '1';
-  $strContentAssocs['auto_paperforum']  = '1';
-  $strContentAssocs['auto_addreviewer'] = '0';
+  $strContentAssocs['auto_actaccount']  = 'checked';
+  $strContentAssocs['auto_paperforum']  = 'checked';
+  $strContentAssocs['auto_addreviewer'] = '';
   $strContentAssocs['auto_numreviewer'] = '2';
   $strContentAssocs['variance']         = '0.5';
 }

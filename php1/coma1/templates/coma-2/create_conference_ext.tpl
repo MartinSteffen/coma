@@ -10,100 +10,93 @@
   </tr>
   <tr>
     <td> 
-      Title:
+      Min. number of papers:
     </td>
     <td>      
-      <input type="text" name="name" size="32" maxlength="127" value="{name}" />
+      <input type="text" name="min_papers" size="8" maxlength="8" value="{min_papers}"/ > *
     </td>
   </tr>
   <tr>
     <td> 
-      Description:
+      Max. number of papers:
     </td>
     <td>      
-      <input type="text" name="description" size="48" value="{description}"/ > *
+      <input type="text" name="max_papers" size="8" maxlength="8" value="{max_papers}"/ >
     </td>
   </tr>
   <tr>
     <td> 
-      Homepage URL:
+      Min. number of reviewers per paper:
     </td>
     <td>      
-      <input type="text" name="homepage" size="32" maxlength="127" value="{homepage}"/ > *
+      <input type="text" name="min_reviews" size="8" maxlength="8" value="{min_reviews}" />
     </td>
   </tr>
   <tr>
     <td> 
-      Starts:
+      Default number of reviewers per paper:
     </td>
     <td>      
-      <input type="text" name="start_date" size="16" maxlength="20" value="{start_date}"/ >
+      <input type="text" name="def_reviews" size="8" maxlength="8" value="{def_reviews}"/ > *
     </td>
   </tr>
   <tr>
     <td> 
-      End:
+      Critical variance of different paper ratings:
     </td>
     <td>      
-      <input type="text" name="end_date" size="16" maxlength="20" value="{end_date}"/ >
+      <input type="text" name="variance" size="8" maxlength="8" value="{variance}"/ >
+    </td>
+  </tr>
+
+      <input type="hidden" name="auto_actaccount" value="{auto_actaccount}" />
+      <input type="hidden" name="auto_paperforum" value="{auto_paperforum}" />
+      <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
+      <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
+   
+  <tr>
+    <td colspan="2"> 
+      Activate accounts automatically
+      <input type="checkbox" name="auto_actaccount" value="checked" {auto_actaccount}>      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"> 
+      Start discussion of critical papers automatically
+      <input type="checkbox" name="auto_paperforum" value="checked" {auto_paperforum}>      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"> 
+      Auto Account activation    
+      <input type="checkbox" name="auto_addreviewer" value="checked" {auto_addreviewer}>
     </td>
   </tr>
   <tr>
     <td> 
-      Deadline for abstracts:
+      Number of automatically added reviewers:
     </td>
     <td>      
-      <input type="text" name="abstract_dl" size="16" maxlength="20" value="{abstract_dl}"/ >
-    </td>
-  </tr>
-  <tr>
-    <td> 
-      Deadline for paper submission:
-    </td>
-    <td>      
-      <input type="text" name="paper_dl" size="16" maxlength="20" value="{paper_dl}"/ >
-    </td>
-  </tr>
-  <tr>
-    <td> 
-      Deadline for reviews:
-    </td>
-    <td>      
-      <input type="text" name="review_dl" size="16" maxlength="20" value="{review_dl}"/ >
-    </td>
-  </tr>
-  <tr>
-    <td> 
-      Deadline for final versions:
-    </td>
-    <td>      
-      <input type="text" name="final_dl" size="16" maxlength="20" value="{final_dl}"/ >
-    </td>
-  </tr>
-  <tr>
-    <td> 
-      Date for notification:
-    </td>
-    <td>      
-      <input type="text" name="notification" size="16" maxlength="20" value="{notification}"/ >
+      <input type="text" name="notification" size="16" maxlength="20" value="{auto_numreviewer}"/ >
     </td>
   </tr>
 
   <tr>
     <td colspan="2">
-      <input type="hidden" name="min_reviews" value="{min_reviews}" />
-      <input type="hidden" name="def_reviews" value="{def_reviews}" />
-      <input type="hidden" name="min_papers" value="{min_papers}" />
-      <input type="hidden" name="max_papers" value="{max_papers}" />
-      <input type="hidden" name="variance" value="{variance}" />    
+      <input type="hidden" name="name" value="{name}" />
+      <input type="hidden" name="description" value="{description}" />
+      <input type="hidden" name="homepage" value="{homepage}" />
+      <input type="hidden" name="start_date" value="{start_dl}" />
+      <input type="hidden" name="end_date" value="{end_dl}" />    
+      <input type="hidden" name="abstract_dl" value="{abstract_dl}" />    
+      <input type="hidden" name="paper_dl" value="{paper_dl}" />    
+      <input type="hidden" name="review_dl" value="{review_dl}" />
+      <input type="hidden" name="final_dl" value="{final_dl}" />
+      <input type="hidden" name="notification" value="{notification}" />
       <input type="hidden" name="criteria" value="{criteria}" />    
       <input type="hidden" name="topics" value="{topics}" />    
       <input type="hidden" name="crit_max" value="{crit_max}" />
       <input type="hidden" name="crit_descr" value="{crit_descr}" />
-      <input type="hidden" name="auto_actaccount" value="{auto_actaccount}" />
-      <input type="hidden" name="auto_paperforum" value="{auto_paperforum}" />
-      <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
-      <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
             
       <input type="hidden" name="action" value="submit" />
       <input type="submit" name="submit" value="Create conference" class="button" />
