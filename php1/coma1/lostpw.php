@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
     $mail->assign($strMailAssocs);
     $mail->parse();
     sendMail($uid, 'Get a new Password', $mail->getOutput());
-    $strContentAssocs['message'] = '';
+    $strContentAssocs['message'] = 'A mail with further instructions has been sent to you!';
     $strContentAssocs['if'] = array(2);
   }
   else {
