@@ -6,8 +6,7 @@
  *
  */
 
-if ( !defined('IN_COMA1') )
-{
+if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
@@ -19,8 +18,7 @@ class MySql {
   var $mySqlDatabase = '';
   var $myConn;
 
-  function MySql()
-  {
+  function MySql() {
     require_once('./config.inc.php');
     $this->mySqlServer = sqlServer;
     $this->mySqlUser = sqlUser;
@@ -29,51 +27,43 @@ class MySql {
 
     // mysql_pconnect ???? Was ist besser? - Jan
     $conn = @mysql_connect(sqlServer, sqlUser , sqlPassword);
-    if (!$conn)
-    {
+    if (!$conn) {
       $this->error("MySql Connection Error");
     }
 
-    if ( !mysql_select_db($this->mySqlDatabase) )
-    {
+    if (!mysql_select_db($this->mySqlDatabase)) {
       $this->error("Database Error");
     }
     $this->myConn = $conn;
     return true;
   }
 
-  function error($text)
-  {
+  function error($text) {
     $no = mysql_errno();
     $msg = mysql_error();
     echo "[$text] ( $no : $msg )<BR>\n";
     exit(-1);
   }
 
-  function select( $sql='' )
-  {
-    if ( empty($sql) )
-    { 
+  function select( $sql='' ) {
+    if (empty($sql)) { 
       return false;
     }
-    if ( !eregi("^select",$sql) )
-    {
+    if (!eregi("^select",$sql)) {
       if (defined('DEBUG')) echo "<H2 >MySql->select called with $sql</H2>\n";
       return false;
     }
-    if ( empty($this->myConn) )
-    {
+    if (empty($this->myConn)) {
       return false;
     }
     $results = mysql_query( $sql, $this->myConn );
-    if ( (!$results) or (empty($results)) )
-    {
+    if ((!$results) or (empty($results))) {
       @mysql_free_result($results);
       return false;
     }
     $count = 0;
     $data = array();
-    while ( $row = mysql_fetch_array($results)) {
+    while ($row = mysql_fetch_array($results)) {
       $data[$count] = $row;
       $count++;
     }
@@ -81,24 +71,19 @@ class MySql {
     return $data;
   }
 
-  function insert( $sql='' )
-  {
-    if ( empty($sql) )
-    { 
+  function insert($sql = '') {
+    if (empty($sql)) { 
       return false;
     }
-    if ( !eregi("^insert",$sql) )
-    {
+    if (!eregi("^insert",$sql)) {
       if (defined('DEBUG')) echo "<H2 >MySql->insert called with $sql</H2>\n";
       return false;
     }
-    if ( empty($this->myConn) )
-    {
+    if (empty($this->myConn)) {
       return false;
     }
     $results = mysql_query( $sql, $this->myConn );
-    if ( !$results )
-    {
+    if (!$results) {
       return false;
     }
     $results = mysql_insert_id();

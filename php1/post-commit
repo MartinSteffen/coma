@@ -1,0 +1,4 @@
+#! /bin/sh
+#
+rm -drf ~/public_html/coma1
+svn export http://snert.informatik.uni-kiel.de:8080/svn/coma/trunk/php1/coma1 ~/public_html/coma1
