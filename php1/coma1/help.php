@@ -240,7 +240,31 @@ if (in_array('profile', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02-04'] = $objChaptertemplate->getOutput();
 }
-
+if (in_array('introduction', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '1';
+  $strArrayChapterAssocs['chapter-title'] = 'Welcome to the step by step introduction in Coma !';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-01'] = $objChaptertemplate->getOutput();
+}
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $content->assign($strContentAssocs);
 
