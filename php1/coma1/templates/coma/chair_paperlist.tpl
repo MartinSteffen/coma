@@ -1,19 +1,22 @@
 
 {if9<p class="message-failed">{message}</p>}
-
-<p class="message">  
-  {ifREVIEWERNOTIFY
-  <br><span class="emph">The review phase has started.</span>
+ 
+{ifREVIEWERNOTIFY
+<p class="message">
+  <span class="emph">The review phase has started.</span>
   So if you have made your decisions about the review distribution, click here to
   <a href="{basepath}notify_reviewers.php{&SID}" class="mail">notify all reviewers by mail</a>
-  about the papers distributed to them.}
-  {ifAUTHORNOTIFY
-  <br><span class="emph">The review phase is over.</span>
+  about the papers distributed to them.
+</p>}
+
+{ifAUTHORNOTIFY
+<p class="message">
+  <span class="emph">The review phase is over.</span>
   So, accept or deny papers for the conference accordingly to their rating.<br>
   If you have made your decisions which papers to accept, click here to
   <a href="{basepath}notify_accepted.php{&SID}" class="mail">notify all reviewers and authors by mail</a>
-  about the accepted papers.}
-</p>
+  about the accepted papers.
+</p>}
 
 <table class="list">
   <tr class="listheader">
