@@ -3027,6 +3027,11 @@ nur fuer detaillierte?
                          $blnAutoAddReviewer, $intNumAutoAddReviewer,
                          $strTopics=array(), $strCriterions=array(), $strCritDescripts=array(),
                          $intCritMaxVals=array(), $fltCritWeights=array()) {
+    $this->mySql->startTransaction();
+    if ($this->mySql->failed()) { // Fehler bei Start Transaction?
+      return $this->error('addConference', 'Fatal error: Transaction start failed!',
+                          $this->mySql->getLastError());
+    }
     $s = sprintf("INSERT INTO Conference (name, homepage, description, abstract_submission_deadline,".
         "                                 paper_submission_deadline, review_deadline,".
         "                                 final_version_deadline, notification, conference_start,".
@@ -3038,7 +3043,13 @@ nur fuer detaillierte?
                          s2db($intMinReviews));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addConference', $this->mySql->getLastError());
+      $strError = $this->mySql->getLastError();
+      $this->mySql->rollback();
+      if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+        return $this->error('addConference', 'Fatal error: Rollback failed!',
+                            $this->mySql->getLastError());
+      }
+      return $this->error('addConference', $strError);
     }
     $s = sprintf("INSERT INTO ConferenceConfig (id, default_reviews_per_paper,".
          "   min_number_of_papers, max_number_of_papers, critical_variance, ".
@@ -3050,30 +3061,24 @@ nur fuer detaillierte?
            s2db(b2db($blnAutoPaperForum)), s2db(b2db($blnAutoAddReviewer)),
            s2db($intNumAutoAddReviewer));
     $this->mySql->insert($s);
-    if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+    if ($this->mySql->failed()) {
       $strError = $this->mySql->getLastError();
-      $s = sprintf("DELETE  FROM Conference".
-                   "WHERE   id = '%d'",
-                    s2db($intId));
-      $this->mySql->delete($s);
+      $this->mySql->rollback();
       if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
-        return $this->error('addConference', 'Fatal error: Database inconsistency!',
-                            $this->mySql->getLastError()." / $strError");
+        return $this->error('addConference', 'Fatal error: Rollback failed!',
+                            $this->mySql->getLastError());
       }
       return $this->error('addConference', $strError);
     }
     if (!empty($strTopics)) {
       for ($i = 0; $i < count($strTopics); $i++) {
         $this->addTopic($intId, $strTopics[$i]);
-        if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
-          $strError = $this->mySql->getLastError();
-          $s = sprintf("DELETE  FROM Conference".
-                       "WHERE   id = '%d'",
-                        s2db($intId));
-          $this->mySql->delete($s);
+        if ($this->failed()) {
+          $strError = $this->getLastError();
+          $this->mySql->rollback();
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
-            return $this->error('addConference', 'Fatal error: Database inconsistency!',
-                                $this->mySql->getLastError()." / $strError");
+            return $this->error('addConference', 'Fatal error: Rollback failed!',
+                                $this->mySql->getLastError());
           }
           return $this->error('addConference', $strError);
         }
@@ -3083,19 +3088,21 @@ nur fuer detaillierte?
       for ($i = 0; $i < count($strCriterions); $i++) {
         $this->addCriterion($intId, $strCriterions[$i], $strCritDescripts[$i],
                             $intCritMaxVals[$i], $fltCritWeights[$i]);
-        if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
-          $strError = $this->mySql->getLastError();
-          $s = sprintf("DELETE  FROM Conference".
-                       "WHERE   id = '%d'",
-                        s2db($intId));
-          $this->mySql->delete($s);
+        if ($this->failed()) {
+          $strError = $this->getLastError();
+          $this->mySql->rollback();
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
-            return $this->error('addConference', 'Fatal error: Database inconsistency!',
-                                $this->mySql->getLastError()." / $strError");
+            return $this->error('addConference', 'Fatal error: Rollback failed!',
+                                $this->mySql->getLastError());
           }
           return $this->error('addConference', $strError);
         }
       }
+    }
+    $this->mySql->commit();
+    if ($this->mySql->failed()) { // Fehler beim Commit? => fatal!
+      return $this->error('addConference', 'Fatal error: Commit failed!',
+                          $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -3225,7 +3232,12 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
-                    $strCoAuthors, $intTopicIds) {
+                    $strCoAuthors, $intTopicIds) {      
+    $this->mySql->startTransaction();
+    if ($this->mySql->failed()) { // Fehler bei Start Transaction?
+      return $this->error('addPaper', 'Fatal error: Transaction start failed!',
+                          $this->mySql->getLastError());
+    }                    	
     $s = sprintf("INSERT  INTO Paper (conference_id, author_id, title, abstract, filename, ".
                  "mime_type, version, state, last_edited)".
                  "VALUES ('%d', '%d', '%s', '%s', '', '', '1', '%d', '%s')",
@@ -3233,41 +3245,52 @@ nur fuer detaillierte?
                  PAPER_UNREVIEWED, s2db(date("Y-m-d H:i:s")));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addPaper', $this->mySql->getLastError());
+      $strError = $this->mySql->getLastError();    
+      $this->mySql->rollback();
+      if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+        return $this->error('addPaper', 'Fatal error: Rollback failed!',
+                            $this->mySql->getLastError());
+      }
+      return $this->error('addPaper', $strError);
     }
     for ($i = 0; $i < count($strCoAuthors) && !empty($strCoAuthors); $i++) {
       $this->addCoAuthorName($intId, $strCoAuthors[$i]);
-      if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
-        $s = sprintf("DELETE FROM Paper WHERE id = '%d'", s2db($intId));
-        $this->mySql->delete($s);
+      if ($this->failed()) { // Rollback ausfuehren
+        $strError = $this->getLastError();
+        $this->mySql->rollback();
         if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
-          return $this->error('addPaper', 'Fatal error: Database inconsistency!',
-                              $this->mySql->getLastError().' / '.$this->getLastError());
+          return $this->error('addPaper', 'Fatal error: Rollback failed!',
+                              $this->mySql->getLastError());
         }
-        return $this->error('addPaper', $this->getLastError());
+        return $this->error('addPaper', $strError);
       }
     }
     for ($i = 0; $i < count($intTopicIds) && !empty($intTopicIds); $i++) {
       $this->addIsAboutTopic($intId, $intTopicIds[$i]);
-      if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+      if ($this->failed()) { // Rollback ausfuehren
         $strError = $this->getLastError();
-        $this->deletePaper($intId);
-        if ($this->failed()) { // Auch dabei ein Fehler? => fatal!
-          return $this->error('addPaper', 'Fatal error: Database inconsistency!',
-                              $this->getLastError()." / $strError");
+        $this->mySql->rollback();
+        if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+          return $this->error('addPaper', 'Fatal error: Rollback failed!',
+                              $this->mySql->getLastError());
         }
         return $this->error('addPaper', $strError);
       }
     }
     $this->addExcludesPaper($intAuthorId, $intId);
-    if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+    if ($this->failed()) { // Rollback ausfuehren
       $strError = $this->getLastError();
-      $this->deletePaper($intId);
-      if ($this->failed()) { // Auch dabei ein Fehler? => fatal!
-        return $this->error('addPaper', 'Fatal error: Database inconsistency!',
-                            $this->getLastError()." / $strError");
+      $this->mySql->rollback();
+      if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+        return $this->error('addPaper', 'Fatal error: Rollback failed!',
+                            $this->mySql->getLastError());
       }
       return $this->error('addPaper', $strError);
+    }
+    $this->mySql->commit();
+    if ($this->mySql->failed()) { // Fehler beim Commit? => fatal!
+      return $this->error('addPaper', 'Fatal error: Commit failed!',
+                          $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
