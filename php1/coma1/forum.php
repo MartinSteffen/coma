@@ -393,12 +393,10 @@ function generatePostMethodArray($postvars){
   if (empty($fms)){
     $fms = array();
   }
-
+  
+  $sel = '';
   if (!empty($_GET['select'])){
     $sel = $_GET['select'];
-  }
-  else{
-    $sel = '';
   }
 
   $fshow = session('showforums', false);
@@ -415,9 +413,8 @@ function generatePostMethodArray($postvars){
   }*/
 
   $content->assign($contentAssocs);
-  //$content->parse();
 
-  include('./include/usermenu.inc.php');
+  include(INCPATH.'usermenu.inc.php');
 
   $main = new Template(TPLPATH . 'frame.tpl');
   $mainassocs = defaultAssocArray();
