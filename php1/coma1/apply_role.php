@@ -59,10 +59,10 @@ $strContentAssocs = defaultAssocArray();
 $strContentAssocs['title'] = encodeText($objConference->strName);
 $strContentAssocs['role'] = encodeText($strRoles[$intRoleType]);
 if (empty($blnAccepted)) {
-  $strContentAssocs['if'] = array(1);
+  $strContentAssocs['if'] = array(2);
 }
 else {
-  $strContentAssocs['if'] = array();
+  $strContentAssocs['if'] = array(1);
 }
 $content->assign($strContentAssocs);
 

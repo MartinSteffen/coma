@@ -1,11 +1,15 @@
 <p>&nbsp;</p>
 
+{if1
 <p class="message-ok">
   You have successfully applied as an <span class="emph">{role}</span> for 
   the conference '{title}'!<br>
 </p>
-{if1
+}
+{if2
 <p class="message">
+  You have successfully applied as an <span class="emph">{role}</span> for 
+  the conference '{title}'!<br>
   You will be notified as soon as the conference chair accepts your apply.
 </p>
 }
