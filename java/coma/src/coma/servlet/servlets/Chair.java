@@ -16,7 +16,8 @@ import javax.xml.transform.stream.StreamSource;
 import coma.entities.Conference;
 import coma.entities.*;
 import coma.servlet.util.XMLHelper;
-//import coma.handler.db.*;
+import coma.handler.impl.db.*;
+import coma.servlet.util.*;
 
 //import coma.entities.*;
 
@@ -109,6 +110,10 @@ public class Chair extends HttpServlet
 		{
 			send_email(req,res,session);
 		}
+		if (action.equals("topic"))
+		{
+			topic(req,res,session);
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
@@ -164,43 +169,107 @@ public class Chair extends HttpServlet
 		}
 	}
 	
+	public void topic(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	{
+		String tag;
+		if(req.getParameter("topic_target").equals("add"))
+		{
+		    Topic[] topics_array = (Topic[])session.getAttribute("topics");	
+			tag="add_topics";
+			int topics = Integer.parseInt(req.getParameter("topics"));
+			session.setAttribute("number_of_topics",topics);
+			info.append("<content>");
+			for (int i=0;i<topics_array.length;i++)
+			{
+				info.append(topics_array[i].toXML());
+			}
+			for(int i=0;i<topics;i++)
+			{
+				info.append("<topic_new>");
+				info.append(XMLHelper.tagged("number",i));
+				info.append("</topic_new>");
+			}
+			info.append("</content>");
+			info.append(XMLHelper.tagged("status","please insert topic(s): "));
+			commit(res,tag);
+		}
+		
+		if(req.getParameter("topic_target").equals("save"))
+		{
+			int topics = Integer.parseInt(session.getAttribute("number_of_topics").toString());
+			System.out.println(topics);
+			InsertServiceImpl insert = new InsertServiceImpl();
+			Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+			for (int i=0;i<topics;i++)
+			{
+				insert.insertTopic(c.getId(),req.getParameter(String.valueOf(i)));
+			}
+			setup(req,res,session);
+		}
+		
+		
+	}
+	
 	public void setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
-	    ReadServiceImpl readService = new ReadServiceImpl();
+		String tag;
+		ReadServiceImpl readService = new ReadServiceImpl();
 	    Topic t = new Topic(-2);
-	    SearchResult search_result = readService.getTopic(t.getId());
-	    Topic[] topics = (Topic[])search_result.getResultObj();
-    	String tag = "setup";
-		info.append(XMLHelper.tagged("status","you are chair of: "));
-		info.append("<content>");
-		if (c!=null)
-			info.append(c.toXML(Entity.XMLMODE.DEEP));
-		if (c.getMin_review_per_paper()==0)
-			info.append(XMLHelper.tagged("min_setup",""));
-		if (c.getConference_start()==null)
-			info.append(XMLHelper.tagged("start_setup",""));
-		if (c.getConference_end()==null)
-			info.append(XMLHelper.tagged("end_setup",""));
-		for (int i=0;i<topics.length;i++)
+	    SearchResult search_result = readService.getTopics(t.getId());
+	    Topic[] topics = (Topic[])search_result.getResultObj();	
+		if (req.getParameter("target").equals("topics"))
 		{
-			info.append(topics[i].toXML());
+			tag="setup_topics";
+			info.append(XMLHelper.tagged("status","topics: "));
+			info.append("<content>");
+			for (int i=0;i<topics.length;i++)
+			{
+				info.append(topics[i].toXML());
+			}
+			info.append("</content>");
+			session.setAttribute("topics",topics);
+			commit(res,tag);
 		}
-		info.append("</content>");
-		commit(res,tag);
+		
+		if (req.getParameter("target").equals("conference"))
+		{
+			Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+	    	tag = "setup";
+			info.append(XMLHelper.tagged("status","you are chair of: "));
+			info.append("<content>");
+			if (c!=null)
+				info.append(c.toXML(Entity.XMLMODE.DEEP));
+			if (c.getMin_review_per_paper()==0)
+				info.append(XMLHelper.tagged("min_setup",""));
+			if (c.getConference_start()==null)
+				info.append(XMLHelper.tagged("start_setup",""));
+			if (c.getConference_end()==null)
+				info.append(XMLHelper.tagged("end_setup",""));
+			if(topics!=null)
+				info.append(XMLHelper.tagged("topic_numbers",topics.length));
+			else
+				info.append(XMLHelper.tagged("topic_numbers",0));
+			for (int i=0;i<topics.length;i++)
+			{
+				info.append(topics[i].toXML());
+			}
+			info.append("</content>");
+			commit(res,tag);
+		}
 	}
 
 	public void send_setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{ 
 		GregorianCalendar calendar = null;
 		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+		int topics = Integer.parseInt(session.getAttribute("topics").toString());
 		if (req.getParameter("conference name")!=null)
 			c.setName(req.getParameter("conference name"));
 		if (req.getParameter("homepage")!=null)
 			c.setHomepage(req.getParameter("homepage"));
 		if (req.getParameter("description")!=null)
 			c.setDescription(req.getParameter("description"));
-		if (req.getParameter("min")!=null)
+		if (!(req.getParameter("min").equals("")))
 			c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min")));	
 		if (!(req.getParameter("abstract_day").equals("")) && (req.getParameter("abstract_month").equals("")) && (req.getParameter("abstract_year").equals("")))
 		{
@@ -214,9 +283,6 @@ public class Chair extends HttpServlet
 		    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
 		    c.setFinal_version_deadline(calendar.getTime());
 		}
-		System.out.println(req.getParameter("start_day"));
-		System.out.println(req.getParameter("start_month"));
-		System.out.println(req.getParameter("start_year"));
 		if (!(req.getParameter("start_day").equals("")) && !(req.getParameter("start_month").equals("")) && !(req.getParameter("start_year").equals("")))
 		{
 		calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("start_year")),
