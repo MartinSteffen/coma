@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<title> {titel} </title>
+<title>CoMa - Das Konferenzmanagement-Tool - {titel} </title>
 <link rel="stylesheet" type="text/css" href="{path}styles.css">
 </head>
 
