@@ -2,7 +2,7 @@
 {message}
 
 <p class="center">
-<form action="{basepath}profile.php?{SID}" method="post">
+<form action="{basepath}main_profile.php?{SID}" method="post">
 
 <table class="formtable">
   <tr>
