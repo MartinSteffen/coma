@@ -34,7 +34,6 @@ public class FormularChecker {
 		check = true;
 		for (int i=0;i<data.length;i++)
 		{
-			System.out.println("data=" + data[i]);
 			if (data[i].equals(""))
 			{
 			    check = false;
@@ -48,7 +47,6 @@ public class FormularChecker {
 	{
 		for (int i=0;i<data.length;i++)
 		{
-			System.out.println("data="+data[i]);
 			if (data[i].equals(""))
 			{
 				return false;
@@ -58,4 +56,5 @@ public class FormularChecker {
 			return false;
 		return true;
 	}
+	
 }
