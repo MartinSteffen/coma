@@ -2,7 +2,6 @@
 {if9<p class="message-failed">{message}</p>}
 
 <form action="{basepath}chair_confconfig.php{?SID}" method="post" accept-charset="UTF-8">
-
 <table class="formtable">
   <tr>
     <th colspan="2">Enter conference data (advanced):</th>
@@ -88,7 +87,7 @@
       <input type="hidden" name="notification" value="{notification}">
 
       <input type="hidden" name="action" value="submit">
-      <input type="submit" name="submit" value="Submit Changes" class="button">
+      <input type="submit" name="submit_adv" value="Submit Changes" class="button">
       <input type="submit" name="simple_config" value="Simple settings" class="button">
     </td>
   </tr>
