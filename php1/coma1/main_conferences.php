@@ -26,8 +26,11 @@ $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';  
 if (!empty($objConferences)) {
   $lineNo = 1;  
-  foreach ($objConferences as $objConference) {  	
+  foreach ($objConferences as $objConference) {  	  	
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
+    if ($this->mySql->failed()) {
+      echo ($this->error('getPerson', $this->mySql->getLastError()).'<br>';
+    }
     $ifArray = array();
     if (!empty($objPerson)) {
       if ($objPerson->hasAnyRole()) {
