@@ -1,7 +1,7 @@
 <?
 	//Destroy the session
-	session_unset(); 
-	//session_destroy(); 
+	//session_unset(); 
+	session_destroy(); 
 	if(isset($_REQUEST['error']))
 	{
 		$error = $_REQUEST['error'];
