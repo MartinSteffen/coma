@@ -34,10 +34,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Getting started with CoMa';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-
-$strPath = array('CoMa'=>'', 'Help'=>'');
-require_once(TPLPATH.'navigatoritem.php');
-$strMainAssocs['navigator'] = createNavigatorContent($strPath);
+$strMainAssocs['navigator'] = 'CoMa  |  Help';
 
 $main->assign($strMainAssocs);
 $main->parse();

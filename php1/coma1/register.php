@@ -106,10 +106,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Register new User';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-
-$strPath = array('CoMa'=>'', 'Register'=>'');
-require_once(TPLPATH.'navigatoritem.php');
-$strMainAssocs['navigator'] = createNavigatorContent($strPath);
+$strMainAssocs['navigator'] = 'CoMa  |  Register';
 
 $main->assign($strMainAssocs);
 $main->parse();

@@ -54,8 +54,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Welcome to CoMa!';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['repeatNAV'] = array(2);
-//array('CoMa', 'Login');
+$strMainAssocs['navigator'] = 'CoMa  |  Login');
 
 $main->assign($strMainAssocs);
 $main->parse();

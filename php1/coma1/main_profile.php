@@ -96,10 +96,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Personal data of User '.session('uname');
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-
-$strPath = array(session('uname')=>'', 'Profile'=>'');
-require_once(TPLPATH.'navigatoritem.php');
-$strMainAssocs['navigator'] = createNavigatorContent($strPath);
+$strMainAssocs['navigator'] = 'uname  |  Profile';
 
 $main->assign($strMainAssocs);
 $main->parse();

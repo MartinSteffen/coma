@@ -32,7 +32,7 @@
     <tr>
      <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
      <td colspan="2" height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
-      {repeatNAV: NAV }
+      {navigator}
      </td>
     </tr>
    </table>

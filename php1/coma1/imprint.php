@@ -34,10 +34,8 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Imprint';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
+$strMainAssocs['navigator'] = 'CoMa  |  Imprint';
 
-$strPath = array('CoMa'=>'', 'Imprint'=>'');
-require_once(TPLPATH.'navigatoritem.php');
-$strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
 $main->assign($strMainAssocs);
 $main->parse();
