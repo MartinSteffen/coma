@@ -71,6 +71,8 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $strCritAssocs['crit_max']   = encodeText($objReview->objCriterions[$i]->intMaxValue);
   $strCritAssocs['rating']     = encodeText($objReview->intRatings[$i]);
   $strCritAssocs['comment']    = encodeText($objReview->strComments[$i]);
+  $strCritAssocs['message']='';
+  echo $strCritAssocs['message'];
   $critForm->assign($strCritAssocs);
   $critForm->parse();
   $strContentAssocs['crit_lines'] .= $critForm->getOutput();
@@ -84,8 +86,6 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['message']='';
-echo $strMainAssocs['message'];
 
 //global $strRoles;
 if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
