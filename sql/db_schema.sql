@@ -67,6 +67,7 @@ CREATE TABLE IsCoAuthorOf
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
        ON DELETE CASCADE,
    FOREIGN KEY (email) REFERENCES Person(email)
+       ON DELETE CASCADE
 ) TYPE = INNODB;
 
 CREATE TABLE Topic
