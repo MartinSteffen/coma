@@ -1155,42 +1155,54 @@ nur fuer detaillierte?
 ============================================================================= */
 
   /**
-   * Aktualisiert den Datensatz der Konferenz $objConference in der Datenbank.
+   * Aktualisiert den Datensatz der Konferenz $objConferenceDetailed in der Datenbank.
    *
-   * @param ConferenceDetailed $objConference Konferenz
+   * @param ConferenceDetailed $objConferenceDetailed Konferenz-Objekt
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Tom (15.01.05)
    */
-  function updateConference($objConference) {
+  function updateConference($objConferenceDetailed) {
     if (!($this->is_a($objConference, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
-    /*$s = "U  INTO Conference (name, homepage, description, abstract_submission_deadline,".
-        "                          paper_submission_deadline, review_deadline,".
-        "                          final_version_deadline, notification, conference_start,".
-        "                          conference_end)".
-        "         VALUES ('$strName', '$strHomepage', '$strDescription', '$strAbstractDeadline',".
-        "                 '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline',".
-        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd')";    
-    $intId = $this->mySql->insert($s);
+    $s = "UPDATE  Conference".
+        " SET     name = '$objConferenceDetailed->strName',".
+        "         homepage = '$objConferenceDetailed->strHomepage',".
+        "         description = '$objConferenceDetailed->strDescription',".
+        "         abstract_submission_deadline = '$objConferenceDetailed->strAbstractDeadline',".
+        "         paper_submission_deadline = '$objConferenceDetailed->strPaperDeadline',".
+        "         review_deadline = '$objConferenceDetailed->strReviewDeadline',".
+        "         final_version_deadline = '$objConferenceDetailed->strFinalDeadline',".
+        "         notification = '$objConferenceDetailed->strNotification',".
+        "         conference_start = '$objConferenceDetailed->strConferenceStart',".
+        "         conference_end = '$objConferenceDetailed->strConferenceEnd,".
+        "         min_reviews_per_paper = '$objConferenceDetailed->intMinReviewsPerPaper'".
+        " WHERE   conference_id = '$objConferenceDetailed->intId'";
+    $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('addConference', $this->mySql->getLastError());
+      return $this->error('updateConference', $this->mySql->getLastError());
     }
-    $s = "INSERT  INTO ConferenceConfig (id)".
-        "         VALUES ('$intId')";
-    $this->mySql->insert($s);
-    if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
-      $strError = $this->mySql->getLastError();
-      $s = "DELETE  FROM Conference".
-          " WHERE   id = '$intId'";
-      if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
-        return $this->error('addConference', 'Fatal error: Database inconsistency!',
-                            $this->mySql->getLastError()." / $strError");
+    $s = "UPDATE  ConferenceConfig".
+        " SET     default_reviews_per_paper = '$objConferenceDetailed->intDefaultReviewsPerPaper',".
+        "         min_number_of_papers = 'objConferenceDetailed->intMinNumberOfPapers',".
+        "         max_number_of_papers = 'objConferenceDetailed->intMaxNumberOfPapers',".
+        "         critical_variance = 'objConferenceDetailed->fltCriticalVariance',".
+        "         auto_activate_account = '".
+                    $this->booleanToDatabase(objConferenceDetailed->blnAutoActivateAccount)."',".
+        "         auto_open_paper_forum = '".
+                    $this->booleanToDatabase(objConferenceDetailed->blnAutoOpenPaperForum)."',".
+        "         auto_add_reviewers = '".
+                    $this->booleanToDatabase(objConferenceDetailed->blnAutoAddReviewers)."',".
+        "         number_of_auto_add_reviewers = ".
+        "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
+        " WHERE   conference_id = '$objConferenceDetailed->intId'";
+    $this->mySql->update($s);
+      if ($this->mySql->failed()) {
+        return $this->error('updateConference', $this->mySql->getLastError());
       }
-      return $this->error('addConference', $this->mySql->getLastError());
     }
-    return $this->success($intId);*/
+    return $this->success($intId);
   }
 
   /**

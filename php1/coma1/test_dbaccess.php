@@ -24,9 +24,23 @@ function bit($b) {
   return true;
 }
 
+$c = $myDBAccess->getConferenceDetailed(1);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else if (empty($p)) {
+  echo('EMPTY');
+  exit(-1);
+}
+$c->blnAutoOpenPaperForum = false;
+$myDBAccess->updateConference($c)
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+echo ('OK');
 
 
-
+/*
 $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -51,7 +65,7 @@ $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo('OK');
+echo('OK');*/
 
 /*$id = $myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
                            '', '', '', '', '', '', '', '', '');
