@@ -37,8 +37,10 @@ Datum    Autor   Änderung(en)
                  entsprechende Dateien im Appendix Verweise hinzugefuegt.
 12.01.05 jwa     Kapitel 5 Sessions hinzugefügt
 11.01.05 sae     Beschreibung der Rollen in Kapitel 2 geändert.
-18.01.05 sae     Beschreibung der Dokumentstati in Kapitel 2 ergänzt.
+18.01.05 sae     Beschreibung der Dokumentstatuswerte in Kapitel 2 ergaenzt.
 21.01.05 tos     Kapitel 6 hinzugefügt
+22.01.05 sae     Beschreibung der Praeferenzen in Kapitel 2 ergaenzt und
+                 Konstanten fuer Praeferenzen und Paper-Status hinzugefuegt.
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -220,11 +222,11 @@ Darin werden folgende Tabellen erstellt:
   +------------------------------------------------------------------------+
   | role_type   | Konstante    | [db-Schema.txt]  | Entsprechung für PHP1  |
   +-------------+--------------+------------------+------------------------+
-  |   00        |   -          | without role     |   -                    |
-  |   02        |  CHAIR       | chair            |  Chair                 |
-  |   03        |  REVIEWER    | reviewer         |  Reviewer              |
-  |   04        |  AUTHOR      | author           |  Author                |
-  |   05        |  PARTICIPANT | participant      |  Participant           |
+  |  00         |   -          | without role     |   -                    |
+  |  02         |  CHAIR       | chair            |  Chair                 |
+  |  03         |  REVIEWER    | reviewer         |  Reviewer              |
+  |  04         |  AUTHOR      | author           |  Author                |
+  |  05         |  PARTICIPANT | participant      |  Participant           |
   +------------------------------------------------------------------------+
   
   Die IDs der existierenden Rollen sind in dem globalen Array $intRoles
@@ -242,22 +244,35 @@ Darin werden folgende Tabellen erstellt:
   des Status eines Papers (enumeration paper_status). Die Tabelle Paper enthält
   dazu das Feld state mit folgenden Bedeutungen:
   +---------------------------------------------------------------------------+
-  | state       | Konstante    | [db-Schema.txt]     | Entsprechung für PHP1  |
-  +-------------+--------------+---------------------+------------------------+
-  |   00        |   -          | not being reviewed  | ist an keinen Reviewer |
-  |             |              |                     | verteilt, wir derzeit  |
-  |             |              |                     | nicht aktiv bewertet   |
-  |   01        |   -          | being reviewed      | ist an min. 1 Reviewer |
-  |             |              |                     | verteilt, wird zur     |
-  |             |              |                     | Zeit aktiv bewertet    |
-  |   02        |   -          | conflicting         | wird zur Zeit bewertet |
-  |             |              |                     | und wird als kritisch  |
-  |             |              |                     | angesehen (bei uns:    |
-  |             |              |                     | uneindeutig bewertet)  |
-  |   03        |   -          | accepted            | wird nicht mehr bewer- |  
-  |             |              |                     | tet: wurde angenommen  |
-  |   04        |   -          | rejected            | wird nicht mehr bewer- |  
-  |             |              |                     | tet: wurde abgelehnt   |
+  | state  | Konstante         | [db-Schema.txt]     | Entsprechung für PHP1  |
+  +--------+-------------------+---------------------+------------------------+
+  |  00    | STATUS_UNREVIEWED | not being reviewed  | ist an keinen Reviewer |
+  |        |                   |                     | verteilt, wir derzeit  |
+  |        |                   |                     | nicht aktiv bewertet   |
+  |  01    | STATUS_REVIEWED   | being reviewed      | ist an min. 1 Reviewer |
+  |        |                   |                     | verteilt, wird zur     |
+  |        |                   |                     | Zeit aktiv bewertet    |
+  |  02    | STATUS_CONFLICTED | conflicting         | wird zur Zeit bewertet |
+  |        |                   |                     | und wird als kritisch  |
+  |        |                   |                     | angesehen (bei uns:    |
+  |        |                   |                     | uneindeutig bewertet)  |
+  |  03    | STATUS_ACCEPTED   | accepted            | wird nicht mehr bewer- |  
+  |        |                   |                     | tet: wurde angenommen  |
+  |  04    | STATUS_REJECTED   | rejected            | wird nicht mehr bewer- |  
+  |        |                   |                     | tet: wurde abgelehnt   |
+  +---------------------------------------------------------------------------+
+
+- Preference: Die Praeferenzen von Topic und einzelnen Paper sind wie folgt
+  durch Werte und entsprechende Konstanten repraesentiert:
+  +---------------------------------------------------------------------------+
+  | state  | Konstante        | [db-Schema.txt]     | Entsprechung für PHP1   |
+  +--------+------------------+---------------------+-------------------------+
+  |  00    | ATTITUDE_NONE    | no attitude towards | wird normal verteilt    |
+  |  01    | ATTITUDE_PREFER  | prefer topic/paper  | wird bevorzugt verteilt |
+  |  02    | ATTITUDE_DENY    | deny paper          | wird moeglichst nicht   |
+  |        |                  |                     | verteilt                |  
+  |  03    | ATTITUDE_EXCLUDE | exclude paper       | wird keinesfalls        |
+  |        |                  |                     | verteilt                |
   +---------------------------------------------------------------------------+
 
 ============================================================================

@@ -36,7 +36,7 @@ if (!empty($objPersons)) {
     $strItemAssocs['name'] = encodeText($objPerson->getName());
     $strItemAssocs['email'] = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
-    $strItemAssocs['target_form'] = 'chair_users.php';
+    $strItemAssocs['targetform'] = 'chair_users.php';
     $strItemAssocs['roles'] = '';
     for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
@@ -48,7 +48,8 @@ if (!empty($objPersons)) {
       $roles->assign($strRolesAssocs);
       $roles->parse();
       $strItemAssocs['roles'] .= $roles->getOutput();
-    }    
+    }   
+    $strItemAssocs['if'] = array(1);
     $userItem = new Template(TPLPATH.'chair_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
     $userItem->parse();
