@@ -30,7 +30,7 @@ elseif (isset($_GET['4'])) {
   <meta http-equiv="Content-Style-Type" content="text/css">
   <style type="text/css">
   <!--
-  body { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 12px; 
+  body { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 12px;
     vertical-align: top; background-color: #FFFFFF; margin: 0px; text-align: center;
     padding: 30px; }
   a { text-decoration: none; font-weight: bold; }
@@ -38,17 +38,17 @@ elseif (isset($_GET['4'])) {
   a:visited { color: #444444; }
   a:active { color: #000000; }
   a:hover { color: #000000; }
-  div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
-    font-size: 13px; font-weight: bold; text-align: center; vertical-align: top; 
-    margin: 0px; padding: 10px; color: #222222; background-color: #dddddd; 
+  div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
+    font-size: 13px; font-weight: bold; text-align: center; vertical-align: top;
+    margin: 0px; padding: 10px; color: #222222; background-color: #dddddd;
     border: 1px solid #222222; }
-  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px; 
+  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px;
     font-weight: bold; vertical-align: top; margin: 10px; padding: 4px 12px; }
-  p.menu { color: #111111; background-color: #EEEEEE; border: 1px solid #FFFFFF; 
+  p.menu { color: #111111; background-color: #EEEEEE; border: 1px solid #FFFFFF;
     text-align: left; }
-  p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; 
+  p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000;
     text-align: center; }
-  p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; 
+  p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080;
     text-align: center; }
   -->
   </style>
@@ -88,7 +88,7 @@ elseif ($STEP == 1){
   }
   // Create ConfigFile
   $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = \"$sqlServer\";\n\$sqlUser = \"$sqlUser\";\n\$sqlPassword = \"$sqlPassword\";\n\$sqlDatabase = \"$sqlDatabase\";\n\n?>";
-  
+
   // Output
   $sqlServer = htmlentities(stripslashes($sqlServer), ENT_QUOTES, 'UTF-8');
   $sqlUser = htmlentities(stripslashes($sqlUser), ENT_QUOTES, 'UTF-8');
@@ -103,21 +103,32 @@ elseif ($STEP == 1){
   echo "          <tr><td colspan=\"2\"><input type=\"submit\" name=\"submit\" value=\"generate Config\"></td></tr>\n";
   echo "        </table>\n";
   echo "      </form>\n";
-    
-  echo "    <p class=\"menu\">\n";  
+
+  echo "    <p class=\"menu\">\n";
   highlight_string($confFile);
   echo "    </p>\n";
 
-  echo "    <p class=\"message-failed\">\n";
-  echo "      Not yet implemented!";
-  echo "    </p>\n";
+  // Write Config File
+  if ((defined('DEBUG')) && (is_writable('./include/config.inc.php')) && ($file = fopen('./include/config.inc.php', 'w'))) {
+    fwrite($file, $confFile);
+    fclose($file);
+    echo "    <p class=\"message-pk\">\n";
+    echo "      Successfully written file './include/config.inc.php'!<br>\n";
+    echo "    </p>\n";
+  }
+  else {
+    echo "    <p class=\"message-failed\">\n";
+    echo "      Can't write to file './include/config.inc.php'!<br>\n";
+    echo "      Please replace it manually with the Code shwon above!";
+    echo "    </p>\n";
+  }
 }
 elseif ($STEP == 2) {
   // Block neuanlegen der Datenbank
   /**@ignore */
   define('IN_COMA1', true);
   require_once('./include/config.inc.php');
-  
+
   $errors = array();;
   $conn = @mysql_connect($sqlServer, $sqlUser , $sqlPassword);
   if (empty($conn)) {
@@ -168,7 +179,7 @@ elseif ($STEP == 2) {
   $sql[] = "CREATE TABLE Distribution ( paper_id INT NOT NULL, reviewer_id INT NOT NULL, PRIMARY KEY (paper_id, reviewer_id), INDEX (paper_id), INDEX (reviewer_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE, FOREIGN KEY (reviewer_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
   $sql[] = "DROP TABLE IF EXISTS PaperData";
   $sql[] = "CREATE TABLE PaperData ( paper_id INT NOT NULL, filesize INT NOT NULL, file MEDIUMBLOB NOT NULL, PRIMARY KEY (paper_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE) TYPE = INNODB";
-  
+
   if (empty($errors)) {
     foreach ($sql as $s) {
       $result = mysql_query($s, $conn);
@@ -200,7 +211,7 @@ elseif ($STEP == 4) {
   echo "    <p class=\"message-failed\">\n";
   include('test_basedata.php');
   echo "    </p>\n";
-  echo "    <p class=\"message-ok\">Hopefully Data added! Check above for errors!</p>\n";
+  echo "    <p class=\"message-ok\">Data were hopefully successfully inserted! Check above for errors!</p>\n";
 }
 ?>
   </div>
