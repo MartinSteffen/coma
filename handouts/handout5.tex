@@ -7,13 +7,10 @@
 \dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
 \coursename{P-I-T-M: Coma}
 \semester{WS 2004/05}
-\ausgabetermin{16.~November 2004 (prerelease 15.11)}
-\handouttitle{F}
+\ausgabetermin{16.~November 2004}
+\handouttitle{not needed, only for freeform}
 \nummer{5}
 \thema{Group architecture + next steps}
-
-
-
 
 
 \newcommand{\Coma}{\textsl{Coma}}
@@ -38,10 +35,11 @@
 
 \begin{abstract}
   This handout serve to prepare the decision finding, in particular
-  concering the ``group-architecture'' for the rest of the semester. We
-  propose a certain group-structure as base for discussion, and give
-  arguments and motivations about that structure. Consider the structure
-  and think whether it makes sense from your perspective. If not, give
+  concerning the ``group-architecture'' (and partially also the software
+  architecture) for the rest of the semester. We propose a certain
+  \emph{group structure} as base for discussion, and give arguments and
+  motivations about that structure.  Consider the structure and think
+  whether it makes sense from your perspective. If not, give
   arguments/alternatives.
 \end{abstract}
 
@@ -60,7 +58,8 @@ clarification about the following points
 \end{itemize}
 
 As a further comment on what happened so far is, that the spec-groups had
-the tougher task as compared to the tools groups.
+the tougher task as compared to the tools groups (or took the initiative to
+make it so)
 
 
 \subsection*{Status (Monday evening)}
@@ -90,12 +89,14 @@ As a \emph{critical review} I'd say:
 
 \begin{itemize}
 \item The \emph{specifications} are helpful and necessary (as far as we
-  have seen so far). The fact that we have \emph{two} is helpful insofar as
-  we could see ideas and get inspiration and discussion from both. As we
-  have seen, the work that pushed the semester ahead so far was the spec
-  work, so having only one spec group would have left more people ``idle''.
-  Furthermore, it forced the developers to \emph{think} and \emph{discuss}
-  the tool.
+  have seen so far). The fact that we have \emph{two} (or three) is helpful
+  insofar as we could see ideas and get inspiration and discussion from
+  more than one. 
+  
+  As we seen it, the work that pushed the semester ahead so far was the
+  spec work, and so having only one spec group would have left more people
+  ``idle''.  Furthermore, it forced the developers to \emph{think} and
+  \emph{discuss} the tool.
 \item Concerning the tools-specification, the success and the usefulness
   (in the context of the project) is less transparent. This has various
   reasons
@@ -109,11 +110,12 @@ As a \emph{critical review} I'd say:
     using/installing/maintaining the tools. From the organizer's
     perspective, we don't know to which extent this has happened. Also this
     depends on how good the ``deliverable'' of ``Getting started with Tool
-    xxx'' etc will be.
+    xxx'' etc will be, or how supportive the expert will be if the set-up
+    phase runs into troubles.
   \end{itemize}
-  On the other hand: it's easy to say: ``why haven't we decided this at the
-  beginning'' because in hindsight each decision could have taken
-  immediatly (if one had known in advance what it was\ldots). For the
+  On the other hand: it's easy to say: \emph{``why haven't we decided this
+    at the beginning?''} because in hindsight each decision could have
+  taken immediately (if one had known in advance what it was\ldots). For the
   future: this phase should be faster, nonetheless.
 \end{itemize}
 
@@ -129,14 +131,16 @@ week). Things to be \emph{decided} now is the group architecture. In
 Figure~\ref{fig:groups}, we make some proposal. The key points are
 
 \begin{itemize}
-\item 3 local modules, which work in isolation i.e., in parallel.  Each
-  group consists of \emph{6} persons. Considering the general preferences,
-  perhaps 2 ``PHP'' groups and one ``Java'' group will be formed.
-\item 3 global modules, which are relevant for all particpants. Those are
+\item 3 local modules, which work \emph{in parallel.}  Each group consists
+  of \emph{6} persons. Considering the general preferences, perhaps 2
+  ``PHP'' groups and one ``Java'' group will be formed.
+\item 3 global or shared modules, which are relevant for all participants.
+  Those are
   \begin{itemize}
   \item testing: \emph{3 persons}
-  \item data base: 
-  \item requirements/specification
+  \item requirements/specification (the organizers, with help from
+    delegates of the spec groups, if needed.)
+  \item data base: by special assignment
   \end{itemize}
 \end{itemize}
 
@@ -156,20 +160,21 @@ we first clarify the (partially conflicting) design goals of our proposal.
 \item[programming in the (not too) many:] We are, according to our
   statistics, currently \emph{21 people}. All programming in the same group
   will lead to chaos, in particular it will conflict with the goal that
-  (more or less) all participants will contribute in the next phase.
-  Furthermore, the task at hand is too small for task, so in order to make
-  this work and avoid too many complicated interfaces, there would be a few
-  ``real groups'' and the rest would do the doc, the manual, etc., which
-  would be boring.
+  (more or less) all participants will contribute in the next phase and
+  also throughout the semester. Furthermore, the task at hand is too small
+  for 21 people, so in order to make this approximately work and avoid too
+  many complicated interfaces, there would be a few ``real groups'' and the
+  rest would do the documentation, the manual, a further statistic module
+  etc., which could be boring.
   
   We propose therefore \emph{3 parallel, local groups.} They are small
   enough that internal communication is still possible and that one can
-  split the task in interesting enough subparts without creating subtasks
-  just because we need to have a task for everyone.  Furthermore, the
-  parallel work might inspire competition
-\item[preferences] We have seen, that the course is split into ``PHP vs.\ 
-  Java'' fractions. The split allows that (more or less) everyone gets what
-  he likes.
+  internally split the task in interesting enough subparts without
+  introducing subtasks just because we need to have a task for everyone.
+  Furthermore, the parallel work might inspire competition.
+\item[preferences] We have seen that the course is split into ``PHP vs.\ 
+  Java'' fractions. The proposed structure allows that (more or less)
+  everyone gets what he likes.
 \item[one spec.] We propose, as the course is intended as a \emph{common}
   programming project, that we do not split it cleanly into completely
   independent working groups. Three things should remain common and shared,
@@ -180,11 +185,10 @@ we first clarify the (partially conflicting) design goals of our proposal.
   \item the concrete data representation in SQL
   \end{itemize}
 \item[constant progress] Having finished (more or less) the work on
-  spec/tools by \emph{today,} it is not adivsable to make further
-  specification week(s) concerning the data-model, because this 
+  spec/tools by \emph{today,} it is not advisable to schedule further
+  specification week(s) concerning the data-model, because this will just
+  produce delay. We must enter a new phase now, with the spec. at hand.
 \end{description}
-
-
 
 
 
@@ -204,60 +208,144 @@ we first clarify the (partially conflicting) design goals of our proposal.
 \end{figure}
 
 
-
 The goals are conflicting, and the architecture is a compromise between
 goals mentioned above. A critical point are (as always) the shared modules,
 and in our case the data base. The reason is that everything else depends
 on that.\footnote{Note that the picture is not intended to mean, that all
   tools \emph{run} concurrently on the same instance of the data base.}
-Since a common tool seems a worthwile and interesting goal, we want to
+Since a common tool seems a worthwhile and interesting goal, we want to
 stick to that even if it will cost time and effort.\footnote{Some software
   people claim also that interfaces tend to get better by the pure fact
-  that there's more than one client \ldots} It's less critical for testing
-and the requirements, obviously.  Nevertheless, built on the work of the
+  that there's more than one client so the architecture may lead to better
+  end result(s) \ldots} It's less critical for testing and the
+requirements, obviously.  Nevertheless, built on the work of the
 spec-group, we need to hammer out a unified data model concretely (down to
 SQL-expressions) \emph{soon-ish.}  This should doable quickly, and not much
-discussion should be needed there.
+discussion should be needed there. We, the organizers, will take the data
+part next and decide what to take from it and what to leave out. 
 
 
 
 \subsubsection*{Structure of each group}
 
 We propose therefore the following structure and responsibilities for each
-group. So currently this still some sort of ``special assignment'', since
+group. So currently this still some sort of ``special assignment'', an also
 we are not yet coding the final product.
 
-\begin{description}
-\item[DB:]
-  \begin{description}
-  \item[task] \emph{one person} of group 1 -- 3 does a realization of the
+
+
+\begin{tabular}{ll}
+  \\\hline
+  \textbf{DB} & data base/sql-representation
+  \\\hline
+  &
+  \begin{tabular}[t]{lp{10cm}}
+    \textbf{task} &  \emph{one person} of group 1 -- 3 does a realization of the
     (agreed/common) data model in SQL merge them into one specific
     data-model.
-  \item[deadline:] 21?
-  \item[deliverable:] specification + SQL-code
-  \item[profile:] preferably an SQL-specialist (or someone who wants to
+    \\
+    \textbf{deadline:} & 21.11
+    \\
+    \textbf{dependencies:} & the data model task
+    \\
+    \textbf{deliverable:} & spec + SQL-code
+    \\
+    \textbf{profile:} & 1 person from group 1 -- 3,  preferably an SQL-specialist (or someone who wants to
     learn something new \emph{very fast}\ldots)
-  \end{description}
-\item[data model:] 
-\item[profile] that's us, the authors of the handout, we might need some
-  clarification from you spec people, however
-  \begin{description}
-  \item[task] merge the spec. delivs into one common and approved
+  \end{tabular}
+  \\\hline\hline
+  \textbf{M} & data model
+  \\\hline
+  &
+  \begin{tabular}[t]{lp{10cm}}
+    \textbf{task:} & wrap up/unify the spec as far as the data is
+    concerned. I.e., merge the spec. delivs into one common and approved
     specification
-  \item[deadline] 18.11 (that's damn soon \ldots)
-  \item[deliverable:] some textual format (or graphical, let's see.) It
-    should be precise enough that the SQL-person can do their work.
-  \end{description}
-\item[architecture:] the rest of the persons of groups 1 --3 
-  \begin{description}
-    \item[task:] depending on your choice of tools: work out a
-      modularization of the tools into submodules
-    \item[deliverable:] presentation + written description
-    \item[deadline:] 23.11
-  \end{description}
-\item[test:] So far, haven't found a task for those. Lucky again \ldots
-\end{description}
+    \\
+    \textbf{profile:} &  that's us, the authors of the handout, we might need some
+    clarification from you spec people, however
+    \\
+    \textbf{deadline:} & 18.11 (that's damn soon \ldots)
+    \\
+    \textbf{deliverable:} & some textual format (or graphical, let's see.) 
+    It should be precise enough that the SQL-person can do their work.
+    \\
+    \textbf{dependencies:} & in the Spec task of the first phase
+    \\
+  \end{tabular}
+\end{tabular}
 
+
+  \begin{tabular}{ll}
+  \textbf{A} & architecture 
+  \\\hline
+  &
+  \begin{tabular}[t]{lp{10cm}}
+    \textbf{task:} & depending on your choice of tools: work out a
+      modularization of the tools into submodules and subtasks, make a plan how they
+      reside  in the  repository.  Furthermore make a proposal of \emph{assignment}
+      of the workload internally in the group, i.e., assign
+      responsibilities internally. 
+      \\
+      \textbf{profile:} &  the rest of the people of the group.
+      \\
+      \textbf{deadline:} & 23.11 
+      \\
+      \textbf{deliverable:} & written document addressing the questions above.
+      \\
+      \textbf{dependencies:} & no real ones, depends on the chosen set of
+      tools, however.
+      \\
+    \end{tabular}
+    \\\hline\hline
+    \textbf{T} & tools
+    \\\hline
+    &
+    \begin{tabular}[t]{lp{10cm}}
+      \textbf{task:} & depending on your choice of tools: get yourself
+      accustomed to \texttt{snert.} Get yourself enough privileges there
+      (whatever is needed), make it so that all the tools are (really)
+      available (and not just ``in principle it's there''). Make sure that
+      everyone of your group has the required software also at his
+      workplace (whatever it is).
+      \\
+      \textbf{profile:} &  1 dedicated person in each group. Preferably one
+      from the tools task force of the previous phase.
+      \\
+      \textbf{deadline:} & 23.11 
+      \\
+      \textbf{deliverable:} & written document, preferably short, that
+      enables the co-workers of your group + the organizers to use the
+      tools. Explicit statement about the versions of the tools, platforms
+      etc, that your software relies on.
+      \\
+      \textbf{dependencies:} & no real ``vertical'' one except the tools
+      phase. Some horizontal coordination, however, is required. If two
+      groups want to use PHP, both should agree on \emph{the same}  version
+      as default etc.
+      \\
+    \end{tabular}
+    \\\hline\hline
+    \textbf{Q} & testing/quality assurance
+    \\\hline
+    &
+    \begin{tabular}[t]{lp{10cm}}
+      \textbf{task:} & extend your test-concept to the proposed group
+      structure (concept + tool-wise)
+      \\
+      \textbf{profile:} &  3 persons, preferably the test-guys from the first
+      phase. 
+      \\
+      \textbf{deadline:} & 23.11 
+      \\
+      \textbf{deliverable:} & written document answering the questions above, stating also some policy of
+      testing, rule etc. Install 
+      \\
+      \textbf{dependencies:} & no real, depending however on the work of the
+      test group in the first phase.
+      \\
+    \end{tabular}
+  \end{tabular}
 
 \end{document}
 
