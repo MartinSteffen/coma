@@ -202,7 +202,7 @@ else {
   $strContentAssocs['def_reviews']      = encodeText($objConference->intDefaultReviewsPerPaper);
   $strContentAssocs['min_papers']       = encodeText($objConference->intMinNumberOfPapers);
   $strContentAssocs['max_papers']       = encodeText($objConference->intMaxNumberOfPapers);
-  $strContentAssocs['variance']         = encodeText($objConference->fltCriticalVariance);
+  $strContentAssocs['variance']         = encodeText($objConference->fltCriticalVariance)*100;
   $strContentAssocs['auto_numreviewer'] = encodeText($objConference->intNumberOfAutoAddReviewers);
   if (!empty($objConference->blnAutoActivateAccount)) {
     $ifArray[] = 2;
