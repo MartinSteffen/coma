@@ -99,8 +99,3 @@
   </tr>
 </table>
 </form>
-
-<form action="{basepath}chair_confconfig.php{?SID}" method="post" accept-charset="UTF-8">
-  <input type="submit" name="cancel" value="Cancel" class="button" />
-</form>
-
