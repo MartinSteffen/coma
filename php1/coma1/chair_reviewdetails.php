@@ -40,8 +40,6 @@ else {
 $content = new Template(TPLPATH.'view_review.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message']='';
-echo 'Value:'.$strContentAssocs['message'];
-
 $strContentAssocs['paper_id'] = encodeText($objReview->intPaperId);
 $strContentAssocs['author_id'] = encodeText($objReview->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objReview->strAuthorName);
