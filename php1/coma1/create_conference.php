@@ -78,6 +78,8 @@ if (isset($_POST['action'])) {
 else {
   $ifArray[] = 2;
   $ifArray[] = 3;  
+  $strContentAssocs['min_papers']       = '1';
+  $strContentAssocs['max_papers']       = '100';
   $strContentAssocs['min_reviews']      = '3';
   $strContentAssocs['def_reviews']      = '4';
   $strContentAssocs['auto_numreviewer'] = '2';
