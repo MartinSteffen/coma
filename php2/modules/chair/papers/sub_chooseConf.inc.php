@@ -15,9 +15,9 @@ if(isChair_Overall())
       $conferences[] = array("id"=>$list[0], "name"=>$list[1], "desc"=>$list[2]);   
    }
 
-	if (count($conferences)==1) {
-		redirect("chair","papers","allPapersOfConference","confID=".$conferences[0]['id']);
-	}
+	//if (count($conferences)==1) {
+	//	redirect("chair","papers","allPapersOfConference","confID=".$conferences[0]['id']);
+	//}
 
 $TPL['chair'] = $conferences;
 template("CHAIR_chooseConf");
