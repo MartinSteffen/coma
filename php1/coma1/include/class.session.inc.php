@@ -14,6 +14,9 @@ require_once('class.mysql.inc.php');
 /**
  * Klasse Session
  *
+ * Die Klasse wird verwendet um eine Sessionverwaltung auf MySQL ebene
+ * zu ermöglichen.
+ *
  * @author Jan Waller <jwa@informatik.uni-kiel.de>
  * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
@@ -37,7 +40,7 @@ class Session {
   /**
    * Konstruktor
    *
-   * Der Konstruktor erzeugt eine Verbindung mit der Datenbank und initilisiert 
+   * Der Konstruktor erzeugt eine Verbindung mit der Datenbank und initilisiert
    * die Session-Daten.
    *
    * @return bool <b>true</b> bei Erfolg, <b>false</b> bei Fehler
@@ -51,12 +54,63 @@ class Session {
     if (!empty($s)) {
       return $this->error('Fehler beim Instanziieren. '.$s);
     }
-      
-    session_name($sessionName);
+
+    session_name($sessionName); // Name der Tabelle
     session_cache_limiter('nocache');
+    if (!session_set_save_handler(array(&$this, 'sessionOpen'),
+                                  array(&$this, 'sessionClose'),
+                                  array(&$this, 'sessionRead'),
+                                  array(&$this, 'sessionWrite'),
+                                  array(&$this, 'sessionDestroy'),
+                                  array(&$this, 'sessionGC'))) {
+      return $this->error('Konnte Sessionmanger nicht initialisieren (save_handler).');
+    }
     session_start();
 
     return true;
+  }
+
+  /**
+  * @param string $save_path Session Speicher Pfad
+  * @param string $sess_name Alphanumerischer Sessions-Name.
+  * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
+  * @access private
+  */
+  function sessionOpen($save_path, $sess_name) {
+    mySql->select('SELECT * FROM
+  
+  }
+  
+  /**
+  * @retrun true Die Funktion gibt immer <b>true</b> zurueck.
+  * @access private
+  */
+  function sessionClose() {
+  return true;
+  }
+  
+  /**
+  * @access private
+  */
+  function sessionRead($sess_id) {
+  }
+  
+  /**
+  * @access private
+  */
+  function sessionWrite($sess_id, $val) {
+  }
+  
+  /**
+  * @access private
+  */
+  function sessionDestroy($sess_id) {
+  }
+  
+  /**
+  * @access private
+  */
+  function sessionGC($max_lifetime) {
   }
 
   /**
@@ -87,36 +141,7 @@ class Session {
     $this->strError = '';
     return $strError;
   }
-  
-  /**
-   * @access private
-   */
-  function sessionOpen($save_path, $sess_name) {
-    
-  }
-  
-  /**
-   * @access private
-   */
-  function sessionRead($sess_id) {
-  }
-  
-  /**
-   * @access private
-   */
-  function sessionWrite($sess_id, $val) {
-  }
-  
-  /**
-   * @access private
-   */
-  function sessionDestroy($sess_id) {
-  }
-  
-  /**
-   * @access private
-   */
-  function sessionGC($max_lifetime) {
-  }
+
+} // End Class Session
 
 ?>

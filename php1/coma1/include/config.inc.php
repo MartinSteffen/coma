@@ -24,7 +24,7 @@ $ftpServer = 'localhost';
 $ftpUser = 'ftp-php1';
 $ftpPassword = 'janMiUct';
 
-$sessionName = 'coma1';
+$sessionName = 'coma1session';
 /**#@-*/
 
 /**
