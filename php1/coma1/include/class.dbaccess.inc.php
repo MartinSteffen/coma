@@ -1378,10 +1378,10 @@ class DBAccess extends ErrorHandling {
   } 
  
   /**
-   * Prueft, ob die Person $intPersonId Zugang zum Forum $intForumId hat.
+   * Prueft, ob die Person $objPerson Zugang zum Forum $objForum hat.
    *
-   * @param int $intPersonId Die zu pruefende Person.
-   * @param int $intForumId Das zu pruefende Forum.   
+   * @param Person $objPerson Die zu pruefende Person.
+   * @param Forum $objForum Das zu pruefende Forum.   
    * @return bool Gibt true zurueck gdw. die Person Zugriff auf das Forum hat
    * @access public
    * @author Sandro (27.02.05)
@@ -1400,7 +1400,7 @@ class DBAccess extends ErrorHandling {
       }
     }
     else if ($objForum->intForumType == FORUM_PAPER) {
-      $objPaper = $this->getPaper($objForum->intPaperId);
+      $objPaper = $this->getPaperSimple($objForum->intPaperId);
       if ($this->failed()) {
         return $this->error('checkAccessToForum', $this->getLastError());
       }
