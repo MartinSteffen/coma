@@ -25,7 +25,7 @@ $strMainAssocs['titel'] = 'Autor-Verwaltung';
 $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;
-
+$strMainAssocs['body'] = '';
 $menue->assign(defaultAssocArray());
 $submenue->assign(defaultAssocArray());
 $mainPage->assign($strMainAssocs);
