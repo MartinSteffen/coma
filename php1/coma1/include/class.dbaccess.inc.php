@@ -1075,39 +1075,6 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array von Person-Objekten zurueck, die als Reviewer des Papers $intPaperId
-   * zugeteilt worden sind.
-   *
-   * @param int $intPaperId ID des Papers
-   * @return Person [] Ein leeres Array, falls dem Paper keine Reviewer zugeteilt wurden.
-   * @access public
-   * @author Tom (26.01.05)
-   */
-  function getAssignedReviewersOfPaper($intPaperId) {
-    $s = sprintf("SELECT   reviewer_id".
-                 " FROM    Distribution".
-                 " WHERE   paper_id = '%d'",
-                           s2db($intPaperId));
-    $data = $this->mySql->select($s);
-    if ($this->mySql->failed()) {
-      return $this->error('getAssignedReviewersOfPaper', $this->mySql->getLastError());
-    }
-    $objReviewers = array();
-    for ($i = 0; $i < count($data); $i++) {
-      $objReviewer = $this->getPerson($data[$i]['reviewer_id']);
-      if ($this->mySql->failed()) {
-        return $this->error('getAssignedReviewersOfPaper', $this->mySql->getLastError());
-      }
-      else if(empty($objReviewer)) {
-        return $this->error('getAssignedReviewersOfPaper', 'Fatal error: Database inconsistency!',
-                            'reviewer_id = '.$data[$i]['reviewer_id']);
-      }
-      $objReviewers[] = $objReviewer;
-    }
-    return $this->success($objReviewers);
-  }
-
-  /**
    * Prueft, ob das Paper $intPaperId vom Reviewer $intReviewerId bereits
    * bewertet worden ist.
    *
@@ -2045,6 +2012,55 @@ nur fuer detaillierte?
   }
 
   /**
+   * Aktualisiert den Status des Papers $intPaper in der Datenbank.
+   *
+   * @param int $intPaperId Das Paper, dessen Status geaendert werden soll.
+   * @param int $intStatus Der neue Statuswert (PAPER_REVIEWED, PAPER_UNREVIEWED,
+   *                       PAPER_ACCEPTED, PAPER_REJECTED, PAPER_CRITICAL);
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Sandro (28.01.05)
+   */
+  function updatePaperStatus($intPaperId, $intStatus) {    
+    $s = sprintf("UPDATE   Paper".
+                 " SET     state = '%d'".
+                 " WHERE   id = '%d'",
+                 s2db($intStatus), s2db($intPaperId));
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updatePaperStatus', $this->mySql->getLastError());
+    }
+    return $this->success(true);
+  }
+
+  /**
+   * Setzt den Status des Papers $intPaper in der Datenbank von PAPER_ACCEPTED
+   * bzw. PAPER_REJECTED zurueck auf PAPER_REVIEWED, PAPER_UNREVIEWED oder
+   * PAPER_CRITICAL, je nachdem, welche Constraints erfuellt sind.
+   *
+   * @param int $intPaperId Das Paper, dessen Status zurueckgesetzt werden soll.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Sandro (28.01.05)
+   * @todo Pruefung, ob ein Paper kritisch ist, fehlt noch. In dem Fall wird
+   *       der Status PAPER_CRITICAL gesetzt.
+   */
+  function resetPaperStatus($intPaperId) {
+    $objReviewers = $this->getReviewersOfPaper($intPaperId);
+    if (empty($objReviewers)) {
+      $intStatus = PAPER_UNREVIEWED;
+    }
+    else {
+      $intStatus = PAPER_REVIEWED;
+    }
+    $this->updatePaperStatus($intPaperId, $intStatus);
+    if ($this->mySql->failed()) {
+      return $this->error('resetPaperStatus', $this->mySql->getLastError());
+    }
+    return $this->success(true);
+  }
+
+  /**
    * Laedt die Datei $strFilePath in das Paper $intPaperId hoch.
    *
    * @param int $intPaperId ID des Papers
@@ -2762,9 +2778,11 @@ nur fuer detaillierte?
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
                     $strCoAuthors, $intTopicIds) {
-    $s = sprintf("INSERT  INTO Paper (conference_id, author_id, title, abstract, filename, mime_type, version, state, last_edited)".
-                 "VALUES ('%d', '%d', '%s', '%s', '', '', '1', '0', '%s')",
-                 s2db($intConferenceId), s2db($intAuthorId), s2db($strTitle), s2db($strAbstract), s2db(date("Y-m-d H:i:s")));
+    $s = sprintf("INSERT  INTO Paper (conference_id, author_id, title, abstract, filename, ".
+                 "mime_type, version, state, last_edited)".
+                 "VALUES ('%d', '%d', '%s', '%s', '', '', '1', '%d', '%s')",
+                 s2db($intConferenceId), s2db($intAuthorId), s2db($strTitle), s2db($strAbstract),
+                 PAPER_UNREVIEWED, s2db(date("Y-m-d H:i:s")));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPaper', $this->mySql->getLastError());

@@ -23,12 +23,27 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-/*if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
-  $myDBAccess->deletePaper($_POST['paperid']);
-  if ($myDBAccess->failed()) {
-    error('Error deleting paper.', $myDBAccess->getLastError());
+if (isset($_POST['action'])) {
+  if ($_POST['action'] == 'changestatus') {
+    $myDBAccess->updatePaperStatus($_POST['paperid'],
+      ($_POST['submit'] == 'accept' ? PAPER_ACCEPTED : PAPER_REJECTED));
+    if ($myDBAccess->failed()) {
+      error('Error updating paper status.', $myDBAccess->getLastError());
+    }
   }
-}*/
+  else if ($_POST['action'] == 'resetstatus') {
+    $myDBAccess->resetPaperStatus($_POST['paperid']);
+    if ($myDBAccess->failed()) {
+      error('Error resetting paper status.', $myDBAccess->getLastError());
+    }
+  }
+/*else if ($_POST['action'] == 'delete') {  
+    $myDBAccess->deletePaper($_POST['paperid']);
+    if ($myDBAccess->failed()) {
+      error('Error deleting paper.', $myDBAccess->getLastError());
+    }
+  }*/  
+}
 
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
@@ -65,7 +80,7 @@ if (!empty($objPapers)) {
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $objReviewers = $myDBAccess->getAssignedReviewersOfPaper($objPaper->intId);
+    $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }

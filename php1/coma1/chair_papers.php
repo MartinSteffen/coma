@@ -29,14 +29,29 @@ require_once(INCPATH.'class.conferencedetailed.inc.php');
 require_once(INCPATH.'class.papervariance.inc.php');
 //bis hier
 
-if (isset($_POST['action']) && $_POST['action'] == 'delete') {
-  if (empty($_POST['confirm_delete'])) {
-    $strMessage = 'You have to check the delete confirm option!';
+if (isset($_POST['action'])) {
+  if ($_POST['action'] == 'delete') {
+    if (empty($_POST['confirm_delete'])) {
+      $strMessage = 'You have to check the delete confirm option!';
+    }
+    else {
+      $myDBAccess->deletePaper($_POST['paperid']);
+      if ($myDBAccess->failed()) {
+        error('Error deleting paper.', $myDBAccess->getLastError());
+      }
+    }
   }
-  else {
-    $myDBAccess->deletePaper($_POST['paperid']);
+  else if ($_POST['action'] == 'changestatus') {
+    $myDBAccess->updatePaperStatus($_POST['paperid'],
+      ($_POST['submit'] == 'accept' ? PAPER_ACCEPTED : PAPER_REJECTED));
     if ($myDBAccess->failed()) {
-      error('Error deleting paper.', $myDBAccess->getLastError());
+      error('Error updating paper status.', $myDBAccess->getLastError());
+    }
+  }
+  else if ($_POST['action'] == 'resetstatus') {
+    $myDBAccess->resetPaperStatus($_POST['paperid']);
+    if ($myDBAccess->failed()) {
+      error('Error resetting paper status.', $myDBAccess->getLastError());
     }
   }
 }
