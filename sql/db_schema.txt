@@ -87,7 +87,7 @@ first_name	Varchar 127
 last_name	Varchar 127	Not Null
 title		Varchar 32
 affiliation	Varchar 127
-email		Varchar 127	Not Null
+email		Varchar 127	Unique, Not Null
 phone_number	Varchar 20
 fax_number	Varchar 20
 street		Varchar 127
