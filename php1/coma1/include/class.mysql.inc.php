@@ -210,7 +210,7 @@ class MySql {
       return $intId;
     }
     else {
-      return 0;
+      return 1;
     }
   }
 
