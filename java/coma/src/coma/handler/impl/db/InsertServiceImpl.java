@@ -4,8 +4,10 @@ package coma.handler.impl.db;
 import org.apache.log4j.Category;
 
 import coma.entities.Conference;
+import coma.entities.Criterion;
 import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchResult;
 import coma.handler.db.InsertService;
@@ -54,5 +56,19 @@ public class InsertServiceImpl extends Service implements InsertService{
         // TODO Auto-generated method stub
         return null;
     }
+	/* (non-Javadoc)
+	 * @see coma.handler.db.InsertService#insertRating(coma.entities.Rating)
+	 */
+	public SearchResult insertRating(Rating rating) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	/* (non-Javadoc)
+	 * @see coma.handler.db.InsertService#insertCriterion(coma.entities.Criterion)
+	 */
+	public SearchResult insertCriterion(Criterion criterion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
