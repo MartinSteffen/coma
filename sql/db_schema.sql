@@ -1,3 +1,6 @@
+CREATE DATABASE coma;
+USE coma;
+
 CREATE TABLE Conference 
 (
    id                           INT NOT NULL AUTO_INCREMENT,
@@ -161,19 +164,6 @@ CREATE TABLE ReviewReport
        ON DELETE CASCADE
 ) TYPE = INNODB;
 
-CREATE TABLE Rating
-(
-   review_id    INT NOT NULL,
-   criterion_id INT NOT NULL,
-   grade        INT NOT NULL,
-   comment      TEXT,
-
-   FOREIGN KEY (review_id) REFERENCES ReviewReport(id)
-       ON DELETE CASCADE,
-   FOREIGN KEY (criretion_id) REFERENCES Criterion(id)
-       ON DELETE CASCADE
-) TYPE = INNODB;
-
 CREATE TABLE Criterion
 (
    id             INT NOT NULL AUTO_INCREMENT,
@@ -185,6 +175,19 @@ CREATE TABLE Criterion
 
    PRIMARY KEY (id), 
    FOREIGN KEY (conference_id) REFERENCES Conference(id)
+       ON DELETE CASCADE
+) TYPE = INNODB;
+
+CREATE TABLE Rating
+(
+   review_id    INT NOT NULL,
+   criterion_id INT NOT NULL,
+   grade        INT NOT NULL,
+   comment      TEXT,
+
+   FOREIGN KEY (review_id) REFERENCES ReviewReport(id)
+       ON DELETE CASCADE,
+   FOREIGN KEY (criretion_id) REFERENCES Criterion(id)
        ON DELETE CASCADE
 ) TYPE = INNODB;
 
@@ -253,5 +256,4 @@ CREATE TABLE ForumType
 
    PRIMARY KEY (id)
 ) TYPE = INNODB;
-
 
