@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.catalina.HttpRequest;
-
 import coma.entities.Conference;
 import coma.entities.Person;
 
@@ -46,7 +44,7 @@ public class EntityCreater {
 	    
 	    return p;
 	}
-	public Person getPerson(HttpRequest request){
+	public Person getPerson(HttpServletRequest request){
 	    Person p = new Person();
 	    
 	    return p;
