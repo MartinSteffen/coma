@@ -13,7 +13,7 @@
       Title:
     </td>
     <td>      
-      <input type="text" name="name" size="32" maxlength="127" value="{name}" />
+      <input type="text" name="name" size="32" maxlength="127" value="{name}" /> *
     </td>
   </tr>
   <tr>
@@ -21,7 +21,7 @@
       Description:
     </td>
     <td>      
-      <input type="text" name="description" size="48" value="{description}"/ > *
+      <input type="text" name="description" size="48" value="{description}"/ >
     </td>
   </tr>
   <tr>
@@ -29,7 +29,7 @@
       Homepage URL:
     </td>
     <td>      
-      <input type="text" name="homepage" size="32" maxlength="127" value="{homepage}"/ > *
+      <input type="text" name="homepage" size="32" maxlength="127" value="{homepage}"/ >
     </td>
   </tr>
   <tr>

@@ -13,7 +13,7 @@
       Min. number of papers:
     </td>
     <td>      
-      <input type="text" name="min_papers" size="8" maxlength="8" value="{min_papers}"/ > *
+      <input type="text" name="min_papers" size="8" maxlength="8" value="{min_papers}"/ >
     </td>
   </tr>
   <tr>
@@ -37,7 +37,7 @@
       Default number of reviewers per paper:
     </td>
     <td>      
-      <input type="text" name="def_reviews" size="8" maxlength="8" value="{def_reviews}"/ > *
+      <input type="text" name="def_reviews" size="8" maxlength="8" value="{def_reviews}"/ >
     </td>
   </tr>
   <tr>

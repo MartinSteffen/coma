@@ -34,11 +34,16 @@ if (isset($_POST['action'])) {
   $strContentAssocs['min_papers']   = $_POST['min_papers'];
   $strContentAssocs['max_papers']   = $_POST['max_papers'];
   $strContentAssocs['variance']     = $_POST['variance'];
-  $strContentAssocs['criteria']    = $_POST['criteria'];
-  $strContentAssocs['topics']      = $_POST['topics'];
-  $strContentAssocs['crit_max']    = $_POST['crit_max'];
-  $strContentAssocs['crit_descr']  = $_POST['crit_descr'];
-  $strContentAssocs['auto_actaccount']  = $_POST['auto_actaccount'];
+  $strContentAssocs['criteria']     = $_POST['criteria'];
+  $strContentAssocs['topics']       = $_POST['topics'];
+  $strContentAssocs['crit_max']     = $_POST['crit_max'];
+  $strContentAssocs['crit_descr']   = $_POST['crit_descr'];
+  if (isset($_POST['auto_actaccount'])) {
+    $strContentAssocs['auto_actaccount'] = $_POST['auto_actaccount'];
+  }
+  else {
+    $strContentAssocs['auto_actaccount'] = '';
+  }
   $strContentAssocs['auto_paperforum']  = $_POST['auto_paperforum'];
   $strContentAssocs['auto_addreviewer'] = $_POST['auto_addreviewer'];
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
