@@ -34,7 +34,6 @@ $strContentAssocs['if'] = array();
 $strContentAssocs['name'] = encodeText($objConference->strName);
 $strContentAssocs['description'] = encodeText($objConference->strDescription);
 $strContentAssocs['date'] = $objConference->getDateString();
-<<<<<<< .mine
 if (!empty($objConference->strHomepage)) {    	
   $strContentAssocs['link'] = $objConference->strHomepage;
   $strContentAssocs['if'] = array(1);  	
