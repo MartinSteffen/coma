@@ -21,7 +21,7 @@ $strContentAssocs = defaultAssocArray();
 // Lade die Daten der Person
 $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
 if ($myDBAccess->failed()) {
-  error('profile',$myDBAccess->getLastError());
+  error('main_profile.php',$myDBAccess->getLastError());
 }
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
@@ -39,6 +39,9 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   // Teste, ob die Email bereits vorhanden ist
   else if ($_POST['email'] != $objPerson->strEmail &&
            $myDBAccess->checkEmail($_POST['email'])) {
+    if ($myDBAccess->failed()) {
+      error('main_profile.php',$myDBAccess->getLastError());
+    }
     $strMessage = 'Account with the given E-mail address is already existing! '.
                   'Please use enter another E-mail address!';
   }
@@ -59,11 +62,12 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $result = $myDBAccess->updatePerson($objPerson);
     if (!empty($result)) {
       $_SESSION['uname'] = $objPerson->strEmail;
-      $strMessage = 'Ihre Daten sind erfolgreich ge&auml;ndert worden.';
+      $strMessage = 'Your account has been updated sucessfully.';
     }
     else {
-      $strMessage = 'Es ist ein Fehler beim Aktualisieren Ihrer Daten aufgetreten:<br>'
-                   .$myDBAccess->getlastError();
+      if ($myDBAccess->failed()) {
+        error('main_profile.php',$myDBAccess->getLastError());
+      }
     }
   }
 }
