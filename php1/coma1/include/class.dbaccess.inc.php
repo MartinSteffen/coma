@@ -14,6 +14,7 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 require_once(INCPATH.'class.mysql.inc.php');
+require_once(INCPATH.'class.conference.inc.php');
 require_once(INCPATH.'class.person.inc.php');
 require_once(INCPATH.'class.persondetailed.inc.php');
 require_once(INCPATH.'class.paper.inc.php');
@@ -94,9 +95,52 @@ class DBAccess {
   // ---------------------------------------------------------------------------
 
   /**
+   * Liefert einen Array mit allen Konferenzen zurück.
+   *
+   * @return Conferences[] bzw. <b>false</b>, falls keine Konferenz angelegt ist.
+   * @access public
+   * @author Daniel (29.12.04)
    */
-  function getAllConferences() {
-    return $this->error('getAllConferences '.$this->mySql->getLastError());
+
+  function  getAllConferences(){
+    $s = 'SELECT  id, name, homepage, description, conference_start,  conference_end '.
+        ' FROM    Conference';
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objConferenceNames= array();
+      for ($i = 0; $i < count($data); $i++) {
+        $objConferenceNames[$i] = (new Conference($data[$i]['id'], $data[$i]['name'],
+                                                $data[$i]['homepage'], $data[$i]['description'], 
+                                                $data[$i]['conference_start'],
+                                                $data[$i]['conference_end']));
+      }
+      return $objConferenceNames;
+    }
+    return $this->error('getAllConferences'.$this->mySql->getLastError());
+  }
+
+  /**
+   * Liefert ein Array mit Rollen-Namen zurück.
+   *
+   * @param int $Id ID der Person $confId ID der Konferenz
+   * @return Array mit Rollen_Namen [Teilnehmer, Chair, ...] <--- provisorisch
+   * @access public
+   * @author Daniel (29.12.04)
+   */
+  function  getRoles($Id, $confId){
+    $s = 'SELECT  role_type '.
+        ' FROM    Role'.
+        ' WHERE   conference_id = \' '.$confId.' \' ';
+   $data = $this->mySql->select($s);
+   if (!empty($data)) {
+      $strRoles= array();
+      for ($i = 0; $i < count($data); $i++) {
+        if ($data[$i]['role_type']==0){$strRoles[$i] = 'Teilnehmer';}
+        if ($data[$i]['role_type']==1){$strRoles[$i] = 'Chair';}
+      }
+      return $strRoles;
+    }
+    return $this->error('getRolesById'.$this->mySql->getLastError());
   }
 
   /**
