@@ -203,15 +203,7 @@ class MySql {
     if (empty($results)) {
       return $this->error('insert: ');
     }
-    // Tom: Kein Fehler => gib auch einen Wert <> EMPTY zurueck, wenn keine ID
-    // erzeugt wurde
     $intId = mysql_insert_id();
-    if (!empty($intId)) {
-      return $intId;
-    }
-    else {
-      return 1;
-    }
   }
 
   /**

@@ -1004,8 +1004,8 @@ class DBAccess {
         echo('SQL: '.$s.'<br>');
         $result = $this->mySql->insert($s);
         echo('Last Error: '.$this->mySql->getLastError().'<br>');
-        if (empty($result)) {
-          echo('EMPTY');
+        // [TODO] Abfrage != 0 spaeter mal ersetzen, wenn Fehlerbehandlung vorhanden
+        if (empty($result) && $result != 0) {
           return $this->error('updateRoles '.$this->mySql->getLastError());
         }
       }
