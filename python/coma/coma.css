@@ -21,3 +21,13 @@ table.actions {
   left: 1em;
   width: 9em;
 }
+
+tr.required {
+  color: black;
+  background-color: #FFAFAF;
+}
+
+em.required {
+  color: black;
+  background-color: #FFAFAF;
+}

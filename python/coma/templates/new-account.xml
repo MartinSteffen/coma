@@ -9,25 +9,18 @@
   <body>
     <h1>Create a new Account</h1>
     <p>Please enter the following information.  Fields, which are mandatory
-    are marked with an asterisk (*).  You will have to enter a working e-mail
-    address in order to work with CoMa.</p>
+    are marked with an asterisk (*) and <em class="required">hilighted</em>.
+    You will have to enter a working e-mail address in order to work with
+    CoMa.</p>
     <form action="new-account.py" method="post" enctype="multipart/form-data">
       <table class="login">
-	<tr>
+	<tr class="required">
 	  <td>Your e-mail address*</td>
 	  <td><input type="hidden" name="session" value="%(sid)s"/>
 	  <input type="hidden" name="create" value="True"/>
 	  <input type="text" name="email"/></td>
 	</tr>
-	<tr>
-	  <td>Enter a password*</td>
-	  <td><input type="password" name="password"/></td>
-	</tr>
-	<tr>
-	  <td>Confirm the password*</td>
-	  <td><input type="password" name="password2"/></td>
-	</tr>
-	<tr>
+	<tr class="required">
 	  <td>Title*</td>
 	  <td>
             <select name="title">
@@ -41,15 +34,15 @@
             </select>
           </td>
 	</tr>
-	<tr>
+	<tr class="required">
 	  <td>First Name*</td>
 	  <td><input type="text" name="first-name"/></td>
 	</tr>
-	<tr>
+	<tr class="required">
 	  <td>Last Name*</td>
 	  <td><input type="text" name="last-name"/></td>
 	</tr>
-	<tr>
+	<tr class="required">
 	  <td>Affiliation*</td>
 	  <td><input type="text" name="affiliation"/></td>
 	</tr>

@@ -258,16 +258,16 @@ def process_new_user(sid, db, form):
     else:
 	_errors.append('You have to enter an e-mail address')
 
-    if form.has_key('password') and form['password'].value:
-	if form.has_key('password2') and form['password2'].value:
-	    if form['password'].value == form['password2'].value:
-		_result.append(form['password'].value)
-	    else:
-		_errors.append('The password and its confirmation differ.')
-	else:
-	    _errors.append('You have to confirm your password.')
-    else:
-	_errors.append('You have to enter a password.')
+#    if form.has_key('password') and form['password'].value:
+#	if form.has_key('password2') and form['password2'].value:
+#	    if form['password'].value == form['password2'].value:
+#		_result.append(form['password'].value)
+#	    else:
+#		_errors.append('The password and its confirmation differ.')
+#	else:
+#	    _errors.append('You have to confirm your password.')
+#    else:
+#	_errors.append('You have to enter a password.')
 
     if form.has_key('title') and form['title'].value:
 	_result.append(int(form['title'].value))
