@@ -155,7 +155,27 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="/result/showpapers/content">
-<xsl:value-of select='.'/><br></br> 
+<table style="color:black; text-align:center">
+<tr align="center">
+	<td>ID</td><td>Conference ID</td><td>Author ID</td><td>Title</td>
+	<td>Abstract</td><td>last edited</td><td>Version</td><td>filename</td>
+	<td>state</td><td>mim_type</td>
+</tr>
+<xsl:for-each select="/result/showpapers/content/paper">
+<tr>
+	<td><xsl:value-of select="id"/></td>	
+	<td><xsl:value-of select="conference_id"/></td>
+	<td><xsl:value-of select="author_id"/></td>
+	<td><xsl:value-of select="title"/></td>
+	<td><xsl:value-of select="Abstract"/></td>
+	<td><xsl:value-of select="last_edited"/></td>
+	<td><xsl:value-of select="version"/></td>
+	<td><xsl:value-of select="filename"/></td>
+	<td><xsl:value-of select="state"/></td>
+	<td><xsl:value-of select="mim_type"/></td>
+</tr>
+</xsl:for-each>
+</table>
 </xsl:template>
 
 <xsl:template match="/result/setup/content">
