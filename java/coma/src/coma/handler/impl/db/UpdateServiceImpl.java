@@ -190,8 +190,8 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		if (ok) {
 			try {
 				String UPDATE_QUERY = "UPDATE Paper SET "
-						+ " author_id ? , title = ?, abstract = ?,"
-						+ " filename = ?, state = ?, mime_typen = ?"
+						+ " author_id = ? , title = ?, abstract = ?,"
+						+ " filename = ?, state = ?, mime_type = ?"
 						+ " WHERE id = " + paper.getId();
 				int pstmtCounter = 0;
 				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
