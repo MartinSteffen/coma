@@ -31,6 +31,12 @@
   </tr>
   <tr>
     <td>
+      Co-Authors:
+    </td>
+    <td>{co-authornames}</td>
+  </tr>
+  <tr>
+    <td>
       Version:
     </td>
     <td>{version}</td>
