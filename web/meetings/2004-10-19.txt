@@ -1,0 +1,42 @@
+The first meeting.
+
+present: almost everyone listed in the original members list (some
+came a day later or so)
+
++ M. Steffen, M. Kyas.
+
+
+---------------------
+
+Results: not much, it was just the kick-off.
+
+
+  > group division into 3 kinds of task-forces
+   
+      - spec
+      - tools
+      - testing
+
+   which must work-out either a more precise specification, a
+   choice of languages and tools, or a test concept.
+
+   Each group is urged to consult us
+
+
+   > informal talk by the organizers about the general task
+
+   > short intro of everyone, to get an impression of what the people know
+
+     java:             most everyone
+     script-languages: many
+     data-bases:       some
+     cvs:              many
+
+
+
+	
+
+
+
+
+

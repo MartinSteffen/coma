@@ -1,0 +1,31 @@
+
+
+M. Steffen and M. Kyas where absent, the session was chaired by
+G. Schaefer..
+
+Author: M. Steffen
+
+The discussion was not noted down in written form, so I produce the minutes
+from the Discussion with Gunnar.
+
+
+======
+
+Topic: tool have been presented, it seems that
+       the group is split into 2 equally large
+       groups:
+
+       - lightweight:  php/apache etc
+
+       - heavyweight: Java, EJB, servlet /tomcat/jboss
+
+This probably means, that there will be two separate groups.
+
+
+
+	
+
+
+
+
+

@@ -1,0 +1,120 @@
+Meeting minutes: 26.10.2004.
+
+ general meeting, no specific agenda.
+
+ author:  M. Steffen
+
+ present: most people, Harm Brand apologies for absence (exam)
+
+
+o  official things: 
+
+     - next week, M. Kyas and M. Steffen will
+          be absent, the meeting will take place nonetheless
+	  and headed by G. Schaefer
+
+     - informal req. spec. v.1 was distributed
+
+
+     - the ``first presentation'' was postponed one week later.
+       In order not to loose too much time: Next week, the tools
+       make some preliminary (and deeper) discussion and presentation
+       than this week, which allows to make decisions fast concerning
+       the tools at the 4th meeting. 
+
+       The rational behind it is: tool discussion/decision will
+       be easy/fast, the discussion concerning the specs will
+       take more time.
+
+o general discusion: Since there was no agenda, the meeting was more a
+         general brainstorm.  In particular the spec groups made some
+         remarks. Things that where being discussed concerning the spec
+	 (but not ``solved'' of course) were:
+
+    > Spec
+
+	  - what will be the range of features? what should
+	    be fixed and what optional and what whould be default?
+
+	    (Of course): no solution was provided, but said that
+	    it's part of the spec. task to clarify the things.
+
+
+	    In this context we pointed out that we should diffentiate
+	    between spec. and implementation phase.
+
+	      + at some point, spec should be fixed, it must not
+	        be a moving target throughout the semester. 100% freeze
+		is not realistic, either...
+
+	      + it seems better, for the implementation, that
+	        one concentrates first on the easier/non-optional/
+		non-adaptive etc part and then later, if time allows
+		graft in the option.
+
+	      + However, this does not mean that for the spec.
+	        we do the same. The spec. should be so general
+		so that it clearly states which is fix, and	
+		which is adaptive/optional (where optional
+		means not ``optional'' in implementation but
+		``optional'' feature for the user.
+
+	       + With this in mind, a good development path
+	         will be, to start with the fix feature, and
+		 later, as said, include the more fancy/adaptive
+		 ones.
+	    
+
+
+	  - The informal spec seemed ``clear'' by those who commented.
+	    However: being clear in an abstract way does not mean,
+	    everything is fixed. => part of the spec. part is
+	    to clarify things, to fix data, to take more concrete
+	    decisions what is supported and what not
+
+	  - webserver/one-shot usage: Spec2 brought up the issue whether
+	    using it as webserver (instead of ``download-and-use'') should
+	    be supported. Conclusion: yes, it's not an extension of the
+	    task anyway (that's already discussed in the requirement spec.)
+
+
+
+     > Testing:
+           two members present, not much results yet, but
+	    some prelim. ``product overview'' over available
+	    tools,
+
+	   Recommmendation: the members of the group should    
+	   get together and establish contact.
+	    
+
+      > Tools:
+
+           not much decisions yet, rather again a general discussion.  A
+	   general recommendation was there: get into contact with us to
+	   see what's available.
+	   
+
+
+	Tools1: recommended (without much deeper arguments)
+
+	     -Java
+
+	     -Tomcat
+
+	     -subversion
+
+	     -MySQL
+	     
+  
+	     
+	     
+
+
+
+	    
+
+   
+
+    
+

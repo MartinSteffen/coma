@@ -1,0 +1,134 @@
+]
+
+
+\input{switches}
+
+\documentclass[11pt]{article}
+\usepackage{hevea}
+\usepackage{hyperref}
+%\usepackage{url}
+\usepackage[english]{babel}
+\usepackage{epsfig}
+\usepackage{tfheader}
+\usepackage{a4wide}
+\usepackage[latin1]{inputenc}
+
+\input{macros}
+
+
+\title{{\huge\bf Coma} (under constant construction)}
+%\author{}
+%\url{}{Martin Steffen}}
+\date{}
+
+
+
+\ifweb
+
+\htmlfoot{\hrulefill{}
+  {\footnotesize Pages last (re-)generated \today}}
+\renewcommand{\@bodyargs}{bgcolor="white" alink="red" vlink="\#407999"  link="\#7070ff"}  
+\fi
+
+
+
+
+\begin{document}
+\vspace{-2cm}
+
+
+%\pagestyle{empty}
+
+\begin{rawhtml}
+
+<a href="http://www.uni-kiel.de/">
+  <img border=0 alt="[Christian-Albrechts-Universität]" height=30  src="http://www.uni-kiel.de/img/cau_logo.gif" align="left"></a>
+
+
+<a href="http://www.tf.uni-kiel.de/">
+  <img border=0 alt="[Technical Faculty]" height=30  src="/images/tflogo.gif" align="right"></a>
+<br>
+
+\end{rawhtml}
+
+
+
+\maketitle{}
+
+
+\begin{abstract}
+  The is the \emph{organisatorial} overview page concerning this semester's
+  project.  The ``official''
+  \href{http://www.informatik.uni-kiel.de/inf/deRoever/WS0405/PITM}{web-page},
+  in contrast, is more concerned with project-independant information and
+  will not change much during semester.
+
+\end{abstract}
+
+
+
+
+%\tableofcontents
+
+
+
+%\input{slime}
+%\input{review}
+
+
+%\section*{Java-doc}
+%\label{sec:javadoc}
+%\label{sec:html-doc}
+%For convenient lookup for those who like \javadoc, the public documentation
+%and comments are avaiable here. The pages are refreshed from time to time,
+%especially after larger development steps.
+%\begin{center}
+%  \importantxx{documentation \url{doc}{Slime}}: currently (\today): last-minute
+%  ``integrated'' tool
+%\end{center}
+
+%\input{snapshots}
+\input{requirements}
+\input{meetings}
+%\input{timeline}
+\input{groups}
+%\input{conventions}
+
+
+
+
+\section{Links}
+
+
+Thanks to Alexander for the collection of Links
+
+\begin{itemize}
+\item \href{http://www.apache.org}{Apache}
+\item \href{http://www.mysql.org}{Mysql}
+\item \href{http://java.sun.com/j2se/index.jsp}{J2SE}
+\item \href{http://java.sun.com/j2ee/index.jsp}{J2EE}
+\item \href{http://java.sun.com/products/ejb/}{EJB}
+\item \href{http://java.sun.com/products/jsp/index.jsp}{JSP}
+\item \href{http://java.sun.com/products/servlet/index.jsp}{Servelets}
+\item \href{http://www.mysql.com/products/connector/j/}{JDBC}
+\item \href{http://jakarta.apache.org/tomcat/index.html}{Jacarta Tomcat}
+\item \href{http://www.jboss.org/}{JBoss App. Server}
+\end{itemize}
+
+
+
+\bibliographystyle{alpha}
+
+
+
+\bibliography{string,etc,oop,crossref}
+
+
+\end{document}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
