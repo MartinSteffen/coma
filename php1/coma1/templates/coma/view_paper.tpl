@@ -50,8 +50,7 @@
   </tr>  
   <tr class="viewline">
     <td class="viewline" colspan="2">
-      {if5<button name="viewpaper" type="button" class="button" value="View paper"
-                  onClick="self.location.href='{file_link}'">View paper</button>}
+      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}">View paper</a>}
       {if6<span class="emph">There is no document available yet.</span>}
     </td>
   </tr>
