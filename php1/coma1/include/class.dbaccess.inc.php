@@ -1189,11 +1189,11 @@ nur fuer detaillierte?
         "         max_number_of_papers = 'objConferenceDetailed->intMaxNumberOfPapers',".
         "         critical_variance = 'objConferenceDetailed->fltCriticalVariance',".
         "         auto_activate_account = '".
-                    $this->booleanToDatabase(objConferenceDetailed->blnAutoActivateAccount)."',".
+                    $this->booleanToDatabase($objConferenceDetailed->blnAutoActivateAccount)."',".
         "         auto_open_paper_forum = '".
-                    $this->booleanToDatabase(objConferenceDetailed->blnAutoOpenPaperForum)."',".
+                    $this->booleanToDatabase($objConferenceDetailed->blnAutoOpenPaperForum)."',".
         "         auto_add_reviewers = '".
-                    $this->booleanToDatabase(objConferenceDetailed->blnAutoAddReviewers)."',".
+                    $this->booleanToDatabase($objConferenceDetailed->blnAutoAddReviewers)."',".
         "         number_of_auto_add_reviewers = ".
         "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
         " WHERE   conference_id = '$objConferenceDetailed->intId'";
