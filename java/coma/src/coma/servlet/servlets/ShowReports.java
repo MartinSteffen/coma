@@ -140,6 +140,7 @@ public class ShowReports extends HttpServlet {
 			for (coma.entities.ReviewReport theReport: 
 				 getVisibleReviewReports(theUser, thePaper)){
 			
+			    LOG.log(DEBUG, "showing report:", theReport);
 			    result.append(theReport.toXML());
 
 			    mr.addReportRatings(theReport);
@@ -222,6 +223,7 @@ public class ShowReports extends HttpServlet {
 
 	/* XXX ziad should provide a factory for this */
 	ReadService dbRead = new coma.handler.impl.db.ReadServiceImpl();
+	SearchCriteria theSearchCriteria;
 	SearchResult theSearchResult;
 
 	/* case 1: a chair. In this case, we will show all papers
@@ -232,8 +234,9 @@ public class ShowReports extends HttpServlet {
 	*/
 	if (thePerson.isChair()){
 
-	    theSearchResult = dbRead.getPaper(new SearchCriteria());
-	    postDBAccess(theSearchResult);
+	    theSearchCriteria = new SearchCriteria();
+	    theSearchCriteria.setPaper(new Paper(-1));
+	    theSearchResult = dbRead.getPaper(theSearchCriteria);
 
 	    LOG.log(DEBUG, 
 		    "should get info", "for chair");
@@ -246,10 +249,13 @@ public class ShowReports extends HttpServlet {
 	       rated.
 	    */
 
-	    SearchCriteria sc = new SearchCriteria();
-	    sc.setPerson(thePerson);
-	    theSearchResult = dbRead.getReviewReport(sc);
-	    postDBAccess(theSearchResult);
+	    theSearchCriteria = new SearchCriteria();
+	    ReviewReport theReport;
+	    theReport = new ReviewReport();
+	    theReport.setReviewerId(thePerson.getId());
+	    theSearchCriteria.setReviewReport(theReport);
+	    theSearchResult = dbRead.getReviewReport(theSearchCriteria);
+
 	    Set<ReviewReport> allReports = 
 		new HashSet<ReviewReport>(asList((ReviewReport[])theSearchResult.getResultObj()));
 
@@ -297,9 +303,11 @@ public class ShowReports extends HttpServlet {
 	boolean hasRated = false;
 
 	SearchCriteria sc = new SearchCriteria();
-	sc.setPaper(thePaper);
+	ReviewReport theReport = new ReviewReport();
+	theReport.setPaperId(thePaper.getId());
+	sc.setReviewReport(theReport);
 	theSearchResult = dbRead.getReviewReport(sc);
-	postDBAccess(theSearchResult);
+
 	Set<ReviewReport> reportsOnThis = 
 	    new HashSet<ReviewReport>(asList((ReviewReport[])theSearchResult.getResultObj()));
 	
@@ -323,6 +331,8 @@ public class ShowReports extends HttpServlet {
 
        @throws DatabaseDownException, if an DB access error occured
        while the passed SearchResult was generated.
+
+       @deprecated, because the DB routines don't set proper SUCCESS flag anyway.
     */
     private void postDBAccess(SearchResult theSearchResult) 
 	throws DatabaseDownException {
