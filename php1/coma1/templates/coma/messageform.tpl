@@ -6,5 +6,5 @@
   Subject: <input type="text" size="40" name="subject" value="{subject}"><br>
   Message: <textarea cols="40" rows="10" wrap="soft" name="text">{text}</textarea><br>
   {editform}
-  <input type="submit" value="send">
+  <input type="submit" value="send"></form>
 </p>
