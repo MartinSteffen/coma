@@ -10,7 +10,7 @@
        <input type="hidden" name="reply-to" value="{message-id}">
        <input type="hidden" name="forumid" value="{forum-id}">
        &nbsp; <b> Subject: </b>  <br><input type="text" size="80" name="subject" value="{subject}"><br>
-       &nbsp; <b> Message: </b>  <br><textarea cols="80" rows="5" wrap="soft" name="text">{text}</textarea><br>
+       &nbsp; <b> Message: </b>  <br><textarea cols="80" rows="5" name="text">{text}</textarea><br>
        {editform}
        <input type="submit" class="button" value="send"></form>
     </td>
