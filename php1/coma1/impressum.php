@@ -10,17 +10,19 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$main = new Template(TPLPATH.'frame.tpl');
+$menu = new Template(TPLPATH.'startmenu.tpl');
+$strMenuAssocs = defaultAssocArray();
+$strMenuAssocs['if'] = array(4);
+$menu->assign($strMenuAssocs);
 
 $content = new Template(TPLPATH.'impressum.tpl');
 $content->assign(defaultAssocArray());
 
+$main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Impressum';
 $strMainAssocs['content'] = &$content;
-
-require_once(TPLPATH.'startmenu.php');
-$strMainAssocs['menu'] = openStartMenuItem(4);
+$strMainAssocs['menu'] = &$menu;
 
 $strPath = array('CoMa'=>'', 'Impressum'=>'');
 require_once(TPLPATH.'navigatoritem.php');
