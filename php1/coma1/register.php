@@ -3,6 +3,7 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
+ * @todo state, country, affilation
  */
 /***/
 
@@ -10,114 +11,87 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$main = new Template(TPLPATH.'frame.tpl');
-$links = defaultAssocArray();
-
 $content = new Template(TPLPATH.'register.tpl');
-$strContentAssocs = defaultAssocArray();  
-$strContentAssocs['first_name'] = '';
-$strContentAssocs['last_name'] = '';
-$strContentAssocs['email'] = '';
-$strContentAssocs['name_title'] = '';
-$strContentAssocs['street'] = '';
-$strContentAssocs['city'] = '';
-$strContentAssocs['postalcode'] = '';
-$strContentAssocs['phone'] = '';
-$strContentAssocs['fax'] = '';
+$strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-
 if (isset($_POST['email'])){
-  $confirmFailed = false;
-  $strMessage = '';
 
-  /* Anlegen der Person in der Datenbank */
-
+  // Anlegen der Person in der Datenbank
   $strContentAssocs['first_name'] = $_POST['first_name'];
-  $strContentAssocs['last_name'] = $_POST['last_name'];
-  $strContentAssocs['email'] = $_POST['email'];
+  $strContentAssocs['last_name']  = $_POST['last_name'];
+  $strContentAssocs['email']      = $_POST['email'];
   $strContentAssocs['name_title'] = $_POST['name_title'];
-  $strContentAssocs['street'] = $_POST['street'];
-  $strContentAssocs['city'] = $_POST['city'];
+  $strContentAssocs['street']     = $_POST['street'];
+  $strContentAssocs['city']       = $_POST['city'];
   $strContentAssocs['postalcode'] = $_POST['postalcode'];
-  $strContentAssocs['phone'] = $_POST['phone'];
-  $strContentAssocs['fax'] = $_POST['fax'];
-  
+  $strContentAssocs['phone']      = $_POST['phone'];
+  $strContentAssocs['fax']        = $_POST['fax'];
+
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
-  if ($_POST['last_name'] == '' || $_POST['email'] == '' || $_POST['user_password'] == '' ||
-      $_POST['password_repeat'] == '') {    
-    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, <b>Email</b> und <b>Passwort</b> '.
-                  'ausf&uuml;llen!';
-    $confirmFailed = true;
+  if (empty($_POST['last_name'])
+  ||  empty($_POST['email'])
+  ||  empty($_POST['user_password'])
+  ||  empty($_POST['password_repeat'])) {
+    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, <b>Email</b> und <b>Passwort</b> '
+                 .'ausf&uuml;llen!';
   }
   // Teste, ob Passwort mit der Wiederholung uebereinstimmt
-  else if ( $_POST['user_password'] !=  $_POST['password_repeat']) {
+  elseif ($_POST['user_password'] != $_POST['password_repeat']) {
     $strMessage = 'Ihr Passwort stimmt nicht mit der Wiederholung des Passwortes &uuml;berein!';
-    $confirmFailed = true;
   }
   // Teste, ob die Email gueltig ist
-  else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+  elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
     $strMessage = 'Geben Sie eine g&uuml;ltige Email-Adresse ein!';
-    $confirmFailed = true;
   }
   // Teste, ob die Email bereits vorhanden ist
-  else if ( $myDBAccess->checkEmail((string)$_POST['email']) == true) {
-    $strMessage = 'Es existiert bereits ein Benutzer mit dieser Email-Adresse! '.
-                  'Verwenden Sie bitte diesen Account oder geben Sie eine andere Email-Adresse ein.';
-    $confirmFailed = true;
+  elseif ($myDBAccess->checkEmail($_POST['email'])) {
+    $strMessage = 'Es existiert bereits ein Benutzer mit dieser Email-Adresse! '
+                 .'Verwenden Sie bitte diesen Account oder geben Sie eine andere Email-Adresse ein.';
   }
-  else {   
-    $result = $myDBAccess->addPerson($_POST['first_name'], 
-                                     $_POST['last_name'], 
+  // Versuche einzutragen
+  else {
+    $result = $myDBAccess->addPerson($_POST['first_name'],
+                                     $_POST['last_name'],
                                      $_POST['email'],
-                                     $_POST['name_title'], '', 
-                                     $_POST['street'], 
+                                     $_POST['name_title'],
+                                     '',
+                                     $_POST['street'],
                                      $_POST['city'],
-                                     $_POST['postalcode'], '', '',
-                                     $_POST['phone'], 
-                                     $_POST['fax'], 
-                                     $_POST['user_password']);    
-    if (empty($result)) {       
-      $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten:<br>'.
-                    $myDBAccess->getLastError().'<br>'.
-                    'Bitte versuchen Sie erneut, sich zu registrieren.';
-      $confirmFailed = true;
+                                     $_POST['postalcode'],
+                                     '',
+                                     '',
+                                     $_POST['phone'],
+                                     $_POST['fax'],
+                                     $_POST['user_password']);
+    if (!empty($result)) {
+      // Erfolg (also anderes Template)
+      $content = new Template(TPLPATH.'confirm_register.tpl');
     }
     else {
-      $strContentAssocs['first_name'] = $_POST['first_name'];
-      $strContentAssocs['last_name'] = $_POST['last_name'];
-      $strContentAssocs['email'] = $_POST['email'];
-      $strContentAssocs['name_title'] = $_POST['name_title'];
-      $strContentAssocs['street'] = $_POST['street'];
-      $strContentAssocs['city'] = $_POST['city'];
-      $strContentAssocs['postalcode'] = $_POST['postalcode'];
-      $strContentAssocs['phone'] = $_POST['phone'];
-      $strContentAssocs['fax'] = $_POST['fax'];
-      $strContentAssocs['user_password'] = $_POST['user_password'];
-      $strMessage = 'Der Benutzer wurde erfolgreich angelegt! Bitte loggen Sie sich auf der '.
-                    '<a href="'.$links['basepath'].'index.php?'.$links['SID'].'">Startseite</a> '.
-                    'mit ihrer Email-Adresse als Benutzernamen ein!';
+      // Datenbankfehler?
+      $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten:<br>'
+                   .$myDBAccess->getLastError()
+                   .'<br>Bitte versuchen Sie erneut, sich zu registrieren.';
+
+
     }
   }
-    
-  if (empty($confirmFailed)) {
-    $content = new Template(TPLPATH.'confirm_register.tpl');
-  }  
 }
- 
-if (!empty($strMessage)) {
-  $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
+
+if (isset($strMessage)) {
+  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['if'] = array(1);
 }
-else {
-  $strContentAssocs['message'] = '';
-}
-$content->assign($strContentAssocs);  
+
+$content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'startmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
 $strMenuAssocs['if'] = array(2);
 $menu->assign($strMenuAssocs);
 
+$main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Neuen Benutzer registrieren';
 $strMainAssocs['content'] = &$content;
@@ -130,5 +104,4 @@ $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 $main->assign($strMainAssocs);
 $main->parse();
 $main->output();
-
 ?>

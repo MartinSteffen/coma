@@ -50,6 +50,8 @@
 </table>
 </p>
 
-{message}
+Der Benutzer wurde erfolgreich angelegt! Bitte loggen Sie sich auf der 
+<a href="{basepath}index.php?{SID}">Startseite</a> mit ihrer Email-Adresse 
+als Benutzernamen ein!
 
 <p>&nbsp;</p>
