@@ -280,7 +280,8 @@ class DBAccess {
           ' ON      p.id = i.person_id'.
           ' WHERE   paper_id = '.$intPaperId;
       $cadata = $this->mySql->select($s);
-      $intCoAuthorIds = $strCoAuthors = false;
+      $intCoAuthorIds = array();
+      $strCoAuthors = array();
       if (!empty($cadata)) {
         for ($i = 0; $i < count($cadata); $i++) {
           $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
