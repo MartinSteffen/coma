@@ -94,7 +94,8 @@ if (isset($_POST['action'])) {
       }
     }
   }
-  else if (isset($_POST['upload'])) {    
+  else if (isset($_POST['upload'])) {
+    var_dump($_POST['MAX_FILE_SIZE']);
     var_dump($_POST['binFile']);
     if (empty($_POST['binFile'])) {
       $strMessage = 'You have to select a file for uploading!';
