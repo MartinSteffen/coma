@@ -241,8 +241,7 @@ class DBAccess {
         ' ON      r.review_id = rr.id'.
         ' INNER   JOIN Criterion AS c'.
         ' ON      c.id = r.criterion_id'.                
-        ' WHERE   rr.paper_id = '.$intPaperId.
-        ' GROUP   BY rr.id';
+        ' WHERE   rr.paper_id = '.$intPaperId;
     echo($s.'<br>');
     $data = $this->mySql->select($s);
     if (!empty($data)) {
