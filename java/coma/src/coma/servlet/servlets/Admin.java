@@ -4,7 +4,6 @@ package coma.servlet.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,18 +15,8 @@ import coma.entities.Person;
 import coma.entities.Conference;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
-import coma.servlet.util.FormularChecker;
-import coma.servlet.util.Navcolumn;
-import coma.servlet.util.SMTPClient;
-import coma.servlet.util.SessionAttribs;
-import coma.servlet.util.XMLHelper;
+import coma.servlet.util.*;
 
-/**
- * @author superingo
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class Admin extends HttpServlet 
 {
 	static final long serialVersionUID = 1;
@@ -98,17 +87,32 @@ public class Admin extends HttpServlet
 			SearchResult result = read.getConference(search);
 			Conference[] result_conference= (Conference[])result.getResultObj();
 			int id = result_conference[0].getId();
-			insert.setPersonRole(user_person.getId(),id,6,0);
+			insert.setPersonRole(user_person.getId(),id,User.ADMIN,0);
 			p.setConference_id(id);
 			insert.insertPerson(p);
-			info.append(XMLHelper.tagged("status","Setup successfull"));
-			info.append(XMLHelper.tagged("status",""));
-			//send_email(email);
+			String[] email_formular = new String[3];
+			email_formular[0] = p.getEmail();
+			email_formular[1] = "You are Chair";
+			email_formular[2] = "Hello Chair"+p.getFirst_name() + " " + p.getLast_name() +"\n"+
+			"Please setup the new conference with JComa";
+			boolean SENDED= sendEmail(user_person.getEmail(),formular);
+			if (SENDED)
+				info.append(XMLHelper.tagged("status","Setup successfull"));
+			else
+			{
+				info.append(XMLHelper.tagged("status","Sending problems"));
+				info.append("<content>");
+				info.append(XMLHelper.tagged("last_name",formular[0]));
+				info.append(XMLHelper.tagged("first_name",formular[1]));
+				info.append(XMLHelper.tagged("email",formular[2]));
+				info.append(XMLHelper.tagged("passwd",formular[3]));
+				info.append("</content>");
+			}			
 		}
 		else
 		{
 			tag = "setup";
-			info.append(XMLHelper.tagged("status","Please fill out all fields"));
+			info.append(XMLHelper.tagged("status","Check your fields"));
 			info.append("<content>");
 			info.append(XMLHelper.tagged("last_name",formular[0]));
 			info.append(XMLHelper.tagged("first_name",formular[1]));
@@ -145,51 +149,14 @@ public class Admin extends HttpServlet
 	    }
 	}
 	
-	private void send_email(String address)
-	{	
-		/*
-		 * 
-		 */
-	    boolean VALID = false; //checker.EmailCheck(0); FIXME FIXME FIXME NOBUILD 
+	private boolean sendEmail(String SenderAdress, String[] formular)
+	{
 		boolean SENDED = false;
-		String[] formular= null; // FIXME FIXME FIXME NOBUILD 
-		if (VALID)
-		{
-		     /*
-	         * FIXME get SMTP-SERVER
-	         * test with your own smtp server an mail address
-	         */
-			SMTPClient MyE = new SMTPClient("localHost",
-				formular[0],formular[1],formular[2]);
-			SENDED=MyE.send();		
-			// FIXME FIXME FIXME NOBUILD session = req.getSession(true);
-			String user = ""; // FIXME FIXME FIXME NOBUILD session.getAttribute("user").toString();
-			if(SENDED)
-			{
-				info.append(XMLHelper.tagged("content",""));
-				info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate()));
-				String tag = "email";
-				//FIXME FIXME FIXME NOBUILD commit(res,tag);
-			}
-		}	
-//Case of Error, defining handler here; addTaged(subj),..., to fill textfields again
-		if(!SENDED || !VALID)
-		{
-			if(VALID && !SENDED)
-				info.append(XMLHelper.tagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN"));
-			if(!VALID)
-				info.append(XMLHelper.tagged("status","ENTER A VALID EMAIL ADDRESS"));
-			info.append("<content>");
-			info.append(XMLHelper.tagged("subj",formular[1]));
-			info.append(XMLHelper.tagged("recv",formular[0]));
-			info.append(XMLHelper.tagged("cont",formular[2]));
-			info.append("</content>");
-			String tag = "email";
-			// FIXME FIXME FIXME NOBUILD commit(res,tag);
-		}
+		SMTPClient MyE = new SMTPClient(SenderAdress,
+						formular[0],formular[1],formular[2]);
+		SENDED=MyE.send();	
+		return SENDED;
 	}
 	
-	
-	
-	
+		
 }
