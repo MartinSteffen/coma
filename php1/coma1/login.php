@@ -26,8 +26,8 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   &&  isset($_POST['user_password'])
   &&  !empty($_POST['user_name'])
   &&  !empty($_POST['user_password'])) {
-    $_SESSION['uname'] = $_POST['user_name'];
-    $_SESSION['password'] = sha1($_POST['user_password']);
+    $_SESSION['uname'] = encodeText($_POST['user_name']);
+    $_SESSION['password'] = sha1(encodeText($_POST['user_password']));
     redirect('main_start.php');
   }
   else {
