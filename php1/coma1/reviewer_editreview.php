@@ -77,13 +77,17 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $strCritAssocs['crit_max']   = encodeText($objReview->objCriterions[$i]->intMaxValue);
   $strCritAssocs['rating']     = encodeText($objReview->intRatings[$i]);
   $strCritAssocs['comment']    = encodeText($objReview->strComments[$i]);
+  if ($objReview->intRatings[$i] < 0 ||
+      $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
+    $strCritAssocs['if'] = array(1);
+  }
   $critForm->assign($strCritAssocs);
   $critForm->parse();
   $strContentAssocs['crit_lines'] .= $critForm->getOutput();
 }
 if (isset($strMesage) && !empty($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(1);
+  $strContentAssocs['if'] = array(9);
 }
 $content->assign($strContentAssocs);
 

@@ -1,4 +1,6 @@
 
+{if9<p class="message">{message}</p>}
+
 <form action="{basepath}reviewer_editreview.php{?SID}" method="post" accept-charset="UTF-8">
   <input type="hidden" name="reviewid" value="{review_id}">
   <input type="hidden" name="action" value="submit">
