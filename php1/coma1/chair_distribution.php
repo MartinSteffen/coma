@@ -34,7 +34,7 @@ if (isset($_POST['confirm'])) {
   while ($pid = key($dist)) {
     $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($dist[$pid]); $j++) {
-      if ($dist[$pid][$j]['status'] != ASSIGNED && rand(1, 3) <= 1) {
+      if ($dist[$pid][$j]['status'] != ASSIGNED) {
         $s .= ' '.$dist[$pid][$j]['reviewer_id'].'/'.$dist[$pid][$j]['status'];
 //        if(!isset($_POST['p'.$pid.'ridx'.$j])) {
           unset($dist[$pid][$j]);
@@ -43,6 +43,8 @@ if (isset($_POST['confirm'])) {
       else $s .= ' ass';
     }
     $s .= '<br>Length of dist['.$pid.']: '.count($dist[$pid]);
+    echo('<br>Length of dist['.$pid.']: '.count($dist[$pid]));
+    print_r($dist[$pid]);
     next($dist);
   }
 }
