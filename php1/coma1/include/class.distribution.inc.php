@@ -180,7 +180,7 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($denies); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
-      }
+      }*/
       // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    ExcludesPaper AS pp".
@@ -195,7 +195,7 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($excluded); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
-      }*/
+      }
     }
     return $matrix;
   }
