@@ -317,10 +317,10 @@ else{
   $uid = getUID($cid, $myDBAccess);
 
   $content = new Template(TPLPATH . 'forumtypes.tpl');
-  $cntntAsscs = defaultAssocArray();
-  $cntntAsscs['message'] = session('message', false);
+  $contentAssocs = defaultAssocArray();
+  $contentAssocs['message'] = session('message', false);
   session_delete('message');
-  $cntntAsscs['forumtypes'] = '';
+  $contentAssocs['forumtypes'] = '';
 
   if (DEBUG){
     $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>';
@@ -370,7 +370,7 @@ else{
       $_SESSION['forum_msgselect'] = $selecttree;
     }
     else{
-      $cntntAsscs['message'] = $cntntAsscs['message'] . '<br>posting failed';
+      $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
     }
   }
 
@@ -438,7 +438,7 @@ else{
     $fms = array();
   }
 
-  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $cntntAsscs);
+  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs);
   if (DEBUG){
     //echo($contentAssocs['forumtypes']);
   }
