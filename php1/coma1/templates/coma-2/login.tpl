@@ -9,13 +9,13 @@
     <th colspan="2">Login:</th>
   </tr>
   <tr>
-    <td>Email-Adresse:</td>
+    <td>E-mail Address:</td>
     <td>
       <input type="text" name="user_name" size="30" maxlength="127" />
     </td>
   </tr>
   <tr>
-    <td>Passwort:</td>
+    <td>Password:</td>
     <td>
        <input type="password" name="user_password" size="30" maxlength="127" />
     </td>
@@ -34,9 +34,10 @@
 
 <p>
 <form action="{basepath}register.php?{SID}" method="post">
-  Falls Sie noch keinen Account besitzen, k&ouml;nnen Sie sich hier als Benutzer
-  registrieren:<br>
-  <input type="submit" name="submit" value="Registrieren" class="button" />
+  If you have registered for the site, please enter your username and password.
+  This will mean that you can get access to information relevant to you. If you 
+  have not registered, please register below:<br>
+  <input type="submit" name="submit" value="Register" class="button" />
 </form>
 </p>
 
