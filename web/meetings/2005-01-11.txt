@@ -1,0 +1,129 @@
+
+
+===== vorankuendigung ====
+
+
+
+
+Moin + Gutes Neues.
+
+Was steht morgen auf dem Plan?
+
+Das wichtigste was mir so einf"allt ist :
+
+
+      o Status/Plan fuer den Rest.
+
+
+        Auch wenn Weihnachten war, ist die Arbeit bei einigen
+        Gruppen anscheinend weitergegangen, auch sind wir demn"achst
+        auf die Zielgerade gehen:
+
+
+           - wie weit ist der Forstschritt, wieviel wird noch
+             bis Ende gemacht?
+
+             Insbesondere im Lichte der (eventuellen) Fortschritte in
+             der Vergangenheit: wie viel ist realistisch noch 
+             zu schaffen?
+
+
+
+            > Merke: besser einen reduzierten Leistungsumfang sicher, fest,
+              und getestet und lauff"ahig als eine unrealistischen grossen
+              Leistungsumfang, der aber hinten und vorne klappert.
+
+
+              Da wir uns, wie gesagt, auf die Zielgerade zubewegen, sollte
+              man aus dem bislang erreichten eine gute und realistische
+              Absch"atzung des noch zu erreichenden abgeben k"onnen.
+
+            > Beachte: man soll _nicht_ so planen, da"s man bis um 24 Uhr
+              des letzten Tages des Semesters codet!
+
+              Insbesondere wegen des kommenden Punktes ``Testing'':
+
+
+
+      o Einbindung der Tester
+
+            das ist angelaufen. Wie ist der STand/Plan da?
+
+            Speziell: wie sieht es mit den Testdaten aus.
+
+            Es gab (oder gibt?) aber ein paar Reibungspunkte, die m"ussen
+            bereinigt sein/werden
+
+Daneben:
+
+
+     o technisches Problem des Datenmodells: Admin-rolle resp.
+     Henne-Ei-Problem?
+
+           dies hat die Gruppe PHP2 (speziell Torben) heute aufgeworfen und 
+           entspricht auf dem ``Fehler  #42'' von Mohamed.
+
+
+        Zun"achst einmal ist es kein Fehler der SQL-Spec (behaupte ich mal)
+        denn die Admin-Rolle dort nicht festgeschrieben! Auch die Informelle
+        Requirements sagen nichts darueber aus, sondern stellen ihn
+        ``ausserhalb'':
+
+        `` The administrator is not part of the scientific organization of
+         the conference, i.e., he does not take part semantical decisions
+         concerning the content. In a certain sense, he's outside the game.''
+
+
+        Dennoch scheinen alle drei Gruppen (php1/php2,java) sich einen
+        admin als Rolle zugedacht zu haben.
+
+        Aus der Diskussion mit Torben schienen folgende 3 (oder 5)
+        L"osungsans"atze denkbar.
+
+
+
+        1) InnoDB weg, myisam w"urde hier nicht meckern.
+
+           => aus meiner sicht keine L"osung, bestenfalls ein
+           schlechter Hack. Ausserdem wollen wir den
+           InnoDB-Flamewar nicht noch mal....
+
+
+        2) den Constraint f"ur Person-Rolle-Konferenz wegwerfen.
+           Analog wie 1), 
+
+        2a) eventuell erlaubt es SQL, den Constraint selektiv
+            f"ur nur die Admin-rolle aufzuheben.
+
+            Kein so ein hack mehr wie 2), aber wahrscheinlich
+            nicht m"oglich
+
+        3) Admin ist keine Rolle
+
+          3a)  Admin daten werden in ein einer Extra-Tabelle  
+               gehalten, die ausserhalb der Konferenzen-Tabelle
+               stehen
+
+          3b) Admin ist nur virtuell vorhanden, d.h., gar nicht in den
+             DB-Tabellen (sondern nur irgendwo anders, eventuell, oder
+             nur durch die Tatsache, da"s er root zugriff hat...)
+
+
+           Der Nachteil dieser L"osung ist, da"s PHP2 (und andere
+           Gruppen) fest den Admin in ihr Rechte-System etc eingebaut
+           haben.
+        
+
+       4) ``Default-Konferenz''
+
+            Es wird eine default-konferenz angelegt, dies
+            zerbricht den Deadlock Henne-Ei.
+
+
+            Sie ist immer vorhanden, kann auch nicht gel"oscht werden
+            und hat einen default-Bezeichner (z.b. der Leere String).
+
+        Vermutlich die sauberste und f"ur alle schmerzloseste L"osung.
+
+
+Martin
