@@ -73,8 +73,6 @@ if (isset($_POST['email'])){
       $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten:<br>'
                    .$myDBAccess->getLastError()
                    .'<br>Bitte versuchen Sie erneut, sich zu registrieren.';
-
-
     }
   }
 }

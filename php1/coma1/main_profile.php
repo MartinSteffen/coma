@@ -3,51 +3,41 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
- * @todo rework similar to register.php
+ * @todo Darf die Email, also der Benutzername hier geaendert werden?!
  */
 /***/
 
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$main = new Template(TPLPATH.'frame.tpl');
-$links = defaultAssocArray();
-
 $content = new Template(TPLPATH.'profile.tpl');
-$strContentAssocs = defaultAssocArray();  
+$strContentAssocs = defaultAssocArray();
 
 // Lade die Daten der Person
-
-$objPerson = $myDBAccess->getPersonDetailed($_SESSION['uid']);
+$objPerson = $myDBAccess->getPersonDetailed(session('uid'));
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
-
 if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
-  $confirmFailed = false;
-  $strMessage = '';
 
-  /* Aktualisieren der Person in der Datenbank */
-    
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
-  if ($_POST['last_name'] == '' || $_POST['email'] == '') {
-    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b> und <b>Email</b> ausf&uuml;llen!';
-    $confirmFailed = true;
+  if (empty($_POST['last_name'])
+  ||  empty($_POST['email'])
+  ||  empty($_POST['user_password'])
+  ||  empty($_POST['password_repeat'])) {
+    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, <b>Email</b> und <b>Passwort</b> '
+                 .'ausf&uuml;llen!';
   }
-  
-  // [TODO] Darf die Email, also der Benutzername hier geaendert werden?!
-  
+  // @TODO Darf die Email, also der Benutzername hier geaendert werden?!
   // Teste, ob die Email gueltig ist
-  else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+  elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
     $strMessage = 'Geben Sie eine g&uuml;ltige Email-Adresse ein!';
-    $confirmFailed = true;
   }
-  // Teste, ob die Email bereits vorhanden ist  
-  else if ((string)$_POST['email'] != (string)$_SESSION['uname'] &&
-           $myDBAccess->checkEmail((string)$_POST['email']) == true) {
+  // Teste, ob die Email bereits vorhanden ist
+  elseif ($_POST['email'] != session('uname')
+      &&  $myDBAccess->checkEmail($_POST['email'])) {
     $strMessage = 'Es existiert bereits ein Benutzer mit dieser Email-Adresse!';
-    $confirmFailed = true;
-  }  
-  else {    
+  }
+  else {
     $objPerson->strFirstName = $_POST['first_name'];
     $objPerson->strLastName = $_POST['last_name'];
     $objPerson->strEmail = $_POST['email'];
@@ -57,12 +47,12 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $objPerson->strPostalCode = $_POST['postalcode'];
     $objPerson->strPhone = $_POST['phone'];
     $objPerson->strFax = $_POST['fax'];
-  	
+
     $result = $myDBAccess->updatePerson($objPerson);
     if (empty($result)) {
-      $strContentAssocs = defaultAssocArray();  
+      $strContentAssocs = defaultAssocArray();
       $strMessage = 'Es ist ein Fehler beim Aktualisieren Ihrer Daten aufgetreten:<br>'.
-                    $myDBAccess->getlastError(); 
+                    $myDBAccess->getlastError();
       $confirmFailed = true;
     }
     else {
@@ -88,7 +78,7 @@ if (!empty($strMessage)) {
 else {
   $strContentAssocs['message'] = '';
 }
-$content->assign($strContentAssocs);  
+$content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
@@ -96,11 +86,11 @@ $strMenuAssocs['if'] = array(1);
 $menu->assign($strMenuAssocs);
 
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Pers&ouml;nliche Angaben von '.$_SESSION['uname'];
+$strMainAssocs['title'] = 'Pers&ouml;nliche Angaben von '.session('uname');
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array($_SESSION['uname']=>'', 'Profil'=>'');
+$strPath = array(session('uname')=>'', 'Profil'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 

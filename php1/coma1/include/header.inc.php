@@ -38,7 +38,7 @@ function redirect($strName) {
   global $mySession;
   session_write_close();
   header('Location:' . COREURL . $strName . '?' .$mySession->getUrlId());
-  die(0);
+  die();
 }
 
 /**
@@ -57,6 +57,44 @@ function defaultAssocArray() {
                'filename'  => basename($_SERVER['PHP_SELF'],'.php'),
                'SID'       => $mySession->getUrlId()
               );
+}
+
+/**
+ * geschuetztes Lesen von Session-Variablen
+ *
+ * Diese Funktion liest eine Sessionvariable aus, und stellt dabei sicher
+ * das diese auch gesetzt ist! Im Fehlerfall wird der Benutzer 
+ * normalerweise auf die index-Seite geleitet.
+ * Ist jedoch Parameter $blnRedirect==false, so wird stattdessen '' 
+ * geliefert.
+ *
+ * @param string $strName Der Name der Variablen.
+ * @param bool $blnRedirect Soll eine Weiterleitung stattfinden
+ * @return string Wert der Variablen
+ */
+function session($strName, $blnRedirect=true) {
+  if (!isset($_SESSION[$strName]) {
+    if (!$blnRedirect) {
+      return '';
+    }
+    redirect('index.php');
+  }
+  else
+    return $_SESSION[$strName];
+  }
+}
+
+/**
+ * Löschen von Session-Variablen
+ *
+ * Diese Funktion löscht eine Sessionvariable aus dem Speicher
+ *
+ * @param string $strName Der Name der Variablen.
+ */
+function session_delete($strName) {
+  if (isset($_SESSION[$strName])) {
+    unset($_SESSION[$strName]);
+  }
 }
 
 // Debugging Einstellungen:
@@ -99,12 +137,12 @@ checkError($myDBAccess);
 // End Standard Klassen
 
 // CoMa Konstanten
-define('MIN_ROLE', 2);
-define('CHAIR', 2);
-define('REVIEWER', 3);
-define('AUTHOR', 4);
+define('MIN_ROLE',    2);
+define('CHAIR',       2);
+define('REVIEWER',    3);
+define('AUTHOR',      4);
 define('PARTICIPANT', 5);
-define('MAX_ROLE', 5);
+define('MAX_ROLE',    5);
 // End CoMa Konstanten
 
 // Check, ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
@@ -117,18 +155,10 @@ if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   else {
     $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
   }
-  if (isset($_SESSION['password'])) {
-    unset($_SESSION['password']);
-  }
-  if (isset($_SESSION['uname'])) {
-    unset($_SESSION['uname']);
-  }
-  if (isset($_SESSION['uid'])) {
-    unset($_SESSION['uid']);
-  }
-  if (isset($_SESSION['confid'])) {
-    unset($_SESSION['confid']);
-  }  
+  session_delete('password');
+  session_delete('uname');
+  session_delete('uid');
+  session_delete('confid');
   redirect('login.php');
 }
 ?>

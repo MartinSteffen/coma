@@ -47,7 +47,7 @@ $strMainAssocs['title'] = 'Liste aller Konferenzen';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array($_SESSION['uname']=>'', 'Konferenzen'=>'');
+$strPath = array(session('uname')=>'', 'Konferenzen'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
