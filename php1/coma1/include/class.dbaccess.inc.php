@@ -24,7 +24,7 @@ if ($this->failed())
 analog die fehlermeldung $this->mySql->getLastError durch $this->getLastError
 ersetzen.
 ----------------------------------------------------------------------------
-$objPaper = $this->getPaper(...);
+$objPaper = new Paper(...)
 if ($this->mySql->failed()) ...
 muss (abgesehen davon, dass es (s.o.) $this->failed() heißen muesste) entfernt
 werden, weil die konstruktoren gar keine fehlerbehandlung machen, insbesondere
