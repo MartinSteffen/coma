@@ -75,6 +75,7 @@
   <tr>
     <td>Upload new document:</td>
     <td colspan="2">
+      <input type="file" name="file_link">
       <input type="submit" name="upload" value="Upload" class="button">
     </td>
 </table>
