@@ -1,11 +1,11 @@
 <table class="viewtable">
   <tr class="viewheader">
-    <th>&nbsp;</th>
+    <th>CoMa Conference Management Tool, version 0.x</th>
   </tr>
   <tr class="viewline">
     <td class="viewline"> 
      1. den Namen und die Anschrift, unter der Telediensteanbieter niedergelassen sind, 
-         bei juristischen Personen zusätzlich den Vertretungsberechtigten,<br>
+         bei juristischen Personen zus&auml;tzlich den Vertretungsberechtigten,<br>
      2. Angaben, die eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation 
         mit ihnen ermöglichen, einschließlich der E-Mail-Adresse,
      <br>&nbsp;<br>
