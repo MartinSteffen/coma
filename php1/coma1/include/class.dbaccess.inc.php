@@ -884,10 +884,12 @@ class DBAccess extends ErrorHandling {
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getReviewsOfReviewer($intReviewerId, $intConferenceId) {
-    $s = "SELECT  id".
-        " FROM    ReviewReport".
-        " WHERE   reviewer_id = '$intReviewerId'".
-        " AND     conference_id = '$intConferenceId'";
+    $s = "SELECT  r.id".
+        " FROM    ReviewReport AS r".
+        " INNER   JOIN Paper AS p".
+        " ON      p.id = r.paper_id".
+        " AND     p.conference_id = '$intConferenceId'.        
+        " AND     r.reviewer_id = '$intReviewerId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
