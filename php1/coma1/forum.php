@@ -7,7 +7,7 @@
 /***/
 
 /*** @ignore */
-define('DEBUGMODE', true);
+define('DEBUGMODE', false);
 /**
  * Wichtig, damit Coma1 Dateien eingebunden werden koennen
  *
@@ -83,7 +83,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
       if (DEBUGMODE){
-        echo('calling getThreadsOfForum(' . $forum->intId . ')<br>');
+        //echo('calling getThreadsOfForum(' . $forum->intId . ')<br>');
       }
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
       if (DEBUGMODE){
