@@ -20,6 +20,6 @@
   </tr>
   <tr>
     <td class="submenu"><a href="{basepath}chair_config.php?{SID}" class="{if5 marked}submenu">
-      Configurate conference</a>
+      Config. conference</a>
     </td>
   </tr>    

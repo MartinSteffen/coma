@@ -52,7 +52,7 @@ td.menu { width: 150px;
 
 td.submenu { width: 150px;
              background-color: #F5FBFF; vertical-align: top;
-             padding-left: 12px; margin-bottom: 8px; }
+             padding-left: 10px; margin-bottom: 4px; }
 
 /* Links im Menue */
 a.menu         { font-size: 13px; text-decoration: none; font-weight: bold; }
