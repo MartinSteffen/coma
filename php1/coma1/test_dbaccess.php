@@ -23,9 +23,6 @@ echo($p->strFirstName.' ist '.($p->hasRole(1)?'':'k').'ein Chair.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br><br>');
 
-echo($myDBAccess->addPerson('Gummi', 'Huhn', 'gh@chicks.org', 0, '', '', '', '',
-                            '', '', '', '', '', 'pw'));
-echo($myDBAccess->getLastError());
 /*
 $p = $myDBAccess->getPapersOfAuthor(1);
 if (!empty($p)) {

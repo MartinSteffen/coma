@@ -96,7 +96,7 @@ class DBAccess {
   /**
    */
   function getAllConferences() {
-    return false;
+    return $this->error('getAllConferences '.$this->mySql->getLastError());
   }
 
   /**
@@ -123,8 +123,8 @@ class DBAccess {
 
   /**
    */
-  function getConferenceConfig() {
-    return false;
+  function getConferenceDetailed() {
+    return $this->error('getConferenceDetailed '.$this->mySql->getLastError());
   }
 
   /**
@@ -352,7 +352,7 @@ class DBAccess {
       }
       return (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
                 $strAuthor, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
-                $strCoAuthors, $data[0]['abstract'], $data[0]['format'],
+                $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
                 $data[0]['last_edited'], $data[0]['filename'],
                 $this->getTopicsOfPaper($intPaperId)));
     }
@@ -757,6 +757,13 @@ class DBAccess {
   // ---------------------------------------------------------------------------
 
   /**
+   */
+  function addConference() {
+                    	    
+    return $this->error('addConference '.$this->mySql->getLastError());
+  }
+
+  /**
    * Fuegt einen Datensatz in die Tabelle Person ein.
    *
    * @param FOLGT!!! [TODO]
@@ -765,7 +772,7 @@ class DBAccess {
    * @access public
    * @author Sandro, Tom (17.12.04)
    */
-  function addPerson($strFirstname, $strLastname, $strEmail, $intRole, $strTitle,
+  function addPerson($strFirstname, $strLastname, $strEmail, $strTitle,
                      $strAffiliation, $strStreet, $strCity, $strPostalCode,
                      $strState, $strCountry, $strPhone, $strFax, $strPassword) {
     $s = 'INSERT  INTO Person (first_name, last_name, title, affiliation, email,'.
@@ -783,6 +790,63 @@ class DBAccess {
     }
     return $this->error('addPerson '.$this->mySql->getLastError());
   }
+
+  /**
+   */
+  function addRole($intPersonId, $intRole) {
+                    	    
+    return $this->error('addRole '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function addPaper($strTitle, $intAuthorId, $strAbstract, $strFilePath,
+                    $strMimeType, $strCoAuthors) {
+                    	    
+    return $this->error('addPaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function addReviewRating() {
+                    	    
+    return $this->error('addReviewRating '.$this->mySql->getLastError());
+  }
+
+
+  /**
+   */
+  function addForum() {
+                    	    
+    return $this->error('addForum '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function addMessage() {
+                    	    
+    return $this->error('addMessage '.$this->mySql->getLastError());
+  }
+
+
+  /**
+   */
+  function addCriterion() {
+                    	    
+    return $this->error('addCriterion '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function addTopic() {
+                    	    
+    return $this->error('addTopic '.$this->mySql->getLastError());
+  }
+
+
+  // ---------------------------------------------------------------------------
+  // Definition der Delete-Funktionen
+  // ---------------------------------------------------------------------------
 
 
 }
