@@ -42,6 +42,9 @@ if (isset($_POST['confirm'])) {
       }
       else $s .= ' ass';
     }
+    if (empty($dist[$pid])) {
+      $dist[$pid] = array();
+    }
     $s .= '<br>Length of dist['.$pid.']: '.count($dist[$pid]);
     next($dist);
   }
