@@ -68,7 +68,7 @@
 			<filterset>
 				<filter token="WEBAPPS_HOME" value="${webapps.home}" />
 				<filter token="DATABASE_DRIVER" value="${coma.db.driver}" />
-				<filter token="URL" value="${coma.db.url}" />
+				<filter token="URL" value="${coma.db.url}/${coma.db.name}" />
 				<filter token="USER_NAME" value="${coma.db.user}" />
 				<filter token="PASSWORD" value="${coma.db.password}" />
 			</filterset>
@@ -80,7 +80,7 @@
 		</copy>
 	</target>
 
-	<target name="remote-install" depends="compile, remote-uninstall">
+	<target name="remote-install" depends="compile, sql, remote-uninstall">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
@@ -101,7 +101,7 @@
 			<filterset>
 				<filter token="WEBAPPS_HOME" value="${webapps.home}" />
 				<filter token="DATABASE_DRIVER" value="${coma.db.driver}" />
-				<filter token="URL" value="${coma.db.url}" />
+				<filter token="URL" value="${coma.db.url}/${coma.db.name}" />
 				<filter token="USER_NAME" value="${coma.db.user}" />
 				<filter token="PASSWORD" value="${coma.db.password}" />
 			</filterset>
@@ -121,7 +121,7 @@
 		<get src="${tomcat.url}/${tomcat.undeploy_path}" dest="status.html" username="${tomcat.manager.user}" password="${tomcat.manager.password}" />
 	</target>
 
-	<target name="create-database">
+	<target name="sql">
 		<copy file="${basedir}/db_schema.sql" tofile="${dist}/db_schema_tmp.sql" overwrite="true">
 			<filterset>
 				<filter token="DATABASE_NAME" value="${coma.db.name}" />
@@ -131,6 +131,8 @@
 				<filter token="PASSWORD" value="${coma.admin.password}" />
 			</filterset>
 		</copy>
-		<sql src="${dist}/db_schema_tmp.sql" driver="org.gjt.mm.mysql.Driver" password="" url="jdbc:mysql://localhost/coma3" userid="root" />			
+	</target>
+	<target name="create-database">
+		<sql src="${dist}/db_schema_tmp.sql" driver="${coma.db.driver}" password="" url="${coma.db.url}/${coma.db.name}" userid="${coma.db.user}" />
 	</target>
 </project>
