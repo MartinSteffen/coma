@@ -36,20 +36,20 @@ $ifArray = array();
 if (isset($_POST['action'])) {  
   $objPaper->strTitle = $_POST['title'];
   $objPaper->strAbstract = $_POST['description'];
-  $intCoAuthorNum = count($objPaper->strCoAuthors);
-  $objPaper->intCoAuthorIds = array();
+  $intCoAuthorNum = count($objPaper->strCoAuthors);  
   $objPaper->strCoAuthors = array();
+  $objPaper->intCoAuthorIds = array();
   for ($i = 0; $i < $intCoAuthorNum; $i++) {
     if (!isset($_POST['del_coauthor-'.($i+1)])) {
       $objPaper->strCoAuthors[] = encodeText($_POST['coauthor-'.($i+1)]);
-      $objPaper->intCoAuthorId[] = false;
+      $objPaper->intCoAuthorIds[] = false;
     }
   }
   if (isset($_POST['add_coauthor']) && !empty($_POST['coauthor'])) {
     $objPaper->strCoAuthors[] = encodeText($_POST['coauthor']);
-    $objPaper->intCoAuthorId[] = false;
+    $objPaper->intCoAuthorIds[] = false;
   }    
-  if ($_POST['submit']) {
+  if (isset($_POST['submit'])) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['title'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
