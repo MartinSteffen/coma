@@ -1134,7 +1134,7 @@ class DBAccess extends ErrorHandling {
    * @todo (Sandros Job) Muss noch implementiert werden!
    */
   function checkAccessToForum($intPersonId, $intForumId) {
-    return false;
+    return $this->success(false);
   }
 
   /**
@@ -1147,9 +1147,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getNextMessages($intMessageId) {
-    $s = "SELECT  id, sender_id, send_time, subject, text".
-        " FROM    Message".
-        " WHERE   reply_to = '$intMessageId'";
+    $s = sprintf("SELECT   id, sender_id, send_time, subject, text".
+                 " FROM    Message".
+                 " WHERE   reply_to = '%d'",
+                           s2db($intMessageId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getNextMessages', $this->mySql->getLastError());
@@ -1173,10 +1174,11 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getThreadsOfForum($intForumId) {
-    $s = "SELECT  id, sender_id, send_time, subject, text".
-        " FROM    Message".
-        " WHERE   forum_id = '$intForumId'".
-        " AND     reply_to IS NULL";
+    $s = sprintf("SELECT   id, sender_id, send_time, subject, text".
+                 " FROM    Message".
+                 " WHERE   forum_id = '%d'".
+                 " AND     reply_to IS NULL",
+                           s2db($intForumId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getThreadsOfForum', $this->mySql->getLastError());
@@ -1203,9 +1205,10 @@ class DBAccess extends ErrorHandling {
    * @todo Einfuegen der Konstante fuer den Artikelforen-Typ!
    */
   function getAllForums($intConferenceId) {
-    $s = "SELECT  id, title, forum_type".
-        " FROM    Forum".
-        " WHERE   conference_id = '$intConferenceId'";
+    $s = sprintf("SELECT   id, title, forum_type, paper_id".
+                 " FROM    Forum".
+                 " WHERE   conference_id = '%d'",
+                           s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getAllForums', $this->mySql->getLastError());
@@ -1227,9 +1230,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getForumOfPaper($intPaperId) {
-    $s = "SELECT  id, title, forum_type".
-        " FROM    Forum".
-        " WHERE   paperId = '$intPaperId'";
+    $s = sprintf("SELECT   id, title, forum_type".
+                 " FROM    Forum".
+                 " WHERE   paperId = '%d'",
+                           s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getForumOfPaper', $this->mySql->getLastError());
@@ -1271,16 +1275,15 @@ class DBAccess extends ErrorHandling {
     }
     for ($i = 0; $i < count($objAllForums) && !empty($objAllForums); $i++) {
       $bln = $this->checkAccessToForum($objPerson, $objAllForums[$i]);
-      /*if ($this->failed()) {
+      if ($this->failed()) {
         return $this->error('getForumsOfPerson', $this->getLastError());
-      }*/
+      }
       if ($bln) {
         $objForums[] = $objAllForums[$i];
       }
     }
     return $this->success($objForums);
   }
-
 
   /**
    * Liefert ein ForumDetailed-Objekt mit den Daten des Forums $intForumId zurueck.
@@ -1291,9 +1294,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getForumDetailed($intForumId) {
-    $s = "SELECT  id, title".
-        " FROM    Forum".
-        " WHERE   id = '$intForumId'";
+    $s = sprintf("SELECT   id, title".
+                 " FROM    Forum".
+                 " WHERE   id = '%d'",
+                           s2db($intForumId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getForumDetailed', $this->mySql->getLastError());
@@ -1318,12 +1322,14 @@ class DBAccess extends ErrorHandling {
    */
   function getPreferredTopics($intPersonId, $intConferenceId) {
     $objTopics = array();
-    $s = "SELECT  pt.topic_id AS topic_id, t.name AS name".
-        " FROM    PrefersTopic pt".
-        " INNER   JOIN Topic t".
-        " ON      t.id = pt.topic_id".
-        " AND     t.conference_id = '$intConferenceId'".
-        " WHERE   pt.person_id = '$intPersonId'";
+    $s = sprintf("SELECT   pt.topic_id AS topic_id, t.name AS name".
+                 " FROM    PrefersTopic pt".
+                 " INNER   JOIN Topic t".
+                 " ON      t.id = pt.topic_id".
+                 " AND     t.conference_id = '%d'".
+                 " WHERE   pt.person_id = '%d'",
+                           s2db($intConferenceId),
+                           s2db($intPersonId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPreferredTopics', $this->mySql->getLastError());
@@ -1346,12 +1352,14 @@ class DBAccess extends ErrorHandling {
    */
   function getPreferredPapers($intPersonId, $intConferenceId) {
     $objPapers = array();
-    $s = "SELECT  pp.paper_id AS paper_id".
-        " FROM    PrefersPaper pp".
-        " INNER   JOIN Paper p".
-        " ON      p.id = pp.paper_id".
-        " AND     p.conference_id = '$intConferenceId'".
-        " WHERE   pp.person_id = '$intPersonId'";
+    $s = sprintf("SELECT   pp.paper_id AS paper_id".
+                 " FROM    PrefersPaper pp".
+                 " INNER   JOIN Paper p".
+                 " ON      p.id = pp.paper_id".
+                 " AND     p.conference_id = '%d'".
+                 " WHERE   pp.person_id = '%d'",
+                           s2db($intConferenceId),
+                           s2db($intPersonId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPreferredPapers', $this->mySql->getLastError());
@@ -1377,12 +1385,14 @@ class DBAccess extends ErrorHandling {
    */
   function getDeniedPapers($intPersonId, $intConferenceId) {
     $objPapers = array();
-    $s = "SELECT  dp.paper_id AS paper_id".
-        " FROM    DeniesPaper dp".
-        " INNER   JOIN Paper p".
-        " ON      p.id = dp.paper_id".
-        " AND     p.conference_id = '$intConferenceId'".
-        " WHERE   dp.person_id = '$intPersonId'";
+    $s = sprintf("SELECT   dp.paper_id AS paper_id".
+                 " FROM    DeniesPaper dp".
+                 " INNER   JOIN Paper p".
+                 " ON      p.id = dp.paper_id".
+                 " AND     p.conference_id = '%d'".
+                 " WHERE   dp.person_id = '%d'",
+                           s2db($intConferenceId),
+                           s2db($intPersonId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getDeniedPapers', $this->mySql->getLastError());
@@ -1408,12 +1418,14 @@ class DBAccess extends ErrorHandling {
    */
   function getExcludedPapers($intPersonId, $intConferenceId) {
     $objPapers = array();
-    $s = "SELECT  ep.paper_id AS paper_id".
-        " FROM    ExcludesPaper ep".
-        " INNER   JOIN Paper p".
-        " ON      p.id = ep.paper_id".
-        " AND     p.conference_id = '$intConferenceId'".
-        " WHERE   ep.person_id = '$intPersonId'";
+    $s = sprintf("SELECT   ep.paper_id AS paper_id".
+                 " FROM    ExcludesPaper ep".
+                 " INNER   JOIN Paper p".
+                 " ON      p.id = ep.paper_id".
+                 " AND     p.conference_id = '%d'".
+                 " WHERE   ep.person_id = '%d'",
+                           s2db($intConferenceId),
+                           s2db($intPersonId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getExcludedPapers', $this->mySql->getLastError());
