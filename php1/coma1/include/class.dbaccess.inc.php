@@ -117,7 +117,7 @@ class DBAccess {
         ' FROM    Person'.
         ' WHERE   email = \''.$strEmail.'\'';
     $data = $this->mySql->select($s);
-    if ($data) {
+    if (!empty($data)) {
       return $data[0]['id'];
     }
     return false;
@@ -136,13 +136,13 @@ class DBAccess {
         ' FROM    Person'.
         ' WHERE   id = '.$intPersonId;
     $data = $this->mySql->select($s);
-    if ($data) {
+    if (!empty($data)) {
       $s = 'SELECT  role_type'.
           ' FROM    Role'.
           ' WHERE   person_id = '.$data[0]['id'];
       $role_data = $this->mySql->select($s);
       $role_type = 0;
-      if ($role_data) {
+      if (!empty($role_data)) {
       	for ($i = 0; $i < count($role_data); $i++) {
       	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
       	}
@@ -168,13 +168,13 @@ class DBAccess {
         ' FROM    Person'.
         ' WHERE   id = '.$intPersonId;
     $data = $this->mySql->select($s);
-    if ($data) {
+    if (!empty($data)) {
       $s = 'SELECT  role_type'.
           ' FROM    Role'.
           ' WHERE   person_id = '.$data[0]['id'];
       $role_data = $this->mySql->select($s);
       $role_type = 0;
-      if ($role_data) {
+      if (!empty($role_data)) {
       	for ($i = 0; $i < count($role_data); $i++) {
       	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
       	}
@@ -203,17 +203,17 @@ class DBAccess {
         ' FROM    Paper'.
         ' WHERE   author_id = '.$intAuthorId;
     $data = $this->mySql->select($s);
-    if ($data) {
+    if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
       	$reviews = $this->getReviewsOfPaper($data[$i]['id']);
       	$fltAvgRating = 0.0;
-      	if ($reviews) {
+      	if (!empty($reviews)) {
       	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
       	  $fltAvgRating = -1;
         }
       	$author = $this->getPerson($intAuthorId);
         $strAuthorName = '';
-      	if ($author != false) {
+      	if (!empty($author)) {
       	  $strAuthorName = $author->getName();
         }
       	$papers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
@@ -239,11 +239,14 @@ class DBAccess {
         '         FROM    Rating AS r'.
         '         INNER   JOIN Criterion AS c'.
         '         ON      c.id = r.criterion_id'.
-        '         AND     r.review_id = rr.id)'.
+        '         AND     r.review_id = rr.id) AS average'.
         ' FROM    ReviewReport AS rr'.
         ' WHERE   rr.paper_id = '.$intPaperId;
     $data = $this->mySql->select($s);
-    return $data;
+    if (!empty($data)) {
+      return $data[0]['average'];
+    }
+    return false;
   }
 
   /**
@@ -256,16 +259,16 @@ class DBAccess {
    * @author Sandro, Tom (06.12.04)
    */
   function getReviewRating($intReviewId) {
-    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100))'.
+    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.
         ' FROM    Rating AS r'.
         ' INNER   JOIN Criterion AS c'.
         ' ON      c.id = r.criterion_id'.
         ' AND     r.review_id = '.$intReviewId;
-    echo($s);
     $data = $this->mySql->select($s);    
-    if (empty($data))
-      echo(' !DATA ');
-    return $data;
+    if (!empty($data)) {
+      return $data[0]['total_rating'];
+    }
+    return false;
   }
 
   /**
@@ -318,7 +321,7 @@ class DBAccess {
         ' WHERE   reply_to = \''.$intMessageId.'\'';
     $data = $this->mySql->select($s);
     $messages = array();
-    if ($data) {
+    if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {      	
       	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
       	                 $data[$i]['send_time'], $data[$i]['subject'],
@@ -338,7 +341,7 @@ class DBAccess {
         ' AND     reply_to IS NULL';
     $data = $this->mySql->select($s);
     $messages = array();
-    if ($data) {
+    if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {      	
       	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
       	                 $data[$i]['send_time'], $data[$i]['subject'],
@@ -356,7 +359,7 @@ class DBAccess {
         ' FROM    Forum'; //.
         //' WHERE   conference_id = \''.???.'\'';
     $data = $this->mySql->select($s);    
-    if ($data) {            
+    if (!empty($data)) {            
       $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
@@ -371,7 +374,7 @@ class DBAccess {
         ' WHERE   paperId = '.$intPaperId; //.
         //' AND   conference_id = \''.???.'\'';
     $data = $this->mySql->select($s);    
-    if ($data) {            
+    if (!empty($data)) {            
       $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
@@ -382,10 +385,10 @@ class DBAccess {
    */
   function getForumsOfUser($strUserId) {
     $userData = getPerson($strUserId);
-    if ($userData) {
+    if (!empty($userData)) {
       $allForums = getAllForums();
       $forums = array();
-      if ($allForums) {
+      if (!empty($allForums)) {
     	for ($i = 0; $i < count($allForums); $i++) {
     	  if ($allForums[$i]->isUserAllowed($userData)) {
     	    $forums[] = $allForums[$i];
@@ -403,7 +406,7 @@ class DBAccess {
         ' FROM    Forum'.
         ' WHERE   id = \''.$intForumId.'\'';
     $data = $this->mySql->select($s);    
-    if ($data) { 
+    if (!empty($data)) { 
       $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
                   0, false, $this->getThreadsOfForum($intForumId)));
       return $forum;
