@@ -3239,7 +3239,7 @@ nur fuer detaillierte?
    */
   function addMessage($strSubject, $strText, $intSenderId, $intForumId, $intReplyTo=false) {
     if (empty($intReplyTo)) {
-      $intReplyTo = 'NULL';
+      $intReplyTo = NULL;
     }
     $s = sprintf("INSERT  INTO Message (subject, text, sender_id, forum_id, send_time, reply_to)".
                  "VALUES ('%s', '%s', '%d', '%d', '%s', '%d')",
