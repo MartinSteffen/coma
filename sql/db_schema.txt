@@ -222,14 +222,16 @@ text		Text
 Enumerations stellen KEINE Tabellen dar, sondern sind festgelegte
 Assoziationen von Integer-Werten mit bestimmten Bedeutungen.
 
- Enumeration Roles   (optional, falls die Tabelle Roles nicht verwendet wird)
+
+ Enumeration Roles   
 ~~~~~~~~~~~~~~~~~~~~
 00  without role
-01  admin
 02  chair
 03  reviewer
 04  author
 05  participant
+
+01  admin:  not used!
 
  Enumeration Status  (optional)
 ~~~~~~~~~~~~~~~~~~~~
