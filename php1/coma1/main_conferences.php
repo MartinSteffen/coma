@@ -3,6 +3,7 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
+ * @todo rework completly
  */
 /***/
 
@@ -11,7 +12,6 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'conference_list.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['message'] = '';
 
 $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
 $strItemAssocs = defaultAssocArray();

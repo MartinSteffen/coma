@@ -1,5 +1,4 @@
 <table class="menu">
-  {menu= class="markedmenuitem"}
   <tr>
     <td class="menu"><a href="{basepath}main_profile.php?{SID}"{if1 class="markedmenuitem"}>
       Profil</a>

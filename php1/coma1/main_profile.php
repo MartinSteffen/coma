@@ -3,6 +3,7 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
+ * @todo rework similar to register.php
  */
 /***/
 
