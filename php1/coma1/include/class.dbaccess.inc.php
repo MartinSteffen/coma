@@ -339,11 +339,10 @@ class DBAccess {
     $data = $this->mySql->select($s);
     $messages = array();
     if ($data) {
-      for ($i = 0; $i < count($data); $i++) {
-      	$nextMessages = $this->getNextMessages($data[$i]['id'])
+      for ($i = 0; $i < count($data); $i++) {      	
       	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
       	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], $nextMessages));
+      	                 $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
       }
       return $messages;
     }
@@ -360,11 +359,10 @@ class DBAccess {
     $data = $this->mySql->select($s);
     $messages = array();
     if ($data) {
-      for ($i = 0; $i < count($data); $i++) {
-      	$nextMessages = $this->getNextMessages($data[$i]['id'])
+      for ($i = 0; $i < count($data); $i++) {      	
       	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
       	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], $nextMessages));
+      	                 $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
       }
       return $messages;
     }
