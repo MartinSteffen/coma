@@ -25,16 +25,10 @@
     </servlet>
     
     <servlet>
-     <servlet-name>chair</servlet-name>
-     <servlet-class>coma.servlet.servlets.chair</servlet-class>
+     <servlet-name>Chair</servlet-name>
+     <servlet-class>coma.servlet.servlets.Chair</servlet-class>
     </servlet>
-    
-    <servlet>
-     <servlet-name>invite</servlet-name>
-     <servlet-class>coma.servlet.servlets.invite</servlet-class>
-    </servlet>
-    
-    
+       
     <servlet>
      <servlet-name>Index</servlet-name>
      <servlet-class>coma.servlet.servlets.Index</servlet-class>
@@ -68,10 +62,7 @@
       <servlet-name>chair</servlet-name>
     <url-pattern>/chair</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-      <servlet-name>invite</servlet-name>
-    <url-pattern>/invite</url-pattern>
-    </servlet-mapping>
+
     
     <servlet-mapping>
     <servlet-name>Index</servlet-name>
