@@ -24,6 +24,22 @@ function checkError(&$class) {
   }
 }
 
+/**
+ * Verweis auf anderen Skript
+ *
+ * Diese Funktion lenkt den Benutzer auf einen anderen Skript weiter, in
+ * dem die Bearbeitung fortgeführt wird. Dabei wird sichergestellt, das 
+ * Sessioninformationen erhalten bleiben.
+ * WICHTIG: nur vor irgedwelchen Ausgaben aufrufen!
+ *
+ * @param string $strName Das aufzurufende Skript.
+ */
+function redirect($strName) {
+  session_write_close();
+  header('Location:'.COREURL.$strName);
+}
+
+
 // Debugging Einstellungen:
 error_reporting(E_ALL);
 ini_set('display_errors', '1'); // später 0 ??
@@ -60,8 +76,16 @@ checkError($myDBAccess);
 
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin())) {
-  session_write_close();
-  header('Location:'.COREURL.'login.php');
+  if (!isset($_SESSION['uname'])) {
+    $_SESSION['message'] = 'Bitte einloggen!';
+  }
+  else {
+    $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
+  }
+  if (isset($_SESSION['password'])) {
+    unset($_SESSION['password']);
+  }
+  redirect('login.php');
 }
 
 ?>
