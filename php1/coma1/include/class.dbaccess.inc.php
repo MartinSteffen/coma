@@ -115,6 +115,15 @@ Bei den delete-Methoden entsprechend.
 Noch ne Winzigkeit (peniboloestest): Im String, der bei der error-Methode den
 Methodennamen enthaelt, bitte kein Leerzeichen am Ende. ;-) (ist gefixt)
 
+----------------------------------------------------------------------------
+
+Frisch geSAEte Neuerungen vom 19.01.:
+- Das Attribut $strFilePath, das vorher in den PaperDetailed-Objekten
+auftauchte, ist nun eine Stufe nach oben ins PaperSimple-Objekt verschoben
+worden, da wir es auch in Listen haeufiger benutzen. Dasselbe Schicksal
+koennte dem $strLastEdit-Attribut drohen (-> Absprache).
+Bitte beachtet das beim Verwenden des Konstruktors PaperSimple!
+
 ============================================================================= */
 
 require_once(INCPATH.'header.inc.php');
@@ -594,12 +603,12 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objAuthor)) {
       return $this->error('getPapersOfAuthor', 'Fatal error: Database inconsistency!',
-                          "intAuthorId = $intAuthorId";
+                          "intAuthorId = '$intAuthorId'");
     }
     $strAuthor = $objAuthor->getName();
     $s = "SELECT  id, author_id, title, state, filename".
         " FROM    Paper".
-        " WHERE   author_id = $intAuthorId";
+        " WHERE   author_id = '$intAuthorId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
@@ -634,13 +643,13 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objAuthor)) {
       return $this->error('getPapersOfReviewer', 'Fatal error: Database inconsistency!',
-                          "intReviewerId = $intReviewerId";
+                          "intReviewerId = '$intReviewerId'";
     }
     $s = "SELECT  p.id AS id, author_id, title, state, filename".
         " FROM    Paper AS p".
         " INNER   JOIN ReviewReport AS r".
         " ON      r.paper_id = p.id".
-        " AND     r.reviewer_id = $intReviewerId";
+        " AND     r.reviewer_id = '$intReviewerId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
@@ -679,7 +688,7 @@ class DBAccess extends ErrorHandling {
   function getPapersOfConference($intConferenceId) {
     $s = "SELECT  p.id AS id, author_id, title, state, filename".
         " FROM    Paper AS p".
-        " WHERE   conference_id = $intConferenceId";
+        " WHERE   conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
