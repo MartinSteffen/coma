@@ -1781,12 +1781,11 @@ nur fuer detaillierte?
     }
     $intPersonId = $objPersonAlgorithmic->intId;
     // Topics loeschen...
-    $s = "DELETE  FROM (".
-        " SELECT  *".
+    $s = "DELETE  PrefersTopic".
         " FROM    PrefersTopic AS pt".
         " INNER   JOIN Topic AS t".
         " ON      t.id = pt.topic_id".
-        " AND     t.conference_id = '$intConferenceId')".
+        " AND     t.conference_id = '$intConferenceId'".
         " WHERE   person_id = '$intPersonId'";
     echo("<br>$s<br>");
     $this->mySql->delete($s);
