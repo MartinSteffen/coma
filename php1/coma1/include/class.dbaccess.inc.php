@@ -706,7 +706,7 @@ class DBAccess extends ErrorHandling {
       if ($this->failed()) {
         return $this->error('getPapersOfConference', $this->getLastError());
       }
-      $objTopics = $this->getTopicsOfPaper($data[$i]['id'])
+      $objTopics = $this->getTopicsOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfConference', $this->getLastError());
       }
