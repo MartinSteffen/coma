@@ -40,6 +40,7 @@ if (!empty($objPapers)) {
   foreach ($objPapers as $objPaper) {
     $ifArray = array();
     $ifArray[] = $objPaper->intStatus;
+    $strItemAssocs = defaultAssocsArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
