@@ -27,5 +27,6 @@
 </form>
 <form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
   <input type="submit" name="dismiss" value="Dismiss distribution" class="button">
-  <span class="emph">Note:</span> You can restart the suggestion process later.</span>
+  <span class="emph">Note:</span> You can restart the suggestion process later
+    whenever you want.</span>
 </form>
