@@ -212,6 +212,7 @@ CREATE TABLE IF NOT EXISTS Sessions (
 **************************************************
 
 
+
 ============================================================================
   3. DAS DATENMODELL (PHP)
 ============================================================================
@@ -314,7 +315,7 @@ Spez      Algorithmen spezifizieren (insbesondere Verteilungsalgorithmus und
           Ermittlung "strittiger" Paper)
 Spez      Dateien, auf die verwiesen wird (vgl. Appendix), auf Aktualität
           prüfen und beizeiten in das spec-Verzeichnis schieben
-CoMaSpez  einheitliche Fehlerbehandlungsroutinen einführen und dokumentieren
+CoMa/Spez einheitliche Fehlerbehandlungsroutinen einführen und dokumentieren
 CoMa      [PHPDoc]-Kommentare einfügen und möglichst konsistent halten
 CoMa/Spez Ermittlung der Gesamtbewertung (Berechnung gewichteter
           Einzelnoten) korrigieren und dokumentieren
