@@ -518,7 +518,7 @@ class DBAccess extends ErrorHandling {
     for ($i = 0; $i < count($data); $i++) {
       $objPerson = (new Person($data[$i]['id'], $data[$i]['first_name'], $data[$i]['last_name'],
                       $data[$i]['email'], 0, $data[$i]['title']));      
-      $s = sprintf("SELECT  role_type".
+      $s = sprintf("SELECT   role_type".
                    " FROM    Role".
                    " WHERE   person_id = '%d'".
                    " AND     conference_id = '%d'",
@@ -547,9 +547,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getPaperSimple($intPaperId) {
-    $s = "SELECT  id, author_id, title, state, filename".
-        " FROM    Paper".
-        " WHERE   id = '$intPaperId'";
+    $s = sprintf("SELECT   id, author_id, title, state, filename".
+                 " FROM    Paper".
+                 " WHERE   id = '%d'",
+                           s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPaperSimple', $this->mySql->getLastError());
@@ -601,10 +602,12 @@ class DBAccess extends ErrorHandling {
       return $this->success(false); // laut Jan und Sandro: Ungueltige Id uebergeben wie Nullpointer; erhalte "leer" zurueck, aber keinen Fehler!!!
     }
     $strAuthor = $objAuthor->getName();
-    $s = "SELECT  id, author_id, title, state, filename".
-        " FROM    Paper".
-        " WHERE   author_id = '$intAuthorId'".
-        " AND     conference_id = '$intConferenceId'";
+    $s = sprintf("SELECT   id, author_id, title, state, filename".
+                 " FROM    Paper".
+                 " WHERE   author_id = '%d'".
+                 " AND     conference_id = '%d'",
+                           s2db($intPaperId),
+                           s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
@@ -646,12 +649,14 @@ class DBAccess extends ErrorHandling {
     else if (empty($objReviewer)) {
       return $this->success(false);
     }
-    $s = "SELECT  p.id AS id, author_id, title, state, filename".
-        " FROM    Paper AS p".
-        " INNER   JOIN ReviewReport AS r".
-        " ON      r.paper_id = p.id".
-        " AND     r.reviewer_id = '$intReviewerId'".
-        " AND     p.conference_id = '$intConferenceId'";
+    $s = sprintf("SELECT   p.id AS id, author_id, title, state, filename".
+                 " FROM    Paper AS p".
+                 " INNER   JOIN ReviewReport AS r".
+                 " ON      r.paper_id = p.id".
+                 " AND     r.reviewer_id = '%d'".
+                 " AND     p.conference_id = '%d'",
+                           sprintf($intReviewerId),
+                           sprintf($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
@@ -692,9 +697,10 @@ class DBAccess extends ErrorHandling {
    * @todo Existenz der Konferenz muss noch geprueft werden.      
    */
   function getPapersOfConference($intConferenceId) {
-    $s = "SELECT  id, author_id, title, state, filename".
-        " FROM    Paper".
-        " WHERE   conference_id = '$intConferenceId'";    
+    $s = sprintf("SELECT   id, author_id, title, state, filename".
+                 " FROM    Paper".
+                 " WHERE   conference_id = '%d'",
+                           s2db($intConferenceId));    
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
@@ -734,9 +740,10 @@ class DBAccess extends ErrorHandling {
    * @author Tom (12.12.04)
    */
   function getPaperDetailed($intPaperId) {
-    $s = "SELECT  author_id, title, state, abstract, mime_type, last_edited, version, filename".
-        " FROM    Paper".
-        " WHERE   id = '$intPaperId'";
+    $s = sprintf("SELECT   author_id, title, state, abstract, mime_type, last_edited, version, filename".
+                 " FROM    Paper".
+                 " WHERE   id = '%d'",
+                           s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPaperDetailed', $this->mySql->getLastError());
@@ -758,12 +765,13 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPaperDetailed', $this->getLastError());
     }
     // Co-Autoren
-    $s = "SELECT  person_id AS coauthor_id, name".
-        " FROM    IsCoAuthorOf AS i".
-        " LEFT    JOIN Person AS p".
-        " ON      p.id = i.person_id".
-        " WHERE   paper_id = '$intPaperId'".
-        " ORDER   BY person_id DESC"; // ORDER BY: Co-Autoren im System im Array vorne!
+    $s = sprintf("SELECT   person_id AS coauthor_id, name".
+                 " FROM    IsCoAuthorOf AS i".
+                 " LEFT    JOIN Person AS p".
+                 " ON      p.id = i.person_id".
+                 " WHERE   paper_id = '%d'".
+                 " ORDER   BY person_id DESC", // ORDER BY: Co-Autoren im System im Array vorne!
+                           s2db($intPaperId));
     $cadata = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPaperDetailed', $this->mySql->getLastError());
@@ -804,11 +812,12 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (17.12.04)
    */
   function getTopicsOfPaper($intPaperId) {
-    $s = "SELECT  t.id AS id, t.name AS name".
-        " FROM    Topic AS t".
-        " INNER   JOIN IsAboutTopic AS a".
-        " ON      a.topic_id = t.id".
-        " WHERE   a.paper_id = '$intPaperId'";
+    $s = sprintf("SELECT   t.id AS id, t.name AS name".
+                 " FROM    Topic AS t".
+                 " INNER   JOIN IsAboutTopic AS a".
+                 " ON      a.topic_id = t.id".
+                 " WHERE   a.paper_id = '%d'",
+                           s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getTopicsOfPaper', $this->mySql->getLastError());
@@ -829,14 +838,15 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    $s = "SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
-        " FROM    ReviewReport AS rr".
-        " INNER   JOIN Rating AS r".
-        " ON      r.review_id = rr.id".
-        " INNER   JOIN Criterion AS c".
-        " ON      c.id = r.criterion_id".
-        " WHERE   rr.paper_id = '$intPaperId'".
-        " GROUP   BY rr.id";
+    $s = sprintf("SELECT   SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
+                 " FROM    ReviewReport AS rr".
+                 " INNER   JOIN Rating AS r".
+                 " ON      r.review_id = rr.id".
+                 " INNER   JOIN Criterion AS c".
+                 " ON      c.id = r.criterion_id".
+                 " WHERE   rr.paper_id = '%d'".
+                 " GROUP   BY rr.id",
+                           s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getAverageRatingOfPaper', $this->mySql->getLastError());
@@ -861,11 +871,12 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getReviewRating($intReviewId) {
-    $s = "SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
-        " FROM    Rating AS r".
-        " INNER   JOIN Criterion AS c".
-        " ON      c.id = r.criterion_id".
-        " AND     r.review_id = '$intReviewId'";
+    $s = sprintf("SELECT   SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
+                 " FROM    Rating AS r".
+                 " INNER   JOIN Criterion AS c".
+                 " ON      c.id = r.criterion_id".
+                 " AND     r.review_id = '%d'",
+                           s2db($intReviewId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewRating', $this->mySql->getLastError());
@@ -888,12 +899,14 @@ class DBAccess extends ErrorHandling {
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getReviewsOfReviewer($intReviewerId, $intConferenceId) {
-    $s = "SELECT  r.id".
-        " FROM    ReviewReport AS r".
-        " INNER   JOIN Paper AS p".
-        " ON      p.id = r.paper_id".
-        " AND     p.conference_id = '$intConferenceId'".        
-        " AND     r.reviewer_id = '$intReviewerId'";
+    $s = sprintf("SELECT   r.id".
+                 " FROM    ReviewReport AS r".
+                 " INNER   JOIN Paper AS p".
+                 " ON      p.id = r.paper_id".
+                 " AND     p.conference_id = '%d'".        
+                 " AND     r.reviewer_id = '%d'",
+                           s2db($intConferenceId),
+                           s2db($intReviewerId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
@@ -922,9 +935,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getReviewersOfPaper($intPaperId) {
-    $s = "SELECT  reviewer_id".
-        " FROM    ReviewReport".
-        " WHERE   paper_id = '$intPaperId'";
+    $s = sprintf("SELECT   reviewer_id".
+                 " FROM    ReviewReport".
+                 " WHERE   paper_id = '%d'",
+                           s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
@@ -953,9 +967,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getReviewsOfPaper($intPaperId) {
-    $s = "SELECT  id".
-        " FROM    ReviewReport".
-        " WHERE   paper_id = '$intPaperId'";
+    $s = sprintf("SELECT   id".
+                 " FROM    ReviewReport".
+                 " WHERE   paper_id = '%d'",
+                           s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewsOfPaper', $this->mySql->getLastError());
@@ -985,9 +1000,10 @@ class DBAccess extends ErrorHandling {
    * @todo Aufruf von getReviewRating und getAverageRatingOfPaper in $this->... aendern.
    */
   function getReview($intReviewId) {
-    $s = "SELECT  id, paper_id, reviewer_id".
-        " FROM    ReviewReport".
-        " WHERE   id = '$intReviewId'";
+    $s = sprintf("SELECT   id, paper_id, reviewer_id".
+                 " FROM    ReviewReport".
+                 " WHERE   id = '%d'",
+                           s2db($intReviewId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReview', $this->mySql->getLastError());
@@ -1035,9 +1051,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getReviewDetailed($intReviewId) {
-    $s = "SELECT  id, paper_id, reviewer_id, summary, remarks, confidential".
-        " FROM    ReviewReport".
-        " WHERE   id = '$intReviewId'";
+    $s = sprintf("SELECT  id, paper_id, reviewer_id, summary, remarks, confidential".
+                 " FROM    ReviewReport".
+                 " WHERE   id = '%d'",
+                           s2db($intReviewId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewDetailed', $this->mySql->getLastError());
@@ -1069,12 +1086,13 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReviewDetailed', 'Fatal error: Database inconsistency!',
                           "intAuthorId = $objPaper->intAuthorId");
     }
-    $s = "SELECT  r.grade, r.comment, c.id, c.name, c.description, c.max_value,".
-        "         c.quality_rating".
-        " FROM    Rating r".
-        " INNER   JOIN Criterion c".
-        " ON      c.id  = r.criterion_id".
-        " WHERE   review_id = '".$data[0]['id']."'";
+    $s = sprintf("SELECT  r.grade, r.comment, c.id, c.name, c.description, c.max_value,".
+                 "         c.quality_rating".
+                 " FROM    Rating r".
+                 " INNER   JOIN Criterion c".
+                 " ON      c.id  = r.criterion_id".
+                 " WHERE   review_id = '%d'",
+                           s2db($data[0]['id']));
     $rating_data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewDetailed', $this->mySql->getLastError());
