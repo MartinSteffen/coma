@@ -48,14 +48,7 @@ table.menu  { border-style: none;
             }
 
 /* tabelle fuer den seiteninhalt */
-table.body { border-style: none;
-             width: 100%;
-             min-height: 450px;
-             vertical-align: top;
-             text-align: left;
-             padding: 0px;
-             margin: 0px;
-           }
+table.body { min-height: 450px; }
 
 /* tabelle mit linien zur darstellung von listen */
 table.list  { border-style: groove; }
