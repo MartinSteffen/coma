@@ -257,7 +257,7 @@ function getTotalGradeForPaper($paperId) {
 		return 0;
 	}
 
-	return $gradeSum / count ($arr) ;
+	return $gradeSum / getReviewCountForPaper($paperId) ;
 
 }
 
