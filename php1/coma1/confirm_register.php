@@ -83,7 +83,7 @@ if (isset($_POST['email'])){
     $content = new Template(TPLPATH.'register.tpl');
   }
   
-  $strContentAssocs['message'] = '<p class="message">$strMessage</p>';
+  $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
   $content->assign(defaultAssocArray());  
 
   $strMainAssocs = defaultAssocArray();

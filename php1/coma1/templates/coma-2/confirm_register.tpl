@@ -2,7 +2,6 @@
 <h2>Neuen Benutzer registrieren:</h2>
 
 <p class="center">
-<form action="{basepath}confirm_register.php?{SID}" method="post">
 
 <table class="formtable">
   <tr>
