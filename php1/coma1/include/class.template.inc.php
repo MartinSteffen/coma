@@ -117,6 +117,7 @@ class Template {
       $strKeys[] = $key;
       // @todo Check ob gültiges Objekt!!!
       if (is_object($value)) {
+        $value->assign($this->strAssocs);
         $value->parse();
         $strValues[] = $value->getOutput();
       }
