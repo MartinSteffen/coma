@@ -1230,6 +1230,7 @@ class DBAccess extends ErrorHandling {
    * @author Tom (18.01.05)
    */
   function getPreferredTopics($intPersonAlgorithmicId, $intConferenceId) {
+    $objTopics = array();
     $s = "SELECT  p.topic_id AS topic_id, t.name AS name".
         " FROM    PrefersTopic p".
         " INNER   JOIN Topic t".
@@ -1240,7 +1241,9 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getPreferredTopics', $this->mySql->getLastError());
     }
-    $objTopics = array();
+    else if (empty($data)) {
+      return $this->success($objTopics);
+    }
     for ($i = 0; $i < count($data); $i++) {
       $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
