@@ -75,9 +75,22 @@ if ($STEP == 0){
 }
 elseif ($STEP == 1){
   // Create Configuration
-  /**@ignore */
-  define('IN_COMA1', true);
-  require_once('./include/config.inc.php');
+  if (!isset($_POST['submit'])) {
+    /**@ignore */
+    define('IN_COMA1', true);
+    require_once('./include/config.inc.php');
+    
+    echo "Current Config File:<br>";
+  }
+  else {
+    $sqlServer = htmlentities($_POST['sqlServer'] ENT_QUOTES, 'UTF-8');
+    $sqlUser = htmlentities($_POST['sqlUser'] ENT_QUOTES, 'UTF-8');
+    $sqlPassword = htmlentities($_POST['sqlPassword'] ENT_QUOTES, 'UTF-8');
+    $sqlDatabase = htmlentities($_POST['sqlDatabase'] ENT_QUOTES, 'UTF-8');
+    
+    echo "Generated Config File:<br>";
+  }
+
   // Create ConfigFile
   $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = '$sqlServer';\n\$sqlUser = '$sqlUser';\n\$sqlPassword = '$sqlPassword';\n\$sqlDatabase = '$sqlDatabase';\n\n?>";
   
