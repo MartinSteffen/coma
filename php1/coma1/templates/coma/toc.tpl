@@ -2,7 +2,7 @@
   <tr><td><a href="./help.php?for=01{?popup}">1. A step-by-step introduction to Coma</a></td></tr>
   <tr><td><table>
     ...
-  <table></td></tr>
+  </table></td></tr>
   <tr><td><a href="./help.php?for=comapages{?popup}">2. Detailed explanations about the different pages in Coma</a></td></tr>
   <table><tr><td>
     <tr><td><a href="./help.php?for=login{?popup}">2.1. The login page / logging in to your account</a></td></tr>

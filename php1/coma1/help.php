@@ -75,7 +75,12 @@ if (in_array('toc', $strArrayHelpTopics)){
   $tocassocs['related-link'] = '';
   $toccontent = new Template(TPLPATH . 'toc.tpl');
   $toccontentassocs = defaultAssocArray();
-  $toccontentassocs['popup'] = '';
+  if (isset($_GET['popup'])){
+    $toccontentassocs['&popup'] = '&popup';
+  }
+  else{
+    $toccontentassocs['&popup'] = '';
+  }
   $toccontent->assign($toccontentassocs);
   $toccontent->parse();
   $tocassocs['content'] = $toccontent->getOutput();
@@ -93,7 +98,12 @@ if (in_array('nothing', $strArrayHelpTopics)){
   $tocassocs['related-link'] = '';
   $toccontent = new Template(TPLPATH . 'toc.tpl');
   $toccontentassocs = defaultAssocArray();
-  $toccontentassocs['popup'] = '';
+  if (isset($_GET['popup'])){
+    $toccontentassocs['&popup'] = '&popup';
+  }
+  else{
+    $toccontentassocs['&popup'] = '';
+  }
   $toccontent->assign($toccontentassocs);
   $toccontent->parse();
   $tocassocs['content'] = $toccontent->getOutput();
