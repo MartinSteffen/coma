@@ -57,10 +57,10 @@ class MySql {
    */
   function MySql() {
     require_once('config.inc.php');
-    $this->mySqlServer = sqlServer;
-    $this->mySqlUser = sqlUser;
-    $this->mySqlPassword = sqlPassword;
-    $this->mySqlDatabase = sqlDatabase;
+    $this->mySqlServer = $sqlServer;
+    $this->mySqlUser = $sqlUser;
+    $this->mySqlPassword = $sqlPassword;
+    $this->mySqlDatabase = $sqlDatabase;
 
     // mysql_pconnect ???? Was ist besser? - Jan
     $conn = @mysql_connect(sqlServer, sqlUser , sqlPassword);
