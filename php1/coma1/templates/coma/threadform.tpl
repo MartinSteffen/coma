@@ -1,0 +1,1 @@
+<input type="hidden" name="newthread" value="true"><br>
