@@ -5,7 +5,7 @@ if(is_dir("install/")){
 		echo("You alreade have installed CoMa onto your System.<br>Please delete the folder '/install' in your CoMa-Directory to have CoMa run properly onto your System.");
 		exit();
 	}else{
-		header("Location: http://{$_SERVER['SERVER_NAME']}/{$_SERVER['REQUEST_URI']}/install/install.php");
+		header("Location: http://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}install/install.php");
 	}
 }
 
