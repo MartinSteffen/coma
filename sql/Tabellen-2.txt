@@ -63,6 +63,8 @@ Aenderungen:
 - Tabelle User in Person umbenannt, um Konflikte in SQL zu vermeiden -
   hier scheint ein Schluesselwort 'user' bereits zu existieren.
 - Andere Aenderungen wie am 28.11.04 im Forum erlaeutert.
+
+ + + + Sandro
   
 
 Tabelle Conference
