@@ -91,19 +91,19 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="login/password_error">
-<h3>An Error has occurred,plaese check your password and email!
+<h3>An Error has occurred, please check your password and email!
 <xsl:value-of select="/"/>
 </h3>
 </xsl:template>
 <xsl:template match="login/form_error">
-<h3>An Error has occurred,plaese check your data!</h3>
+<h3>An Error has occurred, please check your data!</h3>
 </xsl:template>
 <xsl:template match="login/success">
-<h3><xsl:value-of select="//person//last_name"/> ,you are loged in for <xsl:value-of select="//conference//name"/></h3>
+<h3><xsl:value-of select="//person//last_name"/> ,you are logged in for <xsl:value-of select="//conference//name"/></h3>
 <p>The Conference is about: <xsl:value-of select="//conference//description"/></p>
 <p>For more detailed information please visit our <a><xsl:attribute name="href"><xsl:value-of select="//conference//homepage" /></xsl:attribute>Conference Homepage</a></p>
 <p>The conference will the place from: <xsl:value-of select="//conference//start"/> to <xsl:value-of select="//conference//end"/></p>
-<p>Papers can sumbitted until: <xsl:value-of select="//conference//paper"/></p>
+<p>Papers can submitted until: <xsl:value-of select="//conference//paper"/></p>
 <p></p>
 <xsl:value-of select="."/>
 </xsl:template>
