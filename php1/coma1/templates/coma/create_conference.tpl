@@ -120,6 +120,6 @@
   But lots of other formats are accepted, too. (eg <b>Jan 15, 2005</b>)<br>
   Hint: You can also use stuff like <b>today</b>, <b>1 year</b> and so on...<br>
   Please notice that you can't change <b>paper topics</b> and <b>rating criterions</b>
-  onc you have created this conference!. By default there are no topics. Go to the
+  once you have created this conference!<br>By default there are no topics. Go to the
   <b>advanced settings</b> to edit topics and criterions.
 </p>
