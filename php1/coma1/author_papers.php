@@ -86,7 +86,7 @@ else {
   $strContentAssocs['lines'] = $emptyList->getOutput();  
 }
 
-if (!empty(session('message', false))) {
+if (isset($_SESSION['message'])) {
   $strMessage = session('message', false);
   unset($_SESSION['message']);
 }
