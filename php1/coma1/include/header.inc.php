@@ -24,6 +24,9 @@ function checkError(&$class) {
   }
 }
 
+//Debugging Einstellungen:
+ini_set('error_reporting', 'E_ALL & E_STRICT');
+
 require_once('class.mysql.inc.php');
 require_once('class.session.inc.php');
 require_once('class.dbaccess.inc.php');
