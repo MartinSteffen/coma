@@ -1,8 +1,8 @@
 
 {if1<p class="message">{message}</p>}
 
-<form action="{basepath}login.php?{SID}" method="post">
 <p class="center">
+<form action="{basepath}login.php?{SID}" method="post">
 
 <table class="formtable">
   <tr>
@@ -27,18 +27,18 @@
     </td>
   </tr>
 </table>
-</p>
 </form>
+</p>
 
 <p>&nbsp;</p>
 
-<form action="{basepath}register.php?{SID}" method="post">
 <p class="message2">
   If you have registered for the site, please enter your username and password.
   This will mean that you can get access to information relevant to you.
   If you have not registered, please register below:<br>
+<form action="{basepath}register.php?{SID}" method="post">
   <input type="submit" name="submit" value="Register" class="button">
-</p>
 </form>
+</p>
 
 <p>&nbsp;</p>
