@@ -67,7 +67,7 @@ if (!empty($objPersons)) {
           $strItemAssocs['roles'] .= encodeText($strRoles[$intRoles[$i]]);
         }
       }
-      if ($objPerson->hasRole(REVIEWER) && $checkRoleChair) {
+      if ($objPerson->hasRole(REVIEWER) && $checkRoleChair && !$showChairs) {
         $strItemAssocs['if'] = array(1);
       }
       else {
