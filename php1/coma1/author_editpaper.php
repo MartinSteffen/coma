@@ -51,7 +51,7 @@ if (isset($_POST['action'])) {
   }    
   if ($_POST['submit']) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
-    if (empty($_POST['title']))
+    if (empty($_POST['title'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
     }
     // Versuche das Paper zu aktualisieren
