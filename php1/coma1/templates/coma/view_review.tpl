@@ -63,7 +63,7 @@
     <td class="viewline">
       <span class="emph">{avg_rating}</span><br>
       {if1<span class="alert">This value is critical because the single reviews of this
-          paper are highly different!</span>}
+          paper differ much!</span>}
     </td>
   </tr>
 </table>
