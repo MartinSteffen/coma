@@ -133,16 +133,17 @@ class Template extends ErrorHandling {
         // IF BLOCK
         if ($key == 'if') {
           foreach ($value as $val) {
-            $strKeys[] = '/(?is){'.$key.$val.'(.*?)}/';
+            $strKeys[] = '/(?is){if'.$val.'(.*?)}/';
             $strValues[] = '\\1';
           }
         }
         // REPEAT BLOCK
         else {
-          $strKeys[] = '/(?is){'.$key.'(.*?)}/';
+          //$s = preg_match('/(?i)repeat(.*):/', $key);
+          $strKeys[] = '/(?is){repeat(.*?):((?:.|\\1)*?)}/';
           $strVal = '';
           foreach ($value as $val) {
-            $strVal .= '\\1';
+            $strVal .= '\\2';
           }
           $strValues[] = $strVal;
         }
