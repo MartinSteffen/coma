@@ -1,8 +1,6 @@
 package coma.handler.util;
 
 import java.sql.ResultSet;
-import java.util.Enumeration;
-
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,9 +11,8 @@ import coma.entities.Paper;
 import coma.entities.Person;
 import coma.entities.ReviewReport;
 
-
 /**
- * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Albari</a>"
+ * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Albari </a>"
  */
 
 public class EntityCreater {
@@ -35,38 +32,41 @@ public class EntityCreater {
 	public EntityCreater() {
 	}
 
-	public Conference getConference(HttpServletRequest request){
-	    Conference conference = new Conference();
-	    //TODO
-	    return conference;
+	public Conference getConference(HttpServletRequest request) {
+		Conference conference = new Conference();
+		//TODO
+		return conference;
 	}
-	public Conference getConference(ResultSet resSet){
-	    Conference conference = new Conference();
-	    //TODO
-	    return conference;
+
+	public Conference getConference(ResultSet resSet) {
+		Conference conference = new Conference();
+		//TODO
+		return conference;
 	}
-	public Person getPerson(ResultSet resSet){
-	    Person p = new Person(-1);
-	    
-	    return p;
+
+	public Person getPerson(ResultSet resSet) {
+		Person p = new Person(-1);
+
+		return p;
 	}
-	public Person getPerson(HttpServletRequest request) throws IllegalArgumentException  {
-		
-	    Person p = new Person(-1);
-	    //display the parameter names and values
-		Enumeration paramNames = request.getParameterNames();
-		String parName;//this will hold the name of the parameter from the HTML form
-		
-			
-		if(request.getParameter("last_name").equals("") || request.getParameter("password").equals(""))
-				throw  new IllegalArgumentException();
-				
-		if(!Pattern.matches("\\b[a-z0-9._%-]+@[a-z0-9._%-]+\\.[a-z]{2,6}\\b",
-					request.getParameter("email").toLowerCase()))
-			throw  new IllegalArgumentException();
-		if(!(request.getParameter("password").equals(request.getParameter("repassword"))))
-			throw  new IllegalArgumentException();
-		
+
+	public Person getPerson(HttpServletRequest request)
+			throws IllegalArgumentException {
+
+		Person p = new Person(-1);
+
+		if (request.getParameter("last_name").equals("")
+				|| request.getParameter("password").equals("")
+				|| request.getParameter("password").length()<6)
+			throw new IllegalArgumentException();
+
+		if (!Pattern.matches("\\b[a-z0-9._%-]+@[a-z0-9._%-]+\\.[a-z]{2,6}\\b",
+				request.getParameter("email").toLowerCase()))
+			throw new IllegalArgumentException();
+		if (!(request.getParameter("password").equals(request
+				.getParameter("repassword"))))
+			throw new IllegalArgumentException();
+
 		p.setFirst_name(request.getParameter("first_name"));
 		p.setLast_name(request.getParameter("last_name"));
 		p.setTitle(request.getParameter("title"));
@@ -80,31 +80,31 @@ public class EntityCreater {
 		p.setState(request.getParameter("state"));
 		p.setCountry(request.getParameter("country"));
 		p.setPassword(request.getParameter("password"));
-		
-	    return p;
+
+		return p;
 	}
-	
-	public Paper getPaper(ResultSet resSet){
-	    Paper paper = new Paper(-1);
-	    //TODO
-	    return paper;
+
+	public Paper getPaper(ResultSet resSet) {
+		Paper paper = new Paper(-1);
+		//TODO
+		return paper;
 	}
-	
-	public Paper getPaper(HttpServletRequest request){
-	    Paper paper = new Paper(-1);
-	    //TODO
-	    return paper;
+
+	public Paper getPaper(HttpServletRequest request) {
+		Paper paper = new Paper(-1);
+		//TODO
+		return paper;
 	}
-	
-	public ReviewReport getReviewReport(ResultSet resSet){
-	    ReviewReport report = new ReviewReport();
-	    //TODO
-	    return report;
+
+	public ReviewReport getReviewReport(ResultSet resSet) {
+		ReviewReport report = new ReviewReport();
+		//TODO
+		return report;
 	}
-	
-	public ReviewReport getReviewReport(HttpServletRequest request){
-	    ReviewReport report = new ReviewReport();
-	    //TODO
-	    return report;
+
+	public ReviewReport getReviewReport(HttpServletRequest request) {
+		ReviewReport report = new ReviewReport();
+		//TODO
+		return report;
 	}
 }
