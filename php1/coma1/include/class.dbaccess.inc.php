@@ -88,7 +88,7 @@ class DBAccess {
   /**
    */
   function getAllConferences() {
-    return true;
+    return false;
   }
 
   /**
@@ -100,7 +100,7 @@ class DBAccess {
   /**
    */
   function getConferenceConfig() {
-    return true;
+    return false;
   }
 
   /**
@@ -206,8 +206,8 @@ class DBAccess {
     if ($data) {
       for ($i = 0; $i < count($data); $i++) {
       	$reviews = $this->getReviewsOfPaper($data[$i]['id']);
-      	$fltAvgRating = 0;
-      	if ($reviews != false) {
+      	$fltAvgRating = 0.0;
+      	if ($reviews) {
       	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
       	  $fltAvgRating = -1;
         }
@@ -288,7 +288,7 @@ class DBAccess {
   
   /**
    */
-  function getMessagesOfForum($intForumId) {
+  function getThreadsOfForum($intForumId) {
     $s = 'SELECT  id, sender_id, send_time, subject, text'.
         ' FROM    Message'.
         ' WHERE   forum_id = \''.$intForumId.'\''.
@@ -360,10 +360,9 @@ class DBAccess {
         ' FROM    Forum'.
         ' WHERE   id = \''.$intForumId.'\'';
     $data = $this->mySql->select($s);    
-    if ($data) {      
-      $threads = $this->getMessagesOfForum($intForumId);      
+    if ($data) { 
       $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
-                  0, false, $threads));
+                  0, false, $this->getThreadsOfForum($intForumId)));
       return $forum;
     }
     return false;

@@ -31,18 +31,7 @@ class Forum {
     $this->intForumType = $intForumType;    
     $this->intPaperId = $intPaperId;    
   }
-  
-  /**
-   * Prueft, ob der angegebene Benutzer Zugriff auf das Forum hat.
-   *
-   * @param Person $objUser Benutzer, der auf das Forum zugreifen will
-   * @return true Gibt bisher immer <b>true</b> zurueck
-   * @access public
-   */
-  function isUserAllowed($objUser) {
-    return true;
-  }
-  
+
 } // end class Forum
 
 ?>

@@ -29,17 +29,18 @@ class ReviewDetailed extends Review {
   var $intRatings;
   var $strComments;
   
-  function ReviewDetailed($id, $paperid, $papertitle, $authoremail, $authorname, $reviewrating, $averagerating, $revieweremail, $reviewername, $summary, $remarks='', $confidential='', $ratings, $comments=''){
-    $this->Review($id, $paperid, $papertitle, $authoremail, $authorname, $reviewrating, $averagerating, $revieweremail, $reviewername);
-    $this->strSummary = $summary;
-    $this->strRemarks = $remarks;
-    $this->strConfidential = $confidential;
-    $this->intRatings = $ratings;
-    $this->strComments = $comments;
-  }
-  
-  function ReviewDetailedFromReview($review, $summary, $remarks='', $confidential='', $ratings, $comments=''){
-    $this->ReviewDetailed($review->id, $review->paperid, $review->papertitle, $review->authoremail, $review->authorname, $review->reviewrating, $review->averagerating, $review->revieweremail, $review->reviewername, $summary, $remarks, $confidential, $ratings, $comments);
+  function ReviewDetailed($intId, $intPaperId, $strPaperTitle, $strAuthorEmail,
+                          $strAuthorName, $intReviewRating, $fltAverageRating,
+                          $strReviewerEmail, $strReviewerName, $strSummary = '',
+                          $strRemarks = '', $strConfidential = '',
+                          $intRatings = array(), $strComments = array()) {
+    $this->Review($intId, $intPaperId, $strPaperTitle, $strAuthorEmail, $strAuthorName,
+                  $intReviewRating, $fltAverageRating, $strReviewerEmail, $strReviewerName);
+    $this->strSummary = $strSummary;
+    $this->strRemarks = $strRemarks;
+    $this->strConfidential = $strConfidential;
+    $this->intRatings = $intRatings;
+    $this->strComments = $strComments;
   }
 
 } // end class ReviewDetailed

@@ -33,25 +33,22 @@ class PersonDetailed extends Person {
   var $strPhone;
   var $strFax;
   
-  function PersonDetailed($intId, $email, $firstname, $lastname, $role, $title = '',
-                          $affiliation = '', $street = '', $city = '', $postalcode = '',
-                          $state = '', $country = '', $phone = '', $fax = '') {
-    $this->Person($intId, $email, $firstname, $lastname, $role);
-    $this->strTitle = $title;
-    $this->strAffiliation = $affiliation;
-    $this->strStreet = $street;
-    $this->strCity = $city;
-    $this->strPostalCode = $postalcode;
-    $this->strState = $state;
-    $this->strCountry = $country;
-    $this->strPhone = $phone;
-    $this->strFax = $fax;
+  function PersonDetailed($intId, $strEmail, $strFirstname, $strLastname, $intRole = 0,
+                          $strTitle = '', $strAffiliation = '', $strStreet = '',
+                          $strCity = '', $strPostalCode = '', $strState = '',
+                          $strCountry = '', $strPhone = '', $strFax = '') {
+    $this->Person($intId, $strEmail, $strFirstname, $strLastname, $intRole);
+    $this->strTitle = $strTitle;
+    $this->strAffiliation = $strAffiliation;
+    $this->strStreet = $strStreet;
+    $this->strCity = $strCity;
+    $this->strPostalCode = $strPostalCode;
+    $this->strState = $strState;
+    $this->strCountry = $strCountry;
+    $this->strPhone = $strPhone;
+    $this->strFax = $strFax;
   }
   
-  function PersonDetailedFromPerson($person, $title='', $affiliation='', $street='', $city='', $postalcode='', $state='', $country='', $phone='', $fax=''){
-    $this->PersonDetailed($person->strEmail, $person->strFirstName, $person->strLastName, $person->intRole, $title, $affiliation, $street, $city, $postalcode, $state, $country, $phone, $fax);
-  }
-
 } // end class PersonDetailed
 
 ?>
