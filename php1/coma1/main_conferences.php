@@ -22,21 +22,24 @@ $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
 $strItemAssocs = defaultAssocArray();
 
 $objConferences = $myDBAccess->getAllConferences();
+$strContentAssocs['lines'] = '';  
 if (!empty($objConferences)) {
   $lineNo = 1;
-  $strContentAssocs['lines'] = '';
+  $strContentAssocs['if'] = array(0);  
   foreach ($objConferences as $objConference) {
     $strItemAssocs['line_no'] = $lineNo;
+    $strItemAssocs['confid'] = $objConference->intId;
     $strItemAssocs['name'] = $objConference->strName;
+    $strItemAssocs['startdate'] = $objConference->strStart;
+    $strItemAssocs['enddate'] = $objConference->strEnd;
     $conferenceItem->assign($strItemAssocs);
     $conferenceItem->parse();
     $strContentAssocs['lines'] .= $conferenceItem->getOutput();
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
-  }
+  }  
 }
 else {
-  $strContentAssocs['lines'] = '<tr class="listitem-1"><td colspan="2">'.
-                               'Es sind keine Konferenzen vorhanden.</td></tr>';  
+  $strContentAssocs['if'] = array(1);  
 }
 
 $content->assign($strContentAssocs);
