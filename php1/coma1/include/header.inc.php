@@ -133,7 +133,6 @@ function decodeText($_str) {
   $trans_tbl = get_html_translation_table (HTML_ENTITIES);
   $trans_tbl["\x00"] = "\\\x00";
   $trans_tbl["\n"] = '<BR>';
-  $trans_tbl["\r"] = '';
   $trans_tbl["\t"] = ' ';
   $trans_tbl["\\"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
