@@ -27,7 +27,7 @@ function bit($b) {
 
 echo('<br>');
 
-$p = $myDBAccess->getPersonAlgorithmic(1, 1);
+$p = $myDBAccess->getPersonAlgorithmic(1, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -36,22 +36,22 @@ else if (empty($p)) {
   die(-1);
 }
 
-$myDBAccess->updatePreferredTopics($p, 1);
+$myDBAccess->updatePreferredTopics($p, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 
-$myDBAccess->updatePreferredPapers($p, 1);
+$myDBAccess->updatePreferredPapers($p, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 
-$myDBAccess->updateDeniedPapers($p, 1);
+$myDBAccess->updateDeniedPapers($p, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 
-$myDBAccess->updateExcludedPapers($p, 1);
+$myDBAccess->updateExcludedPapers($p, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
