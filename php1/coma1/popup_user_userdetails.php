@@ -49,6 +49,7 @@ $strContentAssocs['address']     = encodeText($objPerson->getAddress());
 $strContentAssocs['country']     = encodeText($objPerson->getCountry());
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
+$strContentAssocs['if'] = { 'POPUP' };
 $content->assign($strContentAssocs);
 
 $main = new Template(TPLPATH.'popup_frame.tpl');

@@ -55,5 +55,6 @@
 <p>&nbsp;</p>
 
 <p class="message2">
-  Return to the <a href="javascript:history.back()" class="link">last page</a>.
+  {ifNORMAL Return to the <a href="javascript:history.back()" class="link">last page</a>.}
+  {ifPOPUP <a href="javascript:close()" class="link">close this page.</a>}
 </p>
