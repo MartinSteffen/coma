@@ -76,12 +76,10 @@ if (isset($_POST['email'])){
                                       $_POST['postalcode'], '', '',
                                       $_POST['phone'], 
                                       $_POST['fax'], 
-                                      $_POST['user_password']);     
-    
-     if (empty($result)) {
-       $strContentAssocs = defaultAssocArray();  
+                                      $_POST['user_password']);    
+     if (empty($result)) {       
        $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten.<br>'.
-                     'Bitte versuchen Sie erneut, sich zu registrieren.'; 
+                     'Bitte versuchen Sie erneut, sich zu registrieren.<br>"'.$myDBAccess->getLastError().'"'; 
        $confirmFailed = true;
      }
      else {
