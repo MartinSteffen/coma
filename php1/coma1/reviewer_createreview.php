@@ -28,10 +28,10 @@ if ($myDBAccess->failed()) {
   return $this->error('Error receiving rating criterions of conference', $myDBAccess->getLastError());
 }
 
-if (!isset($_POST['paperid'])) {
+if (!isset($_GET['paperid']) && !isset($_POST['paperid'])) {
 	redirect("reviewer_reviews.php");
 }
-$objPaper = $myDBAccess->getPaperDetailed($_POST['paperid']);
+$objPaper = $myDBAccess->getPaperDetailed(isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid']);
 if ($myDBAccess->failed()) {
   error('Error occured retrieving paper.', $myDBAccess->getLastError());
 }
