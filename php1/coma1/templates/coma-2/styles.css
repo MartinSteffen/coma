@@ -68,9 +68,9 @@ a.submenu:active  { color: #FF4D00; }
 a.submenu:hover   { color: #FF4D00; }
 
 a.markedmenu { font-size: 13px; text-decoration: none; font-weight: bold;
-               color: #FF4D00; }
+               color: #FF0000; }
 a.markedsubmenu { font-size: 12px; text-decoration: none; font-weight: normal;
-                  color: #FF4D00; }
+                  color: #FF0000; }
 
 /* Tabelle fuer den Seiteninhalt */
 table.body { width: 100%; vertical-align: top; }
