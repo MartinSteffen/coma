@@ -237,14 +237,18 @@ table.formtable
   margin: 6px 10px;
   padding: 8px;
 }
-table.formlist {}
+table.formlist {
+  margin: 2px;
+}
 .formlistheader
 {
+  padding: 0px 8px;
   border-top: 1px #404040 solid;
   border-bottom: 1px #404040 solid;  
 }
 .formlistitem
 {  
+  padding: 0px 8px;
   border-bottom: 1px #404040 solid;  
 }
 
