@@ -51,7 +51,7 @@ if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 
-$myDBAccess->updateExcludededPapers($p, 1);
+$myDBAccess->updateExcludedPapers($p, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
