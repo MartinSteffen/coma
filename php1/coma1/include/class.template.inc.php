@@ -134,6 +134,7 @@ class Template extends ErrorHandling {
           $strKeys[] = '/(?i){'.$key.$val.'(.*)}/';
           $strValues[] = '\\1';
         }
+        var_dump($strKeys);echo "<br>";var_dump($strValues);echo "<br><br><br>";
       }
       else {
         // Tag durch Value ersetzen
@@ -144,7 +145,6 @@ class Template extends ErrorHandling {
     // Alle nicht zugeordneten rauswerfen!
     $strKeys[] = '/(?i){.*?}/';
     $strValues[] = '';
-    var_dump($strKeys);var_dump($strValues);
     $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
     return $this->success(true);
   }
