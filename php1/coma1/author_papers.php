@@ -41,7 +41,7 @@ $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
 $strContentAssocs['targetpage'] = 'author_papers.php';
-$strContentAssocs['if'] = array();
+$strContentAssocs['if'] = $ifArray;
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
