@@ -22,22 +22,36 @@ $rec = false; // wird true gesetzt, wenn das Formulardaten korrekt ausgefüllt wu
 if (isset($_POST['name'])){
   $rec=true;
   // Test, ob alle Pflichtfelder ausgefüllt wurden
-  if ( $_POST['name']=='' 
-       //$_POST['homepage']==''|
-       //$_POST['description']==''|
-       //$_POST['abstract_submission_deadline']==''|
-       //$_POST['paper_submission_deadline']==''|
-       //$_POST['review_deadline']==''|
-       //$_POST['final_version_deadline']==''|
-       //$_POST['notification']==''|
-       //$_POST['conference_start']==''|
-       //$_POST['conference_end']==''|
-       //$_POST['min_reviews_per_paper']
+  if ( $_POST['name']=='' |
+       $_POST['homepage']==''|
+       $_POST['description']==''|
+       $_POST['abstract_submission_deadline_d']==''|
+       $_POST['abstract_submission_deadline_m']==''|
+       $_POST['abstract_submission_deadline_y']==''|
+       $_POST['paper_submission_deadline_d']==''|
+       $_POST['paper_submission_deadline_m']==''|
+       $_POST['paper_submission_deadline_y']==''|
+       $_POST['review_deadline_d']==''|
+       $_POST['review_deadline_m']==''|
+       $_POST['review_deadline_y']==''|
+       $_POST['final_version_deadline_d']==''|
+       $_POST['final_version_deadline_m']==''|
+       $_POST['final_version_deadline_y']==''|
+       $_POST['notification_d']==''|
+       $_POST['notification_m']==''|
+       $_POST['notification_y']==''|
+       $_POST['conference_start_d']==''|
+       $_POST['conference_start_m']==''|
+       $_POST['conference_start_y']==''|
+       $_POST['conference_end_d']==''|
+       $_POST['conference_end_m']==''|
+       $_POST['conference_end_y']==''|
+       $_POST['min_reviews_per_paper']==''
      ){
      $strMessage =  $strMessage.'Bitte alle Felder ausfüllen !!! <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
-  }
+   }
   // Test, ob das Datumsformat stimmt
    $abstract_submission_deadline  =(int)$_POST['abstract_submission_deadline_d'].
                                    (int)$_POST['abstract_submission_deadline_m'].
@@ -123,7 +137,19 @@ if (isset($_POST['name'])){
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
    }
-   
+  if ( !(($abstract_submission_deadline <= $paper_submission_deadline)&&
+	 ($paper_submission_deadline    <= $notification)&&
+         ($notification                 <  $conference_start) &&
+         ($conference_start             <= $conference_end) &&
+         ($paper_submission_deadline    <= $final_version_deadline ) &&
+         ($final_version_deadline       <= $conference_start))){
+         $strMessage =  $strMessage.'Datumseingabe nicht plausibel !!! <br>'.$abstract_submission_deadline.'
+                                    <='.$paper_submission_deadline.'<='.$notification.'<'.$conference_start.'
+                                    <='.$conference_end.'<br> <br>'.$paper_submission_deadline.'
+                                    <='.$final_version_deadline.'<='.$conference_start;
+     $strMainAssocs['message'] = $strMessage; 
+     $rec = false;
+   }   
 }
 
 /**
