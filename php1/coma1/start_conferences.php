@@ -11,7 +11,7 @@ define('NEED_NO_LOGIN', false);
 require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'conference_list.tpl');
-$strContentAssocs = defaultAssocArray()
+$strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
 $content->assign($strContentAssocs);
 
