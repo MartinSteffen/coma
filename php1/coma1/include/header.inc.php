@@ -222,6 +222,7 @@ if (!defined('NEED_NO_LOGIN')) {
     session_delete('password');
     session_delete('uid');
     session_delete('confid');
+    redirect('login.php');
   }
 }
 ?>
