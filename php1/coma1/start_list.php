@@ -23,15 +23,21 @@ $strMainAssocs['content'] =  'Liste aller Konferenzen';
 $strMainAssocs['body'] =
 '
 <div align="center">
-<table>
-<tr class="listhead">
-  <td> Konferenzname </td> <td> Einloggen </td> <td> Registrierung </td>
+<table class="list">
+<tr>
+  <td class="listhead"> Konferenzname </td> 
+  <td class="listhead"> Einloggen </td> 
+  <td class="listhead"> Registrierung </td>
 </tr>
 <tr class="list">
-  <td> Konferenz A </td> <td> <a href="login.php"> login </a> </td> <td> (register) </td>
+  <td class="list"> Konferenz A </td> 
+  <td class="list"> <a href="login.php"> login </a> </td> 
+  <td class="list"> (register) </td>
 </tr>
 <tr class="list">
-  <td> Konferenz B </td> <td> <a href="login.php"> login </a> </td> <td> (register) </td>
+  <td class="list"> Konferenz B </td> 
+  <td class="list"> <a href="login.php"> login </a> </td> 
+  <td class="list"> (register) </td>
 </tr>
 </table>
 </div>
