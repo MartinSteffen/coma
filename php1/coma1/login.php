@@ -22,7 +22,7 @@ $loginPage = new Template('./templates/sandro/login.tpl');
 $strAssocs = array();
 $strAssoc['path'] = './templates/sandro/';
 $strAssoc['content'] =& $loginPage;
-$strAssoc['SID'] = (SID == '') ? '' : '?'.strip_tags(SID);
+$strAssoc['SID'] = $mySession->id;
 
 $mainPage->assign($strAssoc);
 

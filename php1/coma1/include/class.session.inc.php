@@ -45,6 +45,10 @@ class Session {
   /**@var string*/
   var $strSessName = '';
   /**#@-*/
+  /**
+   * 
+   */
+  var id = '';
 
   /**
    * Konstruktor
@@ -82,7 +86,7 @@ class Session {
   */
   function sessionOpen($strSavePath, $strSessName) {
     $this->strSessName = $strSessName;
-    // @TODO Was muessen wir hier noch machen?
+    $this->id = (SID == '') ? '' : '?'.strip_tags(SID);
     return true;
   }
 
@@ -91,7 +95,6 @@ class Session {
   * @access private
   */
   function sessionClose() {
-    // @TODO Muessen wir was aufrauemen?
     return true;
   }
 
