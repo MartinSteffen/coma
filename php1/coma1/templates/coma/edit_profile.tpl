@@ -41,18 +41,18 @@
   </tr>
   <tr>
     <td>
-      Last name:
+      <span class="alert">*</span>Last name:
     </td>
     <td>
-      <input type="text" name="last_name" size="48" maxlength="127" value="{last_name}"> *
+      <input type="text" name="last_name" size="48" maxlength="127" value="{last_name}">
     </td>
   </tr>
   <tr>
     <td>
-      Email address:
+      <span class="alert">*</span>Email address:
     </td>
     <td>
-      <input type="text" name="email" size="48" maxlength="127" value="{email}"> *
+      <input type="text" name="email" size="48" maxlength="127" value="{email}">
     </td>
   </tr>
   <tr>

@@ -12,10 +12,10 @@
   </tr>
   <tr>
     <td>
-      Title:
+      <span class="alert">*</span>Title:
     </td>
     <td>
-      <input type="text" name="title" size="48" maxlength="127" value="{title}"> *
+      <input type="text" name="title" size="48" maxlength="127" value="{title}">
     </td>
   </tr>
   <tr>
