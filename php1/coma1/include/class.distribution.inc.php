@@ -398,7 +398,7 @@ class Distribution extends ErrorHandling {
       }
     }
 
-    /*echo('<table>');
+    echo('<table>');
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
@@ -409,9 +409,9 @@ class Distribution extends ErrorHandling {
       }
       echo('</tr>');
     }
-    echo('</table>');*/
+    echo('</table>');
 
-    /*echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs_per_paper);
+    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs_per_paper);
     echo('<br>p_id_index:');
     print_r($p_id_index);
     echo('<br>r_id_index:');
@@ -423,7 +423,7 @@ class Distribution extends ErrorHandling {
     echo('<br>NumRevs:');
     print_r($p_num_revs);
     echo('<br>NumPapers:');
-    print_r($r_num_papers);*/
+    print_r($r_num_papers);
 
     // Keine gueltige Verteilung?
     for ($i = 0; $i < count($p_num_revs); $i++) {
