@@ -46,12 +46,53 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $objForumTypeOpenTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeOpenAssocs = defaultAssocArray();
   $strArrayTypeOpenAssocs['type'] = 'Public forums';
+  if (isChair($myDBAccess->getPerson(session('uid')))){
+    $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
+    $strArrayCreateAssocs = defaultAssocArray();
+    $strArrayCreateAssocs['type'] = 'public';
+    $strArrayCreateAssocs['inttype'] = FORUM_PUBLIC;
+    $objCreateTemplate->assign($strArrayCreateAssocs);
+    $objCreateTemplate->parse();
+    $strArrayTypeOpenAssocs['createforum'] = $objCreateTemplate->getOutput();
+  }
   $objForumTypePaperTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypePaperAssocs = defaultAssocArray();
   $strArrayTypePaperAssocs['type'] = 'Paper forums';
+  if (isChair($myDBAccess->getPerson(session('uid')))){
+    $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
+    $strArrayCreateAssocs = defaultAssocArray();
+    $strArrayCreateAssocs['type'] = 'paper';
+    $strArrayCreateAssocs['inttype'] = FORUM_PAPER;
+    $objArrayConfPapers = $myDBAccess->getPapersOfConference(session('confid'));
+    if (!empty($objArrayConfPapers)){
+      $strArrayCreateAssocs['if'] = array(1);
+      $strArrayCreateAssocs['paperoptions'] = '';
+      foreach ($objArrayConfPapers as $objPaper){
+        $objOptTemplate = new Template(TPLPATH . 'paperoption.tpl');
+	$strArrayOptAssocs = defaultAssocArray();
+	$strArrayOptAssocs['paperid'] = $objPaper->intId;
+	$strArrayOptAssocs['papertitle'] = $objPaper->strTitle;
+	$objOptTemplate->assign($strArrayOptAssocs);
+	$objOptTemplate->parse();
+	$strArrayCreateAssocs['paperoptions'] = $objOptTemplate->getOutput();
+      }
+    }
+    $objCreateTemplate->assign($strArrayCreateAssocs);
+    $objCreateTemplate->parse();
+    $strArrayTypeOpenAssocs['createforum'] = $objCreateTemplate->getOutput();
+  }
   $objForumTypeChairTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeChairAssocs = defaultAssocArray();
   $strArrayTypeChairAssocs['type'] = 'Committee forums';
+  if (isChair($myDBAccess->getPerson(session('uid')))){
+    $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
+    $strArrayCreateAssocs = defaultAssocArray();
+    $strArrayCreateAssocs['type'] = 'committee';
+    $strArrayCreateAssocs['inttype'] = FORUM_PRIVATE;
+    $objCreateTemplate->assign($strArrayCreateAssocs);
+    $objCreateTemplate->parse();
+    $strArrayTypeOpenAssocs['createforum'] = $objCreateTemplate->getOutput();
+  }
   $objForumTypeGlobalTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeGlobalAssocs = defaultAssocArray();
   $strArrayTypeGlobalAssocs['type'] = 'Global forums';
@@ -302,6 +343,20 @@ function generatePostMethodArray($strArrayPostvars){
   $strArrayContentAssocs['message'] = session('message', false);
   session_delete('message');
   $strArrayContentAssocs['forumtypes'] = '';
+
+  //evtl. neues Forum erzeugen
+  if ((!empty($_POST['title'])) (!empty($_POST['type'])) (!empty($_POST['createforum']))){
+    if (empty($_POST['paperid'])){
+      $pid = false;
+    }
+    else{
+      $pid = $_POST['paperid'];
+    }
+    $intId = $myDBAccess->addForum(session('confid'), $_POST['title'], $_POST['type'], $pid);
+    if ($myDBAccess->failed()) {
+      error('Error creating new forum.', $myDBAccess->getLastError());
+    }
+  }
 
   //evtl. posten einleiten
   if (((!empty($_POST['reply-to'])) || ((!empty($_POST['posttype'])) && ($_POST['posttype'] == 'newthread'))) && (!empty($_POST['text']))){
