@@ -212,8 +212,8 @@ class DBAccess {
   function getConferenceDetailed() {
     $s = 'SELECT  c.id, name, homepage, description, abstract_submission_deadline,'.
         '         paper_submission_deadline, review_deadline, final_version_deadline,'.
-        '         notification, conference_start, conference_end, min_reviews_per_paper'.
-        '         default_reviews_per_paper, min_number_of_papers, max_number_of_papers'.
+        '         notification, conference_start, conference_end, min_reviews_per_paper,'.
+        '         default_reviews_per_paper, min_number_of_papers, max_number_of_papers,'.
         '         critical_variance, auto_activate_account, auto_open_paper_forum,'.
         '         auto_add_reviewers, number_of_auto_add_reviewers'.
         ' FROM    Conference AS c'.
