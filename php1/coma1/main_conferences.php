@@ -45,18 +45,21 @@ if (!empty($objConferences)) {
       if ($objPerson->hasAnyRole()) {
         $ifArray[] = 1;
       }
-      if (!($objPerson->hasRole(AUTHOR))) {
+      if (!($objPerson->hasRole(REVIEWER))) {
         $ifArray[] = 2;
       }
-      if (!($objPerson->hasRole(PARTICIPANT))) {
+      if (!($objPerson->hasRole(AUTHOR))) {
         $ifArray[] = 3;
+      }
+      if (!($objPerson->hasRole(PARTICIPANT))) {
+        $ifArray[] = 4;
       }
     }
     $strItemAssocs['line_no'] = encodeText($lineNo);
     $strItemAssocs['confid'] = encodeText($objConference->intId);
     $strItemAssocs['link'] = encodeURL($objConference->strHomepage);
     if (!empty($objConference->strHomepage)) {
-      $ifArray[] = 4;
+      $ifArray[] = 5;
     }
     $strItemAssocs['name'] = encodeText($objConference->strName);
     $strItemAssocs['date'] = $objConference->getDateString();
