@@ -107,7 +107,7 @@ define('PARTICIPANT', 5);
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 // Stellt ausserdem sicher das uid und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
-if (!isset(NEED_NO_LOGIN) &&  (!$myDBAccess->checkLogin())) {
+if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
     $_SESSION['message'] = 'Bitte melden Sie sich an!';
   }
