@@ -24,6 +24,7 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
+x = 5;
 if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
 //  if (!isset($_SESSION['dist'])) || !isset($_SESSION['dist_check']) ||
 //      !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
