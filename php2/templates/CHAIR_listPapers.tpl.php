@@ -69,7 +69,7 @@ foreach($TPL['paperlist_accepted'] as $paper) {
 			<?PHP echo $paper['review_status']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['reviewer_count']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 			<?PHP echo $paper['totalgradelist']; ?>&nbsp;
@@ -109,7 +109,7 @@ foreach($TPL['paperlist_open'] as $paper) {
 			<?PHP echo $paper['review_status']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['reviewer_count']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 			<?PHP echo $paper['totalgradelist']; ?>&nbsp;
@@ -148,7 +148,7 @@ foreach($TPL['paperlist_rejected'] as $paper) {
 			<?PHP echo $paper['review_status']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['reviewer_count']; ?>
 
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
@@ -188,7 +188,7 @@ foreach($TPL['paperlist_nothing'] as $paper) {
 			<?PHP echo $paper['review_status']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['reviewer_count']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 			<?PHP echo $paper['totalgradelist']; ?>&nbsp;
