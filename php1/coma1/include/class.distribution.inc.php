@@ -109,7 +109,6 @@ class Distribution extends ErrorHandling {
     }
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
     $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), 0));
-    echo('COUNT: '.count($matrix).' / '.count($matrix[0]));
     // Bereits zugeteilte Paper in die Matrix eintragen
     for ($i = 0; $i < count($r_id); $i++) {
       $s = sprintf("SELECT paper_id FROM Distribution WHERE reviewer_id = '%d'",
@@ -119,7 +118,7 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($data); $j++) {
-        $matrix[$r_id[$i]][$p_id_index[$data[$j]['paper_id']]] = -1;
+        $matrix[$i][$p_id_index[$data[$j]['paper_id']]] = -1;
       }
     }
     return $matrix;
