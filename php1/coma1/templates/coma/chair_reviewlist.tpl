@@ -18,6 +18,7 @@
 
 <table class="list">
   <tr class="listheader">
+    <th>&nbsp;</th>
     <th class="listheader">
       <a href="{basepath}{targetpage}?order=1{&SID}" class="order{if1-active}">Title</a>
     </th>

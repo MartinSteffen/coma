@@ -104,6 +104,7 @@ if (!empty($objPapers)) {
     else {
       $strItemAssocs['num_reviews'] = 'none';
       $strItemAssocs['line_no']     = 'alert-'.$lineNo;
+      $ifArray[] = 'ALERT';
     }
     if ($intRevs > 0) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
@@ -169,7 +170,7 @@ if (!empty($objPapers)) {
 else {
   // Artikelliste ist leer.
   $strItemAssocs = defaultAssocArray();
-  $strItemAssocs['colspan'] = '7';
+  $strItemAssocs['colspan'] = '8';
   $strItemAssocs['text'] = 'There are no papers available.';
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);

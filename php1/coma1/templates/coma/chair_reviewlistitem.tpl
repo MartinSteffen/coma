@@ -1,5 +1,8 @@
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}">
+      {ifALERT <img src="{path}images/alert.gif" width="15" height="15" border="0" alt="alert">}&nbsp;
+    </td>
+    <td class="listitem-{line_no}">
       <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&popup}{&SID}" class="link" target="_blank">{title}</a>      
     </td>
     <td class="listitem-{line_no}">
@@ -23,6 +26,7 @@
     </td>
   </tr>
   <tr class="listitem-{line_no}">
+    <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}">
       <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a> 
     </td>
