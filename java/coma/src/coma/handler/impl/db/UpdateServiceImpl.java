@@ -1,11 +1,9 @@
 package coma.handler.impl.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.LinkedList;
 
 import org.apache.log4j.Category;
 
@@ -17,7 +15,6 @@ import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchResult;
 import coma.handler.db.UpdateService;
-import coma.handler.util.PreparedStatementSetter;
 
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Z. Albari </a>
@@ -30,7 +27,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 			.getInstance(UpdateServiceImpl.class.getName());
 
 	public UpdateServiceImpl() {
-		super.init();
+		// super.init();
 	}
 
 	public SearchResult updatePerson(Person person) {
@@ -40,32 +37,46 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		boolean ok = true;
 		if (person == null) {
 			ok = false;
-			info
-					.append("ERROR: person must not be null\n");
+			info.append("ERROR: person must not be null\n");
 		}
-		if(ok && (person.getEmail() == null || person.getEmail().equals(""))){
+		if (ok && (person.getEmail() == null || person.getEmail().equals(""))) {
 			ok = false;
 			info.append("ERROR: person[email] must not be null");
 		}
-		if(ok){
+		if (ok) {
 			try {
-				conn = dataSource.getConnection();
-			} catch (SQLException e) {
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+			} catch (Exception e) {
 				ok = false;
-				info.append("ERROR: Coma could not establish a connection to the database");
+				info
+						.append("ERROR: Coma could not establish a connection to the database");
 				info.append(e.toString() + "\n");
 			}
 		}
 		if (ok) {
 			try {
-				String UPDATE_QUERY = "INSERT INTO Person "
-						+ "(first_name, last_name, title, affiliation, email,"
-						+ "phone_number, fax_number, street, postal_code, city,"
-						+ "state, country) "
-						+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)" + " WHERE ";
+				String UPDATE_QUERY = "UPDATE Person SET "
+						+ "first_name = ?, last_name = ?, title = ?, affiliation = ?,"
+						+ "email = ?, phone_number = ?, fax_number = ?, street = ?,"
+						+ "postal_code = ?, city = ?, state = ?, country = ? "
+						+ " WHERE " + person.getId() + " OR Email = '"
+						+ person.getEmail() + "'";
 				int pstmtCounter = 0;
 				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
-				//TODO
+				pstmt.setString(++pstmtCounter, person.getFirst_name());
+				pstmt.setString(++pstmtCounter, person.getLast_name());
+				pstmt.setString(++pstmtCounter, person.getTitle());
+				pstmt.setString(++pstmtCounter, person.getAffiliation());
+				pstmt.setString(++pstmtCounter, person.getEmail());
+				pstmt.setString(++pstmtCounter, person.getPhone_number());
+				pstmt.setString(++pstmtCounter, person.getFax_number());
+				pstmt.setString(++pstmtCounter, person.getStreet());
+				pstmt.setString(++pstmtCounter, person.getPostal_code());
+				pstmt.setString(++pstmtCounter, person.getCity());
+				pstmt.setString(++pstmtCounter, person.getState());
+				pstmt.setString(++pstmtCounter, person.getCountry());
+
 				int affRows = pstmt.executeUpdate();
 				pstmt.close();
 				if (affRows != 1 && ok) {
@@ -90,8 +101,60 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 	}
 
 	public SearchResult updateReviewReport(ReviewReport report) {
-		//TODO
-		return null;
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		Connection conn = null;
+		boolean ok = true;
+		if (report == null) {
+			ok = false;
+			info.append("ERROR: Report must not be null\n");
+		}
+		if (ok && (report.getId() < 0)) {
+			ok = false;
+			info.append("ERROR: report[id] must not be less than 0");
+		}
+		if (ok) {
+			try {
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+			} catch (Exception e) {
+				ok = false;
+				info
+						.append("ERROR: Coma could not establish a connection to the database");
+				info.append(e.toString() + "\n");
+			}
+		}
+		if (ok) {
+			try {
+				String UPDATE_QUERY = "UPDATE ReviewReport SET "
+						+ " summary = ?, remarks = ?, confidential = ?";
+				int pstmtCounter = 0;
+				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
+				pstmt.setString(++pstmtCounter, report.getSummary());
+				pstmt.setString(++pstmtCounter, report.getRemarks());
+				pstmt.setString(++pstmtCounter, report.getConfidental());
+
+				int affRows = pstmt.executeUpdate();
+				pstmt.close();
+				if (affRows != 1 && ok) {
+					info.append("ERROR: Dataset could not be updated\n");
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				info.append("ERROR: " + e.toString() + "\n");
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
 	}
 
 	public SearchResult updatePaper(Paper paper) {
@@ -99,16 +162,106 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		return null;
 	}
 
-	public SearchResult updateConference(Conference conference) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see coma.handler.db.UpdateService#updateRating(coma.entities.Rating)
-	 */
+public SearchResult updateConference(Conference conference) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		Connection conn = null;
+		boolean ok = true;
+		if (conference == null) {
+			ok = false;
+			info.append("ERROR: conference must not be null\n");
+		}
+		if (ok && (conference.getId() < 0)) {
+			ok = false;
+			info.append("ERROR: conference[id] must not be less than 0");
+		}
+		if (ok) {
+			try {
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+			} catch (Exception e) {
+				ok = false;
+				info
+						.append("ERROR: Coma could not establish a connection to the database");
+				info.append(e.toString() + "\n");
+			}
+		}
+		if (ok) {
+			try {
+				String UPDATE_QUERY = "UPDATE Conference SET "
+						+ "name = ?,homepage = ?,description = ?,"
+						+ "abstract_submission_deadline = ?,paper_submission_deadline = ?," 
+						+ "review_deadline = ?,final_version_deadline = ?,notification = ?,"
+						+ "conference_start = ?,conference_end = ?,min_reviews_per_paper = ?"
+						+ " WHERE id = "+conference.getId();
+				int pstmtCounter = 0;
+				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
+				pstmt.setString(++pstmtCounter, conference.getName());
+				pstmt.setString(++pstmtCounter, conference.getHomepage());
+				pstmt.setString(++pstmtCounter, conference.getDescription());
+				if(conference.getAbstract_submission_deadline() != null){
+					pstmt.setDate(++pstmtCounter, new Date(conference.getAbstract_submission_deadline().getTime()));
+				}else{
+					pstmt.setString(++pstmtCounter, null);
+				}
+				if(conference.getPaper_submission_deadline() != null){
+					pstmt.setDate(++pstmtCounter, new Date(conference.getPaper_submission_deadline().getTime()));
+				}else{
+					pstmt.setString(++pstmtCounter, null);
+				}
+				if(conference.getReview_deadline() != null){
+					pstmt.setDate(++pstmtCounter, new Date(conference.getReview_deadline().getTime()));
+				}else{
+					pstmt.setString(++pstmtCounter, null);
+				}
+				if(conference.getFinal_version_deadline() != null){
+					pstmt.setDate(++pstmtCounter, new Date(conference.getFinal_version_deadline().getTime()));
+				}else{
+					pstmt.setString(++pstmtCounter, null);
+				}
+				if(conference.getNotification() != null){
+					pstmt.setDate(++pstmtCounter, new Date(conference.getNotification().getTime()));
+				}else{
+					pstmt.setString(++pstmtCounter, null);
+				}
+				if(conference.getConference_start() != null){
+					pstmt.setDate(++pstmtCounter, new Date(conference.getConference_start().getTime()));
+				}else{
+					pstmt.setString(++pstmtCounter, null);
+				}
+				if(conference.getConference_end() != null){
+					pstmt.setDate(++pstmtCounter, new Date(conference.getConference_end().getTime()));
+				}else{
+					pstmt.setString(++pstmtCounter, null);
+				}
+				pstmt.setInt(++pstmtCounter, conference.getMin_review_per_paper());
+				
+				int affRows = pstmt.executeUpdate();
+				pstmt.close();
+				if (affRows != 1 && ok) {
+					info.append("ERROR: Dataset could not be updated\n");
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				info.append("ERROR: " + e.toString() + "\n");
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}	/*
+		 * (non-Javadoc)
+		 * 
+		 * @see coma.handler.db.UpdateService#updateRating(coma.entities.Rating)
+		 */
 	public SearchResult updateRating(Rating rating) {
 		// TODO Auto-generated method stub
 		return null;

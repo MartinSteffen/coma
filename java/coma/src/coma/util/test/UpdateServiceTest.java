@@ -5,7 +5,7 @@ import coma.handler.impl.db.UpdateServiceImpl;
 
 import junit.framework.TestCase;
 
-/*
+/**
  * Created on 17.12.2004
  * <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Z. Albari</a>
  */
