@@ -123,7 +123,7 @@ class Template extends ErrorHandling {
     $strValues = array();
     foreach ($this->strAssocs as $key => $value) {
       // $key bereinigen... //momentan nur ?
-      $key = preg_replace('/\?/, '\?', $key);
+      $key = preg_replace('/\?/', '\?', $key);
       if (is_object($value)) {
         if (get_class($value) != get_class($this)) {
           error('parse', 'associated Value is Object but not of class Template');
