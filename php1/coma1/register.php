@@ -85,7 +85,7 @@ if (isset($_POST['email'])){
     if (!empty($result)) {
       // Erfolg (also anderes Template)
       $content = new Template(TPLPATH.'confirm_register.tpl');
-      $objPerson = (new PersonDetailed($result, $_POST['first_name'], $_POST['last_name'],
+      $objPerson = new PersonDetailed($result, $_POST['first_name'], $_POST['last_name'],
                     $_POST['email'], 0, $_POST['name_title'], $_POST['affiliation'],
                     $_POST['street'], $_POST['city'], $_POST['postalcode'], $_POST['state'],
                     $_POST['country'], $_POST['phone'], $_POST['fax']);
