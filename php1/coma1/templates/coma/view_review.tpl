@@ -6,12 +6,12 @@
     <th class="viewheader">Review details of paper:</th>
     <td class="viewheader">{title} by {author_name}</td>
   </tr>
-  <tr class="viewline"> 
+  <tr class="viewline">
     <td class="viewline">
       <span class="emph">Reviewer:</span>
     </td>
     <td class="viewline">
-      <span class="emph">{reviewer_name}</span>      
+      <span class="emph">{reviewer_name}</span>
     </td>
   </tr>
   <tr class="viewline">
@@ -22,14 +22,14 @@
         </tr>
         {crit_lines}
       </table>
-    </td>  
+    </td>
   </tr>
-  <tr class="viewline"> 
+  <tr class="viewline">
     <td class="viewline">
       <span class="emph">Overall rating:</span>
     </td>
     <td class="viewline">
-      <span class="emph">{rating}</span>      
+      <span class="emph">{rating}</span>
     </td>
   </tr>
   <tr class="viewline">
@@ -56,7 +56,7 @@
       {remarks}
     </td>
   </tr>
-  <tr class="viewline"> 
+  <tr class="viewline">
     <td class="viewline">
       <span class="emph">Current average rating:</span>
     </td>

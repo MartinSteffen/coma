@@ -7,5 +7,5 @@
           </td>
           <td class="viewline">
             {comment}
-          </td>          
+          </td>
         </tr>

@@ -39,7 +39,7 @@
       Help</a>
     </td>
   </tr>
-  
+
   <tr>
     <td class="menu"><a href="{basepath}logout_conference.php{?SID}" class="{if6 marked}menu">
       Select Conference</a>

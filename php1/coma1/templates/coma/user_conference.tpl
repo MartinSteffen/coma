@@ -5,7 +5,7 @@
   <tr class="viewline">
     <td class="viewline" colspan="2">{description}&nbsp;</td>
   </tr>
-  <tr class="viewline">    
+  <tr class="viewline">
     <td class="viewline">Takes place at:</td>
     <td class="viewline">{date}&nbsp;</td>
   </tr>
@@ -39,7 +39,7 @@
   <tr class="viewline">
     <td class="viewline">Decide papers until:</td>
     <td class="viewline">{notification}&nbsp;</td>
-  </tr>  
+  </tr>
 </table>
 
 <p>&nbsp;</p>

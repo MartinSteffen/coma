@@ -7,7 +7,7 @@
     <th class="listheader">
       <a href="{basepath}{targetpage}?order=2{&SID}" class="order{if2-active}">Author</a>
     </th>
-    <th class="listheader">Status</th>    
+    <th class="listheader">Status</th>
     <th class="listheader">
       <a href="{basepath}{targetpage}?order=4{&SID}" class="order{if4-active}">Rating</a>
     </th>

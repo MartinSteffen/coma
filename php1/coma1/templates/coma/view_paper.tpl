@@ -41,13 +41,13 @@
       Last edited:
     </td>
     <td class="viewline">{last_edited}&nbsp;</td>
-  </tr>  
+  </tr>
   <tr class="viewline">
     <td class="viewline" width="15%">
       Topics:
     </td>
     <td class="viewline">{topics}&nbsp;</td>
-  </tr>  
+  </tr>
   <tr class="viewline">
     <td class="viewline" colspan="2">
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View paper</a>}
