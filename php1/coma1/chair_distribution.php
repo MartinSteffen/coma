@@ -29,7 +29,7 @@ if (isset($_POST['action'])) {
   if($_POST['action'] != 'confirm' || !isset($_SESSION['dist'])) {
     redirect('chair_reviews.php');
   }
-  $dist = $_SESSION['dist'];
+  //$dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
     print_r($pid.'=>'.$arrR);
 /*    for ($j = 0; $j < count($arrR); $j++) {
@@ -42,6 +42,7 @@ if (isset($_POST['action'])) {
     }*/
     echo('<br>.');
   }
+  unset($dist);
   die(-1);
 }
 else {
