@@ -24,10 +24,16 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-if (!isset($_SESSION['dist'])) {
-  redirect('chair_reviews.php');
-}
-if (isset($_POST['confirm'])) {
+if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
+  if (!isset($_SESSION['dist']) || !isset($_SESSION['dist_check'] ||
+      !isset($_POST['dist_check'] || isset($_POST['dismiss'])) {
+    unset($_SESSION['dist']);
+    unset($_SESSION['dist_check'];
+    redirect('chair_reviews.php');
+  }
+  if ($_POST['dist_check'] != $_SESSION['dist_check']) {
+    error('Conflict.', 'Distribution not updated.');
+  }
   $dist = $_SESSION['dist'];
   reset($dist);
   while ($pid = key($dist)) {
@@ -43,7 +49,8 @@ if (isset($_POST['confirm'])) {
     }
     next($dist);
   }
-  unset($dist);
+  unset($_SESSION['dist']);
+  unset($_SESSION['dist_check']);
   redirect('chair_reviews.php');
 }
 else {
@@ -58,6 +65,10 @@ $content = new Template(TPLPATH.'chair_distributionlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
+$strContentAssocs['lines'] = '';
+// damit man nicht aus zwei Fenstern sich widersprechende Distributions ausfuehren kann:
+$_SESSION['dist_check'] = rand(1, 1000000);
+$strContentAssocs['dist_check'] = $_SESSION['dist_check'];
 if (!empty($dist)) {
   $lineNo = 1;
   $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
