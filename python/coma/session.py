@@ -21,17 +21,24 @@ class Session:
     The sessions are stored in the backend data base.
     """
 
-    def __init__(self, id, user = None, expires = 30*60, time = time.time()):
-	self.id = id
-	self.user = user
-	self.expires = float(expires)
-	self.time = float(time)
+    def __init__(self, row):
+        self.id = row[0]
+        if row[1] == 'None':
+            self.user = None
+        else:
+            self.user = row[1]
+        self.expires = float(row[2])
+        self.time = float(row[3])
 
     def expired(self):
 	"""Check whether the session has already expired."""
 	return time.time() > self.time + self.expires
 
-def _new_sid():
+
+
+
+
+def __new_sid__():
     """Make a number based on current time, pid, remote ip, and two
     random ints, then hash with md5.  This should be fairly unique and
     very difficult to guess."""
@@ -40,17 +47,26 @@ def _new_sid():
     g = random.Random()
     r1 = g.randint(0, 999999)
     r2 = g.randint(0, 999999)
-    ip = "127.0.0.1" # XXXX: This should be obtainable from the environment?
+    ip = "127.0.0.1" # XXX: This should be obtainable from the environment
     return md5.new("%d%d%d%d%s" % (t, pid, r1, r2, ip)).hexdigest()
 
+
+
+
+
 def get(db, sid):
-    """Fetch the user data from the session."""
+    """Fetch the user data from the session.  This function updates the
+    session and returns the new session object."""
     __result__ = db.connection.query(
 	"""SELECT * FROM sessions WHERE sid = '%s';""" % (sid)).getresult()[0]
     if __result__:
-	__result__ = Session(__result__[0], __result__[1], __result__[2])
-	update(db, __result__)
+	__result__ = Session(__result__)
+	__result__ = update(db, __result__)
     return __result__
+
+
+
+
 
 def put(db, session):
     """Put a session into the data base."""
@@ -58,38 +74,66 @@ def put(db, session):
 		    VALUES ('%s', '%s', %s, %s)""" %
 		    (session.id, session.user, session.expires, session.time))
 
-def new(db, expires = 30*60, user = None):
+
+
+
+
+def new(db, _user = None, _expires = 30*60):
     """Create a new session.  By default, sessions expire after 30 Minutes."""
     while True:
-	_result = Session(_new_sid(), user, expires)
+	_result = Session((__new_sid__(), None, _expires, time.time()))
 	try:
-	    put(db, _result)    # Throws an exception if the session-id exists.
+	    put(db, _result)
 	except pg.error:
+            # Session already exists.
 	    raise
 	else:
 	    return _result
+
+
+
+
 
 def delete(db, sid):
     """Delete a session.  Do not check whether this session really
     exists."""
     db.query("DELETE FROM Sessions WHERE sid = %s;" % (sid))
 
-def update(db, session):
-    """Update the time stamp of a session and synchronize the data base."""
-    session.last = time.time()
-    db.query("UPDATE Sessions SET last = %s WHERE sid = '%s';" %
-	     (session.last, session.id))
 
-def change_login(db, session, email):
+
+
+
+def update(db, sid):
+    """Update the time stamp of a session and synchronize the data base."""
+    sid.last = time.time()
+    db.query("UPDATE Sessions SET last = %s WHERE sid = '%s';" %
+	     (sid.last, sid.id))
+    return sid
+
+
+
+
+
+def change_login(db, sid, email):
     """Update the session to mark a user logged in."""
-    session.login = email
-    session.last = time.time()
+    sid.login = email
+    sid.last = time.time()
     db.query("UPDATE Sessions SET login = '%s', last = %s WHERE sid = '%s';" %
-	     (session.login, session.last, session.id))
+	     (sid.login, sid.last, sid.id))
+    sid = get(db, sid.id)
+    return sid
+
+
+
+
 
 def main(db):
     """Test the session manager."""
     print db
+
+
+
+
 
 if (__name__ == "__main__"):
     import comadb

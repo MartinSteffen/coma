@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title>COMA Conference Manager: Log In Failed</title>
+    <title>COMA Conference Manager: Log Out</title>
     <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
   </head>
   <body>
     <table class="actions">%(actions)s</table>
-    <h1>Log In Failed</h1>
-    <p class='error'>CoMa cannot log you in, because %(error)s</p>
+    <h1>Log Out</h1>
+    <p>You are no longer logged in.</p>
     <hr/>
     <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
   </body>

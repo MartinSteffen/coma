@@ -8,8 +8,23 @@
   <body>
     <table class="actions">%(actions)s</table>
     <h1 class="description">CoMa Conference Manager</h1>
-    <p class="description">Welcome %(firstname)s.  Please choose one
-    of the actions on the left hand side.</p>
+    <p class="description">
+      Welcome %(firstname)s.  You can choose one of the actions on the
+      left hand side.  Below you find a summary of your current and
+      past activities.
+    </p>
+    <h2 class="section">Conferences</h2>
+
+    %(conferences)s
+
+    <h2 class="section">Papers</h2>
+
+    %(papers)s
+
+    <h2 class="section">Reviews</h2>
+
+    %(reviews)s
+
     <hr/>
     <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
   </body>

@@ -2,20 +2,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title>COMA Conference Manager: %(title)s</title>
+    <title>COMA Conference Manager: Log In</title>
     <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
   </head>
   <body>
-    <h1>%(title)s</h1>
-    <p>%(error)s</p>
-    <form action="index.py" method="post"
-	  enctype="multipart/form-data">
-      <input type="hidden" name="session" value="%(sid)s"/>
-      <input type="hidden" name="action" value="dologin"/>
+    <h1>Log In</h1>
+    <form action="login.py" method="post" enctype="multipart/form-data">
       <table class="login">
 	<tr>
 	  <td>Your e-mail address</td>
-	  <td><input type="text" name="email"/></td>
+	  <td>
+	    <input type="hidden" name="session" value="%(sid)s"/>
+	    <input type="hidden" name="dologin" value="True"/>
+	    <input type="text" name="email"/>
+	  </td>
 	</tr>
 	<tr>
 	  <td>Your password</td>

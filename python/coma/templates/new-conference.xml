@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>COMA Conference Manager: Create a new conference</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+  </head>
+  <body>
+    <h1>Create a new conference</h1>
+    <p>Please enter the following information.</p>
+    <form action="new-conference.py" method="post"
+	  enctype="multipart/form-data">
+      <table class="login">
+	<tr>
+	  <td>Abbreviation</td>
+	  <td><input type="hidden" name="session" value="%(sid)s"/>
+	  <input type="hidden" name="create-conference" value="True"/>
+	  <input type="text" name="abbreviation"/></td>
+	</tr>
+	<tr>
+	  <td>Name</td>
+	  <td><input type="text" name="name"/></td>
+	</tr>
+	<tr>
+	  <td>Homepage</td>
+	  <td><input type="text" name="homepage"/></td>
+	</tr>
+	<tr>
+	  <td>Abstract Submission Deadline</td>
+	  <td><input type="text" name="abstract-submission-deadline"/></td>
+	</tr>
+	<tr>
+	  <td>Paper Submission Deadline</td>
+	  <td><input type="text" name="paper-submission-deadline"/></td>
+	</tr>
+	<tr>
+	  <td>Review Deadline</td>
+	  <td><input type="text" name="review-deadline"/></td>
+	</tr>
+	<tr>
+	  <td>Notification Deadline</td>
+	  <td><input type="text" name="notification-deadline"/></td>
+	</tr>
+	<tr>
+	  <td>Final Version Deadline</td>
+	  <td><input type="text" name="final-version-deadline"/></td>
+	</tr>
+	<tr>
+	  <td>Conference Start</td>
+	  <td><input type="text" name="conference-start"/></td>
+	</tr>
+	<tr>
+	  <td>Conference End</td>
+	  <td><input type="text" name="conference-end"/></td>
+	</tr>
+	<tr>
+	  <td>Minimum Number of Reviews per Paper</td>
+	  <td><input type="text" name="min-reviews-per-paper"/></td>
+	</tr>
+      </table>
+      <p>
+      <input type="submit" value="Submit"/>
+      <input type="reset"/>
+      </p>
+    </form>
+    <hr/>
+    <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
+  </body>
+</html>

@@ -8,3 +8,4 @@ EXTRA_DIST =	bad-page.xml \
 		submit.xml
 
 MOSTLYCLEANFILES	= *~
+CLEANFILES		= *.pyc *.pyo
