@@ -88,35 +88,37 @@ public class Login extends HttpServlet
 				mysc.setConference(myConference);
 				SearchResult mySR = myReadService.getConference(mysc);
 				info += mySR.getInfo();
-				if(myPerson.getLast_name().equals("admin"))
-				{
+				if(myPerson.isAdmin())	
 					response.sendRedirect("/coma/Admin?action=setup");
-				}	
-				if (mySR != null)
+				else
 				{
-					Conference[] conferencesArray = (Conference[]) mySR.getResultObj();
-					if(conferencesArray.length == 1)
-					{			
-						myConference = conferencesArray[0];
-						session.setAttribute(SessionAttribs.CONFERENCE, myConference);
-						result.append("<success>\n");
-						result.append(myConference.toXML());
-						result.append(myPerson.toXML());
-						result.append("</success>");
-						if (myPerson.isChair())
-							response.sendRedirect("/coma/Chair?action=login");
+					if (mySR != null)
+					{
+						System.out.println("Hallo");
+						Conference[] conferencesArray = (Conference[]) mySR.getResultObj();
+						if(conferencesArray.length == 1)
+						{			
+							myConference = conferencesArray[0];
+							session.setAttribute(SessionAttribs.CONFERENCE, myConference);
+							result.append("<success>\n");
+							result.append(myConference.toXML());
+							result.append(myPerson.toXML());
+							result.append("</success>");
+							if (myPerson.isChair())
+								response.sendRedirect("/coma/Chair?action=login");
+						}
+						else 
+						{
+							session.setAttribute(SessionAttribs.PERSON, null);
+							result.append(XMLHelper.tagged("conf_not_found",conference_id));
+						}
 					}
-					else 
+					else
 					{
 						session.setAttribute(SessionAttribs.PERSON, null);
 						result.append(XMLHelper.tagged("conf_not_found",conference_id));
-					}
+					}	
 				}
-				else
-				{
-					session.setAttribute(SessionAttribs.PERSON, null);
-					result.append(XMLHelper.tagged("conf_not_found",conference_id));
-				}	
 			}
 			else 
 			{
