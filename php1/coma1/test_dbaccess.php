@@ -41,7 +41,7 @@ if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 
-$p->objPreferredPapers[] = false;
+$p->objPreferredPapers[0] = false;
 $myDBAccess->updatePreferredPapers($p, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
