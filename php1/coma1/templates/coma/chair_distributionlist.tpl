@@ -14,19 +14,16 @@
 </p>
 
 <form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
-<table class="list">
-  <tr class="listheader">
-    <th class="listheader">Title</th> 
-    <th class="listheader">Author</th> 
-    <th class="listheader">Suggested reviewers</th>
-  </tr>
-  {lines}
-</table>
-<input type="submit" name="confirm" value="Confirm distribution" class="button">
-<span class="emph">Note:</span> The distribution is obligatory after confirmation.</span>
-</form>
-<form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
+  <table class="list">
+    <tr class="listheader">
+      <th class="listheader">Title</th> 
+      <th class="listheader">Author</th> 
+      <th class="listheader">Suggested reviewers</th>
+    </tr>
+    {lines}
+  </table>
+  <input type="submit" name="confirm" value="Confirm distribution" class="button">
+  <span class="emph">Note:</span> The distribution is obligatory after confirmation.
   <input type="submit" name="dismiss" value="Dismiss distribution" class="button">
-  <span class="emph">Note:</span> You can restart the suggestion process later
-    whenever you want.</span>
+  <span class="emph">Note:</span> You can restart the suggestion process later whenever you want.
 </form>
