@@ -29,7 +29,7 @@ function printMessage($objMessage, $indent = 0) {
 
 $forum = $myDBAccess->getForumDetailed(1);
 if ($forum) {  
-  echo('<b>'.$forum->getThreadCount().' Thread'.
+  echo('<br><b>'.$forum->getThreadCount().' Thread'.
        ($forum->getThreadCount() <> 1 ? 's' : '').
        ' in Forum \''.$forum->strTitle.'\':</b><br><br>');   
   for ($n = 0; $n < $forum->getThreadCount(); $n++) {
