@@ -21,9 +21,7 @@
  <tr>
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
-   <a href="<?=COREURL?>index.php">
-      <img src="<?=TPLURL?>images/logo.jpg" width="150" height="90" border="0" alt="Logo">
-   </a>
+    <img src="<?=TPLURL?>images/logo.jpg" width="150" height="90" border="0" alt="Logo">
   </td>
   <td>
    <table class="header">
@@ -33,9 +31,10 @@
      <!--
       <a href="<?=COREURL?>imprint.php">Imprint</a>&nbsp;|&nbsp;
       <a href="<?=COREURL?>forum.php">Forum</a>&nbsp;|&nbsp;
-      -->
       <a href="<?=COREURL?>logout.php">Logout</a>&nbsp;&nbsp;
       <a href="<?=COREURL?>help.php"><img src="<?=TPLURL?>images/info.gif" width="15" height="15" border="0" alt="Info"></a>
+     -->
+       &nbsp;
      </td>
     </tr>
     <tr>
