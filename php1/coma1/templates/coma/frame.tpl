@@ -48,7 +48,7 @@
     {menu}
   </td>
   <td class="body">
-    <h2>{title}</h2>
+    <h2>{title} ICQ!!</h2>
     {content}
   </td>
  </tr>
