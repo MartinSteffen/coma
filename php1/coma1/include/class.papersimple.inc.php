@@ -25,13 +25,17 @@ class PaperSimple extends Paper {
 
   var $strTitle;
   var $intAuthorId;
+  var $strAuthor; // hinzugefuegt (Tom) (i.d.R. first_name<Space>last_name)
   var $intStatus;
   var $fltAvgRating;
   
-  function PaperSimple($intId, $strTitle, $intAuthorId, $intStatus, $fltAvgRating = 0.0){
+  // strAuthor hinzugefuegt (Tom), bevor andere den alten Konstruktor!
+  // Zur Kenntnis genommen von (bitte eintragen): tos (wenn alle => Kommentar loeschen)
+  function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus, $fltAvgRating = 0.0){
     $this->Paper($intId);
     $this->strTitle = $strTitle;
     $this->intAuthorId = $intAuthorId;
+    $this->strAuthor = $strAuthor;
     $this->intStatus = $intStatus;
     $this->fltAvgRating = $fltAvgRating;
   }

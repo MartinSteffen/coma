@@ -107,6 +107,7 @@ class DBAccess {
    * @return int ID bzw. <b>false</b>, falls keine Person mit E-Mail-Adresse
    *   $strEmail gefunden wurde
    * @access public
+   * @author Sandro, Tom (03.12.04)
    */
   function getPersonIdByEmail($strEmail) {
     $s = 'SELECT  id'.
@@ -125,6 +126,7 @@ class DBAccess {
    * @param int $intPersonId ID der Person
    * @return Person bzw. <b>false</b>, falls keine Person mit ID $intPersonId gefunden wurde
    * @access public
+   * @author Sandro, Tom (03.12.04)
    */
   function getPerson($intPersonId) {
     $s = 'SELECT  id, email, first_name, last_name'.
@@ -149,6 +151,12 @@ class DBAccess {
   }
 
   /**
+   * Liefert ein PersonDetailed-Objekt mit den Daten der Person $intPersonId.
+   *
+   * @param int $intPersonId ID der Person
+   * @return PersonDetailed bzw. <b>false</b>, falls keine Person mit ID $intPersonId gefunden wurde
+   * @access public
+   * @author Sandro, Tom (03.12.04)
    */
   function getPersonDetailed($intPersonId) {
     $s = 'SELECT  id, email, first_name, last_name, title, affiliation,'.
@@ -179,79 +187,106 @@ class DBAccess {
   }
 
   /**
+   * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
+   *
+   * @param int $intAuthorId ID des Autors
+   * @return PaperSimple[] bzw. <b>false</b>, falls keine Paper des Autors
+             $intAuthorId gefunden wurden
+   * @access public
+   * @author Tom (04.12.04)
    */
   function getPapersOfAuthor($intAuthorId) {
+    $s = 'SELECT  id, author_id, title, state'.
+        ' FROM    Paper'.
+        ' WHERE   author_id = '.$intAuthorId;
+    $data = $this->mySql->select($s);
+    if ($data) {
+      var $papers;
+      for ($i = 0; $i < count($data); $i++) {
+      	$reviews = getReviewsOfPaper($data[i]['id']);
+      	$fltAvgRating = 0;
+      	if($reviews != false) {
+      	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
+      	  fltAvgRating = -1;
+        }
+      	$author = getPerson($intAuthorId);
+        $strAuthorName = '';
+      	if($author != false) {
+      	  $strAuthorName = $author->getName();
+        }
+      	$papers[i] = new PaperSimple($data[i]['id'], $data[i]['title'],
+      	               $data[i]['author_id'], $strAuthorName, $data[i]['state'],
+      	               $fltAvgRating);
+      }
+      return $papers;
+    }
     return true;
   }
 
   /**
    */
   function getPapersOfReviewer($intReviewerId) {
-    return true;
+    return false;
   }
 
   /**
    */
   function getPaperDetailed($intPaperId) {
-/*    $s = 'SELECT  id, conference_id, author_id, title, abstract, last_edited,'.
-        '         version, filename, state, mime_type'.
-        ' FROM    Paper'.
-        ' WHERE   id = '.$intPersonId;*/
     return false;
   }
 
   /**
    */
   function getReviewsOfReviewer($intReviewerId) {
-    return true;
+    return false;
   }
 
   /**
    */
   function getReviewersOfPaper($intPaperId) {
-    return true;
+    return false;
   }
 
   /**
    */
   function getReviewsOfPaper($intPaperId) {
-    return true;
+    return false;
   }
 
   /**
    */
   function getReviewDetailed($intReviewId) {
-    return true;
+    return false;
   }
 
   /**
    */
   function checkAccessToForum($intForumId) {
-    return true;
+    return false;
   }
 
   /**
    */
   function getAllForums() {
-    return true;
+    return false;
   }
 
   /**
    */
   function getForumOfPaper($intPaperId) {
-    return true;
+    return false;
   }
 
   /**
    */
   function getForumsOfUser($strUserEmail) {
-    return true;
+    return false;
   }
 
   /**
    */
   function getForumDetailed($intForumId) {
-    return true;
+    return false;
   }
 
 }

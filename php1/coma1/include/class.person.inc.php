@@ -39,6 +39,31 @@ class Person {
     return (($this->intRoles & (1 << $intRole)) != 0);
   }
   
+  /**
+   * Liefert den vollstaendigen Namen der Person wahlweise in der Form
+   * "Vorname Nachname" ($intStyle = 0) oder "Nachname, Vorname" ($intStyle = 1).
+   *
+   * @param int $intStyle (optional) (0 oder 1) Art der Ausgabe
+   * @return Name der Person
+   * @access public
+   * @author Tom (04.12.04)
+   */
+  function getName($intStyle = 0) {
+    // erstmal ganz billig; spaeter Pruefung auf leere Strings usw.
+    var $ret;
+    switch($intStyle) {
+      case 0:
+        $ret = $strFirstName.' '.$strLastName;
+        break;
+      case 1:
+        $ret = $strLastName.', '.$strFirstName;
+        break;
+      default:
+        $ret = 'Ungueltiger Parameterwert fuer $intStyle in Person.getName().';
+    }
+    return $ret;
+  }
+  
 } // end class Person
 
 ?>

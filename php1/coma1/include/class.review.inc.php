@@ -26,8 +26,8 @@ class Review {
   var $strPaperTitle;
   var $strAuthorEmail;
   var $strAuthorName;
-  var $intReviewRating;
-  var $intAverageRating;
+  var $fltReviewRating; // die Gesamtbewertung (Durchschnitt der Einzelnoten) eines Reviewers? (Tom; auf flt geaendert)
+  var $fltAverageRating; // der Durchschnitt aller Gesamtbewertungen des Papers? (Tom; auf flt geaendert)
   var $strReviewerEmail;
   var $strReviewerName;
   
@@ -37,8 +37,8 @@ class Review {
     $this->strPaperTitle = $papertitle;
     $this->strAuthorEmail = $authoremail;
     $this->strAuthorName = $authorname;
-    $this->intReviewRating = $reviewrating;
-    $this->intAverageRating = $averagerating;
+    $this->fltReviewRating = $reviewrating;
+    $this->fltAverageRating = $averagerating;
     $this->strReviewerEmail = $revieweremail;
     $this->strReviewerName = $reviewername;
   }
