@@ -25,6 +25,9 @@ echo('<br>Test:');
 
 
 $myDBAccess->getAverageRatingOfPaper(3);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
 
 /*$p = $myDBAccess->addConference('Neue Conf', 'http', '', '', '', '', '', '', '', '',
                                 2, 4, 20, 25, 0.5, false,  true, true, 1,
