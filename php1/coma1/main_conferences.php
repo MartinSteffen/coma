@@ -29,14 +29,16 @@ if (!empty($objConferences)) {
   foreach ($objConferences as $objConference) {
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
     $ifArray = array();
-    if ($objPerson->hasAnyRole()) {
-      $ifArray[] = 1;
-    }
-    if (!($objPerson->hasRole(AUTHOR))) {
-      $ifArray[] = 2;
-    }
-    if (!($objPerson->hasRole(PARTICIPANT))) {
-      $ifArray[] = 3;
+    if (!empty($objPerson)) {
+      if ($objPerson->hasAnyRole()) {
+        $ifArray[] = 1;
+      }
+      if (!($objPerson->hasRole(AUTHOR))) {
+        $ifArray[] = 2;
+      }
+      if (!($objPerson->hasRole(PARTICIPANT))) {
+        $ifArray[] = 3;
+      }
     }
     $strItemAssocs['if'] = $ifArray;    
     $strItemAssocs['line_no'] = $lineNo;
