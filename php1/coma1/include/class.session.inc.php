@@ -98,7 +98,7 @@ class Session {
   */
   function sessionOpen($strSavePath, $strSessName) {
     $this->strSessName = $strSessName;
-    $this->sessionGC($this->intMaxLifeTime);
+    //$this->sessionGC($this->intMaxLifeTime);
     return true;
   }
 
@@ -107,7 +107,7 @@ class Session {
   * @access private
   */
   function sessionClose() {
-    $this->sessionGC($this->intMaxLifeTime);
+    //$this->sessionGC($this->intMaxLifeTime);
     return true;
   }
 
