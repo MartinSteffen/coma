@@ -40,4 +40,6 @@
 
 <p>&nbsp;</p>
 
-Return to the <a href="{basepath}chair_papers.php{?SID}" class="link">paper overview</a>.
+<p class="message2">
+  Return to the <a href="javascript:history.back()" class="link">last page</a>.
+</p>
