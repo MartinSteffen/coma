@@ -254,7 +254,7 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] == NEUTRAL) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = PREF;
-          $color[$i][$pindex] = '006600';
+          $color[$i][$pindex] = '009900';
         }
       }
       // Gewuenschte Paper
