@@ -4,7 +4,7 @@ Figure~\ref{fig:classdiagram}).
 
 \begin{figure}[htbp]
   \centering
-%  \includegraphics[height=12cm]{../sql/db_schema}
+  \includegraphics[height=12cm]{../sql/db_schema}
   \caption{Class diagram}
   \label{fig:classdiagram}
 \end{figure}
@@ -356,7 +356,29 @@ author.
 
 
 
-\lstinputlisting[caption=Rating of papers,label=code:sql.criterionandrating,firstline=202,lastline=230]{../sql/db_schema.sql}%
+The structures for grading of a submission, i.e., the not-so-free-form of
+the review report, is shown in Listing~\ref{code:sql.criterionandrating}.
+In a simular way that the organizes of a conference can choose a number of
+topics that they wish to be treated in the conference, they can choose a
+rating schema to assure that the ``best'' papers are selected.
+\index{rating}%
+This involves a number of categories, the \emph{criteria,} according to
+which the papers are to be judged. Typical examples are \emph{technical
+  soundness,} \emph{relevance to the conference,} \emph{originality/novelty
+  of contribution,} \emph{writing style} etc. The table \texttt{Criterion}
+represents the possible criteria chosen for a conference, where the field
+\texttt{name} represents the human understandable string characterizing the
+criterion, and \texttt{description} is used for some more explanatory text
+about the criterion (for instance, whether a small value is better than a
+high value or other information which helps the reviewer). The criteria are
+all represented by numerical values, and \texttt{max\_value} gives the
+maximal possible value.
+
+The rating of a paper (cf. table \texttt{Rating})
+
+
+ 
+\lstinputlisting[caption=Rating of papers,label=code:sql.criterionandrating,firstline=204,lastline=230]{../sql/db_schema.sql}%
 
 
 
