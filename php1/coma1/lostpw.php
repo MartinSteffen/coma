@@ -85,7 +85,7 @@ elseif (isset($_GET['id']) && isset($_GET['key'])) {
     $mail->assign($strMailAssocs);
     $mail->parse();
     if (sendMail($uid, 'New Password', $mail->getOutput())) {
-      session['message'] = 'An Email with yournew Password has been sent to you!';
+      $_SESSION['message'] = 'An Email with your new Password has been sent to you!';
       redirect('index.php');
     }
     else {
