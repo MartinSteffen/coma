@@ -135,7 +135,7 @@ if (isset($_POST['action'])) {
     $noErrors = true; 
     if (empty($_POST['name'])        || empty($_POST['start_date']) ||
         empty($_POST['abstract_dl']) || empty($_POST['paper_dl'])   || 
-        empty($_POST['review_dl'])   || empty($_POST['final_dl'])   ||  ) {
+        empty($_POST['review_dl'])   || empty($_POST['final_dl'])) {
       $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start date</b>, '.
                     'and the <b>Deadline</b> fields!';
       $noErrors = false;
