@@ -11,7 +11,7 @@
   <span class="emph">The review phase is over.</span>
   So, accept or deny papers for the conference accordingly to their rating.<br>
   If you have made your decisions which papers to accept, click here to
-  <a href="{basepath}notify_accepted.php{&SID}" class="mail">notify all reviewers and authors by mail</a>
+  <a href="{basepath}notify_accepted.php{&SID}" class="email">notify all reviewers and authors by mail</a>
   about the accepted papers.
 </p>}
 
