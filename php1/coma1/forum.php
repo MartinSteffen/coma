@@ -43,7 +43,8 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   foreach ($forums as $forum){
     $forum = new Template(TPLPATH . 'forum.tpl');
     $forumassocs = defaultAssocArray();
-    if ($forumselection[$forum->intId]){
+    $fid = $forum->intId;
+    if ($forumselection[$fid]){
       $forumassocs['selectorunselect'] = 'forumunsel';
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
