@@ -95,13 +95,14 @@ input.button, button { background-color: #CEDBEF; min-width: 100px; text-align: 
 table.list { border-style: solid;
              border-width: 1px;
              border-color: #000000;
+             font-size: 12px; 
              margin: 6px 10px;
              padding: 8px;
              background-color: #F7FBFF;
            }
-th.list       { text-align: left; font-weight: bold; background-color: #DBE9EC; }
-tr.listitem-1 { text-align: left; background-color: #E0E8FF; border-bottom: 1px solid #DBE9EC; }
-tr.listitem-2 { text-align: left; background-color: #D0D8FF; border-bottom: 1px solid #DBE9EC; }
+th.list       { text-align: left; font-size: 12px; font-weight: bold; background-color: #DBE9EC; }
+tr.listitem-1 { text-align: left; font-size: 12px; background-color: #E8E8EF; }
+tr.listitem-2 { text-align: left; font-size: 12px; background-color: #D8D8E0; }
 
 a.list:link    { color: #000000; }
 a.list:visited { color: #000000; }
