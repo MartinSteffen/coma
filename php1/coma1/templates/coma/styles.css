@@ -144,6 +144,19 @@ a.order-active {
   background-repeat: no-repeat;
   background-position: left;
 }
+a.buttonlink {
+{
+  /*font-family: Verdana, Arial, Sans-Serif;*/
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #CEDBEF;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #404040;
+  margin: 1px 4px;    
+  padding: 2px 8px;
+}
 
 /* Allgemeine Tabellen und Formulare */
 table, form
