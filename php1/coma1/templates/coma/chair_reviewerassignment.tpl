@@ -10,7 +10,7 @@
 
 <table class="list">
   <tr class="listheader">
-    <th class="listheader">Available reviewers:</th>
+    <th class="listheader" colspan="2">Available reviewers:</th>
     <th class="listheader">Attitudes</th>
     <th class="listheader">Preferred topics</th>
   </tr>
