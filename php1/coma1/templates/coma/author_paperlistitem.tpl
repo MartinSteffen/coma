@@ -10,7 +10,7 @@
       {if3<span class="status-accepted">accepted</span>}
       {if4<span class="status-rejected">rejected</span>}      
     </td>
-    <td class="listitem-{line_no}">{avg_rating}/{max_rating}</td>  
+    <td class="listitem-{line_no}">{avg_rating}</td>  
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
       {if5<button name="viewpaper" type="button" class="smallbutton" value="view paper"

@@ -12,8 +12,8 @@
       {if3<span class="status-accepted">accepted</span>}
       {if4<span class="status-rejected">rejected</span>}      
     </td>
-    <td class="listitem-{line_no}">{rating}/{max_rating}</td>
-    <td class="listitem-{line_no}">{avg_rating}/{max_rating}</td>    
+    <td class="listitem-{line_no}">{rating}</td>
+    <td class="listitem-{line_no}">{avg_rating}</td>    
   </tr>
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}" colspan="5">

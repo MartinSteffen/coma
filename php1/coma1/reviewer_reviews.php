@@ -39,9 +39,8 @@ if (!empty($objReviews)) {
     else if (!empty($objPaper)) {
       $ifArray[] = $objPaper->intStatus;
     }    
-    $strItemAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 10) / 10);
-    $strItemAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 10) / 10);
-    $strItemAssocs['max_rating'] = encodeText('TODO');    
+    $strItemAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
+    $strItemAssocs['avg_rating'] = encodeText(round($objReview->fltAverageRating * 100).'%');
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
     $paperItem->assign($strItemAssocs);

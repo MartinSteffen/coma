@@ -22,7 +22,7 @@
   </tr>
   <tr> 
     <td><span class="emph">Overall rating:</span></td>
-    <td><input type="text" size="2" name="total_rating" value="{rating}">/{max_rating}</td>
+    <td><input type="text" size="2" name="total_rating" value="{rating}"> %</td>
   </tr>
   <tr>
     <td>
