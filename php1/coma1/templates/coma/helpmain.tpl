@@ -1,7 +1,11 @@
-<table class="list">
-  <tr class="listitem-1">
-     <td class="listheader"> 
-      TODO: Sch&ouml;ner langer Hilfe Text, der allen m&ouml;glichen Scheiss erkl&auml;rt. BLA BLA BLA
+<table class="viewtable">
+  <tr class="viewheader">
+     <th class="viewheader">&nbsp;</th>
+  </tr>
+  <tr class="viewline">
+     <td class="viewline"> 
+      TODO: Sch&ouml;ner langer Hilfetext, der allen m&ouml;glichen Schei&szlig; erkl&auml;rt.<br>
+      BLA BLA BLA
       <br>
       <br>
       <br>
