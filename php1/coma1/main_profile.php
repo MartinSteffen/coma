@@ -43,7 +43,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
       error('Check e-mail failed.', $myDBAccess->getLastError());
     }
     $strMessage = 'Account with the given E-mail address is already existing! '.
-                  'Please use enter another E-mail address!';
+                  'Please use another E-mail address!';
   }
   else {
     $objPerson->strFirstName   = $_POST['first_name'];
@@ -68,6 +68,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
         // Datenbankfehler?
         error('Error during updating account.', $myDBAccess->getLastError());
       }
+      updatePersonPassword....
     }
   }
 }

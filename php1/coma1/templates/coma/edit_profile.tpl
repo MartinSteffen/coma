@@ -9,6 +9,22 @@
   </tr>
   <tr>
     <td>
+      Password:
+    </td>
+    <td>
+      <input type="password" name="password1" size="48" maxlength="127" value="not changed">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Password:
+    </td>
+    <td>
+      <input type="password" name="password2" size="48" maxlength="127" value="not changed">
+    </td>
+  </tr>
+  <tr>
+    <td>
       First name:
     </td>
     <td>

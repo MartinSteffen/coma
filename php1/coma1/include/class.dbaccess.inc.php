@@ -1846,6 +1846,30 @@ nur fuer detaillierte?
     return $this->success(true);
   }
 
+  /**
+   * Aendert fuer die Person mit der Id $intPersonId in der Datenbank das 
+   * Passwort.
+   *
+   * @param int $intPersonId Person, die in der Datenbank aktualisiert werden soll
+   * @param string $strPassword Das neue Passwort.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte.
+   * @access public
+   * @author Jan (31.01.05)
+   */
+  function updatePersonPassword($intPersonId, $strPassword) {
+    $s = sprintf("UPDATE   Person".
+                 " SET     password = '%s'".
+                 " WHERE   id = '%d'",
+                           s2db($intPersonId),
+                           s2db($strPassword));
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updatePersonPassword', $this->mySql->getLastError());
+    }
+    return $this->success(true);
+  }
+
+
   function acceptRole($intPersonId, $intRoleId, $intConferenceId) {
     $s = sprintf("UPDATE   Role".
                  " SET     state = ''".
