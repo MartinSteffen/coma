@@ -116,6 +116,6 @@
 </form>
 
 <p class="message2">
-  Dates are usually in the <b>mm/dd/yyyy</b> format! eg <b>01/05/2005</b>.<br>
-  But lots of other formats are accepted, too. (eg <b>today</b>)
+  Dates should be entered in common U.S. writing <b>mm/dd/yyyy</b>! eg <b>01/15/2005</b>.<br>
+  But lots of other formats are accepted, too. (eg <b>Jan 15, 2005</b>)
 </p>
