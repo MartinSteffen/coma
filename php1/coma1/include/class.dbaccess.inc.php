@@ -537,7 +537,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (17.12.04)
    */
   function getTopicsOfPaper($intPaperId) {
-    $s = "SELECT  t.id, t.name2.
+    $s = "SELECT  t.id, t.name2".
         " FROM    Topic AS t".
         " INNER   JOIN IsAboutTopic AS a".
         " ON      a.topic_id = t.id".
