@@ -16,6 +16,7 @@ if (!defined('INCPATH')) {
 require_once(INCPATH.'class.mysql.inc.php');
 
 require_once(INCPATH.'class.conference.inc.php');
+require_once(INCPATH.'class.conferencedetailed.inc.php');
 require_once(INCPATH.'class.criterion.inc.php');
 require_once(INCPATH.'class.forum.inc.php');
 require_once(INCPATH.'class.forumdetailed.inc.php');
