@@ -23,24 +23,24 @@ $ifArray = array();
 if (isset($_POST['action'])) {
 
   // Konvertiere Zeit-Daten in was sinnvolles
-  $abstract_dl = empty($_POST['abstract_dl']) ? '' : date('d.M Y',strtotime($_POST['abstract_dl']));
-  $paper_dl = empty($_POST['paper_dl']) ? '' : date('d.M Y',strtotime($_POST['paper_dl']));
-  $review_dl = empty($_POST['review_dl']) ? '' : date('d.M Y',strtotime($_POST['review_dl']));
-  $final_dl = empty($_POST['final_dl']) ? '' : date('d.M Y',strtotime($_POST['final_dl']));
-  $notification = empty($_POST['notification']) ? '' : date('d.M Y',strtotime($_POST['notification']));
-  echo $start_date = empty($_POST['start_date']) ? '' : date('d.M Y',strtotime($_POST['start_date']));
-  $end_date = empty($_POST['end_date']) ? '' : date('d.M Y',strtotime($_POST['end_date']));
+  $abstract_dl = empty($_POST['abstract_dl']) ? '' : strtotime($_POST['abstract_dl']);
+  $paper_dl = empty($_POST['paper_dl']) ? '' : strtotime($_POST['paper_dl']);
+  $review_dl = empty($_POST['review_dl']) ? '' : strtotime($_POST['review_dl']);
+  $final_dl = empty($_POST['final_dl']) ? '' : strtotime($_POST['final_dl']);
+  $notification = empty($_POST['notification']) ? '' : strtotime($_POST['notification']);
+  $start_date = empty($_POST['start_date']) ? '' : strtotime($_POST['start_date']);
+  $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
-  $strContentAssocs['start_date']       = encodeText($start_date);
-  $strContentAssocs['end_date']         = encodeText($end_date);
-  $strContentAssocs['abstract_dl']      = encodeText($abstract_dl);
-  $strContentAssocs['paper_dl']         = encodeText($paper_dl);
-  $strContentAssocs['review_dl']        = encodeText($review_dl);
-  $strContentAssocs['final_dl']         = encodeText($final_dl);
-  $strContentAssocs['notification']     = encodeText($notification);
+  $strContentAssocs['start_date']       = encodeText(date('d.M Y',$start_date));
+  $strContentAssocs['end_date']         = encodeText(date('d.M Y',$end_date));
+  $strContentAssocs['abstract_dl']      = encodeText(date('d.M Y',$abstract_dl));
+  $strContentAssocs['paper_dl']         = encodeText(date('d.M Y',$paper_dl));
+  $strContentAssocs['review_dl']        = encodeText(date('d.M Y',$review_dl));
+  $strContentAssocs['final_dl']         = encodeText(date('d.M Y',$final_dl));
+  $strContentAssocs['notification']     = encodeText(date('d.M Y',$notification=);
   $strContentAssocs['min_reviews']      = encodeText($_POST['min_reviews']);
   $strContentAssocs['def_reviews']      = encodeText($_POST['def_reviews']);
   $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
@@ -143,7 +143,7 @@ if (isset($_POST['action'])) {
       $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
                     'and <b>Deadlines</b>!';
     }
-    elseif ($end_dl > $start_dl) {
+    elseif ($end_date > $start_date) {
       $strMessage = 'Your Start Date should be before your End Date!';
     }
     elseif ($abstract_dl > $paper_dl) {
@@ -151,13 +151,13 @@ if (isset($_POST['action'])) {
     }
       
       
-/*$abstract_dl = date('d.M Y',strtotime($_POST['abstract_dl']));
-$paper_dl = date('d.M Y',strtotime($_POST['paper_dl']));
-$review_dl = date('d.M Y',strtotime($_POST['review_dl']));
-$final_dl = date('d.M Y',strtotime($_POST['final_dl']));
-$notification = date('d.M Y',strtotime($_POST['notification']));
-$start_date = date('d.M Y',strtotime($_POST['start_date']));
-$end_date = date('d.M Y',strtotime($_POST['end_date']));
+/*$abstract_dl = strtotime($_POST['abstract_dl']));
+$paper_dl = strtotime($_POST['paper_dl']));
+$review_dl = strtotime($_POST['review_dl']));
+$final_dl = strtotime($_POST['final_dl']));
+$notification = strtotime($_POST['notification']));
+$start_date = strtotime($_POST['start_date']));
+$end_date = strtotime($_POST['end_date']));
                   'Abstract deadline &lt; Paper deadline &lt; '.
                   'Final version deadline &lt; Start date,<br>'.
                   'and: Paper deadline &lt; Review deadline &lt; Notification &lt; Start date.';
@@ -168,13 +168,13 @@ $end_date = date('d.M Y',strtotime($_POST['end_date']));
       $result = $myDBAccess->addConference($_POST['name'],
                                            $_POST['homepage'],
                                            $_POST['description'],
-                                           $abstract_dl,
-                                           $paper_dl,
-                                           $review_dl,
-                                           $final_dl,
-                                           $notification,
-                                           $start_date,
-                                           $end_date,
+                                           date('Y-m-d', $abstract_dl),
+                                           date('Y-m-d', $paper_dl),
+                                           date('Y-m-d', $review_dl),
+                                           date('Y-m-d', $final_dl),
+                                           date('Y-m-d', $notification),
+                                           date('Y-m-d', $start_date),
+                                           date('Y-m-d', $end_date),
                                            $_POST['min_reviews'],
                                            $_POST['def_reviews'],
                                            $_POST['min_papers'],
@@ -194,8 +194,8 @@ $end_date = date('d.M Y',strtotime($_POST['end_date']));
         // Erfolg (also anderes Template)
         $content = new Template(TPLPATH.'confirm_conference.tpl');
         $strContentAssocs['return_page'] = 'main_conferences.php';
-        $objConference = new Conference(0, '', '', '', $start_date, $end_date);
-        $strContentAssocs['date'] = encodeText($objConference->getDateString());
+        //$objConference = new Conference(0, '', '', '', $start_date, $end_date);
+        $strContentAssocs['date'] = 'TODO';
         $ifArray = array();
       }
     }
