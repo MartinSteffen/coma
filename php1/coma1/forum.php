@@ -159,11 +159,11 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
 }
 
 function displayMessages($messages, $msgselection, $selected, $forumid, $assocs){
+  if (DEBUG){
+    echo('Messages: ' . count($messages));
+  }
   $tempstring = '';
   foreach ($messages as $message){
-    if (DEBUG){
-      echo('Messages: ' . count($messages));
-    }
     $messagetemplate = new Template(TPLPATH . 'message.tpl');
     $messageassocs = defaultAssocArray();
     $sender = $myDBAccess->getPerson($message->intSender);
