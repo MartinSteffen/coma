@@ -69,9 +69,11 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-		QUERY = "SELECT * FROM Person ";
+		QUERY = "SELECT DISTINCT Person.* FROM Person ";
+		boolean tmp = false;
 		if(p.getRole_type() != null && p.getRole_type().length > 0){
 			QUERY += ", Role ";
+			tmp = true;
 		}
 		QUERY += " WHERE ";
 		boolean idFlag = false;
@@ -84,6 +86,9 @@ public class ReadServiceImpl extends Service implements ReadService {
 		if (p.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
+			if(tmp){
+				QUERY += " AND Person.id = Role.person_id ";
+			}
 		} else {
 			if (p.getEmail() != null) {
 				QUERY += " email = ? ";
@@ -161,9 +166,9 @@ public class ReadServiceImpl extends Service implements ReadService {
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
+					
 					while (resSet.next()) {
-						ll.add(eCreater.getPerson(resSet));
-					}
+						ll.add(eCreater.getPerson(resSet));					}
 					resSet.close();
 					resSet = null;
 					pstmt.close();
@@ -203,7 +208,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 		if (conn != null) {
 			if (role_type.length > 0) {
-				String QUERY = "SELECT *  FROM Person, Role WHERE "
+				String QUERY = "SELECT DISTINCT Person.*  FROM Person, Role WHERE "
 						+ " Role.role_type IN (";
 				for (int i = 0; i < role_type.length; i++) {
 					QUERY += role_type[i];
@@ -258,7 +263,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Conference must not be null\n");
 			ok = false;
 		}
-		String QUERY = "SELECT * FROM Conference ";
+		String QUERY = "SELECT DISTINCT * FROM Conference ";
 
 		boolean idFlag = false;
 		if (c.getId() > 0) {
@@ -334,14 +339,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Paper must not be null\n");
 			ok = false;
 		}
-		String QUERY = "SELECT * FROM Paper " + " WHERE ";
+		String QUERY = "SELECT DISTINCT * FROM Paper " + " WHERE ";
 		boolean idFlag = false;
 		boolean conferenceIdFlag = false;
 		boolean authorIdFlage = false;
 		boolean stateFlag = false;
 		boolean allFlag = false;
 		if (p.getId() == -2) {
-			QUERY = "SELECT * FROM Paper";
+			QUERY = "SELECT DISTINCT * FROM Paper";
 			allFlag = true;
 		} else {
 			if (p.getId() > 0) {
@@ -374,7 +379,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 					sql_and = true;
 				}
 			}
-			System.out.println(QUERY);
 		}
 		if (!(idFlag || allFlag || conferenceIdFlag || authorIdFlage || stateFlag)) {
 			info.append("No search critera was specified\n");

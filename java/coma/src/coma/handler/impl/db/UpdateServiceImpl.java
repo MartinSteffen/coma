@@ -40,9 +40,9 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 			ok = false;
 			info.append("ERROR: person must not be null\n");
 		}
-		if (ok && (person.getEmail() == null || person.getEmail().equals(""))) {
+		if (ok && person.getId() <= 0 && person.getEmail() == null) {
 			ok = false;
-			info.append("ERROR: person[email] must not be null");
+			info.append("ERROR: person[id || email] must not be null");
 		}
 		if (ok) {
 			try {
@@ -58,17 +58,17 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 			try {
 				String UPDATE_QUERY = "UPDATE Person SET "
 						+ "first_name = ?, last_name = ?, title = ?, affiliation = ?,"
-						+ "email = ?, phone_number = ?, fax_number = ?, street = ?,"
+						+ "phone_number = ?, fax_number = ?, street = ?,"
 						+ "postal_code = ?, city = ?, state = ?, country = ? "
 						+ " WHERE " + person.getId() + " OR Email = '"
 						+ person.getEmail() + "'";
 				int pstmtCounter = 0;
+				conn.setAutoCommit(false);
 				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
 				pstmt.setString(++pstmtCounter, person.getFirst_name());
 				pstmt.setString(++pstmtCounter, person.getLast_name());
 				pstmt.setString(++pstmtCounter, person.getTitle());
 				pstmt.setString(++pstmtCounter, person.getAffiliation());
-				pstmt.setString(++pstmtCounter, person.getEmail());
 				pstmt.setString(++pstmtCounter, person.getPhone_number());
 				pstmt.setString(++pstmtCounter, person.getFax_number());
 				pstmt.setString(++pstmtCounter, person.getStreet());
@@ -78,16 +78,20 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				pstmt.setString(++pstmtCounter, person.getCountry());
 
 				int affRows = pstmt.executeUpdate();
-				pstmt.close();
-				if (affRows != 1 && ok) {
+				if (affRows <= 0) {
 					info.append("ERROR: Dataset could not be updated\n");
 					conn.rollback();
+					result.SUCCESS = false;
+				}else{
+					result.SUCCESS = true;
 				}
 			} catch (SQLException e) {
+				System.out.println(e);
 				info.append("ERROR: " + e.toString() + "\n");
 			} finally {
 				if (conn != null) {
 					try {
+						conn.setAutoCommit(true);
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
@@ -182,9 +186,9 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		if (ok) {
 			try {
 				String UPDATE_QUERY = "UPDATE Paper SET "
-						+ " author_id = ? , title = ?, abstract = ?,"
-						+ " filename = ?, state = ?, mime_type = ?" 
-						+ " WHERE id = "+paper.getId();
+						+ " author_id ? , title = ?, abstract = ?,"
+						+ " filename = ?, state = ?, mime_typen = ?"
+						+ " WHERE id = " + paper.getId();
 				int pstmtCounter = 0;
 				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
 				pstmt.setInt(++pstmtCounter, paper.getAuthor_id());
@@ -193,7 +197,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				pstmt.setString(++pstmtCounter, paper.getFilename());
 				pstmt.setInt(++pstmtCounter, paper.getState());
 				pstmt.setString(++pstmtCounter, paper.getMim_type());
-				
+
 				int affRows = pstmt.executeUpdate();
 				pstmt.close();
 				if (affRows != 1 && ok) {
@@ -354,16 +358,16 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				String UPDATE_QUERY = "UPDATE Paper SET "
-						+ " review_id ="+rating.get_review_id()
-						+ " ,criterion_id ="+rating.getCriterionId()
-						+ " ,grade = "+rating.getGrade()
-						+ " ,comment = "+rating.getComment()
-						+ " WHERE review_id = "+rating.get_review_id()
-						+ "  AND criterion_id = "+rating.get_criterion_id();
+				String UPDATE_QUERY = "UPDATE Paper SET " + " review_id ="
+						+ rating.get_review_id() + " ,criterion_id ="
+						+ rating.getCriterionId() + " ,grade = "
+						+ rating.getGrade() + " ,comment = "
+						+ rating.getComment() + " WHERE review_id = "
+						+ rating.get_review_id() + "  AND criterion_id = "
+						+ rating.get_criterion_id();
 				int pstmtCounter = 0;
 				Statement stmt = conn.createStatement();
-				
+
 				int affRows = stmt.executeUpdate(UPDATE_QUERY);
 				stmt.close();
 				if (affRows != 1 && ok) {

@@ -6,6 +6,8 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Category;
 
 import coma.entities.Conference;
+import coma.entities.Person;
+import coma.entities.SearchResult;
 import coma.handler.impl.db.UpdateServiceImpl;
 
 /**
@@ -25,7 +27,7 @@ public class UpdateServiceTest extends TestCase{
 		Conference conference = new Conference();
 		conference.setId(3);
 		//TODO set more properties
-		update.updateConference(conference);
+		//update.updateConference(conference);
 		
 		//TODO do some assertions
 	}
@@ -39,7 +41,12 @@ public class UpdateServiceTest extends TestCase{
 	}
 	
 	public void testUpdatePerson(){
-		//TODO
+		Person p = new Person(126);
+		p.setLast_name("Mustermann126");
+		p.setFirst_name("Max126");
+		SearchResult sr = update.updatePerson(p);
+		System.out.println(sr.SUCCESS+ "  "+sr.getInfo());
+		
 	}
 	
 	public void testUpdateRating(){

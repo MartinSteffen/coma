@@ -48,7 +48,7 @@ public class ReadServiceTest extends TestCase{
 		
 		Conference[] conferences = (Conference[])objResult;	
 		for (int i = 0; i < conferences.length; i++) {
-			log.debug(conferences[i].toString());	
+			log.debug(conferences[i].toXML());	
 		}
 	}
 	
@@ -57,13 +57,13 @@ public class ReadServiceTest extends TestCase{
 		if(!run){
 			return;
 		}
-		Person p = new Person(-11);
-		p.setFirst_name("Myname0");
-		p.setLast_name("Surname0");
+		Person p = new Person(1);
+		//p.setFirst_name("Myname0");
+		//p.setLast_name("Surname0");
 		//p.setEmail("test10@web.com");
 		int[] role = new int[3];
 		role[0] = 0; role[1] = 1; role[2] = 2; 
-		p.setRole_type(role);
+		//p.setRole_type(role);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPerson(p);
 		
@@ -71,8 +71,9 @@ public class ReadServiceTest extends TestCase{
 		Object objResult = result.getResultObj();
 		
 		Person[] persons = (Person[])objResult;	
+		System.out.println(persons.length);
 		for (int i = 0; i < persons.length; i++) {
-			System.out.println(persons[i].toXML());	
+			log.debug(persons[i].toXML());	
 		}
 		System.out.println("----------------------------");
 		
@@ -91,6 +92,8 @@ public class ReadServiceTest extends TestCase{
 			return;
 		}
 		int[] role_type = new int[2];
+		role_type[0] = 0;
+		role_type[1] = 2;
 		int conference_id = 1;
 		SearchResult result = read.getPersonByRole(role_type, conference_id);
 		Object objResult = result.getResultObj();
@@ -107,7 +110,7 @@ public class ReadServiceTest extends TestCase{
 		}
 		
 		Paper p = new Paper(-1);
-		p.setAuthor_id(127);
+		p.setAuthor_id(136);
 		p.setConference_id(1);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPaper(p);
