@@ -94,10 +94,9 @@ foreach($TPL as $key => $value) {
 				</td>
 			</tr>
 			<tr>
-				<td class="textBold" style="color:red">
+				<td class="textBold">
 			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $v['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!');" class="author"><font style="color:red">DELETE PAPER</font></a>
-				</td>
-				<td class="textBold" style="color:green">
+			&nbsp; &nbsp; 
 			<a href="index.php?m=author&a=edit&s=form&pid=<? echo $v['id']; ?>" class="author"><font style="color:green">EDIT PAPER</font></a>
 				</td>
 			</tr>
