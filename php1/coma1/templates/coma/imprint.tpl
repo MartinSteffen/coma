@@ -17,6 +17,8 @@
      3. Angaben zu den Copyrights der eingesandten Paper<br>
      4. (bin ich Anwalt oder was??)
     </td>
+  </tr>
+  <tr class="viewline">
     <td class="viewline"> 
       THIS SOFTWARE IS PROVIDED BY THE COMA1 DEVELOPMENT TEAM ``AS IS'' AND 
       ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
