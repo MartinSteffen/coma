@@ -1201,25 +1201,23 @@ class DBAccess extends ErrorHandling {
 
   /**
    * Legt eine neue Konferenz an.
-   * @param $strName                   :max. 127 Zeichen
-   * @param $strHomepage               :max. 127 Zeichen
-   * @param $strDescription
-   * @param $strAbsSubDeadline         :?
-   * @param $strPaperSubDeadline       :?
-   * @param $strReviewDeadline         :?
-   * @param $strFinalVersionDeadline   :?
-   * @param $strNotification           :?
-   * @param $strConverenceStart        :?
-   * @param $strConferenceEnd          :?
-   * @param $strMinRevPerPaper         :?
    *
-   * Datum wird uebergeben im Format Jahr-Monat-Tag z.B. 2012115
+   * @param string $strName                 Name der Konferenz
+   * @param string $strHomepage             URL der Homepage
+   * @param string $strDescription          Beschreibung
+   * @param string $strAbstractDeadline     
+   * @param string $strPaperDeadline       :?
+   * @param string $strReviewDeadline         :?
+   * @param string $strFinalDeadline   :?
+   * @param string $strNotification           :?
+   * @param string $strConverenceStart        :?
+   * @param string $strConferenceEnd          :?
+   * @param string $strMinRevPerPaper         :?
    *
    * @access public
-   * @author Daniel (31.12.04), ueberarbeitet Tom (13.01.05)
+   * @author Daniel (31.12.04), ueberarbeitet von Tom (13.01.05)
+   * @todo Automatisch auch neuen ConferenceConfig-Datensatz einfuegen!
    */
-
-   /* TODO: automatisch auch neuen ConferenceConfig-Datensatz einfuegen! (Tom) */
   function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline,
                          $strPaperSubDeadline, $strReviewDeadline, $strFinalVersionDeadline,
                          $strNotification, $strConverenceStart, $strConferenceEnd,
