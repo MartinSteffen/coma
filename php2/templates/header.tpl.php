@@ -50,7 +50,7 @@ function toggle(id)
 				   <?
 				     if(isset($_SESSION['userID']))
 					 {   ?>
-					    <b><a href="index.php?logout=0" class="logout">Logout</a></b>
+					    <b><a href="index.php?m=logout" class="logout">Logout</a></b>
 				   <? } ?>
 				</td>
                 <td width="21"></td>

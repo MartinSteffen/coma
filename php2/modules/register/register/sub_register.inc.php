@@ -1,11 +1,9 @@
 <?
-if(isset($_SESSION['userID']))
-{
-  $output = array();
+$output = array();
 
-  //check if should update the database
-  if(isset($_POST['Submit']))
-  {
+//check if should update the database
+if(isset($_POST['Submit']))
+{
 		$output['title']=$_POST['title'];
 		$output['first_name']=$_POST['first_name'];
 		$output['last_name']=$_POST['last_name'];
@@ -18,6 +16,8 @@ if(isset($_SESSION['userID']))
 		$output['phone']=$_POST['phone'];
 		$output['fax']=$_POST['fax'];
 		$output['email']=$_POST['email'];
+		$output['pass']=$_POST['pass'];
+		$output['passRetype']=$_POST['passRetype'];
 
 		//Evaluate the data
 		
@@ -27,7 +27,20 @@ if(isset($_SESSION['userID']))
 	  	{
 		  	$output['last_name_error']="Please fill out your last name!";
 			$errorExists=1;		
-	  	}	
+	  	}
+	 	if($output['pass']=="")
+	  	{
+		  	$output['pass_error']="Please enter a password!";
+			$errorExists=1;		
+	  	}
+		else
+		{
+			if(!($output['pass'] == $output['passRetype']))						  
+			{
+			  	$output['pass_error']="Error in password verification!";
+				$errorExists=1;			
+			}		
+		}		
 	  	if($output['email']=="")
 	  	{
 	  		$output['email_error']="Please enter your email!";		
@@ -42,9 +55,7 @@ if(isset($_SESSION['userID']))
     		}
 			else
 			{
-				$SQL = "SELECT id from person 
-				        where email = '".$output['email']."'
-						AND NOT (id = ".$_SESSION['userID'].")";
+				$SQL = "SELECT id from person where email = '".$output['email']."'";
 				$result=mysql_query($SQL);
 			    if ($list = mysql_fetch_row ($result)) 	
 			    {				
@@ -53,38 +64,25 @@ if(isset($_SESSION['userID']))
 				}
 			}	  
 		}
-		$TPL['profile'] = $output;
+		$TPL['register'] = $output;
 		if($errorExists==0)  //If no error, update the database
 		{				
-			$_SESSION['userName'] = $output[first_name]." ".$output['last_name'];
-			$SQL = "UPDATE person SET 
-					title = '".$output['title']."', 
-					first_name = '".$output['first_name']."',
-					last_name = '".$output['last_name']."', 
-					affiliation = '".$output['affiliation']."', 
-					email = '".$output['email']."', 
-					phone_number = '".$output['phone']."', 
-					fax_number = '".$output['fax']."', 
-					street = '".$output['street']."', 
-					postal_code = '".$output['postal']."', 
-					city = '".$output['city']."', 
-					state = '".$output['state']."', 
-					country = '".$output['country']."' 
-					WHERE id = ".$_SESSION['userID']; 
+			$pass = makePassword($output['pass']);
+			
+			$SQL = "INSERT INTO person (title, first_name, last_name, affiliation, email, phone_number, fax_number, street, postal_code, city, state, country, password) 
+				    VALUES ('".$output['title']."', '".$output['first_name']."', '".$output['last_name']."', '".$output['affiliation']."', '".$output['email']."', '".$output['phone']."', '".$output['fax']."', '".$output['street']."', '".$output['postal']."', '".$output['city']."', '".$output['state']."', '".$output['country']."', '".$pass."')";
 
-			$result=mysql_query($SQL); 
+			$result=mysql_query($SQL);
 			 
-			template("PROFILE_dataChanged");	
+			template("REGISTER_ok");	
 		}
 		else  //if error, do not update and show the errors
 		{
-			template("PROFILE_showData");			
+			template("REGISTER_showForm");			
 		}
-  }
-  else
-  {
-	template("PROFILE_showData");
-  }
 }
-else redirect("logout",false,false,"error=1");	
+else
+{
+	template("REGISTER_showForm");
+}
 ?>

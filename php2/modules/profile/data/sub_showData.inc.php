@@ -23,6 +23,6 @@ if(isset($_SESSION['userID']))
 	$TPL['profile'] = $output;
 	template("PROFILE_showData");
 }
-else redirect("logout","","","mode=1");		
+else redirect("logout",false,false,"error=1");	
 
 ?>

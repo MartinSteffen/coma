@@ -17,5 +17,5 @@ $TPL['chair'] = $conferences;
 template("CHAIR_chooseConf");
 $TPL['chair'] = "";
 }
-else redirect("","","","logout=1");	
+else redirect("logout",false,false,"error=1");	
 ?>

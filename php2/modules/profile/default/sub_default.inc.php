@@ -3,5 +3,5 @@ if(isset($_SESSION['userID']))
 {	
 	template("PROFILE_default");
 }
-else redirect("logout","","","mode=1");	
+else redirect("logout",false,false,"error=1");	
 ?>

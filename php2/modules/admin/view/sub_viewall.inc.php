@@ -10,5 +10,5 @@ if(isAdmin_Overall())
 	template("TASKS");
 	$TPL['tasks'] = "";
 }
-else redirect("","","","logout=1");	
+else redirect("logout",false,false,"error=1");	
 ?>

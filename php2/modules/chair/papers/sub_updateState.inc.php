@@ -27,5 +27,5 @@ if(isChair_Paper($_POST['paperID']))
 	$result=mysql_query($SQL);	
 	redirect("chair","papers","paper","paperID=".$_POST['paperID']);
 }
-else redirect("","","","logout=1");		
+else redirect("logout",false,false,"error=1");	
 ?>	

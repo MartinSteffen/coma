@@ -23,5 +23,5 @@ if(isset($_SESSION['userID']))
 	template("TASKS");
 	$TPL['tasks'] = "";	
 }
-else redirect("logout","","","mode=1");	
+else redirect("logout",false,false,"error=1");	
 ?>
