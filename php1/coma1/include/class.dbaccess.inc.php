@@ -2726,7 +2726,7 @@ nur fuer detaillierte?
     }
     $s = sprintf("INSERT  INTO Forum (conference_id, title, forum_type, paper_id)".
                  "VALUES ('%d', '%s', '%d', '%d')",
-                 s2db($intConferenceId), s2db($strTitle), s2db($intForumType), s2db($intPaperId);
+                 s2db($intConferenceId), s2db($strTitle), s2db($intForumType), s2db($intPaperId));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addForum', $this->mySql->getLastError());
