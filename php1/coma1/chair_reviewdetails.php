@@ -39,6 +39,9 @@ else {
 
 $content = new Template(TPLPATH.'view_review.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['message']='';
+echo 'Value:'.$strContentAssocs['message'];
+
 $strContentAssocs['paper_id'] = encodeText($objReview->intPaperId);
 $strContentAssocs['author_id'] = encodeText($objReview->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objReview->strAuthorName);
@@ -71,8 +74,6 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $strCritAssocs['crit_max']   = encodeText($objReview->objCriterions[$i]->intMaxValue);
   $strCritAssocs['rating']     = encodeText($objReview->intRatings[$i]);
   $strCritAssocs['comment']    = encodeText($objReview->strComments[$i]);
-  $strCritAssocs['message']='';
-  echo 'Value:'.$strCritAssocs['message'];
   $critForm->assign($strCritAssocs);
   $critForm->parse();
   $strContentAssocs['crit_lines'] .= $critForm->getOutput();
