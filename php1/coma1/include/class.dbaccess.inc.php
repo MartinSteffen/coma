@@ -580,27 +580,27 @@ class DBAccess extends ErrorHandling {
    * @access public
    * @author Sandro (14.12.04)
    */
-  function getPaper($intPaperId) {
+  function getPaperSimple($intPaperId) {
     $s = "SELECT  id, author_id, title, state".
         " FROM    Paper".
         " WHERE   id = '$intPaperId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
-      return $this->error('getPaper', $this->mySql->getLastError());
+      return $this->error('getPaperSimple', $this->mySql->getLastError());
     }
     else if (empty($data)) {
       return $this->success(false);
     }
     $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
     if ($this->failed()) {
-      return $this->error('getPaper', $this->getLastError());
+      return $this->error('getPaperSimple', $this->getLastError());
     }
     $objAuthor = $this->getPerson($data[0]['author_id']);
     if ($this->failed()) {
-      return $this->error('getPaper', $this->getLastError());
+      return $this->error('getPaperSimple', $this->getLastError());
     }
     else if (empty($objAuthor)) {
-      return $this->error('getPaper', 'Fatal error: Database inconsistency!',
+      return $this->error('getPaperSimple', 'Fatal error: Database inconsistency!',
                           'author_id = '.$data[0]['author_id']);
     }
     $strAuthor = $objAuthor->getName();
@@ -953,7 +953,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getReview', 'Fatal error: Database inconsistency!',
                             'reviewer_id = '.$data[$i]['reviewer_id']);
     }
-    $objPaper = $this->getPaper($data[0]['paper_id']);
+    $objPaper = $this->getPaperSimple($data[0]['paper_id']);
     if ($this->failed()) {
       return $this->error('getReview', $this->getLastError());
     }
@@ -1003,7 +1003,7 @@ class DBAccess extends ErrorHandling {
         return $this->error('getReviewDetailed', 'Fatal error: Database inconsistency!',
                             'reviewer_id = '.$data[$i]['reviewer_id']);
     }
-    $objPaper = $this->getPaper($data[0]['paper_id']);
+    $objPaper = $this->getPaperSimple($data[0]['paper_id']);
     if ($this->failed()) {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
@@ -1282,7 +1282,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPreferredPapers', $this->mySql->getLastError());
     }
     for ($i = 0; $i < count($data); $i++) {
-      $objPapers[] = $this->getPaper($data[$i]['paper_id']);
+      $objPapers[] = $this->getPaperSimple($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getPreferredPapers', $this->getLastError());
       }
@@ -1313,7 +1313,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getDeniedPapers', $this->mySql->getLastError());
     }
     for ($i = 0; $i < count($data); $i++) {
-      $objPapers[] = $this->getPaper($data[$i]['paper_id']);
+      $objPapers[] = $this->getPaperSimple($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getDeniedPapers', $this->getLastError());
       }
@@ -1344,7 +1344,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getExcludedPapers', $this->mySql->getLastError());
     }
     for ($i = 0; $i < count($data); $i++) {
-      $objPapers[] = $this->getPaper($data[$i]['paper_id']);
+      $objPapers[] = $this->getPaperSimple($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getExcludedPapers', $this->getLastError());
       }
@@ -2285,7 +2285,6 @@ nur fuer detaillierte?
   function addPrefersPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO PrefersPaper (person_id, paper_id)".
         "         VALUES ('$intPersonId', '$intPaperId')";
-    echo("$s");
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersPaper', $this->mySql->getLastError());
