@@ -39,8 +39,14 @@ else if (empty($p)) {
 
 echo('Update<br>');
 
-$myDBAccess->addCoAuthorName(30, 'Hanswurst');
 $myDBAccess->addCoAuthor(30, 60);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+$myDBAccess->addCoAuthorName(30, 'Hanswurst');
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
 
 $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
