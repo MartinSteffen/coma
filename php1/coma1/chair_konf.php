@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: chair.php 597 2004-12-09 15:03:14Z waller $
+ * @version $Id$
  * @package coma1
  * @subpackage core
  */
@@ -21,6 +21,7 @@ $menue = new Template(TPLPATH.'nav_chair.tpl');
 $submenue = new Template(TPLPATH.'nav_chair_konf.tpl');
 
 $strMainAssocs = defaultAssocArray();
+$strMainAssocs['titel'] = 'Chair-Verwaltung';
 $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;

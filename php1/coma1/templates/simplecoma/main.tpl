@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<title>CoMa - Das Konferenzmanagement-Tool - {dateiname} </title>
+<title>CoMa - Das Konferenzmanagement-Tool - {titel} </title>
 <link rel="stylesheet" type="text/css" href="{path}styles.css">
 </head>
 
@@ -34,14 +34,12 @@
      <td style="background-image:url({path}images/menueleft.gif)" height="25" width="100">&nbsp;</td>
      <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
       {menue}
- 
      </td>
     </tr>
     <tr bgcolor="#DBE9EC">
      <td height="25" width="100">&nbsp;</td>
      <td colspan="2" height="25" valign="middle"">
       {submenue}
- 
      </td>
     </tr>   
    </table>

@@ -21,6 +21,7 @@ $menue = new Template(TPLPATH.'nav_chair.tpl');
 
 
 $strMainAssocs = defaultAssocArray();
+$strMainAssocs['titel'] = 'Chair-Verwaltung';
 $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] = '';
