@@ -8,7 +8,7 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-$objPerson = $myDBAccess->getPerson(session('uid'));
+$objPerson = $myDBAccess->getPerson(session('uid', session('confid')));
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
 $strMenuAssocs = defaultAssocArray();
@@ -45,7 +45,7 @@ if ($objPerson->hasRole(AUTHOR, session('confid'))) {
   $strMenuAssocs['menu3'] = $submenu->getOutput();
 }
 
-if ($objPerson->hasRole(PARTICIPANT, session('confid'))) {
+if ($objPerson->hasRole(PARTICIPANT)) {
   $submenu = new Template(TPLPATH.'participantmenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
