@@ -392,7 +392,7 @@ class DBAccess extends ErrorHandling {
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
-    
+
     // Basisdaten
     $s = sprintf("SELECT   id, first_name, last_name, email, title".
                  " FROM    Person".
@@ -517,7 +517,7 @@ class DBAccess extends ErrorHandling {
     $objPersons = array();
     for ($i = 0; $i < count($data); $i++) {
       $objPerson = (new Person($data[$i]['id'], $data[$i]['first_name'], $data[$i]['last_name'],
-                      $data[$i]['email'], 0, $data[$i]['title']));      
+                      $data[$i]['email'], 0, $data[$i]['title']));
       $s = sprintf("SELECT   role_type".
                    " FROM    Role".
                    " WHERE   person_id = '%d'".
@@ -655,8 +655,8 @@ class DBAccess extends ErrorHandling {
                  " ON      r.paper_id = p.id".
                  " AND     r.reviewer_id = '%d'".
                  " AND     p.conference_id = '%d'",
-                           sprintf($intReviewerId),
-                           sprintf($intConferenceId));
+                           s2db($intReviewerId),
+                           s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
@@ -694,18 +694,18 @@ class DBAccess extends ErrorHandling {
    * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.
    * @access public
    * @author Sandro (19.01.05)
-   * @todo Existenz der Konferenz muss noch geprueft werden.      
+   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getPapersOfConference($intConferenceId) {
     $s = sprintf("SELECT   id, author_id, title, state, filename".
                  " FROM    Paper".
                  " WHERE   conference_id = '%d'",
-                           s2db($intConferenceId));    
+                           s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
     }
-    $objPapers = array();    
+    $objPapers = array();
     for ($i = 0; $i < count($data); $i++) {
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->failed()) {
@@ -727,7 +727,7 @@ class DBAccess extends ErrorHandling {
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $fltAvgRating, $data[$i]['filename'],$objTopics));
-    }    
+    }
     return $this->success($objPapers);
   }
 
@@ -903,7 +903,7 @@ class DBAccess extends ErrorHandling {
                  " FROM    ReviewReport AS r".
                  " INNER   JOIN Paper AS p".
                  " ON      p.id = r.paper_id".
-                 " AND     p.conference_id = '%d'".        
+                 " AND     p.conference_id = '%d'".
                  " AND     r.reviewer_id = '%d'",
                            s2db($intConferenceId),
                            s2db($intReviewerId));
@@ -1450,33 +1450,33 @@ class DBAccess extends ErrorHandling {
    * @access private
    * @author Sandro (22.01.05)
    */
-  function getReviewerAttitude($intPersonId, $intConferenceId) {    
+  function getReviewerAttitude($intPersonId, $intConferenceId) {
     $objReviewerAttitude = new ReviewerAttitude();
     $objPapers = $this->getPreferredPapers($intPersonId, $intConferenceId);
     if ($this->mySql->failed()) {
       return $this->error('getReviewerAttitude', $this->mySql->getLastError());
-    }  
+    }
     foreach ($objPapers as $objPaper) {
       $objReviewerAttitude->setPaperAttitude($objPaper->intId, ATTITUDE_PREFER);
-    }    
+    }
     $objTopics = $this->getPreferredTopics($intPersonId, $intConferenceId);
     if ($this->mySql->failed()) {
       return $this->error('getReviewerAttitude', $this->mySql->getLastError());
-    }  
+    }
     foreach ($objTopics as $objTopic) {
       $objReviewerAttitude->setTopicAttitude($objTopic->intId, ATTITUDE_PREFER);
-    }    
+    }
     $objPapers = $this->getDeniedPapers($intPersonId, $intConferenceId);
     if ($this->mySql->failed()) {
       return $this->error('getReviewerAttitude', $this->mySql->getLastError());
-    }  
+    }
     foreach ($objPapers as $objPaper) {
       $objReviewerAttitude->setPaperAttitude($objPaper->intId, ATTITUDE_DENY);
-    }    
+    }
     $objPapers = $this->getExcludedPapers($intPersonId, $intConferenceId);
     if ($this->mySql->failed()) {
       return $this->error('getReviewerAttitude', $this->mySql->getLastError());
-    }  
+    }
     foreach ($objPapers as $objPaper) {
       $objReviewerAttitude->setPaperAttitude($objPaper->intId, ATTITUDE_EXCLUDE);
     }
@@ -1800,7 +1800,7 @@ nur fuer detaillierte?
     }
     return $this->success();
   }
-  
+
   /**
    * @todo (Sandros Job)
    * @access private
@@ -2180,7 +2180,7 @@ nur fuer detaillierte?
     }
     if (!empty($strTopics)) {
       for ($i = 0; $i < count($strTopics); $i++) {
-      	$this->addTopic($intId, $strTopics[$i]);
+        $this->addTopic($intId, $strTopics[$i]);
         if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
           $strError = $this->mySql->getLastError();
           $s = "DELETE  FROM Conference".
@@ -2189,15 +2189,15 @@ nur fuer detaillierte?
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
                                 $this->mySql->getLastError()." / $strError");
-          }        
+          }
           return $this->error('addConference', $this->mySql->getLastError());
         }
       }
     }
     if (!empty($strCriterions)) {
       for ($i = 0; $i < count($strCriterions); $i++) {
-      	$this->addCriterion($intId, $strCriterions[$i], $strCritDescripts[$i],
-      	                    $intCritMaxVals[$i], $fltCritWeights[$i]);
+        $this->addCriterion($intId, $strCriterions[$i], $strCritDescripts[$i],
+                            $intCritMaxVals[$i], $fltCritWeights[$i]);
         if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
           $strError = $this->mySql->getLastError();
           $s = "DELETE  FROM Conference".
@@ -2206,7 +2206,7 @@ nur fuer detaillierte?
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
                                 $this->mySql->getLastError()." / $strError");
-          }        
+          }
           return $this->error('addConference', $this->mySql->getLastError());
         }
       }
@@ -2350,16 +2350,16 @@ nur fuer detaillierte?
         }
         return $this->error('addPaper', $this->getLastError());
       }
-    }    
+    }
     for ($i = 0; $i < count($intTopicIds) && !empty($intTopicIds); $i++) {
       $this->addIsAboutTopic($intId, $intTopicIds[$i]);
       if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
-        $strError = $this->mySql->getLastError();        
+        $strError = $this->mySql->getLastError();
         $this->deletePaper($intId);
         if ($this->failed()) { // Auch dabei ein Fehler? => fatal!
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
                               $this->getLastError()." / $strError");
-        }        
+        }
         return $this->error('addPaper', $this->getLastError());
       }
     }
@@ -2646,8 +2646,9 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function deleteConference($intConferenceId) {
-    $s = "DELETE  FROM Conference".
-        " WHERE   id = '$intConferenceId'";
+    $s = sprintf("DELETE   FROM Conference".
+                 " WHERE   id = '%d'",
+                           s2db($intConferenceId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteConference', $this->mySql->getLastError());
@@ -2664,9 +2665,10 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function deactivateAccount($intPersonId) {
-    $s = "UPDATE  Person".
-        " SET     password = ''".
-        " WHERE   id = '$intPersonId'";
+    $s = sprintf("UPDATE   Person".
+                 " SET     password = ''".
+                 " WHERE   id = ''",
+                           s2db($intPersonId));
     $result = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('deactivateAccount', $this->mySql->getLastError());
@@ -2683,8 +2685,9 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function deletePerson($intPersonId) {
-    $s = "DELETE  FROM Person".
-        " WHERE   id = '$intPersonId'";
+    $s = sprintf("DELETE   FROM Person".
+                 " WHERE   id = '%d'",
+                 s2db($intPersonId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePerson', $this->mySql->getLastError());
@@ -2701,8 +2704,9 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function deletePaper($intPaperId) {
-    $s = "DELETE  FROM Paper".
-        " WHERE   id = '$intPaperId'";
+    $s = sprintf("DELETE   FROM Paper".
+                 " WHERE   id = '%d'",
+                           s2db($intPaperId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePaper', $this->mySql->getLastError());
@@ -2722,10 +2726,13 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function deleteRole($intPersonId, $intRoleType, $intConferenceId) {
-    $s = "DELETE  FROM Role".
-        " WHERE   conference_id = '$intConferenceId'".
-        " AND     person_id = '$intPersonId'".
-        " AND     role_type = '$intRoleType'";
+    $s = sprintf("DELETE   FROM Role".
+                 " WHERE   conference_id = '%d'".
+                 " AND     person_id = '%d'".
+                 " AND     role_type = '%d'",
+                           s2db($intConferenceId),
+                           s2db($intPersonId),
+                           s2db($intRoleType));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteRole', $this->mySql->getLastError());
@@ -2743,9 +2750,11 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function deleteCoAuthor($intPaperId, $intCoAuthorId) {
-    $s = "DELETE  FROM IsCoAuthorOf".
-        " WHERE   person_id = '$intCoAuthorId'".
-        " AND     paper_id = '$intPaperId'";
+    $s = sprintf("DELETE   FROM IsCoAuthorOf".
+                 " WHERE   person_id = '%d'".
+                 " AND     paper_id = '%d'",
+                           s2db($intCoAuthorId),
+                           s2db($intPaperId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteCoAuthor', $this->mySql->getLastError());
@@ -2763,9 +2772,11 @@ nur fuer detaillierte?
    * @author Tom (26.12.04)
    */
   function deleteCoAuthorName($intPaperId, $strName) {
-    $s = "DELETE  FROM IsCoAuthorOf".
-        " WHERE   paper_id = '$intPaperId'".
-        " AND     name = '$strName'";
+    $s = sprintf("DELETE   FROM IsCoAuthorOf".
+                 " WHERE   paper_id = '%d'".
+                 " AND     name = '%s'",
+                           s2db($intPaperId),
+                           s2db($strName));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteCoAuthorName', $this->mySql->getLastError());
@@ -2776,8 +2787,9 @@ nur fuer detaillierte?
   /**
    */
   function deleteReviewReport($intReviewId) {
-    $s = "DELETE  FROM Reviewreport".
-        " WHERE   id = '$intReviewId'";
+    $s = sprintf("DELETE   FROM Reviewreport".
+                 " WHERE   id = '%d'",
+                           s2db($intReviewId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteReviewReport', $this->mySql->getLastError());
@@ -2788,9 +2800,11 @@ nur fuer detaillierte?
   /**
    */
   function deleteRating($intReviewId, $intCriterionId) {
-    $s = "DELETE  FROM Rating".
-        " WHERE   review_id = '$intReviewId'".
-        " AND     criterion_id = '$intCriterionId'";
+    $s = sprintf("DELETE   FROM Rating".
+                 " WHERE   review_id = '%d'".
+                 " AND     criterion_id = '%d'",
+                           s2db($intReviewId),
+                           s2db($intCriterionId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteRating', $this->mySql->getLastError());
@@ -2801,8 +2815,9 @@ nur fuer detaillierte?
   /**
    */
   function deleteForum($intForumId) {
-    $s = "DELETE  FROM Forum".
-        " WHERE   id = '$intForumId'";
+    $s = sprintf("DELETE   FROM Forum".
+                 " WHERE   id = '%d'",
+                           s2db($intForumId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteForum', $this->mySql->getLastError());
@@ -2813,8 +2828,9 @@ nur fuer detaillierte?
   /**
    */
   function deleteMessage($intMessageId) {
-    $s = "DELETE  FROM Message".
-        " WHERE   id = '$intMessageId'";
+    $s = sprintf("DELETE   FROM Message".
+                 " WHERE   id = '%d'",
+                           s2db($intMessageId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteMessage', $this->mySql->getLastError());
@@ -2825,8 +2841,9 @@ nur fuer detaillierte?
   /**
    */
   function deleteCriterion($intCriterionId) {
-    $s = "DELETE  FROM Criterion".
-        " WHERE   id = '$intCriterionId'";
+    $s = sprintf("DELETE   FROM Criterion".
+                 " WHERE   id = '%d'",
+                           s2db($intCriterionId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteCriterion', $this->mySql->getLastError());
@@ -2838,8 +2855,9 @@ nur fuer detaillierte?
   /**
    */
   function deleteTopic($intTopicId) {
-    $s = "DELETE  FROM Topic".
-        " WHERE   id = '$intTopicId'";
+    $s = sprintf("DELETE   FROM Topic".
+                 " WHERE   id = '%d'",
+                           s2db($intTopicId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteTopic', $this->mySql->getLastError());
@@ -2850,9 +2868,11 @@ nur fuer detaillierte?
   /**
    */
   function deleteIsAboutTopic($intPaperId, $intTopicId) {
-    $s = "DELETE  FROM IsAboutTopic".
-        " WHERE   paper_id = '$intPaperId'".
-        " AND     topic_id = '$intTopicId'";
+    $s = sprintf("DELETE   FROM IsAboutTopic".
+                 " WHERE   paper_id = '%d'".
+                 " AND     topic_id = '%d'",
+                           s2db($intPaperId),
+                           s2db($intTopicId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteIsAboutTopic', $this->mySql->getLastError());
@@ -2863,9 +2883,11 @@ nur fuer detaillierte?
   /**
    */
   function deletePrefersTopic($intPersonId, $intTopicId) {
-    $s = "DELETE  FROM PrefersTopic".
-        " WHERE   person_id = '$intPersonId'".
-        " AND     topic_id = '$intTopicId'";
+    $s = sprintf("DELETE   FROM PrefersTopic".
+                 " WHERE   person_id = '%d'".
+                 " AND     topic_id = '%d'",
+                           s2db($intPersonId),
+                           s2db($intTopicId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePrefersTopic', $this->mySql->getLastError());
@@ -2876,9 +2898,11 @@ nur fuer detaillierte?
   /**
    */
   function deletePrefersPaper($intPersonId, $intPaperId) {
-    $s = "DELETE  FROM PrefersPaper".
-        " WHERE   person_id = '$intPersonId'".
-        " AND     paper_id = '$intPaperId'";
+    $s = sprintf("DELETE   FROM PrefersPaper".
+                 " WHERE   person_id = '%d'".
+                 " AND     paper_id = '%d'",
+                           s2db($intPersonId),
+                           s2db($intPaperId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePrefersPaper', $this->mySql->getLastError());
@@ -2889,9 +2913,11 @@ nur fuer detaillierte?
   /**
    */
   function deleteDeniesPaper($intPersonId, $intPaperId) {
-    $s = "DELETE  FROM DeniesPaper".
-        " WHERE   person_id = '$intPersonId'".
-        " AND     paper_id = '$intPaperId'";
+    $s = sprintf("DELETE   FROM DeniesPaper".
+                 " WHERE   person_id = '%d'".
+                 " AND     paper_id = '%d'",
+                           s2db($intPersonId),
+                           s2db($intPaperId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteDeniesPaper', $this->mySql->getLastError());
@@ -2902,9 +2928,11 @@ nur fuer detaillierte?
   /**
    */
   function deleteExcludesPaper($intPersonId, $intPaperId) {
-    $s = "DELETE  FROM ExcludesPaper".
-        " WHERE   person_id = '$intPersonId'".
-        " AND     paper_id = '$intPaperId'";
+    $s = sprintf("DELETE   FROM ExcludesPaper".
+                 " WHERE   person_id = '%d'".
+                 " AND     paper_id = '%d'",
+                           s2db($intPersonId),
+                           s2db($intPaperId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteExcludesPaper', $this->mySql->getLastError());
