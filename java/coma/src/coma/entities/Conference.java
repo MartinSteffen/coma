@@ -3,8 +3,6 @@ package coma.entities;
 import java.util.Date;
 
 import coma.entities.Entity.XMLMODE;
-import static coma.entities.Entity.XMLMODE.DEEP;
-import static coma.entities.Entity.XMLMODE.SHALLOW;
 import coma.servlet.util.XMLHelper;
 import static coma.util.logging.Severity.WARN;
 
@@ -121,8 +119,8 @@ public class Conference extends Entity {
 			    XMLHelper.tagged("abstract", convert_date(getAbstract_submission_deadline())),
 			    XMLHelper.tagged("paper", convert_date(getPaper_submission_deadline())),
 			    XMLHelper.tagged("review",convert_date(getReview_deadline())),
-				XMLHelper.tagged("final", convert_date(getFinal_version_deadline())),
-				XMLHelper.tagged("notification", convert_date(getNotification())),
+				XMLHelper.tagged("final",convert_date(getFinal_version_deadline())),
+				XMLHelper.tagged("notification",convert_date(getNotification())),
 				XMLHelper.tagged("start",convert_date(getConference_start())),
 				XMLHelper.tagged("end", convert_date(getConference_end())),
 				XMLHelper.tagged("min", getMin_review_per_paper())
@@ -146,27 +144,42 @@ public class Conference extends Entity {
     {
     	if (date!=null)
     	{
-	    	StringBuffer result=new StringBuffer();
-	    	String sqlDate = date.toString();
-	    	result.append(sqlDate.charAt(8));
-	    	result.append(sqlDate.charAt(9));
-	    	result.append(".");
-	    	result.append(sqlDate.charAt(5));
-	    	result.append(sqlDate.charAt(6));
-	    	result.append(".");
-	    	result.append(sqlDate.charAt(0));
-	    	result.append(sqlDate.charAt(1));
-	    	result.append(sqlDate.charAt(2));
-	    	result.append(sqlDate.charAt(3));
-	    	return result.toString();
+    		if (date.toString().length()==10)
+    		{
+		    	StringBuffer result=new StringBuffer();
+		    	String sqlDate = date.toString();
+		    	result.append(sqlDate.charAt(8));
+		    	result.append(sqlDate.charAt(9));
+		    	result.append(".");
+		    	result.append(sqlDate.charAt(5));
+		    	result.append(sqlDate.charAt(6));
+		    	result.append(".");
+		    	result.append(sqlDate.charAt(0));
+		    	result.append(sqlDate.charAt(1));
+		    	result.append(sqlDate.charAt(2));
+		    	result.append(sqlDate.charAt(3));
+		    	return result.toString();
+    		}
+    		else
+    		{
+    			//String[] months = {"Jan","Feb","Mar","May","Apr","Jun","Jul","Aug","Sep","Okt","Nov","Dec"};
+    			StringBuffer result=new StringBuffer();
+    			String javaDate = date.toString();
+    			result.append(javaDate.charAt(8));
+    			result.append(javaDate.charAt(9));
+    			result.append(". ");
+    			result.append(javaDate.charAt(4));
+    			result.append(javaDate.charAt(5));
+    			result.append(javaDate.charAt(6));
+    			result.append(" ");
+    			result.append(javaDate.charAt(24));
+    			result.append(javaDate.charAt(25));
+    			result.append(javaDate.charAt(26));
+    			result.append(javaDate.charAt(27));
+    			return result.toString();
+    		}
     	}
     	else
-    		return null;
-    	
-    }
-    
-    public String toXML(){
-    	
-    	return null;
-    }
+    		return null;	
+    }    
 }
