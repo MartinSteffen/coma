@@ -62,8 +62,8 @@
  </tr>
  <tr>
   <td>&nbsp;</td>
-  <td height="32">&copy; 2004 by Sandro Esquivel, Daniel Miesling, Tom Scherzer, Falk Starke, Jan Waller</td>
-  <td>{date}</td>
+  <td height="32">&copy; 2005 by Sandro Esquivel, Daniel Miesling, Tom Scherzer, Falk Starke, Jan Waller</td>
+  <td>&nbsp;</td>
  </tr>
 </table>
 
