@@ -95,7 +95,6 @@ if (!empty($r_id)) {
     }
     $strItemAssocs['num_papers'] = encodeText($intNum);
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
-    //$strItemAssocs['if'] = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId);
     if ($myDBAccess->failed()) {
@@ -107,6 +106,24 @@ if (!empty($r_id)) {
     elseif ($objReviewerAttitude->getPaperAttitude($objPaper->intId) != ATTITUDE_EXCLUDE) {
       $strItemAssocs['if'][] = 7; // Checkbox ohne Haekchen setzen
     }
+
+    foreach ($objTopics as objTopic) {
+      if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
+        $strItem2Assocs = defaultAssocArray();
+        $strItem2Assocs['if'] = array(0);
+        $strItem2Assocs['topic'] = $objTopic->strName;
+        for ($i = 0; $i < count($objPaper->objTopics); $i++) {
+          if ($objTopic->intId == $objPaper->objTopics[$i]->intId) {
+            $strItem2Assocs['if'] = array(1);
+            break;
+          }
+        }
+        $strTopicItem = new Template(TPLPATH.'reviewertopic.tpl');
+        $strTopicItem->assign($strItem2Assocs);
+        $strTopicItem->parse();
+        $strRevItem['topics'] .= $strTopicItem->getOutput();
+      }
+    }    
     $strRevItem = new Template(TPLPATH.'reviewerattitudes.tpl');
     $strRevItem->assign($strItemAssocs);
     $strRevItem->parse();

@@ -15,4 +15,7 @@
       {if2<span class="attitude-deny">denies paper</span>}
       {if3<span class="attitude-exclude">excluded</span>}
     </td>
+    <td>
+      {topics}
+    </td>
   </tr>
