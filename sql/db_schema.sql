@@ -66,7 +66,8 @@ CREATE TABLE Role
 (
    conference_id  INT NOT NULL,
    person_id      INT NOT NULL,
-   role_type      INT NOT NULL, -- optional: Enum oder FK auf Tabelle Roles
+   role_type      INT NOT NULL, -- allowed: 00,02,03,04,05 (not 01)
+                                -- for meaning, see spec.
    state          INT, -- optional
    PRIMARY KEY (conference_id, person_id, role_type),
    INDEX (conference_id),
