@@ -16,6 +16,21 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'chair_start.tpl');
 $strContentAssocs = defaultAssocArray();
+
+$objPersons = $myDBAccess->getUsersOfConference(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get user list',$myDBAccess->getLastError());
+}
+$intRoleRequests = 0;
+foreach ($objPersons as $objPerson) {
+  if ($objPerson->hasAnyRoleRequests()) {
+    $intRoleRequests++;
+  }
+}
+if ($intRoleRequests > 0) {
+  $strContentAssocs['request_no'] = encodeText($intRoleRequests);
+  $strContentAssocs['if'] = array(1);	
+}
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
