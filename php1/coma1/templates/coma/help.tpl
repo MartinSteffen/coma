@@ -3,6 +3,7 @@
   {chapter-01-01}
   {chapter-01-02}
   {chapter-01-03}
+  {chapter-01-04}
 
   {chapter-02}
   {chapter-02-01}
