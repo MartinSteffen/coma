@@ -39,10 +39,10 @@ if (!empty($p)) {
   echo('Autor (ID) / Titel: '.$p->strAuthor.' ('.$p->intAuthorId.') / '.$p->strTitle.'<br>');
   echo('Co-Autoren (ID):<br>');
   for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
-    echo($p->strCoAuthors[$i].' ('.$p->intCoAuthorIds[$i].')');
+    echo($p->strCoAuthors[$i].' ('.$p->intCoAuthorIds[$i].')<br>');
   }
 }
-else echo('Else sagt: \"Nix gefunden...\"');
+else echo('Else sagt: \"Nix gefunden...\"<br>');
 
 
 ?>
