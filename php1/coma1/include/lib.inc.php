@@ -45,7 +45,7 @@ function redirect($strName) {
   $strTarget = COREURL . $strName . $mySession->getUrlId('?');
   //header('Location:' . $strTarget);
   die('If your Browser does not support automatical redirection please use '.
-     .'<a href='"'.$strTarget.'"'>this link!</a>');
+     .'<a href="'.$strTarget.'">this link!</a>');
 }
 
 /**
