@@ -259,6 +259,9 @@ public class Person extends Entity {
     public boolean isReviewer(){
     	return isInRole(role_type, User.REVIEWER);
     }
+    public boolean isAdmin(){
+    	return isInRole(role_type, 6);
+    }
 	
     private boolean isInRole(Vector roles, int role){
     	boolean result = false;
