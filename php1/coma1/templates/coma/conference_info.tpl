@@ -19,6 +19,11 @@
   </tr>
 </table>
 
-<a href="{basepath}main_conferences.php{?SID}">Return to the main Page!</a>
+
+<p>&nbsp;</p>
+
+<p class="message2">
+  Return to the <a href="{basepath}main_conferences.php{?SID}">main Page!</a>
+</p>
 
 <p>&nbsp;</p>

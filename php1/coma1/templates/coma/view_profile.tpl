@@ -1,5 +1,3 @@
-<p class="center">
-
 <table class="viewtable">
   <tr class="viewheader">
     <th colspan="2" class="viewheader">User Profile:</th>
@@ -54,6 +52,5 @@
     </td>
   </tr>
 </table>
-</p>
 
 <p>&nbsp;</p>

@@ -13,7 +13,9 @@
   {lines}
 </table>
 
+<p>&nbsp;</p>
+
 <p class="message2">
-  Click on any paper to view the details for the paper.<br>
-  Click on any author to view the details for the user.<br>
+  Click on any Paper to view the details for the Paper.<br>
+  Click on any Author to view the details for the User.<br>
 </p>

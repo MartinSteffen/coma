@@ -17,6 +17,8 @@
   }
 </table>
 
+<p>&nbsp;</p>
+
 <p class="message2">
   Login to the conference of your choice, if you already take part in it.<br>
   Otherwise, select the conference you would like to take part in and
@@ -26,3 +28,5 @@
 <p class="message2">
   Do you want to <a href="{basepath}create_conference.php{?SID}">create a new Conference?</a>
 </p>
+
+<p>&nbsp;</p>
