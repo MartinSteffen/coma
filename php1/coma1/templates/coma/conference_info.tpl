@@ -23,7 +23,7 @@
 <p>&nbsp;</p>
 
 <p class="message2">
-  Return to the <a href="{basepath}main_conferences.php{?SID}">main Page!</a>
+  Return to the <a href="{basepath}main_conferences.php{?SID}">Conference Overview!</a>
 </p>
 
 <p>&nbsp;</p>
