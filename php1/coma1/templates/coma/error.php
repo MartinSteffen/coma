@@ -13,6 +13,8 @@ if (!defined('IN_COMA1')) {
 }
 if (!defined('SID')) {
   define('SID','');
+} else {
+  define('SID','?'.SID);
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -67,7 +69,7 @@ if (!defined('SID')) {
     <p>
       You have the following three options:
       <ul>
-       <li>Return to the <a href="<?=COREURL?>index.php?<?=(SID == '') ? '' : $strPrefix . strip_tags(SID)?>">start page</a>!
+       <li>Return to the <a href="<?=COREURL?>index.php<?=SID?>">start page</a>!
        <li>Try again and <a href="javascript:location.reload()">reload the page</a>!
        <li>Go one step <a href="javascript:history.back()">back in time</a>!
       </ul>
