@@ -82,10 +82,10 @@ foreach($TPL as $key => $value) {
 			</tr>
 			<tr>
 				<td class="textBold" style="color:red">
-			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $v['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!');"><font style="color:red">DELETE PAPER</font></a>
+			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $v['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!');" class="author"><font style="color:red">DELETE PAPER</font></a>
 				</td>
 				<td class="textBold" style="color:green">
-			<a href="index.php?m=author&a=edit&s=form&pid=<? echo $v['id']; ?>"><font style="color:green">EDIT PAPER</font></a>
+			<a href="index.php?m=author&a=edit&s=form&pid=<? echo $v['id']; ?>" class="author"><font style="color:green">EDIT PAPER</font></a>
 				</td>
 			</tr>
 				
@@ -126,7 +126,7 @@ foreach($TPL as $key => $value) {
 			</tr>
 			<tr>
 				<td class="textBold" style="color:red">
-			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $v['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!\nATTENTION!\nAs the deadline for paper submission is exceeded,\nyou will not be able, to resubmit your paper!');"><font style="color:red">DELETE PAPER</font></a>
+			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $v['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!\nATTENTION!\nAs the deadline for paper submission is exceeded,\nyou will not be able, to resubmit your paper!');" class="author"><font style="color:red">DELETE PAPER</font></a>
 				</td>
 				<?
 				/*
