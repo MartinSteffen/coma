@@ -73,12 +73,7 @@ if (in_array('toc', $strArrayHelpTopics)){
   $tocassocs['related-link'] = '';
   $toccontent = new Template(TPLPATH.'toc.tpl');
   $toccontentassocs = defaultAssocArray();
-  if (isset($_GET['popup'])){
-    $toccontentassocs['&popup'] = '&amp;popup';
-  }
-  else{
-    $toccontentassocs['&popup'] = '';
-  }
+  $toccontentassocs['&popup'] = ($popup ? '&amp;popup' : '');
   $toccontent->assign($toccontentassocs);
   $toccontent->parse();
   $tocassocs['content'] = $toccontent->getOutput();
@@ -101,12 +96,7 @@ if (in_array('nothing', $strArrayHelpTopics)){
   $tocassocs['related-link'] = '';
   $toccontent = new Template(TPLPATH.'toc.tpl');
   $toccontentassocs = defaultAssocArray();
-  if (isset($_GET['popup'])){
-    $toccontentassocs['&popup'] = '&amp;popup';
-  }
-  else{
-    $toccontentassocs['&popup'] = '';
-  }
+  $toccontentassocs['&popup'] = ($popup ? '&amp;popup' : '');
   $toccontent->assign($toccontentassocs);
   $toccontent->parse();
   $tocassocs['content'] = $toccontent->getOutput();
@@ -182,12 +172,7 @@ if (in_array('login', $strArrayHelpTopics)){
   $objRelatedTemplate = new Template(TPLPATH.'help_relatedlink.tpl');
   $strArrayRelatedAssocs = defaultAssocArray();
   $strArrayRelatedAssocs['topics'] = 'register';
-  if (isset($_GET['popup'])){
-    $strArrayRelatedAssocs['&popup'] = '&popup';
-  }
-  else{
-    $strArrayRelatedAssocs['&popup'] = '';
-  }
+  $strArrayRelatedAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $strArrayRelatedAssocs['linkname'] = 'registering for an account';
   $objRelatedTemplate->assign($strArrayRelatedAssocs);
   $objRelatedTemplate->parse();
