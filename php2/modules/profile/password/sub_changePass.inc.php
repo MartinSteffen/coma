@@ -28,7 +28,7 @@ if(isset($_SESSION['userID']))
 			}
 			else
 			{ 
-				$pass = makePassword($output['oldPass']);
+				$pass = makePassword($output['oldPass']);				
 				$SQL = "SELECT id from person WHERE id = ".$_SESSION['userID']." AND password = '".$pass."'";
 				$result=mysql_query($SQL);
 	   		    if ($list = mysql_fetch_row ($result)) 	
@@ -45,7 +45,7 @@ if(isset($_SESSION['userID']))
 		$TPL['profile'] = $output;
 		if($errorExists==0)  //If no error, update the database
 		{							
-			$pass = makePassword($output['pass']);
+			$pass = makePassword($output['pass']);			
 			$SQL = "UPDATE person 
 				   SET password = '".$pass."' 
 				   WHERE id = ".$_SESSION['userID'];

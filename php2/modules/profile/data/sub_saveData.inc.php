@@ -17,7 +17,7 @@ if(isset($_SESSION['userID']))
 		$output['state']=$_POST['state'];
 		$output['phone']=$_POST['phone'];
 		$output['fax']=$_POST['fax'];
-		$output['email']=$_POST['email'];
+		$output['email']=strtolower($_POST['email']);
 
 		//Evaluate the data
 		

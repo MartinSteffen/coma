@@ -15,7 +15,7 @@ if(isset($_POST['Submit']))
 		$output['state']=$_POST['state'];
 		$output['phone']=$_POST['phone'];
 		$output['fax']=$_POST['fax'];
-		$output['email']=$_POST['email'];
+		$output['email']=strtolower($_POST['email']);
 		$output['pass']=$_POST['pass'];
 		$output['passRetype']=$_POST['passRetype'];
 
@@ -68,7 +68,7 @@ if(isset($_POST['Submit']))
 		if($errorExists==0)  //If no error, update the database
 		{				
 			$pass = makePassword($output['pass']);
-			
+			$output['email'] = strtolower($output['email']);
 			$SQL = "INSERT INTO person (title, first_name, last_name, affiliation, email, phone_number, fax_number, street, postal_code, city, state, country, password) 
 				    VALUES ('".$output['title']."', '".$output['first_name']."', '".$output['last_name']."', '".$output['affiliation']."', '".$output['email']."', '".$output['phone']."', '".$output['fax']."', '".$output['street']."', '".$output['postal']."', '".$output['city']."', '".$output['state']."', '".$output['country']."', '".$pass."')";
 

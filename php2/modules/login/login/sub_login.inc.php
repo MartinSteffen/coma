@@ -10,8 +10,8 @@
 		if(isset($_POST['Submit']) && isset($_POST['email']) && isset($_POST['pass']))
 		{
 			$pass = makePassword($_POST['pass']); 
-		
-			$SQL = "SELECT id, first_name, last_name from person where email = '".$_POST['email']."' and password = '".$pass."'";
+			$email = strtolower($_POST['email']);
+			$SQL = "SELECT id, first_name, last_name from person where email = '".$email."' and password = '".$pass."'";
 			$result=mysql_query($SQL); 
 		    if ($list = mysql_fetch_row ($result)) 	
 			{
