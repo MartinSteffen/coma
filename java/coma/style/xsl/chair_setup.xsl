@@ -82,31 +82,12 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	<td>
 		<xsl:choose>
 			<xsl:when test="/result/setup/content/min_setup">
-				<input type="text" id="min" name="min" size="2" maxlength="2"/>*
+				<input type="text" id="min" name="min" size="2" maxlength="2"/>
 			</xsl:when>
 			<xsl:otherwise>	
 				you can't change this
 			</xsl:otherwise>
 		</xsl:choose>
-	</td>
-</tr>
-<tr>
-	<td>
-	number of topics:
-	</td>
-	<td> 
-		<xsl:apply-templates select="/result/setup/content/topic_numbers"/>
-	</td>
-	<td>
-		<!--<xsl:choose>
-			<xsl:when test="/result/setup/content/min_setup">
-				<input type="text" id="min" name="min" size="2" maxlength="2"/>*
-			</xsl:when>
-			<xsl:otherwise>	
-				you can't change this
-			</xsl:otherwise>
-		</xsl:choose>-->
-		<a href="Chair?action=show_topics">show topics</a>
 	</td>
 </tr>
 <tr>
@@ -124,7 +105,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 				<input type="text" id="start_month" name="start_month" size="2" maxlength="2">
   				</input>:
 				<input type="text" id="start_year" name="start_year" size="4" maxlength="4">
-  				</input>*
+  				</input>
 			</xsl:when>
 			<xsl:otherwise>	
 				you can't change this
@@ -147,7 +128,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 				<input type="text" id="end_month" name="end_month" size="2" maxlength="2">
   				</input>:
 				<input type="text" id="end_year" name="end_year" size="4" maxlength="4">
-  				</input>*
+  				</input>
 			</xsl:when>
 			<xsl:otherwise>	
 				you can't change this
@@ -183,13 +164,20 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	<td> 
 		<xsl:apply-templates select="/result/setup/content/conference//abstract"/>
 	</td>
-		<td>
-		<input type="text" id="abstract_day" name="abstract_day" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="abstract_month" name="abstract_month" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="abstract_year" name="abstract_year" size="4" maxlength="4">
-  		</input>
+	<td>
+		<xsl:choose>
+			<xsl:when test="/result/setup/content/abstract_deadline">
+				<input type="text" id="abstract_day" name="abstract_day" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="abstract_month" name="abstract_month" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="abstract_year" name="abstract_year" size="4" maxlength="4">
+  				</input>
+			</xsl:when>
+			<xsl:otherwise>	
+				deadline terminate
+			</xsl:otherwise>
+		</xsl:choose>
 	</td>
 </tr>
 <tr>
@@ -199,13 +187,20 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	<td> 
 		<xsl:apply-templates select="/result/setup/content/conference//paper"/>
 	</td>
-		<td>
-		<input type="text" id="paper_day" name="paper_day" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="paper_month" name="paper_month" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="paper_year" name="paper_year" size="4" maxlength="4">
-  		</input>
+	<td>
+		<xsl:choose>
+			<xsl:when test="/result/setup/content/paper_deadline">
+				<input type="text" id="paper_day" name="paper_day" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="paper_month" name="paper_month" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="paper_year" name="paper_year" size="4" maxlength="4">
+  				</input>
+			</xsl:when>
+			<xsl:otherwise>	
+				deadline terminate
+			</xsl:otherwise>
+		</xsl:choose>
 	</td>
 </tr>
 <tr>
@@ -216,12 +211,19 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<xsl:apply-templates select="/result/setup/content/conference//review"/>
 	</td>
 	<td>
-		<input type="text" id="review_day" name="review_day" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="review_month" name="review_month" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="review_year" name="review_year" size="4" maxlength="4">
-  		</input>
+		<xsl:choose>
+			<xsl:when test="/result/setup/content/review_deadline">
+				<input type="text" id="review_day" name="review_day" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="review_month" name="review_month" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="review_year" name="review_year" size="4" maxlength="4">
+  				</input>
+			</xsl:when>
+			<xsl:otherwise>	
+				deadline terminate
+			</xsl:otherwise>
+		</xsl:choose>
 	</td>
 </tr>
 <tr>
@@ -232,12 +234,19 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		 <xsl:apply-templates select="/result/setup/content/conference//final"/>
 	</td>
 	<td>
-		<input type="text" id="final_day" name="final_day" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="final_month" name="final_month" size="2" maxlength="2">
-  		</input>:
-		<input type="text" id="final_year" name="final_year" size="4" maxlength="4">
-  		</input>
+		<xsl:choose>
+			<xsl:when test="/result/setup/content/final_deadline">
+				<input type="text" id="final_day" name="final_day" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="final_month" name="final_month" size="2" maxlength="2">
+  				</input>:
+				<input type="text" id="final_year" name="final_year" size="4" maxlength="4">
+  				</input>
+			</xsl:when>
+			<xsl:otherwise>	
+				deadline terminate
+			</xsl:otherwise>
+		</xsl:choose>
 	</td>
 </tr>
 <tr>
