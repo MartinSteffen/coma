@@ -48,7 +48,7 @@ class Session {
   /**
    * 
    */
-  var id = '';
+  var $id = '';
 
   /**
    * Konstruktor
