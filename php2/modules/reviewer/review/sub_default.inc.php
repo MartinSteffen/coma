@@ -12,7 +12,7 @@ if(isReviewer_Overall())
 			  INNER JOIN conference ON (paper.conference_id = conference.id)
 			WHERE
 			  (conference.review_deadline >= CURRENT_DATE)
-			  AND (paper.state = 1)
+			  AND (paper.state < 3)
 			  AND (reviewreport.reviewer_id = ".$_SESSION['userID']." )";
 
 	$result = mysql_query($SQL);

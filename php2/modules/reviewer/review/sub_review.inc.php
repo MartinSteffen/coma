@@ -33,7 +33,7 @@ if(isReviewer_Overall())
       WHERE
             (paper.id = ".$paperID.")
         AND (conference.review_deadline >= CURRENT_DATE)
-        AND (paper.state = 1)";
+        AND (paper.state < 3)";
 
 	$result = mysql_query($SQL);
 	$count = 0;
