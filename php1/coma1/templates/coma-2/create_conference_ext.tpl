@@ -57,7 +57,8 @@
   <tr>
     <td colspan="2"> 
       Activate accounts automatically
-      <input type="checkbox" name="auto_actaccount" value="checked" {auto_actaccount}>      
+      <input type="checkbox" name="auto_actaccount" value="x" checked> 
+      <input type="checkbox" name="auto_actaccount" value="checked" {auto_actaccount}>{auto_actaccount}
     </td>
   </tr>
   <tr>
@@ -77,7 +78,7 @@
       Number of automatically added reviewers:
     </td>
     <td>      
-      <input type="text" name="notification" size="16" maxlength="20" value="{auto_numreviewer}"/ >
+      <input type="text" name="notification" size="16" maxlength="20" value="{auto_numreviewer}">
     </td>
   </tr>
 
