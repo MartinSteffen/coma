@@ -64,10 +64,8 @@ elseif (isset($_GET['4'])) {
     </p>
     <p>
       Please selct your next Step of Isntallation...<br>
-      Your current step is: <?php echo $step; ?> <br>
+      Your current step is: <?php echo $STEP; ?> <br>
     </p>
-}
-
 <?php
 if ($STEP == 1){
   echo "    <p class=\"message-failed\">\n";
