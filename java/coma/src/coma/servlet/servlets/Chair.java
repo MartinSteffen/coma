@@ -366,7 +366,7 @@ public class Chair extends HttpServlet
         	info.append("</content>");
         	if (PAPER)
 
-        		info.append(XMLHelper.tagged("status","" + user + ": statistic for author ?"));	
+        		info.append(XMLHelper.tagged("status","" + user + ": statistic for author "+ p.getFirst_name()+" "+p.getLast_name()));	
         	else
         		info.append(XMLHelper.tagged("status","" + user + ": list of all authors"));	
         	commit(res,tag);
