@@ -13,7 +13,7 @@
       {if4<span class="status-rejected">rejected</span>}      
     </td>
     <td class="listitem-{line_no}">{num_reviews}</td>
-    <td class="listitem-{line_no}">{avg_rating}</td>
+    <td align=right class="listitem-{line_no}">{avg_rating}</td>
     <td class="listitem-{line_no}">{crit_value}</td>
     <td class="listitem-{line_no}">
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">view paper</a>}
