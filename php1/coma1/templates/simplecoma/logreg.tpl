@@ -1,4 +1,8 @@
-{message}
+<div align="center">
+<p class="message"> {message} </p>
+</div>
+
+
 <div align="center">
 <table>
 <tr> <td> <b> Einloggen </b> </td> </tr>
