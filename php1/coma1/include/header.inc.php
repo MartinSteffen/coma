@@ -112,10 +112,10 @@ define('MAX_ROLE', 5);
 if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
     $_SESSION['message'] = 'Bitte melden Sie sich an!';
+    die(basename($_SERVER['PHP_SELF'],'.php'));
   }
   else {
     $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
-    die(1);
   }
   if (isset($_SESSION['password'])) {
     unset($_SESSION['password']);
