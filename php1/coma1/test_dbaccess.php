@@ -17,7 +17,7 @@ define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
 function bit($b) {
-  for ($i = 15; $i >= 0; $--) {
+  for ($i = 15; $i >= 0; $i--) {
     echo($b&$i ? '1':'0');
   }
   return true;
