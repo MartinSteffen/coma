@@ -61,6 +61,7 @@ if (array_key_exists('msg', $TPL)) {
 		</tr>
 	</table>
 </fieldset>
+<br>
 
 <?
 
