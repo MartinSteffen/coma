@@ -66,7 +66,7 @@ function redirect($m = false, $a = false, $s = false, $mehr = false){
 //Makes the encoded password
 function makePassword($pass)
 {
-	$pass = MD5(strtolower($pass));
+	$pass = MD5($pass);
 	return $pass;
 }
 // {{{
