@@ -108,7 +108,9 @@ class Template {
    *
    */
   function parse() {
-    foreach ($this->strAssocs as &$key => &$value) {
+    // geht schoener in PHP5 :(
+    reset($this->strAssocs);
+    while (list($key, $value) = each($this->strAssocs)) {
       $key = '<(?i){'.$key.'}>';
       if (isObject($value)) {
         //$value
