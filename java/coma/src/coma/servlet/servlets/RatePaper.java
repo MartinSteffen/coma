@@ -94,6 +94,7 @@ public class RatePaper extends HttpServlet{
  
 	x.addXMLHead(result);
 	result.append("<content>");
+	result.append(new Navcolumn(request).toString());
 
 	try {
 

@@ -10,6 +10,8 @@
     encoding="iso-8859-1"
     />
 
+  <xsl:include href="navcolumn.xsl" />
+
   <xsl:template match="//servletState">
     <input type="hidden" name="servletState" value="{@state}"></input>
   </xsl:template>
@@ -25,24 +27,7 @@
         <xsl:value-of select="meta" />
       </head>
       <body>
-        <!-- more-or-less verbatim from subscribe.xsl -->
-        <!-- Site navigation menu -->
-        <div class="navbar">
-          <ul>
-            <li><a href="index.html">Home page</a></li>
-            <li><a href="http://snert.informatik.uni-kiel.de:8888/coma/">tomcat directory</a></li>
-            <li><a href="http://snert.informatik.uni-kiel.de:8080/svn/coma/">svn repository</a></li>
-            <li>
-              <a href="http://validator.w3.org/check?uri=referer">
-                <img src="./img/valid-xhtml11.png" alt="Valid XHTML 1.1?" style="border:0;width:68px;height:20px"  />
-              </a>
-              <a href="http://jigsaw.w3.org/css-validator/check/referer">
-                <img style="border:0;width:68px;height:20px" src="./img/vcss.png" alt="Valid CSS?" />
-              </a>
-            </li>
-          </ul> 
-        </div><!-- Site navigation menu -->
-
+        <xsl:call-template name="navcolumn" />
         <xsl:apply-templates select="/content" />
       </body>
     </html>

@@ -66,6 +66,7 @@ public class ShowReports extends HttpServlet {
 
 	    helper.addXMLHead(result);
 	    result.append("<result>\n");
+	    result.append(new Navcolumn(request).toString());
 
 	    try {
 		theUser = 
