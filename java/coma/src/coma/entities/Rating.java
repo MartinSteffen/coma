@@ -131,4 +131,16 @@ public class Rating extends Entity {
 	}
     }
     
+	/**
+	 * @param criterionId The criterionId to set.
+	 */
+	public void setCriterionId(int criterionId) {
+		this.criterionId = criterionId;
+	}
+	/**
+	 * @param reviewReportId The reviewReportId to set.
+	 */
+	public void setReviewReportId(int reviewReportId) {
+		this.reviewReportId = reviewReportId;
+	}
 }
