@@ -114,6 +114,16 @@
 						  <table width="230" border="0" cellspacing="0" cellpadding="0">
   							<tr>
 							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+							    <td class="menus"><a href="index.php?m=author&a=new" class="menus">New paper</a></td>
+						    </tr>
+						  </table>					  
+					    </td>
+					  </tr>			   
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
 							    <td class="menus"><a href="index.php?m=author&a=action" class="menus">Action (bitte selber bearbeiten!)</a></td>
 						    </tr>
 						  </table>					  

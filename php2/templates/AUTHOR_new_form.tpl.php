@@ -42,3 +42,4 @@
 </form>
 <?
   include('footer.tpl.php');
+?>
