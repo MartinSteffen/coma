@@ -37,6 +37,8 @@ if ($objPaper->intStatus == PAPER_CRITICAL) {
     if ($myDBAccess->failed()) {      
       error('Error during creating paper discussion forum.', $myDBAccess->getLastError());
     }
+    $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
+                   'paper has been opened.';
   }
 }
 
