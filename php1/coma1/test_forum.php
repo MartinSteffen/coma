@@ -48,7 +48,7 @@ $forum = $dbAccess->getForumDetailed(1);
 if ($forum) {  
   echo('<b>'.count($forum->getThreadCount()).' Thread'.
        (count($forum->getThreadCount()) <> 1 ? 's' : '').
-       ' in Forum \''.$forum->title.'\':</b><br><br>');   
+       ' in Forum \''.$forum->strTitle.'\':</b><br><br>');   
   for ($n = 0; $n < $forum->getThreadCount(); $n++) {
     printMessage($forum->getThread($n), 1);  
   }
