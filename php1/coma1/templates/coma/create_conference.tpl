@@ -95,10 +95,13 @@
       <input type="hidden" name="min_papers" value="{min_papers}">
       <input type="hidden" name="max_papers" value="{max_papers}">
       <input type="hidden" name="variance" value="{variance}">
-      <input type="hidden" name="criteria" value="{criteria}">
+      <input type="hidden" name="criterions" value="{criterions}">
       <input type="hidden" name="topics" value="{topics}">
       <input type="hidden" name="crit_max" value="{crit_max}">
       <input type="hidden" name="crit_descr" value="{crit_descr}">
+      <input type="hidden" name="crit_weight" value="{crit_weight}">
+      <input type="hidden" name="num_topics" value="{num_topics}">
+      <input type="hidden" name="num_criterions" value="{num_criterions}">      
       <input type="hidden" name="auto_actaccount" value="{if2 1}">
       <input type="hidden" name="auto_paperforum" value="{if3 1}">
       <input type="hidden" name="auto_addreviewer" value="{if4 1}">

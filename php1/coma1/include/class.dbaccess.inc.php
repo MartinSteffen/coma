@@ -56,67 +56,7 @@ Vom 14.01.:
 - Vor den letzten vier Updatemethoden habe ich eine kleine Anmerkung
   geschrieben, die einen Vorschlag zum Umgang mit Bug #71 macht.
 ============================================================================= */
-
-/* =============================================================================
-   Dinge, die zu beachten sind (extra fuer Sandro Auszuege aus dem ICQ-Log
-   (leicht angepasst), recht unstrukturiert, mehr so als Themensammlung, was man
-   im Hinterkopf behalten sollte):
-----------------------------------------------------------------------------
-du solltest nach funktionsaufrufen von dbaccess-methoden nicht
-if ($this->mySql->failed())
-pruefen, sondern
-if ($this->failed())
-analog die fehlermeldung $this->mySql->getLastError durch $this->getLastError
-ersetzen.
-----------------------------------------------------------------------------
-$objPaper = new Paper(...)
-if ($this->mySql->failed()) ...
-muss (abgesehen davon, dass es (s.o.) $this->failed() heißen muesste) entfernt
-werden, weil die konstruktoren gar keine fehlerbehandlung machen, insbesondere
-auch keinen rueckgabewert haben
-----------------------------------------------------------------------------
-man darf fehlerabfragen wirklich nur durchfuehren, wenn die aufgerufene methode
-auch fehlerbehandlung tut... (paper ist ja nicht mal von errorhandling
-abgeleitet)
-... sonst ist das verhalten undefiniert: ist zuletzt in der klasse ein fehler
-aufgetreten, wuerde hier wieder derselbe auftreten (da errorhandling das
-fehlerflag nicht loescht, bis eine operation erfolgreich war), sonst "zufaellig"
-keiner
-----------------------------------------------------------------------------
-oben muss es natuerlich nicht immer $this->failed() heißen, sondern evtl. auch
-$this->klasse->failed(), falls die pruefung sich auf eine methode der klasse
-$klasse bezieht...
-----------------------------------------------------------------------------
-
-Weitere (neue) Infos:
-
-// ACHTUNG!! FALLE:
-// Bei for-Schleifen bei der Benutzung von count unbedingt zu pruefen, ob
-// nicht etwa FALSE zurueckgegeben wurde => count(FALSE)=1 !!! Bei SQL-
-// Statements ist dies nicht der Fall (weil wir das leere Array
-// zurueckbekommen), aber bei Methodenaufrufen von DBAccess ist dies durchaus
-// moeglich.
-//
-// Die aktuellen Vorkommen (2) davon habe ich gefixt.
-// Ein Beispiel, wie dies elegant geschieht aus getForumsOfPerson:
-// for ($i = 0; $i < count($objAllForums) && !empty($objAllForums); $i++)
-----------------------------------------------------------------------------
-Bei Methoden, die dank der neuen Fehlerbehandlung im Erfolgsfall irgendwas
-zurueckgeben, z.B. einen int, und einen Fehler, wenn etwas schief geht, ist in
-Skripten, die diese benutzen, keine empty-Pruefung mehr notwendig.
-Vgl. addReviewReport und die Benutzung dessen in createNewReviewReport.
-----------------------------------------------------------------------------
-Bei Methoden wie addPrefersTopic habe ich den Rueckgabewert jetzt bool gemacht
-(wobei dieser true ist, ausser im Fehlerfall, aber da gibt es ja ohnehin auto-
-matisch false); int macht hier keinen Sinn, weil keine Auto-ID angelegt wird,
-die man zurueckgeben koennte.
-Bei den delete-Methoden entsprechend.
-----------------------------------------------------------------------------
-Noch ne Winzigkeit (peniboloestest): Im String, der bei der error-Methode den
-Methodennamen enthaelt, bitte kein Leerzeichen am Ende. ;-) (ist gefixt)
-
-----------------------------------------------------------------------------
-
+/*
 Frisch geSAEte Neuerungen vom 19.01.:
 - Die Methode getPapersOfAuthor() wird zusaetzlich mit dem Attribut $intConferenceId
   aufgerufen, das angibt, in welcher Konferenz nach Artikel gesucht werden soll.
@@ -127,6 +67,8 @@ Frisch geSAEte Neuerungen vom 19.01.:
   worden, da wir es auch in Listen haeufiger benutzen. Dasselbe Schicksal
   koennte dem $strLastEdit-Attribut drohen (-> Absprache).
   Bitte beachtet das beim Verwenden des Konstruktors PaperSimple!
+- addConference() bekommt als zusaetzliche Parameter die Angaben fuer die
+  ConferenceConfig-Tabelle (also unsere erweiterten Konfigurationsdaten).
 
 ============================================================================= */
 
@@ -2084,7 +2026,9 @@ nur fuer detaillierte?
                          $strNotification, $strConferenceStart, $strConferenceEnd,
                          $intMinReviews, $intDefaultReviews, $intMinPapers, $intMaxPapers
                          $fltVariance, $blnAutoActAccount, $blnAutoPaperForum,
-                         $blnAutoAddReviewer, $intNumAutoAddReviewer) {
+                         $blnAutoAddReviewer, $intNumAutoAddReviewer
+                         $strTopics, $strCriterions, $strCritDescripts,
+                         $intCritMaxVals, $fltCritWeights) {
     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
         "                          paper_submission_deadline, review_deadline,".
         "                          final_version_deadline, notification, conference_start,".
@@ -2115,6 +2059,37 @@ nur fuer detaillierte?
                             $this->mySql->getLastError()." / $strError");
       }
       return $this->error('addConference', $this->mySql->getLastError());
+    }
+    if (!empty($strTopics)) {
+      for ($i = 0; $i < count($strTopics); $i++) {
+      	$this->addTopic($intId, $strTopics[$i]);
+        if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+          $strError = $this->mySql->getLastError();
+          $s = "DELETE  FROM Conference".
+              " WHERE   id = '$intId'";
+          if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+            return $this->error('addConference', 'Fatal error: Database inconsistency!',
+                                $this->mySql->getLastError()." / $strError");
+          }
+        }
+        return $this->error('addConference', $this->mySql->getLastError());
+      }
+    }
+    if (!empty($strCriterions)) {
+      for ($i = 0; $i < count($strCriterions); $i++) {
+      	$this->addCriterion($intId, $strCriterions[$i], $strCritDescripts[$i],
+      	                    $intCritMaxVals[$i], $fltCritWeights[$i]);
+        if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+          $strError = $this->mySql->getLastError();
+          $s = "DELETE  FROM Conference".
+              " WHERE   id = '$intId'";
+          if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+            return $this->error('addConference', 'Fatal error: Database inconsistency!',
+                                $this->mySql->getLastError()." / $strError");
+          }
+        }
+        return $this->error('addConference', $this->mySql->getLastError());
+      }
     }
     return $this->success($intId);
   }
@@ -2424,7 +2399,7 @@ nur fuer detaillierte?
         "         VALUES ('$intConferenceId', '$strName')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addDeniesPaper', $this->mySql->getLastError());
+      return $this->error('addTopic', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }

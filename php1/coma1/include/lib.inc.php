@@ -79,6 +79,21 @@ function encodeText($_str) {
 }
 
 /**
+ * This function transforms the given string into an array of strings
+ * and encodes the single entries of the array.
+ *
+ * @param string $_str String representing array of strings to encode
+ * @return string encoded string array
+ */
+function encodeTextArray($_str) {
+  $retArray = explode('|', $_str);
+  for ($i = 0; $i < count($retArray); $i++) {
+    $retArray[$i] = htmlentities($retArray[$i], ENT_QUOTES, 'UTF-8');
+  }
+  return $retArray;
+}
+
+/**
  * This function makes an encoded String URL valid (gives an valid Link!)
  *
  * @param string $_str String to encode

@@ -74,9 +74,60 @@
       <input type="text" name="auto_numreviewer" size="8" maxlength="8" value="{auto_numreviewer}">
     </td>
   </tr>
-
   <tr>
     <td colspan="2">
+      <table class="formlist">
+        <tr class="formlistheader">
+          <th class="formlistheader">Topics</th>
+          <th class="formlistheader">&nbsp;</th>
+        </tr>
+        {topic_lines}
+        <tr class="formlistitem">
+          <td class="formlistitem">
+            <input type="text" name="topic_name" size="32" maxlength="127" value="">
+          </td>
+          <td class="formlistitem">
+            <input type="submit" name="add_topic" value="Add" class="smallbutton">
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <table class="formlist">
+        <tr class="formlistheader">
+          <th class="formlistheader">Criterions</th>
+          <th class="formlistheader">maximum value</th>
+          <th class="formlistheader">weight</th>          
+          <th class="formlistheader">&nbsp;</th>
+        </tr>
+        {criterion_lines}
+        <tr class="formlistitem">
+          <td class="formlistitem">
+            <input type="text" name="crit_name" size="32" maxlength="127" value="">
+          </td>
+          <td class="formlistitem">
+            <input type="text" name="crit_maxvalue" size="8" maxlength="8" value="">
+          </td>
+          <td class="formlistitem">
+            <input type="text" name="crit_weight" size="8" maxlength="8" value="">
+          </td>          
+          <td class="formlistitem">
+            <input type="submit" name="add_crit" value="Add" class="smallbutton">
+          </td>          
+        </tr>
+        <tr>
+          <td colspan="4">
+            Description: <textarea name="crit-descr" rows="1" cols="48"></textarea>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <input type="hidden" name="advanced" value="1">
       <input type="hidden" name="name" value="{name}">
       <input type="hidden" name="description" value="{description}">
       <input type="hidden" name="homepage" value="{homepage}">
@@ -87,11 +138,14 @@
       <input type="hidden" name="review_dl" value="{review_dl}">
       <input type="hidden" name="final_dl" value="{final_dl}">
       <input type="hidden" name="notification" value="{notification}">
-      <input type="hidden" name="criteria" value="{criteria}">
+      <input type="hidden" name="criterions" value="{criterions}">
       <input type="hidden" name="topics" value="{topics}">
       <input type="hidden" name="crit_max" value="{crit_max}">
       <input type="hidden" name="crit_descr" value="{crit_descr}">
-
+      <input type="hidden" name="crit_weight" value="{crit_weight}">
+      <input type="hidden" name="num_topics" value="{num_topics}">
+      <input type="hidden" name="num_criterions" value="{num_criterions}">      
+      
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit" value="Create Conference" class="button">
       <input type="submit" name="simple_config" value="Simple settings" class="button">

@@ -22,13 +22,15 @@ if (!defined('IN_COMA1')) {
 class Criterion {
 
   var $intId;
+  var $intConferenceId;
   var $strName;
   var $strDescription;
   var $intMaxValue;
   var $fltWeight; // Wertebereich [0,1]
 
-  function Criterion($intId, $strName, $strDescription, $intMaxValue, $fltWeight) {
+  function Criterion($intId, $intConferenceId, $strName, $strDescription, $intMaxValue, $fltWeight) {
     $this->intId = $intId;
+    $this->intConferenceId = $intConferenceId;
     $this->strName = $strName;
     $this->strDescription = $strDescription;
     $this->intMaxValue = $intMaxValue;
