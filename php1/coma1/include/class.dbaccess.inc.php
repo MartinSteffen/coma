@@ -214,8 +214,8 @@ class DBAccess {
       	if ($author != false) {
       	  $strAuthorName = $author->getName();
         }
-      	$papers[i] = new PaperSimple($data[i]['id'], $data[i]['title'],
-      	               $data[i]['author_id'], $strAuthorName, $data[i]['state'],
+      	$papers[i] = new PaperSimple($data[i]['id'], $data[$i]['title'],
+      	               $data[$i]['author_id'], $strAuthorName, $data[$i]['state'],
       	               $fltAvgRating);
       }
       return $papers;

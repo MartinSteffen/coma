@@ -52,10 +52,10 @@ class Person {
     // erstmal ganz billig; spaeter Pruefung auf leere Strings usw.
     switch($intStyle) {
       case 0:
-        $ret = $strFirstName.' '.$strLastName;
+        $ret = $this->strFirstName.' '.$this->strLastName;
         break;
       case 1:
-        $ret = $strLastName.', '.$strFirstName;
+        $ret = $this->strLastName.', '.$this->strFirstName;
         break;
       default:
         $ret = 'Ungueltiger Parameterwert fuer $intStyle in Person.getName().';
