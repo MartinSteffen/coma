@@ -317,6 +317,12 @@ im Menü angezeigt, die der eingeloggte User aufrufen darf.
 
 
 -Rollen & Rechte:
+
+In die Grundstruktur eingebaut ist ein Rollen und Rechtesystem. In der Datenbank sind einträge für die verschiedenen Module vorgesehen, so dass 
+es möglich ist, sie dort zentral einzutragen und Rollen zuzuordnen. In der Index.php wird dann vor dem includen der jeweiligen Module gecheckt,
+ob die richtigen Rechte an dem angeforderten Modul anliegen. Es war ursprünglich dafür gedacht, die Daten eines Users herauszusuchen und seine 
+angefordrten Aktionen gegen seine Rechte abzugleichen und damit auch gleich eine generische Linkliste zu generieren. Dieser Teil ist implementiert 
+aber obsolet, da es in Chair noch einmal (auf anderer Ebene) implementiert wurde. Es ist jedoch aus Sicherheitsaspekten auch zugeschaltet.   
 -----------------
 Torben, Tim
 
@@ -374,4 +380,24 @@ Die zweite Aufgabe ist in Zusammenarbeit mit includes/rights.inc.php. Falls der 
 er automatisch ausgeloggt und eine Fehlermeldung ausgegeben. Bei einem normalen Zustand des Coma, soll so was nicht passieren. Das könnte aber passieren
 falls der Benutzer das System "hacken" möchte : zB in der Addresszeile die Parametern ändern. Eine mögliche Erweiturung wäre, solche Aktivitäten dem
 Admin zu informieren (wir brauchen aber eine extra Tabelle in der Datenbank).
+
+-Struktur:
+----------
+Torben
+
+Die Grundstruktur erfüllt den Sinn eine generische Homepage zu generieren.
+Zum einen werde die Rollen/Rechte (wie oben beschrieben) dem jeweiligen User zugeordnet und das Menu entsprechend angepasst (obsolet, wurde von Chair reimplementiert, aber statisch)
+Der User kann nun über die Links in die verschiedenen Module gelangen, oder sie direkt über die URL referenzieren. 
+Ein Modul wird dabei mit "m=<modulname>" bezeichnet. 
+Einem Modul ist immer ein bestimmtes Verzeichnis auf der Festplatte zugeordnet (/modules/<modulname>). In diesem Verzeichnis sollte auch angegeben werden, welche
+Action in dem Modul per default ausgeführt werden soll (zu setzen in /modules/config.ic.php). Eine Acton ist hierbei auch wieder einem Ornder zugeordnet. (/modules/<modulname>/<actionnname>)
+es kann mehrere Actions in einem Modul geben. Auch hier muss ein default Eintrag in einer config.inc.php hinterlegt werden.Diese Actions werden zusammen mit dem Modul 
+referenziert und erhalten den referenten "a=<actionnname>"
+Bisher werden Module und Actions nur in einer Struktur widergespiegelt, ohne irgendwelche ausführbaren Konstrukte aufzuweisen. Hierfür sind die SubActions verantwortlich, da sie
+den eigentichen Code enthalten. Sie werden über "s=<subactioname>" aufgerufen, immer einhergehend mit zugehörigem modul und action. Auch eine defaultsubaction ist zu definiere.
+
+Wird nun eine solche Referenz aufgerufen, so prüft die Index.php, ob die jeweiligen Rechte der Person an diesem Modul (dargestellt durch das Paar (modul, action) anliegen und includet dann die gewünschte subaction (den Code)
+In diesem Code hat auch ein einzubindendes Template angegeben zu sein, welches also gleichermassen dann in den Grundaufbau derStruktur/der Templates eingebunden wird.
+
+Ist eine Referent (m,a,s) nicht gesetzt, so werden die default Einträge analysiert und aufgerufen.   
 
