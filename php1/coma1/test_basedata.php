@@ -176,9 +176,15 @@ echo '.';
 $i = 0;
 while ($i < $conferences) {
   $j = 0;
+  $totalWeight = 0;
   while ($j < $criterions) {
   echo 'Cr<br>';
-    $myDBAccess->addCriterion($i+1, 'Name'.$i.$j, 'Description'.$i.$j, rand(6,10),rand(0,100) );
+    if ($j < $criterions-1)
+      $weight = rand(0,100-$totalWeight);
+    else
+      $weight = 100-$totalWeight;
+    $myDBAccess->addCriterion($i+1, 'Name'.$i.$j, 'Description'.$i.$j, rand(6,10), $weight/100);
+    $totalWeight += $weight;
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
