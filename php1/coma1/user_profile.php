@@ -40,8 +40,8 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>E-mail</b>!';
   }
   // Teste, ob die Email gueltig ist
-  elseif ((!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email']))
-        &&(!ereg("^([a-zA-Z0-9\.\_\-]+)@\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$",  $_POST['email']))) {
+  elseif ((!preg_match("/^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$/", $_POST['email']))
+        &&(!preg_match("/^([a-zA-Z0-9\.\_\-]+)@(([0-9]|1?\d\d|2[0-4]\d|25[0-5])\.){3}([0-9]|1?\d\d|2[0-4]\d|25[0-5])$/",  $_POST['email']))) {
     $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist
