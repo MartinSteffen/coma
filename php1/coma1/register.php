@@ -33,7 +33,7 @@ if (isset($_POST['email'])){
 
   /* Anlegen der Person in der Datenbank */
 
-  $strContentAssocs['first_name'] = $_POST['first_name'9;
+  $strContentAssocs['first_name'] = $_POST['first_name'];
   $strContentAssocs['last_name'] = $_POST['last_name'];
   $strContentAssocs['email'] = $_POST['email'];
   $strContentAssocs['name_title'] = $_POST['name_title'];
