@@ -1018,8 +1018,8 @@ class DBAccess extends ErrorHandling {
                           "intAuthorId = $objPaper->intAuthorId");
     }
     $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $paper_data[0]['title'],
-                   $objAuthor->intId, $objAuthor->getName(), getReviewRating($intReviewId),
-                   getAverageRatingOfPaper($paper_data[0]['id']), $objReviewer->strEmail,
+                   $objAuthor->intId, $objAuthor->getName(), $this->getReviewRating($intReviewId),
+                   $this->getAverageRatingOfPaper($data[0]['paper_id']), $objReviewer->strEmail,
                    $objReviewer->getName()));
     return $this->success($objReview);
   }
