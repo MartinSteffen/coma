@@ -30,8 +30,9 @@ public class SMTPClient {
 	private String message;
 
 
-	public SMTPClient(String smtpServerHost,String senAddress,String anrecAddress, String aSubject, String aMessage) {
-		server = smtpServerHost;
+	public SMTPClient(String senAddress,String anrecAddress, String aSubject, String aMessage) {
+		server = "127.0.0.1";
+		client="localhost";
 		recipientAddress= anrecAddress;
 		subject = aSubject;
 		message = aMessage;
@@ -43,7 +44,7 @@ public class SMTPClient {
 		try{
 
 	
-		client = senderAddress.substring(senderAddress.indexOf( "@")+ 1,senderAddress.length());
+		//client = senderAddress.substring(senderAddress.indexOf( "@")+ 1,senderAddress.length());
 		sendMessage(this.toString());
 		return true;}
 		catch(Exception e)
@@ -63,14 +64,15 @@ public class SMTPClient {
 	}
 	private void connect() {
 	try {
-
+		String response = null;
 		Socket socket  = new Socket(server,25);
 		input = new BufferedReader(new InputStreamReader(socket.getInputStream() ) );
 		output = new PrintWriter(
 				new BufferedWriter(
 						new OutputStreamWriter(
 						socket.getOutputStream() ) ));
-	
+		response = input.readLine();
+		System.out.println(response);
 	}catch( IOException e ){
 		e.printStackTrace();
 		}
@@ -88,11 +90,13 @@ public class SMTPClient {
 	private void initiate() {
 		String response = null;
 		try {
-			output.print("Helo"+ client +"\r\n");
-			output.print("MAIL FROM:" + senderAddress +"\r\n");
-			output.print("RCPT TO:" + recipientAddress +"\r\n");
+			output.print("HELO "+ client +"\r\n");
+			output.print("MAIL FROM: " + senderAddress +"\r\n");
+			output.print("RCPT TO: " + recipientAddress +"\r\n");
 			output.print("DATA\r\n");
 			output.flush();
+			response = input.readLine();
+			System.out.println(response);
 		}
 		catch(Exception e) {
 		   e.printStackTrace();
@@ -108,6 +112,7 @@ public class SMTPClient {
 			output.print( "Quit\r\n");
 			output.flush();
 			response = input.readLine();
+			System.out.println(response);
 		}
 		catch(IOException e) {
 			e.printStackTrace();
