@@ -33,7 +33,7 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">      
-      Select <a href="{basepath}chair_confconfig.php{?SID}">'Config conference'</a> to edit the
+      Select <a href="{basepath}chair_confconfig.php{?SID}">'Config. conference'</a> to edit the
       conference's parameters, e.g. the dates for the deadlines.
     </td>
   </tr>
