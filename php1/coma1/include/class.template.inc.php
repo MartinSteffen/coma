@@ -134,8 +134,10 @@ class Template {
       elseif (is_array($value)) {
         $strKeys[] = '/(?i){'.$key.'=(.*)}/';
         $strValues[] = '';
-        $this->strTemplate = preg_replace('/(?i){'.$value[0].'(.*){'.$key.'}(.*)}/', '\\1\\2', $this->strTemplate);
-        echo('/(?i){'.$value[0].'(.*){'.$key.'}(.*)}/');
+        $this->strTemplate = preg_replace('/(?i){'.$value[0].'(.*)({'.$key.'})(.*)}/', 
+                                          '\\1\\3', 
+                                          $this->strTemplate);
+        echo('/(?i){'.$value[0].'(.*)({'.$key.'})(.*)}/');
       }
       else {
         $strKeys[] = '/(?i){'.$key.'}/';
