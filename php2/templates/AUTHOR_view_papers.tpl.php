@@ -6,6 +6,12 @@ include('templates/header.tpl.php');
 ?>
 <fieldset>
 <legend class="textBold">paper managment</legend>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+	<td>&nbsp;<td>
+</tr>
+<tr>
+	<td>
 <?
 
 if (array_key_exists('msg', $TPL)) {
@@ -151,7 +157,9 @@ foreach($TPL as $key => $value) {
 }
 
 ?>
-
+</td>
+</tr>
+</table>
 </fieldset>
 
 <?
