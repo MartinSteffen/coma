@@ -18,6 +18,10 @@ $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 
+function emptytime($str) {
+  return empty($str) ? '' : date('m/d/Y',$str);
+}
+
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 // siehe von der Struktur her main_profile.php
 if (isset($_POST['action'])) {
@@ -34,13 +38,13 @@ if (isset($_POST['action'])) {
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
-  $strContentAssocs['start_date']       = encodeText(date('d.M Y',$start_date));
-  $strContentAssocs['end_date']         = encodeText(date('d.M Y',$end_date));
-  $strContentAssocs['abstract_dl']      = encodeText(date('d.M Y',$abstract_dl));
-  $strContentAssocs['paper_dl']         = encodeText(date('d.M Y',$paper_dl));
-  $strContentAssocs['review_dl']        = encodeText(date('d.M Y',$review_dl));
-  $strContentAssocs['final_dl']         = encodeText(date('d.M Y',$final_dl));
-  $strContentAssocs['notification']     = encodeText(date('d.M Y',$notification));
+  $strContentAssocs['start_date']       = encodeText(emptytime($start_date));
+  $strContentAssocs['end_date']         = encodeText(emptytime($end_date));
+  $strContentAssocs['abstract_dl']      = encodeText(emptytime($abstract_dl));
+  $strContentAssocs['paper_dl']         = encodeText(emptytime($paper_dl));
+  $strContentAssocs['review_dl']        = encodeText(emptytime($review_dl));
+  $strContentAssocs['final_dl']         = encodeText(emptytime($final_dl));
+  $strContentAssocs['notification']     = encodeText(emptytime($notification));
   $strContentAssocs['min_reviews']      = encodeText($_POST['min_reviews']);
   $strContentAssocs['def_reviews']      = encodeText($_POST['def_reviews']);
   $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);

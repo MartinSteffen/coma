@@ -116,5 +116,6 @@
 </form>
 
 <p class="message2">
-  Please use the format <b>dd/mm/yyyy</b> for the date fields, for example <b>01/05/2005</b>!
+  Dates are usually in the <b>mm/dd/yyyy</b> format! eg <b>01/05/2005</b>.<br>
+  But lots of other formats are accepted, too. (eg <b>today</b>)
 </p>
