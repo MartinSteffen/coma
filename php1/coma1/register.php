@@ -67,7 +67,7 @@ if (isset($_POST['email'])){
                                      $_POST['last_name'],
                                      $_POST['email'],
                                      $_POST['name_title'],
-                                     $_POST['affiliation'],,
+                                     $_POST['affiliation'],
                                      $_POST['street'],
                                      $_POST['city'],
                                      $_POST['postalcode'],
