@@ -61,6 +61,7 @@ a.menu:hover   { color: #2F2F2F; }
 
 /* Tabelle fuer den Seiteninhalt */
 table.body { width: 100%; min-height: 450px; vertical-align: top; }
+td.body { padding: 2px 10px; text-align: center; }
 
 /* Tabelle fuer die Kopfzeile */
 table.header { width: 100%; background-color: #DBE9EC; }
@@ -89,7 +90,9 @@ input, button { font-size: 12px;
       }
 
 input.button, button { font-weight: bold; background-color: #CEDBEF;
-                       min-width: 100px; text-align: center; padding: 2px 8px; }
+                       min-width: 100px; text-align: center; padding: 2px 8px; 
+                       text-align: center; 
+                     }
 
 /* Tabelle mit Linien zur Darstellung von Listen */
 table.list { border-style: solid;

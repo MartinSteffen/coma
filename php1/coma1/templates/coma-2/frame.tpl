@@ -46,7 +46,7 @@
   <td class="menu">
     {menu}
   </td>
-  <td>
+  <td class="body">
     <h2>{title}</h2>
     {content}
   </td>
