@@ -76,7 +76,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <table class="formlist">
+      <table class="formlist" width="100%">
         <tr class="formlistheader">
           <th class="formlistheader">Topics</th>
           <th class="formlistheader">&nbsp;</th>
@@ -95,7 +95,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <table class="formlist">
+      <table class="formlist" width="100%">
         <tr class="formlistheader">
           <th class="formlistheader">Criterions</th>
           <th class="formlistheader">maximum value</th>
