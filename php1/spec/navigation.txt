@@ -153,7 +153,7 @@ STATUS:    fertig
 Rollenanmeldung   [apply_role.php]
 -----------------
 Optionen:  - Anmeldungsbestätigung (-> Konferenzauswahl)           
-STATUS:    Funktionalität fertig, evtl. Bestätigung/Abbruch der Anmeldung als Option
+STATUS:    fertig
 
 Forenübersicht 
 ---------------
@@ -207,7 +207,7 @@ Menü:      - Profil (-> Profil einstellen)
            - Nachrichten (-> Nachrichtenübersicht)
            - Konferenzinfo (-> Konferenzinfo [nach Login])
            - Logout (-> Konferenzauswahl)
-STATUS:    fertig bis auf Forenanbindung
+STATUS:    fertig
 
 Chair-Menü   [chairmenu.tpl]
 -----------
@@ -352,7 +352,7 @@ Inhalt:    - Liste der Artikel* (Titel, Autor*, Status ?, ...)
 Optionen:  - Download der einzelnen Artikel
            - Artikeldaten bearbeiten (-> AUTOR-Artikel bearbeiten)
            - Artikel löschen
-STATUS:    Download fehlt
+STATUS:    fertig
 
 AUTOR-Artikel bearbeiten   [author_editpaper.php]
 -------------------------
@@ -362,7 +362,7 @@ Optionen:  - Artikelversion uploaden
            - Download des Artikels
            - Co-Autor hinzufügen / entfernen
            - Einstellungen übernehmen / rückgängig machen (-> AUTOR-Artikel)
-STATUS:    Download fehlt, Artikeldatei uploaden fehlt
+STATUS:    fertig
 
 TEILNEHMER-Einstellungen    [participant_data.php]
 -------------------------
@@ -410,7 +410,7 @@ Inhalt:    - Alle Artikeldaten (Titel, Beschreibung, Autor*, Themen, Datum, Form
 Optionen:  - Download des Artikels
            - Zurück (-> [Herkunftsseite])
 STATUS:    wird designtechnisch noch überarbeitet,
-           Download fehlt
+
 
 ============================================================================
   APPENDIX: Anmerkungen zur Notation
