@@ -85,12 +85,12 @@
           		 <xsl:otherwise>
           		 	<li><a href="Chair?action=setup&amp;target=conference">conference setup</a></li>
           		 	<li><a href="Chair?action=show_topics">list of topics</a></li> 
-					 <li><a href="Chair?action=invite_person">invite person</a></li> 
+					<li><a href="Chair?action=invite_person">invite person</a></li> 
             	 	<li><a href="Chair?action=show_authors">list of authors</a></li> 
- 					 <li><a href="Chair?action=show_reviewers">list of reviewers</a></li>
- 					 <li><a href="Chair?action=show_papers">list of papers</a></li>
- 					 <li><a href="Chair?action=email">email</a></li>
- 					 <li><a href="Chair?action=program">create Program</a></li>
+ 					<li><a href="Chair?action=show_reviewers">list of reviewers</a></li>
+ 					<li><a href="Chair?action=show_papers">list of papers</a></li>
+ 					<li><a href="Chair?action=email">email</a></li>
+ 					<li><a href="Chair?action=program">create Program</a></li>
           		 </xsl:otherwise>
           		 </xsl:choose>
 		          
