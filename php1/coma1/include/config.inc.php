@@ -13,7 +13,7 @@ if ( !defined('IN_COMA1') )
 }
 
 // Change these Values
-$sqlServer = 'localhost';
+$sqlServer = 'localshost';
 $sqlUser = 'coma1';
 $sqlPassword = 'Rhashdeak';
 $sqlDatabase = 'coma1';
