@@ -12,16 +12,65 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 
+/* =============================================================================
+   Dinge, die zu beachten sind (extra fuer Sandro Auszuege aus dem ICQ-Log
+   (leicht angepasst), recht unstrukturiert, mehr so als Themensammlung, was man
+   im Hinterkopf behalten sollte):
+----------------------------------------------------------------------------
+du solltest nach funktionsaufrufen von dbaccess-methoden nicht
+if ($this->mySql->failed())
+pruefen, sondern
+if ($this->failed())
+analog die fehlermeldung $this->mySql->getLastError durch $this->getLastError
+ersetzen.
+----------------------------------------------------------------------------
+$objPaper = $this->getPaper(...);
+if ($this->mySql->failed()) ...
+muss (abgesehen davon, dass es (s.o.) $this->failed() heißen muesste) entfernt
+werden, weil die konstruktoren gar keine fehlerbehandlung machen, insbesondere
+auch keinen rueckgabewert haben
+----------------------------------------------------------------------------
+man darf fehlerabfragen wirklich nur durchfuehren, wenn die aufgerufene methode
+auch fehlerbehandlung tut... (paper ist ja nicht mal von errorhandling
+abgeleitet)
+... sonst ist das verhalten undefiniert: ist zuletzt in der klasse ein fehler
+aufgetreten, wuerde hier wieder derselbe auftreten (da errorhandling das
+fehlerflag nicht loescht, bis eine operation erfolgreich war), sonst "zufaellig"
+keiner
+----------------------------------------------------------------------------
+oben muss es natuerlich nicht immer $this->failed() heißen, sondern evtl. auch
+$this->klasse->failed(), falls die pruefung sich auf eine methode der klasse
+$klasse bezieht...
+----------------------------------------------------------------------------
+
+Weitere (neue) Infos:
+
 // ACHTUNG!! FALLE:
 // Bei for-Schleifen bei der Benutzung von count unbedingt zu pruefen, ob
-// nicht etwa FALSE zurueckgegeben wurde => count(FALSE)=1 !!! Bei SQL-Statements
-// ist dies nicht der Fall (weil wir das leere Array zurueckbekommen), aber bei
-// Methodenaufrufen von DBAccess ist dies durchaus moeglich.
+// nicht etwa FALSE zurueckgegeben wurde => count(FALSE)=1 !!! Bei SQL-
+// Statements ist dies nicht der Fall (weil wir das leere Array
+// zurueckbekommen), aber bei Methodenaufrufen von DBAccess ist dies durchaus
+// moeglich.
 //
 // Die aktuellen Vorkommen (2) davon habe ich gefixt.
 // Ein Beispiel, wie dies elegant geschieht aus getForumsOfPerson:
-// for ($i = 0; $i < count($objAllForums) && empty($objAllForums) == false; $i++)
+// for ($i = 0; $i < count($objAllForums) && !empty($objAllForums); $i++)
+----------------------------------------------------------------------------
+Bei Methoden, die dank der neuen Fehlerbehandlung im Erfolgsfall irgendwas
+zurueckgeben, z.B. einen int, und einen Fehler, wenn etwas schief geht, ist in
+Skripten, die diese benutzen, keine empty-Pruefung mehr notwendig.
+Vgl. addReviewReport und die Benutzung dessen in createNewReviewReport.
+----------------------------------------------------------------------------
+Bei Methoden wie addPrefersTopic habe ich den Rueckgabewert jetzt bool gemacht
+(wobei dieser true ist, ausser im Fehlerfall, aber da gibt es ja ohnehin auto-
+matisch false); int macht hier keinen Sinn, weil keine Auto-ID angelegt wird,
+die man zurueckgeben koennte.
+Bei den delete-Methoden entsprechend.
+----------------------------------------------------------------------------
+Noch ne Winzigkeit (peniboloestest): Im String, der bei der error-Methode den
+Methodennamen enthaelt, bitte kein Leerzeichen am Ende. ;-) (ist gefixt)
 
+============================================================================= */
 
 require_once(INCPATH.'header.inc.php');
 
@@ -151,7 +200,7 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array mit allen Konferenzen zurück.
+   * Liefert ein Array mit allen Konferenzen zurueck.
    *
    * @return Conference [] Gibt ein leeres Array zurueck, falls keine Konferenzen
    *                       existieren.
@@ -1002,7 +1051,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getForumsOfPerson', $this->mySql->getLastError());
     }
     $objForums = array();
-    for ($i = 0; $i < count($objAllForums) && empty($objAllForums) == false; $i++) {
+    for ($i = 0; $i < count($objAllForums) && !empty($objAllForums); $i++) {
       if ($this->checkAccessToForum($objPerson, $objAllForums[$i])) {
         $objForums[] = $objAllForums[$i];
       }
@@ -1098,8 +1147,8 @@ class DBAccess extends ErrorHandling {
     // Rollen einfuegen...
     for ($i = 0; $i < count($intRoles); $i++) {
       if ($objPerson->hasRole($intRoles[$i])) {
-        $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-            '         VALUES ('.$intConferenceId.', '.$intId.', '.$intRole[$i].')';
+        $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
+            "         VALUES ($intConferenceId, $intId, $intRole[$i])";
         $result = $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1154,31 +1203,30 @@ class DBAccess extends ErrorHandling {
    * @param $strConferenceEnd          :?
    * @param $strMinRevPerPaper         :?
    *
-   * Datum wird übergeben im Format Jahr-Monat-Tag z.B. 2012115
+   * Datum wird uebergeben im Format Jahr-Monat-Tag z.B. 2012115
    *
    * @access public
-   * @author Daniel (31.12.04)
+   * @author Daniel (31.12.04), ueberarbeitet Tom (13.01.05)
    */
 
    /* TODO: automatisch auch neuen ConferenceConfig-Datensatz einfuegen! (Tom) */
-   function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline,
+  function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline,
                          $strPaperSubDeadline, $strReviewDeadline, $strFinalVersionDeadline,
-                         $strNotification, $strConverenceStart, $strConferenceEnd, $strMinRevPerPaper){
-     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
-         "                          paper_submission_deadline, review_deadline, final_version_deadline,".
-         "                          notification, conference_start, conference_end, min_reviews_per_paper)".
-         "         VALUES  ('$strName', '$strHomepage', '$strDescription,'$strAbsSubDeadline,".
-         "                  '$strPaperSubDeadline', '$strReviewDeadline', '$strFinalVersionDeadline',".
-         "                  '$strNotification', '$strConverenceStart', '$strConferenceEnd' ,$strMinRevPerPaper')";
-     //echo('<br>SQL: '.$s.'<br>');
-     $intId = $this->mySql->insert($s);
-     if (!empty($intId)) {
-       return $intId;
-     }
-     else {
-       return false;
-       echo $this->error('addConference '.$this->mySql->getLastError());
+                         $strNotification, $strConverenceStart, $strConferenceEnd,
+                         $strMinRevPerPaper) {
+    $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
+        "                          paper_submission_deadline, review_deadline,".
+        "                          final_version_deadline, notification, conference_start,".
+        "                          conference_end, min_reviews_per_paper)".
+        "         VALUES  ('$strName', '$strHomepage', '$strDescription,'$strAbsSubDeadline,".
+        "                  '$strPaperSubDeadline', '$strReviewDeadline',".
+        "                  '$strFinalVersionDeadline', '$strNotification', '$strConverenceStart',".
+        "                  '$strConferenceEnd', '$strMinRevPerPaper')";
+    $intId = $this->mySql->insert($s);
+    if ($this->mySql->failed()) {
+      return $this->error('addConference', $this->mySql->getLastError());
     }
+    return $this->success($intId);
   }
 
   /**
@@ -1197,8 +1245,8 @@ class DBAccess extends ErrorHandling {
    * @param string $strPhone        Telefonnummer der Person
    * @param string $strFax          Faxnummer der Person
    * @param string $strPassword     Passwort des Accounts (unverschluesselt zu uebergeben)
-   * @return int ID der erzeugten Person oder false , falls ein Fehler
-   *             aufgetreten ist
+   * @return int ID der erzeugten Person oder false, falls ein Fehler
+   *             aufgetreten ist.
    * @access public
    * @author Sandro, Tom (17.12.04)
    */
@@ -1213,10 +1261,9 @@ class DBAccess extends ErrorHandling {
         "                 '$strPostalCode', '$strCity', '$strState',".
         "                 '$strcountry', '$strPhone', '$strFax',".
         "                 '".sha1($strPassword)."')";
-    // echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addPerson ', $this->mySql->getLastError());
+      return $this->error('addPerson', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1227,19 +1274,18 @@ class DBAccess extends ErrorHandling {
    * @param int $intConferenceId Konferenz-ID
    * @param int $intPersonId     Personen-ID
    * @param int $intRole         Rollen-Enum
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function addRole($intConferenceId, $intPersonId, $intRoleType) {
     $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
         "         VALUES ($intConferenceId, $intPersonId, $intRoleType)";
-    // echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addRole ', $this->mySql->getLastError());
+      return $this->error('addRole', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1247,19 +1293,18 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPaperId    Paper-Id
    * @param int $intCoAuthorId Co-Autor-ID
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function addCoAuthor($intPaperId, $intCoAuthorId) {
     $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
-        "         VALUES ($intCoAuthorId, '$intPaperId')";
-    echo('<br>SQL: '.$s.'<br>');
+        "         VALUES ($intCoAuthorId, $intPaperId)";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCoAuthor ', $this->mySql->getLastError());
+      return $this->error('addCoAuthor', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1268,24 +1313,22 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPaperId Paper-ID
    * @param str $strName    Name des Co-Autors
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function addCoAuthorName($intPaperId, $strName) {
     $s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
         "         VALUES ($intPaperId, '$strName')";
-    echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCoAuthorName ', $this->mySql->getLastError());
+      return $this->error('addCoAuthorName', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    * Fuegt ein Paper (mit den Namen der Co-Autoren) hinzu.
-   * TODO: Fehler beim Einfuegen von Co-Autoren? => UNDO Vorheriges
    *
    * @param int $intConferenceId Konferenz-ID
    * @param int $intAuthorId     Autor-ID
@@ -1294,8 +1337,8 @@ class DBAccess extends ErrorHandling {
    * @param str $strFilePath     Dateipfad und -name
    * @param str $strMimeType     MIME-Typ
    * @param str $strCoAuthors[]  Namen der Co-Autoren
-   * @return int|bool ID des erzeugten Papers bzw. <b>false</b>, falls ein Fehler
-   *                  aufgetreten ist
+   * @return int ID des erzeugten Papers
+   *
    * @access public
    * @author Tom (26.12.04)
    */
@@ -1305,21 +1348,24 @@ class DBAccess extends ErrorHandling {
         "                     mime_type, state)".
         "         VALUES ($intConferenceId, $intAuthorId, '$strTitle',".
         "                 '$strAbstract', '$strFilePath', '$strMimeType', 0)";
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      $blnOk = true;
-      for ($i = 0; $i < count($strCoAuthors) && empty($strCoAuthors) == false; $i++) {
-        if ($this->addCoAuthorName($intId, $strCoAuthors[$i]) == false) {
-          $blnOk = false;
-        }
-      }
-      if ($blnOk) {
-        return $intId;
-      }
-      return $this->error('addPaper ', $this->getLastError());
+    if ($this->mySql->failed()) {
+      return $this->error('addPaper', $this->mySql->getLastError());
     }
-    return $this->error('addPaper ', $this->mySql->getLastError());
+    for ($i = 0; $i < count($strCoAuthors) && !empty($strCoAuthors); $i++) {
+      $this->addCoAuthorName($intId, $strCoAuthors[$i]);
+      if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+        $s = "DELETE  FROM Paper".
+            " WHERE   id = $intId";
+        $this->mySql->delete($s);
+        if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+          return $this->error('addPaper', 'Fatal error: Database inconsistency!',
+                              $this->mySql->getLastError());
+        }
+        return $this->error('addPaper', $this->getLastError());
+      }
+    }
+    return $this->success($intId);
   }
 
   /**
@@ -1330,8 +1376,8 @@ class DBAccess extends ErrorHandling {
    * @param string $strSummary       Zusammenfassender Text fuer die Bewertung (inital: '')
    * @param string $strRemarks       Anmerkungen fuer den Autoren (inital: '')
    * @param string $strConfidential  Vertrauliche Anmerkungen fuer das Komitee (inital '')
-   * @return int ID des erzeugten Review-Reports oder <b>false</b>, falls ein Fehler
-   *             aufgetreten ist
+   * @return int ID des erzeugten Review-Reports
+   *
    * @access public
    * @author Sandro (18.12.04)
    */
@@ -1340,10 +1386,9 @@ class DBAccess extends ErrorHandling {
     $s = "INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)".
         "         VALUES ($intPaperId, $intReviewerId,".
         "                 '$strSummary', '$strRemarks', '$strConfidential')";
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addReviewReport ', $this->mySql->getLastError());
+      return $this->error('addReviewReport', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1355,18 +1400,17 @@ class DBAccess extends ErrorHandling {
    * @param int $intCriterionId  ID des Bewertungskriteriums
    * @param int $intGrade        Note, Auspraegung der Bewertung (inital: 0)
    * @param string $strComment   Anmerkung zur Bewertung in dem Kriterium (inital: '')
-   * @return int ID des erzeugten Ratings oder <b>false</b>, falls ein Fehler
-   *             aufgetreten ist
+   * @return int ID des erzeugten Ratings
+   *
    * @access public
    * @author Sandro (18.12.04)
    */
   function addRating($intReviewId, $intCriterionId, $intGrade = 0, $strComment = '') {
     $s = "INSERT  INTO Rating (review_id, criterion_id, grade, comment)".
         "         VALUES ($intReviewId, $intCriterionId, $intGrade, '$strComment')";
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCriterion ', $this->mySql->getLastError());
+      return $this->error('addCriterion', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1377,19 +1421,24 @@ class DBAccess extends ErrorHandling {
    * Kriterien). Initial sind die Bewertungen 0 und die Kommentartexte leer.
    *
    * [TODO] Bleibt evtl. nicht an dieser Stelle stehen, sondern wandert in ein anderes Skript!
+   *        Anm. v. Tom: Dann ALLE Vorkommen von $this durch $myDBAccess (oder so)
+   *                     ersetzen, sonst drohen Probleme wegen der Fehlerbehandlung!
    */
 
-   function createNewReviewReport($intPaperId, $intReviewerId) {
-     $intConferenceId = $_SESSION['confid'];
+   function createNewReviewReport($intPaperId, $intReviewerId, $intConferenceId) {
+     //$intConferenceId = $_SESSION['confid'];
      $intReviewId = $this->addReviewReport($intPaperId, $intReviewerId);
-     if ($this->mySql->failed() || empty($intReviewId)) {
-        return $this->error('createNewReviewReport ', $this->mySql->getLastError());
+     if ($this->failed()) {
+        return $this->error('createNewReviewReport', $this->getLastError());
      }
      $objCriterions = $this->getCriterionsOfConference($intConferenceId);
-     for ($i = 0; $i < count($objCriterions) && empty($objCriterions) == false; $i++) {
+     if ($this->failed()) {
+        return $this->error('createNewReviewReport', $this->getLastError());
+     }
+     for ($i = 0; $i < count($objCriterions) && !empty($objCriterions); $i++) {
         $this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
-        if ($this->mySql->failed()) {
-          return $this->error('createNewReviewReport ', $this->mySql->getLastError());
+        if ($this->failed()) {
+          return $this->error('createNewReviewReport', $this->getLastError());
         }    
      }
      return $this->success($intReviewId);
@@ -1402,8 +1451,8 @@ class DBAccess extends ErrorHandling {
    * @param string $strTitle      Bezeichnung des Forums
    * @param int $intForumType     Art des Forums (1: globales, 2:Komitee-, 3:Artikelforum)
    * @param int $intPaperId       ID des assoziierten Artikels bei Artikelforen (sonst: 0)
-   * @return int ID des erzeugten Forums oder <b>false</b>, falls ein Fehler
-   *             aufgetreten ist
+   * @return int ID des erzeugten Forums
+   *
    * @access public
    * @author Sandro (18.12.04)
    * @todo Statt '3' die Konstante fuer den Artikelforen-Typ einfuegen!
@@ -1414,10 +1463,9 @@ class DBAccess extends ErrorHandling {
     }
     $s = "INSERT  INTO Forum (conference_id, title, forum_type, paper_id)".
         "         VALUES ($intConferenceId, '$strTitle', $intForumType, $intPaperId)";
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addForum ', $this->mySql->getLastError());
+      return $this->error('addForum', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1431,8 +1479,9 @@ class DBAccess extends ErrorHandling {
    * @param int $intForumId      ID des Forums, in das die Message eingefuegt wird
    * @param int $intReplyTo      ID der Nachricht, auf welche die Message antwortet
    *                             (falls die Message einen neuen Thread eroeffnet: 0)
-   * @return int ID der erzeugten Message oder <b>false</b>, falls ein Fehler
-   *             aufgetreten ist
+   *                             Anm. v. Tom: Ist das mit der 0 so sicher? (ich seh es irgendwie nicht)
+   * @return int ID der erzeugten Message
+   *
    * @access public
    * @author Sandro (18.12.04)
    */
@@ -1441,14 +1490,12 @@ class DBAccess extends ErrorHandling {
     $s = "INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
         "         VALUES ('$strSubject', '$strText', $intSenderId, $intForumId,".
         "                 $intReplyTo, '$strSendTime')";
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addMessage ', $this->mySql->getLastError());
+      return $this->error('addMessage', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
-
 
   /**
    * Fuegt einen Datensatz in die Tabelle Criterion ein.
@@ -1459,20 +1506,19 @@ class DBAccess extends ErrorHandling {
    * @param int $intMaxValue        Groesster zu vergebender Wert fuer die Bewertung in
    *                                diesem Kriterium (Wertespektrum: 0..$intMaxValue)
    * @param float $fltWeight        Gewichtung des Kriteriums (Wert aus dem Intervall [0, 1])
-   * @return int ID des erzeugten Bewertungskriteriums oder <b>false</b>, falls ein Fehler
-   *             aufgetreten ist
+   * @return int ID des erzeugten Bewertungskriteriums
+   *
    * @access public
    * @author Sandro (18.12.04)
    */
   function addCriterion($intConferenceId, $strName, $strDescription, $intMaxValue, $fltWeight) {
     $intQualityRating = round($fltWeight * 100);
     $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
-        "         VALUES ($intConferenceId, $strName', '$strDescription',".
+        "         VALUES ($intConferenceId, '$strName', '$strDescription',".
         "                 $intMaxValue, $intQualityRating)";
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addCriterion ', $this->mySql->getLastError());
+      return $this->error('addCriterion', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1482,18 +1528,17 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intConferenceId  ID der Konferenz, fuer die das Topic angelegt wird
    * @param string $strName       Bezeichnung des Topics
-   * @return int ID des erzeugten Topics oder <b>false</b>, falls ein Fehler
-   *             aufgetreten ist
+   * @return int ID des erzeugten Topics
+   *
    * @access public
    * @author Sandro (18.12.04)
    */
   function addTopic($intConferenceId, $strName) {
     $s = "INSERT  INTO Topic (conference_id, name)".
         "         VALUES ($intConferenceId, '$strName')";
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addDeniesPaper ', $this->mySql->getLastError());
+      return $this->error('addDeniesPaper', $this->mySql->getLastError());
     }
     return $this->success($intId);
   }
@@ -1503,19 +1548,18 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPaperId  ID des Papers
    * @param int $intTopicId  ID des behandelten Topics
-   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Sandro (18.12.04)
    */
   function addIsAboutTopic($intPaperId, $intTopicId) {
     $s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
         "         VALUES ($intPaperId, $intTopicId)";
-    echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addIsAboutTopic ', $this->mySql->getLastError());
+      return $this->error('addIsAboutTopic', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1523,19 +1567,18 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId  ID der Person
    * @param int $intTopicId   ID des bevorzugten Topics
-   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Sandro (18.12.04)
    */
   function addPrefersTopic($intPersonId, $intTopicId) {
     $s = "INSERT  INTO PrefersTopic (person_id, topic_id)".
         "         VALUES ($intPersonId, $intTopicId)";
-    echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersTopic', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1543,7 +1586,7 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId  ID der Person
    * @param int $intPaperId   ID des bevorzugten Papers
-   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Sandro (18.12.04)
    */
@@ -1553,9 +1596,9 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addPrefersPaper ', $this->mySql->getLastError());
+      return $this->error('addPrefersPaper', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1563,19 +1606,18 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId  ID der Person
    * @param int $intPaperId   ID des abgelehnten Papers
-   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Sandro (18.12.04)
    */
   function addDeniesPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO DeniesPaper (person_id, paper_id)".
         "         VALUES ($intPersonId, $intPaperId)";
-    echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addDeniesPaper ', $this->mySql->getLastError());
+      return $this->error('addDeniesPaper', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1583,19 +1625,18 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPersonId  ID der Person
    * @param int $intPaperId   ID des ausgeschlossenen Papers
-   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Sandro (18.12.04)
    */
   function addExcludesPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO ExcludesPaper (person_id, paper_id)".
         "         VALUES ($intPersonId, $intPaperId)";
-    echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
-      return $this->error('addExcludesPaper ', $this->mySql->getLastError());
+      return $this->error('addExcludesPaper', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
 
@@ -1607,26 +1648,25 @@ class DBAccess extends ErrorHandling {
    * Loescht die Konferenz mit der ID $intConferenceId.
    *
    * @param int $intConferenceId Konferenz-ID
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function deleteConference($intConferenceId) {
-    $s = 'DELETE  FROM Conference'.
-        ' WHERE   id = '.$intConferenceId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Conference".
+        " WHERE   id = $intConferenceId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteConference ', $this->mySql->getLastError());
+      return $this->error('deleteConference', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    * Deaktiviert den Account der Person mit der ID $intPersonId.
    *
    * @param int $intPersonId Personen-ID
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
@@ -1634,50 +1674,47 @@ class DBAccess extends ErrorHandling {
     $s = "UPDATE  Person".
         " SET     password = NULL".
         " WHERE   id = $intPersonId";
-    echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePerson ', $this->mySql->getLastError());
+      return $this->error('deactivateAccount', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    * Loescht die Person mit der ID $intPersonId.
    *
    * @param int $intPersonId Personen-ID
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function deletePerson($intPersonId) {
-    $s = 'DELETE  FROM Person'.
-        ' WHERE   id = '.$intPersonId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Person".
+        " WHERE   id = $intPersonId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePerson ', $this->mySql->getLastError());
+      return $this->error('deletePerson', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    * Loescht das Paper mit der ID $intPaperId.
    *
    * @param int $intPaperId Paper-ID
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function deletePaper($intPaperId) {
-    $s = 'DELETE  FROM Paper'.
-        ' WHERE   id = '.$intPaperId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Paper".
+        " WHERE   id = $intPaperId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePaper ', $this->mySql->getLastError());
+      return $this->error('deletePaper', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1687,21 +1724,20 @@ class DBAccess extends ErrorHandling {
    * @param int $intConferenceId Konferenz-ID
    * @param int $intPersonId     Personen-ID
    * @param int $intRoleType     Rollen-Enum
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function deleteRole($intConferenceId, $intPersonId, $intRoleType) {
-    $s = 'DELETE  FROM Role'.
-        ' WHERE   conference_id = '.$intConferenceId.
-        ' AND     person_id = '.$intPersonId.
-        ' AND     role_type = '.$intRoleType;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Role".
+        " WHERE   conference_id = $intConferenceId".
+        " AND     person_id = $intPersonId".
+        " AND     role_type = $intRoleType";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteRole ', $this->mySql->getLastError());
+      return $this->error('deleteRole', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1709,20 +1745,19 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPaperId    Paper-Id
    * @param int $intCoAuthorId Co-Autor-ID
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function deleteCoAuthor($intPaperId, $intCoAuthorId) {
-    $s = 'DELETE  FROM IsCoAuthorOf'.
-        ' WHERE   person_id = '.$intCoAuthorId.
-        ' AND     paper_id = '.$intPaperId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM IsCoAuthorOf".
+        " WHERE   person_id = $intCoAuthorId".
+        " AND     paper_id = $intPaperId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteCoAuthor ', $this->mySql->getLastError());
+      return $this->error('deleteCoAuthor', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
@@ -1730,178 +1765,161 @@ class DBAccess extends ErrorHandling {
    *
    * @param int $intPaperId Paper-Id
    * @param int $strName    Name des Co-Autors
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @return bool true gdw. erfolgreich
    * @access public
    * @author Tom (26.12.04)
    */
   function deleteCoAuthorName($intPaperId, $strName) {
-    $s = 'DELETE  FROM IsCoAuthorOf'.
-        ' WHERE   paper_id = '.$intPaperId.
-        ' AND     name = \''.$strName.'\'';
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM IsCoAuthorOf".
+        " WHERE   paper_id = $intPaperId".
+        " AND     name = '$strName'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteCoAuthorName ', $this->mySql->getLastError());
+      return $this->error('deleteCoAuthorName', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    */
   function deleteReviewReport($intReviewId) {
-    $s = 'DELETE  FROM Reviewreport'.
-        '         WHERE id = '.$intReviewId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Reviewreport".
+        "         WHERE id = $intReviewId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteReviewReport ', $this->mySql->getLastError());
+      return $this->error('deleteReviewReport', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    */
   function deleteRating($intReviewId, $intCriterionId) {
-    $s = 'DELETE  FROM Rating'.
-        '         WHERE   review_id = '.$intReviewId.
-        '         AND     criterion_id = '.$intCriterionId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Rating".
+        "         WHERE   review_id = $intReviewId".
+        "         AND     criterion_id = $intCriterionId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteRating ', $this->mySql->getLastError());
+      return $this->error('deleteRating', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    */
   function deleteForum($intForumId) {
-    $s = 'DELETE  FROM Forum'.
-        '         WHERE id = '.$intForumId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Forum".
+        "         WHERE id = $intForumId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteForum ', $this->mySql->getLastError());
+      return $this->error('deleteForum', $this->mySql->getLastError());
     }
-    return $this->success($result);
-
+    return $this->success();
   }
 
   /**
    */
   function deleteMessage($intMessageId) {
-    $s = 'DELETE  FROM Message'.
-        '         WHERE id = '.$intMessageId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Message".
+        "         WHERE id = $intMessageId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteMessage ', $this->mySql->getLastError());
+      return $this->error('deleteMessage', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    */
   function deleteCriterion($intCriterionId) {
-    $s = 'DELETE  FROM Criterion'.
-        '         WHERE id = '.$intCriterionId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Criterion".
+        "         WHERE id = $intCriterionId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteCriterion ', $this->mySql->getLastError());
+      return $this->error('deleteCriterion', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
 
   }
 
   /**
    */
   function deleteTopic($intTopicId) {
-    $s = 'DELETE  FROM Topic'.
-        '         WHERE id = '.$intTopicId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM Topic".
+        "         WHERE id = $intTopicId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteTopic ', $this->mySql->getLastError());
+      return $this->error('deleteTopic', $this->mySql->getLastError());
     }
-    return $this->success($result);
+    return $this->success();
   }
 
   /**
    */
   function deleteIsAboutTopic($intPaperId, $intTopicId) {
-    $s = 'DELETE  FROM IsAboutTopic'.
-        '         WHERE paper_id = '.$intPaperId.
-        '         WHERE topic_id = '.$intTopicId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM IsAboutTopic".
+        "         WHERE paper_id = $intPaperId".
+        "         WHERE topic_id = $intTopicId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteIsAboutTopic ', $this->mySql->getLastError());
+      return $this->error('deleteIsAboutTopic', $this->mySql->getLastError());
     }
-    return $this->success($result);
-
+    return $this->success();
   }
 
   /**
    */
   function deletePrefersTopic($intPersonId, $intTopicId) {
-    $s = 'DELETE  FROM PrefersTopic'.
-        '         WHERE person_id = '.$intPersonId.
-        '         WHERE topic_id = '.$intTopicId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM PrefersTopic".
+        "         WHERE person_id = $intPersonId".
+        "         WHERE topic_id = $intTopicId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePrefersTopic ', $this->mySql->getLastError());
+      return $this->error('deletePrefersTopic', $this->mySql->getLastError());
     }
-    return $this->success($result);
-
+    return $this->success();
   }
 
   /**
    */
   function deletePrefersPaper($intPersonId, $intPaperId) {
-    $s = 'DELETE  FROM PrefersPaper'.
-        '         WHERE person_id = '.$intPersonId.
-        '         WHERE paper_id = '.$intPaperId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM PrefersPaper".
+        "         WHERE person_id = $intPersonId".
+        "         WHERE paper_id = $intPaperId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePrefersPaper ', $this->mySql->getLastError());
+      return $this->error('deletePrefersPaper', $this->mySql->getLastError());
     }
-    return $this->success($result);
-
+    return $this->success();
   }
 
   /**
    */
   function deleteDeniesPaper($intPersonId, $intPaperId) {
-    $s = 'DELETE  FROM DeniesPaper'.
-        '         WHERE person_id = '.$intPersonId.
-        '         WHERE paper_id = '.$intPaperId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM DeniesPaper".
+        "         WHERE person_id = $intPersonId".
+        "         WHERE paper_id = $intPaperId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteDeniesPaper ', $this->mySql->getLastError());
+      return $this->error('deleteDeniesPaper', $this->mySql->getLastError());
     }
-    return $this->success($result);
-
+    return $this->success();
   }
 
   /**
    */
   function deleteExcludesPaper($intPersonId, $intPaperId) {
-    $s = 'DELETE  FROM ExcludesPaper'.
-        '         WHERE person_id = '.$intPersonId.
-        '         WHERE paper_id = '.$intPaperId;
-    echo('<br>SQL: '.$s.'<br>');
+    $s = "DELETE  FROM ExcludesPaper".
+        "         WHERE person_id = $intPersonId".
+        "         WHERE paper_id = $intPaperId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteExcludesPaper ', $this->mySql->getLastError());
+      return $this->error('deleteExcludesPaper', $this->mySql->getLastError());
     }
-    return $this->success($result);
-
+    return $this->success();
   }
-
+  
+  // end of class DBAccess
 }
 
 ?>
