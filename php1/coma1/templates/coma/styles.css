@@ -430,16 +430,16 @@ table.list
   padding: 1px 8px;
   margin: 1px;
   color: #FF2600;
-  background-color: #FFE0E0;
+  background-color: #FB6A6A;
 }
 .listitem-alert-2
 {
   text-align: left;
   font-size: 12px;
   padding: 1px 8px;
-  margin: 1px;
+  margin: 0px;
   color: #FF2600;
-  background-color: #F0D4D4;
+  background-color: #FB948C;
 }
 
 a.list:link
