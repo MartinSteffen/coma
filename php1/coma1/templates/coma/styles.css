@@ -150,7 +150,7 @@ table.formtable {
 
 /* Schaltflaechen und Eingabefelder */
 input, textarea, button {
-  font-family: Sans-Serif;
+  /*font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif;*/
   font-size: 12px;
   background-color: #F7FBFF;
   border-style: solid;
