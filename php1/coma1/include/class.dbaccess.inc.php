@@ -206,7 +206,7 @@ class DBAccess {
    * @author Tom (08.01.05)
    */
   function getConferenceDetailed() {
-    $s = 'SELECT  id, name, homepage, description, abstract_submission_deadline,'.
+    $s = 'SELECT  c.id, name, homepage, description, abstract_submission_deadline,'.
         '         paper_submission_deadline, review_deadline, final_version_deadline,'.
         '         notification, conference_start, conference_end, min_reviews_per_paper'.
         '         default_reviews_per_paper, min_number_of_papers, max_number_of_papers'.
