@@ -11,7 +11,7 @@ if ( !defined('IN_COMA1') )
   exit('Hacking attempt');
 }
 
-class cMySql {
+class MySql {
 
   var $mySqlServer;
   var $mySqlUser;
@@ -19,7 +19,7 @@ class cMySql {
   var $mySqlDatabase;
   var $myConn;
 
-  function cMySql()
+  function MySql()
   {
     require_once('./config.inc.php');
     $this->mySqlServer = sqlServer;
