@@ -24,5 +24,5 @@
 </p>
 
 <p class="message2">
-  If you want to create a new conference, <a href={basepath}create_conference.php{?SID}">just do so</a>!
+  Do you want to <a href={basepath}create_conference.php{?SID}">create a new Conference</a>?
 </p>
