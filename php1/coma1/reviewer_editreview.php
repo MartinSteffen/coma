@@ -38,7 +38,7 @@ if (isset($_POST['action'])) {
   }
   $objReview->recalcRating();
   // Trage Review in die Datenbank ein
-  if (isset($_POST['submit']) {
+  if (isset($_POST['submit'])) {
   }  
 }
 
