@@ -1,1 +1,1 @@
-<a href="{basepath}user_userdetails.php?userid={rev_id}{&SID}" class="link">{rev_name}</a><br>
+<a href="{basepath}user_userdetails.php?userid={rev_id}&popup{&SID}" class="link" target="_blank">{rev_name}</a><br>
