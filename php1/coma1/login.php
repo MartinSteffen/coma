@@ -12,13 +12,19 @@ require_once('./include/header.inc.php');
 
 if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   /* Einlog-Versuch */
-  if (isset($_POST['user_name'])) {
-    $_SESSION['uname'] = $_POST['user_name'];
+  if (isset($_POST['user_name']) && isset($_POST['user_password'])) {
+    $_SESSION['uname'] = $_POST['user_name'];  
+    $_SESSION['password'] = sha1($_POST['user_password']); 
+    if ($myDBAccess->checkLogin()) {
+      redirect('start_conferences.php');
+    }
+    else {
+      $_SESSION['message'] = 'Falscher Benutzername oder Passwort!';
+    }
   }
-  if (isset($_POST['user_password'])) {
-    $_SESSION['password'] = sha1($_POST['user_password']);
+  else {
+    $_SESSION['message'] = 'Geben Sie Ihren Benutzernamen und Ihr Passwort an!';
   }
-  redirect('start_conferences.php');
 }
 
 $content = new Template(TPLPATH.'login.tpl');
