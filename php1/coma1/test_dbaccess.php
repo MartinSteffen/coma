@@ -40,8 +40,7 @@ $myDBAccess->updatePreferredTopics($p, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-$p->objPreferredPapers[] = $p->objPreferredPapers[0]->intId+5-$p->objPreferredPapers[0]->intId;
-$p->objPreferredPapers[0] = false;
+$p->objPreferredPapers[] = 2;
 $myDBAccess->updatePreferredPapers($p, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
