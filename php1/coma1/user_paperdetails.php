@@ -71,7 +71,14 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Details of paper';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conference  |  Details of paper';
+global $strRoles;
+if (!empty(session('menu', false))) {
+  $strMenu = $strRoles[(int)session('menu', false)];
+}
+else {
+  $strMenu = 'Conference';
+}
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  '.$strMenu.'  |  Paper details';
 
 $main->assign($strMainAssocs);
 $main->parse();

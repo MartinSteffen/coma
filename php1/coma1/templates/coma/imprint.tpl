@@ -9,7 +9,7 @@
      2. Angaben, die eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation 
         mit ihnen ermöglichen, einschließlich der E-Mail-Adresse,
      <br>&nbsp;<br>
-     Denke das reicht, aber <a href="http://www.domain-recht.de/magazin/article.php?id=96">hier gucken</a>
+     Denke das reicht, aber <a href="http://www.domain-recht.de/magazin/article.php?id=96" class="link">hier gucken</a>
      <br>&nbsp;<br>
      Sollte man diese Plattform ernnsthaft f&uuml;r Konferenzen nutzen so m&uuml;ssen zwingend noch hin:<br>
      1. Angaben zum Datenschutz<br>

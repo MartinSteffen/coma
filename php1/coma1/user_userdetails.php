@@ -49,7 +49,14 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'User profile';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Users';
+global $strRoles;
+if (!empty(session('menu', false))) {
+  $strMenu = $strRoles[(int)session('menu', false)];
+}
+else {
+  $strMenu = 'Conference';
+}
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  '.$strMenu.'  |  User profile';
 
 $main->assign($strMainAssocs);
 $main->parse();
