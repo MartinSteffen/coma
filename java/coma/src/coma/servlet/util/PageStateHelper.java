@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class PageStateHelper {
 
-    public static final char NULLSTATE='\u2205'; //2205 EMPTY SET
+    public static final char NULLSTATE='_'; //was 2205 EMPTY SET, blerch, let's take something safer.
 
     Character state = null;
 

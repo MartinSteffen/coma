@@ -47,9 +47,6 @@ public class Subscribe  extends HttpServlet {
 		if (! paramNames.hasMoreElements())
 		    emptyEnum = true;
 		
-		
-		String path = getServletContext().getRealPath("");
-		String xslt = path+"/style/xsl/subscribe.xsl";
 		PrintWriter out = response.getWriter();
 		
 		
@@ -88,8 +85,7 @@ public class Subscribe  extends HttpServlet {
 		result.append("</subscribe>\n");
 		response.setContentType("text/html; charset=ISO-8859-1");
 		StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-		StreamSource xsltSource = new StreamSource(xslt);
-		XMLHelper.process(xmlSource, xsltSource, out);
+		XMLHelper.process(xmlSource, coma.servlet.util.XSLT.file(this, "subscribe"), out);
 		out.flush();
 		
 		

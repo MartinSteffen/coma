@@ -226,7 +226,7 @@
       <tr>
         <th>Name:</th>
         <td>
-          <xsl:value-of select="Person/first_name" />&nbsp;
+          <xsl:value-of select="Person/first_name" />
           <xsl:value-of select="Person/last_name" />, 
           <xsl:value-of select="Person/title" />
         </td>

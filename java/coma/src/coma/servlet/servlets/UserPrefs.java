@@ -123,12 +123,12 @@ public class UserPrefs extends HttpServlet {
 	result.append(pagestate.toString());
 	result.append("</content>");
 
-	String xslt = getServletContext().getRealPath("")+"/style/xsl/userprefs.xsl";
+	//String xslt = getServletContext().getRealPath("")+"/style/xsl/userprefs.xsl";
 	PrintWriter out = response.getWriter();
 	response.setContentType("text/html; charset=ISO-8859-1");
 	StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-	StreamSource xsltSource = new StreamSource(xslt);
-	XMLHelper.process(xmlSource, xsltSource, out);
+	//StreamSource xsltSource = new StreamSource(xslt);
+	XMLHelper.process(xmlSource, XSLT.file(this, "userprefs"), out);
 	out.flush();
 	    
     }
