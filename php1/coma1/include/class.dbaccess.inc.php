@@ -3826,17 +3826,15 @@ nur fuer detaillierte?
    * @return konstant true
    */
   function deleteReviewerDistribution($intReviewerId, $intConferenceId) {
-    $s = sprintf("DELETE   FROM Distribution".
-                 " WHERE   reviewer_id = '%d'".
-                 " AND     paper_id IN (".
-                 "         SELECT  id".
-                 "         FROM    Paper".
-                 "         WHERE   conference_id = '%d')",
-                           s2db($intReviewerId),
-                           s2db($intConferenceId));
-    $result = $this->mySql->delete($s);
-    if ($this->mySql->failed()) {
-      return $this->error('deleteReviewerDistribution', $this->mySql->getLastError());
+    $objPapers = $this->getPapersOfReviewer($intReviewerId, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('deleteReviewerDistribution', $this->getLastError());
+    }
+    for ($i = 0; $i < count($objPapers); $i++) {
+      $this->deleteDistribution($intReviewerId, $objPapers[$i]->intId);
+      if ($this->failed()) {
+        return $this->error('deleteReviewerDistribution', $this->getLastError());
+      }
     }
     return $this->success();
   }
