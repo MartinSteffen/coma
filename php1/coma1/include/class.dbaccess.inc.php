@@ -1035,10 +1035,10 @@ class DBAccess extends ErrorHandling {
   function getNumberOfReviewsOfPaper($intPaperId) {
     $s = sprintf("SELECT   COUNT(*) AS num".
                  " FROM    ReviewReport AS r".
-                 " WHERE   r.paper_id = '%d'".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
-                 " AND     d.reviewer_id = r.reviewer_id",                 
+                 " AND     d.reviewer_id = r.reviewer_id".
+                 " WHERE   r.paper_id = '%d'",     
                            s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1063,11 +1063,11 @@ class DBAccess extends ErrorHandling {
   function hasPaperBeenReviewed($intPaperId, $intReviewerId) {
     $s = sprintf("SELECT   r.reviewer_id".
                  " FROM    ReviewReport AS r".
-                 " WHERE   paper_id = '%d'".
-                 " AND     reviewer_id = '%d'".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
-                 " AND     d.reviewer_id = r.reviewer_id",
+                 " AND     d.reviewer_id = r.reviewer_id".
+                 " WHERE   paper_id = '%d'".
+                 " AND     reviewer_id = '%d'",                                
                            s2db($intPaperId), s2db($intReviewerId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1141,10 +1141,10 @@ class DBAccess extends ErrorHandling {
   function getReviewsOfPaper($intPaperId) {
     $s = sprintf("SELECT   r.id".
                  " FROM    ReviewReport AS r".
-                 " WHERE   r.paper_id = '%d'".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
-                 " AND     d.reviewer_id = r.reviewer_id",                 
+                 " AND     d.reviewer_id = r.reviewer_id".
+                 " WHERE   r.paper_id = '%d'",
                            s2db($intPaperId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1178,11 +1178,11 @@ class DBAccess extends ErrorHandling {
   function getReviewIdOfReviewerAndPaper($intReviewerId, $intPaperId) {
     $s = sprintf("SELECT   r.id".
                  " FROM    ReviewReport AS r".
-                 " WHERE   r.paper_id = '%d'".
-                 " AND     r.reviewer_id = '%d'".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
-                 " AND     d.reviewer_id = r.reviewer_id",
+                 " AND     d.reviewer_id = r.reviewer_id".
+                 " WHERE   r.paper_id = '%d'".
+                 " AND     r.reviewer_id = '%d'",                 
                            s2db($intPaperId), s2db($intReviewerId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1205,10 +1205,10 @@ class DBAccess extends ErrorHandling {
   function getReview($intReviewId) {
     $s = sprintf("SELECT   r.id, r.paper_id, r.reviewer_id".
                  " FROM    ReviewReport AS r".
-                 " WHERE   r.id = '%d'".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
-                 " AND     d.reviewer_id = r.reviewer_id",                 
+                 " AND     d.reviewer_id = r.reviewer_id".
+                 " WHERE   r.id = '%d'",                 
                            s2db($intReviewId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1262,10 +1262,10 @@ class DBAccess extends ErrorHandling {
   function getReviewDetailed($intReviewId) {
     $s = sprintf("SELECT   r.id, r.paper_id, r.reviewer_id, r.summary, r.remarks, r.confidential".
                  " FROM    ReviewReport AS r".
-                 " WHERE   r.id = '%d'".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
-                 " AND     d.reviewer_id = r.reviewer_id",
+                 " AND     d.reviewer_id = r.reviewer_id".
+                 " WHERE   r.id = '%d'",
                            s2db($intReviewId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
