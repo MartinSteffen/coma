@@ -31,7 +31,7 @@ html: $(DOC).tex
 
 
 www:
-	cp *.html *.ps *.gif *.pdf $(WWWDIR)/spec/v4
+	cp main.pdf *.html *.ps *.gif *.pdf $(WWWDIR)/spec/v4
 
 
 

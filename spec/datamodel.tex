@@ -105,7 +105,7 @@ start with the main ``entities'', and discuss the ``associations'' later.
 
 \subsection*{SQL-Spec}
 \label{sec:sql}
-\lstset{basicstyle=\scriptsize,numbers=left,numberstyle=\tiny,stepnumber=5,language=sql}
+\lstset{basicstyle=\scriptsize,numbers=left,numberstyle=\tiny,stepnumber=5,language=sql,frame=tb}
 
 Relevant is only the SQL-Spec.
 
@@ -372,15 +372,29 @@ criterion, and \texttt{description} is used for some more explanatory text
 about the criterion (for instance, whether a small value is better than a
 high value or other information which helps the reviewer). The criteria are
 all represented by numerical values, and \texttt{max\_value} gives the
-maximal possible value.
+maximal possible value. The \texttt{quality\_rating} \ldots
 
-The rating of a paper (cf. table \texttt{Rating})
+The rating of a paper (cf. table \texttt{Rating}) then contains the actual
+grading for a given paper, i.e., the numerical values per criterion for the
+paper according to the review report at hand (the field \texttt{grade}).
+Apart from the numerical value, the reviewer can add some explanatory text
+or justification for this grade in the field \texttt{comment}.
 
 
- 
 \lstinputlisting[caption=Rating of papers,label=code:sql.criterionandrating,firstline=204,lastline=230]{../sql/db_schema.sql}%
 
 
+\medskip
+
+The last two tables are concerned with the \emph{discussion forum} of a
+conference. The main purpose is to facilitate the exchange of opinions and
+coming to a consensus among reviewers during the reviewing and selection
+phase (cf.\ Listing~\ref{code:sql.forumandmessage}).
+
+\index{forum}%
+
+
+\lstinputlisting[caption=Discussion forum,label=code:sql.forumandmessage,firstline=231,lastline=260]{../sql/db_schema.sql}%
 
 
 

@@ -1,7 +1,5 @@
-# Top-level Makefile
-
-
-
+# Top-level Makefile, containing a number of common targets
+# and declarations.
 
 WWWDIR      = /home/info/www/inf/deRoever/WS0405/PITM/coma
 
