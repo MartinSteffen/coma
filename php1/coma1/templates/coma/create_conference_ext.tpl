@@ -156,5 +156,5 @@
 </form>
 
 <p class="message2">
-  be carefull! You can't change values for <b>Topics</b> and <b>Criterions</b> later!<br>
+  Be carefull! You can't change values for <b>Topics</b> and <b>Criterions</b> later!<br>
 </p>
