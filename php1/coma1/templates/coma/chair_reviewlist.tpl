@@ -1,3 +1,4 @@
+
 <table class="list">
   <tr>
     <td> distibute as 'distribute' marked articles </td> 
@@ -65,8 +66,9 @@
     <td class="listitem-2"> &nbsp; </td>
     <td class="listitem-2"> 
        <form action="" method="post">
+       distribute
        <input type="hidden" name="confid" value="{confid}" />
-       <input type="submit" name="submit" value="distribute" class="button" />
+       <input type="submit" name="submit" value="delete choice" class="button" />
        </form>  
     </td>
 
