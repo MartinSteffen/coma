@@ -22,6 +22,8 @@ if (!defined('INCPATH')) {
   /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
+require_once(INCPATH.'header.inc.php');
+
 require_once(INCPATH.'class.mysql.inc.php');
 
 require_once(INCPATH.'class.conference.inc.php');

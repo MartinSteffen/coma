@@ -39,7 +39,7 @@ for ($i = 0; $i < count($ROLES); $i++) {
     echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
 }
 echo('Update der Rollen in der DB...<br>');
-$myDBAccess->updateRoles($p);
+$myDBAccess->updateRoles(1, $p);
 echo('Neuladen der Person:<br>');
 $p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
