@@ -8,19 +8,42 @@
 
 <tr>
   <td valign="top"> 
-       <form action="{basepath}index.php{SID}" method="post">  
+       <form action="{basepath}index_regi.php{SID}" method="post">  
 
-       Konferenzname: <br>
-       <input type="text" name="konverenzname" size="30" maxlength="127" /> <br> <br>
+
+       Titel: <br>
+       <input type="text" name="title" size="30" maxlength="127" /> <br> <br>
+
+       Vorname: <br>
+       <input type="text" name="first_name" size="30" maxlength="127" /> <br> <br>
+
+       Name: <br>
+       <input type="text" name="last_name" size="30" maxlength="127" /> <br> <br>
+
 
        Email-Addresse: <br>
-       <input type="text" name="userMail" size="30" maxlength="127" /> <br> <br>
+       <input type="text" name="email" size="30" maxlength="127" /> <br> <br>
+
+       Telefon: <br>
+       <input type="text" name="telefon" size="30" maxlength="127" /> <br> <br>
+
+       Fax: <br>
+       <input type="text" name="fax" size="30" maxlength="127" /> <br> <br>
+
+       Staﬂe: <br>
+       <input type="text" name="street" size="30" maxlength="127" /> <br> <br>
+
+       PLZ: <br>
+       <input type="text" name="zip" size="30" maxlength="80" /> <br> 
+       Ort: <br>
+       <input type="text" name="city" size="30" maxlength="47" /> <br> <br>
 
        Passwort: <br> 
        <input type="password" name="userPassword" size="30" maxlength="127" /> <br> <br>
 
        Wiederholung: <br> 
-       <input type="password" name="userPassword" size="30" maxlength="127" /> <br> <br>
+       <input type="password" name="userPassword2" size="30" maxlength="127" /> <br> <br>
+       
        <input type="hidden" name="action" value="register" /> <br> <br> 
        <input type="submit" name="submit" value="Register" /> <br> <br>
        </form> 
