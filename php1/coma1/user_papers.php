@@ -14,12 +14,17 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-if (isset($_GET['order']) || isset($_POST['order'])) {
-  $intOrder = (isset($_GET['order']) ? $_GET['order'] : $_POST['order']);
+if (isset($_GET['order'])) {
+  if ((int)session('orderpapers', false) != $_GET['order']) {
+    $_SESSION['orderpapers'] = $_GET['order'];
+  }
+  else {
+    unset($_SESSION['orderpapers']);
+  }
 }
-else {
-  $intOrder = 0;
-}
+$intOrder = (int)session('orderpapers', false);
+$ifArray = array($intOrder);
+
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('get paper list',$myDBAccess->getLastError());
@@ -27,7 +32,7 @@ if ($myDBAccess->failed()) {
 
 $content = new Template(TPLPATH.'user_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if'] = array();
+$strContentAssocs['if'] = $ifArray;
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
