@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Klasse zum Parsen der Templates
  *
@@ -12,21 +13,42 @@ if (!defined('IN_COMA1')) {
 
 class Template {
 
+  var template = '';
+  var errString = '';
+
   function Template() {
     return true;
   }
   
   function readTemplate($template) {
-    $contents = file_get_contents($template)
     // vor PHP 4.3 waere es das gewesen:
     // $contents = implode("", @file($template) );
+    $contents = file_get_contents($template)
     if (empty($contents)) {
-      this->error("Could not read Template [$template]");
+      return this->error("Could not read Template [$template]");
     }
-    return $contents;
+    $this->template = $contents;
+    return true;
   }
   
+  function parse($assocArray) {
+    $template = $this->template;
+    $keyArray = array_keys($assocArray);
+    array_map(create_function('&$s', 'return "{$s}";'), $keyArray);
+    $template = preg_replace($keyArray, array_values($assocArray), $template);
+    return $template;
+  }
   
+  function error($text) {
+    $this->errString = $text;
+    return false;
+  }
+  
+  function getLastError() {
+    $errString = $this->errString;
+    $this->errString = '';
+    return $errString;
+  }
 
 } // End Class
 
