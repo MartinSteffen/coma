@@ -19,9 +19,9 @@ require_once('./include/header.inc.php');
 
 $p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
-for ($i = 0; $i < count($ROLES); $i++) {
-  if ($p->hasRole($ROLES[$i][0]))
-    echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
+for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
+  if ($p->hasRole($i))
+    echo('p hat Rolle '.$i.'<br>');
 }
 echo('Aendere Rollen:<br>');
 if($p->hasRole(3) == true && $p->hasRole(4) == false) {
@@ -34,18 +34,18 @@ else {
   echo('FEHLER: KEINE AENDERUNGEN GEMACHT!');
 }
 echo('Roles:<br>');
-for ($i = 0; $i < count($ROLES); $i++) {
-  if ($p->hasRole($ROLES[$i][0]))
-    echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
+for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
+  if ($p->hasRole($i))
+    echo('p hat Rolle '.$i.'<br>');
 }
 echo('Update der Rollen in der DB...<br>');
 $myDBAccess->updateRoles(1, $p);
 echo('Neuladen der Person:<br>');
 $p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
-for ($i = 0; $i < count($ROLES); $i++) {
-  if ($p->hasRole($ROLES[$i][0]))
-    echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
+for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
+  if ($p->hasRole($i))
+    echo('p hat Rolle '.$i.'<br>');
 }
 
 
