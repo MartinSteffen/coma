@@ -80,7 +80,7 @@ table.formtable { font-size: 13px;
                 }
 
 /* Schaltflaechen und Eingabefelder */
-input, button { font-size: 13px;
+input, button { font-size: 12px;
         background-color: #F7FBFF;
         border-style: solid;
         border-width: 1px;

@@ -15,6 +15,15 @@ $links = defaultAssocArray();
 
 $content = new Template(TPLPATH.'register.tpl');
 $strContentAssocs = defaultAssocArray();  
+$strContentAssocs['first_name'] = '';
+$strContentAssocs['last_name'] = '';
+$strContentAssocs['email'] = '';
+$strContentAssocs['name_title'] = '';
+$strContentAssocs['street'] = '';
+$strContentAssocs['city'] = '';
+$strContentAssocs['postalcode'] = '';
+$strContentAssocs['phone'] = '';
+$strContentAssocs['fax'] = '';
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 
@@ -23,6 +32,16 @@ if (isset($_POST['email'])){
   $strMessage = '';
 
   /* Anlegen der Person in der Datenbank */
+
+  $strContentAssocs['first_name'] = $_POST('first_name');
+  $strContentAssocs['last_name'] = $_POST('last_name');
+  $strContentAssocs['email'] = $_POST('email');
+  $strContentAssocs['name_title'] = $_POST('name_title');
+  $strContentAssocs['street'] = $_POST('street');
+  $strContentAssocs['city'] = $_POST('city');
+  $strContentAssocs['postalcode'] = $_POST('postalcode');
+  $strContentAssocs['phone'] = $_POST('phone');
+  $strContentAssocs['fax'] = $_POST('fax');
   
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if ($_POST['last_name'] == '' || $_POST['email'] == '' || $_POST['user_password'] == '' ||

@@ -29,7 +29,7 @@
       Email-Adresse:
     </td>
     <td>      
-      <input type="text" name="email" size="32" maxlength="127">{email}</input> *
+      <input type="text" name="email" size="32" maxlength="127" value="{email}"/ > *
     </td>
   </tr>
   <tr>
@@ -37,7 +37,7 @@
       Titel:
     </td>
     <td>      
-      <input type="text" name="name_title" size="16" maxlength="32">{name_title}</input>
+      <input type="text" name="name_title" size="16" maxlength="32" value="{name_title}"/ >
     </td>
   </tr>
   <tr>
@@ -45,7 +45,7 @@
       Telefon:
     </td>
     <td>      
-      <input type="text" name="phone" size="16" maxlength="20">{phone}</input>
+      <input type="text" name="phone" size="16" maxlength="20" value="{phone}"/ >
     </td>
   </tr>
   <tr>
@@ -53,7 +53,7 @@
       Fax:
     </td>
     <td>      
-      <input type="text" name="fax" size="16" maxlength="20">{fax}</input>
+      <input type="text" name="fax" size="16" maxlength="20" value="{fax}"/ >
     </td>
   </tr>
   <tr>
@@ -61,7 +61,7 @@
       Stra&szlig;e:
     </td>
     <td>      
-      <input type="text" name="street" size="32" maxlength="127">{street}</input>
+      <input type="text" name="street" size="32" maxlength="127" value="{street}"/ >
     </td>
   </tr>
   <tr>
@@ -69,7 +69,7 @@
       PLZ:
     </td>
     <td>      
-      <input type="text" name="postalcode" size="16" maxlength="20">{postalcode}</input>
+      <input type="text" name="postalcode" size="16" maxlength="20" value="{postalcode}"/ >
     </td>
   </tr>
   <tr>
@@ -77,7 +77,7 @@
       Ort:
     </td>
     <td>      
-      <input type="text" name="city" size="32" maxlength="127">{city}</input>
+      <input type="text" name="city" size="32" maxlength="127" value="{city}"/ >
     </td>
   </tr>
   <tr>
