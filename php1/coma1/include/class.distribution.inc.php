@@ -459,7 +459,17 @@ class Distribution extends ErrorHandling {
     return true;
   }
 
-  function getAvailableReviewersIdsOfConference($intConferenceId) {
+  /**
+   * Liefert alle auf der Konferenz verfuegbaren Reviewer in einem Array mit den
+   * ID's.
+   *
+   * @param $intConferenceId Konferenz-ID.
+   * @return false ungueltiger ID, ein leeres Array, falls keine Reviewer
+   *         vorhanden, sonst Array von ID's.
+   * @access public
+   * @author Tom (01.02.05)
+   */
+  function getAvailableReviewerIdsOfConference($intConferenceId) {
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
