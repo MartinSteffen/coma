@@ -1,7 +1,7 @@
 <? 
 include("header.tpl.php");
 ?>
-<form action="index.php?m=roles&a=change&s=save" method="post">
+<form action="index.php?m=roles&a=change&s=save" method="post" name="forular">
 <table>
 	<tr>
 		<th>Please select the role you want to change to</th>

@@ -19,7 +19,9 @@ function redirect($m = false, $a = false, $s = false, $mehr = false){
   if (headers_sent()){
         print("<a href=\"http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}\">Zum Fortfahren bitte hier klicken!</a>");
     }else{
-      header("Location: http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}");
+      //header("Location: http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}");
+			header("Location: {$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}");
+
     }
 	exit();
 	// }}}

@@ -35,4 +35,4 @@ $httpftpurl="";
 
 // connect to the database
 $link = mysql_connect ("localhost","testUser","testPass");
-$base = mysql_select_db ("testComma");
+$base = mysql_select_db ("Comma");
