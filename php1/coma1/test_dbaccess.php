@@ -21,6 +21,7 @@ echo('<br>ID = '.$id.'<br>');
 $p = $myDBAccess->getRoles($id,1);
 echo $p[0];*/
 
+$_SESSION['confid'] = 1;
 echo('Konferenz-ID: '.$_SESSION['confid']);
 
 /*
