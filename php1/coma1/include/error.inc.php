@@ -89,3 +89,6 @@
 
 </body>
 </html>
+<?php
+  die();
+?>
