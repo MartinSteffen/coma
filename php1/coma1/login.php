@@ -27,7 +27,7 @@ $strMainAssocs['content'] = &$content;
 require_once(TPLPATH.'startmenu.php');
 $strMainAssocs['menu'] = openStartMenuItem(1);
 
-$strPath = array('CoMa'=>'', 'Login'=>'login.php');
+$strPath = array('CoMa'=>'', 'Login'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 

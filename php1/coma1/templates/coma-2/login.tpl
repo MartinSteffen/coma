@@ -1,3 +1,6 @@
+
+<h2>Willkommen bei CoMa!</h2>
+
 <p class="center">
 <form action="{basepath}login.php?{SID}" method="post">
 
