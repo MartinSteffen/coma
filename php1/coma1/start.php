@@ -29,6 +29,5 @@ $menue->assign(defaultAssocArray());
 $mainPage->parse();
 $mainPage->output();
 
-}
 
 ?>
