@@ -17,35 +17,35 @@ define('IN_COMA1',true);
 require_once('./include/header.inc.php');
 
 $strMessage ='';
-$rec = false; // wird true gesetzt, wenn das Formulardaten korrekt ausgefüllt wurde
+$rec = false; // wird true gesetzt, wenn die Formulardaten korrekt ausgefüllt wurde
 
 if (isset($_POST['name'])){
   $rec=true;
   // Test, ob alle Pflichtfelder ausgefüllt wurden
-  if ( $_POST['name']=='' |
-       $_POST['homepage']==''|
-       $_POST['description']==''|
-       $_POST['abstract_submission_deadline_d']==''|
-       $_POST['abstract_submission_deadline_m']==''|
-       $_POST['abstract_submission_deadline_y']==''|
-       $_POST['paper_submission_deadline_d']==''|
-       $_POST['paper_submission_deadline_m']==''|
-       $_POST['paper_submission_deadline_y']==''|
-       $_POST['review_deadline_d']==''|
-       $_POST['review_deadline_m']==''|
-       $_POST['review_deadline_y']==''|
-       $_POST['final_version_deadline_d']==''|
-       $_POST['final_version_deadline_m']==''|
-       $_POST['final_version_deadline_y']==''|
-       $_POST['notification_d']==''|
-       $_POST['notification_m']==''|
-       $_POST['notification_y']==''|
-       $_POST['conference_start_d']==''|
-       $_POST['conference_start_m']==''|
-       $_POST['conference_start_y']==''|
-       $_POST['conference_end_d']==''|
-       $_POST['conference_end_m']==''|
-       $_POST['conference_end_y']==''|
+  if ( $_POST['name']=='' ||
+       $_POST['homepage']==''||
+       $_POST['description']==''||
+       $_POST['abstract_submission_deadline_d']==''||
+       $_POST['abstract_submission_deadline_m']==''||
+       $_POST['abstract_submission_deadline_y']==''||
+       $_POST['paper_submission_deadline_d']==''||
+       $_POST['paper_submission_deadline_m']==''||
+       $_POST['paper_submission_deadline_y']==''||
+       $_POST['review_deadline_d']==''||
+       $_POST['review_deadline_m']==''||
+       $_POST['review_deadline_y']==''||
+       $_POST['final_version_deadline_d']==''||
+       $_POST['final_version_deadline_m']==''||
+       $_POST['final_version_deadline_y']==''||
+       $_POST['notification_d']==''||
+       $_POST['notification_m']==''||
+       $_POST['notification_y']==''||
+       $_POST['conference_start_d']==''||
+       $_POST['conference_start_m']==''||
+       $_POST['conference_start_y']==''||
+       $_POST['conference_end_d']==''||
+       $_POST['conference_end_m']==''||
+       $_POST['conference_end_y']==''||
        $_POST['min_reviews_per_paper']==''
      ){
      $strMessage =  $strMessage.'Bitte alle Felder ausf&uuml;llen !!! <br>';
