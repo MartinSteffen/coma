@@ -100,7 +100,7 @@ if (!empty($objPapers)) {
       }
       else {
       	$ifArray[] = 8;
-      	$strItemAssocs['forum-id'] = $objPaperForum->intId;
+      	$strItemAssocs['forum_id'] = $objPaperForum->intId;
       }
     }
     else {
