@@ -43,6 +43,11 @@
 									<a href="index.php?m=session">Show Session</a>
 								</td>
 							</tr>
+							<tr> 
+								<td>
+									<a href="index.php?m=chair">Throw Error</a>
+								</td>
+							</tr>
 						</table>
 					</td>
 					<td height="100%" class="standard">
