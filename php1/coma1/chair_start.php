@@ -23,7 +23,7 @@ if ($myDBAccess->failed()) {
 }
 $intRoleRequests = 0;
 foreach ($objPersons as $objPerson) {
-  if ($objPerson->hasAnyRoleRequests()) {
+  if ($objPerson->hasAnyRoleRequest()) {
     $intRoleRequests++;
   }
 }
