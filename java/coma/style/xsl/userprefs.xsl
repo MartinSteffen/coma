@@ -19,6 +19,10 @@
     <input type="hidden" name="servletState" value="{@state}"></input>
   </xsl:template>
 
+  <xsl:template match="//error">
+    <xsl:value-of select="." />
+  </xsl:template>
+
   <xsl:template match="/">
     <html>
       <head>
@@ -33,6 +37,7 @@
         <div class="content">
           <xsl:call-template name="stderrors" />
           <xsl:call-template name="navcolumn" />
+          <xsl:apply-template select="//error" />
           <form action="UserPrefs" method="post">
             <xsl:apply-templates select="//servletState" />
             <xsl:apply-templates select="//editable" />
@@ -216,7 +221,7 @@
     Enter your password:
     <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />,
     enter your password again to confirm:
-    <input class="input-box" style="border:1px solid red" type="repassword" name="repassword" size="20" />
+    <input class="input-box" style="border:1px solid red" type="password" name="repassword" size="20" />
     then press
     <input value="Save" type="submit" class="submit-button" />
   </div>

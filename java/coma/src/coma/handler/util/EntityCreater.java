@@ -114,14 +114,14 @@ public class EntityCreater {
 		if (request.getParameter("last_name").equals("")
 				|| request.getParameter("password").equals("")
 				|| request.getParameter("password").length()<6)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("PWshort");
 
 		if (!Pattern.matches("\\b[a-z0-9._%-]+@[a-z0-9._%-]+\\.[a-z]{2,6}\\b",
 				request.getParameter("email").toLowerCase()))
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("invalidMail");
 		if (!(request.getParameter("password").equals(request
 				.getParameter("repassword"))))
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("PWmistyped");
 
 		p.setFirst_name(request.getParameter("first_name"));
 		p.setLast_name(request.getParameter("last_name"));

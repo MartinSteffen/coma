@@ -90,8 +90,10 @@ public class UserPrefs extends HttpServlet {
 		// now, I'd like a functional map operator. And polymorphism.
 
 		try{
-		    if (!thePerson.getPassword()
-			.equals(request.getParameter(FormParameters.PASSWORD))){
+		    if ((!thePerson.getPassword()
+			.equals(request.getParameter(FormParameters.PASSWORD)))
+			|| (!thePerson.getPassword()
+			    .equals(request.getParameter("repassword")))){
 
 			throw new UnauthorizedException("password mismatch");
 		    }
@@ -125,6 +127,8 @@ public class UserPrefs extends HttpServlet {
 		} catch (Exception exc){
 		    // well, almost true.
 		    result.append(UserMessage.ERRDATABASEDOWN);
+		    result.append(x.tagged("error", exc.toString()));
+		    
 		}
 		result.append(x.tagged("noneditable", thePerson.toXML()));
 	    }
