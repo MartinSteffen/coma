@@ -16,6 +16,6 @@ if ( !defined('IN_COMA1') )
 $sqlServer = 'localhost';
 $sqlUser = 'USERNAME';
 $sqlPassword = 'PASSWORD';
-$sqlDatabase = 'coma1';
+$sqlDatabase = 'coma';
 
 ?>
