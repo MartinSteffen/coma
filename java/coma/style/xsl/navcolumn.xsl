@@ -72,19 +72,31 @@
         </ul>
         </li>
         <xsl:if test="//navcolumn//isChair">
-			<li>Chair
+			<li>Chair<xsl:if test="//init">
+						(initial setup)</xsl:if>
           		<ul>
-          			<li><a href="Chair?action=setup&amp;target=conference">conference setup</a></li>
-		          	<li><a href="Chair?action=setup&amp;target=topics">topics setup</a></li> 
-					<li><a href="Chair?action=invite_person">invite person</a></li> 
-            		<li><a href="Chair?action=show_authors">list of authors</a></li> 
- 					<li><a href="Chair?action=show_reviewers">list of reviewers</a></li>
- 					<li><a href="Chair?action=show_papers">list of papers</a></li>
- 					<li><a href="Chair?action=email">email</a></li>
+          		 
+          		 <xsl:choose>
+          		 <xsl:when test="//init">
+          		 <li><a href="Chair?action=setup&amp;target=topics">topic(s) setup</a></li>
+          		 <li><a href="Chair?action=setup&amp;target=criteria">rating(s) setup</a></li>
+          		 <li><a href="Chair?action=setup&amp;target=save">SAVE</a></li> 
+          		 </xsl:when>
+          		 <xsl:otherwise>
+          		 	<li><a href="Chair?action=setup&amp;target=conference">conference setup</a></li>
+          		 	<li><a href="Chair?action=show_topics">list of topics</a></li> 
+					 <li><a href="Chair?action=invite_person">invite person</a></li> 
+            	 	<li><a href="Chair?action=show_authors">list of authors</a></li> 
+ 					 <li><a href="Chair?action=show_reviewers">list of reviewers</a></li>
+ 					 <li><a href="Chair?action=show_papers">list of papers</a></li>
+ 					 <li><a href="Chair?action=email">email</a></li>
+ 					 <li><a href="Chair?action=program">create Program</a></li>
+          		 </xsl:otherwise>
+          		 </xsl:choose>
+		          
  			 	</ul>
           </li>
         </xsl:if>
-
         <xsl:if test="//navcolumn//isAuthor">
 			<li>Author
           		<ul>
