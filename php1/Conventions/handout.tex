@@ -1,0 +1,35 @@
+%% \input{handout}
+%% \renewcommand{\ElveInstitut}{Institut f\"{u}r Informatik und Praktische Mathematik}
+%% \renewcommand{\ElveProf}{Prof. Dr. W.-P. de Roever}
+%% \renewcommand{\ElveSemester}{WS 2004/05}
+
+%% In erster Zeile:
+%% \thispagestyle{plain}
+
+\newcommand{\ElveInstitut}{\ }
+\newcommand{\ElveProf}{\ }
+\newcommand{\ElveSemester}{WS 2004/05}
+
+\AtBeginDocument{
+  \begin{minipage}[b]{0.7\textwidth}
+    \begin{center}
+      \textsc{Christian-Albrechts-Universit\"{a}t zu Kiel} \\
+      \ElveInstitut \\
+      \ElveProf \\[2ex]
+      \ElveName\\
+    \end{center}
+  \end{minipage}
+  \begin{minipage}[b]{0.3\textwidth}
+    \begin{center}\includegraphics[height=12ex]{CAU-Siegel}\end{center}
+  \end{minipage}
+
+  \hrulefill
+
+  \noindent\ElveSemester\hfill\textbf{\ElveUebung}\hfill\ElveDatum
+
+  \vspace*{4ex}
+}
+
+%\deftripstyle{ElveStyleHandout}[0pt][0.1pt]{}{}{}{}{\pagemark}{}
+
+\endinput

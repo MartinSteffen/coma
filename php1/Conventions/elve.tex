@@ -1,0 +1,54 @@
+%% Generelle Dokumenteigenschaften
+\documentclass[headexclude,footexclude,12pt,BCOR0pt,DIV15]{scrartcl}
+\parindent0.0em
+
+%\documentclass[12pt]{scrartcl}
+
+%% Silbetrennung, Sprache etc...
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{ae,aecompl}
+
+%% Links?
+%\usepackage[colorlinks=true,urlcolor=webblue,linkcolor=webblue]{hyperref}
+
+%% Listings
+\usepackage[scaled]{luximono}
+\usepackage{listings}
+\usepackage{fancyvrb}
+%\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7\catcode`_=8}]
+% ...
+%\end{Verbatim}
+\lstset{basicstyle=\footnotesize\ttfamily,numbers=left,stepnumber=5,tabsize=2,stringstyle=\emph,numberstyle=\tiny,numbersep=3pt,frame={tb},breaklines=true}
+\newcommand{\code}[2]{\lstinputlisting[title=#1]{#2}}
+
+%% Headings
+\usepackage{scrpage2}
+\newcommand{\ElveName}{Jan Waller}
+\newcommand{\ElveUebung}{1}
+\newcommand{\ElveDatum}{\today}
+\deftripstyle{ElveStyleUebung}[0pt][0.1pt]{\ElveName}{\ElveUebung}{\ElveDatum}{}{\pagemark}{}
+\pagestyle{ElveStyleUebung}
+
+%% PDF, Grafiken
+\ifpdfoutput{%
+  \usepackage[pdftex]{graphicx}
+%  \usepackage[pdftex,plainpages=false]{hyperref}
+  \pdfcompresslevel=9
+%  \hypersetup{a4paper,pdfborder=0}
+  \DeclareGraphicsExtensions{.jpg, .pdf, .mps, .png}
+}{%
+%  \usepackage[plainpages=false]{hyperref}
+  \usepackage{graphicx}
+  \DeclareGraphicsExtensions{.eps}
+}
+
+%% Sonstiges
+\usepackage{enumerate}
+\usepackage{amssymb}
+\newcommand{\mb}[1]{\ensuremath{\mathbb{#1}}}
+\newcounter{an}
+\newcommand{\ao}{\par\vspace{3ex}\stepcounter{an}\sffamily\bfseries\large Aufgabe \arabic{an}: \normalfont \normalsize \par}
+
+\endinput
