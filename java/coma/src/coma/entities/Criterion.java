@@ -35,6 +35,8 @@ public class Criterion extends Entity {
 	this.id = id;
     }
 
+    public Criterion(){;}
+
     public int getId(){return id;}
     public int getConferenceId(){return conferenceId;}
     public String getName(){

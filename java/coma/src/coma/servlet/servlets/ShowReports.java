@@ -1,6 +1,7 @@
 package coma.servlet.servlets;
 
 import  java.util.*;
+import static java.util.Arrays.asList;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,8 +38,6 @@ import coma.entities.*;
 /**
  * Flashy report concerning what's been rated how so far.
  *
- * CURRENTLY NOT WORKING MUCH. Well, there's no db to check against anyway.
- *
  * @author ums, based on mal's work.
  */
 public class ShowReports extends HttpServlet {
@@ -48,7 +47,6 @@ public class ShowReports extends HttpServlet {
     private final ALogger LOG 
 	= ALogger.create(this.getClass().getCanonicalName());
 
-    StringBuffer info = new StringBuffer();
     StringBuffer result = new StringBuffer();
     XMLHelper helper = new XMLHelper();
 
@@ -59,7 +57,9 @@ public class ShowReports extends HttpServlet {
     /**
        handle the request. 
 
-       This servlet has one state, in which 
+       This servlet has one state, in which the reports currently
+       visible to the user are shown. Coincidentally, they are sorted
+       by paper.
      */
     public void doGet(
 		      HttpServletRequest request,
@@ -119,9 +119,9 @@ public class ShowReports extends HttpServlet {
 	    out.flush();
 
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    //e.printStackTrace();
+	    LOG.log(ERROR, e);
 	} finally {
-	    info = new StringBuffer();
 	    result = new StringBuffer();
 	}
     }
@@ -138,13 +138,10 @@ public class ShowReports extends HttpServlet {
        @param thePerson 
        the person that is asking for the information.
        May be null if person is not logged in.
-
        @return the set of papers the user is allowed to know about.
        The set may be empty, but it is never just null.
-
        @throws UnauthorizedException if the user is not logged in,
        i.e. thePerson is null
-       
        @throws DatabaseDownException if an SQL Exception occurs.
     */
     Set<coma.entities.Paper> getVisiblePapers(coma.entities.Person thePerson)
@@ -180,8 +177,7 @@ public class ShowReports extends HttpServlet {
 	    LOG.log(DEBUG, 
 		    "should get info", "for chair");
 		
-	    /* FIXME ziad must fix return type, maybe Set<> and not []? */
-	    result.addAll(Arrays.asList((Paper[])theSearchResult.getResultObj()));
+	    result.addAll(asList((Paper[])theSearchResult.getResultObj()));
 	    
 	} else {
 	    /* case 2: not a chair. In this case, we will show all
@@ -189,23 +185,16 @@ public class ShowReports extends HttpServlet {
 	       rated.
 	    */
 
-	    /*FIXME: 
-	      get all papers 
-	      s.t. exists reviewreport R 
-	      s.t. R->reviewerid == thePerson.id
-	      AND exists rating S
-	      s.t. S.review_id == R.id
-	    */
-	    
-	    theSearchResult = dbRead.getReviewReport(new SearchCriteria());
+	    SearchCriteria sc = new SearchCriteria();
+	    sc.setPerson(thePerson);
+	    theSearchResult = dbRead.getReviewReport(sc);
 	    postAccess(theSearchResult);
 	    Set<ReviewReport> allReports = 
-		new HashSet<ReviewReport>(Arrays.asList((ReviewReport[])theSearchResult.getResultObj()));
+		new HashSet<ReviewReport>(asList((ReviewReport[])theSearchResult.getResultObj()));
 
 	    for (ReviewReport rr: allReports){
 
-		if (rr.getReviewer().equals(thePerson)
-		    && rr.getRatings().size() > 0){
+		if (rr.getRatings().size() > 0){
 
 		    result.add(rr.getPaper());
 		}
@@ -215,6 +204,15 @@ public class ShowReports extends HttpServlet {
 	return result;
     }
 
+    /**
+       For a given Person and a given Paper, get all visible
+       ReviewReports from the DB. We define a RR to be visible iff the
+       person is a chair or the RR is about a paper the person has
+       rated (this implies the person must be a reviewer of this paper, too).
+
+       @throws DatabaseDownException if a DB error occurs
+       @throws UnauthorizedException if thePerson is null.
+     */
     public Set<coma.entities.ReviewReport> 
 	getVisibleReviewReports(coma.entities.Person thePerson, 
 				coma.entities.Paper thePaper)
@@ -236,11 +234,13 @@ public class ShowReports extends HttpServlet {
 	
 	/* may only see other reports if already have rated themselves. */
 	boolean hasRated = false;
-	/* FIXME only get reports on thePaper */
-	theSearchResult = dbRead.getReviewReport(new SearchCriteria());
+
+	SearchCriteria sc = new SearchCriteria();
+	sc.setPaper(thePaper);
+	theSearchResult = dbRead.getReviewReport(sc);
 	postAccess(theSearchResult);
 	Set<ReviewReport> reportsOnThis = 
-	    new HashSet<ReviewReport>(Arrays.asList((ReviewReport[])theSearchResult.getResultObj()));
+	    new HashSet<ReviewReport>(asList((ReviewReport[])theSearchResult.getResultObj()));
 	
 	for (ReviewReport rr: reportsOnThis){
 	    
@@ -248,6 +248,7 @@ public class ShowReports extends HttpServlet {
 		&& rr.getRatings().size() > 0){
 		
 		hasRated = true;
+		break;
 	    }
 	}
 

@@ -11,9 +11,11 @@ import coma.entities.SearchResult;
 
 public interface ReadService {
     
-   public SearchResult getConference(SearchCriteria sc);
-   public SearchResult getPerson(SearchCriteria sc);
-   public SearchResult getPaper(SearchCriteria sc);
-   public SearchResult getReviewReport(SearchCriteria sc);
-   
+    public SearchResult getConference(SearchCriteria sc);
+    public SearchResult getPerson(SearchCriteria sc);
+    public SearchResult getPaper(SearchCriteria sc);
+    public SearchResult getReviewReport(SearchCriteria sc);
+    public SearchResult getRating(SearchCriteria sc);
+    public SearchResult getCriterion(SearchCriteria sc);
+
 }

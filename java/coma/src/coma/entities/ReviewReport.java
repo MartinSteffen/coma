@@ -30,8 +30,7 @@ public class ReviewReport extends Entity {
 	this.id=id;
     }
 
-    public ReviewReport(){
-    }
+    public ReviewReport(){;}
 
     public int getId(){return id;}
     public int getPaperId(){return paperId;}
@@ -136,15 +135,7 @@ public class ReviewReport extends Entity {
 
     public StringBuilder toXML(XMLMODE mode){
 
-//     private int id;
-//     private int paperId;
-//     private int reviewerId;
-//     private String summary;
-//     private String remarks;
-//     private String confidental;
-
-
-	switch (mode){ /* FIXME */
+	switch (mode){
 	case SHALLOW:
 	    return XMLHelper.tagged("ReviewReport",
 				    XMLHelper.tagged("id", ""+getId()),

@@ -68,8 +68,10 @@ public class XMLHelper {
 	    result.append("<"+tagname+">");
 	    for (CharSequence s: content){
 		// however, the content might be long, so we don't risk +.
-		result.append("\n  ");
-		result.append(s);
+		if (s!=null){ // let's not risk anything.
+		    result.append("\n  ");
+		    result.append(s);
+		}
 	    }
 	    result.append("\n</"+tagname+">");
 	}
