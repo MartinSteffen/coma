@@ -143,8 +143,7 @@ class Template extends ErrorHandling {
           $strKeys[] = '/(?is){repeat(.*?):((.*?)(\\1)?)+}/';
           $strVal = '';
           for ($i=0; $i<$value[0]; $i++) {
-            $strVal .= $i;
-            echo $i;
+            $strVal .= '\\2'.$i;
           }
           $strValues[] = $strVal;
         }
