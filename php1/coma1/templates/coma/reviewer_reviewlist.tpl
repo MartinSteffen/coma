@@ -41,7 +41,10 @@
         <a href=""> Robby Rabbit </a> 
     </td>
     <td class="listitem-2"> 
-       none
+       <form action="" method="post">
+       <input type="hidden" name="confid" value="{confid}" />
+       <input type="submit" name="submit" value="vote" class="button" />
+       </form>
     </td> 
     <td class="listitem-2"> &nbsp; </td>
     <td class="listitem-2"> 100%   </td>
