@@ -13,8 +13,8 @@ if (!defined('IN_COMA1')) {
 
 class Template {
 
-  var template = '';
-  var errString = '';
+  var template_ = '';
+  var errString_ = '';
 
   function Template() {
     return true;
@@ -27,12 +27,12 @@ class Template {
     if (empty($contents)) {
       return this->error("Could not read Template [$template]");
     }
-    $this->template = $contents;
+    $this->template_ = $contents;
     return true;
   }
   
   function parse($assocArray) {
-    $template = $this->template;
+    $template = $this->template_;
     $keyArray = array_keys($assocArray);
     array_map(create_function('&$s', 'return "{$s}";'), $keyArray);
     $template = preg_replace($keyArray, array_values($assocArray), $template);
@@ -40,13 +40,13 @@ class Template {
   }
   
   function error($text) {
-    $this->errString = $text;
+    $this->errString_ = $text;
     return false;
   }
   
   function getLastError() {
-    $errString = $this->errString;
-    $this->errString = '';
+    $errString = $this->errString_;
+    $this->errString_ = '';
     return $errString;
   }
 
