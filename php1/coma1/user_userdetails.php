@@ -65,6 +65,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during performing permission check.', $myDBAccess->getLastError());
 }
 if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
+	echo ('AUTHOR');
   $objPapers = $myDBAccess->getPapersOfAuthor($objPerson->intId, session('confid'));
   if ($myDBAccess->failed()) {
     error('get paper list of author', $myDBAccess->getLastError());
