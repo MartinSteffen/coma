@@ -11,7 +11,7 @@
     <th colspan="2">Login:</th>
   </tr>
   <tr>
-    <td>Email-Addresse:</td>
+    <td>Email-Adresse:</td>
     <td>
       <input type="text" name="user_name" size="30" maxlength="127" />
     </td>

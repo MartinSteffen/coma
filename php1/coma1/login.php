@@ -24,7 +24,8 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
     }
   }
   else {
-    $_SESSION['message'] = 'Geben Sie Ihren Benutzernamen und Ihr Passwort an!';
+    $_SESSION['message'] = 'Geben Sie Ihren Benutzernamen (ihre Email-Adresse) '.
+                           'und Ihr Passwort an!';
   }
 }
 
