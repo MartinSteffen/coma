@@ -60,7 +60,7 @@ if ($myDBAccess->failed()) {
   error('get paper', $myDBAccess->getLastError());
 }
 elseif (empty($objPaper)) {
-  error('get paper', 'Empty result.'.$pid);
+  error('get paper', 'Empty result.');
 }
 $objTopics = $myDBAccess->getTopicsOfConference(session('confid'));
 if ($myDBAccess->failed()) {
@@ -69,6 +69,7 @@ if ($myDBAccess->failed()) {
 
 $content = new Template(TPLPATH.'chair_reviewerassignment.tpl');
 $strContentAssocs = defaultAssocArray();
+$strItemAssocs['paper_id'] = encodeText($objPaper->intId);
 $strContentAssocs['if'] = array();
 $strContentAssocs['reviewer_lines'] = '';
 if (!empty($r_id)) {
