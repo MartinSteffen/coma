@@ -65,7 +65,7 @@ if (!empty($objCriterions)) {
   foreach ($objCriterions as $objCriterion) {    
     $strColAssocs = defaultAssocArray();
     $strColAssocs['content'] = encodeText($objCriterion->strName.':');
-    $colItem = new Template(TPLPATH.'view_tablecell.tpl');
+    $colItem = new Template(TPLPATH.'view_tableheader.tpl');
     $colItem->assign($strColAssocs);
     $colItem->parse();
     $strContentAssocs['crit_cols'] .= $colItem->getOutput();    
