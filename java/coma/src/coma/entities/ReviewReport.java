@@ -202,7 +202,7 @@ public class ReviewReport extends Entity {
 				    XMLHelper.tagged("summary", getSummary()),
 				    XMLHelper.tagged("remarks", getRemarks()),
 				    XMLHelper.tagged("confidental", getConfidental()),
-				    Entity.manyToXML(getRatings(), XMLMODE.SHALLOW)
+				    Entity.manyToXML(getRatings(), XMLMODE.DEEP)
 				    );
 	  
 	default:
