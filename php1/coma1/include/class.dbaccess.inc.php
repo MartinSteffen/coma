@@ -2353,8 +2353,8 @@ nur fuer detaillierte?
     }
     for ($i = 0; $i < count($intTopicIds) && !empty($intTopicIds); $i++) {
       $this->addIsAboutTopic($intId, $intTopicIds[$i]);
-      if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
-        $strError = $this->mySql->getLastError();
+      if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+        $strError = $this->getLastError();
         $this->deletePaper($intId);
         if ($this->failed()) { // Auch dabei ein Fehler? => fatal!
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
