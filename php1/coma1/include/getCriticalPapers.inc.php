@@ -49,9 +49,12 @@ function getCriticalPapers(&$myDBAccess, $method = 'variance') {
 	  $val = 1 - $val;
 	}
         $confdet = $myDBAccess->getConferenceDetailed($cid);
+	/*
         if ($val > $confdet->fltCriticalVariance){
           $objPapers[] = new PaperVariance($paper->intId, $val);
         }
+	*/
+        $objPapers[] = new PaperVariance($paper->intId, $val);
       }
     }
   }
