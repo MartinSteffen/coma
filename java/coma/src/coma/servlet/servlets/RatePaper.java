@@ -313,7 +313,7 @@ public class RatePaper extends HttpServlet{
 	    result.append(pagestate.toString());
 	    result.append("</content>");
 
-	    String xslt = getServletContext().getRealPath("")+"style/xsl/ratepaper.xsl";
+	    String xslt = getServletContext().getRealPath("")+"/style/xsl/ratepaper.xsl";
 	    PrintWriter out = response.getWriter();
 	    response.setContentType("text/html; charset=ISO-8859-1");
 	    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
