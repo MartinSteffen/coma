@@ -35,6 +35,9 @@ else if (empty($p)) {
   echo('EMPTY');
   die(-1);
 }
+
+$p->strLastName = $p->strLastName." ßäöüÄÖÜ";
+
 $myDBAccess->updatePerson($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
