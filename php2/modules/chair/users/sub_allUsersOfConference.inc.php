@@ -54,7 +54,11 @@ if(isChair_Conference($_GET['confID']))
 			if ($type == 4)
 			{
 				$person['roles'] .= "Author";
-			}									
+			}
+			if ($type == 5)
+			{
+				$person['roles'] .= "Participant";
+			}												
 			$typeCount++;
 		}		 
  						

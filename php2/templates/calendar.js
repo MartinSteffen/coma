@@ -351,7 +351,7 @@ Calendar.prototype.cal_data = function() {
 		vCode = vCode + "<TD WIDTH='14%'" + this.write_weekend_string(j) + "><FONT SIZE='2' FACE='" + fontface + "'>" + 
 			"<A HREF='#' " + 
 				"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').innerHTML='<span class=textRed>" + this.format_data(vDay) + 
-				"</span>';self.opener.document.form1." + this.gReturnItem + "Hidden.value='" + this.format_data_SQL(vDay) + "'" +
+				"</span>';self.opener.document.confForm." + this.gReturnItem + "Hidden.value='" + this.format_data_SQL(vDay) + "'" +
 				";window.close();\">" + 	
 			    this.format_day(vDay) + "</A>" +
 			"</FONT></TD>";
@@ -367,7 +367,7 @@ Calendar.prototype.cal_data = function() {
 			vCode = vCode + "<TD WIDTH='14%'" + this.write_weekend_string(j) + "><FONT SIZE='2' FACE='" + fontface + "'>" + 
 			"<A HREF='#' " + 
 				"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').innerHTML='<span class=textRed>" + this.format_data(vDay) + 
-				"</span>';self.opener.document.form1." + this.gReturnItem + "Hidden.value='" + this.format_data_SQL(vDay) + "'" +
+				"</span>';self.opener.document.confForm." + this.gReturnItem + "Hidden.value='" + this.format_data_SQL(vDay) + "'" +
 				";window.close();\">" + 	
 			    this.format_day(vDay) + "</A>" +
 			"</FONT></TD>";

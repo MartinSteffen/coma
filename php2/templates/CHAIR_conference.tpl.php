@@ -15,7 +15,7 @@ $topics = $input['topics'];
     <td class="textBold" width="100%">Manage a conference.</td>
   </tr>
 </table>
-<br><form name="form1" method="post" action="index.php?m=chair&a=conferences&s=updateConference">
+<br><form name="confForm" method="post" action="index.php?m=chair&a=conferences&s=updateConference">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr> 
       <td width="100%"> 
@@ -192,7 +192,7 @@ $topics = $input['topics'];
   foreach ($topics as $topic)
   {  ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <form name="form<? echo $topic['topicID'] ?>" method="post" action="index.php?m=chair&a=conferences&s=updateTopic">
+  <form name="topicForm<? echo $topic['topicID'] ?>" method="post" action="index.php?m=chair&a=conferences&s=updateTopic">
   <input type="hidden" name="topicID" value="<? echo $topic['topicID'] ?>">
   <input type="hidden" name="confID" value="<? echo $conference['confID'] ?>">  
   <tr> 
