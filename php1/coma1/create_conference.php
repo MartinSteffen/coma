@@ -72,8 +72,8 @@ if (isset($_POST['action'])) {
       $strCritWeights[]   = encodeText($_POST['crit_weight']);
     }  
   }
-  if ( isset($_POST['adv_config']) ||
-      (isset($_POST['advanced']) && !isset($_POST['simple_config']))) {
+  if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
+      !isset($_POST['simple_config']) &&  !isset($_POST['simple_config']))) {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
     $strContentAssocs['topic_lines'] = '';
     $strContentAssocs['crit_lines']  = '';
