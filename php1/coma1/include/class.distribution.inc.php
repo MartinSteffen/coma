@@ -142,10 +142,10 @@ class Distribution extends ErrorHandling {
       return $this->success(array());
     }
 
-    echo('<br>'.count($data).' Papers found:');
+    //echo('<br>'.count($data).' Papers found:');
     for ($i = 0; $i < count($data); $i++) {
       $p_id[$i] = $data[$i]['id'];
-      echo(' '.$data[$i]['id']);
+      //echo(' '.$data[$i]['id']);
       $p_id_index[$data[$i]['id']] = $i;
     }
 
@@ -167,10 +167,10 @@ class Distribution extends ErrorHandling {
       return $this->success(false);
     }
 
-    echo('<br>'.count($data).' Reviewers found:');
+    //echo('<br>'.count($data).' Reviewers found:');
     for ($i = 0; $i < count($data); $i++) {
       $r_id[$i] = $data[$i]['id']; // wie bei Papern
-      echo(' '.$data[$i]['id']);
+      //echo(' '.$data[$i]['id']);
       $r_id_index[$data[$i]['id']] = $i; // wie bei Papern
     }
 
@@ -304,7 +304,7 @@ class Distribution extends ErrorHandling {
       }
     }
 
-    echo('<br><br><br>');
+    //echo('<br><br><br>');
 
     // Paper-Wuensche zuerst beruecksichtigen
     for ($i = 0; $i < count($r_id); $i++) {
