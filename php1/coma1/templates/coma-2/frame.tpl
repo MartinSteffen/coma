@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -32,7 +32,7 @@
     <tr>
      <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
      <td colspan="2" height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
-      {navigator}
+      {repeatNAV hallo}
      </td>
     </tr>
    </table>

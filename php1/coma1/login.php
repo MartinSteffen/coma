@@ -54,10 +54,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Welcome to CoMa!';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-
-$strPath = array('CoMa'=>'', 'Login'=>'');
-require_once(TPLPATH.'navigatoritem.php');
-$strMainAssocs['navigator'] = createNavigatorContent($strPath);
+$strMainAssocs['repeatNAV'] = array('CoMa', 'Login');
 
 $main->assign($strMainAssocs);
 $main->parse();

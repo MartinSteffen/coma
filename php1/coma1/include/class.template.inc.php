@@ -130,9 +130,21 @@ class Template extends ErrorHandling {
         $strValues[] = $value->getOutput();
       }
       elseif (is_array($value)) {
-        foreach ($value as $val) {
-          $strKeys[] = '/(?is){'.$key.$val.'(.*?)}/';
-          $strValues[] = '\\1';
+        // IF BLOCK
+        if ($key == 'if') {
+          foreach ($value as $val) {
+            $strKeys[] = '/(?is){'.$key.$val.'(.*?)}/';
+            $strValues[] = '\\1';
+          }
+        }
+        // REPEAT BLOCK
+        else {
+          $strKeys[] = '/(?is){'.$key.'(.*?)}/';
+          $strVal = '';
+          foreach ($values) {
+            $strVal .= '\\1';
+          }
+          $strValues[] = $strVal;
         }
       }
       else {
