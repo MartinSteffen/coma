@@ -1,6 +1,6 @@
   <tr>
     <td class="listitem-{line_no}">
-      <a href="{basepath}user_userdetails.php?userid={rev_id}{&SID}" class="link">{rev_name}</a>
+      <a href="{basepath}user_userdetails.php?userid={rev_id}&amp;popup{&SID}" target="_blank" class="link">{rev_name}</a>
     </td>
     <td class="listitem-{line_no}">
       ({num_papers})
