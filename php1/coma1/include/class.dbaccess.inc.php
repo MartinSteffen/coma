@@ -572,7 +572,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getUsersOfConference', $this->mySql->getLastError());
     }
     $objPersons = array();
-    for (int $i = 0; $i < count($data); $i++) {
+    for ($i = 0; $i < count($data); $i++) {
       $objPerson = (new Person($data[$i]['id'], $data[$i]['first_name'], $data[$i]['last_name'],
                       $data[$i]['email'], 0, $data[$i]['title']));      
       $s = "SELECT  role_type".
