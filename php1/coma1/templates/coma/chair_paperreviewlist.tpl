@@ -13,10 +13,18 @@
   <tr class="viewline">
     <td class="viewline">&nbsp;</td>
     {crit_cols}
-    <td class="viewline">Total rating:</td>
+    <td class="viewline"><span class="emph">Total:</span></td>
     <td class="viewline">&nbsp;</td>
   </tr>
   {review_lines}
+  <tr class="viewline">
+    <td class="viewline">&nbsp;</td>
+    <td class="viewline" colspan="{crit_cols}">&nbsp;</td>
+    <td class="viewline">
+      <span class="emph">{avg_rating}</span>
+    </td>
+    <td class="viewline">&nbsp;</td>
+  </tr>  
 </table>
 
 <p>&nbsp;</p>
