@@ -60,6 +60,7 @@ $strContentAssocs['lines']      = '';
 $strContentAssocs['&option']    = '';
 $strContentAssocs['&option']   .= ($showAuthorPapers   ? '&showauthorpapers'   : '');
 $strContentAssocs['&option']   .= ($showAcceptedPapers ? '&showacceptedpapers' : '');
+$paperCount = 0;
 if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
@@ -93,10 +94,11 @@ if (!empty($objPapers)) {
       $paperItem->parse();
       $strContentAssocs['lines'] .= $paperItem->getOutput();
       $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+      $paperCount++;
     }
   }
 }
-else {
+if (empty($objPapers) || $paperCount == 0) {
   // Artikelliste ist leer.
   $strItemAssocs = defaultAssocArray();
   $strItemAssocs['colspan'] = '8';
