@@ -1,0 +1,1 @@
+The imprint window informs you about all the legal information regarding the service provider who hosts the coma pages, copyrights, data privacy and disclaimers. It should contain all information the provider of this page is required to display by law.
