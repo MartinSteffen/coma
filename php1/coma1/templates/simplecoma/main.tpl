@@ -38,8 +38,8 @@
      </td>
     </tr>
     <tr bgcolor="#DBE9EC">
-     <td style="background-image:url({path}images/menueleft.gif)" height="25" width="100">&nbsp;</td>
-     <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
+     <td height="25" width="100">&nbsp;</td>
+     <td colspan="2" height="25" valign="middle"">
       {submenue}
  
      </td>
