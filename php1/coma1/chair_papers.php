@@ -23,6 +23,7 @@ require_once('./include/class.papervariance.inc.php');
 if (isset($_POST['action']) && $_POST['action'] == 'delete') {
   if (empty($_POST['confirm_delete'])) {
     $strMessage = 'You have to check the delete confirm option!';
+    echo($strMessage);
   }
   else {
     $myDBAccess->deletePaper($_POST['paperid']);
@@ -61,6 +62,7 @@ if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
   $strMessage = session('message', false);
   unset($_SESSION['message']);
 }
+echo($strMessage);
 if (isset($strMessage) && !empty($strMessage)) {  
   $strContentAssocs['message'] = encodeText($strMessage);
   $ifArray[] = 9;
