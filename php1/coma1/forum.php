@@ -46,6 +46,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $objForumTypeOpenTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeOpenAssocs = defaultAssocArray();
   $strArrayTypeOpenAssocs['type'] = 'Public forums';
+  /*
   if ((1 == 1) ||(isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
@@ -56,9 +57,11 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     $objCreateTemplate->parse();
     $strArrayTypeOpenAssocs['createforum'] = $objCreateTemplate->getOutput();
   }
+  */
   $objForumTypePaperTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypePaperAssocs = defaultAssocArray();
   $strArrayTypePaperAssocs['type'] = 'Paper forums';
+  /*
   if ((1 == 1) || (isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
@@ -82,9 +85,11 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     $objCreateTemplate->parse();
     $strArrayTypePaperAssocs['createforum'] = $objCreateTemplate->getOutput();
   }
+  */
   $objForumTypeChairTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeChairAssocs = defaultAssocArray();
   $strArrayTypeChairAssocs['type'] = 'Committee forums';
+  /*
   if ((1 == 1) || (isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
@@ -95,17 +100,13 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     $objCreateTemplate->parse();
     $strArrayTypeChairAssocs['createforum'] = $objCreateTemplate->getOutput();
   }
-  $objForumTypeGlobalTemplate = new Template(TPLPATH . 'forumtypes.tpl');
-  $strArrayTypeGlobalAssocs = defaultAssocArray();
-  $strArrayTypeGlobalAssocs['type'] = 'Global forums';
+  */
   $objArrayOpenForumTemplates = array();
   $objArrayPaperForumTemplates = array();
   $objArrayChairForumTemplates = array();
-  $objArrayGlobalForumTemplates = array();
   $strArrayTypeOpenAssocs['forum'] = '';
   $strArrayTypePaperAssocs['forum'] = '';
   $strArrayTypeChairAssocs['forum'] = '';
-  $strArrayTypeGlobalAssocs['forum'] = '';
 
   foreach ($objArrayForums as $objForum){
     $objForumTemplate = new Template(TPLPATH . 'forum.tpl');
@@ -157,9 +158,6 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     if (isChairForum($objForum)){
       $objArrayChairForumTemplates[$objForum->intId] = $objForumTemplate;
     }
-    if (isGlobalForum($objForum)){
-      $objArrayGlobalForumTemplates[$objForum->intId] = $objForumTemplate;
-    }
   }
 
   if (!empty($objArrayOpenForumTemplates)){
@@ -185,19 +183,6 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   }
   else{
     $strArrayTypeChairAssocs['forum'] = 'No forums available in this category';
-  }
-  if (!empty($objArrayGlobalForumTemplates)){
-    foreach ($objArrayGlobalForumTemplates as $ftemp){
-      $strArrayTypeGlobalAssocs['forum'] = $strArrayTypeGlobalAssocs['forum'] . $ftemp->getOutput();
-    }
-  }
-  else{
-    $strArrayTypeGlobalAssocs['forum'] = 'No forums available in this category';
-  }
-  $objForumTypeGlobalTemplate->assign($strArrayTypeGlobalAssocs);
-  $objForumTypeGlobalTemplate->parse();
-  if (($intFshow == 0) || ($intFshow == FORUM_GLOBAL)){
-    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypeGlobalTemplate->getOutput();
   }
   $objForumTypeOpenTemplate->assign($strArrayTypeOpenAssocs);
   $objForumTypeOpenTemplate->parse();
