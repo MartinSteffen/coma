@@ -55,6 +55,7 @@ class Template extends ErrorHandling {
    *
    */
   function Template($strFilename) {
+    // generiet selber einen Fehler udn gibt ihn weiter
     return $this->readTemplate($strFilename);
   }
 
@@ -116,7 +117,6 @@ class Template extends ErrorHandling {
    * @return true Erfolg
    * @access public
    * @todo Check ob gueltiges Objekt!!!
-   * @todo Liste von Assoziationen Baum herunter schleppen
    *
    */
   function parse() {
