@@ -232,7 +232,7 @@ function displayMessages(&$objArrayMessages, $boolArrayMsgselection, $intSelecte
         $strArrayFormAssocs['message-id'] = encodeText($objMessage->intId);
         $strArrayFormAssocs['forum-id'] = encodeText($intForumid);
         $strArrayFormAssocs['subject'] = 'Re: ' . encodeText($objMessage->strSubject);
-        $strArrayFormAssocs['text'] = encodeText($objMessage->strText);
+        $strArrayFormAssocs['text'] = encodeText($objMessage->strText, false);
         $strArrayFormAssocs['newthread'] = '';
         $boolIschair = (isChair($myDBAccess->getPerson(session('uid'))));
         if ($myDBAccess->failed()){
