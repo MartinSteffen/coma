@@ -16,18 +16,19 @@
 -- Tabellenstruktur für Tabelle `ConferenceConfig`
 -- 
 
-CREATE TABLE `ConferenceConfig` (
-  `id` int(11) NOT NULL default '0',
-  `default_reviews_per_paper` int(11) NOT NULL default '0',
-  `min_number_of_papers` int(11) NOT NULL default '0',
-  `max_number_of_papers` int(11) NOT NULL default '0',
-  `critical_variance` float NOT NULL default '0.5',
-  `auto_activate_account` int(11) NOT NULL default '1',
-  `auto_open_paper_forum` int(11) NOT NULL default '1',
-  `auto_add_reviewers` int(11) NOT NULL default '1',
-  `number_of_auto_add_reviewers` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) TYPE=InnoDB;
+CREATE TABLE IF NOT EXISTS ConferenceConfig
+(
+   id                           INT NOT NULL,
+   default_reviews_per_paper    INT NOT NULL,
+   min_number_of_papers         INT NOT NULL,
+   max_number_of_papers         INT NOT NULL,
+   critical_variance            FLOAT NOT NULL DEFAULT '.5',
+   auto_activate_account        INT NOT NULL DEFAULT '1',    -- 0 = FALSE, 1 (bzw. <>0) = TRUE
+   auto_open_paper_forum        INT NOT NULL DEFAULT '1',    -- 0 = FALSE, 1 (bzw. <>0) = TRUE
+   auto_add_reviewers           INT NOT NULL DEFAULT '1',    -- 0 = FALSE, 1 (bzw. <>0) = TRUE
+   number_of_auto_add_reviewers INT NOT NULL,
+   PRIMARY KEY (id)
+) TYPE = INNODB;
 
 -- --------------------------------------------------------
 
@@ -35,14 +36,28 @@ CREATE TABLE `ConferenceConfig` (
 -- Tabellenstruktur für Tabelle `Session`
 -- 
 
-CREATE TABLE `Session` (
-  `sid` varchar(255) NOT NULL default '',
-  `sname` varchar(25) NOT NULL default '',
-  `sdata` text,
-  `stime` timestamp(14) NOT NULL,
-  PRIMARY KEY  (`sid`,`sname`),
-  KEY `stime` (`stime`)
+CREATE TABLE IF NOT EXISTS Session (
+  sid VARCHAR(255) NOT NULL DEFAULT '',
+  sname VARCHAR(25) NOT NULL DEFAULT '',
+  sdata TEXT,
+  stime TIMESTAMP(14) NOT NULL,
+  PRIMARY KEY  (sid, sname),
+  KEY stime (stime)
 ) TYPE=MyISAM COMMENT='Session-Verwaltung';
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Distribution
+(
+   paper_id                     INT NOT NULL,
+   reviewer_id                  INT NOT NULL,
+   PRIMARY KEY (paper_id, reviewer_id),
+   INDEX (paper_id),
+   INDEX (reviewer_id),
+   FOREIGN KEY (paper_id) REFERENCES Paper (id)
+       ON DELETE CASCADE,
+   FOREIGN KEY (reviewer_id) REFERENCES Person (id)
+       ON DELETE CASCADE
+) TYPE = INNODB;
 
 -- --------------------------------------------------------
 
