@@ -1,10 +1,10 @@
 {if1<p class="message-failed">{message}</p>}
 
-<form action="{basepath}login.php{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}lostpw.php{?SID}" method="post" accept-charset="UTF-8">
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Login:</th>
+    <th colspan="2">Your Username (E-mail):</th>
   </tr>
   <tr>
     <td>E-mail Address:</td>
@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="get Password" class="button">
+      <input type="submit" name="submit" value="get new Password" class="button">
     </td>
   </tr>
 </table>
