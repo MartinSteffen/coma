@@ -98,7 +98,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="Login" class="button" /> &nbsp;
+      <input type="submit" name="submit" value="Registrieren" class="button" /> &nbsp;
       <input type="submit" name="cancel" value="Abbrechen" class="button" />
     </td>
   </tr>
