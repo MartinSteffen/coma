@@ -48,7 +48,7 @@
   </td>
   <td>
     <h2>{title}</h2>
-    Sandro komm mal ICQ :-)
+    {content}
   </td>
  </tr>
 </table>
