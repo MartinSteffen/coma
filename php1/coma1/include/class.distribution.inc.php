@@ -275,7 +275,9 @@ class Distribution extends ErrorHandling {
         if ($matrix[$i][$pindex] >= NEUTRAL) {
           //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = SUGGESTED;
+          $p_num_revs[$pindex]++;
           $p_num_revs_total_left[$pindex]--;
+          $r_num_papers[$i]++;
           $color[$i][$pindex] = '00FF00';
         }
       }
