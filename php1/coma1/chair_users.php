@@ -150,7 +150,7 @@ if (!empty($objPersons)) {
       $strRolesAssocs['user_id']    = encodeText($objPerson->intId);
       $strRolesAssocs['role_type']  = encodeText($intRoles[$i]);
       $strRolesAssocs['role_name']  = encodeText($strRoles[$intRoles[$i]]);
-      $strRolesAssocs['line_no']    = $lineNo;
+      $strRolesAssocs['line_no']    = $strItemAssocs['line_no'];
       if ($objPerson->hasRole($intRoles[$i])) {
         if ($objPerson->intId != session('uid') || $intRoles[$i] != CHAIR) {
           $strRolesAssocs['if'] = array(1);
