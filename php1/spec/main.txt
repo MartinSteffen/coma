@@ -25,6 +25,7 @@ Datum    Autor   Änderung(en)
 07.12.04 tos     Dokument erstellt: Kapitel 1, Appendizes, Konventionen
 08.12.04 jwa     Links eingefügt, bissige Kommentare entfernt, Templates 
                  ergänzt, Verzeichniss Struktur ergänzt
+09.12.04 jwa     Typos entfernt, Templates ergänzt
 
 
 
@@ -148,15 +149,15 @@ Künstliches Beispiel: <p>Hello {Firstname} <b>{Lastname}</b>.</p>
 
 Anmerkung: Die Templates befinden sich im Unterverzeichnis templates.
 
-Dort ist die Verzeihniss-Struktur derart gedacht, das es Unterverzeichnisse
-gibt die für verschiedene Designs stehen, zZ also zB tempaltes/sandro/.
-In der zentarlen header Datei header.inc.php wird in der Konstanten 
-TPLPATH bzw TPLURL festgelegt welches Design verwendet werden soll (dieses
+Dort ist die Verzeichniss-Struktur derart gedacht, das es Unterverzeichnisse
+gibt die für verschiedene Designs stehen, zZ also zB templates/simplecoma/.
+In der zentralen header Datei header.inc.php wird in der Konstanten 
+DESIGN festgelegt welches Design verwendet werden soll (dieses
 ermöglicht eventuell später für den Benutzer ein Umschalten zwischen 
 mehreren Design-Schemata).
 Alle Dateien die zu einem Design gehören sollten dementsprechend in einem
 entsprechenden Unterverzeichniss (zB /templates/sandro/images/) liegen.
-Wie man autoamtisch die korrekten Links setzt zeigen die schon vorhandenen
+Wie man automatisch die korrekten Links setzt zeigen die schon vorhandenen
 Beispieldateien.
 
 Beispiele:
@@ -257,7 +258,7 @@ Siehe auch: [liste_interessen.jpg]
 
 Root-Verzeichnis sei im Folgenden: (...)/php1/coma1.
 
-$/. enthält bislang nur Testdateien. Später wird hier die index.php liegen.
+$/. enthält auch Testdateien. (gekennzeichnet durch test_...)
   Hier liegt die indext.php, (die hauptsächlich eine weiterleitung auf andere
   hier liegende Skriptdateien vornimmt), sowie alle aufrufbaren Skripte
   (zB chair.php für die Chair Verwaltung)
