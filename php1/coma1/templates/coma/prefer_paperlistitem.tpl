@@ -12,7 +12,7 @@
       {if3<span class="status-exclude">exclude</span>}
     </td>    
     <td class="listitem-{line_no}">
-      <select name="paper-{paper_id}" size="3">
+      <select name="paper-{paper_id}" size="1">
         <option>prefer</option>
         <option>deny</option>
         <option>exclude</option>

@@ -8,7 +8,7 @@
       {if1<span class="status-prefer">prefer</span>}      
     </td>    
     <td class="listitem-{line_no}">
-      <select name="topic-{topic_id}" size="3">
+      <select name="topic-{topic_id}" size="1">
         <option>prefer</option>
         <option>no attitude</option>        
       </select>      

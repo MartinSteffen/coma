@@ -70,6 +70,12 @@ if (!empty($objTopic)) {
 else {
   // Topicliste ist leer.
 }
+$strContentAssocs['message'] = '';
+if (isset($strMessage)) {
+  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['if'] = array(9);
+}
+$strContentAssocs['targetpage'] = 'reviewer_prefers.php';
 $content->assign($strContentAssocs);
 
 $actMenu = REVIEWER;

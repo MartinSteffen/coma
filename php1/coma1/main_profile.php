@@ -90,7 +90,7 @@ if (isset($strMessage)) {
   $strContentAssocs['if'] = array(9);
 }
 
-$strContentAssocs['targetpage'] = 'main_profile';
+$strContentAssocs['targetpage'] = 'main_profile.php';
 $content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');
