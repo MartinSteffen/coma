@@ -209,8 +209,7 @@ class DBAccess extends ErrorHandling {
    * zurueck.
    *
    * @param int $intConferenceId Konferenz-ID
-   * @return ConferenceDetailed [] Gibt ein leeres Array zurueck, falls die Konferenz
-   *                               nicht existiert.
+   * @return ConferenceDetailed [] Gibt ein false zurueck, falls die Konferenz nicht existiert.
    * @access public
    * @author Tom (08.01.05)
    */

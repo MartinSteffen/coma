@@ -39,6 +39,9 @@ $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
 if ($myDBAccess->failed()) {
   error('get review list of chair',$myDBAccess->getLastError());
 }
+else if (empty($objConference)) {
+  error('Conference does not exist in database.', '');
+}
 
 $content = new Template(TPLPATH.'chair_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();

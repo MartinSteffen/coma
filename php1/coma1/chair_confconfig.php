@@ -150,6 +150,9 @@ else {
   if ($myDBAccess->failed()) {
     error('Error during retrieving actual conference data.', $myDBAccess->getLastError());
   }
+  else if (empty($objConference)) {
+    error('Conference does not exist in database.', '');
+  }
   $strContentAssocs['name']             = encodeText($objConference->strName);
   $strContentAssocs['description']      = encodeText($objConference->strDescription);
   $strContentAssocs['homepage']         = encodeURL($objConference->strHomepage);
