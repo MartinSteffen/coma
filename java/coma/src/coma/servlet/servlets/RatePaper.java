@@ -24,7 +24,11 @@ import coma.handler.db.*;
 import coma.entities.*;
 
 
-/** stub. ums.*/
+/** 
+    Rating a paper
+
+    @author ums
+*/
 public class RatePaper extends HttpServlet{
 
     private static final long serialVersionUID = 1L;
@@ -56,15 +60,56 @@ public class RatePaper extends HttpServlet{
     public void doGet(
 		      HttpServletRequest request,
 		      HttpServletResponse response) {
-	try{
 
+	HttpSession session;
+	session = request.getSession(true);
+	Character state = null;
+
+	try {
 	    StringBuffer result = new StringBuffer();
+ 
+	    state = (Character)session.getAttribute(SessionAttribs.RATEPAPER_STATE);
+	    if (state == null) {
+		state='0'; // default state
+	    }
 
-	    
+	    switch (state) {
+	    case '0':
+		/*
+		  "These are the papers you can rate."
+		 */
+
+		break;
+	    case '1':
+		/*
+		  "You can now make changes to your RReport"
+		 */
+
+		break;
+	    case '2':
+		/*
+		  "Thank you for your cooperation."
+		 */
+
+		break;
+	    case 'e':
+		/*
+		  Pretty generic error state: user not authorized
+		 */
+
+		break;
+	    case '?': //fall through
+	    default:
+	    }
 
 	} catch (Exception exc) { // safety net
 
 	    LOG.log(ERROR, exc);
+	} finally {
+
+	    if (session != null){
+		session.setAttribute(SessionAttribs.RATEPAPER_STATE, state);
+	    }
 	}
     }
 

@@ -18,12 +18,12 @@ import static java.util.Arrays.asList;
 public class Criterion extends Entity {
 
     /* the DB's fields. */
-    private Integer id;
-    private Integer conferenceId;
+    private int id = -1;
+    private int conferenceId = -1;
     private String name;
     private String description;
-    private Integer maxValue;
-    private Integer qualityRating;
+    private int maxValue = -1;
+    private int qualityRating = -1;
 
     /**
        Constructor by id.

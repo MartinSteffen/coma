@@ -13,13 +13,14 @@ import coma.servlet.util.XMLHelper;
 
 /**
    Wrapper class for the DB Rating entries.
-
+   
+   $Id:$
  */
 public class Rating extends Entity {
 
-    private Integer reviewReportId;
-    private Integer criterionId;
-    private Integer grade;
+    private int reviewReportId = -1;
+    private int criterionId = -1;
+    private int grade = -1;
     private String comment;
 
     public Rating(){;}
@@ -112,7 +113,7 @@ public class Rating extends Entity {
 	    return XMLHelper.tagged("rating",
 				    getReviewReport().toXML(XMLMODE.SHALLOW),
 				    getCriterion().toXML(XMLMODE.SHALLOW),
-				    XMLHelper.tagged("grade", grade.toString()),
+				    XMLHelper.tagged("grade", ""+grade),
 				    XMLHelper.tagged("comment", comment));
 
 	case SHALLOW: 

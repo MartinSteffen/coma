@@ -19,9 +19,9 @@ import coma.servlet.util.XMLHelper;
  */
 public class ReviewReport extends Entity {
 
-    private int id;
-    private int paperId;
-    private int reviewerId;
+    private int id = -1;
+    private int paperId = -1;
+    private int reviewerId = -1;
     private String summary;
     private String remarks;
     private String confidental;

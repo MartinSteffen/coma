@@ -1,7 +1,7 @@
 package coma.servlet.util;
 
 /**
-   Container for string constants that are used as Session Attribut
+   Container for string constants that are used as Session Attribute
    names. 
 
    Having these here lets us find misspeelings (sic!) of session
@@ -21,4 +21,5 @@ public class SessionAttribs {
     public static final String LOGIN="login";
     public static final String LOGIN_OK="ok";
 
+    public static final String RATEPAPER_STATE="rpstate";
 }
