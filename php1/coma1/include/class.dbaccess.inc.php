@@ -1005,6 +1005,7 @@ class DBAccess {
         $result = $this->mySql->insert($s);
         echo('Last Error: '.$this->mySql->getLastError().'<br>');
         if (empty($result)) {
+          echo('EMPTY');
           return $this->error('updateRoles '.$this->mySql->getLastError());
         }
       }
