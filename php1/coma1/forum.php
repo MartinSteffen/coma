@@ -428,7 +428,9 @@ function generatePostMethodArray($strArrayPostvars){
     }
   }
   else{
-    $_SESSION['showforums'] = 0;
+    if (empty(session('showforums', false))){
+      $_SESSION['showforums'] = 0;
+    }
   }
 
   $ffs = session('forum_forumselect', false);
