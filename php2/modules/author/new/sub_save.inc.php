@@ -1,36 +1,15 @@
 <?
 
-// ich brauch als Variablen, die vorher gesetzt werden:
-
-// $mimemap: assoziatives Array, das Mime-types auf Endungen mappt.
-// also im Stil von:
-
-
-// var_dump($_REQUEST);
-// var_dump($_POST);
-// var_dump($_GET);
-// var_dump($_SESSION);
-// var_dump($_FILES);
-// echo date('Y-m-d');
-// exit();
-
+//get fileending from filename
 $name = $_REQUEST['file']['name'];
 $a = explode(".", $name);
 $a = array_reverse($a);
 $ending = $a[0];
 
 
-/*
-$mimemap= array(
-	"application/pdf" => ".pdf",
-	"application/postscript" => ".ps",
-	"application/msword" => ".doc",
-	"aplication/x-dvi" => ".dvi",
-	"text/plain" => ".txt"
-);
-*/
 $content = array();
 
+//check for conference_id
 if (isset($_REQUEST['cid']))
 {
 	$content['conference_id'] = $_REQUEST['cid'];
@@ -38,6 +17,8 @@ if (isset($_REQUEST['cid']))
   echo('Error(m=author&a=new&s=save): no conference_id in "$_REQUEST"');
   exit();
 }
+
+//fill content array with values for db
 
 $content['author_id'] = $_SESSION['userID'];
 $content['title'] = $_REQUEST['title'];
@@ -47,26 +28,14 @@ $content['filename'] = "";
 $content['state'] = 0;
 $content['mime_type'] = $_REQUEST['file']['type'];
 
-// var_dump($content);
-// exit();
 
-
-
+//insert new db entry
 $SQL = "INSERT INTO paper (conference_id, author_id, title, abstract, last_edited, filename, state, mime_type) VALUES ('".$content['conference_id']."', '".$content['author_id']."', '".$content['title']."', '".$content['abstract']."', '".$content['last_edited']."', '".$content['filename']."', '".$content['state']."', '".$content['mime_type']."')";
-$result = $sql->insert($SQL); //Warum wirft er hier Fehlermeldung wenn man "$sql->query" benutzt??
-// var_dump($result);
+$result = $sql->insert($SQL); 
 
 
+//get paper_id
 $paper_id = mysql_insert_id();
-// var_dump($paper_id);
-// exit();
-
-
-
-// $paperid: die aktuelle paperid. 'select max(id) from paper'+1 oder $sql->insertid(); nach dem Einfuegen des Paper-Datensatzes
-
-// $_FILES sollte automatisch gefuellt sein, wenn das Template-Formular auf dieses Script zeigt...
-
 
 // get fTP handle
 $ftphandle=@ftp_connect($ftphost);
@@ -94,9 +63,9 @@ $localfilename = $_FILES['file']['tmp_name'];
 
 $SQL = "UPDATE paper SET filename = '".$remotefilename."' WHERE id = ".$paper_id."";
 $change_result = $sql->insert($SQL);
-// var_dump($change_result);
 
 // do not forget to close connection. Your FTP-provider says thanks :)
+// ftp_close() throws error, so use here ftp_quit()
 @ftp_quit($ftphandle);
 
 redirect("author");

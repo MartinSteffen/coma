@@ -2,10 +2,11 @@
 $sql = new SQL();
 $sql->connect();
 
- // $SQL = "SELECT role.conference_id FROM role, paper WHERE role.person_id = ".$_SESSION['userID']." AND role.role_type = 4 AND paper.author_id != ".$_SESSION['userID'];//." AND NOT paper.conference_id = 2";
 
+//select all conferences with <user> is author
 	$SQL = "SELECT conference_id FROM role WHERE person_id = ".$_SESSION['userID']." AND role_type = 4";
 	$author = $sql->query($SQL);
+//select all conferences where <user> uploaded a paper 
 	$SQL = "SELECT conference_id FROM paper WHERE author_id = ".$_SESSION['userID'];
 	$paper = $sql->query($SQL);
 	$a = array();
@@ -18,21 +19,24 @@ $sql->connect();
 	foreach($paper as $row) {
 		$b[] = $row['conference_id'];
 	}
+//get all allowed conferences, where <user> has no paper
 	$c = array_diff($a, $b);
 	if (count($c) > 0)
+//if there is any conference
 	{
 		$selectConference = true;
 		$Conferences = $c;
-//		var_dump($Conferences);
 		$conf = array();
 		if(count($Conferences) == 1){
-//			dump($Conferences);
+//if only one conference is available
 			foreach($Conferences as $value)		//wird nur einmal ausgeführt, ist aber notwendig, da der erste Index im Array nicht bekannt ist
 				{
+//jump directly to inputform
 				redirect("author", "new", "create", "cid=".$value);
 				}
 		}
 		foreach ($Conferences as $conference_id)
+//else select conference in template <AUTHOR_choose_conference>
 		{
 			$SQL = "SELECT id, name, description FROM conference WHERE id = ".$conference_id;
 			$conf = array_merge($conf,$sql->query($SQL));
@@ -42,6 +46,7 @@ $sql->connect();
 		exit();
 	}
 	else
+//if no conference is available, "say sorry"
 	{
 		$selectConference = false;
 		template("AUTHOR_no_new_papers");
