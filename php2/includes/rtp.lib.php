@@ -14,6 +14,12 @@ function getPaper($paperId) {
 
 }
 
+function getPerson($personId) {
+
+	return array("name" => "TODO");
+
+}
+
 function getReviewCountForPaper($paperId) {
 
 	global $sql;
@@ -70,13 +76,16 @@ function getAllPapersForConferenceSortByTotalScore( $conferenceId) {
 			$ungraded[ ] = $paperArr;
 		} else {
 			$totalGrade=getTotalGradeForPaper( $paperId );
+			$totalGradeList=getTotalGradeListForPaper( $paperId );
 			if ($reviewCount>=$minReviews) {
 				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
+				$paperArr['totalgradelist'] = implode(", ",$totalGradeList);
 				$paperArr['review_count'] = $reviewCount;
 				$paperArr['review_status'] = "complete";
 				$graded[ ] = $paperArr;
 			} else {
 				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
+				$paperArr['totalgradelist'] = implode(", ",$totalGradeList);
 				$paperArr['review_count'] = $reviewCount;
 				$paperArr['review_status'] = "partially";
 				$graded[ ] = $paperArr;
@@ -116,6 +125,34 @@ function getTotalGradeForPaper($paperId) {
 	return $gradeSum / count ($arr) ;
 
 }
+
+function getTotalGradeListForPaper($paperId) {
+
+	global $sql;
+
+	if (!$paperId) {
+		$paperId="0";
+	}
+
+	$gradeList=array();
+
+	$queryStr="SELECT id FROM reviewreport WHERE paper_id=$paperId";
+
+	$arr=$sql->query($queryStr);
+
+	foreach($arr as $row) {
+		$gradeList[] = number_format( getTotalGradeForReviewReport( $row['id'] ) * 100 , 2);
+	}
+
+	if (count($arr)==0) {
+		// no reviewReport done yet for this paper!
+		return array();
+	}
+
+	return $gradeList ;
+
+}
+
 
 function getTotalGradeForReviewReport($reviewReportId) {
 
