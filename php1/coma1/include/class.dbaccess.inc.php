@@ -1666,13 +1666,12 @@ nur fuer detaillierte?
     }
     $s = sprintf("UPDATE   Paper".
                  " SET     title = '%s', author_id = '%d', abstract = '%s', mime_type = '%s',".
-                 "         last_edited = '%s', version = '%d', filename = '%s', state = '%d'".
+                 "         last_edited = '%s', version = '%d', state = '%d'".
                  " WHERE   id = '%d'",
                  s2db($objPaperDetailed->strTitle), s2db($objPaperDetailed->intAuthorId),
                  s2db($objPaperDetailed->strAbstract), s2db($objPaperDetailed->strMimeType),
                  s2db($objPaperDetailed->strLastEdit), s2db($objPaperDetailed->intVersion),
-                 s2db($objPaperDetailed->strFilePath), s2db($objPaperDetailed->intStatus),
-                 s2db($objPaperDetailed->intId));
+                 s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
@@ -1688,6 +1687,30 @@ nur fuer detaillierte?
     $this->updateCoAuthorNames($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaper', $this->getLastError());
+    }
+    return $this->success(true);
+  }
+
+  /**
+   * Laedt die Datei $strFilePath in das Paper $intPaperId hoch.
+   *
+   * @param int $intPaperId ID des Papers
+   * @param int $strFilePath Speicherort der hochzuladenden Datei
+   * @return bool true gdw. der Upload korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Sandro (21.01.05)
+   * @todo Ueberpruefung auf Existenz des Papers bzw. des Dokuments
+   */
+  function uploadPaperFile($intPaperId, $strFilePath) {
+    //Hochladen des Papers
+    $strReposFilePath = $strFilePath
+    $s = sprintf("UPDATE   Paper".
+                 " SET     filename = '%s'".
+                 " WHERE   id = '%d'",
+                 s2db($objPaperDetailed->strReposFilePath), s2db($objPaperDetailed->intId));
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('uploadPaperFile', $this->mySql->getLastError());
     }
     return $this->success(true);
   }

@@ -87,8 +87,16 @@ if (isset($_POST['action'])) {
     if (empty($_POST['paper_file'])) {
       $strMessage = 'You have to select a file for uploading!';
     }
-    // Versuche das Paper hochzuladen [TODO]
+    // Versuche das Paper hochzuladen
     else {    	      
+      $result = $myDBAccess->uploadPaperFile($objPaper->$intId, $_POST['paper_file']);
+      if ($myDBAccess->failed()) {
+        // Datenbankfehler?
+        error('Error during uploading paper.', $myDBAccess->getLastError());
+      }
+      else if (!empty($result)) {        
+        $strMessage = 'Document was uploaded successfully.';        
+      }
     }
   }
 }
