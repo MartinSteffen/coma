@@ -18,7 +18,7 @@ require_once('./include/header.inc.php');
 
 
 echo 'Roles:<br>'
-for ($i = 0; $i < count($ROLES); $i++) {
+for ($i = 0; $i < 4; $i++) {
   echo $ROLES[$i][0].' -> '.$ROLES[$i][1].'<br>';
 }
 
