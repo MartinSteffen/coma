@@ -13,9 +13,20 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
-checkAccess(0);
 
 if (isset($_GET['paperid'])) {
+  checkAccess(0);
+  /* Das hier besser? So noch nciht, fehlt getAuthorId, ausserdem ErrorCheck nicht korrekt!!
+  $checkRole = ($myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR))
+             ||($myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER))
+             ||(session('uid') == $intAuthorId);
+  if ($myDBAccess->failed()) {
+    error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
+  }
+  else if (!$checkRole) {
+    error('You have no permission to view this page.', '');
+  }
+  */
   // Hole dir das File
   $file = $myDBAccess->getPaperFile($_GET['paperid']);
   if ($myDBAccess->failed()) {
