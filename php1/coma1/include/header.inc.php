@@ -50,7 +50,6 @@ function redirect($strName) {
 function defaultAssocArray() {
   global $mySession;
   return array(
-               'imgpath'  => IMGSPATH,
                'path'     => TPLURL,
                'basepath' => COREURL,
                'SID'      => $mySession->getUrlId()
@@ -64,15 +63,17 @@ ini_set('display_startup_errors', '1'); // später 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
+
+
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
+/** Das zu verwendende Design*/
+define('DESIGN', 'design1');
 /** Template-Pfad (als absolut)*/
-define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/');
-/** Template-Pfad-Images (als absolut) */
-define('IMGSPATH',dirname($_SERVER['PHP_SELF']).'/images/');
+define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/'.DESIGN.'/');
 /** Template-Pfad (als URL)*/
-define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/');
+define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/'.DESIGN.'/');
 /** Haupt-Pfad (als URL)*/
 define('COREURL',dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
