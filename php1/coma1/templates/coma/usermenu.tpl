@@ -14,13 +14,13 @@
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}user_users.php{?SID}" class="{if7 marked}submenu">
-      All users</a>
+    <td class="submenu"><a href="{basepath}user_users.php?showchairs{&SID}" class="{if7 marked}submenu">
+      List of chairs</a>
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}user_papers.php{?SID}" class="{if8 marked}submenu">
-      All papers</a>
+    <td class="submenu"><a href="{basepath}user_papers.php?showacceptedpapers{&SID}" class="{if8 marked}submenu">
+      Accepted papers</a>
     </td>
   </tr>
   <tr>
