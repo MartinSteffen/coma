@@ -32,7 +32,7 @@ if (!empty($objConferences)) {
     $strItemAssocs['name'] = $objConference->strName;
     $strItemAssocs['startdate'] = $objConference->strStart;
     $strItemAssocs['enddate'] = $objConference->strEnd;
-    $strItemAssocs['if'] = array(1, 2, 3);  
+    $strItemAssocs['if'] = array(1);  
     $conferenceItem->assign($strItemAssocs);
     $conferenceItem->parse();
     $strContentAssocs['lines'] .= $conferenceItem->getOutput();
