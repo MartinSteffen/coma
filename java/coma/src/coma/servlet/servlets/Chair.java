@@ -173,9 +173,9 @@ public class Chair extends HttpServlet
 		{
 			programCommit(req,res,session);
 		}
-		if (action.equals("programCreate"))
+		if (action.equals("programShow"))
 		{
-			programCreate(req,res,session);
+			programShow(req,res,session);
 		}
 		if (action.equals("make_statistics"))
 		{
@@ -1207,8 +1207,63 @@ public class Chair extends HttpServlet
 		program(req,res,session);
  	}
 	
-	private void programCreate(HttpServletRequest req,HttpServletResponse res,HttpSession session)
-	{	String tag="procreate";
+	private boolean sendEmail(String SenderAdress, String[] formular){
+		boolean SENDED = false;
+		SMTPClient MyE = new SMTPClient(SenderAdress,
+						formular[0],formular[1],formular[2]);
+		SENDED=MyE.send();	
+		return SENDED;
+	}
+	
+	private boolean ProgramFileExists(){
+		File Prog = new File(path + "/papers","Program-"+c.getName()+".txt");
+		System.out.println(Prog.exists());
+	   return Prog.exists();
+	}
+	
+	private boolean WriteFiles(StringBuffer ProgramXML,StringBuffer ProgramTXT){
+    	try{
+		File TXTFile = new File(path + "/papers","Program-"+c.getName()+".txt");
+			TXTFile.createNewFile();
+			RandomAccessFile output = new RandomAccessFile( TXTFile, "rw" );
+			String s = ProgramTXT.toString();
+			byte[] b = s.getBytes();
+			output.write(b);
+			output.close();
+			
+		File XMLFile = new File(path + "/papers","Program-"+c.getName()+".xml");
+			XMLFile.createNewFile();
+			output = new RandomAccessFile( XMLFile, "rw" );
+			s = "<?xml version='1.0' encoding='utf-8'?>"+"\n"+ProgramXML.toString();
+			b = s.getBytes();
+			output.write(b);
+			output.close();
+			return true;
+    	}
+    	
+    	catch(IOException E){
+    		E.printStackTrace();
+    		return false;}
+    	}
+	
+	
+	private void sendProgram(){
+		Person p= new Person(-1);
+		p.setConference_id(c.getId());
+		SearchCriteria search = new SearchCriteria();
+        ReadServiceImpl readService = new ReadServiceImpl();
+        search.setPerson(p);
+        SearchResult search_result = readService.getPerson(search);
+        Person[] P = (Person[])search_result.getResultObj();
+        String[] formular = new String[]{"","Program of the Conference "+c.getName(),c.getName()+"\n"};      
+        for(int i=0;i<P.length;i++){
+        	formular[0] += P[i].getEmail()+";";
+        }
+        sendEmail(user,formular);
+	}
+
+	private void programShow(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	{	String tag="proshow";
 		StringBuffer program = new StringBuffer();
 		SearchCriteria search = new SearchCriteria();
 		Paper p = new Paper(-1);
@@ -1243,7 +1298,7 @@ public class Chair extends HttpServlet
         			program.append("DAY "+(j+1)+": ");
 
         			long dateStart = c.getConference_start().getTime();
-        			Date day = new Date(dateStart+j*518400);
+        			Date day = new Date(dateStart+j*86400000+32400000);
         			program.append(day+"\n");
                   	info.append(XMLHelper.tagged("date",day));
 		        	for (int i=0;i<SemPerDay+left;i++)
@@ -1267,7 +1322,9 @@ public class Chair extends HttpServlet
         	{
         		info.append("<day date='"+1+"'>");
     			program.append("DAY 1: ");
-    			program.append(c.getConference_start()+"\n"+"\n");
+    			long dateStart = c.getConference_start().getTime();
+    			Date day = new Date(dateStart+5184000+1944000);
+    			program.append(day+"\n"+"\n");
             	for (int i=0;i<Selection;i++)
             	{	
             		f = result[cnt];
@@ -1284,36 +1341,16 @@ public class Chair extends HttpServlet
             	info.append("</day>");
         	}
         info.append("</content>");
+        
+
+    
+    	if(req.getParameter("finish") != null){
+    		WriteFiles(info,program);
+    	}
         }
 		info.append(XMLHelper.tagged("status","" + user + ": Program Creation Sucessful "));
-    	commit(res,tag);
-    	try
-    	{
-		File XMLFile = new File(path + "/papers","Program.txt");
-		if(XMLFile.exists())
-			XMLFile.delete();
-			XMLFile.createNewFile();
-			RandomAccessFile output = new RandomAccessFile( XMLFile, "rw" );
-			String s = program.toString();
-			byte[] b = s.getBytes();
-			output.write(b);
-			output.close();
-    	} 	
-    	catch(IOException E)
-    	{
-    		E.printStackTrace();
-    	}	
+    	commit(res,tag);	
  	}
-
-
-	private boolean sendEmail(String SenderAdress, String[] formular)
-	{
-		boolean SENDED = false;
-		SMTPClient MyE = new SMTPClient(SenderAdress,
-						formular[0],formular[1],formular[2]);
-		SENDED=MyE.send();	
-		return SENDED;
-	}
 	
 	private void program(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{	
