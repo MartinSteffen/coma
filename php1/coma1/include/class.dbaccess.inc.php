@@ -376,7 +376,7 @@ class DBAccess extends ErrorHandling {
     if (!empty($intConferenceId)) {
       $s = "SELECT  role_type".
           " FROM    Role".
-          " WHERE   person_id = $data[0]['id']".
+          " WHERE   person_id = ".$data[0]['id'].
           " AND     conference_id = $intConferenceId";
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
