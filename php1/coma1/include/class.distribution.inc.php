@@ -71,11 +71,10 @@ class Distribution extends ErrorHandling {
    *            array(7 => 6, 12 => 5) zu uebergeben.
    * @return mixed false, falls keine Verteilung gefunden werden konnte bzw.
    *               die Konferenz-ID ungueltig ist; leeres Array, falls keine
-   *               weitere Verteilung noetig ist, sonst die Matrix(rev x pap)
-   *               mit den hinzuzufuegenden Zuordnungen.
+   *               weitere Verteilung noetig ist, sonst assoziatives Array mit
+   *               Paper-ID als Schluessel und einem Array von Reviewer-ID's
+   *               als Wert.
    *
-   * @todo Noch ne ganze Menge UND PHPDoc :-)
-   * @todo $color entfernen! $p_num_revs_pref_left kann raus
    * @todo zusaetzliche Reviewer suchen und verteilen
    * @todo Vorschlaege fuer einzelne Paper: Reviewer, die am geeignetsten sind
    *       (z.B. 5 Stueck) und die, die am wenigsten zu tun haben...

@@ -161,7 +161,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Assigned reviewers of paper \''.encodeText($objPaper->strTitle).'\'';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Manage reviews';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews  |  Distribution';
 
 $main->assign($strMainAssocs);
 $main->parse();

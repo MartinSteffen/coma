@@ -45,6 +45,22 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
   redirect('chair_reviews.php');
 }
 else {
+  // Kritischen Papers automatisch mehr Reviewer hinzufuegen
+  $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+  if ($myDBAccess->failed()) {
+    error('get conference data', $myDBAccess->getLastError());
+  }
+  if ($objConference->blnAutoAddReviewers) {
+    $intPapers = $myDBAccess->getCriticalPaperIds(session('confid'));
+    if ($myDBAccess->failed()) {
+      error('get critical papers of conference', $myDBAccess->getLastError());
+    }
+    $intWantedReviewers = false;
+    for ($i = 0; $i < count($intPapers); $i++) {
+      $intWantedReviewers[$intPapers[$i]] = $objConference->$intDefaultReviewsPerPaper +
+                                            $objConference->$intNumberOfAutoAddReviewers;
+    }
+  }
   $dist = $myDist->getDistribution(session('confid'));
   if ($myDist->failed()) {
     error('get distribution suggestion',$myDist->getLastError());
@@ -121,7 +137,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Distribution suggestion';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews  |  Distribution';
 
 $main->assign($strMainAssocs);
 $main->parse();

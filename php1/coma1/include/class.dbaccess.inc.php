@@ -1141,6 +1141,48 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert die ID's der kritischen Paper in der Konferenz $intConferenceId.
+   * 
+   * @param int $intConferenceId ID der Konferenz.
+   * @return int Array von ID's der kritischen Paper.
+   * @access public
+   * @author Tom (02.02.05)
+   */
+  function getCriticalPaperIds($intConferenceId) {
+    $intPapers = array();
+    $objPapers = $this->getPapersOfConference($intConferenceId);
+    if ($this->failed()) {
+      return $this->error('getNumberOfCriticalPapers', $this->getLastError());
+    }
+    elseif (empty($objPapers)) {
+      return $this->success($intPapers);
+    }
+    // Kritische Varianz bestimmen
+    $s = sprintf("SELECT   critical_variance".
+                 " FROM    ConferenceConfig".
+                 " WHERE   id = '%d'",
+                           s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getCriticalPaperIds', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->error('getCriticalPaperIds', 'Conference does not exist in database.');
+    }
+    $fltCriticalVariance = $data[0]['critical_variance'];    
+    foreach ($objPapers as $objPaper) {      
+      $fltVariance = $this->getVarianceOfPaper($objPaper->intId);
+      if ($this->failed()) {
+        return $this->error('getCriticalPaperIds', $this->getLastError());
+      }
+      else if ($fltVariance >= $fltCriticalVariance) {
+      	$intPapers[] = $objPaper->intId;
+      }
+    }
+    return $this->success($intPapers);
+  }
+
+  /**
    * Liefert die Anzahl der bereits zugeteilten Paper in der
    * Konferenz $intConferenceId zurueck.
    * 
