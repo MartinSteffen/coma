@@ -30,8 +30,7 @@ Datum    Autor   Änderung(en)
 23.12.04 jwa     Systemvorraussetzungen hinzugefügt
 24.12.04 ???     Anhang Login / Registrieung
 24.12.04 jwa     Konventionen "enforced" -> Frage sollte das(^^) Anhang sein? 
-06.01.05 dmi     Zuordnung roles_types in Tabelle role zu Rollen 
-                 zu Kapitel 2 hinzugefügt
+07.01.05 dmi     Hinweis auf db_schema.txt und Bedeutung für uns in Kapitel 2.2
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -218,12 +217,19 @@ CREATE TABLE IF NOT EXISTS Session (
 **************************************************
 
 2.2 Tabelle Role
+Wir halten uns an die Konventionen in [db-Schema.txt] (enumeration roles).
 Die Tabelle Role enthält role_types mit folgenden Bedeutungen:
-  3 chair
-  2 reviewer
-  1 autor
-  0 teilnehmer  
 
++--------------------------------------------------------------------------+
+| Role_type   | [db-Schema.txt]  | Entsprechung für PHP1                   |
++------------------------+-------------------------------------------------+
+|   00        |  without role    |  Teilnehmer                             |
+|   01        |  admin           |   keine                                 |
+|   02        |  chair           |    Chair                                |
+|   03        |  reviewer        |  Reviewer                               |
+|   04        |  author          |  Author                                 |
+|   05        | participant      |   keine                                 |
++--------------------------------------------------------------------------+
 
 
 ============================================================================
@@ -374,6 +380,8 @@ Die Dateien befinden sich zurzeit im Verzeichnis (...)/php1/architecture/.
 [forum.jpg] (Unterverzeichnis objects)
 [paper.jpg] (Unterverzeichnis objects)
 [review.jpg] (Unterverzeichnis objects)
+[db-Schema.txt] http://snert.informatik.uni-kiel.de:8080/svn/coma/trunk/sql/db_schema.txt
+
 
 Ferner:
 [PHPDoc] http://snert.informatik.uni-kiel.de:8080/~wprguest1/coma1doc/
