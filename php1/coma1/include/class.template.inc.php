@@ -108,15 +108,17 @@ class Template {
    *
    */
   function parse() {
-    // geht schoener in PHP5 :(
-    reset($this->strAssocs);
-    while (list($key, $value) = each($this->strAssocs)) {
+    $strKeys = array();
+    $strValues = array();
+    foreach ($this->strAssocs as ($key => $value)) {
       $key = '<(?i){'.$key.'}>';
+      $strKeys[] = $key;
       //if (isObject($value)) {
         //$value
       //}
+      $strValues[] = $value;
     }
-    $this->strOutput = preg_replace(array_keys($this->strAssocs), array_values($this->strAssocs), $this->strTemplate);
+    $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
     return true;
   }
   
