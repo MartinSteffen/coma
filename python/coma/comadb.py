@@ -160,14 +160,14 @@ class Paper(Forum):
 import pg
 import config
 
-class CoMaDB:
+class ComaDB:
     """Objects of this class provide a connection to the data base."""
 
     def __init__(self):
 	"""Create a new object."""
 	self.connection = pg.connect(dbname = config.dbname,
                                      user = config.user,
-				     password = config.password)
+				     passwd = config.password)
 
     def __query__(self, query):
 	"""Send a query to the data base and handle errors."""

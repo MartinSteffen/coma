@@ -12,7 +12,7 @@ def save_config(filename, settings):
 
 dbname = \'%(dbname)s\'
 user = \'%(user)s'
-passwd = \'%(passwd)s\'
+password = \'%(passwd)s\'
 host = %(host)s
 port = %(port)s
 opt = %(opt)s

@@ -8,6 +8,7 @@
   <body>
     <hr/>
     <table class="actions">%(actions)s</table>
+    <p class="description">Test.</p>
     <hr/>
     <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
   </body>

@@ -2,12 +2,9 @@
 #
 # Very simple session management.
 #
-import sys
 import time
 import random
 import string
-import os
-import cgi
 
 class Session:
     """The session object is used to store information on a connection on
@@ -20,8 +17,8 @@ class Session:
     The sessions are stored in the backend data base.
     """
 
-    def __init__(self, user, expires):
-	self.id = id
+    def __init__(self, user, expires = None):
+	self.id = '1'
 	self.user = user
 	self.time = time
 
@@ -57,5 +54,5 @@ def main(db):
 
 if (__name__ == "__main__"):
     import comadb
-    db = comadb.connect()
+    db = comadb.ComaDB()
     main(db)
