@@ -279,7 +279,7 @@ class DBAccess {
           ' LEFT    JOIN Person AS p'.
           ' ON      p.id = i.person_id'.
           ' WHERE   paper_id = '.$intPaperId.
-          ' ORDER   BY person_id DESC'; // ORDER BY: Co-Autoren im System im Array vorne!
+          ' ORDER   BY person_id'; // ORDER BY: Co-Autoren im System im Array vorne!
       $cadata = $this->mySql->select($s);
       $intCoAuthorIds = array();
       $strCoAuthors = array();
