@@ -28,7 +28,6 @@ import coma.servlet.util.XMLHelper;
  */
 public class Login extends HttpServlet 
 {
-
 	static enum ACTIONS {LOGIN, LOGOUT};
 	private ReadServiceImpl myReadService = new ReadServiceImpl();
 	private Person myPerson = null;
@@ -89,6 +88,10 @@ public class Login extends HttpServlet
 				mysc.setConference(myConference);
 				SearchResult mySR = myReadService.getConference(mysc);
 				info += mySR.getInfo();
+				if(myPerson.getLast_name().equals("admin"))
+				{
+					response.sendRedirect("/coma/Admin?action=setup");
+				}	
 				if (mySR != null)
 				{
 					Conference[] conferencesArray = (Conference[]) mySR.getResultObj();
@@ -173,7 +176,7 @@ public class Login extends HttpServlet
 					myPerson.setRole_type(roles);
 				}
 			}	
-		}			
+		}	
 		return isValid;
 	}
 }
