@@ -25,6 +25,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select="/login/password_error" />
 <xsl:apply-templates select="/login/form_error" />
 <xsl:apply-templates select="/login/success" />
+<xsl:apply-templates select="/content" />
 <p>Welcome to JCoMa!</p>
 
 <p>It lacks images, but at least it has style.
@@ -67,7 +68,10 @@ anywhere ...</p>
 </body>
 </html>
 </xsl:template>
-
+<xsl:template match="content">
+<h3>data</h3>
+<xsl:value-of select="/"/>
+</xsl:template>
 <xsl:template match="login/password_error">
 <h3>An Error has occurred,plaese check your password and email!
 <xsl:value-of select="/"/>

@@ -58,7 +58,7 @@ public class Index extends HttpServlet {
 			Conference[] confernceArray = (Conference[]) mySR.getResultObj();
  			extraData="<conference_list>\n";
  			for (int i = 0; i < confernceArray.length; i++) {
- 				extraData+=(((Conference)confernceArray[i]).toXML(XMLMODE.SHALLOW));
+ 				extraData+=(((Conference)confernceArray[i]).toXML(XMLMODE.SHALLOW)).toString();
  			}
  			extraData+="</conference_list>\n";
  			myNavCol.addExtraData(extraData);
@@ -67,7 +67,7 @@ public class Index extends HttpServlet {
 			System.out.println(info);
 		}
 			
-			
+			result.append(extraData);
 		result.append("</content>");		
 			response.setContentType("text/html; charset=ISO-8859-15");
 			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
