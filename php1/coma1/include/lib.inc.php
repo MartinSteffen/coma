@@ -75,7 +75,8 @@ function defaultAssocArray() {
  * @return string encoded string
  */
 function encodeText($_str) {
-  return htmlentities(trim($_str), ENT_QUOTES, 'UTF-8');
+  $cleanStr = strtr(trim($_str), "|", " ");
+  return htmlentities($cleanStr, ENT_QUOTES, 'UTF-8');
 }
 
 /**
