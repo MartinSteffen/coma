@@ -62,7 +62,7 @@ class ReviewerAttitude {
 
   function setTopicAttitude ($intTopicId, $intAttitude) {
     if ($intAttitude == ATTITUDE_NONE || $intAttitude == ATTITUDE_PREFER) {
-      $this->intTopicAttitudes[$intTopicId];
+      $this->intTopicAttitudes[$intTopicId] = $intAttitude;
       return true;
     }
     return false;
