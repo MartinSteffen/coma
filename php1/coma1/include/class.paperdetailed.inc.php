@@ -27,9 +27,8 @@ require_once(INCPATH.'class.papersimple.inc.php');
  */
 class PaperDetailed extends PaperSimple {
 
-  var $intCoAuthorIds; // enthaelt ID's der Co-Autoren, NULL, falls nicht in der DB
+  var $intCoAuthorIds; // enthaelt ID's der Co-Autoren; NULL, falls nicht in der DB (dann nur Name)
   var $strCoAuthors;   // enthaelt die Namen der Co-Autoren korrespondierend zu $intCoAuthorIds
-                       // (leer bei Autoren, die eine ID haben, d.h. in der DB vorkommen)
   var $strAbstract;
   var $strMimeType;
   var $strLastEdit;

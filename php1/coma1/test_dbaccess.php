@@ -28,9 +28,9 @@ $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo('Co-Autoren:');
+echo('Co-Autoren:<br>');
 for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
-  echo ($p->intCoAuthorIds[$i].' / '.$p->strCoAuthors[$i].'<br>');
+  echo ("$p->intCoAuthorIds[$i] / $p->strCoAuthors[$i]<br>");
 }
 
 
