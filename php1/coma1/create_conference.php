@@ -160,8 +160,10 @@ if (isset($_POST['action'])) {
         error('Error during creating conference.', $myDBAccess->getLastError());
       }
       else {
-        // Erfolg (also anderes Template)
+        // Erfolg (also anderes Template)        
         $content = new Template(TPLPATH.'confirm_conference.tpl');
+        $strContentAssocs['return_page'] = 'main_conferences.php';
+        $ifArray = array();
       }      
     }
   }
