@@ -1,9 +1,9 @@
 
 <p class="message2">
   You have the following options:<br>
-  1. Get suggestion of paper/reviewer distribution for papers that are not
-     assigned to the <a href="{basepath}chair_confconfig.php?adv_config=1{&SID}" class="link">average</a>
-     number of reviewers yet.<br>
+  1. <a href="{basepath}.php{?SID}" class="link">Get suggestion</a>
+     of paper/reviewer distribution for papers that are not assigned to at least
+     average number of reviewers yet.
 </p>
 
 <table class="list">
