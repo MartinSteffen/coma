@@ -29,6 +29,17 @@ if (!mysql_select_db($sqlDatabase, $conn)) {
   echo("Please check 'include/config.inc.php' for correct values!<br><br>");
 }
 
+$sql = 'DROP TABLE IF EXISTS `Conference`, `ConferenceConfig`, `Criterion`, '.
+       '                     `DeniesPaper`, `Distribution`, `ExcludesPaper`,".
+       '                     `Forum`, `IsAboutTopic`, `IsCoAuthorOf`, `Message`,'.
+       '                     `Paper`, `Person`, `PrefersPaper`, `PrefersTopic`,'.
+       '                     `Rating`, `ReviewReport`, `Role`, `Session`, `Topic`';
+$result = mysql_query($sql, $conn);
+if (empty($result)) {
+  echo('Dropping Tables:<br>');
+  echo(mysql_error($conn).'<br><br>');
+}
+
 // BEGIN SQL DATA
 $sql = "
 -- -------------------------------------------------------------------------
