@@ -336,6 +336,7 @@ function generatePostMethodArray($strArrayPostvars){
     $strArrayPma['subject'] = $strArrayPostvars['subject'];
   }
   else{
+    echo('blubb');
     $strArrayPma['subject'] = 'no subject';
   }
   $strArrayPma['forumid']  = $strArrayPostvars['forumid'];
