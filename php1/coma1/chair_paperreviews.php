@@ -99,7 +99,7 @@ if (!empty($objReviewers)) {
       if ($myDBAccess->failed()) {
         error('Error occured during retrieving review details.', $myDBAccess->getLastError());
       }
-      else if (empty($objReviewDetailed)) {
+      else if (empty($objReview)) {
         error('Review does not exist in database.', '');
       }      
       $rowItem = new Template(TPLPATH.'chair_paperreviewlistitem.tpl');
