@@ -52,13 +52,20 @@
       {if6<span class="status-critical">{variance}</span>}
       {if7{variance}}
     </td>
-    <td class="listitem-{line_no}">
-      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a>}
-    </td>
-    <td class="listitem-{line_no}">
-      <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Edit</a>
-    </td>
+    <td class="listitem-{line_no}">&nbsp;</td>
+    <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}" nowrap>
       {reviewers}
+    </td>
+  </tr>
+  <tr>
+    <td class="listitem-{line_no}" colspan="9">
+        <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a>
+        <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Edit reviewers</a>
+        {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a>}
+        {if8<a href="{basepath}chair_reviews.php?createforum&paperid={paper_id}{&SID}"
+               class="buttonlink">Start discussion</a>}
+        {if9<a href="{basepath}forum.php?paperid={paper_id}{&SID}"
+               class="buttonlink">Enter discussion</a>}
     </td>
   </tr>

@@ -13,9 +13,17 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+require_once('./include/paperdiscussion.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(CHAIR);
+
+if (isset($_GET['createforum'])) {  
+  $startForum = createPaperForum($myDBAccess, $_GET['paperid']);
+  if ($startForum) {
+    redirect("forum.php?paperid=".$_GET['paperid']);
+  }  
+}
 
 if (isset($_POST['action'])) {
   if ($_POST['action'] == 'changestatus') {
@@ -102,7 +110,18 @@ if (!empty($objPapers)) {
       $strItemAssocs['variance'] = ' - ';
       $ifArray[] = 7;
     }
-    $strItemAssocs['if'] = $ifArray;
+    // Pruefe Zugang zum Paperforum
+    $objPaperForum = $myDBAccess->getForumOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('Error occured retrieving forum of paper.', $myDBAccess->getLastError());
+    }      
+    if (empty($objPaperForum)) {
+      $ifArray[] = 8;
+    }
+    else {
+      $ifArray[] = 9;
+    }
+    $strItemAssocs['if'] = $ifArray;    
     // Zugeteilte Reviewer
     $strItemAssocs['reviewers'] = '';
     $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
