@@ -89,6 +89,8 @@ class Distribution extends ErrorHandling {
     $p_num_revs = array();
     // Verteilte Paper fuer Reviewer
     $r_num_papers = array();
+    // Durchschnittliche Anzahl von Reviewern pro Paper (falls moeglich)
+    $avg_revs = false;
     // Matrix
     $matrix = array();
 
@@ -272,7 +274,8 @@ class Distribution extends ErrorHandling {
         $pindex = $p_id_index[$wants[$j]['paper_id']];
         if ($matrix[$i][$pindex] >= NEUTRAL) {
           //$p_num_revs_pref_left[$pindex]++;
-          $matrix[$i][$pindex] = WANT;
+          $matrix[$i][$pindex] = SUGGESTED;
+          $p_num_revs_total_left[$pindex]--;
           $color[$i][$pindex] = '00FF00';
         }
       }
