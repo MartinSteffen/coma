@@ -301,7 +301,7 @@ function emptystring($s){
 
 function getUID($cid, &$myDBAccess){
   $uid = session('uid', false);
-  if (emptystring($uid)){
+  if (emptystring($uid)) {
     if (DEBUGMODE){ //ja, sehr haesslich, weiss ich selbst
       $users = $myDBAccess->getUsersOfConference($cid);
       srand ((double)microtime()*1000000);
@@ -316,7 +316,7 @@ function getUID($cid, &$myDBAccess){
   return $uid;
 }
 
-function getCID(&$myDBAccess){
+function getCID(&$myDBAccess) {	
   $cid = session('confid', false);
   if (emptystring($cid)){
     if (DEBUGMODE){ //siehe DEBUGMODE-kommentar zu getUID
