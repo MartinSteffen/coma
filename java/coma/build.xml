@@ -79,7 +79,7 @@
 		<copy todir="${dist}/${app.name}/WEB-INF" file="${basedir}/web.xml" />
 		<!--copy todir="${env.CATALINA_HOME}/conf/Catalina/localhost/" file="${basedir}/${app.name}.xml" overwrite="true" /-->
 
-		<delete dir="${env.WEBAPPS_HOME}/${app.name}" />
+		<!-- <delete dir="${env.WEBAPPS_HOME}/${app.name}" /> -->
 		<copy todir="${env.WEBAPPS_HOME}" overwrite="true">
 			<fileset dir="${dist}/" />
 		</copy>

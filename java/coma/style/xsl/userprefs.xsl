@@ -214,8 +214,10 @@
 
   <div>
     Enter your password:
-    <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />
-    to confirm, then press
+    <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />,
+    enter your password again to confirm:
+    <input class="input-box" style="border:1px solid red" type="repassword" name="repassword" size="20" />
+    then press
     <input value="Save" type="submit" class="submit-button" />
   </div>
 </xsl:template>
