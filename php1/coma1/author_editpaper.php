@@ -96,6 +96,7 @@ if (isset($_POST['action'])) {
     }
   }
   else if (isset($_POST['upload'])) {    
+    var_dump($_POST['paper_file']);
     if (empty($_POST['paper_file'])) {
       $strMessage = 'You have to select a file for uploading!';
     }
