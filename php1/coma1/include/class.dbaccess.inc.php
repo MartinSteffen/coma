@@ -716,6 +716,4 @@ class DBAccess {
 
 }
 
-echo(sha1("pw"));
-
 ?>
