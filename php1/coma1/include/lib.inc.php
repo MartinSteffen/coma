@@ -88,7 +88,8 @@ function encodeURL($_str) {
   //$_str = decodeText($_str);
   $_str = str_replace('\'', urlencode('\''), $_str);
   $_str = str_replace('"', urlencode('"'), $_str);
-  if (!preg_match('#^http[s]?:\/\/#i', $_str)) {
+  //if (!preg_match('#^http[s]?:\/\/#i', $_str)) {
+  if (!preg_match('#^[a-z]+:\/\/#i', $_str)) {
     $_str = 'http://' . $_str;
   }
   // allow not working links?
