@@ -30,27 +30,17 @@ elseif (isset($_GET['4'])) {
   <meta http-equiv="Content-Style-Type" content="text/css">
   <style type="text/css">
   <!--
-  body { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
-    font-size: 12px; vertical-align: top; background-color: #FFFFFF;
-    margin: 0px; padding: 10%; }
+  body { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 12px; vertical-align: top; background-color: #FFFFFF; margin: 0px; padding: 4%; }
   a { text-decoration: none; font-weight: bold; }
   a:link { color: #111111; }
   a:visited { color: #111111; }
   a:active { color: #000000; }
   a:hover { color: #000000; }
-  div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
-    width: 100%; font-size: 13px; font-weight: bold; text-align: center;
-    vertical-align: top; margin: 10px 10px; padding: 10px 10px; color: #222222; 
-    background-color: #dddddd; border: 1px solid #222222; }
-  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
-    font-size: 13px; font-weight: bold; vertical-align: top; 
-    margin: 6px 10px; padding: 4px 12px; }
-  p.menu { color: #111111; background-color: #EEEEEE; 
-    border: 1px solid #FFFFFF; text-align: left; }
-  p.message-failed { width: 100%; color: #FF2600; background-color: #FFF0E0; 
-    border: 1px solid #A00000; text-align: center; }
-  p.message-ok { width: 100%; color: #20A028; background-color: #E0FFF0; 
-    border: 1px solid #80A080; text-align: center; }
+  div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; width: 100%; font-size: 13px; font-weight: bold; text-align: center; vertical-align: top; margin: 10px 10px; padding: 10px 10px; color: #222222; background-color: #dddddd; border: 1px solid #222222; }
+  p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px; font-weight: bold; vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
+  p.menu { color: #111111; background-color: #EEEEEE; border: 1px solid #FFFFFF; text-align: left; }
+  p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; text-align: center; }
+  p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; text-align: center; }
   -->
   </style>
 </head>
