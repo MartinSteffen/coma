@@ -1,0 +1,3 @@
+<?
+template("CHAIR_chooseConf");
+?>

@@ -57,8 +57,7 @@
                           Session</a></td>
                       </tr>
                       <tr> 
-                        <td class="menus"><a href="index.php?m=chair" class="menus">Throw 
-                          Error</a></td>
+                        <td class="menus"><a href="index.php?m=chair" class="menus">Chair</a></td>
                       </tr>
                     </table>
                   </td>

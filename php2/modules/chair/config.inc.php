@@ -1,3 +1,3 @@
 <?php
-$config["defaultaction"] = "throwError";
+$config["defaultaction"] = "view";
 ?>
