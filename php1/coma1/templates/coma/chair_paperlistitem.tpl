@@ -51,11 +51,8 @@
     <td class="listitem-{line_no}">
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">view paper</a>}
     </td>
-    <td class="listitem-{line_no}">                  
-      <form action="{basepath}chair_paperreviews.php{?SID}" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="paperid" value="{paper_id}">
-        <input type="submit" name="viewreviews" value="view review report" class="smallbutton">
-      </form>      
+    <td class="listitem-{line_no}">
+      <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}">view review report"</a>      
     </td>
     <td class="listitem-{line_no}">
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
