@@ -6,25 +6,6 @@ on the BB etc).
 
 Currently, the structure is as follows:
 
-  -rw-rw-r--   1 ms mwpr  366 Nov 18 12:13 Readme
-  drwxrwxr-x   3 ms mwpr  512 Nov 18 12:55 figures
-  drwxrwxr-x   3 ms mwpr  512 Nov 18 12:13 handouts
-  drwxrwxr-x   3 ms mwpr  512 Nov 18 12:13 org
-  drwxrwxr-x   5 ms mwpr  512 Nov 19 14:07 php1
-  drwxrwxr-x   6 ms mwpr  512 Nov 19 14:07 php2
-  drwxrwxr-x   4 ms mwpr  512 Nov 18 12:13 requirements
-  drwxrwxr-x   3 ms mwpr  512 Nov 18 12:13 slides
-  drwxrwxr-x   3 ms mwpr  512 Nov 18 12:13 snert
-  drwxrwxr-x   4 ms mwpr  512 Nov 18 12:53 spec
-  drwxrwxr-x   3 ms mwpr  512 Nov 19 14:07 sql
-  drwxrwxr-x   4 ms mwpr  512 Nov 18 12:13 tex
-  drwxrwxr-x   4 ms mwpr  512 Nov 18 15:59 web
-
-
-
-
-   Readme  
-
 
     o Readme:            this file
 
