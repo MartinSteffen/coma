@@ -125,7 +125,7 @@ function getTotalGradeForReviewReport($reviewReportId) {
 		$reviewReportId="0";
 	}
 
-	$result=array();
+	$weightenedGrades = array();
 
 	$queryStr="SELECT r.grade, r.criterion_id, c.max_value, c.quality_rating 
 					FROM rating r, criterion c 
