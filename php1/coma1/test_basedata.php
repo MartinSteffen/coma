@@ -159,7 +159,7 @@ while ($j < $papers) {
   $i = 0;
 
   while ($i < $persons/3) {
-  if(rand(1,3) < 3) {
+  if(rand(1,10) < 3) {
   echo '.';
     $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
