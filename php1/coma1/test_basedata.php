@@ -20,7 +20,7 @@ $papers = $persons;
 $reports = $persons * $papers;
 $topics = 10;
 
-
+echo '.';
 $i = 0;
 while ($i < $conferences) {
   $myDBAccess->addConference('Conference'.$i, 'Homepage'.$i, 'Description'.$i,
@@ -29,7 +29,7 @@ while ($i < $conferences) {
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $persons) {
   $myDBAccess->addPerson('Myname'.$i, 'Surname'.$i, $i.'email@mail.de', 'Title'.$i,
@@ -39,7 +39,7 @@ while ($i < $persons) {
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $conferences) {
   $j = 0;
@@ -68,6 +68,7 @@ while ($i < $conferences) {
 $myDBAccess->addCoAuthor(1, 1);
 $myDBAccess->addCoAuthorName(2, 'Co Author Name');
 
+echo '.';
 $i = 0;
 while ($i < $conferences) {
   $j = $persons/10;
@@ -79,6 +80,7 @@ while ($i < $conferences) {
   $i++;
 }
 
+echo '.';
 $j = 0;
 while ($j < $papers) {
   $i = 0;
@@ -92,6 +94,7 @@ while ($j < $papers) {
   $j++;
 }
 
+echo '.';
 $i = 0;
 while ($i < $reports) {
   $j = 0;
@@ -102,7 +105,7 @@ while ($i < $reports) {
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $conferences) {
   $j = 1;
@@ -113,14 +116,14 @@ while ($i < $conferences) {
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $conferences * 3) {
   $myDBAccess->addMessage('Subject'.$i, 'Text'.$i, 1, $i+1,0);
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $conferences) {
   $j = 0;
@@ -131,7 +134,7 @@ while ($i < $conferences) {
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $conferences) {
   $j = 0;
@@ -142,7 +145,7 @@ while ($i < $conferences) {
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $topics) {
   $j = $papers/$topics*$i;
@@ -153,28 +156,28 @@ while ($i < $topics) {
   }
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $persons) {
   $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $persons) {
   $myDBAccess->addPrefersPaper($i+1, rand(1,$papers-1));
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $persons) {
   $myDBAccess->addDeniesPaper($i+1, rand(1,$papers-2));
   $i++;
 }
 
-
+echo '.';
 $i = 0;
 while ($i < $persons) {
   $myDBAccess->addExcludesPaper($i+1, rand(2,$papers-1));
