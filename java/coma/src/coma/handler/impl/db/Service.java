@@ -43,8 +43,8 @@ public class Service {
         Connection result = null;
         try {
             String driver = "org.gjt.mm.mysql.Driver";
-            //String url = "jdbc:mysql://vs170142.vserver.de/coma3";
-	    String url = "jdbc:mysql://snert.informatik.uni-kiel.de/coma3";
+            String url = "jdbc:mysql://vs170142.vserver.de/coma3";
+	    //String url = "jdbc:mysql://snert.informatik.uni-kiel.de/coma3";
             Class.forName(driver);
             result = DriverManager.getConnection(url,"coma3","TervArHorhy");
         } catch (SQLException e) {
