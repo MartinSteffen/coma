@@ -3,8 +3,15 @@ Figure~\ref{fig:classdiagram}).
 
 
 \begin{figure}[htbp]
+  \ifweb
+  \centering
+  \begin{rawhtml}
+    <img border=0 alt="[class diagram]" height=300  src="../../sql/db_schema.jpg" align="center">
+  \end{rawhtml}
+  \else
   \centering
   \includegraphics[height=12cm]{../sql/db_schema}
+  \fi
   \caption{Class diagram}
   \label{fig:classdiagram}
 \end{figure}
@@ -107,9 +114,11 @@ Relevant is only the SQL-Spec.
 
 
 The table conferences (cf.\ Listing~\ref{code:sql.conference}) contains all
-the conferences being hosted by the server. We propose that there exists as
-\emph{default, empty conference} to begin with as entry in the table. This
-default conference is characterized by the empty string. 
+the conferences being hosted by the server. 
+
+%We propose that there exists as
+%\emph{default, empty conference} to begin with as entry in the table. This
+%default conference is characterized by the empty string. 
 
 
 \lstinputlisting[caption=DB: conference,label=code:sql.conference,firstline=27,lastline=44]{../sql/db_schema.sql}%
