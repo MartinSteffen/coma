@@ -48,21 +48,31 @@ $strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);
 $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
 $strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version'] = encodeText($objPaper->intVersion);
-$strContentAssocs['coauthors'] = '';
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 
-for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
-  if ($i > 0) {
-    $strContentAssocs['coauthors'] .= ', ';
-  }
-  $strContentAssocs['coauthors'] .= encodeText($objPaper->strCoAuthors[$i]);
+if (empty($objPaper->strCoAuthors)) {
+  $strContentAssocs['coauthors'] = 'none';
 }
-$strContentAssocs['topics'] = '';
-for ($i = 0; $i < count($objPaper->objTopics); $i++) {
-  if ($i > 0) {
-    $strContentAssocs['topics'] .= ', ';
+else {
+  $strContentAssocs['coauthors'] = '';
+  for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
+    if ($i > 0) {
+      $strContentAssocs['coauthors'] .= ', ';
+    }
+    $strContentAssocs['coauthors'] .= encodeText($objPaper->strCoAuthors[$i]);
   }
-  $strContentAssocs['topics'] .= encodeText($objPaper->objTopics[$i]->strName);
+}
+if (empty($objPaper->objTopics)) {
+  $strContentAssocs['topics'] = 'none';
+}
+else {
+  $strContentAssocs['topics'] = '';
+  for ($i = 0; $i < count($objPaper->objTopics); $i++) {
+    if ($i > 0) {
+      $strContentAssocs['topics'] .= ', ';
+    }
+    $strContentAssocs['topics'] .= encodeText($objPaper->objTopics[$i]->strName);
+  }
 }
 
 if (!empty($objPaper->strFilePath)) {

@@ -174,19 +174,25 @@ for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   $coauthorForm->parse();
   $strContentAssocs['coauthor_lines'] .= $coauthorForm->getOutput();
 }
-$strContentAssocs['topic_lines'] = '';
-for ($i = 0; $i < count($objAllTopics); $i++) {
-  $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
-  $strTopicAssocs = defaultAssocArray();
-  $strTopicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
-  $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
-  $strTopicAssocs['if'] = array();
-  if ($objPaper->hasTopic($objAllTopics[$i]->intId)) {
-    $strTopicAssocs['if'] = array(1);
+
+if (empty($objAllTopics)) {
+  $strContentAssocs['topic_lines'] = 'none';
+}
+else {
+  $strContentAssocs['topic_lines'] = '';
+  for ($i = 0; $i < count($objAllTopics); $i++) {
+    $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
+    $strTopicAssocs = defaultAssocArray();
+    $strTopicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
+    $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
+    $strTopicAssocs['if'] = array();
+    if ($objPaper->hasTopic($objAllTopics[$i]->intId)) {
+      $strTopicAssocs['if'] = array(1);
+    }
+    $topicForm->assign($strTopicAssocs);
+    $topicForm->parse();
+    $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
   }
-  $topicForm->assign($strTopicAssocs);
-  $topicForm->parse();
-  $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
 }
 if ($objPaper->intStatus == PAPER_ACCEPTED) {
   $ifArray[] = 2;

@@ -67,19 +67,24 @@ if (isset($_POST['action'])) {
       $intTopicIds[] = $objAllTopics[$i]->intId;
     }
   }
-  $strContentAssocs['topic_lines'] = '';
-  for ($i = 0; $i < count($objAllTopics); $i++) {
-    $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
-    $strTopicAssocs = defaultAssocArray();
-    $strTopicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
-    $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
-    $strTopicAssocs['if']       = array();
-    if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
-      $strTopicAssocs['if']     = array(1);
+  if (empty($objAllTopics)) {
+    $strContentAssocs['topic_lines'] = 'none';
+  }
+  else {
+    $strContentAssocs['topic_lines'] = '';
+    for ($i = 0; $i < count($objAllTopics); $i++) {
+      $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
+      $strTopicAssocs = defaultAssocArray();
+      $strTopicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
+      $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
+      $strTopicAssocs['if']       = array();
+      if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
+        $strTopicAssocs['if']     = array(1);
+      }
+      $topicForm->assign($strTopicAssocs);
+      $topicForm->parse();
+      $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
     }
-    $topicForm->assign($strTopicAssocs);
-    $topicForm->parse();
-    $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
   }
   // Anlegen des Papers in der Datenbank
   if (isset($_POST['submit'])) {
