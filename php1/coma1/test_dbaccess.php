@@ -30,6 +30,8 @@ $p->intRoles = 10;
 bit($p->intRoles);
 $p->addRole(1);
 bit($p->intRoles);
+$p->switchRole(4);
+bit($p->intRoles);
 
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
