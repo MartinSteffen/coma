@@ -66,12 +66,12 @@ if (isset($_POST['submit'])) {
 }
 elseif (isset($_GET['id']) && isset($_GET['key'])) {
   // Aendern des PW
-  if ($myDBAccess->checkLogin($_GET['id'], $_GET['key'])) {
+  $objPerson = $myDBAccess->getPerson($_GET['id']);
+  if ($myDBAccess->failed()) {
+    error('Error retrieving person data', $myDBAccess->getLastError());
+  }
+  if ($myDBAccess->checkLogin($objPerson->intId, $_GET['key'])) {
     // altes PW korrekt
-    $objPerson = $myDBAccess->getPerson($_GET['id']);
-    if ($myDBAccess->failed()) {
-      error('Error retrieving person data', $myDBAccess->getLastError());
-    }
     $newPass = 'New Password';
     $myDBAccess->updatePersonPassword($_GET['id'], $newPass);
     if ($myDBAccess->failed()) {
@@ -97,7 +97,7 @@ elseif (isset($_GET['id']) && isset($_GET['key'])) {
     if ($myDBAccess->failed()) {
       error('Check for Userdata failed.',$myDBAccess->getLastError());
     }
-    error('lostPW', "Hacking Attempt on Accountnumber {$_GET['id']}");
+    error('lostPW', 'Hacking Attempt on Accountnumber '.$_GET['id']);
   }  
 }
 
