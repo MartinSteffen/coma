@@ -944,18 +944,20 @@ public class Chair extends HttpServlet
         else
         {
         	info.append("<content>");
-        	info.append("<paperPlus>");
+        	
         	search = new SearchCriteria();
+        	System.out.println(result.length);
         	for (int i=0;i<result.length;i++)
         	{
+        		info.append("<paperPlus>");
         		p = result[i];
             	search.setPaper(p);
             	Finish[] f = (Finish[])read.getFinalData(search,0,c.getId()).getResultObj();
             	if (f.length!=0)
             		info.append(XMLHelper.tagged("avg",f[0].getAvgGrade()));
         		info.append(p.toXML(Entity.XMLMODE.DEEP));
+        		info.append("</paperPlus>");
         	}
-        	info.append("</paperPlus>");
         	info.append("</content>\n");
         	info.append(XMLHelper.tagged("status","Papers"));
         	commit(res,tag);	
@@ -1356,7 +1358,9 @@ public class Chair extends HttpServlet
 		int SemPerDay = Selection/Days;
 		int RestSem  = Selection%Days;
 		String[] Times = new String[]{"09:00-10:00","10:00-11:00","11:00-12:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17.00-18:00"};
-        int SortBy =3;
+		int MaxChoice = Days*Times.length;
+		if(MaxChoice >= Selection){
+		int SortBy =3;
         SearchResult search_result = read.getFinalData(search,SortBy,c.getId()); 
         Finish[] result = (Finish[])search_result.getResultObj();
         Finish f = new Finish();
@@ -1430,6 +1434,12 @@ public class Chair extends HttpServlet
         }
 		info.append(XMLHelper.tagged("status","Program successfully created "));
     	commit(res,tag);	
+		}
+		else{
+				
+				session.setAttribute("status","failed");
+				program(req,res,session);
+		}
  	}
 	
 	private void program(HttpServletRequest req,HttpServletResponse res,HttpSession session)
@@ -1460,7 +1470,10 @@ public class Chair extends HttpServlet
         			SelectedPapers.addElement(String.valueOf(f.getPaperId())); 	
         	}
         	info.append("</content>");
-        	info.append(XMLHelper.tagged("status","Papers"));
+        	if(session.getAttribute("status") ==  null){
+        		info.append(XMLHelper.tagged("status","Papers"));
+        	}else
+        	info.append(XMLHelper.tagged("status","Extend Conference Days or choose less papers"));
         	session.setAttribute("SelectedPapers",SelectedPapers);
         	commit(res,tag);	   
  	}
