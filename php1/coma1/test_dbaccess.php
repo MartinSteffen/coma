@@ -16,7 +16,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$i = 6
+$i = 6;
 echo(~$i);
 
 $p = $myDBAccess->getPerson(1, 1);
