@@ -434,6 +434,5 @@ function generatePostMethodArray($postvars){
   $main->assign($mainassocs);
   $main->parse();
   $main->output();
-}
 
 ?>
