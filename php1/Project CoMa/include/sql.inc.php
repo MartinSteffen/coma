@@ -9,7 +9,8 @@
 class cMySql {
   
   function cMySql() {
-    
+    require_once('./config.inc.php');
+
   }
   
 }
