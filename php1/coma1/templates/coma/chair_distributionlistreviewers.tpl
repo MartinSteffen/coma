@@ -1,2 +1,2 @@
 
-<a href="{basepath}user_userdetails.php?userid={rev_id}{&SID}" class="diststatus-5">{rev_name}</a><span class="diststatus-{status}"> ({status})</span>
+<a href="{basepath}user_userdetails.php?userid={rev_id}{&SID}" class="link"><span class="diststatus-{status}">{rev_name}</a> ({status})</span>
