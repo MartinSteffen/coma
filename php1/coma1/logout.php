@@ -26,6 +26,6 @@ require_once('./include/header.inc.php');
   }
   $_SESSION['message'] = 'Erfolgreich abgemeldet!';
 
-redirect('login.php');
+redirect('index.php');
 
 ?>
