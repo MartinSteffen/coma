@@ -32,7 +32,7 @@ else if (empty($objConference)) {
   error('conference '.session('confid').' does not exist in database.','');
 }
 
-if (isset($GET_['createforum'])) {  
+if (isset($_GET['createforum'])) {  
   $startForum = createPaperForum($myDBAccess, $_GET['paperid']);
   if ($startForum) {
     redirect("forum.php?paperid=".$_GET['paperid']);
