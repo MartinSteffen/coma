@@ -12,8 +12,7 @@ import java.util.Enumeration;
 
 import java.util.regex.*;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 
 
 import coma.entities.Conference;
@@ -190,33 +189,17 @@ public class EntityCreater {
 	 */
 	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException, IOException {
 		Paper paper = new Paper(-1); // new Paper
-		// path where the paper is stored
-		String webTempPath = "/root/jakarta-tomcat-5.5.3/webapps/coma/papers";
-		
-		// limit the size, renmae and store the file
-		MultipartRequest mpr = new MultipartRequest(request,webTempPath,(5*1024*1024),new DefaultFileRenamePolicy());
-		
-		//get parameter names
-		
-		
-		// get file names
-		Enumeration fileNames = mpr.getFileNames();
-		//
-		String theSystemFileName ="datei"; //mpr.getFilesystemName((String) fileNames.nextElement());
-		
-		// get session attributes
-		//HttpSession session= request.getSession(true);
-		//Person theAuthor = (Person) session.getAttribute(SessionAttribs.PERSON);
-		//Conference theConference = (Conference) session.getAttribute(SessionAttribs.CONFERENCE);
-		
-		// set the paper attributes
-		
+		Enumeration paramNames = request.getParameterNames();
+		String parName ="";
+		while(paramNames.hasMoreElements()){
+			parName = (String) paramNames.nextElement();
+		    }
 		paper.setAbstract("");//(request.getParameter("abstract"));
 		paper.setAuthor_id(-1);//(theAuthor.getId());
 		paper.setVersion(-1);
 		paper.setLast_edited(new Date());
 		paper.setConference_id(-1);//(theConference.getId());
-		paper.setFilename(theSystemFileName);
+		paper.setFilename("");
 		paper.setMim_type("");//(mpr.getContentType(theSystemFileName));
 		paper.setState(-1);
 		paper.setTitle("");//(request.getParameter("title"));

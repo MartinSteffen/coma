@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import coma.entities.Paper;
 import coma.entities.Person;
 import coma.handler.impl.db.InsertServiceImpl;
@@ -30,7 +32,7 @@ import coma.servlet.util.XMLHelper;
  */
 public class Author extends HttpServlet {
 	
-	static enum ACTIONS {NULL, SUBMITPAPER, PROCESSPAPER}; 
+	static enum ACTIONS {NULL, SUBMITPAPER, UPDATEPAPER, PROCESSPAPER}; 
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, java.io.IOException {
@@ -38,6 +40,7 @@ public class Author extends HttpServlet {
 	StringBuffer result = new StringBuffer();
 	XMLHelper helper = new XMLHelper();
 	ACTIONS action = ACTIONS.NULL;
+	
 	
 	try {
 		action = ACTIONS.valueOf(request.getParameter("action").toUpperCase());
@@ -73,19 +76,20 @@ public class Author extends HttpServlet {
 		
 		try {
 			Paper theNewPaper = myCreater.getPaper(request);
-			InsertServiceImpl myInsertservice = new InsertServiceImpl();
-			myInsertservice.insertPaper(theNewPaper);
-			result.append(XMLHelper.tagged("success",""));
-			result.append(theNewPaper.toXML());
-		} catch (IllegalArgumentException e) {
+			
+			result.append(XMLHelper.tagged("writefile",""));
+			
+		} catch (Exception e) {
 			result.append(XMLHelper.tagged("failed",""));
 			result.append("<submitpaper>\n");
+			result.append(XMLHelper.tagged("error",e.toString()));
 			while(paramNames.hasMoreElements()){
 			    parName = (String) paramNames.nextElement();
 			    result.append(XMLHelper.tagged(parName,request.getParameter(parName).trim()));  
 			}//while
-				   
+				    
 			result.append("</submitpaper>\n");
+			
 		}
     	break;
 	default:
