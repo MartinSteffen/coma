@@ -50,13 +50,16 @@ CREATE TABLE Topics (
 -- Users
 --
 -- title is a number, where
--- 0 is Mr
--- 1 is Ms
--- 2 is Mrs
--- 3 is Dr
--- 4 is Prof
--- 5 is Prof Dr
+-- 1 is Mr
+-- 2 is Ms
+-- 3 is Mrs
+-- 4 is Dr
+-- 5 is Prof
+-- 6 is Prof Dr
 --
+-- The system wide role encodes the following:
+--  0 : The user may modify other user's system roles.
+--  1 : The user may create or modify a conference.
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE Users (
@@ -72,7 +75,8 @@ CREATE TABLE Users (
     postal_code                  varchar(20),
     city                         varchar(127),
     state                        varchar(127),
-    country                      varchar(127)
+    country                      varchar(127),
+    sys_role                     bit(2)       NOT NULL DEFAULT B'00',
 );
 
 

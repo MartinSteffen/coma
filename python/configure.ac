@@ -15,6 +15,7 @@ AM_PATH_PYTHON(2.3, false)
 AC_CHECK_PROGS([M4], m4, false)
 AC_CHECK_PROGS([AUTOM4TE], autom4te, false)
 AC_CHECK_PROGS([DIFF], diff, false)
+AC_CHECK_PROGS([CHCON], chcon, :)
 
 comadir=${datadir}/coma
 AC_SUBST([comadir])

@@ -1,1 +1,9 @@
 A prototype of the coma project written in python and using postgresql.
+
+This implementation uses postgresql as its data base engine.  I chose
+this database engine to make it a bit harder for the students to use
+MySQL.  But I also believe that PostgreSQL is the superior
+implementation.
+
+This implementation is SELinux aware and has been build for Fedora Core 3.
+Some parts of this implementation may not work for other distributions.

@@ -29,6 +29,10 @@ class Session:
             self.user = row[1]
         self.expires = float(row[2])
         self.time = float(row[3])
+        if row[4] == 'None':
+            self.conference = None
+        else:
+	    self.conference = row[4]
 
     def expired(self):
 	"""Check whether the session has already expired."""
@@ -68,11 +72,12 @@ def get(db, sid):
 
 
 
-def put(db, session):
+def put(db, sid):
     """Put a session into the data base."""
-    db.connection.query("""INSERT INTO Sessions (sid, login, expires, last)
-		    VALUES ('%s', '%s', %s, %s)""" %
-		    (session.id, session.user, session.expires, session.time))
+    db.connection.query(
+        """INSERT INTO Sessions (sid, login, expires, last, conference)
+	VALUES ('%s', '%s', %s, %s, '%s')""" %
+	(sid.id, sid.user, sid.expires, sid.time, sid.conference))
 
 
 
@@ -81,7 +86,7 @@ def put(db, session):
 def new(db, _user = None, _expires = 30*60):
     """Create a new session.  By default, sessions expire after 30 Minutes."""
     while True:
-	_result = Session((__new_sid__(), None, _expires, time.time()))
+	_result = Session((__new_sid__(), None, _expires, time.time(), None))
 	try:
 	    put(db, _result)
 	except pg.error:
@@ -122,6 +127,16 @@ def change_login(db, sid, email):
 	     (sid.login, sid.last, sid.id))
     sid = get(db, sid.id)
     return sid
+
+
+
+
+def collect(db):
+    """Garbage collect sessions.  We collect all sessions which are older
+    than 2 hours."""
+    _maxage = 2*60*60
+    db.query("DELETE FROM Sessions WHERE (time + %d) > %d;" %
+	     (_maxage, time.time()))
 
 
 

@@ -29,7 +29,17 @@
 	</tr>
 	<tr>
 	  <td>Title*</td>
-	  <td><input type="text" name="title"/></td>
+	  <td>
+            <select name="title">
+	      <option value="0"></option>
+	      <option value="1">Mr</option>
+	      <option value="2">Ms</option>
+	      <option value="3">Mrs</option>
+	      <option value="4">Dr</option>
+	      <option value="5">Prof</option>
+	      <option value="5">Prof Dr</option>
+            </select>
+          </td>
 	</tr>
 	<tr>
 	  <td>First Name*</td>

@@ -43,29 +43,37 @@ def build_action(label, action, session):
 
 
 
-def setup_actions(session):
-    assert session
-    if session.user and session.user <> 'None':
-	result = build_action('Log Out', 'logout', session)
-	result += build_action('Participate in Conference', 'conference',
-			       session)
-	result += build_action('View Papers', 'list-papers', session)
-	result += build_action('Create a Conference', 'new-conference',
-			       session)
-    else:
-	result = build_action('Log In', 'login', session)
-	result += build_action('Create Account', 'new-account', session)
-    return result
+def setup_actions(sid, user = None, role = None):
+    assert sid
+    if not sid.user:
+	_result  = build_action('Log In', 'login', sid)
+	_result += build_action('Create Account', 'new-account', sid)
+	return _result
+    # User logged in.
+    assert user and sid.user == user.email and sid.user <> 'None'
+    _result  = build_action('Log Out', 'logout', sid)
+    _result += build_action('Participate in Conference', 'conference', sid)
+    # _result += build_action('View Papers', 'list-papers', sid)
+    if role:
+        assert role and sid.conference == role.conference and \
+            sid.conference == 'None'
+        if role.role[3]:  # The user is an author of this conference.
+            _result += build_action('Submit Paper', 'paper-new', sid)
+            _result += build_action('Update Submission', 'paper-edit', sid)
+            _result += build_action('View Review', 'paper-new', sid)
+	if role.role[2]:  # The user is a programm commitee member.
+            _result += build_action('Update Review', 'review-edit', sid)
+        if role.role[1]:  # The user is a programm chair.
+            _result += build_action('Assign Review', 'review-assign', sid)
+        if role.role[0]:  # The user is the administrator of the conference.
+            _result += build_action('Edit User', 'conf-user-edit', sid)
+    if user.sys_role[0]:  # The user has the right to view and modify users.
+	_result += build_action('Edit Users', 'user-edit', sid)
+    if user.sys_role[1]:  # The user has the right to create a new conference.
+        _result += build_action('Create a Conference', 'new-conference', sid)
+    return _result
 
 
-
-
-def bad_action(session, db, message):
-    """Show a generic error page."""
-    process_template('./templates/bad-page.xml',
-		     { 'error' : message,
-		       'actions': setup_actions(session) })
-    return
 
 
 
@@ -89,6 +97,9 @@ def index(db, sid, user):
 		       'reviews' : _reviews })
 
 
+
+
+
 ##############################################################################
 # Generate reports
 ##############################################################################
@@ -96,9 +107,25 @@ def index(db, sid, user):
 def get_conferences(db, user):
     """Get the list of all conferences a user is registered for and
     format it in a nice way."""
-    _result = db.get_conferences(user)
-    if not _result:
-	return "<p>You are participating in any conference.</p>"
+    _query = db.get_conferences_and_roles(user)
+    if _query:
+	_result = """<table class=\"conferences\">
+	<tr>
+        <th>Conference</th>
+        <th>Role</th>
+        </tr>"""
+	for each in _result:
+	    _result += (
+		"""<tr class="conference">
+		<td><a href=\"%s\">%s</a></td>
+		<td>%s</td>
+		</tr>""" %
+		(each[0].homepage, each[0].name, each[1].as_text()))
+	_result += "</table>"
+    else:
+	_result = "<p>You are not participating in any conference.</p>"
+    return _result
+
 
 def get_papers(db, user):
     """Get the list of all papers a user has submitted and format
@@ -165,14 +192,16 @@ def check_session(form, db):
     if form.has_key('session'):
 	sid = session.get(db, form["session"].value)
 	if not sid:
-	    sid = session.new(db)
-	    process_template('./templates/bad-session.xml',
-			     { 'actions': setup_actions(sid) } )
+	    new_sid = session.new(db)
+	    process_template('./templates/session-missing.xml',
+			     { 'actions': setup_actions(new_sid) } )
+	    session.collect(db)
 	    sys.exit()
 	if sid.expired():
-	    sid = session.new(db)
-	    process_template('./templates/expired-session.xml',
-			     { 'actions': setup_actions(session) })
+	    new_sid = session.new(db)
+	    session.collect(db)
+	    process_template('./templates/session-expired.xml',
+			     { 'actions': setup_actions(new_sid) })
 	    sys.exit()
 	session.update(db, sid)
     else:
@@ -311,9 +340,7 @@ def process_new_user(sid, db, form):
 	sid.user = email
 	session.update(db, sid)
 	# Show him his index.
-	process_template('./templates/index-user.xml',
-			 { 'actions' : setup_actions(sid),
-			   'firstname' : _user.firstname})
+	index(db, sid, _user)
 
 
 def process_submit_paper(sid, db, form):

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>COMA Conference Manager: Session does not Exist</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+  </head>
+  <body>
+    <table class="actions">%(actions)s</table>
+    <h1 class="description">This Session Does Not Exist</h1>
+    <p class="description">
+      This session does not exist.  You may have arrived at this page either
+      because your session has been inactive for more than 12 hours or
+      because of an internal error.  If your session has been inactive for
+      more than 2 hours, please relogin using the menu on the left-hand side.
+      Otherwise, please notify the sites administrator.
+    </p>
+    <hr/>
+    <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
+  </body>
+</html>

@@ -75,25 +75,10 @@ class Conference:
 
 
 
+title_name = ['', 'Mr', 'Ms', 'Mrs', 'Dr', 'Prof', 'Prof Dr']
+
+
 class User:
-    title_name = ['', 'Mr', 'Ms', 'Mrs', 'Dr', 'Prof', 'Prof Dr']
-
-    def __init__(self, email, password, first_name, last_name, affiliation,
-		 phone_number, fax_number, street, postal_code):
-	self.email = login
-	self.password = password
-	self.realname = realname
-	self.roles = roles
-	self.affiliation = affiliation
-	self.phone_number = phone_number
-	self.fax_number = fax_number
-	self.street = street
-	self.postal_code = postal_code
-	self.city = city
-	self.state = state
-	self.country = country
-	self.password = password
-
     def __init__(self, row):
 	"""Initialize the object from a mysql row"""
 	self.email = row[0]
@@ -109,13 +94,15 @@ class User:
 	self.city = row[10]
 	self.state = row[11]
 	self.country = row[12]
+        self.sys_role = row[13]
 
     def get_title(self):
-	return self.title_name[self.title]
+	return title_name[self.title]
 
 
 
 
+rolename = ['Admin', 'Chair', 'PC Member', 'Author']
 
 class Role:
     def __init__(self, _row):
@@ -123,7 +110,7 @@ class Role:
 	self.conference = _row[1]
 	self.role = _row[2]
 
-    def role_as_string(self):
+    def as_string(self):
 	"""Convert a role to a string"""
 	_result = ""
 	for each in self.role:
@@ -133,6 +120,14 @@ class Role:
 		_result += '0'
 	return _result
 
+    def as_text(self):
+	"""Convert a role to html."""
+	for each in range(4):
+	    if self.role[each]:
+		_result += rolename[each]
+		if each < 3 and self.role[each + 1]:
+		    _result += ', '
+	return _result
 
 
 class Forum:
@@ -193,7 +188,8 @@ class ComaDB:
 	"""Create a new object."""
 	self.connection = pg.connect(dbname = config.dbname,
 				     user = config.user,
-				     passwd = config.password)
+				     passwd = config.password,
+				     host = config.host)
 
     def query(self, query):
 	"""Send a query to the data base and handle errors."""
@@ -203,12 +199,33 @@ class ComaDB:
 	else:
 	    return None
 
-    def get_conferences(self, email):
-	"""Get the conferences a user participates in from the data base."""
-	__result = None
-	if __result:
-	    assert __result.ntuples() == 1
-	return None
+    def get_conferences_and_roles(self, email):
+	"""Get the conferences a user participates in from the data base.
+	Returns a list of pairs, where the first part is a conference
+        the user participates in and the second is his role in the
+	conference."""
+	__query = self.query(
+	    """SELECT Conferences.abbreviation, Conferences.name,
+		Conferences.homepage, Conferences.abstract_submission_deadline,
+		Conferences.paper_submission_deadline,
+		Conferences.review_deadline, Conferences.notification_deadline,
+		Conferences.final_version_deadline,
+		Conferences.conference_start, Conferences.conference_end,
+		Conferences.min_reviews_per_paper, Roles.role
+            FROM Conferences INNER JOIN Roles
+              ON  Conferences.abbreviation = Roles.conference
+              AND Conferences.abbreviation <> 'None'
+              AND Roles.email = '%s';""" % (email))
+	if __query:
+            __result = []
+            __roles = []
+	    for each in __query:
+	        __result.append(Conference(each[0:10]))
+	        __roles.append(Role((each[0], email, each[11])))
+	    return __result, __roles
+	else:
+	    return None
+
 
     def get_conference(self, abbreviation):
 	"""Get the conferences a user participates in from the data base."""
@@ -268,7 +285,7 @@ class ComaDB:
 	_query = """INSERT INTO Roles (email, conference, role) VALUES
 	('%s', '%s', B'%s')""" % (role.email,
 				  role.conference.replace("'", "\\'"),
-				  role.role_as_string())
+				  role.as_string())
 	self.connection.query(_query)
 
 
