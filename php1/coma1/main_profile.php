@@ -71,18 +71,18 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   }
 }
 
-$strContentAssocs['first_name']  = decodeText($objPerson->strFirstName);
-$strContentAssocs['last_name']   = decodeText($objPerson->strLastName);
-$strContentAssocs['email']       = decodeText($objPerson->strEmail);
-$strContentAssocs['name_title']  = decodeText($objPerson->strTitle);
-$strContentAssocs['affiliation'] = decodeText($objPerson->strAffiliation);
-$strContentAssocs['street']      = decodeText($objPerson->strStreet);
-$strContentAssocs['city']        = decodeText($objPerson->strCity);
-$strContentAssocs['postalcode']  = decodeText($objPerson->strPostalCode);
-$strContentAssocs['state']       = decodeText($objPerson->strState);
-$strContentAssocs['country']     = decodeText($objPerson->strCountry);
-$strContentAssocs['phone']       = decodeText($objPerson->strPhone);
-$strContentAssocs['fax']         = decodeText($objPerson->strFax);
+$strContentAssocs['first_name']  = $objPerson->strFirstName;
+$strContentAssocs['last_name']   = $objPerson->strLastName;
+$strContentAssocs['email']       = $objPerson->strEmail;
+$strContentAssocs['name_title']  = $objPerson->strTitle;
+$strContentAssocs['affiliation'] = $objPerson->strAffiliation;
+$strContentAssocs['street']      = $objPerson->strStreet;
+$strContentAssocs['city']        = $objPerson->strCity;
+$strContentAssocs['postalcode']  = $objPerson->strPostalCode;
+$strContentAssocs['state']       = $objPerson->strState;
+$strContentAssocs['country']     = $objPerson->strCountry;
+$strContentAssocs['phone']       = $objPerson->strPhone;
+$strContentAssocs['fax']         = $objPerson->strFax;
 
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
