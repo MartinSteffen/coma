@@ -27,18 +27,7 @@ function printMessage($objMessage, $indent = 0) {
   }
 }
 
-$mySql = new MySql();
-$dbAccess = new DBAccess($mySql);
-$s = $dbAccess->getLastError();
-
-if (!empty($s)) {
-  // einfacher: exit($S); // Jan
-  echo($s);
-  die();
-}
-echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
-
-$forum = $dbAccess->getForumDetailed(1);
+$forum = $myDBAccess->getForumDetailed(1);
 if ($forum) {  
   echo('<b>'.$forum->getThreadCount().' Thread'.
        ($forum->getThreadCount() <> 1 ? 's' : '').

@@ -15,26 +15,15 @@ define('IN_COMA1', true);
 
 require_once('./include/header.inc.php');
 
-$mySql = new MySql();
-$dbAccess = new DBAccess($mySql);
-$s = $dbAccess->getLastError();
-
-if (!empty($s)) {
-  // einfacher: exit($S); // Jan
-  echo($s);
-  die();
-}
-echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
-
-$id = $dbAccess->getPersonIdByEmail('hase@braten.org');
+$id = $myDBAccess->getPersonIdByEmail('hase@braten.org');
 echo('ID = '.$id.'<br>');
-$p = $dbAccess->getPersonDetailed($id);
+$p = $myDBAccess->getPersonDetailed($id);
 echo($p->strFirstName.' '.$p->strLastName.' '.$p->intRoles.'<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(1)?'':'k').'ein Chair.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
-echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br>');
+echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br><br>');
 
-$p = $dbAccess->getPapersOfAuthor(1);
+$p = $myDBAccess->getPapersOfAuthor(1);
 if($p) {
   for($i = 0; $i < count($p); $i++) {
     echo('Titel: '.$p[$i]->strTitle.', Autor: '.$p[$i]->strAuthor.'<br>');
