@@ -1,10 +1,6 @@
 
 
-
-
-
-
-Spec1:
+spec1:
 
     Tom Scherzer <tos@informatik.uni-kiel.de>
     Sandro Esquivel <esquivel@web.de>

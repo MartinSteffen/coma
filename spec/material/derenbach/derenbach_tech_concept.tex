@@ -1,0 +1,143 @@
+\documentclass[a4paper]{article}
+\usepackage[dvips]{graphics}
+\pagenumbering{arabic}
+\title{Tools and Technologies: COMA (conference management system)}
+\author{Alexander Derenbach}
+
+\begin{document}
+	\maketitle
+	\section{Introduction}
+	This is a description of the tools that should be used to implement COMA. 
+	Concept and specification are covered by other papers.
+	\section{The Architecture}
+	COMA should be implemented as a client/server architecture and be accessible over the Internet. On account of this it is consequent to use an available server/client architecture such as webserver/webbrowser. The following section will discuss some of the technologies and software products in this field.
+	\section{The Tools}
+	\subsection{The Webserver}
+	The available webservers can be classified into 'free' and 'commercial' products.\\
+	Commercial, that is you have to pay for them, are:
+	\begin{itemize}		
+		\item Netscape Enterprise Server (commercial)
+		\item IPlanet (commercial)
+		\item MS IIS (commercial, only MS Server / Windows Platform)	
+	\end{itemize}	
+	The free webservers are:
+	\begin{itemize}	
+		\item Apache + modules (free)
+		\item Roxen (free)
+	\end{itemize}
+	Out of these we choose Apache as our target server for these reasons:
+	\begin{itemize}	
+		\item It's free and under GPL (GNU Public License).
+		\item It's a good and fast webserver.
+		\item There exists already some know-how within the team.
+		\item It supports almost all common concepts by modules or add-ons (Java, PHP, Perl, etc.)
+	\end{itemize}
+	\subsection{The DBMS (Database Management System)}
+	Available DBMS are:
+	\begin{itemize}
+		\item MySQL 4.1
+		\item PostgreSQL
+		\item Orcale 
+		\item DB2
+		\item Informix
+	\end{itemize} 
+	Out of these we choose MySQL 4.1 as our target DBMS for these reasons:
+	\begin{itemize}
+		\item It's free and under GPL (GNU Public License).
+		\item It's available on most platforms.
+		\item There are drivers available for most languages.
+	\end{itemize}
+Note:  It has to be MySQL version 4.1 since older versions don't support SQL-Subquery syntax
+	\subsection{The Language}
+	Available Languages / Technologies:
+	\begin{itemize}
+		\item Java
+		Pros:
+		\begin{itemize}
+			\item modern object orientated language
+			\item platform independent
+			\item clear seperation of moduls possible
+			\item easy to automate testing the core  
+		\end{itemize} 
+		Cons:
+		\begin{itemize}
+			\item slower than some other technologies
+			\item partitial heavyweight
+		\end{itemize} 
+		
+		\item PHP
+
+		Pros:
+		\begin{itemize}
+			\item relativ fast
+			\item platform independent
+			\item developed for display dynamic data on webclients
+		
+		\end{itemize} 
+		Cons:
+		\begin{itemize}
+			\item complex seperation of modules
+			\item less existing knowhow
+			\item tesing more complex
+		\end{itemize} 
+		\item Perl
+
+		Pros:
+		\begin{itemize}
+			\item platform independent
+		\end{itemize} 
+		Cons:
+		\begin{itemize}
+			\item complex syntax
+			\item antiqued for webservices 
+		\end{itemize} 
+		\item ASP
+
+		Pros:
+		\begin{itemize}
+			\item relativ fast
+			\item developed for display dynamic data on webclients
+		\end{itemize} 
+		Cons:
+		\begin{itemize}
+			\item not not offical supportet for all platforms. Indeed a module for apache exists but not shure if it is in a stable business suitable release. 
+		\end{itemize}
+	\end{itemize} 
+	Out of these we choose Java as our target language for these reasons:
+	\begin{itemize}
+		\item There exists already some know-how within the team.
+		\item clear seperation of components (core, data, view)
+		\item the language concept suits to teamwork concepts (easy to
+	seperate modules)
+		\item possible to automize testing with JUnit
+	\end{itemize}	    
+	\section{Realisation in Java.}
+	
+	Java Technologies:
+	\begin{itemize}		
+		\item Java 2 
+		\item Java-Servlet 
+		\item EnterpriseJavaBeans EJB
+		\item JSP 
+		\item JSP Tag Libraries 
+		\item MySQL® Connector/J
+		\item Jakarta Tomcat 
+		\item JBoss Application Server
+	\end{itemize}
+Java Servlets, JSP and EJB are used for a clear seperation of functionality and view. 
+\newpage
+\section{Links}
+\begin{tabbing}
+	namefillUPwit:\=link1fillUPwi:\=link2fillUPwit:\kill
+	Apache \>\>  http://www.apache.org\\
+	MySQL \>\>   http://www.mysql.org\\
+	J2SE \> \>   http://java.sun.com/j2se/index.jsp\\
+	J2EE \>\>	   http://java.sun.com/j2ee/index.jsp\\
+	EJB \>\>	   http://java.sun.com/products/ejb/\\
+	JSP \>\>	   http://java.sun.com/products/jsp/index.jsp\\
+	Servlets \>\> http://java.sun.com/products/servlet/index.jsp\\
+	JDBC:mysql \>\> http://www.mysql.com/products/connector/j/\\
+	Jakarta Tomcat \>\> http://jakarta.apache.org/tomcat/index.html\\
+	Jboss App. Server \>\> http://www.jboss.org/\\
+	\end{tabbing}
+\end{document}
