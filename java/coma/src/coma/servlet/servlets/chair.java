@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import javax.xml.transform.stream.StreamSource;
 import coma.servlet.util.*;
 import coma.entities.*;
+import coma.handler.impl.db.*;
 import coma.handler.impl.db.InsertServiceImpl;
 //import coma.handler.db.*;
 
@@ -39,29 +40,23 @@ import coma.servlet.util.XMLHelper;
  * Changes at 14.12: change method commit, now runs with parameters 
  * HttpServletResponse res and String tag.  
  * delete redundant code
- * 
+ * Changes at 20.12: show_papers tested with my personal db
+ *  by pka			 show_authors, show_reviers update
  **/
 
 public class chair extends HttpServlet 
 {
+	//static final long serialVersionUID = 0;
 	DataSource ds = null;
-	StringBuffer info = new StringBuffer();
-	StringBuffer result = new StringBuffer();
-	XMLHelper helper = new XMLHelper();
+	static StringBuffer info = new StringBuffer();
+	static StringBuffer result = new StringBuffer();
+	static XMLHelper helper = new XMLHelper();
 	StringBuffer status = new StringBuffer();
-	String path = null;
-	String user = null;
+	static String path = null;
+	static String user = null;
 
 	public void init(ServletConfig config) 
 	{
-		try {
-		//	Context initCtx = new InitialContext();
-		//	Context envCtx = (Context) initCtx.lookup("java:comp/env");
-		//	ds = (DataSource) envCtx.lookup("jdbc/coma");
-			super.init(config);
-		} catch (Exception e) {
-	//		helper.addInfo(e.getMessage().toString(), info);
-		}
 	}
 	
 	public void doGet(HttpServletRequest req,HttpServletResponse res) 
@@ -69,7 +64,7 @@ public class chair extends HttpServlet
 		info.delete(0,info.length());
 		result.delete(0,result.length());
 		String action = req.getParameter("action");
-		HttpSession session= req.getSession(true);;
+		HttpSession session= req.getSession(true);
 		path = getServletContext().getRealPath("");
 		user = session.getAttribute("user").toString();
 		if (action.equals("login"))
@@ -203,23 +198,23 @@ public class chair extends HttpServlet
 		    /*
 		     * FIXME Insert Conference in Database, problem with Date
 		     */
-		    /*Conference c = new Conference(-1);
+		    Conference c = new Conference(-1);
 		    c.setName(req.getParameter("conference name"));
 		    c.setHomepage(req.getParameter("Homepage"));
 		    c.setDescription(req.getParameter("description"));
-		    d = new Date();
+		    /*d = new Date();
 		    d.setDate(Integer.parseInt(req.getParameter("start_day")));
 		    d.setMonth(Integer.parseInt(req.getParameter("start_month")));
 		    d.setYear(Integer.parseInt(req.getParameter("start_year")));
 		    c.setConference_start(d);
 		    d = new Date();
-		    d.setTime()
+		    d.setTime();
 		    d.setDate(Integer.parseInt(req.getParameter("end_day")));
 		    d.setMonth(Integer.parseInt(req.getParameter("end_month")));
 		    d.setYear(Integer.parseInt(req.getParameter("end_year")));
-		    c.setConference_end(d);
+		    c.setConference_end(d);*/
 		    InsertServiceImpl insert = new InsertServiceImpl();
-		    insert.insertConference(c);*/
+		    insert.insertConference(c);
 			helper.addTagged("status","" + user + ": Congratulations you have setup a new conference",info);
 			helper.addTagged("content","",info);
 			commit(res,tag);
@@ -238,15 +233,31 @@ public class chair extends HttpServlet
         /*
          * FIXME get all authors from db
          */
-        /*Person p = new Person(-1);
+		String tag = "showauthors";
+        Person p = new Person(-1);
+        p.setState("author");
         SearchCriteria search = new SearchCriteria();
         search.setPerson(p);
         ReadServiceImpl readService = new ReadServiceImpl();
         SearchResult search_result = readService.getPerson(search);
-        search_result.getResultObj();*/
-		helper.addTagged("content","",info);
-		helper.addTagged("status","" + user + ": all authors",info);
-		String tag = "showauthors";
+        Person[] result = (Person[])search_result.getResultObj();
+		if (result.length==0)
+        {
+        	helper.addTagged("status","" + user + ": no authors available",info);
+        	commit(res,tag);
+        }
+        else
+        {
+        	info.append("<content>");
+        	for (int i=0;i<result.length;i++)
+        	{
+        		p = result[i];
+        		info.append(p.toXML());
+        	}
+        	info.append("</content>");
+        	helper.addTagged("status","" + user + ": list of all authors",info);
+        	commit(res,tag);	
+        }
 		commit(res,tag);
 	}
 
@@ -255,34 +266,63 @@ public class chair extends HttpServlet
         /*
          * FIXME get all reviewers
          */
-        /*Person p = new Person(-1);
+		String tag = "showreviewers";
+        Person p = new Person(-1);
+        p.setState("reviewer");
         SearchCriteria search = new SearchCriteria();
         search.setPerson(p);
         ReadServiceImpl readService = new ReadServiceImpl();
         SearchResult search_result = readService.getPerson(search);
-        search_result.getResultObj();*/
-		helper.addTagged("content","",info);
-		helper.addTagged("status","" + user + ": list of all reviewers",info);
-		String tag = "showreviewers";
+        search_result.getResultObj();
+        Person[] result = (Person[])search_result.getResultObj();
+		 if (result.length==0)
+	        {
+	        	helper.addTagged("status","" + user + ": no reviewers available",info);
+	        	commit(res,tag);
+	        }
+	        else
+	        {
+	        	info.append("<content>");
+	        	for (int i=0;i<result.length;i++)
+	        	{
+	        		p = result[i];
+	        		info.append(p.toXML());
+	        	}
+	        	info.append("</content>");
+	        	helper.addTagged("status","" + user + ": list of all reviewers",info);
+	        	commit(res,tag);	
+	        }
 		commit(res,tag);
 	}
 	
-	public void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	public static void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-        /*
-         * FIXME get all reviewers
-         */
-        /*Paper p = new Paper(-1);
+	    String tag = "showpapers";
+        Paper p = new Paper(-1);
         SearchCriteria search = new SearchCriteria();
         search.setPaper(p);
         ReadServiceImpl readService = new ReadServiceImpl();
-        SearchResult search_result = readService.getPaper(search);
-        search_result.getResultObj();*/
-		helper.addTagged("content","",info);
-		helper.addTagged("status","" + user + ": all papers",info);
-		String tag = "showpapers";
-		commit(res,tag);	
+        SearchResult search_result = readService.getPaper(search); 
+        Paper[] result = (Paper[])search_result.getResultObj();
+        if (result.length==0)
+        {
+        	helper.addTagged("status","" + user + ": no papers available",info);
+        	commit(res,tag);
+        }
+        else
+        {
+        	info.append("<content>");
+        	for (int i=0;i<result.length;i++)
+        	{
+        		p = result[i];
+        		info.append(p.toXML());
+        	}
+        	info.append("</content>");
+        	helper.addTagged("status","" + user + ": all papers",info);
+        	commit(res,tag);	
+        }
 }
+	
 	
 	public void email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
@@ -336,7 +376,7 @@ public class chair extends HttpServlet
 	}
 	
 	/** commit method to avoid redundant(falls das in Engl so hei�t) code*/
-	private void commit(HttpServletResponse res, String tag) 
+	private static void commit(HttpServletResponse res, String tag) 
 	{
 	    try
 	    {
@@ -348,12 +388,12 @@ public class chair extends HttpServlet
 			result.append(info.toString());
 			result.append("</" +tag + ">\n");
 			result.append("</result>\n");
+			System.out.println(result.toString());
 			String xslt = path + "/style/xsl/chair.xsl";
 		    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);
 			XMLHelper.process(xmlSource, xsltSource, out);
 			out.flush();
-			System.out.println(result);
 	    }
 	    catch(IOException e)
 	    {
