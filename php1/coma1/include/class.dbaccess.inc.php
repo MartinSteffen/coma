@@ -1075,15 +1075,35 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert die Anzahl der bisher noch nicht zugeteilten Paper in der
-   * Konferenz $intConferenceId zurueck.
+   * Liefert die Anzahl der Paper in der Konferenz $intConferenceId zurueck.
    * 
    * @param int $intConferenceId ID der Konferenz.
-   * @return int Anzahl der nicht verteilten Paper.
+   * @return int Anzahl der Paper.
    * @access public
    * @author Sandro (01.02.05)
    */
-  function getNumberOfUndistributedPapers($intConferenceId) {
+  function getNumberOfPapers($intConferenceId) {
+    $s = sprintf("SELECT   COUNT(*) AS num".
+                 " FROM    Paper AS p".
+                 " WHERE   p.conference_id = '%d'",
+                           s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getNumberOfPapers', $this->mySql->getLastError());
+    }
+    return $this->success(!empty($data) ? count($data) : 0);
+  }
+
+  /**
+   * Liefert die Anzahl der bereits zugeteilten Paper in der
+   * Konferenz $intConferenceId zurueck.
+   * 
+   * @param int $intConferenceId ID der Konferenz.
+   * @return int Anzahl der verteilten Paper.
+   * @access public
+   * @author Sandro (01.02.05)
+   */
+  function getNumberOfDistributedPapers($intConferenceId) {
     $s = sprintf("SELECT   COUNT(*) AS num".
                  " FROM    Paper AS p".
                  " INNER   JOIN Distribution AS d".
@@ -1093,15 +1113,9 @@ class DBAccess extends ErrorHandling {
                            s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
-      return $this->error('getNumberOfUndistributedPapers', $this->mySql->getLastError());
+      return $this->error('getNumberOfDistributedPapers', $this->mySql->getLastError());
     }
-    $intNum = 0;    
-    for ($i = 0; $i < count($data) && !empty($data); $i++) {
-      if ((int)($data[$i]['num']) == 0) {
-      	$intNum++;
-      }
-    }
-    return $this->success($intNum);
+    return $this->success(!empty($data) ? count($data) : 0);
   }
 
   /**
