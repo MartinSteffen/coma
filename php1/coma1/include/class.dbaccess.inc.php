@@ -735,7 +735,7 @@ class DBAccess extends ErrorHandling {
     $s = sprintf("SELECT   COUNT(*) AS num".
                  " FROM    Paper AS p".
                  " INNER   JOIN PaperData AS d".
-                 " ON      d.paper_id = p.id"
+                 " ON      d.paper_id = p.id".
                  " WHERE   p.author_id = '%d'".
                  " AND     p.conference_id = '%d'",                 
                            s2db($intAuthorId), s2db($intConferenceId));    
