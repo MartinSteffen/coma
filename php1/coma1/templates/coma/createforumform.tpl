@@ -4,4 +4,5 @@ Title: <input type="text" size="40" name="title">
 {if1 <br>For Paper: <select name="paperid" size="4">}{paperoptions}{if2 </select>}
 <input type="hidden" name="type" value="{inttype}">
 <input type="hidden" name="createforum" value="true">
+<br><input type="submit" value="create">
 </form></p>
