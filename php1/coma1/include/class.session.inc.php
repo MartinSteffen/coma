@@ -129,7 +129,7 @@ class Session {
   function sessionRead($strSessId) {
     $strSessId = $this->strSessName . $strSessId;
     // Check ob Session veraltet!!!
-    $results = $this->mySql->select("SELECT sdata FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName' AND UNIX_TIMESTAMP(stime)>(UNIX_TIMESTAMP(NOW())-$this->intMaxLifeTime");
+    $results = $this->mySql->select("SELECT sdata FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName' AND UNIX_TIMESTAMP(stime)>(UNIX_TIMESTAMP(NOW())-$this->intMaxLifeTime)");
     if (!$results) {
       $this->mySql->delete("DELETE FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
       $this->mySql->insert("INSERT INTO Sessions (sid, sname, sdata, stime) VALUES ('$strSessId', '$this->strSessName', NULL, NOW())");
