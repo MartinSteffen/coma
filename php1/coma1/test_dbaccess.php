@@ -42,6 +42,7 @@ $p->strCoAuthors[] = 'John Kerry';
 $p->intCoAuthorIds[] = $p->intCoAuthorIds[0];
 $p->strCoAuthors[] = false;
 $p->intCoAuthorIds[0] = false;
+$p->strCoAuthors[0] = false;
 $myDBAccess->updatePaperDetailed($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
