@@ -1,4 +1,5 @@
 <?php
+
 include("includes/config.inc.php");
 include("includes/definitions.inc.php");
 include("includes/sql.class.php");
