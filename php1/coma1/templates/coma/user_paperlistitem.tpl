@@ -17,7 +17,7 @@
     <td class="listitem-{line_no}">{avg_rating}</td>
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
-      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">view paper</a>}
+      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;paper</a>}
     </td>
     <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}">&nbsp;</td>

@@ -7,6 +7,6 @@
     </td>
     <td class="listitem-{line_no}">{roles}</td>    
     <td class="listitem-{line_no}">
-      {if1<a href="{basepath}chair_prefers.php?userid={user_id}{&SID}" class="link">View preferences</a>}
+      {if1<a href="{basepath}chair_prefers.php?userid={user_id}{&SID}" class="buttonlink">View&nbsp;preferences</a>}
     </td>
   </tr>
