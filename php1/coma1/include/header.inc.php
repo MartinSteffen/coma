@@ -119,7 +119,7 @@ function encodeText($_str) {
   $trans_tbl["\t"] = ' ';
   $trans_tbl["\'"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
-  $trans_tbl['&quot;'] = '&#039;'; // keine Doppelquotes zulassen!
+  $trans_tbl['"'] = '&#039;'; // keine Doppelquotes zulassen!
   $_str = strtr($_str, $trans_tbl);
   $_str = trim($_str);
   return($_str);
@@ -135,11 +135,11 @@ function encodeText($_str) {
  */
 function decodeText($_str) {
   $trans_tbl = get_html_translation_table (HTML_ENTITIES);
+  $trans_tbl["\\"] = "\\\\";
   $trans_tbl["\x00"] = "\\\x00";
   $trans_tbl["\n"] = '<BR>';
   $trans_tbl["\'"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
-  $trans_tbl["\\"] = "\\\\";
   $trans_tbl = array_flip($trans_tbl);
   $_str = strtr($_str, $trans_tbl);
   return($_str);
