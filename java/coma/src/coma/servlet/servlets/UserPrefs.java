@@ -50,7 +50,7 @@ public class UserPrefs extends HttpServlet {
     */
     public void doGet(
 		      HttpServletRequest request,
-		      HttpServletResponse response) throws Exception {
+		      HttpServletResponse response) throws java.io.IOException {
 
 	HttpSession session;
 	session = request.getSession(true);
@@ -136,7 +136,7 @@ public class UserPrefs extends HttpServlet {
 
     public void doPost(
 		       HttpServletRequest request,
-		       HttpServletResponse response) throws Exception {
+		       HttpServletResponse response) throws java.io.IOException {
 	doGet(request, response);
     }
 
