@@ -4,9 +4,6 @@
 {ifREVIEWERNOTIFY
 <p class="message">
   <span class="emph">The review phase has started.</span>
-  So if you have made your decisions about the review distribution, click here to
-  <a href="{basepath}notify_reviewers.php{&SID}" class="mail">notify all reviewers by mail</a>
-  about the papers distributed to them.
 </p>}
 
 {ifAUTHORNOTIFY

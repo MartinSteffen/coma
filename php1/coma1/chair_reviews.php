@@ -73,6 +73,15 @@ else if (empty($objConference)) {
 
 $content = new Template(TPLPATH.'chair_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
+// Pruefe ob die Reviewphase begonnen oder beendet ist
+if (strtotime($objConference->strAbstractDeadline) <= strtotime("now") &&
+    strtotime("now") < strtotime($objConference->strReviewDeadline)) {
+  $ifArray[] = 'REVIEWERNOTIFY';
+}
+else if (strtotime($objConference->strReviewDeadline) <= strtotime("now") &&
+         strtotime("now") <= strtotime($objConference->strNotification)) {
+  $ifArray[] = 'AUTHORNOTIFY';
+}
 $strContentAssocs['if'] = $ifArray;
 $strContentAssocs['targetpage'] = 'chair_reviews.php';
 $strContentAssocs['lines'] = '';
