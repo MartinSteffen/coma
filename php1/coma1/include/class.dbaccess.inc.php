@@ -1651,12 +1651,6 @@ nur fuer detaillierte?
     }
     for ($i = 0; $i < count($objConferenceDetailed->objCriterions); $i++) {
       $objCriterion = $objConferenceDetailed->objCriterions[$i];
-      /*$s = "UPDATE  Criterion".
-          " SET     name = '$objCriterion->strName',".
-          "         description = '$objCriterion->strDescription',".
-          "         max_value = '$objCriterion->intMaxValue',".
-          "         quality_rating = '$objCriterion->fltWeight'".
-          " WHERE   id = '$objCriterion->intId'";*/
       $s = sprintf("UPDATE   Criterion".
                    " SET     name = '%s', description = '%s', max_value = '%d',".
                    "         quality_rating = '%f'".
@@ -1664,7 +1658,6 @@ nur fuer detaillierte?
                    s2db($objCriterion->strName), s2db($objCriterion->strDescription),
                    s2db($objCriterion->intMaxValue), s2db($objCriterion->fltWeight),
                    s2db($objCriterion->intId));
-      echo("<br>$s<br>");
     }
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -1692,9 +1685,14 @@ nur fuer detaillierte?
     }
     for ($i = 0; $i < count($objConferenceDetailed->objTopics); $i++) {
       $objTopic = $objConferenceDetailed->objTopics[$i];
-      $s = "UPDATE  Topic".
+      /*$s = "UPDATE  Topic".
           " SET     name = '$objTopic->strName'".
-          " WHERE   id = '$objTopic->intId'";
+          " WHERE   id = '$objTopic->intId'";*/
+      $s = sprintf("UPDATE   Topic".
+                   " SET     name = '%s'".
+                   " WHERE   id = '%d'",
+                   s2db($objTopic->strName), s2db($objTopic->intId));
+      echo("<br>$s<br>");
     }
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
