@@ -12,6 +12,7 @@ $conference_id = $conference_id[0]['conference_id'];
 
 $SQL = "SELECT id, name FROM topic WHERE conference_id = " . $conference_id;
 $topic = $sql->query($SQL);
+$topic_now = array();
 foreach ($topic as $value) {
 	if (isset ($_REQUEST[$value['id']])) {
 		$topic_now[] = $_REQUEST[$value['id']];
@@ -20,6 +21,7 @@ foreach ($topic as $value) {
 
 $SQL = "SELECT topic_id FROM isabouttopic WHERE paper_id = " . $_REQUEST['pid'];
 $result = $sql->query($SQL);
+$topic_checked = array();
 foreach ($result as $value) {
 	$topic_checked[] = $value['topic_id'];
 }
@@ -109,7 +111,7 @@ if ($_FILES['file']['size'] > 0) {
 	} 
 
 	// change SQL entries
-	$SQL = "UPDATE paper SET title = '" . htmlentities ($_REQUEST['title']) . "', abstract = '" . htmlentities ($_REQUEST['summary']) . "', filename = '" . $remotefilename . "', mime_type = '" . $mime_type . "' WHERE id = " . $_REQUEST['pid'];
+	$SQL = "UPDATE paper SET title = '" . htmlentities ($_REQUEST['title'], ENT_QUOTES) . "', abstract = '" . htmlentities ($_REQUEST['summary']. ENT_QUOTES) . "', filename = '" . $remotefilename . "', mime_type = '" . $mime_type . "', last_edited = '" . date('Y-m-d') . "' WHERE id = " . $_REQUEST['pid'];
 	$result = $sql->insert($SQL);
 
 	// close ftp connection
@@ -117,7 +119,7 @@ if ($_FILES['file']['size'] > 0) {
 }
 else {
 	// change only the rest
-	$SQL = "UPDATE paper SET title = '" . htmlentities ($_REQUEST['title']) . "', abstract = '" . htmlentities ($_REQUEST['summary']) . "' WHERE id = " . $_REQUEST['pid'];
+	$SQL = "UPDATE paper SET title = '" . htmlentities ($_REQUEST['title'], ENT_QUOTES) . "', abstract = '" . htmlentities ($_REQUEST['summary'], ENT_QUOTES) . "', last_edited = '" . date('Y-m-d') . "' WHERE id = " . $_REQUEST['pid'];
 	$result = $sql->insert($SQL);
 }
 

@@ -1,7 +1,6 @@
 <?
 $content = array();
 
-
 //check for conference_id
 if (isset($_REQUEST['cid'])) {
 	$content['conference_id'] = $_REQUEST['cid'];
@@ -15,12 +14,6 @@ if (isset($_REQUEST['cid'])) {
 if ($_REQUEST['title'] == "") {
 	redirect("author", "new", "create", "cid=". $content['conference_id']."&msg=<font style=color:red>Please enter a title for your paper.</font>");
 }
-
-
-
-
-
-
 
 
 // get filenameextension from filename
@@ -48,8 +41,8 @@ else {
 	$content['mime_type'] = "";
 }
 
-// check for topiccheckboxes
 
+// check for topiccheckboxes
 $SQL = "SELECT id FROM topic WHERE conference_id = ". $content['conference_id'];
 $topic = $sql->query($SQL);
 foreach ($topic as $value) {
@@ -59,13 +52,35 @@ foreach ($topic as $value) {
 }
 
 
-
+// check for coauthors
+/*
+if ($_REQUEST['coauthor'] != "") {
+	$coauthors = $_REQUEST['coauthor'];
+	$coauthors = explode("\n", $coauthors);
+	dump($coauthors);
+	foreach ($coautors as $k => $v) {
+		$coautors[$k] = explode(",", $v);
+	}
+	foreach ($coautors as $k => $v) {
+		$coautors[$k] = explode(";", $v);
+	}
+	foreach ($coautors as $k => $v) {
+		$coautors[$k] = explode(":", $v);
+	}
+	foreach ($coauthors as $key => $value) {
+		if ($value == "") {
+			unset ($coauthors[$key]);
+		}
+	}
+}
+dump($coauthors);
+*/
 
 
 //fill content array with values for db
 $content['author_id'] = $_SESSION['userID'];
-$content['title'] = htmlentities ($_REQUEST['title']);
-$content['abstract'] = htmlentities ($_REQUEST['summary']);
+$content['title'] = htmlentities ($_REQUEST['title'], ENT_QUOTES);
+$content['abstract'] = htmlentities ($_REQUEST['summary'], ENT_QUOTES);
 $content['last_edited'] = date('Y-m-d');
 $content['filename'] = "";
 $content['state'] = 0;
@@ -85,6 +100,13 @@ foreach ($content['topic'] as $value) {
 	$result = $sql->insert($SQL);
 }
 
+// insert coauthors
+/*
+foreach ($coauthors as $value) {
+	$SQL = "INSERT INTO iscoauthorof (person_id, paper_id, name) VALUES ('" . $content['author_id'] . "', '" . $paper_id . "', '" . $value . "')";
+	$result = $sql->insert($SQL);
+}
+*/
 
 // get fTP handle
 $ftphandle = @ftp_connect($ftphost);
