@@ -8,8 +8,6 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('class.mysql.inc.php');
-
 /**
  * Klasse DBAccess
  *
@@ -39,17 +37,13 @@ class DBAccess {
    *
    * Der Konstruktor erzeugt eine Verbindung mit der Datenbank.
    *
+   * @param MySql $mySql Ein MySql Objekt
    * @return bool <b>true</b> bei Erfolg, <b>false</b> bei Fehler
    * @see error()
    * @see getLastError()
    */
-  function DBAccess() {
-    $this->mySql = new MySql();
-
-    $s = $this->mySql->getLastError();
-    if (!empty($s)) {
-      return $this->error('Fehler beim Instanziieren. '.$s);
-    }
+  function DBAccess($mySql) {
+    $this->mySql = $mySql;
 
     return true;
   }
