@@ -38,7 +38,8 @@ if (isset($_POST['action'])) {
   }
   // Teste Gueltigkeit der Daten
   $noError = true;
-  for ($i = 0; $i < count($objReview->intRatings) && !empty($noError); $i++) {
+  for ($i = 0; $i < count($objReview->intRatings) && $noError; $i++) {
+    echo ($objReview->intRatings[$i].' - '.$objReview->objCriterions[$i]->intMaxValue);
     if ($objReview->intRatings[$i] < 0 ||
         $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
       $noError = false;
@@ -46,7 +47,7 @@ if (isset($_POST['action'])) {
                     'within their respective range.';
     }
   }
-  if (!empty($noError)) {
+  if ($noError) {
     $objReview->recalcRating();
     // Uebernimm die Aenderungen
     if (isset($_POST['submit']) ) {
