@@ -2,7 +2,7 @@
 /**
 * @version $Id: test_basedata.php 2708 2005-01-21 17:35:21Z waller $
 * @package coma1
-* @subpackage test
+* @subpackage Testing
 * @author Oliver Niemann
 */
 /***/
