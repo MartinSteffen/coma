@@ -53,13 +53,13 @@ if (!empty($dist)) {
     $strReviewersAssocs = defaultAssocArray();
     $arrReviewers = $dist[$objPaper->intId];
     for ($i = 0; $i < count($arrReviewers); $i++) {
-      $objReviewer = $myDBAccess->getPerson($arrReviewers['reviewer_id']);
+      $objReviewer = $myDBAccess->getPerson($arrReviewers[$i]['reviewer_id']);
       if ($myDBAccess->failed()) {
         error('get suggested reviewer',$myDBAccess->getLastError());
       }
-      $strReviewersAssocs['rev_id'] = $arrReviewers['reviewer_id'];
+      $strReviewersAssocs['rev_id'] = $arrReviewers[$i]['reviewer_id'];
       $strReviewersAssocs['rev_name'] = $objReviewer->getName(1);
-      $strReviewersAssocs['status'] = $arrReviewers['status'];
+      $strReviewersAssocs['status'] = $arrReviewers$[i]['status'];
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
