@@ -275,7 +275,7 @@ class DBAccess {
         //' WHERE   conference_id = \''.???.'\'';
     $data = $this->mySql->select($s);    
     if ($data) {            
-      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false);
+      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
     return false;
