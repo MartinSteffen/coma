@@ -42,8 +42,7 @@ $strContentAssocs = defaultAssocArray();
 $strContentAssocs['paper_id'] = encodeText($objPaper->intId);
 $strContentAssocs['author_id'] = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);
-$strContentAssocs['cols'] = encodeText(count($objCriterions) + 3);
-$strContentAssocs['cols-2'] = encodeText(count($objCriterions));
+$strContentAssocs['cols'] = encodeText(count($objCriterions));
 $strContentAssocs['reviews_num'] = encodeText(count($objReviews));
 $strContentAssocs['title'] = encodeText($objPaper->strTitle);
 if (!empty($objPaper->fltAvgRating)) {
