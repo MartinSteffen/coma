@@ -80,13 +80,13 @@
 		</copy>
 	</target>
 
-	<target name="remote-install" depends="compile, remote-uninstall">
+	<target name="remote-install" depends="compile, create-database, remote-uninstall">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
 		<mkdir dir="${dist}/${app.name}/papers" />
 		<mkdir dir="${dist}/${app.name}/doc" />
-	
+
 		<copy todir="${dist}/${app.name}/WEB-INF/classes">
 			<fileset dir="${bin}/" />
 		</copy>
@@ -109,10 +109,10 @@
 		<copy file="${basedir}/build.properties" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
 		</copy>
 		<copy todir="${webapps.home}" overwrite="true">
-			<fileset dir="${dist}/" />
+			<fileset dir="${dist}/" excludes="db_schema_tmp.sql"/>
 		</copy>
 		<get src="${tomcat.url}/${tomcat.deploy_path}" dest="status.html" username="${tomcat.manager.user}" password="${tomcat.manager.password}" />
-	<chmod perm="u=rwx,g=rwx,o=rwx" type="both" >
+		<chmod perm="u=rwx,g=rwx,o=rwx" type="both" >
 			<fileset dir="${webapps.home}/${app.name}/papers" />
 		</chmod>
 	</target>
