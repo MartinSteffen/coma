@@ -79,7 +79,8 @@ public class UserPrefs extends HttpServlet {
 		pagestate.set(STATE.WRITE);
 		result.append(x.tagged("editable", thePerson.toXML()));
 		result.append(x.tagged("topics",
-				       Topic.manyToXML(Topic.allTopics(theConference), XMLMODE.DEEP)));
+				       Topic.manyToXML(Topic.allTopics(theConference), 
+						       XMLMODE.DEEP)));
 		break;
 	    case STATE.WRITE:
 		pagestate.set(STATE.READ);
@@ -89,6 +90,12 @@ public class UserPrefs extends HttpServlet {
 		// now, I'd like a functional map operator. And polymorphism.
 
 		try{
+		    if (!thePerson.getPassword()
+			.equals(request.getParameter(FormParameters.PASSWORD))){
+
+			throw new UnauthorizedException("password mismatch");
+		    }
+
 		    int oldid = thePerson.getId();
 		    thePerson 
 			= new coma.handler.util.EntityCreater().getPerson(request);
@@ -100,7 +107,8 @@ public class UserPrefs extends HttpServlet {
 		    final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
 		    for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
 		
-			thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s), theConference.getId()));
+			thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s), 
+							       theConference.getId()));
 		    }
 		
 		    SearchResult theSR;
@@ -111,6 +119,9 @@ public class UserPrefs extends HttpServlet {
 			throw new Exception(theSR.getInfo());
 		    }
 		    session.setAttribute(SessionAttribs.PERSON, thePerson);
+		} catch (UnauthorizedException uae){
+		    
+		    result.append(UserMessage.ERRUNAUTHORIZED);
 		} catch (Exception exc){
 		    // well, almost true.
 		    result.append(UserMessage.ERRDATABASEDOWN);

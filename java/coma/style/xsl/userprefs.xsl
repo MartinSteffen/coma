@@ -50,7 +50,7 @@
 
     <input type="hidden" name="id">
       <xsl:attribute name="value">
-        <xsl:value-of select="id" />
+        <xsl:value-of select="person/id" />
       </xsl:attribute>
     </input>
     <div><h3>Contact Data</h3>
@@ -60,7 +60,7 @@
         <td>
           <input class="input-box" type="text" name="first_name" size="20">
             <xsl:attribute name="value">
-              <xsl:value-of select="first_name"/>
+              <xsl:value-of select="person/first_name"/>
             </xsl:attribute>
           </input>
         </td>
@@ -70,7 +70,7 @@
         <td >
           <input class="input-box" style="border:1px solid red" type="text" name="last_name" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="last_name"/>
+              <xsl:value-of select="person/last_name"/>
             </xsl:attribute>
           </input>
         </td>
@@ -80,7 +80,7 @@
         <td >
           <input class="input-box" type="text" name="title" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="title"/>
+              <xsl:value-of select="person/title"/>
             </xsl:attribute>
           </input>
         </td>
@@ -90,7 +90,7 @@
         <td >
           <input class="input-box" type="text" name="affiliation" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="affiliation"/>
+              <xsl:value-of select="person/affiliation"/>
             </xsl:attribute>
           </input>
         </td>
@@ -100,7 +100,7 @@
         <td>
           <input class="input-box" style="border:1px solid red" type="text" name="email" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="email"/>
+              <xsl:value-of select="person/email"/>
             </xsl:attribute>
           </input>
         </td>
@@ -110,7 +110,7 @@
         <td >
           <input class="input-box" type="text" name="phone_number" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="phone_number"/>
+              <xsl:value-of select="person/phone_number"/>
             </xsl:attribute>
           </input>
         </td>
@@ -120,7 +120,7 @@
         <td >
           <input class="input-box" type="text" name="fax_number" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="fax_number"/>
+              <xsl:value-of select="person/fax_number"/>
             </xsl:attribute>
           </input>
         </td>
@@ -130,7 +130,7 @@
         <td >
           <input class="input-box" type="text" name="street" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="street"/>
+              <xsl:value-of select="person/street"/>
             </xsl:attribute>
           </input>
         </td>
@@ -140,7 +140,7 @@
         <td >
           <input class="input-box" type="text" name="postal_code" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="postal_code"/>
+              <xsl:value-of select="person/postal_code"/>
             </xsl:attribute>
           </input>
         </td>
@@ -150,7 +150,7 @@
         <td >
           <input class="input-box" type="text" name="city" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="city"/>
+              <xsl:value-of select="person/city"/>
             </xsl:attribute>
           </input>
         </td>
@@ -160,7 +160,7 @@
         <td >
           <input class="input-box" type="text" name="state" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="state"/>
+              <xsl:value-of select="person/state"/>
             </xsl:attribute>
           </input>
         </td>
@@ -170,26 +170,9 @@
         <td >
           <input class="input-box" type="text" name="country" size="20" >
             <xsl:attribute name="value">
-              <xsl:value-of select="country"/>
+              <xsl:value-of select="person/country"/>
             </xsl:attribute>
           </input>
-        </td>
-      </tr>
-      <tr>
-        <td >Password: min 6 chars </td>
-        <td >
-          <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />
-        </td>
-      </tr>
-      <tr>
-        <td > Re-type password: </td>
-        <td >
-          <input class="input-box" style="border:1px solid red" type="password" name="repassword" size="20" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <input class="submit-button" type="submit" value="Submit Info" />
         </td>
       </tr>
     </table>
@@ -213,10 +196,11 @@
       You can select multiple entries by holding the Control key.
     </span>
   </div>
-    <div>
-      <button name="dominate" type="submit" class="submit-button">
-        Save changes
-      </button>
+  <div>
+    Enter your password:
+    <input class="input-box" style="border:1px solid red" type="password" name="password" size="20" />
+    to confirm, then press
+      <input value="Save" type="submit" class="submit-button" />
     </div>
   </xsl:template>
 
