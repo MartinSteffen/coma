@@ -10,18 +10,19 @@ if (!defined('IN_COMA1')) {
 }
 
 /**
- * Fehler in Klasse ueberpruefen und ausgeben
+ * Fehler auf hoechster Ebene abfangen und ausgeben
  *
- * Diese Funktion ueberprueft eine Klasse ob ein Fehler generiert wurde
- * und gibt diesen auch eventuell zurueck.
- *
- * @param object $class Ein coma1-Objekt das die Methode getLastError() unterstuetzt.
+ * @param string $strMethod Methode in der der Fehler aufgetreten ist
+ * @param string $strError Beschreibung des Fehlers
+ * @param string $strComment optionaler weiterer Kommentar
+ * @return bool immer <b>false</b>
+ * @todo Fehelrausgabe verbessern
  */
-function checkError(&$class) {
-  $s = $class->getLastError();
-  if (!empty($s)) {
-    echo $s;
-  }
+function error($strMethod, $strError, $strComment='') {
+  $strComment = empty($strComment) ? '' : " ($strComment)";
+  $strError = "[COMA->$strMethod: $strError$strComment]";
+  die($strError);
+  return false;
 }
 
 /**
@@ -158,7 +159,7 @@ if (!defined('NEED_NO_LOGIN')) {
       $_SESSION['uid'] = $myDBAccess->getUserIdByEmail(session(uname));
       if ($myDBAccess->failed) {
         session_delete('uid');
-        print($myDBAccess->getLastError());
+        error('checkLogin',$myDBAccess->getLastError());
       }
     }
   }
@@ -169,7 +170,7 @@ if (!defined('NEED_NO_LOGIN')) {
     session_delete('uid');
     session_delete('confid');
     if ($myDBAccess->failed) {
-      print($myDBAccess->getLastError());
+      error('checkLogin',$myDBAccess->getLastError());
     }
     if (!isset($_SESSION['uname'])) {
       $_SESSION['message'] = 'Bitte melden Sie sich an!';
