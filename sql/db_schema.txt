@@ -31,9 +31,18 @@
   gut, da habe ich einen bei Status hinzugefügt.
   
   -- Gunnar
-  
-  
 
+Änderung (auf Martins Antfrage):
+- Die Tabellen "Roles" und "Role" wurden zusammengefasst (warum gab es
+  die beiden eigentlich?). Die Art der Rolle wird durch die Enumeration
+  Roles beschrieben, der Status ist optional. Eine Id benoetigen die
+  Rollen nicht (war vorher auch irrtuemlich drin, Fehler meinerseits),
+  wir muessen ja nur wissen, welche Person in welcher Konferenz die
+  Rolle besitzt.
+
+  + + + Sandro 
+  
+  
 1.  Tables:
 
  Table Conference
@@ -69,18 +78,11 @@ country		Varchar 127
 password	Varchar 32      Not Null (encrypted)
 
  Table Role
-~~~~~~~~~~~~
-id              Int             Primary Key, Autoincrement
-person_id	Int		-> Person, id
-conference_id	Int		-> Conference, id
-role_id		Int		-> Roles, id
-status		Int		(enumeration Status)
-
- Table Roles
 ~~~~~~~~~~~~~
 conference_id	Int		-> Conference, id
 person_id       Int             -> Person, id
 type		Int		(enumeration Roles)
+status		Int		(enumeration Status)
 
  Table Paper
 ~~~~~~~~~~~~~
@@ -172,6 +174,15 @@ text		Text
 
 
 2. Enumerations (Vorschlag):
+
+ Enumeration Roles
+~~~~~~~~~~~~~~~~~~~~
+01  admin
+02  chair
+03  reviewer
+04  author
+05  participant
+...
 
  Enumeration Status
 ~~~~~~~~~~~~~~~~~~~~
