@@ -1,4 +1,5 @@
 <?
+
 	session_start();
 	
 	//Initialise variables
