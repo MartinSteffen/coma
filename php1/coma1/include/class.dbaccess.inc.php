@@ -12,6 +12,21 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 
+
+/* =============================================================================
+NEUIGKEITEN 14.01.05:
+---------------------
+- Bitte auch bei Integern in SQL-Anfragen immer Anfuehrungszeichen verwenden
+  (wie bei Strings), weil sonst leere Integer ("false") als Nullstring in den
+  SQL-String eingesetzt werden mit der Folge, dass Anfragen wie
+  SELECT * FROM tab WHERE id =
+  zustande kommen können, was einen SQL-Fehler erzeugt (nicht erwuenscht).
+  Stattdessen sollte nach der SQL-Anfrage ggf. die Ergebnismenge auf EMPTY
+  geprueft werden => Anfrage wie
+  SELECT * FROM tab WHERE id = ''
+  liefert leeres Ergegnisarray (ok).
+============================================================================= */
+
 /* =============================================================================
    Dinge, die zu beachten sind (extra fuer Sandro Auszuege aus dem ICQ-Log
    (leicht angepasst), recht unstrukturiert, mehr so als Themensammlung, was man
