@@ -80,10 +80,6 @@ public class Chair extends HttpServlet
 		Person p = (Person)session.getAttribute(SessionAttribs.PERSON);
 		myNavCol = new Navcolumn(req.getSession(true));
 		user = p.getFirst_name() + " " + p.getLast_name();
-		if (action.equals("login"))
-		{
-			login(req,res,session);
-		}
 		if (action.equals("invite_person"))
 		{	
 			invite_person(req,res,session);
@@ -126,15 +122,7 @@ public class Chair extends HttpServlet
 	{
 		doGet(request, response);
 	}
-	
-	public void login(HttpServletRequest req,HttpServletResponse res,HttpSession session)
-		{
-			info.append(XMLHelper.tagged("content","Welcome to Coma, " + user + "\n"));
-			info.append(XMLHelper.tagged("status","Welcome chair\n "));
-			String tag = "login";
-			commit(res,tag); 
-		}
-		
+			
 	public void invite_person(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
 		info.append(XMLHelper.tagged("content",""));
@@ -194,23 +182,30 @@ public class Chair extends HttpServlet
 	    SearchCriteria search = new SearchCriteria();
 	    search.setConference(c);
 	    SearchResult search_result = readService.getConference(search);
-	    Conference[] result = (Conference[])search_result.getResultObj();
+	    Conference[] conferences = (Conference[])search_result.getResultObj();
+	    readService = new ReadServiceImpl();
+	    search = new SearchCriteria();
+	    Topic t = new Topic(-2);
+	    //search.setTopic(t);
+	    //search_result = readService.getTopic(search);
+	    Topic[] topics = (Topic[])search_result.getResultObj();
 	    /*
 	     * FIXME andere Bedingung, ob conference setup fertig?
 	     */
-	    if (result==null || result.length==0)
+	    if (conferences==null || conferences.length==0)
 	    {
 	    	setup_step(req,res,session);
 	    }
 	    else
 	    {
-	    	/*
-	    	 * FIXME Ausgabe der Konferenz-Daten und zughöriger Topics
-	    	 */
 	    	String tag = "setup";
 			info.append(XMLHelper.tagged("status","" + user + ": you are chair of: "));
 			info.append("<content>");
-			info.append(result[0].toXML(Entity.XMLMODE.DEEP));
+			info.append(conferences[0].toXML(Entity.XMLMODE.DEEP));
+			for (int i=0;i<topics.length;i++)
+			{
+				info.append(topics[i].toXML());
+			}
 			info.append("</content>");
 			commit(res,tag);
 	    }
@@ -228,8 +223,16 @@ public class Chair extends HttpServlet
 		else
 		{
 			tag = "setup_new_step2";
+			info.append("<content>");
+			
+			for(int i=0;i<Integer.parseInt(session.getAttribute("topics").toString());i++)
+			{
+				info.append("<topic>");
+				info.append(XMLHelper.tagged("number",i));
+				info.append("</topic>");
+			}
+			info.append("</content>");
 			info.append(XMLHelper.tagged("status","" + user + ": setup a new conference step 2"));
-			info.append(XMLHelper.tagged("content",""));
 		}
 		commit(res,tag);	
 	}
@@ -237,7 +240,7 @@ public class Chair extends HttpServlet
 	public void send_setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{ 
 		/*
-		 * FIXME update conference in DB
+		 * TODO update conference in DB
 		 */
 		if (req.getParameter("step").equals("1"))
 		{
@@ -250,7 +253,7 @@ public class Chair extends HttpServlet
 			req.getParameter("final_year"),req.getParameter("final_month"),req.getParameter("final_day"),
 			req.getParameter("review_year"),req.getParameter("review_month"),req.getParameter("review_day"),
 			req.getParameter("not_year"),req.getParameter("not_month"),req.getParameter("not_day"),
-			req.getParameter("min_reviewers")};
+			req.getParameter("min_reviewers"),req.getParameter("topics")};
 		    FormularChecker checker = new FormularChecker(formular);
 			if (checker.check())
 			{
@@ -282,6 +285,7 @@ public class Chair extends HttpServlet
 			    c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min_reviewers")));
 			    InsertServiceImpl insert = new InsertServiceImpl();
 			    insert.insertConference(c);
+			    session.setAttribute("topics",req.getParameter("topics"));
 			    setup_step(req,res,session);
 			}
 			else
@@ -313,6 +317,7 @@ public class Chair extends HttpServlet
 				info.append(XMLHelper.tagged("not_month",formular[21]));
 				info.append(XMLHelper.tagged("not_day",formular[22]));
 				info.append(XMLHelper.tagged("min",formular[23]));
+				info.append(XMLHelper.tagged("topics",formular[24]));
 				info.append("</content>");
 				info.append(XMLHelper.tagged("status","" + user + ": please fill out all *-fields"));
 				commit(res,tag);
@@ -320,9 +325,19 @@ public class Chair extends HttpServlet
 		}
 		else
 		{
+			int topics = Integer.parseInt(session.getAttribute("topics").toString());
+			session.setAttribute("topics",null);
 			/*
-			 * TODO Topics in die DB eintragen
+			 * TODO topic der conference zuordnen und in die Datenbank einfügen
 			 */
+			for(int i=0;i<topics;i++)
+			{
+				if (req.getParameter("topic"+i)==null)
+					break;
+				InsertServiceImpl insert = new InsertServiceImpl();
+			    insert.insertTopic(1,req.getParameter("topic"+i));
+			}
+			setup(req,res,session);
 		}
 	}
 	
@@ -342,7 +357,7 @@ public class Chair extends HttpServlet
 			}
 			catch(IOException io)
 			{
-				
+				// TODO handle Exception
 			}
 		}
 		if (req.getParameter("id")==null)
