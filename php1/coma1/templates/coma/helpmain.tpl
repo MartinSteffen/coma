@@ -1,5 +1,5 @@
 <p class="message">
-  this sould be the Help Page for {keyword}.<br>
+  this sould be the Help Page for the Page '{keyword}'.<br>
   {localhelp}
 </p>
 

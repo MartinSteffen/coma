@@ -58,7 +58,7 @@ if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
   $strContentAssocs['keyword'] = encodeText($_GET['keyword']);
 }
 else {
-  $strContentAssocs['keyword'] = '';
+  $strContentAssocs['keyword'] = 'no given special Page';
 }
 
 $strContentAssocs['localhelp'] = 'TODO: This should be a localized help text for every Situation '.
