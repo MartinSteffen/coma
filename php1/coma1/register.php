@@ -90,6 +90,7 @@ if (isset($_POST['email'])){
                     $_POST['street'], $_POST['city'], $_POST['postalcode'], $_POST['state'],
                     $_POST['country'], $_POST['phone'], $_POST['fax']);
       $strContentAssocs['address'] = encodeText($objPerson->getAddress());
+      $strContentAssocs['country'] = encodeText($objPerson->getCountry());
     }
     else if ($myDBAccess->failed()) {
       // Datenbankfehler?

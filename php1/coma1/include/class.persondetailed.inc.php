@@ -53,23 +53,24 @@ class PersonDetailed extends Person {
 
   function getAddress() {
     $strAddress = $this->strStreet;
-    if (!empty($this->strStreet)) {
+    if ( !empty($this->strStreet) &&
+        (!empty($this->strPostalCode) || !empty($this->strCity))) {
       $strAddress .= ', ';
     }
     $strAddress .= $this->strPostalCode;
     if (!empty($this->strPostalCode) && !empty($this->strCity)) {
       $strAddress .= ' ';
     }
-    $strAddress .= $this->strCity;
-    if ( !empty($strAddress) &&
-        (!empty($this->strState) || !empty($this->strCountry))) {
-      $strAddress .= '<br>';
-    }
-    $strAddress .= $this->strState;
+    $strAddress .= $this->strCity;    
+    return $strAddress;
+  }
+  
+  function getCountry() {
+    $strAddress = $this->strState
     if (!empty($this->strState) && !empty($this->strCountry)) {
-      $strAddress .= ', ';
+      $strAddress .= ' ';
     }
-    $strAddress .= $this->strCountry;
+    $strAddress .= $this->strCountry;    
     return $strAddress;
   }
 

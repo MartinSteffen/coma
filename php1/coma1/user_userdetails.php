@@ -37,6 +37,7 @@ $strContentAssocs['email_link']  = 'mailto:'.$objPerson->strEmail;
 $strContentAssocs['name_title']  = encodeText($objPerson->strTitle);
 $strContentAssocs['affiliation'] = encodeText($objPerson->strAffiliation);
 $strContentAssocs['address']     = encodeText($objPerson->getAddress());
+$strContentAssocs['country']     = encodeText($objPerson->getCountry());
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $content->assign($strContentAssocs);

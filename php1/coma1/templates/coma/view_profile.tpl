@@ -47,7 +47,7 @@
       Address:
     </td>
     <td class="viewline">
-      {address}
+      {address}<br>{country}
     </td>
   </tr>
 </table>
