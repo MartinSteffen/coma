@@ -131,7 +131,7 @@ if (!empty($objPapers)) {
       $strItemAssocs['variance']   = encodeText(round($fltVariance * 100).'%');
       if ($fltVariance >= $objConference->fltCriticalVariance) {
         $ifArray[] = 6;
-        $ifArray[] = ALERT;
+        $ifArray[] = 'ALERT';
         $strItemAssocs['line_no'] = 'alert-'.$lineNo;
       }
       else {
