@@ -77,6 +77,43 @@ if ($_POST['submit']) {
 					if (is_array($dbok)) {
 						$errors[]=$dbok['text'];
 					} else {
+						$insertstatement4="
+							INSERT INTO criterion (
+								conference_id, name, description, max_value, quality_rating)
+							VALUES (
+								$conf_id, 'confidence','How do you think about your competence?',10,25)";
+						$dbok=$sql->insert($insertstatement4);
+						if (is_array($dbok)) {
+							$errors[]=$dbok['text'];
+						}
+						$insertstatement4="
+							INSERT INTO criterion (
+								conference_id, name, description, max_value, quality_rating)
+							VALUES (
+								$conf_id, 'presentation','What do you think about the papers presentational aspect? Language correctness? Liveliness?',10,25)";
+						$dbok=$sql->insert($insertstatement4);
+						if (is_array($dbok)) {
+							$errors[]=$dbok['text'];
+						}
+						$insertstatement4="
+							INSERT INTO criterion (
+								conference_id, name, description, max_value, quality_rating)
+							VALUES (
+								$conf_id, 'originality','New stuff or well-known?',10,25)";
+						$dbok=$sql->insert($insertstatement4);
+						if (is_array($dbok)) {
+							$errors[]=$dbok['text'];
+						}
+						$insertstatement4="
+							INSERT INTO criterion (
+								conference_id, name, description, max_value, quality_rating)
+							VALUES (
+								$conf_id, 'technical content','Any technical bugs or ready-to-run?',10,25)";
+						$dbok=$sql->insert($insertstatement4);
+						if (is_array($dbok)) {
+							$errors[]=$dbok['text'];
+						}
+
 						if (count($errors)==0) {
 							redirect("admin",false,false,"a=conferences");
 						}
