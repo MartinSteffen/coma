@@ -106,7 +106,7 @@ $strContentAssocs['country']     = encodeText($objPerson->strCountry);
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $strContentAssocs['message'] = '';
-if (isset($strMessage)) {
+if (!empty($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
   $strContentAssocs['if'] = array(9);
 }
