@@ -58,11 +58,12 @@ if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
     $strItemAssocs = defaultAssocArray();
-    $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
-    $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
+    $strItemAssocs['line_no']     = $lineNo;
+    $strItemAssocs['title']       = encodeText($objPaper->strTitle);
+    $strItemAssocs['paper_id']    = encodeText($objPaper->intId);
+    $strItemAssocs['author_id']   = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
+    $strItemAssocs['&popup']      = ($popup ? '&amp;popup' : '');
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     $paperItem = new Template(TPLPATH.'chair_preferpaperlistitem.tpl');
     $paperItem->assign($strItemAssocs);
@@ -86,10 +87,10 @@ if (!empty($objTopics)) {
   $lineNo = 1;
   foreach ($objTopics as $objTopic) {
     $strItemAssocs = defaultAssocArray();
-    $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['topic'] = encodeText($objTopic->strName);
-    $strItemAssocs['topic_id'] = encodeText($objTopic->intId);
-    $strItemAssocs['if'] = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
+    $strItemAssocs['line_no']  = $lineNo;
+    $strItemAssocs['topic']    = encodeText($objTopic->strName);
+    $strItemAssocs['topic_id'] = encodeText($objTopic->intId);    
+    $strItemAssocs['if']       = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
     $topicItem = new Template(TPLPATH.'chair_prefertopiclistitem.tpl');
     $topicItem->assign($strItemAssocs);
     $topicItem->parse();
