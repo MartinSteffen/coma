@@ -8,15 +8,17 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('class.mysql.inc.php');
-require_once('class.person.inc.php');
-require_once('class.persondetailed.inc.php');
-require_once('class.paper.inc.php');
-require_once('class.papersimple.inc.php');
-require_once('class.paperdetailed.inc.php');
-require_once('class.message.inc.php');
-require_once('class.forum.inc.php');
-require_once('class.forumdetailed.inc.php');
+// by Jan: verbesserter Include
+$strRelPath = dirname(__FILE__).'/';
+require_once($strRelPath.'class.mysql.inc.php');
+require_once($strRelPath.'class.person.inc.php');
+require_once($strRelPath.'class.persondetailed.inc.php');
+require_once($strRelPath.'class.paper.inc.php');
+require_once($strRelPath.'class.papersimple.inc.php');
+require_once($strRelPath.'class.paperdetailed.inc.php');
+require_once($strRelPath.'class.message.inc.php');
+require_once($strRelPath.'class.forum.inc.php');
+require_once($strRelPath.'class.forumdetailed.inc.php');
 
 /**
  * Klasse DBAccess

@@ -28,12 +28,13 @@ function checkError(&$class) {
 error_reporting(E_ALL);
 ini_set('display_errors', '1'); // später 0 ??
 ini_set('display_startup_errors', '1'); // später 0 !!
-ini_set('track_errors', '1');
 ini_set('warn_plus_overloading', '1');
 
-require_once('class.mysql.inc.php');
-require_once('class.session.inc.php');
-require_once('class.dbaccess.inc.php');
+$strRelPath = dirname(__FILE__).'/';
+require_once($strRelPath.'class.mysql.inc.php');
+require_once($strRelPath.'class.session.inc.php');
+require_once($strRelPath.'class.dbaccess.inc.php');
+echo $strRelPath;
 
 $mySql = new MySql();
 checkError($mySql);
@@ -43,5 +44,11 @@ checkError($mySession);
 
 $myDBAccess = new DBAccess($mySql);
 checkError($myDBAccess);
+
+// Check ob User eingeloggt ist
+if (!myDBAccess->checkLogin()) {
+  session_write_close();
+  header('Location:'.dirname(PHP_SELF).'/login.php');
+}
 
 ?>

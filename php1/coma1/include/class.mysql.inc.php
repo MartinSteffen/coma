@@ -57,7 +57,7 @@ class MySql {
    */
   function MySql() {
     // ACHTUNG: nicht once! (da nur lokal verfügbar)
-    require('config.inc.php');
+    require(dirname(__FILE__).'/config.inc.php');
     $this->mySqlServer = $sqlServer;
     $this->mySqlUser = $sqlUser;
     $this->mySqlPassword = $sqlPassword;

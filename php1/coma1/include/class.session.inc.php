@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS Sessions (
  * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
  * @subpackage Session
- * @todo Bessere Tabellenstruktur grade im Bereich stime!?!?!
  * @access public
  *
  */
