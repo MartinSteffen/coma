@@ -75,7 +75,7 @@ if (isset($_POST['action'])) {
 $content = new Template(TPLPATH.'reviewer_editreview.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
-$strContentAssocs['targetpage']   = "reviewer_editreview.php"
+$strContentAssocs['targetpage']   = "reviewer_editreview.php";
 $strContentAssocs['review_id']    = encodeText($intReviewId);
 $strContentAssocs['paper_id']     = encodeText($objReview->intPaperId);
 $strContentAssocs['title']        = encodeText($objReview->strPaperTitle);
