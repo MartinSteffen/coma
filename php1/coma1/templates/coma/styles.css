@@ -9,6 +9,10 @@ body, p, pre, ul
   font-size: 12px;
   vertical-align: top;
 }
+ul
+{
+  text-indent: 5px;
+}
 body
 {
   background-color: #FFFFFF;
