@@ -1,5 +1,8 @@
   <tr class="listitem-1">
     <td class="listitem-{line_no}">
+      {ifALERT <img src="{path}images/alert.gif" width="15" height="15" border="0" alt="alert">}&nbsp;
+    </td>
+    <td class="listitem-{line_no}">
       <a href="{basepath}user_userdetails.php?userid={user_id}{&SID}" class="link">{name}</a>
     </td>
     <td class="listitem-{line_no}">

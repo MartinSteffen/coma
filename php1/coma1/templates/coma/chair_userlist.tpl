@@ -1,5 +1,6 @@
 <table class="list">
   <tr class="listheader">
+    <th class="listheader">&nbsp;</th>
     <th class="listheader">
       <a href="{basepath}{targetpage}?order=1{&SID}" class="order{if1-active}">Name</a>
     </th>

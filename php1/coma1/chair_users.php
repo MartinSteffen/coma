@@ -133,12 +133,15 @@ if (!empty($objPersons)) {
     $strItemAssocs['email']      = encodeText($objPerson->strEmail);
     $strItemAssocs['email_link'] = encodeText('mailto:'.$objPerson->strEmail);
     $strItemAssocs['targetform'] = 'chair_users.php';
+    $ifArray = array();
     if ($objPerson->hasRole(REVIEWER)) {
-      $strItemAssocs['if'] = array(1);
+      $ifArray[] = 1;
     }
-    else {
-      $strItemAssocs['if'] = array();
+    if ($objPerson->hasAnyRoleRequest()) {      
+      $strItemAssocs['line_no']  = 'alert-'.$lineNo;
+      $ifArray[] = 'ALERT';
     }
+    $strItemAssocs['if'] = $ifArray;
     $strItemAssocs['roles'] = '';
     for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
@@ -176,7 +179,7 @@ if (!empty($objPersons)) {
 else {
   // Benutzerliste ist leer.
   $strItemAssocs = defaultAssocArray();
-  $strItemAssocs['colspan'] = '4';
+  $strItemAssocs['colspan'] = '5';
   $strItemAssocs['text'] = 'There are no users available.';
   $emptyList = new Template(TPLPATH.'empty_list.tpl');
   $emptyList->assign($strItemAssocs);
