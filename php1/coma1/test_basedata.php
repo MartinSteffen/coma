@@ -136,6 +136,21 @@ while ($j < $papers) {
 
 echo '.';
 $i = 0;
+while ($i < $conferences) {
+  $j = 0;
+  while ($j < $criterions) {
+  echo 'Cr<br>';
+    $myDBAccess->addCriterion($i+1, 'Name'.$i.$j, 'Description'.$i.$j, rand(6,10),rand(0,100) );
+    if ($myDBAccess->failed()) {
+	  echo('Fehler: '.$myDBAccess->getLastError());
+}
+    $j++;
+  }
+  $i++;
+}
+
+echo '.';
+$i = 0;
 while ($i < $reports) {
 $j = 0;
   while($j < $criterions) {
@@ -172,21 +187,6 @@ echo 'M<br>';
   if ($myDBAccess->failed()) {
     echo('Fehler: '.$myDBAccess->getLastError());
 }
-  $i++;
-}
-
-echo '.';
-$i = 0;
-while ($i < $conferences) {
-  $j = 0;
-  while ($j < $criterions) {
-  echo 'Cr<br>';
-    $myDBAccess->addCriterion($i+1, 'Name'.$i.$j, 'Description'.$i.$j, rand(6,10),rand(0,100) );
-    if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
-}
-    $j++;
-  }
   $i++;
 }
 
