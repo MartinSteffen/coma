@@ -82,7 +82,7 @@ class Distribution extends ErrorHandling {
     $r_id = array(); // Zuordnung [0..n-1] -> [RevID1, ... RevIDn]
     $r_id_index = array(); // Zuordnung [RevID1, ... RevIDn] -> [0..n-1]
     // Anzahl moeglicher Reviewer fuer das Paper unter Beruecksichtigung der Wuensche
-    $p_num_revs_pref_left = array();
+    //$p_num_revs_pref_left = array();
     // Anzahl moeglicher Reviewer fuer das Paper insgesamt
     $p_num_revs_total_left = array();
     // Verteilte Reviewer fuer Paper
@@ -162,7 +162,7 @@ class Distribution extends ErrorHandling {
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
     $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
 
-    $p_num_revs_pref_left = array_fill(0, count($p_id), 0);
+    //$p_num_revs_pref_left = array_fill(0, count($p_id), 0);
     $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
     $p_num_revs = array_fill(0, count($p_id), 0);
     $r_num_papers = array_fill(0, count($r_id), 0);
@@ -246,7 +246,7 @@ class Distribution extends ErrorHandling {
         //$this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
         $pindex = $p_id_index[$prefers[$j]['paper_id']];
         if ($matrix[$i][$pindex] == 1) {
-          $p_num_revs_pref_left[$pindex]++;
+          //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = PREF;
         }
       }
@@ -266,7 +266,7 @@ class Distribution extends ErrorHandling {
         //$this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
         $pindex = $p_id_index[$wants[$j]['paper_id']];
         if ($matrix[$i][$pindex] == NEUTRAL) {
-          $p_num_revs_pref_left[$pindex]++;
+          //$p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = WANT;
         }
       }
@@ -307,9 +307,9 @@ class Distribution extends ErrorHandling {
         }
         if ($rindex >= 0) {
           $blnChanged = true;
-          if ($matrix[$rindex][$pindex] > 1) {
-            $p_num_revs_pref_left[$pindex]--;
-          }
+          //if ($matrix[$rindex][$pindex] > 1) {
+          //  $p_num_revs_pref_left[$pindex]--;
+          //}
           $p_num_revs_total_left[$pindex]--;
           $p_num_revs[$pindex]++;
           $r_num_papers[$rindex]++;
@@ -318,6 +318,14 @@ class Distribution extends ErrorHandling {
           for ($i = 0; $i < count($p_id); $i++) {
             if ($matrix[$rindex][$i] > 1) {
               $matrix[$rindex][$i] /= 2.0;
+              // Reviewer schon ueber dem Schnitt? Dann nochmal reduzieren!
+              if ($r_num_paper[$rindex] > $avg_revs && $matrix[$rindex][$i] > 1) {
+                $matrix[$rindex][$i] /= 2.0;
+              }
+              if ($r_num_paper[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
+                $matrix[$rindex][$i] = 0;
+                $p_num_revs_total_left[$pi]--;
+              }
             }
           }
         }
@@ -336,8 +344,8 @@ class Distribution extends ErrorHandling {
     print_r($p_id_index);
     echo('<br>r_id_index:');
     print_r($r_id_index);
-    echo('<br>NumRevsPrefLeft:');
-    print_r($p_num_revs_pref_left);
+    //echo('<br>NumRevsPrefLeft:');
+    //print_r($p_num_revs_pref_left);
     echo('<br>NumRevsTotalLeft:');
     print_r($p_num_revs_total_left);
     echo('<br>NumRevs:');
