@@ -28,9 +28,9 @@
       <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a> &nbsp;
      </td>
     </tr>
-    <tr height="50" bgcolor="#DBE9EC">
-     <td width="70" style="background-image:url({path}images/menueleft2.gif)" height="50"> &nbsp; </td>
-     <td colspan="2" height="50" valign="middle" style="background-image:url({path}images/menue2.gif)">
+    <tr height="25" bgcolor="#DBE9EC">
+     <td width="70" style="background-image:url({path}images/menueleft2.gif)" height="25"> &nbsp; </td>
+     <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue2.gif)">
       {navigator}
      </td>
     </tr>
