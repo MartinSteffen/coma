@@ -28,10 +28,10 @@ function validSelection($selectarray){
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
 function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray){
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
-  $typeopenassocs = deflautAssocArray();
+  $typeopenassocs = defaultAssocArray();
   $typeopenassocs['type'] = 'Open forums';
   $forumtypepaper = new Template(TPLPATH . 'forumtypes.tpl');
-  $typepaperassocs = deflautAssocArray();
+  $typepaperassocs = defaultAssocArray();
   $typepaperassocs['type'] = 'Paper forums';
   $forumtypechair = new Template(TPLPATH . 'forumtypes.tpl');
   $typechairassocs = defaultAssocArray();
