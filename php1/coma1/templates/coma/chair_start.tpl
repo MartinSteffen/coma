@@ -13,19 +13,23 @@
     <td class="viewline">      
       Select <a href="{basepath}chair_users.php{?SID}">'Manage users'</a> to activate or delete user accounts,
       or to add and remove roles to single users.
+      {if1<br><span class="alert">There are accounts waiting for you to be activated.</span>}
+      {if2<br><span class="alert">There are requests for roles waiting for you to be confirmed.</span>}
     </td>
   </tr>
   <tr class="viewline">
     <td class="viewline">      
       Select <a href="{basepath}chair_papers.php{?SID}">'Manage papers'</a> to view or remove papers,
-      or to change the actual status of articles. You can accept or reject papers or take part in
+      or to change the actual status of articles.<br>You can accept or reject papers or take part in
       the reviewing discussion of papers.
+      {if3<br><span class="alert">New papers have been submitted since your last login.</span>}      
     </td>
   </tr>
   <tr class="viewline">
     <td class="viewline">      
       Select <a href="{basepath}chair_reviews.php{?SID}">'Manage reviews'</a> to distribute papers to
       reviewers and to gather information about the reviewing process of papers.
+      {if4<br><span class="alert">There are papers waiting for you to be distributed to reviewers.</span>}
     </td>
   </tr>
   <tr class="viewline">

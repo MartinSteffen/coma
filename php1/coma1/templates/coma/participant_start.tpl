@@ -12,8 +12,10 @@
   <tr class="viewline">
     <td class="viewline">      
       Select <a href="{basepath}participant_settings.php{?SID}">'Edit my participation'</a>
-      to edit information regarding your participation in this conference.<br> 
-      This feature is not yet implemented in this version of <span class="emph">CoMa</span>.
+      to edit information regarding your participation in this conference, as well as
+      your payment details.
+      {if1<br><span class="alert">The conference is starting soon. You should submit your
+      participation and payment details soon.</span>}
     </td>
   </tr>
 </table>
