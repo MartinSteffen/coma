@@ -13,6 +13,7 @@
     <th width="10%" class="listheader">My rating</th>
     <th width="10%" class="listheader">Total rating</th>
     <th width="15%" class="listheader">Discussion</th>    
+    <th>&nbsp;</th>
    </tr>
 
   <tr class="listitem-1"> 
