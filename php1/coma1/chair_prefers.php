@@ -22,14 +22,14 @@ $popup = (isset($_GET['popup'])) ? true : false;
 // Lade die Daten des Benutzers
 if (isset($_GET['userid']) || isset($_POST['userid'])) {
   $intPersonId = (isset($_GET['userid']) ? $_GET['userid'] : $_POST['userid']);
-  $objPerson = $myDBAccess->getPersonDetailed($intPersonId, session('confid'));
+  $objReviewer = $myDBAccess->getPersonDetailed($intPersonId, session('confid'));
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving person.', $myDBAccess->getLastError());
   }
-  else if (empty($objPerson)) {
+  else if (empty($objReviewer)) {
     error('Person '.$intPersonId.' does not exist in database.', '');
   }
-  else if (!$objPerson->hasRole(REVIEWER)) {
+  else if (!$objReviewer->hasRole(REVIEWER)) {
     error('Person '.$intPersonId.' is no Reviewer.', '');
   }
 }
@@ -125,7 +125,7 @@ else {
   $main = new Template(TPLPATH.'popup_frame.tpl');
 }
 
-$strMainAssocs['title'] = 'View preferences of reviewer '.encodeText($objPerson->getName(0));
+$strMainAssocs['title'] = 'View preferences of reviewer '.encodeText($objReviewer->getName(0));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Preferences';
 
