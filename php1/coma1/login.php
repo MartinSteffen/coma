@@ -28,7 +28,7 @@ elseif (isset($_SESSION['uname']) && isset($_SESSION['password'])) {
   $_SESSION['message'] = 'Username or Password is wrong!';
 }
 
-if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
+if ((isset($_POST['action'])) && ($_POST['action'] == 'login')) {
   /* Einlog-Versuch */
   if (isset($_POST['user_name'])
   &&  isset($_POST['user_password'])
