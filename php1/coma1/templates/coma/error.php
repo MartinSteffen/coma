@@ -1,5 +1,8 @@
 <?php
 /**
+ * Die einzige .php Datei die zu den Templates gehoert.
+ * Grund: Fehlerausgabe darf niemals einen Fehler produzieren!
+ *
  * @version $Id$
  * @package coma1
  * @subpackage core
@@ -31,12 +34,6 @@ if (!defined('IN_COMA1')) {
     <tr>
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
-     <!--
-      <a href="<?=COREURL?>imprint.php?<?=SID?>">Imprint</a>&nbsp;|&nbsp;
-      <a href="<?=COREURL?>forum.php?<?=SID?>">Forum</a>&nbsp;|&nbsp;
-      <a href="<?=COREURL?>logout.php?<?=SID?>">Logout</a>&nbsp;&nbsp;
-      <a href="<?=COREURL?>help.php?<?=SID?>"><img src="<?=TPLURL?>images/info.gif" width="15" height="15" border="0" alt="Info"></a>
-     -->
        &nbsp;
      </td>
     </tr>
@@ -65,7 +62,11 @@ if (!defined('IN_COMA1')) {
     <p>&nbsp;</p>
 
     <p class="center">
-      Click here to return to the <a href="<?=COREURL?>index.php?<?=SID?>">start page</a>!
+      <ul>
+       <li>Return to the <a href="<?=COREURL?>index.php?<?=SID?>">start page</a>!
+       <li>Try again and <a href="javascript:location.reload()">reload the page</a>!
+       <li>go one step <a href="javascript:history.back()">back in time</a>!
+      </ul>
     </p>
 
     <p>&nbsp;</p>
@@ -92,5 +93,6 @@ if (!defined('IN_COMA1')) {
 </body>
 </html>
 <?php
-  die();
+  // Ausfuehrung beenden
+  die(1);
 ?>
