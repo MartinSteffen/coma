@@ -346,6 +346,10 @@ else{
     $forums = $myDBAccess->getForumsOfPerson(getUID(), getCID());
   }
 
+  if (empty($forums)){
+    $forums = array();
+  }
+
   //selektionen updaten
   if (!empty($HTTP_GET_VARS['select'])){
     $tselect = $HTTP_GET_VARS['select'];
