@@ -36,7 +36,7 @@ function chair_task()
 {
 	$tasks = array();	
 	
-	//Find the new papers
+	//Find the new papers -----------------------------------------------------------------------
 	$SQL = "select person.id, person.title, person.first_name, person.last_name, 
 			conference.name,
 			paper.id, paper.state, paper.title
@@ -63,7 +63,7 @@ function chair_task()
 		$count++;		
 	}
 	
-	//Find the papers that are totally reviewed
+	//Find the papers that are totally reviewed ----------------------------------------------------
 	$SQL1 = "select person.id, person.title, person.first_name, person.last_name, 
 			conference.id, conference.name,
 			paper.id, paper.title
@@ -128,6 +128,33 @@ function chair_task()
 			$tasks[$count] = $task;
 			$count++;			
 		}
+	}
+	
+	//Find the conferences that have no topics --------------------------------------------------------------
+	$SQL = "select conference.id, conference.name 
+			from conference,role 
+			where role.role_type = 2
+			and role.state = 1 
+			and role.person_id = ".$_SESSION['userID']."
+			and role.conference_id = conference.id";
+			
+    $result=mysql_query($SQL);
+    while ($list = mysql_fetch_row ($result)) 	
+	{
+		$conferenceID = $list[0];
+		$conferenceName = $list[1];
+		//Look if it has topics
+		$SQL2 = "SELECT id FROM topic WHERE conference_id = ".$conferenceID;
+		$result2=mysql_query($SQL2);
+		if (!($list2 = mysql_fetch_row ($result2)))
+		{
+		    $task = array();	
+			$task[] = array("text"=>"Conference", "action"=>$conferenceName);
+			$taskLink = "<a href=\"index.php?m=chair&a=conferences&s=conference&confID=$conferenceID\" class=\"normal\">The conference has no topics. You must add some.</a>";		
+			$task[] = array("text"=>"Task", "action"=>$taskLink);	
+			$tasks[$count] = $task;
+			$count++;							
+		} 
 	}			
 
 	return $tasks;

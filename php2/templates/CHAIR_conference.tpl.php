@@ -192,24 +192,69 @@ $topics = $input['topics'];
   foreach ($topics as $topic)
   {  ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="form<? echo $topic['topicID'] ?>" method="post" action="index.php?m=chair&a=conferences&s=updateTopic">
+  <input type="hidden" name="topicID" value="<? echo $topic['topicID'] ?>">
+  <input type="hidden" name="confID" value="<? echo $conference['confID'] ?>">  
   <tr> 
-    <td width="110" class="textBold">Topic name</td>
-    <td width="100%" class="text"><? echo $topic['topicName'] ?></td>
-    <td width="170" align="center"><a href="index.php?m=chair&a=papers&s=allPapersOfTopic&topicID=<? echo $topic['topicID'] ?>" class="menus">List 
-      all papers in the topic</a></td>
-    <td width="170" align="right" class="normal"><a href="index.php?m=chair&a=conferences&s=deleteTopic&topicID=<? echo $topic['topicID'] ?>" class="normal">Delete 
-      the topic</a></td>
-    <td width="29">&nbsp;</td>
+      <td width="90" class="textBold" align="left" valign="middle">Topic name</td>
+      <td width="100%" class="text" align="left" valign="middle"> 
+        <input type="text" name="topicName" value="<? echo $topic['topicName'] ?>" maxlength="127" size="30">
+      </td>
+      <td width="200" align="center" valign="middle"><a href="index.php?m=chair&a=papers&s=allPapersOfTopic&topicID=<? echo $topic['topicID'] ?>" class="menus">List 
+        all papers in the topic</a></td>
+	  <td width="140" align="center" valign="middle"> 
+        <input type="submit" name="Submit" value="Update topic">
+    </td>
+      <td width="100" align="right" class="normal" valign="middle"><a href="index.php?m=chair&a=conferences&s=deleteTopic&topicID=<? echo $topic['topicID'] ?>&confID=<? echo $conference['confID'] ?>" class="normal" onclick="return confirm('Are you sure you want to delete this topic?\r\nAll the papers in this topic will be deleted!')">Delete 
+        the topic</a></td>
+    <td width="29">&nbsp;</td>	
   </tr>
+ </form>  
   <tr> 
-    <td height="1"><img height="1" width="110" src="/templates/images/spacer.gif"></td>
+    <td height="1"><img height="1" width="90" src="/templates/images/spacer.gif"></td>
     <td></td>
-    <td><img height="1" width="170" src="/templates/images/spacer.gif"></td>
-    <td><img height="1" width="170" src="/templates/images/spacer.gif"></td>
+    <td><img height="1" width="200" src="/templates/images/spacer.gif"></td>
+    <td><img height="1" width="140" src="/templates/images/spacer.gif"></td>	
+    <td><img height="1" width="100" src="/templates/images/spacer.gif"></td>
     <td><img height="1" width="29" src="/templates/images/spacer.gif"></td>
   </tr>
 </table>
+<? } ?>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td class="textBold" width="100%">Insert a new paper:</td>
+  </tr>
+  <tr> 
+    <td class="textBold" width="100%">&nbsp;</td>
+  </tr>  
+  <form name="formNew" method="post" action="index.php?m=chair&a=conferences&s=addTopic">
+    <input type="hidden" name="confID" value="<? echo $conference['confID'] ?>">
+    <tr> 
+      <td class="textBold"> 
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td width="90" class="textBold" align="left" valign="middle">Topic 
+              name</td>
+            <td width="220" align="left" valign="middle"> 
+              <input type="text" name="topicName" size="30" maxlength="127">
+            </td>
+            <td width="100%" align="left" valign="middle">
+              <input type="submit" name="Submit" value="Add topic">
+            </td>
+          </tr>
+          <tr> 
+            <td height="1"><img height="1" width="90" src="/templates/images/spacer.gif"></td>
+            <td><img height="1" width="220" src="/templates/images/spacer.gif"></td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </form>
+</table>
+<br>
+<br>
 <?
-  }
 include("footer.tpl.php");
 ?>
