@@ -15,8 +15,6 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 require_once('./include/class.distribution.inc.php');
 
-redirect('chair_start.php');
-
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
 if ($myDBAccess->failed()) {
@@ -27,15 +25,15 @@ else if (!$checkRole) {
 }
 
 if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
-//  if (!isset($_SESSION['dist'])) || !isset($_SESSION['dist_check']) ||
-//      !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
+  if (!isset($_SESSION['dist'])) || !isset($_SESSION['dist_check']) ||
+      !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
     unset($_SESSION['dist']);
-//    unset($_SESSION['dist_check']);
+    unset($_SESSION['dist_check']);
     redirect('chair_reviews.php');
-//  }
-/*  if ($_POST['dist_check'] != $_SESSION['dist_check']) {
+  }
+  if ($_POST['dist_check'] != $_SESSION['dist_check']) {
     error('Conflict.', 'Distribution not updated.');
-  }*/
+  }
   $dist = $_SESSION['dist'];
   reset($dist);
   while ($pid = key($dist)) {
