@@ -80,8 +80,10 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
     foreach ($objPapers as $objPaper) {
       $ifArray = array();
       $strItemAssocs = defaultAssocArray();
-      $strItemAssocs['line_no'] = $lineNo;
-      $strItemAssocs['paper_id'] = encodeText($objPaper->intId);      
+      $strItemAssocs['line_no']     = $lineNo;
+      $strItemAssocs['paper_id']    = encodeText($objPaper->intId);
+      $strItemAssocs['author_id']   = '';
+      $strItemAssocs['author_name'] = '';
       $ifArray[] = $objPaper->intStatus;
       if (!empty($objPaper->strFilePath)) {
         $ifArray[] = 5;
