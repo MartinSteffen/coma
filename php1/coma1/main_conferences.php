@@ -7,7 +7,6 @@
 /***/
 
 define('IN_COMA1', true);
-define('NEED_NO_LOGIN', false);
 require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'conference_list.tpl');
