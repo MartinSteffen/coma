@@ -43,6 +43,6 @@ echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br>');
 
 $p = new PaperDetailed(1, 'Title', 1, 2, 0, '', 'No Co-Authors', 'Abstract', 0, 'Last Edit', 'File Path');
 
-echo('Editierdatum: '.$p->strLastEdit.'<br>');
+echo($p->strTitle.'-Editierdatum: '.$p->strLastEdit.'<br>');
 
 ?>
