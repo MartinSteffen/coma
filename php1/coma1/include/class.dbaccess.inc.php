@@ -587,13 +587,13 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPaper', $this->getLastError());
     }
-    $objAuthor = $this->getPerson($data[$i]['author_id']);
+    $objAuthor = $this->getPerson($data[0]['author_id']);
     if ($this->failed()) {
       return $this->error('getPaper', $this->getLastError());
     }
     else if (empty($objAuthor)) {
       return $this->error('getPaper', 'Fatal error: Database inconsistency!',
-                          'author_id = '.$data[$i]['author_id']);
+                          'author_id = '.$data[0]['author_id']);
     }
     $strAuthor = $objAuthor->getName();
     $objPaper = (new PaperSimple($intPaperId, $data[0]['title'], $data[0]['author_id'],
