@@ -17,7 +17,7 @@ require_once('./include/header.inc.php');
 if (isset($_GET['order'])) {
   $_SESSION['orderusers'] = $_GET['order'];  
 }
-$intOrder = (int)session('orderusers', false)
+$intOrder = (int)session('orderusers', false);
 $ifArray = array($intOrder);
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {

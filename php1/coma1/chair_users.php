@@ -52,7 +52,7 @@ if (isset($_POST['action'])) {
 if (isset($_GET['order'])) {
   $_SESSION['orderusers'] = $_GET['order'];  
 }
-$intOrder = (int)session('orderusers', false)
+$intOrder = (int)session('orderusers', false);
 $ifArray = array($intOrder);
 
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'), $intOrder);
