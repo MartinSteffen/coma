@@ -12,7 +12,7 @@
             <input type="submit" name="del_crit-{crit_no}" value="Remove" class="smallbutton">
           </td>          
         </tr>
-        <tr>
+        <tr class="formlistitem">>
           <td class="formlistitem" colspan="3">
             Description: <textarea name="crit_descr-{crit_no}" rows="1" cols="48">{crit_descr}</textarea>
           </td>

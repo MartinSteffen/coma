@@ -104,23 +104,24 @@
         </tr>
         {crit_lines}
         <tr class="formlistitem">
-          <td class="formlistitem">
+          <td>
             <input type="text" name="crit_name" size="32" maxlength="127" value="">
           </td>
-          <td class="formlistitem">
+          <td>
             <input type="text" name="crit_maxvalue" size="8" maxlength="8" value="">
           </td>
-          <td class="formlistitem">
+          <td>
             <input type="text" name="crit_weight" size="8" maxlength="8" value="">
           </td>          
-          <td class="formlistitem">
+          <td>
             <input type="submit" name="add_crit" value="Add" class="smallbutton">
-          </td>          
+          </td>
         </tr>
-        <tr>
-          <td colspan="4">
+        <tr class="formlistitem">
+          <td colspan="3" class="formlistitem">
             Description: <textarea name="crit-descr" rows="1" cols="48"></textarea>
           </td>
+          <td class="formlistitem">&nbsp;</td>
         </tr>
       </table>
     </td>

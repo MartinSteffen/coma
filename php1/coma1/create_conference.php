@@ -51,7 +51,7 @@ if (isset($_POST['action'])) {
     $strCritWeights   = array();
     for ($i = 0; $i < $intTopicNum; $i++) {      
       if (!isset($_POST['del_topic-'.($i+1)])) {
-        $strTopics[$i] = encodeText($_POST['topic_name-'.($i+1)]);
+        $strTopics[] = encodeText($_POST['topic_name-'.($i+1)]);
       }
     }     
     for ($i = 0; $i < $intCritNum; $i++) {
@@ -75,7 +75,7 @@ if (isset($_POST['action'])) {
     */  
   }
   if ( isset($_POST['adv_config']) ||
-      (isset($_POST['advanced']) && !isset($_POST['simple_setup']))) {
+      (isset($_POST['advanced']) && !isset($_POST['simple_config']))) {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
     $strContentAssocs['topic_lines'] = '';
     $strContentAssocs['crit_lines']  = '';
