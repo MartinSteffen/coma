@@ -40,16 +40,16 @@ table      { border-style: none;
 
 /* startmenue */
 table.menu  { border-style: none;
-              height: 100%; 
               width: 150px;
               padding: 10px;
               vertical-align: top;
               text-align: left;
               background-color: #F7FBFF;
             }
+td.menu { width: 150px; min-height: 450px; background-color: #F7FBFF; }
 
 /* tabelle fuer den seiteninhalt */
-table.body { width: 100%; height: 100%; min-height: 450px; }
+table.body { width: 100%; min-height: 450px; }
 
 /* tabelle fuer die kopfzeile */
 table.header { width: 100%; background-color: #DBE9EC; }
