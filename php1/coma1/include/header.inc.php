@@ -98,7 +98,7 @@ function session_delete($strName) {
   }
 }
 
-/** 
+/**
  * This function encodes the string.
  *
  * You can safetly use this function to save its result in a
@@ -119,7 +119,7 @@ function encodeText($_str) {
   return($_str);
 }
 
-/** 
+/**
  * This function decodes the string.
  *
  * @param string $_str String to decode
@@ -133,14 +133,23 @@ function decodeText($_str) {
   return($_str);
 }
 
-/** 
+/**
  * This function makes an encoded String URL valid (gives an valid Link!)
  *
  * @param string $_str String to encode
  * @return string encoded string
  */
 function encodeURL($_str) {
-  // Add some Code :)
+  $_str = decodeText($_str);
+  $_str = str_replace('\'', urlencode('\''), $_str);
+  $_str = str_replace('"', urlencode('"'), $_str);
+  if (!preg_match('#^http[s]?:\/\/#i', $_str)) {
+    $_str = 'http://' . $_str;
+  }
+  if (!preg_match('#^http[s]?\\:\\/\\/[a-z0-9\-]+\.([a-z0-9\-]+\.)?[a-z]+#i', $_str))
+  {
+    $_str = '';
+  }
   return($_str);
 }
 
