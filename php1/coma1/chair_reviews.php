@@ -27,7 +27,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Distribute papers and manage reviews';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Chair  |  Reviews';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews';
 
 $main->assign($strMainAssocs);
 $main->parse();

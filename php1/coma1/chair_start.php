@@ -24,10 +24,10 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Main tasks for chair '.session('uname');
+$strMainAssocs['title'] = 'Main tasks for chair '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Chair  |  Main';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Main';
 
 $main->assign($strMainAssocs);
 $main->parse();

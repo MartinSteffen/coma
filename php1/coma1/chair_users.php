@@ -27,7 +27,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Manage users';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Chair  |  Users';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Users';
 
 $main->assign($strMainAssocs);
 $main->parse();

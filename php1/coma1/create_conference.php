@@ -19,6 +19,7 @@ $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
+// siehe vond er Struktur her main_profile.php
 if (isset($_POST['action'])) {
   $strContentAssocs['name']             = $_POST['name'];
   $strContentAssocs['description']      = $_POST['description'];
