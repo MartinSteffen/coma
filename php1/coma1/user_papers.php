@@ -38,8 +38,8 @@ if (!empty($objPapers)) {
       $ifArray[] = 5;
     }
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
-    $strItemAssocs['last_edited'] = 'TODO';        
+    $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
+    $strItemAssocs['last_edited'] = encodeText(emptytime(strtotime($objPaper->strLastEdit)));
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
     $paperItem->assign($strItemAssocs);

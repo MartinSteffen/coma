@@ -20,7 +20,7 @@
   <tr class="viewline">
     <td class="viewline">      
       Select <a href="{basepath}chair_papers.php{?SID}">'Manage papers'</a> to view or remove papers,
-      or to change the actual status of articles.<br>You can accept or reject papers or take part in
+      or to change the current status of articles.<br>You can accept or reject papers or take part in
       the reviewing discussion of papers.
       {if2<br><span class="alert">New papers have been submitted since your last login.</span>}      
     </td>

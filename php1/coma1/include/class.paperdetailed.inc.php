@@ -32,15 +32,14 @@ class PaperDetailed extends PaperSimple {
                        // beide CoAuthor-Arrays muessen gleiche Laenge haben, da sie sich immer
                        // direkt aufeinander beziehen (intCoAuthorIds darf false-Eintraege haben)
   var $strAbstract;
-  var $strMimeType;
-  var $strLastEdit;
+  var $strMimeType;  
   var $intVersion;
   var $strFilePath;  
 
   function PaperDetailed($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
-                         $fltAvgRating, $intCoAuthorIds, $strCoAuthors, $strAbstract,
-                         $strMimeType, $strLastEdit, $intVersion, $strFilePath, $objTopics) {
-    $this->PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
+                         $strLastEdit, $fltAvgRating, $intCoAuthorIds, $strCoAuthors,
+                         $strAbstract, $strMimeType, $intVersion, $strFilePath, $objTopics) {
+    $this->PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus, $strLastEdit,
                        $fltAvgRating, $strFilePath, $objTopics);
     $this->intCoAuthorIds = $intCoAuthorIds;
     $this->strCoAuthors   = $strCoAuthors;

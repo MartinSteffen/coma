@@ -565,7 +565,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getPaperSimple($intPaperId) {
-    $s = sprintf("SELECT   id, author_id, title, state, filename".
+    $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
                  " FROM    Paper".
                  " WHERE   id = '%d'",
                            s2db($intPaperId));
@@ -594,8 +594,8 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPaperSimple', $this->getLastError());
     }
     $objPaper = (new PaperSimple($intPaperId, $data[0]['title'], $data[0]['author_id'],
-                  $strAuthor, $data[0]['state'], $fltAvgRating, $data[0]['filename'],
-                  $objTopics));
+                  $strAuthor, $data[0]['state'], $data[0]['last_edited'], $fltAvgRating,
+                  $data[0]['filename'], $objTopics));
     return $this->success($objPaper);
   }
 
@@ -622,7 +622,7 @@ class DBAccess extends ErrorHandling {
       // erhalte "leer" zurueck, aber keinen Fehler!!!
     }
     $strAuthor = $objAuthor->getName();
-    $s = sprintf("SELECT   id, author_id, title, state, filename".
+    $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
                  " FROM    Paper".
                  " WHERE   author_id = '%d'".
                  " AND     conference_id = '%d'",
@@ -643,8 +643,9 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPapersOfAuthor', $this->getLastError());
       }
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
-                       $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-                       $fltAvgRating, $data[$i]['filename'], $objTopics));  // Anfragen, die Fehler erzeugen koennen (wie $this->getTopics...), nicht inline benutzen!!
+                       $data[$i]['author_id'], $strAuthor, $data[i]['last_edited'],
+                       $data[$i]['state'], $fltAvgRating, $data[$i]['filename'], $objTopics));
+      // Anfragen, die Fehler erzeugen koennen (wie $this->getTopics...), nicht inline benutzen!!
     }
     return $this->success($objPapers);
   }
@@ -669,7 +670,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($objReviewer)) {
       return $this->success(false);
     }
-    $s = sprintf("SELECT   p.id AS id, author_id, title, state, filename".
+    $s = sprintf("SELECT   p.id AS id, author_id, title, last_edited, state, filename".
                  " FROM    Paper AS p".
                  " INNER   JOIN ReviewReport AS r".
                  " ON      r.paper_id = p.id".
@@ -702,7 +703,8 @@ class DBAccess extends ErrorHandling {
       }
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-                       $fltAvgRating, $data[$i]['filename'], $objTopics));
+                       $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
+                       $objTopics));
     }
     return $this->success($objPapers);
   }
@@ -717,7 +719,7 @@ class DBAccess extends ErrorHandling {
    * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getPapersOfConference($intConferenceId) {
-    $s = sprintf("SELECT   id, author_id, title, state, filename".
+    $s = sprintf("SELECT   id, author_id, title, last_edited, state, filename".
                  " FROM    Paper".
                  " WHERE   conference_id = '%d'",
                            s2db($intConferenceId));
@@ -746,7 +748,8 @@ class DBAccess extends ErrorHandling {
       }
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-                       $fltAvgRating, $data[$i]['filename'],$objTopics));
+                       $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
+                       $objTopics));
     }
     return $this->success($objPapers);
   }
@@ -760,7 +763,8 @@ class DBAccess extends ErrorHandling {
    * @author Tom (12.12.04)
    */
   function getPaperDetailed($intPaperId) {
-    $s = sprintf("SELECT   author_id, title, state, abstract, mime_type, last_edited, version, filename".
+    $s = sprintf("SELECT   author_id, title, state, abstract, mime_type,".
+                 "         last_edited, version, filename".
                  " FROM    Paper".
                  " WHERE   id = '%d'",
                            s2db($intPaperId));
@@ -814,10 +818,9 @@ class DBAccess extends ErrorHandling {
       return $this->error('getPaperDetailed', $this->getLastError());
     }
     $objPaper = (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
-                  $strAuthor, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
-                  $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
-                  $data[0]['last_edited'], $data[0]['version'], $data[0]['filename'],
-                  $objTopics));
+                  $strAuthor, $data[0]['state'], $data[0]['last_edited'], $fltAvgRating,
+                  $intCoAuthorIds, $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
+                  $data[0]['version'], $data[0]['filename'], $objTopics));
     return $this->success($objPaper);
   }
 

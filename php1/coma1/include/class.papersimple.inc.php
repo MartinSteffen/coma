@@ -31,17 +31,19 @@ class PaperSimple extends Paper {
   var $intAuthorId;
   var $strAuthor; // hinzugefuegt (Tom) (i.d.R. first_name &nbsp; last_name)
   var $intStatus;
+  var $strLastEdit;
   var $fltAvgRating; // false, falls kein Rating existiert  
   var $strFilePath;
   var $objTopics;  
 
   function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
-                       $fltAvgRating, $strFilePath, $objTopics) {
+                        $strLastEdit, $fltAvgRating, $strFilePath, $objTopics) {
     $this->Paper($intId);
     $this->strTitle = $strTitle;
     $this->intAuthorId = $intAuthorId;
     $this->strAuthor = $strAuthor;
     $this->intStatus = $intStatus;
+    $this->strLastEdit = $strLastEdit;
     $this->fltAvgRating = $fltAvgRating;
     $this->strFilePath = $strFilePath;
     $this->objTopics = $objTopics;
