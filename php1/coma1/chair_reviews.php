@@ -108,7 +108,6 @@ if (!empty($objPapers)) {
       $strItemAssocs['variance'] = ' - ';
       $ifArray[] = 7;
     }
-    $strItemAssocs['variance'] = encodeText($fltTestTmp.'%');
     $strItemAssocs['if'] = $ifArray;
     // Zugeteilte Reviewer
     $strItemAssocs['reviewers'] = '';
