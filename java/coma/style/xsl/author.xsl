@@ -1,8 +1,10 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-<xsl:output method="html" indent="yes"/>
 
-<xsl:template match="/"> 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" > 
+<xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
+doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
+
+<xsl:template match="/">
+<html > 
 <head>
   <title>JCoMa:: a Conference Manager</title>
   <link rel="stylesheet" type="text/css" href="style/css/comastyle.css" />
@@ -48,7 +50,10 @@
 
 <!-- Main content -->
 <div class="content">
-<xsl:apply-templates select = "/author/submitpaper"/>
+<xsl:apply-templates select="/author/failed" />
+<xsl:apply-templates select="/author/error" />
+<xsl:apply-templates select="/author/success" />
+<xsl:apply-templates select="/author/submitpaper"/>
 </div> <!-- Main content end -->
 
 </body>
@@ -58,7 +63,8 @@
 <xsl:template match="/author/submitpaper">
 
 <h3>Please fill out the form</h3>
-<form action="Author?action=processpaper" method="post" enctype="multipart/form-data">
+<form action="Author" method="post" enctype="multipart/form-data" >
+	<input type="hidden" name="action" value="processpaper"/>
 	<table style="border:0">
 		<tr>
 			<td>Your Paper Title </td>
@@ -95,6 +101,17 @@
 </form>
 </xsl:template>
 
+<xsl:template match="author/failed">
+<h3>An Error has occurred,plaese check your data!</h3>
+</xsl:template>
+<xsl:template match="author/error">
+<div>
+<xsl:value-of select="."/> 
+</div>
+</xsl:template>
+<xsl:template match="author/success">
+<h3>Your Paper is successfully added to your database!</h3>
+</xsl:template>
 
 
 

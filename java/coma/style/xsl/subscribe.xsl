@@ -1,6 +1,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:output method="html" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
+<xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
 doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
 
 <xsl:template match="/">
@@ -44,15 +44,15 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <!-- Main content -->
 <div class="content">
-<xsl:apply-templates/>
+<xsl:apply-templates select="/subscribe/failed" />
+<xsl:apply-templates select="/subscribe/success" />
+<xsl:apply-templates select="/subscribe/form" />
+<xsl:apply-templates select="/subscribe/person" />
 </div> <!-- Main content -->
 </body>
 </html>
 </xsl:template>
 
-<xsl:template match="/subscribe/status">
-<h3><xsl:apply-templates/></h3>
-</xsl:template>
 
 <xsl:template match="subscribe/failed">
 <h3>An Error has occurred,plaese check your data!</h3>
