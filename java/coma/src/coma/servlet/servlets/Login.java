@@ -4,18 +4,19 @@ package coma.servlet.servlets;
 import java.io.PrintWriter;
 import java.io.StringReader;
 
-import coma.servlet.util.*;
-import coma.entities.*;
-import coma.handler.impl.db.ReadServiceImpl;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import javax.xml.transform.stream.StreamSource;
 
+import coma.entities.Person;
+import coma.entities.SearchCriteria;
+import coma.entities.SearchResult;
+import coma.handler.impl.db.ReadServiceImpl;
+import coma.servlet.util.FormParameters;
+import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 
 /**

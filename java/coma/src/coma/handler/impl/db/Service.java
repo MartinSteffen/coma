@@ -3,11 +3,14 @@ package coma.handler.impl.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import coma.entities.SearchResult;
 
 
 /**
@@ -51,4 +54,53 @@ public class Service {
 
         return result;
     }
+	 
+	 protected SearchResult executeQuery(String query) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		boolean ok = true;
+		Connection conn = null;
+
+		try {
+			// conn = dataSource.getConnection();
+			conn = getConnection();
+		} catch (Exception e) {
+			ok = false;
+			info
+					.append("Coma could not establish a connection to the database\n");
+			info.append(e.toString());
+			System.out.println(e);
+		}
+		if (ok) {
+
+			try {
+				conn.setAutoCommit(false);
+				Statement pstmt = conn.createStatement();
+				int rows = pstmt.executeUpdate(query);
+				if (rows != 1) {
+					conn.rollback();
+					info.append("No data have been changed \n");
+				} else {
+					result.setSUCCESS(true);
+					info.append("Transaction has been performed successfully\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
+				try {
+					if (conn != null) {
+						conn.setAutoCommit(true);
+						conn.close();
+					}
+				} catch (Exception e) {
+					info
+							.append("ERROR: clould not close database connection\n");
+
+					System.out.println(e);
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
+	}
 }

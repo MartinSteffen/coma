@@ -1,5 +1,7 @@
 package coma.entities;
 
+import java.util.Collection;
+
 /**
    Abstract superclass of all Entities.
 

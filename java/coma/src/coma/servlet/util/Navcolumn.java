@@ -1,15 +1,13 @@
 package coma.servlet.util;
 
-import coma.entities.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 
-import static coma.servlet.util.XMLHelper.tagged;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import coma.entities.Person;
 import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
-import static coma.util.logging.Severity.*;
+import static coma.util.logging.Severity.ERROR;
 
 /**
    Java helper class to create the Navigation columns in the output.

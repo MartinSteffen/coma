@@ -17,13 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import coma.entities.Paper;
-
 import coma.handler.impl.db.InsertServiceImpl;
-
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 

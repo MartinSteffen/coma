@@ -1,15 +1,15 @@
 package coma.entities;
 
-import static java.util.Arrays.asList;
+import java.util.HashSet;
 import java.util.Set;
 
-import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
-import static coma.util.logging.Severity.*;
-
-import coma.servlet.util.XMLHelper;
+import static coma.entities.Entity.XMLMODE.DEEP;
+import static coma.entities.Entity.XMLMODE.SHALLOW;
 import coma.handler.db.ReadService;
 import coma.servlet.util.XMLHelper;
+import coma.util.logging.ALogger;
+import static coma.util.logging.Severity.INFO;
+import static coma.util.logging.Severity.WARN;
 
 /**
    Wrapper class for the DB Rating entries.

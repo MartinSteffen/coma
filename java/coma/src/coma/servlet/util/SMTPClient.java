@@ -1,8 +1,13 @@
 package coma.servlet.util;
 
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Calendar;
-import java.io.*;
 
 /**
 Responsible for sending EMAILS.

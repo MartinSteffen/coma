@@ -10,7 +10,14 @@ import java.util.List;
 
 import org.apache.log4j.Category;
 
-import coma.entities.*;
+import coma.entities.Conference;
+import coma.entities.Criterion;
+import coma.entities.Paper;
+import coma.entities.Person;
+import coma.entities.Rating;
+import coma.entities.ReviewReport;
+import coma.entities.SearchCriteria;
+import coma.entities.SearchResult;
 import coma.handler.db.ReadService;
 import coma.handler.util.EntityCreater;
 
@@ -30,7 +37,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	}
 
 	/**
-	 * searchs for person(s) specified in <code>SearchCriretia</code> sc. The
+	 * searchs for person(s) specified in <code>SearchCriteriaa</code> sc. The
 	 * Search function is defined as following: <lo>
 	 * <li>1. if sc.Person.id >= 0, then search for the person corresponding to
 	 * this id.</li>
@@ -51,6 +58,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Person p = sc.getPerson();
+		Person[] persons = new Person[0];
 		boolean ok = true;
 		Connection conn = null;
 		String QUERY;
@@ -59,20 +67,16 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-		if (p.getRole_type() > 0)
-		{
-			QUERY = "SELECT Person.* FROM Person,Role WHERE";
-		}
-		else
-			QUERY = "SELECT * FROM Person WHERE";
+
+		QUERY = "SELECT * FROM Person WHERE";
 		boolean idFlag = false;
 		boolean emailFlag = false;
 		boolean nameFlage = false;
 		boolean firstNameFlag = false;
 		boolean stateFlag = false;
 		boolean roleFlag = false;
-		
-		if (p.getId() > 0) {
+
+		if (p.getId() >= 0) {
 			QUERY += " id = ?";
 			idFlag = true;
 		} else {
@@ -101,16 +105,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (and) {
 						QUERY += " AND ";
 					}
-					QUERY += " Person.state = ?";
+					QUERY += " state = ?";
 					stateFlag = true;
-					and = true;
-				}
-				if (p.getRole_type() > 0) {
-					if (and) {
-						QUERY += " AND ";
-					}
-					QUERY += " Role.role_type = ? AND Role.person_id = Person.id";
-					roleFlag = true;
 					and = true;
 				}
 			}
@@ -149,17 +145,17 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 					while (resSet.next()) {
 						Person person = eCreater.getPerson(resSet);
+						// getPersonRoles(person.getId());
 						ll.add(person);
 					}
 					resSet.close();
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					Person[] persons = new Person[ll.size()];
+					persons = new Person[ll.size()];
 					for (int i = 0; i < ll.size(); i++) {
 						persons[i] = (Person) ll.get(i);
 					}
-					result.setResultObj(persons);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -178,6 +174,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(persons);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -192,6 +189,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Conference c = sc.getConference();
+		Conference[] conference = new Conference[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -233,11 +231,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					Conference[] conference = new Conference[ll.size()];
+					conference = new Conference[ll.size()];
 					for (int i = 0; i < conference.length; i++) {
 						conference[i] = (Conference) ll.get(i);
 					}
-					result.setResultObj(conference);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -256,6 +253,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(conference);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -275,6 +273,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Paper p = sc.getPaper();
+		Paper[] papers = new Paper[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -289,19 +288,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean stateFlag = false;
 		boolean allFlag = false;
 		// with id=-2 get all paper
-		if (p.getId()==-2)
-		{
+		if (p.getId() == -2) {
 			QUERY = "SELECT * FROM Paper";
-			allFlag=true;
-		}
-		else
-		{
-			if (p.getId() >= 0) 
-			{
+			allFlag = true;
+		} else {
+			if (p.getId() >= 0) {
 				QUERY += " id = ?";
 				idFlag = true;
-			} 
-			else {
+			} else {
 				boolean sql_and = false;
 				if (p.getConference_id() > 0) {
 					if (sql_and) {
@@ -358,18 +352,18 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
-						Paper paper = eCreater.getPaper(resSet);;
+						Paper paper = eCreater.getPaper(resSet);
+						;
 						ll.add(paper);
 					}
 					resSet.close();
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					Paper[] papers = new Paper[ll.size()];
+					papers = new Paper[ll.size()];
 					for (int i = 0; i < papers.length; i++) {
 						papers[i] = (Paper) ll.get(i);
 					}
-					result.setResultObj(papers);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -387,6 +381,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(papers);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -395,6 +390,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		ReviewReport report = sc.getReviewReport();
+		ReviewReport[] reports = new ReviewReport[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -463,11 +459,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					ReviewReport[] reports = new ReviewReport[ll.size()];
+					reports = new ReviewReport[ll.size()];
 					for (int i = 0; i < reports.length; i++) {
 						reports[i] = (ReviewReport) ll.get(i);
 					}
-					result.setResultObj(reports);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -485,6 +480,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(reports);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -493,6 +489,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Rating rating = sc.getRating();
+		Rating[] ratings = new Rating[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -547,11 +544,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					Rating[] ratings = new Rating[ll.size()];
+					ratings = new Rating[ll.size()];
 					for (int i = 0; i < ratings.length; i++) {
 						ratings[i] = (Rating) ll.get(i);
 					}
-					result.setResultObj(ratings);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -569,6 +565,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(ratings);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -578,6 +575,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Criterion criterion = sc.getCriterion();
+		Criterion[] criterions = new Criterion[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -631,11 +629,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					Criterion[] crits = new Criterion[ll.size()];
-					for (int i = 0; i < crits.length; i++) {
-						crits[i] = (Criterion) ll.get(i);
+					criterions = new Criterion[ll.size()];
+					for (int i = 0; i < criterions.length; i++) {
+						criterions[i] = (Criterion) ll.get(i);
 					}
-					result.setResultObj(crits);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -654,23 +651,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(criterions);
 		result.setInfo(info.toString());
-		return result;
-	}
-
-	public ResultSet executeQuery(String sqlQuery) {
-		ResultSet result = null;
-
-		try {
-			Connection conn = getConnection();
-
-			if (conn != null) {
-				Statement stmt = conn.createStatement();
-				result = stmt.executeQuery(sqlQuery);
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
 		return result;
 	}
 
@@ -681,6 +663,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
+		int[] roles = new int[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -712,11 +695,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					int[] roles = new int[ll.size()];
+					roles = new int[ll.size()];
 					for (int i = 0; i < roles.length; i++) {
 						roles[i] = (Integer) ll.get(i);
 					}
-					result.setResultObj(roles);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -734,6 +716,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(roles);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -744,6 +727,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	public SearchResult isCoAuthorOf(int paper_id, int person_id) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
+		Boolean isCoAuthorOf = new Boolean(false);
 		boolean ok = true;
 		Connection conn = null;
 
@@ -768,11 +752,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 					while (resSet.next()) {
 						if (resSet.getInt(1) > 0) {
-							result.setResultObj(new Boolean(true));
-						} else {
-							result.setResultObj(new Boolean(false));
+							isCoAuthorOf = new Boolean(true);
 						}
-
 					}
 					resSet.close();
 					resSet = null;
@@ -796,6 +777,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(isCoAuthorOf);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -806,6 +788,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	public SearchResult isAboutTopic(int paper_id, int topic_id) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
+		Boolean isAboutTopic = new Boolean(false);
 		boolean ok = true;
 		Connection conn = null;
 
@@ -830,10 +813,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 					while (resSet.next()) {
 						if (resSet.getInt(1) > 0) {
-							result.setResultObj(new Boolean(true));
-						} else {
-							result.setResultObj(new Boolean(false));
-						}
+							isAboutTopic = new Boolean(true);
+						} 
 
 					}
 					resSet.close();
@@ -858,6 +839,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(isAboutTopic);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -868,6 +850,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	public SearchResult getPreferedPapers(int person_id) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
+		int[] paper_ids = new int[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -894,11 +877,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					int[] paper_ids = new int[ll.size()];
+					paper_ids = new int[ll.size()];
 					for (int i = 0; i < paper_ids.length; i++) {
 						paper_ids[i] = (Integer) ll.get(i);
 					}
-					result.setResultObj(paper_ids);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -916,6 +898,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(paper_ids);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -926,6 +909,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	public SearchResult getDeniedPapers(int person_id) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
+		int[] paper_ids = new int[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -952,11 +936,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					int[] paper_ids = new int[ll.size()];
+					paper_ids = new int[ll.size()];
 					for (int i = 0; i < paper_ids.length; i++) {
 						paper_ids[i] = (Integer) ll.get(i);
 					}
-					result.setResultObj(paper_ids);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -974,6 +957,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(paper_ids);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -984,6 +968,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	public SearchResult getExecludedPapers(int person_id) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
+		int[] paper_ids = new int[0];
 		boolean ok = true;
 		Connection conn = null;
 
@@ -1010,11 +995,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
-					int[] paper_ids = new int[ll.size()];
+					paper_ids = new int[ll.size()];
 					for (int i = 0; i < paper_ids.length; i++) {
 						paper_ids[i] = (Integer) ll.get(i);
 					}
-					result.setResultObj(paper_ids);
 				} else {
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
@@ -1032,6 +1016,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(paper_ids);
 		result.setInfo(info.toString());
 		return result;
 	}
@@ -1060,21 +1045,12 @@ public class ReadServiceImpl extends Service implements ReadService {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see coma.handler.db.ReadService#getTopic(int, int)
+	 */
+	public SearchResult getTopic(int topic_id, int conference_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

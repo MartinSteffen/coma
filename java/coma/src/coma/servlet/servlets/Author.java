@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
-import com.oreilly.servlet.MultipartRequest;
-
 import coma.entities.Paper;
 import coma.entities.Person;
-import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.util.EntityCreater;
+import static coma.servlet.servlets.Author.ACTIONS.NULL;
+import static coma.servlet.servlets.Author.ACTIONS.PROCESSPAPER;
+import static coma.servlet.servlets.Author.ACTIONS.SUBMITPAPER;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 /**

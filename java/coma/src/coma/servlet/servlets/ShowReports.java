@@ -1,34 +1,34 @@
 package coma.servlet.servlets;
 
-import  java.util.*;
-import static java.util.Arrays.asList;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
-
-import coma.servlet.util.XMLHelper;
-
-import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
-import static coma.util.logging.Severity.*;
-
+import coma.entities.Criterion;
+import coma.entities.Paper;
+import coma.entities.Rating;
+import coma.entities.ReviewReport;
+import coma.entities.SearchCriteria;
+import coma.entities.SearchResult;
+import coma.handler.db.ReadService;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.UserMessage;
-
-import coma.handler.db.*;
-import coma.entities.*;
+import coma.servlet.util.XMLHelper;
+import coma.util.logging.ALogger;
+import static coma.util.logging.Severity.DEBUG;
+import static coma.util.logging.Severity.ERROR;
+import static coma.util.logging.Severity.WARN;
 
 /**
  * Flashy report concerning what's been rated how so far.

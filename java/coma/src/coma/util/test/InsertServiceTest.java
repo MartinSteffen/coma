@@ -1,9 +1,11 @@
 package coma.util.test;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import junit.framework.TestCase;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Category;
+
 import coma.entities.Conference;
 import coma.entities.Criterion;
 import coma.entities.Paper;
@@ -21,10 +23,15 @@ import coma.handler.impl.db.ReadServiceImpl;
  */
 public class InsertServiceTest extends TestCase {
 
+	private static Category log = Category.getInstance(InsertServiceTest.class);
 	InsertServiceImpl insert = new InsertServiceImpl();
 
 	ReadServiceImpl read = new ReadServiceImpl();
-
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		BasicConfigurator.configure();
+	}
 	public void testInsertConference() {
 		boolean run = false;
 		if (run) {

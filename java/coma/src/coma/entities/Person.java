@@ -1,9 +1,10 @@
 package coma.entities;
 
-import static coma.util.logging.Severity.*;
-
-import coma.servlet.util.XMLHelper;
+import static coma.entities.Entity.XMLMODE.DEEP;
+import static coma.entities.Entity.XMLMODE.SHALLOW;
 import coma.handler.impl.db.ReadServiceImpl;
+import coma.servlet.util.XMLHelper;
+import static coma.util.logging.Severity.WARN;
 
 /**
  * @author mti

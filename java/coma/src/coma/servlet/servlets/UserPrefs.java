@@ -1,26 +1,29 @@
 package coma.servlets.servlet;
 
-import  java.util.*;
-import java.io.*;
-import static java.util.Arrays.asList;
+import java.io.PrintWriter;
+import java.io.StringReader;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
+import coma.entities.Conference;
+import coma.entities.Person;
+import coma.entities.SearchResult;
+import coma.entities.Topic;
+import coma.entities.Entity.XMLMODE;
+import coma.handler.db.UpdateService;
+import coma.servlet.util.FormParameters;
+import coma.servlet.util.Navcolumn;
+import coma.servlet.util.PageStateHelper;
+import coma.servlet.util.SessionAttribs;
+import coma.servlet.util.UserMessage;
+import coma.servlet.util.XMLHelper;
 import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
-import static coma.util.logging.Severity.*;
-
-import coma.servlet.util.*;
-
-import coma.handler.db.*;
-import coma.entities.*;
-import static coma.entities.Entity.XMLMODE;
+import static coma.util.logging.Severity.DEBUG;
 
 /**
    Servlet to let a user edit their preferences. Currently, only their

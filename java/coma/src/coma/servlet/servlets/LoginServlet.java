@@ -1,13 +1,11 @@
 package coma.servlet.servlets;           
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
-import javax.security.auth.callback.CallbackHandler;
-
-import coma.handler.login.WebCallbackHandler;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class LoginServlet extends HttpServlet {
 

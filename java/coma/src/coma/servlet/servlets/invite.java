@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 
-//import javax.naming.Context;
-//import javax.naming.InitialContext;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

@@ -1,9 +1,12 @@
 package coma.util.test;
 
+import junit.framework.TestCase;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Category;
+
 import coma.entities.Conference;
 import coma.handler.impl.db.UpdateServiceImpl;
-
-import junit.framework.TestCase;
 
 /**
  * Created on 17.12.2004
@@ -11,8 +14,13 @@ import junit.framework.TestCase;
  */
 public class UpdateServiceTest extends TestCase{
 	
+	private Category log = Category.getInstance(ReadServiceTest.class);
 	UpdateServiceImpl update = new UpdateServiceImpl();
 	
+	protected void setUp() throws Exception {
+		super.setUp();
+		BasicConfigurator.configure();
+	}
 	public void testUpadteConference(){
 		Conference conference = new Conference();
 		conference.setId(3);

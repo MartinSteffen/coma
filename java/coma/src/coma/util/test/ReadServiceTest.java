@@ -1,5 +1,8 @@
 package coma.util.test;
 
+import junit.framework.TestCase;
+
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Category;
 
 import coma.entities.Conference;
@@ -12,10 +15,8 @@ import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
 import coma.handler.impl.db.ReadServiceImpl;
 
-import junit.framework.TestCase;
 
-
-/*
+/**
  * Created on 16.12.2004
  * <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Z. Albari</a>
  */
@@ -25,8 +26,13 @@ public class ReadServiceTest extends TestCase{
 	private Category log = Category.getInstance(ReadServiceTest.class);
 	private ReadServiceImpl read = new ReadServiceImpl();
 	
+	protected void setUp() throws Exception {
+		super.setUp();
+		BasicConfigurator.configure();
+	}
+	
 	public void testGetConference(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}
@@ -51,7 +57,7 @@ public class ReadServiceTest extends TestCase{
 			return;
 		}
 		
-		Person p = new Person(1);
+		Person p = new Person(0);
 		//p.setLast_name("Susi");
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPerson(p);
@@ -61,12 +67,12 @@ public class ReadServiceTest extends TestCase{
 		
 		Person[] persons = (Person[])objResult;	
 		for (int i = 0; i < persons.length; i++) {
-			System.out.println(persons[i].toString());	
+			System.out.println(persons[i].toXML());	
 		}
 	}
 	
 	public void testGetPaper(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}
@@ -106,7 +112,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetRating(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}

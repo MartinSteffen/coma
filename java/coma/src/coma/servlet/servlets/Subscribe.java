@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.stream.StreamSource;
 
-
 import coma.entities.Person;
 import coma.entities.SearchResult;
 import coma.handler.impl.db.InsertServiceImpl;

@@ -19,7 +19,7 @@ public interface ReadService {
     public SearchResult getCriterion(SearchCriteria sc);
     public SearchResult getPersonRoles(int conference_id, int person_id);
     public SearchResult isCoAuthorOf(int paper_id, int person_id);
-    //public SearchResult getTopic();
+    public SearchResult getTopic(int topic_id, int conference_id);
     public SearchResult isAboutTopic(int paper_id, int topic_id);
     public SearchResult getPreferedTpoic(int person_id);
     public SearchResult getPreferedPapers(int person_id);

@@ -1,14 +1,15 @@
 package coma.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
-import static coma.util.logging.Severity.*;
+import static coma.entities.Entity.XMLMODE.DEEP;
+import static coma.entities.Entity.XMLMODE.SHALLOW;
 import coma.handler.db.ReadService;
 import coma.servlet.util.XMLHelper;
-
-import static java.util.Arrays.asList;
+import coma.util.logging.ALogger;
+import static coma.util.logging.Severity.INFO;
+import static coma.util.logging.Severity.WARN;
 
 /**
    Wrapper for entries in the DB's Criterion table

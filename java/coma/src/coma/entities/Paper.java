@@ -1,9 +1,12 @@
 package coma.entities;
 
 import java.util.Date;
-import static coma.util.logging.Severity.*;
+
+import static coma.entities.Entity.XMLMODE.DEEP;
+import static coma.entities.Entity.XMLMODE.SHALLOW;
+import coma.handler.db.ReadService;
 import coma.servlet.util.XMLHelper;
-import coma.handler.db.*;
+import static coma.util.logging.Severity.WARN;
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Z. Albari</a>
  *

@@ -1,19 +1,12 @@
 package coma.handler.util;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 
-import java.util.regex.*;
-
-
-
+import javax.servlet.http.HttpServletRequest;
 
 import coma.entities.Conference;
 import coma.entities.Criterion;
@@ -22,8 +15,6 @@ import coma.entities.Person;
 import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.Topic;
-
-import coma.servlet.util.SessionAttribs;
 
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Albari </a>"

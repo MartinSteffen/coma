@@ -1,6 +1,13 @@
 package coma.util.logging;
 
+import java.util.LinkedList;
 import java.util.Queue;
+
+import static coma.util.logging.Severity.DEBUG;
+import static coma.util.logging.Severity.ERROR;
+import static coma.util.logging.Severity.FATAL;
+import static coma.util.logging.Severity.INFO;
+import static coma.util.logging.Severity.WARN;
 
 /**
    Wrapper class for Log4J.

@@ -1,10 +1,13 @@
 package coma.entities;
 
-import static coma.util.logging.Severity.*;
-
-import coma.servlet.util.XMLHelper;
-import coma.handler.db.ReadService;
+import java.util.HashSet;
 import java.util.Set;
+
+import static coma.entities.Entity.XMLMODE.DEEP;
+import static coma.entities.Entity.XMLMODE.SHALLOW;
+import coma.handler.db.ReadService;
+import coma.servlet.util.XMLHelper;
+import static coma.util.logging.Severity.WARN;
 
 
 public class Topic extends Entity {
