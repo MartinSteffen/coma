@@ -56,11 +56,11 @@ if (isset($_POST['action'])) {
   $strContentAssocs['variance']         = encodeText($variance);
 
   // Arrays wieder holen
-  $strTopics        = unserialize($_POST['topics']);
-  $strCriterions    = unserialize($_POST['criterions']);
-  $strCritDescripts = unserialize($_POST['crit_descr']);
-  $strCritMaxVals   = unserialize($_POST['crit_max']);
-  $strCritWeights   = unserialize($_POST['crit_weight']);
+  $strTopics        = unserialize(base64_decode($_POST['topics'])));
+  $strCriterions    = unserialize(base64_decode($_POST['criterions']));
+  $strCritDescripts = unserialize(base64_decode($_POST['crit_descr']));
+  $strCritMaxVals   = unserialize(base64_decode($_POST['crit_max']));
+  $strCritWeights   = unserialize(base64_decode($_POST['crit_weight']));
   if (isset($_POST['advanced'])) {
     $intTopicNum = count($strTopics);
     $intCritNum  = count($strCriterions);
@@ -126,11 +126,11 @@ if (isset($_POST['action'])) {
   $strContentAssocs['crit_weight']    = '';
   $strContentAssocs['num_topics']     = encodeText(count($strTopics));
   $strContentAssocs['num_criterions'] = encodeText(count($strCriterions));
-  $strContentAssocs['topics'] = serialize($strTopics);
-  $strContentAssocs['criterions']  = serialize($strCriterions);
-  $strContentAssocs['crit_descr']  = serialize($strCritDescripts);
-  $strContentAssocs['crit_max']    = serialize($strCritMaxVals);
-  $strContentAssocs['crit_weight'] = serialize($strCritWeights);
+  $strContentAssocs['topics'] = base64_encode(serialize($strTopics));
+  $strContentAssocs['criterions']  = base64_encode(serialize($strCriterions));
+  $strContentAssocs['crit_descr']  = base64_encode(serialize($strCritDescripts));
+  $strContentAssocs['crit_max']    = base64_encode(serialize($strCritMaxVals));
+  $strContentAssocs['crit_weight'] = base64_encode(serialize($strCritWeights));
 
   $strContentAssocs['auto_numreviewer'] = encodeText($auto_numreviewer);
   if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
@@ -302,11 +302,11 @@ else {
   $strContentAssocs['variance']         = '10';
   $strContentAssocs['num_topics']       = '3';
   $strContentAssocs['num_criterions']   = '2';
-  $strContentAssocs['topics']           = serialize(array('Informatics','Mathematics','Electronics'));
-  $strContentAssocs['criterions']       = serialize(array('Content','Form'));
-  $strContentAssocs['crit_max']         = serialize(array('5','5'));
-  $strContentAssocs['crit_descr']       = serialize(array('Aspects of the content','Aspects of the outer form'));
-  $strContentAssocs['crit_weight']      = serialize(array('0.7','0.3'));
+  $strContentAssocs['topics']           = base64_encode(serialize(array('Informatics','Mathematics','Electronics')));
+  $strContentAssocs['criterions']       = base64_encode(serialize(array('Content','Form')));
+  $strContentAssocs['crit_max']         = base64_encode(serialize(array('5','5')));
+  $strContentAssocs['crit_descr']       = base64_encode(serialize(array('Aspects of the content','Aspects of the outer form')));
+  $strContentAssocs['crit_weight']      = base64_encode(serialize(array('0.7','0.3')));
 }
 
 $strContentAssocs['message'] = '';
