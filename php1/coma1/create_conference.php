@@ -68,6 +68,7 @@ if (isset($_POST['submit'])) {
       }
     }
   }
+  echo($_POST['submit']);
   // Oeffnen der erweiterten Einstellungen
   else if ($_POST['submit'] == 'adv_config') {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
