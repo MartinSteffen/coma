@@ -190,7 +190,7 @@ function chair_task()
 
 		    $task = array();
 			$task[] = array("text"=>"Conference", "action"=>$conferenceName);
-			$taskLink = "<a href=\"index.php?m=chair&a=conferences&s=conference&confID=$conferenceID\" class=\"normal\">This is a new conference. You must add the dates.</a>";
+			$taskLink = "<a href=\"index.php?m=chair&a=conferences&s=conference&confID=$conferenceID\" class=\"normal\">This is a new conference. You must set the dates.</a>";
 			$task[] = array("text"=>"Task", "action"=>$taskLink);
 			$tasks[$count] = $task;
 			$count++;
