@@ -22,6 +22,7 @@
       or to change the current status of articles.<br>You can accept or reject papers or take part in
       the reviewing discussion of papers.
       {if2<br><span class="alert">New papers have been submitted since your last login.</span>}
+      {if4<br><span class="alert">There are {acc_papers_no} papers to be selected for the conference until {acc_date}.</span>}
     </td>
   </tr>
   <tr class="viewline">

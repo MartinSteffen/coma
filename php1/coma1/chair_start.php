@@ -28,6 +28,8 @@ $content = new Template(TPLPATH.'chair_start.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['request_no'] = '';
 $strContentAssocs['papers_no'] = '';
+$strContentAssocs['acc_papers_no'] = '';
+$strContentAssocs['acc_date'] = '';
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
@@ -50,6 +52,18 @@ if ($myDBAccess->failed()) {
 if ($intUndistributedPapers > 0) {
   $strContentAssocs['papers_no'] = encodeText($intUndistributedPapers);
   $ifArray[] = 3;
+}
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get conference details',$myDBAccess->getLastError());
+}
+else if (empty($objConference)) {
+  error('conference '.session('confid').' does not exist in database.','');
+}
+if (strtotime($objConference->strReviewDeadline) <= strtotime("today")) {
+  $strContentAssocs['acc_papers_no'] = encodeText($intUndistributedPapers);
+  $strContentAssocs['acc_date'] = encodeText(emptytime($objConference->strNotification));
+  $ifArray[] = 4;
 }
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
