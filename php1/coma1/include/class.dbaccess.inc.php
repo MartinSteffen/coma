@@ -104,6 +104,9 @@ class DBAccess {
    * @author Tom (15.12.04)
    */
   function checkLogin() {
+    if (!isset($_SESSION['password'])) {
+      return $this->error('checkLogin (Session-Passwort nicht gesetzt)');
+    }
     $s = 'SELECT  id, email, password'.
         ' FROM    Person'.
         ' WHERE   email = \''.$_SESSION['uname'].'\''.
