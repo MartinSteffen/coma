@@ -16,6 +16,8 @@ $roles = d('profile');
 </table>
 <br>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <? if (!count($roles)==0)
+    { ?>
   <tr> 
     <td class="textBold" width="248" height="30">Conference</td>
     <td class="textBold" width="86" height="30">Role</td>
@@ -23,6 +25,7 @@ $roles = d('profile');
     <td class="textBold" width="120" height="30">&nbsp;</td>
     <td class="textBold" width="100%" height="30">&nbsp;</td>	
   </tr>
+ <?  } ?>
   <?
 $count = 0;
 foreach ($roles as $selRole)
