@@ -1,2 +1,2 @@
-<a href='{basepath}{link}?{SID}' class="navigator">{node}</a>
+{repeat{node_}{if_  |  }}
 
