@@ -17,7 +17,7 @@ require_once('./include/header.inc.php');
 
 $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_start.tpl');
-$submenue = new Template(TPLPATH.'nav_start_konfi.tpl');
+$submenue = new Template(TPLPATH.'nav_start_konf.tpl');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['titel'] =  ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
