@@ -217,9 +217,9 @@ function s2db($strSql) {
 }
 
 /**
- * Liefert ein anch $format formatiertes Datum zurueck.
+ * Liefert ein nach $format formatiertes Datum zurueck.
  *
- * @param string $str das Datum
+ * @param string $str das Datum als Timestamp!!
  * @param string $format Formatierung (siehe date)
  * @return string das formatierte Datum
  * @author Jan (24.01.05)
@@ -227,6 +227,19 @@ function s2db($strSql) {
  */
 function emptytime($str, $format='M d, Y') {
   return empty($str) ? '' : date($format, $str);
+}
+
+/**
+ * Liefert ein nach $format formatiertes Datum zurueck.
+ *
+ * @param string $str das Datum als String
+ * @param string $format Formatierung (siehe date)
+ * @return string das formatierte Datum
+ * @author Jan (24.01.05)
+ * @access protected
+ */
+function emptyDBtime($str, $format='M d, Y') {
+  return empty($str) ? '' : date($format, strtotime($str));
 }
 
 ?>
