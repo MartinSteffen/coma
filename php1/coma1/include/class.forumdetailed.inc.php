@@ -28,10 +28,11 @@ class ForumDetailed extends Forum {
 
   var $objThreads;
 
-  function ForumDetailed($intId, $strTitle, $intForumType = 0,
-                 $intPaperId = false, $objThreads = false) {
+  function ForumDetailed($intId, $strTitle, $intConferenceId, $intForumType=0,
+                         $intPaperId=false, $objThreads=false) {
     $this->intId = $intId;
     $this->strTitle = $strTitle;
+    $this->intConferenceId = $intConferenceId;
     $this->intForumType = $intForumType;
     $this->intPaperId = $intPaperId;
     $this->objThreads = $objThreads;

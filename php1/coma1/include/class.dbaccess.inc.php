@@ -572,7 +572,8 @@ class DBAccess extends ErrorHandling {
                  " FROM    Role".
                  " WHERE   person_id = '%d'".
                  " AND     conference_id = '%d'".                 
-                 ($intRoleType != 0 ? " AND     role_type = '%d'" : ""),
+                 ($intRoleType != 0 ?
+                 " AND     role_type = '%d'" : ""),
                            s2db($intPersonId),
                            s2db($intConferenceId),
                            s2db($intRoleType));
@@ -1308,14 +1309,52 @@ class DBAccess extends ErrorHandling {
    * Prueft, ob die Person $intPersonId Zugang zum Forum $intForumId hat.
    *
    * @param int $intPersonId Die zu pruefende Person.
-   * @param int $intForumId Das zu pruefende Forum.
+   * @param int $intForumId Das zu pruefende Forum.   
    * @return bool Gibt true zurueck gdw. die Person Zugriff auf das Forum hat
    * @access public
-   * @author Sandro (12.01.05)
-   * @todo (Sandros Job) Muss noch implementiert werden!
+   * @author Sandro (27.02.05)
+   * @todo Zu klaeren: Duerfen Reviewer zu allen Foren Zugang haben?
    */
   function checkAccessToForum($intPersonId, $intForumId) {
-    return $this->success(false);
+    $objForum = $this->getForum($intForumId);
+    if ($this->failed()) {
+      return $this->error('checkAccessToForum', $this->getLastError());
+    }
+    else if (empty($objForum)) {
+      return $this->error('checkAccessToForum', 'Forum does not exist in database.');
+    }
+    $objPerson = $this->getPerson($intPersonId, $objForum->intConferenceId);
+    if ($this->failed()) {
+      return $this->error('checkAccessToForum', $this->getLastError());
+    }
+    else if (empty($objPerson)) {
+      return $this->error('checkAccessToForum', 'Person does not exist in database.');
+    }
+    $blnAccess = false;    
+    if ($objForum->intForumType == FORUM_PUBLIC) {
+      if ($objPerson->hasAnyRole()) {
+        $blnAccess = true;
+      }
+    }
+    else if ($objForum->intForumType == FORUM_PRIVATE) {
+      if ($objPerson->hasRole(CHAIR) || $objPerson->hasRole(REVIEWER)) {
+        $blnAccess = true;
+      }
+    }
+    else if ($objForum->intForumType == FORUM_PAPER) {
+      $objPaper = $this->getPaper($objForum->intPaperId);
+      if ($this->failed()) {
+        return $this->error('checkAccessToForum', $this->getLastError());
+      }
+      else if (empty($objPaper)) {
+        return $this->error('checkAccessToForum', 'Paper does not exist in database.');
+      }    	
+      if (($objPerson->hasRole(CHAIR) || $objPerson->hasRole(REVIEWER)) &&
+          ($intPersonId != $objPaper->intAuthorId)) {
+        $blnAccess = true;
+      }
+    }
+    return $this->success($blnAccess);
   }
 
   /**
@@ -1397,8 +1436,10 @@ class DBAccess extends ErrorHandling {
     }
     $objForums = array();
     for ($i = 0; $i < count($data); $i++) {
-      $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
-                        ($data[$i]['forum_type'] == FORUM_PAPER) ? $data[$i]['paper_id'] : false));      
+      $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'],
+                                $intConferenceId, $data[$i]['forum_type'],
+                               ($data[$i]['forum_type'] == FORUM_PAPER) ?
+                                $data[$i]['paper_id'] : false));      
     }
     return $this->success($objForums);
   }
@@ -1411,7 +1452,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getForumOfPaper($intPaperId) {
-    $s = sprintf("SELECT   id, title, forum_type".
+    $s = sprintf("SELECT   id, title, conference_id".
                  " FROM    Forum".
                  " WHERE   paperId = '%d'",
                            s2db($intPaperId));
@@ -1422,7 +1463,8 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
-    $forum = (new Forum($data[0]['id'], $data[0]['title'], $data[0]['forum_type'], $intPaperId));
+    $forum = (new Forum($data[0]['id'], $data[0]['title'], $data[0]['conference_id'],
+                        FORUM_PAPER, $intPaperId));
     return $this->success($forum);
   }
 
@@ -1435,8 +1477,6 @@ class DBAccess extends ErrorHandling {
    * @return Forum [] Ein leeres Array, falls keine solchen Foren existieren.
    * @access public
    * @author Sandro (14.12.04)
-   * @todo Anm. v. Tom: Auskommentierung der failed-Abfrage entfernen, sobald
-   *       checkAccessToForum die Fehlerbehandlung integriert hat
    */
   function getForumsOfPerson($intPersonId, $intConferenceId) {
     $objForums = array();
@@ -1455,11 +1495,11 @@ class DBAccess extends ErrorHandling {
       return $this->success($objForums);
     }
     for ($i = 0; $i < count($objAllForums) && !empty($objAllForums); $i++) {
-      $bln = $this->checkAccessToForum($objPerson, $objAllForums[$i]);
+      $blnAccess = $this->checkAccessToForum($objPerson, $objAllForums[$i]);
       if ($this->failed()) {
         return $this->error('getForumsOfPerson', $this->getLastError());
       }
-      if ($bln) {
+      if ($blnAccess) {
         $objForums[] = $objAllForums[$i];
       }
     }
@@ -1475,7 +1515,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getForumDetailed($intForumId) {
-    $s = sprintf("SELECT   id, title".
+    $s = sprintf("SELECT   id, title, forum_type, paper_id, conference_id".
                  " FROM    Forum".
                  " WHERE   id = '%d'",
                            s2db($intForumId));
@@ -1486,7 +1526,11 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
-    $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'], 0, false,
+    $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
+                                $data[0]['conference_id'],
+                                $data[0]['forum_type'],
+                               ($data[$i]['forum_type'] == FORUM_PAPER) ?
+                                $data[$i]['paper_id'] : false),                                
                                 $this->getThreadsOfForum($intForumId)));
     return $this->success($forum);
   }
@@ -1779,52 +1823,6 @@ nur fuer detaillierte?
     return $this->success(true);
   }
 
-  /**
-   * Die folgende Funktion ist out of date und wird im folgenden NICHT mehr verwendet!
-   *
-   * Aktualisiert die Rollen der Person $objPerson bzgl. der Konferenz
-   * $intConferenceId in der Datenbank.
-   *
-   * @param Person $objPerson    Person-Objekt mit aktuellen Rollen
-   * @param int $intConferenceId Konferenz-ID
-   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
-   * @access private
-   * @author Tom (11.01.05)
-   * @todo Wird noch geloescht, da out of date
-   */
-  function updateRoles($objPerson, $intConferenceId) {
-    global $intRoles;
-    if (!(is_a($objPerson, 'Person'))) {
-      return $this->success(false);
-    }
-    $intId = $objPerson->intId;
-    // Rollen loeschen...
-    $s = sprintf("DELETE   FROM Role".
-                 " WHERE   person_id = '%d'".
-                 " AND     conference_id = '%d'",
-                 s2db($intId), s2db($intConferenceId));
-    $this->mySql->delete($s);
-    if ($this->mySql->failed()) {
-      return $this->error('updateRoles', $this->mySql->getLastError());
-    }
-    if (empty($objPerson->intRoles)) {
-      return $this->success();
-    }
-    // Rollen einfuegen...
-    for ($i = 0; $i < count($intRoles); $i++) {
-      if ($objPerson->hasRole($intRoles[$i])) {
-        $s = sprintf("INSERT   INTO Role (conference_id, person_id, role_type)".
-                     " VALUES  ('%d', '%d', '%d')",
-                     s2db($intConferenceId), s2db($intId), s2db($intRoles[$i]));
-        $this->mySql->insert($s);
-        if ($this->mySql->failed()) {
-          return $this->error('updateRoles', $this->mySql->getLastError());
-        }
-      }
-    }
-    return $this->success(true);
-  }
-
   function acceptRole($intPersonId, $intRoleId, $intConferenceId) {
     $s = sprintf("UPDATE   Role".
                  " SET     state = ''".
@@ -2043,21 +2041,51 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo (Sandros Job)
+   * Aktualisiert das Forum $objForum in der Datenbank.
+   * @warning Der Messagebaum wird NICHT aktualisiert, sondern nur die Forumsdaten.
+   *
+   * @param Message $objMessage Die zu aktualisierende Message.
+   * @return bool true gdw. die Aktualisierung gelungen ist
+   * @access public
+   * @author Sandro (27.01.05)
    */
   function updateForum($objForumDetailed) {
     if (!(is_a($objForumDetailed, 'ForumDetailed'))) {
       return $this->success(false);
     }
+    $s = sprintf("UPDATE   Forum".
+                 " SET     title = '%s', forum_type = '%d'".
+                ($objForum->intForumType == FORUM_PAPER ? " paper_id = '%d'" : ""),
+                 s2db($objForum->strTitle),
+                 s2db($objForum->intForumType),
+                 s2db($objForum->intPaperId));
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateForum', $this->mySql->getLastError());
+    }
     return $this->success();
   }
 
   /**
-   * @todo
+   * Aktualisiert die Message $objMessage in der Datenbank.
+   * @warning Der Messagebaum wird NICHT aktualisiert, sondern nur die Daten der Message.
+   *
+   * @param Message $objMessage Die zu aktualisierende Message.
+   * @return bool true gdw. die Aktualisierung gelungen ist
+   * @access public
+   * @author Sandro (27.01.05)
    */
   function updateMessage($objMessage) {
     if (!(is_a($objMessage, 'Message'))) {
       return $this->success(false);
+    }    
+    $s = sprintf("UPDATE   Message".
+                 " SET     sender_id = '%d', send_time = '%s', subject = '%s', text = '%s'",
+                 s2db($objMessage->intSender), s2db(date("Y-m-d H:i:s"),
+                 s2db($objMessage->strSubject), s2db($objMessage->strText));
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateMessage', $this->mySql->getLastError());
     }
     return $this->success();
   }
@@ -2757,7 +2785,7 @@ nur fuer detaillierte?
    *
    * @param int $intConferenceId  ID der Konferenz, fuer die das Forum angelegt wird
    * @param string $strTitle      Bezeichnung des Forums
-   * @param int $intForumType     Art des Forums (1: globales, 2:Komitee-, 3:Artikelforum)
+   * @param int $intForumType     Art des Forums (FORUM_PUBLIC, FORUM_PRIVATE, FORUM_PAPER)
    * @param int $intPaperId       ID des assoziierten Artikels bei Artikelforen (sonst: false)
    * @return int ID des erzeugten Forums
    *
@@ -2780,6 +2808,7 @@ nur fuer detaillierte?
 
   /**
    * Fuegt einen Datensatz in die Tabelle Message ein.
+   * @warning Zum Erzeugen von Threads wird der Parameter $intReplyTo ausgelassen.
    *
    * @param string $strSubject   Betreff der Message
    * @param string $strText      Inhalt der Message
