@@ -1,3 +1,18 @@
+<?php
+/**
+ * @version $Id$
+ * @package coma1
+ */
+/***/
+if (!defined('IN_COMA1')) {
+  die('Hacking attempt');
+}
+
+if (!defined('INCPATH')) {
+  /** @ignore */
+  define('INCPATH', dirname(__FILE__).'/');
+}
+
 /**
  * Fehler auf hoechster Ebene abfangen und ausgeben
  *
@@ -136,3 +151,4 @@ function session_delete($strName) {
   }
 }
 
+?>
