@@ -1,17 +1,21 @@
 
 SUBDIRS			= . templates pycoma
+
+BUILT_SOURCES		= pycoma.spec pycoma.conf
 bin_SCRIPTS		= comasetup
+
 pkglibexecdir		= $(libexecdir)/$(PACKAGE)
 pkglibexec_SCRIPTS	= comaprocmail
 
 dist_pkgdata_DATA	= coma-mysql.sql coma-mysql-del.sql \
 			  coma-psql.sql coma-psql-del.sql
 
-EXTRA_DIST		= pycoma.spec comasetup.in comaprocmail.in
+EXTRA_DIST		= comasetup.in comaprocmail.in \
+			  pycoma.conf.in pycoma.spec.in pycoma.spec
 
 MOSTLYCLEANFILES	= *~
 CLEANFILES		= *.pyc *.pyo
-DISTCLEANFILES		= comasetup comaprocmail
+DISTCLEANFILES		= comasetup comaprocmail pycoma.conf
 MAINTAINERCLEANFILES	= configure Makefile.in pycoma.spec \
 			  aclocal.m4 install-sh py-compile \
 			  COPYING missing
@@ -32,4 +36,4 @@ comaprocmail: $(srcdir)/comaprocmail.in Makefile
 	chmod +x comaprocmail
 
 pycoma.conf: $(srcdir)/pycoma.conf.in Makefile
-	$(do_subst) < $(srcdir)/comaprocmail.in > comaprocmail
+	$(do_subst) < $(srcdir)/pycoma.conf.in > pycoma.conf

@@ -106,6 +106,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_datadir}/%{name}/index.py
 # Configuration
 %config(noreplace) %{_sysconfdir}/%{name}/config.py
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/pycoma.conf
 
 %files mysql
 %defattr(-,root,root)
