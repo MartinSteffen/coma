@@ -38,10 +38,14 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		SearchResult result = new SearchResult();
 		Connection conn = null;
 		boolean ok = true;
-		if (person.getEmail() == null && person.getId() < 0) {
+		if (person == null) {
 			ok = false;
 			info
-					.append("ERROR: No person was spcified, Person.email or person.id must not be null\n");
+					.append("ERROR: person must not be null\n");
+		}
+		if(ok && (person.getEmail() == null || person.getEmail().equals(""))){
+			ok = false;
+			info.append("ERROR: person[email] must not be null");
 		}
 		if(ok){
 			try {
@@ -54,44 +58,20 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				String TEST_QUERY = "SELECT COUNT(*) FROM Person WHERE ";
-				String INSERT_QUERY = "INSERT INTO Person "
+				String UPDATE_QUERY = "INSERT INTO Person "
 						+ "(first_name, last_name, title, affiliation, email,"
 						+ "phone_number, fax_number, street, postal_code, city,"
-						+ "state, country, password) "
-						+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)" + " WHERE ";
-				String UPDATE_QUERY = "UPDATE Person SET ......";
-				
-				if (person.getId() >= 0) {
-					INSERT_QUERY += " id = ?";
-					TEST_QUERY += "id = " + person.getId();
-				} else {
-					INSERT_QUERY += " email = ?";
-					TEST_QUERY += "email = '"+person.getEmail()+"'";
-				}
-				Statement stmt = conn.createStatement();
-				PreparedStatement pstmt = null;
-				ResultSet testRsSet = stmt.executeQuery(TEST_QUERY);
-				int count = 0;
-				if(testRsSet.next()){
-					count = testRsSet.getInt(1);
-				}
-				if(count >= 1){
-					pstmt = conn.prepareStatement(INSERT_QUERY);
-				}else{
-					pstmt = conn.prepareStatement(UPDATE_QUERY);
-				}
-				
+						+ "state, country) "
+						+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)" + " WHERE ";
 				int pstmtCounter = 0;
-				PreparedStatementSetter.prepareStatement(pstmt, person, pstmtCounter);
+				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
+				//TODO
 				int affRows = pstmt.executeUpdate();
 				pstmt.close();
-				pstmt = null;
 				if (affRows != 1 && ok) {
 					info.append("ERROR: Dataset could not be updated\n");
 					conn.rollback();
 				}
-
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");
 			} finally {
@@ -106,11 +86,11 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 			}
 		}
 		result.setInfo(info.toString());
-		return null;
+		return result;
 	}
 
 	public SearchResult updateReviewReport(ReviewReport report) {
-		// TODO Auto-generated method stub
+		//TODO
 		return null;
 	}
 
