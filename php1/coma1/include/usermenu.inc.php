@@ -8,7 +8,7 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-$objPerson = $myDBAccess->getPerson(session('uid', session('confid')));
+$objPerson = $myDBAccess->getPerson(session('uid'), session('confid'));
 /*
 if ($myDBAccess->failed()) {
   $_SESSION['message'] = 'An error occured during processing the user menu!<br>'.
@@ -19,7 +19,7 @@ if ($myDBAccess->failed()) {
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
 $strMenuAssocs = defaultAssocArray();
-$strMenuAssocs['menu1'] = ''.$objPerson->intRoles;
+$strMenuAssocs['menu1'] = '';
 $strMenuAssocs['menu2'] = '';
 $strMenuAssocs['menu3'] = '';
 $strMenuAssocs['menu4'] = '';
