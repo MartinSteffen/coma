@@ -13,36 +13,58 @@ from mod_python import apache
 from mod_python import util
 from mod_python import Session
 
-import coma
-import comadb
-import random
-import smtplib
+from pycoma.coma import process_template, create_account, action_menu, setup
+from pycoma.database import connect
 
 def stylesheet(req):
     """Return the stylesheet associated to the web-site"""
-    import comaconf
     req.content_type = "text/css"
     return open(comaconf.templates + '/coma.css').read()
 
 
 
 
-
-def test(req, sid = None):
-     """Just a stupid test function."""
-     return coma.process_template(req, 'index-guest.xml',
-				  { 'actions': coma.action_menu() })
-
-
+def manage_conferences(req, sid = None):
+    """Manage conferences new conference."""
+     return process_template(req, 'not-implemented.xml',
+                             { 'actions': action_menu() })
+    
 
 
 
 
+def create_conference(req, sid = None):
+    """Create a new conference."""
+     return process_template(req, 'not-implemented.xml',
+                             { 'actions': action_menu() })
+    
 
-def register(req, sid = None):
-    """Register as a new user"""
-    session = Session.Session(req, sid = sid, timeout = 1800)
-    return coma.process_template(req, 'register.xml')
+
+
+
+
+
+def submit(req, sid = None):
+    """Show the abstract/paper submission page."""
+     return process_template(req, 'submit.xml', { 'actions': action_menu() })
+
+
+
+
+
+def summary(req, sid = None):
+    """Show the summary information of a logged in user."""
+    session, user, db = coma.setup(req, sid)
+    if session.is_new() or not session.has_key['email']:
+	return process_template(req, 'error-login.xml',
+				{ 'actions' : action_menu() })
+    elif not user:
+	return process_template(req, 'error-user.xml',
+				{ 'actions' : action_menu(),
+				  'email' : session['email'],
+				  'adminmail' : comaconf.adminmail })
+    # Okay.  Construct his summary.
+    return "here."
 
 
 
@@ -53,27 +75,18 @@ def createaccount(req, sid = None, email = None, title = 0, first_name = None,
 		  fax_number = None, street = None, postal_code = None,
 		  city = None, state = None, country = None):
     """Process a register form by creating a new account."""
-    return coma.createaccount(req, sid, email, title, first_name, last_name,
-			      affiliation, phone_number, fax_number, street,
-			      postal_code, city, state, country)
+    return do_createaccount(req, sid, email, title, first_name, last_name,
+			    affiliation, phone_number, fax_number, street,
+			    postal_code, city, state, country)
 
 
 
 
 
-def summary(req, sid = None):
-    """Show the summary information of a logged in user."""
-    session, user, db = coma.setup(req, sid)
-    if session.is_new() or not session.has_key['email']:
-	return coma.process_template(req, 'error-login.xml',
-				     { 'actions' : coma.action_menu() })
-    elif not user:
-	return coma.process_template(req, 'error-user.xml',
-				     { 'actions' : coma.action_menu(),
-				       'email' : session['email'],
-				       'adminmail' : comaconf.adminmail })
-    # Okay.  Construct his summary.
-    return "here."
+def register(req, sid = None):
+    """Register as a new user"""
+    session = Session.Session(req, sid = sid, timeout = 1800)
+    return process_template(req, 'register.xml')
 
 
 
@@ -81,7 +94,7 @@ def summary(req, sid = None):
 
 def dologin(req, email = None, password = None, sid = None):
     session = Session.Session(req, sid = sid, timeout = 1800)
-    db = comadb.ComaDB()
+    db = connect()
     errors = []
     user = None
     if not email:
@@ -96,11 +109,11 @@ def dologin(req, email = None, password = None, sid = None):
 	if user and user.password <> password:
 	    errors.append('The password is not correct.')
     if errors:
-	return coma.process_template(req, 'login-error.xml',
+	return process_template(req, 'login-error.xml',
 				     { 'errors' : error_list(errors) } )
     session['email'] = email
-    return coma.process_template(req, 'login-success.xml',
-				 { 'actions' : coma.action_menu() })
+    return process_template(req, 'login-success.xml',
+			    { 'actions' : action_menu() })
 
 
 
@@ -109,30 +122,29 @@ def dologin(req, email = None, password = None, sid = None):
 
 def login(req, sid = None):
     """Have the user login."""
-    return coma.process_template(req, 'login.xml',
-				 { 'actions' : coma.action_menu() })
+    return process_template(req, 'login.xml', { 'actions' : action_menu() })
+
 
 
 
 
 def logout(req, sid = None):
     """Have the user log out."""
-    session, user, id = coma.setup(req, sid)
+    session, user, id = setup(req, sid)
     if not user:
-	return coma.process_template(req, 'error-login.xml',
-				     { 'actions' : coma.action_menu() })
+	return process_template(req, 'error-login.xml',
+				{ 'actions' : action_menu() })
     del session['email']
     session.save()
-    return coma.process_template(req, 'logout.xml',
-				 { 'actions' : coma.action_menu() })
+    return process_template(req, 'logout.xml', { 'actions' : action_menu() })
+
+
 
 
 
 def index(req, sid = None):
     """Provides the index page"""
-    session, user, db = coma.setup(req, sid)
+    session, user, db = setup(req, sid)
     if user:
 	util.relocate(req, 'summary')
-    else:
-	return coma.process_template(req, 'index.xml',
-				     { 'actions' : coma.action_menu() })
+    return process_template(req, 'index.xml', { 'actions' : action_menu() })

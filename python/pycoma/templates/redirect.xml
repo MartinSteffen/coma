@@ -4,7 +4,7 @@
   <head>
     <title>COMA Conference Manager: Redirect</title>
     <meta http-equiv="refresh" content="3;URL=%(target)s"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet"/>
   </head>
   <body>
     <p>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>COMA Conference Manager: Error Creating Conference</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet"/>
   </head>
   <body>
     <h1 class="error">Cannot Create New Conference</h1>
