@@ -23,7 +23,7 @@
         <tr class="listitem-2"> 
           <td class="listitem-2">Originality:</td>
           <td class="listitem-2"><input type="text" size="2" name="rating-2" value="1"/>/5</td>
-          <td class="listitem-1"><textarea name="comment-2" rows="1" cols="48">Bla, bla...</textarea></td>
+          <td class="listitem-2"><textarea name="comment-2" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>
         <tr class="listitem-1"> 
           <td class="listitem-1">Style:</td>
@@ -50,7 +50,7 @@
       Confidential Notes:
     </td>
     <td>
-      <textarea name="summary" rows="3" cols="48">Very shity, especially in the details.</textarea>
+      <textarea name="summary" rows="2" cols="48">Very shity, especially in the details.</textarea>
     </td>
   </tr>
   <tr>
@@ -58,7 +58,7 @@
       Common remarks:
     </td>
     <td>
-      <textarea name="summary" rows="3" cols="48">There's nothing left to say.</textarea>
+      <textarea name="summary" rows="2" cols="48">There's nothing left to say.</textarea>
     </td>
   </tr>
   <tr>

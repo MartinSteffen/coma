@@ -1,13 +1,12 @@
 
-<!-- - - - - - - - - - - - -   Reviewliste - - - - - - - - - - -  - - -->
 <table class="list">
   <tr class="listheader">
-    <th width="35%" class="listheader">title</th> 
-    <th width="20%" class="listheader">author</th> 
-    <th width="10%" class="listheader">status</th>
-    <th width="10%" class="listheader">rating (own)</th>
-    <th width="10%" class="listheader">rating (total)</th>
-    <th width="15%" class="listheader">discussion</th>    
+    <th width="35%" class="listheader">Paper</th> 
+    <th width="20%" class="listheader">Author</th> 
+    <th width="10%" class="listheader">Status</th>
+    <th width="10%" class="listheader">My rating</th>
+    <th width="10%" class="listheader">Total rating</th>
+    <th width="15%" class="listheader">Discussion</th>    
    </tr>
 
   <tr class="listitem-1"> 
@@ -44,9 +43,7 @@
     </td> 
     <td class="listitem-2"> 1/5 </td>
     <td class="listitem-2"> - </td>
-    <td class="listitem-2"> 
-      access denied
-    </td>
+    <td class="listitem-2">access denied</td>
   </tr>
 </table>
 
