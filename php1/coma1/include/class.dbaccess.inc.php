@@ -543,7 +543,7 @@ class DBAccess extends ErrorHandling {
                                       " WHERE   person_id = '%d'".
                                       " AND     conference_id = '%d'",
                                      s2db($intPersonId),
-                                     s2db($intConferenceId));
+                                     s2db($intConferenceId)));
     $role_data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('hasRoleInConference', $this->mySql->getLastError());
