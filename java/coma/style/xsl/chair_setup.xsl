@@ -103,7 +103,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	<td>
 		<xsl:choose>
 			<xsl:when test="/result/setup/content/end_setup">
-				<input type="text" id="start_day" name="end_day" size="2" maxlength="2">
+				<input type="text" id="end_day" name="end_day" size="2" maxlength="2">
   				</input>:
 				<input type="text" id="end_month" name="end_month" size="2" maxlength="2">
   				</input>:
@@ -227,3 +227,4 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:if>
 </xsl:template>
 </xsl:stylesheet>
+
