@@ -33,6 +33,12 @@ else if (empty($p)) {
   echo('EMPTY');
   die(-1);
 }
+if (empty($p->objPreferredTopcs)) {
+  echo ("Empty");
+}
+if (count($p->objPreferredTopics) == 0) {
+  echo ("Count = 0");
+}
 for ($i = 0; $i < count($p->objPreferredTopics); $i++) {
   echo ('<br>'.$p->objPreferredTopics[$i]->intId.' / '.$p->objPreferredTopics[$i]->strName);
 }
