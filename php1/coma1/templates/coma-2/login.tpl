@@ -1,5 +1,5 @@
 <form action="{basepath}index.php?{SID}" method="post">
-<table align="center">
+<table class="formtable">
   <tr>
     <th colspan="2">Login:</th>
   </tr>
