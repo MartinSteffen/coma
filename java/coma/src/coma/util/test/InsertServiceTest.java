@@ -1,5 +1,7 @@
 package coma.util.test;
 
+import java.util.Vector;
+
 import junit.framework.TestCase;
 
 import org.apache.log4j.BasicConfigurator;
@@ -13,6 +15,7 @@ import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
+import coma.entities.Topic;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.impl.db.ReadServiceImpl;
 
@@ -64,7 +67,15 @@ public class InsertServiceTest extends TestCase {
 			paper.setState(0);
 			paper.setTitle("This is a test paper");
 			paper.setFilename("paper1");
-			SearchResult sr = insert.insertPaper(paper);
+			Integer[] topics_id = new Integer[1];
+			topics_id[0] = new Integer(10);
+			paper.setTopics(topics_id);
+			SearchResult sr = read.getTopic(-1, 1);
+			Topic[] topics = (Topic[])sr.getResultObj();
+			for (int i = 0; i < topics.length; i++) {
+				System.out.println(topics[i].toXML());
+			}
+			sr = insert.insertPaper(paper);
 			System.out.println(sr.SUCCESS);
 			System.out.println(sr.getInfo());
 		}

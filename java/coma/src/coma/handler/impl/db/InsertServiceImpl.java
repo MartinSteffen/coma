@@ -266,10 +266,9 @@ public class InsertServiceImpl extends Service implements InsertService {
 
 					Vector<Topic> topics = paper.getTopics();
 					if (topics != null) {
+						conn.setAutoCommit(true);
 						for (int i = 0; i < topics.size(); i++) {
-							SearchResult sr = insertTopic(topics.elementAt(i)
-									.getConferenceId(), topics.elementAt(i)
-									.getName());
+							SearchResult sr = setAboutTopic(paper_id, topics.elementAt(i).getId());
 							if (!sr.SUCCESS) {
 								info
 										.append("Error: could not insert Topic nummber ("
@@ -277,6 +276,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 								conn.rollback();
 							}
 						}
+						conn.setAutoCommit(true);
 					}
 					result.setSUCCESS(true);
 					info.append("Paper inserted successfully\n");
@@ -592,7 +592,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 	}
 
 	public SearchResult setAboutTopic(int paper_id, int topic_id) {
-		String QUERY = "INSERT INTO IsAboutToic " + " VALUES(" + paper_id + ","
+		String QUERY = "INSERT INTO IsAboutTopic " + " VALUES(" + paper_id + ","
 				+ topic_id + ")";
 		return executeQuery(QUERY);
 	}
