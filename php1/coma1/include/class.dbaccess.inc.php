@@ -866,8 +866,8 @@ class DBAccess {
    */
   function addRole($intConferenceId, $intPersonId, $intRole) {
     $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-        '         VALUES (\''.$intConferenceId.'\',\''.$intPersonId.'\','.
-        '                 \''.$intRoleType.'\')');
+        '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
+        '                 \''.$intRoleType.'\')';
     $intId = $this->mySql->insert($s);
     echo('Return-ID: '.$intId.'<br>');
     if (!empty($intId)) {
