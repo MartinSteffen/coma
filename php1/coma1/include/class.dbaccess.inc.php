@@ -1197,7 +1197,7 @@ nur fuer detaillierte?
                     $this->booleanToDatabase($objConferenceDetailed->blnAutoAddReviewers)."',".
         "         number_of_auto_add_reviewers = ".
         "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
-        " WHERE   conference_id = '$objConferenceDetailed->intId'";
+        " WHERE   id = '$objConferenceDetailed->intId'";
     echo("<br>$s<br>");
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
