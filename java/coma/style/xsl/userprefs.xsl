@@ -2,8 +2,6 @@
   version="1.0">
 
   <!-- Stylesheet for servlet/servlets/UserPrefs. -->
-  <!-- first, very incomplete draft by ums. -->
-
   
   <xsl:output method="xml" 
     indent="yes" 
@@ -34,9 +32,9 @@
         <xsl:value-of select="meta" />
       </head>
       <body>
+        <xsl:call-template name="navcolumn" />
         <div class="content">
           <xsl:call-template name="stderrors" />
-          <xsl:call-template name="navcolumn" />
           <xsl:apply-templates select="//error" />
           <form action="UserPrefs" method="post">
             <xsl:apply-templates select="//servletState" />

@@ -110,6 +110,8 @@ public class UserPrefs extends HttpServlet {
 		    thePerson 
 			= new coma.handler.util.EntityCreater().getPerson(request);
 		    thePerson.setId(oldid); // makes us safer against attacks
+
+		    LOG.log(DEBUG, thePerson.toXML(XMLMODE.SHALLOW));
 	    
 		    try {
 			Topic[] ts = thePerson.getPreferredTopics();
@@ -120,13 +122,12 @@ public class UserPrefs extends HttpServlet {
 			    }
 			}
 			final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
+
 			for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
 			    try{
 				
 				thePerson.addPreferredTopic(new Topic(Integer.parseInt(s)));
 				// (turns out Person just picks out the id anyway.)
-							// Topic.byId(Integer.parseInt(s), 
-							// theConference.getId()));
 			    } catch (NumberFormatException nfe) {;}//just skip it, then.
 			}
 		    } catch (Exception exc) {

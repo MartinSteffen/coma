@@ -154,13 +154,13 @@
     <form action="Login" method="post">
       <fieldset>
         <label for="name">E-mail</label><br />
-        <input type="text" id="e-mail" class="input-box">
+        <input type="text" id="email" name="email" class="input-box">
           <xsl:attribute name="value"><xsl:value-of select="email"/></xsl:attribute>
         </input>	 
         <br />
         <i>(Your conference is remembered.)</i><br />
         <label for="passwd">Password</label><br />
-        <input type="password" name="passwd" id="passwd" class="input-box" />
+        <input type="password" name="password" id="password" class="input-box" />
         <br />
         <input type="submit" value="login" class="submit-button" />
         <input type="hidden" name="conference_id" id="conference_id">
