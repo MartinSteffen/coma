@@ -22,13 +22,7 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');
 }
 
-if ( isset($_POST['adv'])){
-   $content = new Template(TPLPATH.'edit_conference.tpl');
- }
-else{
-   $content = new Template(TPLPATH.'edit_conference.tpl');
-  }
-
+$content = new Template(TPLPATH.'edit_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 
 $ifArray = array();
@@ -90,16 +84,15 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     ||  empty($abstract_dl))
     {
       $strMessage =  $strMessage.
-                     'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
-                    'and <b>Deadlines</b>!<br> <br>';
+                     'You have to fill in the fields <b>Title</b>, <b>Start Date</b> and <b>Deadlines</b>!<br>';
     }
     if ((!empty($end_date)) && ($start_date > $end_date)) {
       $strMessage =  $strMessage.
-                     'Your Start Date should be before your End Date! <br>';
+                     'Your Start Date should be before your End Date!<br>';
     }
     if ($abstract_dl > $paper_dl) {
       $strMessage =  $strMessage.
-                     'Your Abstract Deadline should be before your Paper Deadline! <br>';
+                     'Your Abstract Deadline should be before your Paper Deadline!<br>';
     }
     if ($paper_dl > $final_dl) {
       $strMessage =  $strMessage.
@@ -124,7 +117,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
 
     if ($review_dl > $start_date) {
       $strMessage =  $strMessage.
-                     'Your Notification time should be before your Start Date!<br>';
+                     'Your Review Deadline should be before your Start Date!<br>';
     }
     if ( !($min_reviews >= 0)){
       $strMessage =  $strMessage.
@@ -136,24 +129,22 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     }
     if ( !($min_papers <= $max_papers)){
       $strMessage =  $strMessage.
-                     'Your minimum number of papers should not be greater than the maximum number 
-                      of paper!<br>';
+                     'Your minimum number of papers should not be greater than the maximum number of paper!<br>';
     }
     if ( !($min_reviews <= $def_reviews)){
       $strMessage =  $strMessage.
-                     'Your minimum number of reviews should not be greater than the default 
-                      number of reviews!<br>';
+                     'Your minimum number of reviews should not be greater than the default number of reviews!<br>';
     }
     if ( !(0 < $variance) || !($variance < 100)){
-      $strMessage =  $strMessage.'Your ambiguity should be greater than zero and less than hundred!<br>';
+      $strMessage =  $strMessage.
+                     'Your ambiguity should be greater than zero and less than hundred!<br>';
     }
     if ( !(0 <= $auto_numrev )){
       $strMessage =  $strMessage.
-                     'Your number of automatically added reviewers should be greater or 
-                     equal than zero!<br>';
+                     'Your number of automatically added reviewers should be greater or equal than zero!<br>';
     }
     // Versuche die Konferenz zu aktualisieren
-    else if ($strMessage=='' ){
+    if ($strMessage=='') {
       $objCriterions = array();
       $objTopics = array();
       $objConferenceDetailed =
