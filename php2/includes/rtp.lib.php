@@ -28,21 +28,154 @@ function getReviewCountForPaper($paperId) {
 		$paperId = "0";
 	}
 
-	$query="SELECT COUNT(*) FROM reviewreport WHERE paper_id=$paperId";
+	$query="SELECT id FROM reviewreport WHERE paper_id=$paperId";
 
-	$countArr=$sql->query($query);
+	$countArr=$sql->queryAssoc($query);
+
+	$result=0;
+
+	foreach($countArr as $reviewreport) {
+
+		$query="SELECT COUNT(*) FROM rating WHERE review_id=" . $reviewreport['id'];
+		$hasReviews=$sql->query($query);
+		if ($hasReviews[0][0] > 0) {
+			$result++;
+		}
+
+	}
 	
-	return($countArr[0][0]);
+	return($result);
 
 }
 
-function getAllPapersForConferenceSortByTotalScore( $conferenceId) {
+function compareGrade($a, $b) {
+	if ($a['total_grade'] < $b['total_grade']) return 1;
+	else if ($a['total_grade'] > $b['total_grade']) return -1;
+	else if ($a['state'] >= 3 && $b['state'] < 3) return -1;
+	else if ($a['state'] < 3 && $b['state'] >= 3) return 1;
+	else return 0;
+}
 
-	function compareGrade($a, $b) {
-		if ($a['total_grade'] < $b['total_grade']) return 1;
-		else if ($a['total_grade'] > $b['total_grade']) return -1;
-		else return 0;
+function getAllRejectedPapersForConferenceSortByTotalScore( $conferenceId ) {
+
+	global $sql;
+
+	if (!$conferenceId) {
+		$conferenceId="0";
 	}
+
+	$reviewQuery="SELECT min_reviews_per_paper FROM conference WHERE id=$conferenceId";
+	
+	$minReviewsArr=$sql->query($reviewQuery);
+
+	$minReviews=$minReviewsArr[0][0];
+
+	$graded = array();
+	$ungraded = array();
+
+	$queryStr="SELECT id FROM paper WHERE conference_id=$conferenceId AND state=4";
+
+	$arr=$sql->query($queryStr);
+
+	foreach($arr as $row) {
+		$paperId=$row['id'];
+		$paperArr=getPaper( $paperId );
+
+		$reviewCount=getReviewCountForPaper( $paperId );
+
+		$paperArr['min_reviews']=$minReviews;
+
+		if ( $reviewCount==0 ) {
+			$paperArr['total_grade'] = 0;
+			$paperArr['review_count'] = 0;
+			$paperArr['review_status'] = "notAtAll";
+			$ungraded[ ] = $paperArr;
+		} else {
+			$totalGrade=getTotalGradeForPaper( $paperId );
+			$totalGradeList=getTotalGradeListForPaper( $paperId );
+			if ($reviewCount>=$minReviews) {
+				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
+				$paperArr['totalgradelist'] = implode(", ",$totalGradeList);
+				$paperArr['review_count'] = $reviewCount;
+				$paperArr['review_status'] = "complete";
+				$graded[ ] = $paperArr;
+			} else {
+				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
+				$paperArr['totalgradelist'] = implode(", ",$totalGradeList);
+				$paperArr['review_count'] = $reviewCount;
+				$paperArr['review_status'] = "partially";
+				$graded[ ] = $paperArr;
+			}
+		}
+	}
+
+	usort($graded, "compareGrade");
+
+	return array_merge ( $graded, $ungraded );
+
+}
+
+function getAllAcceptedPapersForConferenceSortByTotalScore( $conferenceId ) {
+
+	global $sql;
+
+	if (!$conferenceId) {
+		$conferenceId="0";
+	}
+
+	$reviewQuery="SELECT min_reviews_per_paper FROM conference WHERE id=$conferenceId";
+	
+	$minReviewsArr=$sql->query($reviewQuery);
+
+	$minReviews=$minReviewsArr[0][0];
+
+	$graded = array();
+	$ungraded = array();
+
+	$queryStr="SELECT id FROM paper WHERE conference_id=$conferenceId AND state=3";
+
+	$arr=$sql->query($queryStr);
+
+	foreach($arr as $row) {
+		$paperId=$row['id'];
+		$paperArr=getPaper( $paperId );
+
+		$reviewCount=getReviewCountForPaper( $paperId );
+
+		$paperArr['min_reviews']=$minReviews;
+
+		if ( $reviewCount==0 ) {
+			$paperArr['total_grade'] = 0;
+			$paperArr['review_count'] = 0;
+			$paperArr['review_status'] = "notAtAll";
+			$ungraded[ ] = $paperArr;
+		} else {
+			$totalGrade=getTotalGradeForPaper( $paperId );
+			$totalGradeList=getTotalGradeListForPaper( $paperId );
+			if ($reviewCount>=$minReviews) {
+				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
+				$paperArr['totalgradelist'] = implode(", ",$totalGradeList);
+				$paperArr['review_count'] = $reviewCount;
+				$paperArr['review_status'] = "complete";
+				$graded[ ] = $paperArr;
+			} else {
+				$paperArr['total_grade'] = number_format( $totalGrade*100, 2);
+				$paperArr['totalgradelist'] = implode(", ",$totalGradeList);
+				$paperArr['review_count'] = $reviewCount;
+				$paperArr['review_status'] = "partially";
+				$graded[ ] = $paperArr;
+			}
+		}
+	}
+
+	usort($graded, "compareGrade");
+
+	return array_merge ( $graded, $ungraded );
+
+}
+
+
+function getAllPapersForConferenceSortByTotalScore( $conferenceId) {
 
 	global $sql;
 
@@ -68,6 +201,8 @@ function getAllPapersForConferenceSortByTotalScore( $conferenceId) {
 		$paperArr=getPaper( $paperId );
 
 		$reviewCount=getReviewCountForPaper( $paperId );
+
+		$paperArr['min_reviews']=$minReviews;
 
 		if ( $reviewCount==0 ) {
 			$paperArr['total_grade'] = 0;
@@ -180,7 +315,7 @@ function getTotalGradeForReviewReport($reviewReportId) {
 			$row['max_value']=10;
 		}		
 
-		$weightenedGrades[ $row['criterion_id'] ] = ( $row['grade'] / $row['max_value'] ) * ( $row['quality_rating'] / 100);
+		$weightenedGrades[ $row['criterion_id'] ] = ( ($row['grade'] -1) / ($row['max_value'] -1) ) * ( $row['quality_rating'] / 100);
 	}
 
 
