@@ -271,26 +271,6 @@ class Distribution extends ErrorHandling {
       }
     }
 
-    // Debug: Ausgabe
-    for ($i = 0; $i < count($matrix); $i++) {
-      echo('<br>Reviewer '.$r_id[$i].':');
-      for ($j = 0; $j < count($matrix[$i]); $j++) {
-        echo(' '.$matrix[$i][$j]);
-      }
-    }
-
-    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
-    echo('<br>p_id_index:');
-    print_r($p_id_index);
-    echo('<br>r_id_index:');
-    print_r($r_id_index);
-    echo('<br>NumRevsPrefLeft:');
-    print_r($p_num_revs_pref_left);
-    echo('<br>NumRevsTotalLeft:');
-    print_r($p_num_revs_total_left);
-    echo('<br>NumRevs:');
-    print_r($p_num_revs);
-
     // Verteilungsschleife
     $blnChanged = true;
     $blnBreak = false;
@@ -336,12 +316,25 @@ class Distribution extends ErrorHandling {
         }
       }
     }
-    // Keine gueltige Verteilung?
-    for ($i = 0; $i < count($p_num_revs); $i++) {
-      if ($p_num_revs[$i] < $min_revs) {
-        return $this->success(false);
+
+    // Debug: Ausgabe
+    for ($i = 0; $i < count($matrix); $i++) {
+      echo('<br>Reviewer '.$r_id[$i].':');
+      for ($j = 0; $j < count($matrix[$i]); $j++) {
+        echo(' '.$matrix[$i][$j]);
       }
     }
+    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
+    echo('<br>p_id_index:');
+    print_r($p_id_index);
+    echo('<br>r_id_index:');
+    print_r($r_id_index);
+    echo('<br>NumRevsPrefLeft:');
+    print_r($p_num_revs_pref_left);
+    echo('<br>NumRevsTotalLeft:');
+    print_r($p_num_revs_total_left);
+    echo('<br>NumRevs:');
+    print_r($p_num_revs);
 
     /*$text = array(0 => 'assigned', 'prefers', 'wants', 'denies', 'excluded');
     for ($i = 0; $i < count($matrix); $i++) {
@@ -354,6 +347,13 @@ class Distribution extends ErrorHandling {
         }
       }
     }*/
+
+    // Keine gueltige Verteilung?
+    for ($i = 0; $i < count($p_num_revs); $i++) {
+      if ($p_num_revs[$i] < $min_revs) {
+        return $this->success(false);
+      }
+    }
 
     return $matrix;
   }
