@@ -23,6 +23,10 @@ if(isAdmin_Overall()){
 		}
 		if (count($errors)==0) {
 			// write to database and redirect
+
+			$confname=mysql_escape_string($confname);
+			$confdescription=mysql_escape_string($confdescription);
+
 			$insertstatement="UPDATE conference SET name='$confname', homepage='$confhomepage', description='$confdescription', abstract_submission_deadline='$confabstract_dl',	paper_submission_deadline='$confpaper_dl', review_deadline='$confreview_dl' , final_version_deadline='$conffinal_dl', notification='$confnotification', conference_start='$confstart', conference_end='$confend', min_reviews_per_paper='$confmin_reviews' WHERE id='$cid'";
 			$result=$sql->insert($insertstatement);
 		}

@@ -25,6 +25,9 @@ if ($_POST['submit']) {
 	if (count($errors)==0) {
 		// write to database and redirect
 
+		$confname=mysql_escape_string($confname);
+		$confdescription=mysql_escape_string($confdescription);
+
 		$userquery="
 			SELECT id FROM person WHERE email LIKE '$confchair_email'";
 		$userId=$sql->query($userquery) ;
