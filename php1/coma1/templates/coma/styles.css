@@ -136,6 +136,13 @@ a.order {
   background-repeat: no-repeat;
   background-position: left;
 }
+a.order-active {
+  color: #FF2600;
+  padding-left: 12px;
+  background-image:url('images/order-active.gif');
+  background-repeat: no-repeat;
+  background-position: left;
+}
 
 /* Allgemeine Tabellen und Formulare */
 table, form
@@ -224,7 +231,7 @@ a.markedmenu
   font-size: 13px;
   text-decoration: none;
   font-weight: bold;
-  color: #FF0000;
+  color: #FF2600;
   border-top: 1px #FF0000 solid;
   border-bottom: 1px #FF0000 solid;
 }
@@ -233,7 +240,7 @@ a.markedsubmenu
   font-size: 12px;
   text-decoration: none;
   font-weight: normal;
-  color: #FF0000;
+  color: #FF2600;
   border-top: 1px #FF0000 solid;
   border-bottom: 1px #FF0000 solid;
 }

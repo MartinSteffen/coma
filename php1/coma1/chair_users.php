@@ -50,9 +50,11 @@ if (isset($_POST['action'])) {
 }
 if (isset($_GET['order']) || isset($_POST['order'])) {
   $intOrder = (isset($_GET['order']) ? $_GET['order'] : $_POST['order']);
+  $ifArray = array($intOrder);
 }
 else {
   $intOrder = 0;
+  $ifArray = array();
 }
 
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'), $intOrder);
@@ -62,7 +64,7 @@ if ($myDBAccess->failed()) {
 
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
-$strContentAssocs['if'] = array();
+$strContentAssocs['if'] = $ifArray;
 $strContentAssocs['lines'] = '';
 if (!empty($objPersons)) {
   $lineNo = 1;
