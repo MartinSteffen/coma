@@ -3,10 +3,10 @@
 define('DEBUG', true);
 define('IN_COMA1', true);
 
-require_once('./include/header.inc.php');
-include('./include/class.forum.inc.php');
-require_once('./include/class.message.inc.php');
-require_once('./include/class.person.inc.php');
+include_once('./include/header.inc.php');
+include_once('./include/class.forum.inc.php');
+include_once('./include/class.message.inc.php');
+include_once('./include/class.person.inc.php');
 
 //Funktiondefinitionen
 
