@@ -168,7 +168,7 @@ class Template extends ErrorHandling {
       list($usec, $sec) = explode(" ", microtime());
       $renderTime = ((float)$usec + (float)$sec);
       $renderTime = $renderTime - $_renderTime;
-      $this->strOutput(str_replace('/RenderTime/', $renderTime, $this->strOutput));
+      $this->strOutput = str_replace('/RenderTime/', $renderTime, $this->strOutput);
     }
     print($this->strOutput);
     return $this->success();
