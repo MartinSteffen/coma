@@ -1,6 +1,6 @@
 \newif\ifweb\webfalse
 
-\documentclass[11pt,handout]{handout}
+\documentclass[11pt,nologo,handout]{handout}
 
 \dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
 \coursename{P-I-T-M}
@@ -12,20 +12,24 @@
 
 \newcommand{\Coma}{\textsl{Coma}}
 \usepackage{hevea}
+\usepackage{url}
 \usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{graphicx}
 
-%\uebungfalse
-%\handouttrue
+
+\graphicspath{{../figures/}}
 
 \begin{document}
 
 \thispagestyle{empty}
 
-The purpose of this handout is to explain the purpose and how to use
-bugzilla.  Bugzilla is a web-based bug-tracking system.  In the following,
-we first explain the purpose of bug-tracking, the anatomy and the
-life-cycle of a bug in bugzilla, how bugzilla is used, and finally the
-policies of using bugzilla in this project.
+The purpose of this handout is to explain the purpose and the usage of
+bugzilla.  Bugzilla is a web-based bug-tracking system.  In the
+following, we first explain the purpose of bug-tracking, gives a very
+short course in bugzilla, the anatomy and the life-cycle of a bug in
+bugzilla, how bugzilla is used, and finally the policies of using
+bugzilla in this project.
 
 
 \section{Bugtracking}
@@ -54,6 +58,25 @@ what needs to be done.  It simplifies the process of figuring out
 who is responsible for correcting a bug.
 
 Bugzilla is a tool to make life in software development simpler.
+
+
+
+
+
+\section{Crash Course Bugzilla}
+
+Bugzilla can be accessed at
+\url{http://snert.informatik.uni-kiel.de:8080/~swprakt/bugzilla}.
+
+In order to use bugzilla, you have to register an account with it.
+Your login will be your (valid) e-mail address.  You can choose a
+password on your own.
+
+Once you logged in you can enter new bug reports, search existing bug
+reports, or edit your account.  The functions accessible are given at
+the bottom of each page.
+
+
 
 
 
@@ -136,10 +159,10 @@ Bugs are modeled by the following fields.
 \item[Target]  A future version by which the bug is to be corrected.
   Values are:
   \begin{description}
-  \item[M0]
-  \item[M1]
-  \item[M2]
-  \item[M3]
+  \item[M0] Specification and tools (provided as \LaTeX{} source)
+  \item[M1] Stable data model.
+  \item[M2] \ldots
+  \item[M3] \ldots
   \item[Presentation]  The final day of the lab course where the product
     is to be presented.
   \end{description}
@@ -209,7 +232,7 @@ substate.
 
 \begin{figure}
   \centering
-  %% Put figure here.
+  \includegraphics[width=.5\textwidth]{bug-life-cycle}
   \caption{A bug's life cycle}
   \label{fig:lifecycle}
 \end{figure}
@@ -297,10 +320,10 @@ circumstances.
 \end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% $Id$ 
+%% $Id$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
-%%% End: 
+%%% End:
