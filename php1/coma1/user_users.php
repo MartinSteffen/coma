@@ -51,6 +51,7 @@ $strContentAssocs['lines'] = '';
 if (!empty($objPersons)) {
   $lineNo = 1;
   foreach ($objPersons as $objPerson) {
+    $strItemAssocs = defaultAssocsArray();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['user_id'] = $objPerson->intId;    
     $strItemAssocs['name'] = encodeText($objPerson->getName(1));
