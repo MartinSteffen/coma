@@ -19,8 +19,8 @@ $sql->connect();
 			$pass = makePassword($_POST['pass']); 
 			$email = strtolower($_POST['email']);
 			$SQL = "SELECT id, first_name, last_name from person where email = '".$email."' and password = '".$pass."'";
-			$result=mysql_query($SQL); 
-		    if ($list = mysql_fetch_row ($result)) 	
+			$result=$SQL->query($SQL); 
+		    if ($list = $result[0]) 	
 			{
 				$_SESSION['userID'] = $list[0];
 				$_SESSION['userName'] = $list[1]." ".$list[2];
