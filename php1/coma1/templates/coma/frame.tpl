@@ -50,6 +50,7 @@
   <td class="body">
     <h2>{title}</h2>
     {content}
+    <p>&nbsp;</p>
   </td>
  </tr>
 </table>

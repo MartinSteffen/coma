@@ -49,5 +49,3 @@
   Conference was successfully registered!<br>
   Return to the <a href="{basepath}{return_page}{?SID}">conference overview</a>.
 </p>
-
-<p>&nbsp;</p>

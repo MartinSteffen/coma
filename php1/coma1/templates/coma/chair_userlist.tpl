@@ -7,5 +7,3 @@
   </tr>
   {lines}
 </table>
-
-<p>&nbsp;</p>

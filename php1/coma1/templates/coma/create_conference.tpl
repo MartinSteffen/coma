@@ -114,5 +114,3 @@
   </tr>
 </table>
 </form>
-
-<p>&nbsp;</p>

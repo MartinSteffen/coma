@@ -47,5 +47,3 @@
 <p class="message2">
   Return to the <a href="{basepath}{return_page}{?SID}">conference overview</a>.
 </p>
-
-<p>&nbsp;</p>

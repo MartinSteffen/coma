@@ -48,5 +48,3 @@
   Show <a href="{basepath}user_users.php{?SID}">list of all members</a> of this conference.<br>
   Show <a href="{basepath}user_papers.php{?SID}">list of all papers</a> submitted in for this conference.
 </p>
-
-<p>&nbsp;</p>

@@ -20,5 +20,3 @@
   and to upload new versions of the document.<br>
   Click on <span class="emph">View</span> to download and read the paper.
 </p>
-
-<p>&nbsp;</p>

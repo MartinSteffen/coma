@@ -36,5 +36,3 @@
   You have to login in order to access information that is relevant to you.<br>
   If you have not registered yet, <a href="{basepath}register.php{?SID}">please register!</a>
 </p>
-
-<p>&nbsp;</p>
