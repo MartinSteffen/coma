@@ -225,15 +225,9 @@ class DBAccess {
         ' FROM    Paper'.
         ' WHERE   author_id = '.$intAuthorId;
     $data = $this->mySql->select($s);
-    if ($data == false) {
-      echo('False');
-    }
-    else {
-      echo('True');
-    }
     if ($data) {
       for ($i = 0; $i < count($data); $i++) {
-      	$reviews = $this->getReviewsOfPaper($data[i]['id']);
+      	$reviews = $this->getReviewsOfPaper($data[$i]['id']);
       	$fltAvgRating = 0;
       	if ($reviews != false) {
       	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
