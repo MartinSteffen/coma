@@ -34,7 +34,8 @@ require_once(INCPATH.'class.papervariance.inc.php');
 
 function getCriticalPapers($method = 'variance') {
   $objPapers = array();
-  $papers = myDBAccess->getPapersOfConference(session('confid'));
+  $cid = session('confid');
+  $papers = myDBAccess->getPapersOfConference($cid);
   foreach ($papers as $paper){
     $reviews = myDBAccess->getReviewsOfPaper($paper->intId);
     if (!empty($reviews)){
