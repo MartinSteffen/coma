@@ -347,7 +347,7 @@ function generatePostMethodArray($strArrayPostvars){
       }
       $intId = $myDBAccess->addForum(session('confid'), $_POST['title'], $_POST['type'], $pid);
       if ($myDBAccess->failed()) {
-        error('Error creating new forum.', $myDBAccess->getLastError());
+        error('creating new forum', $myDBAccess->getLastError());
       }
     }
   }

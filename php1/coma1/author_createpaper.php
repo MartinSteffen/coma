@@ -13,23 +13,23 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
-$ifArray = array();
-
-// Lade die Daten des Autoren
-$objAuthor = $myDBAccess->getPersonDetailed(session('uid'));
-if ($myDBAccess->failed()) {
-  error('Error occured during retrieving author.', $myDBAccess->getLastError());
-}
-else if (empty($objAuthor)) {
-  error('Author does not exist in database.', '');
-}
-$objAllTopics = $myDBAccess->getTopicsOfConference(session('confid'));
-if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
-}
 
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(AUTHOR);
+
+$ifArray = array();
+// Lade die Daten des Autoren
+$objAuthor = $myDBAccess->getPersonDetailed(session('uid'));
+if ($myDBAccess->failed()) {
+  error('get author', $myDBAccess->getLastError());
+}
+else if (empty($objAuthor)) {
+  error('get author','Author does not exist in database.');
+}
+$objAllTopics = $myDBAccess->getTopicsOfConference(session('confid'));
+if ($myDBAccess->failed()) {
+  error('gather conference topics', $myDBAccess->getLastError());
+}
 
 // Pruefe ob die Paper-Deadline erreicht worden ist
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
@@ -37,7 +37,7 @@ if ($myDBAccess->failed()) {
   error('get conference details',$myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('conference '.session('confid').' does not exist in database.','');
+  error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
 if (strtotime($objConference->strPaperDeadline) <= strtotime("now")) {
   error('Paper submission deadline has already been reached.','');
@@ -73,9 +73,9 @@ if (isset($_POST['action'])) {
     $strTopicAssocs = defaultAssocArray();
     $strTopicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
     $strTopicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
-    $strTopicAssocs['if'] = array();
+    $strTopicAssocs['if']       = array();
     if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
-      $strTopicAssocs['if'] = array(1);
+      $strTopicAssocs['if']     = array(1);
     }
     $topicForm->assign($strTopicAssocs);
     $topicForm->parse();
@@ -100,7 +100,7 @@ if (isset($_POST['action'])) {
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during creating new paper.', $myDBAccess->getLastError());
+        error('creating new paper', $myDBAccess->getLastError());
       }
     }
   }

@@ -173,7 +173,26 @@ function checkAccess($role) {
   global $myDBAccess;
   if (!$myDBAccess->hasRoleInConference(session('uid'), session('confid'), $role)) {
     if ($myDBAccess->failed()) {
-      error('Error occured retrieving conference data.', $myDBAccess->getLastError());
+      error('check page access', $myDBAccess->getLastError());
+    }
+    else {
+      error('You have no permission to view this page.', '');
+    }
+  }
+  return true;
+}
+
+/**
+ * Diese Funktion ueberprueft ob das Paper $intPaperId zur akt. Konferenz gehoert.
+ *
+ * @param int $intPaperId Die ID des zu pruefenden Papers.
+ * @return bool true gdw. wenn es zur akt. Konferenz gehoert.
+ */
+function checkPaper($intPaperId) {
+  global $myDBAccess;
+  if (!$myDBAccess->isPaperInConference($intPaperId, session('confid')) {
+    if ($myDBAccess->failed()) {
+      error('check page access', $myDBAccess->getLastError());
     }
     else {
       error('You have no permission to view this page.', '');

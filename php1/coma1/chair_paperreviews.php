@@ -20,24 +20,26 @@ checkAccess(CHAIR);
 // Lade die Daten der Reviews des Papers
 if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
   $intPaperId = isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid'];
+  // Pruefe, ob das Paper zur aktuellen Konferenz gehoert
+  checkPaper($intPaperId);
   $objPaper = $myDBAccess->getPaperDetailed($intPaperId);
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving paper.', $myDBAccess->getLastError());
+    error('get paper data', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
-    error('Paper '.$intPaperId.' does not exist in database.', '');
-  }
+    error('get paper data', 'Paper '.$intPaperId.' does not exist in database.');
+  }    
   $objReviews = $myDBAccess->getReviewsOfPaper($objPaper->intId);
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving review report.', $myDBAccess->getLastError());
+    error('get review report', $myDBAccess->getLastError());
   }
   $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving reviewer list.', $myDBAccess->getLastError());
+    error('gather list of reviewers', $myDBAccess->getLastError());
   }
   $objCriterions = $myDBAccess->getCriterionsOfConference(session('confid'));
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving rating criteria.', $myDBAccess->getLastError());
+    error('gather rating criteria', $myDBAccess->getLastError());
   }
 }
 else {
@@ -87,15 +89,15 @@ if (!empty($objReviewers)) {
     $strRowAssocs['reviewer_id'] = encodeText($objReviewer->intId);
     $intReviewId = $myDBAccess->getReviewIdOfReviewerAndPaper($objReviewer->intId, $objPaper->intId);
     if ($myDBAccess->failed()) {
-      error('Error occured during retrieving review details.', $myDBAccess->getLastError());
+      error('get review details', $myDBAccess->getLastError());
     }
     else if (!empty($intReviewId)) {
       $objReview = $myDBAccess->getReviewDetailed($intReviewId);
       if ($myDBAccess->failed()) {
-        error('Error occured during retrieving review details.', $myDBAccess->getLastError());
+        error('get review details', $myDBAccess->getLastError());
       }
       else if (empty($objReview)) {
-        error('Review does not exist in database.', '');
+        error('get review details', 'Review does not exist in database.');
       }
       $rowItem = new Template(TPLPATH.'chair_paperreviewlistitem.tpl');
       $strRowAssocs['review_id'] = encodeText($objReview->intId);

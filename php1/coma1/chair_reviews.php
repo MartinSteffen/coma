@@ -30,26 +30,26 @@ if (isset($_POST['action'])) {
     $myDBAccess->setPaperStatus($_POST['paperid'],
       ($_POST['submit'] == 'accept' ? PAPER_ACCEPTED : PAPER_REJECTED));
     if ($myDBAccess->failed()) {
-      error('Error updating paper status.', $myDBAccess->getLastError());
+      error('updating paper status', $myDBAccess->getLastError());
     }
   }
   else if ($_POST['action'] == 'resetstatus') {
     $myDBAccess->resetPaperStatus($_POST['paperid']);
     if ($myDBAccess->failed()) {
-      error('Error resetting paper status.', $myDBAccess->getLastError());
+      error('resetting paper status', $myDBAccess->getLastError());
     }
   }
 /*else if ($_POST['action'] == 'delete') {
     $myDBAccess->deletePaper($_POST['paperid']);
     if ($myDBAccess->failed()) {
-      error('Error deleting paper.', $myDBAccess->getLastError());
+      error('deleting paper', $myDBAccess->getLastError());
     }
   }*/
 }
 
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get review list of chair',$myDBAccess->getLastError());
+  error('gather list of reviews for chair', $myDBAccess->getLastError());
 }
 
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
@@ -57,21 +57,21 @@ if ($myDBAccess->failed()) {
   error('get conference details',$myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('get conference details', 'Conference does not exist in database.');
+  error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
 
 $content = new Template(TPLPATH.'chair_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if'] = array();
+$strContentAssocs['if']    = array();
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
     $strItemAssocs = defaultAssocArray();
     $ifArray = array();
-    $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
-    $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
+    $strItemAssocs['line_no']     = $lineNo;
+    $strItemAssocs['paper_id']    = encodeText($objPaper->intId);
+    $strItemAssocs['author_id']   = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
     $ifArray[] = $objPaper->intStatus;
     if (!empty($objPaper->strFilePath)) {
@@ -86,7 +86,7 @@ if (!empty($objPapers)) {
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $strItemAssocs['num_reviews'] = encodeText($intRevs.' of '.count($objReviewers));
+    $strItemAssocs['num_reviews']  = encodeText($intRevs.' of '.count($objReviewers));
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
@@ -98,7 +98,7 @@ if (!empty($objPapers)) {
       error('get paper list of chair', $myDBAccess->getLastError());
     }
     if (!empty($fltVariance) || is_numeric($fltVariance)) {
-      $strItemAssocs['variance'] = encodeText(round($fltVariance * 100).'%');
+      $strItemAssocs['variance']   = encodeText(round($fltVariance * 100).'%');
       if ($fltVariance >= $objConference->fltCriticalVariance) {
         $ifArray[] = 6;
       }
@@ -128,11 +128,11 @@ if (!empty($objPapers)) {
     $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
     $strReviewersAssocs = defaultAssocArray();
     for ($i = 0; $i < count($objReviewers); $i++) {
-      $strReviewersAssocs['rev_id'] = encodeText($objReviewers[$i]->intId);
+      $strReviewersAssocs['rev_id']   = encodeText($objReviewers[$i]->intId);
       $strReviewersAssocs['rev_name'] = encodeText($objReviewers[$i]->getName(1));
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
-      $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
+      $strItemAssocs['reviewers']    .= $assignedReviewers->getOutput();
     }
 
     $paperItem = new Template(TPLPATH.'chair_reviewlistitem.tpl');

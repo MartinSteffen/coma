@@ -23,22 +23,25 @@ if (isset($_GET['paperid'])) {
   else if (empty($objPaper)) {
     error('Get paper','Paper '.$intPaperId.' does not exist in database!');
   }  
+  // Pruefe ob das Paper zur Konferenz gehoert
+  checkPaper($objPaper->intId);
+  // Pruefe Zugangsberechtigung zum Heurnterladen des Papers
   $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR)    ||
                $myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER) ||
                (session('uid') == $objPaper->intAuthorId);
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
+    error('get conference data', $myDBAccess->getLastError());
   }
   else if (!$checkRole) {
-    error('You have no permission to view this page.', '');
+    error('You have no permission to view this page.','');
   }  
   // Hole dir das File
   $file = $myDBAccess->getPaperFile($_GET['paperid']);
   if ($myDBAccess->failed()) {
-    error('Error occured retrieving paper', $myDBAccess->getLastError());
+    error('retrieving paper', $myDBAccess->getLastError());
   }
   if (empty($file)) {
-    error('Error occured retrieving paper', 'File not found!');
+    error('retrieving paper', 'File not found!');
   }
   // Sende das File
   header("Pragma: public");
@@ -54,7 +57,7 @@ if (isset($_GET['paperid'])) {
 }
 else {
   // Keine PaperID
-  error('Get Paper', 'No Paper to get...');
+  error('get paper', 'No paper specified to get.');
 }
 
 ?>

@@ -16,18 +16,14 @@ require_once('./include/header.inc.php');
 require_once(INCPATH.'class.distribution.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER);
-if ($myDBAccess->failed()) {
-  error('Error while checking access permission', $myDBAccess->getLastError());
-}
-else if (!$checkRole) {
-  error('You have no permission to view this page', '');
-}
+checkAccess(CHAIR);
 
 if (!isset($_GET['paperid'])) {
   error('Get paper ID', 'Not found.');
 }
 $pid = $_GET['paperid'];
+// Pruefe ob das Paper zur akt. Konferenz gehoert
+checkPaper($pid);
 
 $r_id = $myDist->getAvailableReviewerIdsOfConference(session('confid'));
 if ($myDist->failed()) {
@@ -44,13 +40,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'submit') {
     if (isset($_POST['p'.$pid.'r'.$rid]) && !$isD) {
       $myDBAccess->addDistribution($rid, $pid);
       if ($myDBAccess->failed()) {
-        error('add distribution', $myDBAccess->getLastError());
+        error('adding distribution', $myDBAccess->getLastError());
       }
     }
     elseif (!isset($_POST['p'.$pid.'r'.$rid]) && $isD) {
       $myDBAccess->deleteDistribution($rid, $pid);
       if ($myDBAccess->failed()) {
-        error('delete distribution', $myDBAccess->getLastError());
+        error('deleting distribution', $myDBAccess->getLastError());
       }
     }
   }
@@ -61,11 +57,11 @@ if ($myDBAccess->failed()) {
   error('get paper', $myDBAccess->getLastError());
 }
 elseif (empty($objPaper)) {
-  error('get paper', 'Empty result.');
+  error('get paper', 'Paper '.$pid.' does not exist in database.');
 }
 $objTopics = $myDBAccess->getTopicsOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get topic list',$myDBAccess->getLastError());
+  error('gather list of topics', $myDBAccess->getLastError());
 }
 
 $content = new Template(TPLPATH.'chair_reviewerassignment.tpl');
@@ -85,9 +81,9 @@ if (!empty($r_id)) {
       error('get reviewer attitude mapping', $myDBAccess->getLastError());
     }
     $strItemAssocs = defaultAssocArray();
-    $strItemAssocs['line_no'] = $lineNo;
+    $strItemAssocs['line_no']  = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
-    $strItemAssocs['rev_id'] = encodeText($objReviewer->intId);
+    $strItemAssocs['rev_id']   = encodeText($objReviewer->intId);
     $strItemAssocs['rev_name'] = encodeText($objReviewer->getName(1));
     $intNum = $myDBAccess->getNumberOfPapersOfReviewer($rid, session('confid'));
     if ($myDBAccess->failed()) {

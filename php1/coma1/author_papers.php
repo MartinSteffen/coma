@@ -24,7 +24,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete') {
   else {
     $myDBAccess->deletePaper($_POST['paperid']);
     if ($myDBAccess->failed()) {
-      error('Error deleting paper.', $myDBAccess->getLastError());
+      error('deleting paper', $myDBAccess->getLastError());
     }
   }
 }
@@ -51,7 +51,7 @@ if ($myDBAccess->failed()) {
   error('get conference details',$myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('conference '.session('confid').' does not exist in database.','');
+  error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
 if (strtotime("now") < strtotime($objConference->strPaperDeadline)) {
   $ifArray[] = 8;

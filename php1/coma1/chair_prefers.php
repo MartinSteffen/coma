@@ -24,30 +24,30 @@ if (isset($_GET['userid']) || isset($_POST['userid'])) {
   $intPersonId = (isset($_GET['userid']) ? $_GET['userid'] : $_POST['userid']);
   $objReviewer = $myDBAccess->getPersonDetailed($intPersonId, session('confid'));
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving person.', $myDBAccess->getLastError());
+    error('get reviewer data', $myDBAccess->getLastError());
   }
   else if (empty($objReviewer)) {
-    error('Person '.$intPersonId.' does not exist in database.', '');
+    error('get reviewer data', 'Person '.$intPersonId.' does not exist in database.');
   }
   else if (!$objReviewer->hasRole(REVIEWER)) {
-    error('Person '.$intPersonId.' is no Reviewer.', '');
+    error('get reviewer data', 'Person '.$intPersonId.' is no reviewer.');
   }
 }
 else {
-  error('No User selected!', '');
+  error('get reviewer data', 'No User selected!');
 }
 
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get paper list',$myDBAccess->getLastError());
+  error('gather list of papers', $myDBAccess->getLastError());
 }
 $objTopics = $myDBAccess->getTopicsOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get topic list',$myDBAccess->getLastError());
+  error('gather list of topics', $myDBAccess->getLastError());
 }
 $objReviewerAttitude = $myDBAccess->getReviewerAttitude($intPersonId, session('confid'));
 if ($myDBAccess->failed()) {
-  error('get reviewer attitude mapping',$myDBAccess->getLastError());
+  error('get reviewer attitude mapping', $myDBAccess->getLastError());
 }
 
 $content = new Template(TPLPATH.'chair_prefers.tpl');

@@ -267,31 +267,30 @@ if (isset($_POST['action'])) {
         $resultRole = $myDBAccess->addRole(session('uid'), CHAIR, $intConfId);
         if ($myDBAccess->failed()) {
           // Datenbankfehler?
-          error('Error during creating chair for conference. '.
-                'Database may contain inaccessible conference. ', $myDBAccess->getLastError());
+          error('creating chair for conference', $myDBAccess->getLastError());
         }
         // Erzeuge die Foren fuer die neue Konferenz
         else {
           $intForumId = $myDBAccess->addForum($intConfId, 'Global conference forum for all CoMa users', FORUM_GLOBAL);
           if ($myDBAccess->failed()) {
             // Datenbankfehler?
-            error('Error during creating global conference forum.', $myDBAccess->getLastError());
+            error('creating global conference forum', $myDBAccess->getLastError());
           }
           $intForumId = $myDBAccess->addForum($intConfId, 'Public forum for conference members', FORUM_PUBLIC);
           if ($myDBAccess->failed()) {
             // Datenbankfehler?
-            error('Error during creating public conference forum.', $myDBAccess->getLastError());
+            error('creating public conference forum', $myDBAccess->getLastError());
           }
           $intForumId = $myDBAccess->addForum($intConfId, 'Internal forum for committee members', FORUM_PRIVATE);
           if ($myDBAccess->failed()) {
             // Datenbankfehler?
-            error('Error during creating internal committee forum.', $myDBAccess->getLastError());
+            error('creating internal committee forum', $myDBAccess->getLastError());
           }
           // Erfolg (also anderes Template)
           $content = new Template(TPLPATH.'confirm_conference.tpl');
           $strContentAssocs['return_page'] = 'main_conferences.php';
-          $objConference = new Conference(0,'','','', emptytime($start_date), emptytime($end_date));
-          $strContentAssocs['date'] = encodeText($objConference->getDateString());
+          $objConference = new Conference(0, '', '', '', emptytime($start_date), emptytime($end_date));
+          $strContentAssocs['date']        = encodeText($objConference->getDateString());
           $ifArray = array();
         }
       }
@@ -333,9 +332,9 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Create new Conference';
-$strMainAssocs['content'] = &$content;
-$strMainAssocs['menu'] = &$menu;
+$strMainAssocs['title']     = 'Create new Conference';
+$strMainAssocs['content']   = &$content;
+$strMainAssocs['menu']      = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Create conference';
 
 $main->assign($strMainAssocs);

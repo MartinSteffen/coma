@@ -25,7 +25,7 @@ if (isset($_POST['action'])) {
     else {
       $myDBAccess->deletePaper($_POST['paperid']);
       if ($myDBAccess->failed()) {
-        error('Error deleting paper.', $myDBAccess->getLastError());
+        error('deleting paper', $myDBAccess->getLastError());
       }
     }
   }
@@ -33,13 +33,13 @@ if (isset($_POST['action'])) {
     $myDBAccess->setPaperStatus($_POST['paperid'],
       ($_POST['submit'] == 'accept' ? PAPER_ACCEPTED : PAPER_REJECTED));
     if ($myDBAccess->failed()) {
-      error('Error updating paper status.', $myDBAccess->getLastError());
+      error('updating paper status', $myDBAccess->getLastError());
     }
   }
   else if ($_POST['action'] == 'resetstatus') {
     $myDBAccess->resetPaperStatus($_POST['paperid']);
     if ($myDBAccess->failed()) {
-      error('Error resetting paper status.', $myDBAccess->getLastError());
+      error('resetting paper status', $myDBAccess->getLastError());
     }
   }
 }
@@ -57,7 +57,7 @@ $ifArray = array($intOrder);
 
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get paper list of chair', $myDBAccess->getLastError());
+  error('gather list of papers for chair', $myDBAccess->getLastError());
 }
 
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
@@ -65,7 +65,7 @@ if ($myDBAccess->failed()) {
   error('get conference details',$myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('get conference details', 'Conference does not exist in database.');
+  error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
 
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
@@ -96,11 +96,11 @@ if (!empty($objPapers)) {
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     $intRevs = $myDBAccess->getNumberOfReviewsOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
-      error('get review list of chair',$myDBAccess->getLastError());
+      error('gather list of reviews for chair', $myDBAccess->getLastError());
     }
     $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
-      error('get review list of chair',$myDBAccess->getLastError());
+      error('gather list of reviews for chair', $myDBAccess->getLastError());
     }
     $strItemAssocs['num_reviews'] = encodeText($intRevs.' of '.count($objReviewers));
     if (!empty($objPaper->fltAvgRating)) {

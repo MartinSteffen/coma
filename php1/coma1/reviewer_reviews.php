@@ -20,16 +20,16 @@ checkAccess(REVIEWER);
 
 $objPapers = $myDBAccess->getPapersOfReviewer(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
-  error('get review list of reviewer',$myDBAccess->getLastError());
+  error('gather list of reviews for reviewer', $myDBAccess->getLastError());
 }
 
 // Hole Konferenz fuer Contraintsbestimmungen
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get conference details',$myDBAccess->getLastError());
+  error('get conference details', $myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('conference '.session('confid').' does not exist in database.','');
+  error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
 
 if (isset($_GET['createforum'])) {  
@@ -49,33 +49,33 @@ if (!empty($objPapers)) {
     $ifArray = array();
     $ifArray[] = $objPaper->intStatus;
     $strItemAssocs = defaultAssocArray();
-    $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
-    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
+    $strItemAssocs['line_no']     = $lineNo;
+    $strItemAssocs['paper_id']    = encodeText($objPaper->intId);
+    $strItemAssocs['title']       = encodeText($objPaper->strTitle);
+    $strItemAssocs['author_id']   = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);        
     if (strtotime("now") < strtotime($objConference->strReviewDeadline)) {
       $ifArray[] = 6;
     }
     $isReviewed = $myDBAccess->hasPaperBeenReviewed($objPaper->intId, session('uid'));
     if ($myDBAccess->failed()) {
-      error('Error during review status check.',$myDBAccess->getLastError());
+      error('check review status',$myDBAccess->getLastError());
     }    
     if ($isReviewed) {
       $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
       $intReviewId = $myDBAccess->getReviewIdOfReviewerAndPaper(session('uid'), $objPaper->intId);
       if ($myDBAccess->failed()) {
-        error('Error receiving review list of reviewer.',$myDBAccess->getLastError());
+        error('gather list of reviews for reviewer', $myDBAccess->getLastError());
       }
       else if (empty($intReviewId)) {
-         error('Error receiving review list of reviewer.', 'Review does not exist in database.');
+         error('gather list of reviews for reviewer', 'Review '.$intReviewId.' does not exist in database.');
       }
       $objReview = $myDBAccess->getReview($intReviewId);
       if ($myDBAccess->failed()) {
-        error('Error receiving review list of reviewer.',$myDBAccess->getLastError());
+        error('gather list of reviews for reviewer', $myDBAccess->getLastError());
       }
       else if (empty($objReview)) {
-         error('Error receiving review list of reviewer.', 'Review does not exist in database.');
+         error('gather list of reviews for reviewer', 'Review '.$intReviewId.' does not exist in database.');
       }
       $strItemAssocs['review_id'] = encodeText($objReview->intId);
       if (!empty($objReview->fltReviewRating)) {
@@ -93,7 +93,7 @@ if (!empty($objPapers)) {
       // Pruefe Zugang zum Paperforum
       $objPaperForum = $myDBAccess->getForumOfPaper($objReview->intPaperId);
       if ($myDBAccess->failed()) {
-        error('Error occured retrieving forum of paper.', $myDBAccess->getLastError());
+        error('get forum of paper', $myDBAccess->getLastError());
       }      
       if (empty($objPaperForum)) {
       	$ifArray[] = 7;

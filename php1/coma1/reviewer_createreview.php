@@ -28,6 +28,8 @@ if (!isset($_GET['paperid']) && !isset($_POST['paperid'])) {
 }
 
 $intPaperId = (isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid']);
+// Pruefe ob Paper zur akt. Konferenz gehoert
+checkPaper($intPaperId);
 $objPaper = $myDBAccess->getPaperDetailed($intPaperId);
 if ($myDBAccess->failed()) {
   error('Error occured retrieving paper.', $myDBAccess->getLastError());

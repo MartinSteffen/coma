@@ -81,7 +81,7 @@ if (!empty($dist)) {
   $lineNo = 1;
   $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
   if ($myDBAccess->failed()) {
-    error('get distribution paper list of chair',$myDBAccess->getLastError());
+    error('get distribution paper list of chair', $myDBAccess->getLastError());
   }
   foreach ($objPapers as $objPaper) {
     $strItemAssocs = defaultAssocArray();

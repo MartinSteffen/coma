@@ -596,6 +596,28 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Prueft ob das Paper $intPaperId in der Konferenz $intConferenceId ist.
+   *
+   * @param int $intPaperId ID des Papers
+   * @param int $intConferenceId ID der Konferenz
+   * @return bool false, gdw. das Paper nicht in der Konferenz ist.
+   * @access public
+   * @author Sandro (06.02.05)
+   */
+  function isPaperInConference($intPaperId, $intConferenceId) {
+    $s = sprintf("SELECT   id".
+                 " FROM    Paper".
+                 " WHERE   id = '%d'".
+                 " AND     conference_id = '%d'",
+                           s2db($intPaperId), s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('isPaperInConference', $this->mySql->getLastError());
+    }
+    return $this->success(!empty($data));
+  }
+
+  /**
    * Liefert das Paper-File mit der ID $intPaperId zurueck.
    *
    * Rueckgabe: (filename, mime_type, filesize, contents)

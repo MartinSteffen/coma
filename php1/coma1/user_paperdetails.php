@@ -22,6 +22,8 @@ $popup = (isset($_GET['popup'])) ? true : false;
 // Lade die Daten des Artikels
 if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
   $intPaperId = (isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid']);
+  // Pruefe, ob das Paper zur aktuellen Konferenz gehoert
+  checkPaper($intPaperId);
   $objPaper = $myDBAccess->getPaperDetailed($intPaperId);
   if ($myDBAccess->failed()) {
     error('Error occured retrieving paper.', $myDBAccess->getLastError());

@@ -14,27 +14,29 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
+// Pruefe Zugriffsberechtigung auf die Seite
+checkAccess(AUTHOR);
+
 // Lade die Daten des Artikels
 if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
   $intPaperId = (isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid']);
+  // Pruefe, ob das Paper zur aktuellen Konferenz gehoert
+  checkPaper($intPaperId);
   $objPaper = $myDBAccess->getPaperDetailed($intPaperId);
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving paper.', $myDBAccess->getLastError());
+    error('get paper details', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
-    error('Paper does not exist in database.', '');
+    error('get paper details','Paper '.$intPaperId.' does not exist in database.');
   }
   $objAllTopics = $myDBAccess->getTopicsOfConference(session('confid'));
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+    error('gather conference topics', $myDBAccess->getLastError());
   }
 }
 else {
   redirect('author_papers.php');
 }
-
-// Pruefe Zugriffsberechtigung auf die Seite
-checkAccess(AUTHOR);
 
 // Pruefe ob die Paper-Deadline erreicht worden ist
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
@@ -42,7 +44,7 @@ if ($myDBAccess->failed()) {
   error('get conference details',$myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('conference '.session('confid').' does not exist in database.','');
+  error('get conference details','Conference '.session('confid').' does not exist in database.');
 }
 if (strtotime($objConference->strFinalDeadline) <= strtotime("now")) {
   $strMessage = 'Final version deadline has already been reached. You can\'t change information about the paper anymore.';
@@ -91,7 +93,7 @@ if (isset($_POST['action'])) {
       $result = $myDBAccess->updatePaper($objPaper);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during updating paper.', $myDBAccess->getLastError());
+        error('updating paper', $myDBAccess->getLastError());
       }
       else if (!empty($result)) {
         $objPaper->strLastEdit = date('r');
@@ -111,7 +113,7 @@ if (isset($_POST['action'])) {
       $result = $myDBAccess->deletePaper($objPaper->intId);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during deleting paper.', $myDBAccess->getLastError());
+        error('deleting paper', $myDBAccess->getLastError());
       }
       else if (!empty($result)) {
         $_SESSION['message'] = 'Paper was deleted successfully.';
@@ -141,7 +143,7 @@ if (isset($_POST['action'])) {
       unset($file);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during uploading paper.', $myDBAccess->getLastError());
+        error('uploading paper', $myDBAccess->getLastError());
       }
       else if (!empty($result)) {
         $objPaper->intVersion++;

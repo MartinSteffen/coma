@@ -15,6 +15,9 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 require_once('./include/paperdiscussion.inc.php');
 
+// Pruefe Zugriffsberechtigung auf die Seite
+checkAccess(REVIEWER);
+
 if (!isset($_GET['reviewid']) && !isset($_POST['reviewid'])) {
   redirect("reviewer_reviews.php");
 }
@@ -27,9 +30,8 @@ if ($myDBAccess->failed()) {
 else if (empty($objReview)) {
   error('Review does not exist in database.', '');
 }
-
-// Pruefe Zugriffsberechtigung auf die Seite
-checkAccess(REVIEWER);
+// Pruefe ob Review zur akt. Konferenz gehoert
+checkPaper($objReview->intPaperId);
 
 // Aktualisiere Review mit den mitgeschickten Daten
 if (isset($_POST['action'])) {

@@ -21,17 +21,20 @@ $popup = (isset($_GET['popup'])) ? true : false;
 
 // Lade die Daten des Benutzers
 if (isset($_GET['userid']) || isset($_POST['userid'])) {
-  $intPersonId = (isset($_GET['userid']) ? $_GET['userid'] : $_POST['userid']);
-  $objPerson = $myDBAccess->getPersonDetailed($intPersonId, session('confid', false));
+  $intPersonId = (isset($_GET['userid']) ? $_GET['userid'] : $_POST['userid']);  
+  $objPerson = $myDBAccess->getPersonDetailed($intPersonId, session('confid'));
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving person.', $myDBAccess->getLastError());
+    error('get user details', $myDBAccess->getLastError());
   }
   else if (empty($objPerson)) {
-    error('Person '.$intPersonId.' does not exist in database.', '');
+    error('get user details', 'Person '.$intPersonId.' does not exist in database.');
+  }
+  if (!($objPerson->hasAnyRole()) && !($objPerson->hasAnyRoleRequest())) {
+    error('check page access', 'You have no permission to view this page.');
   }
 }
 else {
-  error('No User selected!', '');
+  error('get user details', 'No User selected!');
 }
 
 $content = new Template(TPLPATH.'view_profile.tpl');

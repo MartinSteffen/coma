@@ -20,11 +20,11 @@ checkAccess(CHAIR);
 $ifArray = array();
 $content = new Template(TPLPATH.'chair_start.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['request_no'] = '';
-$strContentAssocs['papers_no'] = '';
+$strContentAssocs['request_no']     = '';
+$strContentAssocs['papers_no']      = '';
 $strContentAssocs['crit_papers_no'] = '';
-$strContentAssocs['acc_papers_no'] = '';
-$strContentAssocs['acc_date'] = '';
+$strContentAssocs['acc_papers_no']  = '';
+$strContentAssocs['acc_date']       = '';
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
@@ -44,7 +44,7 @@ if ($intRoleRequests > 0) {
 $intUndistributedPapers = $myDBAccess->getNumberOfPapers(session('confid')) -
                           $myDBAccess->getNumberOfDistributedPapers(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get num of undistributed papers',$myDBAccess->getLastError());
+  error('get number of undistributed papers', $myDBAccess->getLastError());
 }
 if ($intUndistributedPapers > 0) {
   $strContentAssocs['papers_no'] = encodeText($intUndistributedPapers);
@@ -53,15 +53,15 @@ if ($intUndistributedPapers > 0) {
 // Pruefe auf fuer die Konferenz auszuwaehlende Paper
 $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get conference details',$myDBAccess->getLastError());
+  error('get conference details', $myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('conference '.session('confid').' does not exist in database.','');
+  error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
 if (strtotime($objConference->strReviewDeadline) <= strtotime("now")) {
   $intAcceptedPapers = $myDBAccess->getNumberOfPapersWithStatus(PAPER_ACCEPTED, session('confid'));
   if ($myDBAccess->failed()) {
-    error('get num of accepted papers',$myDBAccess->getLastError());
+    error('get number of accepted papers', $myDBAccess->getLastError());
   }
   if ($objConference->intMinNumberOfPapers > $intAcceptedPapers) {
     $strContentAssocs['acc_papers_no'] = encodeText($objConference->intMinNumberOfPapers - $intAcceptedPapers);
@@ -76,7 +76,7 @@ if (strtotime($objConference->strReviewDeadline) <= strtotime("now")) {
 }
 $intCriticalPapers = $myDBAccess->getNumberOfCriticalPapers(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get num of critical papers',$myDBAccess->getLastError());
+  error('get number of critical papers', $myDBAccess->getLastError());
 }
 if ($intCriticalPapers > 0) {
   $strContentAssocs['crit_papers_no'] = encodeText($intCriticalPapers);
