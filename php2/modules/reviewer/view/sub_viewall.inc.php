@@ -3,8 +3,8 @@ if(isChair_Overall())
 {
 	$output = array();
 	$tasks = array();
-	$tasks = chair_task();	
-	$output[] = array("role"=>"chair", "tasks"=>$tasks);
+	$tasks = reviewer_task();	
+	$output[] = array("role"=>"reviewer", "tasks"=>$tasks);
 
 	$TPL['tasks'] = $output;		
 	template("TASKS");
