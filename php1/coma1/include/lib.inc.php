@@ -106,7 +106,7 @@ function getUrlId($strPrefix='') {
 }
 
 /**
- * This function encodes the string.
+ * This function encodes the nl tags.
  *
  * @param string $_str String to encode
  * @return string encoded string
@@ -124,28 +124,9 @@ function nl2tag($_str) {
  * @return string encoded string
  */
 function encodeText($_str, $wrap=true) {
-  $_str = strtr(trim($_str), "|", " ");
+  $_str = trim($_str);
   $_str = htmlentities($_str, ENT_QUOTES, 'UTF-8');
   return ($wrap) ? nl2tag($_str) : $_str;
-}
-
-
-/**
- * This function transforms the given string into an array of strings
- * and encodes the single entries of the array.
- *
- * @param string $_str String representing array of strings to encode
- * @return string encoded string array
- */
-function encodeTextArray($_str) {
-  if (empty($_str)) {
-    return array();
-  }
-  $retArray = explode('|', $_str);
-  for ($i = 0; $i < count($retArray); $i++) {
-    $retArray[$i] = encodeText($retArray[$i]);
-  }
-  return $retArray;
 }
 
 /**
