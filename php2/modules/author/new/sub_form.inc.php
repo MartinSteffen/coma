@@ -17,6 +17,13 @@ foreach ($author as $row) {
 	$SQL = "SELECT id, name, description FROM conference WHERE id = ".$row['conference_id'] . " AND paper_submission_deadline > CURRENT_DATE";
 	$conf = array_merge($conf,$sql->query($SQL));
 }
+
+// var_dump($conf);
+foreach($conf as $k => $v) {
+	// var_dump($row);
+	$conf[$k]['description'] = eregi_replace("\n", "<br>", $v['description']);
+	// var_dump($row['description']);
+}
 $TPL['conf'] = $conf;
 template("AUTHOR_new_conference");
 
