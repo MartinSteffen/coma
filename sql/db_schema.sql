@@ -31,7 +31,7 @@ CREATE TABLE Person
    state        VARCHAR(127),
    country      VARCHAR(127),
    password     VARCHAR(32) NOT NULL,
-   PRIMARY KEY (email),
+   PRIMARY KEY (email, conference),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
          ON DELETE CASCADE
 
@@ -225,6 +225,7 @@ CREATE TABLE Message
    FOREIGN KEY (reply_to) REFERENCES MESSAGE(id)
       ON DELETE CASCADE
 ) TYPE = INNODB;
+
 
 
 /* Sollen Enumerations wirklich als eigene Tabellen realisiert werden? */
