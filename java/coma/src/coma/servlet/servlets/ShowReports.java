@@ -91,11 +91,13 @@ public class ShowReports extends HttpServlet {
 		/* XXX
 		   Define databaseError in XSL.
 		 */
+	    //use helper.addError("errorrMessage"); Mohamed 
 		result.append("<error><databaseError /></error>");
 	    } catch (UnauthorizedException unauth){
 		/* XXX
 		   Define notLoggedIn in XSL.
 		 */
+       //use helper.addWarning("message"); Mohamed 
 		result.append("<note><notLoggedIn /></note>");
 	    }
 
