@@ -1,0 +1,3 @@
+<?
+$config['defaultaction'] = "view";
+?>
