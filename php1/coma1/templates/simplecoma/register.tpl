@@ -1,6 +1,5 @@
 <p class="message" align="center"> {message} </p>
 
-
 <div align="center">
 
 <form action="{basepath}index_regi.php{SID}" method="post">  

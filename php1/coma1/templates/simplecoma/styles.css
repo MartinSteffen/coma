@@ -42,5 +42,6 @@ a.list:active  { color: #000000; }
 a.list:hover   { color: #2F2F2F; }
 
 /* meldungen */
-p.message { color: #FF2600; font-size: 16px; font-weight: bold; }
+p.message { color: #FF2600; font-size: 16px; font-weight: bold;
+            background-color: #E6F1FA; border-top-color: #80B9E4; }
 
