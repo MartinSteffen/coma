@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 	private ReadServiceImpl myReadService = new ReadServiceImpl();
 	private Person myPerson = null;
 	private Conference myConference = new Conference(-1);
-	
+	private String info ="";
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 
@@ -87,9 +87,10 @@ public class Login extends HttpServlet {
 				SearchCriteria mysc = new SearchCriteria();
 				mysc.setConference(myConference);
 				SearchResult mySR = myReadService.getConference(mysc);
+				info += mySR.getInfo();
 				if (mySR != null){
 					Conference[] conferencesArray = (Conference[]) mySR.getResultObj();
-					String info = mySR.getInfo();
+					
 					if(conferencesArray.length == 1){			
 						myConference = conferencesArray[0];
 						session.setAttribute(SessionAttribs.CONFERENCE, myConference);	
@@ -113,7 +114,7 @@ public class Login extends HttpServlet {
 
 			else {
 				session.setAttribute(SessionAttribs.PERSON, null);
-				result.append(XMLHelper.tagged("password_error",email+passwd));
+				result.append(XMLHelper.tagged("password_error",info));
 			}
 
 		}
@@ -155,9 +156,10 @@ public class Login extends HttpServlet {
 		SearchCriteria mysc = new SearchCriteria();
 		mysc.setPerson(mySearchPerson);
 		SearchResult mySR = myReadService.getPerson(mysc);
+		info = mySR.getInfo(); 
 		if (mySR != null){
 			Person[] personArray = (Person[]) mySR.getResultObj();
-			String info = mySR.getInfo();
+			
 			if(personArray.length == 1){			
 				myPerson = personArray[0];
 				if (myPerson.getPassword().equals(passwd)){

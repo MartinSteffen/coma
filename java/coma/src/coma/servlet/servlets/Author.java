@@ -19,8 +19,10 @@ import javax.xml.transform.stream.StreamSource;
 import coma.entities.Conference;
 import coma.entities.Paper;
 import coma.entities.Person;
-import coma.entities.SearchCriteria;
 import coma.entities.Topic;
+
+import coma.entities.SearchResult;
+
 import coma.handler.impl.db.DeleteServiceImpl;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.impl.db.ReadServiceImpl;
@@ -85,9 +87,10 @@ public class Author extends HttpServlet {
 		result.append("<showpaper>\n");
 		try {
 				Paper[] thePapers = theLogedPerson.getPapers();
-				result.append(XMLHelper.tagged("success",""));
+				result.append("<success>\n");
 				for(int i=0;i<thePapers.length; i++)
 					result.append(thePapers[i].toXML());
+				result.append("</success>\n");
 			} catch (Exception e) {
 				result.append(XMLHelper.tagged("failed",e.toString()));
 			}
@@ -95,16 +98,13 @@ public class Author extends HttpServlet {
 			result.append("</showpaper>\n");
     	break;
 	case SUBMITPAPER: // submit form for a paper
-		/*Topic mySearchTopic = new Topic(-1);
-		mySearchTopic.setConferenceId(theconf.getId());
-		SearchCriteria mysc = new SearchCriteria();
-		mysc.(my);
-		SearchResult mySR = myReadService.getPerson(mysc);
+		
+		SearchResult mySR = myReadService.getTopic(-1,theConf.getId());
 		if (mySR != null){
-			Person[] personArray = (Person[]) mySR.getResultObj();
+			Topic[] topicArray = (Topic[]) mySR.getResultObj();
 			String info = mySR.getInfo();
 		}
-		*/
+		
 		result.append(XMLHelper.tagged("submitpaper",""));
 		break;
 	case UPDATEPAPER: // make a update to an previous submitted paper

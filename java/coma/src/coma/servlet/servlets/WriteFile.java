@@ -97,7 +97,7 @@ public class WriteFile extends HttpServlet {
 		InsertServiceImpl myInsertservice = new InsertServiceImpl();
 		SearchResult mySR = myInsertservice.insertPaper(theNewPaper);
 		if (mySR.SUCCESS)
-			result.append(XMLHelper.tagged("success",theNewPaper.toXML()));
+			result.append(XMLHelper.tagged("success",mySR.info));
 		else {
 			result.append(XMLHelper.tagged("failed",""));
 			result.append(XMLHelper.tagged("error",mySR.info));
