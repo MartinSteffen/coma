@@ -67,15 +67,16 @@ if (isset($_POST['action'])) {
     }
   }
 }
-$strContentAssocs['paper_id'] = encodeText($objPaper->intId);
-$strContentAssocs['title'] = encodeText($objPaper->strTitle);
-$strContentAssocs['abstract'] = encodeText($objPaper->strAbstract);
-$strContentAssocs['author_id'] = encodeText($objPaper->intAuthorId);
+$strContentAssocs['targetpage']  = 'author_editpaper.php';
+$strContentAssocs['paper_id']    = encodeText($objPaper->intId);
+$strContentAssocs['title']       = encodeText($objPaper->strTitle);
+$strContentAssocs['abstract']    = encodeText($objPaper->strAbstract);
+$strContentAssocs['author_id']   = encodeText($objPaper->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);      
-$strContentAssocs['file_link'] = encodeURL($objPaper->strFilePath);
-$strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
+$strContentAssocs['file_link']   = encodeURL($objPaper->strFilePath);
+$strContentAssocs['avg_rating']  = encodeText(round($objPaper->fltAvgRating * 10) / 10);
 $strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
-$strContentAssocs['version'] = encodeText($objPaper->intVersion);
+$strContentAssocs['version']     = encodeText($objPaper->intVersion);
 $strContentAssocs['coauthor_lines'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   $coauthorForm = new Template(TPLPATH.'coauthor_listitem.tpl');
