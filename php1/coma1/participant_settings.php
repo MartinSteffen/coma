@@ -38,10 +38,10 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Edit settings of participant '.session('uname');
+$strMainAssocs['title'] = 'Edit settings of participant '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Participant  |  Settings';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Participant  |  Settings';
 
 $main->assign($strMainAssocs);
 $main->parse();

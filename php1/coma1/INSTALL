@@ -36,7 +36,7 @@ CoMa - Your Conference Manager
    2. Upload all the files contained in this archive (retaining the directory
       structure)to a web accessible directory on your server or hosting account.
    3. Using your web browser visit the location you placed CoMa with the
-      addition of /INSTALL.PHP, e.g.
+      addition of coma1/INSTALL.PHP, e.g.
       http://www.mydomain.com/coma1/INSTALL.PHP,
       http://www.mydomain.com/~username/coma1/INSTALL.PHP etc.
    4. Follow the steps 1.-3.
@@ -54,21 +54,21 @@ CoMa - Your Conference Manager
   If you do not have shell access or do not wish to use it you will need to
   decompress the CoMa archive to a local directory on your system using your
   favourite compression program, e.g. winzip, rar, zip, tar, etc. From there
-  you must FTP ALL the files it contains (being sure to retain the directory
-  structure and filenames) to your host. Please ensure that the cases of
-  filenames are retained, do NOT force filenames to all lower or upper case
+  you must FTP upload ALL the files it contains (being sure to retain the 
+  directory structure and filenames) to your host. Please ensure that the cases 
+  of filenames are retained, do NOT force filenames to all lower or upper case
   doing so will cause errors later.
 
   All .php and .tpl files should be uploaded in ASCII mode, while all graphics
   should be uploaded in BINARY mode. If you are unfamiliar with what this means
   please refer to your FTP client documentation. In most cases this is all
-  handled transparantly by your ftp client but if you encounter problems later
+  handled automatically by your ftp client but if you encounter problems later
   you should be sure the files where uploaded correctly as described here.
 
   Once all the files have been uploaded to your site you should point your
-  browser at this location with the addition of INSTALL.PHP (please note that
-  if you changed the extension from php, see Section 1. below, you should alter
-  INSTALL.PHP appropriately). For example if your domain name is
+  browser at this location with the addition of coma1/INSTALL.PHP (please note 
+  that if you changed the extension from php, see Section 1. below, you should 
+  alter INSTALL.PHP appropriately). For example if your domain name is
   www.mydomain.tld and you placed CoMa in a directory /coma1 off your web root
   you would enter http://www.mydomain.tld/coma1/INSTALL.PHP into your browser.
   When you have done this you should see the Coma Installation screen appear.

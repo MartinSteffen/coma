@@ -33,10 +33,10 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Main tasks for participant '.session('uname');
+$strMainAssocs['title'] = 'Main tasks for participant '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Participant  |  Main';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Participant  |  Main';
 
 $main->assign($strMainAssocs);
 $main->parse();

@@ -17,8 +17,8 @@ require_once('./include/header.inc.php');
 
   session_delete('confid');
 
-  $_SESSION['message'] = 'You have been successfully logged out of the conference.';
+  $_SESSION['message'] = 'You have been successfully signed out of the conference.';
 
-redirect('main_conferences.php');
+redirect('index.php');
 
 ?>

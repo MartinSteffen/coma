@@ -24,7 +24,7 @@ if (checklogin()) {
   $message = 'You have been successfully signed out.';
 }
 else {
-  $message = 'There was nothing to sign out.';
+  $message = 'There was nothing to sign out from.';
 }
 
 // Clear all Session Informations besides message
