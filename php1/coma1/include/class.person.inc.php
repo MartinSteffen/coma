@@ -41,7 +41,7 @@ class Person {
     return (($this->intRoles & (1 << $intRole)) != 0);
   }
 
-  function hasAnyRole($intRole) {
+  function hasAnyRole() {
     return ($this->intRoles != 0);
   }
   

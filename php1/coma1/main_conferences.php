@@ -27,7 +27,7 @@ $strContentAssocs['lines'] = '';
 if (!empty($objConferences)) {
   $lineNo = 1;  
   foreach ($objConferences as $objConference) {
-    $objPerson = $myDBAccess->getPerson($_SESSION['uid'], $_SESSION['confid']);
+    $objPerson = $myDBAccess->getPerson($_SESSION['uid'], $objConference->intId);
     $ifArray = array();
     if ($objPerson->hasAnyRole()) {
       $ifArray[] = 1;
