@@ -94,11 +94,11 @@ $paper = $input['paper'];
 <br>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr> 
-    <td align="left" valign="middle"><img src="templates/images/arrow.gif" width="30" height="17"><a href="index.php?m=chair&a=papers&s=paperReviewerAuto" class="menus">Send 
+    <td align="left" valign="middle"><img src="templates/images/arrow.gif" width="30" height="17"><a href="index.php?m=chair&a=papers&s=paperReviewerAuto&paperID=<?echo $paper['paperID'] ?>" class="menus">Send 
       the paper to reviewers automatically</a></td>
   </tr>
   <tr> 
-    <td align="left" valign="middle"><img src="templates/images/arrow.gif" width="30" height="17"><a href="index.php?m=chair&a=papers&s=paperReviewerManual" class="menus">Send 
+    <td align="left" valign="middle"><img src="templates/images/arrow.gif" width="30" height="17"><a href="index.php?m=chair&a=papers&s=paperReviewerManual&paperID=<? echo $paper['paperID'] ?>" class="menus">Send 
       the paper to reviewers manually</a></td>
   </tr>
   <tr> 
