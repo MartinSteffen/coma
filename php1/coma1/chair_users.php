@@ -61,7 +61,8 @@ if (isset($_POST['action'])) {
       $mail = new Template(TPLPATH.'mail_newrole.tpl');
       $mail->assign($strMailAssocs);
       $mail->parse();
-      sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'", $mail->getOutput());
+      sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'",
+               $mail->getOutput());
     }
     elseif ($_POST['submit'] == 'accept') {
       $myDBAccess->acceptRole($intPersonId, $intRoleType, session('confid'));
@@ -71,14 +72,29 @@ if (isset($_POST['action'])) {
       $mail = new Template(TPLPATH.'mail_acceptrole.tpl');
       $mail->assign($strMailAssocs);
       $mail->parse();
-      sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'", $mail->getOutput());
+      sendMail($intPersonId, "New role in conference '".$strMailAssocs['conference']."'",
+               $mail->getOutput());
     }
-    else if ($_POST['submit'] == 'remove' || $_POST['submit'] == 'reject') {
+    elseif ($_POST['submit'] == 'remove') {
       $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
       if ($myDBAccess->failed()) {
         error('Error updating role table.', $myDBAccess->getLastError());
       }
-      //
+      $mail = new Template(TPLPATH.'mail_removerole.tpl');
+      $mail->assign($strMailAssocs);
+      $mail->parse();
+      sendMail($intPersonId, "Role removed in conference '".$strMailAssocs['conference']."'",
+               $mail->getOutput());
+    }
+    elseif ($_POST['submit'] == 'reject') {
+      $myDBAccess->deleteRole($intPersonId, $intRoleType, session('confid'));
+      if ($myDBAccess->failed()) {
+        error('Error updating role table.', $myDBAccess->getLastError());
+      }
+      $mail = new Template(TPLPATH.'mail_rejectrole.tpl');
+      $mail->assign($strMailAssocs);
+      $mail->parse();
+      sendMail($intPersonId, "Role rejected in conference '".$strMailAssocs['conference']."'", $mail->getOutput());
     }
   }
 }

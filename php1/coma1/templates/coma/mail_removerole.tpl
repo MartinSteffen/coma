@@ -1,6 +1,6 @@
 Dear {name},
 
-I assign the role {role} in conference {conference} to you.
+{chair} has removed your {role} in conference {conference}.
 
 CoMa URL: {basepath}
 
