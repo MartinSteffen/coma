@@ -248,18 +248,43 @@ function participant_task()
 	$tasks = array();
 
 	//Find the roles where is invited -------------------
-	$SQL = "select role_type from role
-			where state = 3
-			and person_id = ".$_SESSION['userID'];
+	$SQL = "select role.role_type, conference.name from role, conference
+			where role.state = 3
+			and role.person_id = ".$_SESSION['userID']."
+			and role.conference_id = conference.id";
 	$count = 0;
     $result=mysql_query($SQL);
-    if ($list = mysql_fetch_row ($result))
+    while ($list = mysql_fetch_row ($result))
 	{
 	    $task = array();
-		$taskLink = "<a href=\"index.php?m=profile&a=roles\" class=\"normal\">You are invited to some roles. You should accept or deny.</a>";
+	    if($list[0] == 2)
+	    {
+		$taskLink = "<a href=\"index.php?m=profile&a=roles\" class=\"normal\">You are invited as chair in conference ".$list[1].". You should accept or deny.</a>";
 		$task[] = array("text"=>"Task", "action"=>$taskLink);
 		$tasks[$count] = $task;
 		$count++;
+	    }
+	    if($list[0] == 3)
+	    {
+		$taskLink = "<a href=\"index.php?m=profile&a=roles\" class=\"normal\">You are invited as reviewer in conference ".$list[1].". You should accept or deny.</a>";
+		$task[] = array("text"=>"Task", "action"=>$taskLink);
+		$tasks[$count] = $task;
+		$count++;
+	    }
+	    if($list[0] == 4)
+	    {
+		$taskLink = "<a href=\"index.php?m=profile&a=roles\" class=\"normal\">You are invited as author in conference ".$list[1].". You should accept or deny.</a>";
+		$task[] = array("text"=>"Task", "action"=>$taskLink);
+		$tasks[$count] = $task;
+		$count++;
+	    }
+	    if($list[0] == 5)
+	    {
+		$taskLink = "<a href=\"index.php?m=profile&a=roles\" class=\"normal\">You are invited as participant in conference ".$list[1].". You should accept or deny.</a>";
+		$task[] = array("text"=>"Task", "action"=>$taskLink);
+		$tasks[$count] = $task;
+		$count++;
+	    }
 	}
 	return $tasks;
 }
