@@ -87,8 +87,8 @@ elseif ($STEP == 1){
   //$htmlFile = str_replace(" ", "&nbsp;", $htmlFile);
   //$htmlFile = str_replace("\n", "<br>\n      ", $htmlFile);
   $htmlFile = highlight_string($htmlFile, true);
-  $htmlFile = preg_replace('#<font color="([^\']*)">([^\']*)</font>#', '<span style="color: \\1">\\2</span>', $htmlFile);
-  $htmlFile = preg_replace('#<font color="([^\']*)">([^\']*)</font>#U', '<span style="color: \\1">\\2</span>', $htmlFile);
+  //$htmlFile = preg_replace('#<font color="([^\']*)">([^\']*)</font>#', '<span style="color: \\1">\\2</span>', $htmlFile);
+  //$htmlFile = preg_replace('#<font color="([^\']*)">([^\']*)</font>#U', '<span style="color: \\1">\\2</span>', $htmlFile);
   
   echo "    <p class=\"menu\">\n";
   echo "      " . $htmlFile;
