@@ -109,7 +109,7 @@ if (!empty($r_id)) {
 
     $strItemAssocs['topics'] = '';
     foreach ($objTopics as $objTopic) {
-      if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
+      if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) != ATTITUDE_PREFER) {
         $strItem2Assocs = defaultAssocArray();
         $strItem2Assocs['if'] = array(0);
         $strItem2Assocs['topic'] = $objTopic->strName;
