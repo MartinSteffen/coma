@@ -6,7 +6,7 @@ AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([1.9])
 
-AC_CONFIG_SRCDIR([pycoma/index.py])
+AC_CONFIG_SRCDIR([pycoma/index.py.in])
 
 AC_PROG_MAKE_SET
 AC_PROG_LN_S

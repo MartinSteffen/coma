@@ -6,6 +6,23 @@
 """This file describes the necessary configuration options for coma to
 find its support files.  Each coma module imports this file."""
 
+# Which data base instance to use.
+dbname = ''		# Edit this line.
+
+# Which data base user to use to connect to the data base.
+dbuser = ''		# Edit this line.
+
+# The password of the user used to connect to the data base.  Because the
+# password appears as plain text in this file, we suggest to use security
+# measures provided by your data base to limit access.  Edit this line.
+dbpass = ''		# Edit this line.
+
+# Which data base host to use.  Default means localhost.
+dbhost = None		# Edit this line.
+
+# Which port to use.  Default means default port.
+dbport = -1		# Edit this line.
+
 # Where to find the templates.
 templates = [ '@pkgdatapath@' ]
 

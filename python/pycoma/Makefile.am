@@ -4,16 +4,20 @@ dist_pkgdata_DATA	= index.py
 
 BUILT_SOURCES		= config.py
 pkgpython_PYTHON	= coma.py database.py procmail.py setup.py \
-                          comapsql.py comamysql.py
+                          connpsql.py connmysql.py
+
+pkgsysconfdir		= $(sysconfdir)/$(PACKAGE)
+pkgsysconf_DATA		= config.py
 
 MOSTLYCLEANFILES	= *~
 CLEANFILES		= *.pyc *.pyo
 DISTCLEANFILES		=
-MAINTAINERCLEANFILES	= comaconf.py coma.conf Makefile.in
+MAINTAINERCLEANFILES	= config.py coma.conf Makefile.in
 
 do_subst        = sed -e 's,[@]pkgpythondir[@],$(pkgpythondir),g' \
                       -e 's,[@]pythondir[@],$(pythondir),g' \
                       -e 's,[@]pkgdatadir[@],$(pkgdatadir),g' \
+                      -e 's,[@]pkgsysconfdir[@],$(pkgsysconfdir),g' \
                       -e 's,[@]PYTHON[@],$(PYTHON),g' \
                       -e 's,[@]PACKAGE[@],$(PACKAGE),g' \
                       -e 's,[@]VERSION[@],$(VERSION),g' \
