@@ -937,6 +937,7 @@ class DBAccess {
       if ($blnOk) {
         return $intId;
       }
+      return $this->error('addPaper '.$this->getLastError());
     }
     return $this->error('addPaper '.$this->mySql->getLastError());
   }
