@@ -30,9 +30,10 @@ www:    index.html
 
 
 html: $(DOC).tex
-	$(HEVEA) $(HEVEAOPTS) $(TEXDIR2)/ocamlweb.sty $(TEXDIR3)/macros.hva $(TEXDIR3)/macros.tex $(DOC).tex -o index.html
+	$(HEVEA) $(HEVEAOPTS) $(TEXDIR2)/ocamlweb.sty $(TEXDIR3)/macros.hva $(TEXDIR3)/macros.tex $(DOC).tex -o main.html
+	$(HACHA) -o index.html $(DOC).html
 #	$(HEVEA) $(HEVEAOPTS) $(TEXDIR2)/ocamlweb.sty $(TEXDIR3)/coursedata.tex $(TEXDIR3)/macros.hva $(TEXDIR3)/macros.tex $(DOC).tex -o index.html
-#	$(HACHA) -o index-tex.html $(DOC).html
+
 
 
 
