@@ -1,4 +1,6 @@
 
+{if9<p class="message">{message}</p>}
+
 <table class="list">
   <tr class="listheader">
     <th class="listheader">
