@@ -99,7 +99,7 @@ $strMainAssocs['title'] = 'Neuen Benutzer registrieren';
 $strMainAssocs['content'] = &$content;
 
 require_once(TPLPATH.'startmenu.php');
-$strMainAssocs['menu'] = openStartMenuItem(1);
+$strMainAssocs['menu'] = openStartMenuItem(2);
 
 $strPath = array('CoMa'=>'', 'Registrieren'=>'');
 require_once(TPLPATH.'navigatoritem.php');
