@@ -49,8 +49,6 @@ table.body { border-style: none;
              margin: 0px;
            }
 
-td.body    { min-height: 450px; }
-
 /* tabelle mit linien zur darstellung von listen */
 table.list  { border-style: groove; }
 td.listhead { margin-left: 10px; font-size: medium; background-color: #DBE9EC;

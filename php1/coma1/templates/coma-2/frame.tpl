@@ -42,8 +42,8 @@
 
 <table class="body">
  <tr>
-  <td class="body">{menu}</td>
-  <td class="body">{content}</td>
+  <td width="150">{menu}</td>
+  <td>{content}</td>
  </tr>
 </table>
 
