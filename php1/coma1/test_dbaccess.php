@@ -36,6 +36,8 @@ else if (empty($p)) {
   die(-1);
 }
 
+$p->objPreferredTopics[0] = false;
+
 $myDBAccess->updatePreferredTopics($p, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());

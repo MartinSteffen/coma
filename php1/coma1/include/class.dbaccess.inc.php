@@ -1798,9 +1798,11 @@ nur fuer detaillierte?
     $objTopics = $objPersonAlgorithmic->objPreferredTopics;
     // Topics einfuegen...
     for ($i = 0; $i < count($objTopics); $i++) {
-      $this->addPrefersTopic($intPersonId, $objTopics[$i]->intId);
-      if ($this->failed()) {
-        return $this->error('updatePreferredTopics', $this->getLastError());
+      if (!empty($objTopics[$i])) {
+        $this->addPrefersTopic($intPersonId, $objTopics[$i]->intId);
+        if ($this->failed()) {
+          return $this->error('updatePreferredTopics', $this->getLastError());
+        }
       }
     }
     return $this->success();
