@@ -30,7 +30,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {
   if ($dist[$pid][$rindex]['reviewer_id'] != $rid) {
     error('get distribution suggestion of session', 'Wrong index.');
   }
-  unset($dist[$pid][$rindex]);
+  //unset($dist[$pid][$rindex]);
+  $dist[$pid][$rindex]['reviewer_id']++;
 }
 else {
   $myDist = new Distribution($mySql);
