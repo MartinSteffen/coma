@@ -23,13 +23,13 @@ $ifArray = array();
 if (isset($_POST['action'])) {
 
   // Konvertiere Zeit-Daten in was sinnvolles
-  $abstract_dl = empty($_POST['abstract_dl']) ? '' : date('d-M-Y',strtotime($_POST['abstract_dl']));
-  $paper_dl = empty($_POST['paper_dl']) ? '' : date('d-M-Y',strtotime($_POST['paper_dl']));
-  $review_dl = empty($_POST['review_dl']) ? '' : date('d-M-Y',strtotime($_POST['review_dl']));
-  $final_dl = empty($_POST['final_dl']) ? '' : date('d-M-Y',strtotime($_POST['final_dl']));
-  $notification = empty($_POST['notification']) ? '' : date('d-M-Y',strtotime($_POST['notification']));
-  echo $start_date = empty($_POST['start_date']) ? '' : date('d-M-Y',strtotime($_POST['start_date']));
-  $end_date = empty($_POST['end_date']) ? '' : date('d-M-Y',strtotime($_POST['end_date']));
+  $abstract_dl = empty($_POST['abstract_dl']) ? '' : date('d.M Y',strtotime($_POST['abstract_dl']));
+  $paper_dl = empty($_POST['paper_dl']) ? '' : date('d.M Y',strtotime($_POST['paper_dl']));
+  $review_dl = empty($_POST['review_dl']) ? '' : date('d.M Y',strtotime($_POST['review_dl']));
+  $final_dl = empty($_POST['final_dl']) ? '' : date('d.M Y',strtotime($_POST['final_dl']));
+  $notification = empty($_POST['notification']) ? '' : date('d.M Y',strtotime($_POST['notification']));
+  echo $start_date = empty($_POST['start_date']) ? '' : date('d.M Y',strtotime($_POST['start_date']));
+  $end_date = empty($_POST['end_date']) ? '' : date('d.M Y',strtotime($_POST['end_date']));
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
@@ -151,13 +151,13 @@ if (isset($_POST['action'])) {
     }
       
       
-/*$abstract_dl = date('d-M-Y',strtotime($_POST['abstract_dl']));
-$paper_dl = date('d-M-Y',strtotime($_POST['paper_dl']));
-$review_dl = date('d-M-Y',strtotime($_POST['review_dl']));
-$final_dl = date('d-M-Y',strtotime($_POST['final_dl']));
-$notification = date('d-M-Y',strtotime($_POST['notification']));
-$start_date = date('d-M-Y',strtotime($_POST['start_date']));
-$end_date = date('d-M-Y',strtotime($_POST['end_date']));
+/*$abstract_dl = date('d.M Y',strtotime($_POST['abstract_dl']));
+$paper_dl = date('d.M Y',strtotime($_POST['paper_dl']));
+$review_dl = date('d.M Y',strtotime($_POST['review_dl']));
+$final_dl = date('d.M Y',strtotime($_POST['final_dl']));
+$notification = date('d.M Y',strtotime($_POST['notification']));
+$start_date = date('d.M Y',strtotime($_POST['start_date']));
+$end_date = date('d.M Y',strtotime($_POST['end_date']));
                   'Abstract deadline &lt; Paper deadline &lt; '.
                   'Final version deadline &lt; Start date,<br>'.
                   'and: Paper deadline &lt; Review deadline &lt; Notification &lt; Start date.';
