@@ -377,20 +377,13 @@ weitergeleitet.
 +------------------------+-------------------------------------------------|
 | Apache(??)  | ?        | (muss es überhaupt unbedingt Apache sein?)      |
 |             |          |                                                 |
-| PHP         | 4.3.0+   | sha1 erst ab da verfügbar (Alternative: (*) )   |
+| PHP         | 4.3.0+   | diverse Funktionen ab da verfügbar              |
 |             |          |                                                 |
 | MySQL       | ?        |                                                 |
 |             |          |                                                 |
 | WebBrowser  | ?        |                                                 |
 |             |          |                                                 |
 +--------------------------------------------------------------------------+
-
-(*) Code für class.session.inc.php (ähnlich wie in Parser)
-//  BACKWARDS COMPATIBILITY WITH PHP VERSIONS < 4.3.0
-//  BC for sha1()
-if (!function_exists('sha1')) {
-  // Implementierung von sha1 (siehe z.B. www.php.net -> sha1)
-}
 
 
 
