@@ -45,7 +45,7 @@ table.menu  { border-style: none;
               text-align: left;
               background-color: #F7FBFF;
             }
-td.menu { width: 150px; height: 450px; min-height: 450px;
+td.menu { width: 150px;
           background-color: #F7FBFF; vertical-align: top;
           margin-bottom: 10px; }
 
@@ -68,7 +68,7 @@ table.formtable { font-size: 13px;
                   padding: 10px;
                 }
 
-input { font-size: 13px;
+input.button { font-size: 13px;
         background-color: #DEEBEF;
         border-style: solid;
         border-width: 1px;
@@ -76,7 +76,6 @@ input { font-size: 13px;
         margin: 5px;
         padding: 4px;
       }
-
 
 .center { text-align: center; }
 
