@@ -118,27 +118,44 @@ public class Conference {
 				XMLHelper.tagged("name", getName()),
 				XMLHelper.tagged("homepage", getHomepage()),
 				XMLHelper.tagged("description", getDescription()),
-			    XMLHelper.tagged("abstract", getAbstract_submission_deadline().toString()),
-			    XMLHelper.tagged("paper", getPaper_submission_deadline().toString()),
-			    XMLHelper.tagged("review",getReview_deadline().toString()),
-				XMLHelper.tagged("final", getFinal_version_deadline().toString()),
-				XMLHelper.tagged("notification", getNotification().toString()),
-				XMLHelper.tagged("start",getConference_start().toString()),
-				XMLHelper.tagged("end", getConference_end().toString()),
+			    XMLHelper.tagged("abstract", convert_date(getAbstract_submission_deadline())),
+			    XMLHelper.tagged("paper", convert_date(getPaper_submission_deadline())),
+			    XMLHelper.tagged("review",convert_date(getReview_deadline())),
+				XMLHelper.tagged("final", convert_date(getFinal_version_deadline())),
+				XMLHelper.tagged("notification", convert_date(getNotification())),
+				XMLHelper.tagged("start",convert_date(getConference_start())),
+				XMLHelper.tagged("end", convert_date(getConference_end())),
 				XMLHelper.tagged("min", getMin_review_per_paper())
 					    );
 		case SHALLOW:
 			 return XMLHelper.tagged("Conference",
-			 			XMLHelper.tagged("id", ""+getId()),
-						XMLHelper.tagged("name", getName()),
-						XMLHelper.tagged("desc", getDescription())
+			 XMLHelper.tagged("id", ""+getId()),
+				XMLHelper.tagged("name", getName()),
+				XMLHelper.tagged("desc", getDescription())
 					    );
-		  
 		default:
 		    coma.util.logging.ALogger.log.log(WARN, 
 						      "unknown XMLMODE in",
 						      this, ':', mode);
 		    return null;
-    		}
-    	    }
+    	}	    
+    }
+    
+    
+    public String convert_date(Date date)
+    {
+    	StringBuffer result=new StringBuffer();
+    	String sqlDate = date.toString();
+    	result.append(sqlDate.charAt(8));
+    	result.append(sqlDate.charAt(9));
+    	result.append(".");
+    	result.append(sqlDate.charAt(5));
+    	result.append(sqlDate.charAt(6));
+    	result.append(".");
+    	result.append(sqlDate.charAt(0));
+    	result.append(sqlDate.charAt(1));
+    	result.append(sqlDate.charAt(2));
+    	result.append(sqlDate.charAt(3));
+    	return result.toString();
+    }
 }
