@@ -2,16 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title>COMA Conference Manager</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+    <title>COMA Conference Manager: Log In Required</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet"/>
   </head>
   <body>
     <table class="actions">%(actions)s</table>
-    <h1 class="description">CoMa Conference Manager</h1>
-    <p class="description">
-      You are currently not logged in.  Please select one
-      of the actions on the left hand side.
-    </p>
+    <h1>Log In Required</h1>
+    <p class='error'>In order to view this page, you have to be logged in.</p>
     <hr/>
     <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
   </body>

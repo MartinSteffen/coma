@@ -1,0 +1,13 @@
+From: %(administrator)s
+To: %(receiver)s
+Subject: Confirmation of registration
+
+Hello %(firstname)s.
+
+You have successfully registered yourself with CoMa.
+
+You password is: %(password)s
+
+Best regards,
+
+%(signatur)s

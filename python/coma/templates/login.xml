@@ -3,17 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>COMA Conference Manager: Log In</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet"/>
   </head>
   <body>
     <h1>Log In</h1>
-    <form action="login.py" method="post" enctype="multipart/form-data">
+    <form action="dologin" method="post" enctype="multipart/form-data">
       <table class="login">
 	<tr>
 	  <td>Your e-mail address</td>
 	  <td>
-	    <input type="hidden" name="session" value="%(sid)s"/>
-	    <input type="hidden" name="dologin" value="True"/>
 	    <input type="text" name="email"/>
 	  </td>
 	</tr>

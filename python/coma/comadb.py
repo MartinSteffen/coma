@@ -179,17 +179,17 @@ class Paper(Forum):
 ##############################################################################
 
 import pg
-import config
+import comaconf
 
 class ComaDB:
     """Objects of this class provide a connection to the data base."""
 
     def __init__(self):
 	"""Create a new object."""
-	self.connection = pg.connect(dbname = config.dbname,
-				     user = config.user,
-				     passwd = config.password,
-				     host = config.host)
+	self.connection = pg.connect(dbname = comaconf.dbname,
+				     user = comaconf.user,
+				     passwd = comaconf.password,
+				     host = comaconf.host)
 
     def query(self, query):
 	"""Send a query to the data base and handle errors."""

@@ -2,15 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title>COMA Conference Manager: Please Complete the form.</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+    <title>COMA Conference Manager: Log In Failed</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet"/>
   </head>
   <body>
-    <h1 class="error">Cannot Create New User Account</h1>
+    <h1 class="error">Log In Failed</h1>
     <p class="error">
-      You have not completely filled out the form for creating a new
-      account.  Please go back using your browser's back button and
-      try again.  Your errors are:
+      There were errors while you tried to log in.  Please use your browser's
+      back button and correct the following mistakes.
     </p>
     <ul class="error">
       %(errors)s

@@ -8,16 +8,7 @@ from stat import *
 import pg
 import datetime
 
-defaults = { 'dbname' : 'coma',
-	     'user' : 'coma' ,
-	     'passwd' : '$$coma04',
-	     'host' : 'localhost',
-	     'port' : -1,
-	     'opt' : None,
-	     'tty' : None }
-
-def save_config(filename, settings):
-    config = """#! /usr/bin/python
+comaconf = """#! /usr/bin/python
 #
 \"\"\"Settings for the data base.\"\"\"
 
@@ -28,6 +19,9 @@ host = '%(host)s'
 port = %(port)s
 opt = %(opt)s
 tty = %(tty)s
+comaroot = \"%(comaroot)s\"
+adminmail = \"%(adminmail)s\"
+adminname = \"%(adminname)s\"
 
 if (__name__ == \"__main__\"):
     import sys
@@ -44,17 +38,57 @@ if (__name__ == \"__main__\"):
   </body>
 </html>
 \"\"\"
-""" % settings
+"""
+
+
+
+
+
+apacheconf = """# -*- apache -*-
+# Example httpd.conf snippet for my python implementation of the coma
+# conference manager.
+#
+Alias /coma \"%(comaroot)s\"
+
+<Directory %(comaroot)s>
+    SetHandler mod_python
+    PythonHandler mod_python.publisher
+    PythonDebug on
+</Directory>
+
+<Directory %(comaroot)s/papers>
+    AllowOverride	None
+    Order		deny,allow
+    Deny from all
+</Directory>
+
+<Directory %(comaroot)s/templates>
+    AllowOverride	None
+    Order		deny,allow
+    Deny from all
+</Directory>
+"""
+
+defaults = { 'dbname' : 'coma',
+	     'user' : 'coma' ,
+	     'passwd' : '$$coma04',
+	     'host' : 'localhost',
+	     'port' : -1,
+	     'opt' : None,
+	     'tty' : None,
+             'comaroot' : '/home/mky/projects/coma/trunk/python/coma' }
+
+def save_config(filename, config, settings):
     try:
         os.remove(filename)
     except:
 	pass
     file = open(filename, 'w')
-    file.write(config)
+    file.write(config % settings)
     file.close()
     os.chmod(filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
     try:
-	os.system('chcon -u user_u -t httpd_sys_script_ro_t ./coma/config.py')
+	os.system('chcon -u user_u -t httpd_sys_script_ro_t %s' % filename)
     except:
 	pass
 
@@ -92,7 +126,8 @@ def main():
     print "Before you can start using CoMa, we first need to check some settings."
     print
     test_pgsql_config(defaults)
-    save_config('./coma/config.py', defaults)
+    save_config('./coma/comaconf.py', comaconf, defaults)
+    save_config('./coma.conf', apacheconf, defaults)
     import_pgsql_schema('coma.sql', defaults)
     import_pgsql_schema('coma-aux.sql', defaults)
 

@@ -182,21 +182,20 @@ def __format_errors(_page, _errors):
     sys.exit()
 
 
-def check_session(form, db):
+def check_session(session, db):
     """Given the input from a form check whether it declares a sesssion
     identifier and check whether this identifier is valid.  In case
     of a valid session identifier, this function returns a session object
     identifying the session.  Otherwise it will show a corresponding error
     message, generate a fresh session identifier, and exit the cgi
     script."""
-    if form.has_key('session'):
-	sid = session.get(db, form["session"].value)
-	if not sid:
-	    new_sid = session.new(db)
-	    process_template('./templates/session-missing.xml',
-			     { 'actions': setup_actions(new_sid) } )
-	    session.collect(db)
-	    sys.exit()
+    sid = session.get(db, form["session"].value)
+    if not sid:
+	new_sid = session.new(db)
+	process_template('./templates/session-missing.xml',
+			 { 'actions': setup_actions(new_sid) } )
+	session.collect(db)
+	sys.exit()
 	if sid.expired():
 	    new_sid = session.new(db)
 	    session.collect(db)

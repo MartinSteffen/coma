@@ -24,10 +24,10 @@ table.actions {
 
 tr.required {
   color: black;
-  background-color: #FFAFAF;
+  background-color: #AFFFAF;
 }
 
 em.required {
   color: black;
-  background-color: #FFAFAF;
+  background-color: #AFFFAF;
 }
