@@ -1292,7 +1292,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
       return $this->error('updateCoAuthors', $this->mySql->getLastError());
     }
     // Co-Autornamen einfuegen...
-    if (count($objPaperDetailed->intCoAuthorIds) != count($objPaperDetailed->strCoAuthors) {
+    if (count($objPaperDetailed->intCoAuthorIds) != count($objPaperDetailed->strCoAuthors)) {
       return $this->error('updateCoAuthorNames', 'Co-Author arrays have different length');
     }
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
