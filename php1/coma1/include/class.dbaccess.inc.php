@@ -290,7 +290,7 @@ class DBAccess {
         //' AND   conference_id = \''.???.'\'';
     $data = $this->mySql->select($s);    
     if ($data) {            
-      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false);
+      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
     return false;
@@ -324,7 +324,7 @@ class DBAccess {
     if ($data) {      
       $threads = getMessagesOfForum($intForumId);      
       $forum = (new ForumDetailed($data[$i]['id'], $data[$i]['title'],
-                  0, false, $threads);
+                  0, false, $threads));
       return $forum;
     }
     return false;
