@@ -93,7 +93,7 @@ public class Subscribe  extends HttpServlet {
 
 		ALogger.log.log(DEBUG, sr.getInfo());
 
-		if ((sr.getInfo()==null) || (sr.getInfo().equals(""))){
+		if (sr.isSUCCESS()){
 		    result.append(XMLHelper.tagged("success",sr.getInfo()));
 		} else {
 		    result.append(XMLHelper.tagged("failed", sr.getInfo()));

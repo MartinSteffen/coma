@@ -227,7 +227,7 @@
 </xsl:template>
 
 <xsl:template match="noneditable">
-  Thank you. The following data has been saved:
+  Thank you. The following data is now in the database:
   <table style="border:0">
     <tr>
       <th>Name:</th>

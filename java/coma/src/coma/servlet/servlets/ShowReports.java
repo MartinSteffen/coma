@@ -340,8 +340,8 @@ public class ShowReports extends HttpServlet {
 	
 	for (ReviewReport rr: reportsOnThis){
 	    
-	    if (((rr.getReviewer().getId() == thePerson.getId())
-		 && rr.getRatings().size() > 0)
+	    if (((rr.getReviewerId() == thePerson.getId())
+		 && rr.isEdited())
 		|| thePerson.isChair()){
 		
 		hasRated = true;
