@@ -126,7 +126,7 @@ if (in_array('comapages', $strArrayHelpTopics)){
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
   $objChaptertemplate->assign($strArrayChapterAssocs);
   $objChaptertemplate->parse();
-  $strContentAssocs['toc'] = $objChaptertemplate->getOutput();
+  $strContentAssocs['chapter-2'] = $objChaptertemplate->getOutput();
 }
 if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH . 'help_chapter.tpl');
@@ -155,7 +155,7 @@ if (in_array('login', $strArrayHelpTopics)){
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
   $objChaptertemplate->assign($strArrayChapterAssocs);
   $objChaptertemplate->parse();
-  $strContentAssocs['toc'] = $objChaptertemplate->getOutput();
+  $strContentAssocs['chapter-2_1'] = $objChaptertemplate->getOutput();
 }
 
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
