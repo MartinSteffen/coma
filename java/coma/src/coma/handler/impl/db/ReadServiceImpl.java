@@ -412,4 +412,13 @@ public class ReadServiceImpl extends Service implements ReadService {
         return result;
     }
 
+	    public SearchResult getRating(SearchCriteria sc){
+        
+        return null;
+    }
+    public SearchResult getCriterion(SearchCriteria sc){
+        
+        return null;
+    }
+
 }
