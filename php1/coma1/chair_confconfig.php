@@ -29,13 +29,12 @@ else{
    $content = new Template(TPLPATH.'edit_conference.tpl');
   }
 
-
 $strContentAssocs = defaultAssocArray();
+
 $ifArray = array();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-if (isset($_POST['action'])) {
-
+if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
   // Konvertiere Zeit-Daten in was sinnvolles
   $abstract_dl = empty($_POST['abstract_dl']) ? '' : strtotime($_POST['abstract_dl']);
   $paper_dl = empty($_POST['paper_dl']) ? '' : strtotime($_POST['paper_dl']);
@@ -130,7 +129,7 @@ if (isset($_POST['action'])) {
     elseif ( !($min_reviews <= $def_reviews)){
       $strMessage = 'Your minimum number of reviews should not be greater than the default number of reviews!';
     }
-    elseif ( !(0 <= $variance) || !($variance > 100)){
+    elseif ( !(0 <= $variance) || !($variance < 100)){
       $strMessage = 'Your ambiguity should be greater than zero and less than hundred!';
     }
     elseif ( !(0 <= $auto_numrev )){
@@ -175,7 +174,8 @@ if (isset($_POST['action'])) {
   }
   // Oeffnen der erweiterten Einstellungen
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
-      !isset($_POST['simple_config']) &&  !isset($_POST['submit']))) {
+      !isset($_POST['simple_config']) && !isset($_POST['simple_config_adv']) &&  
+      !isset($_POST['submit']))) {
       $content = new Template(TPLPATH.'edit_conference_ext.tpl');
   }
 }
