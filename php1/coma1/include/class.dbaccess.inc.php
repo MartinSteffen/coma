@@ -188,30 +188,6 @@ class DBAccess {
   }
 
   /**
-   */
-  function getReviewsOfReviewer($intReviewerId) {
-    return false;
-  }
-
-  /**
-   */
-  function getReviewersOfPaper($intPaperId) {
-    return false;
-  }
-
-  /**
-   */
-  function getReviewsOfPaper($intPaperId) {
-    return false;
-  }
-
-  /**
-   */
-  function getReviewDetailed($intReviewId) {
-    return false;
-  }
-
-  /**
    * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
    *
    * @param int $intAuthorId ID des Autors
@@ -233,7 +209,7 @@ class DBAccess {
       	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
       	  $fltAvgRating = -1;
         }
-      	$author = getPerson($intAuthorId);
+      	$author = this->getPerson($intAuthorId);
         $strAuthorName = '';
       	if ($author != false) {
       	  $strAuthorName = $author->getName();
@@ -256,6 +232,30 @@ class DBAccess {
   /**
    */
   function getPaperDetailed($intPaperId) {
+    return false;
+  }
+
+  /**
+   */
+  function getReviewsOfReviewer($intReviewerId) {
+    return false;
+  }
+
+  /**
+   */
+  function getReviewersOfPaper($intPaperId) {
+    return false;
+  }
+
+  /**
+   */
+  function getReviewsOfPaper($intPaperId) {
+    return false;
+  }
+
+  /**
+   */
+  function getReviewDetailed($intReviewId) {
     return false;
   }
 
