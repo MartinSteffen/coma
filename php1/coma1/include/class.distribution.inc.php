@@ -41,23 +41,7 @@ class Distribution extends ErrorHandling {
   }
 
   /**
-   * Liefert ein zweidimensionales Array von Paper/Reviewer-Zuordnungen von den
-   * Papern, die noch nicht in der Distribution-Tabelle auftauchen. Um einem
-   * bereits vorher zugeordneten Paper weitere Reviewer hinzuzufuegen, siehe
-   * andere Funktion.
-   *
-   * Benutzt (als Bedingungen):
-   * - Distribution-Tabelle (Basis)
-   *
-   * @return int [] Das (ggf. leere) Array mit einem Verteilungsvorschlag bzw. false,
-   *                wenn keine gueltige Verteilung existiert oder keine Konferenz
-   *                angegeben wird.
-   *                Jeder Arrayeintrag enthaelt ein Array mit den Indizes
-   *                'intPaperId' und 'intReviewerId'.
-   *                Beispiel: $x = getDistribution(); echo($x[$i]['intPaperId']);
-   *
-   * @access public
-   * @author Falk, Tom (20.01.05)
+   * @todo Noch ne ganze Menge UND PHPDoc :-)
    */
   function getDistribution($intConferenceId) {
     define('ASSIGNED', 0);
@@ -197,7 +181,11 @@ class Distribution extends ErrorHandling {
         $this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
       }
     }
-    
+
+    // Weiteres Vorgehen: Reviewer- und aus Papersicht einnehmen; jeweils
+    // "rundenbasiert" verteilen...
+
+    // Debug: Ausgabe
     $text = array(0 => 'assigned', 'prefers', 'wants', 'denies', 'excluded');
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
@@ -209,7 +197,7 @@ class Distribution extends ErrorHandling {
         }
       }
     }
-    
+
     return $matrix;
   }
 
