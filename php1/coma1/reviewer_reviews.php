@@ -13,6 +13,7 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+require_once('./include/paperdiscussion.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(REVIEWER);
@@ -29,6 +30,13 @@ if ($myDBAccess->failed()) {
 }
 else if (empty($objConference)) {
   error('conference '.session('confid').' does not exist in database.','');
+}
+
+if (isset($GET_['createforum'])) {
+  $startForum = createPaperForum($myDBAccess, $_GET['paperid']);
+  if ($startForum) {
+    redirect("forum.php?paperid=".$_GET['paperid']);
+  }  
 }
 
 $content = new Template(TPLPATH.'reviewer_reviewlist.tpl');
