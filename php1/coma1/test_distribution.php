@@ -18,12 +18,12 @@ require_once('./include/class.distribution.inc.php');
 
 echo('<br>');
 
-$x = 'p724r8';
+$x = 'p724r84';
 
 $p = array();
 $r = array();
-preg_match('/p\d/', $x, $p);
-preg_match('/r\d/', $x, $r);
+preg_match('/p{\d}*/', $x, $p);
+preg_match('/r{\d}*/', $x, $r);
 print_r($p);
 print_r($r);
 
