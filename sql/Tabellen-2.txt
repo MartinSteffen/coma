@@ -20,15 +20,15 @@ Es wurde folgende Änderungen vorgenommen:
   sind in eigene Tabellen ausgelagert. Vorteil: Die Liste der Bewertungs-
   kriterien ist dynamisch und nicht statisch auf 10 festgelegt.
 - Erweiterung der Co-Autoren-Tabelle um den Namen des Co-Autoren.
-  Zweck: Co-Autoren müssen keine User sein. Das Feld ID wird die ID des
+  Zweck: Co-Autoren müssen keine Person sein. Das Feld ID wird die ID des
   Co-Autoren eventuell eingetragen, wenn CoMa erkennt, dass dieser auch
-  User des Systems ist.
+  Benutzer des Systems ist.
 
  + + + Sandro
 
 Kleine Änderungen:
 - Conference.abbreviation ist wie überall sonst Varchar 20
-- User.roles genauere Beschreibung: Es sollen die least-significant Bits für die
+- Person.roles genauere Beschreibung: Es sollen die least-significant Bits für die
   einzelnen Rollen genutzt werden.
 
 -- Gunnar
@@ -39,7 +39,7 @@ Kleine Änderungen:
   die Tabelle Roles soll vordefiniert werden mit:
   
   type		description
-  admin		superuser
+  admin		superperson
   chair		organisation of conference
   reviewer	...
   author	...
@@ -50,16 +50,25 @@ Kleine Änderungen:
 - Das Forum ist um Threads erweitert, Beziehung Paper - Thread gesetzt
 
 -- Gunnar
+
+Aenderungen:
+- Marcel hatte sich im Forum zuletzt dagegen ausgesprochen, dass die
+  Datensaetze generell durch automatisch vergebene Integer-IDs
+  identifiziert werden. Habe daher die alten Datentypen fuer die IDs
+  wiederhergestellt.
+- Tabelle HasThread entfernt, da sie durch die Tabelle Thread redundant wird.
+- Tabelle DeniesPaper wiederhergestellt. @Gunnar: Die Tabelle dient dazu
+  festzuhalten, ob ein Reviewer einen bestimmten Artikel reviewen möchte, 
+  also analog zu PrefersPaper.
+- Tabelle User in Person umbenannt, um Konflikte in SQL zu vermeiden -
+  hier scheint ein Schluesselwort 'user' bereits zu existieren.
+- Andere Aenderungen wie am 28.11.04 im Forum erlaeutert.
   
-
-
 
 Tabelle Conference
 ~~~~~~~~~~~~~~~~~~
-id			      BigInt		Autoincrement, Primary Key
-abbreviation                  Varchar 20	Not Null
+abbreviation                  Varchar 20	Primary Key
 name                          Varchar 127	Not Null
-description                   Text
 homepage                      Varchar 127
 abstract_submission_deadline  Date
 paper_submission_deadline     Date
@@ -72,10 +81,9 @@ min_reviews_per_paper         Int
 
 Tabelle Person
 ~~~~~~~~~~~~~~
-id		BigInt		Autoincrement, Primary Key
-conference	BigInt		-> Conference, id
+email		Varchar 127	Primary Key
+conference	BigInt		-> Conference, abbreviation
 rights		BigInt		-> Rights, id
-email		Varchar 127	Not Null
 first_name	Varchar 127
 last_name	Varchar 127	Not Null
 title		Varchar 127	(bzw. Title)
@@ -89,9 +97,12 @@ state		Varchar 127
 country		Varchar 127
 password	Varchar 32      Not Null (wird codiert gespeichert)
 
+/* Halte die vorige Loesung fuer sinnvoller und schlanker, also
+   roles : Int - Attribut statt einer separaten Tabelle fuer die Rollen. */
+
 Tabelle Rights
 ~~~~~~~~~~~~~~
-user_id		BigInt		-> User, id
+person_id		BigInt		-> Person, id
 role_id		BigInt		-> Roles, id
 status		Int		z.B. aktiv / nicht aktiv
 
@@ -104,10 +115,10 @@ description	Varchar 127
 
 Tabelle Paper
 ~~~~~~~~~~~~~
-id		BigInt		Autoincrement, Primary Key
-conference	BigInt		-> Conference, id
-author		BigInt		-> User, id
-thread		BigInt		-> Thread, id
+id		Int		Autoincrement, Primary Key
+conference	Varchar 20	-> Conference, abbreviation
+author		Varchar 127	-> Person, email
+forum_id	Int		-> Forum, id
 title		Varchar 127	Not Null
 abstract	Text
 last_edited	DateAndTime	(wird automatisch gesetzt)
@@ -118,114 +129,92 @@ format		Int		(bzw. MimeType)
 
 Tabelle IsCoAuthorOf
 ~~~~~~~~~~~~~~~~~~~~
-conference	BigInt		-> Conference, id
-paper_id	BigInt		-> Paper, id
-user_id		BigInt		-> User, id
+conference	Varchar 20	-> Conference, abbreviation
+paper_id	Int		-> Paper, id
 name		Varchar 127	Not Null
-email		VarChar 127	falls user_id leer ist, also der Coautor nicht angemeldet ist
+coauthor	Varchar 127	-> Person, email
 
 Tabelle Topic
 ~~~~~~~~~~~~~
-id		BigInt		Autoincrement, Primary Key
-conference	BigInt		-> Conference, id
+id		Int		Autoincrement, Primary Key
+conference	Varchar 20	-> Conference, abbreviation
 name		Varchar 127	Not Null
 
 Tabelle IsAboutTopic
 ~~~~~~~~~~~~~~~~~~~~
-paper_id	BigInt          -> Paper, id
-topic		BigInt		-> Topic, id
+paper_id	Int          	-> Paper, id
+topic		Int		-> Topic, id
 
-Tabelle PrefersTopic (welche Themenbereiche den User interessieren)
+Tabelle PrefersTopic (welche Themenbereiche die Person interessieren)
 ~~~~~~~~~~~~~~~~~~~~
-user		BigInt		-> User, id
-topic		BigInt		-> Topic, id
+person		Varchar 127	-> Person, email
+topic		Int		-> Topic, id
 
-Tabelle PrefersPaper (welche Artikel den User interessieren)
+Tabelle PrefersPaper (welche Artikel die Person interessieren)
 ~~~~~~~~~~~~~~~~~~~~
-user		BigInt		-> User, id
-paper_id	BigInt          -> Paper, id
+person		Varchar 127	-> Person, email
+paper_id	Int          	-> Paper, id
+
+Tabelle DeniesPaper (welche Artikel die Person nicht reviewen möchte)
+~~~~~~~~~~~~~~~~~~~~
+person		Varchar 127	-> Person, email
+paper_id	Int             -> Paper, id
 
 Tabelle ReviewReport
 ~~~~~~~~~~~~~~~~~~~~
-<<<<<<< .mine
-<<<<<<< .mine
-id			BigInt		Autoincrement, Primary Key
-conference		Varchar 20	-> Conference, abbreviation
-paper_id		BigInt		-> Paper, ID
-reviewer		Varchar 127	-> User, email
-summary			Text
-remarks			Text
-confidential		Text
-=======
-id            BigInt          Autoincrement, Primary Key
+id            Int     	      Autoincrement, Primary Key
 conference    Varchar 20      -> Conference, abbreviation
-paper_id      BigInt          -> Paper, ID
-reviewer      Varchar 127     -> User, email
+paper_id      Int  	      -> Paper, ID
+reviewer      Varchar 127     -> Person, email
 summary       Text
 remarks       Text
 confidential  Text
-=======
-id		BigInt		Autoincrement, Primary Key
-conference	BigInt		-> Conference, id
-paper_id	BigInt		-> Paper, id
-reviewer_id	BigInt		-> User, id
-status		Int
-summary		Text
-remarks		Text
-confidential	Text
->>>>>>> .r193
->>>>>>> .r172
 
 Tabelle Rating
 ~~~~~~~~~~~~~~
-review_id	BigInt		-> ReviewReport, id
-criterion_id	BigInt		-> Criterion, id
+review_id	Int		-> ReviewReport, id
+criterion_id	Int		-> Criterion, id
 grade		Int		Not Null
 comment		Text
 
 Tabelle Criterion
 ~~~~~~~~~~~~~~~~~
-id		BigInt          Autoincrement, Primary Key
-conference	BigInt		-> Conference, id
+id		Int 	        Autoincrement, Primary Key
+conference	Varchar 20	-> Conference, abbreviation
 name		Varchar 127     Not Null
 description	Text
 max_value	Int
-quality_rating	Int		in Percent
+quality_rating	Int		(in Percent)
 
 Tabelle Forum
 ~~~~~~~~~~~~~
-id		BigInt		Autoincrement, Primary Key
-conference	BigInt		-> Conference, id
+id		Int		Autoincrement, Primary Key
+conference	Varchar 20	-> Conference, abbreviation
 title		Varchar 127	Not Null
-description	Text
 
 Tabelle Thread
 ~~~~~~~~~~~~~~
-id		BigInt		Autoincrement, Primary Key
-forum_id	BigInt		-> Forum, id
+id		Int		Autoincrement, Primary Key
+forum_id	Int		-> Forum, id
+first_message	Varchar 127	-> Message, id
 title		Varchar 127
 description	Text
 
 Tabelle ParticipatesInForum
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-forum_id	BigInt		-> Forum, id
-participant	BigInt		-> User, id
+forum_id	Int		-> Forum, id
+participant	Int		-> Person, id
 
 Tabelle Message
 ~~~~~~~~~~~~~~~
-id		BigInt		Autoinctement, Primary Key
-thread		BigInt		-> Thread, id
-sender		BigInt		-> User, id
+id		Varchar 127	Primary Key
+reply_to	Int		-> Message, id
+sender		Varchar 127	-> Person, email
 send_time	TimeAndDate	(wird automatisch gesetzt)
 subject		Varchar 127
 text		Text
 
-Tabelle HasThread
-~~~~~~~~~~~~~~~~~
-forum_id	BigInt          -> Forum, id
-message_id	BigInt		-> Message, id
 
-
-(*: Der Contraint "wird automatisch gesetzt" kann vernachlässigt werden
+(*: Der Constraint "wird automatisch gesetzt" kann vernachlässigt werden
     und ist nur ein Hinweis, dass diese Felder spaeter automatisch
     durch CoMa gesetzt werden.)
