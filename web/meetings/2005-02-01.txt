@@ -1,0 +1,101 @@
+1.Februar 2005
+---------------
+
+Viel gab's nicht.
+
+Wir haben gesagt (wie auch auf Handout-7 festgehalten), was kommende Woche
+auf uns zukommt. 
+
+   Bei weiteren Fragen/Anfordernissen bitte rechtzeitig melden (z.b. einen
+   weiteren Testaccount auf snert oder Gruppen-Beratung zur vorbereitung
+   auf die Demo oder was auch immer. Die Woche wird evntl. anstrengend, und
+   Ihr d"urft uns in die Anstrengung (im Rahmen) miteinbeziehen.
+
+
+Genehmigte Abwesenheit: Malte Tiedje, Daniel Miesling, Thorben Dziuk (ich
+glaube ich habe keinen vergessen?) Machen wir halt ein extra-Vorsingen f"ur
+die drei, damit sie auch schwitzen muessen.
+
+
+Frage: wo wird getestet: Getestet wird auf snert, d.h., dort duerft ihr das
+auf einen frischen account installieren, + eine vorinstallierte Version
+verwenden (wprguest-xxx). Zumindest die Installation sollte auf snert
+durchgefuehrt werden auf einem frischen account.
+
+Einiges zu den Gruppen:
+
+        PHP1: versichert, es liefe alles. 
+
+        PHP2: nicht ganz einheitliches Stimmungsbild, aber
+              eine Task-force (Tim, Gunnar, Marco) k"ummert
+              sich um die letzte Meile der Integration (und der
+              absprache der Demo?)
+
+        Java: versichert, es liefe alles: Anmerkung Gunnar Schaefer: gestern mittelsp"ater
+              nachmittag konnte ich davon noch nicht viel sehen/testen.
+
+        Tester: werden sicher die Woche weiter aktiv sein, und trifft sich
+                mit uns noch, damit wir/sie einen gemeinsamen Auftritt
+                hinbekommen.
+
+
+Frage: was sind die Kenntnisse des Installations-Testers? Lesen kann er
+(und schreiben), und surfen etc. und ich sag' mal: kein blutiger
+Laie. Ausserdem (zur Beruhigung): die Installation und die Demo wird sicher
+nicht _boeswillig_ durchgef"uhrt, d.h., wenn er was nicht versteht, kann er
+u.a., ja fragen. (Allerdings: hellsehen kann er nicht...)
+
+Frage: was f"ur eine ``Show'' soll es sein? sollen wir uns verkaufen?
+
+       Naja, keine Verkaufsschow. Eine Show f"ur ``fortgeschrittene
+       Informatiker'' (es ist ja ein Fortgeschrittenen Praktikum). D.h.,
+       Ihr demonstriert (=Demo) die leistungsf"ahigkeit Eurer Gruppe anhand
+       der Ziele/Ergebnisse/Einsichten etc. Und verkaufen nicht an den
+       Dumm-User der "uber den Tisch gezogen werden will, sondern an uns
+       (die Betreuer, die Kommilitonen) die wissen wollen, nicht was in
+       B"uchern steht (``PHP ist die Ideale sprache f"ur..''), sondern
+       _Eure konkreten Erf"ahrungen__
+       
+
+       Aussagen wie ``Java ist toll, denn es ist eine tolle Sprache'' ist
+       Gerede. ``Java hat sich bei uns in folgenden Modulen als positive
+       herausgestellt... andererseits war dies oder das unter Java
+       negativ....'' in der konkreten Erfahrung Eurer Gruppe ist wiederum
+       gut. Meinungen sind erlaubt, aber es sollten _begruendete/belegte_
+       Meinungen sein.
+
+
+Martin
+
+
+
+
+
+
+------------ Vorabmail:
+
+
+
+Hallo,
+
+morgen gibt's einen neuen Handout, der ein paar der Dinge die ich bereits auf
+dem BB
+
+
+http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2/viewtopic.php?t=95
+
+angerissen hatte, etwas genauer festhaelt.
+
+Dient als ``Tischvorlage'' f"ur morgen. D.h. Morgen muessen wir das
+Vorgehen f"ur die Woche drauf festzurren.
+
+der Handout ist bereits im Netz:
+
+  http://www.informatik.uni-kiel.de/inf/deRoever/WS0405/PITM/coma/main002.html
+
+und eingecheckt.
+
+Martin
+
+
+
