@@ -4,7 +4,7 @@
 // --------- FOR ADMIN ---------------------------
 function admin_task()
 {
-	$tasks = array();	
+	$tasks = array();
 	
 	/* SQL Query and results*/
 		

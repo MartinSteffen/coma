@@ -5,6 +5,7 @@
 class SQL {
 	
 	var $conn=false;
+	var $last_insert_id=0;
 
 	function connect($host="",$user="",$pass="",$name="") {
 		$this->conn=mysql_connect(
@@ -53,4 +54,26 @@ class SQL {
 		return $resultArr;
 	}
 
+	function insert($queryStr) {
+
+		if (!$this->conn) {
+			$this->connect();
+		}
+		$isok=mysql_query($queryStr, $this->conn);
+
+		if (!$isok) {
+			return array("text"=>mysql_error($this->conn));
+		} else {	
+			$this->last_insert_id=mysql_insert_id($this->conn);
+			return true;
+		}
+	}
+
+	function error() {
+		return mysql_error($this->conn);
+	}
+
+	function insert_id() {
+		return $this->last_insert_id;
+	}
 }
