@@ -1,0 +1,21 @@
+body, table, td, tr, div, p, pre, h1, h2, h3, h4, ul {
+    font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif; }
+body, td, div, p, pre, ul { font-size: 13px; }
+body { background-color: #FFFFFF; }
+
+h1 { font-size: 18px; }
+h2 { font-size: 16px; }
+h3 { font-size: 13px; }
+
+.normal { font-size: 12px; }
+.small  { font-size: 11px; }
+.tiny   { font-size: 10px; }
+
+.invert { color: #000000; background-color: #E0E2D4;
+          font-weight: bold; letter-spacing: 2px; font-size: 15px; }
+
+a { font-size: 13px; text-decoration: none; font-weight : bold; }
+a:link    { color: #AD351A; }
+a:visited { color: #78534A; }
+a:active  { color: #000000; }
+a:hover   { color: #FF4D00; }
