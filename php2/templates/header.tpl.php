@@ -26,7 +26,13 @@
           <td height="62" align="right" valign="top" width="22%"> 
             <table width="98" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="77" align="right"><b><a href="index.php?logout=1" class="logout">Logout</a></b></td>
+                <td width="77" align="right">
+				   <?
+				     if(isset($_SESSION['userID']))
+					 {   ?>
+					    <b><a href="index.php?logout=1" class="logout">Logout</a></b>
+				   <? } ?>
+				</td>
                 <td width="21"></td>
               </tr>
             </table>
@@ -39,6 +45,10 @@
     <td> 
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr> 
+		<? /* START MENU */
+		   if(isset($_SESSION['userID']))
+		   {
+		  ?>
           <td width="271" align="left" valign="top"> 
             <div align="center"> 
               <table width="226" border="0" cellspacing="1" cellpadding="5" bgcolor="#000000" height="78">
@@ -184,5 +194,8 @@
               </table>
             </div>
           </td>
+		  <? /* END MENU */
+		  	}
+		  ?>
           <td width="100%" valign="top">
             <div align="center">

@@ -8,12 +8,6 @@ include("includes/templates.inc.php");
 include("includes/rights.inc.php");
 session_start();
 
-/* DEBUG - delete later!!! */
-if (!isset($_SESSION['userID']))
-{
-	$_SESSION['userID'] = 1;
-}
-/* END DEBUG */
 
 if (isset($_REQUEST['Role'])){
 	loginas($_REQUEST['Role']);
@@ -22,6 +16,7 @@ if (isset($_REQUEST['Role'])){
 if (is_readable("modules/config.inc.php")){
 	require_once("modules/config.inc.php");
 }
+
 
 if (isset($_REQUEST['m'])){
 	$call_module = $_REQUEST['m'];

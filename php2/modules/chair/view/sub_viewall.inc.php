@@ -1,6 +1,6 @@
 <?
-	$link = mysql_connect ("localhost","testUser","testPass");
-	$base = mysql_select_db ("testComma");
+if(isChair_Overall())
+{
 	$SQL = "select person.id, person.title, person.first_name, person.last_name, 
 			conference.name,
 			paper.id, paper.state, paper.title
@@ -42,4 +42,6 @@
 $TPL['chair'] = $output;		
 template("CHAIR_viewall");
 $TPL['chair'] = "";
+}
+else redirect("logout");	
 ?>

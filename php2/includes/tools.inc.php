@@ -24,4 +24,12 @@ function redirect($m = false, $a = false, $s = false, $mehr = false){
 	exit();
 	// }}}
 }
+
+
+//Makes the encoded password
+function makePassword($pass)
+{
+
+	return $pass;
+}
 ?>

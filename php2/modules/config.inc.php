@@ -1,3 +1,3 @@
 <?php
-$config['defaultmodule'] = "roles";
+$config['defaultmodule'] = "login";
 ?>
