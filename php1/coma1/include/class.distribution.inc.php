@@ -358,8 +358,10 @@ class Distribution extends ErrorHandling {
       // ermitteln... (Paper mit hoeherem m bei gleichem Faktor bevorzugen.)
       $minFactor = 1; $wanted = -1; $pindex = -1;
       for ($i = 0; $i < count($p_id); $i++) {
+        echo('<br><br>Schleife');
         // nur solche, fuer die noch Reviewer in Frage kommen
         if ($p_num_revs_total_left[$i] > 0) {
+          echo('    ['.$p_num_revs[$i] / $intWantedReviewers[$p_id[$i]].' / '.$minFactor.' / '.$wanted.']');
           if($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] < $minFactor /* ||
               (abs($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] - $minFactor) <= 0.005 &&
                $intWantedReviewers[$p_id[$i]] > $wanted)*/) {
