@@ -71,7 +71,8 @@ if($_REQUEST['submit']) {
 			if (!$ok) echo mysql_error();
 		}
 
-		$adminquery="INSERT INTO person (id, lastname, email, password) VALUES ( 1, '$admin_lastname', '$admin_email', MD5('$admin_pass'))";
+		$adminquery="INSERT INTO person (id, last_name, email, password) VALUES ( 1, '$admin_lastname', '$admin_email', MD5('$admin_pass'))";
+		echo "$adminquery";
 		$adminquery2="INSERT INTO role(conference_id, person_id, role_type, state) VALUES (0,1,1,1)";		
 
 		mysql_query($adminquery);
