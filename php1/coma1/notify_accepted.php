@@ -101,9 +101,9 @@ foreach ($objPersons as $objPerson) {
             $rating = new Template(TPLPATH.'mail_ratingline.tpl');
             $strRatingAssocs = defaultAssocArray();
             $strRatingAssocs['no']         = $j;
-            $strRatingAssocs['crit_name']  = $objReview->objCriterion[$j]->strName;
+            $strRatingAssocs['crit_name']  = $objReview->objCriterions[$j]->strName;
             $strRatingAssocs['rating']     = $objReview->intRatings[$j];
-            $strRatingAssocs['max_rating'] = $objReview->objCriterion[$j]->intMaxValue;
+            $strRatingAssocs['max_rating'] = $objReview->objCriterions[$j]->intMaxValue;
             $strRatingAssocs['comment']    = $objReview->strComments[$j];
             $rating->assign($strRatingAssocs);
             $rating->parse();
