@@ -116,7 +116,7 @@ table.menu
   padding: 10px;
   vertical-align: top;
   text-align: left;
-  background-color: #F5FBFF;
+  background-color: #F4F8FF;
 }
 td.menu
 {
@@ -353,7 +353,7 @@ a.list:hover
 table.viewtable
 {
   font-size: 13px;
-  background-color: #DEEBEF;
+  background-color: #F5FBFF;
   border-style: solid;
   border-width: 1px;
   border-color: #404040;
@@ -366,7 +366,7 @@ table.viewtable
 }
 .viewline
 {  
-  top-bottom: 1px #404040 solid;  
+  border-bottom: 1px #808080 solid;  
 }
 
 /* Meldungen */
