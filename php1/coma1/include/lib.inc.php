@@ -321,6 +321,9 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
   if ($myDBAccess->failed()) {
     error('sendMail',$myDBAccess->getLastError());
   }
+  if (empty($objPerson)) {
+    error('sendMail', "UserID $intUserID not found in database!");
+  }
   if (empty($strFrom)) {
     $strFrom = "\"CoMa - Your Conference Manager\" <>";
   }
