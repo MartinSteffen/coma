@@ -24,6 +24,7 @@ HACHA       = hacha
 
 www:    index.html
 	cp *.html  $(WWWDIR)
+	cp *.gif  $(WWWDIR)
 	cp meetings/200*.txt $(WWWDIR)/meetings
 
 
