@@ -92,11 +92,8 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<tr>
 			<td>Your Abstract</td>
 			<td>	
-				<textarea  name="abstract" cols="50" rows="10" >
-                         <xsl:attribute name="value">your abstract
-						 <xsl:value-of select="/paper/abstract"/>
-						 </xsl:attribute>
-                </textarea>
+				<textarea  name="abstract" cols="50" rows="10" >your abstract<xsl:value-of select="paper/abstract"/>
+				  </textarea>
 			</td>
 		</tr>
 		<tr>

@@ -87,26 +87,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <h3>Welcome to JCoMa!</h3>
 
-<p>It lacks images, but at least it has style.
-And it has links, even if they don't go
-anywhere ...</p>
 
-
-<table>
-<tr>
-<th>Berlin</th>
-<th>Hamburg</th>
-<th>München</th>
-</tr><tr>
-<td>Miljöh</td>
-<td>Kiez</td>
-<td>Bierdampf</td>
-</tr><tr>
-<td>Buletten</td>
-<td>Frikadellen</td>
-<td>Fleischpflanzerl</td>
-</tr>
-</table>
 </xsl:template>
 
 <xsl:template match="login/password_error">
