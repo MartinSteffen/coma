@@ -58,7 +58,7 @@ $result = $sql->insert($SQL);
 $paper_id = mysql_insert_id();
 
 // get fTP handle
-$ftphandle=@ftp_connect($ftphost);
+$ftphandle = @ftp_connect($ftphost);
 
 // errorhandling, to be improved
 if (!$ftphandle) {
@@ -100,7 +100,7 @@ $change_result = $sql->insert($SQL);
 
 // do not forget to close connection. Your FTP-provider says thanks :)
 // ftp_close() throws error, so use here ftp_quit()
-@ftp_quit($ftphandle);
+ftp_quit($ftphandle);
 
 redirect("author", "view", "papers");
 //done at last! Good luck!
