@@ -10,5 +10,5 @@ if(isChair_Overall())
 	template("TASKS");
 	$TPL['tasks'] = "";
 }
-else redirect("logout","","","mode=1");	
+else redirect("","","","logout=1");	
 ?>

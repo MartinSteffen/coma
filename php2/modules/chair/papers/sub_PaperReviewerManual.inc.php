@@ -74,5 +74,5 @@ if(isChair_Paper($_GET['paperID']))
 	template("CHAIR_manual");	
 
 }
-else redirect("logout","","","mode=1");		
+else redirect("","","","logout=1");	
 ?>

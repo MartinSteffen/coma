@@ -6,7 +6,7 @@ include("header.tpl.php");
   <tr>
     <td align="center" valign="top">
       <p class="textBold">You are succesfully registered in Comma!</p>
-      <p class="menus"><a href="index.php" class="menus">You may login now!</a></p>
+      <p class="menus"><a href="index.php?login=0" class="menus">You may login now!</a></p>
     </td>
   </tr>
 </table>

@@ -1,3 +1,0 @@
-<?php
-$config['defaultaction'] = "login";
-?>

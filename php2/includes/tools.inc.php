@@ -3,24 +3,59 @@
 
 function redirect($m = false, $a = false, $s = false, $mehr = false){
 	// {{{
-	if ($m){
-		$m = "m=$m";
+	$toShow = 0;
+	if ($m)
+	{
+		if($toShow == 0)
+		{
+			$m = "?m=$m";			
+		}
+		else
+		{
+			$m = "&m=$m";
+		}
+		$toShow++;
 	}
-	if ($a){
-		$a = "&a=$a";
+	if ($a)
+	{
+		if($toShow == 0)
+		{
+			$a = "?a=$a";
+		}
+		else
+		{
+			$a = "&a=$a";
+		}
+		$toShow++;
 	}
-	if ($s){
-		$s = "&s=$s";
+	if ($s)
+	{
+		if($toShow == 0)
+		{
+			$s = "?s=$s";
+		}
+		else
+		{
+			$s = "&s=$s";
+		}
+		$toShow++;
 	}
 	if ($mehr) 
 	{
-		$mehr = "&".$mehr;
+		if($toShow == 0)
+		{
+			$mehr = "?".$mehr;
+		}
+		else
+		{
+			$mehr = "&".$mehr;
+		}
 	} 
   if (headers_sent()){
-        print("<a href=\"http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}\">Zum Fortfahren bitte hier klicken!</a>");
+        print("<a href=\"http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}{$m}{$a}{$s}{$mehr}\">Zum Fortfahren bitte hier klicken!</a>");
     }else{
-      //header("Location: http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}");
-			header("Location: {$_SERVER['PHP_SELF']}?{$m}{$a}{$s}{$mehr}");
+      //header("Location: http://{$_SERVER['SERVER_NAME']}{$_SERVER['PHP_SELF']}{$m}{$a}{$s}{$mehr}");
+			header("Location: {$_SERVER['PHP_SELF']}{$m}{$a}{$s}{$mehr}");
 
     }
 	exit();

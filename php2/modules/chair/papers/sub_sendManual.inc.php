@@ -16,5 +16,5 @@ if(isChair_Paper($_POST['paperID']))
 	redirect("chair","papers","paper","paperID=".$_POST['paperID']);	
 
 }
-else redirect("logout","","","mode=1");		
+else redirect("","","","logout=1");	
 ?>

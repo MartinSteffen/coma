@@ -18,6 +18,24 @@ if (is_readable("modules/config.inc.php")){
 	require_once("modules/config.inc.php");
 }
 
+if(isset($_REQUEST['login']))
+{
+	login($_REQUEST['login']);
+}
+else
+{
+	if(isset($_REQUEST['logout']))
+	{
+		logout($_REQUEST['logout']);
+	}
+	else
+	{
+		if(isset($_REQUEST['register']))
+		{
+			register();
+		}
+		else
+		{	
 
 if (isset($_REQUEST['m'])){
 	$call_module = $_REQUEST['m'];
@@ -79,5 +97,6 @@ if (is_dir("modules/{$call_module}/")){
 }else{
 	exit("The called module '$call_module' does not exists!");
 }
+}}}
 ?>
 

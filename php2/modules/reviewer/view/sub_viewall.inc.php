@@ -1,5 +1,5 @@
 <?  //Do not change please
-if(isChair_Overall())
+if(isReviewer_Overall())
 {
 	$output = array();
 	$tasks = array();
@@ -10,5 +10,5 @@ if(isChair_Overall())
 	template("TASKS");
 	$TPL['tasks'] = "";
 }
-else redirect("logout","","","mode=1");	
+else redirect("","","","logout=1");	
 ?>
