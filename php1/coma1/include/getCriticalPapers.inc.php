@@ -30,20 +30,27 @@ require_once(INCPATH.'class.papervariance.inc.php');
  * @access public
  * @author Falk, Tom (20.01.05)
  */
-function getCriticalPapers() {
+
+function getCriticalPapers($method = 'variance') {
   $objPapers = array();
-
-  //...
-  // Hallo Falk! (Tom hier.) ;-)
-  // Habe folgende Idee: Um nicht fuer jeden Scheiss Klassen anzulegen, waere
-  // ich dafuer, einfach ein verschachteltes Array zurueckzuliefern. So werde
-  // ich es in meinem Algorithmus machen.
-  // Etwa so: $x = array();
-  // ...
-  // $x[] = array('intPaperId' => $intPaperId, 'fltVariance' => $fltVariance);
-  // Dann kann man mittels $y = $x[$i] auf $y wie folgt zugreifen:
-  // $y['intPaperId'] bzw. $y['fltVariance']. Ist doch irgendwie besser als
-  // ne Extra-Klasse, oder? (Nur ein Vorschlag; ich werde es so machen.)
-
+  $papers = myDBAccess->getPapersOfConference(session('confid'));
+  foreach ($papers as $paper){
+    $reviews = myDBAccess->getReviewsOfPaper($paper->intId);
+    if (!empty($reviews)){
+      if ($method == 'variance'){
+        $avgrating = $reviews[0]->ftlAvgRating;
+        $val = 0.0;
+        foreach ($reviews as $review){
+          $val = $val + (($review->fltReviewRating - $avgrating)^2);
+        }
+        $val = $val / count($reviews);
+        $val = ($val - $avgrating)/$val;
+        $confdet = myDBAccess->getConferenceDetailed(session('confid'));
+        if ($val > $confdet->fltCriticalVariance){
+          $objPapers[] = new PaperVariance($paper->intId, $val);
+        }
+      }
+    }
+  }
   return $objPapers;
 }
