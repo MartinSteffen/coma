@@ -1241,7 +1241,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getPreferredTopics', $this->mySql->getLastError());
     }
-    echo("OK1 / ".empty($data).' / '.count($data));
+    //echo("OK1 / ".empty($data).' / '.count($data));
     for ($i = 0; $i < count($data); $i++) {
       $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
