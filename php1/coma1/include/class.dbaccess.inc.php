@@ -1098,7 +1098,7 @@ class DBAccess extends ErrorHandling {
     $intNum = 0;    
     for ($i = 0; $i < count($data) && !empty($data); $i++) {
       if ((int)($data[$i]['num']) == 0) {
-      	$intNum++
+      	$intNum++;
       }
     }
     return $this->success($intNum);
