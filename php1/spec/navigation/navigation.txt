@@ -2,10 +2,12 @@
   SPEZIFIKATION - NAVIGATION UND SEITENSTRUKTUR
 ============================================================================
 
-Zusatz zur Technischen Spezifikation [main.txt] der Gruppe PHP1,
-beschreibt die Seitenstruktur der php-Dokumente, aus welchem CoMa besteht,
-mit ihrem Inhalt, Formular- und Interaktionselementen, sowie die Navigation
-zwischen verschiedenen Seiten.
+Zusatz zur technischen Spezifikation [main.txt] der Gruppe PHP1.
+Dieses Dokument spezifiziert die Seitenstruktur der php-Dokumente, aus welchen
+CoMa besteht. Es beschreibt den Inhalt der einzelnen Seiten (statischer Inhalt,
+Formularfelder, Interaktionselemente, Menü) und deren Verknüpfung untereinander.
+Die Beschreibung stützt sich auf die UML-Diagramme, sowie die Spezifikation
+[spec-1.pdf], die als Grundlage für die Implementierung dient.
 
 
 

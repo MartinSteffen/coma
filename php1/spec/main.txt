@@ -240,25 +240,32 @@ entnehmen.
   4. Design
 ============================================================================
 
-4.1
+4.1 e3c-Konformität
 Alle unsere Seiten sollten nach einem w3c-Standart validieren. 
 
 4.2 Design [simplecoma] 
 Encoding: utf-8
 Doctype: 4.0 Transitional
 
-4.3 die Navigation
+4.3 Navigation
 Einen Überblick über die Navigation durch die Seiten ist im Ordner 
-[navigation] zu finden. Dort sind UML-Diagramme zu finden, die 
+[navigation] zu finden. Dort sind zum einen UML-Diagramme zu finden, die 
 eine Baumstuktur darstellen. Die obersten Klassen in den UML-Diagrammen
 stellen die jeweilige Wurzel des Baumes und somit den Ausgangspunkt der 
-Navigation auf dieser Seite dar. 
+Navigation auf dieser Seite dar.
+Eine technische Spezifikation der Seitenstruktur und ihrer Navigation
+ist in [navigation.txt] zu finden. Dieses Dokument stützt sich
+auf die UML-Diagramme, sowie die Spezifikation [spec-1.pdf] und beschreibt
+den Inhalt der einzelnen Seiten (statischer Inhalt, Formularfelder, Schalt-
+flächen, Menü) und deren Verknüpfung untereinander.
+
 
 4.4 Benennung von Dateien (php-Seiten)
 Die Benennung der Knotenpunkte der Navigation ist aus den UML-Diagrammen im
 Ordner [navigation] ersichtlich. Bei der Benennung von Menue und Submenue-
 punkten sollte, soweit sinnvoll, darauf geachtet werden, dass der Dateiname
 der entspechrenden php-Seite mit der Wurzel beginnt - z.B. start_neue.php.
+Die Benennung der Dateien ist noch in [navigation.txt] zu ergänzen.
 
 4.5 Templates
 siehe Kapitel 1.4.
@@ -309,9 +316,9 @@ sein, die auch die Namen der Autoren jeder einzelnen Methode enthalten.
 +--------------------------------------------------------------------------+
 |             | Verantw. | Weitere Ansprechpartner                         |
 +------------------------+-------------------------------------------------|
-| Algorithmen | tos      |                                                 |
+| Algorithmen | tos      | fast                                            |
 | DBAccess    | sae      | tos                                             |
-| Design      | dcm      | jwa (wegen Parser-Anbindung)                    |
+| Design      | dcm      | sae, jwa (wegen Parser-Anbindung)               |
 | Forum       | fast     | jwa                                             |
 | Objekte     | alle     |                                                 |
 | Parser      | jwa      |                                                 |
