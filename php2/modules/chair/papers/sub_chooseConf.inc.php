@@ -16,7 +16,7 @@ if(isChair_Overall())
    }
 
 	if (count($conferences)==1) {
-		redirect("chair","papers","paperlist","confID=".$conferences[0]['id']);
+		redirect("chair","papers","allPapersOfConference","confID=".$conferences[0]['id']);
 	}
 
 $TPL['chair'] = $conferences;
