@@ -30,7 +30,9 @@ CREATE TABLE IF NOT EXISTS ConferenceConfig
    auto_open_paper_forum        INT NOT NULL DEFAULT '1',    -- 0 = FALSE, 1 (bzw. <>0) = TRUE
    auto_add_reviewers           INT NOT NULL DEFAULT '1',    -- 0 = FALSE, 1 (bzw. <>0) = TRUE
    number_of_auto_add_reviewers INT NOT NULL,
-   PRIMARY KEY (id)
+   PRIMARY KEY (id),
+   FOREIGN KEY (id) REFERENCES Conference (id)
+       ON DELETE CASCADE
 ) TYPE = INNODB;
 
 
@@ -39,7 +41,9 @@ CREATE TABLE IF NOT EXISTS Distribution
 (
    paper_id                     INT NOT NULL,
    reviewer_id                  INT NOT NULL,
-   PRIMARY KEY (paper_id, reviewer_id),   
+   PRIMARY KEY (paper_id, reviewer_id),
+   INDEX (paper_id),
+   INDEX (reviewer_id),
    FOREIGN KEY (paper_id) REFERENCES Paper (id)
        ON DELETE CASCADE,
    FOREIGN KEY (reviewer_id) REFERENCES Person (id)
