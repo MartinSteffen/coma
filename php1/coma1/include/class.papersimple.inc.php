@@ -37,11 +37,7 @@ class PaperSimple extends Paper {
   }
   
   function PaperSimpleFromPaper($paper, $title, $authorId, $status, $avgRating = 0.0){
-    $this->Paper($paper->intId);
-    $this->strTitle = $title;
-    $this->intAuthorId = $authorId;
-    $this->intStatus = $status;
-    $this->fltAvgRating = $avgRating;
+    $this->PaperSimple($paper->intId, $title, $authorId, $status, $avgRating);
   }
 
 } // end class PaperSimple

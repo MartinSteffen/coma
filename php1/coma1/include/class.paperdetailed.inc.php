@@ -30,7 +30,7 @@ class PaperDetailed extends PaperSimple {
   var $strLastEdit;
   var $strFilePath;
   
-  function PaperDetailed($id, $title, $authorId, $status, $avgRating = 0.0, $coAuthorsIds, $cpAuthors, $abstract, $formatId, $lastEdit, $filePath){
+  function PaperDetailed($id, $title, $authorId, $status, $avgRating = 0.0, $coAuthorsIds='', $cpAuthors, $abstract, $formatId, $lastEdit, $filePath){
     $this->PaperSimple($id, $title, $authorId, $status, $avgRating);
     $this->intCoAuthorsIds = $coAuthorsIds;
     $this->strCpAuthors = $cpAuthors;
@@ -40,14 +40,8 @@ class PaperDetailed extends PaperSimple {
     $this->strFilePath = $filePath;
   }
 
-  function PaperDetailedFromPaperSimple($paperSimple, $coAuthorsIds, $cpAuthors, $abstract, $formatId, $lastEdit, $filePath){
-    $this->PaperSimple($paperSimple->intId, $paperSimple->strTitle, $paperSimple->intAuthorId, $paperSimple->intStatus, $paperSimple->fltAvgRating);
-    $this->intCoAuthorsIds = $coAuthorsIds;
-    $this->strCpAuthors = $cpAuthors;
-    $this->strAbstract = $abstract;
-    $this->intFormatId = $formatId;
-    $this->strLastEdit = $lastEdit;
-    $this->strFilePath = $filePath;
+  function PaperDetailedFromPaperSimple($paperSimple, $coAuthorsIds='', $cpAuthors, $abstract, $formatId, $lastEdit, $filePath){
+    $this->PaperDetailed($paperSimple->intId, $paperSimple->strTitle, $paperSimple->intAuthorId, $paperSimple->intStatus, $paperSimple->fltAvgRating, $coAuthorsIds, $cpAuthors, $abstract, $formatId, $lastEdit, $filePath);
   }
 
 } // end class PaperDetailed
