@@ -14,6 +14,7 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-redirect('login.php');
+// Wenn ich hier bin, bin ich eingeloggt!
+redirect('main_start.php');
 
 ?>

@@ -128,6 +128,6 @@ if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   if (isset($_SESSION['confid'])) {
     unset($_SESSION['confid']);
   }  
-  redirect('index.php');
+  redirect('login.php');
 }
 ?>
