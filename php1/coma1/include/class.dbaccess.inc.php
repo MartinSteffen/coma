@@ -398,7 +398,7 @@ class DBAccess {
     if (!empty($data)) {
       $objReviews = array();
       for ($i = 0; $i < count($data); $i++) {
-        $objReviews[] = $this->getReview(data[i]['id']);
+        $objReviews[] = $this->getReview($data[i]['id']);
       }
     }
     return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
@@ -414,7 +414,7 @@ class DBAccess {
     if (!empty($data)) {
       $objReviewers = array();
       for ($i = 0; $i < count($data); $i++) {
-        $objReviewers[] = $this->getPerson(data[i]['reviewer_id']);
+        $objReviewers[] = $this->getPerson($data[i]['reviewer_id']);
       }
     }
     return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
@@ -430,7 +430,7 @@ class DBAccess {
     if (!empty($data)) {
       $objReviews = array();
       for ($i = 0; $i < count($data); $i++) {
-        $objReviews[] = $this->getReview(data[i]['id']);
+        $objReviews[] = $this->getReview($data[i]['id']);
       }
     }
     return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
