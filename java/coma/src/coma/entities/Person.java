@@ -20,15 +20,14 @@ public class Person {
     private String state; 
     private String country; 
     private String password;
-    
-	
-			 
+
 	
 	/**
-	 * 
+	 * @param id
 	 */
-	public Person() {
+	public Person(int id) {
 		super();
+		this.id = id;
 	}
 	/**
 	 * @return Returns the affiliation.
