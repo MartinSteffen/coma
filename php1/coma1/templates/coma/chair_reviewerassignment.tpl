@@ -14,7 +14,7 @@
     <th class="listheader">Attitude toward paper</th>
     <th class="listheader">Preferred topics</th>
   </tr>
-  {reviewers}
+  {reviewer_lines}
   <tr>
     <td colspan="2">
       <input type="submit" name="submit" value="Accept changes" class="button">
