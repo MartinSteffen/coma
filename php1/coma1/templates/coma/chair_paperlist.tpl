@@ -19,7 +19,7 @@
       <a href="{basepath}{targetpage}?order=5{&SID}" class="order{if5-active}">Last edit</a>
     </th>
     <th class="listheader">&nbsp;</th>
-    <th class="listheader">&nbsp;</th>
+    <th class="listheader" colspan="2">Del. mark</th>
     <th class="listheader">&nbsp;</th>
   </tr>
   {lines}
