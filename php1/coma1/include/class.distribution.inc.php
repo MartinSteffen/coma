@@ -161,9 +161,10 @@ class Distribution extends ErrorHandling {
 
     $p_num_revs_pref_left = array_fill(0, count($p_id), 0);
     $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
+    $p_num_revs = array_fill(0, count($p_id), 0);
     $r_num_papers = array_fill(0, count($r_id), 0);
     
-    for ($i = 0; $i < 0*count($r_id); $i++) {
+    for ($i = 0; $i < count($r_id); $i++) {
       // Bereits zugeteilte Paper
       $s = sprintf("SELECT   d.paper_id AS paper_id".
                    " FROM    Distribution AS d".
@@ -183,7 +184,7 @@ class Distribution extends ErrorHandling {
         $p_num_revs_total_left[$j]--;
         $r_num_papers[$i]++;
       }
-      // Ausgeschlossene Paper
+/*      // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    ExcludesPaper AS pp".
                    " INNER   JOIN Paper p".
@@ -260,7 +261,7 @@ class Distribution extends ErrorHandling {
           }
           $matrix[$i][$p_id_index[$wants[$j]['paper_id']]] = FAC_WANT;
         }
-      }
+      }*/
     }
 
     // Debug: Ausgabe
