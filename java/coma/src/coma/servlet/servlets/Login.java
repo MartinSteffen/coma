@@ -11,21 +11,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
+
+
+import coma.entities.Conference;
 import coma.entities.Person;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
 import coma.handler.impl.db.ReadServiceImpl;
 import coma.servlet.util.FormParameters;
+import coma.servlet.util.Navcolumn;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 
 /**
- * @author Peter Kauffels & Mohamed Z. Albari
+ * @author mti & owu
  */
 public class Login extends HttpServlet {
 
-	Person myPerson = null;
-
+	static enum ACTIONS {LOGIN, LOGOUT};
+	private ReadServiceImpl myReadService = new ReadServiceImpl();
+	private Person myPerson = null;
+	private Conference myConference = new Conference(-1);
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 
@@ -33,7 +40,17 @@ public class Login extends HttpServlet {
 		session = request.getSession(true);
 		String email = request.getParameter(FormParameters.EMAIL);
 		String passwd = request.getParameter(FormParameters.PASSWORD);
-		int conference_id = Integer.parseInt(request.getParameter(FormParameters.CONFERENCE_ID));
+		
+		ACTIONS action = ACTIONS.LOGIN;
+		
+		
+		try {
+			action = ACTIONS.valueOf(request.getParameter(FormParameters.ACTION).toUpperCase());
+		} catch (RuntimeException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		StringBuffer result = new StringBuffer();
 		XMLHelper helper = new XMLHelper();
 
@@ -43,6 +60,17 @@ public class Login extends HttpServlet {
 
 		helper.addXMLHead(result);
 		result.append("<login>\n");
+		
+		switch (action) {
+		case LOGIN: 
+		int conference_id=-1;
+		try {
+			conference_id = Integer.parseInt(request.getParameter(FormParameters.CONFERENCE_ID));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 		if ((email == null || email.equals(""))
 				|| (passwd == null || passwd.equals(""))) {
@@ -54,7 +82,32 @@ public class Login extends HttpServlet {
 			if (validatePasswd(email, passwd, conference_id)) {
 
 				session.setAttribute(SessionAttribs.PERSON, myPerson);
-				result.append(XMLHelper.tagged("success"));
+				
+				SearchCriteria mysc = new SearchCriteria();
+				mysc.setConference(myConference);
+				SearchResult mySR = myReadService.getConference(mysc);
+				if (mySR != null){
+					Conference[] conferencesArray = (Conference[]) mySR.getResultObj();
+					String info = mySR.getInfo();
+					if(conferencesArray.length == 1){			
+						myConference = conferencesArray[0];
+						session.setAttribute(SessionAttribs.CONFERENCE, myConference);	
+						result.append(XMLHelper.tagged("success",myPerson.toXML()));
+					}
+					else {
+						session.setAttribute(SessionAttribs.PERSON, null);
+						result.append(XMLHelper.tagged("conf_not_found",conference_id));
+					}
+				}
+				else{
+					session.setAttribute(SessionAttribs.PERSON, null);
+					result.append(XMLHelper.tagged("conf_not_found",conference_id));
+					}
+				
+				
+				
+				
+				
 			}
 
 			else {
@@ -63,13 +116,18 @@ public class Login extends HttpServlet {
 			}
 
 		}
-		//Logout
-		// XXX maybe adapt to coma.servlet.util.SessionAttribs. Ulrich
-		//if(request.getParameter("logout") != null){
-		// XXX maybe adapt to coma.servlet.util.SessionAttribs. Ulrich
-		//	session.setAttribute("login", null);
-		//}
-
+		break;
+		case LOGOUT:
+			session.invalidate();
+			session = request.getSession(true);
+			response.sendRedirect("/coma/index.html");
+			break;
+		default:
+			
+			break;
+		}	
+		Navcolumn myNavCol = new Navcolumn(session);
+		result.append(myNavCol.toString());
 		result.append("</login>\n");
 		response.setContentType("text/html; charset=ISO-8859-15");
 		StreamSource xmlSource = new StreamSource(new StringReader(result
@@ -90,7 +148,7 @@ public class Login extends HttpServlet {
 
 		boolean isValid = false;
 
-		ReadServiceImpl myReadService = new ReadServiceImpl();
+		
 		Person mySearchPerson = new Person(-1);
 		mySearchPerson.setEmail(email);
 		SearchCriteria mysc = new SearchCriteria();
@@ -113,6 +171,7 @@ public class Login extends HttpServlet {
 
 			
 		}
+				
 		return isValid;
 	}
 

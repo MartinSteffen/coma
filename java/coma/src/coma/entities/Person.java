@@ -258,19 +258,21 @@ public class Person extends Entity {
     }
 	
 	
-	public Paper[] getPapers() throws Exception{
+	public Paper[] getPapers() {
 		
 		Paper mySearchPaper = new Paper(-1);
 		mySearchPaper.setAuthor_id(this.id);
 		SearchCriteria mysc = new SearchCriteria();
 		mysc.setPaper(mySearchPaper);
 		SearchResult mySR = myReadService.getPaper(mysc);
-		if (!mySR.isSUCCESS())
-			throw new Exception(mySR.getInfo());
-		else {
-		} 
-		return (Paper[])mySR.getResultObj();
+		if (mySR != null){
+			return (Paper[])mySR.getResultObj();
+		}
 		
+		else {
+			
+		return null;
+		}
 	}
 	
 	public StringBuilder toXML(XMLMODE mode){

@@ -16,10 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
+import coma.entities.Conference;
 import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.SearchCriteria;
+import coma.entities.Topic;
+import coma.handler.impl.db.DeleteServiceImpl;
+import coma.handler.impl.db.InsertServiceImpl;
+import coma.handler.impl.db.ReadServiceImpl;
 import coma.handler.util.EntityCreater;
 
+import coma.servlet.util.FormParameters;
 import coma.servlet.util.Navcolumn;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
@@ -34,6 +41,10 @@ public class Author extends HttpServlet {
 	
 	static enum ACTIONS {NULL, SUBMITPAPER, UPDATEPAPER, PROCESSPAPER, RETRACTPAPER }; 
 	
+	private ReadServiceImpl myReadService = new ReadServiceImpl();
+	private DeleteServiceImpl myDeleteService = new DeleteServiceImpl();
+	private InsertServiceImpl myInsertService = new InsertServiceImpl();
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, java.io.IOException {
 	
@@ -43,7 +54,7 @@ public class Author extends HttpServlet {
 	
 	
 	try {
-		action = ACTIONS.valueOf(request.getParameter("action").toUpperCase());
+		action = ACTIONS.valueOf(request.getParameter(FormParameters.ACTION).toUpperCase());
 	} catch (RuntimeException e) {
 			// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -65,12 +76,12 @@ public class Author extends HttpServlet {
 	
 	
 	helper.addXMLHead(result);
-	result.append(myNavCol);
+	
 	result.append("<author>\n");
 	
 	switch (action) {
 	case NULL: // show all his submitted papers
-		/*result.append("<showpaper>\n");
+		result.append("<showpaper>\n");
 		try {
 				Paper[] thePapers = theLogedPerson.getPapers();
 				result.append(XMLHelper.tagged("success",""));
@@ -80,9 +91,18 @@ public class Author extends HttpServlet {
 				result.append(XMLHelper.tagged("failed",e.toString()));
 			}
 		
-			result.append("</showpaper>\n");*/
+			result.append("</showpaper>\n");
     	break;
 	case SUBMITPAPER: // submit form for a paper
+		/*Topic mySearchTopic = new Topic(-1);
+		mySearchTopic.setConferenceId(((Conference)session.getAttribute(SessionAttribs.CONFERENCE)).getId());
+		SearchCriteria mysc = new SearchCriteria();
+		mysc.(my);
+		SearchResult mySR = myReadService.getPerson(mysc);
+		if (mySR != null){
+			Person[] personArray = (Person[]) mySR.getResultObj();
+			String info = mySR.getInfo();
+		}*/
 		result.append(XMLHelper.tagged("submitpaper",""));
 		break;
     case PROCESSPAPER: // process submitted paper
@@ -111,7 +131,7 @@ public class Author extends HttpServlet {
 		break;
 	}
 	
-	
+	result.append(myNavCol.toString());
 	result.append("</author>\n");
 	response.setContentType("text/html; charset=ISO-8859-15");
 	StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));

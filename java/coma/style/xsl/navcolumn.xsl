@@ -71,6 +71,13 @@
       <xsl:otherwise>
         <li>User
         <ul>
+        	<!-- logout button -->
+          <li>
+          	<form action="Login" method="post">	
+          	<input type="hidden" name="action" value="logout"/>
+            <input type="submit" name="logout" value="Logout!" class="submit-button" />
+          </form>
+          </li>
           <li><a href="UserPrefs">Edit User Data</a></li>
         </ul>
         </li>

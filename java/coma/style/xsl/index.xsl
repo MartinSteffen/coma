@@ -82,5 +82,6 @@ anywhere ...</p>
 </xsl:template>
 <xsl:template match="login/success">
 <h3>You are loged in</h3>
+<xsl:value-of select="/"/>
 </xsl:template>
 </xsl:stylesheet>
