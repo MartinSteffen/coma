@@ -1225,7 +1225,6 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    *
    * @access public
    * @author Daniel (31.12.04), ueberarbeitet von Tom (13.01.05)
-   * @todo Automatisch auch neuen ConferenceConfig-Datensatz einfuegen!
    */
   function addConference($strName, $strHomepage, $strDescription, $strAbstractDeadline,
                          $strPaperDeadline, $strReviewDeadline, $strFinalDeadline,
@@ -1234,9 +1233,10 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         "                          paper_submission_deadline, review_deadline,".
         "                          final_version_deadline, notification, conference_start,".
         "                          conference_end)".
-        "         VALUES  ('$strName', '$strHomepage', '$strDescription,'$strAbstractDeadline',".
-        "                  '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline', ".
-        "                  '$strNotification', '$strConferenceStart', '$strConferenceEnd')";
+        "         VALUES ('$strName', '$strHomepage', '$strDescription, '$strAbstractDeadline',".
+        "                 '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline',".
+        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd')";
+    echo('<br>$s<br>);
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addConference', $this->mySql->getLastError());
