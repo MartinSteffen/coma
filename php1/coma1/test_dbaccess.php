@@ -49,7 +49,7 @@ else {
 }
 
 $p = $myDBAccess->getPapersOfReviewer(2);
-echo('Papers von Reviewer #2:<br>');
+echo('<br>Papers von Reviewer #2:<br>');
 if (!empty($p)) {
   for ($i = 0; $i < count($p); $i++) {
     echo($p[$i]->title);

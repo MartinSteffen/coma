@@ -243,7 +243,7 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
-      	$objAuthor = $this->getPerson($intAuthorId);
+      	$objAuthor = $this->getPerson($intReviewerId);
       	$strAuthor = $objAuthor->getName();
       	$fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
       	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
