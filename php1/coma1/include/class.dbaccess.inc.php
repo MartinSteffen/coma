@@ -1676,7 +1676,7 @@ nur fuer detaillierte?
                  " WHERE   person_id = '%d'".
                  " AND     role_type = '%d'".
                  " AND     conference_id = '%d'",                 
-                 s2db($intId), s2db($intRoleId), s2db($intConferenceId));
+                 s2db($intPersonId), s2db($intRoleId), s2db($intConferenceId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('acceptRole', $this->mySql->getLastError());
