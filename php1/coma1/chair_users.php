@@ -21,8 +21,10 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
-global $intRoles;
-global $strRoles;
+//global $intRoles;
+//global $strRoles;
+$intRoles = INTROLES;
+$strRoles = STRROLES;
 
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
