@@ -140,10 +140,10 @@ class Template extends ErrorHandling {
         // REPEAT BLOCK
         else {
           //$s = preg_match('/(?i)repeat(.*):/', $key);
-          $strKeys[] = '/(?is){repeat(.*?):((?:.|\\1)*?)}/';
+          $strKeys[] = '/(?is){repeat(.*?):((.*?)(\\1)?)+}/';
           $strVal = '';
-          foreach ($value as $val) {
-            $strVal .= '\\2';
+          for ($i=0; $i<$value[0]; $i++) {
+            $strVal .= '\\3'.$i;
           }
           $strValues[] = $strVal;
         }
