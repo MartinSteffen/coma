@@ -28,36 +28,38 @@ $strContentAssocs = defaultAssocArray();
 if (isset($_POST['email'])){
 
   // Anlegen der Person in der Datenbank
-  $strContentAssocs['first_name'] = $_POST['first_name'];
-  $strContentAssocs['last_name']  = $_POST['last_name'];
-  $strContentAssocs['email']      = $_POST['email'];
-  $strContentAssocs['name_title'] = $_POST['name_title'];
-  $strContentAssocs['street']     = $_POST['street'];
-  $strContentAssocs['city']       = $_POST['city'];
-  $strContentAssocs['postalcode'] = $_POST['postalcode'];
-  $strContentAssocs['phone']      = $_POST['phone'];
-  $strContentAssocs['fax']        = $_POST['fax'];
+  $strContentAssocs['first_name']  = $_POST['first_name'];
+  $strContentAssocs['last_name']   = $_POST['last_name'];
+  $strContentAssocs['email']       = $_POST['email'];
+  $strContentAssocs['name_title']  = $_POST['name_title'];
+  $strContentAssocs['affiliation'] = $_POST['affiliation'];
+  $strContentAssocs['street']      = $_POST['street'];
+  $strContentAssocs['postalcode']  = $_POST['postalcode'];
+  $strContentAssocs['city']        = $_POST['city'];
+  $strContentAssocs['state']       = $_POST['state'];
+  $strContentAssocs['country']     = $_POST['country'];
+  $strContentAssocs['phone']       = $_POST['phone'];
+  $strContentAssocs['fax']         = $_POST['fax'];
 
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
   ||  empty($_POST['email'])
   ||  empty($_POST['user_password'])
   ||  empty($_POST['password_repeat'])) {
-    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, <b>Email</b> und <b>Passwort</b> '
-                 .'ausf&uuml;llen!';
+    $strMessage = 'You have to fill in the fields <b>Last name</b>, <b>Email</b>, and <b>Password</b>!';
   }
   // Teste, ob Passwort mit der Wiederholung uebereinstimmt
   elseif ($_POST['user_password'] != $_POST['password_repeat']) {
-    $strMessage = 'Ihr Passwort stimmt nicht mit der Wiederholung des Passwortes &uuml;berein!';
+    $strMessage = 'Your password confirmation is not the same as your password!';
   }
   // Teste, ob die Email gueltig ist
   elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
-    $strMessage = 'Geben Sie eine g&uuml;ltige Email-Adresse ein!';
+    $strMessage = 'Please enter a valid email address!';
   }
   // Teste, ob die Email bereits vorhanden ist
   elseif ($myDBAccess->checkEmail($_POST['email'])) {
-    $strMessage = 'Es existiert bereits ein Benutzer mit dieser Email-Adresse! '
-                 .'Verwenden Sie bitte diesen Account oder geben Sie eine andere Email-Adresse ein.';
+    $strMessage = 'Account with the given email address is already existing! '.
+                  'Please use that account or enter another email address!';
   }
   // Versuche einzutragen
   else {
@@ -65,12 +67,12 @@ if (isset($_POST['email'])){
                                      $_POST['last_name'],
                                      $_POST['email'],
                                      $_POST['name_title'],
-                                     '',
+                                     $_POST['affiliation'],,
                                      $_POST['street'],
                                      $_POST['city'],
                                      $_POST['postalcode'],
-                                     '',
-                                     '',
+                                     $_POST['state'],
+                                     $_POST['country'],
                                      $_POST['phone'],
                                      $_POST['fax'],
                                      $_POST['user_password']);
@@ -80,9 +82,9 @@ if (isset($_POST['email'])){
     }
     else {
       // Datenbankfehler?
-      $strMessage = 'Es ist ein Fehler beim Ausf&uuml;hren der Registrierung aufgetreten:<br>'
+      $strMessage = 'An error occured during your registration:<br>'
                    .$myDBAccess->getLastError()
-                   .'<br>Bitte versuchen Sie erneut, sich zu registrieren.';
+                   .'<br>Please try again to register!';
     }
   }
 }

@@ -10,7 +10,7 @@
   </tr>
   <tr>
     <td> 
-      Vorname:
+      First name:
     </td>
     <td>      
       <input type="text" name="first_name" size="32" maxlength="127" value="{first_name}" />
@@ -18,7 +18,7 @@
   </tr>
   <tr>
     <td> 
-      Nachname:
+      Last name:
     </td>
     <td>      
       <input type="text" name="last_name" size="32" maxlength="127" value="{last_name}"/ > *
@@ -26,7 +26,7 @@
   </tr>
   <tr>
     <td> 
-      Email-Adresse:
+      Email address:
     </td>
     <td>      
       <input type="text" name="email" size="32" maxlength="127" value="{email}"/ > *
@@ -34,7 +34,7 @@
   </tr>
   <tr>
     <td> 
-      Titel:
+      Title:
     </td>
     <td>      
       <input type="text" name="name_title" size="16" maxlength="32" value="{name_title}"/ >
@@ -42,7 +42,15 @@
   </tr>
   <tr>
     <td> 
-      Telefon:
+      Affiliation:
+    </td>
+    <td>      
+      <input type="text" name="phone" size="16" maxlength="20" value="{affiliation}"/ >
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Phone number:
     </td>
     <td>      
       <input type="text" name="phone" size="16" maxlength="20" value="{phone}"/ >
@@ -50,7 +58,7 @@
   </tr>
   <tr>
     <td> 
-      Fax:
+      Fax number:
     </td>
     <td>      
       <input type="text" name="fax" size="16" maxlength="20" value="{fax}"/ >
@@ -58,7 +66,7 @@
   </tr>
   <tr>
     <td> 
-      Stra&szlig;e:
+      Street:
     </td>
     <td>      
       <input type="text" name="street" size="32" maxlength="127" value="{street}"/ >
@@ -66,7 +74,7 @@
   </tr>
   <tr>
     <td> 
-      PLZ:
+      Postal code:
     </td>
     <td>      
       <input type="text" name="postalcode" size="16" maxlength="20" value="{postalcode}"/ >
@@ -74,7 +82,7 @@
   </tr>
   <tr>
     <td> 
-      Ort:
+      City:
     </td>
     <td>      
       <input type="text" name="city" size="32" maxlength="127" value="{city}"/ >
@@ -82,7 +90,23 @@
   </tr>
   <tr>
     <td> 
-      Passwort:
+      State:
+    </td>
+    <td>      
+      <input type="text" name="city" size="32" maxlength="127" value="{state}"/ >
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Country:
+    </td>
+    <td>      
+      <input type="text" name="city" size="32" maxlength="127" value="{country}"/ >
+    </td>
+  </tr>  
+  <tr>
+    <td> 
+      Password:
     </td>
     <td>      
       <input type="password" name="user_password" size="32" maxlength="127" /> *
@@ -90,7 +114,7 @@
   </tr>
   <tr>
     <td>
-      Passwort wiederholen:
+      Repeat password:
     </td>
     <td>
       <input type="password" name="password_repeat" size="32" maxlength="127" /> *

@@ -27,30 +27,32 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
 
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
-  ||  empty($_POST['email'])) {
-    $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, und <b>Email</b>'
-                 .'ausf&uuml;llen!';
+  ||  empty($_POST['email'])
+    $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>Email</b>!';
   }
-  // @TODO Darf die Email, also der Benutzername hier geaendert werden?!
   // Teste, ob die Email gueltig ist
-  elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
-    $strMessage = 'Geben Sie eine g&uuml;ltige Email-Adresse ein!';
+  else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+    $strMessage = 'Please enter a valid email address!';
   }
   // Teste, ob die Email bereits vorhanden ist
-  elseif ($_POST['email'] != session('uname')
-      &&  $myDBAccess->checkEmail($_POST['email'])) {
-    $strMessage = 'Es existiert bereits ein Benutzer mit dieser Email-Adresse!';
+  else if ($_POST['email'] != $objPerson->strEmail &&
+           $myDBAccess->checkEmail($_POST['email'])) {
+    $strMessage = 'Account with the given email address is already existing! '.
+                  'Please use enter another email address!';
   }
   else {
-    $objPerson->strFirstName  = $_POST['first_name'];
-    $objPerson->strLastName   = $_POST['last_name'];
-    $objPerson->strEmail      = $_POST['email'];
-    $objPerson->strTitle      = $_POST['name_title'];
-    $objPerson->strStreet     = $_POST['street'];
-    $objPerson->strCity       = $_POST['city'];
-    $objPerson->strPostalCode = $_POST['postalcode'];
-    $objPerson->strPhone      = $_POST['phone'];
-    $objPerson->strFax        = $_POST['fax'];
+    $objPerson->strFirstName   = $_POST['first_name'];
+    $objPerson->strLastName    = $_POST['last_name'];
+    $objPerson->strEmail       = $_POST['email'];
+    $objPerson->strAffiliation = $_POST['affiliation'];
+    $objPerson->strTitle       = $_POST['name_title'];
+    $objPerson->strStreet      = $_POST['street'];
+    $objPerson->strCity        = $_POST['city'];
+    $objPerson->strPostalCode  = $_POST['postalcode'];
+    $objPerson->strState       = $_POST['state'];
+    $objPerson->strCountry     = $_POST['country'];
+    $objPerson->strPhone       = $_POST['phone'];
+    $objPerson->strFax         = $_POST['fax'];
 
     $result = $myDBAccess->updatePerson($objPerson);
     if (!empty($result)) {
@@ -64,16 +66,18 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   }
 }
 
-
-$strContentAssocs['first_name'] = $objPerson->strFirstName;
-$strContentAssocs['last_name']  = $objPerson->strLastName;
-$strContentAssocs['email']      = $objPerson->strEmail;
-$strContentAssocs['name_title'] = $objPerson->strTitle;
-$strContentAssocs['street']     = $objPerson->strStreet;
-$strContentAssocs['city']       = $objPerson->strCity;
-$strContentAssocs['postalcode'] = $objPerson->strPostalCode;
-$strContentAssocs['phone']      = $objPerson->strPhone;
-$strContentAssocs['fax']        = $objPerson->strFax;
+$strContentAssocs['first_name']  = $objPerson->strFirstName;
+$strContentAssocs['last_name']   = $objPerson->strLastName;
+$strContentAssocs['email']       = $objPerson->strEmail;
+$strContentAssocs['name_title']  = $objPerson->strTitle;
+$strContentAssocs['affiliation'] = $objPerson->strAffiliation;
+$strContentAssocs['street']      = $objPerson->strStreet;
+$strContentAssocs['city']        = $objPerson->strCity;
+$strContentAssocs['postalcode']  = $objPerson->strPostalCode;
+$strContentAssocs['state']       = $objPerson->strState;
+$strContentAssocs['country']     = $objPerson->strCountry;
+$strContentAssocs['phone']       = $objPerson->strPhone;
+$strContentAssocs['fax']         = $objPerson->strFax;
 
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
