@@ -162,12 +162,13 @@ subject		Varchar 127
 text		Text
 
 
-2. Enumerations:
+2. Enumerations (Vorschlag):
 
  Enumeration Status
 ~~~~~~~~~~~~~~~~~~~~
 01  active
 02  not active
+...
 
  Enumeration PaperState
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -175,6 +176,7 @@ text		Text
 02  conflicting
 03  accepted
 04  rejected
+...
 
  Enumeration ForumType
 ~~~~~~~~~~~~~~~~~~~~~~~
