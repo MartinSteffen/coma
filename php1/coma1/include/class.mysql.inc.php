@@ -3,7 +3,7 @@
  * @version $Id$
  * @package coma1
  */
-
+/***/
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }

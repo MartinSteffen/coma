@@ -4,6 +4,7 @@
  * @package coma1
  * @subpackage Testing
  */
+/***/
 
 /**
  * Wichtig damit Coma1 Datein eingebunden werden koennen
