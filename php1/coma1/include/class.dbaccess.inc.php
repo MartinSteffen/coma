@@ -120,6 +120,7 @@ require_once(INCPATH.'class.paper.inc.php');
 require_once(INCPATH.'class.paperdetailed.inc.php');
 require_once(INCPATH.'class.papersimple.inc.php');
 require_once(INCPATH.'class.person.inc.php');
+require_once(INCPATH.'class.personalgorithmic.inc.php');
 require_once(INCPATH.'class.persondetailed.inc.php');
 require_once(INCPATH.'class.topic.inc.php');
 
