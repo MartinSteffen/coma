@@ -8,6 +8,15 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
+// OFFENE PUNKTE (nur diese Klasse betreffend, daher nicht in Spec):
+// -----------------------------------------------------------------
+// - Wie werden Booleans behandelt? (vgl. getConferenceConfig, blnAuto...)
+//   Jeweils zwischen 0/1 (DB) und false/true (Klasse) switchen?
+//   Sonst Gefahr: Abfrage ($bln = false) liefert wahr, wenn $bln gesetzt ist
+//   (also insbesondere auch bei $bln = 0, was je false bedeuten sollte)
+//   Alternative (in DB): NULL = false, 1 = true
+
+
 // by Jan: verbesserter Include
 if (!defined('INCPATH')) {
   /** @ignore */
