@@ -54,12 +54,12 @@ else {
   }
 }
 
-global $strRoles;
+//global $strRoles;
 
 $content = new Template(TPLPATH.'confirm_apply.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['title'] = $objConference->strName;
-$strContentAssocs['role'] = $strRoles[$intRoleType];
+$strContentAssocs['title'] = encodeText($objConference->strName);
+$strContentAssocs['role'] = encodeText($strRoles[$intRoleType]);
 if (empty($blnAccepted)) {
   $strContentAssocs['if'] = array(1);
 }

@@ -24,9 +24,9 @@ else if (!$checkRole) {
 }
 
 //Achtung: Nur zu Testzwecken eingefuegt
-include('./include/getCriticalPapers.inc.php');
-require_once('./include/class.conferencedetailed.inc.php');
-require_once('./include/class.papervariance.inc.php');
+require_once(INCPATH.'getCriticalPapers.inc.php');
+require_once(INCPATH.'class.conferencedetailed.inc.php');
+require_once(INCPATH.'class.papervariance.inc.php');
 //bis hier
 
 if (isset($_POST['action']) && $_POST['action'] == 'delete') {
@@ -66,12 +66,10 @@ $critvar = $confdet->fltCriticalVariance;
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
-if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-  $strMessage = session('message', false);
-  unset($_SESSION['message']);
-}
-if (isset($strMessage) && !empty($strMessage)) {  
-  $strContentAssocs['message'] = encodeText($strMessage);
+$strMessage = session('message', false);
+session_delete('message');
+if (!empty($strMessage)) {  
+  $strContentAssocs['message'] = $strMessage;
   $ifArray[] = 9;
 }
 $strContentAssocs['if'] = $ifArray;
@@ -95,16 +93,15 @@ if (!empty($objPapers)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
       //achtung: nur fuer testzwecke
       foreach($critPapers as $cpap){
-        $cpapstr = round($cpap->fltVariance * 100);
-	$cpapstr = $cpapstr . '%';
+        $cpapstr = round($cpap->fltVariance * 100) . '%';
         if ($cpap->intId == $objPaper->intId){
-	  if ($cpap->fltVariance > $critvar){
-	    $strItemAssocs['variance'] = '!! ' . $cpapstr;
-	  }
-	  else{
-	    $strItemAssocs['variance'] = $cpapstr;
-	  }
-	}
+	        if ($cpap->fltVariance > $critvar){
+	          $strItemAssocs['variance'] = '!! ' . $cpapstr;
+	        }
+	        else{
+	          $strItemAssocs['variance'] = $cpapstr;
+	        }
+	      }
       }
       //bis hier
     }
