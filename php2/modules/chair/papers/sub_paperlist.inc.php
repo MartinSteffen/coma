@@ -6,8 +6,14 @@ include("includes/rtp.lib.php");
 
 if(isChair_Conference($_GET['confID'] ) )
 {
-$TPL['paperlist'] = getAllPapersForConferenceSortByTotalScore($_GET['confID']);
-template("CHAIR_listPapers");
+
+$paperlist = getAllPapersForConferenceSortByTotalScore($_GET['confID']);
+
+foreach($paperlist as $paper) {
+	$paper['author'] = getPerson($paper['author_id']);
+}
+
+$TPL['paperlist'] = template("CHAIR_listPapers");
 
 }
 else redirect("logout",false,false,"error=1");	
