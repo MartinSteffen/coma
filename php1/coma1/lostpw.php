@@ -66,12 +66,12 @@ if (isset($_POST['submit'])) {
 }
 elseif (isset($_GET['id']) && isset($_GET['key'])) {
   // Aendern des PW
-  $objPerson = $myDBAccess->getPerson($_GET['id']);
-  if ($myDBAccess->failed()) {
-    error('Error retrieving person data', $myDBAccess->getLastError());
-  }
-  if ($myDBAccess->checkLogin($objPerson->strEmail, $_GET['key'])) {
-    // altes PW korrekt
+  if ($myDBAccess->getKeyOfPerson($_GET['id']) == $_GET['key']) {
+    // Key korrekt
+    $objPerson = $myDBAccess->getPerson($_GET['id']);
+    if ($myDBAccess->failed()) {
+      error('Error retrieving person data', $myDBAccess->getLastError());
+    }
     $newPass = generatePassword();
     $myDBAccess->updatePersonPassword($_GET['id'], $newPass);
     if ($myDBAccess->failed()) {
