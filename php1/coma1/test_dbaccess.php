@@ -24,6 +24,13 @@ for ($i = 0; $i < count($ROLES); $i++) {
     echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
 }
 
+$p->intRoles = $p->intRoles + 16 - 8;
+echo('Roles:<br>');
+for ($i = 0; $i < count($ROLES); $i++) {
+  if ($p->hasRole($ROLES[$i][0]))
+    echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
+}
+
 
 
 /*$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
