@@ -57,7 +57,7 @@ if (!empty($objPapers)) {
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $strItemAssocs['num_reviews'] = encodeText($intRevs.'/'.count($objReviewers));
+    $strItemAssocs['num_reviews'] = encodeText($intRevs.' of '.count($objReviewers));
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
@@ -71,7 +71,7 @@ if (!empty($objPapers)) {
     else {
       $ifArray[] = 7;
     }
-    $strItemAssocs['crit_value'] = $fltTestTmp.'%';
+    $strItemAssocs['variance'] = $fltTestTmp.'%';
     $strItemAssocs['if'] = $ifArray;
     // Zugeteilte Reviewer
     $strItemAssocs['reviewers'] = '';
