@@ -29,9 +29,10 @@ CoMa - Your Conference Manager
 
   1. Download the code (coma1.tar.gz)
 
-  2. Extract the code to your Webspace
+  2. Extract the code to your Webspace.
+     eg. tar -xzf coma1.tar.gz
 
-  3. In your Browser start coma1/INSTALL.PHP and follow the suggestions
+  3. In your Browser -> start "coma1/INSTALL.PHP" and follow the suggestions
 
   4. Enjoy CoMa
 
