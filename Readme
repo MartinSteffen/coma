@@ -5,6 +5,7 @@ the BB etc).
 
 
 
+
 Currently, the structure is as follows:
 
 
@@ -17,7 +18,7 @@ Currently, the structure is as follows:
 	
     o tex:               common TeX definitions
 
-    o slides:            presentation(s)
+    o slides:            presentation(s) from the org group
 
     o spec:              specification + material from the task
 	                 forces
@@ -26,19 +27,19 @@ Currently, the structure is as follows:
 
     o php1/2:            2 php groups
 
-    o test:             the test group(s)
+    o test:              the test group(s)
 
-    o requirements:     informal requirement spec.
+    o requirements:      informal requirement spec.
 
-    o sql:              stuff from the sql team
+    o sql:               stuff from the sql team
 
-    o web:              the overall webpage
+    o web:               the overall webpage ((tex/hevea)
  
     o snert:             specific remarks about the snert-platform
 
-    o python:           some python implementation 
+    o python:            some python implementation 
 
-    o org:              internal org. matters (including email adresses)
+    o org:               internal org. matters (including email adresses)
 
 #############################################
 # $Id$#

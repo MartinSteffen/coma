@@ -232,7 +232,16 @@ The \emph{state} of a paper is used in the reviewing phase to indicate
 certain high-level information concerning the result of the discussion.
 \index{paper!state} The states agreed upon are shown in
 Table~\ref{tab:paper.state}. The numerical representation is included for
-those implementations, that do not want to use an extra table.
+those implementations, that do not want to use an extra table.  The states
+\texttt{accepted} and \texttt{rejected} should be self-explanatory. Those
+are the \emph{definite} state, and it's the goal of the reviewing and
+discussion phase to achieve agreement in the sense that all submissions are
+either accepted or rejected in the end.  The state \texttt{conflicting}
+means that some contradictory judgements have been handed in by the
+reviewers. A paper with a conflict therefore indicates an increased need
+for discussion. The conflict is based on the ratings, but the exact
+conditions as to when the ratings are considered confliciting is a matter
+of tuning and experimenting in practial circumstances.
 
 
 
@@ -264,11 +273,11 @@ those implementations, that do not want to use an extra table.
 \end{table}
 
 
-Each paper has at least one author, as a paper does not write itself. A paper
-may have more than one author, though, and the additional ones are called in
-the context of \Coma\ coauthors.\footnote{In real life, of course, all are
-  authors, but on the model, one particular author is singled out, and the
-  others, if any, are called coauthors of the paper.} 
+Each paper has at least one author, as a paper does not write itself. A
+paper may have more than one author, though, and the additional ones are
+called in the context of \Coma\ coauthors.\footnote{In real life, of
+  course, all are authors, but on the model, one particular author is
+  singled out, and the others, if any, are called coauthors of the paper.}
 \index{coauthor}%
 The table \texttt{IsCoauthorOf} associates persons and papers (cf.\ 
 Listing~\ref{code:sql.iscoauthorof}). The name-field is to contain the name of
