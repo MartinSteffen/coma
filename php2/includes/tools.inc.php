@@ -147,5 +147,9 @@ function isDate($date){
 		return true;
 	}
 }
-			
+
+function dump($var){
+	var_dump($var);
+	exit();
+}
 ?>
