@@ -13,7 +13,9 @@ require_once('./include/header.inc.php');
 $main = new Template(TPLPATH.'frame.tpl');
 
 $content = new Template(TPLPATH.'register.tpl');
-$content->assign(defaultAssocArray());
+$strContentAssocs = defaultAssocArray();
+$strContentAssocs['message'] = '';
+$content->assign($strContentAssocs);
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Neuen Benutzer registrieren';
