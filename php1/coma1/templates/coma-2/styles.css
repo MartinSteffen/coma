@@ -63,19 +63,21 @@ table.formtable { font-size: 13px;
                   background-color: #DEEBEF;
                   border-style: solid;
                   border-width: 1px;
-                  border-color: #000000; /*#CEDBEF;*/
+                  border-color: #CEDBEF;
                   margin: 10px;
                   padding: 10px;
                 }
 
-input.button { font-size: 13px;
-        background-color: #DEEBEF;
+input { font-size: 13px;
+        background-color: #F7FBFF;
         border-style: solid;
         border-width: 1px;
-        border-color: #000000; /*#CEDBEF;*/
-        margin: 5px;
+        border-color: #000000;
+        margin: 4px;
         padding: 4px;
       }
+
+input.button { background-color: #CEDBEF; }
 
 .center { text-align: center; }
 
