@@ -173,7 +173,7 @@ class DBAccess {
       	}
       }
       return (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
-                $data[0]['email'], $role_type, $data[0]['title'],));
+                $data[0]['email'], $role_type, $data[0]['title']));
     }
     return $this->error('getPerson '.$this->mySql->getLastError());
   }
