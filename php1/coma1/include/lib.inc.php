@@ -164,10 +164,6 @@ function checkLogin() {
     if ($myDBAccess->failed()) {
       error('checkLogin',$myDBAccess->getLastError());
     }
-    session_delete('uname');
-    session_delete('passowrd');
-    session_delete('uid');
-    session_delete('confid');
     return false;
   }
 }

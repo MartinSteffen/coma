@@ -23,7 +23,8 @@ require_once('./include/header.inc.php');
 if (checkLogin()) {
   redirect('index.php');
 }
-elseif (isset($_SESSION['uname'])) {
+elseif (isset($_SESSION['uname']) && isset($_SESSION['password'])) {
+  session_delete('password');
   $_SESSION['message'] = 'Username or Password is wrong!';
 }
 
