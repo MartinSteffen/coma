@@ -13,6 +13,7 @@ Spec2:
     Daniel Miesling <daniel-miesling[aett]arcor.de>
 
 Test:
+     Olle Nebendahl jon[aett]informatik.uni-kiel.de
      Oliver Niemann <gub75[aett]gmx.de>
      Tonelli Bartolomei Thiago <theigobart[aett]gmail.com>
 
