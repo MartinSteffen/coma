@@ -85,7 +85,7 @@ if (in_array('toc', $strArrayHelpTopics)){
 
 /**
  * toc.tpl
- */ 
+ */
 if (in_array('nothing', $strArrayHelpTopics)){
   $toctemplate = new Template(TPLPATH.'help_chapter.tpl');
   $tocassocs = defaultAssocArray();
@@ -114,6 +114,7 @@ if (in_array('comapages', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -143,6 +144,7 @@ if (in_array('layout', $strArrayHelpTopics)){
   }
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -179,6 +181,7 @@ if (in_array('login', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = $objRelatedTemplate->getOutput();
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -189,7 +192,7 @@ if (in_array('login', $strArrayHelpTopics)){
 
 /**
  * chapter-02-03.tpl
- */ 
+ */
 if (in_array('register', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -208,6 +211,7 @@ if (in_array('register', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-03.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -219,7 +223,7 @@ if (in_array('register', $strArrayHelpTopics)){
 
 /**
  * chapter-02-04.tpl
- */ 
+ */
 if (in_array('imprint', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -238,6 +242,7 @@ if (in_array('imprint', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-04.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -267,6 +272,7 @@ if (in_array('profile', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-05.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -296,6 +302,7 @@ if ((in_array('main', $strArrayHelpTopics)) && (in_array('conferences', $strArra
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-06.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -325,6 +332,7 @@ if ((in_array('create', $strArrayHelpTopics)) && (in_array('conference', $strArr
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-07.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -354,6 +362,7 @@ if ((in_array('create', $strArrayHelpTopics)) && (in_array('conference', $strArr
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-07-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -383,6 +392,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('start', $strArrayHelp
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-08.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -412,6 +422,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('users', $strArrayHelp
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-09.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -441,6 +452,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('prefers', $strArrayHe
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-09-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -470,6 +482,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('papers', $strArrayHel
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-10.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -499,6 +512,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('paperreviews', $strAr
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-10-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -528,6 +542,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('reviews', $strArrayHe
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-11.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -557,6 +572,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('reviewsreviewer', $st
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-11-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -586,6 +602,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('confconfig', $strArra
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-12.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -615,6 +632,7 @@ if ((in_array('chair', $strArrayHelpTopics)) && (in_array('confconfig', $strArra
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-12-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -644,6 +662,7 @@ if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('start', $strArrayH
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-13.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -673,6 +692,7 @@ if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('reviews', $strArra
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-14.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -702,6 +722,7 @@ if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('editreview', $strA
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-14-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -731,6 +752,7 @@ if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('createreview', $st
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-14-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -760,6 +782,7 @@ if ((in_array('reviewer', $strArrayHelpTopics)) && (in_array('prefers', $strArra
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-15.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -789,6 +812,7 @@ if ((in_array('author', $strArrayHelpTopics)) && (in_array('start', $strArrayHel
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-16.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -818,6 +842,7 @@ if ((in_array('author', $strArrayHelpTopics)) && (in_array('papers', $strArrayHe
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-17.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -847,6 +872,7 @@ if ((in_array('author', $strArrayHelpTopics)) && (in_array('createpaper', $strAr
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-17-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -876,6 +902,7 @@ if ((in_array('participant', $strArrayHelpTopics)) && (in_array('start', $strArr
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-18.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -905,6 +932,7 @@ if ((in_array('participant', $strArrayHelpTopics)) && (in_array('settings', $str
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-19.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -934,6 +962,7 @@ if ((in_array('user', $strArrayHelpTopics)) && (in_array('conference', $strArray
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-20.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -963,6 +992,7 @@ if ((in_array('user', $strArrayHelpTopics)) && (in_array('users', $strArrayHelpT
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-21.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -992,6 +1022,7 @@ if ((in_array('user', $strArrayHelpTopics)) && (in_array('papers', $strArrayHelp
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-22.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1021,6 +1052,7 @@ if (in_array('forum', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-23.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1050,6 +1082,7 @@ if (in_array('help', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-24.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1071,6 +1104,7 @@ if (in_array('detailpages', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-25.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1100,6 +1134,7 @@ if ((in_array('user', $strArrayHelpTopics)) && (in_array('userdetails', $strArra
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-25-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1129,6 +1164,7 @@ if ((in_array('user', $strArrayHelpTopics)) && (in_array('paperdetails', $strArr
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-25-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1158,6 +1194,7 @@ if (in_array('error', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-26.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1187,6 +1224,7 @@ if (in_array('introduction', $strArrayHelpTopics)){
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1198,7 +1236,7 @@ if (in_array('introduction', $strArrayHelpTopics)){
 
 /**
  * chapter-01-01.tpl
- */ 
+ */
 if (in_array('step', $strArrayHelpTopics) && in_array('chair', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -1217,6 +1255,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('chair', $strArrayHelpTopi
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-01.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1227,7 +1266,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('chair', $strArrayHelpTopi
 
 /**
  * chapter-01-02.tpl
- */ 
+ */
 if (in_array('step', $strArrayHelpTopics) && in_array('reviewer', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -1246,6 +1285,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('reviewer', $strArrayHelpT
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1256,7 +1296,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('reviewer', $strArrayHelpT
 
 /**
  * chapter-01-03.tpl
- */ 
+ */
 if (in_array('step', $strArrayHelpTopics) && in_array('author', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -1275,6 +1315,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('author', $strArrayHelpTop
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-03.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
@@ -1285,7 +1326,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('author', $strArrayHelpTop
 
 /**
  * chapter-01-03.tpl
- */ 
+ */
 if (in_array('step', $strArrayHelpTopics) && in_array('participant', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -1304,6 +1345,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('participant', $strArrayHe
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-04.tpl');
   $strArrayContentAssocs = defaultAssocArray();
+  $strArrayContentAssocs['&popup'] = ($popup ? '&amp;popup' : '');
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
