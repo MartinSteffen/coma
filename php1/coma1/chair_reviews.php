@@ -114,8 +114,7 @@ if (!empty($objPapers)) {
       $strItemAssocs['num_reviews'] = encodeText($intRevs.' of '.count($objReviewers));
     }
     else {
-      $strItemAssocs['num_reviews'] = 'none';
-      $strItemAssocs['line_no']     = 'alert-'.$lineNo;
+      $strItemAssocs['num_reviews'] = 'none';      
       $ifArray[] = 'ALERT';
     }
     if ($intRevs > 0) {
@@ -132,6 +131,8 @@ if (!empty($objPapers)) {
       $strItemAssocs['variance']   = encodeText(round($fltVariance * 100).'%');
       if ($fltVariance >= $objConference->fltCriticalVariance) {
         $ifArray[] = 6;
+        $ifArray[] = ALERT;
+        $strItemAssocs['line_no'] = 'alert-'.$lineNo;
       }
       else {
         $ifArray[] = 7;

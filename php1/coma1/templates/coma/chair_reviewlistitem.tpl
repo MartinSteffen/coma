@@ -35,7 +35,7 @@
     </td>
     <td class="listitem-{line_no}" nowrap>
       {if0
-      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+      <form action="{basepath}chair_reviews.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="changestatus">
         <input type="hidden" name="paperid" value="{paper_id}">
         <input type="submit" name="submit" value="accept" class="smallbutton">
@@ -43,7 +43,7 @@
       </form>
       }
       {if1
-      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+      <form action="{basepath}chair_reviews.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="changestatus">
         <input type="hidden" name="paperid" value="{paper_id}">
         <input type="submit" name="submit" value="accept" class="smallbutton">
@@ -51,7 +51,7 @@
       </form>
       }
       {if2
-      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+      <form action="{basepath}chair_reviews.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="changestatus">
         <input type="hidden" name="paperid" value="{paper_id}">
         <input type="submit" name="submit" value="accept" class="smallbutton">
@@ -59,7 +59,7 @@
       </form>
       }
       {if3
-      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+      <form action="{basepath}chair_reviews.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="resetstatus">
         <input type="hidden" name="paperid" value="{paper_id}">
         <input type="submit" name="submit" value="reset status" class="smallbutton">

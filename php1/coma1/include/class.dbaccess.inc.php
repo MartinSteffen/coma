@@ -476,7 +476,6 @@ class DBAccess extends ErrorHandling {
    * @return Person [] Ist im Regelfall nicht leer.
    * @access public
    * @author Sandro (19.01.05)
-   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getUsersOfConference($intConferenceId, $intOrder=false) {
     $s = "SELECT  id, first_name, last_name, email, title".
@@ -671,7 +670,6 @@ class DBAccess extends ErrorHandling {
    *                        $intAuthorId gefunden wurden.
    * @access public
    * @author Tom, Sandro (04.12.04, 12.12.04, 19.01.05)
-   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getPapersOfAuthor($intAuthorId, $intConferenceId, $intOrder=false) {
     $objAuthor = $this->getPerson($intAuthorId);
@@ -748,7 +746,6 @@ class DBAccess extends ErrorHandling {
    * @return int Die Anzahl der Paper ohne hochgeladene Dokumente
    * @access public
    * @author Sandro (06.02.05)
-   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getNumOfPapersOfAuthorWithoutUpload($intAuthorId, $intConferenceId) {   
     $s = sprintf("SELECT   COUNT(*) AS num".
@@ -761,6 +758,9 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getNumOfPapersOfAuthorWithoutUpload', $this->mySql->getLastError());
+    }
+    elseif (empty($data)) {
+      return $this->success(false);
     }
     $numOfPapersWithUpload = $data[0]['num'];
     $s = sprintf("SELECT   COUNT(*)".
@@ -788,7 +788,6 @@ class DBAccess extends ErrorHandling {
    *                        $intReviewerId gefunden wurden.
    * @access public
    * @author Tom, Sandro (12.12.04, 19.01.05)
-   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getPapersOfReviewer($intReviewerId, $intConferenceId, $intOrder=false) {
     $objReviewer = $this->getPerson($intReviewerId);
@@ -872,7 +871,6 @@ class DBAccess extends ErrorHandling {
    * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.
    * @access public
    * @author Sandro (19.01.05)
-   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getPapersOfConference($intConferenceId, $intOrder=false) {
     $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,".
@@ -1157,7 +1155,6 @@ class DBAccess extends ErrorHandling {
    * @return Review Ein leeres Array, falls kein Review des Reviewers existiert.
    * @access public
    * @author Sandro (14.12.04)
-   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
   function getReviewsOfReviewer($intReviewerId, $intConferenceId) {
     $s = sprintf("SELECT   r.id".
@@ -1715,7 +1712,6 @@ class DBAccess extends ErrorHandling {
    * @return bool Gibt true zurueck gdw. die Person Zugriff auf das Forum hat
    * @access public
    * @author Sandro (27.02.05)
-   * @todo Zu klaeren: Duerfen Reviewer zu allen Foren Zugang haben?
    */
   function checkAccessToForum($objPerson, $objForum) {
     $blnAccess = false;
@@ -2510,7 +2506,6 @@ nur fuer detaillierte?
    * @return bool true gdw. der Upload korrekt durchgefuehrt werden konnte
    * @access public
    * @author Jan (25.01.05)
-   * @todo Delete Add geht vielleicht auch besser
    * @todo Rollback?
    */
   function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, $intFileSize, $strContents) {

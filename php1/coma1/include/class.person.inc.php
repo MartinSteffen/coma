@@ -121,7 +121,7 @@ class Person {
     // erstmal ganz billig; spaeter Pruefung auf leere Strings usw.
     switch($intStyle) {
       case 0:
-        $ret = $this->strFirstName.' '.$this->strLastName;
+        $ret = (empty($this->strFirstName)?'':$this->strFirstName.' ').$this->strLastName;
         break;
       case 1:
         $ret = $this->strLastName.(empty($this->strFirstName)?'':', '.$this->strFirstName);
