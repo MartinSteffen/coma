@@ -56,7 +56,7 @@ while ($i < $conferences) {
 }
 
 $myDBAccess->addCoAuthor(1, 1);
-$myDBAccess->addCoAuthorName(2, 'Co Author Name')
+$myDBAccess->addCoAuthorName(2, 'Co Author Name');
 
 $i = 0;
 while ($i < $conferences) {
