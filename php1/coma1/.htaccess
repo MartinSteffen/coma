@@ -1,1 +1,2 @@
 DirectoryIndex index.php
+php_flag magic_quotes_gpc On
