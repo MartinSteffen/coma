@@ -323,7 +323,6 @@ function isGlobalForum($objForum){
 }
 
 function generatePostMethodArray($strArrayPostvars){
-  var_dump($strArrayPostvars);
   $strArrayPma = array();
   if (empty($strArrayPostvars['posttype'])){
     $strArrayPma['posttype'] = 'reply';
