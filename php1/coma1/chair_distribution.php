@@ -30,7 +30,7 @@ if (!isset($_SESSION['dist'])) {
 }
 if (isset($_POST['confirm'])) {
   $dist = $_SESSION['dist'];
-  foreach ($dist as $pid => $arrR) {
+  foreach ($dist as $pid => &$arrR) {
     $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($arrR); $j++) {
       if ($arrR[$j]['status'] != ASSIGNED) {
