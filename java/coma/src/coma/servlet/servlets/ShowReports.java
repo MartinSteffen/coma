@@ -260,7 +260,11 @@ public class ShowReports extends HttpServlet {
 	if (thePerson.isChair()){
 
 	    theSearchCriteria = new SearchCriteria();
-	    theSearchCriteria.setPaper(new Paper(-2));
+	    Paper thePaper = new Paper(-2);
+	    try {
+		thePaper.setConference_id(thePerson.getConference_id());
+	    } catch (Exception e) {;}
+	    theSearchCriteria.setPaper(thePaper);
 	    
 	    theSearchResult = dbRead.getPaper(theSearchCriteria);
 
