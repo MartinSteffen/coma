@@ -441,7 +441,7 @@ class Distribution extends ErrorHandling {
     // welches wiederum pro Zeile ein Array mit folgenden Eintraegen enthaelt:
     // 'reviewer_id' und 'status' (enthaelt den Wert einer globalen Konstanten)
     $y = array();
-    for ($j = 0; $j < count($p_id); $i++) {
+    /*for ($j = 0; $j < count($p_id); $i++) {
       $p = array();
       $p['paper_id'] = $p_id[$j];
       $r = array();
@@ -452,7 +452,7 @@ class Distribution extends ErrorHandling {
       }
       $p['reviewers'] = $r;
       $y[] = $p;
-    }
+    }*/
 
     return $y;
   }
