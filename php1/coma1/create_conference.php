@@ -54,7 +54,7 @@ if (isset($_POST['action'])) {
         $strTopics[$i] = encodeText($_POST['topic_name-'.($i+1)]);
       }
     }     
-    for ($i = 1; $i < $intCritNum; $i++) {
+    for ($i = 0; $i < $intCritNum; $i++) {
       if (!isset($_POST['del_crit-'.($i+1)])) {
         $strCriterions[]    = encodeText($_POST['crit_name-'.($i+1)]);
         $strCritDescripts[] = encodeText($_POST['crit_descr-'.($i+1)]);
