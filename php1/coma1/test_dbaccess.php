@@ -27,7 +27,15 @@ function bit($b) {
 
 echo('<br>');
 
-$p = $myDBAccess->getPersonDetailed(1);
+$v = '\%';
+$s = sprintf("String: %s, Integer: %d, Float: %f, Böser String: %s",
+             $myDBAccess->s2db('string'),
+             $myDBAccess->s2db(35),
+             $myDBAccess->s2db(4.2464),
+             $myDBAccess->s2db($v));
+echo($s);
+
+/*$p = $myDBAccess->getPersonDetailed(1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -43,7 +51,7 @@ if ($myDBAccess->failed()) {
 else if (empty($p)) {
   echo('EMPTY');
   die(-1);
-}
+}*/
 
 
 
