@@ -1,5 +1,5 @@
 <ol>
-  <li><a href="./help.php?for=01{&popup}{&SID}">A step-by-step introduction to Coma</a></li>
+  <li><a href="./help.php?for=introduction{&popup}{&SID}">A step-by-step introduction to Coma</a></li>
   <li><a href="./help.php?for=comapages{&popup}{&SID}">Detailed explanations about the different pages in Coma</a><ol>
     <li><a href="./help.php?for=login{&popup}{&SID}">The login page / logging in to your account</a></li>
     <li><a href="./help.php?for=register{&popup}{&SID}">The registration form page / signing up for your account</a></li>
