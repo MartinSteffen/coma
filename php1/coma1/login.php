@@ -14,7 +14,6 @@
 define('IN_COMA1',true);
 
 require_once('./include/header.inc.php');
-require_once('./include/class.template.inc.php');
 
 $mainPage = new Template('./templates/sandro/main.tpl');
 $loginPage = new Template('./templates/sandro/login.tpl');

@@ -4,7 +4,7 @@
  * @package coma1
  * @subpackage core
  */
-
+/***/
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
@@ -32,8 +32,11 @@ ini_set('warn_plus_overloading', '1');
 // End Debugging
 
 // PFAD - Konstanten
+/** Include-Pfad */
 define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
+/** Template-Pfad */
 define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/');
+/** Haupt-Pfad */
 define('COREPATH',dirname($_SERVER['PATH_TRANSLATED']).'/');
 // End PFAD - Konstanten
 
@@ -41,6 +44,7 @@ define('COREPATH',dirname($_SERVER['PATH_TRANSLATED']).'/');
 require_once(INCPATH.'class.mysql.inc.php');
 require_once(INCPATH.'class.session.inc.php');
 require_once(INCPATH.'class.dbaccess.inc.php');
+require_once(INCPATH.'class.template.inc.php');
 
 $mySql = new MySql();
 checkError($mySql);
