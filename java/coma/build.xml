@@ -80,7 +80,7 @@
 		</copy>
 	</target>
 
-	<target name="remote-install" depends="compile, create-database, remote-uninstall">
+	<target name="remote-install" depends="compile, remote-uninstall">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
@@ -109,10 +109,10 @@
 		<copy file="${basedir}/build.properties" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
 		</copy>
 		<copy todir="${webapps.home}" overwrite="true">
-			<fileset dir="${dist}/" excludes="db_schema_tmp.sql"/>
+			<fileset dir="${dist}/" excludes="db_schema_tmp.sql" />
 		</copy>
 		<get src="${tomcat.url}/${tomcat.deploy_path}" dest="status.html" username="${tomcat.manager.user}" password="${tomcat.manager.password}" />
-		<chmod perm="u=rwx,g=rwx,o=rwx" type="both" >
+		<chmod perm="u=rwx,g=rwx,o=rwx" type="both">
 			<fileset dir="${webapps.home}/${app.name}/papers" />
 		</chmod>
 	</target>
@@ -122,7 +122,6 @@
 	</target>
 
 	<target name="create-database">
-		<delete file="db_schema_tmp.sql" />
 		<copy file="${basedir}/db_schema.sql" tofile="${dist}/db_schema_tmp.sql" overwrite="true">
 			<filterset>
 				<filter token="DATABASE_NAME" value="${coma.db.name}" />
@@ -132,12 +131,6 @@
 				<filter token="PASSWORD" value="${coma.admin.password}" />
 			</filterset>
 		</copy>
-		<!--java classname="coma.util.CreateDatabase">
-			<classpath refid="compile.classpath"/>
-			<arg />
-			<arg />
-			<arg />
-			<arg />
-		</java-->
+		<sql src="${dist}/db_schema_tmp.sql" driver="org.gjt.mm.mysql.Driver" password="" url="jdbc:mysql://localhost/coma3" userid="root" />			
 	</target>
 </project>
