@@ -348,15 +348,17 @@ function generatePostMethodArray($strArrayPostvars){
 
   //evtl. neues Forum erzeugen
   if ((!empty($_POST['title'])) && (!empty($_POST['type'])) && (!empty($_POST['createforum']))){
-    if (empty($_POST['paperid'])){
-      $pid = false;
-    }
-    else{
-      $pid = $_POST['paperid'];
-    }
-    $intId = $myDBAccess->addForum(session('confid'), $_POST['title'], $_POST['type'], $pid);
-    if ($myDBAccess->failed()) {
-      error('Error creating new forum.', $myDBAccess->getLastError());
+    if (!(($_POST['type'] == FORUM_PAPER) && (empty($_POST['paperid'])))){
+      if (empty($_POST['paperid'])){
+        $pid = false;
+      }
+      else{
+        $pid = $_POST['paperid'];
+      }
+      $intId = $myDBAccess->addForum(session('confid'), $_POST['title'], $_POST['type'], $pid);
+      if ($myDBAccess->failed()) {
+        error('Error creating new forum.', $myDBAccess->getLastError());
+      }
     }
   }
 
