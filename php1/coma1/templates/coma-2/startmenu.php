@@ -1,12 +1,12 @@
 <?php
 function openStartMenuItem ($intItem) {
   $menu = new Template(TPLPATH.'startmenu.tpl');
-  $strMenuAccocs = defaultAssocArray();
+  $strMenuAssocs = defaultAssocArray();
   for ($i = 1; $i <= 4; $i++) {
-    $strMenuAccocs['marked-'.$i] = '';
+    $strMenuAssocs['marked-'.$i] = '';
   }
-  $strMenuAccocs['marked-'.$intItem] = ' class=\"markedmenuitem\"';
-  $menu->assign(strMenuAccocs);
+  $strMenuAssocs['marked-'.$intItem] = ' class=\"markedmenuitem\"';
+  $menu->assign($strMenuAssocs);
   $menu->parse();
   return $menu->strOutput;
 }
