@@ -21,14 +21,16 @@ if (isset($_GET['paperid'])) {
     error('Error occured retrieving paper.', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
-    error('Get paper','Paper '.$intPaperId.' does not exist in database!');
+    error('Get paper', 'Paper '.$intPaperId.' does not exist in database!');
   }  
   // Pruefe ob das Paper zur Konferenz gehoert
   checkPaper($objPaper->intId);
   // Pruefe Zugangsberechtigung zum Heurnterladen des Papers
   $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR)    ||
                $myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER) ||
-               (session('uid') == $objPaper->intAuthorId);
+               (session('uid') == $objPaper->intAuthorId) ||
+              ($myDBAccess->hasRoleInConference(session('uid'), session('confid'), PARTICIPANT) &&
+               $objPaper->intStatus == PAPER_ACCEPTED);
   if ($myDBAccess->failed()) {
     error('get conference data', $myDBAccess->getLastError());
   }
