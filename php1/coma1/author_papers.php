@@ -44,7 +44,8 @@ if ($myDBAccess->failed()) {
 
 $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
-if (isset($_SESSION['message'])) {
+$strContentAssocs['message'] = '';
+if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
   $strMessage = session('message', false);
   unset($_SESSION['message']);
 }

@@ -56,7 +56,8 @@ $critvar = $confdet->fltCriticalVariance;
 
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
-if (isset($_SESSION['message'])) {
+$strContentAssocs['message'] = '';
+if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
   $strMessage = session('message', false);
   unset($_SESSION['message']);
 }
