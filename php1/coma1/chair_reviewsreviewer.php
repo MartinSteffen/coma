@@ -55,7 +55,7 @@ if ($myDBAccess->failed()) {
   error('get paper', $myDBAccess->getLastError());
 }
 elseif (empty($objPaper)) {
-  error('get paper', 'Empty result.');
+  error('get paper', 'Empty result.'.$pid);
 }
 $objTopics = $myDBAccess->getTopicsOfConference(session('confid'));
 if ($myDBAccess->failed()) {
