@@ -27,7 +27,7 @@ checkError($mySql);
 $mySession = new Session($mySql);
 checkError($mySession);
 
-$myDBAccess = new DBAccess($mysql);
+$myDBAccess = new DBAccess($mySql);
 checkError($myDBAccess);
 
 ?>
