@@ -27,6 +27,10 @@ if (isset($_GET['paperid'])) {
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving review report.', $myDBAccess->getLastError());
   }
+  $objCriterions = $myDBAccess->getCriterionsOfConference(session('confid'));
+  if ($myDBAccess->failed()) {
+    error('Error occured during retrieving rating criteria.', $myDBAccess->getLastError());
+  }
 }
 else {
   redirect('chair_reviews.php');
@@ -51,7 +55,50 @@ if (isset($strMessage) && !empty($strMessage)) {
 }
 else {
   $strContentAssocs['message'] = '';
-}	
+}
+
+$strContentAssocs['crit_cols'] = '';
+if (!empty($objCriterions)) {  
+  foreach ($objCriterions as $objCriterion) {    
+    $strColAssocs = defaultAssocArray();
+    $strColAssocs['content'] = encodeText($objCriterion->strName);
+    $colItem = new Template(TPLPATH.'view_tableheader.tpl');
+    $colItem->assign($strColAssocs);
+    $colItem->parse();
+    $strContentAssocs['crit_cols'] .= $colItem->getOutput();    
+  }
+}
+$strContentAssocs['review_lines'] = '';
+if (!empty($objReviews)) {  
+  foreach ($objReviews as $objReview) {
+    $objReviewDetailed = $myDBAccess->getReviewDetailed($objReview->intId);
+    if ($myDBAccess->failed()) {
+      error('Error occured during retrieving review details.', $myDBAccess->getLastError());
+    }
+    else if (empty($objReviewDetailed)) {
+      error('Review does not exist in database.', '');
+    }    
+    $strRowAssocs = defaultAssocArray();
+    $strRowAssocs['reviewer_name'] = encodeText($objReview->strReviewerName);
+    $strRowAssocs['reviewer_id'] = encodeText($objReview->intReviewerId);
+    $strRowAssocs['total_rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
+    $strRowAssocs['rating_cols'] = '';
+    for ($i = 0; $i < count($objReviewDetailed->intRatings); $i++) {
+      $strColAssocs = defaultAssocArray();
+      $strColAssocs['content'] = encodeText($objReviewDetailed->intRatings[$i]).'/'.
+                                 encodeText($objReviewDetailed->objCriterions[$i]->intMaxValue);
+      $colItem = new Template(TPLPATH.'view_tablecell.tpl');
+      $colItem->assign($strColAssocs);
+      $colItem->parse();
+      $strRowAssocs['rating_cols'] .= $colItem->getOutput();    
+    }
+    $rowItem = new Template(TPLPATH.'chair_paperreviewlistitem.tpl');
+    $rowItem->assign($strRowAssocs);
+    $rowItem->parse();
+    $strContentAssocs['review_lines'] .= $rowItem->getOutput();    
+  }
+}
+
 // Pruefe noch, ob der reviewte Artikel kritisch ist.
 
 $strContentAssocs['if'] = $ifArray;
