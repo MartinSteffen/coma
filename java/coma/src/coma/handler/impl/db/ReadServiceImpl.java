@@ -494,7 +494,11 @@ public class ReadServiceImpl extends Service implements ReadService {
 		}
 		if (report.getId()==-2)
 		{
-			QUERY = "SELECT * FROM ReviewReport";
+			Conference c = sc.getConference();
+			QUERY = "SELECT ReviewReport.id,ReviewReport.paper_id,ReviewReport.reviewer_id," +
+					"ReviewReport.summary,ReviewReport.remarks,ReviewReport.confidential " +
+					"FROM ReviewReport,Paper WHERE Paper.conference_id = " + c.getId() + 
+					" AND ReviewReport.paper_id = Paper.id";
 			ok = true;
 		}
 		
