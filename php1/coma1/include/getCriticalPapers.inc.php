@@ -34,7 +34,7 @@ require_once(INCPATH.'class.papervariance.inc.php');
 
 function getCriticalPapers($method = 'variance') {
   $objPapers = array();
-  $cid = session('confid');
+  $cid = 1; //session('confid');
   $papers = $myDBAccess->getPapersOfConference($cid);
   foreach ($papers as $paper){
     $reviews = $myDBAccess->getReviewsOfPaper($paper->intId);
@@ -47,7 +47,7 @@ function getCriticalPapers($method = 'variance') {
         }
         $val = $val / count($reviews);
         $val = ($val - $avgrating)/$val;
-        $confdet = $myDBAccess->getConferenceDetailed(session('confid'));
+        $confdet = $myDBAccess->getConferenceDetailed($cid);
         if ($val > $confdet->fltCriticalVariance){
           $objPapers[] = new PaperVariance($paper->intId, $val);
         }
