@@ -60,7 +60,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 						+ "first_name = ?, last_name = ?, title = ?, affiliation = ?,"
 						+ "phone_number = ?, fax_number = ?, street = ?,"
 						+ "postal_code = ?, city = ?, state = ?, country = ? "
-						+ " WHERE " + person.getId() + " OR Email = '"
+						+ " WHERE id = " + person.getId() + " OR Email = '"
 						+ person.getEmail() + "'";
 				int pstmtCounter = 0;
 				conn.setAutoCommit(false);

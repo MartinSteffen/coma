@@ -41,9 +41,10 @@ public class UpdateServiceTest extends TestCase{
 	}
 	
 	public void testUpdatePerson(){
-		Person p = new Person(126);
-		p.setLast_name("Mustermann126");
-		p.setFirst_name("Max126");
+		Person p = new Person(-1);
+		p.setEmail("max@web.com");
+		p.setLast_name("Mustermann");
+		p.setFirst_name("Max");
 		SearchResult sr = update.updatePerson(p);
 		System.out.println(sr.SUCCESS+ "  "+sr.getInfo());
 		

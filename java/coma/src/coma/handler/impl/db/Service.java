@@ -100,7 +100,7 @@ public class Service {
 				conn.setAutoCommit(false);
 				Statement pstmt = conn.createStatement();
 				int rows = pstmt.executeUpdate(query);
-				if (rows != 1) {
+				if (rows < 1) {
 					conn.rollback();
 					info.append("No data have been changed \n");
 				} else {
