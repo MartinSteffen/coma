@@ -1066,8 +1066,8 @@ class DBAccess extends ErrorHandling {
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = r.paper_id".
                  " AND     d.reviewer_id = r.reviewer_id".
-                 " WHERE   paper_id = '%d'".
-                 " AND     reviewer_id = '%d'",
+                 " WHERE   d.paper_id = '%d'".
+                 " AND     r.reviewer_id = '%d'",
                            s2db($intPaperId), s2db($intReviewerId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {

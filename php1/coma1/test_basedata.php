@@ -33,7 +33,7 @@ while ($i < $conferences) {
 echo '.';
   $myDBAccess->addConference('Conference'.$i, 'Homepage'.$i, 'Description'.$i,
     '2001-01-01', '2001-01-01', '2001-01-01', '2001-01-01',
-    '2001-01-01', '2001-01-01', '2001-01-01',2,3,10,1000,0.5,1,1,1,2);
+    '2001-01-01', '2001-01-01', '2001-01-01',2,3,10,1000,0.2,0,1,1,2);
   if ($myDBAccess->failed()) {
     echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
