@@ -26,7 +26,10 @@ import coma.handler.util.EntityCreater;
 
 public class ReadServiceImpl extends Service implements ReadService {
 
-    private static final Category log = Category
+    private static final Category
+	
+	
+	log = Category
             .getInstance(ReadServiceImpl.class.getName());
 
     public ReadServiceImpl() {
