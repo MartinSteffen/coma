@@ -120,9 +120,10 @@ function nl2tag($_str) {
  * This function encodes the string.
  *
  * @param string $_str String to encode
+ * @param bool $wrap Zeilenumbrueche in Code umwandeln?
  * @return string encoded string
  */
-function encodeText($_str, $wrap=false) {
+function encodeText($_str, $wrap=true) {
   $_str = strtr(trim($_str), "|", " ");
   $_str = htmlentities($_str, ENT_QUOTES, 'UTF-8');
   return ($wrap) ? nl2tag($_str) : $_str;

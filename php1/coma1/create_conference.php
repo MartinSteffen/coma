@@ -40,7 +40,7 @@ if (isset($_POST['action'])) {
   $auto_numrev = (int) $_POST['auto_numreviewer'];
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
-  $strContentAssocs['description']      = encodeText($_POST['description']);
+  $strContentAssocs['description']      = encodeText($_POST['description'], false);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
   $strContentAssocs['start_date']       = encodeText(emptytime($start_date));
   $strContentAssocs['end_date']         = encodeText(emptytime($end_date));
@@ -70,25 +70,25 @@ if (isset($_POST['action'])) {
     $strCritWeights   = array();
     for ($i = 0; $i < $intTopicNum; $i++) {
       if (!isset($_POST['del_topic-'.($i+1)])) {
-        $strTopics[] = encodeText($_POST['topic_name-'.($i+1)]);
+        $strTopics[] = $_POST['topic_name-'.($i+1)];
       }
     }
     for ($i = 0; $i < $intCritNum; $i++) {
       if (!isset($_POST['del_crit-'.($i+1)])) {
-        $strCriterions[]    = encodeText($_POST['crit_name-'.($i+1)]);
-        $strCritDescripts[] = encodeText($_POST['crit_descr-'.($i+1)]);
-        $strCritMaxVals[]   = encodeText($_POST['crit_max-'.($i+1)]);
-        $strCritWeights[]   = encodeText($_POST['crit_weight-'.($i+1)]);
+        $strCriterions[]    = $_POST['crit_name-'.($i+1)];
+        $strCritDescripts[] = $_POST['crit_descr-'.($i+1)];
+        $strCritMaxVals[]   = $_POST['crit_max-'.($i+1)];
+        $strCritWeights[]   = $_POST['crit_weight-'.($i+1)];
       }
     }
     if (isset($_POST['add_topic']) && !empty($_POST['topic_name'])) {
-        $strTopics[] = encodeText($_POST['topic_name']);
+        $strTopics[] = $_POST['topic_name'];
     }
     if (isset($_POST['add_crit']) && !empty($_POST['crit_name'])) {
-      $strCriterions[]    = encodeText($_POST['crit_name']);
-      $strCritDescripts[] = encodeText($_POST['crit_descr']);
-      $strCritMaxVals[]   = encodeText($_POST['crit_max']);
-      $strCritWeights[]   = encodeText($_POST['crit_weight']);
+      $strCriterions[]    = $_POST['crit_name'];
+      $strCritDescripts[] = $_POST['crit_descr'];
+      $strCritMaxVals[]   = $_POST['crit_max'];
+      $strCritWeights[]   = $_POST['crit_weight'];
     }
   }
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
@@ -110,7 +110,7 @@ if (isset($_POST['action'])) {
       $strCritAssocs = defaultAssocArray();
       $strCritAssocs['crit_no']     = encodeText($i+1);
       $strCritAssocs['crit_name']   = encodeText($strCriterions[$i]);
-      $strCritAssocs['crit_descr']  = encodeText($strCritDescripts[$i]);
+      $strCritAssocs['crit_descr']  = encodeText($strCritDescripts[$i], false);
       $strCritAssocs['crit_max']    = encodeText($strCritMaxVals[$i]);
       $strCritAssocs['crit_weight'] = encodeText($strCritWeights[$i]);
       $critForm->assign($strCritAssocs);
@@ -130,7 +130,7 @@ if (isset($_POST['action'])) {
   }
   for ($i = 0; $i < count($strCriterions); $i++) {
     $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($strCriterions[$i]);
-    $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($strCritDescripts[$i]);
+    $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($strCritDescripts[$i], false);
     $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($strCritMaxVals[$i]);
     $strContentAssocs['crit_weight'] .= (($i > 0) ? '|' : '').encodeText($strCritWeights[$i]);
   }
@@ -156,63 +156,50 @@ if (isset($_POST['action'])) {
     ||  empty($start_date)
     ||  empty($abstract_dl))
     {
-      $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
-                    'and <b>Deadlines</b>! <br> <br>';
+      $strMessage .= "You have to fill in the fields <b>Title</b>, <b>Start Date</b> and <b>Deadlines</b>!\n";
     }
     if ((!empty($end_date)) && ($start_date > $end_date)) {
-      $strMessage = $strMessage.
-                     'Your Start Date should be before your End Date! <br>';
+      $strMessage .= "Your Start Date should be before your End Date!\n";
     }
     if ($abstract_dl > $paper_dl) {
-      $strMessage = $strMessage.
-                     'Your Abstract Deadline should be before your Paper Deadline! <br>';
+      $strMessage .= "Your Abstract Deadline should be before your Paper Deadline!\n";
     }
     if ($paper_dl > $final_dl) {
-      $strMessage = $strMessage.'Your Paper Deadline should be before your Final Version Deadline!<br>';
+      $strMessage .= "Your Paper Deadline should be before your Final Version Deadline!\n";
     }
     if ($final_dl > $start_date) {
-      $strMessage = $strMessage.
-                     'Your Final Version Deadline should be before your Start Date! <br>';
+      $strMessage .= "Your Final Version Deadline should be before your Start Date!\n";
     }
     if ($paper_dl > $review_dl) {
-      $strMessage = $strMessage.
-                     'Your Paper Deadline should be before your Review Deadline! <br>';
+      $strMessage .= "Your Paper Deadline should be before your Review Deadline!\n";
     }
     if ((!empty($notification)) && ($review_dl > $notification)) {
-      $strMessage = $strMessage.
-                     'Your Review Deadline should be before your Notification time! <br>';
+      $strMessage .= "Your Review Deadline should be before your Notification time!\n";
     }
     if ((!empty($notification)) && ($notification > $start_date)) {
-      $strMessage = $strMessage.
-                     'Your Notification time should be before your Start Date! <br>';
+      $strMessage .= "Your Notification time should be before your Start Date!\n";
     }
     if ($review_dl > $start_date) {
-      $strMessage = $strMessage.
-                     'Your Notification time should be before your Start Date! <br>';
+      $strMessage .= "Your Notification time should be before your Start Date!\n";
     }
     if ( !($min_reviews >= 0)){
-      $strMessage =  $strMessage.
-                     'Your minimum number of reviews should be greater or equel to zero!<br>';
+      $strMessage .= "Your minimum number of reviews should be greater or equel to zero!\n";
     }
     if ( !($min_papers >= 0)){
       $strMessage =  $strMessage.
                      'Your number of papers should be greater or equal to zero!<br>';
     }
     if ( !($min_papers <= $max_papers)){
-      $strMessage =  $strMessage.
-                     'Your minimum number of papers should not be greater than the maximum number of paper!<br>';
+      $strMessage .= "Your minimum number of papers should not be greater than the maximum number of paper!\n";
     }
     if ( !($min_reviews <= $def_reviews)){
-      $strMessage =  $strMessage.
-                     'Your minimum number of reviews should not be greater than the default number of reviews!<br>';
+      $strMessage .= "Your minimum number of reviews should not be greater than the default number of reviews!\n";
     }
     if ( !(0 < $variance) || !($variance <= 100)){
-      $strMessage =  $strMessage.
-                     'Your ambiguity should be greater than zero and less or equal than hundred!<br>';
+      $strMessage .= "Your ambiguity should be greater than zero and less or equal than hundred!\n";
     }
     if ( !(0 <= $auto_numrev )){
-      $strMessage =  $strMessage.
-                     'Your number of automatically added reviewers should be greater or equal than zero!<br>';
+      $strMessage .= "Your number of automatically added reviewers should be greater or equal than zero!\n";
     }
 
     /**
@@ -227,30 +214,24 @@ if (isset($_POST['action'])) {
 
     foreach ($strCritMaxVals as $key => $critMax){
       if ( !(0 <= $critMax )){
-        $strMessage =  $strMessage.
-                       'The maximum value of the criterion \''.$strCriterions[$key].
-                       '\' shoud be greater or equal than zero!<br>';
+        $strMessage .= "The maximum value of the criterion '{$strCriterions[$key]}' shoud be greater or equal than zero!\n";
       }
     }
 
     foreach ($strCritWeights as $key => $critWeights){
       if ( !(0 < $critWeights )){
-      $strMessage =  $strMessage.
-                     'The weight of the criterion \''.$strCriterions[$key].
-                     '\'shoud be greater then zero! <br>';
+        $strMessage .= "The weight of the criterion '{$strCriterions[$key]}'shoud be greater then zero!\n";
       }
     }
  
     
     foreach ($strCritWeights as $key => $critWeights) {
       if ( !($critWeights <= 1 )){
-        $strMessage =  $strMessage.
-                       'The weight of the criterion \''.$strCriterions[$key].
-                       ' \'shoud be less then one! <br>';
+        $strMessage .= "The weight of the criterion '{$strCriterions[$key]}' shoud be less then one!\n";
       }
     }
     // Versuche die neue Konferenz einzutragen, wenn die Eingaben nicht fehlerhaft sind
-    if ($strMessage=='') { // keine Fehler
+    if (empty($strMessage)) { // keine Fehler
       $intConfId = $myDBAccess->addConference($_POST['name'],
                                               $_POST['homepage'],
                                               $_POST['description'],
@@ -316,7 +297,7 @@ else {
 }
 
 $strContentAssocs['message'] = '';
-if (isset($strMessage)) {
+if (!empyt($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
   $ifArray[] = 9;
 }
