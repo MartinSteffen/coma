@@ -1238,14 +1238,10 @@ class DBAccess extends ErrorHandling {
         " AND     t.conference_id = '$intConferenceId'".
         " WHERE   p.person_id = '$intPersonAlgorithmicId'";
     $data = $this->mySql->select($s);
-    echo("OK1 / ".empty($data).' / '.count($data));
     if ($this->mySql->failed()) {
       return $this->error('getPreferredTopics', $this->mySql->getLastError());
     }
-    else if (empty($data)) {
-      return $this->success($objTopics);
-    }
-    echo(" OK2");
+    echo("OK1 / ".empty($data).' / '.count($data));
     for ($i = 0; $i < count($data); $i++) {
       $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
