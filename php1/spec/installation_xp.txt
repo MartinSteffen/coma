@@ -1,0 +1,55 @@
+s============================================================================
+  Installationsanleitung Windows XP
+============================================================================
+von Daniel Miesling, dmi@informatik.uni-kiel.de
+
+
+============================================================================
+  STAND UND HISTORIE DIESES DOKUMENTS:
+============================================================================
+
+Datum    Autor   Änderung(en)
+----------------------------------------------------------------------------
+21.12.04 dmi     Dokument erstellt
+
+
+============================================================================
+  INHALT
+============================================================================
+  1. verwendete Quellen
+  2. Installation QuickStart
+  3. Datenbank konfigurieren
+
+============================================================================
+  1. verwendete Quellen
+============================================================================
+Quelle a:
+Basis Paket vom XAMPP  : http://www.apachefriends.org/de/xampp-windows.html
+Version: 1.4.10a
+Apache HTTPD 2.0.52
+MySQL 4.1.7
+PHP 5.0.3
+
+============================================================================
+  2. Installation QuickStart
+============================================================================
+a: 
+1.) beenden aller Prozesse apache und mysql
+2.) Installation des Paketes z.B. nach c:
+3.) kopieren des Sourcecodes z.B. nach 'xampplite/htdocs/coma/...'
+4.) starten des apache und der mysql-Datenbank durch Ausführen der 'xampplite/xampp_start.exe'
+    (auf Fehlermeldungen achten ! - keine anderen apache oder mysql-Datenbanken dürfen laufen) 
+5.) Einrichten der Datenbank (extra Punkt in dieser Anleitung)
+6.) z.B. mit Netscape 'http://localhost/coma/coma1/' öffnen
+
+
+
+============================================================================
+  3. Datenbank konfigurieren
+============================================================================
+a:
+1.) phpadmin öffnen und eine neue Datenbank coma1 anlegen
+2.) Benutzer mit Passwort wie in '.../include/config.inc.php' hinterlegt anlegen
+3.) Erzeugen der (globalen)-Tabellen mit dem Skript '.../sql/db_schema.sql'
+4.) Erzeugen der php1 spezifischen Tabellen wie in der '.../spec/main.txt' angegeben
+5.) z.B. Einspielen von Testdaten
