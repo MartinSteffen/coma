@@ -24,10 +24,10 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Edit preferences of reviewer '.session('uname');
+$strMainAssocs['title'] = 'Edit preferences of reviewer '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Reviewer  |  Preferences';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Reviewer  |  Preferences';
 
 $main->assign($strMainAssocs);
 $main->parse();

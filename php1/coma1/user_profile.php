@@ -70,18 +70,18 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   }
 }
 
-$strContentAssocs['first_name']  = $objPerson->strFirstName;
-$strContentAssocs['last_name']   = $objPerson->strLastName;
-$strContentAssocs['email']       = $objPerson->strEmail;
-$strContentAssocs['name_title']  = $objPerson->strTitle;
-$strContentAssocs['affiliation'] = $objPerson->strAffiliation;
-$strContentAssocs['street']      = $objPerson->strStreet;
-$strContentAssocs['city']        = $objPerson->strCity;
-$strContentAssocs['postalcode']  = $objPerson->strPostalCode;
-$strContentAssocs['state']       = $objPerson->strState;
-$strContentAssocs['country']     = $objPerson->strCountry;
-$strContentAssocs['phone']       = $objPerson->strPhone;
-$strContentAssocs['fax']         = $objPerson->strFax;
+$strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
+$strContentAssocs['last_name']   = encodeText($objPerson->strLastName);
+$strContentAssocs['email']       = encodeText($objPerson->strEmail);
+$strContentAssocs['name_title']  = encodeText($objPerson->strTitle);
+$strContentAssocs['affiliation'] = encodeText($objPerson->strAffiliation);
+$strContentAssocs['street']      = encodeText($objPerson->strStreet);
+$strContentAssocs['city']        = encodeText($objPerson->strCity);
+$strContentAssocs['postalcode']  = encodeText($objPerson->strPostalCode);
+$strContentAssocs['state']       = encodeText($objPerson->strState);
+$strContentAssocs['country']     = encodeText($objPerson->strCountry);
+$strContentAssocs['phone']       = encodeText($objPerson->strPhone);
+$strContentAssocs['fax']         = encodeText($objPerson->strFax);
 
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
@@ -98,10 +98,10 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Personal data of User '.session('uname');
+$strMainAssocs['title'] = 'Personal data of User '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Profile';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Profile';
 
 $main->assign($strMainAssocs);
 $main->parse();

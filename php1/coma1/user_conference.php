@@ -29,10 +29,10 @@ if ($myDBAccess->failed() || empty($objConference)) {
   error('An error occured during retrieving actual conference!',
         $myDBAccess->getLastError());
 }
-$strMainAssocs['title'] = 'Conference '.$objConference->strName;
+$strMainAssocs['title'] = 'Conference '.encodeText($objConference->strName);
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Conference';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conference';
 
 $main->assign($strMainAssocs);
 $main->parse();

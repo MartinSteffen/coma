@@ -31,7 +31,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Edit review';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Reviewer  |  Reviews';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Reviewer  |  Reviews';
 
 $main->assign($strMainAssocs);
 $main->parse();

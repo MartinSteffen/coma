@@ -24,10 +24,10 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Messages for '.session('uname');
+$strMainAssocs['title'] = 'Messages for '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Messages';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Messages';
 
 $main->assign($strMainAssocs);
 $main->parse();

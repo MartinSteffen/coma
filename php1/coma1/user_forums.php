@@ -29,10 +29,10 @@ if ($myDBAccess->failed()) {
   error('An error occured during retrieving forums!',
         $myDBAccess->getLastError());
 }
-$strMainAssocs['title'] = 'Conference forums for '.session('uname');
+$strMainAssocs['title'] = 'Conference forums for '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Forums';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Forums';
 
 $main->assign($strMainAssocs);
 $main->parse();
