@@ -159,7 +159,7 @@
 </form>
 
 <p class="message">
-  Be carefull! You can't change values for <b>Topics</b> and <b>Criterions</b> later!<br>
+  Be careful! You can't change values for <b>topics</b> and <b>criterions</b> later!<br>
   So you <b>should</b> choose your topics and criterions carefully!<br>
-  see <a href="{basepath}help.php?for=conference_create&amp;i&amp;popup{&SID}" target="_blank">Help</a> for further details.
+  See <a href="{basepath}help.php?for=conference_create&amp;i&amp;popup{&SID}" target="_blank">Help</a> for further details.
 </p>

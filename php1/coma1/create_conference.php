@@ -198,11 +198,13 @@ if (isset($_POST['action'])) {
     if ($auto_numreviewer < 0){
       $strMessage .= "Your number of automatically added reviewers should be greater or equal than zero!\n";
     }
+    /* You may have no topics specified for the conference
     if (count($strTopics) < 1 ){
-      $strMessage .= "Your number of topics should be greater than zero!\n";
+      $strMessage .= "You should specify at least one topic for papers!\n";
     }
+    */
     if (count($strCriterions) < 1 ){
-      $strMessage .= "Your number of criterions should be greater than zero!\n";
+      $strMessage .= "You have to specify at least one criterion for paper ratings!\n";
     }
     
     foreach ($strTopics as $key => $name){
