@@ -47,7 +47,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
 
   // Aktualisieren der Konferenz in der Datenbank
-  if ($_POST['action'] == 'submit') {
+  if (isset($_POST['submit'])) {
   
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['name'])) {
@@ -69,8 +69,8 @@ if (isset($_POST['action'])) {
     }
   }
   // Oeffnen der erweiterten Einstellungen
-  else if ($_POST['action'] == 'advanced_config') {
-    $content = new Template(TPLPATH.'edit_conference_ext.tpl');
+  else if (isset($_POST['adv_config'])) {
+    $content = new Template(TPLPATH.'create_conference_ext.tpl');
   }
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte

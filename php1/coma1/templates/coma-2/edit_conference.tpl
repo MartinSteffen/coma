@@ -106,10 +106,7 @@
             
       <input type="hidden" name="action" value="submit" />
       <input type="submit" name="submit" value="Submit changes" class="button" />
-      <form action="{basepath}chair_confconfig.php?{SID}" method="post">
-        <input type="hidden" name="action" value="advanced_config" />
-        <input type="submit" name="submit" value="Advanced settings" class="button" />
-      </form>
+      <input type="submit" name="adv_config" value="Advanced settings" class="button" />
     </td>
   </tr>
 </table>
