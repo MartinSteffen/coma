@@ -45,15 +45,15 @@ if (!empty($objPapers)) {
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
-    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
-    if (strtotime("now") < strtotime($objConference->strReviewDeadline)) {
-      $ifArray[] = 6;
-    }
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);        
     $isReviewed = $myDBAccess->hasPaperBeenReviewed($objPaper->intId, session('uid'));
     if ($myDBAccess->failed()) {
       error('Error during review status check.',$myDBAccess->getLastError());
-    }
+    }    
     if ($isReviewed) {
+      if (strtotime("now") < strtotime($objConference->strReviewDeadline)) {
+        $ifArray[] = 6;
+      }
       $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
       $intReviewId = $myDBAccess->getReviewIdOfReviewerAndPaper(session('uid'), $objPaper->intId);
       if ($myDBAccess->failed()) {
