@@ -73,7 +73,7 @@ else {
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
-$actMenuItem = 3;
+$actMenuItem = 4;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
