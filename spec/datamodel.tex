@@ -103,14 +103,11 @@ start with the main ``entities'', and discuss the ``associations'' later.
 \newpage
 
 
-\subsubsection{SQL-Spec}
+\subsection*{SQL-Spec}
 \label{sec:sql}
 \lstset{basicstyle=\scriptsize,numbers=left,numberstyle=\tiny,stepnumber=5,language=sql}
 
 Relevant is only the SQL-Spec.
-
-
-
 
 \lstinputlisting[caption=DB: conference,label=code:sql.conference,firstline=27,lastline=44]{../sql/db_schema.sql}%
 
@@ -203,9 +200,16 @@ additional table \texttt{Roles} is chosen.
 \end{table}
 
 
+\medskip%
+
+\emph{Papers} are the things that the authors produce and upload
+via the tool in the process called \emph{submission.}
+
+\lstinputlisting[caption=Paper,label=code:sql.role,firstline=80,lastline=100]{../sql/db_schema.sql}%
 
 %\input{abstract}
 %\tableofcontents{}
+
 
 
 %\input{introduction}
