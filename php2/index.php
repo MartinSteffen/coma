@@ -1,6 +1,5 @@
 <?php
 include("includes/config.inc.php");
-
 include("includes/definitions.inc.php");
 include("includes/login.inc.php");
 include("includes/tools.inc.php");
@@ -8,7 +7,6 @@ include("includes/templates.inc.php");
 include("includes/rights.inc.php");
 include("includes/tasks.inc.php");
 session_start();
-
 
 if (isset($_REQUEST['Role'])){
 	loginas($_REQUEST['Role']);
@@ -71,13 +69,13 @@ if (is_dir("modules/{$call_module}/")){
 				require("templates/access_denied.tpl.php");
 			}
 		}else{
-			exit("The called subaction '$call_subaction' does not exists!");
+			exit("The called subaction '$call_subaction' does not exist!");
 		}
 	}else{
-		exit("The called action '$call_action' does not exists!");
+		exit("The called action '$call_action' does not exist!");
 	}
 }else{
-	exit("The called module '$call_module' does not exists!");
+	exit("The called module '$call_module' does not exist!");
 }
 
 ?>
