@@ -48,7 +48,7 @@ if (isset($_POST['name'])){
        $_POST['conference_end_y']==''|
        $_POST['min_reviews_per_paper']==''
      ){
-     $strMessage =  $strMessage.'Bitte alle Felder ausfüllen !!! <br>';
+     $strMessage =  $strMessage.'Bitte alle Felder ausf&uuml;llen !!! <br>';
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
    }
@@ -229,7 +229,7 @@ if ($rec==true){
    $strMainAssocs = defaultAssocArray();
    $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
    $strMainAssocs['content'] = '
-   <h2 align="center"> Der Ersteller der Konferenz ist automatisch auch der Chair für diese Konferenz !!! </h2>';
+   <h2 align="center"> Der Ersteller der Konferenz ist automatisch auch der Chair f&uuml;r diese Konferenz !!! </h2>';
    $strMainAssocs['body'] = & $loginPage;
    $strMainAssocs['menue'] =& $menue;
    $strMainAssocs['submenue'] = '';

@@ -34,7 +34,7 @@ if (isset($_POST['email'])){
          Email: <br>
          Telefon: <br>
          Fax: <br>
-         Straße: <br>
+         Stra&szlig;e: <br>
          PLZ: <br>
          Ort: <br>
       </td>
@@ -59,18 +59,18 @@ if (isset($_POST['email'])){
    */
   // Test, ob alle Pflichtfelder ausgefüllt wurden
   if ( $_POST['last_name']=='' || $_POST['email']=='' || $_POST['userPassword']==''){
-   $strMessage = ' Email, Passwort und Nachname müssen angegeben werden !!! ' ;
+   $strMessage = ' Email, Passwort und Nachname m&uuml;ssen angegeben werden !!! ' ;
    $strMainAssocs['message'] = $strMessage; 
   }
   // Test, ob Passwort mit der Wiederholung übereinstimmt
   else if ( $_POST['userPassword'] !=  $_POST['userPassword2']){
-    $strMessage = ' Passwort stimmt nicht mir der Wiederholung überein !!! ' ;
+    $strMessage = ' Passwort stimmt nicht mir der Wiederholung &uuml;berein !!! ' ;
     $strMainAssocs['message'] = $strMessage; 
     }
   // Test, ob die Email gültig ist
   else if (!($_POST['email']!="" && 
 	     ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email']))){
-    $strMessage = ' Bitte geben Sie eine gültige Emailadresse ein !!! ' ;
+    $strMessage = ' Bitte geben Sie eine g&uuml;ltige Emailadresse ein !!! ' ;
     $strMainAssocs['message'] = $strMessage; 
 
     }
