@@ -32,14 +32,12 @@ foreach ($testpapers as $paper){
   $none = false;
   $papertemplate = new Template(TPLPATH . 'author_paperlistitem.tpl');
   $paperassocs = defaultAssocArray();
-  $paperassocs['title'] = $paper->strTitle;
+  $paperassocs['title'] = encodeText($paper->strTitle);
   $paperassocs['status'] = $paper->intStatus;
   $paperassocs['avg_rating'] = $paper->fltAvgRating;  
-  $paperassocs['file_link'] = $paper->strFilePath;
-  $paperassocs['version'] = $paper->intVersion;
+  $paperassocs['file_link'] = $paper->strFilePath;  
   $paperassocs['last_edited'] = $paper->strLastEdit;
-  $paperassocs['paper_id'] = $paper->intId;  
-  $paperassocs['co_authors'] = encodeText($paperassocs['co_authors']);
+  $paperassocs['paper_id'] = $paper->intId;
   $papertemplate->assign($paperassocs);
   $papertemplate->parse();
   $strContentAssocs['paper_rows'] = $strContentAssocs['paper_rows'] . $papertemplate->getOutput();
