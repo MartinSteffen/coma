@@ -9,7 +9,7 @@
 
 <a name="top"></a>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table>
  <tr bgcolor="#DBE9EC">
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
@@ -18,7 +18,7 @@
    </a>
   </td>
   <td>
-   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+   <table>
     <tr bgcolor="#DBE9EC">
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
@@ -48,7 +48,7 @@
 </table>
 
 <!-- - - - - - - - - - - - - - - - - - Footer - - - - - - - - - - - - - - - -  -->
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table>
  <tr>
   <td style="background-image:url({path}images/menue.gif)" width="50">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" height="25">&nbsp;</td>
