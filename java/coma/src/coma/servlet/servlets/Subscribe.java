@@ -22,6 +22,9 @@ import coma.servlet.util.XMLHelper;
 import coma.entities.Entity.XMLMODE;
 import coma.servlet.util.*;
 
+import coma.util.logging.ALogger;
+import static coma.util.logging.Severity.*;
+
 /**
  * @author mti, ums
  * @version 0.1
@@ -88,7 +91,13 @@ public class Subscribe  extends HttpServlet {
 		InsertServiceImpl myInsertservice = new InsertServiceImpl();
 		SearchResult sr = myInsertservice.insertPerson(mynewPerson);
 
-		result.append(XMLHelper.tagged("success",sr.getInfo()));
+		ALogger.log.log(DEBUG, sr.getInfo());
+
+		if ((sr.getInfo()==null) || (sr.getInfo().equals(""))){
+		    result.append(XMLHelper.tagged("success",sr.getInfo()));
+		} else {
+		    result.append(XMLHelper.tagged("failed", sr.getInfo()));
+		}
 		result.append(mynewPerson.toXML());
 		result.append(XMLHelper.tagged("confid", confid));
 	    } catch (IllegalArgumentException e) {
@@ -112,10 +121,6 @@ public class Subscribe  extends HttpServlet {
 	StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 	XMLHelper.process(xmlSource, coma.servlet.util.XSLT.file(this, "subscribe"), out);
 	out.flush();
-		
-		
-	
-	
     }
 	
     public void doPost(HttpServletRequest request, HttpServletResponse response)

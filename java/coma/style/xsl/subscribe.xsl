@@ -27,10 +27,16 @@
 
         <!-- Main content -->
         <div class="content">
-          <xsl:apply-templates select="/subscribe/failed" />
-          <xsl:apply-templates select="/subscribe/success" />
-          <xsl:apply-templates select="/subscribe/form" />
-          <xsl:apply-templates select="/subscribe/person" />
+          <xsl:choose>
+            <xsl:when test="/subscribe/failed">
+              <xsl:apply-templates select="/subscribe/failed" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="/subscribe/success" />
+              <xsl:apply-templates select="/subscribe/form" />
+              <xsl:apply-templates select="/subscribe/person" />
+            </xsl:otherwise>
+          </xsl:choose>
         </div> <!-- Main content -->
       </body>
     </html>
@@ -39,7 +45,7 @@
 
   <xsl:template match="subscribe/failed">
     <h3>An Error has occurred,plaese check your data:</h3>
-    <!--    <xsl:value-of select="." /> -->
+    <xsl:value-of select="." />
     <xsl:if test="PWshort">
       The password must have at least 6 characters.
     </xsl:if>
