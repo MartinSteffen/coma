@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>COMA Conference Manager: Log In</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
+  </head>
+  <body>
+    <h1>Log In</h1>
+    <form action="index.py?action=login&amp;sid=%(sid)s" method="post">
+      <table class="login">
+	<tr>
+	  <td>Your login</td>
+	  <td><input type="text" name="login"/></td>
+	</tr>
+	<tr>
+	  <td>Your password</td>
+	  <td><input type="password" name="password"/></td>
+	</tr>
+      </table>
+      <p>
+      <input type="submit" value="Log In"/>
+      <input type="reset"/>
+      </p>
+    </form>
+    <hr/>
+    <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
+  </body>
+</html>

@@ -6,9 +6,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="coma.css"/>
   </head>
   <body>
-    <hr/>
     <table class="actions">%(actions)s</table>
-    <p class="description">Test.</p>
+    <h1 class="description">CoMa Conference Manager</h1>
+    <p class="description">Welcome to the CoMa Conference Manager</p>
     <hr/>
     <p><a href="http://localhost/w3c-validator/check?uri=referer">Valid XHTML 1.1</a></p>
   </body>
