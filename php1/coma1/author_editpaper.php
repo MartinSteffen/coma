@@ -103,7 +103,7 @@ if (isset($_POST['action'])) {
       }
     }
   }
-  else if (isset($_POST['upload']) {
+  else if (isset($_POST['upload'])) {
     if (!isset($_FILES['userfile']) ||
         !is_uploaded_file($_FILES['userfile']['tmp_name'])) {
       $strMessage = 'You have to select a correct file for uploading!';
