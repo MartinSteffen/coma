@@ -25,11 +25,8 @@ $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;
 
-$strMenueAssocs = defaultAssocArray();
-$strSubMenueAssocs = defaultAssocArray();
-
-$menue->assign($strMenueAssoc);
-$submenue->assign($strSubMenueAssoc);
+$menue->assign(defaultAssocArray());
+$submenue->assign(defaultAssocArray());
 $mainPage->assign($strMainAssocs);
 
 $mainPage->parse();

@@ -26,6 +26,8 @@ $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] = '';
 $mainPage->assign($strMainAssocs);
 
+$menue->assign(defaultAssocArray());
+
 $mainPage->parse();
 $mainPage->output();
 
