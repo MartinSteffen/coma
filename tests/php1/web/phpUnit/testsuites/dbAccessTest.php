@@ -32,7 +32,7 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_getAllConferences() {
     	global $myDBAccess;
-      $this->assertEquals(1,sizeof($myDBAccess->getAllConferences()));
+      $this->assertEquals(2,sizeof($myDBAccess->getAllConferences()));
   }
 
   function test_getConferenceDetailed() {
@@ -52,7 +52,7 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_getPersonIdByEmail() {
       	global $myDBAccess;
-        $this->assertEquals(101,$myDBAccess->getPersonIdByEmail('sae@me.de'));
+        $this->assertEquals(31,$myDBAccess->getPersonIdByEmail('sae@me.de'));
   }
 
   function test_getPerson() {
