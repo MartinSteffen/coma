@@ -15,9 +15,8 @@ $papers = $input['papers'];
   <? }
      else
 	 { ?>
-    <td align="left" valign="top"><span class="textBold">There are no papers from this author.</span> <span class="text"> 
-      <? echo $confName ?>
-      </span></td>	 
+    <td align="left" valign="top"><span class="textBold">There are no papers from this author.</span>
+      </td>	 
   <? } ?>	 	  
   </tr>
 </table>
