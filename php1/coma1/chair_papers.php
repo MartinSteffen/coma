@@ -19,7 +19,7 @@ $strContentAssocs = defaultAssocArray();
 
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get paper list',$myDBAccess->getLastError());
+  error('get paper list of chair',$myDBAccess->getLastError());
 }
 
 $strContentAssocs['message'] = session('message', false);

@@ -16,6 +16,42 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'user_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
+$objPapers = $myDBAccess->getPapersOfConference(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get paper list',$myDBAccess->getLastError());
+}
+
+$strContentAssocs['message'] = session('message', false);
+session_delete('message');
+$strContentAssocs['if'] = array();
+$strContentAssocs['lines'] = '';
+if (!empty($objPapers)) {
+  $lineNo = 1;
+  foreach ($objPapers as $objPaper) {
+    $strItemAssocs['line_no'] = $lineNo;
+    $strItemAssocs['paper_id'] = $objPaper->intId;
+    $strItemAssocs['author_id'] = $objPaper->intAuthorId;
+    $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);    
+    $strItemAssocs['file_link'] = encodeURL($objPaper->strFilePath);
+    $ifArray[] = $objPaper->intStatus;
+    if (!empty($objPaper->strFilePath)) {
+      $ifArray[] = 5;
+    }
+    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+    $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
+    $strItemAssocs['last_edited'] = 'TODO';        
+    $strItemAssocs['if'] = $ifArray;
+    $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
+    $paperItem->assign($strItemAssocs);
+    $paperItem->parse();
+    $strContentAssocs['lines'] .= $paperItem->getOutput();
+    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+  }
+}
+else {
+  // Artikelliste ist leer.
+}
+
 $content->assign($strContentAssocs);
 
 $actMenu = 0;

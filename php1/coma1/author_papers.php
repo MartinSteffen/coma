@@ -16,37 +16,43 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$content->assign($strContentAssocs);
 
-//nur fuer Veranschaulichungszwecke
-require_once('./include/class.paperdetailed.inc.php');
-$testpapers = array();
-$paper0ids = array(3, 2);
-$paper0names = array('Josef Huettenkeueler', 'Franz Hans');
-$paper0topics = array('Schaum', 'Blasen');
-$testpapers[0] = new PaperDetailed(23, 'Schaumparties', 1, 'Kuh', 0, 2.3, $paper0ids, $paper0names, 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', 'text/html', '01-01-2005', 'http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2', $paper0topics);
-
-$none = true;
-$strContentAssocs['paper_rows'] = '';
-foreach ($testpapers as $paper){
-  $none = false;
-  $papertemplate = new Template(TPLPATH . 'author_paperlistitem.tpl');
-  $paperassocs = defaultAssocArray();
-  $paperassocs['title'] = encodeText($paper->strTitle);
-  $paperassocs['status'] = $paper->intStatus;
-  $paperassocs['avg_rating'] = $paper->fltAvgRating;  
-  $paperassocs['file_link'] = encodeURL($paper->strFilePath);
-  $paperassocs['last_edited'] = $paper->strLastEdit;
-  $paperassocs['paper_id'] = $paper->intId;
-  $papertemplate->assign($paperassocs);
-  $papertemplate->parse();
-  $strContentAssocs['paper_rows'] = $strContentAssocs['paper_rows'] . $papertemplate->getOutput();
+$objPapers = $myDBAccess->getPapersOfAuthor(session('userid'), session('confid'));
+if ($myDBAccess->failed()) {
+  error('get paper list of author',$myDBAccess->getLastError());
 }
 
-if (!empty($none)) {
-  $strContentAssocs['paper_rows'] = 'There are no items in this category. Use the form below to upload papers.';
+$strContentAssocs['message'] = session('message', false);
+session_delete('message');
+$strContentAssocs['if'] = array();
+$strContentAssocs['lines'] = '';
+if (!empty($objPapers)) {
+  $lineNo = 1;
+  foreach ($objPapers as $objPaper) {
+    $strItemAssocs['line_no'] = $lineNo;
+    $strItemAssocs['paper_id'] = $objPaper->intId;
+    $strItemAssocs['file_link'] = encodeURL($objPaper->strFilePath);
+    $ifArray[] = $objPaper->intStatus;
+    if (!empty($objPaper->strFilePath)) {
+      $ifArray[] = 5;
+    }
+    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+    $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
+    $strItemAssocs['last_edited'] = 'TODO';        
+    $strItemAssocs['if'] = $ifArray;
+    $paperItem = new Template(TPLPATH.'author_paperlistitem.tpl');
+    $paperItem->assign($strItemAssocs);
+    $paperItem->parse();
+    $strContentAssocs['lines'] .= $paperItem->getOutput();
+    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+  }
 }
+else {
+  // Artikelliste ist leer.
+}
+
 $content->assign($strContentAssocs);
+
 $actMenu = AUTHOR;
 $actMenuItem = 2;
 include('./include/usermenu.inc.php');

@@ -1,11 +1,14 @@
 
 <table class="list">
   <tr class="listheader">
-    <th class="listheader">Title</th>    
+    <th class="listheader">Title</th>
+    <th class="listheader">&nbsp;</th>
     <th class="listheader">Current status</th>
     <th class="listheader">Average rating</th>    
     <th class="listheader">Last edited</th>
-    <th class="listheader">&nbsp;</th>    
+    <th class="listheader">&nbsp;</th>
+    <th class="listheader">&nbsp;</th>
+    <th class="listheader">&nbsp;</th>        
   </tr>
   {lines}
 </table>

@@ -2,6 +2,7 @@
     <td class="listitem-{line_no}">
       <a href="{basepath}author_editpaper.php?confid={confid}{&SID}">{title}</a>
     </td>
+    <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}">
       {if0<span class="status-unreviewed">unreviewed</span>}
       {if1<span class="status-reviewed">reviewed</span>}
@@ -14,4 +15,6 @@
     <td class="listitem-{line_no}">
       {if5<a href="{file_link}">}view paper{if5</a>}
     </td>
+    <td class="listitem-{line_no}">&nbsp;</td>
+    <td class="listitem-{line_no}">&nbsp;</td>
   </tr>

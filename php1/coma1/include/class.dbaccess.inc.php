@@ -118,11 +118,15 @@ Methodennamen enthaelt, bitte kein Leerzeichen am Ende. ;-) (ist gefixt)
 ----------------------------------------------------------------------------
 
 Frisch geSAEte Neuerungen vom 19.01.:
+- Die Methode getPapersOfAuthor() wird zusaetzlich mit dem Attribut $intConferenceId
+  aufgerufen, das angibt, in welcher Konferenz nach Artikel gesucht werden soll.
+  Es wird noch nicht geprueft, ob die Konferenz existiert.
+- Entsprechendes gilt fuer getPapersOfReviewer() und getReviewsOfReviewer().
 - Das Attribut $strFilePath, das vorher in den PaperDetailed-Objekten
-auftauchte, ist nun eine Stufe nach oben ins PaperSimple-Objekt verschoben
-worden, da wir es auch in Listen haeufiger benutzen. Dasselbe Schicksal
-koennte dem $strLastEdit-Attribut drohen (-> Absprache).
-Bitte beachtet das beim Verwenden des Konstruktors PaperSimple!
+  auftauchte, ist nun eine Stufe nach oben ins PaperSimple-Objekt verschoben
+  worden, da wir es auch in Listen haeufiger benutzen. Dasselbe Schicksal
+  koennte dem $strLastEdit-Attribut drohen (-> Absprache).
+  Bitte beachtet das beim Verwenden des Konstruktors PaperSimple!
 
 ============================================================================= */
 
@@ -588,15 +592,18 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId..
+   * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId in der
+   * Konferenz $intConferenceId zurueck.
    *
    * @param int $intAuthorId ID des Autors
+   * @param int $intConferenceId ID der Konferenz
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Autors
    *                        $intAuthorId gefunden wurden.
    * @access public
-   * @author Tom (04.12.04, 12.12.04)
+   * @author Tom, Sandro (04.12.04, 12.12.04, 19.01.05)
+   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
-  function getPapersOfAuthor($intAuthorId) {
+  function getPapersOfAuthor($intAuthorId, $intConferenceId) {
     $objAuthor = $this->getPerson($intAuthorId);
     if ($this->mySql->failed()) {
        return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
@@ -608,7 +615,8 @@ class DBAccess extends ErrorHandling {
     $strAuthor = $objAuthor->getName();
     $s = "SELECT  id, author_id, title, state, filename".
         " FROM    Paper".
-        " WHERE   author_id = '$intAuthorId'";
+        " WHERE   author_id = '$intAuthorId'".
+        " AND     conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
@@ -628,15 +636,18 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array von PaperSimple-Objekten des Reviewers $intReviewerId.
+   * Liefert ein Array von PaperSimple-Objekten des Reviewers $intReviewerId
+   * in der Konferenz $intConferenceId zurueck.
    *
    * @param int $intReviewerId ID des Reviewers
+   * @param int $intConferenceId ID der Konferenz
    * @return PaperSimple [] Ein leeres Array, falls keine Papers des Reviewers
    *                        $intReviewerId gefunden wurden.
    * @access public
-   * @author Tom (12.12.04)
+   * @author Tom, Sandro (12.12.04, 19.01.05)
+   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
-  function getPapersOfReviewer($intReviewerId) {
+  function getPapersOfReviewer($intReviewerId, $intConferenceId) {
     $objReviewer = $this->getPerson($intReviewerId);
     if ($this->mySql->failed()) {
        return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
@@ -649,7 +660,8 @@ class DBAccess extends ErrorHandling {
         " FROM    Paper AS p".
         " INNER   JOIN ReviewReport AS r".
         " ON      r.paper_id = p.id".
-        " AND     r.reviewer_id = '$intReviewerId'";
+        " AND     r.reviewer_id = '$intReviewerId'".
+        " AND     p.conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
@@ -684,6 +696,7 @@ class DBAccess extends ErrorHandling {
    * @return PaperSimple [] Ein leeres Array, falls keine Papers existieren.
    * @access public
    * @author Sandro (19.01.05)
+   * @todo Existenz der Konferenz muss noch geprueft werden.      
    */
   function getPapersOfConference($intConferenceId) {
     $s = "SELECT  id, author_id, title, state, filename".
@@ -864,17 +877,21 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array von Review-Objekten des Reviewers $intReviewerId zurueck.
+   * Liefert ein Array von Review-Objekten des Reviewers $intReviewerId in
+   * der Konferenz $intConferenceId zurueck.
    *
    * @param int $intReviewerId ID des Reviewers
+   * @param int $intConferenceId ID der Konferenz
    * @return Review Ein leeres Array, falls kein Review des Reviewers existiert.
    * @access public
    * @author Sandro (14.12.04)
+   * @todo Existenz der Konferenz muss noch geprueft werden.
    */
-  function getReviewsOfReviewer($intReviewerId) {
+  function getReviewsOfReviewer($intReviewerId, $intConferenceId) {
     $s = "SELECT  id".
         " FROM    ReviewReport".
-        " WHERE   reviewer_id = '$intReviewerId'";
+        " WHERE   reviewer_id = '$intReviewerId'".
+        " AND     conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
