@@ -58,13 +58,13 @@ td.submenu { width: 150px;
 a.menu         { font-size: 13px; text-decoration: none; font-weight: bold; }
 a.menu:link    { color: #9D351A; }
 a.menu:visited { color: #9D351A; }
-a.menu:active  { color: #000000; }
+a.menu:active  { color: #FF4D00; }
 a.menu:hover   { color: #FF4D00; }
 
 a.submenu      { font-size: 12px; text-decoration: none; font-weight: normal; }
 a.submenu:link    { color: #9D351A; }
 a.submenu:visited { color: #9D351A; }
-a.submenu:active  { color: #000000; }
+a.submenu:active  { color: #FF4D00; }
 a.submenu:hover   { color: #FF4D00; }
 
 a.markedmenu { font-size: 13px; text-decoration: none; font-weight: bold;
