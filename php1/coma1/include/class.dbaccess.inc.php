@@ -966,7 +966,6 @@ class DBAccess extends ErrorHandling {
    * @return Forum <b>false</b>, falls kein Forum zu dem Paper existiert.
    * @access public
    * @author Sandro (14.12.04)
-   * @
    */
   function getForumOfPaper($intPaperId) {
     $s = "SELECT  id, title, forum_type".
