@@ -122,19 +122,19 @@ class Session {
   function sessionRead($strSessId) {
     // Check ob Session veraltet!!!
     $sql = "SELECT  sdata ".
-          " FROM    Sessions ".
+          " FROM    Session ".
           " WHERE   sid   = '$strSessId' ".
           " AND     sname = '$this->strSessName' ".
           " AND     UNIX_TIMESTAMP(stime) > (UNIX_TIMESTAMP()-'$this->intMaxLifeTime') ";
     $results = $this->mySql->select($sql);
     if (!$results) {
       $sql = "DELETE ".
-            " FROM  Sessions ".
+            " FROM  Session ".
             " WHERE sid   = '$strSessId' ".
             " AND   sname = '$this->strSessName' ";
       $this->mySql->delete($sql);
       $sql = "INSERT ".
-            " INTO  Sessions ".
+            " INTO  Session ".
             "       (sid,          sname,                sdata, stime) ".
             " VALUES ".
             "       ('$strSessId', '$this->strSessName', NULL,  NOW()) ";
@@ -157,7 +157,7 @@ class Session {
   * @access private
   */
   function sessionWrite($strSessId, $strData) {
-    $sql = "UPDATE  Sessions ".
+    $sql = "UPDATE  Session ".
           " SET     sdata = '$strData', ".
           "         stime = NOW() ".
           " WHERE   sid   = '$strSessId' ".
@@ -174,7 +174,7 @@ class Session {
   function sessionDestroy($strSessId) {
     $strSessId = $this->strSessName . $strSessId;
     $sql = "DELETE ".
-          " FROM  Sessions ".
+          " FROM  Session ".
           " WHERE sid   = '$strSessId' ".
           " AND   sname = '$this->strSessName' ";
     $this->mySql->delete($sql);
@@ -188,7 +188,7 @@ class Session {
   */
   function sessionGC($intMaxLifeTime) {
     $sql = "DELETE ".
-          " FROM  Sessions ".
+          " FROM  Session ".
           " WHERE sname = '$this->strSessName' ".
           " AND   UNIX_TIMESTAMP(stime) < (UNIX_TIMESTAMP()-$intMaxLifeTime) ";
     $this->mySql->delete($sql);
@@ -207,7 +207,7 @@ class Session {
    *
    */
   function error($strError='') {
-    $this->strError = "[Sessions: $strError ]";
+    $this->strError = "[Session: $strError ]";
     return false;
   }
 
