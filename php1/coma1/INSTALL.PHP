@@ -9,17 +9,18 @@
  * @subpackage core
  */
 /***/
-$STEP1 = false;
-$STEP2 = false;
-$STEP3 = false;
+$STEP = 0;
 if (isset($_GET['1'])) {
-  $STEP1 = true;
+  $STEP = 1;
 }
 elseif (isset($_GET['2'])) {
-  $STEP2 = true;
+  $STEP = 2;
 }
 elseif (isset($_GET['3'])) {
-  $STEP3 = true;
+  $STEP = 3;
+}
+elseif (isset($_GET['4'])) {
+  $STEP = 4;
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,7 +30,7 @@ elseif (isset($_GET['3'])) {
   <meta http-equiv="Content-Style-Type" content="text/css">
   <style type="text/css">
   <!--
-  body, ol { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
+  body { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
     font-size: 12px; vertical-align: top; background-color: #FFFFFF;
     margin: 0px; padding: 0px; }
   a { text-decoration: none; font-weight: bold; }
@@ -48,16 +49,15 @@ elseif (isset($_GET['3'])) {
 </head>
 <body>
   <p class="area">
-    <ol>
-      <li><a href="INSTALL.PHP?1">Generate Configuration</a></li>
-      <li><a href="INSTALL.PHP?2">Create Database</a></li>
-      <li><a href="INSTALL.PHP?3">Add Tutorial Data</a></li>
-    </ol>
+    1. <a href="INSTALL.PHP?1">Generate Configuration</a><br>
+    2. <a href="INSTALL.PHP?2">Create Database</a><br>
+    3. <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
+    4. <a href="INSTALL.PHP?4">Delete INSTALL.PHP</a><br>
 <?php
-if ($STEP1){
-
+if ($STEP == 1){
+  // TODO
 }
-elseif ($STEP2) {
+elseif ($STEP == 2) {
   // Block neuanlegen der Datenbank
   /**@ignore */
   define('IN_COMA1', true);
@@ -135,9 +135,12 @@ elseif ($STEP2) {
     echo "    </p>\n";
   }
 }
-elseif ($STEP3) {
+elseif ($STEP == 3) {
   // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was machen ;)
   include('test_basedata.php');
+}
+elseif ($STEP == 4) {
+  // TODO
 }
 ?>
   </p>
