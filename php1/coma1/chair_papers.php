@@ -103,7 +103,7 @@ if (!empty($objPapers)) {
       error('gather list of reviews for chair', $myDBAccess->getLastError());
     }
     $strItemAssocs['num_reviews'] = encodeText($intRevs.' of '.count($objReviewers));
-    if (!empty($objPaper->fltAvgRating)) {
+    if ($intRevs > 0) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
     else {
