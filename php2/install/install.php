@@ -3,7 +3,6 @@
 	error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 include("templates/header.tpl.php");
-include("includes/tools.inc.php");
 
 $errors=array();
 
