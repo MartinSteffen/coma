@@ -32,7 +32,7 @@ if (isset($_POST['confirm'])) {
   $dist = $_SESSION['dist'];
   reset($dist);
   while ($pid = key($dist)) {
-    $arrR = $dist[$pid]['value'];
+    $arrR = $dist[$pid];
     $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($arrR); $j++) {
       if ($arrR[$j]['status'] != ASSIGNED) {
