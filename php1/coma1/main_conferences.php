@@ -30,7 +30,7 @@ if (!empty($objConferences)) {
   $lineNo = 1;
   foreach ($objConferences as $objConference) {
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
-    if ($myDBAcess->failed()) {
+    if ($myDBAccess->failed()) {
       error('An error occured during processing the conference list!',
             $myDBAccess->getLastError());
     }
