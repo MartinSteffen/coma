@@ -1,66 +1,39 @@
 <? 
-
 $sql = new SQL();
 $sql->connect();
-if(isAdmin_Overall())
-{
 
-$errors=array();
+if(isAdmin_Overall()){
+	$errors=array();
+	if (isset($_POST['back']))
+		redirect("admin","conferences");
 
-if ($_POST['submit']) {
-	// TODO: check form data	
-
-	if (count($errors)==0) {
-		// write to database and redirect
-	
-		$insertstatement="
-			INSERT INTO conference (
-				name, homepage, description, abstract_submission_deadline,
-				paper_submission_deadline, review_deadline, final_version_deadline,
-				notification, conference_start, conference_end, min_reviews_per_paper)
-			VALUES (
-				'$confname','$confhomepage','$confdescription','$confabstract_dl',
-				'$confpaper_dl','$confreview_dl','$conffinal_dl',
-				'$confnotification','$confstart','$confend',$confmin_reviews)";
-
-		$insertstatement2="
-			INSERT INTO person (
-				last_name, email, password)
-			VALUES (
-				'$confchair_lastname','$confchair_email', MD5('$confchair_passwd'))";				
-
-		$dbok=$sql->insert($insertstatement);
-		if (is_array($dbok)) {
-			$errors[]=$dbok['text'];
-		} else {
-			$conf_id=$sql->insert_id();
-			$dbok=$sql->insert($insertstatement2);
-			if (is_array($dbok)) {
-				$errors[]=$dbok['text'];
-			} else {
-				$pers_id=$sql->insert_id();
-				$insertstatement3="
-					INSERT INTO role (
-						conference_id, person_id, role_type, state)
-					VALUES (
-						$conf_id, $pers_id, 2,1)";
-				$dbok=$sql->insert($insertstatement3);
-				if (is_array($dbok)) {
-					$errors[]=$dbok['text'];
-				} else {
-					//	redirect("admin",false,false,"a=conferences");
-						$errors[]="klappt";
-				}
-			}
+	if ($_POST['submit']) {
+		if(!isset($confname)){
+			echo("Conference Name not set but required. Please hit the 'Back' Button in your Browser an fill in the information");
+			exit();
+		}
+		if(!isset($cid)){
+			echo("Internal Error: Admin Conferences Change: cid not set but required. exiting...");
+			exit();
+		}
+		$cid=$_POST['cid'];
+		if(!preg_match("/^\d*$/", $confmin_reviews)){
+			echo("Min reviews per paper is no Number. Please hit the 'Back' Button in your Browser and correct the filled in information");
+			exit();
+		}
+		if (count($errors)==0) {
+			// write to database and redirect
+			$insertstatement="UPDATE conference SET name='$confname', homepage='$confhomepage', description='$confdescription', abstract_submission_deadline='$confabstract_dl',	paper_submission_deadline='$confpaper_dl', review_deadline='$confreview_dl' , final_version_deadline='$conffinal_dl', notification='$confnotification', conference_start='$confstart', conference_end='$confend', min_reviews_per_paper='$confmin_reviews' WHERE id='$cid'";
+			$result=$sql->insert($insertstatement);
 		}
 	}
+	if(!is_Array($result)){
+		$message=urlencode("Daten erfolgreich in die Datenbank eingetragen");
+	}else{
+		$message=urlencode("Daten konnten nicht in die Datenbank geschrieben werden:".$result['text']);		
+	}
+		redirect("admin","conferences","change_form","cid=$cid&message=$message");
+}else{ 
+	redirect("logout",false,false,"error=1");	
 }
-
-//TODO:
-//process inputs
-
-	$TPL['ADMIN_conferenceCreate'] = $errors;		
-	template("ADMIN_conferenceCreate");
-}
-else redirect("logout",false,false,"error=1");	
 ?>
