@@ -18,17 +18,12 @@ require_once('./include/class.distribution.inc.php');
 
 echo('<br>');
 
-$x = 'p724r84';
+$x = 1/3; $y = 2/6;
+echo('<br>1/3 = '.$x);
+echo('<br>2/6 = '.$y);
+echo('<br>Gleichheit? '.($x==$y));
 
-$p = array();
-$r = array();
-preg_match('/p[\d]+/', $x, $p);
-preg_match('/r[\d]+/', $x, $r);
-print_r($p);
-print_r($r);
-
-exit(-1);
-
+echo('<br><br>');
 
 $myDist = new Distribution($mySql);
 

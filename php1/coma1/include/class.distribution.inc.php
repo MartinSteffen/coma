@@ -62,6 +62,13 @@ class Distribution extends ErrorHandling {
   }
 
   /**
+   * @param int $intConferenceId Konferenz-ID
+   * @param int $intWantedReviewers Optional: Assoziatives Array mit Paper-ID's
+   *            als Schluessel und Anzahl an gewuenschten Reviewers als Wert.
+   *            Ist z.B. der gewuenschte Durchschnittswert an Reviewern pro
+   *            Paper 3 und soll beispielsweise Paper #7 von 6 und Paper #12
+   *            von 5 Reviewern reviewed werden, waere $intWantedReviewers =
+   *            array(7 => 6, 12 => 5) zu uebergeben.
    * @return mixed false, falls keine Verteilung gefunden werden konnte bzw.
    *               die Konferenz-ID ungueltig ist; leeres Array, falls keine
    *               weitere Verteilung noetig ist, sonst die Matrix(rev x pap)
@@ -69,12 +76,11 @@ class Distribution extends ErrorHandling {
    *
    * @todo Noch ne ganze Menge UND PHPDoc :-)
    * @todo $color entfernen! $p_num_revs_pref_left kann raus
-   * @todo Nach-Verteilung neuer Paper testen
    * @todo zusaetzliche Reviewer suchen und verteilen
    * @todo Vorschlaege fuer einzelne Paper: Reviewer, die am geeignetsten sind
    *       (z.B. 5 Stueck) und die, die am wenigsten zu tun haben...
    */
-  function getDistribution($intConferenceId) {
+  function getDistribution($intConferenceId, $intWantedReviewers = array()) {
     define('ASSI', -2); // bereits vorher verteilt
     define('SUGG', -1); // Verteilungsvorschlag
     define('NEUT', 10000.0); // Faktor fuer Preferred Topic
@@ -100,7 +106,9 @@ class Distribution extends ErrorHandling {
     // Verteilte Paper fuer Reviewer
     $r_num_papers = array();
     // Durchschnittliche Anzahl von Reviewern pro Paper (falls moeglich)
-    $avg_revs = false;
+    $avg_revs_per_paper = false;
+    // Maximale Anzahl von Papern pro Reviewer
+    $max_papers_per_rev = false;
     // Matrix initial mit bisheriger Verteilung, Wuenschen usw.
     $initial_matrix = array();
     // Vorschlagsmatrix
@@ -119,7 +127,8 @@ class Distribution extends ErrorHandling {
     }
     $min_revs = $data[0]['min_reviews_per_paper'];
 
-    $s = sprintf("SELECT default_reviews_per_paper FROM ConferenceConfig WHERE id = '%d'",
+    $s = sprintf("SELECT default_reviews_per_paper, max_number_of_papers ".
+                 "FROM ConferenceConfig WHERE id = '%d'",
                  s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -129,7 +138,8 @@ class Distribution extends ErrorHandling {
       return $this->error('getDistribution', 'Fatal error: Database inconsistency!',
                           "intConferenceId = $intConferenceId");
     }
-    $avg_revs = $data[0]['default_reviews_per_paper'];
+    $avg_revs_per_paper = $data[0]['default_reviews_per_paper'];
+    $max_papers_per_rev = $data[0]['max_number_of_papers'];
 
     // Paper-ID's holen
     $s = sprintf("SELECT id FROM Paper WHERE conference_id = '%d' ORDER BY id ASC",
@@ -306,6 +316,14 @@ class Distribution extends ErrorHandling {
 
     //echo('<br><br><br>');
 
+    // $intWantedReviewers mit Average-Werten belegen, falls nicht explizit
+    // ein anderer Wert gesetzt wurde.
+    for ($i = 0; $i < count($p_id); $i++) {
+      if (!isset($intWantedReviewers[$p_id[$i]]) || $intWantedReviewers[$p_id[$i]] <= 0) {
+        $intWantedReviewers[$p_id[$i]] = $avg_revs_per_paper;
+      } 
+    }
+
     // Paper-Wuensche zuerst beruecksichtigen
     for ($i = 0; $i < count($r_id); $i++) {
       $tmp = array();
@@ -315,7 +333,7 @@ class Distribution extends ErrorHandling {
         }
       }
       for ($j = 0; $j < count($tmp); $j++) {
-        $this->suggest($matrix, $i, $tmp[$j], $p_id, $avg_revs,
+        $this->suggest($matrix, $i, $tmp[$j], $p_id, $max_papers_per_rev,
                        $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
     }
@@ -326,7 +344,7 @@ class Distribution extends ErrorHandling {
     while ($blnChanged && !$blnBreak) {
       $blnBreak = true;
       for ($i = 0; $i < count($p_num_revs); $i++) {
-        if ($p_num_revs[$i] < $avg_revs) {
+        if ($p_num_revs[$i] < $avg_revs_per_paper) {
           $blnBreak = false;
         }
       }
@@ -336,12 +354,17 @@ class Distribution extends ErrorHandling {
 
       $blnChanged = false;
 
-      // Paper mit den wenigsten Reviewern ermitteln...
-      $min = count($r_id)+1; $pindex = -1;
+      // Paper mit den dem niedrigsten Faktor n/m (n=Anzahl Reviewer, m=gewunschte Reviewer)
+      // ermitteln... (Paper mit hoeherem m bei gleichem Faktor bevorzugen.)
+      $minFactor = 1; $wanted = -1; $pindex = -1;
       for ($i = 0; $i < count($p_id); $i++) {
         // nur solche, fuer die noch Reviewer in Frage kommen
-        if ($p_num_revs_total_left[$i] > 0 && $p_num_revs[$i] < $min) {
-          $min = $p_num_revs[$i];
+        if ($p_num_revs_total_left[$i] > 0) {
+          if($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] < $minFactor ||
+              ($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] == $minFactor &&
+               $intWantedReviewers[$p_id[$i]] > $wanted)) {
+          $minFactor = $p_num_revs[$i];
+          $wanted = $intWantedReviewers[$p_id[$i]];
           $pindex = $i;
         }
       }
@@ -366,13 +389,13 @@ class Distribution extends ErrorHandling {
         for ($i = 0; $i < count($p_id); $i++) {
           if ($matrix[$rindex][$i] > 1) {
             $matrix[$rindex][$i] /= 2.0;
-            if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
+            if ($r_num_papers[$rindex] > $avg_revs_per_paper + 1 && $matrix[$rindex][$i] >= 1) {
               $matrix[$rindex][$i] = 0;
               $p_num_revs_total_left[$i]--;
             }
           }
         }*/
-        $this->suggest($matrix, $rindex, $pindex, $p_id, $avg_revs,
+        $this->suggest($matrix, $rindex, $pindex, $p_id, $max_papers_per_rev,
                        $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
     }
@@ -402,7 +425,7 @@ class Distribution extends ErrorHandling {
     }
     echo('</table>');
     
-    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
+    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs_per_paper);
     echo('<br>p_id_index:');
     print_r($p_id_index);
     echo('<br>r_id_index:');
@@ -445,7 +468,7 @@ class Distribution extends ErrorHandling {
   /**
    * @access private
    */
-  function suggest(&$matrix, $rindex, $pindex, $p_id, $avg_revs, &$p_num_revs_total_left,
+  function suggest(&$matrix, $rindex, $pindex, $p_id, $max_revs_per_rev, &$p_num_revs_total_left,
                    &$p_num_revs, &$r_num_papers, $intSuggested) {
     $p_num_revs_total_left[$pindex]--;
     $p_num_revs[$pindex]++;
@@ -454,7 +477,7 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($p_id); $i++) {
       if ($matrix[$rindex][$i] > 1) {
         $matrix[$rindex][$i] /= 2.0;
-        if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
+        if ($r_num_papers[$rindex] >= $max_revs_per_rev && $matrix[$rindex][$i] >= 1) {
           $matrix[$rindex][$i] = 0;
           $p_num_revs_total_left[$i]--;
         }
