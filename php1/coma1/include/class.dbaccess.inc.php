@@ -2447,10 +2447,10 @@ nur fuer detaillierte?
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
                     $strFilePath, $strMimeType, $strCoAuthors, $intTopicIds) {
     $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
-        "                     mime_type, state, last_edited)".
+        "                     mime_type, version, state, last_edited)".
         "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
         "                 '$strAbstract', '$strFilePath', '$strMimeType', '0',".
-        "                 '".s2db(date("Y-m-d"))."')";
+        "                 '0', '".s2db(date("Y-m-d"))."')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPaper', $this->mySql->getLastError());

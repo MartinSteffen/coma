@@ -35,7 +35,7 @@ if (!empty($objPapers)) {
     if (!empty($objPaper->strFilePath)) {
       $ifArray[] = 5;
     }
-    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+    $strItemAssocs['title'] = encodeText($objPaper->strTitle).'#'.$objPaper->intStatus;
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
