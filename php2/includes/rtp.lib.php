@@ -315,7 +315,7 @@ function getTotalGradeForReviewReport($reviewReportId) {
 			$row['max_value']=10;
 		}		
 
-		$weightenedGrades[ $row['criterion_id'] ] = ( ($row['grade'] -1) / ($row['max_value'] -1) ) * ( $row['quality_rating'] / 100);
+		$weightenedGrades[ $row['criterion_id'] ] = ( ($row['grade'] -1) / max(($row['max_value'] -1), 1) ) * ( $row['quality_rating'] / 100);
 	}
 
 
