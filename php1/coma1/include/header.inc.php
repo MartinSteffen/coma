@@ -137,12 +137,15 @@ checkError($myDBAccess);
 // End Standard Klassen
 
 // CoMa Konstanten
-define('MIN_ROLE',    2);
 define('CHAIR',       2);
 define('REVIEWER',    3);
 define('AUTHOR',      4);
 define('PARTICIPANT', 5);
-define('MAX_ROLE',    5);
+$intRoles = array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT);
+$strRoles = array(CHAIR       => 'Chair',
+                  REVIEWER    => 'Reviewer',
+                  AUTHOR      => 'Author',
+                  PARTICIPANT => 'Participant');
 // End CoMa Konstanten
 
 // Check, ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)

@@ -13,6 +13,8 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 
+require_once(INCPATH.'class.errorhandling.inc.php');
+
 /**
  * Klasse MySql
  *
@@ -27,7 +29,7 @@ if (!defined('INCPATH')) {
  * @access protected
  *
  */
-class MySql {
+class MySql extends ErrorHandling {
 
   /**#@+
    * @access private
@@ -37,7 +39,6 @@ class MySql {
   var $mySqlUser = '';
   var $mySqlPassword = '';
   var $mySqlDatabase = '';
-  var $strError = '';
   /**#@-*/
   /**
    * Ein Verweiss auf das aktuelle Handle der Datenbank.
@@ -203,42 +204,7 @@ class MySql {
     if (empty($results)) {
       return $this->error('insert: ');
     }
-    $intId = mysql_insert_id();
-  }
-
-  /**
-   * Fehler erzeugen / abfragen
-   *
-   * Die Funktion <b>error()</b> checkt auf MySql Fehler und speichert diese.
-   *
-   * @param string $strError Eine optionale Angabe einer Fehlerursache
-   * @return false Es wird immer <b>false</b> zurueck gegeben
-   * @see getLastError()
-   * @access protected
-   *
-   */
-  function error($strError='') {
-    $no = mysql_errno();
-    $msg = mysql_error();
-    $this->strError = "[MySQL: $strError ( $no : $msg ) ]";
-    return false;
-  }
-
-  /**
-   * Letzten Fehler ueberpruefen
-   *
-   * Die Funktion <b>getLastError()</b> gibt die letzte mit error
-   * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
-   *
-   * @return string Die letzte Fehlermeldung
-   * @see error()
-   * @access public
-   *
-   */
-  function getLastError() {
-    $strError = $this->strError;
-    $this->strError = '';
-    return $strError;
+    return mysql_insert_id();
   }
 
 } // end class MySql

@@ -7,6 +7,11 @@
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
+// by Jan: verbesserter Include
+if (!defined('INCPATH')) {
+  /** @ignore */
+  define('INCPATH', dirname(__FILE__).'/');
+}
 
 // OFFENE PUNKTE (nur diese Klasse betreffend, daher nicht in Spec):
 // -----------------------------------------------------------------
@@ -16,12 +21,6 @@ if (!defined('IN_COMA1')) {
 //   (also insbesondere auch bei $bln = 0, was je false bedeuten sollte)
 //   Alternative (in DB): NULL = false, 1 = true
 
-
-// by Jan: verbesserter Include
-if (!defined('INCPATH')) {
-  /** @ignore */
-  define('INCPATH', dirname(__FILE__).'/');
-}
 require_once(INCPATH.'header.inc.php');
 
 require_once(INCPATH.'class.mysql.inc.php');
@@ -29,6 +28,7 @@ require_once(INCPATH.'class.mysql.inc.php');
 require_once(INCPATH.'class.conference.inc.php');
 require_once(INCPATH.'class.conferencedetailed.inc.php');
 require_once(INCPATH.'class.criterion.inc.php');
+require_once(INCPATH.'class.errorhandling.inc.php');
 require_once(INCPATH.'class.forum.inc.php');
 require_once(INCPATH.'class.forumdetailed.inc.php');
 require_once(INCPATH.'class.message.inc.php');
@@ -49,7 +49,7 @@ require_once(INCPATH.'class.topic.inc.php');
  * @subpackage DBAccess
  * @access protected
  */
-class DBAccess {
+class DBAccess extends ErrorHandling {
   /**#@+
    * @access private
    */
@@ -57,10 +57,6 @@ class DBAccess {
    * @var MySql
    */
   var $mySql;
-  /**
-   * @var string
-   */
-  var $strError = '';
   /**#@-*/
 
   /**
@@ -76,35 +72,6 @@ class DBAccess {
     return true;
   }
 
-  /**
-   * Legt die Fehlerbeschreibung fest.
-   *
-   * @param string $strError optionale Fehlerbeschreibung
-   * @return bool immer <b>false</b>
-   * @see getLastError()
-   * @access protected
-   */
-  function error($strError='') {
-    $this->strError = "[DBAccess: $strError ]";
-    return false;
-  }
-
-  /**
-   * Liefert die letzte Fehlerbeschreibung zurueck.
-   *
-   * Die Funktion <b>getLastError()</b> gibt die letzte mit error
-   * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
-   *
-   * @return string die letzte Fehlermeldung
-   * @see error()
-   * @access public
-   */
-  function getLastError() {
-    $strError = $this->strError;
-    $this->strError = '';
-    return $strError;
-  }
-
   // ---------------------------------------------------------------------------
   // Definition der Selektoren
   // ---------------------------------------------------------------------------
@@ -117,7 +84,7 @@ class DBAccess {
    * @author Daniel (29.12.04)
    */
 
-  function  getAllConferences(){
+  function getAllConferences() {
     $s = 'SELECT  id, name, homepage, description, conference_start, conference_end'.
         ' FROM    Conference';
     $data = $this->mySql->select($s);
@@ -129,9 +96,9 @@ class DBAccess {
                                               $data[$i]['conference_start'],
                                               $data[$i]['conference_end']));
       }
-      return $objConferences;
+      return $this->success(($objConferences);
     }
-    return $this->error('getAllConferences'.$this->mySql->getLastError());
+    return $this->error('getAllConferences', $this->mySql->getLastError());
   }
 
   // Anmerkung von Tom: [TODO] Anpassen an das neue Rollen-Array
@@ -220,10 +187,8 @@ class DBAccess {
    *         ungueltig ist.
    * @access public
    * @author Tom (08.01.05)
+   * @todo Wie ist mit Booleans ($blnAuto...) zu verfahren?
    */
-   
-  /* TODO: Wie ist mit Booleans ($blnAuto...) zu verfahren? */
-   
   function getConferenceDetailed() {
     $s = 'SELECT  c.id, name, homepage, description, abstract_submission_deadline,'.
         '         paper_submission_deadline, review_deadline, final_version_deadline,'.
@@ -986,6 +951,7 @@ class DBAccess {
    * @author Tom (11.05.04)
    */
   function updateRoles($intConferenceId, $objPerson) {
+    global $intRoles;
     $intId = $objPerson->intId;
     
     // Rollen loeschen...
@@ -997,10 +963,10 @@ class DBAccess {
     }
 
     // Rollen einfuegen...
-    for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
-      if ($objPerson->hasRole($i)) {
+    for ($i = 0; $i < count($intRoles); $i++) {
+      if ($objPerson->hasRole($intRoles[$i])) {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-            '         VALUES ('.$intConferenceId.', '.$intId.', '.$i.')';
+            '         VALUES ('.$intConferenceId.', '.$intId.', '.$intRole[$i].')';
         echo('SQL: '.$s.'<br>');
         $result = $this->mySql->insert($s);
         // [TODO] Abfrage != 0 spaeter mal ersetzen, wenn Fehlerbehandlung vorhanden

@@ -45,13 +45,11 @@ CREATE TABLE IF NOT EXISTS Session (
  * @access public
  *
  */
-class Session {
+class Session extends ErrorHandling {
 
   /**#@+@access private*/
   /**@var MySql*/
-  var $mySql;
-  /**@var string*/
-  var $strError = '';
+  var $mySql;  
   /**@var int*/
   var $intMaxLifeTime = 7200;
   /**@var string*/
@@ -212,39 +210,6 @@ class Session {
           " AND   UNIX_TIMESTAMP(stime) < (UNIX_TIMESTAMP()-$intMaxLifeTime) ";
     $this->mySql->delete($sql);
     return true;
-  }
-
-  /**
-   * Fehler erzeugen
-   *
-   * Die Funktion <b>error()</b> erzeugt und speichert einen Fehlerstring.
-   *
-   * @param string $strError Optionale Angabe einer Fehlerursache
-   * @return false Es wird immer <b>false</b> zurueck gegeben
-   * @see getLastError()
-   * @access protected
-   *
-   */
-  function error($strError='') {
-    $this->strError = "[Session: $strError ]";
-    return false;
-  }
-
-  /**
-   * Letzten Fehler ueberpruefen
-   *
-   * Die Funktion <b>getLastError()</b> gibt die letzte mit error
-   * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
-   *
-   * @return string Die letzte Fehlermeldung
-   * @see error()
-   * @access public
-   *
-   */
-  function getLastError() {
-    $strError = $this->strError;
-    $this->strError = '';
-    return $strError;
   }
 
 } // End Class Session
