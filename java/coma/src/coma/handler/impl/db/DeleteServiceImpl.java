@@ -1,7 +1,10 @@
 package coma.handler.impl.db;
 
+import coma.entities.ReviewReport;
+import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
 import coma.handler.db.DeleteService;
+import coma.handler.db.ReadService;
 
 /**
  * Created on 19.01.2005 
@@ -84,8 +87,20 @@ public class DeleteServiceImpl extends Service implements DeleteService {
 		String QUERY = "DELETE FROM Rating WHERE review_id  = "+reviewreport_id;
 		return executeQuery(QUERY);
 	}
-	public SearchResult deleteReviewReportByReviewerId(int reviewer_id){
-		String QUERY = "DELETE FROM ReviewReport WHERE reviewer_id = "+reviewer_id;
+	public SearchResult deleteReviewReportByReviewerId(int reviewer_id, int paper_id){
+		ReviewReport rep = new ReviewReport();
+		rep.set_paper_Id(paper_id);
+		rep.set_reviewer_id(reviewer_id);
+		ReadService db_read = new coma.handler.impl.db.ReadServiceImpl();
+		SearchCriteria sc = new SearchCriteria();
+		sc.setReviewReport(rep);
+		SearchResult sr = db_read.getReviewReport(sc);
+		rep = ((ReviewReport[])sr.getResultObj())[0];
+		int rep_id = rep.get_reviewer_id();
+		String QUERRY = "DELETE FROM Rating WHERE review_id = "+ rep_id;
+		executeQuery(QUERRY);
+		String QUERY = "DELETE FROM ReviewReport WHERE reviewer_id = "+reviewer_id+
+		"AND paper_id = "+paper_id;
 		return executeQuery(QUERY);
 	}
 }

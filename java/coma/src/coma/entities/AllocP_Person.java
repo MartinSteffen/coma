@@ -52,6 +52,7 @@ public class AllocP_Person  {
 		// get prefered Topics
 		sr = db_read.getPreferedTopic(personID);
 		int []prefT = (int[]) sr.getResultObj();
+		
 		for (int i = 0;i < prefT.length;i++)
 			prefersTopic.add(prefT[i]);
 		// get denied Papers

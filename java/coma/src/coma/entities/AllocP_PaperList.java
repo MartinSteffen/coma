@@ -107,6 +107,7 @@ public class AllocP_PaperList {
 		HashSet<AllocP_Paper> paperlist = new HashSet<AllocP_Paper>();
 		for (int i = 0 ; i < topicIDs.size();i++){
 			Vector p = (Vector) papers_by_topicID.get(topicIDs.elementAt(i));
+			
 			for (int j = 0 ; j < p.size();j++){
 				AllocP_Paper paper = (AllocP_Paper) p.elementAt(j);
 				if (paper.isOpen(min_reviewer) || 

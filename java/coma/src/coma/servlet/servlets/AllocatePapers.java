@@ -65,7 +65,7 @@ public class AllocatePapers extends HttpServlet {
 	int papersPerReviewer=0;
 	Topic[] topics = new Topic[0];
 	int conference_id;
-	ReadService db_read = new coma.handler.impl.db.ReadServiceImpl();;
+	ReadService db_read = new coma.handler.impl.db.ReadServiceImpl();
 	DeleteService db_delete = new coma.handler.impl.db.DeleteServiceImpl();
 	InsertService db_insert = new coma.handler.impl.db.InsertServiceImpl();
 	
@@ -127,11 +127,13 @@ public class AllocatePapers extends HttpServlet {
 		
 		for (int i = 0 ; i < personList.length; i++){
 			int person_id = personList[i].getPersonID();
-			SearchResult rs = db_delete.deleteReviewReportByReviewerId(person_id);
+			
 			Vector<AllocP_Paper> papers = personList[i].getPapers();
 			for (int j = 0; j < papers.size();j++){
 				AllocP_Paper paper = papers.elementAt(j);
 				int paper_id = paper.getPaperID();
+				SearchResult rs = db_delete.deleteReviewReportByReviewerId(person_id,paper_id);
+				
 				ReviewReport report = new ReviewReport();
 				report.set_paper_Id(paper_id);
 				report.set_reviewer_id(person_id);
@@ -157,7 +159,7 @@ public class AllocatePapers extends HttpServlet {
 			for (int j = 0; j < reports.length; j++){
 				int rep_id = reports[j].getId();
 				
-				db_delete.deleteRating(rep_id);
+				
 				for (int u = 0; u < crits.length;u++){
 					Rating rating = new Rating();
 					rating.setReviewReportId(rep_id);
