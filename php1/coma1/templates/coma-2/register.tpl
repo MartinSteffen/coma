@@ -1,7 +1,7 @@
 
 {if1<p class="message">{message}</p>}
 
-<p class="center">
+
 <form action="{basepath}register.php?{SID}" method="post">
 
 <table class="formtable">
@@ -127,7 +127,7 @@
   </tr>
 </table>
 </form>
-</p>
+
 
 <p align="right">
 <form action="{basepath}login.php?{SID}" method="post">
