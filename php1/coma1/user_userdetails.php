@@ -59,9 +59,9 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'User profile';
 $strMainAssocs['content'] = &$content;
 
+// Pruefe Zugriffsberechtigung auf die Artikelliste
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
 if ($checkRole && $objPerson->hasRole(AUTHOR)) {
-  // Pruefe Zugriffsberechtigung auf die Seite
   $objPapers = $myDBAccess->getPapersOfAuthor($objPerson->intId, session('confid'));
   if ($myDBAccess->failed()) {
     error('get paper list of author', $myDBAccess->getLastError());
