@@ -1,0 +1,38 @@
+CoMa - ein Konferenzmanager
+(c) 2004 by 
+    Daniel Miesling <dmi@informatik.uni-kiel.de>
+    Falk Starke <fast@informatik.uni-kiel.de>
+    Jan Waller <jwa@informatik.uni-kiel.de>
+    Sandro Esquivel <sae@informatik.uni-kiel.de>
+    Tom Scherzer <tos@informatik.uni-kiel.de>
+    
+Die Vorbereitung, Organisation und Durchführung einer wissenschaftlichen Konferenz,
+eines Workshops oder eines vergleichbaren Ereignisses stellt für die Organisatoren
+eine große Herausforderung dar: Logistische Aufgaben und Probleme sind ebenso zu
+bewältigen wie inhaltliche Fragen zu klären, um einen möglichst reibungslosen Ablauf
+des Ereignisses zu erreichen und die Veranstaltung zu einem Erfolg werden zu lassen.
+
+Im Mittelpunkt des Interesses steht dabei der Inhalt der Konferenz, d.h. die Vorträge,
+die vorgestellt werden, und dementsprechend wird die meiste Konzentration auf deren
+geeignete Auswahl und Zusammenstellung verwendet. Erschwert wird dieses Prozedere
+nicht nur durch Restriktionen von außen (z.B. kurze Dauer der Veranstaltung, Zeitmangel),
+sondern vor allem durch die komplizierten asynchronen Abläufe und Abhängigkeiten, die kaum
+vermeidbar sind, wenn mehrere (meist vielbeschäftigte) Beteiligte, noch dazu aus aller Welt,
+koordiniert werden müssen.
+
+Doch zum Glück gibt es CoMa: ein webbasiertes Tool, welches das Auswahlverfahren der Artikel
+sinnvoll unterstützt, leicht zu bedienen ist und ebenso schnell wie einfach auch an speziellere
+Bedürfnisse angepasst werden kann.
+
+CoMa hilft bei der Zusammenstellung des Komitees, bei der Einladung der Autoren, die
+über ihr eigenes Nutzerprofil selbständig Artikel online einreichen können, und vor
+allem bei der effizienten Auswahl der besten Artikel. Selbstverständlich werden Nutzerdaten,
+Beiträge, Artikel, Diskussionen, Entscheidungen und Bewertungen der Beteiligten nur dem
+jeweils dafür vorgesehenen Personenkreis zugänglich gemacht, um ein hohes Maß an Diskretion
+auch unter den Teilnehmern selbst sicherzustellen.
+
+Vor allem aber etabliert CoMa einen Standard für die \emph{Kommunikation} aller Beteiligten
+untereinander - und ist als Webanwendung für jeden sofort ohne Installationsaufwand
+und von überall aus nutzbar.
+
+$Id$
