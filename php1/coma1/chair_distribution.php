@@ -27,8 +27,10 @@ if (isset($_POST['action'])) {
           unset($arrR[$j]);
         }
       }*/
+      print_r($arrR);
     }
   }
+  die(-1);
 }
 else {
   $myDist = new Distribution($mySql);
