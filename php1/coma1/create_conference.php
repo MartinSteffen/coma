@@ -41,6 +41,8 @@ if (isset($_POST['action'])) {
   $strCritDescripts = encodeTextArray($_POST['crit_descr']);
   $strCritMaxVals   = encodeTextArray($_POST['crit_max']);
   $strCritWeights   = encodeTextArray($_POST['crit_weight']);
+  echo(encodeTextArray($_POST['criterions']));
+  echo(count($strCriterions));
   if (isset($_POST['advanced'])) {
     $intTopicNum = count($strTopics);
     $intCritNum  = count($strCriterions);
@@ -98,7 +100,7 @@ if (isset($_POST['action'])) {
       $strCritAssocs['crit_weight'] = $strCritWeights[$i];
       $critForm->assign($strCritAssocs);
       $critForm->parse();
-      $strContentAssocs['crit_lines'] .= '*'.$critForm->getOutput();
+      $strContentAssocs['crit_lines'] .= $critForm->getOutput();
     }    
   }
   $strContentAssocs['topics']         = '';
