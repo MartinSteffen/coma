@@ -643,7 +643,7 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($objAuthor)) {
       return $this->error('getPapersOfReviewer', 'Fatal error: Database inconsistency!',
-                          "intReviewerId = '$intReviewerId'";
+                          "intReviewerId = '$intReviewerId'");
     }
     $s = "SELECT  p.id AS id, author_id, title, state, filename".
         " FROM    Paper AS p".
@@ -662,7 +662,7 @@ class DBAccess extends ErrorHandling {
       }
       else if (empty($objAuthor)) {
         return $this->error('getPapersOfConference', 'Fatal error: Database inconsistency!',
-                            'author_id = '.$data[$i]['author_id'].')';
+                            'author_id = '.$data[$i]['author_id']);
       }
       $strAuthor = $objAuthor->getName();
       $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
@@ -701,7 +701,7 @@ class DBAccess extends ErrorHandling {
       }
       else if (empty($objAuthor)) {
         return $this->error('getPapersOfConference', 'Fatal error: Database inconsistency!',
-                            'intAuthorId = '.$data[$i]['author_id'].')';
+                            'intAuthorId = '.$data[$i]['author_id']);
       }
       $strAuthor = $objAuthor->getName();
       $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
