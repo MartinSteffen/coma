@@ -1,8 +1,8 @@
 <table class="list">
   <tr class="listheader">
-    <th width="20%" class="listheader"> Articlename       </th> 
+    <th width="20%" class="listheader"> Title       </th> 
     <th width="20%" class="listheader"> Author            </th> 
-    <th width="5%" class="listheader"> State              </th>
+    <th width="5%" class="listheader"> Status              </th>
     <th width="5%" class="listheader"> Rating (own)       </th>
     <th width="5" class="listheader"> Rating (total)      </th>
     <th width="15%" class="listheader"> Forum             </th>
@@ -95,7 +95,7 @@
     <td colspan="2"> &nbsp;</td>
   </tr>
   <tr class="listheader">
-    <td class="listheader" colspan="2"> Criteria <br>  Evaluation</td>
+    <td class="listheader" colspan="2"> Criteria:  Evaluation</td>
   </tr>
   <tr>
     <td colspan="2"> 

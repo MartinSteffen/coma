@@ -2,7 +2,7 @@
   <tr class="listheader">
     <th width="20%" class="listheader"> Title      </th> 
     <th width="20%" class="listheader"> Author           </th> 
-    <th width="5%" class="listheader"> State            </th>
+    <th width="5%" class="listheader">  Status          </th>
     <th width="5%" class="listheader"> Rating (own)     </th>
     <th width="5" class="listheader"> Rating (total)   </th>
     <th width="20%" class="listheader"> Forum            </th>
