@@ -1,0 +1,273 @@
+============================================================================
+  TECHNISCHE SPEZIFIKATION DER GRUPPE PHP1
+============================================================================
+
+Auf Grundlage der Spec-1 (spec-1.pdf)
+von Sandro Esquivel, Tom Scherzer und Jan Waller.
+
+Gruppe PHP1:
+ - [sae]  Esquivel, Sandro
+ - [dcm]  Miesling, Daniel C.
+ - [tos]  Scherzer, Tom
+ - [fast] Starke, Falk
+ - [jwa]  Waller, Jan
+
+Unsere E-Mailadressen: [...]@informatik.uni-kiel.de
+
+
+
+============================================================================
+  STAND UND HISTORIE DIESES DOKUMENTS:
+============================================================================
+
+Datum    Autor   Änderung(en)
+----------------------------------------------------------------------------
+07.12.04 tos     Dokument erstellt: Kapitel 1, Appendizes, Konventionen
+...
+
+
+
+Konventionen für dieses Dokument:
+- Historie weiterführen, damit der Stand schnell anhand des Datums erkennbar
+  ist.
+- Neue Rechtschreibung nach bestem Wissen; zumindest keine Schlamperei!
+- Maximale Zeilenlänge: 76. (Allgemein gut ausdruckbar.)
+- Wörter, die in die vorige Zeile passen und keinen neuen Absatz beginnen,
+  sollten nach Möglichkeit dann auch in der vorigen Zeile stehen.
+- Keine Worttrennungen am Zeilenende durch Bindestriche (sonst Aufwand bei
+  nachträglichen Änderungen), es sei denn, ein überlanges Wort zerstört
+  sonst den Lesefluss.
+- Vor jedem Kapitel drei Zeilen Abstand, nach der Überschrift (eingerahmt
+  von Linien aus Gleichheitszeichen) eine Leerzeile. Beispiel: siehe
+  Kapitel 1.
+- Vor jedem Unterpunkt zwei Zeilen Abstand. Unterpunkt und dessen
+  Überschrift in eine Zeile, gefolgt vom Text direkt in der nächsten Zeile.
+  Beispiel: siehe Unterpunkt 1.1.
+- Ein Beispiel für eine Tabelle (aber nicht verbindlich) ist in Appendix A.
+- Inhaltsverzeichnis aktuell halten.
+- Verweise auf andere Quellen auch im Appendix eintragen.
+- Bei Missachtung der Konventionen droht strafrechtliche Verfolgung. ;-)
+- Jan: Im Deutschen schreibt man zusammengesetzte Wörter ZUSAMMEN oder aber
+  mit BINDE-STRICHEN verbunden und niemals AUS EIN AN DER!!!
+
+
+
+============================================================================
+  INHALT
+============================================================================
+  1. Überblick über das Konzept
+  2. Das Datenmodell (SQL)
+  3. Das Datenmodell (PHP)
+App. Verantwortlichkeiten / Ansprechpartner
+App. Verzeichnisstruktur
+App. Tests
+App. Offene Punkte
+App. Verweise
+
+
+
+============================================================================
+  1. ÜBERBLICK ÜBER DAS KONZEPT
+============================================================================
+
+Das grobe Konzept unseres Entwurfs ist in programmschema.jpg dargestellt.
+
+
+1.1 Skripte, Formulare, Funktionen
+Eine zentrale Rolle nehmen in diesem Konzept die (PHP-)Skripte ein, welche
+letztlich den Programmablauf steuern. Formulare sind solche Skriptdateien,
+die als GUI dienen, d.h. letztlich dem Benutzer angezeigt werden (siehe
+auch navigator.pdf) und Interaktionsmöglichkeiten bieten, während
+gewöhnliche Skripte neben der Steuerung des Programms auch weniger komplexe
+Funktionen (z.B. Berechtigungsprüfungen) durchführen. I.d.R. treten
+Formulare mit Skripten (z.B. im Header) gemeinsam auf. Skripte wie
+Formulare arbeiten überwiegend auf Objekten, die weiter unten näher
+beschrieben werden.
+Funktionen sind ebenfalls Skripte, die aber nur aus Programmlogik bestehen
+und insbesondere keinerlei Ausgabe auf dem Schirm erzeugen. Stattdessen
+werden in den Funktionsmodulen komplexere Berechnungen durchgeführt, die
+vom Rest des Programms unabhängig sind (z.B. der Verteilungsalgorithmus für
+die Paper).
+Im Folgenden fassen wir Formulare und Funktionen unter Skripten zusammen,
+es sei denn, eine explizite Unterscheidung ist nötig.
+
+
+1.2 DB Access
+Sämtliche Datenbankzugriffe sind strikt in eine einzige Klasse ausgelagert
+(DBAccess). Zu Beginn des Programms wird genau eine DBAccess-Instanz
+erzeugt, die auf genau einer Instanz der Klasse MySQL operiert. Auf
+Anfragen von Skripten über bereitgestellte Methoden werden bei Erfolg
+Ergebnisobjekte (oder primitive Typen, je nach Methode) zurückgeliefert.
+Die Methodenparameter hingegen sind ausschließlich primitive Typen. Die
+Idee der Datenbankzugriffsschicht ist eine saubere Trennung von
+Programmlogik und Datenbank(-anbindung).
+Die angebotenen Methoden richten sich stark nach den Anforderungen durch
+einzelne Skripte, so dass diese teilweise redundanten SQL-Code enthalten,
+dafür aber innerhalb der Skripte i.d.R. ein Aufruf einer DBAccess-Methode
+ausreicht, um alle benötigten Informationen zu erhalten.
+
+
+1.3 Objekte
+Unsere Objekte sind - losgelöst von der Datenbankstruktur - in solche
+Einheiten gegliedert, die uns für die Skripte besonders günstig erscheinen
+(siehe auch conference.jpg, forum.jpg, paper.jpg, review.jpg). Insbesondere
+fassen Objekte i.d.R. Informationen aus verschiedenen Datenbanktabellen
+"sinnvoll" zusammen.
+Die Motivation für diese Einteilung ist zum einen, dass die Skripte schnell
+und komfortabel auf relevante Informationen zugreifen können, zum anderen
+spielen Strukturierungsaspekte (Modularisierung) sowie Effizienz eine Rolle.
+Die Objekte besitzen teilweise (je nach Eigenschaften) mehrere Ableitungen,
+so dass sie meist nur die den einzelnen Skripten tatsächlich benötigten
+Informationen enthalten (und selten mehr).
+Ganz wichtig außerdem: Objekte enthalten niemals Datenbankanfragen, weder
+direkt, noch über Methodenaufrufe über DBAccess.
+
+Folgendes Beispiel soll das geplante Vorgehen illustrieren:
+Das Formular, das dem Chair alle Paper eines Autors auflistet, ruft die
+DBAccess-Methode getPapersOfAuthor($intAuthorId) auf und erhält ein Array
+von Instanzen des Objekts PaperSimple. In PaperSimple steht u.a. der Titel
+eines Papers. Das Formular zeigt diese zeilenweise an. Wird nun ein Paper
+mit ID $intPaperId angeklickt, wird ein neues Formular (Detailansicht)
+geöffnet, das die DBAccess-Methode getPaperDetailed($intPaperId) aufruft.
+Zurückgeliefert wird eine Instanz des Objekts PaperDetailed (übrigens
+abgeleitet von PaperSimple), welches z.B. auch die Namen der Co-Autoren
+enthält, so dass diese angezeigt werden können.
+
+Anmerkung: Die Klassendefinitionen befinden sich im Unterverzeichnis
+include.
+
+
+1.4 Layout-Templates
+Wir benutzen für unsere Formulare Templates, die HTML enthalten mit einigen
+zusätzlichen Tags. Syntax für solche selbstdefinierten Tags: {Tag}.
+
+Künstliches Beispiel: <p>Hello {Firstname} <b>{Lastname}</b>.</p>
+
+Anmerkung: Die Templates befinden sich im Unterverzeichnis templates.
+
+
+1.5 Parser
+Die Klasse Template enthält einen Parser für Template-Dateien. Für die
+Ausgabe von Formularen wird jeweils eine PHP-Datei (mit allen relevanten
+Parametern) aufgerufen, welche zunächst die notwendigen Datenbankanfragen
+(über DBAccess) durchführt, ein Objekt (oder eine Liste von Objekten)
+zurückgeliefert bekommt und dann eine Template-Instanz erzeugt. Diese
+benötigt neben dem Layout-Template-Dateinamen auch ein Array, das für jedes
+in dem Layout-Template vorkommende Tag die korrespondierende Auflösung
+enthält.
+Anschließend wird der Inhalt (reines HTML) durch einen Methodenaufruf des
+Template-Objekts ausgegeben.
+Das Ziel dieses Vorgehens ist, Design (HTML/CSS) und Programmlogik (PHP)
+voneinander zu trennen.
+
+
+
+============================================================================
+  APPENDIX: VERANTWORTLICHKEITEN / ANSPRECHPARTNER
+============================================================================
+
+Wir haben für jedes Thema (Ausnahme: Objekte) einen offiziellen
+Verantwortlichen. Da aber i.d.R. mehrere Personen an einem Modul arbeiten,
+sind diese hier mit aufgeführt.
+Im Code sollen außerdem möglichst durchgängig PHPDoc-Kommentare zu finden
+sein, die auch die Namen der Autoren jeder einzelnen Methode enthalten.
+
++--------------------------------------------------------------------------+
+|             | Verantw. | Weitere Ansprechpartner                         |
++------------------------+-------------------------------------------------|
+| Algorithmen | tos      |                                                 |
+| DBAccess    | sae      | tos                                             |
+| Design      | dcm      |                                                 |
+| Forum       | fast     | jwa                                             |
+| Objekte     | alle     |                                                 |
+| Parser      | jwa      |                                                 |
+| Sessions    | jwa      |                                                 |
++--------------------------------------------------------------------------+
+
+Siehe auch: liste_interessen.jpg
+
+
+
+============================================================================
+  APPENDIX: VERZEICHNISSTRUKTUR
+============================================================================
+
+Root-Verzeichnis sei im Folgenden: (...)/php1/coma1.
+
+$/. enthält bislang nur Testdateien. Später wird hier die index.php liegen.
+$/include enthält die Klassen.
+$/templates enthält die Templates.
+
+Verzeichnisse, die den Namen einzelner Mitglieder enthalten, sowie deren
+Unterverzeichnisse dienen als "private" Testumgebung.
+
+
+
+============================================================================
+  APPENDIX: TESTS
+============================================================================
+
+Dieser Abschnitt enthält Informationen über Module, Klassen, Methoden,
+Funktionen usw., die eines ausführlichen Tests bedürfen, sowie die
+Ergebnisse der Tests.
+
+----------------------------------------------------------------------------
+Tests für Klasse DBAccess: Die einzelnen Methoden müssen getestet werden.
+Durchgeführte Tests, Testfälle: -
+Gefundene Fehler: -
+Auf Korrektheit geprüft (Tester, Datum):
+ - getAverageRatingOfPaper* (sae/tos, 06.12.04)
+ - getPerson (sae/tos, 03.12.04)
+ - getPersonDetailed (sae/tos, 03.12.04)
+ - getPersonIdByEmail (sae/tos, 03.12.04)
+ - getReviewRating* (sae/tos, 06.12.04)
+*) Formel für Ermittlung der Gesamtbewertung noch anpassen!
+----------------------------------------------------------------------------
+Tests für den Verteilungsalgorithmus: Sobald er spezifiziert und
+implementiert ist, sind hierfür vielfältige (!) Testfälle nötig.
+Insbesondere ist das Verhalten bei Sonderfällen zu überwachen.
+----------------------------------------------------------------------------
+
+
+
+============================================================================
+  APPENDIX: OFFENE PUNKTE
+============================================================================
+
+Dieser Abschnitt enthält offene Punkte, die geklärt bzw. durchgeführt werden
+müssen, und wird demnach häufiger mal aktualisiert. In dieser Phase wird
+jedoch darauf verzichtet, sämtliche fehlende Teile zu dokumentieren.
+Offene Punkte, die (technische) Spezifikation betreffend, werden ebenfalls
+hier aufgeführt.
+
+Betrifft  Offener Punkt
+----------------------------------------------------------------------------
+Spez      Algorithmen spezifizieren (insbesondere Verteilungsalgorithmus und
+          Ermittlung "strittiger" Paper)
+Spez      Dateien, auf die verwiesen wird (vgl. Appendix), auf Aktualität
+          prüfen und beizeiten in das spec-Verzeichnis schieben
+CoMaSpez  einheitliche Fehlerbehandlungsroutinen einführen und dokumentieren
+CoMa      PHPDoc-Kommentare einfügen und möglichst konsistent halten
+CoMa/Spez Ermittlung der Gesamtbewertung (Berechnung gewichteter
+          Einzelnoten) korrigieren und dokumentieren
+
+
+
+============================================================================
+  APPENDIX: VERWEISE
+============================================================================
+
+Die Dateien befinden sich zurzeit im Verzeichnis (...)/php1/architecture/.
+
+liste_interessen.jpg
+navigator.pdf
+programmschema.jpg
+spec-1.pdf (Original, unverändert und z.T. überholt)
+conference.jpg (Unterverzeichnis objects)
+forum.jpg (Unterverzeichnis objects)
+paper.jpg (Unterverzeichnis objects)
+review.jpg (Unterverzeichnis objects)
+
+Wir sind bemüht, diese Dateien möglichst aktuell zu halten, jedoch kann
+dies während des Entwicklungsprozesses nicht immer garantiert werden. Wir
+bitten um Verständnis.
