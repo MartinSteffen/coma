@@ -8,7 +8,7 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('./class.mysql.inc.php');
+require_once('class.mysql.inc.php');
 
 /**
  * Klasse DBAccess
