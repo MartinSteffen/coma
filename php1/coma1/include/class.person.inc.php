@@ -25,18 +25,18 @@ class Person {
   var $strEmail;
   var $strFirstName;
   var $strLastName;
-  var $intRole;
+  var $intRoles;
   
-  function Person($intId, $strEmail, $strFirstName, $strLastName, $intRole = 0) {
+  function Person($intId, $strEmail, $strFirstName, $strLastName, $intRoles = 0) {
     $this->intId = $intId;
     $this->strEmail = $strEmail;
     $this->strFirstName = $strFirstName;
     $this->strLastName = $strLastName;
-    $this->intRole = $intRole;
+    $this->intRoles = $intRoles;
   }
   
   function hasRole($intRole) {
-    return ($this->intRole & (1 << $intRole) != 0);
+    return ($this->intRoles & (1 << $intRole) != 0);
   }
   
 } // end class Person

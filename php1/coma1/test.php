@@ -24,9 +24,12 @@ if (!empty($s)) {
   echo($s);
   die();
 }
-echo('Else: "Alles roger in Kambodscher." ');
+echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
 
-echo($dbAccess->getPersonIdByEmail('hase@braten.org'));
+$id = $dbAccess->getPersonIdByEmail('hase@braten.org');
+echo('ID = '.$id.'<br>');
+$p = $dbAccess->getPerson($id);
+echo($p->strFirstName.' '.$p->strLastName.' '.$p->intRole);
 
 
 ?>

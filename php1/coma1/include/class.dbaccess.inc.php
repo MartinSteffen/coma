@@ -111,9 +111,24 @@ class DBAccess {
   /**
    */
   function getPerson($intPersonId) {
-    $data = $this->mySql->select('SELECT id, email, first_name, last_name FROM Person WHERE email = \''.$strEmail.'\'');
+    $s = 'SELECT  id, email, first_name, last_name'.
+        ' FROM    Person'.
+        ' WHERE   id = '.$intPersonId;
+    $data = $this->mySql->select($s);
     if ($data) {
-      return $data[0]['id'];
+      $s = 'SELECT  role_type'.
+          ' FROM    Role'.
+          ' WHERE   person_id = '.$data[0]['id'];
+      $role_data = $this->mySql->select($s);
+      $role_type = 0;
+      if ($role_data) {
+      	for ($i = 0; $i < count($role_data); $i++) {
+      	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+      	}
+      }
+      return (new Person($data[0]['id'], $data[0]['email'],
+                         $data[0]['first_name'], $data[0]['last_name'],
+                         $role_type));
     }
     return false;
   }
