@@ -1245,6 +1245,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     }
     $s = "INSERT  INTO ConferenceConfig (id)".
         "         VALUES ($intId)";
+    $this->mySql->insert($s);
     if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
       $strError = $this->mySql->getLastError();
       $s = "DELETE  FROM Conference".
