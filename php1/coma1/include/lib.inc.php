@@ -332,8 +332,11 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
   // TOTALAY UNSURE ABOUT THIS WHOLE \r\n vs \n STUFF NEEDS LOTS OF TESTING
   // Replace \n by \r\n
   $strMsg = str_replace("\n", "\r\n", $strMsg);
-  utf8_encode($strMsg);
-  return mail('', '[CoMa] '.$strSubject, "\r\n".$strMsg,
+  $strMsg = utf8_encode("\r\n".$strMsg);
+  $strSubject = utf8_encode('[CoMa] '.$strSubject);
+  echo $strMsg;
+  echo $strSubject;
+  return mail('', $strSubject, $strMsg,
               'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
               "From: $strFrom\r\n".
               "MIME-Version: 1.0\r\n".
