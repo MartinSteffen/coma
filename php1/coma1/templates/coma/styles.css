@@ -350,7 +350,7 @@ a.list:hover
 }
 
 /* Tabelle zur Darstellung von Profilen, Datentabellen etc */
-table.formtable
+table.viewtable
 {
   font-size: 13px;
   background-color: #DEEBEF;
