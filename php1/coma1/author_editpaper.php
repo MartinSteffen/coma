@@ -52,22 +52,27 @@ if (isset($_POST['action'])) {
   $intCoAuthorNum = $_POST['coauthors_num'];
   $objPaper->strCoAuthors = array();
   $objPaper->intCoAuthorIds = array();
+  // Sammle die Liste aller Coautoren aus den entsprechenden Feldern zusammen
   for ($i = 0; $i < $intCoAuthorNum; $i++) {
+    // Fuege Coautor hinzu, wenn er nicht gerade geloescht wurde
     if (!isset($_POST['del_coauthor-'.($i+1)])) {
       $objPaper->strCoAuthors[] = $_POST['coauthor-'.($i+1)];
       $objPaper->intCoAuthorIds[] = false;
     }
   }
-  if (isset($_POST['add_coauthor']) && !empty($_POST['coauthor'])) {
+  // Fuege neuen Coautor hinzu, wenn einer eingetragen wurde
+  if (/*isset($_POST['add_coauthor']) &&*/ !empty($_POST['coauthor'])) {
     $objPaper->strCoAuthors[] = $_POST['coauthor'];
     $objPaper->intCoAuthorIds[] = false;
   }    
+  // Sammle alle angekreuzten Topics zusammen
   $objPaper->objTopics = array();
   for ($i = 0; $i < count($objAllTopics); $i++) {
     if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {     
       $objPaper->objTopics[] = $objAllTopics[$i];      	
     }    
   }  
+  // Paper aktualisieren
   if (isset($_POST['submit'])) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['title'])) {
@@ -86,7 +91,9 @@ if (isset($_POST['action'])) {
       }
     }
   }
-  else if (isset($_POST['delete'])) {    
+  // Paper loeschen
+  else if (isset($_POST['delete'])) {
+    // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['confirm_delete'])) {
       $strMessage = 'You have to check the delete confirm option!';
     }
@@ -103,7 +110,9 @@ if (isset($_POST['action'])) {
       }
     }
   }
+  // Datei hochladen
   else if (isset($_POST['upload'])) {
+    // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (!isset($_FILES['userfile']) ||
         !is_uploaded_file($_FILES['userfile']['tmp_name'])) {
       $strMessage = 'You have to select a correct file for uploading!';
