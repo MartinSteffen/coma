@@ -92,7 +92,7 @@
   <tr>
     <td colspan="2">
       <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
-      <input type="file"   name="userfile" maxlength="2097152" accept="*">
+      <input type="file"   name="userfile" maxlength="2097152" accept="*"> (max 2MB)
     </td>
   </tr>
 </table>
