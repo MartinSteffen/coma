@@ -281,10 +281,13 @@ class Distribution extends ErrorHandling {
         }
       }
       // dividieren
-      $faktor = $sum/count($r_id);
+      $faktor = 0;
+      if ($sum > 0) {
+        $faktor = count($r_id) / $sum;
+      }
       for ($i = 0; $j < count($r_id); $j++) {
         if ($matrix[$i][$j] > 0) {
-          $matrix[$i][$j] /= $faktor;
+          $matrix[$i][$j] *= $faktor;
         }
       }
     }
