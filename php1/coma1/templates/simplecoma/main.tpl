@@ -56,12 +56,7 @@
   </td>
  </tr>
 </table>
-<div align="center">
-<table width="80%" border="0" cellspancing="0" cellpadding="0">
 {body}
-</table>
-</div>
-
 
 <!--- - - - - - - - - - - - - - - - - - Footer - - - - - - - - - - - - - - - -  --->
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
