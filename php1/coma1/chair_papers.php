@@ -16,8 +16,8 @@ require_once('./include/header.inc.php');
 
 //Achtung: Nur zu Testzwecken eingefuegt
 include('./include/getCriticalPapers.inc.php');
-include('./include/class.conferencedetailed.inc.php');
-include('./include/class.papervariance.inc.php');
+require_once('./include/class.conferencedetailed.inc.php');
+require_once('./include/class.papervariance.inc.php');
 //bis hier
 
 if (isset($_POST['action']) && $_POST['action'] == 'delete') {
