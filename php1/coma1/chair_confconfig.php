@@ -77,65 +77,50 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     ||  empty($start_date)
     ||  empty($abstract_dl))
     {
-      $strMessage =  $strMessage.
-                     "You have to fill in the fields <b>Title</b>, <b>Start Date</b> and <b>Deadlines</b>!\n";
+      $strMessage .= "You have to fill in the fields <b>Title</b>, <b>Start Date</b> and <b>Deadlines</b>!\n";
     }
     if ((!empty($end_date)) && ($start_date > $end_date)) {
-      $strMessage =  $strMessage.
-                     "Your Start Date should be before your End Date!\n";
+      $strMessage .= "Your Start Date should be before your End Date!\n";
     }
     if ($abstract_dl > $paper_dl) {
-      $strMessage =  $strMessage.
-                     "Your Abstract Deadline should be before your Paper Deadline!\n";
+      $strMessage .= "Your Abstract Deadline should be before your Paper Deadline!\n";
     }
     if ($paper_dl > $final_dl) {
-      $strMessage =  $strMessage.
-                     "Your Paper Deadline should be before your Final Version Deadline!\n";
+      $strMessage .= "Your Paper Deadline should be before your Final Version Deadline!\n";
     }
     if ($final_dl > $start_date) {
-      $strMessage =  $strMessage.
-                     "Your Final Version Deadline should be before your Start Date!\n";
+      $strMessage .= "Your Final Version Deadline should be before your Start Date!\n";
     }
     if ($paper_dl > $review_dl) {
-      $strMessage =  $strMessage.
-                     "Your Paper Deadline should be before your Review Deadline!\n";
+      $strMessage .= "Your Paper Deadline should be before your Review Deadline!\n";
     }
     if ((!empty($notification)) && ($review_dl > $notification)) {
-      $strMessage =  $strMessage.
-                     "Your Review Deadline should be before your Notification time!\n";
+      $strMessage .= "Your Review Deadline should be before your Notification time!\n";
     }
     if ((!empty($notification)) && ($notification > $start_date)) {
-      $strMessage =  $strMessage.
-                     "Your Notification time should be before your Start Date!\n";
+      $strMessage .= "Your Notification time should be before your Start Date!\n";
     }
 
     if ($review_dl > $start_date) {
-      $strMessage =  $strMessage.
-                     "Your Review Deadline should be before your Start Date!\n";
+      $strMessage .= "Your Review Deadline should be before your Start Date!\n";
     }
-    if ( !($min_reviews >= 0)){
-      $strMessage =  $strMessage.
-                     "Your minimum number of reviews should be greater or equel to zero!\n";
+    if ($min_reviews < 0){
+      $strMessage .= "Your minimum number of reviews should be greater or equel to zero!\n";
     }
-    if ( !($min_papers >= 0)){
-      $strMessage =  $strMessage.
-                     "Your number of papers should be greater or equal to zero!\n";
+    if ($min_papers < 0){
+      $strMessage .= "Your number of papers should be greater or equal to zero!\n";
     }
-    if ( !($min_papers <= $max_papers)){
-      $strMessage =  $strMessage.
-                     "Your minimum number of papers should not be greater than the maximum number of paper!\n";
+    if ($min_papers > $max_papers){
+      $strMessage .= "Your minimum number of papers should not be greater than the maximum number of paper!\n";
     }
-    if ( !($min_reviews <= $def_reviews)){
-      $strMessage =  $strMessage.
-                     "Your minimum number of reviews should not be greater than the default number of reviews!\n";
+    if ($min_reviews > $def_reviews){
+      $strMessage .= "Your minimum number of reviews should not be greater than the default number of reviews!\n";
     }
-    if ( !(0 < $variance) || !($variance <= 100)){
-      $strMessage =  $strMessage.
-                     "Your ambiguity should be greater than zero and less or equal than hundred!\n";
+    if (($variance <= 0) || ($variance > 100)){
+      $strMessage .= "Your ambiguity should be greater than zero and less or equal than hundred!\n";
     }
-    if ( !(0 <= $auto_numreviewer )){
-      $strMessage =  $strMessage.
-                     "Your number of automatically added reviewers should be greater or equal than zero!\n";
+    if ($auto_numreviewer < 0){
+      $strMessage .= "Your number of automatically added reviewers should be greater or equal than zero!\n";
     }
     // Versuche die Konferenz zu aktualisieren
     if ($strMessage=='') {
