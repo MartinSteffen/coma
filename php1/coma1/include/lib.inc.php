@@ -64,7 +64,7 @@ function error($strMethod, $strError, $strComment='') {
 function redirect($strName) {
   global $mySession;
   session_write_close();
-  $strTarget = COREURL . $strName . $mySession->getUrlId('?');
+  $strTarget = COREURL . $strName . getUrlId('?');
   header('Location:' . $strTarget);
   die('Going to: '.$strName.'<br>'.
       'If your Browser does not support automatical redirection please use '.
@@ -85,10 +85,25 @@ function defaultAssocArray() {
                'path'      => encodeText(TPLURL),
                'basepath'  => encodeText(COREURL),
                'filename'  => encodeText(basename($_SERVER['PHP_SELF'],'.php')),
-               '?SID'       => encodeText($mySession->getUrlId('?')),
-               //'&SID'       => encodeText($mySession->getUrlId('&amp;')),
-               '&SID'       => encodeText($mySession->getUrlId('&'))
+               // last 2 are enconded already
+               '?SID'       => getUrlId('?'),
+               '&SID'       => getUrlId('&amp;')
               );
+}
+
+/**
+ * Anzuhaengende URL fuer Verweise
+ *
+ * Falls ein Cookie gesetzt wurde, gibt die Funktion leer zurueck. Ansonsten
+ * wird '?SessionName=SessionId' zurueck gegeben. Dieses kann also einfach an
+ * alle Skript-Verweise angehaengt werden.
+ *
+ * @param string $strPrefix Prefix fuer SID zB '?'
+ * @return string Anhang fuer URL
+ * @access public
+ */
+function getUrlId($strPrefix='') {
+  return (SID == '') ? '' : $strPrefix . encodeText(SID);
 }
 
 /**
@@ -128,18 +143,11 @@ function encodeTextArray($_str) {
  */
 function encodeURL($_str) {
   if (empty($_str)) return '';
-  //$_str = decodeText($_str);
   $_str = str_replace('\'', urlencode('\''), $_str);
   $_str = str_replace('"', urlencode('"'), $_str);
-  //if (!preg_match('#^http[s]?:\/\/#i', $_str)) {
   if (!preg_match('#^[a-z]+:\/\/#i', $_str)) {
     $_str = 'http://' . $_str;
   }
-  // allow not working links?
-  //if (!preg_match('#^http[s]?:\/\/[a-z0-9\-]+\.([a-z0-9\-]+\.)?[a-z]+#i', $_str))
-  //{
-  //  $_str = '#';
-  //}
   return $_str;
 }
 

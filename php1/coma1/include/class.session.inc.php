@@ -99,21 +99,6 @@ class Session extends ErrorHandling {
   }
 
   /**
-   * Anzuhaengende URL fuer Verweise
-   *
-   * Falls ein Cookie gesetzt wurde, gibt die Funktion leer zurueck. Ansonsten
-   * wird '?SessionName=SessionId' zurueck gegeben. Dieses kann also einfach an
-   * alle Skript-Verweise angehaengt werden.
-   *
-   * @param string $strPrefix Prefix fuer SID zB '?'
-   * @return string Anhang fuer URL
-   * @access public
-   */
-  function getUrlId($strPrefix='') {
-    return (SID == '') ? '' : $strPrefix . strip_tags(SID);
-  }
-
-  /**
   * @param string $strSavePath Session Speicher Pfad (hier unnoetig?!?)
   * @param string $strSessName Der Name der Session (hier 'coma1') (noetig??)
   * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
