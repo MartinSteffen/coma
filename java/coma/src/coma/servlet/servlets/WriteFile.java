@@ -58,6 +58,7 @@ public class WriteFile extends HttpServlet {
 			if (renameFile.exists()){
 			File backupFile = new File(path + "/papers/", theNewPaper
 					.getFilename()
+					+ theNewPaper.getAuthor_id()
 					+ theNewPaper.getVersion());
 			
 			if(!renameFile.renameTo(backupFile))
