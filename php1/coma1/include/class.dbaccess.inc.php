@@ -2174,8 +2174,8 @@ nur fuer detaillierte?
        $s = sprintf("SELECT   cc.critical_variance, p.state".
                     " FROM    Conference AS c".
                     " INNER   JOIN ConferenceConfig AS cc".
-                    " INNER   JOIN Paper AS p".
                     " ON      cc.conference_id = c.id".
+                    " INNER   JOIN Paper AS p".                    
                     " AND     c.id = p.conference_id".
                     " AND     p.id = '%d'",
                               s2db($intPaperId));
