@@ -97,13 +97,13 @@ public class Paper extends Entity {
 					    XMLHelper.tagged("id", ""+getId()),
 					    XMLHelper.tagged("conference_id", ""+getConference_id()),
 					    XMLHelper.tagged("author_id", ""+getAuthor_id()),
-					    XMLHelper.tagged("title", getTitle()),
+					    XMLHelper.tagged("title", ""+getTitle()),
 					    XMLHelper.tagged("Abstract", getAbstract()),
 					    XMLHelper.tagged("last_edited", getLast_edited().toString()),
 					    XMLHelper.tagged("version", ""+getVersion()),
-						XMLHelper.tagged("filename", getFilename()),
+						XMLHelper.tagged("filename", ""+getFilename()),
 						XMLHelper.tagged("state", ""+getState()),
-						XMLHelper.tagged("mim_type", getMim_type())
+						XMLHelper.tagged("mim_type", ""+getMim_type())
 						
 						// FIXME not Entity yet getCoAuthors().toXML(XMLMODE.SHALLOW),
 					    // FIXME not Entity yet get???().toXML(XMLMODE.SHALLOW),
@@ -113,13 +113,13 @@ public class Paper extends Entity {
 			 		XMLHelper.tagged("id", ""+getId()),
 				    XMLHelper.tagged("conference_id", ""+getConference_id()),
 				    XMLHelper.tagged("author_id", ""+getAuthor_id()),
-				    XMLHelper.tagged("title", getTitle()),
+				    XMLHelper.tagged("title", ""+getTitle()),
 				    XMLHelper.tagged("Abstract", getAbstract()),
 				    XMLHelper.tagged("last_edited", getLast_edited().toString()),
 				    XMLHelper.tagged("version", ""+getVersion()),
-					XMLHelper.tagged("filename", getFilename()),
+					XMLHelper.tagged("filename", ""+getFilename()),
 					XMLHelper.tagged("state", ""+getState()),
-					XMLHelper.tagged("mim_type", getMim_type())
+					XMLHelper.tagged("mim_type", ""+getMim_type())
 					    );
 		  
 		default:
