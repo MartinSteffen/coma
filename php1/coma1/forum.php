@@ -25,6 +25,20 @@ function validSelection($selectarray){
   }
 }
 
+function notemptyandtrue($arr, $index){
+  if (empty($arr)){
+    return false;
+  }
+  else{
+    if (empty($arr[$index])){
+      return false;
+    }
+    else{
+      return ($arr[$index] == true);
+    }
+  }
+}
+
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
 function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray){
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
@@ -44,7 +58,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   foreach ($forums as $forum){
     $forumtemplate = new Template(TPLPATH . 'forum.tpl');
     $forumassocs = defaultAssocArray();
-    if (($forumselection[$forum->intId]) == true){
+    if (notemptyandtrue($forumselection, $forum->intId)){
       $forumassocs['selectorunselect'] = 'forumunsel';
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
