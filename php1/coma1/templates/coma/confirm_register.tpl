@@ -1,6 +1,3 @@
-
-<p class="center">
-
 <table class="viewtable">
   <tr class="viewheader">
     <th colspan="2" class="viewheader">Registered New User:</th>
@@ -55,7 +52,6 @@
     </td>
   </tr>
 </table>
-</p>
 
 <p>&nbsp;</p>
 
