@@ -3,10 +3,10 @@
   It is <span class="emph">recommended</span> to proceed as follows:<br>
   Let CoMa make a <a href="{basepath}chair_distribution.php{?SID}" class="link">
   suggestion</a> (may take several seconds) of a possible paper/reviewer
-  distribution for papers that are  not assigned to the average number of
-  reviewers wanted yet. You may edit the suggested distribution and confirm it
-  then. After that, you can assign several papers by hand (this formular) or re-start
-  the suggestion process.
+  distribution for papers that are not assigned to the average number of
+  reviewers yet. You may edit the suggested distribution and afterwards confirm
+  it. After that, you can assign several papers by hand (this formular) or
+  restart the suggestion process.
 </p>
 
 <table class="list">
