@@ -683,7 +683,7 @@ class DBAccess extends ErrorHandling {
     }
     $strAuthor = $objAuthor->getName(1);
     $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,".
-                 "         state, filename, a.last_name AS author_name".
+                 "         p.state AS state, filename, a.last_name AS author_name".
                  " FROM    Paper p".
                  " INNER   JOIN Person a".
                  " ON      a.id = p.author_id".
@@ -792,7 +792,7 @@ class DBAccess extends ErrorHandling {
       return $this->success(false);
     }
     $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,".
-                 "         state, filename, a.last_name AS author_name".
+                 "         p.state AS state, filename, a.last_name AS author_name".
                  " FROM    Paper AS p".
                  " INNER   JOIN Person AS a".
                  " ON      a.id = p.author_id".
@@ -864,7 +864,7 @@ class DBAccess extends ErrorHandling {
    */
   function getPapersOfConference($intConferenceId, $intOrder=false) {
     $s = sprintf("SELECT   p.id AS id, author_id, p.title AS title, last_edited,".
-                 "         state, filename, a.last_name AS author_name".
+                 "         p.state AS state, filename, a.last_name AS author_name".
                  " FROM    Paper AS p".
                  " INNER   JOIN Person AS a".
                  " ON      a.id = p.author_id".
