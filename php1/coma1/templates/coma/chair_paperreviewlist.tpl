@@ -19,7 +19,7 @@
   {review_lines}
   <tr class="viewline">
     <td class="viewline">&nbsp;</td>
-    <td class="viewline" colspan="{crit_cols}">&nbsp;</td>
+    <td class="viewline" colspan="{cols-2}">&nbsp;</td>
     <td class="viewline">
       <span class="emph">{avg_rating}</span>
     </td>
