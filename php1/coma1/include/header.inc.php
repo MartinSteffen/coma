@@ -39,6 +39,26 @@ function redirect($strName) {
   header('Location:'.COREURL.$strName);
 }
 
+/**
+ * Erzeugen von Standard-Zuweisungen
+ *
+ * Die Funktion gibt ein Array mit Standard-Zuweisungen fuer
+ * Templates zurueck!
+ *
+ * @author  Jan Waller <jwa@informatik.uni-kiel.de>
+ * @copyright Copyright (c) 2004, Gruppe: PHP1
+ * @package coma1
+ * @subpackage Parser, Sessions, core
+ * @return array Das geforderte Array
+ * @access public
+ *
+ */
+function defaultAssocArray() {
+  return array(
+               'path' => TPLURL, 
+               'SID'  => $mySession->getUrlId()
+              );
+}
 
 // Debugging Einstellungen:
 error_reporting(E_ALL);
