@@ -271,6 +271,46 @@ class Distribution extends ErrorHandling {
         }
       }
     }
+    
+    // Matrix relativieren: Eintraege von Papers, die viele hohe Eintraege haben, dividieren
+    for ($j = 0; $j < count($p_id); $j++) {
+      $sum = 0;
+      for ($i = 0; $j < count($r_id); $j++) {
+        if ($matrix[$i][$j] > 0) {
+          $sum += $matrix[$i][$j];
+        }
+      }
+      // dividieren
+      $faktor = $sum/count($r_id);
+      for ($i = 0; $j < count($r_id); $j++) {
+        if ($matrix[$i][$j] > 0) {
+          $matrix[$i][$j] /= $faktor;
+        }
+      }
+    }
+
+    // Debug: Ausgabe
+    for ($i = 0; $i < count($matrix); $i++) {
+      echo('<br>Reviewer '.$r_id[$i].':');
+      for ($j = 0; $j < count($matrix[$i]); $j++) {
+        echo(' '.$matrix[$i][$j]);
+      }
+    }
+    echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
+    echo('<br>p_id_index:');
+    print_r($p_id_index);
+    echo('<br>r_id_index:');
+    print_r($r_id_index);
+    //echo('<br>NumRevsPrefLeft:');
+    //print_r($p_num_revs_pref_left);
+    echo('<br>NumRevsTotalLeft:');
+    print_r($p_num_revs_total_left);
+    echo('<br>NumRevs:');
+    print_r($p_num_revs);
+    echo('<br>NumPapers:');
+    print_r($r_num_papers);
+    
+    echo('<br><br><br>');
 
     // Verteilungsschleife
     $blnChanged = true;
