@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 /**
  * @version $Id$
  * @package coma1
@@ -14,8 +14,8 @@ header('Content-type: text/html; charset=utf-8');
 
 // Debugging Einstellungen:
 error_reporting(E_ALL);
-ini_set('display_errors', '1');         // später 0 ??
-ini_set('display_startup_errors', '1'); // später 0 !!
+ini_set('display_errors', '1');         // spã³¥r 0 ??
+ini_set('display_startup_errors', '1'); // spã³¥r 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
@@ -100,9 +100,6 @@ if (!defined('NEED_NO_LOGIN')) {
   else {
     if (!isset($_SESSION['uname'])) {
       $_SESSION['message'] = 'Please login with your Username (E-mail) and Password!';
-    }
-    else {
-      $_SESSION['message'] = 'Username or Password is wrong!';
     }
     session_delete('uname');
     session_delete('password');
