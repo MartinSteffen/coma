@@ -103,7 +103,7 @@ class Session {
     $results = $this->mySql->select("SELECT sdata FROM 'Sessions' WHERE sid='$sess_id'");
     if (!$results) {
       $this->mySql->delete("DELETE FROM 'Sessions' WHERE sid='$sess_id'");
-      $this->mySql->insert("INSERT INTO 'Sessions' ('sid', 'sdata', 'stime') VALUES ('$sess_id', '', NOW())");
+      $this->mySql->insert("INSERT INTO 'Sessions' ('sid', 'sdata', 'stime') VALUES ('$sess_id', NULL, NOW())");
       $s = $this->mySql->getLastError();
       if (!empty($s)) {
         return $this->error('Fehler beim Schreiben der Session. '.$s);
