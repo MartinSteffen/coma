@@ -16,11 +16,11 @@ require_once('./include/header.inc.php');
 require_once('./include/class.distribution.inc.php');
 
 if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {  
-  if (!isset($_SESSION['dist']) {
+  if (!isset($_SESSION['dist'])) {
     error('get distribution suggestion of session', 'Variable not set.');
   }
-  if (!isset($_POST['paperid'] || !isset($_POST['reviewerid'] ||
-      !isset($_POST['reviewerarrayindex']) {
+  if (!isset($_POST['paperid']) || !isset($_POST['reviewerid']) ||
+      !isset($_POST['reviewerarrayindex'])) {
     error('get distribution suggestion of session', 'An index is missing.');
   }
   $dist = $_SESSION['dist'];
