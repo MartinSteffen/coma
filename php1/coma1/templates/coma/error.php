@@ -24,6 +24,8 @@ elseif (SID != '') {
 <html>
 <head>
 <title>CoMa - Your Conference Manager - Error</title>
+<meta http-equiv="expires" content="0">
+<meta http-equiv="Content-Style-Type" content="text/css">
 <link rel="stylesheet" type="text/css" href="<?=TPLURL?>styles.css">
 </head>
 
