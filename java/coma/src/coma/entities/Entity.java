@@ -67,9 +67,11 @@ public abstract class Entity {
     public static CharSequence manyToXML(java.util.Collection<? extends Entity> entities, XMLMODE mode){
 
 	StringBuilder result = new StringBuilder();
-	for (Entity e: entities){
-	    result.append(e.toXML(mode));
-	    result.append('\n');
+	if (entities != null){ // be extra paranoid!
+	    for (Entity e: entities){
+		result.append(e.toXML(mode));
+		result.append('\n');
+	    }
 	}
 	return result;
     }

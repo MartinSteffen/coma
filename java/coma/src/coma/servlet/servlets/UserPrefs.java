@@ -60,8 +60,16 @@ public class UserPrefs extends HttpServlet {
 	StringBuffer result = new StringBuffer();
 	XMLHelper x = new XMLHelper();
 
-	Person thePerson = (Person)session.getAttribute(SessionAttribs.PERSON);	
-	Conference theConference = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+	Person thePerson = null;
+	try {
+	    thePerson = (Person)session.getAttribute(SessionAttribs.PERSON);	
+	} catch (ClassCastException cce) {;}
+
+
+	Conference theConference = null;
+	try {
+	    theConference = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+	} catch (ClassCastException cce) {;}
 
 	x.addXMLHead(result);
 	result.append("<content>");
@@ -105,20 +113,27 @@ public class UserPrefs extends HttpServlet {
 	    
 		    try {
 			Topic[] ts = thePerson.getPreferredTopics();
-			for (int i=0; i<ts.length; ++i ){
-			    thePerson.deletePreferredTopic(ts[i]);
+			if (ts != null){ // grrr...
+			    for (int i=0; i<ts.length; ++i ){
+
+				thePerson.deletePreferredTopic(ts[i]);
+			    }
 			}
 			final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
 			for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
-			    
-			    thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s), 
-								   theConference.getId()));
+			    try{
+				
+				thePerson.addPreferredTopic(new Topic(Integer.parseInt(s)));
+				// (turns out Person just picks out the id anyway.)
+							// Topic.byId(Integer.parseInt(s), 
+							// theConference.getId()));
+			    } catch (NumberFormatException nfe) {;}//just skip it, then.
 			}
 		    } catch (Exception exc) {
 			; // Oh well, who cares about topics? FIXME
 		    }
 		
-		    /*
+		    
 		    SearchResult theSR;
 		    UpdateService dbWrite 
 			= new coma.handler.impl.db.UpdateServiceImpl();
@@ -126,7 +141,7 @@ public class UserPrefs extends HttpServlet {
 		    if (!theSR.isSUCCESS()){
 			throw new Exception(theSR.getInfo());
 		    }
-		    */
+		    
 		    session.setAttribute(SessionAttribs.PERSON, thePerson);
 		} catch (UnauthorizedException uae){
 		    
@@ -145,11 +160,9 @@ public class UserPrefs extends HttpServlet {
 	result.append(pagestate.toString());
 	result.append("</content>");
 
-	//String xslt = getServletContext().getRealPath("")+"/style/xsl/userprefs.xsl";
 	PrintWriter out = response.getWriter();
 	response.setContentType("text/html; charset=ISO-8859-1");
 	StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-	//StreamSource xsltSource = new StreamSource(xslt);
 	XMLHelper.process(xmlSource, XSLT.file(this, "userprefs"), out);
 	out.flush();
 	    

@@ -13,12 +13,10 @@ import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
 import coma.entities.*;
-import coma.handler.db.ReadService;
-import coma.handler.db.UpdateService;
+import coma.handler.db.*;
 import coma.servlet.util.*;
 import coma.util.logging.ALogger;
 import static coma.util.logging.Severity.*;
-import static java.util.Arrays.asList;
 import static java.util.Arrays.asList;
 
 /** 
@@ -243,8 +241,10 @@ public class RatePaper extends HttpServlet{
 			}
 
 			result.append(UserMessage.UPDATING);
-			// XXX ugly vvv does this make the old state data go away? if so, good!
-			result.append(x.tagged("meta", "<meta http-equiv=\"refresh\" content=\"5\">"));
+			// XXX ugly
+			result.append(x.tagged("meta", 
+					       "<meta http-equiv=\"refresh\"", 
+					       "content=\"5 url=RatePaper?servletState=_\" />"));
 			UpdateService dbUpd = new coma.handler.impl.db.UpdateServiceImpl();
 			SearchResult sr;
 
