@@ -158,5 +158,5 @@
 <p class="message">
   Be carefull! You can't change values for <b>Topics</b> and <b>Criterions</b> later!<br>
   So you <b>should</b> choose your topics and criterions carefully!<br>
-  see <a href="{basepath}help.php?for=conference+create&amp;popup{&SID}">Help</a> for further details.
+  see <a href="{basepath}help.php?for=conference+create&amp;popup{&SID}" target="_blank">Help</a> for further details.
 </p>
