@@ -449,7 +449,7 @@ function sortPapersByAmbiguity($objPapers) {
       	$fltMax = - 1.0;
       }      
       for ($j = $i+1; $j < count($objPapers); $j++) {
-       if (is_numeric($fltVariance[$j] && $fltVariance[$j] > $fltMax) {
+       if (is_numeric($fltVariance[$j]) && $fltVariance[$j] > $fltMax) {
           $fltMax = $fltVariance[$j];
           $maxIdx = $j;
        }
