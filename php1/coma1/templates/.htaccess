@@ -2,4 +2,8 @@
 Order deny,allow
 Deny from all
 </Files>
+<Files *.php>
+Order deny,allow
+Deny from all
+</Files>
 DirectoryIndex index.htm
