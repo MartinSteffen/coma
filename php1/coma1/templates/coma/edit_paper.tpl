@@ -54,7 +54,7 @@
 <form action="{basepath}{targetpage}.php{?SID}" method="post">
 <table class="formtable">
   <tr>
-    <th colspan="2">Upload new document:</th>
+    <th>Upload new document:</th>
     <td colspan="2">
       <input type="hidden" name="action" value="upload">
       <input type="file" name="paperfile">      
@@ -66,12 +66,13 @@
 <form action="{basepath}{targetpage}.php{?SID}" method="post">
 <table class="formtable">
   <tr>
+    <th>Add co-author:</th>
     <td>
       <input type="text" name="coauthor" size="32" maxlength="127" value="">
     </td>
     <td>      
       <input type="hidden" name="action" value="add_coauthor">      
-      <input type="submit" name="submit" value="Add co-author" class="button">
+      <input type="submit" name="submit" value="Add" class="button">
     </td>
   </tr>
 </table>
@@ -80,10 +81,10 @@
 <form action="{basepath}{targetpage}.php{?SID}" method="post">
 <table class="formtable">
   <tr>
-    <td colspan="2">
+    <td colspan="2">      
       <input type="checkbox" name="verify_delete" value="1">
       <input type="hidden" name="action" value="delete">
-      <input type="submit"   name="submit" value="Delete paper" class="button">
+      <input type="submit" name="submit" value="Delete paper" class="button">
     </td>
   </tr>
 </table>
