@@ -1422,6 +1422,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 			QUERY =  "SELECT Paper.title,Person.last_name,avg(grade),Topic.name,Paper.state,Paper.id" +
 			" FROM Paper,ReviewReport,Rating,Person,Topic,IsAboutTopic where " +
 			"(Paper.id = ReviewReport.paper_id) " +
+			"and (Rating.grade != -1) " +
 			"and (ReviewReport.id = Rating.review_id) " +
 			"and (Person.id= Paper.author_id) " +
 			"and (Topic.id = IsAboutTopic.topic_id) " +
