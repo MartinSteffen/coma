@@ -961,7 +961,7 @@ class DBAccess extends ErrorHandling {
    * @author Falk, Tom (20.01.05)
    */
   function getVarianceOfPaper($intPaperId, $strMethod = 'variance') {
-    $objReviews = $this->getReviewsOfPaper($intPaperId);
+    /*$objReviews = $this->getReviewsOfPaper($intPaperId);
     if (!empty($objReviews)) {
       if ($method == 'variance') {
         $fltAvgRating = $objReviews[0]->fltAverageRating;
@@ -975,7 +975,7 @@ class DBAccess extends ErrorHandling {
       else {
         return $this->error('getVarianceOfPaper', 'Unknown method parameter.');
       }
-    }
+    }*/
     return $this->success(false);
   }
 
