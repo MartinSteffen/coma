@@ -176,6 +176,15 @@ function ftp_rmAll($conn_id,$dst_dir)
 	return true; // }}}
 }
 
+function get_cfp(){
+	// {{{
+	global $sql;
+
+	$SQL = "SELECT id, name FROM conference WHERE paper_submission_deadline > CURRENT_DATE";
+	$result = $sql->query($SQL);
+	return $result;
+	// }}}
+	}
 
 function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = ""){
 	// {{{
