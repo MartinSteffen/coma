@@ -12,10 +12,10 @@ if (!defined('IN_COMA1')) {
 
 class MySql {
 
-  var $mySqlServer;
-  var $mySqlUser;
-  var $mySqlPassword;
-  var $mySqlDatabase;
+  var $mySqlServer = 'localhost';
+  var $mySqlUser = '';
+  var $mySqlPassword = '';
+  var $mySqlDatabase = '';
   var $myConn;
 
   function MySql() {
