@@ -37,7 +37,7 @@ function error($strMethod, $strError, $strComment='') {
 function redirect($strName) {
   global $mySession;
   session_write_close();
-  header('Location:' . COREURL . $strName . '?' .$mySession->getUrlId());
+  header('Location:' . COREURL . $strName . $mySession->getUrlId('?'));
   die(0);
 }
 
