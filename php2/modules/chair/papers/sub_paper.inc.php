@@ -58,47 +58,7 @@ if(isChair_Paper($_GET['paperID']))
 	
 $output['paper'] = $paper;
 
-// ---------- Calculate the Grade --------------------------------
-	
-	$SQL = "SELECT criterion.max_value FROM criterion, paper
-			WHERE criterion.conference_id = paper.conference_id
-			AND paper.id = ".$_GET['paperID'];
-	$result=mysql_query($SQL);
-	$max_grade = 0;
-	$citerion_count = 0;
-    while ($list = mysql_fetch_row ($result)) 	
-	{
-		$max_grade = $list[0];
-		$criterion_count++;
-	}
-	
-	$SQL = "SELECT reviewer_id FROM reviewreport WHERE paper_id = ".$_GET['paperID'];
-	$result=mysql_query($SQL);
-	$reviewer_count = 0;
-    while ($list = mysql_fetch_row ($result)) 	
-	{
-		$reviewer_count++;
-	}
-	
-	$SQL = "SELECT grade from rating, reviewreport
-		    WHERE reviewreport.paper_id = ".$_GET['paperID']." 
-			AND reviewreport.id = rating.review_id"; 
-	$result=mysql_query($SQL);
-	$grades_count = 0;
-    while ($list = mysql_fetch_row ($result)) 	
-	{
-		$grades_count++;
-	}
-	$isReviewed = false;
-	$grade = 0;
-	if($grades_count == ($criterion_count*$reviewer_count))
-	{
-		$isReviewed = true;
-		if(!(reviewer_count == 0))
-		{
-			$grade = ()/
-		}
-	}		
+// ----import the Rating-To-Program-Algorithm 		
 	
 	
 	

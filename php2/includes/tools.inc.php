@@ -34,7 +34,7 @@ function makePassword($pass)
 
 	return $pass;
 }
-
+/*
 function getRoles($person_id, $filter_conference = null, $filter_role = null){ 
 	global $sql;
 	if($filter_role != null){
@@ -104,4 +104,5 @@ function getRights($userid)
 	return getModules(getRoles($userid));
 	// }}}
 }
+*/
 ?>

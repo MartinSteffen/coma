@@ -20,7 +20,7 @@ else
 		$pass = makePassword($_POST['pass']); 
 	
 		$SQL = "SELECT id, first_name, last_name from person where email = '".$_POST['email']."' and password = '".$pass."'";
-		$result=mysql_query($SQL);
+		$result=mysql_query($SQL); 
 	    if ($list = mysql_fetch_row ($result)) 	
 	    {
 			$_SESSION['userID'] = $list[0];
