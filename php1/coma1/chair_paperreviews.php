@@ -87,36 +87,41 @@ if (!empty($objCriterions)) {
 $strContentAssocs['review_lines'] = '';
 if (!empty($objReviewers)) {  
   foreach ($objReviewers as $objReviewer) {
-    $intReviewId = $myDBAccess->getReviewIdOfReviewerAndPaper($objReviewer->intId, $objPaper->intId);
-    if ($myDBAccess->failed()) {
-      error('Error occured during retrieving review details.', $myDBAccess->getLastError());
-    }
-    else if (empty($intReviewId)) {
-      error('Review does not exist in database.', '');
-    }
-    $objReview = $myDBAccess->getReviewDetailed($intReviewId);
-    if ($myDBAccess->failed()) {
-      error('Error occured during retrieving review details.', $myDBAccess->getLastError());
-    }
-    else if (empty($objReviewDetailed)) {
-      error('Review does not exist in database.', '');
-    }
     $strRowAssocs = defaultAssocArray();
-    $strRowAssocs['review_id'] = encodeText($objReview->intId);
-    $strRowAssocs['reviewer_name'] = encodeText($objReview->strReviewerName);
-    $strRowAssocs['reviewer_id'] = encodeText($objReview->intReviewerId);
-    $strRowAssocs['total_rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
-    $strRowAssocs['rating_cols'] = '';    
-    for ($i = 0; $i < count($objReview->intRatings); $i++) {
-      $strColAssocs = defaultAssocArray();
-      $strColAssocs['content'] = encodeText($objReview->intRatings[$i]).'/'.
-                                 encodeText($objReview->objCriterions[$i]->intMaxValue);
-      $colItem = new Template(TPLPATH.'view_tablecell.tpl');
-      $colItem->assign($strColAssocs);
-      $colItem->parse();
-      $strRowAssocs['rating_cols'] .= $colItem->getOutput();    
+    $strRowAssocs['reviewer_name'] = encodeText($objReviewer->getName(1));
+    $strRowAssocs['reviewer_id'] = encodeText($objReviewer->intId);
+    $intReviewId = $myDBAccess->getReviewIdOfReviewerAndPaper($objReviewer->intId, $objPaper->intId);    
+    if ($myDBAccess->failed()) {
+      error('Error occured during retrieving review details.', $myDBAccess->getLastError());
     }
-    $rowItem = new Template(TPLPATH.'chair_paperreviewlistitem.tpl');
+    else if (!empty($intReviewId)) {
+      $objReview = $myDBAccess->getReviewDetailed($intReviewId);
+      if ($myDBAccess->failed()) {
+        error('Error occured during retrieving review details.', $myDBAccess->getLastError());
+      }
+      else if (empty($objReviewDetailed)) {
+        error('Review does not exist in database.', '');
+      }      
+      $rowItem = new Template(TPLPATH.'chair_paperreviewlistitem.tpl');
+      $strRowAssocs['review_id'] = encodeText($objReview->intId);
+      $strRowAssocs['reviewer_name'] = encodeText($objReview->strReviewerName);
+      $strRowAssocs['reviewer_id'] = encodeText($objReview->intReviewerId);
+      $strRowAssocs['total_rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
+      $strRowAssocs['rating_cols'] = '';    
+      for ($i = 0; $i < count($objReview->intRatings); $i++) {
+        $strColAssocs = defaultAssocArray();
+        $strColAssocs['content'] = encodeText($objReview->intRatings[$i]).'/'.
+                                   encodeText($objReview->objCriterions[$i]->intMaxValue);
+        $colItem = new Template(TPLPATH.'view_tablecell.tpl');
+        $colItem->assign($strColAssocs);
+        $colItem->parse();
+        $strRowAssocs['rating_cols'] .= $colItem->getOutput();    
+      }      
+    }
+    else {
+      $rowItem = new Template(TPLPATH.'chair_emptypaperreviewlistitem.tpl');
+      $strRowAssocs['cols'] = count($objCriterions);
+    }
     $rowItem->assign($strRowAssocs);
     $rowItem->parse();
     $strContentAssocs['review_lines'] .= $rowItem->getOutput();    
