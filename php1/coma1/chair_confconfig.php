@@ -163,10 +163,10 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
   // Oeffnen der erweiterten Einstellungen
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
       !isset($_POST['simple_config']) && !isset($_POST['submit']))) {
-      $content = new Template(TPLPATH.'edit_conference_ext.tpl');
+    $content = new Template(TPLPATH.'edit_conference_ext.tpl');
   }
   // Konferenz loeschen
-  if (isset($_POST['delete')) {
+  if (isset($_POST['delete'])) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['confirm_delete'])) {
       $strMessage = 'You have to check the delete confirm option!';
