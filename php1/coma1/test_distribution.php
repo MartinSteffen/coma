@@ -18,6 +18,18 @@ require_once('./include/class.distribution.inc.php');
 
 echo('<br>');
 
+$x = 'p724r8';
+
+$p = array();
+$r = array();
+preg_match('/p\d/', $x, $p);
+preg_match('/r\d/', $x, $r);
+print_r($p);
+print_r($r);
+
+exit(-1);
+
+
 $myDist = new Distribution($mySql);
 
 $y = $myDist->getDistribution(1);
