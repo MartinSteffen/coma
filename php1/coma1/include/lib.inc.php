@@ -353,7 +353,12 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
  * @access public
  */
 function generatePassword($intLen=8) {
-  return substr(sha1(microtime()), 0, $intLen);
+  $rnd_id = crypt(uniqid(rand(), 1));
+  $rnd_id = strip_tags(stripslashes($rnd_id));
+  $rnd_id = str_replace('.', '', $rnd_id);
+  $rnd_id = strrev(str_replace('/', '',$rnd_id));
+  $rnd_id = substr($rnd_id, 0, $intLen); 
+  return $rnd_id;
 }
 
 ?>
