@@ -318,7 +318,7 @@ function sendMail($intUserID, $strSubject, $strMsg)
   }
   return mail('', $strSubject, $strMsg,
               'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
-              "From: CoMa - Your Conference Manager\r\n"
+              "From: \"CoMa - Your Conference Manager\" <>\r\n"
              );
   
 }
