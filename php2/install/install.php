@@ -1,10 +1,18 @@
 <?php
 
-	error_reporting(E_ERROR | E_WARNING | E_PARSE);
+	error_reporting(E_FATAL | E_ERROR | E_WARNING | E_PARSE);
 
 include("templates/header.tpl.php");
 
 $errors=array();
+
+if (!function_exists("mysql_connect")) {
+	$errors[]="This PHP environment does not support mysql functions!";
+}
+
+if (!function_exists("ftp_connect")) {
+	$errors[]="This PHP environment does not support FTP functions!";
+}
 
 foreach($_REQUEST as $key => $value) {
 	$$key=$value;
