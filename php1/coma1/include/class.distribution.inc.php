@@ -67,8 +67,9 @@ class Distribution extends ErrorHandling {
     define('DENIES', 3); // Paper
     define('EXCLUDED', 4); // Paper*/
 
-    define('FAC_PREF', 20000.0); // Faktor fuer Preferred Topic
-    define('FAC_WANT', FAC_PREF*1.5); // 1*FAC_PREF < Faktor fuer Preferred Paper < 2*FAC_PREF
+    define('NEUTRAL', 10000.0); // Faktor fuer Preferred Topic
+    define('PREF', NEUTRAL*1.5); // 1*NEUTRAL < Faktor fuer Preferred Topic < 2*NEUTRAL
+    define('WANT', PREF*1.5); // 1*PREF < Faktor fuer Preferred Paper < 2*PREF
 
     if (empty($intConferenceId)) {
       return $this->success(false);
@@ -246,7 +247,7 @@ class Distribution extends ErrorHandling {
         $pindex = $p_id_index[$prefers[$j]['paper_id']];
         if ($matrix[$i][$pindex] == 1) {
           $p_num_revs_pref_left[$pindex]++;
-          $matrix[$i][$pindex] = FAC_PREF;
+          $matrix[$i][$pindex] = PREF;
         }
       }
       // Gewuenschte Paper
@@ -264,9 +265,9 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($wants); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
         $pindex = $p_id_index[$wants[$j]['paper_id']];
-        if ($matrix[$i][$pindex] == 1) {
+        if ($matrix[$i][$pindex] == NEUTRAL) {
           $p_num_revs_pref_left[$pindex]++;
-          $matrix[$i][$pindex] = FAC_WANT;
+          $matrix[$i][$pindex] = WANT;
         }
       }
     }
