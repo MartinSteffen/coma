@@ -18,6 +18,7 @@ Die Beschreibung stützt sich auf die UML-Diagramme, sowie die Spezifikation
 Datum    Autor   Änderung(en)
 ----------------------------------------------------------------------------
 10.02.04 sae     Dokument erstellt: Kapitel 1, 2.I-III, Anmerkungen
+13.02.04 sae     Dateinamen fuer die bisher erstellten Seiten hinzugefuegt
 
 
 
@@ -63,14 +64,14 @@ Aufruf der index.html (-> I. Startseite, Startmenü)
 
    I. NAVIGATION OHNE LOGIN:
 
-Startmenü  [startmenue.tpl]
+Startmenü  [startmenu.tpl]
 ----------
 Menü:      - Login (-> Startseite)
            - Registrieren (-> Neuen Benutzer registrieren)
            - Hilfe (-> Hilfe)
            - Impressum (-> Impressum)
 
-Startseite  [start.php]
+Startseite  [login.php]
 -----------
 Inhalt:    - Begrüßungstext
 Formulare: - Benutzername und Passwort für Login
@@ -87,7 +88,7 @@ Hilfe  [help.php]
 ------
 Inhalt:    - Kurze Hilfe zur Anmeldung und Benutzerführung
 
-Impressum  [impressum.php]
+Impressum  [imprint.php]
 ----------
 Inhalt:    - Über das Programm, Autoren, etc.
 
@@ -112,19 +113,20 @@ Konferenzauswahl  [main_conferences.php]
 -----------------
 Inhalt:    - Liste der verfügbaren Konferenzen
 Optionen:  - Login zu den Konferenzen (-> III. Konferenz-Startseite, Konferenzmenü)
+           - Link zu den Konferenzseiten (-> [externer Link])
            - Anmeldung zu den einzelnen Konferenzen
              - als Autor (-> Autorenanmeldung)
              - als Teilnehmer (-> Teilnehmeranmeldung)
            - Neue Konferenz erstellen (-> Neue Konferenz [einfach])
 
-Neue Konferenz [einfach]
+Neue Konferenz [einfach] [new_conference.php]
 ---------------
 Formulare: - Einfache Konferenzdaten (Titel, Beschreibung, Zeit, ...)
 Optionen:  - Erweiterte Einstellungen  (-> Neue Konferenz [erweitert])
            - Konferenz anlegen (-> Konferenzauswahl)
            - Abbrechen (-> Konferenzauswahl)
 
-Neue Konferenz [erweitert]
+Neue Konferenz [erweitert]  [new_conference_ext.php]
 ---------------
 Formulare: - Erweiterte Konferenzdaten (Kritische Varianz, ...)
            - Liste der Themen, Eingabefeld für neues Thema
@@ -136,18 +138,18 @@ Optionen:  - Thema hinzufügen / entfernen
            - Konferenz anlegen (-> Konferenzauswahl)
            - Abbrechen (-> Konferenzauswahl)
 
-Autorenanmeldung
+Autorenanmeldung   [apply_author.php]
 -----------------
 Optionen:  - Anmeldung bestätigen (-> Konferenzauswahl)
            - Anmeldung abbrechen (-> Konferenzauswahl)
 
 
-Teilnehmeranmeldung
+Teilnehmeranmeldung   [apply_participant.php]
 --------------------
 Optionen:  - Anmeldung bestätigen (-> Konferenzauswahl)
            - Anmeldung abbrechen (-> Konferenzauswahl)
 
-Forenübersicht
+Forenübersicht 
 ---------------
 Inhalt:    - Liste der (sichtbaren ?) Foren
 Optionen:  - Forum öffnen (-> Forum [erweitert])
@@ -183,7 +185,7 @@ Optionen:  - Einzelne / Alle Nachrichten löschen
 
  III. NAVIGATION NACH LOGIN ZU EINER KONFERENZ:
 
-Konferenzmenü
+Konferenzmenü   [usermenu.tpl]
 --------------
 Menü:      - Profil (-> Profil einstellen)           
            - Rollenabhängige Menüs:
@@ -193,10 +195,10 @@ Menü:      - Profil (-> Profil einstellen)
              - Teilnehmer-Menü (s.u.)
            - Foren  (-> Forenübersicht)
            - Nachrichten (-> Nachrichtenübersicht)
-           - Konferenzinfo (-> Konferenzinfo)
-           - Logout (-> Konferenzauswahl oder -> Startseite) [?]
+           - Konferenzinfo (-> Konferenzinfo [nach Login])
+           - Logout (-> Konferenzauswahl)
 
-Chair-Menü
+Chair-Menü   [chairmenu.tpl]
 -----------
 Untermenü: - Chair (-> CHAIR-Startseite)
            - Benutzer verwalten (-> CHAIR-Benutzerverwaltung)
@@ -204,50 +206,50 @@ Untermenü: - Chair (-> CHAIR-Startseite)
            - Artikelreviews verteilen (-> CHAIR-Artikelverteilung)
            - Konferenz konfigurieren (-> CHAIR-Konferenzkonfiguration [einfach])
 
-Reviewer-Menü
+Reviewer-Menü   [reviewermenu.tpl]
 --------------
 Untermenü: - Reviewer (-> REVIEWER-Startseite)
            - Präferenzen einstellen (-> REVIEWER-Präferenzen)
            - Eigene Reviews (-> REVIEWER-Reviews)
 
-Autoren-Menü
+Autoren-Menü   [authormenu.tpl]
 -------------
 Untermenü: - Autor (-> AUTOR-Startseite)
            - Eigene Artikel (-> AUTOR-Artikel)
 
-Teilnehmer-Menü
+Teilnehmer-Menü   [participant_menu.tpl]
 ----------------
 Untermenü: - Teilnehmer (-> TEILNEHMER-Startseite)
            - Teilnahmeeinstellungen (-> TEILNEHMER-Einstellungen)
 
 
-Konferenz-Startseite
+Konferenz-Startseite   [siehe login_conference.tpl]
 ---------------------
 = CHAIR-, REVIEWER-, AUTOR- oder TEILNEHMER-Startseite (in dieser Reihenfolge),
   je nachdem, welche Rolle der eingeloggte Benutzer als erste erfüllt.
 
-CHAIR-Startseite
+CHAIR-Startseite   [chair_start.php]
 -----------------
 Inhalt:    - Information über die einzelnen Chair-Optionen
            - Information über neue Nachrichten (-> Nachrichtenübersicht)
            - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
 Optionen:  - siehe Chair-Menü
 
-REVIEWER-Startseite
+REVIEWER-Startseite   [reviewer_start.php]
 --------------------
 Inhalt:    - Information über die einzelnen Reviewer-Optionen
            - Information über neue Nachrichten (-> Nachrichtenübersicht)
            - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
 Optionen:  - siehe Reviewer-Menü
 
-AUTOR-Startseite
+AUTOR-Startseite   [author_start.php]
 -----------------
 Inhalt:    - Information über die einzelnen Autoren-Optionen
            - Information über neue Nachrichten (-> Nachrichtenübersicht)
            - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
 Optionen:  - siehe Autor-Menü
 
-TEILNEHMER-Startseite
+TEILNEHMER-Startseite   [participant_start.php]
 ----------------------
 Inhalt:    - Information über die einzelnen Teilnehmer-Optionen
            - Information über neue Nachrichten (-> Nachrichtenübersicht)
@@ -255,13 +257,13 @@ Inhalt:    - Information über die einzelnen Teilnehmer-Optionen
 Optionen:  - siehe Teilnehmer-Menü
 
 
-CHAIR-Benutzerverwaltung
+CHAIR-Benutzerverwaltung   [chair_userlist.php]
 -------------------------
 Inhalt:    - Liste der Benutzer* (Name, Vorname, Rollen, ...)
 Optionen:  - Benutzer löschen
            - Rollen hinzufügen / entfernen
 
-CHAIR-Artikelverwaltung
+CHAIR-Artikelverwaltung   [chair_paperlist.php]
 ------------------------
 Inhalt:    - Liste der Artikel* (Titel, Autor*, Status, ...)
 Optionen:  - Download der einzelnen Artikel
@@ -269,7 +271,7 @@ Optionen:  - Download der einzelnen Artikel
            - Artikel löschen
            - Artikelstatus ändern (annehmen, ablehnen)
 
-CHAIR-Artikelverteilung
+CHAIR-Artikelverteilung   [chair_reviews.php]
 ------------------------
 Inhalt:    - Liste der Artikel* (Titel, Autor*, Status, Bewertung)
              - Liste der Reviewer* des Artikels (Name, Vorname, ...)
@@ -280,13 +282,13 @@ Optionen:  - Einzelne Artikel als zu verteilen markieren
            - Verteilung berechnen lassen
            - Einstellungen übernehmen / rückgängig machen
 
-CHAIR-Konferenzkonfiguration [einfach]
+CHAIR-Konferenzkonfiguration [einfach]   [chair_config.php]
 -----------------------------
 Formulare: - Einfache Konferenzdaten (Titel, Beschreibung, Zeit, ...)
 Optionen:  - Erweiterte Einstellungen  (-> CHAIR-Konferenzkonfiguration [erweitert])
            - Einstellungen übernehmen / rückgängig machen
 
-CHAIR-Konferenzkonfiguration [erweitert]
+CHAIR-Konferenzkonfiguration [erweitert]   [chair_config_ext.php]
 -----------------------------
 Formulare: - Erweiterte Konferenzdaten (Kritische Varianz, ...)
            - Liste der Themen
@@ -294,14 +296,14 @@ Formulare: - Erweiterte Konferenzdaten (Kritische Varianz, ...)
 Optionen:  - Einfache Einstellungen  (-> CHAIR-Konferenzkonfiguration [einfach])
            - Einstellungen übernehmen / rückgängig machen
 
-REVIEWER-Präferenzen
+REVIEWER-Präferenzen   [reviewer_prefers.php]
 ---------------------
 Inhalt:    - Liste aller Themen
            - Liste aller (unverteilten ?) Artikel* (Titel, Autor*, Status, Themen ?)
 Optionen:  - Einzelne Themen als gewünscht markieren
            - Einzelne Artikel als gewünscht / nicht gewünscht / ausgeschlossen markieren
 
-REVIEWER-Reviews
+REVIEWER-Reviews   [reviewer_reviews.php]
 -----------------
 Inhalt:    - Liste aller eigenen Reviews (Artikel*, Autor*, evtl. Artikelstatus,
              eigene Bewertung, evtl. akt. Gesamtbewertung, Diskussionsforum)
@@ -309,7 +311,7 @@ Inhalt:    - Liste aller eigenen Reviews (Artikel*, Autor*, evtl. Artikelstatus,
 Optionen:  - Review bearbeiten (-> REVIEWER-Review bearbeiten)
            - Diskussionsforen betreten (-> Forum [erweitert])
 
-AUTOR-Artikel
+AUTOR-Artikel   [author_papers.php]
 --------------
 Inhalt:    - Liste der Artikel* (Titel, Autor*, Status ?, ...)
 Optionen:  - Artikelversion uploaden [?]
@@ -317,7 +319,7 @@ Optionen:  - Artikelversion uploaden [?]
            - Artikeldaten bearbeiten (-> AUTOR-Artikel bearbeiten)
            - Artikel löschen
 
-AUTOR-Artikel bearbeiten
+AUTOR-Artikel bearbeiten   [author_editpaper.php]
 -------------------------
 Formular:  - Alle Artikeldaten (Titel, Beschreibung, Autor, Themen, Datum, Format, ...)
            - Liste der Co-Autoren, Eingabefeld für neuen Co-Autoren
@@ -326,13 +328,12 @@ Optionen:  - Artikelversion uploaden
            - Co-Autor hinzufügen / entfernen
            - Einstellungen übernehmen / rückgängig machen (-> AUTOR-Artikel)
 
-TEILNEHMER-Einstellungen
+TEILNEHMER-Einstellungen    [participant_data.php]
 -------------------------
 Formular:  - Teilnahmedaten (die berüchtigten 'dietary rescrictions'...)
 Optionen:  - Einstellungen übernehmen / rückgängig machen
 
-
-Konferenzinfo
+Konferenzinfo [nach Login] 
 --------------
 Inhalt:    - Öffentliche Konferenzdaten (Titel, Beschreibung, Zeit, ...)
            - Liste aller Benutzer* (öffentliche Daten)
