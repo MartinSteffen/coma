@@ -1,24 +1,16 @@
-/*
- * Created on Nov 28, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package coma.entities;
 
 import java.util.*;
 
 /**
- * @author ziad, ums
+ * @author mal, ums
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class ReviewReport {
 
-    private Integer id;
-    private Integer paperId;
-    private Integer reviewerId;
+    private int id;
+    private int paperId;
+    private int reviewerId;
     private String summary;
     private String remarks;
     private String confidental;
