@@ -21,6 +21,7 @@ if (isset($_POST['action'])) {
   }
   $dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
+    print_r($pid.'=>'.$arrR);
 /*    for ($j = 0; $j < count($arrR); $j++) {
       if ($arrR[$j]['status'] != ASSIGNED) {
         if(!isset($_POST['p'.$pid.'ridx'.$j])) {

@@ -22,10 +22,6 @@
   </tr>
   {lines}
 </table>
-<input type="submit" name="confirm" value="Confirm distribution (obligatory!)" class="button">
-<input type="reset" name="dismiss" value="Dismiss distribution" class="button">
+<input type="submit" name="confirm" value="Confirm distribution" class="button">
+<input type="submit" name="dismiss" value="Dismiss distribution" class="button">
 </form>
-
-<button name="dismissReviewer" type="button" class="smallbutton" value="dismiss"
-  onClick="self.location.href='{basepath}chair_distribution.php?paperid={paper_id}&reviewerid={rev_id}{&SID}'">
-  dismiss</button>
