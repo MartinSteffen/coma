@@ -84,7 +84,7 @@ if (isset($_POST['action'])) {
     }
     // Versuche das Paper zu loeschen
     else {
-      $result = $myDBAccess->deletePaper($objPaper);
+      $result = $myDBAccess->deletePaper($objPaper->intId);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error during deleting paper.', $myDBAccess->getLastError());
