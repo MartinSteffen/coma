@@ -425,8 +425,6 @@ else{
 
   $content->assign($contentAssocs);
 
-  $actMenu = FORUM;
-  $actMenuItem = 0;
   include('./include/usermenu.inc.php');
 
   $main = new Template(TPLPATH . 'frame.tpl');
