@@ -32,13 +32,12 @@ if (isset($_POST['confirm'])) {
   $dist = $_SESSION['dist'];
   reset($dist);
   while ($pid = key($dist)) {
-    $arrR = $dist[$pid];
     $s .= '<br>'.$pid.':';
-    for ($j = 0; $j < count($arrR); $j++) {
-      if ($arrR[$j]['status'] != ASSIGNED) {
-        $s .= ' '.$arrR[$j]['reviewer_id'].'/'.$arrR[$j]['status'];
+    for ($j = 0; $j < count($dist[$pid]); $j++) {
+      if ($dist[$pid][$j]['status'] != ASSIGNED && rand(1, 3) <= 1) {
+        $s .= ' '.$dist[$pid][$j]['reviewer_id'].'/'.$dist[$pid][$j]['status'];
 //        if(!isset($_POST['p'.$pid.'ridx'.$j])) {
-//          unset($arrR[$j]);
+          unset($dist[$pid][$j]);
 //        }
       }
       else $s .= ' ass';
