@@ -13,7 +13,8 @@ public class SessionAttribs {
 
     /** to request the Person object associated with the logged-in user. */
     public static final String PERSON="person";
-
+    /** to request the Conference object associated with the used conference. */
+    public static final String CONFERENCE="conference";
     /** to request the user's login name */
     public static final String USER="user";
 
