@@ -150,8 +150,8 @@ table.formtable {
 
 /* Schaltflaechen und Eingabefelder */
 input, textarea, button {
-  font-family: "Arial Narrow", Arial, Sans Serif;
-  font-size: 11px;
+  font-family: "Arial Narrow", Arial, Sans-Serif;
+  font-size: 12px;
   background-color: #F7FBFF;
   border-style: solid;
   border-width: 1px;
@@ -160,6 +160,7 @@ input, textarea, button {
   padding: 2px 4px;  
 }
 input.button, button {
+  font-family: Verdana, Arial, Sans-Serif;
   font-weight: bold;
   background-color: #CEDBEF;
   min-width: 100px;
