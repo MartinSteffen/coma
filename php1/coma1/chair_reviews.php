@@ -150,7 +150,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Distribute and manage papers';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews';
 
 $main->assign($strMainAssocs);
 $main->parse();
