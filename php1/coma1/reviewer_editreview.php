@@ -33,8 +33,8 @@ if (isset($_POST['action'])) {
   $objReview->strRemarks = $_POST['remarks'];
   $objReview->strConfidential = $_POST['confidential'];
   for ($i = 0; $i < count($objReview->intRatings); $i++) {
-    $objReview->intRatings[$i]  = $_POST['rating-'.($i+1)];
-    $objReview->intComments[$i] = $_POST['comment-'.($i+1)];
+    $objReview->intRatings[$i]  = (int)$_POST['rating-'.($i+1)];
+    $objReview->strComments[$i] = $_POST['comment-'.($i+1)];
   }
   $objReview->recalcRating();
   // Trage Review in die Datenbank ein
