@@ -38,7 +38,7 @@ else if (empty($p)) {
 }
 
 echo('Update<br>');
-$myDBAccess->updateRoles($p, 1);
+$myDBAccess->updatePersonDetailed($p, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }

@@ -1447,14 +1447,10 @@ nur fuer detaillierte?
     }
     $intId = $objPerson->intId;
     // Rollen loeschen...
-    /*$s = "DELETE  FROM Role".
-        " WHERE   person_id = '$intId'".
-        " AND     conference_id = '$intConferenceId'";*/
     $s = sprintf("DELETE   FROM Role".
                  " WHERE   person_id = '%d'".
                  " AND     conference_id = '%d'",
                  s2db($intId), s2db($intConferenceId));
-    echo("<br>$s<br>");
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1465,12 +1461,9 @@ nur fuer detaillierte?
     // Rollen einfuegen...
     for ($i = 0; $i < count($intRoles); $i++) {
       if ($objPerson->hasRole($intRoles[$i])) {
-        /*$s = "INSERT  INTO Role (conference_id, person_id, role_type)".
-            "         VALUES ('$intConferenceId', '$intId', '".$intRoles[$i]."')";*/
         $s = sprintf("INSERT   INTO Role (conference_id, person_id, role_type)".
                      " VALUES  ('%d', '%d', '%d')",
                      s2db($intConferenceId), s2db($intId), s2db($intRoles[$i]));
-        echo("<br>$s<br>");
         $result = $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1494,9 +1487,14 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     // Co-Autoren loeschen...
-    $s = "DELETE  FROM IsCoAuthorOf".
+    /*$s = "DELETE  FROM IsCoAuthorOf".
         " WHERE   paper_id = '$objPaperDetailed->intId'".
-        " AND     person_id IS NOT NULL";
+        " AND     person_id IS NOT NULL";*/
+    $s = sprintf("DELETE   FROM IsCoAuthorOf".
+                 " WHERE   paper_id = '%d'".
+                 " AND     person_id IS NOT NULL",
+                 s2db($objPaperDetailed->intId));
+    echo("<br>$s<br>");
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1504,9 +1502,13 @@ nur fuer detaillierte?
     // Co-Autoren einfuegen...
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
       if (!empty($objPaperDetailed->intCoAuthorIds[$i])) {
-        $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
+        /*$s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
             "         VALUES ('".$objPaperDetailed->intCoAuthorIds[$i]."',".
-            "                 '$objPaperDetailed->intId')";
+            "                 '$objPaperDetailed->intId')";*/
+        $s = sprintf("INSERT   INTO IsCoAuthorOf (person_id, paper_id)".
+                     " VALUES  ('%d', '%d')",
+                     s2db($objPaperDetailed->intCoAuthorIds[$i]), s2db($objPaperDetailed->intId));
+        echo("<br>$s<br>");
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1530,9 +1532,14 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     // Co-Autornamen loeschen...
-    $s = "DELETE  FROM IsCoAuthorOf".
+    /*$s = "DELETE  FROM IsCoAuthorOf".
         " WHERE   paper_id = '$objPaperDetailed->intId'".
-        " AND     person_id IS NULL";
+        " AND     person_id IS NULL";*/
+    $s = sprintf("DELETE   FROM IsCoAuthorOf".
+                 " WHERE   paper_id = '%d'".
+                 " AND     person_id IS NULL",
+                 s2db($objPaperDetailed->intId));
+    echo("<br>$s<br>");
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1544,9 +1551,13 @@ nur fuer detaillierte?
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
       if (empty($objPaperDetailed->intCoAuthorIds[$i]) &&
           !empty($objPaperDetailed->strCoAuthors[$i])) {
-        $s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
+        /*$s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
             "         VALUES ('$objPaperDetailed->intId',".
-            "                 '".$objPaperDetailed->strCoAuthors[$i]."')";
+            "                 '".$objPaperDetailed->strCoAuthors[$i]."')";*/
+        $s = sprintf("INSERT   INTO IsCoAuthorOf (paper_id, name)".
+                     " VALUES  ('%d', '%s')",
+                     s2db($objPaperDetailed->intId), s2db($objPaperDetailed->strCoAuthors[$i]));
+        echo("<br>$s<br>");
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateCoAuthorNames', $this->mySql->getLastError());
