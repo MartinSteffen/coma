@@ -3,18 +3,18 @@
 
 <table class="viewtable">
   <tr class="viewheader">
-    <th colspan="2">Registered New User:</th>
+    <th colspan="2" class="viewheader">Registered New User:</th>
   </tr>
   <tr class="viewline">
-    <td>
+    <td class="viewline">
       Name:
     </td>
-    <td>
+    <td class="viewline">
       {name_title} {first_name} {last_name}
     </td>
   </tr>
   <tr class="viewline">
-    <td>
+    <td class="viewline">
       E-mail address:
     </td>
     <td>
@@ -22,15 +22,15 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td>
+    <td class="viewline">
       Affiliation:
     </td>
-    <td>
+    <td class="viewline">
       {affiliation}
     </td>
   </tr>
   <tr class="viewline">
-    <td>
+    <td class="viewline">
       Phone number:
     </td>
     <td>
@@ -38,18 +38,18 @@
     </td>
   </tr>
   <tr class="viewline">
-    <td>
+    <td class="viewline">
       Fax number:
     </td>
-    <td>
+    <td class="viewline">
       {fax}
     </td>
   </tr>
   <tr class="viewline">
-    <td>
+    <td class="viewline">
       Address:
     </td>
-    <td>
+    <td class="viewline">
       {street} &nbsp;&nbsp;&nbsp;&nbsp; {postalcode} {city} <br>
       {state} {country}
     </td>
