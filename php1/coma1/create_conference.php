@@ -311,10 +311,10 @@ else {
   $strContentAssocs['num_topics']       = '3';
   $strContentAssocs['num_criterions']   = '2';
   $strContentAssocs['topics']           = encodeText(base64_encode(serialize(array())));
-  $strContentAssocs['criterions']       = encodeText(base64_encode(serialize(array('Content','Form'))));
-  $strContentAssocs['crit_max']         = encodeText(base64_encode(serialize(array('5','5'))));
-  $strContentAssocs['crit_descr']       = encodeText(base64_encode(serialize(array('Aspects of the content','Aspects of the outer form'))));
-  $strContentAssocs['crit_weight']      = encodeText(base64_encode(serialize(array('0.7','0.3'))));
+  $strContentAssocs['criterions']       = encodeText(base64_encode(serialize(array('Content'))));
+  $strContentAssocs['crit_max']         = encodeText(base64_encode(serialize(array('5'))));
+  $strContentAssocs['crit_descr']       = encodeText(base64_encode(serialize(array('Aspects of the content.'))));
+  $strContentAssocs['crit_weight']      = encodeText(base64_encode(serialize(array('1.0'))));
 }
 
 $strContentAssocs['message'] = '';
