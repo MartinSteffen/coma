@@ -31,10 +31,11 @@ $pid = $_GET['paperid'];
 
 $r_id = $myDist->getAvailableReviewerIdsOfConference(session('confid'));
 if ($myDist->failed()) {
-  error('get list of available reviewers',$myDist->getLastError());
+  error('get list of available reviewers', $myDist->getLastError());
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'submit') {
+  $s = '';
   foreach ($r_id as $rid) {
     $isD = $myDBAccess->isPaperDistributedTo($pid, $rid);
     if ($myDBAccess->failed()) {
@@ -52,7 +53,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'submit') {
         error('delete distribution', $myDBAccess->getLastError());
       }
     }
+    $s .= '/'.$rid;
   }
+  echo($s);
+  die();
 }
 
 $objPaper = $myDBAccess->getPaperSimple($pid);
