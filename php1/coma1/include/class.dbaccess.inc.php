@@ -237,7 +237,7 @@ class DBAccess {
     $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.
         ' FROM    ReviewReport AS rr'.
         ' INNER   JOIN Rating AS r'.
-        ' ON      r.review_id = rr.id
+        ' ON      r.review_id = rr.id'.
         ' INNER   JOIN Criterion AS c'.
         ' ON      c.id = r.criterion_id'.
         ' WHERE   rr.paper_id = '.$intPaperId.
