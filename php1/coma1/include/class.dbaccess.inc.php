@@ -2438,7 +2438,7 @@ nur fuer detaillierte?
    */
   function deleteReviewReport($intReviewId) {
     $s = "DELETE  FROM Reviewreport".
-        "         WHERE id = '$intReviewId'";
+        " WHERE   id = '$intReviewId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteReviewReport', $this->mySql->getLastError());
@@ -2450,8 +2450,8 @@ nur fuer detaillierte?
    */
   function deleteRating($intReviewId, $intCriterionId) {
     $s = "DELETE  FROM Rating".
-        "         WHERE   review_id = '$intReviewId'".
-        "         AND     criterion_id = '$intCriterionId'";
+        " WHERE   review_id = '$intReviewId'".
+        " AND     criterion_id = '$intCriterionId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteRating', $this->mySql->getLastError());
@@ -2463,7 +2463,7 @@ nur fuer detaillierte?
    */
   function deleteForum($intForumId) {
     $s = "DELETE  FROM Forum".
-        "         WHERE id = '$intForumId'";
+        " WHERE   id = '$intForumId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteForum', $this->mySql->getLastError());
@@ -2475,7 +2475,7 @@ nur fuer detaillierte?
    */
   function deleteMessage($intMessageId) {
     $s = "DELETE  FROM Message".
-        "         WHERE id = '$intMessageId'";
+        " WHERE   id = '$intMessageId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteMessage', $this->mySql->getLastError());
@@ -2487,7 +2487,7 @@ nur fuer detaillierte?
    */
   function deleteCriterion($intCriterionId) {
     $s = "DELETE  FROM Criterion".
-        "         WHERE id = '$intCriterionId'";
+        " WHERE   id = '$intCriterionId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteCriterion', $this->mySql->getLastError());
@@ -2500,7 +2500,7 @@ nur fuer detaillierte?
    */
   function deleteTopic($intTopicId) {
     $s = "DELETE  FROM Topic".
-        "         WHERE id = '$intTopicId'";
+        " WHERE   id = '$intTopicId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteTopic', $this->mySql->getLastError());
@@ -2512,8 +2512,8 @@ nur fuer detaillierte?
    */
   function deleteIsAboutTopic($intPaperId, $intTopicId) {
     $s = "DELETE  FROM IsAboutTopic".
-        "         WHERE paper_id = '$intPaperId'".
-        "         WHERE topic_id = '$intTopicId'";
+        " WHERE   paper_id = '$intPaperId'".
+        " AND     topic_id = '$intTopicId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteIsAboutTopic', $this->mySql->getLastError());
@@ -2525,8 +2525,8 @@ nur fuer detaillierte?
    */
   function deletePrefersTopic($intPersonId, $intTopicId) {
     $s = "DELETE  FROM PrefersTopic".
-        "         WHERE person_id = '$intPersonId'".
-        "         WHERE topic_id = '$intTopicId'";
+        " WHERE   person_id = '$intPersonId'".
+        " AND     topic_id = '$intTopicId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePrefersTopic', $this->mySql->getLastError());
@@ -2538,8 +2538,8 @@ nur fuer detaillierte?
    */
   function deletePrefersPaper($intPersonId, $intPaperId) {
     $s = "DELETE  FROM PrefersPaper".
-        "         WHERE person_id = '$intPersonId'".
-        "         WHERE paper_id = '$intPaperId'";
+        " WHERE   person_id = '$intPersonId'".
+        " AND     paper_id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePrefersPaper', $this->mySql->getLastError());
@@ -2551,8 +2551,8 @@ nur fuer detaillierte?
    */
   function deleteDeniesPaper($intPersonId, $intPaperId) {
     $s = "DELETE  FROM DeniesPaper".
-        "         WHERE person_id = '$intPersonId'".
-        "         WHERE paper_id = '$intPaperId'";
+        " WHERE   person_id = '$intPersonId'".
+        " AND     paper_id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteDeniesPaper', $this->mySql->getLastError());
@@ -2564,8 +2564,8 @@ nur fuer detaillierte?
    */
   function deleteExcludesPaper($intPersonId, $intPaperId) {
     $s = "DELETE  FROM ExcludesPaper".
-        "         WHERE person_id = '$intPersonId'".
-        "         WHERE paper_id = '$intPaperId'";
+        " WHERE   person_id = '$intPersonId'".
+        " AND     paper_id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteExcludesPaper', $this->mySql->getLastError());
