@@ -192,12 +192,27 @@ $strRoles = array(CHAIR       => 'Chair',
                   PARTICIPANT => 'Participant');
 /**#@-*/
 
+/**
+ *
+ */
+function checkLogin() {
+  if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
+    return true;
+  }
+  else {
+    if ($myDBAccess->failed()) {
+      error('checkLogin',$myDBAccess->getLastError());
+    }
+    return false;
+  }
+}
+
 // Check, ob User eingeloggt ist
 // Stellt ausserdem sicher, dass uname und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
 // Setzt uid korrekt
 if (!defined('NEED_NO_LOGIN')) {
-  if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
+  if (checkLogin()) {    
     if (!isset($_SESSION['uid'])) {
       // UID setzen
       $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
@@ -208,10 +223,6 @@ if (!defined('NEED_NO_LOGIN')) {
     }
   }
   else {
-    // nicht korrekt eingeloggt
-    if ($myDBAccess->failed()) {
-      error('checkLogin',$myDBAccess->getLastError());
-    }
     if (!isset($_SESSION['uname'])) {
       $_SESSION['message'] = 'Please login with your Username (E-mail) and Password!';
     }

@@ -20,6 +20,10 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
+if (checkLogin()) {
+  redirect('index.php');
+}
+
 if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   /* Einlog-Versuch */
   if (isset($_POST['user_name'])

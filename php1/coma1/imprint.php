@@ -21,6 +21,10 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
+if (checkLogin()) {
+  redirect('index.php');
+}
+
 $menu = new Template(TPLPATH.'startmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
 $strMenuAssocs['if'] = array(4);

@@ -20,6 +20,10 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
+if (checkLogin()) {
+  redirect('index.php');
+}
+
 $content = new Template(TPLPATH.'register.tpl');
 $strContentAssocs = defaultAssocArray();
 
