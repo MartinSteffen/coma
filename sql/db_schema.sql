@@ -1,5 +1,3 @@
-CREATE DATABASE coma;
-USE coma;
 
 CREATE TABLE Conference 
 (
@@ -275,6 +273,7 @@ CREATE TABLE Message
 (
    id        INT NOT NULL AUTO_INCREMENT,
    forum_id  INT,
+   reply_to  INT,
    sender_id INT NOT NULL,
    send_time DATETIME,  /*wird von coma automatisch gesetzt*/
    subject   VARCHAR(127),
