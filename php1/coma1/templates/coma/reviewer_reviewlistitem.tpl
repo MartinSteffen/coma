@@ -1,6 +1,7 @@
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}">
-      <a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}" class="link">{title}</a>
+      {if6<a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}" class="link">}
+      {title}{if6</a>}
     </td>
     <td class="listitem-{line_no}">
       <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>
