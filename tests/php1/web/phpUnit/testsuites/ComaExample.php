@@ -7,7 +7,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once '../coma1/include/header.inc.php';
 
-$strEmail = 'sae@me.de';
+$strEmail = "sae@me.de";
 
 class ComaExample extends PHPUnit_TestCase
 {
@@ -16,8 +16,12 @@ class ComaExample extends PHPUnit_TestCase
       $this->assertTrue(TRUE);
   }
 
-  function test() {
-    $this->assertTrue(checkEmail($strEmail));
+  function test_DBAccess() {
+      $this->assertFalse($myDBAccess->failed());
+  }
+
+  function test_checkEmail() {
+    $this->assertTrue($myDBAccess->checkEmail($strEmail));
   }
 }
 
