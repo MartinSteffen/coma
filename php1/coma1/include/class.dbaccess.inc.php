@@ -1368,20 +1368,6 @@ nur fuer detaillierte?
                            s2db(b2db($objConferenceDetailed->blnAutoAddReviewers)),
                            s2db($objConferenceDetailed->intNumberOfAutoAddReviewers),
                            s2db($objConferenceDetailed->intId));
-/*    $s = "UPDATE  ConferenceConfig".
-        " SET     default_reviews_per_paper = '$objConferenceDetailed->intDefaultReviewsPerPaper',".
-        "         min_number_of_papers = 'objConferenceDetailed->intMinNumberOfPapers',".
-        "         max_number_of_papers = 'objConferenceDetailed->intMaxNumberOfPapers',".
-        "         critical_variance = 'objConferenceDetailed->fltCriticalVariance',".
-        "         auto_activate_account = '".
-                    b2db($objConferenceDetailed->blnAutoActivateAccount)."',".
-        "         auto_open_paper_forum = '".
-                    b2db($objConferenceDetailed->blnAutoOpenPaperForum)."',".
-        "         auto_add_reviewers = '".
-                    b2db($objConferenceDetailed->blnAutoAddReviewers)."',".
-        "         number_of_auto_add_reviewers = '".
-        "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
-        " WHERE   id = '$objConferenceDetailed->intId'";*/
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
@@ -1461,9 +1447,13 @@ nur fuer detaillierte?
     }
     $intId = $objPerson->intId;
     // Rollen loeschen...
-    $s = "DELETE  FROM Role".
+    /*$s = "DELETE  FROM Role".
         " WHERE   person_id = '$intId'".
-        " AND     conference_id = '$intConferenceId'";
+        " AND     conference_id = '$intConferenceId'";*/
+    $s = sprintf("DELETE   FROM Role".
+                 " WHERE   person_id = '%d'".
+                 " AND     conference_id = '%d'",
+                 s2db($intId), s2db($infConferenceId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1474,14 +1464,18 @@ nur fuer detaillierte?
     // Rollen einfuegen...
     for ($i = 0; $i < count($intRoles); $i++) {
       if ($objPerson->hasRole($intRoles[$i])) {
-        $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
-            "         VALUES ('$intConferenceId', '$intId', '".$intRoles[$i]."')";
+        /*$s = "INSERT  INTO Role (conference_id, person_id, role_type)".
+            "         VALUES ('$intConferenceId', '$intId', '".$intRoles[$i]."')";*/
+        $s = sprintf("INSERT   INTO Role (conference_id, person_id, role_type)".
+                     " VALUES  ('%d', '%d', %d')",
+                     s2db($intConferenceId), s2db($intId), s2db($intRoles[$i]));
         $result = $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateRoles', $this->mySql->getLastError());
         }
       }
     }
+    echo('OK');
     return $this->success(true);
   }
 

@@ -27,7 +27,7 @@ function bit($b) {
 
 echo('<br>');
 
-$p = $myDBAccess->getConferenceDetailed(1);
+$p = $myDBAccess->PersonDetailed(50, 12);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -36,7 +36,7 @@ else if (empty($p)) {
   die(-1);
 }
 
-$myDBAccess->updateConference($p);
+$myDBAccess->updateRoles($p, 12);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
