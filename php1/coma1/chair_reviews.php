@@ -26,7 +26,7 @@ if ($myDBAccess->failed()) {
   error('get review list of chair',$myDBAccess->getLastError());
 }
 
-$fltCrit = $myDBAccess->getConferenceDetailed(session('confid'));
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
 if ($myDBAccess->failed()) {
   error('get review list of chair',$myDBAccess->getLastError());
 }
@@ -49,11 +49,11 @@ if (!empty($objPapers)) {
       $ifArray[] = 5;
     }
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $objReviews = $myDBAccess->getReviewsOfPaper($objPaper->intId);
+    $intRevs = $myDBAccess->getNumberOfReviewsOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
-    $intRevs = $myDBAccess->getNumberOfReviewsOfPaper($objPaper->intId);
+    $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
     if ($myDBAccess->failed()) {
       error('get review list of chair',$myDBAccess->getLastError());
     }
@@ -65,7 +65,7 @@ if (!empty($objPapers)) {
       $strItemAssocs['avg_rating'] = ' - ';
     }
     $fltTestTmp = rand(0,100);
-    if ($fltTestTmp >= $fltCrit*100) {
+    if ($fltTestTmp >= $objConference->fltCriticalVariance*100) {
       $ifArray[] = 6;
     }
     else {
