@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
  * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
  * @subpackage Session
+ * @todo Bessere Tabellenstruktur grade im Bereich stime!?!?!
  * @access public
  *
  */
@@ -43,7 +44,7 @@ class Session {
   /**@var string*/
   var $strError = '';
   /**@var int*/
-  var $intMaxLifeTime = '7200';
+  var $intMaxLifeTime = 7200;
   /**@var string*/
   var $strSessName = 'coma1';
   /**#@-*/
@@ -60,6 +61,15 @@ class Session {
    *
    */
   function Session(&$mySql) {
+    if (ini_get('session.auto_start') != '0') {
+      return $this->error('Konnte Sessionmanger nicht initialisieren (session.auto_start 0 ist erforderlich!');
+    }
+    ini_set('session.gc_maxlifetime', $this->intMaxLifeTime);
+    // GC 1% Wahrscheinlichkeit
+    ini_set('session.gc_probability', '1');
+    ini_set('session.gc_divisor', '100');
+    ini_set('session.use_trans_sid','0');
+    
     $this->mySql =& $mySql;
 
     session_name($this->strSessName);
@@ -118,7 +128,8 @@ class Session {
   */
   function sessionRead($strSessId) {
     $strSessId = $this->strSessName . $strSessId;
-    $results = $this->mySql->select("SELECT sdata FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
+    // Check ob Session veraltet!!!
+    $results = $this->mySql->select("SELECT sdata FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName' AND UNIX_TIMESTAMP(stime)>(UNIX_TIMESTAMP(NOW())-$this->intMaxLifeTime");
     if (!$results) {
       $this->mySql->delete("DELETE FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
       $this->mySql->insert("INSERT INTO Sessions (sid, sname, sdata, stime) VALUES ('$strSessId', '$this->strSessName', NULL, NOW())");
@@ -159,12 +170,10 @@ class Session {
   /**
   * @param int $intMaxLifeTime Maximale Zeit die eine Session gespeichert werden soll
   * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
-  * @todo Verbessrung der SQL Anweisung
   * @access private
   */
   function sessionGC($intMaxLifeTime) {
-    $intMax = min($this->intMaxLifeTime,$intMaxLifeTime); 
-    $this->mySql->delete("DELETE FROM Sessions WHERE UNIX_TIMESTAMP(stime)<(UNIX_TIMESTAMP(NOW())-$intMax) AND sname='$this->strSessName'");
+    $this->mySql->delete("DELETE FROM Sessions WHERE UNIX_TIMESTAMP(stime)<(UNIX_TIMESTAMP(NOW())-$intMaxLifeTime) AND sname='$this->strSessName'");
     return true;
   }
 
