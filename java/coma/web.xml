@@ -6,27 +6,38 @@
 
 <web-app>
 
-    <display-name>StudiDB</display-name>
+    <display-name>Conference manager</display-name>
     <description>
       Conference Management's System
     </description>
 
     <servlet>
-     <servlet-name>Servlet1</servlet-name>
-     <servlet-class>coma/servlet/servlets/Servlet1</servlet-class>
+     <servlet-name>Login</servlet-name>
+     <servlet-class>coma.servlet.servlets.Login</servlet-class>
     </servlet>
+    
     <servlet>
-     <servlet-name>Servlet2</servlet-name>
-     <servlet-class>coma/servlets/servlet/Servlet2</servlet-class>
+     <servlet-name>chair</servlet-name>
+     <servlet-class>coma.servlet.servlets.chair</servlet-class>
     </servlet>
+    
+    <servlet>
+     <servlet-name>invite</servlet-name>
+     <servlet-class>coma.servlet.servlets.invite</servlet-class>
+    </servlet>
+    
    
     <servlet-mapping>
-      <servlet-name>Servlet1</servlet-name>
-    <url-pattern>/Servlet1</url-pattern>
+      <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-      <servlet-name>Servlet2</servlet-name>
-    <url-pattern>/Servlet2</url-pattern>
+      <servlet-name>chair</servlet-name>
+    <url-pattern>/chair</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>invite</servlet-name>
+    <url-pattern>/invite</url-pattern>
     </servlet-mapping>
 
   <!-- Define a Security Constraint on this Application
