@@ -18,8 +18,10 @@ $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_start.tpl');
 $submenue = new Template(TPLPATH.'nav_start_konf.tpl');
 
+
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['content'] =  'Liste aller Konferenzen';
+$strMenueAssocs['loginName'] = $_SESSION['uname'];
 $strMainAssocs['body'] =
 '
 <div align="center">

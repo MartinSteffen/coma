@@ -26,6 +26,7 @@ $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] = '';
 $strMainAssocs['body'] = '';
+$strMenueAssocs['loginName'] = $_SESSION['uname'];
 $mainPage->assign($strMainAssocs);
 
 $menue->assign(defaultAssocArray());

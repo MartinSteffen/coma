@@ -24,6 +24,7 @@ $strMainAssocs['content'] =  ' Willkommen bei CoMa - dem Konferenzmanagement-Too
 $strMainAssocs['body'] ='';
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;
+$strMenueAssocs['loginName'] = $_SESSION['uname'];
 
 $menue->assign(defaultAssocArray());
 $submenue->assign(defaultAssocArray());

@@ -21,6 +21,7 @@ $submenue = new Template(TPLPATH.'nav_start_konf.tpl');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['content'] =  'neue Konferenz erstellen ';
+$strMenueAssocs['loginName'] = $_SESSION['uname'];
 $strMainAssocs['body'] ='
 <div align="center">
 <table width="750">
