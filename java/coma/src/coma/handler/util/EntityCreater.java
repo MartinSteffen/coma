@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import javax.servlet.http.HttpServletRequest;
 
 import coma.entities.Conference;
+import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.ReviewReport;
 
 
 /**
@@ -46,8 +48,31 @@ public class EntityCreater {
 	}
 	public Person getPerson(HttpServletRequest request){
 	    Person p = new Person();
-	    
+	    //TODO
 	    return p;
 	}
 	
+	public Paper getPaper(ResultSet resSet){
+	    Paper paper = new Paper();
+	    //TODO
+	    return paper;
+	}
+	
+	public Paper getPaper(HttpServletRequest request){
+	    Paper paper = new Paper();
+	    //TODO
+	    return paper;
+	}
+	
+	public ReviewReport getReviewReport(ResultSet resSet){
+	    ReviewReport report = new ReviewReport();
+	    //TODO
+	    return report;
+	}
+	
+	public ReviewReport getReviewReport(HttpServletRequest request){
+	    ReviewReport report = new ReviewReport();
+	    //TODO
+	    return report;
+	}
 }
