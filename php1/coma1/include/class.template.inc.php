@@ -100,13 +100,13 @@ class Template {
   /**
    * Parsen der Seite
    *
-   * Die Methode uebernimmt das tatsächliche Parsen des Templates.
+   * Die Methode uebernimmt das tatsaechliche Parsen des Templates.
    * Alle mit assign uebergebenen Ersetzungenw erden durchgefuehrt.
    * 
    * @return true Erfolg
    * @access public
-   * @TODO Check ob gueltiges Objekt!!!
-   * @TODO nicht ersetzte Tags ueberpruefen!!!
+   * @todo Check ob gueltiges Objekt!!!
+   * @todo nicht ersetzte Tags ueberpruefen!!!
    *
    */
   function parse() {
@@ -115,7 +115,7 @@ class Template {
     foreach ($this->strAssocs as $key => $value) {
       $key = '<(?i){'.$key.'}>';
       $strKeys[] = $key;
-      // @TODO Check ob gültiges Objekt!!!
+      // @todo Check ob gültiges Objekt!!!
       if (is_object($value)) {
         $value->parse();
         $strValues[] = $value->getOutput();
