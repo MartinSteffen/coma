@@ -945,7 +945,7 @@ class DBAccess {
     $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
         '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
         '                 \''.$intRoleType.'\')';
-    echo('<br>SQL: '.$s.'<br>');
+    // echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
     if (!empty($result)) {
       return true;
