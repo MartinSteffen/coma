@@ -57,6 +57,7 @@ if (!empty($dist)) {
       if ($myDBAccess->failed()) {
         error('get suggested reviewer',$myDBAccess->getLastError());
       }
+      $strReviewersAssocs['paper_id'] = $objPaper->intId;
       $strReviewersAssocs['rev_id'] = $arrReviewers[$i]['reviewer_id'];
       $strReviewersAssocs['rev_name'] = $objReviewer->getName(1);
       $strReviewersAssocs['status'] = rand(1,5)<=1?0:$arrReviewers[$i]['status'];
