@@ -506,7 +506,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 							</td>
 							<td width="200">
 								<a>
-									<xsl:attribute name = "href">papers/<xsl:value-of select="filename"/>.<xsl:value-of select="mim_type"/>
+                                                                  <xsl:attribute name = "href">papers/<xsl:value-of select="filename"/><!--.<xsl:value-of select="mim_type"/>-->
 									</xsl:attribute>
 								<xsl:value-of select="title"/>
 								</a>
@@ -637,7 +637,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 							</td>
 							<td width="200">
 								<a>
-									<xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/>.<xsl:value-of select="paper/mim_type"/>
+                                                                  <xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/><!--.<xsl:value-of select="paper/mim_type"/>-->
 									</xsl:attribute><xsl:value-of select="paper/title"/>
 								<xsl:value-of select="title"/>
 								</a>
@@ -737,7 +737,7 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 <tr>
 	<td>
 		<a>
-			<xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/>.<xsl:value-of select="paper/mim_type"/>
+                  <xsl:attribute name = "href">papers/<xsl:value-of select="paper/filename"/><!--.<xsl:value-of select="paper/mim_type"/>-->
 			</xsl:attribute>
 			<xsl:value-of select="paper/title"/>
 			</a>
