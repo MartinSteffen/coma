@@ -84,7 +84,7 @@ if (!empty($dist)) {
       $strReviewersAssocs['paper_id'] = $objPaper->intId;
       $strReviewersAssocs['rev_id'] = $arrReviewers[$i]['reviewer_id'];
       $strReviewersAssocs['rev_name'] = $objReviewer->getName(1);
-      $strReviewersAssocs['status'] = rand(1,5)<=1?0:$arrReviewers[$i]['status'];
+      $strReviewersAssocs['status'] = $arrReviewers[$i]['status'];
       $strReviewersAssocs['rev_array_index'] = $i;
       $strReviewersAssocs['if'] =
         ($arrReviewers[$i]['status']==ASSIGNED?array():array(1));
