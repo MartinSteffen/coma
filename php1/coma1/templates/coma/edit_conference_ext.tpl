@@ -86,7 +86,7 @@
       <input type="hidden" name="final_dl" value="{final_dl}">
       <input type="hidden" name="notification" value="{notification}">
       <input type="hidden" name="action" value="submit">
-      <input type="submit" name="submit_adv" value="Submit Changes" class="button">
+      <input type="submit" name="submit" value="Submit Changes" class="button">
       <input type="submit" name="simple_config_adv" value="Simple settings" class="button">
     </td>
   </tr>
