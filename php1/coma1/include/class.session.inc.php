@@ -102,8 +102,9 @@ class Session {
   function sessionRead($sess_id) {
     $results = $this->mySql->select("SELECT sdata FROM 'Sessions' WHERE sid='$sess_id'");
     if (!$results) {
-      echo 'delete Inserte';
+      //echo 'delete Inserte';
       $this->mySql->delete("DELETE FROM 'Sessions' WHERE sid='$sess_id'");
+      echo "INSERT INTO 'Sessions' ('sid', 'sdata', 'stime') VALUES ('$sess_id', '', NOW())";
       $this->mySql->insert("INSERT INTO 'Sessions' ('sid', 'sdata', 'stime') VALUES ('$sess_id', '', NOW())");
       $s = $this->mySql->getLastError();
       if (!empty($s)) {
