@@ -166,12 +166,12 @@ if (isset($_POST['action'])) {
       $objCriterions = array();
       $strCIds = explode('|', $_POST['criterionsID']);
       for ($i = 0; $i < count($strCriterions); $i++) {
-        $objCriterions[$i] = new Topic($strCIds[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
+        $objCriterions[] = new Topic($strCIds[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
       }
       $objTopics = array();
       $strTIds = explode('|', $_POST['topicsID']);
       for ($i = 0; $i < count($strTopics); $i++) {
-        $objTopics[$i] = new Topic($strTIds[$i], $strTopics[$i]);
+        $objTopics[] = new Topic($strTIds[$i], $strTopics[$i]);
       }
       $objConferenceDetailed =
         new ConferenceDetailed($_POST['id'],
@@ -195,7 +195,7 @@ if (isset($_POST['action'])) {
                                (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
                                $_POST['auto_numreviewer'],
                                $objCriterions, $objTopics);
-      $result = updateConference($objConferenceDetailed);
+      $result = $myDBAccess->updateConference($objConferenceDetailed);
       if (!empty($result)) {
         // Erfolg
         $strMessage = 'Conference configuration is changed.';
