@@ -61,7 +61,7 @@ else if (empty($objConference)) {
   error('conference '.session('confid').' does not exist in database.','');
 }
 if (strtotime($objConference->strReviewDeadline) <= strtotime("now")) {
-  $intAcceptedPapers = $myDBAccess->getNumberOfPapersWithStatus(session('confid'), PAPER_ACCEPTED);
+  $intAcceptedPapers = $myDBAccess->getNumberOfPapersWithStatus(PAPER_ACCEPTED, session('confid'));
   if ($myDBAccess->failed()) {
     error('get num of accepted papers',$myDBAccess->getLastError());
   }
