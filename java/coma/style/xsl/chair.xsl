@@ -27,9 +27,8 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select = "/result/showreviewers_data/status"/>
 <xsl:apply-templates select = "/result/showauthors_data/status"/>
 <xsl:apply-templates select = "/result/setup/status"/>
-<xsl:apply-templates select = "/result/setup_new_step1/status"/>
-<xsl:apply-templates select = "/result/setup_new_step2/status"/>
-<xsl:apply-templates select = "/result/email/status"/>
+<xsl:apply-templates select = "/result/setup_topics/status"/>
+<xsl:apply-templates select = "/result/add_topics/status"/>
 <xsl:apply-templates select = "/result/invitation_send/status"/>
 </div>
 
@@ -39,7 +38,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <!-- Main content -->
 <div class="content">
-<xsl:call-template name="setup"/>
+<xsl:call-template name="setup_conference"/>
+<xsl:call-template name="setup_topics"/>
+<xsl:call-template name="add_topics"/>
 <xsl:apply-templates select = "/result/login/content"/>
 <xsl:apply-templates select = "/result/invite/content"/>
 <xsl:apply-templates select = "/result/showpapers/content"/>
