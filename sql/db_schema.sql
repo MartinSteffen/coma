@@ -1,5 +1,5 @@
--- CREATE DATABASE coma;
--- USE coma;
+CREATE DATABASE coma;
+USE coma;
 
 CREATE TABLE Conference 
 (
@@ -77,7 +77,7 @@ CREATE TABLE ForumType
    PRIMARY KEY (id)
 ) TYPE = INNODB;
 
-	
+
 CREATE TABLE Role
 (
    conference_id  INT NOT NULL,
@@ -286,5 +286,3 @@ CREATE TABLE Message
    FOREIGN KEY (sender_id) REFERENCES Person(id)
       ON DELETE CASCADE
 ) TYPE = INNODB;
-
-
