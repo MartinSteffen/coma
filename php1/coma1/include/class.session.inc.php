@@ -23,9 +23,6 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
 ) TYPE=MyISAM COMMENT='Session Verwaltung';
 */
 
-// Konstante fuer den Namen der Session
-$SESSIONNAME = 'coma1';
-
 /**
  * Klasse Session
  *
@@ -63,7 +60,7 @@ class Session {
   function Session($mySql) {
     $this->mySql = $mySql;
 
-    session_name($SESSIONNAME);
+    session_name('coma1');
     session_cache_limiter('nocache');
     if (!session_set_save_handler(array(& $this,'sessionOpen'),
                                   array(& $this,'sessionClose'),
@@ -79,7 +76,7 @@ class Session {
 
   /**
   * @param string $strSavePath Session Speicher Pfad (hier unnoetig?!?)
-  * @param string $strSessName Der Name der Session (hier $SESSIONNAME) (noetig??)
+  * @param string $strSessName Der Name der Session (hier 'coma1') (noetig??)
   * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
   * @access private
   */
