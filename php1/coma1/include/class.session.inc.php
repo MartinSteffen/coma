@@ -45,10 +45,6 @@ class Session {
   /**@var string*/
   var $strSessName = '';
   /**#@-*/
-  /**
-   * 
-   */
-  var $id = '';
 
   /**
    * Konstruktor
@@ -79,6 +75,20 @@ class Session {
   }
 
   /**
+   * Anzuhaengende URL fuer Verweise
+   *
+   * Falls ein Cookie gesetzt wurde, gibt die Funktion leer zurueck. Ansonsten
+   * wird '?SessionNmae=SessionId' zurueck gegeben. Dieses kann also einfach an 
+   * alle Skript-Verweise angehaengt werden
+   *
+   * @return string Anhang fuer URL
+   * @access public
+   */
+  function getUrlId() {
+    return (SID == '') ? '' : '?'.strip_tags(SID);
+  }
+
+  /**
   * @param string $strSavePath Session Speicher Pfad (hier unnoetig?!?)
   * @param string $strSessName Der Name der Session (hier 'coma1') (noetig??)
   * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
@@ -86,7 +96,6 @@ class Session {
   */
   function sessionOpen($strSavePath, $strSessName) {
     $this->strSessName = $strSessName;
-    $this->id = (SID == '') ? '' : '?'.strip_tags(SID);
     return true;
   }
 
