@@ -20,7 +20,7 @@ At some sites you will find importent informations directly on this sites. <br>
 <ul>
   <li>
     If you are an author and you want to submit your abstracts and papers, you will find help in 
-    <a href="./help.php?for=sstep_author{&popup}{$SID}">chapter 1.3 </a>.
+    <a href="./help.php?for=step_author{&popup}{$SID}">chapter 1.3 </a>.
   </li>
 </ul>
 
