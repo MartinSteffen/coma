@@ -12,4 +12,5 @@ $userPaperConf['confName'] = "Testing Conference";
 
 $TPL['chair'] = $userPaperConf;
 template("CHAIR_paperOfUser");
+$TPL['chair'] = array();
 ?>
