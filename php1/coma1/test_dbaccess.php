@@ -48,7 +48,6 @@ if ($myDBAccess->failed()) {
 echo('OK');*/
 
 
-$myDBAccess->addCriterion(1, 'HARTES Kriterium', '', '', 0, 0.0);
 $c = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -57,7 +56,7 @@ else if (empty($c)) {
   echo('EMPTY');
   exit(-1);
 }
-//$c->objCriterions[0]->strName = 'Ganz hartes Kriterium';
+$c->objCriterions[1]->strName = 'Ganz hartes Kriterium';
 $myDBAccess->updateConference($c);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
