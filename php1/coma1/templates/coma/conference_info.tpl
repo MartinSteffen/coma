@@ -23,7 +23,7 @@
 </table>
 </p>
 
-<form action="{basepath}main_conferences.php?{SID}" method="post">
+<form action="{basepath}main_conferences.php{?SID}" method="post">
   <input type="submit" name="submit" value="Return" class="button" />
 </form>
 

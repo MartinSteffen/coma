@@ -55,7 +55,7 @@ class Template extends ErrorHandling {
    *
    */
   function Template($strFilename) {
-    // generiet selber einen Fehler udn gibt ihn weiter
+    // generiet selber einen Fehler und gibt ihn weiter
     return $this->readTemplate($strFilename);
   }
 

@@ -1,7 +1,7 @@
 
 {if1<p class="message">{message}</p>}
 
-<form action="{basepath}chair_confconfig.php?{SID}" method="post">
+<form action="{basepath}chair_confconfig.php{?SID}" method="post">
 
 <table class="formtable">
   <tr>
@@ -112,6 +112,6 @@
 </table>
 </form>
 
-<form action="{basepath}chair_confconfig.php?{SID}" method="post">
+<form action="{basepath}chair_confconfig.php{?SID}" method="post">
   <input type="submit" name="cancel" value="Cancel" class="button" />
 </form>

@@ -14,7 +14,7 @@
  <tr>
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
-   <a href="{basepath}index.php?{SID}">
+   <a href="{basepath}index.php{?SID}">
       <img src="{path}images/logo.jpg" width="150" height="90" border="0" alt="Logo">
    </a>
   </td>
@@ -24,11 +24,11 @@
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
      <!--
-      <a href="{basepath}imprint.php?{SID}">Imprint</a>&nbsp;|&nbsp;
-      <a href="{basepath}forum.php?{SID}">Forum</a>&nbsp;|&nbsp;
+      <a href="{basepath}imprint.php{?SID}">Imprint</a>&nbsp;|&nbsp;
+      <a href="{basepath}forum.php{?SID}">Forum</a>&nbsp;|&nbsp;
       -->
-      <a href="{basepath}logout.php?{SID}">Logout</a>&nbsp;&nbsp;
-      <a href="{basepath}help.php?{SID}"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
+      <a href="{basepath}logout.php{?SID}">Logout</a>&nbsp;&nbsp;
+      <a href="{basepath}help.php{?SID}"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
      </td>
     </tr>
     <tr>

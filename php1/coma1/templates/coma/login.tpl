@@ -2,7 +2,7 @@
 {if1<p class="message">{message}</p>}
 {if2<p class="message-ok">{message}</p>}
 
-<form action="{basepath}login.php?{SID}" method="post">
+<form action="{basepath}login.php{?SID}" method="post">
 
 <table class="formtable">
   <tr>
@@ -38,7 +38,7 @@
   If you have not registered yet, please register below:<br>
 </p>
 
-<form action="{basepath}register.php?{SID}" method="post">
+<form action="{basepath}register.php{?SID}" method="post">
   <input type="submit" name="submit" value="Register" class="button" />
 </form>
 

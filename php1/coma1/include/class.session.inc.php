@@ -105,11 +105,12 @@ class Session extends ErrorHandling {
    * wird '?SessionName=SessionId' zurueck gegeben. Dieses kann also einfach an
    * alle Skript-Verweise angehaengt werden.
    *
+   * @param string $strPrefix Prefix fuer SID zB '?'
    * @return string Anhang fuer URL
    * @access public
    */
-  function getUrlId() {
-    return (SID == '') ? '' : strip_tags(SID);
+  function getUrlId($strPrefix='') {
+    return (SID == '') ? '' : $strPrefix . strip_tags(SID);
   }
 
   /**

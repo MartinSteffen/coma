@@ -20,7 +20,8 @@ function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";
   $strError = '['.basename($_SERVER['PHP_SELF'],'.php')."->$strMethod: $strError$strComment]";
   include(TPLPATH.'error.php');
-  die('CRITICAL UNHANDLED ERROR!');
+  echo($strError);
+  die(1);
 }
 
 /**
@@ -54,7 +55,8 @@ function defaultAssocArray() {
                'path'      => TPLURL,
                'basepath'  => COREURL,
                'filename'  => basename($_SERVER['PHP_SELF'],'.php'),
-               'SID'       => $mySession->getUrlId()
+               '?SID'       => $mySession->getUrlId('?'),
+               '&SID'       => $mySession->getUrlId('&')
               );
 }
 

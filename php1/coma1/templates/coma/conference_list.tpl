@@ -27,6 +27,6 @@
   If you want to create a new conference, please use the button below:<br>
 </p>
 
-<form action="{basepath}create_conference.php?{SID}" method="post">
+<form action="{basepath}create_conference.php{?SID}" method="post">
   <input type="submit" name="submit" value="Create new conference" class="button" />
 </form>
