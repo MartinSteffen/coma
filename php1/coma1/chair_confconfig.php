@@ -169,13 +169,12 @@ if (isset($_POST['action'])) {
     else {
       $objCriterions = array();
       for ($i = 0; $i < count($strCriterions); $i++) {
-        $objCriterions[] = new Topic($intCIds[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
+        $objCriterions[] = new Topic($intCIDs[$i], $strCriterions[$i], $strCritDescripts[$i], $strCritMaxVals[$i], $strCritWeights[$i]);
       }
       $objTopics = array();
       for ($i = 0; $i < count($strTopics); $i++) {
-        $objTopics[] = new Topic($intTIds[$i], $strTopics[$i]);
+        $objTopics[] = new Topic($intTIDs[$i], $strTopics[$i]);
       }
-      var_dump($objTopics);
       $objConferenceDetailed =
         new ConferenceDetailed($_POST['id'],
                                $_POST['name'],
