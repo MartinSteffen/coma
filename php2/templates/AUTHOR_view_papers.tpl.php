@@ -17,7 +17,7 @@ include('templates/header.tpl.php');
 if (array_key_exists('msg', $TPL)) {
 	?>
 	<fieldset>
-	<legend class="textBold" color="red">MESSAGE</legend>
+	<legend class="textBold" style="color:red">MESSAGE</legend>
 		<table>
 			<tr>
 				<td class="textBold">
@@ -26,6 +26,7 @@ if (array_key_exists('msg', $TPL)) {
 			</tr>
 		</table>
 	</fieldset>
+	<br>
 	<?
 	unset($TPL['msg']);
 }
@@ -78,7 +79,7 @@ foreach($TPL as $key => $value) { // for each block of conferences (alive or dea
 					?>
 	<fieldset>
 	<legend class="text"><font class="textBold">Paper: </font><? echo $v['title']; ?><font class="textBold"> -- last edited: </font><? echo $v['last_edited'] ?></legend>
-		<table border="0" cellspacing="0" cellpadding="0">
+		<table border="0" cellspacing="6" cellpadding="0">
 			<tr>
 				<td class="textBold">
 					<a href="index.php?m=author&a=view&s=getfile&pid=<? echo $v['id']; ?>"><? echo $v['title']; ?></a>
@@ -89,9 +90,10 @@ foreach($TPL as $key => $value) { // for each block of conferences (alive or dea
 			</tr>
 			<tr>
 				<td class="textBold">
-			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $v['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!');" class="author"><font style="color:red">DELETE PAPER</font></a>
-			&nbsp; &nbsp; 
-			<a href="index.php?m=author&a=edit&s=form&pid=<? echo $v['id']; ?>" class="author"><font style="color:green">EDIT PAPER</font></a>
+				<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $v['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!');" class="author"><font style="color:red">DELETE PAPER</font></a>
+				</td>
+				<td class="textBold">
+				<a href="index.php?m=author&a=edit&s=form&pid=<? echo $v['id']; ?>" class="author"><font style="color:green">EDIT PAPER</font></a>
 				</td>
 			</tr>
 				
