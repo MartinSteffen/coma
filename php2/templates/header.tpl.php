@@ -65,6 +65,12 @@
                 <tr> 
                   <td bgcolor="#FFFFFF" height="31"> 
                     <table width="239" border="0" cellspacing="0" cellpadding="0">
+                      <tr> 
+                        <td class="menus"><a href="index.php?m=tasks" class="menus">My tasks</a></td>
+                      </tr>
+                      <tr> 
+                        <td class="menus"><a href="index.php?m=profile" class="menus">My profile</a></td>
+                      </tr>					  					
 	        <? if(isAdmin_Overall())
 			   { ?>
                       <tr> 
