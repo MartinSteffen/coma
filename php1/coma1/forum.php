@@ -83,6 +83,22 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $forumassocs['plusorminus'] = '-';
       $messes = $myDBAccess->getThreadsOfForum($forum->intId);
       $messes = displayMessages($messes, $msgselection, $select, $forum->intId, $forumassocs);
+      //Thread-neu
+      $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
+      $threadassocs = defaultAssocArray();
+      $threadassocs['replystring'] = 'Start new thread';
+      $threadassocs['message-id'] = '';
+      $threadassocs['forum-id'] = $forum->intId;
+      $threadassocs['subject'] = '';
+      $threadassocs['text'] = '';
+      $edittemplate = new Template(TPLPATH . 'threadform.tpl');
+      $editassocs = defaultAssocArray();
+      $edittemplate->assign($editassocs);
+      $edittemplate->parse();
+      $threadassocs['editform'] = $edittemplate->getOutput();
+      $threadtemplate->assign($threadassocs);
+      $threadtemplate->parse();
+      $forumassocs['tread-new'] = $threadtemplate->getOutput();
     }
     else{
       $forumassocs['selectorunselect'] = 'forumsel';
@@ -90,23 +106,8 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '+';
       $forumassocs['messages'] = '';
+      $forumassocs['thread-new'] = '';
     }
-    //Thread-neu
-    $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
-    $threadassocs = defaultAssocArray();
-    $threadassocs['replystring'] = 'Start new thread';
-    $threadassocs['message-id'] = '';
-    $threadassocs['forum-id'] = $forum->intId;
-    $threadassocs['subject'] = '';
-    $threadassocs['text'] = '';
-    $edittemplate = new Template(TPLPATH . 'threadform.tpl');
-    $editassocs = defaultAssocArray();
-    $edittemplate->assign($editassocs);
-    $edittemplate->parse();
-    $threadassocs['editform'] = $edittemplate->getOutput();
-    $threadtemplate->assign($threadassocs);
-    $threadtemplate->parse();
-    $forumassocs['thread-new'] = $threadtemplate->getOutput();
 
     $forumtemplate->assign($forumassocs);
     $forumtemplate->parse();
@@ -336,7 +337,7 @@ else{
   }
 
   //evtl. posten einleiten
-  if ((!empty($HTTP_POST_VARS['reply-to'])) && (!empty($HTTP_POST_VARS['text']))){
+  if (((!empty($HTTP_POST_VARS['reply-to'])) || ($HTTP_POST_VARS['posttype'] == 'newthread')) && (!empty($HTTP_POST_VARS['text']))){
     if (DEBUGMODE){
       echo('posten wird eingeleitet<br>');
     }
