@@ -86,7 +86,7 @@ if (isset($_POST['email'])){
   }  
 }
  
-if (!(empty($strMessage)) {
+if (!empty($strMessage)) {
   $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
 }
 else {
