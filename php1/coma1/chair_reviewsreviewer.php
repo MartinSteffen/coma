@@ -89,15 +89,15 @@ if (!empty($r_id)) {
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     //$strItemAssocs['if'] = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
-    if ($objReviewerAttitude->getPaperAttitude($objPaper->intId) != ATTITUDE_EXCLUDE) {
-      $strItemAssocs['if'][] = 7; // Checkbox ohne Haekchen setzen
-    }
     $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId);
     if ($myDBAccess->failed()) {
       error('get paper/reviewer information', $myDBAccess->getLastError());
     }
     if ($isD) {
       $strItemAssocs['if'][] = 8; // Checkbox mit Haekchen setzen
+    }
+    elseif ($objReviewerAttitude->getPaperAttitude($objPaper->intId) != ATTITUDE_EXCLUDE) {
+      $strItemAssocs['if'][] = 7; // Checkbox ohne Haekchen setzen
     }
     $strRevItem = new Template(TPLPATH.'reviewerattitudes.tpl');
     $strRevItem->assign($strItemAssocs);
