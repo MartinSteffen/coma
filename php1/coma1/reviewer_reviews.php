@@ -34,11 +34,7 @@ $strContentAssocs['lines'] = '';
 // Liste der Reviews erzeugen
 if (!empty($objPapers)) {
   $lineNo = 1;
-  foreach ($objPapers as $objPaper) {
-  	$isReviewed = $myDBAccess->hasPaperBeenReviewed($objPaper->intId, session('uid'));
-  	if ($myDBAccess->failed()) {
-      error('Error during review status check.',$myDBAccess->getLastError());
-    }
+  foreach ($objPapers as $objPaper) {  	
     $ifArray = array();
     $ifArray[] = $objPaper->intStatus;
     $strItemAssocs['line_no'] = $lineNo;
@@ -47,6 +43,10 @@ if (!empty($objPapers)) {
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);
     $strItemAssocs['if'] = $ifArray;
+    $isReviewed = $myDBAccess->hasPaperBeenReviewed($objPaper->intId, session('uid'));
+  	if ($myDBAccess->failed()) {
+      error('Error during review status check.',$myDBAccess->getLastError());
+    }
     if ($isReviewed) {
     	$paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
   	  $objReview = $myDBAccess->getReviewerReviewOfPaper(session('uid'),$objPaper->intId);
@@ -71,7 +71,7 @@ if (!empty($objPapers)) {
       }
     }
     else {
-      $paperItem = new Template(TPLPATH.'reviewer_reviewlistitem.tpl');
+      $paperItem = new Template(TPLPATH.'reviewer_newreviewlistitem.tpl');
     }
     $paperItem->assign($strItemAssocs);
     $paperItem->parse();
