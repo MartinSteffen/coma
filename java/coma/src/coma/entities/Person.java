@@ -217,9 +217,18 @@ public class Person extends Entity {
 		this.title = title;
 	}
 
-    public boolean isChair(){throw new Error("ENOTIMPLEMENTED");}
-    public boolean isAuthor(){throw new Error("ENOTIMPLEMENTED");}
-    public boolean isReviewer(){throw new Error("ENOTIMPLEMENTED");}
+    public boolean isChair(){
+    	if (this.role_type==0) return true;
+    	else return false;
+    }
+    public boolean isAuthor(){
+    	if (this.role_type==1) return true;
+    	else return false;
+    }
+    public boolean isReviewer(){
+    	if (this.role_type==2) return true;
+    	else return false;
+    }
 	
 	
 	
