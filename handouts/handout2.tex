@@ -3,9 +3,7 @@
 
 \newif\ifweb\webfalse
 
-
-
-\documentclass[11pt,nologo,handout]{handout}
+\documentclass[11pt,handout]{handout}
 
 
 \dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
@@ -13,7 +11,7 @@
 \semester{WS 2004/05}
 \ausgabetermin{9.~November 2005}
 \handouttitle{F}
-\nummer{2}
+\nummer{2.(1)}
 \thema{Platform and software}
 
 \newcommand{\Coma}{\textsl{Coma}}
@@ -23,6 +21,7 @@
 
 \usepackage{hevea}
 \usepackage[latin1]{inputenc}
+\usepackage{hyperref}
 
 %\uebungfalse
 %\handouttrue
@@ -71,16 +70,16 @@ Here is some data descibing the machine.
 \end{table}
 
 The purpose of the machine is 3fold\footnote{One particular purpose for
-  which we cannot use the machine is for backup, since it is not part of
-  the networks backup system. As solution, we are running a cronjob which
-  in regular intervals copies relevant data to the sun-pool.}
+  which we cannot use the machine directly is for \emph{backup,} since it
+  is not part of the network's backup system. As solution, we are running a
+  cronjob which in regular intervals copies relevant data to the sun-pool.}
 \begin{enumerate}
 \item subversion server
 \item test platform
 \item bugzilla server
 \end{enumerate}
 
-More details concerning that below. 
+More details concerning in particular subversion that below. 
 
 %But in order to access the machine, we
 %need from everybody a separate \emph{password} for subversion access (via
@@ -193,7 +192,6 @@ So you might try:
 
 \subsection*{Example}
 
-
 The example uses \texttt{\$WORKDIR} as name for the \emph{working
   directory} you choose appropriately. In principle you can have as many
 working directories at the same time, i.e., more than one checked out copy
@@ -205,9 +203,9 @@ situation, one woring directory per ``workplace'' suffices.
 \item[check out:] as explained already above, the following gives you
   the first copy of the \Coma-project:
 \begin{verbatim}
-              mkdir $WORKDIR
-              cd $WORKDIR
-              svn co http://snert.informatik.uni-kiel.de:8080/svn/coma 
+         mkdir $WORKDIR
+         cd $WORKDIR
+         svn co http://snert.informatik.uni-kiel.de:8080/svn/coma 
 \end{verbatim}
   As said: Instead of \texttt{svn}, you might wish to play around with
   \texttt{svntest} for a start.  The ``variable'' \texttt{\$WORKDIR} is
@@ -215,7 +213,7 @@ situation, one woring directory per ``workplace'' suffices.
   also pick only parts of the repos, for instance
 
 \begin{verbatim}
-              svn co http://snert.informatik.uni-kiel.de:8080/svn/coma/org checkout 
+        svn co http://snert.informatik.uni-kiel.de:8080/svn/coma/org
 \end{verbatim}
   gives you info about the groups etc.
 \item[write back:] Once done with your changes, you can hand back the whole 
@@ -298,6 +296,88 @@ thumb might give first guidance.
 %  generierte Dokumentation wird in regelm"a"sigen Abst"anden im Netz
 %  bereitgestellt.
 \end{itemize}
+
+
+\section{Further software}
+
+There is a number of other software installed on the machine. we give here
+a short overview, a later handout will contain an update, when new stuff
+arrived, but also more specific infos concerning the use and the access.
+
+
+
+\subsection{Bugzilla}
+
+
+\href{http://www.bugzilla.org}{Bugzilla} is some server which helps to
+maintain a common database of bugs during the software devolopment. In
+particular, it helps to keep track of the status of an error, for instance 
+\begin{itemize}
+\item who reported the error?
+\item what kind of error, short description?
+\item who is (probably) responsible?
+\item was it acknowledged?
+\item has it been repaired?
+\end{itemize}
+
+As with subversion, it can be be a helpful tool when used with care, but
+obviously does not guarantee solid development.  For instance, reporting
+bugs and having a nice overviews over the various developments does not
+help in the end, if noone feels responsible for fixing them \ldots In
+previous courses, we used a ``manual'' kind of bug-tracking system and that
+was pretty much the situation. 
+
+With bugzilla such much more powerful and easer to use than some textual
+(but formatted) \emph{error-lists}, different dangers might occur, for
+instance that we are swamped in error logs and we loose the focus. We might
+hunt down one tiny bug after the the other, the statistics looks nice, but
+we loose in ther overall goal.
+
+A further danger could be social. People don't like if someone else spot
+errors in one's own work (and make them public, as well). A reported error
+as such is first of all something useful, but don't take it as
+``\emph{sport}'' to notch as many (big, small, miniscule) errors of others
+on your knife\ldots. And refrain from error reports as \emph{retaliation!}
+(``Now if they find 5 bugs in my part, let's sit down and see what kind of
+shitty code they have, I'll give them back 50, that should teach them''.
+yes, things happen)
+
+
+\medskip
+
+Since we currently don't know, how people will adapt to the situation (till
+next week, we might hand out further hints concerning rules of engagement)
+we will have to monitor whether bugzilla is used to support the aims of the
+project.  Reacall: bugzilla is a \emph{tool} not a \emph{goal} of the
+course.
+
+
+
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ll}
+    php & 4.3.8 
+    \\
+    python & 2.3.3
+    \\
+    mySQL & 3.23.58
+    \\
+    apache httpd &
+    \\
+    ``tomcat'' & partly installed
+    \\
+    ``java'' &  1.4
+  \end{tabular}
+  \caption{further software @ snert}
+  \label{tab:software}
+\end{table}
+
+
+
+
+
+
 
 
 
