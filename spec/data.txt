@@ -1,36 +1,45 @@
 
 
-Coma        ::=       id:              Identifier
-                      conf:            Conference
+Coma        ::=       conf:      set of Conference
 
 
-Conference  ::=       title:     String
+Conference  ::=       id:        Identifier
 	              admin:     AdminData   
 		      general:   GeneralData
 		      commitee:  CommiteeData
+     	              forums:    set of Forum
 
-GeneralData   ::=     title:     String
-		      acronym:   String
-		      location:  String
-		      time:      Date * Date   /* from, to */
-		      homepage:  Url
-		      email:     [Email]
-                      submission: Date
-		      notification:    Date
-AdminData     ::=     topicnames* (common topics)	
-		      ratingtype  (1: 1--5)	
-		      criteria*   (common criteria)
+
+GeneralData   ::=                          /* General data is intended 
+	                                     to be of general interest 
+					     i.e., general public. */
+                      title:      String
+		      acronym:    String
+		      location:   String
+		      time:       Date * Date   /* from, to */
+		      homepage:   Url
+		      email:      [Email]
+                      submission:    Date
+		      notification:  Date
+		      finalversion:  Date
+AdminData     ::=    
+		      crcversion:      Date
 		      average-reviewers (4)
 		      critical-variance (?)
-		      finalversion      Date
 		      min-papers,maxpapers:  int
 		      min-reviewer (3)
                       auto-validate-accounts:     boolean: (true)
 		      auto-start-paperdiscussion: boolean (true)
 		      auto-add-reviewers:  boolean false
 		      num-rereviewers:          boolean (true)
-		      forums:                    set of Forum
-		      review    :   Date
+
+CommiteeData  ::=    topicnames*
+                     ratingtype  (1: 1--5)
+	             criteria*   (common criteria)
+  	             review    :   Date
+
+  
+	             
 
 
 
@@ -42,8 +51,12 @@ Person      :: =      id:        Identifier
 		      email:     Email-url
 		      username:  string
 		      password:  string
-
 		      status:    active | deleted
+
+
+Reviewer   ::=        papers      Set of Paper
+	              reviews     Set of Review
+		      preferences Set of Preference
 
 
 
