@@ -23,12 +23,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {
       !isset($_POST['reviewerarrayindex'])) {
     error('get distribution suggestion of session', 'An index is missing.');
   }
+  $pid = $_POST['paperid'];
+  $rid = $_POST['reviewerid'];
+  $rindex = $_POST['reviewerarrayindex'];
   $dist = $_SESSION['dist'];
-  if ($dist[$_POST['paperid']][$_POST['reviewerarrayindex']][$_POST['reviewerid']] !=
-      $_POST['reviewerid']) {
+  if ($dist[$pid][$rindex]['reviewer_id'] != $rid) {
     error('get distribution suggestion of session', 'Wrong index.');
   }
-  unset($dist[$_POST['paperid']][$_POST['reviewerarrayindex']);
+  unset($dist[$pid][$rindex]);
 }
 else {
   $myDist = new Distribution($mySql);
