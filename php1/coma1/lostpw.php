@@ -29,7 +29,7 @@ $message = '';
 if (isset($_POST['submit'])) {
   /* E-Mail eingeben */
   $uname = $_POST['user_name'];
-  if (myDBAccess->checkEmail($uname)) {
+  if ($myDBAccess->checkEmail($uname)) {
     // gueltiger User
   }
   else {
