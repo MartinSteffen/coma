@@ -24,14 +24,11 @@ function bit($b) {
   return true;
 }
 
-$p = $myDBAccess->getPerson(1);
+$p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-else {
-  echo($p->strName);
-  echo(get_class($p).' / '.get_class(false).' / '.get_class(array(1, 2)));
-}
+echo (is_subclass_of($p, 'paper').' / '.is_subclass_of($p, 'paperdetailed'));
 
 /*
 $p = $myDBAccess->getPaperDetailed(2);
