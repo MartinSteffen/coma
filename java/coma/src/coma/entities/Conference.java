@@ -146,14 +146,16 @@ public class Conference extends Entity {
     	{
     		if (date.toString().length()==10)
     		{
-		    	StringBuffer result=new StringBuffer();
+    			String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Okt","Nov","Dec"};
+    			StringBuffer result=new StringBuffer();
 		    	String sqlDate = date.toString();
 		    	result.append(sqlDate.charAt(8));
 		    	result.append(sqlDate.charAt(9));
-		    	result.append(".");
-		    	result.append(sqlDate.charAt(5));
-		    	result.append(sqlDate.charAt(6));
-		    	result.append(".");
+		    	result.append(". ");
+		    	int month = Integer.parseInt(String.valueOf(sqlDate.charAt(5)))*10;
+		    	month += Integer.parseInt(String.valueOf(sqlDate.charAt(6)));
+		    	result.append(months[month-1]);
+		    	result.append(" ");
 		    	result.append(sqlDate.charAt(0));
 		    	result.append(sqlDate.charAt(1));
 		    	result.append(sqlDate.charAt(2));
@@ -162,7 +164,6 @@ public class Conference extends Entity {
     		}
     		else
     		{
-    			//String[] months = {"Jan","Feb","Mar","May","Apr","Jun","Jul","Aug","Sep","Okt","Nov","Dec"};
     			StringBuffer result=new StringBuffer();
     			String javaDate = date.toString();
     			result.append(javaDate.charAt(8));
