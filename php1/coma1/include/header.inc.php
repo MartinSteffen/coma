@@ -70,9 +70,9 @@ define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/');
 /** Template-Pfad-Images (als absolut) */
-define('IMAGES',dirname($_SERVER['PHP_SELF']).'/images');
+define('IMAGES',dirname($_SERVER['PHP_SELF']).'/images/');
 /** Template-Pfad (als URL)*/
-define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates');
+define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/');
 /** Haupt-Pfad (als URL)*/
 define('COREURL',dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
