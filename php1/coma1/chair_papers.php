@@ -55,7 +55,7 @@ if (isset($_GET['order'])) {
 $intOrder = (int)session('orderpapers', false);
 $ifArray = array($intOrder);
 
-$objPapers = $myDBAccess->getPapersOfConference(session('confid'));
+$objPapers = $myDBAccess->getPapersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('gather list of papers for chair', $myDBAccess->getLastError());
 }
