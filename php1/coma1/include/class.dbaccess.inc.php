@@ -116,7 +116,7 @@ class DBAccess extends ErrorHandling {
     if (!empty($data)) {
       return $this->success(true);
     }
-    return $this->succes(false);
+    return $this->success(false);
   }
 
   /**
