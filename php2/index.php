@@ -11,7 +11,9 @@ if(is_dir("install/")){
 		header("Location: http://{$_SERVER['SERVER_NAME']}".dirname($_SERVER['REQUEST_URI'])."/install/install.php");
 	}
 }
-
+foreach($_REQUEST as $key => $value) {
+	$$key=$value;
+}
 include("includes/definitions.inc.php");
 include("includes/sql.class.php");
 include("includes/login.inc.php");
