@@ -34,7 +34,7 @@ else if (empty($p)) {
   die(-1);
 }
 for ($i = 0; $i < count($p->objPreferredTopics); $i++) {
-  echo ('<br>'.$p->objPreferredTopics[$i]);
+  echo ('<br>'.$p->objPreferredTopics[$i]->intId.' / '.$p->objPreferredTopics[$i]->strName);
 }
 
 
