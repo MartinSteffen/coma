@@ -37,42 +37,36 @@ public class Paper extends Entity {
     public Paper(int id){this.id=id;}
     
     public String getAbstract() {
-	System.out.print("&Ab");
         return Abstract;
     }
     public void setAbstract(String abstract1) {
         Abstract = abstract1;
     }
     public int getAuthor_id() {
-	System.out.print("&AI");
         return author_id;
     }
     public void setAuthor_id(int author_id) {
         this.author_id = author_id;
     }
     public int getConference_id() {
-	System.out.print("&CI");
         return conference_id;
     }
     public void setConference_id(int conference_id) {
         this.conference_id = conference_id;
     }
     public String getFilename() {
-	System.out.print("&FN");
         return filename;
     }
     public void setFilename(String filename) {
         this.filename = filename;
     }
     public int getId() {
-	System.out.print("&Id");
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
     public Date getLast_edited() {
-	System.out.print("&LE");
 	if (last_edited==null)
 	    setLast_edited(new Date(1l)); // FIXME FIXME
         return last_edited;
@@ -81,30 +75,24 @@ public class Paper extends Entity {
         this.last_edited = last_edited;
     }
     public String getMim_type() {
-	System.out.print("&gMT");
-	assert mim_type!=null;
         return mim_type;
     }
     public void setMim_type(String mim_type) {
         this.mim_type = mim_type;
     }
     public int getState() {
-	System.out.print("&gS");
         return state;
     }
     public void setState(int state) {
         this.state = state;
     }
     public String getTitle() {
-	System.out.print("&gT");
-	assert title != null;
         return title;
     }
     public void setTitle(String title) {
         this.title = title;
     }
     public int getVersion() {
-	System.out.print("&gV");
         return version;
     }
     public void setVersion(int version) {
@@ -125,7 +113,6 @@ public class Paper extends Entity {
 	
     
     public Person getAuthor(){
-	System.out.print("&gA");
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
 	SearchCriteria sc = new SearchCriteria();
 	sc.setPerson(new Person(getAuthor_id()));

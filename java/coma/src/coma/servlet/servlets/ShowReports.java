@@ -296,7 +296,11 @@ public class ShowReports extends HttpServlet {
 
 		if (rr.isEdited()){
 
-		    result.add(rr.getPaper());
+		    Paper thePaper = rr.getPaper();
+		    // @all: wenn's nicht klappt, die folgende Zeile wieder wegwerfen:
+		    if (thePaper.getConference_id() == thePerson.getConference_id())
+			// das result.add muss natürlich stehenbleiben.
+			result.add(thePaper);
 		}
 	    }
 	}
