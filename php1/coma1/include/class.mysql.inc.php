@@ -16,7 +16,7 @@ if (!defined('IN_COMA1')) {
  * sowie einfache Fehlerbehandlungsroutinen
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
- * @copyright Copyright (c) 2004, Jan Waller
+ * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
  * @subpackage DBAccess
  * @access protected
@@ -32,7 +32,7 @@ class MySql {
   var $mySqlUser = '';
   var $mySqlPassword = '';
   var $mySqlDatabase = '';
-  var $errString;
+  var $strError = '';
   /**#@-*/
   /**
    * Ein Verweiss auf das aktuelle Handle der Datenbank.
@@ -41,7 +41,7 @@ class MySql {
    * @access protected
    * @var resource
    */
-  var $conn;
+  var $mySqlConnection;
 
   /**
    * Konstruktor
@@ -71,7 +71,7 @@ class MySql {
     if (!mysql_select_db($sqlDatabase)) {
       return $this->error("Could not select Database: ");
     }
-    $this->conn = $conn;
+    $this->mySqlConnection = $conn;
     return true;
   }
 
@@ -89,17 +89,17 @@ class MySql {
    * @access public
    *
    */
-  function select($sql='') {
-    if (empty($sql)) {
+  function select($strSql='') {
+    if (empty($strSql)) {
       return false;
     }
-    if (!eregi("^select",$sql)) {
-      return $this->error("MySql->select called with $sql");
+    if (!eregi("^select",$strSql)) {
+      return $this->error("select called with $strSql");
     }
-    if (empty($this->conn)) {
+    if (empty($this->mySqlConnection)) {
       return false;
     }
-    $results = mysql_query($sql, $this->conn);
+    $results = mysql_query($strSql, $this->mySqlConnection);
     if (empty($results)) {
       @mysql_free_result($results);
       return false;
@@ -127,22 +127,21 @@ class MySql {
    * @access public
    *
    */
-  function insert($sql = '') {
-    if (empty($sql)) {
+  function insert($strSql = '') {
+    if (empty($strSql)) {
       return false;
     }
-    if (!eregi("^insert",$sql)) {
-      return $this->error("MySql->insert called with $sql");
+    if (!eregi("^insert",$strSql)) {
+      return $this->error("insert called with $strSql");
     }
-    if (empty($this->conn)) {
+    if (empty($this->mySqlConnection)) {
       return false;
     }
-    $results = mysql_query( $sql, $this->conn );
-    if (!$results) {
+    $results = mysql_query( $strSql, $this->mySqlConnection );
+    if (empty($results)) {
       return false;
     }
-    $results = mysql_insert_id();
-    return $results;
+    return  mysql_insert_id();
   }
 
   /**
@@ -150,16 +149,16 @@ class MySql {
    *
    * Die Funktion <b>error()</b> checkt auf MySql Fehler und speichert diese.
    *
-   * @param string $text Eine optionale Angabe einer Fehlerursache
+   * @param string $strError Eine optionale Angabe einer Fehlerursache
    * @return false Es wird immer <b>false</b> zurueck gegeben
    * @see getLastError()
    * @access protected
    *
    */
-  function error($text='') {
+  function error($strError='') {
     $no = mysql_errno();
     $msg = mysql_error();
-    $this->errString = "[$text] ( $no : $msg )";
+    $this->strError = "[MySQL: $strError ( $no : $msg ) ]";
     return false;
   }
 
@@ -175,9 +174,9 @@ class MySql {
    *
    */
   function getLastError() {
-    $errString = $this->errString;
-    $this->errString = '';
-    return $errString;
+    $strError = $this->strError;
+    $this->strError = '';
+    return $strError;
   }
 
 } // end class MySql

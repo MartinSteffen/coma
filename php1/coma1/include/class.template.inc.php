@@ -14,7 +14,7 @@ if (!defined('IN_COMA1')) {
  * Klasse zum Parsen der Templates
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
- * @copyright Copyright (c) 2004, Jan Waller
+ * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
  * @subpackage Parser
  * @access public
@@ -131,16 +131,16 @@ class Template {
   /**
    * Fehler erzeugen
    *
-   * Die Funktion <b>error()</b> speichert Fehler diese.
+   * Die Funktion <b>error()</b> erzeugt und speichert einen Fehlerstring.
    * 
-   * @param string $text Eine optionale Angabe einer Fehlerursache
+   * @param string $strError Optionale Angabe einer Fehlerursache
    * @return false Es wird immer <b>false</b> zurueck gegeben
    * @see getLastError()
    * @access protected
    *
    */
-  function error($text='') {
-    $this->strError = $text;
+  function error($strError='') {
+    $this->strError = $strError;
     return false;
   }
 

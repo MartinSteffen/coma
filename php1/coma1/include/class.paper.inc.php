@@ -12,7 +12,7 @@ if (!defined('IN_COMA1')) {
  * Klasse Paper
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
- * @copyright Copyright (c) 2004, Jan Waller
+ * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
  * @subpackage Objects
  * @access public

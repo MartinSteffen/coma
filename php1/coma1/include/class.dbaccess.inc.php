@@ -15,7 +15,7 @@ require_once('class.mysql.inc.php');
  *
  * @author Sandro Esquivel <sae@informatik.uni-kiel.de>
  * @author Tom Scherzer <tos@informatik.uni-kiel.de>
- * @copyright Copyright (c) 2004, PHP1
+ * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
  * @subpackage DBAccess
  * @access protected
@@ -62,8 +62,8 @@ class DBAccess {
    * @see getLastError()
    * @access protected
    */
-  function error($strText='') {
-    $this->strError = '[DBAccess: '.$strText.']';
+  function error($strError='') {
+    $this->strError = "[DBAccess: $strError ]";
     return false;
   }
 
