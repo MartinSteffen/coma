@@ -227,18 +227,13 @@ if (isset($_POST['action'])) {
       }
     }
 
-    $sum = 0.0;
     foreach ($strCritWeights as $key => $critWeights){
       if ($critWeights <= 0){
         $strMessage .= "The weight of the criterion '{$strCriterions[$key]}'should be greater then zero!\n";
       }
-      $sum += $critWeights;
-      echo $sum ."\n";
     }
     
-    var_dump($sum);
-    
-    if ($sum != 1.0) {
+    if (abs(array_sum($strCritWeights)-1) > 1e-10) {
       $strMessage .= "The weight of the criterions should sum to one!\n";
     }
         
