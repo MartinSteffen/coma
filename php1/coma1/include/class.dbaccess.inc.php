@@ -1487,14 +1487,10 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     // Co-Autoren loeschen...
-    /*$s = "DELETE  FROM IsCoAuthorOf".
-        " WHERE   paper_id = '$objPaperDetailed->intId'".
-        " AND     person_id IS NOT NULL";*/
     $s = sprintf("DELETE   FROM IsCoAuthorOf".
                  " WHERE   paper_id = '%d'".
                  " AND     person_id IS NOT NULL",
                  s2db($objPaperDetailed->intId));
-    echo("<br>$s<br>");
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1502,13 +1498,9 @@ nur fuer detaillierte?
     // Co-Autoren einfuegen...
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
       if (!empty($objPaperDetailed->intCoAuthorIds[$i])) {
-        /*$s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
-            "         VALUES ('".$objPaperDetailed->intCoAuthorIds[$i]."',".
-            "                 '$objPaperDetailed->intId')";*/
         $s = sprintf("INSERT   INTO IsCoAuthorOf (person_id, paper_id)".
                      " VALUES  ('%d', '%d')",
                      s2db($objPaperDetailed->intCoAuthorIds[$i]), s2db($objPaperDetailed->intId));
-        echo("<br>$s<br>");
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1532,14 +1524,10 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     // Co-Autornamen loeschen...
-    /*$s = "DELETE  FROM IsCoAuthorOf".
-        " WHERE   paper_id = '$objPaperDetailed->intId'".
-        " AND     person_id IS NULL";*/
     $s = sprintf("DELETE   FROM IsCoAuthorOf".
                  " WHERE   paper_id = '%d'".
                  " AND     person_id IS NULL",
                  s2db($objPaperDetailed->intId));
-    echo("<br>$s<br>");
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1551,13 +1539,9 @@ nur fuer detaillierte?
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
       if (empty($objPaperDetailed->intCoAuthorIds[$i]) &&
           !empty($objPaperDetailed->strCoAuthors[$i])) {
-        /*$s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
-            "         VALUES ('$objPaperDetailed->intId',".
-            "                 '".$objPaperDetailed->strCoAuthors[$i]."')";*/
         $s = sprintf("INSERT   INTO IsCoAuthorOf (paper_id, name)".
                      " VALUES  ('%d', '%s')",
                      s2db($objPaperDetailed->intId), s2db($objPaperDetailed->strCoAuthors[$i]));
-        echo("<br>$s<br>");
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateCoAuthorNames', $this->mySql->getLastError());
@@ -1580,7 +1564,7 @@ nur fuer detaillierte?
     if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
-    $s = "UPDATE  Paper".
+    /*$s = "UPDATE  Paper".
         " SET     title = '$objPaperDetailed->strTitle',".
         "         author_id = '$objPaperDetailed->intAuthorId',".
         "         abstract = '$objPaperDetailed->strAbstract',".
@@ -1588,7 +1572,16 @@ nur fuer detaillierte?
         "         last_edited = '$objPaperDetailed->strLastEdit',".
         "         filename = '$objPaperDetailed->strFilePath',".
         "         state = '$objPaperDetailed->intStatus'".
-        " WHERE   id = '$objPaperDetailed->intId'";
+        " WHERE   id = '$objPaperDetailed->intId'";*/
+    $s = sprintf("UPDATE   Paper".
+                 " SET     title = '%s', author_id = '%d', abstract = '%s', mime_type = '%s',".
+                 "         last_edited = '%s', filename = '%s', state = '%d'".
+                 " WHERE   id = '%d'",
+                 s2db($objPaperDetailed->strTitle), s2db($objPaperDetailed->intAuthorId),
+                 s2db($objPaperDetailed->strAbstract), s2db($objPaperDetailed->strMimeType),
+                 s2db($objPaperDetailed->strLastEdit), s2db($objPaperDetailed->strFilePath),
+                 s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
+    echo("<br>$s<br>");
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
