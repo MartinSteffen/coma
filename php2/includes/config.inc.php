@@ -10,7 +10,7 @@ $dbuser="";
 $dbpass="";
 
 // name of the MySQL-DB-Instance to use
-$dbname="";
+$dbname="coma2";
 
 // prefix for all table names, prepended to individual name. For snert, this is always set to ""
 $dbprefix="";
@@ -34,9 +34,6 @@ $ftpdir="";
 $httpftpurl="";
 
 // connect to the database
-$link = mysql_connect ("localhost","testUser","testPass");
-$base = mysql_select_db ("testcomma");
+$link = mysql_connect ("localhost","","");
+$base = mysql_select_db ("coma2");
 
-
-$link = mysql_connect ("localhost","testUser","testPass");
-$base = mysql_select_db ("testcomma");
