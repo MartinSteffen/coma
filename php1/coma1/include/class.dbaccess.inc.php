@@ -7,7 +7,6 @@
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
-// by Jan: verbesserter Include
 if (!defined('INCPATH')) {
   /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
