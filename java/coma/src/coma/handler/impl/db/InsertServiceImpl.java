@@ -28,11 +28,7 @@ import coma.handler.db.InsertService;
 
 public class InsertServiceImpl extends Service implements InsertService {
 
-	private static final Category log = Category
-			.getInstance(InsertServiceImpl.class.getName());
-
 	public InsertServiceImpl() {
-		// super.init();
 	}
 
 	/**
@@ -118,7 +114,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				info.append(e.toString());
-				System.out.println(e.toString());
+				log.error(e.toString());
 
 			} finally {
 				try {
@@ -157,7 +153,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				System.out.println(e);
+				log.error(e);
 			}
 		}
 		if (ok) {
@@ -186,7 +182,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 			} catch (SQLException e) {
 				// info.append(e.toString());
 
-				System.out.println(e);
+				log.error(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -198,7 +194,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 							.append("ERROR: clould not close database connection\n");
 
 					// info.append(e.toString());
-					System.out.println(e);
+					log.error(e);
 				}
 			}
 		}
@@ -225,7 +221,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				System.out.println(e);
+				log.error(e);
 			}
 		}
 		if (ok) {
@@ -276,7 +272,6 @@ public class InsertServiceImpl extends Service implements InsertService {
 								conn.rollback();
 							}
 						}
-						conn.setAutoCommit(true);
 					}
 					result.setSUCCESS(true);
 					info.append("Paper inserted successfully\n");
@@ -284,7 +279,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				pstmt.close();
 			} catch (SQLException e) {
 				info.append(e.toString());
-				System.out.println(e);
+				log.error(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -296,7 +291,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 							.append("ERROR: clould not close database connection\n");
 
 					info.append(e.toString());
-					System.out.println(e);
+					log.error(e);
 				}
 			}
 		}
@@ -398,7 +393,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				info.append(e.toString());
-				System.out.println(e);
+				log.error(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -436,7 +431,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				System.out.println(e);
+				log.error(e);
 			}
 		}
 		if (ok) {
@@ -463,7 +458,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				// info.append(e.toString());
-				System.out.println(e);
+				log.error(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -475,7 +470,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 							.append("ERROR: clould not close database connection\n");
 
 					// info.append(e.toString());
-					System.out.println(e);
+					log.error(e);
 				}
 			}
 		}
@@ -502,7 +497,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				ok = false;
 				info
 						.append("Coma could not establish a connection to the database\n");
-				System.out.println(e);
+				log.error(e);
 			}
 		}
 		if (ok) {
@@ -531,7 +526,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				info.append(e.toString());
-				System.out.println(e);
+				log.error(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -543,7 +538,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 							.append("ERROR: clould not close database connection\n");
 
 					info.append(e.toString());
-					System.out.println(e);
+					log.error(e);
 				}
 			}
 		}

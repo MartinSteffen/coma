@@ -30,12 +30,7 @@ import coma.handler.util.EntityCreater;
 
 public class ReadServiceImpl extends Service implements ReadService {
 
-	private static final Category
-
-	log = Category.getInstance(ReadServiceImpl.class.getName());
-
 	public ReadServiceImpl() {
-		// super.init();
 	}
 
 	/**
@@ -183,14 +178,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");
-				System.out.println(e);
+				log.error(e);
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -232,7 +227,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						persons[i] = ll.get(i);
 					}
 				} catch (SQLException e) {
-					System.out.println(e);
+					log.error(e);
 				}
 			}
 		} else {
@@ -275,7 +270,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 			if(!idFlag)
 				QUERY += "WHERE name = '"+ c.getName()+"'";
 		}
-		System.out.println(QUERY);
 		if (ok) {
 			try {
 				conn = getConnection();
@@ -305,14 +299,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -435,7 +429,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -537,7 +531,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -620,7 +614,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -707,7 +701,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			} 
 			catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 				info.append("ERROR: " + e.toString() + "\n");
 			} finally {
 				if (conn != null) {
@@ -715,7 +709,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -772,14 +766,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -831,14 +825,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -891,14 +885,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -948,14 +942,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1005,14 +999,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1062,14 +1056,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1135,14 +1129,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1201,14 +1195,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1258,14 +1252,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 					}
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1313,14 +1307,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 					}
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1370,14 +1364,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 					}
 				}
 			} catch (SQLException e) {
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -1451,14 +1445,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");
-				System.out.println(e.toString());
+				log.error(e.toString());
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}

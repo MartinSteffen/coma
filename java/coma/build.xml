@@ -69,10 +69,10 @@
 		<copy file="${basedir}/${app.name}.xml" tofile="${dist}/${app.name}/META-INF/context.xml" overwrite="true">
 			<filterset>
 				<filter token="WEBAPPS_HOME" value="${webapps.home}" />
-				<filter token="DATABASE_DRIVER" value="${db.driver}" />
-				<filter token="URL" value="${db.url}" />
-				<filter token="USER_NAME" value="${db.user}" />
-				<filter token="PASSWORD" value="${db.password}" />
+				<filter token="DATABASE_DRIVER" value="${coma.db.driver}" />
+				<filter token="URL" value="${coma.db.url}" />
+				<filter token="USER_NAME" value="${coma.db.user}" />
+				<filter token="PASSWORD" value="${coma.db.password}" />
 			</filterset>
 		</copy>
 		<copy file="${basedir}/build.props" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
@@ -82,7 +82,7 @@
 		</copy>
 	</target>
 
-	<target name="remote-install" depends="compile, remote-uninstall">
+	<target name="remote-install" depends="compile, remote-uninstall, create-database">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
@@ -104,10 +104,10 @@
 		<copy file="${basedir}/${app.name}.xml" todir="${dist}/${app.name}" overwrite="true">
 			<filterset>
 				<filter token="WEBAPPS_HOME" value="${webapps.home}" />
-				<filter token="DATABASE_DRIVER" value="${db.driver}" />
-				<filter token="URL" value="${db.url}" />
-				<filter token="USER_NAME" value="${db.user}" />
-				<filter token="PASSWORD" value="${db.password}" />
+				<filter token="DATABASE_DRIVER" value="${coma.db.driver}" />
+				<filter token="URL" value="${coma.db.url}" />
+				<filter token="USER_NAME" value="${coma.db.user}" />
+				<filter token="PASSWORD" value="${coma.db.password}" />
 			</filterset>
 		</copy>
 		<copy file="${basedir}/build.properties" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
@@ -122,4 +122,20 @@
 		<get src="${tomcat.url}/${tomcat.undeploy_path}" dest="status.html" username="${tomcat.manager.user}" password="${tomcat.manager.password}" />
 	</target>
 
+	<target name="create-database">
+		<delete file="db_schema_tmp.sql"/>
+		<copy file="${basedir}/db_schema.sql" tofile="${basedir}/db_schema_tmp.sql" overwrite="true">
+			<filterset>
+				<filter token="DATABASE_NAME" value="${coma.db.name}" />
+				<filter token="FIRST_NAME" value="'${coma.admin.firstname}'" />
+				<filter token="LAST_NAME" value="'${coma.admin.lastname}'" />
+				<filter token="EMAIL" value="'${coma.admin.email}'" />
+				<filter token="PASSWORD" value="'${coma.admin.password}'" />
+			</filterset>
+		</copy>
+		<!--java classname="" >
+			<arg/>
+			<arg/>
+		</java-->
+	</target>
 </project>

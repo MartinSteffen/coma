@@ -13,6 +13,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.log4j.Category;
+
 import coma.entities.SearchResult;
 
 /**
@@ -21,6 +23,9 @@ import coma.entities.SearchResult;
  */
 
 public class Service {
+
+	protected static final Category log = Category
+			.getInstance(ReadServiceImpl.class.getName());
 
 	static DataSource dataSource = null;
 
@@ -32,11 +37,20 @@ public class Service {
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
 			dataSource = (DataSource) envCtx.lookup("jdbc/coma3");
 			if (dataSource != null) {
-				configured = true;
+				Connection testConn = dataSource.getConnection();
+				if (testConn == null) {
+					System.out
+							.println("ERROR: Connection pool have been initialized but "
+									+ "it could not suply connections");
+				} else {
+					log.info("INFO:Connection pool initialized and is ready");
+					configured = true;
+					testConn.close();
+				}
 			}
 
 		} catch (Exception e) {
-		    //System.out.println("coma init: " + e.toString());
+			log.error("coma init: " + e.toString());
 		}
 	}
 
@@ -49,8 +63,7 @@ public class Service {
 				init();
 			}
 			if (configured) {
-			    System.out.println("Connection pool initialized ok");
-			    result = dataSource.getConnection();
+				result = dataSource.getConnection();
 			} else {
 				DriverManager.setLoginTimeout(10);
 				try {
@@ -61,20 +74,20 @@ public class Service {
 					String pass = prop.getProperty("db.password");
 					result = DriverManager.getConnection(url, user, pass);
 				} catch (FileNotFoundException e2) {
-					System.out.println(e2);
+					log.error(e2);
 					String driver = "org.gjt.mm.mysql.Driver";
 					String url = "jdbc:mysql://vs170142.vserver.de/coma3";
 					Class.forName(driver);
 					result = DriverManager.getConnection(url, "coma3",
 							"TervArHorhy");
 				} catch (IOException e2) {
-					System.out.println(e2);
+					log.error(e2);
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getClass() + e.getMessage().toString());
+			log.error(e.getClass() + e.getMessage().toString());
 		} catch (ClassNotFoundException e1) {
-			System.out.println(e1.getClass() + e1.getMessage().toString());
+			log.error(e1.getClass() + e1.getMessage().toString());
 		}
 
 		return result;
@@ -93,7 +106,7 @@ public class Service {
 			info
 					.append("Coma could not establish a connection to the database\n");
 			info.append(e.toString());
-			System.out.println(e);
+			log.error(e);
 		}
 		if (ok) {
 
@@ -110,7 +123,7 @@ public class Service {
 							.append("Transaction has been performed successfully\n");
 				}
 			} catch (SQLException e) {
-				System.out.println(e);
+				log.error(e);
 			} finally {
 				try {
 					if (conn != null) {
@@ -121,7 +134,7 @@ public class Service {
 					info
 							.append("ERROR: clould not close database connection\n");
 
-					System.out.println(e);
+					log.error(e);
 				}
 			}
 		}

@@ -24,11 +24,8 @@ import coma.handler.db.UpdateService;
 
 public class UpdateServiceImpl extends Service implements UpdateService {
 
-	private static final Category log = Category
-			.getInstance(UpdateServiceImpl.class.getName());
 
 	public UpdateServiceImpl() {
-		// super.init();
 	}
 
 	public SearchResult updatePerson(Person person) {
@@ -51,7 +48,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				System.out.println(e.toString() + "\n");
+				log.error(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -86,7 +83,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 					result.SUCCESS = true;
 				}
 			} catch (SQLException e) {
-				System.out.println(e);
+				log.error(e);
 				info.append("ERROR: " + e.toString() + "\n");
 			} finally {
 				if (conn != null) {
@@ -95,7 +92,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -124,7 +121,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				System.out.println(e.toString() + "\n");
+				log.error(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -155,7 +152,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -184,7 +181,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				System.out.println(e.toString() + "\n");
+				log.error(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -218,7 +215,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -247,7 +244,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				System.out.println(e.toString() + "\n");
+				log.error(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -322,7 +319,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
@@ -359,7 +356,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				ok = false;
 				info
 						.append("ERROR: Coma could not establish a connection to the database");
-				System.out.println(e.toString() + "\n");
+				log.error(e.toString() + "\n");
 			}
 		}
 		if (ok) {
@@ -401,7 +398,7 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 						conn.close();
 						conn = null;
 					} catch (SQLException e1) {
-						System.out.println(e1.toString());
+						log.error(e1.toString());
 					}
 				}
 			}
