@@ -46,7 +46,7 @@ if (isset($_POST['action'])) {
   if (isset($_POST['auto_paperforum']) && !empty($_POST['auto_paperforum'])) {
     $ifArray[] = 3;
   }
-  if (isset($_POST['auto_addreviewer']) && !empty($_POST['auto_addreviewers'])) {
+  if (isset($_POST['auto_addreviewer']) && !empty($_POST['auto_addreviewer'])) {
     $ifArray[] = 4;
   }
   // Anlegen der Konferenz in der Datenbank
