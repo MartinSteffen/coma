@@ -86,6 +86,7 @@ if (!empty($objPapers)) {
     $strReviewersAssocs['if'] = $assIfArray;
     $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
     $assignedReviewers->assign($strReviewersAssocs);
+    $assignedReviewers->parse();
     $strItemAssocs['reviewers'] = $assignedReviewers->getOutput();
     
     $paperItem = new Template(TPLPATH.'chair_reviewlistitem.tpl');
