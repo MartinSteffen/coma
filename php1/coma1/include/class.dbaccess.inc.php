@@ -274,19 +274,26 @@ class DBAccess {
       $strAuthor = $objAuthor->getName();
       $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
       // Co-Autoren
-      $s = 'SELECT  coauthor_id'.
+      $s = 'SELECT  person_id AS coauthor_id, name'.
           ' FROM    IsCoAuthorOf AS i'.
-          ' INNER   JOIN Person AS p'.
+          ' LEFT    JOIN Person AS p'.
           ' ON      p.id = i.person_id'.
-          ' WHERE   paper_id = '.$intPaperId;
+          ' WHERE   paper_id = '.$intPaperId.
+          ' ORDER   BY person_id DESC'; // ORDER BY: Co-Autoren im System im Array vorne!
       $cadata = $this->mySql->select($s);
       $intCoAuthorIds = array();
       $strCoAuthors = array();
       if (!empty($cadata)) {
         for ($i = 0; $i < count($cadata); $i++) {
           $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
-          $intCoAuthorIds[$i] = $cadata[$i]['coauthor_id'];
-          $strCoAuthors[$i] = $objCoAuthor->getName();
+          if (empty($objCoAuthor)) { // d.h. Co-Autor nicht im System => nimm Name aus Tabelle
+            intCoAuthorIds[$i] = -1;
+            strCoAuthors[$i] = $cadata[$i]['name'];
+          }
+          else {
+            $intCoAuthorIds[$i] = $cadata[$i]['coauthor_id'];
+            $strCoAuthors[$i] = $objCoAuthor->getName();
+          }
         }
       }
       return (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
