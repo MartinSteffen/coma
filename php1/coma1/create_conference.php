@@ -18,9 +18,7 @@ $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-if (isset($_POST['action']) && $_POST['action'] == 'submit') {
-
-  // Anlegen der Person in der Datenbank
+if (isset($_POST['action']) {
   $strContentAssocs['name']         = $_POST['name'];
   $strContentAssocs['description']  = $_POST['description'];
   $strContentAssocs['homepage']     = $_POST['homepage'];
@@ -45,29 +43,32 @@ if (isset($_POST['action']) && $_POST['action'] == 'submit') {
   $strContentAssocs['auto_addreviewer'] = $_POST['auto_addreviewer'];
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
 
-  // Teste, ob alle Pflichtfelder ausgefuellt wurden
-  if (empty($_POST['name'])) {
-    $strMessage = 'You have to fill in the field <b>Title</b>!';
-  }
-
-  // Versuche die neue Konferenz einzutragen
-  else {
-    $result = false; // [TODO] Konferenz einfuegen   
-    if (!empty($result)) {
-      // Erfolg (also anderes Template)
-      $content = new Template(TPLPATH.'confirm_register.tpl');
+  // Anlegen der Person in der Datenbank
+  if ($_POST['action'] == 'submit') {
+  
+    // Teste, ob alle Pflichtfelder ausgefuellt wurden
+    if (empty($_POST['name'])) {
+      $strMessage = 'You have to fill in the field <b>Title</b>!';
     }
+    // Versuche die neue Konferenz einzutragen
     else {
-      // Datenbankfehler?
-      $strMessage = 'An error occured during creating your conference:<br>'
-                   .$myDBAccess->getLastError()
-                   .'<br>Please try again!';
+      $result = false; // [TODO] Konferenz einfuegen   
+      if (!empty($result)) {
+        // Erfolg (also anderes Template)
+        $content = new Template(TPLPATH.'confirm_conference.tpl');
+      }
+      else {
+        // Datenbankfehler?
+        $strMessage = 'An error occured during creating your conference:<br>'
+                     .$myDBAccess->getLastError()
+                     .'<br>Please try again!';
+      }
     }
   }
-}
-// Oeffnen der erweiterten Einstellungen
-else if (isset($_POST['action']) && $_POST['action'] == 'advanced_config') {
-  $content = new Template(TPLPATH.'create_conference_ext.tpl');
+  // Oeffnen der erweiterten Einstellungen
+  else if ($_POST['action'] == 'advanced_config') {
+    $content = new Template(TPLPATH.'create_conference_ext.tpl');
+  }
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte
 else {
