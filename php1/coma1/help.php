@@ -74,7 +74,7 @@ $toccontent->assign($toccontentassocs);
 $toccontent->parse();
 $tocassocs['content'] = $toccontent->getOutput();
 $toctemplate->assign($tocassocs);
-$toctemplae->parse();
+$toctemplate->parse();
 $strContentAssocs['toc'] = $toctemplate->getOutput();
 //---
 
