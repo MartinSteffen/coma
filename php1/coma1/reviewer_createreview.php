@@ -29,14 +29,16 @@ if ($myDBAccess->failed()) {
 }
 
 if (!isset($_GET['paperid']) && !isset($_POST['paperid'])) {
-	redirect("reviewer_reviews.php");
+  redirect("reviewer_reviews.php");
 }
-$objPaper = $myDBAccess->getPaperDetailed(isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid']);
+
+$intPaperId = (isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid']);
+$objPaper = $myDBAccess->getPaperDetailed($intPaperId);
 if ($myDBAccess->failed()) {
   error('Error occured retrieving paper.', $myDBAccess->getLastError());
 }
 else if (empty($objPaper)) {
-  error('Create review report for paper','Paper '.$_POST['paperid'].' does not exist in database!');
+  error('Create review report for paper','Paper '.$intPaperId.' does not exist in database!');
 }
 $objReviewer = $myDBAccess->getPerson(session('uid'));
 if ($myDBAccess->failed()) {

@@ -64,9 +64,9 @@
   <tr>
     <td colspan="2">
       <input type="submit" name="submit" value="Add paper" class="button">
-      <button name="cancel" type="button" class="button" value="cancel"
-              onClick="self.location.href='{basepath}author_papers.php{?SID}'">
-              Cancel</button>
+      <form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">        
+        <input type="submit" name="cancel" value="Cancel" class="button">
+      </form>      
     </td>
   </tr>
 </table>

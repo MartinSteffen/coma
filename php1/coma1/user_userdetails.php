@@ -26,13 +26,14 @@ else if (!$checkRole) {
 $popup = (isset($_GET['popup'])) ? true : false;
 
 // Lade die Daten des Benutzers
-if (isset($_GET['userid'])) {
-  $objPerson = $myDBAccess->getPersonDetailed($_GET['userid']);
+if (isset($_GET['userid']) || isset($_POST['userid'])) {
+  $intPersonId = (isset($_GET['userid']) ? $_GET['userid'] : $_POST['userid']);
+  $objPerson = $myDBAccess->getPersonDetailed($intPersonId);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving person.', $myDBAccess->getLastError());
   }
   else if (empty($objPerson)) {
-    error('Person does not exist in database.', '');
+    error('Person '.$intPersonId.' does not exist in database.', '');
   }
 }
 else {

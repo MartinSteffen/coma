@@ -18,11 +18,13 @@
   </tr>
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}" colspan="5">
-      <button name="edit" type="button" class="button" value="Create review"
-              onClick="self.location.href='{basepath}reviewer_createreview.php?paperid={paper_id}{&SID}'">
-       Create review</button>
-      <button name="paperdetails" type="button" class="button" value="See paper details"
-              onClick="self.location.href='{basepath}user_paperdetails.php?paperid={paper_id}{&SID}'">
-       See paper details</button>
+      <form action="{basepath}reviewer_createreview.php{?SID}" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="paperid" value="{paper_id}">
+        <input type="submit" name="create" value="Create review" class="button">
+      </form>      
+      <form action="{basepath}user_paperdetails.php{?SID}" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="paperid" value="{paper_id}">
+        <input type="submit" name="view" value="See paper details" class="button">
+      </form>      
     </td>
   </tr>

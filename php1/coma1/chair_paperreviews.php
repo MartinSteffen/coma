@@ -24,8 +24,8 @@ else if (!$checkRole) {
 }
 
 // Lade die Daten der Reviews des Papers
-if (isset($_GET['paperid'])) {
-  $objPaper = $myDBAccess->getPaperDetailed($_GET['paperid']);
+if (isset($_POST['paperid'])) {
+  $objPaper = $myDBAccess->getPaperDetailed($_POST['paperid']);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving paper.', $myDBAccess->getLastError());
   }

@@ -26,13 +26,14 @@ else if (!$checkRole) {
 $popup = (isset($_GET['popup'])) ? true : false;
 
 // Lade die Daten des Artikels
-if (isset($_GET['paperid'])) {
-  $objPaper = $myDBAccess->getPaperDetailed($_GET['paperid']);
+if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
+  $intPaperId = (isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid']);
+  $objPaper = $myDBAccess->getPaperDetailed($intPaperId);
   if ($myDBAccess->failed()) {
     error('Error occured retrieving paper.', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
-    error('Display PaperDetailed','Paper '.$_GET['paperid'].' does not exist in database!');
+    error('Display PaperDetailed','Paper '.$intPaperId.' does not exist in database!');
   }
 }
 else {

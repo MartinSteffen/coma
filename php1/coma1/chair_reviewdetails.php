@@ -24,8 +24,8 @@ else if (!$checkRole) {
 }
 
 // Lade die Daten des Reviewreports
-if (isset($_GET['reviewid'])) {
-  $objReview = $myDBAccess->getReviewDetailed($_GET['reviewid']);
+if (isset($_POST['reviewid'])) {
+  $objReview = $myDBAccess->getReviewDetailed($_POST['reviewid']);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving review.', $myDBAccess->getLastError());
   }

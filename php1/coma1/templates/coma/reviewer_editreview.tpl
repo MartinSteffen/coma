@@ -62,9 +62,9 @@
       <input type="reset" name="reset" value="Reset review" class="button">}
       {if2
       <input type="submit" name="submit" value="Submit review" class="button">
-      <button name="cancel" type="button" class="button" value="Cancel"
-              onClick="self.location.href='{basepath}reviewer_reviews.php{?SID}'">
-              Cancel</button>}
+      <form action="{basepath}reviewer_reviews.php{?SID}" method="post" accept-charset="UTF-8">        
+        <input type="submit" name="cancel" value="Cancel" class="button">
+      </form>      
     </td>
   </tr>
 </table>
