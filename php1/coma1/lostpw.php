@@ -26,6 +26,7 @@ if (checkLogin()) {
 
 $uname = session('uname', false);
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['message'] = '';
 
 if (isset($_POST['submit'])) {
   /* E-Mail eingeben */
@@ -62,6 +63,39 @@ if (isset($_POST['submit'])) {
     $strContentAssocs['message'] = 'Please enter correct Username (E-mail)';
     $strContentAssocs['if'] = array(1);
   }
+}
+elseif (isset($_GET['id'] && isset($_GET['key']) {
+  // Aendern des PW
+  if (checkLogin($_GET['id'], $_GET['key'])) {
+    // altes PW korrekt
+    $objPerson = $myDBAccess->getPerson($_GET['id']);
+    if ($myDBAccess->failed()) {
+      error('Error retrieving person data', $myDBAccess->getLastError());
+    }
+    $newPass = 'New Password';
+    $myDBAccess->updatePersonPassword($_GET['id'], $newPass);
+    if ($myDBAccess->failed()) {
+      error('Error updateing persones password', $myDBAccess->getLastError());
+    }
+    $mail = new Template(TPLPATH.'mail_lostpw2.tpl');
+    $strMailAssocs = defaultAssocArray();
+    $strMailAssocs['name'] = $objPerson->getName(2);
+    $strMailAssocs['email'] = $objPerson->strEmail;
+    $strMailAssocs['password'] = $newPass;
+    $mail->assign($strMailAssocs);
+    $mail->parse();
+    if (sendMail($uid, 'Get a new Password', $mail->getOutput())) {
+      $strContentAssocs['message'] = 'An Email with further instructions has been sent to you!';
+      $strContentAssocs['if'] = array(2);
+    }
+    else {
+      $strContentAssocs['message'] = 'Failed to send Email!';
+      $strContentAssocs['if'] = array(1);
+    }
+  }
+  else {
+    error('lostPW', "Hacking Attempt on Accountnumber {$_GET['id']}");
+  }  
 }
 
 $content = new Template(TPLPATH.'lostpw.tpl');
