@@ -63,12 +63,12 @@ class MySql {
     $this->mySqlDatabase = $sqlDatabase;
 
     // mysql_pconnect ???? Was ist besser? - Jan
-    $conn = @mysql_connect(sqlServer, sqlUser , sqlPassword);
+    $conn = @mysql_connect($sqlServer, $sqlUser , $sqlPassword);
     if (!$conn) {
       return $this->error("Could not connect to MySQL: ");
     }
 
-    if (!mysql_select_db(sqlDatabase)) {
+    if (!mysql_select_db($sqlDatabase)) {
       return $this->error("Could not select Database: ");
     }
     $this->conn = $conn;
@@ -99,7 +99,7 @@ class MySql {
     if (empty($this->conn)) {
       return false;
     }
-    $results = mysql_query( $sql, $this->conn );
+    $results = mysql_query($sql, $this->conn);
     if (empty($results)) {
       @mysql_free_result($results);
       return false;
