@@ -113,14 +113,15 @@ else {
 }
 $content->assign($strContentAssocs);  
 
-$strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Neuen Benutzer registrieren';
-$strMainAssocs['content'] = &$content;
-
 $menu = new Template(TPLPATH.'startmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
 $strMenuAssocs['if'] = array(2);
 $menu->assign($strMenuAssocs);
+
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['title'] = 'Neuen Benutzer registrieren';
+$strMainAssocs['content'] = &$content;
+$strMainAssocs['menu'] = &$menu;
 
 $strPath = array('CoMa'=>'', 'Registrieren'=>'');
 require_once(TPLPATH.'navigatoritem.php');
