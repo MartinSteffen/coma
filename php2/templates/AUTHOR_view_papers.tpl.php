@@ -64,6 +64,7 @@ foreach($TPL as $key => $value) {
 			?>
 <fieldset>
 <legend class="text"><font class="textBold">Conference: </font><? echo $row['conference_name']; ?></legend>
+<br>
 			<?
 			foreach ($row as $v) {
 				if (is_array ($v)) {
@@ -90,6 +91,7 @@ foreach($TPL as $key => $value) {
 				
 		</table>
 	</fieldset>
+	<br>
 					<?
 				}
 			}
@@ -101,8 +103,10 @@ foreach($TPL as $key => $value) {
 	elseif ($key == 'dead') {
 		foreach ($value as $row) {
 			?>
+<br>
 <fieldset>
 <legend class="text"><font class="textBold">Conference: </font><? echo $row['conference_name']; ?> -- <font class="textBold" style=color:red>Paper submission deadline is exceeded for this conference.</font></legend>
+<br>
 			<?
 			foreach ($row as $v) {
 				if (is_array ($v)) {
@@ -133,6 +137,7 @@ foreach($TPL as $key => $value) {
 				
 		</table>
 	</fieldset>
+	<br>
 					<?
 				}
 			}
