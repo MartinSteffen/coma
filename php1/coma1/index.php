@@ -29,12 +29,12 @@ if (!isset($_SESSION['uid'])) {
   $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
   if ($myDBAccess->failed()) {
     session_delete('uid');
-    error('checkLogin',$myDBAccess->getLastError());
+    error('getUID',$myDBAccess->getLastError());
   }
 }
 $objIch = $myDBAccess->getPerson(session('uid'));
 if ($myDBAccess->failed()) {
-  error('index.php -> chooseHighestUserlevel',$myDBAccess->getLastError());
+  error('chooseHighestUserlevel',$myDBAccess->getLastError());
 }
 if ($objIch->hasRole(CHAIR)) {
   redirect('chair_start.php');
