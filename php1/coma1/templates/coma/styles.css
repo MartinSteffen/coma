@@ -140,6 +140,7 @@ a.order
   background-image:url('images/order.gif');
   background-repeat: no-repeat;
   background-position: left;
+  white-space: nowrap;
 }
 a.order-active
 {
@@ -148,6 +149,7 @@ a.order-active
   background-image:url('images/order-active.gif');
   background-repeat: no-repeat;
   background-position: left;
+  white-space: nowrap;
 }
 a.buttonlink
 {

@@ -11,7 +11,7 @@
       {if4<span class="status-rejected">rejected</span>}
     </td>
     <td class="listitem-{line_no}">{avg_rating}</td>
-    <td class="listitem-{line_no}">{last_edited}</td>
+    <td class="listitem-{line_no}" nowrap>{last_edited}</td>
     <td class="listitem-{line_no}">
       {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;paper</a>}
     </td>

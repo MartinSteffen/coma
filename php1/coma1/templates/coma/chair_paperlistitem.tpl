@@ -45,7 +45,7 @@
       </form>
       }
     </td>
-    <td class="listitem-{line_no}">{num_reviews}</td>
+    <td class="listitem-{line_no}" nowrap>{num_reviews}</td>
     <td class="listitem-{line_no}">{avg_rating}</td>
     <td class="listitem-{line_no}">
       {if6<span class="status-critical">{variance}</span>}
@@ -58,7 +58,7 @@
     <td class="listitem-{line_no}">
       <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;review&nbsp;report</a>
     </td>
-    <td class="listitem-{line_no}">
+    <td class="listitem-{line_no}" nowrap>
       {if8
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
