@@ -16,6 +16,12 @@ if ($_POST['submit']) {
 		echo("Min reviews per paper is no Number. Please hit the 'Back' Button in your Browser and correct the filled in information");
 		exit();
 	}
+
+	if (!$_REQUEST['confname']) $errors[] = "No conference name given!"; 
+	if (!$_REQUEST['confdescription']) $errors[] = "No conference description given!"; 
+	if (!$_REQUEST['confhomepage']) $errors[] = "No conference homepage given!"; 
+	if (!$_REQUEST['confchair_email']) $errors[] = "No chair email given!"; 
+
 	if (count($errors)==0) {
 		// write to database and redirect
 
@@ -31,6 +37,10 @@ if ($_POST['submit']) {
 			die();
 		}
 		// no user exists -> create new
+		if (!$_REQUEST['confchair_lastname']) $errors[] = "No chair lastname given!"; 
+		if (!$_REQUEST['confchair_passwd']) $errors[] = "No chair password given!"; 
+		if ($_REQUEST['confchair_passwd'] != $_REQUEST['confchair_passwd_confirm']) $errors[] = "Chair password and password confirmation do not match!"; 
+
 		$insertstatement="
 			INSERT INTO conference (
 				name, homepage, description, abstract_submission_deadline,
