@@ -15,14 +15,14 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-if ((!isset($_SESSION['uname']))||(!isset($_SESSION['password']))||(!checkLogin())) {
+if (!isset($_SESSION['uname']) || !isset($_SESSION['password']) || !checkLogin()) {
   redirect('login.php');
 }
 // Wenn ich hier bin, bin ich eingeloggt!
 if (!isset($_SESSION['confid'])) {
   redirect('main_conferences.php');  
 }
-// Eingeloggt und hab ne Konfernez gewaehlt -> Userlevel bestimmen
+// Eingeloggt und eine Konfernez gewaehlt -> Userlevel bestimmen
 // Sicherheitshalber einfach mal ueberpruefen
 if (!isset($_SESSION['uid'])) {
   // UID setzen
@@ -32,7 +32,8 @@ if (!isset($_SESSION['uid'])) {
     error('getUID',$myDBAccess->getLastError());
   }
 }
-$objIch = $myDBAccess->getPerson(session('uid'),session('confid'));
+echo(session('uid').','.session('confid'));
+$objIch = $myDBAccess->getPerson(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
   error('chooseHighestRole',$myDBAccess->getLastError());
 }
