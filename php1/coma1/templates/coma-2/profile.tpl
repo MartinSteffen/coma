@@ -6,7 +6,7 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Benutzerdaten:</th>
+    <th colspan="2">User data:</th>
   </tr>
   <tr>
     <td> 
@@ -45,7 +45,7 @@
       Affiliation:
     </td>
     <td>      
-      <input type="text" name="phone" size="16" maxlength="20" value="{affiliation}"/ >
+      <input type="text" name="affiliation" size="16" maxlength="20" value="{affiliation}"/ >
     </td>
   </tr>
   <tr>
@@ -93,7 +93,7 @@
       State:
     </td>
     <td>      
-      <input type="text" name="city" size="32" maxlength="127" value="{state}"/ >
+      <input type="text" name="state" size="32" maxlength="127" value="{state}"/ >
     </td>
   </tr>
   <tr>
@@ -101,14 +101,14 @@
       Country:
     </td>
     <td>      
-      <input type="text" name="city" size="32" maxlength="127" value="{country}"/ >
+      <input type="text" name="country" size="32" maxlength="127" value="{country}"/ >
     </td>
   </tr>
   <tr>
     <td colspan="2">
       <input type="hidden" name="action" value="update" />
-      <input type="submit" name="submit" value="&Auml;nderungen &uuml;bernehmen" class="button" />
-      <input type="reset"  name="reset" value="Einstellungen zur&uuml;setzen" class="button" />
+      <input type="submit" name="submit" value="Accept changes" class="button" />
+      <input type="reset"  name="reset" value="Reset settings" class="button" />
     </td>
   </tr>
 </table>
