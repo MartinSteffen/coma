@@ -195,7 +195,7 @@ class DBAccess extends ErrorHandling {
    */
   function is_a($obj, $strClass) {
     $s = strtolower($strClass);
-    return (get_class($obj) == $s || is_subclass_of($obj, $s));
+    return (strtolower(get_class($obj)) == $s || is_subclass_of($obj, $s));
   }
   
   /**
