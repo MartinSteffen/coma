@@ -1937,7 +1937,7 @@ nur fuer detaillierte?
     // Papers einfuegen...
     for ($i = 0; $i < count($objPapers); $i++) {
       if (!empty($objPapers[$i])) {
-        $this->addExludesPaper($intPersonId, $objPapers[$i]->intId);
+        $this->addExcludesPaper($intPersonId, $objPapers[$i]->intId);
         if ($this->failed()) {
           return $this->error('updateExcludedPapers', $this->getLastError());
         }
