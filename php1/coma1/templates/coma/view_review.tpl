@@ -16,11 +16,9 @@
   </tr>
   <tr class="viewline">
     <td colspan="2" class="viewline">
-      <table class="viewtable" width="100%">
+      <table class="subviewtable" width="100%">
         <tr class="viewheader">
-          <th class="viewheader">Rating criterion</th>
-          <th class="viewheader">Score</th>
-          <th class="viewheader">Comment</th>
+          <th class="viewheader" colspan="3">Rating in single criterions:</th>
         </tr>
         {crit_lines}
       </table>

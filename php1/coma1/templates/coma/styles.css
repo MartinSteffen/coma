@@ -397,6 +397,17 @@ table.viewtable
   margin: 6px 10px;
   padding: 8px;
 }
+table.subviewtable
+{
+  font-size: 12px;
+  background-color: #F5FBFF;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #404040;
+  width: 90%;
+  margin: 6px 10px;
+  padding: 8px;
+}
 .viewheader
 {
   font-weight: bold;
