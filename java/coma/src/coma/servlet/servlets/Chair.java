@@ -357,9 +357,9 @@ public class Chair extends HttpServlet
 	        			info.append(personPaper[i].toXML());
 	        		}
         		}
-        		catch(Exception io)
+        		catch(Exception e)
         		{
-        			System.out.println("FEHLER");
+        			System.out.println(e.toString());
         		}
 	        		
         	}
