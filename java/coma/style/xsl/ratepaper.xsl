@@ -143,9 +143,7 @@
             <th valign="top">on the paper titled</th>
             <td>
               <a>
-                <xsl:attribute name="href">
-                  <xsl:value-of select="paper/filename" />
-                </xsl:attribute>
+                <xsl:attribute name="href">papers/<xsl:value-of select="paper/filename" /></xsl:attribute>
                 <xsl:value-of select="paper/title" />
               </a>, 
               revision <xsl:value-of select="paper/version" />
