@@ -6,10 +6,15 @@
  *
  */
 
+if ( !defined('IN_COMA1') )
+{
+	exit('Hacking attempt');
+}
+
 $sqlServer = "localhost";
 $sqlUser = "coma1";
 $sqlPassword = "Rhashdeak";
-$sqlDatenbank = "coma1";
+$sqlDatabase = "coma1";
 
 $ftpServer = "localhost";
 $ftpUser = "ftp-php1";
