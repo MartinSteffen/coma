@@ -31,6 +31,18 @@ if ($myDBAccess->failed()) {
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(AUTHOR);
 
+// Pruefe ob die Paper-Deadline erreicht worden ist
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get conference details',$myDBAccess->getLastError());
+}
+else if (empty($objConference)) {
+  error('conference '.session('confid').' does not exist in database.','');
+}
+if (strtotime($objConference->strPaperDeadline) <= strtotime("now")) {
+  error('Paper submission deadline has already been reached.','');
+}
+
 $content = new Template(TPLPATH.'create_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 
