@@ -5,9 +5,9 @@
     <td class="listitem-{line_no}">
       <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>
     </td>
-    <td class="listitem-{line_no}" colspan="2">
+    <td class="listitem-{line_no}" colspan="2" nowrap>
       {if0<input type="radio" name="paper-{paper_id}" value="0" checked>
-          <span class="attitude-none">no attitude</span> &nbsp;&nbsp;&nbsp;
+          <span class="attitude-none">no&nbsp;attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="1">
           <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="2">
@@ -15,7 +15,7 @@
           <input type="radio" name="paper-{paper_id}" value="3">
           <span class="weak">exclude</span>}
       {if1<input type="radio" name="paper-{paper_id}" value="0">
-          <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
+          <span class="weak">no&nbsp;attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="1" checked>
           <span class="attitude-prefer">prefer</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="2">
@@ -23,7 +23,7 @@
           <input type="radio" name="paper-{paper_id}" value="3">
           <span class="weak">exclude</span>}
       {if2<input type="radio" name="paper-{paper_id}" value="0">
-          <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
+          <span class="weak">no&nbsp;attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="1">
           <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="2" checked>
@@ -33,7 +33,7 @@
       {if3<span class="attitude-exclude" align="center">excluded</span>}          
       <!--
       {if3<input type="radio" name="paper-{paper_id}" value="0">
-          <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
+          <span class="weak">no&nbsp;attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="1">
           <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="2">
@@ -44,7 +44,7 @@
     </td>
   <!--
     <td class="listitem-{line_no}">
-      {if0<span class="attitude-none">no attitude</span>}
+      {if0<span class="attitude-none">no&nbsp;attitude</span>}
       {if1<span class="attitude-prefer">prefer</span>}
       {if2<span class="attitude-deny">deny</span>}
       {if3<span class="attitude-exclude">exclude</span>}
