@@ -356,8 +356,8 @@ p.message2
 }
 
 /* Statusanzeigen fuer Dokumente */
-span.status_reviewed   { font-weight: normal; color: #000000; }
-span.status_unreviewed { font-weight: normal; color: #A0A0A0; }
-span.status_critical   { font-weight: normal; color: #A00000; }
-span.status_accepted   { font-weight: bold;   color: #00A000; }
-span.status_denied     { font-weight: bold;   color: #000000; }
+span.status-reviewed   { font-weight: normal; color: #000000; }
+span.status-unreviewed { font-weight: normal; color: #A0A0A0; }
+span.status-critical   { font-weight: normal; color: #A00000; }
+span.status-accepted   { font-weight: bold;   color: #00A000; }
+span.status-denied     { font-weight: bold;   color: #000000; }
