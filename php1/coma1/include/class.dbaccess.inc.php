@@ -1057,7 +1057,7 @@ class DBAccess extends ErrorHandling {
     }
     $objAuthor = $this->getPerson($objPaper->intAuthorId);
     if ($this->failed()) {
-      return $this->error('getReviewDetailed', $this->mySql->getLastError());
+      return $this->error('getReviewDetailed', $this->getLastError());
     }
     else if (empty($objAuthor)) {
       return $this->error('getReviewDetailed', 'Fatal error: Database inconsistency!',
@@ -1083,12 +1083,19 @@ class DBAccess extends ErrorHandling {
                             $rating_data[$i]['description'], $rating_data[$i]['max_value'],
                             $rating_data[$i]['quality_rating'] / 100.0));
     }
+    $objReviewRating = $this->getReviewRating($intReviewId);
+    if ($this->failed()) {
+      return $this->error('getReviewDetailed', $this->getLastError());
+    }
+    $fltAvgRating = $this->getAverageRatingOfPaper($paper_data[0]['id']);
+    if ($this->failed()) {
+      return $this->error('getReviewDetailed', $this->getLastError());
+    }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
                    $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
-                   getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
-                   $objReviewer->strEmail, $objReviewer->getName(),
-                   $data[0]['summary'], $data[0]['remarks'], $data[0]['confidential'],
-                   $intRatings, $strComments, $objCriterions));
+                   $objReviewRating, $fltAvgRating, $objReviewer->strEmail,
+                   $objReviewer->getName(), $data[0]['summary'], $data[0]['remarks'],
+                   $data[0]['confidential'], $intRatings, $strComments, $objCriterions));
     return $this->success($objReview);
   }
 
