@@ -776,6 +776,7 @@ class DBAccess {
         '                 \''.$strPostalCode.'\', \''.$strCity.'\', \''.$strState.'\','.
         '                 \''.$strCountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
         '                 \''.sha1($strPassword).'\')';
+    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
