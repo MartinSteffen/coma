@@ -42,10 +42,10 @@ $content = new Template(TPLPATH.'user_userlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['targetpage'] = 'user_users.php';
 $strContentAssocs['message']    = session('message', false);
-$strContentAssocs['if']         = $ifArray;
 $strContentAssocs['lines']      = '';
 $strContentAssocs['&option']    = '';
 $strContentAssocs['&option']   .= ($showChairs ? '&amp;showchairs' : '');
+$strContentAssocs['if']         = $ifArray;
 session_delete('message');
 $personCount = 0;
 if (!empty($objPersons)) {
