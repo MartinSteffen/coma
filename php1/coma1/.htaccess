@@ -1,3 +1,2 @@
-DirectoryIndex index.php
 php_value session.auto_start 0
 php_value register_globals 0
