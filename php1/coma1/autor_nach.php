@@ -26,14 +26,13 @@ $strMainAssocs['content'] = 'Eingeloggt! als: ' . $_SESSION['uname'];
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;
 $strMainAssocs['body'] = '';
-
-
-$submenue->assign(defaultAssocArray());
 $mainPage->assign($strMainAssocs);
+$submenue->assign(defaultAssocArray());
 
 $strMenueAssocs = defaultAssocArray();
 $strMenueAssocs['loginName'] = $_SESSION['uname'];
 $menue->assign(defaultAssocArray());
+$menue->assign($strMenueAssocs);
 
 $mainPage->parse();
 $mainPage->output();
