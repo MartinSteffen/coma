@@ -4,6 +4,38 @@ $sql->connect();
 
 
 //select all conferences with <user> is author
+$SQL = "SELECT conference_id FROM role WHERE person_id = ".$_SESSION['userID']." AND role_type = 4";
+$author = $sql->query($SQL);
+
+// dump($author);
+$conf = array();
+foreach ($author as $row) {
+	$SQL = "SELECT id, name, description FROM conference WHERE id = ".$row['conference_id'] . " AND paper_submission_deadline > CURRENT_DATE";
+	$conf = array_merge($conf,$sql->query($SQL));
+}
+$TPL['conf'] = $conf;
+template("AUTHOR_choose_conference");
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+//select all conferences with <user> is author
 	$SQL = "SELECT conference_id FROM role WHERE person_id = ".$_SESSION['userID']." AND role_type = 4";
 	$author = $sql->query($SQL);
 //select all conferences where <user> uploaded a paper 
@@ -52,4 +84,5 @@ $sql->connect();
 		template("AUTHOR_no_new_papers");
 		exit();
 	}
+*/
 ?>

@@ -32,13 +32,14 @@ if ($_REQUEST['title'] == "") {
 
 $content['author_id'] = $_SESSION['userID'];
 
+/*
 //check if the paper is already uploaded (, via reload e.g.)
 $SQL = "SELECT id FROM paper WHERE author_id = ". $content['author_id'] ." AND conference_id = ". $content[conference_id];
 $result = $sql->query($SQL);
 if (count($result) > 0) {
 	redirect("author", "view", "papers");
 }
-
+*/
 //if okay, proceed
 $content['title'] = $_REQUEST['title'];
 $content['abstract'] = $_REQUEST['summary'];
