@@ -4,18 +4,20 @@ Figure~\ref{fig:classdiagram}).
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[height=12cm,angle=90]{data-model}
+  \includegraphics[height=12cm]{../sql/db_schema}
   \caption{Class diagram}
   \label{fig:classdiagram}
 \end{figure}
 
-For the diagram, we took inspiration from the two specification deliverables
+The diagram was worked out after discussion on the bulletin board in the
+plenum. It took inspiration from the two specification deliverables
 \cite{coma:spec1} \cite{coma:spec2}, at least the static part, for instance
-the ER-diagram from \cite{coma:spec1} In most cases we simplified the set-up
-(and left-out ertain parts).
+the ER-diagram from \cite{coma:spec1}, but also from different variations
+from the data model of this document, version 2.
 
-
-
+The graphical representation from Figure~\ref{fig:classdiagram} is
+simplified insofar as plain fields are left out. Those are specified in
+more detail
 
 
 
@@ -26,17 +28,81 @@ the ER-diagram from \cite{coma:spec1} In most cases we simplified the set-up
 %
 
 The following is as ``textual'' representation of the data model, as worked
-out by S. Esquivel, M.\ Albari, G. Biederbeck, and \ldots
+out by S. Esquivel, M.\ Albari, G. Biederbeck, and others.
+
+
+\lstinputlisting[basicstyle=\scriptsize]{../sql/db_schema.txt}
+
+
+I leave out in the discussion of the ``central'' classes as they seems
+obvious, but concentrate more on the tables reprasenting classes.
 
 
 
-\lstinputlisting[basicstyle=\scriptsize]{../sql/Tabellen-2.txt}
+\subsubsection*{Role and Roles}
+\label{sec:roleandroles}%
+
+Deviating from the picture on the blackboard (and from
+Figure~\ref{fig:classdiagram}), there are \emph{two} tables: \texttt{Role}
+and \texttt{Roles}. This is introduces to model the fact that \emph{the
+  same person} can be present in \emph{two} conferences at the same time in
+two different ways\footnote{Remember: that was not on the plate in the
+  original Version 2 of the doc. In the older model, a person was
+  associated with exactly one conference.}
+
+
+\subsubsection{Preferred topics}
+\label{sec:preferredtopic}
+
+
+
+
+
+
+
+
+
 
 
 \newpage
 
 
-\lstinputlisting[basicstyle=\scriptsize]{Tabellen-3-(Vorschlag).txt}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[height=12cm,angle=90]{../figures/data-model}
+  \caption{Class diagram}
+  \label{fig:classdiagram}
+\end{figure}
+
+We start deconstructing the diagram according to the classes, obvious
+fields we omit in the discussion here (they might get filled in later). We
+start with the main ``entities'', and discuss the ``associations'' later.
+
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}[t]{ll}
+    Conference &
+  \end{tabular}
+  
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\lstinputlisting[basicstyle=\scriptsize]{Tabellen-3-(Vorschlag).txt}
 
 \newpage
 
