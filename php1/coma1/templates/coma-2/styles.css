@@ -32,8 +32,6 @@ a.markedmenuitem { font-size: 13px; text-decoration: none; font-weight : bold; c
 
 table      { border-style: none;
              border-spacing: 0px;
-             vertical-align: top;
-             text-align: left;
              padding: 0px;
              margin: 0px;
            }
