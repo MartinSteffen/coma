@@ -192,21 +192,36 @@ Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
-				<th></th>
-				<th></th>
+				<th colspan="2">personel data</th>
+				<th colspan="2">papers</th>
 			</tr>
 		</thead>
 	<xsl:for-each select="/result/showauthors_data/content/person">
 		<tr>
-			<td>title: 
-			</td>
-			<td><xsl:value-of select="title"/>
-			</td>
-		</tr>
-		<tr>
 			<td>first name: 
 			</td>
 			<td><xsl:value-of select="first_name"/>
+			</td>
+			<td colspan="2" rowspan="9">
+			<table class="chair">
+			<xsl:for-each select="/result/showauthors_data/content/paper">
+			<tr>
+			<td>title:
+			</td>
+			<td width="200"><xsl:value-of select="title"/>
+			</td>
+			</tr>
+			<tr>
+			<td>Abstract:
+			</td>
+			<td width="100"><xsl:value-of select="Abstract"/>
+			</td>
+			</tr>
+			<tr>
+			<td colspan="2">-----------------------------------------------</td>
+			</tr>
+			</xsl:for-each>
+			</table>
 			</td>
 		</tr>	
 		<tr>
@@ -248,7 +263,7 @@ Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 		<tr>
 			<td>city: 
 			</td>
-			<td><xsl:value-of select="postal_code"/><xsl:value-of select="city"/>
+			<td><xsl:value-of select="postal_code"/>&#160;<xsl:value-of select="city"/>
 			</td>
 		</tr>	
 		<tr>
