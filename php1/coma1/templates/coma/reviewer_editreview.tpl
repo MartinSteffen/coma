@@ -11,24 +11,24 @@
     <td colspan="2">
       <table class="formlist">
         <tr class="formlistheader">
-          <th>Rating criterion</th>
-          <th>Score</th>
-          <th>Comment</th>
+          <th class="formlistheader">>Rating criterion</th>
+          <th class="formlistheader">>Score</th>
+          <th class="formlistheader">>Comment</th>
         </tr>
         <tr class="formlistitem"> 
-          <td>Truth:</td>
-          <td><input type="text" size="2" name="rating-1" value="2"/>/3</td>
-          <td><textarea name="comment-1" rows="1" cols="48">Bla, bla...</textarea></td>
+          <td class="formlistitem">Truth:</td>
+          <td class="formlistitem"><input type="text" size="2" name="rating-1" value="2"/>/3</td>
+          <td class="formlistitem"><textarea name="comment-1" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>
         <tr class="formlistitem">
-          <td>Originality:</td>
-          <td><input type="text" size="2" name="rating-2" value="1"/>/5</td>
-          <td><textarea name="comment-2" rows="1" cols="48">Bla, bla...</textarea></td>
+          <td class="formlistitem">Originality:</td>
+          <td class="formlistitem"><input type="text" size="2" name="rating-2" value="1"/>/5</td>
+          <td class="formlistitem"><textarea name="comment-2" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>
         <tr class="formlistitem">
-          <td>Style:</td>
-          <td><input type="text" size="2" name="rating-3" value="7"/>/10</td>
-          <td><textarea name="comment-3" rows="1" cols="48">Bla, bla...</textarea></td>
+          <td class="formlistitem">Style:</td>
+          <td class="formlistitem"><input type="text" size="2" name="rating-3" value="7"/>/10</td>
+          <td class="formlistitem"><textarea name="comment-3" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>        
       </table>
     </td>  

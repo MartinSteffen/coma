@@ -236,12 +236,12 @@ table.formtable
   padding: 8px;
 }
 table.formlist {}
-table.formheader
+.formlistheader
 {
   border-top: 1px #404040 solid;
   border-bottom: 1px #404040 solid;  
 }
-tr.formlistitem
+.formlistitem
 {  
   border-bottom: 1px #404040 solid;  
 }
