@@ -72,7 +72,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Conferences Overview';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = 'uname  |  Conferences';
+$strMainAssocs['navigator'] = session('uname').'  |  Conferences';
 
 $main->assign($strMainAssocs);
 $main->parse();

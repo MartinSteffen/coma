@@ -96,7 +96,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Personal data of User '.session('uname');
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = 'uname  |  Profile';
+$strMainAssocs['navigator'] = session('uname').'  |  Profile';
 
 $main->assign($strMainAssocs);
 $main->parse();
