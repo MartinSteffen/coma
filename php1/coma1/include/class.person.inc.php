@@ -50,7 +50,6 @@ class Person {
    */
   function getName($intStyle = 0) {
     // erstmal ganz billig; spaeter Pruefung auf leere Strings usw.
-    var $ret;
     switch($intStyle) {
       case 0:
         $ret = $strFirstName.' '.$strLastName;
