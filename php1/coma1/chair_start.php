@@ -22,6 +22,7 @@ $content = new Template(TPLPATH.'chair_start.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['request_no'] = '';
 $strContentAssocs['papers_no'] = '';
+$strContentAssocs['crit_papers_no'] = '';
 $strContentAssocs['acc_papers_no'] = '';
 $strContentAssocs['acc_date'] = '';
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'));

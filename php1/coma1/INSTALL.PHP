@@ -2,7 +2,7 @@
 /**
  * Install Skript f?a1
  *
- * Stand der Tabellen 25.01.2005
+ * Stand der Tabellen 03.02.2005
  *
  * @version $Id$
  * @package coma1
@@ -192,7 +192,7 @@ elseif ($STEP == 2) {
   $sql[] = "DROP TABLE IF EXISTS ConferenceConfig";
   $sql[] = "CREATE TABLE ConferenceConfig ( id INT NOT NULL, default_reviews_per_paper INT NOT NULL, min_number_of_papers INT NOT NULL, max_number_of_papers INT NOT NULL, critical_variance FLOAT NOT NULL DEFAULT '.5', auto_activate_account INT NOT NULL DEFAULT '1', auto_open_paper_forum INT NOT NULL DEFAULT '1', auto_add_reviewers INT NOT NULL DEFAULT '1', number_of_auto_add_reviewers INT NOT NULL, PRIMARY KEY (id) ) TYPE = INNODB";
   $sql[] = "DROP TABLE IF EXISTS Distribution";
-  $sql[] = "CREATE TABLE Distribution ( paper_id INT NOT NULL, reviewer_id INT NOT NULL, PRIMARY KEY (paper_id, reviewer_id), INDEX (paper_id), INDEX (reviewer_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE, FOREIGN KEY (reviewer_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
+  $sql[] = "CREATE TABLE Distribution ( paper_id INT NOT NULL, reviewer_id INT NOT NULL, PRIMARY KEY (paper_id, reviewer_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE, FOREIGN KEY (reviewer_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
   $sql[] = "DROP TABLE IF EXISTS PaperData";
   $sql[] = "CREATE TABLE PaperData ( paper_id INT NOT NULL, filesize INT NOT NULL, file MEDIUMBLOB NOT NULL, PRIMARY KEY (paper_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE) TYPE = INNODB";
 

@@ -2,6 +2,7 @@
 -- Skript zur Erstellung der PHP1-spezifischen DB-Aenderungen
 -- ------------------------------------------------------------------------
 -- - 08.01.05, 13:15: erstellt (Tom).
+-- - 03.02.05, 11:13; geaendert (Jan)
 -- ------------------------------------------------------------------------
 
 -- Tabellenstruktur für Tabelle 'Session'
@@ -38,9 +39,7 @@ CREATE TABLE IF NOT EXISTS Distribution
 (
    paper_id                     INT NOT NULL,
    reviewer_id                  INT NOT NULL,
-   PRIMARY KEY (paper_id, reviewer_id),
-   INDEX (paper_id),
-   INDEX (reviewer_id),
+   PRIMARY KEY (paper_id, reviewer_id),   
    FOREIGN KEY (paper_id) REFERENCES Paper (id)
        ON DELETE CASCADE,
    FOREIGN KEY (reviewer_id) REFERENCES Person (id)
@@ -60,10 +59,8 @@ CREATE TABLE IF NOT EXISTS PaperData
 ) TYPE = INNODB;
 
 
--- Sonst bekommt man Message Leichen, die man per Hand aufräumen müsste!!
-ALTER TABLE Message
-{
-  CHANGE forum_id forum_id INT NOT NULL,
-  ADD FOREIGN KEY (forum_id) REFERENCES Forum (id)
-       ON DELETE CASCADE
-}
+-- Sonst bekommt man Message Leichen, die man per Hand aufräumen muesste!!
+-- ist nicht mehr selbe DB fuer alle!!
+ALTER TABLE Message CHANGE forum_id forum_id INT NOT NULL;
+ALTER TABLE Message ADD INDEX (forum_id);
+ALTER TABLE Message ADD FOREIGN KEY (forum_id) REFERENCES Forum (id) ON DELETE CASCADE;
