@@ -1469,7 +1469,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (22.01.05)
    */
   function getReviewerAttitude($intPersonId, $intConferenceId) {
-    $objReviewerAttitude = new ReviewerAttitude();
+    $objReviewerAttitude = new ReviewerAttitude($intPersonId, $intConferenceId);
     $objPapers = $this->getPreferredPapers($intPersonId, $intConferenceId);
     if ($this->mySql->failed()) {
       return $this->error('getReviewerAttitude', $this->mySql->getLastError());
@@ -2156,6 +2156,72 @@ nur fuer detaillierte?
     }
     return $this->success();
   }
+
+/**
+   * Aktualisiert die Artikel- und Themen-Praeferenzen, die durch das Mapping
+   * $objReviewerAttitude angegeben sind.
+   *
+   * @param ReviewerAttitude $objReviewerAttitude Die Abbildung von Themen- und 
+                                                  Paper-IDs auf Praeferenzwerte   
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Sandro (24.01.05)
+   */
+  function updateReviewerAttitude($objReviewerAttitude) {
+    if (!(is_a($objReviewerAttitude, 'ReviewerAttitude'))) {
+      return $this->success(false);
+    }
+    $objPapers = $this->getPapersOfConference($objReviewerAttitude->conferenceId);
+    if ($this->failed()) {
+      return $this->error('updateReviewerAttitude', $this->getLastError());
+    }
+    foreach ($objPapers as $objPaper) {
+      $this->deletePrefersPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
+      if ($this->failed()) {
+        return $this->error('updateReviewerAttitude', $this->getLastError());
+      }      
+      $this->deleteDeniesPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
+      if ($this->failed()) {
+        return $this->error('updateReviewerAttitude', $this->getLastError());
+      }
+      $this->deleteExcludesPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
+      if ($this->failed()) {
+        return $this->error('updateReviewerAttitude', $this->getLastError());
+      }      
+      if ($objReviewerAttitude->getPaperAttitude($objPaper->intId) == ATTITUDE_PREFER) {
+        $this->addPrefersPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
+        if ($this->failed()) {
+          return $this->error('updateReviewerAttitude', $this->getLastError());
+        }
+      }
+      else if ($objReviewerAttitude->getPaperAttitude($objPaper->intId) == ATTITUDE_DENY) {
+        $this->addDeniesPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
+        if ($this->failed()) {
+          return $this->error('updateReviewerAttitude', $this->getLastError());
+        }
+      }
+      else if ($objReviewerAttitude->getPaperAttitude($objPaper->intId) == ATTITUDE_EXCLUDE) {
+        $this->addExcludesPaper($objReviewerAttitude->intReviewerId, $objPaper->intId);
+        if ($this->failed()) {
+          return $this->error('updateReviewerAttitude', $this->getLastError());
+        }
+      }
+    }
+    foreach ($objPapers as $objPaper) {
+      $this->deletePrefersTopic($objReviewerAttitude->intReviewerId, $objTopic->intId);
+      if ($this->failed()) {
+        return $this->error('updateReviewerAttitude', $this->getLastError());
+      }      
+      if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
+        $this->addPrefersTopic($objReviewerAttitude->intReviewerId, $objTopic->intId);
+        if ($this->failed()) {
+          return $this->error('updateReviewerAttitude', $this->getLastError());
+        }
+      }     
+    }
+    return $this->success(true);
+  }
+  
 
   // ---------------------------------------------------------------------------
   // Definition der Insert-Funktionen

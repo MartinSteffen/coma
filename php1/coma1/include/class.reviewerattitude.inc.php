@@ -29,10 +29,14 @@ define('ATTITUDE_EXCLUDE', 3);
  */
 class ReviewerAttitude {
 
+  var $intReviewerId;
+  var $intConferenceId;
   var $intPaperAttitudes;
   var $intTopicAttitudes;
 
-  function ReviewerAttitude() {
+  function ReviewerAttitude($intReviewerId, $intConferenceId) {
+    $this->intReviewerId = $intReviewerId;
+    $this->intConferenceId = $intConferenceId;
     $this->intPaperAttitudes = array();
     $this->intTopicAttitudes = array();
   }
