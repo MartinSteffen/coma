@@ -16,7 +16,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 
 require_once('./include/header.inc.php');
-require_once('./include/class.getdistribution.inc.php');
+require_once('./include/class.distribution.inc.php');
 
 function bit($b) {
   for ($i = 15; $i >= 0; $i--) {
