@@ -21,14 +21,15 @@ if (isset($_POST['action'])) {
   }
   $dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
-    for ($j = 0; $j < count($arrR); $j++) {
-/*      if ($arrR[$j]['status'] != ASSIGNED) {
+/*    for ($j = 0; $j < count($arrR); $j++) {
+      if ($arrR[$j]['status'] != ASSIGNED) {
         if(!isset($_POST['p'.$pid.'ridx'.$j])) {
           unset($arrR[$j]);
         }
-      }*/
+      }
       print_r($arrR);
-    }
+    }*/
+    echo('<br>.');
   }
   die(-1);
 }
