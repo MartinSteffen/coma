@@ -29,7 +29,7 @@
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}forum.php?showforums=1{&SID}" class="{if11 marked}submenu">Open forums</a>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=1{&SID}" class="{if11 marked}submenu">Public forums</a>
     </td>
   </tr>
   <tr>
@@ -37,7 +37,7 @@
     </td>
   </tr>
   <tr>
-    <td class="submenu"><a href="{basepath}forum.php?showforums=2{&SID}" class="{if12 marked}submenu">Chair forums</a>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=2{&SID}" class="{if12 marked}submenu">Committee forums</a>
     </td>
   </tr>
   <tr>
