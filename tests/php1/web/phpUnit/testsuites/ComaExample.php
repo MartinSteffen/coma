@@ -7,7 +7,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once '../coma1/include/header.inc.php';
 
-$strEmail = sae@me.de
+$strEmail = 'sae@me.de';
 
 class ComaExample extends PHPUnit_TestCase
 {
