@@ -63,7 +63,7 @@ elseif (isset($_GET['4'])) {
       4. <a href="INSTALL.PHP?4">Delete INSTALL.PHP</a><br>
     </p>
     <p>
-      Please selct your next Step of Isntallation...<br>
+      Please selct your next Step of Installation from the table above...<br>
       Your current step is: <?php echo $STEP; ?> <br>
     </p>
 <?php
@@ -151,7 +151,7 @@ elseif ($STEP == 2) {
   }
 }
 elseif ($STEP == 3) {
-  // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was machen ;)
+  // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was eigenes machen ;)
   echo "    <p class=\"message-failed\">\n";
   include('test_basedata.php');
   echo "    </p>\n";
