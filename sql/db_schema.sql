@@ -30,14 +30,14 @@ CREATE TABLE Conference
    id                           INT NOT NULL AUTO_INCREMENT,
    name                         VARCHAR(127) NOT NULL,
    homepage                     VARCHAR(127),
-   description                  TEXT,
-   abstract_submission_deadline DATE,
-   paper_submission_deadline    DATE,
-   review_deadline              DATE,
-   final_version_deadline       DATE,
-   notification                 DATE,
-   conference_start             DATE,
-   conference_end               DATE,
+   description                  TEXT, -- ``Werbung''/Berschreibung  fuer die Konferenz
+   abstract_submission_deadline DATE, -- Abgabe einer Kurzfassung
+   paper_submission_deadline    DATE, -- Abgabe des Papiers, danach beginnt das Begutachtung
+   review_deadline              DATE, -- Abgabe der Bewertung durch die Gutachter
+   final_version_deadline       DATE, -- Endversion des (evntl. revidierten) Papiers
+   notification                 DATE, -- Benachrichtigung der Autoren (Ja/Nein + Kritik)
+   conference_start             DATE, -- Beginn der eigentlichen Konferenz (nicht der Planung)
+   conference_end               DATE, -- analog
    min_reviews_per_paper        INT,
    PRIMARY KEY (id)
 ) TYPE = INNODB;
