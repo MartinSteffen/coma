@@ -21,6 +21,9 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
+global $intRoles;
+global $strRoles;
+
 $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = array();
@@ -35,13 +38,13 @@ if (!empty($objPersons)) {
     $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
     $strItemAssocs['target_form'] = 'chair_users.php';
     $strItemAssocs['roles'] = '';
-    for ($i = 0; $i < count(INTROLES); $i++) {
+    for ($i = 0; $i < count($intRoles); $i++) {
       $roles = new Template(TPLPATH.'edit_roles.tpl');
       $strRolesAssocs = defaultAssocArray();
       $strRolesAssocs['user_id'] = $objPerson->intId;
-      $strRolesAssocs['role_type'] = INTROLES[$i];
-      $strRolesAssocs['role_name'] = STRROLES[INTROLES[$i]];      
-      $strRolesAssocs['if'] = array(($objPerson->hasRole(INTROLES[$i])) ? 1 : 2);      
+      $strRolesAssocs['role_type'] = $intRoles[$i];
+      $strRolesAssocs['role_name'] = $strRoles[$intRoles[$i]];      
+      $strRolesAssocs['if'] = array(($objPerson->hasRole($intRoles[$i])) ? 1 : 2);      
       $roles->assign($strRolesAssocs);
       $roles->parse();
       $strItemAssocs['roles'] .= $roles->getOutput();
