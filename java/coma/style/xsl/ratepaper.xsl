@@ -65,7 +65,12 @@
                         </xsl:attribute>
                       </input>
                     </td>
-                    <td class="papertitle"><xsl:value-of select="./title" /></td>
+                    <td class="papertitle">
+                      <a>
+                        <xsl:attribute name="href">papers/<xsl:value-of select="./filename" /></xsl:attribute>
+                        <xsl:value-of select="./title" />
+                      </a>
+                    </td>
                     <td class="authorname"><xsl:value-of select="./Person/last_name" /></td>
                     <td class="revdate"><xsl:value-of select="./last_edited" /></td>
                   </tr>
