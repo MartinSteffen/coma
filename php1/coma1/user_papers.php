@@ -55,8 +55,11 @@ if ($myDBAccess->failed()) {
 $content = new Template(TPLPATH.'user_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['targetpage'] = 'user_papers.php';
-$strContentAssocs['if'] = $ifArray;
-$strContentAssocs['lines'] = '';
+$strContentAssocs['if']         = $ifArray;
+$strContentAssocs['lines']      = '';
+$strContentAssocs['&option']    = '';
+$strContentAssocs['&option']   .= ($showAuthorPapers   ? '&showauthorpapers'   : '');
+$strContentAssocs['&option']   .= ($showAcceptedPapers ? '&showacceptedpapers' : '');
 if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
