@@ -41,7 +41,8 @@ $strContentAssocs['author_id'] = $objPaper->intAuthorId;
 $strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);      
 $strContentAssocs['file_link'] = encodeURL($objPaper->strFilePath);
 $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
-$strContentAssocs['last_edited'] = encodeText($objPaper->last_edited);
+$strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
+$strContentAssocs['version'] = encodeText($objPaper->intVersion);
 $strContentAssocs['coauthors'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   if (empty($strContentAssocs['coauthors'])) {
