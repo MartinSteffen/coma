@@ -293,7 +293,7 @@ class DBAccess {
                 $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
                 $data[0]['last_edited'], $data[0]['filename']));
     }
-    return false;
+    return $this->error($mySql->error());
   }
 
   /**
