@@ -100,7 +100,6 @@
       <input type="hidden" name="auto_addreviewer" value="{if4 1}">
       <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}">
 
-      <input type="hidden" name="id" value="{id}"> 
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit" value="Submit Changes" class="button">
       <input type="submit" name="adv_config" value="Advanced settings" class="button">

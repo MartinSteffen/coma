@@ -30,7 +30,6 @@ if (isset($_POST['action'])) {
   $start_date = empty($_POST['start_date']) ? '' : strtotime($_POST['start_date']);
   $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
 
-  $strContentAssocs['id']               = encodeText($_POST['id']);
   $strContentAssocs['name']             = encodeText($_POST['name']);
   $strContentAssocs['description']      = encodeText($_POST['description']);
   $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
@@ -86,18 +85,18 @@ if (isset($_POST['action'])) {
     }
     elseif ((!empty($notification)) && ($review_dl > $notification)) {
       $strMessage = 'Your Review Deadline should be before your Notification time!';
-    } 
+    }
     elseif ((!empty($notification)) && ($notification > $start_date)) {
       $strMessage = 'Your Notification time should be before your Start Date!';
-    } 
+    }
     elseif ($review_dl > $start_date) {
       $strMessage = 'Your Notification time should be before your Start Date!';
-    } 
+    }
     // Versuche die Konferenz zu aktualisieren
     else {
       $objCriterions = array();
       $objConferenceDetailed =
-        new ConferenceDetailed($_POST['id'],
+        new ConferenceDetailed(session('confid'),
                                $_POST['name'],
                                $_POST['homepage'],
                                $_POST['description'],
@@ -141,7 +140,6 @@ else {
   if ($myDBAccess->failed()) {
     error('Error during retrieving actual conference data.', $myDBAccess->getLastError());
   }
-  $strContentAssocs['id']               = encodeText($objConference->intId);
   $strContentAssocs['name']             = encodeText($objConference->strName);
   $strContentAssocs['description']      = encodeText($objConference->strDescription);
   $strContentAssocs['homepage']         = encodeURL($objConference->strHomepage);
@@ -166,7 +164,7 @@ else {
   }
   if (!empty($objConference->blnAutoAddReviewers)) {
     $ifArray[] = 4;
-  }  
+  }
 }
 
 $strContentAssocs['message'] = '';

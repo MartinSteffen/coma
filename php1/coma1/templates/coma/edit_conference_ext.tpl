@@ -86,8 +86,7 @@
       <input type="hidden" name="review_dl" value="{review_dl}">
       <input type="hidden" name="final_dl" value="{final_dl}">
       <input type="hidden" name="notification" value="{notification}">
-      
-      <input type="hidden" name="id" value="{id}"> 
+
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit" value="Submit Changes" class="button">
       <input type="submit" name="simple_config" value="Simple settings" class="button">
