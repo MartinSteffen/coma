@@ -1,6 +1,6 @@
 <tr class="listitem-{line_no}">
   <td class="listitem-{line_no}" colspan="3">
-    <a href="{basepath}main_conference_info.php?confid={confid}{&SID}">
+    <a href="{basepath}main_conference_info.php?confid={confid}{&SID}" class="link">
       <span class="emph">{name}</span>
     </a>
   </td>

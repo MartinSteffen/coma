@@ -11,7 +11,7 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">      
-      Select <a href="{basepath}participant_settings.php{?SID}">'Edit my participation'</a>
+      Select <a href="{basepath}participant_settings.php{?SID}" class="link">'Edit my participation'</a>
       to edit information regarding your participation in this conference, as well as
       your payment details.
       {if1<br><span class="alert">The conference is starting soon. You should submit your

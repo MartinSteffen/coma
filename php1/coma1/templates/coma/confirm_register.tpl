@@ -57,5 +57,5 @@
 
 <p class="message-okay">
   User was successfully registered! Please login on
-  <a href="{basepath}index.php{?SID}">start page</a> with your E-mail address as Username!
+  <a href="{basepath}index.php{?SID}" class="link">start page</a> with your E-mail address as Username!
 </p>

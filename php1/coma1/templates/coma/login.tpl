@@ -34,5 +34,5 @@
 <p class="message2">
   If you have registered for the site, please enter your username and password.
   You have to login in order to access information that is relevant to you.<br>
-  If you have not registered yet, <a href="{basepath}register.php{?SID}">please register!</a>
+  If you have not registered yet, <a href="{basepath}register.php{?SID}" class="link">please register!</a>
 </p>

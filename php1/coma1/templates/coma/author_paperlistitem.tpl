@@ -1,6 +1,6 @@
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}">
-      <a href="{basepath}author_editpaper.php?paperid={paper_id}{&SID}">{title}</a>
+      <a href="{basepath}author_editpaper.php?paperid={paper_id}{&SID}" class="link">{title}</a>
     </td>
     <td class="listitem-{line_no}">&nbsp;</td>
     <td class="listitem-{line_no}">
@@ -13,7 +13,7 @@
     <td class="listitem-{line_no}">{avg_rating}</td>  
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
-      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}">view paper</a>}
+      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">view paper</a>}
     </td>
     <td class="listitem-{line_no}">
       <button name="viewpaper" type="button" class="smallbutton" value="edit"

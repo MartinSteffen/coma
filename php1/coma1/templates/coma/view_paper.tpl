@@ -21,7 +21,7 @@
       Author:
     </td>
     <td class="viewline">
-      <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a>
+      <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>
     </td>
   </tr>
   <tr class="viewline">
@@ -50,7 +50,7 @@
   </tr>  
   <tr class="viewline">
     <td class="viewline" colspan="2">
-      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}">View paper</a>}
+      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">View paper</a>}
       {if6<span class="emph">There is no document available yet.</span>}
     </td>
   </tr>

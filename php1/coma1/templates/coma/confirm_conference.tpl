@@ -47,5 +47,5 @@
 
 <p class="message-okay">
   Conference was successfully registered!<br>
-  Return to the <a href="{basepath}{return_page}{?SID}">conference overview</a>.
+  Return to the <a href="{basepath}{return_page}{?SID}" class="link">conference overview</a>.
 </p>

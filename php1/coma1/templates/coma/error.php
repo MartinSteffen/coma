@@ -71,9 +71,9 @@ elseif (SID != '') {
     
     <p>You have the following three options:</p>
     <ul>
-      <li>Return to the <a href="<?=COREURL?>index.php<?=SID?>">start page</a>!
-      <li>Try again and <a href="javascript:location.reload()">reload the page</a>!
-      <li>Go one step <a href="javascript:history.back()">back in time</a>!
+      <li>Return to the <a href="<?=COREURL?>index.php<?=SID?>" class="link">start page</a>!
+      <li>Try again and <a href="javascript:location.reload()" class="link">reload the page</a>!
+      <li>Go one step <a href="javascript:history.back()" class="link">back in time</a>!
     </ul>
 
     <p>&nbsp;</p>

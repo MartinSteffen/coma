@@ -1,9 +1,9 @@
   <tr class="listitem-{line_no}"> 
     <td class="listitem-{line_no}">
-      <a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}">{title}</a>
+      <a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}" class="link">{title}</a>
     </td> 
     <td class="listitem-{line_no}">
-      <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a>
+      <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>
     </td>
     <td class="listitem-{line_no}">
       {if0<span class="status-unreviewed">unreviewed</span>}

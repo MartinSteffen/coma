@@ -2,8 +2,8 @@
 {if9<p class="message">{message}</p>}
 
 <p class="message2">
-  Below you can submit your attitude towards certain <a href="#topics">topics</a>
-  or <a href="#papers">papers</a>:<br>
+  Below you can submit your attitude towards certain <a href="#topics" class="link">topics</a>
+  or <a href="#papers" class="link">papers</a>:<br>
   Selected <span class="emph">prefer</span> if you favor to review a certain paper
   or papers about certain topic.<br>
   Selected <span class="emph">deny</span> if you would like to review a certain paper

@@ -11,7 +11,7 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">Website:</td>
-    <td class="viewline">{if1<a href="{link}" target="_blank">}{link}{if1</a>}</td>
+    <td class="viewline">{if1<a href="{link}" target="_blank" class="link">}{link}{if1</a>}</td>
   </tr>
   <tr class="viewline">
     <td class="viewline" colspan="2">&nbsp;</td>
@@ -45,5 +45,5 @@
 <p>&nbsp;</p>
 
 <p class="message2">
-  Return to the <a href="{basepath}{return_page}{?SID}">conference overview</a>.
+  Return to the <a href="{basepath}{return_page}{?SID}" class="link">conference overview</a>.
 </p>
