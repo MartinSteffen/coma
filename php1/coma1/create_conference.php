@@ -76,8 +76,8 @@ if (isset($_POST['action'])) {
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte
 else {
-  $ifArray[] = 1;
-  $ifArray[] = 2;  
+  $ifArray[] = 2;
+  $ifArray[] = 3;  
   $strContentAssocs['auto_numreviewer'] = '2';
   $strContentAssocs['variance']         = '0.5';
 }
