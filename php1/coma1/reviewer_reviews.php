@@ -82,7 +82,7 @@ if (!empty($objPapers)) {
         $strItemAssocs['avg_rating'] = ' - ';
       }
       // Pruefe Zugang zum Paperforum
-      $objPaperForum = $myDBAccess->getForumOfPaper($intPaperId);
+      $objPaperForum = $myDBAccess->getForumOfPaper($objReview->intPaperId);
       if ($myDBAccess->failed()) {
         error('Error occured retrieving forum of paper.', $myDBAccess->getLastError());
       }      
