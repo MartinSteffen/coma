@@ -350,8 +350,8 @@ Calendar.prototype.cal_data = function() {
 	for (j=vFirstDay; j<7; j++) {
 		vCode = vCode + "<TD WIDTH='14%'" + this.write_weekend_string(j) + "><FONT SIZE='2' FACE='" + fontface + "'>" + 
 			"<A HREF='#' " + 
-				"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').innerHTML='<span class=text>" + this.format_data(vDay) + 
-				"</span>';self.opener.document.form1." + this.gReturnItem + "Hidden.value='fff'" +
+				"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').innerHTML='<span class=textRed>" + this.format_data(vDay) + 
+				"</span>';self.opener.document.form1." + this.gReturnItem + "Hidden.value='" + this.format_data_SQL(vDay) + "'" +
 				";window.close();\">" + 	
 			    this.format_day(vDay) + "</A>" +
 			"</FONT></TD>";
@@ -366,8 +366,8 @@ Calendar.prototype.cal_data = function() {
 		for (j=0; j<7; j++) {
 			vCode = vCode + "<TD WIDTH='14%'" + this.write_weekend_string(j) + "><FONT SIZE='2' FACE='" + fontface + "'>" + 
 			"<A HREF='#' " + 
-				"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').innerHTML='<span class=text>" + this.format_data(vDay) + 
-				"</span>';self.opener.document.form1." + this.gReturnItem + "Hidden.value='fff'" +
+				"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').innerHTML='<span class=textRed>" + this.format_data(vDay) + 
+				"</span>';self.opener.document.form1." + this.gReturnItem + "Hidden.value='" + this.format_data_SQL(vDay) + "'" +
 				";window.close();\">" + 	
 			    this.format_day(vDay) + "</A>" +
 			"</FONT></TD>";
@@ -430,65 +430,24 @@ Calendar.prototype.format_data = function(p_day) {
 	var vY4 = new String(this.gYear);
 	var vY2 = new String(this.gYear.substr(2,2));
 	var vDD = (p_day.toString().length < 2) ? "0" + p_day : p_day;
-
-	switch (this.gFormat) {
-		case "MM\/DD\/YYYY" :
-			vData = vMonth + "\/" + vDD + "\/" + vY4;
-			break;
-		case "MM\/DD\/YY" :
-			vData = vMonth + "\/" + vDD + "\/" + vY2;
-			break;
-		case "MM-DD-YYYY" :
-			vData = vMonth + "-" + vDD + "-" + vY4;
-			break;
-		case "MM-DD-YY" :
-			vData = vMonth + "-" + vDD + "-" + vY2;
-			break;
-
-		case "DD\/MON\/YYYY" :
-			vData = vDD + "\/" + vMon + "\/" + vY4;
-			break;
-		case "DD\/MON\/YY" :
-			vData = vDD + "\/" + vMon + "\/" + vY2;
-			break;
-		case "DD-MON-YYYY" :
-			vData = vDD + "-" + vMon + "-" + vY4;
-			break;
-		case "DD-MON-YY" :
-			vData = vDD + "-" + vMon + "-" + vY2;
-			break;
-
-		case "DD\/MONTH\/YYYY" :
-			vData = vDD + "\/" + vFMon + "\/" + vY4;
-			break;
-		case "DD\/MONTH\/YY" :
-			vData = vDD + "\/" + vFMon + "\/" + vY2;
-			break;
-		case "DD-MONTH-YYYY" :
-			vData = vDD + "-" + vFMon + "-" + vY4;
-			break;
-		case "DD-MONTH-YY" :
-			vData = vDD + "-" + vFMon + "-" + vY2;
-			break;
-
-		case "DD\/MM\/YYYY" :
-			vData = vDD + "\/" + vMonth + "\/" + vY4;
-			break;
-		case "DD\/MM\/YY" :
-			vData = vDD + "\/" + vMonth + "\/" + vY2;
-			break;
-		case "DD-MM-YYYY" :
-			vData = vDD + "-" + vMonth + "-" + vY4;
-			break;
-		case "DD-MM-YY" :
-			vData = vDD + "-" + vMonth + "-" + vY2;
-			break;
-
-		default :
-			vData = vMonth + "\/" + vDD + "\/" + vY4;
-	}
+	var vDD = p_day;
 	
 	vData =  vDD + " " + vFMon + " " + vY4;
+
+	return vData;
+}
+
+Calendar.prototype.format_data_SQL = function(p_day) {
+	var vData;
+	var vMonth = 1 + this.gMonth;
+	vMonth = (vMonth.toString().length < 2) ? "0" + vMonth : vMonth;
+	var vMon = Calendar.get_month(this.gMonth).substr(0,3).toUpperCase();
+	var vFMon = Calendar.get_month(this.gMonth);
+	var vY4 = new String(this.gYear);
+	var vY2 = new String(this.gYear.substr(2,2));
+	var vDD = (p_day.toString().length < 2) ? "0" + p_day : p_day;
+	
+	vData =  vY4 + "-" + vMonth + "-" + vDD;
 
 	return vData;
 }

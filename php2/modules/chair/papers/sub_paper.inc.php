@@ -25,7 +25,6 @@ if(isChair_Paper($_GET['paperID']))
 		$paper['paperName'] = $list[0];
 		$paper['paperDesc'] = $list[1];	
 		$paper['lastEdited'] = date("j F Y" , strtotime($list[2]));
-		//$paper['lastEdited'] = $list[2];
 		$paper['version'] = $list[3];
 		$paper['stateID'] = $list[4];
 		if($list[4]==0)
