@@ -48,6 +48,22 @@ function getReviewCountForPaper($paperId) {
 
 }
 
+function isReviewed($reviewId) {
+	global $sql;
+
+	if (!$reviewId) {
+		$reviewId = "0";
+	}
+
+	$query="SELECT COUNT(*) FROM rating WHERE review_id=" . $reviewId;
+	
+	$countArr=$sql->query($query);
+
+	return $countArr[0][0]>0;
+
+
+}
+
 function compareGrade($a, $b) {
 	if ($a['total_grade'] < $b['total_grade']) return 1;
 	else if ($a['total_grade'] > $b['total_grade']) return -1;
@@ -276,7 +292,9 @@ function getTotalGradeListForPaper($paperId) {
 	$arr=$sql->query($queryStr);
 
 	foreach($arr as $row) {
-		$gradeList[] = number_format( getTotalGradeForReviewReport( $row['id'] ) * 100 , 2);
+		if (isReviewed($row['id'])) {
+			$gradeList[] = number_format( getTotalGradeForReviewReport( $row['id'] ) * 100 , 2);
+		}
 	}
 
 	if (count($arr)==0) {
