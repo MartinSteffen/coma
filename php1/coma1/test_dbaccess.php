@@ -42,6 +42,7 @@ if (!empty($p)) {
     echo($p->strCoAuthors[$i].' ('.$p->intCoAuthorIds[$i].')');
   }
 }
+else echo('Else sagt: \"Nix gefunden...\"');
 
 
 ?>
