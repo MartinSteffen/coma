@@ -292,9 +292,9 @@ if (isset($_POST['action'])) {
 	 )) { //nur aufrufen, wenn hier auch der Fehler vorliegt!         
      $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').         	
                    'There are contradictions in the given dates!<br>'.
-                   'It should be: '.$_POST['abstract_dl'].'<='.$_POST['paper_dl'].'<='.
-                   $_POST['notification'].'<='.$_POST['start_date'].'<='.$_POST['end_date'].
-                   '<br>and: '.$_POST['paper_dl'].'<='.$_POST['final_dl'].'<='.$_POST['start_date'];     
+                   'It should be: Start date &leq; End date,<br>'.
+                   'Abstract deadline < Paper deadline < Final version deadline < Start date,<br>'.
+                   'and: Paper deadline < Review deadline < Notification < Start date.'
      $noErrors = false;
    }
 
