@@ -47,10 +47,10 @@ foreach ($testpapers as $paper){
   $strContentAssocs['paper_rows'] = $strContentAssocs['paper_rows'] . $papertemplate->getOutput();
 }
 
-if ($none){
+if (!empty($none)) {
   $strContentAssocs['paper_rows'] = 'There are no items in this category. Use the form below to upload papers.';
 }
-
+$content->assign($strContentAssocs);
 $actMenu = AUTHOR;
 $actMenuItem = 2;
 include('./include/usermenu.inc.php');
