@@ -53,19 +53,17 @@
     </td>
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
-      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;paper</a>}
+      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;paper</a>}&nbsp;
     </td>
     <td class="listitem-{line_no}">
       <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">view&nbsp;review&nbsp;report</a>
     </td>
     <td class="listitem-{line_no}" nowrap>
-      {if8
-      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+  {if8<form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="paperid" value="{paper_id}">
         <input type="checkbox" name="confirm_delete" value="1">
         <input type="submit" name="submit" value="delete" class="smallbutton">
-      </form>
-      }&nbsp;
+      </form>}&nbsp;
     </td>
   </tr>

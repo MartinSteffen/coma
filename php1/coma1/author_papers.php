@@ -82,6 +82,9 @@ if (!empty($objPapers)) {
     if (!empty($objPaper->strFilePath)) {
       $ifArray[] = 5;
     }
+    if ($objPaper->intStatus != PAPER_ACCEPTED) {
+      $ifArray[] = 8;
+    }    
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');

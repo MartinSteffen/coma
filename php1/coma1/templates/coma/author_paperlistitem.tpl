@@ -19,11 +19,11 @@
       <a href="{basepath}author_editpaper.php?paperid={paper_id}{&SID}" class="buttonlink">edit</a>
     </td>
     <td class="listitem-{line_no}">
-      <form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">
+  {if8<form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="paperid" value="{paper_id}">
         <input type="checkbox" name="confirm_delete" value="1">
         <input type="submit" name="submit" value="delete" class="smallbutton">
-      </form>
+      </form>}&nbsp;
     </td>
   </tr>
