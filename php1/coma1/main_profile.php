@@ -48,9 +48,6 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   elseif ($_POST['password'] != $_POST['password2']) {
     $strMessage = 'You have to enter your new Password correctly twice!';
   }
-  elseif (0 < strlen($_POST['password']) < 2) {
-    $strMessage = 'Your Password must contain at least 2 characters!';
-  }
   else {
     $objPerson->strFirstName   = $_POST['first_name'];
     $objPerson->strLastName    = $_POST['last_name'];
