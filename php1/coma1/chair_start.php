@@ -60,10 +60,11 @@ if ($myDBAccess->failed()) {
 else if (empty($objConference)) {
   error('conference '.session('confid').' does not exist in database.','');
 }
-if (strtotime($objConference->strReviewDeadline) <= strtotime("today")) {
+if (strtotime($objConference->strReviewDeadline) <= strtotime("now")) {
   $strContentAssocs['acc_papers_no'] = encodeText($intUndistributedPapers);
-  $strContentAssocs['acc_date'] = encodeText(emptytime($objConference->strReviewDeadline));
+  $strContentAssocs['acc_date'] = encodeText(emptytime($objConference->strNotification));
   $ifArray[] = 4;
+  echo($objConference->strReviewDeadline.'/'.$objConference->strNotification);
 }
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
