@@ -4,8 +4,11 @@
  */
 package coma.servlet.servlets;
 
+import java.io.File;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.io.StringReader;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,23 +36,28 @@ import coma.entities.Entity;
  * 
  */
 public class Index extends HttpServlet {
-
+	
+	private Navcolumn myNavCol;
+	private String path;
+	private StringBuffer result;
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 
-		StringBuffer result = new StringBuffer();
+		result = new StringBuffer();
 		XMLHelper helper = new XMLHelper();
-		Navcolumn myNavCol = new Navcolumn(request.getSession(true));
-		String path = getServletContext().getRealPath("");
+		myNavCol = new Navcolumn(request.getSession(true));
+		path = getServletContext().getRealPath("");
 		String xslt = path + "/style/xsl/index.xsl";
 		PrintWriter out = response.getWriter();
 		helper.addXMLHead(result);
 		
 		//result.append(XMLHelper.tagged("dummy",""));
 		result.append("<content>");
-		
 		result.append(myNavCol.toString());
-		result.append("</content>");		
+		ShowProgram(request);
+		result.append("</content>");	
+		System.out.println(result.toString());
 			response.setContentType("text/html; charset=ISO-8859-15");
 			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);
@@ -62,4 +70,36 @@ public class Index extends HttpServlet {
 			throws ServletException, java.io.IOException {
 		doGet(request, response);
 	}
+	
+	
+	private void ShowProgram(HttpServletRequest request){
+		
+		if(request.getParameter("name")== null){
+			Conference[] conferenceArray = myNavCol.getConferenceArray();
+				for(int i=0;i<conferenceArray.length;i++){
+					File Prog = new File(path + "/papers","Program-"+conferenceArray[i].getName()+".xml");
+						if(Prog.exists()){
+							result.append("<conference_end>");
+							result.append(conferenceArray[i].getName());
+							result.append("</conference_end>");
+						}
+				}
+		}
+			else{
+				try{
+				File Prog = new File(path + "/papers","Program-"+request.getParameter("name")+".xml");
+				RandomAccessFile input = new RandomAccessFile( Prog, "rw" );
+				input.readLine();
+				String tmp;
+				result.append("<show_program>");
+				while((tmp = input.readLine()) != null)
+				result.append(tmp);
+				result.append("</show_program>");
+					}
+					catch(IOException E){
+							E.printStackTrace();
+					}
+				}
+	}
+	
 }
