@@ -41,7 +41,9 @@ if (isset($_POST['action'])) {
   $strCritDescripts = encodeTextArray($_POST['crit_descr']);
   $strCritMaxVals   = encodeTextArray($_POST['crit_max']);
   $strCritWeights   = encodeTextArray($_POST['crit_weight']);
-  if (isset($_POST['advanced'])) {    
+  if (isset($_POST['advanced'])) {
+    $intTopicNum = count($strTopics);
+    $intCritNum  = count($strCriterions);
     $strTopics        = array();
     $strCriterions    = array();
     $strCritDescripts = array();
