@@ -66,7 +66,7 @@ if (true) {
   $sql[] = "DROP TABLE IF EXISTS Distribution";
   $sql[] = "CREATE TABLE Distribution ( paper_id INT NOT NULL, reviewer_id INT NOT NULL, PRIMARY KEY (paper_id, reviewer_id), INDEX (paper_id), INDEX (reviewer_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE, FOREIGN KEY (reviewer_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
   $sql[] = "DROP TABLE IF EXISTS PaperData";
-  $sql[] = "CREATE TABLE PaperData ( paper_id INT NOT NULL, file MEDIUMBLOB NOT NULL, PRIMARY KEY (paper_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE) TYPE = INNODB";
+  $sql[] = "CREATE TABLE PaperData ( paper_id INT NOT NULL, filesize INT NOT NULL, file MEDIUMBLOB NOT NULL, PRIMARY KEY (paper_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE) TYPE = INNODB";
 
   foreach ($sql as $s) {
     $result = mysql_query($s, $conn);

@@ -100,19 +100,14 @@ if (isset($_POST['action'])) {
     }
     // Versuche das Paper hochzuladen
     else {      
-      if (!empty($_POST['mimetype'])) {
-        $objPaper->strMimeType = $_POST['mimetype'];
-      }
-      else {
-        $objPaper->strMimeType = $_FILES['userfile']['type'];
-      }
       $tmp = $_FILES['userfile']['tmp_name'];
       $filehandle = fopen($tmp, "rb") or error('Upload File', 'Can\'t read the file!');
       $file = fread($filehandle, filesize($tmp));
       fclose ($filehandle); 
       $result = $myDBAccess->uploadPaperFile($objPaper->intId, 
                                              $_FILES['userfile']['name'],
-                                             $objPaper->strMimeType,
+                                             $_FILES['userfile']['type'],
+                                             $_FILES['userfile']['size'],
                                              $file);
       unset($file);
       if ($myDBAccess->failed()) {

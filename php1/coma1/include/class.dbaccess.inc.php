@@ -603,10 +603,10 @@ class DBAccess extends ErrorHandling {
   /**
    * Liefert das Paper-File mit der ID $intPaperId zurueck.
    *
-   * Rueckgabe: (filename, mime_type, contents)
+   * Rueckgabe: (filename, mime_type, filesize, contents)
    *
    * @param int $intPaperId ID des Papers
-   * @return (string, string, string) oder false, falls das Paper nicht existiert.
+   * @return (string, string, int, string) oder false, falls das Paper nicht existiert.
    * @access public
    * @author Jan (25.01.04)
    */
@@ -625,7 +625,7 @@ class DBAccess extends ErrorHandling {
     if (empty($data[0]['filename']) || empty($data[0]['mime_type'])) {
       return $this->success(false);
     }
-    $s = sprintf("SELECT   file".
+    $s = sprintf("SELECT   filesize, file".
                  " FROM    PaperData".
                  " WHERE   paper_id = '%d'",
                            s2db($intPaperId));
@@ -636,7 +636,8 @@ class DBAccess extends ErrorHandling {
     else if (empty($file)) {
       return $this->error('getPaperFile', 'Expected Binary File not found in DB!');
     }
-    return $this->success(array($data[0]['filename'], $data[0]['mime_type'], $file[0]['file']));
+    return $this->success(array($data[0]['filename'], $data[0]['mime_type'], 
+                                $file[0]['filesize'], $file[0]['file']));
   }
 
   /**
@@ -1857,7 +1858,7 @@ nur fuer detaillierte?
    * @todo Delete Add geht vielleicht auch besser
    * @todo Rollback?
    */
-  function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, $strContents) {
+  function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, $intFileSize, $strContents) {
     $s = sprintf("UPDATE   Paper".
                  " SET     filename = '%s', mime_type = '%s', ".
                  "         version = 'version + 1', last_edited = '%s'".
@@ -1877,9 +1878,10 @@ nur fuer detaillierte?
       return $this->error('uploadPaperFile', $this->mySql->getLastError());
     }
     // add Paper    
-    $s = sprintf("INSERT  INTO PaperData (paper_id, file)".
-                 "        VALUES ('%d', '%s')",
+    $s = sprintf("INSERT  INTO PaperData (paper_id, filesize, file)".
+                 "        VALUES ('%d', '%d', '%s')",
                  s2db($intPaperId),
+                 s2db($intFileSize),
                  s2db($strContents));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
