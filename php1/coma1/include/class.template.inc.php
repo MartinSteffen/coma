@@ -93,7 +93,7 @@ class Template {
     if(!is_array($strAssocs)) {
       return $this->error('Not an Array');
     }
-    $this->strAssocs = array_merge($this->strAassocs, $strAssocs);
+    $this->strAssocs = array_merge($this->strAssocs, $strAssocs);
     return true;
   }
   
