@@ -34,11 +34,11 @@ if (isset($_POST['confirm'])) {
   while ($pid = key($dist)) {
     $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($dist[$pid]); $j++) {
-      if ($dist[$pid][$j]['status'] != ASSIGNED && rand(1, 3) <= 1) {
+      if ($dist[$pid][$j]['status'] != ASSIGNED) {
         $s .= ' '.$dist[$pid][$j]['reviewer_id'].'/'.$dist[$pid][$j]['status'];
-//        if(!isset($_POST['p'.$pid.'ridx'.$j])) {
+        if(!isset($_POST['p'.$pid.'ridx'.$j])) {
           $dist[$pid][$j] = false;
-//        }
+        }
       }
       else $s .= ' ass';
     }
