@@ -38,7 +38,7 @@ def quote(v, default = False):
         if isinstance(v, types.StringType):
             return '\'' + string.replace(string.replace(str(v), '\\', '\\\\'),
                                          '\'', '\'\'')
-        elif isinstance(v, types.IntType, types.LongType, types.FloatType)):
+        elif isinstance(v, (types.IntType, types.LongType, types.FloatType)):
             return v
         elif isinstance(x, (types.ListType, types.TupleType)):
             return '(%s)' % string.join(map(lambda v: str(quote(v)), v), ',')

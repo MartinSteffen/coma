@@ -1,5 +1,4 @@
 
-SUBDIRS			= templates
 dist_pkgdata_DATA	= index.py
 
 BUILT_SOURCES		= config.py

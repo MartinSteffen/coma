@@ -147,6 +147,124 @@ def setup(req, sid):
 
 
 
+###############################################################################
+#
+# Create a new conference.
+#
+###############################################################################
+
+def do_create_conference(req, sid, abbreviation, name, homepage, abstract_sd,
+                         paper_sd, review_sd, notification_sd, final_sd,
+                         conference_start, conference_end, min_reviews,
+                         update = False):
+    """This function creates a new conference.  The optional argument update
+    updates an existing conference."""
+    session, user, db = setup(req, sid)
+    # Check the permissions.
+    _error = []
+    if not abbreviation:
+        _error.append('You have to enter an abbreviation.')
+    if not name:
+        _error.append('You have to enter a name for the conference.')
+    if not homepage:
+        _error.append('You have to enter a homepage URI for the conference.')
+    if abstract_sd:
+        _sd = parse_date(abstract_sd)
+        if not _sd:
+            _error.append("The abstract deadline '%s' does not appear to be a date." % abstract_sd)
+        review_sd = _sd
+    if not paper_sd:
+        _error.append('You have to enter a paper submission deadline.')
+    else:
+        _sd = parse_date(paper_sd)
+        if not _sd:
+            _error.append("The paper submission deadline '%s' does not appear to be a date." % paper_sd)
+        paper_sd = _sd
+    if not review_sd:
+        _error.append('You have to enter a review deadline.')
+    else:
+        _sd = parse_date(review_sd)
+        if not _sd:
+            _error.append("The review deadline '%s' does not appear to be a date." % paper_sd)
+        review_sd = _sd
+    if not notification_sd:
+        _error.append('You have to enter a notification deadline.')
+    else:
+        _sd = parse_date(notification_sd)
+        if not _sd:
+            _error.append("The notification date '%s' does not appear to be a date." % paper_sd)
+        notification_sd = _sd
+    if not final_sd:
+        _error.append('You have to enter a final version deadline.')
+    else:
+        _sd = parse_date(final_sd)
+        if not _sd:
+            _error.append("The final version deadline '%s' does not appear to be a date." % final_sd)
+        final_sd = _sd
+    if not conference_start:
+        _error.append('You have to enter a start date of the conference.')
+    else:
+        _sd = parse_date(conference_start)
+        if not _sd:
+            _error.append("The starting date of the conference '%s' does not appear to be a date." % conference_start)
+        conference_start = _sd
+    if not conference_end:
+        _error.append('You have to enter an ending date of the conference.')
+    else:
+        _sd = parse_date(conference_end)
+        if not _sd:
+            _error.append("The starting date of the conference '%s' does not appear to be a date." % conference_end)
+        conference_end = _sd
+    if not min_reviews:
+        min_reviews = 1
+
+    if db.get_conference(abbreviation):
+        _error.append('A conference with the name %s already exists.' %
+                      abbreviation)
+
+    # XXX: Check whether all dates entered are sane.  This needs to be done.
+
+    if _error:
+	return __format_errors('new-conference-error.xml', _error)
+
+    # Now we can put the conference into the database.
+    _conf = comadb.Conference([abbreviation, name, homepage, abstract_sd,
+                               paper_sd, review_sd, notification_sd, final_sd,
+                               conference_start, conference_end, min_reviews])
+    db.put_conference(_conf)
+
+    # After we have created the conference we make the creator administrator
+    # of this conference.
+    _role = comadb.Role([sid.user, abbreviation, [True, True, False, False]])
+    db.put_role(_role)
+    return process_template('new-conference-success.xml',
+                            { 'actions' : action_menu(user) })
+
+
+
+
+
+###############################################################################
+#
+# Submit a paper.
+#
+###############################################################################
+
+def do_submit_paper(req, sid):
+    """Submit a paper."""
+    session, user, db = setup(req, sid)
+    _errors = []
+    # First validate the arguments provided.
+
+
+
+
+
+###############################################################################
+#
+#
+#
+###############################################################################
 
 def createaccount(req, sid, email, title, first_name, last_name, affiliation,
 		  phone_number, fax_number, street, city, postal_code, state,
@@ -359,73 +477,3 @@ def process_submit_paper(sid, db, form):
 
 
 
-def process_new_conference(sid, db, form):
-    _error = []
-    _result = []
-    if form['abbreviation'].value:
-	_result.append(form['abbreviation'].value)
-    else:
-	_error.append('You have to enter an abbreviation')
-
-    if form['name'].value:
-	_result.append(form['name'].value)
-    else:
-	_error.append('You have to enter an name of the conference')
-
-    if form['homepage'].value:
-	_result.append(form['homepage'].value)
-    else:
-	_error.append("You have to enter an URI for the conferences homepage.")
-
-    if form['abstract-submission-deadline'].value:
-	_result.append(form['abstract-submission-deadline'].value)
-    else:
-	_result.append(None)
-
-    if form['paper-submission-deadline'].value:
-	_result.append(form['paper-submission-deadline'].value)
-    else:
-	_error.append('You have to enter a paper submission deadline.')
-
-    _result, _error = __form_get_value(
-	form, 'review-deadline', _result, _error,
-	'You have to enter a review deadline')
-    _result, _error = __form_get_value(
-	form, 'notification-deadline', _result, _error,
-	'You have to enter a final version deadline')
-    _result, _error = __form_get_value(
-	form, 'final-version-deadline', _result, _error,
-	'You have to enter a final version deadline')
-    _result, _error = __form_get_value(
-	form, 'conference-start', _result, _error,
-	'You have to enter a the starting date of the conference')
-    _result, _error = __form_get_value(
-	form, 'conference-end', _result, _error,
-	'You have to enter a the ending date of the conference')
-    _result, _error = __form_get_value(
-	form, 'min-reviews-per-paper', _result, _error, None, 1)
-
-    # XXX: Check whether all dates entered are sane.  This needs to be done.
-
-    if _error:
-	__format_errors('./templates/new-conference-error.xml', _error)
-    else:
-	_conf = comadb.Conference(_result)
-	_c = db.get_conference(_conf.abbreviation)
-	if _c:
-	    __format_errors('./templates/new-conference-error.xml',
-			    ['A conference with the abbreviation %s already '
-			     'exists' % (_c.abbreviation)])
-	db.put_conference(_conf)
-	# After we have created the conference we make the conference
-	# administrator of this conference.
-	_role = comadb.Role((sid.user, _result[0],
-			     [True, True, False, False]))
-	db.put_role(_role)
-
-
-
-
-
-if (__name__ == "__main__"):
-    print "Hacking attempt."

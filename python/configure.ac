@@ -16,4 +16,4 @@ AC_CHECK_PROGS([CHCON], chcon, :)
 
 dnl ===========================================================================
 dnl creating files.
-AC_OUTPUT([Makefile pycoma.spec pycoma/Makefile pycoma/templates/Makefile])
+AC_OUTPUT([Makefile pycoma.spec pycoma/Makefile templates/Makefile])

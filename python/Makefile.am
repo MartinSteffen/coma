@@ -1,7 +1,8 @@
 
-SUBDIRS			= pycoma
+SUBDIRS			= . templates pycoma
 bin_SCRIPTS		= comasetup
-sbin_SCRIPTS		= comaprocmail
+pkglibexecdir		= $(libexecdir)/$(PACKAGE)
+pkglibexec_SCRIPTS	= comaprocmail
 
 dist_pkgdata_DATA	= coma-mysql.sql coma-mysql-del.sql \
 			  coma-psql.sql coma-psql-del.sql
