@@ -52,7 +52,7 @@ Vom 14.01.:
   Ursache: Arrays gehen schief. Anders der "->"-Operator:
   echo("$p->bla"); ist erlaubt.
 - Die EMPTY-Abfrage zu Beginn der Methoden (vor allem bei Updatemethoden)
-  habe ich ersetzt durch eine Abfrage $this->is_a (weil is_a erst ab PHP 4.2)
+  habe ich ersetzt durch eine Abfrage is_a (weil is_a erst ab PHP 4.2)
 - Vor den letzten vier Updatemethoden habe ich eine kleine Anmerkung
   geschrieben, die einen Vorschlag zum Umgang mit Bug #71 macht.
 ============================================================================= */
@@ -127,23 +127,6 @@ class DBAccess extends ErrorHandling {
     return $this->success();
   }
 
-  /**
-   * Prueft, ob das Objekt $obj eine Instanz der Klasse mit Namen $strClass
-   * oder eines Derivats davon ist.
-   *
-   * @param object $obj Das Objekt
-   * @param string $strClass Der Name der zu ueberpruefenden Klasse
-   * @return true gdw. $obj eine Instanz von $strClass oder eines Derivats davon ist
-   * @author Tom (15.01.05)
-   * @access private
-   */
-  function is_a($obj, $strClass) {
-    // Wegen Kompatibilitaet zu PHP < 4.2 urspruenglich:
-    //$s = strtolower($strClass);
-    //return (strtolower(get_class($obj)) == $s || is_subclass_of($obj, $s));
-    return is_a($obj, $strClass);
-  }
-
   // ---------------------------------------------------------------------------
   // Definition der Selektoren
   // ---------------------------------------------------------------------------
@@ -156,9 +139,10 @@ class DBAccess extends ErrorHandling {
    * @author Daniel (20.12.04)
    */
   function checkEmail($strEmail) {
-    $s = "SELECT  email".
-        " FROM    Person".
-        " WHERE   email = '$strEmail'";
+    $s = sprintf("SELECT   email".
+                 " FROM    Person".
+                 " WHERE   email = '%s'",
+                           s2db($strEmail));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('checkEmail', $this->mySql->getLastError());
@@ -179,10 +163,12 @@ class DBAccess extends ErrorHandling {
    * @author Tom (15.12.04)
    */
   function checkLogin($strUserName, $strPassword) {
-    $s = "SELECT  email, password".
-        " FROM    Person".
-        " WHERE   email = '$strUserName'".
-        " AND     password = '$strPassword'";
+    $s = sprintf("SELECT   email, password".
+                 " FROM    Person".
+                 " WHERE   email = '%s'".
+                 " AND     password = '%s'",
+                           s2db($strUserName),
+                           s2db($strPassword));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('checkLogin', $this->mySql->getLastError());
@@ -228,16 +214,17 @@ class DBAccess extends ErrorHandling {
    * @author Tom (08.01.05)
    */
   function getConferenceDetailed($intConferenceId) {
-    $s = "SELECT  c.id, name, homepage, description, abstract_submission_deadline,".
-        "         paper_submission_deadline, review_deadline, final_version_deadline,".
-        "         notification, conference_start, conference_end, min_reviews_per_paper,".
-        "         default_reviews_per_paper, min_number_of_papers, max_number_of_papers,".
-        "         critical_variance, auto_activate_account, auto_open_paper_forum,".
-        "         auto_add_reviewers, number_of_auto_add_reviewers".
-        " FROM    Conference AS c".
-        " INNER   JOIN ConferenceConfig AS cc".
-        " ON      c.id = cc.id".
-        " WHERE   c.id = '$intConferenceId'";
+    $s = sprintf("SELECT   c.id, name, homepage, description, abstract_submission_deadline,".
+                 "         paper_submission_deadline, review_deadline, final_version_deadline,".
+                 "         notification, conference_start, conference_end, min_reviews_per_paper,".
+                 "         default_reviews_per_paper, min_number_of_papers, max_number_of_papers,".
+                 "         critical_variance, auto_activate_account, auto_open_paper_forum,".
+                 "         auto_add_reviewers, number_of_auto_add_reviewers".
+                 " FROM    Conference AS c".
+                 " INNER   JOIN ConferenceConfig AS cc".
+                 " ON      c.id = cc.id".
+                 " WHERE   c.id = '%d'",
+                           s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getConferenceDetailed', $this->mySql->getLastError());
@@ -283,9 +270,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function getCriterionsOfConference($intConferenceId) {
-    $s = "SELECT  id, name, description, max_value, quality_rating".
-        " FROM    Criterion".
-        " WHERE   conference_id = '$intConferenceId'";
+    $s = sprintf("SELECT   id, name, description, max_value, quality_rating".
+                 " FROM    Criterion".
+                 " WHERE   conference_id = '%d'",
+                           s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getCriterionsOfConference', $this->mySql->getLastError());
@@ -309,9 +297,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function getTopicsOfConference($intConferenceId) {
-    $s = "SELECT  id, name".
-        " FROM    Topic".
-        " WHERE   conference_id = '$intConferenceId'";
+    $s = sprintf("SELECT   id, name".
+                 " FROM    Topic".
+                 " WHERE   conference_id = '%d'",
+                           s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getTopicsOfConference', $this->mySql->getLastError());
@@ -332,9 +321,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPersonIdByEmail($strEmail) {
-    $s = "SELECT  id".
-        " FROM    Person".
-        " WHERE   email = '$strEmail'";
+    $s = sprintf("SELECT   id".
+                 " FROM    Person".
+                 " WHERE   email = '%s'",
+                           s2db($strEmail));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPersonIdByEmail', $this->mySql->getLastError());
@@ -357,9 +347,10 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPerson($intPersonId, $intConferenceId=false) {
-    $s = "SELECT  id, first_name, last_name, email, title".
-        " FROM    Person".
-        " WHERE   id = '$intPersonId'";
+    $s = sprintf("SELECT   id, first_name, last_name, email, title".
+                 " FROM    Person".
+                 " WHERE   id = '%d'",
+                           s2db($intPersonId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPerson', $this->mySql->getLastError());
@@ -370,10 +361,12 @@ class DBAccess extends ErrorHandling {
     $objPerson = (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
                     $data[0]['email'], 0, $data[0]['title']));
     if (!empty($intConferenceId)) {
-      $s = "SELECT  role_type".
-          " FROM    Role".
-          " WHERE   person_id = '".$data[0]['id']."'".
-          " AND     conference_id = '$intConferenceId'";
+      $s = sprintf("SELECT   role_type".
+                   " FROM    Role".
+                   " WHERE   person_id = '%d'".
+                   " AND     conference_id = '%d'",
+                             s2db($data[0]['id']),
+                             s2db($intConferenceId));
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getPerson', $this->mySql->getLastError());
@@ -401,9 +394,10 @@ class DBAccess extends ErrorHandling {
     }
     
     // Basisdaten
-    $s = "SELECT  id, first_name, last_name, email, title".
-        " FROM    Person".
-        " WHERE   id = '$intPersonId'";
+    $s = sprintf("SELECT   id, first_name, last_name, email, title".
+                 " FROM    Person".
+                 " WHERE   id = '%d'",
+                           s2db($intPersonId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPersonAlgorithmic', $this->mySql->getLastError());
@@ -438,10 +432,12 @@ class DBAccess extends ErrorHandling {
     }
 
     // Rollen der Person
-    $s = "SELECT  role_type".
-        " FROM    Role".
-        " WHERE   person_id = '".$data[0]['id']."'".
-        " AND     conference_id = '$intConferenceId'";
+    $s = sprintf("SELECT   role_type".
+                 " FROM    Role".
+                 " WHERE   person_id = '%d'".
+                 " AND     conference_id = '%d'",
+                           s2db($data[0]['id']),
+                           s2db($intConferenceId));
     $role_data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPersonAlgorithmic', $this->mySql->getLastError());
@@ -465,10 +461,11 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPersonDetailed($intPersonId, $intConferenceId=false) {
-    $s = "SELECT  id, first_name, last_name, email, title, affiliation,".
-        "         street, city, postal_code, state, country, phone_number, fax_number".
-        " FROM    Person".
-        " WHERE   id = '$intPersonId'";
+    $s = sprintf("SELECT   id, first_name, last_name, email, title, affiliation,".
+                 "         street, city, postal_code, state, country, phone_number, fax_number".
+                 " FROM    Person".
+                 " WHERE   id = '%d'",
+                           s2db($intPersonId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPersonDetailed', $this->mySql->getLastError());
@@ -483,10 +480,12 @@ class DBAccess extends ErrorHandling {
                             $data[0]['country'], $data[0]['phone_number'],
                             $data[0]['fax_number']));
     if (!empty($intConferenceId)) {
-      $s = "SELECT  role_type".
-          " FROM    Role".
-          " WHERE   person_id = '".$data[0]['id']."'".
-          " AND     conference_id = '$intConferenceId'";
+      $s = sprintf("SELECT   role_type".
+                   " FROM    Role".
+                   " WHERE   person_id = '%d'".
+                   " AND     conference_id = '%d'",
+                             s2db($data[0]['id']),
+                             s2db($intConferenceId));
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getPersonDetailed', $this->mySql->getLastError());
@@ -519,10 +518,12 @@ class DBAccess extends ErrorHandling {
     for ($i = 0; $i < count($data); $i++) {
       $objPerson = (new Person($data[$i]['id'], $data[$i]['first_name'], $data[$i]['last_name'],
                       $data[$i]['email'], 0, $data[$i]['title']));      
-      $s = "SELECT  role_type".
-          " FROM    Role".
-          " WHERE   person_id = '".$data[$i]['id']."'".
-          " AND     conference_id = '$intConferenceId'";
+      $s = sprintf("SELECT  role_type".
+                   " FROM    Role".
+                   " WHERE   person_id = '%d'".
+                   " AND     conference_id = '%d'",
+                             s2db($data[$i]['id']),
+                             s2db($intConferenceId));
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getUsersOfConference', $this->mySql->getLastError());
@@ -1472,7 +1473,7 @@ nur fuer detaillierte?
    * @author Tom (15.01.05)
    */
   function updateConference($objConferenceDetailed) {
-    if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
+    if (!(is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
     $s = sprintf("UPDATE   Conference".
@@ -1541,7 +1542,7 @@ nur fuer detaillierte?
    * @author Sandro (10.01.05)
    */
   function updatePerson($objPersonDetailed, $intConferenceId=false) {
-    if (!($this->is_a($objPersonDetailed, 'PersonDetailed'))) {
+    if (!(is_a($objPersonDetailed, 'PersonDetailed'))) {
       return $this->success(false);
     }
     $s = sprintf("UPDATE   Person".
@@ -1587,7 +1588,7 @@ nur fuer detaillierte?
    */
   function updateRoles($objPerson, $intConferenceId) {
     global $intRoles;
-    if (!($this->is_a($objPerson, 'Person'))) {
+    if (!(is_a($objPerson, 'Person'))) {
       return $this->success(false);
     }
     $intId = $objPerson->intId;
@@ -1628,7 +1629,7 @@ nur fuer detaillierte?
    * @author Tom (14.01.04)
    */
   function updateCoAuthors($objPaperDetailed) {
-    if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
+    if (!(is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
     // Co-Autoren loeschen...
@@ -1665,7 +1666,7 @@ nur fuer detaillierte?
    * @author Tom (14.01.04)
    */
   function updateCoAuthorNames($objPaperDetailed) {
-    if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
+    if (!(is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
     // Co-Autornamen loeschen...
@@ -1706,7 +1707,7 @@ nur fuer detaillierte?
    * @author Sandro (10.01.05)
    */
   function updatePaper($objPaperDetailed) {
-    if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
+    if (!(is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
     $s = sprintf("UPDATE   Paper".
@@ -1764,7 +1765,7 @@ nur fuer detaillierte?
    * @todo (Sandros Job)
    */
   function updateReviewReport($objReviewDetailed) {
-    if (!($this->is_a($objReviewDetailed, 'ReviewDetailed'))) {
+    if (!(is_a($objReviewDetailed, 'ReviewDetailed'))) {
       return $this->success(false);
     }
     return $this->success();
@@ -1775,7 +1776,7 @@ nur fuer detaillierte?
    * @access private
    */
   function updateRating($objReviewDetailed) {
-    if (!($this->is_a($objReviewDetailed, 'ReviewDetailed'))) {
+    if (!(is_a($objReviewDetailed, 'ReviewDetailed'))) {
       return $this->success(false);
     }
     return $this->success();
@@ -1785,7 +1786,7 @@ nur fuer detaillierte?
    * @todo (Sandros Job)
    */
   function updateForum($objForumDetailed) {
-    if (!($this->is_a($objForumDetailed, 'ForumDetailed'))) {
+    if (!(is_a($objForumDetailed, 'ForumDetailed'))) {
       return $this->success(false);
     }
     return $this->success();
@@ -1795,7 +1796,7 @@ nur fuer detaillierte?
    * @todo
    */
   function updateMessage($objMessage) {
-    if (!($this->is_a($objMessage, 'Message'))) {
+    if (!(is_a($objMessage, 'Message'))) {
       return $this->success(false);
     }
     return $this->success();
@@ -1815,7 +1816,7 @@ nur fuer detaillierte?
    * @author Tom (15.01.04)
    */
   function updateCriterions($objConferenceDetailed) {
-    if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
+    if (!(is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
     for ($i = 0; $i < count($objConferenceDetailed->objCriterions); $i++) {
@@ -1849,7 +1850,7 @@ nur fuer detaillierte?
    * @author Tom (15.01.04)
    */
   function updateTopics($objConferenceDetailed) {
-    if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
+    if (!(is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
     for ($i = 0; $i < count($objConferenceDetailed->objTopics); $i++) {
@@ -1876,7 +1877,7 @@ nur fuer detaillierte?
    * @author Tom (15.01.05)
    */
   function updateTopicsOfPaper($objPaperSimple) {
-    if (!($this->is_a($objPaperSimple, 'PaperSimple'))) {
+    if (!(is_a($objPaperSimple, 'PaperSimple'))) {
       return $this->success(false);
     }
     $intId = $objPaperSimple->intId;
@@ -1918,7 +1919,7 @@ nur fuer detaillierte?
    * @author Tom (18.01.05)
    */
   function updatePreferredTopics($objPersonAlgorithmic, $intConferenceId) {
-    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
+    if (!(is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
     }
     if (empty($intConferenceId)) {
@@ -1964,7 +1965,7 @@ nur fuer detaillierte?
    * @author Tom (18.01.05)
    */
   function updatePreferredPapers($objPersonAlgorithmic, $intConferenceId) {
-    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
+    if (!(is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
     }
     if (empty($intConferenceId)) {
@@ -2010,7 +2011,7 @@ nur fuer detaillierte?
    * @author Tom (18.01.05)
    */
   function updateDeniedPapers($objPersonAlgorithmic, $intConferenceId) {
-    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
+    if (!(is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
     }
     if (empty($intConferenceId)) {
@@ -2056,7 +2057,7 @@ nur fuer detaillierte?
    * @author Tom (18.01.05)
    */
   function updateExcludedPapers($objPersonAlgorithmic, $intConferenceId) {
-    if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
+    if (!(is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
     }
     if (empty($intConferenceId)) {
