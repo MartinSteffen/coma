@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.util.Date;
 import java.util.Enumeration;
+
 import java.util.regex.*;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -20,6 +22,8 @@ import coma.entities.Paper;
 import coma.entities.Person;
 import coma.entities.Rating;
 import coma.entities.ReviewReport;
+
+import coma.servlet.util.SessionAttribs;
 
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Albari </a>"
@@ -162,6 +166,9 @@ public class EntityCreater {
 	}
 
 	/**
+	 * FIXME Problem: forms with enctype="multipart/form-data" cannot be read with
+	 *  .getParameterNames(); and MultipartRequest stores the file before checking the other inputs
+	 * 
 	 * @author mti
 	 * @version 0.1
 	 * <b>This will need the com.oreilly.servlet.* packets</b>
@@ -169,6 +176,10 @@ public class EntityCreater {
 	 * @param request the form elements
 	 * @return the paper submitted by the form
 	 * 
+	 * changes:
+	 * <ul>
+	 * <li> 14.12: getAttribute now uses constants from public class SessionAttribs </li> 
+	 * </ul> 
 	 * maybe missing error handling
 	 * 
 	 * consistency check of the form inputs:
@@ -180,35 +191,39 @@ public class EntityCreater {
 	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException, IOException {
 		Paper paper = new Paper(-1); // new Paper
 		// path where the paper is stored
-		String webTempPath = request.getContextPath()+"/papers";
-		// limit the size and store the file
+		String webTempPath = "/root/jakarta-tomcat-5.5.3/webapps/coma/papers";
+		
+		// limit the size, renmae and store the file
 		MultipartRequest mpr = new MultipartRequest(request,webTempPath,(5*1024*1024),new DefaultFileRenamePolicy());
-		//get file and parameter names
-		Enumeration paramNames = request.getParameterNames();
-		while (paramNames.hasMoreElements()) {
-			if (request.getParameter((String)paramNames.nextElement()).equals(""))
-				throw new IllegalArgumentException();
-			
-		}
+		
+		//get parameter names
+		
+		
+		// get file names
 		Enumeration fileNames = mpr.getFileNames();
 		//
-		String theSystemFileName = mpr.getFilesystemName((String) fileNames.nextElement());
+		String theSystemFileName ="datei"; //mpr.getFilesystemName((String) fileNames.nextElement());
 		
 		// get session attributes
-		HttpSession session= request.getSession(true);
-		Person theAuthor = (Person) session.getAttribute("person");
-		Conference theConference = (Conference) session.getAttribute("conference");
+		//HttpSession session= request.getSession(true);
+		//Person theAuthor = (Person) session.getAttribute(SessionAttribs.PERSON);
+		//Conference theConference = (Conference) session.getAttribute(SessionAttribs.CONFERENCE);
 		
 		// set the paper attributes
-		paper.setAbstract(request.getParameter("abstract"));
-		paper.setAuthor_id(theAuthor.getId());
-		paper.setConference_id(theConference.getId());
+		
+		paper.setAbstract("");//(request.getParameter("abstract"));
+		paper.setAuthor_id(-1);//(theAuthor.getId());
+		paper.setVersion(-1);
+		paper.setLast_edited(new Date());
+		paper.setConference_id(-1);//(theConference.getId());
 		paper.setFilename(theSystemFileName);
-		paper.setMim_type(mpr.getContentType(theSystemFileName));
+		paper.setMim_type("");//(mpr.getContentType(theSystemFileName));
 		paper.setState(-1);
-		paper.setTitle(request.getParameter("title"));
-				
+		paper.setTitle("");//(request.getParameter("title"));
+
+			
 		return paper;
+		
 	}
 
 	public ReviewReport getReviewReport(ResultSet resSet) {
