@@ -28,7 +28,7 @@ function bit($b) {
 echo('<br>');
 
 echo('Get<br>');
-$p = $myDBAccess->getPersonDetailed(51, 1);
+$p = $myDBAccess->getPersonDetailed(60, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
