@@ -3524,10 +3524,31 @@ nur fuer detaillierte?
   /**
    */
   function deleteMessage($intMessageId) {
+    // get reply_to
+    $s = sprintf("SELECT   reply_to".
+                 "FROM     Message".
+                 " WHERE   id = '%d'",
+                           s2db($intMessageId));
+    $result = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('deleteMessage', $this->mySql->getLastError());
+    }
+    $reply_to = $result[0]['reply_to'];
+    // Delete Msg
     $s = sprintf("DELETE   FROM Message".
                  " WHERE   id = '%d'",
                            s2db($intMessageId));
     $result = $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('deleteMessage', $this->mySql->getLastError());
+    }
+    // replyTo Anpassen
+    $s = sprintf("UPDATE   Message".
+                 " SET     reply_to = '%d'".
+                 " WHERE   reply_to = '%d'",
+                 s2db($reply_to),
+                 s2db($intMessageId));
+    $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteMessage', $this->mySql->getLastError());
     }
