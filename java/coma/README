@@ -1,8 +1,11 @@
-
 1.Datenbank:
+  Coma schraenkt sich nicht auf ein bestimmtes Datenbanksystem ein.
+  Sie koennen ihr vorhandenes Datenbanksystem verwenden, solange es
+  das mitgelieferte SQL-Script unterstuetzt (in der Entwicklungsphase
+  von Coma wurde MySQL 3.x verwendet). 
   
 2.Test:
-2.1 coma.handler.db.impl.*
+  2.1 coma.handler.db.impl.*
     Zum Testen der Klassen dieses Packets muss die Methode
     coma.handler.db.impl.Service#getConnection() an die 
     vorhandene Testumgebung angepasst werden. Es mussen also
@@ -22,7 +25,19 @@
    dafuer vergesehene Ant-Script zu benutzen.
    Dabei muessen die im Script markierten Zeilen an die Instalationsplattform
    angepasst werden. Dannach sind folgende Befehle durchzufuehren:
-   a. ant install : macht die eigentliche Instalation
-   b. ant clean: loecht die temporaeren Verzeichnisse
+   a. $>ant install : macht die eigentliche Instalation
+   b. $>ant clean: loecht die temporaer erzeugten Verzeichnisse
    c. $CATALINA_HOME/bin/catalina.sh stop : wenn Tomcat vor der Instalation lief
-   d. $CATALINA_HOME/bin/catalina.sh start
+   d. $CATALINA_HOME/bin/catalina.sh start.
+   
+   Um nur den Source-Code zu rekompilieren ist der Target 'compile' zu benutzen:
+     $>ant compile
+   Um nur Javadoc zu generieren ist der Target 'doc' zu benutzen:
+     $>ant doc
+     
+   Benoetigten jar-Dateien:
+   - log4j.xx.jar
+   - servlet.xx.jar
+   - junit.xx.jar
+   - mysql-connector.xx.jar
+   - cos.jar
