@@ -49,7 +49,7 @@ $sql  = "DROP TABLE IF EXISTS Conference|CREATE TABLE Conference (id INT NOT NUL
         "DROP TABLE IF EXISTS ConferenceConfig|CREATE TABLE ConferenceConfig ( id INT NOT NULL, default_reviews_per_paper INT NOT NULL, min_number_of_papers INT NOT NULL, max_number_of_papers INT NOT NULL, critical_variance FLOAT NOT NULL DEFAULT '.5', auto_activate_account INT NOT NULL DEFAULT '1', auto_open_paper_forum INT NOT NULL DEFAULT '1', auto_add_reviewers INT NOT NULL DEFAULT '1', number_of_auto_add_reviewers INT NOT NULL, PRIMARY KEY (id) ) TYPE = INNODB|".
         "DROP TABLE IF EXISTS Distribution|CREATE TABLE Distribution ( paper_id INT NOT NULL, reviewer_id INT NOT NULL, PRIMARY KEY (paper_id, reviewer_id), INDEX (paper_id), INDEX (reviewer_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE, FOREIGN KEY (reviewer_id) REFERENCES Person (id) ON DELETE CASCADE ) TYPE = INNODB";
 
-$sqls = explode($sql, '|');
+$sqls = explode('|', $sql);
 foreach ($sqls as $sql) {
   $result = mysql_query($sql, $conn);
   if (empty($result)) {
