@@ -2,39 +2,39 @@
 
 spec1:
 
-    Tom Scherzer <tos@informatik.uni-kiel.de>
-    Sandro Esquivel <esquivel@web.de>
-    Jan Waller <jwa@informatik.uni-kiel.de>
+    Tom Scherzer <tos[aett]informatik.uni-kiel.de>
+    Sandro Esquivel <esquivel[aett]web.de>
+    Jan Waller <jwa[aett]informatik.uni-kiel.de>
 
 Spec2:
 
-    Ulrich Schwarz <ums@informatik.uni-kiel.de>
-    Falk Starke <fast@informatik.uni-kiel.de>
-    Daniel Miesling <daniel-miesling@arcor.de>
+    Ulrich Schwarz <ums[aett]informatik.uni-kiel.de>
+    Falk Starke <fast[aett]informatik.uni-kiel.de>
+    Daniel Miesling <daniel-miesling[aett]arcor.de>
 
 Test:
-     Oliver Niemann <gub75@gmx.de>
-     Tonelli Bartolomei Thiago <theigobart@gmail.com>
+     Oliver Niemann <gub75[aett]gmx.de>
+     Tonelli Bartolomei Thiago <theigobart[aett]gmail.com>
 
 Tools1:
 
-     Marco Heyden <mhe@informatik.uni-kiel.de>,  !!<-----
-     Gunnar Biederbeck <gbi@informatik.uni-kiel.de>,
-     Ioannis Stragalis <ivan@stragalis.de>
-     Mohamed Ziad Albari <mal@informatik.uni-kiel.de>,
+     Marco Heyden <mhe[aett]informatik.uni-kiel.de>,  !!<-----
+     Gunnar Biederbeck <gbi[aett]informatik.uni-kiel.de>,
+     Ioannis Stragalis <ivan[aett]stragalis.de>
+     Mohamed Ziad Albari <mal[aett]informatik.uni-kiel.de>,
 
 Tools2:
 
-     Adriana Lukaschewitz <PennyRob@gmx.de>
-     Malte Tiedje <mti@informatik.uni-kiel.de>,
-     Harm Brandt <HarmBrandt@gmx.de>,
-     Peter Kauffels <pkauffels@aol.com>,
+     Adriana Lukaschewitz <PennyRob[aett]gmx.de>
+     Malte Tiedje <mti[aett]informatik.uni-kiel.de>,
+     Harm Brandt <HarmBrandt[aett]gmx.de>,
+     Peter Kauffels <pkauffels[aett]aol.com>,
 
  Tool3
 
-     Meiko.Jensen@gmx.de,
-     Thorben Dziuh tdz@informatik.uni-kiel.de
-     Oliver Wulf <oliverwulf@gmx.de>
+     Meiko.Jensen[aett]gmx.de,
+     Thorben Dziuh tdz[aett]informatik.uni-kiel.de
+     Oliver Wulf <oliverwulf[aett]gmx.de>
 
 
 
@@ -45,90 +45,90 @@ alphabetic list of members + email-adresses
 ==================================================
 
 Gunnar Biederbeck
-            net: gbi@informatik.uni-kiel.de, stu46175@srv2.mail.uni-kiel.de
+            net: gbi[aett]informatik.uni-kiel.de, stu46175[aett]srv2.mail.uni-kiel.de
            kurs: Coma-8 WS0405; Algorithmen WS0102
 
 Harm Brandt
-            net: HarmBrandt@gmx.de, HarmBrandt@bigfoot.com
+            net: HarmBrandt[aett]gmx.de, HarmBrandt[aett]bigfoot.com
            kurs: Coma-8 WS0405; Gruppe 08 Enigma SWP SS03
 
 Alexander Derenbach
-            net: ald@informatik.uni-kiel.de, aderenbach@web.de, aderenbach@kinggrass.net
+            net: ald[aett]informatik.uni-kiel.de, aderenbach[aett]web.de, aderenbach[aett]kinggrass.net
            kurs: Coma-4 WS0304; OS WS0304 Gruppe 2; Gruppe 05 ? Enigma SWP SS03
 
 Torben Dziuk
-            net: tdz@informatik.uni-kiel.de
+            net: tdz[aett]informatik.uni-kiel.de
            kurs: Coma-8 WS0405
 
 Sandro Esquivel
-            net: sae@informatik.uni-kiel.de, esquivel@web.de
+            net: sae[aett]informatik.uni-kiel.de, esquivel[aett]web.de
            kurs: Coma-8 WS0405; Gruppe 01 Enigma SWP SS03
 
 Tim Fenten
-            net: tim@fenten.com
+            net: tim[aett]fenten.com
            kurs: Coma-8 WS0405
 
 Marco Heyden
-            net: mhe@informatik.uni-kiel.de
+            net: mhe[aett]informatik.uni-kiel.de
            kurs: Coma-8 WS0405; Algorithmen WS0102
 
 Meiko Jensen
-            net: mje@informatik.uni-kiel.de, Meiko.Jensen@gmx.de
+            net: mje[aett]informatik.uni-kiel.de, Meiko.Jensen[aett]gmx.de
            kurs: Coma-8 WS0405
 
 Peter Kauffels
-            net: pkauffels@aol.com
+            net: pkauffels[aett]aol.com
            kurs: Coma-8 WS0405; Gruppe 08 Enigma SWP SS03
 
 Adriana Lukaschewitz
-            net: PennyRob@gmx.de, ladt@informatik.uni-kiel.de
+            net: PennyRob[aett]gmx.de, ladt[aett]informatik.uni-kiel.de
             AKA: A. L.
            kurs: Coma-8 WS0405; OS WS0304 Gruppe 2
 
 Daniel Miesling
-            net: daniel-miesling@arcor.de
+            net: daniel-miesling[aett]arcor.de
            kurs: Coma-8 WS0405; Seminar SS04 Lynch; Verteilte Algorithmen WS0304
 
 Olle Nebendahl
-            net: jon@informatik.uni-kiel.de
+            net: jon[aett]informatik.uni-kiel.de
            kurs: Coma-x WS0405
 
 Oliver Niemann
-            net: gub75@gmx.de
+            net: gub75[aett]gmx.de
             AKA: Markus Mustermann
            kurs: Coma-8; WS0405; Gruppe 01 Enigma SWP SS03
 
 Tom Scherzer
-            net: tos@informatik.uni-kiel.de
+            net: tos[aett]informatik.uni-kiel.de
            kurs: Coma-8 WS0405
 
 Ulrich Michael Schwarz
-            net: ums@informatik.uni-kiel.de
+            net: ums[aett]informatik.uni-kiel.de
             AKA: Ulrich Schwarz, U. Schwarz
            kurs: Coma-4 WS0405
 
 Falk Starke
-            net: fast@informatik.uni-kiel.de
+            net: fast[aett]informatik.uni-kiel.de
            kurs: Coma-8 WS0405
 
 Ioannis Stragalis
-            net: ivan@stragalis.de
+            net: ivan[aett]stragalis.de
            kurs: Coma-x WS0405
 
 Tonelli Bartolomei Thiago
-            net: thiagobart@gmail.com
+            net: thiagobart[aett]gmail.com
           notes: Coma-x WS0405
 
 Malte Tiedje
-            net: mti@informatik.uni-kiel.de
+            net: mti[aett]informatik.uni-kiel.de
            kurs: Coma-8 WS0405
 
 Jan Waller
-            net: jwa@informatik.uni-kiel.de, me@notme.de
+            net: jwa[aett]informatik.uni-kiel.de, me[aett]notme.de
            kurs: MC Seminar WS0405; Coma-8 WS0405; OS WS0304 Gruppe 2; Verteilte Algorithmen WS0304; Gruppe 02 Enigma SWP 2003
 
 Oliver Wulf
-            net: oliverwulf@gmx.de
+            net: oliverwulf[aett]gmx.de
            kurs: Coma-8 WS0405
 
 
