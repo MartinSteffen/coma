@@ -54,7 +54,7 @@ function notemptyandtrue($arr, $index){
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
 function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray, $myDBAccess){
   if (DEBUGMODE){
-    echo('forums: ' . count($forums));
+    echo('forums: ' . count($forums) . '<br>');
   }
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
@@ -160,7 +160,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
 
 function displayMessages($messages, $msgselection, $selected, $forumid, $assocs){
   if (DEBUGMODE){
-    echo('Messages: ' . count($messages));
+    echo('Messages: ' . count($messages). '<br>');
   }
   $tempstring = '';
   foreach ($messages as $message){
@@ -328,6 +328,9 @@ else{
 
   //evtl. posten einleiten
   if ((!empty($HTTP_POST_VARS['reply-to'])) && (!empty($HTTP_POST_VARS['text']))){
+    if (DEBUGMODE){
+      echo('posten wird eingeleitet<br>');
+    }
     $pvars = generatePostMethodArray($HTTP_POST_VARS);
     $postresult = false;
     //auf einen Beitrag antworten
@@ -370,8 +373,12 @@ else{
       $_SESSION['forum_msgselect'] = $selecttree;
     }
     else{
+      echo('posten fehlgeschlagen');
       $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
     }
+  }
+  else{
+    echo('kein posten<br>');
   }
 
   //foren holen
