@@ -30,7 +30,7 @@ if (!mysql_select_db($sqlDatabase, $conn)) {
 }
 
 // BEGIN SQL DATA
-$sql = <<<SQLDATACOMA1
+$sql = '
 -- Erstellungszeit: 23. Januar 2005 um 20:55
 -- Server Version: 3.23.58
 -- PHP-Version: 4.3.10
@@ -477,7 +477,7 @@ ALTER TABLE `Role`
 ALTER TABLE `Topic`
   ADD FOREIGN KEY (`conference_id`) REFERENCES `coma1.Conference` (`id`) ON DELETE CASCADE;
 
-SQLDATACOMA1;
+';
 // END SQL DATA
 
 $result = mysql_query($sql, $conn);
