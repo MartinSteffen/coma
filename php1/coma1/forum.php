@@ -154,6 +154,9 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   $forumtypechair->assign($typechairassocs);
   $forumtypechair->parse();
   $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypechair->getOutput();
+  if (DEBUG){
+    echo($assocArray['forumtypes']);
+  }
 }
 
 function displayMessages($messages, $msgselection, $selected, $forumid, $assocs){
