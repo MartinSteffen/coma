@@ -3,8 +3,7 @@
  * @version $Id$
  * @package coma1
  * @subpackage core
- * @todo Darf die Email, also der Benutzername hier geaendert werden?!
- * @todo Fehlende Felder ergaenzen!
+ * @todo Passwort aendern... (neues Formular?)
  */
 /***/
 
