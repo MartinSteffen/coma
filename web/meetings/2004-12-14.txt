@@ -1,70 +1,142 @@
+======================
+14. Dezember 2004
+Anwesend: M. Steffen, G. Schaefer,
 
-        o Fortschritt:
+          ansonsten etwas duenner besetzt als sonst,
+          aber von jeder Gruppe >= 1.
 
-	    - Lob an PHP1: 
-                 php1/spec/main.txt vorhanden,
-		 ziemlich sauber gemacht (festlegung bis
-		 auf die Frage der Rechtschreibung... etc)		 
-		 Inhaltsverzeichnis:
+          Auffallend auch: es sind immer der selbe Harte Kern...
+         (+/- der eine oder andere)
+
+======
+o Fortschritt/Status
+
+ von unserer Seite:
+
+    >  Lob an PHP1: 
+       php1/spec/main.txt vorhanden, und zwar nicht nur
+       vorhanden, sondern sauber gemacht (Festlegung bis
+       auf Fragen der Rechtschreibung...)
 
 	   weitere Pluspunkte
-	       + verantwortlichkeiten
+               + Inhaltsverzeichnis:
+	       + Verantwortlichkeiten
 	       + Dokumentierte Testf"alle (!)
-	       + Verzeichnusstruktur
+	       + Verzeichnusstruktur beschrieben
 	       + Anmerkungen, was eventuell vorl"aufig ist
 	         und was nicht (Status)
 	       + Liste offener Punkte
 	       
 
-		   spezielle: vielleicht sollte man
+		   Spezielle Anmerkung: vielleicht sollte man
 		   php1/architecture nach spec tun (oder
-		   als unterverzeichnis).
+		   als Unterverzeichnis).
 
-		   - die Bilder: was mir auff"allt: die Bezeichner
-		     sind auf Deutsch, was ok ist, allerdings nach
-		     draussen w"are einheitlich Englisch besser)
-		     Die Bilder Selbst konnte ich nicht richtig
-		     einordnen
-
-		 Von allen anderen noch nicht mal ein Verzeichnis
-
- 
-
-        - Testeinbindung:
-            o  - von PHP1 kamm auf BB der Hinweis: sie h"atte bereits
-                 was, was man anbinden kann (zumindest Gedanken)
-
-   	         Auch aus der Spezifikation: dort
-                 werden bereits Testf"alle festgehalten
-
-            o Meiko von PHP2 hatte ebenfalls einen Vorschlage (ich
-              glaube per email an swprakt+org), jedenfalls
-              hat sich anscheienen PHP2 ebenfalls Gedanken gemacht:
-
-   Meiko> fiel mir gerade ein: zum testen der Module braucht jede Gruppe
->     Meiko> natürlich Test-Datensätze in der DB. Die werden sich alle
->     Meiko> Gruppen selbst erzeugen, immer auf Bedarf, ist ja auch ok.  Aber
->     Meiko> wie wäre es, wenn sich die Test-Gruppe (die man dafür evtl. als
->     Meiko> zuständig betrachten könnte, hat immerhin was mit testen zu tun)
->     Meiko> mal ein SQL-Script entwickelt, das ne Menge Test-Datensätze mit
->     Meiko> allen möglichen Spezialfällen des Datenmodells enthält.  Quasi
->     Meiko> eine Testkonferenz in SQL-INSERTs mod
-
-            o Java: die hatten ja letztes Mal Zeitplanm"a"sig gesagt: in
-                   einer Woche w"aren sie soweit mit
-                   ``Testanbindungsf"ahigkeit'' :-)
-            
-          o auf BB: 
-	      - pushtotest/plone? free open-source test environment
-                http://www.pushtotest.com/
-              - Anfrage von Jan: Browserkomatibilitaet, Weiterleitung
-
-        - und: SQL: sind die (wenigen) Dinge vom letzten Mal ausgebuegelt?
+     > definitiv kein Lob an alle anderen: Die restlichen Gruppen haben
+         noch nicht mal ein Verzeichnis spec angelegt, geschweige denn eine
+         Datei mit ersten Punkten (Filestruktur etc) und geschweige denn
+         einer Spec.
 
 
-	
+o Testeinbindung:
 
-Martin
+         - Die Schwerpunkts-Zuteilung der Tester auf
+           Gruppen ist fest (von den Testern so sich ausgedacht)
+           sie steht im Netz.
 
-          
-        
+        - Allgemein: Was den Punkt ``Testanbindung'': betrifft: da waren
+        wir positiv "uberrachscht, aus verschiedenen Gruenden:
+
+          > die Terminschaetzung, wann konkret sich um die Anbindung der
+            Tester gekuemmert wird (siehe Email vom 7.12.04) wird
+            _unterboten_ (betrifft Gruppe PHP1 die ``nicht vor Jan. 2005
+            gesagt hatte). Das heisst wir koennen damit _frueher_ anfangen
+            als von den Leuten urspuenglich vorgesehen (ein denkw"urdiges
+            Ereignis im Bereich der SW entwicklung!)
+
+          > guter Testvorschlag wie man jetzt ``bereits'' die Tester
+            besch"aftigt und unabh"angig davon:
+
+              Bereitstellung von SQL-Daten (script(e)) die die gemeinsamen
+              Datenstrukturen der Datenbank auffuellen. M"oglichst (viele)
+              verschiedene Szenarien ber"ucksichten.
+
+           Nicht verlangt: optionale Anteile
+
+            + Vorteile: 
+                ``Haertung'' der SQL-Daten, d.h., wenn das
+                   die Daten schluckt, dann ist zumindest
+                   manche der Probleme frueh(naja)zeitig
+                   vom Tisch.
+                 N"utzlich fuer die weiteren Phases (man kann
+                  nachher evtl. leichter mit unterschiedlichen 
+                  gefuellten Datenbanken  testen)
+
+                 die gemeinsame Spec zahlt sich endlich aus.
+
+
+          > Spezielle Anbindungen:
+
+             + an PHP1: (Oliver Niemann): geplantes Treffen,
+                 die PHP1 Gruppe hat bereits Tests durchgefuehrt
+                 und in ihrer Spec dokumentiert, insofern 
+                 ist alles Bereit.
+
+             + an Java (Olle Nebendahl): Treffen verabredet
+                 am Freitag, 12 Uhr.
+
+             + an PHP2 (Thiago): PHP2 ist noch nicht ganz soweit.
+                  aber die SQL-scripte koennen ja ebenfalls
+                  bereits von Thiago oder anderen der Testgruppe
+                  in Angriff genommen werden.
+
+       
+
+         - weiteres zum Testen:
+
+               - phpunit scheint einsetzbar zu sein (Thiago)
+               - JUnit ebenso (das war auch nicht recht bezweifelt)
+               - Neuer Toolvorschlag: pushtotest.
+                    Das scheint (Thiago) eine Art ``automatisierter
+                    Surfer'' zu sein, testet also von aussen.
+                    Das bedeutet, der Einsatz muss noch warten, prinzipielle
+                    Einsetzbarkeit anscheinend gegeben
+
+o Sonstiges:
+
+    > SVN probleme
+             - kann das dauernde Ein-checken probleme f"ur snert darstellen?
+               Im Prinzip ja, aber bislang scheinbar alles im gruenen bereich
+             - wie sieht es aus mit der groesse der Logs?
+                 momentan ebenso
+
+             - Was passiert bei SVN-Konflikten?
+
+                 kurze Diskussion (am besten ins Manual schauen, wer nicht
+                 da war). Daneben: dauernde Konflikte scheinen momentan
+                 kein Problem zu sein. Sollten st"andig Konflikte
+                 auftreten, w"aren sie auch eher kein SVN problem sondern
+                 ein Kommunikationsproblem.
+
+
+o SQL: die SQL-Spec war bis heute noch nicht nachgezogen gem"as der
+       Textuelleb Beschreibung, und wie beim letzten Mal angekuendigt.
+
+        M. Albari zieht es bis morgen nach (alternativ sorgt er durch
+        Absprechen dafuer, dass es jemand anderes bis dorthin macht)
+
+      - PHP2: Anregung, zus"atzliche Zugriffsfunktionen bereitstellen.
+              und Meiko macht dafuer den Freiwilligen.
+              
+              (Bemerkung: ich weiss nicht mehr, welches Problem damit
+               angegangen werden soll, bzw. was der globale Aspekt dabei
+               war..)
+
+      - die decrypt-funktion aus der SQL-spec raus, dekrypten braucht man
+           nicht (bzw. macht das Tool/Daten (Passworte) angreifbarer als
+           notwendig.)
+
+
+
+
+
