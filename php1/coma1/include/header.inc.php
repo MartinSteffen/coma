@@ -12,7 +12,7 @@ if (!defined('IN_COMA1')) {
 require_once('config.inc.php');
 
 /**@ignore */
-if (!defined('DEBUG') {
+if (!defined('DEBUG')) {
   define('DEBUG', false);
 }
 /**@ignore */
