@@ -24,6 +24,7 @@ elseif (isset($_GET['3'])) {
   $STEP3 = true;
   echo 3;
 }
+$path = $_SERVER['PHP_SELF'];
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,9 +33,9 @@ elseif (isset($_GET['3'])) {
 </head>
 <body>
   <ol>
-    <li><a href="?1">Generate Configuration</a></li>
-    <li><a href="?2">Create Database</a></li>
-    <li><a href="?3">Add Tutorial Data</a></li>
+    <li><a href="<?=$path?>?1">Generate Configuration</a></li>
+    <li><a href="<?=$path?>?2">Create Database</a></li>
+    <li><a href="<?=$path?>?3">Add Tutorial Data</a></li>
   </ol>
   <p>&nbsp;</p>
   <p>
