@@ -22,6 +22,8 @@
 --   (paper_id, reviewer_id). Dann braeuchte man aber bei FK-Verweis auf
 --   ReviewReport ueber review_id den Verweis auf (paper_id, reviewer_id).
 -- ------------------------------------------------------------------------
+-- - 17.12.04, 16:25: Person.password von VARCHAR(32) auf VARCHAR(127)
+--   geaendert (Tom).
 
 CREATE TABLE Conference
 (
@@ -55,7 +57,7 @@ CREATE TABLE Person
    city         VARCHAR(127),
    state        VARCHAR(127),
    country      VARCHAR(127),
-   password     VARCHAR(32) NOT NULL,
+   password     VARCHAR(127) NOT NULL,
    PRIMARY KEY (id)
 ) TYPE = INNODB;
 
