@@ -1467,8 +1467,6 @@ nur fuer detaillierte?
                                       $this->s2db($objPersonDetailed->strPhone),
                                       $this->s2db($objPersonDetailed->strFax),
                                       $objPersonDetailed->intId);
-    echo("$s");
-    return $this->success(false);
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());
