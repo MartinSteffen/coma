@@ -25,6 +25,10 @@ function bit($b) {
 }
 
 $p = $myDBAccess->getPerson(1, 1);
+if ($myDBAccess->failed()) {
+  echo ('Fehler: '.$myDBAccess->getLastError());
+  exit(-1);
+}
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
