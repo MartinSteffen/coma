@@ -1163,7 +1163,7 @@ nur fuer detaillierte?
    * @author Tom (15.01.05)
    */
   function updateConference($objConferenceDetailed) {
-    if (!($this->is_a($objConference, 'ConferenceDetailed'))) {
+    if (!($this->is_a($objConferenceDetailed, 'ConferenceDetailed'))) {
       return $this->success(false);
     }
     $s = "UPDATE  Conference".
