@@ -119,7 +119,7 @@
         </tr>
         <tr class="formlistitem">
           <td colspan="3" class="formlistitem">
-            Description: <textarea name="crit-descr" rows="1" cols="48"></textarea>
+            Description: <textarea name="crit-descr" rows="2" cols="48"></textarea>
           </td>
           <td class="formlistitem">&nbsp;</td>
         </tr>
