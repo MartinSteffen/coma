@@ -12,13 +12,15 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 
+// ACHTUNG!! FEHLER!
+// Bei for-Schleifen ist vor der Benutzung von count unbedingt zu pruefen, ob
+// nicht etwa FALSE zurueckgegeben wurde => count(FALSE)=1 !!!
+// Das ist sicherlich nicht das gewuenschte Ergebnis...
+
+
 // OFFENE PUNKTE (nur diese Klasse betreffend, daher nicht in Spec):
 // -----------------------------------------------------------------
-// - Wie werden Booleans behandelt? (vgl. getConferenceConfig, blnAuto...)
-//   Einigung: In der Datenbank treten Booleans als 0/1 auf,
-//   in den PHP-Skripten verwenden wir ausschliesslich false/true.
-//   Die Methoden DBAccess sorgen dafuer, dass die Werte aus der DB korrekt
-//   ausgelesen werden.
+
 
 require_once(INCPATH.'header.inc.php');
 
@@ -82,6 +84,7 @@ class DBAccess extends ErrorHandling {
    */
   function booleanToDatabase($blnProgram) {
     return $this->success($blnProgram ? 1 : 0);
+  }
   
   /**
    * Liefert die Boolean-Repraesentation des Datenbank-Integers $intDatabase zur
@@ -194,6 +197,7 @@ class DBAccess extends ErrorHandling {
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getConferenceDetailed', $this->mySql->getLastError());
+    }
     $objCriterions = $this->getCriterionsOfConference($intConferenceId);
     if ($this->failed()) {
       return $this->error('getConferenceDetailed', $this->getLastError());
@@ -904,7 +908,7 @@ class DBAccess extends ErrorHandling {
    * von Threads des Forums $intForumId sind (im folgenden synonym mit Thread verwendet).
    *
    * @param int $intForumId ID des Forums
-   * @return Message[] Ein leeres Array, wenn das Forum keine Threads besitzt
+   * @return Message[] Ein leeres Array, wenn das Forum keine Threads besitzt.
    * @access public
    * @author Sandro (14.12.04)
    */
