@@ -21,6 +21,7 @@
 <xsl:apply-templates select = "/result/showpapers/status"/>
 <xsl:apply-templates select = "/result/showauthors/status"/>
 <xsl:apply-templates select = "/result/showreviewers/status"/>
+<xsl:apply-templates select = "/result/showreviewers_data/status"/>
 <xsl:apply-templates select = "/result/setup/status"/>
 <xsl:apply-templates select = "/result/setup_new/status"/>
 <xsl:apply-templates select = "/result/email/status"/>
@@ -78,6 +79,7 @@
 <xsl:apply-templates select = "/result/showpapers/content"/>
 <xsl:apply-templates select = "/result/showauthors/content"/>
 <xsl:apply-templates select = "/result/showreviewers/content"/>
+<xsl:apply-templates select = "/result/showreviewers_data/content"/>
 <xsl:apply-templates select = "/result/setup/content"/>
 <xsl:apply-templates select = "/result/setup_new/content"/>
 <xsl:apply-templates select = "/result/email/content"/>
@@ -154,7 +156,7 @@
 </xsl:template>
 
 <xsl:template match="/result/showauthors/content">
-	<table style="color:black; text-align:center" cellpadding="12">
+	<table style="color:black;text-align:center;font-size:10pt" cellpadding="4">
 		<thead>
 			<tr align="center">
 				<th>title</th>
@@ -177,7 +179,10 @@
 			<td><xsl:value-of select="first_name"/></td>
 			<td><xsl:value-of select="last_name"/></td>
 			<td><xsl:value-of select="affiliation"/></td>
-			<td><xsl:value-of select="email"/></td>
+			<td><a> 
+			<xsl:attribute name = "href">Chair?action=email&amp;email=<xsl:value-of select="email"/>
+			</xsl:attribute>
+			<xsl:value-of select="email"/></a></td>
 			<td><xsl:value-of select="phone_number"/></td>
 			<td><xsl:value-of select="fax_number"/></td>
 			<td><xsl:value-of select="street"/></td>
@@ -190,36 +195,103 @@
 </xsl:template>
 
 <xsl:template match="/result/showreviewers/content">
-	<table style="color:black; text-align:center" cellpadding="12">
+	<table style="color:black;text-align:center;font-size:12pt" cellpadding="5">
 		<thead>
 			<tr align="center">
-				<th>title</th>
 				<th>first name</th>
 				<th>last name</th>
-				<th>affiliation</th>
 				<th>email</th>
-				<th>phone number</th>
-				<th>fax number</th>
-				<th>street</th>
-				<th>PC</th>
-				<th>city</th>
-				<th>country</th>
+				<th colspan="3">options</th>
 				<th></th>
 			</tr>
 		</thead>
 	<xsl:for-each select="/result/showreviewers/content/person">
 		<tr>
-			<td><xsl:value-of select="title"/></td>
 			<td><xsl:value-of select="first_name"/></td>
 			<td><xsl:value-of select="last_name"/></td>
-			<td><xsl:value-of select="affiliation"/></td>
 			<td><xsl:value-of select="email"/></td>
-			<td><xsl:value-of select="phone_number"/></td>
-			<td><xsl:value-of select="fax_number"/></td>
-			<td><xsl:value-of select="street"/></td>
-			<td><xsl:value-of select="postal_code"/></td>
-			<td><xsl:value-of select="city"/></td>
-			<td><xsl:value-of select="country"/></td>
+			<td><a><xsl:attribute name = "href">Chair?action=show_reviewers&amp;delete=true</xsl:attribute>delete
+			</a>
+			</td>
+			<td>
+			<a><xsl:attribute name = "href">Chair?action=email&amp;email=<xsl:value-of select="email"/></xsl:attribute>write email</a>
+			</td>
+			<td>
+			<a><xsl:attribute name = "href">Chair?action=show_reviewers&amp;status=true&amp;id=<xsl:value-of select="id"/></xsl:attribute>statistic</a>
+			</td>
+		</tr>
+	</xsl:for-each>
+	</table>
+</xsl:template>
+
+<xsl:template match="/result/showreviewers_data/content">
+	<table style="color:black;text-align:center;font-size:12pt" cellpadding="5">
+		<thead>
+			<tr align="center">
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+	<xsl:for-each select="/result/showreviewers_data/content/person">
+		<tr>
+			<td>title: 
+			</td>
+			<td><xsl:value-of select="title"/>
+			</td>
+		</tr>
+		<tr>
+			<td>first name: 
+			</td>
+			<td><xsl:value-of select="first_name"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>last name: 
+			</td>
+			<td><xsl:value-of select="last_name"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>affiliation: 
+			</td>
+			<td><xsl:value-of select="affiliation"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>email 
+			</td>
+			<td><xsl:value-of select="email"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>phone number: 
+			</td>
+			<td><xsl:value-of select="phone_number"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>fax number: 
+			</td>
+			<td><xsl:value-of select="fax_number"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>street 
+			</td>
+			<td><xsl:value-of select="street"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>city: 
+			</td>
+			<td><xsl:value-of select="postal_code"/><xsl:value-of select="city"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>country: 
+			</td>
+			<td><xsl:value-of select="country"/><xsl:value-of select="city"/>
+			</td>
 		</tr>
 	</xsl:for-each>
 	</table>
@@ -516,27 +588,50 @@ min reviewer per paper: <xsl:apply-templates select="/result/setup/content/min"/
 
 
 <xsl:template match="/result/email/content">
-<form action="chair?action=send_email" method="post">
-
-	<p style="text-align:center">To: 	
+<form action="Chair?action=send_email" method="post">
+<table style="color:black">
+<tr>
+	<td>
+		To:
+	</td>
+	<td>	
 		<input type="text" name="Recv" id="Recv"  size="24">
 			<xsl:attribute name="value">
-  				<xsl:value-of select="/result/recv"/> 
+  				<xsl:value-of select="/result/email/content/recv"/> 
   			</xsl:attribute>
 		</input>
-	</p>
-	<p style="text-align:center">  
-		Subject: <input type="text" id="Subj" name="Subj" size="24">
-					<xsl:attribute name="value">
-  						<xsl:value-of select="/result/subj"/>
-  		  			</xsl:attribute>
-  					</input>
-  	</p>
-	<p style="text-align:center">
+	</td>
+</tr>
+<tr>
+	<td>
+		Subject: 
+	</td>
+	<td>
+		<input type="text" id="Subj" name="Subj" size="24">
+			<xsl:attribute name="value">
+  				<xsl:value-of select="/result/email/content/subj"/>
+  		  	</xsl:attribute>
+  		</input>
+  	</td>
+</tr>
+<tr>
+	<td>
+	</td>
+	<td>
 		<textarea rows="7" name="Cont" id="Cont" cols="28">
-  			<xsl:value-of select="/result/cont"/>
-		</textarea></p>
-	<p style="text-align:center"><input type="submit" value="Absenden" name="B1"/></p>
+  			<xsl:value-of select="/result/email/content/cont"/>
+		</textarea>
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="submit" value="Send" name="B1"/>
+	</td>
+	<td>
+		<input type="reset" value="Delete" name="B2"/>
+	</td>
+</tr>
+</table>
 </form>
 </xsl:template>
 
@@ -571,6 +666,9 @@ min reviewer per paper: <xsl:apply-templates select="/result/setup/content/min"/
 <xsl:template match="/result/email/status">
 <xsl:value-of select='.'/><br></br> 
 </xsl:template>
+
+
+
 
 
 </xsl:stylesheet>
