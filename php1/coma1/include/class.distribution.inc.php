@@ -274,10 +274,7 @@ class Distribution extends ErrorHandling {
         $pindex = $p_id_index[$wants[$j]['paper_id']];
         if ($matrix[$i][$pindex] >= NEUTRAL) {
           //$p_num_revs_pref_left[$pindex]++;
-          $matrix[$i][$pindex] = SUGGESTED;
-          $p_num_revs[$pindex]++;
-          $p_num_revs_total_left[$pindex]--;
-          $r_num_papers[$i]++;
+          $matrix[$i][$pindex] = WANT;
           $color[$i][$pindex] = '00FF00';
         }
       }
@@ -289,56 +286,71 @@ class Distribution extends ErrorHandling {
     $blnChanged = true;
     $blnBreak = false;
     while ($blnChanged && !$blnBreak) {
-      $blnBreak = true;
-      for ($i = 0; $i < count($p_num_revs); $i++) {
-        if ($p_num_revs[$i] < $avg_revs) {
-          $blnBreak = false;
-        }
-      }
-      if ($blnBreak) {
-        break;
-      }
-
-      $blnChanged = false;
-      // Paper mit den wenigsten Reviewern ermitteln...
-      $min = count($r_id)+1; $pindex = -1;
-      for ($i = 0; $i < count($p_id); $i++) {
-        // nur solche, fuer die noch Reviewer in Frage kommen
-        if ($p_num_revs_total_left[$i] > 0 && $p_num_revs[$i] < $min) {
-          $min = $p_num_revs[$i];
-          $pindex = $i;
-        }
-      }
-      if ($pindex >= 0) {
-        // am besten geeigneten Reviewer nehmen
-        $max = 0; $rindex = -1;
-        for ($i = 0; $i < count($r_id); $i++) {
-          if ($matrix[$i][$pindex] > $max) {
-            $max = $matrix[$i][$pindex];
+      $rindex = $pindex = -1;
+      // Paper-Wuensche zuerst beruecksichtigen
+      $blnWanted = false;
+      for ($i = 0; $i < count($r_id); $i++) {
+        for ($j = 0; $j < count($p_id); $j++) {
+          if ($matrix[$i][$j] == WANT) {
+            $blnWanted = true;
             $rindex = $i;
+            $pindex = $j;
+            break(2);
           }
         }
-        if ($rindex >= 0) {
-          $blnChanged = true;
-          //if ($matrix[$rindex][$pindex] > 1) {
-          //  $p_num_revs_pref_left[$pindex]--;
-          //}
-          $p_num_revs_total_left[$pindex]--;
-          $p_num_revs[$pindex]++;
-          $r_num_papers[$rindex]++;
-          $matrix[$rindex][$pindex] = SUGGESTED;
-          // Zeile Reviewer "halbieren"
-          for ($i = 0; $i < count($p_id); $i++) {
-            if ($matrix[$rindex][$i] > 1) {
+      }
+
+      if (!$blnWanted) {
+        $blnBreak = true;
+        for ($i = 0; $i < count($p_num_revs); $i++) {
+          if ($p_num_revs[$i] < $avg_revs) {
+            $blnBreak = false;
+          }
+        }
+        if ($blnBreak) {
+          break;
+        }
+        
+        $blnChanged = false;
+        
+        // Paper mit den wenigsten Reviewern ermitteln...
+        $min = count($r_id)+1; $pindex = -1;
+        for ($i = 0; $i < count($p_id); $i++) {
+          // nur solche, fuer die noch Reviewer in Frage kommen
+          if ($p_num_revs_total_left[$i] > 0 && $p_num_revs[$i] < $min) {
+            $min = $p_num_revs[$i];
+            $pindex = $i;
+          }
+        }
+        if ($pindex >= 0) {
+          // am besten geeigneten Reviewer nehmen
+          $max = 0; $rindex = -1;
+          for ($i = 0; $i < count($r_id); $i++) {
+            if ($matrix[$i][$pindex] > $max) {
+              $max = $matrix[$i][$pindex];
+              $rindex = $i;
+            }
+          }
+        }
+      }
+
+      if ($pindex >= 0 && $rindex >= 0) {
+        $blnChanged = true;
+        $p_num_revs_total_left[$pindex]--;
+        $p_num_revs[$pindex]++;
+        $r_num_papers[$rindex]++;
+        $matrix[$rindex][$pindex] = SUGGESTED;
+        // Zeile Reviewer "halbieren"
+        for ($i = 0; $i < count($p_id); $i++) {
+          if ($matrix[$rindex][$i] > 1) {
+            $matrix[$rindex][$i] /= 2.0;
+            // Reviewer schon ueber dem Schnitt? Dann nochmal reduzieren!
+            if ($r_num_papers[$rindex] > $avg_revs && $matrix[$rindex][$i] > 1) {
               $matrix[$rindex][$i] /= 2.0;
-              // Reviewer schon ueber dem Schnitt? Dann nochmal reduzieren!
-              if ($r_num_papers[$rindex] > $avg_revs && $matrix[$rindex][$i] > 1) {
-                $matrix[$rindex][$i] /= 2.0;
-              }
-              if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
-                $matrix[$rindex][$i] = 0;
-                $p_num_revs_total_left[$i]--;
-              }
+            }
+            if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
+              $matrix[$rindex][$i] = 0;
+              $p_num_revs_total_left[$i]--;
             }
           }
         }
