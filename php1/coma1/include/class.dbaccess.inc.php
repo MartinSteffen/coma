@@ -568,7 +568,7 @@ class DBAccess extends ErrorHandling {
   function getPaperDetailed($intPaperId) {
     $s = "SELECT  author_id, title, state, abstract, mime_type, last_edited, filename".
         " FROM    Paper".
-        " WHERE   id = $intPaperId";
+        " WHERE   id = '$intPaperId'";
     echo("<br>$s<br>");
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
