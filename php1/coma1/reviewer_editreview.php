@@ -28,32 +28,45 @@ else if (empty($objReview)) {
 }
 
 // Aktualisiere Review mit den mitgeschickten Daten
-if (isset($_POST['action'])) {
-  $objReview->strSummary = $_POST['summary'];
-  $objReview->strRemarks = $_POST['remarks'];
+if (isset($_POST['action'])) {  
+  $objReview->strSummary      = $_POST['summary'];
+  $objReview->strRemarks      = $_POST['remarks'];
   $objReview->strConfidential = $_POST['confidential'];
   for ($i = 0; $i < count($objReview->intRatings); $i++) {
     $objReview->intRatings[$i]  = (int)$_POST['rating-'.($i+1)];
     $objReview->strComments[$i] = $_POST['comment-'.($i+1)];
   }
   $objReview->recalcRating();
-  // Trage Review in die Datenbank ein
+  // Uebernimm die Aenderungen
   if (isset($_POST['submit'])) {
+    // Teste Gueltigkeit der Daten
+    $noError = true;
+    for ($i = 0; $i < count($objReview->intRatings); $i++) {
+      if ($objReview->intRatings[$i] < 0 ||
+          $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
+        $noError = false;
+        $strMessage = 'There are invalid ratings. Please check if all ratings are '.
+                      'within their respective range.';
+      }
+      // Trage Review in die Datenbank ein
+      if (!empty($noError)) {
+      }
+    }
   }  
 }
 
 $content = new Template(TPLPATH.'reviewer_editreview.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['review_id'] = encodeText($intReviewId);
-$strContentAssocs['paper_id'] = encodeText($objReview->intPaperId);
-$strContentAssocs['title'] = encodeText($objReview->strPaperTitle);
-$strContentAssocs['author_id'] = encodeText($objReview->intAuthorId);
-$strContentAssocs['author_name'] = encodeText($objReview->strAuthorName);
-$strContentAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100));
-$strContentAssocs['summary'] = encodeText($objReview->strSummary);
+$strContentAssocs['review_id']    = encodeText($intReviewId);
+$strContentAssocs['paper_id']     = encodeText($objReview->intPaperId);
+$strContentAssocs['title']        = encodeText($objReview->strPaperTitle);
+$strContentAssocs['author_id']    = encodeText($objReview->intAuthorId);
+$strContentAssocs['author_name']  = encodeText($objReview->strAuthorName);
+$strContentAssocs['rating']       = encodeText(round($objReview->fltReviewRating * 100));
+$strContentAssocs['summary']      = encodeText($objReview->strSummary);
 $strContentAssocs['confidential'] = encodeText($objReview->strConfidential);
-$strContentAssocs['remarks'] = encodeText($objReview->strRemarks);
-$strContentAssocs['crit_lines'] = '';
+$strContentAssocs['remarks']      = encodeText($objReview->strRemarks);
+$strContentAssocs['crit_lines']   = '';
 for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $critForm = new Template(TPLPATH.'review_critlistitem.tpl');
   $strCritAssocs = defaultAssocArray();
@@ -68,7 +81,10 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $critForm->parse();
   $strContentAssocs['crit_lines'] .= $critForm->getOutput();
 }
-
+if (isset($strMesage) && !empty($strMessage)) {
+  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['if'] = array(1);
+}
 $content->assign($strContentAssocs);
 
 $actMenu = REVIEWER;
