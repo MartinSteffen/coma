@@ -14,7 +14,7 @@ if(isReviewer_Overall())
       WHERE
             (paper.id = ".$_POST['paperID'].")
         AND (conference.review_deadline >= CURRENT_DATE)
-        AND (paper.state = 0)";
+        AND (paper.state < 3)";
 
 	$result = mysql_query($SQL);
 	$count = 0;
@@ -43,7 +43,6 @@ if(isReviewer_Overall())
 			  "UPDATE rating SET grade = '".$criterionlist[$i]['value']."' , comment = '".$criterionlist[$i]['comment']."'
 			  WHERE (review_id = ".$_POST['reviewreportID'].")
 				AND (criterion_id = ".$criterionlist[$i]['id'].")";
-			echo $SQL;
 			$result = mysql_query($SQL);
 		} else {
 			$SQL =
