@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
   $strContentAssocs['auto_addreviewer'] =
    (isset($_POST['auto_addreviewer']) ? $_POST['auto_addreviewer'] : '');
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
-
+echo($_POST['submit']);
   // Anlegen der Konferenz in der Datenbank
   if ($_POST['submit'] == 'submit') {
   
@@ -67,8 +67,7 @@ if (isset($_POST['submit'])) {
                      .'<br>Please try again!';
       }
     }
-  }
-  echo($_POST['submit']);
+  }  
   // Oeffnen der erweiterten Einstellungen
   else if ($_POST['submit'] == 'adv_config') {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
