@@ -45,7 +45,7 @@ if (strtotime("now") < strtotime($objConference->strFinalDeadline)) {
   }
 }
 
-$strContentAssocs['if'] = $ifArray();
+$strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
 $_SESSION['menu'] = AUTHOR;
