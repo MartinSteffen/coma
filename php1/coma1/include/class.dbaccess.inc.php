@@ -1002,9 +1002,9 @@ class DBAccess extends ErrorHandling {
         ' WHERE   id = '.$objPerson->intId;
     $data = $this->mySql->update($s);
     if (!empty($data)) {      
-      return true;
+      return $this->success(true);
     }
-    return $this->error('updatePerson '.$this->mySql->getLastError());
+    return $this->error('updatePerson ', $this->mySql->getLastError());
   }
 
   /**
