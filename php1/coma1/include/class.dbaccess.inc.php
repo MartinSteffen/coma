@@ -252,7 +252,7 @@ class DBAccess {
       }
       return $objPapers;
     }
-    return false;
+    return $this->error('getPapersOfReviewer '.$this->mySql->getLastError());
   }
 
   /**

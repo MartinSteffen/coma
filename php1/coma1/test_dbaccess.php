@@ -32,7 +32,7 @@ if (!empty($p)) {
 
 echo('rating of review #1 = '.$myDBAccess->getReviewRating(1).'<br>');
 echo('rating of review #2 = '.$myDBAccess->getReviewRating(2).'<br>');
-echo('avg rating of paper #1 = '.$myDBAccess->getAverageRatingOfPaper(1).'<br>');
+echo('avg rating of paper #1 = '.$myDBAccess->getAverageRatingOfPaper(1).'<br><br>');
 
 $p = $myDBAccess->getPaperDetailed(1);
 if (!empty($p)) {
@@ -47,6 +47,19 @@ else {
   echo('Else sagt: Nix gefunden, weil:<br>');
   echo($myDBAccess->getLastError());
 }
+
+$p = $myDBAccess->getPapersOfReviewer(2);
+echo('Papers von Reviewer #2:<br>');
+if (!empty($p)) {
+  for ($i = 0; $i < count($p); $i++) {
+    echo($p[$i]->title);
+  }
+}
+else {
+  echo('Else sagt: Nix gefunden, weil:<br>');
+  echo($myDBAccess->getLastError());
+}
+
 
 
 ?>
