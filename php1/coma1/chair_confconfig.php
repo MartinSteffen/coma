@@ -110,6 +110,7 @@ if (isset($_POST['action'])) {
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
       !isset($_POST['simple_config']) &&  !isset($_POST['submit']))) {
     $content = new Template(TPLPATH.'edit_conference_ext.tpl');
+  }
 }
 // Wenn keine Daten geliefert worden, uebernimm die Werte aus der Datenbank
 else {
