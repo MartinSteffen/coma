@@ -23,6 +23,8 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
+$popup = (isset($_GET['popup'])) ? true : false;
+
 // Lade die Daten des Benutzers
 if (isset($_GET['userid'])) {
   $objPerson = $myDBAccess->getPersonDetailed($_GET['userid']);
@@ -34,7 +36,12 @@ if (isset($_GET['userid'])) {
   }
 }
 else {
-  redirect('user_users.php');
+  if ($popup) {
+    error('No User selected!', '');
+  }
+  else {
+    redirect('user_users.php');
+  }
 }
 
 $content = new Template(TPLPATH.'view_profile.tpl');
@@ -49,12 +56,16 @@ $strContentAssocs['address']     = encodeText($objPerson->getAddress());
 $strContentAssocs['country']     = encodeText($objPerson->getCountry());
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
-$strContentAssocs['navlink'] = array( 'BACK' );
+$strContentAssocs['navlink'] = ($popup) ? array( 'BACK' ) : array( 'CLOSE' );
 $content->assign($strContentAssocs);
 
-include('./include/usermenu.inc.php');
-
-$main = new Template(TPLPATH.'frame.tpl');
+if (!$popup) {
+  include('./include/usermenu.inc.php');
+  $main = new Template(TPLPATH.'frame.tpl');
+}
+else {
+  $main = new Template(TPLPATH.'popup_frame.tpl');
+}
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'User profile';
 $strMainAssocs['content'] = &$content;
