@@ -4,7 +4,7 @@
 
 <div align="center">
 <table>
-<tr> <td>&nbsp; </td><td> <b> Einloggen <br>  <br> </b> </td> </tr>
+<tr> <td> <b> Einloggen <br>  <br> </b> </td>   <td>&nbsp; </td></tr>
 <tr> 
   <td valign="middle">
         Email-Addresse: <br> <br>
