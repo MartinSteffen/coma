@@ -540,7 +540,7 @@ class DBAccess extends ErrorHandling {
       for ($j = 0; $j < count($role_data); $j++) {
         $objPerson->addRole($role_data[$j]['role_type'], $role_data[$j]['state']);
       }
-      if ($objPerson->hasAnyRole()) {
+      if ($objPerson->hasAnyRole() || $objPerson->hasAnyRoleRequest()) {
         $objPersons[] = $objPerson;
       }
     }

@@ -44,8 +44,16 @@ if (!empty($objPersons)) {
       $strRolesAssocs = defaultAssocArray();
       $strRolesAssocs['user_id'] = $objPerson->intId;
       $strRolesAssocs['role_type'] = $intRoles[$i];
-      $strRolesAssocs['role_name'] = $strRoles[$intRoles[$i]];      
-      $strRolesAssocs['if'] = array(($objPerson->hasRole($intRoles[$i])) ? 1 : 2);      
+      $strRolesAssocs['role_name'] = $strRoles[$intRoles[$i]];
+      if ($objPerson->hasRole($intRoles[$i])) {
+      	$strRolesAssocs['if'] = array(1);
+      }
+      else if ($objPerson->hasRequestedRole($intRoles[$i])) {
+        $strRolesAssocs['if'] = array(3);
+      }
+      else {
+        $strRolesAssocs['if'] = array(2);
+      }      
       $roles->assign($strRolesAssocs);
       $roles->parse();
       $strItemAssocs['roles'] .= $roles->getOutput();

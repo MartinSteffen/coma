@@ -26,6 +26,7 @@ class Person {
   var $strLastName;
   var $strEmail;
   var $intRoles;
+  var $intRequestedRoles;
   var $strTitle;
 
   function Person($intId, $strFirstName, $strLastName, $strEmail, $intRoles, $strTitle) {
@@ -33,8 +34,9 @@ class Person {
     $this->strFirstName = $strFirstName;
     $this->strLastName = $strLastName;
     $this->strEmail = $strEmail;
-    $this->intRoles = $intRoles;
+    $this->intRoles = $intRoles;    
     $this->strTitle = $strTitle;
+    $this->intRequestedRoles = 0;
   }
 
   /**
@@ -51,6 +53,9 @@ class Person {
   function addRole($intRole, $blnNotAccepted=false) {
     if (empty($blnNotAccepted)) {
       $this->intRoles |= (1 << $intRole);
+    }
+    else {
+      $this->intRequestedRoles |= (1 << $intRole);
     }
     return true;
   }
@@ -93,6 +98,14 @@ class Person {
 
   function hasAnyRole() {
     return ($this->intRoles != 0);
+  }
+
+  function hasRequestedRole($intRole) {
+    return ($this->intRequestedRoles & (1 << $intRole));
+  }
+
+  function hasAnyRoleRequest() {
+    return ($this->intRequestedRoles != 0);
   }
 
   /**
