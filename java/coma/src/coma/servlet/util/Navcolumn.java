@@ -40,7 +40,7 @@ import static coma.servlet.util.XMLHelper.tagged;
 public class Navcolumn {
 
     HttpSession hsession;
-
+    Conference[] allConfs;
     java.util.Set<String> extradata = new java.util.HashSet<String>();
 
     public Navcolumn(HttpSession hs){
@@ -101,8 +101,7 @@ public class Navcolumn {
 	    */		    
 	    SearchCriteria theSC = new SearchCriteria();
 	    theSC.setConference(new Conference(-1));
-	    Conference[] allConfs 
-		= (Conference[])new coma.handler.impl.db.ReadServiceImpl()
+	    allConfs = (Conference[])new coma.handler.impl.db.ReadServiceImpl()
 		.getConference(theSC).getResultObj();
 		    
 	    result.append(XMLHelper.tagged("conference_list", 
@@ -125,5 +124,9 @@ public class Navcolumn {
     }
     return tagged("navcolumn", result).toString();
 }
+    public Conference[] getConferenceArray()
+    {
+    	return allConfs;
+    }
 
 }
