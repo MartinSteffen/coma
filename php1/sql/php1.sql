@@ -48,3 +48,14 @@ CREATE TABLE IF NOT EXISTS Distribution
 ) TYPE = INNODB;
 
 
+
+CREATE TABLE IF NOT EXISTS PaperData
+(
+   paper_id                     INT NOT NULL,
+   file                         MEDIUMBLOB NOT NULL,
+   PRIMARY KEY (paper_id),
+   FOREIGN KEY (paper_id) REFERENCES Paper (id)
+       ON DELETE CASCADE
+) TYPE = INNODB;
+
+
