@@ -29,10 +29,10 @@ if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 echo('Co-Autoren:');
-for ($i = 0; $i < $p->intCoAuthors; $i++) {
-  echo ("$p->intCoAuthors[$i]<br>");
+for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
+  echo ("$p->intCoAuthorIds[$i]<br>");
 }
-for ($i = 0; $i < $p->strCoAuthors; $i++) {
+for ($i = 0; $i < count($p->strCoAuthors); $i++) {
   echo ("$p->strCoAuthors[$i]<br>");
 }
 
