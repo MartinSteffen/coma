@@ -39,7 +39,7 @@ if (!empty($objConference->strHomepage)) {
   $strContentAssocs['link'] = $objConference->strHomepage;
 }
 else {  
-  strContentAssocs['link'] = 'No homepage available';
+  $strContentAssocs['link'] = 'No homepage available';
 }
 $strContentAssocs['paper_number'] = encodeText($objConference->intMinNumberOfPapers.' - '.
                                                $objConference->intMaxNumberOfPapers);
