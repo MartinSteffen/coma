@@ -71,7 +71,7 @@ elseif ($STEP2) {
   if (empty($conn)) {
     $errors[] = "Could not connect to MySQL Server $sqlServer!";
   }
-  if (!mysql_select_db($sqlDatabase, $conn)) {
+  elseif (!mysql_select_db($sqlDatabase, $conn)) {
     $errors[] = mysql_error($conn);
   }
 
