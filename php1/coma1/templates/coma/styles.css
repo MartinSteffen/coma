@@ -112,7 +112,10 @@ a:hover
   color: #004DFF;
 }
 a.email {
-  color: #004DFF;  
+  color: #004DFF;
+  background-image:url('images/mail.gif');
+  background-repeat: no-repeat;
+  background-position: left;  
 }
 
 /* Allgemeine Tabellen und Formulare */
