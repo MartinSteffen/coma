@@ -1202,7 +1202,7 @@ nur fuer detaillierte?
         return $this->error('updateConference', $this->mySql->getLastError());
       }
     }
-    return $this->success($intId);
+    return $this->success();
   }
 
   /**
