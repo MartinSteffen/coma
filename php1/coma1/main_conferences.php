@@ -30,9 +30,10 @@ if (!empty($objConferences)) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['confid'] = $objConference->intId;
     $strItemAssocs['name'] = $objConference->strName;
-    $strItemAssocs['startdate'] = '';//$objConference->strStart;
-    $strItemAssocs['enddate'] = '';//$objConference->strEnd;
+    $strItemAssocs['startdate'] = $objConference->strStart;
+    $strItemAssocs['enddate'] = $objConference->strEnd;
     $strItemAssocs['if'] = array(1, 2, 3);  
+    $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
     $conferenceItem->assign($strItemAssocs);
     $conferenceItem->parse();
     $strContentAssocs['lines'] .= $conferenceItem->getOutput();
