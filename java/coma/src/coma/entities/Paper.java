@@ -104,8 +104,10 @@ public class Paper extends Entity {
     }
     
     public void setTopics(Integer[] topicids){
-    	this.topics = null;
+    	   	
+    	this.topics.clear();
     	for (int i = 0; i < topicids.length; i++) {
+    		
 			topics.add(Topic.byId(topicids[i],this.conference_id));
 		}
     	

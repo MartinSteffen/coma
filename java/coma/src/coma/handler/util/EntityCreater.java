@@ -180,7 +180,7 @@ public class EntityCreater {
 			throw new IllegalArgumentException("topic processing "+e.toString());
 			
 		}
-		 
+		if (topicids.length==0) throw new IllegalArgumentException("no topic choosen: no ids");
 		if (paper==null) paper= new Paper(-1); // new Paper
 		
 		Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
@@ -201,7 +201,7 @@ public class EntityCreater {
 		//paper.setMim_type("");///set in WriteFile.java
 		paper.setState(0);
 		paper.setTitle(request.getParameter(FormParameters.TITLE));
-		//paper.setTopics(topicids);	
+		paper.setTopics(topicids);	
 		return paper;
 		
 	}

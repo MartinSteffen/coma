@@ -174,7 +174,7 @@ public class Login extends HttpServlet
 				if( mySR != null)
 				{
 					int[] roles = (int[])mySR.getResultObj();
-					System.out.println(roles[0]);
+					
 					myPerson.setRole_type(roles);
 				}
 			}	

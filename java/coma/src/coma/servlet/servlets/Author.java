@@ -61,7 +61,7 @@ public class Author extends HttpServlet {
 		action = ACTIONS.valueOf(request.getParameter(FormParameters.ACTION).toUpperCase());
 	} catch (RuntimeException e) {
 			// TODO Auto-generated catch block
-		e.printStackTrace();
+		//e.printStackTrace();
 	}
 	
 	 
