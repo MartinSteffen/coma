@@ -1,7 +1,7 @@
 
 {if9<p class="message">{message}</p>}
 
-<form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
 
 <table class="formtable">
   <tr>
