@@ -4,4 +4,5 @@
   <table class="formtable" width="100%">
     {forum}
   </table>
+  {createforum}
 </td></tr>
