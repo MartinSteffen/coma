@@ -197,6 +197,24 @@ class DBAccess extends ErrorHandling {
     $s = strtolower($strClass);
     return (get_class($obj) == $s || is_subclass_of($obj, $s));
   }
+  
+  /**
+   * Liefert einen gueltigen String zur Speicherung in der Datenbank.
+   *
+   * @param string $strSql zu speichernder String
+   * @return string korrekt kodierter String
+   * @author Jan (18.01.05)
+   * @access private
+   * @todo Statische Funktion, falls moeglich
+   */
+  function stringToDatabase($strSql) {
+    if(version_compare(phpversion(),"4.3.0")=="-1") {
+      $strSql = mysql_escape_string($string);
+    } else {
+      $strSql = mysql_real_escape_string($string);
+    }
+    return $this->success($strSql);
+  }
 
 
   // ---------------------------------------------------------------------------

@@ -134,6 +134,13 @@ ini_set('display_startup_errors', '1'); // später 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
+// Magic Quoatas machen uns eh nur Aerger... Verbieten?
+ini_set('magic_quotes_runtime', '0');
+ini_set('magic_quotes_sybase', '0');
+if (get_magic_quotes_gpc()) {
+  error('PHP-Server Config', '\'magic_quotes_gpc\' should be set to off!');
+}
+
 // PATH_TRANSLATED patch
 $ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
 
