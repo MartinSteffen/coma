@@ -72,7 +72,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     $ifArray[] = 4;
   }
   // Aktualisieren der Konferenz in der Datenbank
-  if (isset($_POST['submit']) || isset($_POST['submit_adv'])) {
+  if (isset($_POST['submit'])) {
     // Prüfen, ob die Eingaben gültig sind.
     // Wenn die Eingaben gültig sind ist $strMessage leer.
     $strMessage=''; 
@@ -182,8 +182,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
   }
   // Oeffnen der erweiterten Einstellungen
   if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
-      !isset($_POST['simple_config']) && !isset($_POST['simple_config_adv']) &&  
-      !isset($_POST['submit']))) {
+      !isset($_POST['simple_config']) && !isset($_POST['submit']))) {
       $content = new Template(TPLPATH.'edit_conference_ext.tpl');
   }
 }
