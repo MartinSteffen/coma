@@ -4,9 +4,9 @@ $sql->connect();
 if(isReviewer_Overall())
 {
 	$SQL =
-	 "SELECT role.conference_id,
+	 "SELECT DISTINCT role.conference_id,
 	   paper.conference_id, paper.id, paper.state, paper.title,
-	   role.person_id, role.role_type,
+	   role.person_id,
 	   conference.review_deadline, conference.id, conference.name
 	  FROM role INNER JOIN paper ON (role.conference_id = paper.conference_id)
 	  INNER JOIN conference ON (paper.conference_id = conference.id)
@@ -20,7 +20,7 @@ if(isReviewer_Overall())
 	while ($list = mysql_fetch_row($result))
 	{
 		$paper = array ();
-		$paper = array ("conference"=>$list[9],"paper"=>$list[4],"paperid"=>$list[2]);
+		$paper = array ("conference"=>$list[8],"paper"=>$list[4],"paperid"=>$list[2]);
 		$paperlist[] = $paper;
 	}
 
