@@ -15,10 +15,10 @@ if (!defined('INCPATH')) {
 // OFFENE PUNKTE (nur diese Klasse betreffend, daher nicht in Spec):
 // -----------------------------------------------------------------
 // - Wie werden Booleans behandelt? (vgl. getConferenceConfig, blnAuto...)
-//   Jeweils zwischen 0/1 (DB) und false/true (Klasse) switchen?
-//   Sonst Gefahr: Abfrage ($bln = false) liefert wahr, wenn $bln gesetzt ist
-//   (also insbesondere auch bei $bln = 0, was je false bedeuten sollte)
-//   Alternative (in DB): NULL = false, 1 = true
+//   Einigung: In der Datenbank treten Booleans als 0/1 auf,
+//   in den PHP-Skripten verwenden wir ausschliesslich false/true.
+//   Die Methoden DBAccess sorgen dafuer, dass die Werte aus der DB korrekt
+//   ausgelesen werden.
 
 require_once(INCPATH.'header.inc.php');
 
@@ -78,7 +78,7 @@ class DBAccess extends ErrorHandling {
   /**
    * Liefert ein Array mit allen Konferenzen zurück.
    *
-   * @return Conference [] bzw. <b>false</b>, falls keine Konferenz angelegt ist.
+   * @return Conference [] Gibt ein leeres Array zurueck, falls keine Konferenz angelegt ist.
    * @access public
    * @author Daniel (29.12.04), Tom (12.01.05)
    */
@@ -86,23 +86,22 @@ class DBAccess extends ErrorHandling {
     $s = "SELECT  id, name, homepage, description, conference_start, conference_end".
         " FROM    Conference";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objConferences = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $objConferences[$i] = (new Conference($data[$i]['id'], $data[$i]['name'],
-                                              $data[$i]['homepage'], $data[$i]['description'], 
-                                              $data[$i]['conference_start'],
-                                              $data[$i]['conference_end']));
-      }
-      return $this->success($objConferences);
+    if ($this->mySql->failed()) {
+      return $this->error('getAllConferences', $this->mySql->getLastError());
     }
-    return $this->error('getAllConferences', $this->mySql->getLastError());
+    $objConferences = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objConferences[] = (new Conference($data[$i]['id'], $data[$i]['name'],
+                            $data[$i]['homepage'], $data[$i]['description'], 
+                            $data[$i]['conference_start'], $data[$i]['conference_end']));
+    }
+    return $this->success($objConferences);
   }
   
  /**
    * Prueft, ob die Email-Adresse in der Datenbank gespeichert wurde.
    *
-   * @return bool true gdw. die Email in der Datenbank gefunden wurde
+   * @return bool true gdw. die Email in der Datenbank gefunden wurde.
    * @access public
    * @author Daniel (20.12.04)
    */
@@ -123,9 +122,13 @@ class DBAccess extends ErrorHandling {
   /**
    * Prueft, ob die angegebenen User-Daten gueltig sind.
    *
+<<<<<<< .mine
+   * @return bool <b>true</b> gdw. die Daten in der Person-Tabelle hinterlegt sind.
+=======
    * @param string $strUserName Der zu ueberpruefende Benutzername
    * @param string $strPassword Das zu ueberpruefende Passwort
    * @return bool <b>true</b> gdw. die Daten in der Person-Tabelle hinterlegt sind
+>>>>>>> .r1557
    * @access public
    * @author Tom (15.12.04)
    */
@@ -145,253 +148,282 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein ConferenceDetailed-Objekt mit Konferenzdaten der aktuellen
-   * zurueck.
+   * Liefert ein ConferenceDetailed-Objekt mit Konferenzdaten der Konferenz
+   * $intConfId zurueck.
    *
-   * @return ConferenceDetailed [] bzw. <b>false</b>, falls die Konferenz-ID
-   *         ungueltig ist.
+   * @param int $intConfId Die ID der zurueckzugebenden Konferenz.
+   * @return ConferenceDetailed Das Konferenzobjekt.
    * @access public
    * @author Tom (08.01.05)
-   * @todo Wie ist mit Booleans ($blnAuto...) zu verfahren?
+   * @todo Wie ist mit Booleans ($blnAuto...) zu verfahren? Regelung: In php werden
+   *       fuer Booleans die Werte false / true verwendet, in der DB 0 / 1.
    */
-  function getConferenceDetailed() {
-    $s = 'SELECT  c.id, name, homepage, description, abstract_submission_deadline,'.
-        '         paper_submission_deadline, review_deadline, final_version_deadline,'.
-        '         notification, conference_start, conference_end, min_reviews_per_paper,'.
-        '         default_reviews_per_paper, min_number_of_papers, max_number_of_papers,'.
-        '         critical_variance, auto_activate_account, auto_open_paper_forum,'.
-        '         auto_add_reviewers, number_of_auto_add_reviewers'.
-        ' FROM    Conference AS c'.
-        ' INNER   JOIN ConferenceConfig AS cc'.
-        ' ON      c.id = cc.id'.
-        ' WHERE   c.id = '.$_SESSION['confid'];
+  function getConferenceDetailed($intConfId) {
+    $s = "SELECT  c.id, name, homepage, description, abstract_submission_deadline,".
+        "         paper_submission_deadline, review_deadline, final_version_deadline,".
+        "         notification, conference_start, conference_end, min_reviews_per_paper,".
+        "         default_reviews_per_paper, min_number_of_papers, max_number_of_papers,".
+        "         critical_variance, auto_activate_account, auto_open_paper_forum,".
+        "         auto_add_reviewers, number_of_auto_add_reviewers".
+        " FROM    Conference AS c".
+        " INNER   JOIN ConferenceConfig AS cc".
+        " ON      c.id = cc.id".
+        " WHERE   c.id = $intConfId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      // hier: Fehler, wenn kein Kriterium bzw. Topic festgelegt wurde (eigentlich Unsinn!)
-      /*
-      $objCriterions = $this->getCriterionsOfConference();
-      if (empty($objCriterions)) {
-        return $this->error('getConferenceDetailed '.$this->getLastError());
-      }
-      $objTopics = $this->getTopicsOfConference();
-      if (empty($objTopics)) {
-        return $this->error('getConferenceDetailed '.$this->getLastError());
-      }
-      */
-      // erstmal: schweigend hinnehmen
-      $objCriterions = $this->getCriterionsOfConference();
-      $objTopics = $this->getTopicsOfConference();
-
-      return (new ConferenceDetailed($data[0]['id'], $data[0]['name'], $data[0]['homepage'],
-                    $data[0]['description'], $data[0]['conference_start'],
-                    $data[0]['conference_end'], $data[0]['abstract_submission_deadline'],
-                    $data[0]['paper_submission_deadline'], $data[0]['review_deadline'],
-                    $data[0]['final_version_deadline'], $data[0]['notification'],
-                    $data[0]['min_reviews_per_paper'], $data[0]['default_reviews_per_paper'],
-                    $data[0]['min_number_of_papers'], $data[0]['max_number_of_papers'],
-                    $data[0]['critical_variance'], $data[0]['auto_activate_account'],
-                    $data[0]['auto_open_paper_forum'], $data[0]['auto_add_reviewers'],
-                    $data[0]['number_of_auto_add_reviewers'], $objCriterions, $objTopics));
+    if ($this->mySql->failed()) {
+      return $this->error('getConferenceDetailed', $this->mySql->getLastError());
     }
-    return $this->error('getConferenceDetailed '.$this->mySql->getLastError());
+    $objCriterions = $this->getCriterionsOfConference($intConfId);
+    if ($this->mySql->failed()) {
+      return $this->error('getConferenceDetailed', $this->mySql->getLastError());
+    }
+    $objTopics = $this->getTopicsOfConference($intConfId);
+    if ($this->mySql->failed()) {
+      return $this->error('getConferenceDetailed', $this->mySql->getLastError());
+    }    
+    $objConf = (new ConferenceDetailed($data[0]['id'], $data[0]['name'], $data[0]['homepage'],
+                  $data[0]['description'], $data[0]['conference_start'],
+                  $data[0]['conference_end'], $data[0]['abstract_submission_deadline'],
+                  $data[0]['paper_submission_deadline'], $data[0]['review_deadline'],
+                  $data[0]['final_version_deadline'], $data[0]['notification'],
+                  $data[0]['min_reviews_per_paper'], $data[0]['default_reviews_per_paper'],
+                  $data[0]['min_number_of_papers'], $data[0]['max_number_of_papers'],
+                  $data[0]['critical_variance'], $data[0]['auto_activate_account'],
+                  $data[0]['auto_open_paper_forum'], $data[0]['auto_add_reviewers'],
+                  $data[0]['number_of_auto_add_reviewers'], $objCriterions, $objTopics));
+    return $this->success($objConf);
   }
 
   /**
    * Liefert einen Array von Criterion-Objekten zurueck, die Bewertungskriterien
-   * der aktuellen Konferenz sind.
+   * der Konferenz $intConfId sind.
    *
-   * @return Criterion [] bzw. <b>false</b>, falls keine Konferenz aktiv ist, oder
-   *                      ein leeres Array, falls fuer die aktuelle Konferenz keine
+   * @param int $intConfId Die ID der zu pruefenden Konferenz.
+   * @return Criterion [] Gibt ein leeres Array zurueck, falls fuer die Konferenz keine
    *                      Bewertungskriterien definiert sind.
    * @access public
    * @author Sandro (18.12.04)
    */
-  function getCriterionsOfConference() {
-    $s = 'SELECT  id, name, description, max_value, quality_rating'.
-        ' FROM    Criterion'.
-        ' WHERE   conference_id = '.$_SESSION['confid'];
+  function getCriterionsOfConference($intConfId) {
+    $s = "SELECT  id, name, description, max_value, quality_rating".
+        " FROM    Criterion".
+        " WHERE   conference_id = $intConfId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objCriterions = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $fltWeight = $data[$i]['quality_rating'] / 100.0;
-        $objCriterions[] = (new Criterion($data[$i]['id'], $data[$i]['name'],
-                              $data[$i]['description'], $data[$i]['max_value'], $fltWeight));
-      }
-      return $objCriterions;
-    }
-    return $this->error('getCriterionsOfConference '.$this->mySql->getLastError());
+    if ($this->mySql->failed()) {
+      return $this->error('getCriterionsOfConference', $this->mySql->getLastError());
+    }    
+    $objCriterions = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $fltWeight = $data[$i]['quality_rating'] / 100.0;
+      $objCriterions[] = (new Criterion($data[$i]['id'], $data[$i]['name'],
+                            $data[$i]['description'], $data[$i]['max_value'], $fltWeight));
+    }    
+    return $this->success($objCriterions);
   }
 
   /**
    * Liefert ein Array von Topic-Objekten zurueck, die als Topics der
-   * aktuellen Konferenz definiert sind.
+   * Konferenz $intConfId definiert sind.
    *
-   * @return Topic [] bzw. <b>false</b>, falls keine Konferenz aktiv ist, oder
-   *                  ein leeres Array, falls fuer die aktuelle Konferenz keine
+   * @return Topic [] Gibt ein leeres Array zurueck, falls fuer die Konferenz keine
    *                  Topics definiert sind.
    * @access public
    * @author Sandro (18.12.04)
    */
-  function getTopicsOfConference() {
-    $s = 'SELECT  id, name'.
-        ' FROM    Topic'.
-        ' WHERE   conference_id = '.$_SESSION['confid'];
+  function getTopicsOfConference($intConfId) {
+    $s = "SELECT  id, name".
+        " FROM    Topic".
+        " WHERE   conference_id = $intConfId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objTopics = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
-      }
-      return $objTopics;
+    if ($this->mySql->failed()) {
+      return $this->error('getTopicsOfConference', $this->mySql->getLastError());
+    }    
+    $objTopics = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
     }
-    return $this->error('getTopicsOfConference '.$this->mySql->getLastError());
+    return $this->success($objTopics);
   }
 
   /**
    * Liefert die ID der Person, deren E-Mail-Adresse $strEmail ist.
    *
-   * @param string $strEmail E-Mail-Adresse der Person
+   * @param string $strEmail E-Mail-Adresse der Person.
    * @return int ID bzw. <b>false</b>, falls keine Person mit E-Mail-Adresse
-   *             $strEmail gefunden wurde
+   *             $strEmail gefunden wurde.
    * @access public
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPersonIdByEmail($strEmail) {
-    $s = 'SELECT  id'.
-        ' FROM    Person'.
-        ' WHERE   email = \''.$strEmail.'\'';
+    $s = "SELECT  id".
+        " FROM    Person".
+        " WHERE   email = '$strEmail'";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      return $data[0]['id'];
+    if ($this->mySql->failed()) {
+      return $this->error('getPersonIdByEmail', $this->mySql->getLastError());
     }
-    return $this->error('getPersonByEmail '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    return $this->success($data[0]['id']);
   }
 
   /**
    * Liefert ein Person-Objekt mit den Daten der Person $intPersonId.
    *
    * @param int $intPersonId ID der Person
+   * @param int $intConfId   ID der Konferenz, zu der die Rollen der Person ermittelt.
+   *                         werden sollen. Ist optional, ist $intConfId nicht angegeben,
+   *                         werden keine Rollen fuer die Person ermittelt.
    * @return Person <b>false</b>, falls keine Person mit ID $intPersonId
-   *                gefunden wurde
+   *                gefunden wurde.
    * @access public
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
-  function getPerson($intPersonId) {
-    $s = 'SELECT  id, first_name, last_name, email, title'.
-        ' FROM    Person'.
-        ' WHERE   id = '.$intPersonId;
+  function getPerson($intPersonId, $intConfId=false) {
+    $s = "SELECT  id, first_name, last_name, email, title".
+        " FROM    Person".
+        " WHERE   id = $intPersonId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $s = 'SELECT  role_type'.
-          ' FROM    Role'.
-          ' WHERE   person_id = '.$data[0]['id'];
-      $role_data = $this->mySql->select($s);
-      $role_type = 0;
-      if (!empty($role_data)) {
-        for ($i = 0; $i < count($role_data); $i++) {
-          $role_type = $role_type | (1 << $role_data[$i]['role_type']);
-        }
-      }
-      return (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
-                $data[0]['email'], $role_type, $data[0]['title']));
+    if ($this->mySql->failed()) {
+      return $this->error('getPerson', $this->mySql->getLastError());
     }
-    return $this->error('getPerson '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    $role_type = 0;
+    if (!empty($intConfId)) {
+      $s = "SELECT  role_type".
+          " FROM    Role".
+          " WHERE   person_id = $data[0]['id']".
+          " AND     conference_id = $intConfId";
+      $role_data = $this->mySql->select($s);
+      if ($this->mySql->failed()) {
+        return $this->error('getPerson', $this->mySql->getLastError());
+      }
+      for ($i = 0; $i < count($role_data); $i++) {
+        $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+      }
+    }
+    $objPerson = (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
+                    $data[0]['email'], $role_type, $data[0]['title']));
+    return $this->success($objPerson);
   }
 
   /**
    * Liefert ein PersonDetailed-Objekt mit den Daten der Person $intPersonId.
    *
    * @param int $intPersonId ID der Person
+   * @param int $intConfId   ID der Konferenz, zu der die Rollen der Person ermittelt.
+   *                         werden sollen. Ist optional, ist $intConfId nicht angegeben,
+   *                         werden keine Rollen fuer die Person ermittelt.
    * @return PersonDetailed <b>false</b>, falls keine Person mit ID $intPersonId
-   *                        gefunden wurde
+   *                        gefunden wurde.
    * @access public
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
-  function getPersonDetailed($intPersonId) {
-    $s = 'SELECT  id, first_name, last_name, email, title, affiliation,'.
-        '         street, city, postal_code, state, country, phone_number,'.
-        '         fax_number'.
-        ' FROM    Person'.
-        ' WHERE   id = '.$intPersonId;
+  function getPersonDetailed($intPersonId, $intConfId=false) {
+    $s = "SELECT  id, first_name, last_name, email, title, affiliation,".
+        "         street, city, postal_code, state, country, phone_number, fax_number,".
+        " FROM    Person".
+        " WHERE   id = $intPersonId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $s = 'SELECT  role_type'.
-          ' FROM    Role'.
-          ' WHERE   person_id = '.$data[0]['id'];
-      $role_data = $this->mySql->select($s);
-      $role_type = 0;
-      if (!empty($role_data)) {
-        for ($i = 0; $i < count($role_data); $i++) {
-          $role_type = $role_type | (1 << $role_data[$i]['role_type']);
-        }
-      }
-      return (new PersonDetailed($data[0]['id'], $data[0]['first_name'],
-                $data[0]['last_name'], $data[0]['email'], $role_type,
-                $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
-                $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
-                $data[0]['country'], $data[0]['phone_number'],
-                $data[0]['fax_number']));
+    if ($this->mySql->failed()) {
+      return $this->error('getPersonDetailed', $this->mySql->getLastError());
     }
-    return $this->error('getPersonDetailed '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    $role_type = 0;
+    if (!empty($intConfId)) {
+      $s = "SELECT  role_type".
+          " FROM    Role".
+          " WHERE   person_id = $data[0]['id']".
+          " AND     conference_id = $intConfId";
+      $role_data = $this->mySql->select($s);
+      if ($this->mySql->failed()) {
+        return $this->error('getPersonDetailed', $this->mySql->getLastError());
+      }
+      for ($i = 0; $i < count($role_data); $i++) {
+        $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+      }
+    }
+    $objPerson = (new PersonDetailed($data[0]['id'], $data[0]['first_name'],
+                   $data[0]['last_name'], $data[0]['email'], $role_type,
+                   $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
+                   $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
+                   $data[0]['country'], $data[0]['phone_number'],
+                   $data[0]['fax_number']));    
+    return $this->success($objPerson);
   }
 
   /**
    * Liefert das PaperSimple-Objekt mit der ID $intPaperId zurueck.
    *
    * @param int $intPaperId ID des Papers
-   * @return PaperSimple <b>false</b>, falls das Paper nicht existiert
+   * @return PaperSimple <b>false</b>, falls das Paper nicht existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
   function getPaper($intPaperId) {
-    $s = 'SELECT  id, author_id, title, state'.
-        ' FROM    Paper'.
-        ' WHERE   id = '.$intPaperId;
+    $s = "SELECT  id, author_id, title, state".
+        " FROM    Paper".
+        " WHERE   id = $intPaperId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
-      $objAuthor = $this->getPerson($data[$i]['author_id']);
-      if (empty($objAuthor)) {
-        return $this->error('getPaper '.$this->mySql->getLastError());
-      }
-      $strAuthor = $objAuthor->getName();
-      return (new PaperSimple($intPaperId, $data[0]['title'],
-                $data[0]['author_id'], $strAuthor, $data[0]['state'], $fltAvgRating,
-                $this->getTopicsOfPaper($intPaperId)));
+    if ($this->mySql->failed()) {
+      return $this->error('getPaper', $this->mySql->getLastError());
     }
-    return $this->error('getPaper '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
+    $objAuthor = $this->getPerson($data[$i]['author_id']);
+    if ($this->mySql->failed() || empty($objAuthor)) {
+      return $this->error('getPaper', $this->mySql->getLastError());
+    }
+    $strAuthor = $objAuthor->getName();
+    $objPaper = (new PaperSimple($intPaperId, $data[0]['title'],
+                  $data[0]['author_id'], $strAuthor, $data[0]['state'], $fltAvgRating,
+                  $this->getTopicsOfPaper($intPaperId)));
+    if ($this->mySql->failed()) {
+      return $this->error('getPaper', $this->mySql->getLastError());
+    }                      
+    return $this->success($objPaper);
   }
 
   /**
    * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
    *
    * @param int $intAuthorId ID des Autors
-   * @return PaperSimple [] <b>false</b>, falls keine Paper des Autors
+   * @return PaperSimple [] Ein leeres Array, falls keine Papers des Autors
    *                        $intAuthorId gefunden wurden
    * @access public
    * @author Tom (04.12.04, 12.12.04)
    */
   function getPapersOfAuthor($intAuthorId) {
-    $s = 'SELECT  id, author_id, title, state'.
-        ' FROM    Paper'.
-        ' WHERE   author_id = '.$intAuthorId;
+    $s = "SELECT  id, author_id, title, state".
+        " FROM    Paper".
+        " WHERE   author_id = $intAuthorId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      for ($i = 0; $i < count($data); $i++) {
-        $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
-        $objAuthor = $this->getPerson($intAuthorId);
-        if (empty($objAuthor)) {
-          return $this->error('getPapersOfAuthor '.$this->mySql->getLastError());
-        }
-        $strAuthor = $objAuthor->getName();
-        $objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
-                           $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-                           $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id']));
-      }
-      return $objPapers;
+    if ($this->mySql->failed()) {
+      return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
     }
-    return $this->error('getPapersOfAuthor '.$this->mySql->getLastError());
+    $objPapers = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
+      $objAuthor = $this->getPerson($intAuthorId);
+      if ($this->mySql->failed() || empty($objAuthor)) {
+        return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
+      }      
+      $strAuthor = $objAuthor->getName();
+      $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
+                       $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+                       $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id'])));
+      if ($this->mySql->failed()) {
+        return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
+      }                           
+    }
+    return $this->success($objPapers);
   }
 
 
@@ -399,33 +431,40 @@ class DBAccess extends ErrorHandling {
    * Liefert ein Array von PaperSimple-Objekten des Reviewers $intReviewerId.
    *
    * @param int $intReviewerId ID des Reviewers
-   * @return PaperSimple [] <b>false</b>, falls keine Reviews des Reviewers
+   * @return PaperSimple [] Ein leeres Array, falls keine Reviews des Reviewers
    *                        $intReviewerId gefunden wurden
    * @access public
    * @author Tom (12.12.04)
    */
   function getPapersOfReviewer($intReviewerId) {
-    $s = 'SELECT  p.id AS id, author_id, title, state'.
-        ' FROM    Paper AS p'.
-        ' INNER   JOIN ReviewReport AS r'.
-        ' ON      r.paper_id = p.id'.
-        ' AND     r.reviewer_id = '.$intReviewerId;
+    $s = "SELECT  p.id AS id, author_id, title, state".
+        " FROM    Paper AS p".
+        " INNER   JOIN ReviewReport AS r".
+        " ON      r.paper_id = p.id".
+        " AND     r.reviewer_id = $intReviewerId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      for ($i = 0; $i < count($data); $i++) {
-        $objAuthor = $this->getPerson($intReviewerId);
-        if (empty($objAuthor)) {
-          return $this->error('getPapersOfReviewer '.$this->mySql->getLastError());
-        }
-        $strAuthor = $objAuthor->getName();
-        $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
-        $objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
-                           $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
-                           $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id']));
-      }
-      return $objPapers;
+    if ($this->mySql->failed()) {
+      return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
     }
-    return $this->error('getPapersOfReviewer '.$this->mySql->getLastError());
+    $objPapers = array();   
+    for ($i = 0; $i < count($data); $i++) {
+      $objAuthor = $this->getPerson($intReviewerId);
+      if ($this->mySql->failed() || empty($objAuthor)) {
+         return $this->error('getPapersOfReviewer '.$this->mySql->getLastError());
+      }
+      $strAuthor = $objAuthor->getName();
+      $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
+      if ($this->mySql->failed()) {
+        return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
+      }          
+      $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
+                       $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+                       $fltAvgRating, $this->getTopicsOfPaper($data[$i]['id'])));
+      if ($this->mySql->failed()) {
+        return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
+      }                       
+    }
+    return $this->success($objPapers);
   }
 
   /**
@@ -442,42 +481,53 @@ class DBAccess extends ErrorHandling {
         ' FROM    Paper'.
         ' WHERE   id = '.$intPaperId;
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objAuthor = $this->getPerson($data[0]['author_id']);
-      if (empty($objAuthor)) {
-        return $this->error('getPaperDetailed '.$this->mySql->getLastError());
-      }
-      $strAuthor = $objAuthor->getName();
-      $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
-      // Co-Autoren
-      $s = 'SELECT  person_id AS coauthor_id, name'.
-          ' FROM    IsCoAuthorOf AS i'.
-          ' LEFT    JOIN Person AS p'.
-          ' ON      p.id = i.person_id'.
-          ' WHERE   paper_id = '.$intPaperId.
-          ' ORDER   BY person_id DESC'; // ORDER BY: Co-Autoren im System im Array vorne!
-      $cadata = $this->mySql->select($s);
-      $intCoAuthorIds = array();
-      $strCoAuthors = array();
-      if (!empty($cadata)) {
-        for ($i = 0; $i < count($cadata); $i++) {
-          $intCoAuthorIds[$i] = $cadata[$i]['coauthor_id'];
-          $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
-          if (empty($objCoAuthor)) { // d.h. Co-Autor nicht im System => nimm Name aus Tabelle
-            $strCoAuthors[$i] = $cadata[$i]['name'];
-          }
-          else {
-            $strCoAuthors[$i] = $objCoAuthor->getName();
-          }
-        }
-      }
-      return (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
-                $strAuthor, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
-                $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
-                $data[0]['last_edited'], $data[0]['filename'],
-                $this->getTopicsOfPaper($intPaperId)));
+    if ($this->mySql->failed()) {
+      return $this->error('getPaperDetailed', $this->mySql->getLastError());
     }
-    return $this->error('getPaperDetailed '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    $objAuthor = $this->getPerson($data[0]['author_id']);
+    if ($this->mySql->failed() || empty($objAuthor)) {
+      return $this->error('getPaperDetailed '.$this->mySql->getLastError());
+    }
+    $strAuthor = $objAuthor->getName();
+    $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
+    // Co-Autoren
+    $s = "SELECT  person_id AS coauthor_id, name".
+        " FROM    IsCoAuthorOf AS ".
+        " LEFT    JOIN Person AS p".
+        " ON      p.id = i.person_id".
+        " WHERE   paper_id = $intPaperId".
+        " ORDER   BY person_id DESC"; // ORDER BY: Co-Autoren im System im Array vorne!
+    $cadata = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPaperDetailed', $this->mySql->getLastError());
+    }
+    $intCoAuthorIds = array();
+    $strCoAuthors = array();    
+    for ($i = 0; $i < count($cadata); $i++) {
+      $intCoAuthorIds[] = $cadata[$i]['coauthor_id'];
+      $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
+      if ($this->mySql->failed()) {
+        return $this->error('getPaperDetailed', $this->mySql->getLastError());
+      }
+      else if (empty($objCoAuthor)) { // d.h. Co-Autor nicht im System => nimm Name aus Tabelle
+        $strCoAuthors[] = $cadata[$i]['name'];
+      }
+      else {
+        $strCoAuthors[] = $objCoAuthor->getName();
+      }
+    }
+    $objPaper = (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
+                  $strAuthor, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
+                  $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
+                  $data[0]['last_edited'], $data[0]['filename'],
+                  $this->getTopicsOfPaper($intPaperId)));
+    if ($this->mySql->failed()) {
+      return $this->error('getPaperDetailed', $this->mySql->getLastError());
+    }    
+    return $this->success($objPaper);
   }
 
   /**
@@ -485,27 +535,26 @@ class DBAccess extends ErrorHandling {
    * Paper $intPaperId assoziiert sind.
    *
    * @param int $intPaperId ID des Papers
-   * @return Topic [] <b>false</b>, falls das Paper nicht existiert.
-   *                   Gibt ein leeres Array zurueck, wenn das Paper mit keinen
-   *                   Themen assoziiert ist.
+   * @return Topic [] Gibt ein leeres Array zurueck, wenn das Paper mit keinem
+   *                  Thema assoziiert ist.
    * @access public
    * @author Sandro, Tom (17.12.04)
    */
   function getTopicsOfPaper($intPaperId) {
-    $s = 'SELECT  t.id, t.name'.
-        ' FROM    Topic AS t'.
-        ' INNER   JOIN IsAboutTopic AS a'.
-        ' ON      a.topic_id = t.id'.
-        ' WHERE   a.paper_id = '.$intPaperId;
+    $s = "SELECT  t.id, t.name2.
+        " FROM    Topic AS t".
+        " INNER   JOIN IsAboutTopic AS a".
+        " ON      a.topic_id = t.id".
+        " WHERE   a.paper_id = $intPaperId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objTopics = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
-      }
-      return $objTopics;
+    if ($this->mySql->failed()) {
+      return $this->error('getTopicsOfPaper', $this->mySql->getLastError());
     }
-    return $this->error('getTopicsOfPaper '.$this->mySql->getLastError());
+    $objTopics = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));
+    }
+    return $this->success($objTopics);
   }
 
   /**
@@ -517,23 +566,26 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.
-        ' FROM    ReviewReport AS rr'.
-        ' INNER   JOIN Rating AS r'.
-        ' ON      r.review_id = rr.id'.
-        ' INNER   JOIN Criterion AS c'.
-        ' ON      c.id = r.criterion_id'.
-        ' WHERE   rr.paper_id = '.$intPaperId.
-        ' GROUP   BY rr.id';
+    $s = "SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
+        " FROM    ReviewReport AS rr".
+        " INNER   JOIN Rating AS r".
+        " ON      r.review_id = rr.id".
+        " INNER   JOIN Criterion AS c".
+        " ON      c.id = r.criterion_id".
+        " WHERE   rr.paper_id = $intPaperId".
+        " GROUP   BY rr.id";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $sum = 0;
-      for ($i = 0; $i < count($data); $i++) {
-        $sum += $data[$i]['total_rating'];
-      }
-      return $sum / count($data);
+    if ($this->mySql->failed()) {
+      return $this->error('getAverageRatingOfPaper', $this->mySql->getLastError());
     }
-    return $this->error('getAverageRatingOfPaper '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    $sum = 0;
+    for ($i = 0; $i < count($data); $i++) {
+      $sum += $data[$i]['total_rating'];
+    }
+    return $this->success($sum / count($data));    
   }
 
   /**
@@ -546,178 +598,217 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getReviewRating($intReviewId) {
-    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating'.
-        ' FROM    Rating AS r'.
-        ' INNER   JOIN Criterion AS c'.
-        ' ON      c.id = r.criterion_id'.
-        ' AND     r.review_id = '.$intReviewId;
+    $s = "SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)) AS total_rating".
+        " FROM    Rating AS r".
+        " INNER   JOIN Criterion AS c".
+        " ON      c.id = r.criterion_id".
+        " AND     r.review_id = $intReviewId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      return $data[0]['total_rating'];
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewRating', $this->mySql->getLastError());
     }
-    return $this->error('getReviewRating '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }
+    return $this->success($data[0]['total_rating']);
   }
 
   /**
    * Liefert ein Array von Review-Objekten des Reviewers $intReviewerId zurueck.
    *
    * @param int $intReviewerId ID des Reviewers
-   * @return Review <b>false</b>, falls kein Review des Reviewers existiert
+   * @return Review Ein leeres Array, falls kein Review des Reviewers existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
   function getReviewsOfReviewer($intReviewerId) {
-    $s = 'SELECT  id'.
-        ' FROM    ReviewReport'.
-        ' WHERE   reviewer_id = '.$intReviewerId;
+    $s = "SELECT  id".
+        " FROM    ReviewReport".
+        " WHERE   reviewer_id = $intReviewerId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objReviews = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $objReviews[] = $this->getReview($data[i]['id']);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
+    }    
+    $objReviews = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objReview = $this->getReview($data[i]['id']);
+      if ($this->mySql->failed() || empty($objReview)) {
+        return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
       }
-    }
-    return $this->error('getReviewsOfReviewer '.$this->mySql->getLastError());
+      $objReviews[] = $objReview;
+    }    
+    return $this->success($objReviews);
   }
 
   /**
    * Liefert ein Array von Person-Objekten zurueck, die Reviewer des Papers $intPaperId sind.
    *
    * @param int $intPaperId ID des Papers
-   * @return Person [] <b>false</b>, falls das Paper keine Reviewer besitzt
+   * @return Person [] Ein leeres Array, falls das Paper keine Reviewer besitzt.
    * @access public
    * @author Sandro (14.12.04)
    */
   function getReviewersOfPaper($intPaperId) {
-    $s = 'SELECT  reviewer_id'.
-        ' FROM    ReviewReport'.
-        ' WHERE   paper_id = '.$intPaperId;
+    $s = "SELECT  reviewer_id".
+        " FROM    ReviewReport".
+        " WHERE   paper_id = $intPaperId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objReviewers = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $objReviewers[] = $this->getPerson($data[i]['reviewer_id']);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
+    }    
+    $objReviewers = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objReviewer = $this->getPerson($data[i]['reviewer_id']);
+      if ($this->mySql->failed() || empty($objReviewer)) {
+        return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
       }
-    }
-    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());
+      $objReviewers[] = $objReviewer;
+    }    
+    return $this->success($objReviewers);
   }
 
   /**
    * Liefert ein Array von Review-Objekten des Papers $intPaperId zurueck.
    *
    * @param int $intPaperId ID des Papers
-   * @return Review [] <b>false</b>, falls kein Review des Papers existiert
+   * @return Review [] Ein leeres Array, falls kein Review des Papers existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
   function getReviewsOfPaper($intPaperId) {
-    $s = 'SELECT  id'.
-        ' FROM    ReviewReport'.
-        ' WHERE   paper_id = '.$intPaperId;
+    $s = "SELECT  id".
+        " FROM    ReviewReport".
+        " WHERE   paper_id = $intPaperId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objReviews = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $objReviews[] = $this->getReview($data[i]['id']);
-      }
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewsOfPaper', $this->mySql->getLastError());
     }
-    return $this->error('getReviewsOfPaper '.$this->mySql->getLastError());
+    $objReviews = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objReview = $this->getReview($data[i]['id']);
+      if ($this->mySql->failed() || empty($objReview)) {
+        return $this->error('getReviewsOfPaper', $this->mySql->getLastError());
+      }
+      $objReviews[] = $objReview;
+    }    
+    return $this->success($objReviews);
   }
 
   /**
    * Liefert ein Review-Objekt mit den Daten des Reviews $intReviewId zurueck.
    *
    * @param int $intReviewId ID des Reviews
-   * @return Review <b>false</b>, falls das Review, oder das assoziierte Paper,
-   *                der Autor oder der Reviewer nicht existiert
+   * @return Review <b>false</b>, falls das Review nicht existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
   function getReview($intReviewId) {
-    $s = 'SELECT  id, paper_id, reviewer_id'.
-        ' FROM    ReviewReport'.
-        ' WHERE   id = '.$intReviewId;
+    $s = "SELECT  id, paper_id, reviewer_id".
+        " FROM    ReviewReport".
+        " WHERE   id = $intReviewId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objReviewer = $this->getPerson($data[0]['reviewer_id']);
-      if (empty($objReviewer)) {
-        return $this->error('getReview '.$this->mySql->getLastError());
-      }
-      $objPaper = $this->getPaper($data[0]['paper_id']);
-      if (empty($objPaper)) {
-        return $this->error('getReview '.$this->mySql->getLastError());
-      }
-      $objAuthor = $this->getPerson($objPaper->intAuthorId);
-      if (empty($objAuthor)) {
-        return $this->error('getReview '.$this->mySql->getLastError());
-      }
-      return (new Review($data[0]['id'], $data[0]['paper_id'],
-                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
-                getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
-                $objReviewer->strEmail, $objReviewer->getName()));
+    if ($this->mySql->failed()) {
+      return $this->error('getReview', $this->mySql->getLastError());
     }
-    return $this->error('getReview '.$this->mySql->getLastError());
+    if (empty($data)) {
+      return $this->success(false);
+    }
+    $objReviewer = $this->getPerson($data[0]['reviewer_id']);
+    if ($this->mySql->failed() || empty($objReviewer)) {
+      return $this->error('getReview', $this->mySql->getLastError());
+    }    
+    $objPaper = $this->getPaper($data[0]['paper_id']);
+    if ($this->mySql->failed() || empty($objPaper)) {
+      return $this->error('getReview ', $this->mySql->getLastError());
+    }
+    $objAuthor = $this->getPerson($objPaper->intAuthorId);
+    if ($this->mySql->failed() || empty($objAuthor)) {
+      return $this->error('getReview ', $this->mySql->getLastError());
+    }
+    $objReview = (new Review($data[0]['id'], $data[0]['paper_id'],
+                   $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
+                   getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
+                   $objReviewer->strEmail, $objReviewer->getName()));
+    if ($this->mySql->failed()) {
+      return $this->error('getReview', $this->mySql->getLastError());
+    }
+    return $this->success($objReview);
   }
 
   /**
    * Liefert ein ReviewDetailed-Objekt mit den Daten des Reviews $intReviewId zurueck.
    *
    * @param int $intReviewId ID des Reviews
-   * @return ReviewDetailed <b>false</b>, falls das Review, oder das assoziierte Paper,
-   *                        der Autor oder der Reviewer nicht existiert
+   * @return ReviewDetailed <b>false</b>, falls das Review nicht existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
   function getReviewDetailed($intReviewId) {
-    $s = 'SELECT  id, paper_id, reviewer_id, summary, remarks, confidential'.
-        ' FROM    ReviewReport'.
-        ' WHERE   id = '.$intReviewId;
+    $s = "SELECT  id, paper_id, reviewer_id, summary, remarks, confidential".
+        " FROM    ReviewReport".
+        " WHERE   id = $intReviewId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objReviewer = $this->getPerson($data[0]['reviewer_id']);
-      if (empty($objReviewer)) {
-        return $this->error('getReviewDetailed '.$this->mySql->getLastError());
-      }
-      $objPaper = $this->getPaper($data[0]['paper_id']);
-      if (empty($objPaper)) {
-        return $this->error('getReviewDetailed '.$this->mySql->getLastError());
-      }
-      $objAuthor = $this->getPerson($objPaper->intAuthorId);
-      if (empty($objAuthor)) {
-        return $this->error('getReviewDetailed '.$this->mySql->getLastError());
-      }
-      $s = 'SELECT  r.grade, r.comment, c.id, c.name, c.description, c.max_value,'.
-          '         c.quality_rating'.
-          ' FROM    Rating r'.
-          ' INNER   JOIN Criterion c'.
-          ' ON      c.id  = r.criterion_id'.
-          ' WHERE   review_id = '.$data[0]['id'];
-      $rating_data = $this->mySql->select($s);
-      $intRatings = array();
-      $strComments = array();
-      $objCriterions = array();
-      if (!empty($rating_data)) {
-        for ($i = 0; $i < count($rating_data); $i++) {
-          $intRatings[] = $rating_data[$i]['grade'];
-          $strComments[] = $rating_data[$i]['comment'];
-          $objCriterions[] = (new Criterion($rating_data[$i]['id'], $rating_data[$i]['name'],
-                                $rating_data[$i]['description'], $rating_data[$i]['max_value'],
-                                $rating_data[$i]['quality_rating'] / 100.0));
-        }
-      }
-      return (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
-                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
-                getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
-                $objReviewer->strEmail, $objReviewer->getName(),
-                $data[0]['summary'], $data[0]['remarks'], $data[0]['confidential'],
-                $intRatings, $strComments, $objCriterions));
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewDetailed', $this->mySql->getLastError());
+    }    
+    else if (empty($data)) {
+    	return $this->success(false);
     }
-    return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+    $objReviewer = $this->getPerson($data[0]['reviewer_id']);
+    if ($this->mySql->failed() || empty($objReviewer)) {
+      return $this->error('getReviewDetailed', $this->mySql->getLastError());
+    }    
+    $objPaper = $this->getPaper($data[0]['paper_id']);
+    if ($this->mySql->failed() || empty($objPaper)) {
+      return $this->error('getReviewDetailed', $this->mySql->getLastError());
+    }    
+    $objAuthor = $this->getPerson($objPaper->intAuthorId);
+    if ($this->mySql->failed() || empty($objAuthor)) {
+      return $this->error('getReviewDetailed', $this->mySql->getLastError());
+    }    
+    $s = "SELECT  r.grade, r.comment, c.id, c.name, c.description, c.max_value,".
+        "         c.quality_rating".
+        " FROM    Rating r".
+        " INNER   JOIN Criterion c".
+        " ON      c.id  = r.criterion_id".
+        " WHERE   review_id = $data[0]['id']";
+    $rating_data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewDetailed', $this->mySql->getLastError());
+    }          
+    $intRatings = array();
+    $strComments = array();
+    $objCriterions = array();      
+    for ($i = 0; $i < count($rating_data); $i++) {
+      $intRatings[] = $rating_data[$i]['grade'];
+      $strComments[] = $rating_data[$i]['comment'];
+      $objCriterions[] = (new Criterion($rating_data[$i]['id'], $rating_data[$i]['name'],
+                            $rating_data[$i]['description'], $rating_data[$i]['max_value'],
+                            $rating_data[$i]['quality_rating'] / 100.0));
+    }      
+    $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
+                   $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),
+                   getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
+                   $objReviewer->strEmail, $objReviewer->getName(),
+                   $data[0]['summary'], $data[0]['remarks'], $data[0]['confidential'],
+                   $intRatings, $strComments, $objCriterions));
+    if ($this->mySql->failed()) {
+      return $this->error('getReviewDetailed', $this->mySql->getLastError());
+    }                         
+    return $this->success($objReview);
   }
 
   /**
+   * Prueft, ob die Person $intPersonId Zugang zum Forum $intForumId hat.
+   *
+   * @param int $intPersonId Die zu pruefende Person.
+   * @param int $intForumId Das zu pruefende Forum.   
+   * @return boolean Gibt true zurueck gdw. die Person Zugriff auf das Forum hat.
+   * @access public
+   * @author Sandro (12.01.05)
+   * @todo Muss noch implementiert werden!
    */
-  function checkAccessToForum($intForumId) {
+  function checkAccessToForum($intPersonId, $intForumId) {
     return false;
   }
 
@@ -726,26 +817,25 @@ class DBAccess extends ErrorHandling {
    * Message $intMessageId sind.
    *
    * @param int $intMessageId ID der Message
-   * @return Message [] <b>false</b>, falls die Message nicht existiert oder
-   *                    ein leeres Array, wenn die Message keine Antworten besitzt
+   * @return Message [] Ein leeres Array, wenn die Message keine Antworten besitzt.
    * @access private
    * @author Sandro (14.12.04)
    */
   function getNextMessages($intMessageId) {
-    $s = 'SELECT  id, sender_id, send_time, subject, text'.
-        ' FROM    Message'.
-        ' WHERE   reply_to = '.$intMessageId;
+    $s = "SELECT  id, sender_id, send_time, subject, text".
+        " FROM    Message'.
+        " WHERE   reply_to = $intMessageId";
     $data = $this->mySql->select($s);
-    $messages = array();
-    if (!empty($data)) {
-      for ($i = 0; $i < count($data); $i++) {
-        $messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
-                         $data[$i]['send_time'], $data[$i]['subject'],
-                         $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
-      }
-      return $messages;
+    if ($this->mySql->failed()) {
+      return $this->error('getNextMessages', $this->mySql->getLastError());
     }
-    return $this->error('getNextMessages '.$this->mySql->getLastError());
+    $messages = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
+                       $data[$i]['send_time'], $data[$i]['subject'],
+                       $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+    }
+    return $this->success($messages);
   }
 
   /**
@@ -753,96 +843,106 @@ class DBAccess extends ErrorHandling {
    * von Threads des Forums $intForumId sind (im folgenden synonym mit Thread verwendet).
    *
    * @param int $intForumId ID des Forums
-   * @return Message[] <b>false</b>, falls das Forum nicht existiert oder
-   *                   ein leeres Array, wenn das Forum keine Threads besitzt
+   * @return Message[] Ein leeres Array, wenn das Forum keine Threads besitzt
    * @access public
    * @author Sandro (14.12.04)
    */
   function getThreadsOfForum($intForumId) {
-    $s = 'SELECT  id, sender_id, send_time, subject, text'.
-        ' FROM    Message'.
-        ' WHERE   forum_id = '.$intForumId.
-        ' AND     reply_to IS NULL';
+    $s = "SELECT  id, sender_id, send_time, subject, text".
+        " FROM    Message".
+        " WHERE   forum_id = $intForumId".
+        " AND     reply_to IS NULL";
     $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getThreadsOfForum', $this->mySql->getLastError());
+    }
     $objThreads = array();
-    if (!empty($data)) {
-      for ($i = 0; $i < count($data); $i++) {
-        $objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
-                           $data[$i]['send_time'], $data[$i]['subject'],
-                           $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+    for ($i = 0; $i < count($data); $i++) {
+      $objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
+                         $data[$i]['send_time'], $data[$i]['subject'],
+                         $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+      if ($this->mySql->failed()) {
+        return $this->error('getThreadsOfForum', $this->mySql->getLastError());
       }
-      return $objThreads;
     }
-    return $this->error('getThreadsOfForum '.$this->mySql->getLastError());
+    return $this->success($objThreads);
   }
 
   /**
-   * Liefert ein Array von Forum-Objekten der aktuellen Konferenz zurueck.
+   * Liefert ein Array von Forum-Objekten der Konferenz $intConfId zurueck.
    *
-   * @return Forum [] <b>false</b>, falls kein Forum existiert oder keine Konferenz
-   *                  in der aktuellen Session aktiv ist
+   * @param int $intConfId Die ID der Konferenz, deren Foren ermittelt werden sollen.
+   * @return Forum [] Ein leeres Array, falls kein Forum in der Konferenz existiert.
    * @access public
    * @author Sandro (14.12.04)
+   * @todo Einfuegen der Konstante fuer den Artikelforen-Typ!
    */
-  function getAllForums() {
-    $s = 'SELECT  id, title'.
-        ' FROM    Forum'; //.
-    //    ' WHERE   conferenceId = '.$_SESSION['confid'];
+  function getAllForums($intConfId) {
+    $s = "SELECT  id, title".
+        " FROM    Forum".
+        " WHERE   conferenceId = $intConfId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $objForums = array();
-      for ($i = 0; $i < count($data); $i++) {
-        $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
-                          ($data[$i]['forum_type'] == 3) ? $data[$i]['paper_id'] : 0));
-          // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
-      }
-      return $objForums;
+    if ($this->mySql->failed()) {
+      return $this->error('getAllForums', $this->mySql->getLastError());
+    }    
+    $objForums = array();
+    for ($i = 0; $i < count($data); $i++) {
+      $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
+                        ($data[$i]['forum_type'] == 3) ? $data[$i]['paper_id'] : false));
+      // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
     }
-    return $this->error('getAllForums '.$this->mySql->getLastError());
+    return $this->success($objForums);
   }
 
   /**
-   * Liefert ein Forum-Objekt des Forums zurueck, das mit Paper $intPaperId assoziiert ist.
+   * Liefert das Forum-Objekt des Forums zurueck, das mit Paper $intPaperId assoziiert ist.
    *
-   * @return Forum <b>false</b>, falls das Paper nicht existiert oder kein Forum besitzt
+   * @return Forum <b>false</b>, falls kein Forum zu dem Paper existiert.
    * @access public
    * @author Sandro (14.12.04)
+   * @
    */
   function getForumOfPaper($intPaperId) {
-    $s = 'SELECT  id, title'.
-        ' FROM    Forum'.
-        ' WHERE   paperId = '.$intPaperId;
+    $s = "SELECT  id, title, forum_type".
+        " FROM    Forum".
+        " WHERE   paperId = $intPaperId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
-      return $forum;
+    if ($this->mySql->failed()) {
+      return $this->error('getForumOfPaper', $this->mySql->getLastError());
     }
-    return $this->error('getForumOfPaper '.$this->mySql->getLastError());
+    else if (empty($data)) {
+      return $this->success(false);
+    }    
+    $forum = (new Forum($data[0]['id'], $data[0]['title'], $data[0]['forum_type'], $intPaperId));
+    return $this->success($forum);
   }
 
   /**
    * Liefert ein Array von Forum-Objekten aller Foren zurueck, welche die Person
-   * $intPersonId einsehen darf.
+   * $intPersonId in der Konferenz $intConfId einsehen darf.
    *
-   * @return Forum [] <b>false</b>, falls die Person nicht existiert
+   * @param $intPersonId Die ID der zu pruefenden Person.
+   * @param $intConfId Die ID der Konferenz, aus der die Foren ermittelt werden sollen.
+   * @return Forum [] Ein leeres Array, falls keine solchen Foren existieren.
    * @access public
    * @author Sandro (14.12.04)
    */
-  function getForumsOfPerson($intPersonId) {
+  function getForumsOfPerson($intPersonId, $intConfId) {
     $objPerson = getPerson($intPersonId);
-    if (!empty($objPerson)) {
-      $objAllForums = getAllForums();
-      $objForums = array();
-      if (!empty($objAllForums)) {
-        for ($i = 0; $i < count($objAllForums); $i++) {
-          if ($objAllForums[$i]->isPersonAllowed($objPerson)) {
-            $objForums[] = $objAllForums[$i];
-          }
-        }
-        return $objForums;
+    if ($this->mySql->failed() || empty($objPerson)) {
+      return $this->error('getForumsOfPerson', $this->mySql->getLastError());
+    }
+    $objAllForums = getAllForums();
+    if ($this->mySql->failed()) {
+      return $this->error('getForumsOfPerson', $this->mySql->getLastError());
+    }    
+    $objForums = array();
+    for ($i = 0; $i < count($objAllForums); $i++) {
+      if ($this->checkAccessToForum($objPerson, $objAllForums[$i])) {
+        $objForums[] = $objAllForums[$i];
       }
     }
-    return $this->error('getForumsOfPerson '.$this->mySql->getLastError());
+    return $this->success($objForums);      
   }
 
   /**
@@ -854,16 +954,22 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (14.12.04)
    */
   function getForumDetailed($intForumId) {
-    $s = 'SELECT  id, title'.
-        ' FROM    Forum'.
-        ' WHERE   id = '.$intForumId;
+    $s = "SELECT  id, title".
+        " FROM    Forum".
+        " WHERE   id = $intForumId";
     $data = $this->mySql->select($s);
-    if (!empty($data)) {
-      $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
-                  0, false, $this->getThreadsOfForum($intForumId)));
-      return $forum;
+    if ($this->mySql->failed()) {
+      return $this->error('getForumDetailed', $this->mySql->getLastError());
     }
-    return $this->error('getForumDetailed '.$this->mySql->getLastError());
+    else if (empty($data)) {
+    	return $this->success(false);
+    }
+    $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
+                0, false, $this->getThreadsOfForum($intForumId)));
+    if ($this->mySql->failed()) {
+      return $this->error('getForumDetailed', $this->mySql->getLastError());
+    }                    
+    return $this->success($forum);    
   }
 
 
