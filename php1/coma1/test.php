@@ -15,6 +15,7 @@ define('IN_COMA1',true);
 
 require_once('./include/class.mysql.inc.php');
 require_once('./include/class.dbaccess.inc.php');
+require_once('./include/class.person.inc.php');
 
 $mySql = new MySql();
 $dbAccess = new DBAccess($mySql);
