@@ -20,8 +20,8 @@
     <td class="listitem-1"> 
       <span class="status-accepted">accepted</span>
     </td>
-    <td> 3/5 </td> 
-    <td>
+    <td class="listitem-1">  3/5 </td> 
+    <td class="listitem-1"> 
       <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
         <input type="submit" name="submit" value="view" class="button" />
@@ -41,8 +41,8 @@
     <td class="listitem-2"> 
       <span class="status-reviewed">reviewed</span>
     </td>
-    <td> 4/5 </td> 
-    <td>
+    <td class="listitem-2"> 4/5 </td> 
+    <td class="listitem-1">
       <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
         <input type="submit" name="submit" value="view" class="button" />
