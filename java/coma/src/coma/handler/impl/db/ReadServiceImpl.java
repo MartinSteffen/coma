@@ -1093,9 +1093,60 @@ public class ReadServiceImpl extends Service implements ReadService {
 	/**
 	 * @see coma.handler.db.ReadService#getPreferedTpoic(int)
 	 */
-	public SearchResult getPreferedTpoic(int person_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public SearchResult getPreferedTopic(int person_id) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		int[] topic_ids = new int[0];
+		boolean ok = true;
+		Connection conn = null;
+
+		if (person_id < 0) {
+			info.append("Person_id must not be less than 0\n");
+			ok = false;
+		}
+		String QUERY = "SELECT topic_id FROM PrefersTopic " + " WHERE "
+				+ " person_id = " + person_id;
+		if (ok) {
+			try {
+
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+				if (conn != null) {
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERY);
+					List<Integer> ll = new LinkedList<Integer>();
+
+					while (resSet.next()) {
+						ll.add(resSet.getInt("topic_id"));
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+					topic_ids = new int[ll.size()];
+					for (int i = 0; i < topic_ids.length; i++) {
+						topic_ids[i] = ll.get(i);
+					}
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setResultObj(topic_ids);
+		result.setInfo(info.toString());
+		return result;
 	}
 
 	/*
@@ -1163,6 +1214,176 @@ public class ReadServiceImpl extends Service implements ReadService {
 			}
 		}
 		result.setResultObj(topics);
+		result.setInfo(info.toString());
+		return result;
+	}
+	
+	public SearchResult getReviewerList(int conference_id){
+		SearchResult result = new SearchResult();
+		int[] personlist = new int[0];
+		StringBuffer info = new StringBuffer();
+		boolean ok = true;
+		Connection conn = null;
+		String QUERRY="";
+		String QUERRY_COUNT="";
+		
+		if (conference_id < 0 ) {
+			info.append("Error: no search criteria was specified \n");
+			ok = false;
+		}
+		else {
+			QUERRY = "SELECT person_id FROM ROLE WHERE ";
+			QUERRY += "conference_id ="+conference_id+" AND ";
+			QUERRY += "role_type = 3";
+			QUERRY_COUNT = "SELECT Count(person_id) FROM role WHERE ";
+			QUERRY_COUNT += "conference_id ="+conference_id+" AND ";
+			QUERRY_COUNT += "role_type = 3";
+		}
+		
+		if (ok){
+			try {
+				conn = getConnection();
+				if (conn != null) {
+					int anzahl = 0;
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERRY_COUNT);
+					resSet.next();
+					anzahl = resSet.getInt(1);
+					personlist = new int[anzahl];
+					resSet = pstmt.executeQuery(QUERRY);
+					resSet.next();
+					for ( int i = 0 ; i < anzahl ; i++){
+						personlist[i] = resSet.getInt(1);
+						resSet.next();
+					}
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		
+		result.setResultObj(personlist);
+		result.setInfo(info.toString());
+		return result;
+	}
+	public SearchResult getAllPapers(int conference_id){
+		SearchResult result = new SearchResult();
+		int[] paperlist = new int[0];
+		StringBuffer info = new StringBuffer();
+		boolean ok = true;
+		Connection conn = null;
+		String QUERRY="";
+		String QUERRY_COUNT="";
+		
+		if (conference_id < 0 ) {
+			info.append("Error: no search criteria was specified \n");
+			ok = false;
+		}
+		else {
+			QUERRY = "SELECT id FROM paper WHERE ";
+			QUERRY += "conference_id ="+conference_id;
+			QUERRY_COUNT = "SELECT Count(id) FROM paper WHERE ";
+			QUERRY_COUNT += "conference_id ="+conference_id;
+		}
+		
+		if (ok){
+			try {
+				conn = getConnection();
+				if (conn != null) {
+					int anzahl = 0;
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERRY_COUNT);
+					resSet.next();
+					anzahl = resSet.getInt(1);
+					paperlist = new int[anzahl];
+					resSet = pstmt.executeQuery(QUERRY);
+					resSet.next();
+					for ( int i = 0 ; i < anzahl ; i++){
+						paperlist[i] = resSet.getInt(1);
+						resSet.next();
+					}
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		
+		result.setResultObj(paperlist);
+		result.setInfo(info.toString());
+		return result;
+	}
+	
+	public SearchResult getAllTopicsOfPaper(int paper_id){
+		SearchResult result = new SearchResult();
+		int[] topiclist = new int[0];
+		StringBuffer info = new StringBuffer();
+		boolean ok = true;
+		Connection conn = null;
+		String QUERRY="";
+		String QUERRY_COUNT="";
+		
+		if (paper_id < 0 ) {
+			info.append("Error: no search criteria was specified \n");
+			ok = false;
+		}
+		else {
+			
+			QUERRY = "SELECT topic_id FROM isabouttopic WHERE ";
+			QUERRY += "paper_id ="+paper_id;
+			QUERRY_COUNT = "SELECT Count(topic_id) FROM isabouttopic WHERE ";
+			QUERRY_COUNT += "paper_id ="+paper_id;
+		}
+		
+		if (ok){
+			try {
+				conn = getConnection();
+				if (conn != null) {
+					int anzahl = 0;
+					Statement pstmt = conn.createStatement();
+					ResultSet resSet = pstmt.executeQuery(QUERRY_COUNT);
+					resSet.next();
+					anzahl = resSet.getInt(1);
+					topiclist = new int[anzahl];
+					resSet = pstmt.executeQuery(QUERRY);
+					resSet.next();
+					for ( int i = 0 ; i < anzahl ; i++){
+						topiclist[i] = resSet.getInt(1);
+						resSet.next();
+					}
+				}
+			} catch (SQLException e) {
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		
+		result.setResultObj(topiclist);
 		result.setInfo(info.toString());
 		return result;
 	}

@@ -21,10 +21,13 @@ public interface ReadService {
     public SearchResult isCoAuthorOf(int paper_id, int person_id);
     public SearchResult getTopic(int topic_id, int conference_id);
     public SearchResult isAboutTopic(int paper_id, int topic_id);
-    public SearchResult getPreferedTpoic(int person_id);
+    public SearchResult getPreferedTopic(int person_id);
     public SearchResult getPreferedPapers(int person_id);
     public SearchResult getDeniedPapers(int person_id);
     public SearchResult getExecludedPapers(int person_id);
     public SearchResult getMessages(int msg_id, int forum_id, int sender_id);
     public SearchResult getForum(int forum_id, int conference_id);
+    public SearchResult getReviewerList(int conference_id);
+    public SearchResult getAllPapers(int conference_id);
+    public SearchResult getAllTopicsOfPaper(int paper_id);
 }

@@ -75,6 +75,10 @@
     </servlet>   
     
     
+     <servlet>
+     <servlet-name>AllocatePapers</servlet-name>
+     <servlet-class>coma.servlet.servlets.AllocatePapers</servlet-class>
+    </servlet>   
     
     
     
@@ -140,6 +144,11 @@
     <servlet-mapping>
     	<servlet-name>WriteFile</servlet-name>
     	<url-pattern>/WriteFile</url-pattern>
+    </servlet-mapping>
+     
+    <servlet-mapping>
+    	<servlet-name>AllocatePapers</servlet-name>
+    	<url-pattern>/AllocatePapers</url-pattern>
     </servlet-mapping>
     
         
