@@ -62,7 +62,7 @@ else if (empty($objConference)) {
 }
 if (strtotime($objConference->strReviewDeadline) <= strtotime("today")) {
   $strContentAssocs['acc_papers_no'] = encodeText($intUndistributedPapers);
-  $strContentAssocs['acc_date'] = encodeText(emptytime($objConference->strNotification));
+  $strContentAssocs['acc_date'] = encodeText(emptytime($objConference->strReviewDeadline));
   $ifArray[] = 4;
 }
 $strContentAssocs['if'] = $ifArray;
