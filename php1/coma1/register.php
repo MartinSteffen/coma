@@ -79,6 +79,7 @@ if (isset($_POST['email'])){
   }
 }
 
+$strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
   $strContentAssocs['if'] = array(1);
