@@ -3831,7 +3831,7 @@ nur fuer detaillierte?
                  " AND     paper_id IN (".
                  "         SELECT  id".
                  "         FROM    Paper".
-                 "         WHERE   conference_id = '%d'",
+                 "         WHERE   conference_id = '%d')",
                            s2db($intReviewerId),
                            s2db($intConferenceId));
     $result = $this->mySql->delete($s);
