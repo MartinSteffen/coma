@@ -43,11 +43,12 @@ $strContentAssocs['crit_lines'] = '';
 for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $critForm = new Template(TPLPATH.'review_critlistitem.tpl');
   $strCritAssocs = defaultAssocArray();
-  $strCritAssocs['crit_no']     = encodeText($i+1);
-  $strCritAssocs['crit_id']     = encodeText($objReview->objCriterions[$i]->intId);
-  $strCritAssocs['crit_name']   = encodeText($objReview->objCriterions[$i]->strName);
-  $strCritAssocs['crit_descr']  = encodeText($objReview->objCriterions[$i]->strDescription);
-  $strCritAssocs['crit_max']    = encodeText($objReview->objCriterions[$i]->intMaxValue);
+  $strCritAssocs['crit_no']    = encodeText($i+1);
+  $strCritAssocs['crit_id']    = encodeText($objReview->objCriterions[$i]->intId);
+  $strCritAssocs['crit_name']  = encodeText($objReview->objCriterions[$i]->strName);
+  $strCritAssocs['crit_descr'] = encodeText($objReview->objCriterions[$i]->strDescription);
+  $strCritAssocs['crit_max']   = encodeText($objReview->objCriterions[$i]->intMaxValue);
+  $strCritAssocs['rating']     = encodeText($objReview->intRatings[$i]);
   $strCritAssocs['comment']    = encodeText($objReview->strComments[$i]);
   $critForm->assign($strCritAssocs);
   $critForm->parse();
