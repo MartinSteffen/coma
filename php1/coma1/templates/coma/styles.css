@@ -149,6 +149,8 @@ a.order-active {
 table, form
 {
   border-style: none;
+  /* IE FIX */
+  border-collapse: collapse;
   border-spacing: 0px;
   padding: 0px;
   margin: 0px;
