@@ -30,13 +30,13 @@ if (!empty($objConferences)) {
     $objPerson = $myDBAccess->getPerson($_SESSION['uid'], $_SESSION['confid']);
     $ifArray = array();
     if ($objPerson->hasAnyRole()) {
-      array[] = 1;
+      $ifArray[] = 1;
     }
     if (!($objPerson->hasRole(AUTHOR))) {
-      array[] = 2;
+      $ifArray[] = 2;
     }
     if (!($objPerson->hasRole(PARTICIPANT))) {
-      array[] = 3;
+      $ifArray[] = 3;
     }
     $strItemAssocs['if'] = $ifArray;    
     $strItemAssocs['line_no'] = $lineNo;
