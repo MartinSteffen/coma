@@ -174,6 +174,7 @@ public class EntityCreater {
 	 * consistency check of the form inputs:
 	 * - linits the file size to 5 MB
 	 * - stores the file on the disk
+	 * - renames the filename to a unique one
 	 * 
 	 */
 	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException, IOException {
