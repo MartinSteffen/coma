@@ -284,11 +284,15 @@ class Distribution extends ErrorHandling {
 
     // Paper-Wuensche zuerst beruecksichtigen
     for ($i = 0; $i < count($r_id); $i++) {
+      $tmp = array();
       for ($j = 0; $j < count($p_id); $j++) {
         if ($matrix[$i][$j] == WANT) {
-          $this->suggest($matrix, $i, $j, $p_id, $avg_revs,
-                         $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGGESTED);
+          $tmp[] = $j;
         }
+      }
+      for ($j = 0; $j < count($tmp); $j++) {
+        $this->suggest($matrix, $i, $j, $p_id, $avg_revs,
+                       $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGGESTED);
       }
     }
 
