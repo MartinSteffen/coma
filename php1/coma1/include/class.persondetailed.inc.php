@@ -8,7 +8,7 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('./class.person.inc.php');
+require_once('class.person.inc.php');
 
 /**
  * Klasse PersonDetailed
