@@ -221,31 +221,34 @@ public class Chair extends HttpServlet
 		    		Integer.parseInt(req.getParameter("final_month"))-1,Integer.parseInt(req.getParameter("final_day")));
 		    c.setFinal_version_deadline(calendar.getTime());
 		}
-		if (!(req.getParameter("start_day").equals("")) && (req.getParameter("start_month").equals("")) && (req.getParameter("start_year").equals("")))
+		System.out.println(req.getParameter("start_day"));
+		System.out.println(req.getParameter("start_month"));
+		System.out.println(req.getParameter("start_year"));
+		if (!(req.getParameter("start_day").equals("")) && !(req.getParameter("start_month").equals("")) && !(req.getParameter("start_year").equals("")))
 		{
 		calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("start_year")),
 	    		Integer.parseInt(req.getParameter("start_month"))-1,Integer.parseInt(req.getParameter("start_day")));
-		    c.setFinal_version_deadline(calendar.getTime());
+		    c.setConference_start(calendar.getTime());
 		}
-		if (!(req.getParameter("end_day").equals("")) && (req.getParameter("end_month").equals("")) && (req.getParameter("end_year").equals("")))
+		if (!(req.getParameter("end_day").equals("")) && (req.getParameter("end_month").equals("")) && !(req.getParameter("end_year").equals("")))
 		{
 			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("end_year")),
 		    		Integer.parseInt(req.getParameter("end_month"))-1,Integer.parseInt(req.getParameter("end_day")));
-		    c.setFinal_version_deadline(calendar.getTime());
+		    c.setConference_end(calendar.getTime());
 		}
-		if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && (req.getParameter("paper_year").equals("")))
+		if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && !(req.getParameter("paper_year").equals("")))
 		{
 			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
 		    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
 		    c.setPaper_submission_deadline(calendar.getTime());
 		}
-		if (!(req.getParameter("review_day").equals("")) && (req.getParameter("review_month").equals("")) && (req.getParameter("review_year").equals("")))
+		if (!(req.getParameter("review_day").equals("")) && !(req.getParameter("review_month").equals("")) && !(req.getParameter("review_year").equals("")))
 		{
 			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
 		    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
 		    c.setReview_deadline(calendar.getTime());
 		}
-		if (!(req.getParameter("not_day").equals("")) && (req.getParameter("not_month").equals("")) && (req.getParameter("not_year").equals("")))
+		if (!(req.getParameter("not_day").equals("")) && !(req.getParameter("not_month").equals("")) && !(req.getParameter("not_year").equals("")))
 		{
 			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
 		    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
