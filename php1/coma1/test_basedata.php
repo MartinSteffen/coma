@@ -40,7 +40,7 @@ echo 'P<br>';
   $myDBAccess->addPerson('Myname'.$i, 'Surname'.$i, $i.'email@mail.de', 'Title'.$i,
     'Affiliation'.$i, 'Street'.$i, 'City'.$i, 'Code'.$i,
     'State'.$i, 'Country'.$i, 'Phone'.$i, 'Fax'.$i,
-    '1a91d62f7ca67399625a4368a6ab5d4a3baa6073');
+    'pw');
   if ($myDBAccess->failed()) {
     echo('Fehler: '.$myDBAccess->getLastError());
 }
