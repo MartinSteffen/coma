@@ -17,8 +17,8 @@ define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
 
-echo 'Roles:<br>'
-for ($i = 0; $i < 4; $i++) {
+echo 'Roles:<br>';
+for ($i = 0; $i < count($ROLES); $i++) {
   echo $ROLES[$i][0].' -> '.$ROLES[$i][1].'<br>';
 }
 
