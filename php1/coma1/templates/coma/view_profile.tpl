@@ -49,7 +49,7 @@
 <p>&nbsp;</p>
 
 <p class="message">
-  {if1 Click here to <a href="{basepath}chair_prefers.php?userid={userid}{&SID}" class="link">show
+  {if1 Click here to <a href="{basepath}chair_prefers.php?userid={userid}{&popup}{&SID}" class="link">show
   reviewing preferences</a> for this reviewer.<br>&nbsp;<br>}
   {navlinkBACK Return to the <a href="javascript:history.back()" class="link">last page</a>.}
   {navlinkCLOSE <a href="javascript:close()" class="link">Close this page</a>.}

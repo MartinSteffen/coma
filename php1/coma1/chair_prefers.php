@@ -114,13 +114,18 @@ if (isset($strMessage)) {
 }
 $content->assign($strContentAssocs);
 
-include('./include/usermenu.inc.php');
-
-$main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
+if (!$popup) {
+  include('./include/usermenu.inc.php');
+  $strMainAssocs['menu'] = &$menu;
+  $main = new Template(TPLPATH.'frame.tpl');
+}
+else {
+  $main = new Template(TPLPATH.'popup_frame.tpl');
+}
+
 $strMainAssocs['title'] = 'View preferences of reviewer '.encodeText($objPerson->getName(0));
 $strMainAssocs['content'] = &$content;
-$strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Preferences';
 
 $main->assign($strMainAssocs);
