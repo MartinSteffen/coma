@@ -56,7 +56,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['variance']         = encodeText($variance);
 
   // Arrays wieder holen
-  $strTopics        = unserialize(base64_decode($_POST['topics'])));
+  $strTopics        = unserialize(base64_decode($_POST['topics']));
   $strCriterions    = unserialize(base64_decode($_POST['criterions']));
   $strCritDescripts = unserialize(base64_decode($_POST['crit_descr']));
   $strCritMaxVals   = unserialize(base64_decode($_POST['crit_max']));
