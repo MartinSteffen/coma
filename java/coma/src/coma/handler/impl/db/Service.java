@@ -1,6 +1,11 @@
 
 package coma.handler.impl.db;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -33,4 +38,27 @@ public class Service {
 			System.out.println("coma init: " + e.toString());
 		}
 	}
+	
+	 public static Connection getConnection() {
+        Properties props = new Properties();
+        Connection result = null;
+        try {
+            //props.load(
+            //	new
+            // FileInputStream("/home/wprguest3/webapps/coma/conf/db.config"));
+            String driver = "org.gjt.mm.mysql.Driver";
+            //String url =
+                   //"jdbc:mysql://localhost/coma3?user=wprguest3;password=TevArHorhy";
+            String url = "jdbc:mysql://localhost/coma3";
+
+            Class.forName(driver);
+            result = DriverManager.getConnection(url,"ziad","TevArHorhy");
+        } catch (SQLException e) {
+            System.out.println(e.getClass() + e.getMessage().toString());
+        } catch (ClassNotFoundException e1) {
+            System.out.println(e1.getClass() + e1.getMessage().toString());
+        }
+
+        return result;
+    }
 }
