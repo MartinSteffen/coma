@@ -84,6 +84,8 @@ class Distribution extends ErrorHandling {
     $p_num_revs_total_left = array();
     // Verteilte Reviewer fuer Paper
     $p_num_revs = array();
+    // Verteilte Paper fuer Reviewer
+    $r_num_papers = array();
     // Matrix
     $matrix = array();
 
@@ -159,8 +161,9 @@ class Distribution extends ErrorHandling {
 
     $p_num_revs_pref_left = array_fill(0, count($p_id), 0);
     $p_num_revs_total_left = array_fill(0, count($p_id), count($r_id));
+    $r_num_papers = array_fill(0, count($r_id), 0);
     
-    for ($i = 0; $i < count($r_id); $i++) {
+    for ($i = 0; $i < 0*count($r_id); $i++) {
       // Bereits zugeteilte Paper
       $s = sprintf("SELECT   d.paper_id AS paper_id".
                    " FROM    Distribution AS d".
@@ -178,6 +181,7 @@ class Distribution extends ErrorHandling {
         $matrix[$i][$p_id_index[$assigned[$j]['paper_id']]] = 0;
         $p_num_revs[$j]++;
         $p_num_revs_total_left[$j]--;
+        $r_num_papers[$i]++;
       }
       // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
