@@ -44,8 +44,7 @@ class PaperDetailed extends PaperSimple {
     $this->intCoAuthorIds = $intCoAuthorIds;
     $this->strCoAuthors   = $strCoAuthors;
     $this->strAbstract    = $strAbstract;
-    $this->strMimeType    = $strMimeType;
-    $this->strLastEdit    = $strLastEdit;    
+    $this->strMimeType    = $strMimeType;    
     $this->intVersion     = $intVersion;
   }
 

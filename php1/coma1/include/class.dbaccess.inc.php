@@ -643,8 +643,9 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPapersOfAuthor', $this->getLastError());
       }
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
-                       $data[$i]['author_id'], $strAuthor, $data[$i]['last_edited'],
-                       $data[$i]['state'], $fltAvgRating, $data[$i]['filename'], $objTopics));
+                       $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
+                       $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
+                       $objTopics));
       // Anfragen, die Fehler erzeugen koennen (wie $this->getTopics...), nicht inline benutzen!!
     }
     return $this->success($objPapers);
@@ -2449,7 +2450,7 @@ nur fuer detaillierte?
     $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
         "                     mime_type, version, state, last_edited)".
         "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
-        "                 '$strAbstract', '$strFilePath', '$strMimeType', '0',".
+        "                 '$strAbstract', '$strFilePath', '$strMimeType', '1',".
         "                 '0', '".s2db(date("Y-m-d"))."')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
