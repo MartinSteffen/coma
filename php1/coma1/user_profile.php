@@ -34,14 +34,14 @@ if ($myDBAccess->failed()) {
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
 if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
-
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
   ||  empty($_POST['email'])) {
     $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>E-mail</b>!';
   }
   // Teste, ob die Email gueltig ist
-  elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+  elseif ((!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email']))
+        ||(!ereg("^([a-zA-Z0-9\.\_\-]+)@\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$",  $_POST['email']))) {
     $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist

@@ -52,15 +52,16 @@ if (isset($_POST['email'])){
     $strMessage = 'You have to fill in the fields <b>Last name</b>, <b>E-mail</b>, and <b>Password</b>!';
   }
   // Teste, ob Passwort mit der Wiederholung uebereinstimmt
-  else if ($_POST['user_password'] != $_POST['password_repeat']) {
+  elseif ($_POST['user_password'] != $_POST['password_repeat']) {
     $strMessage = 'Your password confirmation is not the same as your password!';
   }
   // Teste, ob die Email gueltig ist
-  else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+  elseif ((!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email']))
+        ||(!ereg("^([a-zA-Z0-9\.\_\-]+)@\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$",  $_POST['email']))) {
     $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist
-  else if ($myDBAccess->checkEmail($_POST['email'])) {
+  elseif ($myDBAccess->checkEmail($_POST['email'])) {
     if ($myDBAccess->failed()) {
       error('Check e-mail failed.',$myDBAccess->getLastError());
     }
