@@ -1388,14 +1388,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 		case(3):{Order = "order by 4,3,1 ASC";
 				break;}
 		}
-		String QUERY =  "SELECT paper.title,person.last_name,avg(Grade),topic.name,paper.state,paper.id" +
-						" FROM paper,reviewreport,rating,person,topic,isabouttopic where " +
-						"(paper.id = reviewreport.paper_id) " +
-						"and (reviewreport.id = rating.review_id) " +
-						"and (person.id= paper.author_id) " +
-						"and (topic.id = isabouttopic.topic_id) " +
-						"and (paper.id = isabouttopic.paper_id) " +
-						"group by paper.title " +
+		String QUERY =  "SELECT Paper.title,Person.last_name,avg(Grade),Topic.name,Paper.state,Paper.id" +
+						" FROM Paper,Reviewreport,Rating,Person,Topic,isAboutTopic where " +
+						"(Paper.id = Reviewreport.paper_id) " +
+						"and (Reviewreport.id = Rating.review_id) " +
+						"and (Person.id= Paper.author_id) " +
+						"and (Topic.id = isAboutTopic.topic_id) " +
+						"and (Paper.id = isAboutTopic.paper_id) " +
+						"group by Paper.title " +
 		 Order;
 		System.out.println(QUERY);
 		if (ok) {
