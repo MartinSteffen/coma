@@ -59,7 +59,7 @@
 <table class="footer">
  <tr>
   <td style="background-image:url({path}images/menue.gif)" width="50">&nbsp;</td>
-  <td style="background-image:url({path}images/menue.gif)" height="25">&nbsp;</td>
+  <td style="background-image:url({path}images/menue.gif)" height="25" colspan="2">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" width="50" align="center">
    <a href="#top"><img src="{path}images/top.gif" width="15" height="15" border="0" alt="Top"></a>
   </td>
@@ -67,7 +67,8 @@
  <tr>
   <td>&nbsp;</td>
   <td height="32">&copy; 2005 by Sandro Esquivel, Daniel Miesling, Tom Scherzer, Falk Starke, Jan Waller</td>
-  <td>Render Time: /RenderTime/</td>
+  <td height="32">Render Time: /RenderTime/ ms</td>
+  <td>&nbsp;</td>
  </tr>
 </table>
 
