@@ -40,6 +40,7 @@ else {
   error('No User selected!', '');
 }
 
+$ifMainArray = array();
 $content = new Template(TPLPATH.'view_profile.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
@@ -60,8 +61,11 @@ $strMainAssocs['title'] = 'User profile';
 $strMainAssocs['content'] = &$content;
 
 // Pruefe Zugriffsberechtigung auf die Artikelliste
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
-if ($checkRole && $objPerson->hasRole(AUTHOR)) {
+$checkChairRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
+if ($myDBAccess->failed()) {
+  error('Error occured during performing permission check.', $myDBAccess->getLastError());
+}
+if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
   $objPapers = $myDBAccess->getPapersOfAuthor($objPerson->intId, session('confid'));
   if ($myDBAccess->failed()) {
     error('get paper list of author', $myDBAccess->getLastError());
@@ -111,12 +115,13 @@ if ($checkRole && $objPerson->hasRole(AUTHOR)) {
   }
   $paperList->assign($strPapersAssocs);
   $paperList->parse();
-  $strContentAssocs['author_papers'] = $paperList->getOutput();
+  $strContentAssocs['author_papers'] = $paperList->getOutput();  
 }
-else if ($myDBAccess->failed()) {
-  error('Error occured during performing permission check.', $myDBAccess->getLastError());
+if (&checkChairRole && $objPerson->hasRole(REVIEWER)) {
+  $ifMainArray[] = 1;
 }
 
+$strContentAssocs['if'] = $ifMainArray;
 $content->assign($strContentAssocs);
 
 if (!$popup) {
