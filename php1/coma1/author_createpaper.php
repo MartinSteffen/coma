@@ -79,7 +79,7 @@ if (isset($_POST['action'])) {
                                       $strCoAuthors, $intTopicIds);                                     
       if (!empty($result)) {
         // Erfolg (kehre zurueck zur Artikelliste)
-        $_SESSION['message'] = 'Paper was successfully created.<br>'.
+        $_SESSION['message'] = 'Paper was successfully created. '.
                                'Please upload the document file soon.';
         redirect('author_papers.php');
       }
