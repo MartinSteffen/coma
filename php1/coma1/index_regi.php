@@ -43,7 +43,7 @@ if (isset($_POST['email'])){
           $_POST['first_name'].'<br>'.
           $_POST['last_name'].'<br>'.
           $_POST['email'].'<br>'.
-          $_POST['telefon'].'<br>'.
+          $_POST['telefon'].'<br>'. 
           $_POST['fax'].'<br>'.
           $_POST['street'].'<br>'.
           $_POST['zip'].'<br>'.
