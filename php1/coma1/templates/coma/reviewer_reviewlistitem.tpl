@@ -1,10 +1,9 @@
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}">
-      {if6<a href="{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}" class="link">}
-      {title}{if6</a>}
+      <a href="{basepath}user_paperdetails.php?paperid={paper_id}&popup{&SID}" class="link">{title}</a>
     </td>
     <td class="listitem-{line_no}">
-      <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>
+      <a href="{basepath}user_userdetails.php?userid={author_id}&popup{&SID}" class="link">{author_name}</a>
     </td>
     <td class="listitem-{line_no}">
       {if0<span class="status-unreviewed">unreviewed</span>}
@@ -25,7 +24,7 @@
                class="buttonlink">Edit review</a>}&nbsp;
           </td>
           <td>
-            <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&SID}"
+            <a href="{basepath}user_paperdetails.php?paperid={paper_id}&popup{&SID}"
                class="buttonlink">See paper details</a>
           </td>
           <td>
