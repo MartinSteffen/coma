@@ -13,33 +13,33 @@
  <tr bgcolor="#DBE9EC">
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
-   <a href="{basepath}index.php{SID}"><img src="{path}images/logo.jpg" width="150" height="90" align="middle" border="0" alt=""></a>
+   <a href="{basepath}index.php{SID}">
+      <img src="{path}images/logo.jpg" width="150" height="90" align="middle" border="0" alt="">
+   </a>
   </td>
   <td>
    <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr bgcolor="#DBE9EC">     
-     <td width="100">&nbsp;</td>
+     <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
       <a href="#">Impressum</a>&nbsp;|&nbsp;
       <a href="#">Forum</a>&nbsp;|&nbsp;
       <a href="{basepath}logout.php{SID}">Logout</a>&nbsp;&nbsp;
-     </td>
-     <td width="50" align="center" valign="top">
-      <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a>
+      <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a> &nbsp;
      </td>
     </tr>
     <tr bgcolor="#DBE9EC">
-     <td style="background-image:url({path}images/menueleft.gif)" height="25" width="100">&nbsp;</td>
-     <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
+     <td width="70" background="{path}images/menueleft2.gif" height="50"> &nbsp; </td>
+     <td colspan="2" height="50" valign="middle" style="background-image:url({path}images/menue2.gif)">
       {menue}
      </td>
     </tr>
     <tr bgcolor="#DBE9EC">
-     <td height="25" width="100">&nbsp;</td>
+     <td width="70" height="25">&nbsp;</td>
      <td colspan="2" height="25" valign="middle">
       {submenue}
      </td>
-    </tr>   
+     </tr>   
    </table>
   </td>  
  </tr>
