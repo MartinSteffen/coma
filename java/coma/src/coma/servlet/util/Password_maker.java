@@ -44,6 +44,10 @@ public class Password_maker {
     	int g = r.nextInt(10);
     	int h = r.nextInt(10);
     	String pass = String.valueOf((char)a) + String.valueOf(g) + String.valueOf((char)b) + String.valueOf((char)c) + String.valueOf((char)d) + String.valueOf((char)e) + String.valueOf((char)f) + String.valueOf(h);
+
+	coma.util.logging.ALogger.log.log(coma.util.logging.Severity.INFO, 
+					  "password for", email,
+					  "is",pass);
         return pass;
     }
     

@@ -130,7 +130,8 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		if (ok) {
 			try {
 				String UPDATE_QUERY = "UPDATE ReviewReport SET "
-						+ " summary = ?, remarks = ?, confidential = ?";
+				    + " summary = ?, remarks = ?, confidential = ?"
+				    + " WHERE id = " + report.getId();
 				int pstmtCounter = 0;
 				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
 				pstmt.setString(++pstmtCounter, report.getSummary());
@@ -138,13 +139,16 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				pstmt.setString(++pstmtCounter, report.getConfidental());
 
 				int affRows = pstmt.executeUpdate();
+				result.setSUCCESS(true);
 				pstmt.close();
 				if (affRows != 1 && ok) {
 					info.append("ERROR: Dataset could not be updated\n");
 					conn.rollback();
+					result.setSUCCESS(false);
 				}
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");
+				result.setSUCCESS(false);
 			} finally {
 				if (conn != null) {
 					try {

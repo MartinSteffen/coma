@@ -66,7 +66,7 @@
                       </input>
                     </td>
                     <td class="papertitle"><xsl:value-of select="./title" /></td>
-                    <td class="authorname"><xsl:value-of select="./author_id" /></td>
+                    <td class="authorname"><xsl:value-of select="./Person/last_name" /></td>
                     <td class="revdate"><xsl:value-of select="./last_edited" /></td>
                   </tr>
                 </xsl:for-each>
@@ -157,7 +157,7 @@
             <th  valign="top">Summary:</th>
             <td>
               <textarea name="summary" cols="72" rows="6">
-                <xsl:value-of select="summary" />
+                <xsl:value-of select="summary" />&#160;
               </textarea>
             </td>
           </tr>
@@ -192,7 +192,7 @@
                     <td>
                       <textarea cols="60" rows="4">
                         <xsl:attribute name="name">ratingForCriterion<xsl:value-of select="criterion/id" />Commt</xsl:attribute>
-                        <xsl:value-of select="comment" />
+                        <xsl:value-of select="comment" />&#160;
                       </textarea>
                     </td>
                   </tr>
@@ -205,7 +205,7 @@
           <th valign="top">Remarks:</th>
           <td>
             <textarea name="remarks" cols="72" rows="12">
-              <xsl:value-of select="remarks" />
+              <xsl:value-of select="remarks" />&#160;
             </textarea>
           </td>
         </tr>

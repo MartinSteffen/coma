@@ -62,16 +62,9 @@ public class ReviewReport extends Entity {
 	SearchCriteria sc = new SearchCriteria();
 	sc.setPerson(new Person(getReviewerId()));
 	SearchResult sr = rs.getPerson(sc);
-	
-	if (!sr.isSUCCESS()){
-	    ALogger.log.log(WARN,
-			    "Could not find Reviewer ",
-			    getReviewerId(), "in DB",
-			    "for Report", this);
-			    
-	    return null;
-	}
 
+	ALogger.log.log(DEBUG, "getReviewer", sr.getResultObj());
+	
 	Set<Person> cs 
 	    = new java.util.HashSet<Person>(asList((Person[]) sr.getResultObj()));
 
@@ -108,31 +101,25 @@ public class ReviewReport extends Entity {
 	sc.setPaper(new Paper(getPaperId()));
 	SearchResult sr = rs.getPaper(sc);
 	
-	if (!sr.isSUCCESS()){
-	    ALogger.log.log(WARN,
-			    "Could not find Paper ",
-			    getPaperId(), "in DB",
-			    "for Report",this);
-			    
-	    return null;
-	}
+	ALogger.log.log(DEBUG, "getPaper: ", sr.getResultObj());
 
-	Set<Paper> cs 
-	    = new java.util.HashSet<Paper>(asList((Paper[]) sr.getResultObj()));
+	return ((Paper[])sr.getResultObj())[0];
+// 	Set<Paper> cs 
+// 	    = new java.util.HashSet<Paper>(asList((Paper[]) sr.getResultObj()));
 
-	if (cs.size() != 1){
-	    ALogger.log.log(WARN, 
-			    "I found multiple papers ",
-			    cs,
-			    "for a ReviewReport");
-	}
-	for (Paper r: cs){
-	    return r;
-	}
-	ALogger.log.log(WARN, 
-			"canthappen:",
-			"suddenly a set of review reports is empty in", this);
-	return null;
+// 	if (cs.size() != 1){
+// 	    ALogger.log.log(WARN, 
+// 			    "I found multiple papers ",
+// 			    cs,
+// 			    "for a ReviewReport");
+// 	}
+// 	for (Paper r: cs){
+// 	    return r;
+// 	}
+// 	ALogger.log.log(WARN, 
+// 			"canthappen:",
+// 			"suddenly a set of review reports is empty in", this);
+// 	return null;
     }
 
     /**
@@ -144,20 +131,18 @@ public class ReviewReport extends Entity {
        ratings are found at all. In this case, a WARNing is logged.
      */
     public Set<Rating> getRatings(){
+	ALogger.log.log(DEBUG, "in getRatings");
 	Set<Rating> result = new HashSet<Rating>();
 
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
 	SearchCriteria sc = new SearchCriteria();
+	Rating r = new Rating();
+	r.setReviewReportId(this.getId());
 	sc.setReviewReport(this);
+	sc.setRating(r);
 	SearchResult sr = rs.getRating(sc);
 	
-	if (!sr.isSUCCESS()){
-	    ALogger.log.log(WARN,
-			    "Could not find Ratings",
-			    "in DB", "for RReport", this);
-			    
-	    return result;
-	}
+	ALogger.log.log(DEBUG, "getRating:", sr.getResultObj());
 
 	result.addAll(asList((Rating[]) sr.getResultObj()));
 

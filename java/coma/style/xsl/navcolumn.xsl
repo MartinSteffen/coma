@@ -109,7 +109,7 @@
 
       <xsl:if test="//navcolumn//isReviewer">
         <li>Reviewer<ul>
-        <li><a href="EditReport">Write Review</a></li>
+        <li><a href="RatePaper">Write Review</a></li>
         <li><a href="ShowReports">Show Reports</a></li>
       </ul></li>
     </xsl:if>

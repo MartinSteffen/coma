@@ -84,6 +84,7 @@ public class RatePaper extends HttpServlet{
 	SearchResult theSR;
 	SearchCriteria theSC = new SearchCriteria();
 	Person thePerson = (Person)session.getAttribute(SessionAttribs.PERSON);	
+	ReviewReport theReport;
 
 	Conference theConference 
 	    = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
@@ -115,12 +116,15 @@ public class RatePaper extends HttpServlet{
 		
 		    result.append(UserMessage.PAPERS_TO_RATE);
 
-		    theSC.setPerson(thePerson);
+		    theReport = new ReviewReport(-1);
+		    theReport.setReviewerId(thePerson.getId());
+		    theSC.setReviewReport(theReport);
 		    theSR = dbRead.getReviewReport(theSC);
-		    if (!theSR.isSUCCESS())
-			throw new Exception("Can't happen"); // XXX, but ziad asserts this.
 		    Set<ReviewReport> reports 
 			= new HashSet<ReviewReport>(asList((ReviewReport[])theSR.getResultObj()));
+
+		    LOG.log(DEBUG, "report object:", theSR.getResultObj());
+		    LOG.log(DEBUG, "found reports:", reports.size());
 
 		    for (ReviewReport report: reports){
 
@@ -142,32 +146,43 @@ public class RatePaper extends HttpServlet{
 		  "You can now make changes to your RReport"
 		*/
 
+		LOG.log(DEBUG, "paperid: ",request.getParameter(SessionAttribs.PAPERID));
+
 		int thePaperID 
 		    = Integer.parseInt(request.getParameter(SessionAttribs.PAPERID));
 		session.setAttribute(SessionAttribs.PAPERID, new Integer(thePaperID));
 
+		theSC=new SearchCriteria();
 		theSC.setPaper(new Paper(thePaperID));
 		theSR = dbRead.getPaper(theSC);
+		LOG.log(DEBUG, "proper papers:", theSR.getResultObj());
 		session.setAttribute(SessionAttribs.PAPER,
 				     ((Paper[])theSR.getResultObj())[0]);
 
 		result.append(UserMessage.EDITREPORT);
 
-		// theSC still has the Paper set.
-		theSC.setPerson(thePerson);
+
+		theSC=new SearchCriteria();
+		theSC.setPaper(new Paper(thePaperID));
+		theReport = new ReviewReport(-1);
+		LOG.log(DEBUG, "thePerson is:", thePerson);
+		theReport.setReviewerId(thePerson.getId());
+		theSC.setReviewReport(theReport);
 
 
 		theSR = dbRead.getReviewReport(theSC);
+		LOG.log(DEBUG, "Reports:", theSR.getResultObj());
 
-		if ((!theSR.isSUCCESS())
-		    || (((ReviewReport[])theSR.getResultObj()).length != 1)){
+		if (((ReviewReport[])theSR.getResultObj()).length != 1){
 
 		    LOG.log(ERROR, "DB inconsistency: !=1 RReports", theSR);
 		    pagestate.set(STATE.ERROR);
 
 		} else { // all is well in the land of Denmark.
 
-		    ReviewReport theReport = ((ReviewReport[])theSR.getResultObj())[0];
+		    theReport = ((ReviewReport[])theSR.getResultObj())[0];
+
+		    LOG.log(DEBUG, "The proper report:", theReport);
 
 		    session.setAttribute(SessionAttribs.REPORTID, 
 					 new Integer(theReport.getId()));
@@ -184,6 +199,7 @@ public class RatePaper extends HttpServlet{
 	    }
 
 	    case STATE.UPDATE_DB: {
+		LOG.log(DEBUG, "saving to DB");
 		/*
 		  "Thank you for your cooperation."
 		*/
@@ -196,7 +212,7 @@ public class RatePaper extends HttpServlet{
 		*/
 		if (new java.util.Date()
 		    .after(((Conference)session
-			    .getAttribute(SessionAttribs.REPORT))
+			    .getAttribute(SessionAttribs.CONFERENCE))
 			   .getReview_deadline())){
 		    result.append(UserMessage.ERRTOOLATE);
 		    pagestate.set(STATE.ERROR);
@@ -207,7 +223,7 @@ public class RatePaper extends HttpServlet{
 		    try { // XXX any error in this will yield a db error.
 
 
-			final ReviewReport theReport 
+			theReport 
 			    = (ReviewReport)session.getAttribute(SessionAttribs.REPORT);
 			if (theReport == null){ 
 			    LOG.log(ERROR, 
