@@ -273,7 +273,7 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       //for ($j = 0; $j < count($matrix[$i]); $j++) {
-      for ($j = 1; $j <= 5; $j++) {
+      for ($j = 3; $j <= 3; $j++) {
         echo(' '.$matrix[$i][$j]);
       }
     }
