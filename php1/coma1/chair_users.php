@@ -28,10 +28,11 @@ if (isset($_POST['action'])) {
   if ($_POST['action'] == 'delete') {
     // Benutzer loeschen (?)
   }
-  else if ($_POST['action'] == 'edit_role') {
+  else if ($_POST['action'] == 'editrole') {
+    $intRoleType = $_POST['roletype'];
     // Benutzerrolle bearbeiten
     if ($_POST['submit'] == 'add') {
-      $myDBAccess->addRole(session('uid'), $intRoleType, $_POST['confid'], true);
+      $myDBAccess->addRole(session('uid'), $intRoleType, session('confid'), true);
       if ($myDBAccess->failed()) {
         error('Error updating role table.', $myDBAccess->getLastError());
       }
