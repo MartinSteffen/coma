@@ -3,6 +3,8 @@ body, table, th, td, tr, div, p, pre, h1, h2, h3, ul
 {
   font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
 }
+td { white-space: nowrap; }
+
 body, p, pre, ul
 {
   font-size: 12px;
@@ -101,6 +103,7 @@ a
 {
   text-decoration: none;
   font-weight: bold;
+  white-space: nowrap;
 }
 a:link
 {

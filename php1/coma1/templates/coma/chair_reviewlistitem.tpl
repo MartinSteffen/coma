@@ -6,7 +6,7 @@
     <td class="listitem-{line_no}">
       <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>
     </td>
-    <td class="listitem-{line_no}" nowrap>
+    <td class="listitem-{line_no}">
       {if0<span class="status-unreviewed">unreviewed</span><br>
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="changestatus">
