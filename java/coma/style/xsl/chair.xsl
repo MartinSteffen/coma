@@ -40,8 +40,6 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <!-- Main content -->
 <div class="content">
 <xsl:call-template name="setup"/>
-<xsl:call-template name="setup_step2"/>
-<xsl:call-template name="setup_step1"/>
 <xsl:apply-templates select = "/result/login/content"/>
 <xsl:apply-templates select = "/result/invite/content"/>
 <xsl:apply-templates select = "/result/showpapers/content"/>
