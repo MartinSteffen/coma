@@ -198,8 +198,8 @@ class DBAccess {
    * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
    *
    * @param int $intAuthorId ID des Autors
-   * @return PaperSimple[] bzw. <b>false</b>, falls keine Paper des Autors
-             $intAuthorId gefunden wurden
+   * @return PaperSimple [] bzw. <b>false</b>, falls keine Paper des Autors
+   *   $intAuthorId gefunden wurden
    * @access public
    * @author Tom (04.12.04)
    */
