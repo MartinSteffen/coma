@@ -60,7 +60,8 @@
 <table class="footer">
  <tr>
   <td style="background-image:url({path}images/menue.gif)" width="50">&nbsp;</td>
-  <td colspan="2" style="background-image:url({path}images/menue.gif)" height="25" colspan="2">&nbsp;</td>
+  <td style="background-image:url({path}images/menue.gif)" height="25" colspan="2">&nbsp;</td>
+  <td style="background-image:url({path}images/menue.gif)" height="25" colspan="2">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" width="50" align="center">
    <a href="#top"><img src="{path}images/top.gif" width="15" height="15" border="0" alt="Top"></a>
   </td>
