@@ -53,6 +53,9 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   $openforumtemplates = array();
   $paperforumtemplates = array();
   $chairforumtemplates = array();
+  $typeopenassocs['forum'] = '';
+  $typepaperassocs['forum'] = '';
+  $typechairassocs['forum'] = '';
 
   $tempstring = '';
   foreach ($forums as $forum){
@@ -285,6 +288,7 @@ else{
   $contentAssocs = defaultAssocArray();
   $contentAssocs['message'] = session('message', false);
   session_delete('message');
+  $contentAssocs['forumtypes'] = '';
 
   if (DEBUG){
     $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>';
