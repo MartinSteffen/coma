@@ -29,6 +29,20 @@ $strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 if (isset($_POST['email'])){
+  
+  // Anlegen der Person in der Datenbank
+  $strContentAssocs['first_name']  = encodeText($_POST['first_name']);
+  $strContentAssocs['last_name']   = encodeText($_POST['last_name']);
+  $strContentAssocs['email']       = encodeText($_POST['email']);
+  $strContentAssocs['name_title']  = encodeText($_POST['name_title']);
+  $strContentAssocs['affiliation'] = encodeText($_POST['affiliation']);
+  $strContentAssocs['street']      = encodeText($_POST['street']);
+  $strContentAssocs['postalcode']  = encodeText($_POST['postalcode']);
+  $strContentAssocs['city']        = encodeText($_POST['city']);
+  $strContentAssocs['state']       = encodeText($_POST['state']);
+  $strContentAssocs['country']     = encodeText($_POST['country']);
+  $strContentAssocs['phone']       = encodeText($_POST['phone']);
+  $strContentAssocs['fax']         = encodeText($_POST['fax']);
 
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
@@ -78,20 +92,7 @@ if (isset($_POST['email'])){
     }
   }
 }
-  
-// Anlegen der Person in der Datenbank
-$strContentAssocs['first_name']  = encodeText($_POST['first_name']);
-$strContentAssocs['last_name']   = encodeText($_POST['last_name']);
-$strContentAssocs['email']       = encodeText($_POST['email']);
-$strContentAssocs['name_title']  = encodeText($_POST['name_title']);
-$strContentAssocs['affiliation'] = encodeText($_POST['affiliation']);
-$strContentAssocs['street']      = encodeText($_POST['street']);
-$strContentAssocs['postalcode']  = encodeText($_POST['postalcode']);
-$strContentAssocs['city']        = encodeText($_POST['city']);
-$strContentAssocs['state']       = encodeText($_POST['state']);
-$strContentAssocs['country']     = encodeText($_POST['country']);
-$strContentAssocs['phone']       = encodeText($_POST['phone']);
-$strContentAssocs['fax']         = encodeText($_POST['fax']);
+
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
