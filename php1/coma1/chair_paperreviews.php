@@ -114,7 +114,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review report for paper';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Paper  |  Review report';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers  |  Review report';
 
 $main->assign($strMainAssocs);
 $main->parse();
