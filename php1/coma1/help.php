@@ -87,6 +87,11 @@ if (in_array('toc', $strArrayHelpTopics)){
   $toctemplate->parse();
   $strContentAssocs['toc'] = $toctemplate->getOutput();
 }
+
+
+/**
+ * toc.tpl
+ */ 
 if (in_array('nothing', $strArrayHelpTopics)){
   $toctemplate = new Template(TPLPATH.'help_chapter.tpl');
   $tocassocs = defaultAssocArray();
@@ -127,6 +132,11 @@ if (in_array('comapages', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02'] = $objChaptertemplate->getOutput();
 }
+
+
+/**
+ * chapther-02-01.tpl
+ */ 
 if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -165,6 +175,10 @@ if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02-01'] = $objChaptertemplate->getOutput();
 }
+
+/**
+ * chapther-02-02.tpl
+ */ 
 if (in_array('register', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -190,6 +204,11 @@ if (in_array('register', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02-02'] = $objChaptertemplate->getOutput();
 }
+
+
+/**
+ * chapther-02-03.tpl
+ */ 
 if (in_array('imprint', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -215,6 +234,10 @@ if (in_array('imprint', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02-03'] = $objChaptertemplate->getOutput();
 }
+
+/**
+ * chapther-02-04.tpl
+ */ 
 if (in_array('profile', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -240,6 +263,10 @@ if (in_array('profile', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-02-04'] = $objChaptertemplate->getOutput();
 }
+
+/**
+ * chapther-01.tpl
+ */ 
 if (in_array('introduction', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -265,6 +292,73 @@ if (in_array('introduction', $strArrayHelpTopics)){
   $objChaptertemplate->parse();
   $strContentAssocs['chapter-01'] = $objChaptertemplate->getOutput();
 }
+
+
+/**
+ * chapther-01-01.tpl
+ */ 
+if (in_array('step', $strArrayHelpTopics) && in_array('chair', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '1.1';
+  $strArrayChapterAssocs['chapter-title'] = 'How to administrate a conferce';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-01'] = $objChaptertemplate->getOutput();
+}
+
+/**
+ * chapther-01-02.tpl
+ */ 
+if (in_array('step', $strArrayHelpTopics) && in_array('reviewer', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '1.2';
+  $strArrayChapterAssocs['chapter-title'] = 'How to review the papers';
+  $strArrayChapterAssocs['related-topics'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $strArrayChapterAssocs['related-link'] = '';
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-01-02.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-01'] = $objChaptertemplate->getOutput();
+}
+
+
+
+
+
+
+
+
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $content->assign($strContentAssocs);
 
