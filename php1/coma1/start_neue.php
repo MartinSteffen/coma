@@ -23,7 +23,8 @@ if (isset($_POST['name'])){
   $rec=true;
   // Test, ob alle Pflichtfelder ausgefüllt wurden
   if ( $_POST['name']=='' ||
-       $_POST['homepage']==''||
+       $_POST['homepage']==''
+       /* ||
        $_POST['description']==''||
        $_POST['abstract_submission_deadline_d']==''||
        $_POST['abstract_submission_deadline_m']==''||
@@ -46,7 +47,7 @@ if (isset($_POST['name'])){
        $_POST['conference_end_d']==''||
        $_POST['conference_end_m']==''||
        $_POST['conference_end_y']==''||
-       $_POST['min_reviews_per_paper']==''
+       $_POST['min_reviews_per_paper']=='' */
      ){
      $strMessage =  $strMessage.'Bitte alle Felder ausf&uuml;llen !!! <br>';
      $strMainAssocs['message'] = $strMessage; 
@@ -74,6 +75,7 @@ if (isset($_POST['name'])){
    $conference_end                =(int)$_POST['conference_end_d'].
                                    (int)$_POST['conference_end_m'].
                                    (int)$_POST['conference_end_y'];
+
    /**
     *  Duch die Bedingung '... & $abstract_submission_deadline != '000'' in den folgenden if Abfragen
     *  werden leere Datumsfelder zugelassen.
@@ -137,20 +139,26 @@ if (isset($_POST['name'])){
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
    }
+
+  /**
+   * Test, ob die Datumsangaben plausibel sind 
+   *
+   */
   if ( !(($abstract_submission_deadline <= $paper_submission_deadline)&&
 	 ($paper_submission_deadline    <= $notification)&&
          ($notification                 <  $conference_start) &&
          ($conference_start             <= $conference_end) &&
          ($paper_submission_deadline    <= $final_version_deadline ) &&
          ($final_version_deadline       <= $conference_start))){
-         $strMessage =  $strMessage.'Datumseingabe nicht plausibel !!! <br>'.$abstract_submission_deadline.'
-                                    <='.$paper_submission_deadline.'<='.$notification.'<'.$conference_start.'
-                                    <='.$conference_end.'<br> <br>'.$paper_submission_deadline.'
-                                    <='.$final_version_deadline.'<='.$conference_start;
+     $strMessage =  $strMessage.'Datumseingabe nicht plausibel !!! <br>'.$abstract_submission_deadline.'
+                    <='.$paper_submission_deadline.'<='.$notification.'<'.$conference_start.'
+                    <='.$conference_end.'<br> <br>'.$paper_submission_deadline.'
+                    <='.$final_version_deadline.'<='.$conference_start;
      $strMainAssocs['message'] = $strMessage; 
      $rec = false;
    }   
-}
+  
+ }
 
 /**
   *  Anlegen einer Konferenz in der Datenbank
