@@ -21,7 +21,8 @@ if (!defined('IN_COMA1')) {
 function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";
   $strError = '['.basename($_SERVER['PHP_SELF'],'.php')."->$strMethod: $strError$strComment]";
-  die($strError);
+  //die($strError);
+  redirect('error.php?msg='.$strError);
   return false;
 }
 
@@ -160,7 +161,7 @@ define('COREURL', dirname($_SERVER['PHP_SELF']).'/');
 require_once(INCPATH.'class.mysql.inc.php');
 require_once(INCPATH.'class.session.inc.php');
 require_once(INCPATH.'class.dbaccess.inc.php');
-// Nur hier weil das eh jeder braucht, eventuell besser in jden einzelnen rein!!
+// Nur hier weil das eh jeder braucht, eventuell besser in jeden einzelnen rein!!
 require_once(INCPATH.'class.template.inc.php');
 
 $mySql = new MySql();
