@@ -45,8 +45,8 @@
     </td>
     <td class="viewline">{last_edited}</td>
   </tr>  
-  <tr class="viewline" colspan="2">
-    <td class="viewline">
+  <tr class="viewline">
+    <td class="viewline" colspan="2">
       {if5<a href="{file_link}">view paper</a>}
       {if6<span class="emph">There is no document available yet.</span>}
     </td>
