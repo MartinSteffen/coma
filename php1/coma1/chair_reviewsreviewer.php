@@ -29,6 +29,11 @@ if (!isset($_GET['paperid'])) {
 }
 $pid = $_GET['paperid'];
 
+$r_id = $myDist->getAvailableReviewerIdsOfConference(session('confid'));
+if ($myDist->failed()) {
+  error('get list of available reviewers',$myDist->getLastError());
+}
+
 if (isset($_POST['action']) && $_POST['action'] == 'submit') {
   foreach ($r_id as $rid) {
     $isD = $myDBAccess->isPaperDistributedTo($pid, $rid);
@@ -55,15 +60,11 @@ if ($myDBAccess->failed()) {
   error('get paper', $myDBAccess->getLastError());
 }
 elseif (empty($objPaper)) {
-  error('get paper', 'Empty result.'.$pid);
+  error('get paper', 'Empty result.');
 }
 $objTopics = $myDBAccess->getTopicsOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get topic list',$myDBAccess->getLastError());
-}
-$r_id = $myDist->getAvailableReviewerIdsOfConference(session('confid'));
-if ($myDist->failed()) {
-  error('get topic list',$myDist->getLastError());
 }
 
 $content = new Template(TPLPATH.'chair_reviewerassignment.tpl');
