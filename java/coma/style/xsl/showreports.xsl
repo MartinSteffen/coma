@@ -11,6 +11,7 @@
          encoding="iso-8859-1"
          />
        <xsl:include href="navcolumn.xsl" />
+       <xsl:include href="stderrors.xsl" />
 
        <xsl:template match="/">
          <html>
@@ -24,15 +25,16 @@
            </head>
            <body>
              <xsl:call-template name="navcolumn" />
-             <xsl:apply-templates select="/content" />
+             <xsl:apply-templates select="/result" />
            </body>
          </html>
        </xsl:template>
 
        <xsl:template match="/result">
-         <div class="header"><h1><xsl:value-of select="pagetitle" /></h1></div>
+         <div class="header"><h1><xsl:value-of select="//pagetitle" /></h1></div>
          <div class="content">
-           <xsl:call-template name="stderror" />
+
+           <xsl:call-template name="stderrors" />
            <!--
            <xsl:apply-templates select="noSession" />
            <xsl:apply-templates select="databaseError" />
@@ -65,9 +67,7 @@
                <td>
                  <xsl:value-of select="paper/person/last_name" />,
                  <a>
-                   <xsl:attribute name="href">
-                     /papers/<xsl:value-of select="paper/filename" />
-                   </xsl:attribute>
+                   <xsl:attribute name="href">/papers/<xsl:value-of select="paper/filename" /></xsl:attribute>
                    <xsl:value-of select="paper/title" />
                  </a>
                </td>
@@ -95,7 +95,7 @@
              <tr>
                <th>Summary:</th><td><xsl:value-of select="summary" /></td>
              </tr>
-             <xsl:if test="ancestor-or-self:://navcolumn//isChair">
+             <xsl:if test="ancestor-or-self::*//navcolumn/isChair">
                <!--yes, that's a hack :-D -->
                <tr>
                  <th>Confidental remarks</th><td><xsl:value-of select="confidental" /></td>
@@ -112,9 +112,7 @@
              <div><h2>On 
              <xsl:value-of select="paper/person/last_name" />:
              <i><a>
-             <xsl:attribute name="href">
-               /papers/<xsl:value-of select="paper/filename" />
-             </xsl:attribute>
+             <xsl:attribute name="href">/papers/<xsl:value-of select="paper/filename" /></xsl:attribute>
                <xsl:value-of select="paper/title" />
              </a>
              </i> </h2></div>
