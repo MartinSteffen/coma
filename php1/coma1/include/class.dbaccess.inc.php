@@ -870,11 +870,31 @@ class DBAccess {
         '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
         '                 \''.$intRoleType.'\')';
     echo('<br>SQL: '.$s.'<br>');
-    $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
       return true;
     }
     return $this->error('addRole '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Fuegt dem Paper $intPaperId den Co-Autor $intCoAuthorId hinzu.
+   *
+   * @param int $intPaperId    Paper-Id
+   * @param int $intCoAuthorId Co-Autor-ID
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
+   */
+  function addCoAuthor($intPaperId, $intCoAuthorId) {
+    $s = 'INSERT  INTO IsCoAuthorOf (person_id, paper_id)'.
+        '         VALUES (\''.$intCoAuthorId.'\', \''.$intPaperId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
+      return true;
+    }
+    return $this->error('addCoAuthor '.$this->mySql->getLastError());
   }
 
   /**
@@ -891,34 +911,28 @@ class DBAccess {
     $s = 'INSERT  INTO IsCoAuthorOf (paper_id, name)'.
         '         VALUES (\''.$intPaperId.'\', \''.$strName.'\')';
     echo('<br>SQL: '.$s.'<br>');
-    $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
       return true;
     }
     return $this->error('addCoAuthorName '.$this->mySql->getLastError());
   }
 
   /**
-   * Fuegt dem Paper $intPaperId den Co-Autor $intPersonId hinzu.
+   * Fuegt ein Paper (mit den Namen der Co-Autoren) hinzu.
+   * TODO: Fehler beim Einfuegen von Co-Autoren? => UNDO Vorheriges
    *
-   * @param int $intPaperId  Paper-Id
-   * @param int $intPersonId Personen-ID des Co-Autors
-   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @param int $intConferenceId Konferenz-ID
+   * @param int $intAuthorId     Autor-ID
+   * @param str $strTitle        Titel
+   * @param str $strAbstract     Text des Abstracts
+   * @param str $strFilePath     Dateipfad und -name
+   * @param str $strMimeType     MIME-Typ
+   * @param str $strCoAuthors[]  Namen der Co-Autoren
+   * @return int|bool ID des erzeugten Papers bzw. <b>false</b>, falls ein Fehler
+   *                  aufgetreten ist
    * @access public
    * @author Tom (26.12.04)
-   */
-  function addCoAuthor($intPaperId, $intPersonId) {
-    $s = 'INSERT  INTO IsCoAuthorOf (person_id, paper_id)'.
-        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
-    echo('<br>SQL: '.$s.'<br>');
-    $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      return true;
-    }
-    return $this->error('addCoAuthor '.$this->mySql->getLastError());
-  }
-
-  /**
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
                     $strFilePath, $strMimeType, $strCoAuthors) {
@@ -1219,33 +1233,126 @@ class DBAccess {
   // ---------------------------------------------------------------------------
 
   /**
+   * Loescht die Konferenz mit der ID $intConferenceId.
+   *
+   * @param int $intConferenceId Konferenz-ID
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
    */
   function deleteConference($intConferenceId) {
+    $s = 'DELETE  FROM Conference'.
+        ' WHERE   id = '.$intConferenceId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }
     return $this->error('deleteConference '.$this->mySql->getLastError());
   }
 
   /**
+   * Loescht die Person mit der ID $intPersonId.
+   *
+   * @param int $intPersonId Personen-ID
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
    */
   function deletePerson($intPersonId) {
+    $s = 'DELETE  FROM Person'.
+        ' WHERE   id = '.$intPersonId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }
     return $this->error('deletePerson '.$this->mySql->getLastError());
   }
 
   /**
+   * Loescht das Person mit der ID $intPaperId.
+   *
+   * @param int $intPaperId Paper-ID
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
    */
   function deletePaper($intPaperId) {
+    $s = 'DELETE  FROM Paper'.
+        ' WHERE   id = '.$intPaperId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }
     return $this->error('deletePaper '.$this->mySql->getLastError());
   }
 
   /**
+   * Loescht die Rolle $intRoleType der Person $intPersonId fuer die Konferenz
+   * $intConferenceId.
+   *
+   * @param int $intConferenceId Konferenz-ID
+   * @param int $intPersonId     Personen-ID
+   * @param int $intRoleType     Rollen-Enum
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
    */
-  function deleteRole() {
+  function deleteRole($intConferenceId, $intPersonId, $intRoleType) {
+    $s = 'DELETE  FROM Role'.
+        ' WHERE   conference_id = '.$intConferenceId.
+        ' AND     person_id = '.$intPersonId.
+        ' AND     role_type = '.$intRoleType;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }
     return $this->error('deleteRole '.$this->mySql->getLastError());
   }
 
   /**
+   * Loescht den Co-Autor $intCoAuthorId vom Paper $intPaperId.
+   *
+   * @param int $intPaperId    Paper-Id
+   * @param int $intCoAuthorId Co-Autor-ID
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
    */
-  function deleteIsCoAuthorOf() {
-    return $this->error('deleteIsCoAuthorOf '.$this->mySql->getLastError());
+  function deleteCoAuthor($intPaperId, $intCoAuthorId) {
+    $s = 'DELETE  FROM IsCoAuthorOf'.
+        ' WHERE   person_id = '.$intCoAuthorId.
+        ' AND     paper_id = '.$intPaperId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }
+    return $this->error('deleteCoAuthor '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Loescht den Co-Autor mit Namen $strName vom Paper $intPaperId.
+   *
+   * @param int $intPaperId Paper-Id
+   * @param int $strName    Name des Co-Autors
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
+   */
+  function deleteCoAuthorName($intPaperId, $strName) {
+    $s = 'DELETE  FROM IsCoAuthorOf'.
+        ' WHERE   paper_id = '.$intPaperId.
+        ' AND     name = \''.$strName.'\'';
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }
+    return $this->error('deleteCoAuthor '.$this->mySql->getLastError());
   }
 
   /**
