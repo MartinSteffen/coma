@@ -6,7 +6,7 @@ package coma.servlet.servlets;
 
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.Enumeration;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,14 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.stream.StreamSource;
 
-import coma.entities.Person;
-import coma.entities.SearchResult;
-import coma.handler.impl.db.InsertServiceImpl;
+import coma.entities.*;
+import coma.handler.impl.db.*;
 import coma.handler.util.EntityCreater;
 import coma.servlet.util.XMLHelper;
 
+import coma.entities.Entity.XMLMODE;
+import coma.servlet.util.*;
+
 /**
- * @author mti
+ * @author mti, ums
  * @version 0.1
  * 
  * Sverlet to subscribe for a conference as a participant 
@@ -55,17 +57,37 @@ public class Subscribe  extends HttpServlet {
 		result.append(new coma.servlet.util.Navcolumn(request));
 		if (emptyEnum){
 				
-			result.append(XMLHelper.tagged("form",""));
-			
+		    SearchCriteria theSC = new SearchCriteria();
+		    theSC.setConference(new Conference(-1));
+		    Conference[] allConfs 
+			= (Conference[])new coma.handler.impl.db.ReadServiceImpl()
+			.getConference(theSC).getResultObj();
+		    
+		    result.append(XMLHelper.tagged("form", 
+						   Conference.manyToXML(Arrays.asList(allConfs), XMLMODE.SHALLOW)));
+		    
 			
 		} else {
 			EntityCreater myCreater = new EntityCreater();
 			
 			try {
 				Person mynewPerson = myCreater.getPerson(request);
+
+				int confid 
+				    = Integer.parseInt(request.getParameter(FormParameters.CONFERENCE_ID));
+
+				boolean willBeAuthor
+				    = (request.getParameter(FormParameters.WILLBEAUTHOR)!=null);
+
 				InsertServiceImpl myInsertservice = new InsertServiceImpl();
 				SearchResult sr = myInsertservice.insertPerson(mynewPerson);
 				
+				myInsertservice.setPersonRole(mynewPerson.getId(), 
+							      confid, 
+							      willBeAuthor? User.AUTHOR 
+							                  : User.PARTICIPANT,
+							      User.ACTIVE);
+
 				result.append(XMLHelper.tagged("success",sr.getInfo()));
 				result.append(mynewPerson.toXML());
 			} catch (IllegalArgumentException e) {

@@ -40,4 +40,7 @@ public class FormParameters {
 
     /** for immediate selection of detailed view in ShowReports */
     public static final String REPORTID="reportid";
+
+    /** the checkbox when subscribing */
+    public static final String WILLBEAUTHOR="willbeauthor";
 }
