@@ -1,22 +1,23 @@
 <?php
+if (!defined('IN_COMA1')) {
+  exit('Hacking attempt');
+}
+
+
 /**
  * simple Klasse zum Zugriff auf die MySQL Datenbank
  *
  * $Id$
  *
  */
-
-if (!defined('IN_COMA1')) {
-  exit('Hacking attempt');
-}
-
 class MySql {
 
   var $mySqlServer = 'localhost';
   var $mySqlUser = '';
   var $mySqlPassword = '';
   var $mySqlDatabase = '';
-  var $myConn;
+  var $conn;
+  var $errString;
 
   function MySql() {
     require_once('./config.inc.php');
@@ -28,21 +29,14 @@ class MySql {
     // mysql_pconnect ???? Was ist besser? - Jan
     $conn = @mysql_connect(sqlServer, sqlUser , sqlPassword);
     if (!$conn) {
-      $this->error("MySql Connection Error");
+      return $this->error("Could not connect to MySQL: ");
     }
 
-    if (!mysql_select_db($this->mySqlDatabase)) {
-      $this->error("Database Error");
+    if (!mysql_select_db(sqlDatabase)) {
+      return $this->error("Could not select Database: ");
     }
-    $this->myConn = $conn;
+    $this->conn = $conn;
     return true;
-  }
-
-  function error($text) {
-    $no = mysql_errno();
-    $msg = mysql_error();
-    echo "[$text] ( $no : $msg )<BR>\n";
-    exit(-1);
   }
 
   function select( $sql='' ) {
@@ -50,14 +44,13 @@ class MySql {
       return false;
     }
     if (!eregi("^select",$sql)) {
-      if (defined('DEBUG')) echo "<H2 >MySql->select called with $sql</H2>\n";
+      return $this->error("MySql->select called with $sql");
+    }
+    if (empty($this->conn)) {
       return false;
     }
-    if (empty($this->myConn)) {
-      return false;
-    }
-    $results = mysql_query( $sql, $this->myConn );
-    if ((!$results) or (empty($results))) {
+    $results = mysql_query( $sql, $this->conn );
+    if (empty($results)) {
       @mysql_free_result($results);
       return false;
     }
@@ -76,18 +69,30 @@ class MySql {
       return false;
     }
     if (!eregi("^insert",$sql)) {
-      if (defined('DEBUG')) echo "<H2 >MySql->insert called with $sql</H2>\n";
+      return $this->error("MySql->insert called with $sql");
+    }
+    if (empty($this->conn)) {
       return false;
     }
-    if (empty($this->myConn)) {
-      return false;
-    }
-    $results = mysql_query( $sql, $this->myConn );
+    $results = mysql_query( $sql, $this->conn );
     if (!$results) {
       return false;
     }
     $results = mysql_insert_id();
     return $results;
+  }
+  
+  function error($text) {
+    $no = mysql_errno();
+    $msg = mysql_error();
+    $this->errString = "[$text] ( $no : $msg )";
+    return false;
+  }
+  
+  function getLastError() {
+    $errString = $this->errString;
+    $this->errString = '';
+    return $errString;
   }
 
 } // End Class
