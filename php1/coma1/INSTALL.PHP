@@ -67,7 +67,12 @@ elseif (isset($_GET['4'])) {
       Your current step is: <?php echo $STEP; ?> <br>
     </p>
 <?php
-if ($STEP == 1){
+if ($STEP == 0){
+  echo "    <p class=\"message-ok\">\n";
+  echo "      Installation started!";
+  echo "    </p>\n";
+}
+elseif ($STEP == 1){
   echo "    <p class=\"message-failed\">\n";
   echo "      Not yet implemented!";
   echo "    </p>\n";
