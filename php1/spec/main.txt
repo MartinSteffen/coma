@@ -1,4 +1,4 @@
-s============================================================================
+============================================================================
   TECHNISCHE SPEZIFIKATION DER GRUPPE PHP1
 ============================================================================
 
@@ -28,6 +28,8 @@ Datum    Autor   Änderung(en)
 09.12.04 jwa     Typos entfernt, Templates ergänzt
 09.12.04 sae     Noch mehr Typos entfernt
 23.12.04 jwa     Systemvorraussetzungen hinzugefügt
+24.12.04 ???     Anhang Login / Registrieung
+24.12.04 jwa     Konventionen "enforced" -> Frage sollte das(^^) Anhang sein? 
 
 
 
@@ -373,6 +375,7 @@ dies während des Entwicklungsprozesses nicht immer garantiert werden. Wir
 bitten um Verständnis.
 
 
+
 ============================================================================
   APPENDIX: Registrierung und Login
 ============================================================================
@@ -384,17 +387,23 @@ aufgefordert sich einzuloggen. Danach hat er zunaechst keine Rolle.
 
 Danach hat er im Prinzip folgende Moeglichkeiten:
 
-1.) Liste(n) von Konferenzen mit Sortiermoeglichkeiten und Optionen sich in eine Konferenz
-einzuloggen oder sich zu registrieren.
+1. Liste(n) von Konferenzen mit Sortiermoeglichkeiten und Optionen sich in 
+   eine Konferenz einzuloggen oder sich zu registrieren.
 
-Beim Einloggen in eine Konferenz erhaelt der Benutzer die entsprechende Rolle z.B. Autor.
+   Beim Einloggen in eine Konferenz erhaelt der Benutzer die entsprechende 
+   Rolle z.B. Autor.
 
-Beim Registrieren muss der Benutzer angeben welche Rolle er haben will.
+   Beim Registrieren muss der Benutzer angeben welche Rolle er haben will.
 
-Je nachdem kann er sich anschliessend sofort einloggen oder muss warten, bis jmd seiner gewuenschten Rolle zugestimmt hat.
+   Je nachdem kann er sich anschliessend sofort einloggen oder muss warten, 
+   bis jmd seiner gewuenschten Rolle zugestimmt hat.
 
-2.) Erstellen einer neuen Konferenz
-Der Benutzer muss sich zunaechst einloggen.
-Hier muss der Benutzer alle initialen Daten eingeben und kann diese
-auch spaeter nicht mehr aendern (zumindest in der Grundversion nicht -
-spaeter ggf. optional). Der Benutzer wird automatisch zum Chair. 
+2. Erstellen einer neuen Konferenz
+  
+   Der Benutzer muss sich zunaechst einloggen.
+   
+   Hier muss der Benutzer alle initialen Daten eingeben und kann diese
+   auch spaeter nicht mehr aendern (zumindest in der Grundversion nicht -
+   spaeter ggf. optional). Der Benutzer wird automatisch zum Chair. 
+
+
