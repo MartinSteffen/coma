@@ -57,8 +57,8 @@ else {
     }
     $intWantedReviewers = false;
     for ($i = 0; $i < count($intPapers); $i++) {
-      $intWantedReviewers[$intPapers[$i]] = $objConference->$intDefaultReviewsPerPaper +
-                                            $objConference->$intNumberOfAutoAddReviewers;
+      $intWantedReviewers[$intPapers[$i]] = $objConference->intDefaultReviewsPerPaper +
+                                            $objConference->intNumberOfAutoAddReviewers;
     }
   }
   $dist = $myDist->getDistribution(session('confid'));
