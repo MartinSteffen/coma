@@ -206,13 +206,13 @@ if (isset($_POST['action'])) {
     }
     
     foreach ($strTopics as $key => $name){
-      if ($name){
+      if (trim($name) == ''){
         $strMessage .= "Topic $key is empty!\n";
       }
     }
     
     foreach ($strCriterions as $key => $name){
-      if ($name){
+      if (trim($name) == ''){
         $strMessage .= "Criterion $key is empty!\n";
       }
     }
