@@ -55,7 +55,7 @@ function notemptyandtrue($arr, $index){
 function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, &$myDBAccess, $fshow){
   if (DEBUGMODE){
     //echo('forums: ' . count($forums) . '<br>');
-    echo('fshow=' . $fshow);
+    //echo('fshow=' . $fshow);
   }
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
@@ -156,17 +156,17 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
   }
   $forumtypeopen->assign($typeopenassocs);
   $forumtypeopen->parse();
-  if (($fshow = 0) || ($fshow = 1)){
+  if (($fshow == 0) || ($fshow == 1)){
     $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypeopen->getOutput();
   }
   $forumtypepaper->assign($typepaperassocs);
   $forumtypepaper->parse();
-  if (($fshow = 0) || ($fshow = 3)){
+  if (($fshow == 0) || ($fshow == 3)){
     $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypepaper->getOutput();
   }
   $forumtypechair->assign($typechairassocs);
   $forumtypechair->parse();
-  if (($fshow = 0) || ($fshow = 2)){
+  if (($fshow == 0) || ($fshow == 2)){
     $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypechair->getOutput();
   }
   return $assocArray;
