@@ -20,6 +20,7 @@ $strItemAssocs = defaultAssocArray();
 $objConferences = $myDBAccess->getAllConferences();
 if (!empty($objConferences)) {
   $lineNo = 1;
+  $strContentAssocs['lines'] = '';
   foreach ($objConferences as $objConference) {
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['name'] = $objConference->strName;
