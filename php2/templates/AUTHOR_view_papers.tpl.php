@@ -34,7 +34,7 @@ if (array_key_exists('msg', $TPL)) {
 			<p>To <font style="color:red">delete</font> a paper, </p>
 			</td>
 			<td class="text">
-			<p>click on <font class="textBold" style="color:red">DELETE PAPER</font> below the summary.</p>
+			<p>click on <font class="textBold" style="color:red">DELETE PAPER</font> below the abstract.</p>
 			</td>
 		</tr>
 		<tr>
@@ -42,7 +42,7 @@ if (array_key_exists('msg', $TPL)) {
 			<p>To <font style="color:green">edit</font> a paper, </p>
 			</td>
 			<td class="text">
-			<p>click on <font class="textBold" style="color:green">EDIT PAPER</font> below the summary.</p>
+			<p>click on <font class="textBold" style="color:green">EDIT PAPER</font> below the abstract.</p>
 			</td>
 		</tr>
 		<tr>
@@ -74,10 +74,10 @@ foreach($TPL as $row)
 			</tr>
 			<tr>
 				<td class="textBold" style="color:red">
-			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $row['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nA recover of this file is not possible!');"><font style="color:red">DELETE PAPER</font></a>
+			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $row['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nThe paper will be completly rejected from the conference,\na recover of this file is not possible!');"><font style="color:red">DELETE PAPER</font></a>
 				</td>
 				<td class="textBold" style="color:green">
-			<a href="index.php?m=author&a=edit&s=edit&pid=<? echo $row['id']; ?>"><font style="color:green">EDIT PAPER</font></a>
+			<a href="index.php?m=author&a=edit&s=form&pid=<? echo $row['id']; ?>"><font style="color:green">EDIT PAPER</font></a>
 				</td>
 			</tr>
 				
