@@ -1830,23 +1830,44 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo (Sandros Job)
+   * Aktualisiert den ReviewReport $objReviewDetailed in der Datenbank,
+   * sowie mit diesem ReviewReport assoziierten Ratings.
+   *
+   * @param ReviewDetailed $objReviewDetailed Der ReviewReport   
+   * @return bool true gdw. die Aktualisierung gelungen ist
+   * @access public
+   * @author Sandro (25.01.05) 
    */
   function updateReviewReport($objReviewDetailed) {
     if (!(is_a($objReviewDetailed, 'ReviewDetailed'))) {
       return $this->success(false);
     }
-    return $this->success();
-  }
-
-  /**
-   * @todo (Sandros Job)
-   * @access private
-   */
-  function updateRating($objReviewDetailed) {
-    if (!(is_a($objReviewDetailed, 'ReviewDetailed'))) {
-      return $this->success(false);
+    $s = sprintf("UPDATE   ReviewReport".
+                 " SET     paper_id = '%d', reviewer_id = '%d', summary = '%s',".
+                 "         remarks = '%s', confidential = '%s'".
+                 " WHERE   id = '%d'",
+                 s2db($objReviewDetailed->intPaperId), s2db($objReviewDetailed->intReviewerId),
+                 s2db($objReviewDetailed->strSummary), s2db($objReviewDetailed->strRemarks), 
+                 s2db($objReviewDetailed->strConfidential), s2db($objReviewDetailed->intId));             
+    $this->mySql->update($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateReviewReport', $this->mySql->getLastError());
     }
+    for ($i = 0; $i < count($objReviewDetailed->intRatings); $i++) {    
+      $s = sprintf("UPDATE   Rating".
+                   " SET     grade = '%d', comment = '%s'".
+                   " WHERE   review_id = '%d'".
+                   " AND     criterion_id = '%d'",
+                   s2db($objReviewDetailed->intRatings[$i]),
+                   s2db($objReviewDetailed->strComments[$i]),
+                   s2db($objReviewDetailed->intId),
+                   s2db($objReviewDetailed->objCriterions[$i]->intId);
+      $this->mySql->update($s);
+      if ($this->mySql->failed()) {
+        return $this->error('updateReviewReport', $this->mySql->getLastError(),
+                            'Update operation could not finish, database may be inconsistent!');
+      }
+    }    
     return $this->success();
   }
 
