@@ -91,11 +91,21 @@ if (!empty($objPapers)) {
     else {
       $strItemAssocs['avg_rating'] = ' - ';
     }
-    $fltTestTmp = rand(0,100);
-    if ($fltTestTmp >= $objConference->fltCriticalVariance*100) {
-      $ifArray[] = 6;
+    $fltVariance = $myDBAccess->getVarianceOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('get paper list of chair', $myDBAccess->getLastError());
+    }
+    if (!empty($fltVariance) || is_numeric($fltVariance)) {
+      $strItemAssocs['variance'] = encodeText(round($fltVariance * 100).'%');
+      if ($fltVariance >= $objConference->fltCriticalVariance*2) {
+        $ifArray[] = 6;
+      }
+      else {
+        $ifArray[] = 7;
+      }
     }
     else {
+      $strItemAssocs['variance'] = ' - ';
       $ifArray[] = 7;
     }
     $strItemAssocs['variance'] = encodeText($fltTestTmp.'%');

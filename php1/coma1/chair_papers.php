@@ -81,10 +81,6 @@ $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
-    $fltVariance = $myDBAccess->getVarianceOfPaper($objPaper->intId);
-    if ($myDBAccess->failed()) {
-      error('get paper list of chair', $myDBAccess->getLastError());
-    }
     $strItemAssocs = defaultAssocArray();
     $ifArray = array();
     $strItemAssocs['line_no'] = $lineNo;
@@ -110,6 +106,10 @@ if (!empty($objPapers)) {
     }
     else {
       $strItemAssocs['avg_rating'] = ' - ';
+    }
+    $fltVariance = $myDBAccess->getVarianceOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('get paper list of chair', $myDBAccess->getLastError());
     }
     if (!empty($fltVariance) || is_numeric($fltVariance)) {
       $strItemAssocs['variance'] = encodeText(round($fltVariance * 100).'%');
