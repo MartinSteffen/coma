@@ -30,7 +30,7 @@ $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-else if (empty($c)) {
+else if (empty($p)) {
   echo('EMPTY');
   exit(-1);
 }
