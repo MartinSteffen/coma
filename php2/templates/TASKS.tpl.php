@@ -4,7 +4,18 @@ $input = d('tasks');
 ?>
 <link rel="stylesheet" href="style.css" type="text/css">
 
-  <? if (count($input)==0)
+  <? 
+  $isEmpty=true;
+  foreach($input as $role)
+  {
+  	$tasksInRole = $role['tasks'];	
+  	foreach($tasksInRole as $tasks)
+	{ 
+		$isEmpty = false;
+	}
+  }
+
+  if ($isEmpty==true)
 		{  ?>  
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>		
@@ -15,18 +26,12 @@ $input = d('tasks');
      foreach($input as $role)
   	{ 
 		$tasksInRole = $role['tasks'];
+		if (!count($tasksInRole)==0)
+		{		
   ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-	<?	if (!count($tasksInRole)==0)
-		{
-	?>  
-    		<td class="textBold">List of all your tasks that are waiting for you as <? echo $role['role'] ?>.</td>
-  <? 	}
-     	else
-	 	{ ?>
-  		    <td class="textBold">No tasks are waiting for you as <? echo $role['role'] ?>.</td>	 
-  <? 	} ?>	 	
+	<td class="textBold">List of all your tasks that are waiting for you as <? echo $role['role'] ?>.</td>	 	
   </tr>
 </table>
 <br>
@@ -58,6 +63,6 @@ $input = d('tasks');
   </tr>  
 </table>
 <?
-    }
+    }}
 include("footer.tpl.php");
 ?>
