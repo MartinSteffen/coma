@@ -62,10 +62,9 @@ table.footer { width: 100%; background-color: #DBE9EC; }
 
 /* tabelle fuer formulare */
 table.formtable { font-size: 13px;
-                  border-spacing: 1px;
                   background-color: #DEEBEF;
                   border-style: solid;
-                  border: 1px;
+                  border-width: 1px;
                   border-color: #000000; /*#CEDBEF;*/
                   margin: 10px;
                   padding: 10px;
