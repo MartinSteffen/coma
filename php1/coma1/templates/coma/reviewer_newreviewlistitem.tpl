@@ -1,7 +1,7 @@
-  <tr class="listitem-{line_no}"> 
+  <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}">
       <a href="{basepath}reviewer_createreview.php?paperid={paper_id}{&SID}" class="link">{title}</a>
-    </td> 
+    </td>
     <td class="listitem-{line_no}">
       <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}" class="link">{author_name}</a>
     </td>
@@ -24,7 +24,7 @@
             <form action="{basepath}reviewer_createreview.php{?SID}" method="post" accept-charset="UTF-8">
               <input type="hidden" name="paperid" value="{paper_id}">
               <input type="submit" name="create" value="Create review" class="button">
-            </form>      
+            </form>
           </td>
           <td>
             <form action="{basepath}user_paperdetails.php{?SID}" method="post" accept-charset="UTF-8">

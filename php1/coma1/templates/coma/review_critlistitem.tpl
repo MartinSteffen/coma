@@ -1,4 +1,4 @@
-        <tr class="formlistitem">          
+        <tr class="formlistitem">
           <td class="formlistitem">{crit_name}:</td>
           <td class="formlistitem">
             <input type="hidden" name="crit_id-{crit_no}" value="{crit_id}">
@@ -7,5 +7,5 @@
           </td>
           <td class="formlistitem">
             <textarea name="comment-{crit_no}" rows="1" cols="48">{comment}</textarea>
-          </td>          
+          </td>
         </tr>

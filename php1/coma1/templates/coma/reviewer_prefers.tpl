@@ -15,10 +15,10 @@
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
   <input type="hidden" name="action" value="submit">
 
-<a name="topics"></a> 
-<table class="list">  
+<a name="topics"></a>
+<table class="list">
   <tr class="listheader">
-    <th class="listheader" colspan="2">Attitudes towards topics for reviewing:</th> 
+    <th class="listheader" colspan="2">Attitudes towards topics for reviewing:</th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
   </tr>
@@ -28,13 +28,13 @@
       <input type="submit" name="submit" value="Accept changes" class="button">
       <input type="reset"  name="reset" value="Reset settings" class="button">
     </td>
-  </tr>  
+  </tr>
 </table>
 
-<a name="papers"></a>  
+<a name="papers"></a>
 <table class="list">
   <tr class="listheader">
-    <th class="listheader" colspan="2">Attitudes towards papers for reviewing:</th>    
+    <th class="listheader" colspan="2">Attitudes towards papers for reviewing:</th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
   </tr>
@@ -44,7 +44,7 @@
       <input type="submit" name="submit" value="Accept changes" class="button">
       <input type="reset"  name="reset" value="Reset settings" class="button">
     </td>
-  </tr>  
+  </tr>
 </table>
 
 </form>
