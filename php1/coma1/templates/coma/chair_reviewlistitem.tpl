@@ -55,19 +55,22 @@
       {reviewers}
     </td>
   </tr>
-  <tr valign="top">    
-    <td class="listitem-{line_no}" >
-        <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a> 
-        <br> <br>        
-        {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a> }
-        {if8<a href="{basepath}chair_reviews.php?createforum&amp;paperid={paper_id}{&SID}"
-               class="buttonlink">Start discussion</a> <br>}
-        {if9<a href="{basepath}forum.php?forumsel={forum_id}{&SID}"
-               class="buttonlink">Enter discussion</a> <br>}
-        <br>
+  <tr class="listitem-{line_no}">
+    <td class="listitem-{line_no}">
+      <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a> 
     </td>
-    <td class="listitem-{line_no}" colspan="5" > &nbsp; </td>
-    <td class="listitem-{line_no}" >
+    <td class="listitem-{line_no}">
+      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a>}&nbsp;
+    </td>
+    <td class="listitem-{line_no}" colspan="2">
+      {if8<a href="{basepath}chair_reviews.php?createforum&amp;paperid={paper_id}{&SID}"
+             class="buttonlink">Start discussion</a> <br>}&nbsp;
+    </td>
+    <td class="listitem-{line_no}" colspan="2">
+      {if9<a href="{basepath}forum.php?forumsel={forum_id}{&SID}"
+             class="buttonlink">Enter discussion</a> <br>}    
+    </td>    
+    <td class="listitem-{line_no}">
       <a href="{basepath}chair_reviewsreviewer.php?paperid={paper_id}{&SID}" class="buttonlink">Edit reviewers</a>
     </td>
   </tr>

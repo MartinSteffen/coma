@@ -103,7 +103,7 @@ if (!empty($objPapers)) {
     }
     else {
       $strItemAssocs['num_reviews'] = 'none';
-      $strItemAssocs['line_no']     = 'alert';
+      $strItemAssocs['line_no']     = 'alert-'.$lineNo;
     }
     if ($intRevs > 0) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');

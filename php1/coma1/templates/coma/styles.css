@@ -423,16 +423,21 @@ table.list
   margin: 0px;
   background-color: #E4E4E4;
 }
-.listitem-alert
+.listitem-alert-1
 {
   text-align: left;
   font-size: 12px;
   padding: 1px 8px;
-  margin: 0px;
-  color: #FF2600;
-  background-color: #FFF0E0;
-  border-top:    1px #FF2600 solid;
-  border-bottom: 1px #FF2600 solid;
+  margin: 0px;  
+  background-color: #FAB4B4;
+}
+.listitem-alert-2
+{
+  text-align: left;
+  font-size: 12px;
+  padding: 1px 8px;
+  margin: 0px;  
+  background-color: #E4A0A0;
 }
 
 a.list:link
