@@ -30,8 +30,8 @@ Datum    Autor   Änderung(en)
 23.12.04 jwa     Systemvorraussetzungen hinzugefügt
 24.12.04 ???     Anhang Login / Registrieung
 24.12.04 jwa     Konventionen "enforced" -> Frage sollte das(^^) Anhang sein? 
-
-
+06.01.05 dmi     Zuordnung roles_types in Tabelle role zu Rollen 
+                 zu Kapitel 2 hinzugefügt
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -196,25 +196,31 @@ voneinander zu trennen.
   2. DAS DATENMODELL (SQL)
 ============================================================================
 
-Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
-dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
-die Datenbank wie folgt für uns anpasst:
+1.) Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
+    dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
+    die Datenbank wie folgt für uns anpasst:
 
-- Tabelle Session wird hinzugefügt:
-**************************************************
---
--- Tabellenstruktur für Tabelle 'Session'
--- sid normalerweise 128 oder 160
---
-CREATE TABLE IF NOT EXISTS Session (
-  sid VARCHAR(255) NOT NULL DEFAULT '',
-  sname VARCHAR(25) NOT NULL DEFAULT '',
-  sdata TEXT,
-  stime TIMESTAMP(14) NOT NULL,
-  PRIMARY KEY  (sid, sname),
-  KEY stime (stime)
-) TYPE=MyISAM COMMENT='Session-Verwaltung';
-**************************************************
+   - Tabelle Session wird hinzugefügt:
+   **************************************************
+   --
+   -- Tabellenstruktur für Tabelle 'Session'
+   -- sid normalerweise 128 oder 160
+   --
+   CREATE TABLE IF NOT EXISTS Session (
+     sid VARCHAR(255) NOT NULL DEFAULT '',
+     sname VARCHAR(25) NOT NULL DEFAULT '',
+     sdata TEXT,
+     stime TIMESTAMP(14) NOT NULL,
+     PRIMARY KEY  (sid, sname),
+     KEY stime (stime)
+   ) TYPE=MyISAM COMMENT='Session-Verwaltung';
+   **************************************************
+
+2.)Die Tabelle Role enthält role_types mit folgenden Bedeutungen:
+   3 chair
+   2 reviewer
+   1 autor
+   0 teilnehmer  
 
 
 
