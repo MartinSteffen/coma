@@ -36,7 +36,7 @@ class Person {
   }
   
   function hasRole($intRole) {
-    if ($this->intRoles & (1 << $intRole) <> 0) {
+    if (($this->intRoles & (1 << $intRole)) <> 0) {
       return true;
     }
     return false;
