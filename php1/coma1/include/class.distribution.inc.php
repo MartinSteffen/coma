@@ -344,11 +344,11 @@ class Distribution extends ErrorHandling {
     
     echo('<table>');
     for ($i = 0; $i < count($matrix); $i++) {
-      echo('<td><tr>Reviewer '.$r_id[$i].'</tr>');
+      echo('<tr><td>Reviewer '.$r_id[$i].'</td>');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
-        echo('<tr>'.$matrix[$i][$j].'</tr>');
+        echo('<td>'.$matrix[$i][$j].'</td>');
       }
-      echo('</td>');
+      echo('</tr>');
     }
     echo('</table>');
     
