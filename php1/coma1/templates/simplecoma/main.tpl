@@ -13,7 +13,7 @@
  <tr bgcolor="#DBE9EC">
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
-   <a href="index.htm"><img src="{path}images/logo.jpg" width="150" height="90" align="middle" border="0" alt=""></a>
+   <a href="{basepath}index.php{SID}"><img src="{path}images/logo.jpg" width="150" height="90" align="middle" border="0" alt=""></a>
   </td>
   <td>
    <table width="100%" border="0" cellspacing="0" cellpadding="0">
