@@ -473,7 +473,7 @@ else{
     }
   }
   if (!empty($HTTP_GET_VARS['showforums'])){
-    $temp = $HTTP_GETVARS['showforums'];
+    $temp = $HTTP_GET_VARS['showforums'];
     if (($temp >= 0) && ($temp <= 3)){
       $_SESSION['showforums'] = $temp;
     }
