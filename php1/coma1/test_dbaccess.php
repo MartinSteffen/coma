@@ -25,16 +25,6 @@ function bit($b) {
 }
 
 $p = $myDBAccess->getPerson(1, 1);
-
-$p->intRoles = 10;
-bit($p->intRoles);
-$p->addRole(1);
-bit($p->intRoles);
-$p->switchRole(4);
-bit($p->intRoles);
-$p->deleteRole(2);
-bit($p->intRoles);
-
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))

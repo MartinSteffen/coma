@@ -371,22 +371,21 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
-    $role_type = 0;
+    $objPerson = (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
+                    $data[0]['email'], $role_type, $data[0]['title']));
     if (!empty($intConferenceId)) {
       $s = "SELECT  role_type".
           " FROM    Role".
-          " WHERE   person_id = ".$data[0]['id'].
+          " WHERE   person_id = $data[0]['id']".
           " AND     conference_id = $intConferenceId";
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getPerson', $this->mySql->getLastError());
       }
       for ($i = 0; $i < count($role_data); $i++) {
-        $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+        $objPerson->addRole($role_data[$i]['role_type']);
       }
     }
-    $objPerson = (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
-                    $data[0]['email'], $role_type, $data[0]['title']));
     return $this->success($objPerson);
   }
 
@@ -414,7 +413,12 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
-    $role_type = 0;
+    $objPersonDetailed = (new PersonDetailed($data[0]['id'], $data[0]['first_name'],
+                            $data[0]['last_name'], $data[0]['email'], $role_type,
+                            $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
+                            $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
+                            $data[0]['country'], $data[0]['phone_number'],
+                            $data[0]['fax_number']));
     if (!empty($intConferenceId)) {
       $s = "SELECT  role_type".
           " FROM    Role".
@@ -425,16 +429,10 @@ class DBAccess extends ErrorHandling {
         return $this->error('getPersonDetailed', $this->mySql->getLastError());
       }
       for ($i = 0; $i < count($role_data); $i++) {
-        $role_type = $role_type | (1 << $role_data[$i]['role_type']);
+        $objPersonDetailed->addRole($role_data[$i]['role_type']);
       }
     }
-    $objPerson = (new PersonDetailed($data[0]['id'], $data[0]['first_name'],
-                   $data[0]['last_name'], $data[0]['email'], $role_type,
-                   $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
-                   $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
-                   $data[0]['country'], $data[0]['phone_number'],
-                   $data[0]['fax_number']));
-    return $this->success($objPerson);
+    return $this->success($objPersonDetailed);
   }
 
   /**
