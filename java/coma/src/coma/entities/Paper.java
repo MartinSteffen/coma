@@ -1,10 +1,14 @@
 package coma.entities;
 
 import java.util.Date;
+import java.util.Vector;
 
 import static coma.entities.Entity.XMLMODE.DEEP;
 import static coma.entities.Entity.XMLMODE.SHALLOW;
 import coma.handler.db.ReadService;
+import coma.handler.impl.db.DeleteServiceImpl;
+import coma.handler.impl.db.InsertServiceImpl;
+import coma.handler.impl.db.ReadServiceImpl;
 import coma.servlet.util.XMLHelper;
 import static coma.util.logging.Severity.WARN;
 /**
@@ -12,7 +16,11 @@ import static coma.util.logging.Severity.WARN;
  *
  */
 public class Paper extends Entity {
-
+	
+	private ReadServiceImpl myReadService = new ReadServiceImpl();
+	private DeleteServiceImpl myDeleteService = new DeleteServiceImpl();
+	private InsertServiceImpl myInsertService = new InsertServiceImpl();
+	
     int id;
     int conference_id;
     int author_id;
@@ -23,6 +31,7 @@ public class Paper extends Entity {
     String filename;
     int state;
     String mim_type;
+    Vector<Topic> topics = new Vector<Topic>();
     
     public Paper(int id){this.id=id;}
     
@@ -100,7 +109,20 @@ public class Paper extends Entity {
     public void setVersion(int version) {
         this.version = version;
     }
-
+    
+    public Vector<Topic> getTopics(){
+    	return topics;
+    }
+    
+    public void setTopics(Integer[] topicids){
+    	this.topics = null;
+    	for (int i = 0; i < topicids.length; i++) {
+			topics.add(Topic.byId(topicids[i],this.conference_id));
+		}
+    	
+    }
+	
+    
     public Person getAuthor(){
 	System.out.print("&gA");
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();

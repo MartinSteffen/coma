@@ -55,7 +55,7 @@ public class Author extends HttpServlet {
 	StringBuffer result = new StringBuffer();
 	XMLHelper helper = new XMLHelper();
 	ACTIONS action = ACTIONS.NULL;
-	
+	SearchResult mySR =null;
 	
 	try {
 		action = ACTIONS.valueOf(request.getParameter(FormParameters.ACTION).toUpperCase());
@@ -93,7 +93,7 @@ public class Author extends HttpServlet {
 			mySearchPaper.setAuthor_id(theLogedPerson.getId());
 			SearchCriteria mysc = new SearchCriteria();
 			mysc.setPaper(mySearchPaper);
-			SearchResult mySR = myReadService.getPaper(mysc);
+			mySR = myReadService.getPaper(mysc);
 			result.append("<success>\n");
 			if (mySR != null){
 				thePapers = (Paper[])mySR.getResultObj();
@@ -118,14 +118,18 @@ public class Author extends HttpServlet {
 			result.append("</showpaper>\n");
     	break;
 	case SUBMITPAPER: // submit form for a paper
-		
-		SearchResult mySR = myReadService.getTopic(-1,theConf.getId());
+		result.append("<submitpaper>");
+		mySR = myReadService.getTopic(-1,theConf.getId());
+		result.append(XMLHelper.tagged("info",mySR.getInfo()));
 		if (mySR != null){
 			Topic[] topicArray = (Topic[]) mySR.getResultObj();
-			String info = mySR.getInfo();
+			
+			for (int i = 0; i < topicArray.length; i++) {
+				result.append(topicArray[i].toXML());
+			}
 		}
+		result.append("</submitpaper>");
 		
-		result.append(XMLHelper.tagged("submitpaper",""));
 		break;
 	case UPDATEPAPER: // make a update to an previous submitted paper
 		Paper[] thePapers = (Paper[])session.getAttribute(SessionAttribs.PAPER);
@@ -148,14 +152,28 @@ public class Author extends HttpServlet {
 			result.append(XMLHelper.tagged("writefile",""));
 			session.setAttribute(SessionAttribs.PAPER,theNewPaper);
 		} catch (Exception e) {
-			result.append(XMLHelper.tagged("failed",""));
+			result.append("<failed>\n");
+			String[] checkboxes = request.getParameterValues(FormParameters.TOPICS);
+			for (int i = 0; i < checkboxes.length; i++) {
+				 result.append(XMLHelper.tagged("info",checkboxes[i]));
+			} 
+			
+			result.append("</failed>");
 			result.append("<submitpaper>\n");
 			result.append(XMLHelper.tagged("error",e.toString()));
 			while(paramNames.hasMoreElements()){
 			    parName = (String) paramNames.nextElement();
 			    result.append(XMLHelper.tagged(parName,request.getParameter(parName).trim()));  
 			}//while
-				    
+			mySR = myReadService.getTopic(-1,theConf.getId());
+			result.append(XMLHelper.tagged("info",mySR.getInfo()));
+			if (mySR != null){
+				Topic[] topicArray = (Topic[]) mySR.getResultObj();
+				
+				for (int i = 0; i < topicArray.length; i++) {
+					result.append(topicArray[i].toXML());
+				}
+			}	    
 			result.append("</submitpaper>\n");
 			
 		}

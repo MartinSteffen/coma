@@ -19,6 +19,7 @@ import coma.entities.Topic;
 import coma.entities.Finish;
 import coma.servlet.util.FormParameters;
 import coma.servlet.util.SessionAttribs;
+import coma.servlet.util.XMLHelper;
 
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Albari </a>"
@@ -190,6 +191,10 @@ public class EntityCreater {
 		Enumeration paramNames = request.getParameterNames();
 		HttpSession session = request.getSession(true);
 		Paper paper = (Paper) session.getAttribute(SessionAttribs.PAPER);//get an old paper, if existing
+		String[] checkboxes = request.getParameterValues(FormParameters.TOPICS);
+		if (checkboxes==null) throw new IllegalArgumentException("no topic choosen");
+		//Integer[] topicids = Integer.parseInt(checkboxes);
+		 
 		if (paper==null) paper= new Paper(-1); // new Paper
 		
 		Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
@@ -210,8 +215,7 @@ public class EntityCreater {
 		//paper.setMim_type("");///set in WriteFile.java
 		paper.setState(0);
 		paper.setTitle(request.getParameter(FormParameters.TITLE));
-
-			
+		//paper.setTopics(topicids);	
 		return paper;
 		
 	}
