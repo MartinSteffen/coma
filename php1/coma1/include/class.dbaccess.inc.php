@@ -261,7 +261,10 @@ class DBAccess {
         ' INNER   JOIN Criterion AS c'.
         ' ON      c.id = r.criterion_id'.
         ' AND     r.review_id = '.$intReviewId.')';
-    $data = $this->mySql->select($s);
+    echo($s);
+    $data = $this->mySql->select($s);    
+    if (!empty($data))
+      echo(' !DATA ');
     return $data;
   }
 
