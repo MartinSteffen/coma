@@ -81,7 +81,7 @@ function encodeText($_str) {
  * @return string encoded string
  */
 function encodeURL($_str) {
-  $_str = decodeText($_str);
+  //$_str = decodeText($_str);
   $_str = str_replace('\'', urlencode('\''), $_str);
   $_str = str_replace('"', urlencode('"'), $_str);
   if (!preg_match('#^http[s]?:\/\/#i', $_str)) {
