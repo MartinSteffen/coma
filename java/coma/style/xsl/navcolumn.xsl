@@ -42,11 +42,11 @@
                 </div>
                 <div>
                   <label for="email">E-Mail</label>
-                  <input type="text" name="email" class="input-box" />
+                  <input type="text" name="email" id="email" class="input-box" />
                 </div>
                 <div>
                   <label for="password">Password</label>
-                  <input type="password" name="password" class="input-box" />
+                  <input type="password" name="password" id="password" class="input-box" />
                 </div>
                 <div>
                   <input type="submit" value="login" class="submit-button" />
@@ -90,7 +90,7 @@
           		 <xsl:otherwise>
           		 	<li><a href="Chair?action=setup&amp;target=conference">conference setup</a></li>
           		 	<li><a href="Chair?action=invite_person">invite person</a></li> 
-          		 	<li><a href="ShowReports">list of reports </a></li>
+          		 	
  						<li><a href="AllocatePapers">allocate papers</a></li> 
           		 	<li><a href="Chair?action=email">email</a></li>
           		 	<xsl:choose>
@@ -108,6 +108,7 @@
             	 	<li class="left"><a href="Chair?action=show_authors">authors</a></li> 
  					 	<li class="left"><a href="Chair?action=show_reviewers">reviewers</a></li>
  					 	<li class="left"><a href="Chair?action=show_papers">papers</a></li>
+                                                <li><a href="ShowReports">reports </a></li>
  					 	</xsl:if>
           		 </xsl:otherwise>
           		 </xsl:choose>   
@@ -145,7 +146,7 @@
 <li>
   <a href="http://validator.w3.org/check?uri=referer">
     Valid XHTML 1.1?
-  </a>
+  </a><br />
   <a href="http://jigsaw.w3.org/css-validator/check/referer">
     Valid CSS?
   </a>
