@@ -35,6 +35,19 @@ class Distribution extends ErrorHandling {
    * @var MySql
    */
   var $mySql;
+  
+    define('ASSIGNED', -2); // bereits vorher verteilt
+    define('SUGGESTED', -1); // Verteilungsvorschlag
+/*    define('ASSIGNED', 0);
+    define('PREFERS', 1); // Topic
+    define('WANTS', 2); // Paper
+    define('DENIES', 3); // Paper
+    define('EXCLUDED', 4); // Paper*/
+
+    define('NEUTRAL', 10000.0); // Faktor fuer Preferred Topic
+    define('PREF', NEUTRAL*1.5); // 1*NEUTRAL < Faktor fuer Preferred Topic < 2*NEUTRAL
+    define('WANT', PREF*1.5); // 1*PREF < Faktor fuer Preferred Paper < 2*PREF
+
   /**#@-*/
 
   /**
@@ -59,18 +72,6 @@ class Distribution extends ErrorHandling {
    * @todo Noch ne ganze Menge UND PHPDoc :-) $color entfernen! $p_num_revs_pref_left kann raus
    */
   function getDistribution($intConferenceId) {
-    define('ASSIGNED', -2); // bereits vorher verteilt
-    define('SUGGESTED', -1); // Verteilungsvorschlag
-/*    define('ASSIGNED', 0);
-    define('PREFERS', 1); // Topic
-    define('WANTS', 2); // Paper
-    define('DENIES', 3); // Paper
-    define('EXCLUDED', 4); // Paper*/
-
-    define('NEUTRAL', 10000.0); // Faktor fuer Preferred Topic
-    define('PREF', NEUTRAL*1.5); // 1*NEUTRAL < Faktor fuer Preferred Topic < 2*NEUTRAL
-    define('WANT', PREF*1.5); // 1*PREF < Faktor fuer Preferred Paper < 2*PREF
-
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
@@ -282,61 +283,55 @@ class Distribution extends ErrorHandling {
 
     echo('<br><br><br>');
 
+    // Paper-Wuensche zuerst beruecksichtigen
+    for ($i = 0; $i < count($r_id); $i++) {
+      for ($j = 0; $j < count($p_id); $j++) {
+        if ($matrix[$i][$j] == WANT) {
+          $this->suggest($matrix, $i, $p_id, $avg_revs, $p_num_revs_total_left,
+                         $p_num_revs, $r_num_paper);
+        }
+      }
+    }
+
     // Verteilungsschleife
     $blnChanged = true;
     $blnBreak = false;
     while ($blnChanged && !$blnBreak) {
-      $rindex = $pindex = -1;
-      // Paper-Wuensche zuerst beruecksichtigen
-      $blnWanted = false;
-      for ($i = 0; $i < count($r_id); $i++) {
-        for ($j = 0; $j < count($p_id); $j++) {
-          if ($matrix[$i][$j] == WANT) {
-            $blnWanted = true;
+      $blnBreak = true;
+      for ($i = 0; $i < count($p_num_revs); $i++) {
+        if ($p_num_revs[$i] < $avg_revs) {
+          $blnBreak = false;
+        }
+      }
+      if ($blnBreak) {
+        break;
+      }
+
+      $blnChanged = false;
+
+      // Paper mit den wenigsten Reviewern ermitteln...
+      $min = count($r_id)+1; $pindex = -1;
+      for ($i = 0; $i < count($p_id); $i++) {
+        // nur solche, fuer die noch Reviewer in Frage kommen
+        if ($p_num_revs_total_left[$i] > 0 && $p_num_revs[$i] < $min) {
+          $min = $p_num_revs[$i];
+          $pindex = $i;
+        }
+      }
+      if ($pindex >= 0) {
+        // am besten geeigneten Reviewer nehmen
+        $max = 0; $rindex = -1;
+        for ($i = 0; $i < count($r_id); $i++) {
+          if ($matrix[$i][$pindex] > $max) {
+          $max = $matrix[$i][$pindex];
             $rindex = $i;
-            $pindex = $j;
-            break(2);
           }
         }
       }
 
-      if (!$blnWanted) {
-        $blnBreak = true;
-        for ($i = 0; $i < count($p_num_revs); $i++) {
-          if ($p_num_revs[$i] < $avg_revs) {
-            $blnBreak = false;
-          }
-        }
-        if ($blnBreak) {
-          break;
-        }
-        
-        $blnChanged = false;
-        
-        // Paper mit den wenigsten Reviewern ermitteln...
-        $min = count($r_id)+1; $pindex = -1;
-        for ($i = 0; $i < count($p_id); $i++) {
-          // nur solche, fuer die noch Reviewer in Frage kommen
-          if ($p_num_revs_total_left[$i] > 0 && $p_num_revs[$i] < $min) {
-            $min = $p_num_revs[$i];
-            $pindex = $i;
-          }
-        }
-        if ($pindex >= 0) {
-          // am besten geeigneten Reviewer nehmen
-          $max = 0; $rindex = -1;
-          for ($i = 0; $i < count($r_id); $i++) {
-            if ($matrix[$i][$pindex] > $max) {
-              $max = $matrix[$i][$pindex];
-              $rindex = $i;
-            }
-          }
-        }
-      }
-
-      if ($pindex >= 0 && $rindex >= 0) {
+      if ($rindex >= 0 && $pindex >= 0) {
         $blnChanged = true;
-        $p_num_revs_total_left[$pindex]--;
+        /*$p_num_revs_total_left[$pindex]--;
         $p_num_revs[$pindex]++;
         $r_num_papers[$rindex]++;
         $matrix[$rindex][$pindex] = SUGGESTED;
@@ -344,18 +339,20 @@ class Distribution extends ErrorHandling {
         for ($i = 0; $i < count($p_id); $i++) {
           if ($matrix[$rindex][$i] > 1) {
             $matrix[$rindex][$i] /= 2.0;
-            // Reviewer schon ueber dem Schnitt? Dann nochmal reduzieren!
-            if ($r_num_papers[$rindex] > $avg_revs && $matrix[$rindex][$i] > 1) {
-              $matrix[$rindex][$i] /= 2.0;
-            }
             if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
               $matrix[$rindex][$i] = 0;
               $p_num_revs_total_left[$i]--;
             }
           }
-        }
+        }*/
+        $this->suggest($matrix, $rindex, $p_id, $avg_revs, $p_num_revs_total_left,
+                       $p_num_revs, $r_num_paper);
       }
     }
+    
+    // Korrekturen: Reviewer mit neutralem Paper gegen gewuenschtes tauschen,
+    // wenn es dem Partner egal ist
+    // (...)
 
     // Debug: Ausgabe
     /*for ($i = 0; $i < count($matrix); $i++) {
@@ -413,6 +410,27 @@ class Distribution extends ErrorHandling {
 
     return $matrix;
   }
+
+  /**
+   * @access private
+   */
+  function halfReviewerLine(&$matrix, $rindex, $p_id, $avg_revs, &$p_num_revs_total_left,
+                            &$p_num_revs, &$r_num_papers) {
+    $p_num_revs_total_left[$pindex]--;
+    $p_num_revs[$pindex]++;
+    $r_num_papers[$rindex]++;
+    $matrix[$rindex][$pindex] = SUGGESTED;
+    for ($i = 0; $i < count($p_id); $i++) {
+      if ($matrix[$rindex][$i] > 1) {
+        $matrix[$rindex][$i] /= 2.0;
+        if ($r_num_papers[$rindex] > $avg_revs + 1 && $matrix[$rindex][$i] >= 1) {
+          $matrix[$rindex][$i] = 0;
+          $p_num_revs_total_left[$i]--;
+        }
+      }
+    }
+  }
+
 
   /**
    * @access private
