@@ -4,6 +4,10 @@ if(isset($_SESSION['userID']))
 	$output = array();
 	
 	$tasks = array();
+	$tasks = participant_task();	
+	$output[] = array("role"=>"participant", "tasks"=>$tasks);
+		
+	$tasks = array();
 	$tasks = admin_task();	
 	$output[] = array("role"=>"admin", "tasks"=>$tasks);	
 

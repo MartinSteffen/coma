@@ -160,4 +160,29 @@ function chair_task()
 	return $tasks;
 }
 
+
+
+
+
+// --------- FOR PARTICIPANT ---------------------------
+function participant_task()
+{
+	$tasks = array();	
+	
+	//Find the roles where is invited -------------------
+	$SQL = "select role_type from role 
+			where state = 3 
+			and person_id = ".$_SESSION['userID'];
+			
+    $result=mysql_query($SQL);
+    if ($list = mysql_fetch_row ($result)) 	
+	{
+	    $task = array();	
+		$taskLink = "<a href=\"index.php?m=profile&a=roles\" class=\"normal\">You are invited to some roles. You should accept or deny.</a>";		
+		$task[] = array("text"=>"Task", "action"=>$taskLink);	
+		$tasks[$count] = $task;
+		$count++;		
+	}
+	return $tasks;
+}
 ?>
