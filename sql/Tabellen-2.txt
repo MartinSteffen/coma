@@ -200,7 +200,7 @@ first_message	Varchar 127	-> Message, id
 title		Varchar 127
 description	Text
 
-Tabelle ParticipatesInForum
+Tabelle ParticipantsInForum
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 forum_id	Int		-> Forum, id
 participant	Int		-> Person, id
