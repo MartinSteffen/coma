@@ -272,6 +272,10 @@ class Distribution extends ErrorHandling {
     }
 
     echo('<br>MinRevs: '.$min_revs.' / AvgRevs: '.$avg_revs);
+    echo('<br>p_id_index:');
+    print_r($p_id_index);
+    echo('<br>r_id_index:');
+    print_r($r_id_index);
     echo('<br>NumRevsPrefLeft:');
     print_r($p_num_revs_pref_left);
     echo('<br>NumRevsTotalLeft:');
