@@ -36,24 +36,38 @@ public class RatePaper extends HttpServlet{
     public void init(ServletConfig config) {
 	LOG.log(DEBUG, "I'm alive!");
     }
+
+    /*
+      N.b: we do not use an enumeration here because we cannot easily
+      transfer an enum over the html contents. We can do that with
+      chars.
+     */
+    public final class STATE {
+	public static final char SELECTPAPER='0';
+	public static final char EDITREPORT ='1';
+	public static final char UPDATE_DB ='2';
+	public static final char ERROR      ='e';
+    }
     
     /**
        handle the request. <p />
 
        This servlet has 4 states: <p />
 
-       S0: selecting a paper that the user is allowed to rate, i.e. we
-       show all those papers along with the user's RR on them, where
-       there already is one. ->S1 <p />
+       SELECTPAPER: selecting a paper that the user is allowed to
+       rate, i.e. we show all those papers along with the user's RR on
+       them, where there already is one. -&gt;EDITREPORT <p />
 
-       S1: having selected a paper, displaying the report that was
-       already there in a way that can be edited. -> S2 <p />
+       EDITREPORT: having selected a paper, displaying the report that
+       was already there in a way that can be edited. -&gt;UPDATE_DB <p />
 
-       S2: with changes made by the user, update the entry in the DB.
-       Give the user a "thank you bla bla" message, -> S0, possiby
-       with auto-redirect after 5 seconds or so? <p />
+       UPDATE_DB: with changes made by the user, update the entry in
+       the DB. Give the user a "thank you bla bla" message, -&gt;
+       SELECTPAPER, possiby with auto-redirect after 5 seconds or so?
+       <p />
        
-       Se: the user is not logged in. Say "bzzzzzt! Go away, fool!".<p />
+       ERROR: the user is not logged in. Say "bzzzzzt! Go away,
+       fool!".<p />
 
        Note: the update is <b>not</b> atomic. Especially, the ratings
        are updated seperately from all textual remarks.
@@ -65,7 +79,9 @@ public class RatePaper extends HttpServlet{
 
 	HttpSession session;
 	session = request.getSession(true);
-	Character state = null;
+
+	PageStateHelper pagestate = new PageStateHelper(request);
+
 	StringBuffer result = new StringBuffer();
 	XMLHelper x = new XMLHelper();
 
@@ -79,15 +95,10 @@ public class RatePaper extends HttpServlet{
 
 	try {
 
-	    
+	    switch (pagestate.get()) {
 
-	    state = (Character)session.getAttribute(SessionAttribs.RATEPAPER_STATE);
-	    if (state == null) {
-		state='0'; // default state
-	    }
-
-	    switch (state) {
-	    case '0': {
+	    case PageStateHelper.NULLSTATE: //fall through
+	    case STATE.SELECTPAPER: {
 		/*
 		  "These are the papers you can rate."
 		*/
@@ -113,13 +124,14 @@ public class RatePaper extends HttpServlet{
 		result.append(UserMessage.SUBMITBUTTON);
 
 		if (thePerson != null){
-		    state = '1';
+		    pagestate.set(STATE.EDITREPORT);
 		} else {
-		    state='e';
+		    pagestate.set(STATE.ERROR);
 		}
-	    }
 		break;
-	    case '1': {
+	    }
+
+	    case STATE.EDITREPORT: {
 		/*
 		  "You can now make changes to your RReport"
 		*/
@@ -138,7 +150,7 @@ public class RatePaper extends HttpServlet{
 		    || (((ReviewReport[])theSR.getResultObj()).length != 1)){
 
 		    LOG.log(ERROR, "DB inconsistency: !=1 RReports", theSR);
-		    state = '0';
+		    pagestate.set(STATE.ERROR);
 
 		} else { // all is well in the land of Denmark.
 
@@ -160,11 +172,13 @@ public class RatePaper extends HttpServlet{
 		    result.append(x.tagged("editReport", theReport.toXML()));
 		    
 		    result.append(UserMessage.SUBMITBUTTON);
-		    state = '2';
-
-		}}
+		    pagestate.set(STATE.UPDATE_DB);
+		
+		}
 		break;
-	    case '2': {
+	    }
+
+	    case STATE.UPDATE_DB: {
 		/*
 		  "Thank you for your cooperation."
 		*/
@@ -255,12 +269,11 @@ public class RatePaper extends HttpServlet{
 		    // well, this is close enough to the truth for the moment.
 		    result.append(UserMessage.ERRDATABASEDOWN);
 		} finally {
-		    state = '0';
+		    pagestate.set(STATE.SELECTPAPER);
 		}
 	    }
 		break;
-	    case '?': //fall through
-	    case 'e': //fall through 
+	    case STATE.ERROR: //fall through
 	    default: {
 		/*
 		  Pretty generic error state: user not authorized
@@ -270,6 +283,7 @@ public class RatePaper extends HttpServlet{
 		break;
 	    }
 
+	    result.append(pagestate.toString());
 	    result.append("</content>");
 
 	    /*FIXME FIXME FIXME*/
@@ -284,13 +298,7 @@ public class RatePaper extends HttpServlet{
 	} catch (Exception exc) { // safety net
 
 	    LOG.log(ERROR, exc);
-	} finally {
-
-
-	    if (session != null){
-		session.setAttribute(SessionAttribs.RATEPAPER_STATE, state);
-	    }
-	}
+	} 
     }
 
     public void doPost(

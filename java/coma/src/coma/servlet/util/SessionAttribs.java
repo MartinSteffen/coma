@@ -22,6 +22,8 @@ public class SessionAttribs {
     public static final String LOGIN="login";
     public static final String LOGIN_OK="ok";
 
+    // was used in RatePaper. Now using hidden form and PageStateHelper
+    @Deprecated
     public static final String RATEPAPER_STATE="rpstate";
 
     /** the ID of the paper that is currently important (e.g. about to be rated) */
