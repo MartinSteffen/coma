@@ -169,6 +169,15 @@ input.button, button {
   padding: 2px 8px;
 }
 
+input.button120 {
+  /*font-family: Verdana, Arial, Sans-Serif;*/
+  font-weight: bold;
+  background-color: #CEDBEF;
+  min-width: 120px;
+  text-align: center;
+  padding: 2px 8px;
+}
+
 /* Tabelle Darstellung von Listen */
 table.list {
   border-style: solid;
