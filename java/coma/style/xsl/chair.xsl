@@ -22,16 +22,23 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select = "/result/login/status"/>
 <xsl:apply-templates select = "/result/email/status"/>
 <xsl:apply-templates select = "/result/invite/status"/>
-<xsl:apply-templates select = "/result/showpapers/status"/>
+<xsl:apply-templates select = "/result/show_papers/status"/>
 <xsl:apply-templates select = "/result/showauthors/status"/>
 <xsl:apply-templates select = "/result/showreviewers/status"/>
 <xsl:apply-templates select = "/result/showreviewers_data/status"/>
 <xsl:apply-templates select = "/result/showauthors_data/status"/>
 <xsl:apply-templates select = "/result/setup/status"/>
 <xsl:apply-templates select = "/result/setup_topics/status"/>
+<xsl:apply-templates select = "/result/show_topics/status"/>
+<xsl:apply-templates select = "/result/criteria/status"/>
+<xsl:apply-templates select = "/result/criterion_add/status"/>
+<xsl:apply-templates select = "/result/save_initial/status"/>
 <xsl:apply-templates select = "/result/add_topics/status"/>
 <xsl:apply-templates select = "/result/invitation_send/status"/>
 <xsl:apply-templates select = "/result/assign/status"/>
+<xsl:apply-templates select = "/result/criterion_change/status"/>
+<xsl:apply-templates select = "/result/program/status"/>
+<xsl:apply-templates select = "/result/procreate/status"/>
 </div>
 
 
@@ -43,15 +50,22 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:call-template name="setup_conference"/>
 <xsl:call-template name="setup_topics"/>
 <xsl:call-template name="add_topics"/>
+<xsl:call-template name="save_initial"/>
 <xsl:apply-templates select = "/result/login/content"/>
 <xsl:apply-templates select = "/result/invite/content"/>
-<xsl:apply-templates select = "/result/showpapers/content"/>
+<xsl:apply-templates select = "/result/show_papers/content"/>
 <xsl:apply-templates select = "/result/showauthors/content"/>
 <xsl:apply-templates select = "/result/showreviewers/content"/>
+<xsl:apply-templates select = "/result/show_topics/content"/>
 <xsl:apply-templates select = "/result/showreviewers_data/content"/>
 <xsl:apply-templates select = "/result/showauthors_data/content"/>
+<xsl:apply-templates select = "/result/criterion_add/content"/>
 <xsl:apply-templates select = "/result/email/content"/>
 <xsl:apply-templates select = "/result/assign/content"/>
+<xsl:apply-templates select = "/result/criteria/content"/>
+<xsl:apply-templates select = "/result/criterion_change/content"/>
+<xsl:apply-templates select = "/result/program/content"/>
+<xsl:apply-templates select = "/result/procreate/content"/>
 </div> <!-- Main content end -->
 
 </body>
@@ -61,6 +75,187 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:template match="/result/login/content">
 <xsl:value-of select='.'/><br></br>
 </xsl:template>
+
+<xsl:template match="/result/criterion_change/content">
+<form method="post">
+<xsl:attribute name = "action">Chair?action=criterion&amp;target=criteria&amp;
+criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/content/id"/>
+</xsl:attribute>
+<table class="chair">
+<tr>
+	<td>
+		*Name:
+	</td>
+	<td>
+		<input type="text" size="30" maxlength="30" name="criterion_name" id="criterion_name">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_change/content/name"/>
+			</xsl:attribute></input>
+	</td>
+</tr>
+<tr>
+	<td>
+		*Description:
+	</td>
+	<td>
+		<input type="text" size="50" maxlength="50" name="criterion_description" id="criterion_description">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_change/content/description"/>
+			</xsl:attribute></input>
+	</td>
+</tr>
+<tr>
+	<td>
+		*Max Value:
+	</td>
+	<td>
+		<input type="text" size="2" maxlength="2" name="criterion_value" id="criterion_value">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_change/content/value"/>
+			</xsl:attribute></input>
+	</td>
+</tr>
+<tr>
+	<td>
+		*quality Ranking:
+	</td>
+	<td>
+		<input type="text" size="2" maxlength="2" name="criterion_ranking" id="criterion_ranking">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_change/content/ranking"/>
+			</xsl:attribute></input>
+	</td>
+</tr>	
+</table>
+<input type="submit" value="update" class="submit-button"/>
+</form>
+</xsl:template>
+
+
+<xsl:template match="/result/criteria/content">
+<table class="chair">
+<xsl:if test="/result/criteria/content/criterion">
+<tr>
+	<th>
+		Name
+	</th>
+	<th>
+		Description
+	</th>
+	<th>
+		Max Value
+	</th>
+	<th>
+		Quality Ranking
+	</th>
+	<th colspan="2">
+		options
+	</th>
+</tr>
+</xsl:if>
+<xsl:for-each select="/result/criteria/content/criterion">
+<tr>
+	<td>
+		<xsl:value-of select="name"/>
+	</td>
+	<td>
+		<xsl:value-of select="description"/>
+	</td>
+	<td>
+		<xsl:value-of select="maxValue"/>
+	</td>
+	<td>
+		<xsl:value-of select="qualityRating"/>
+	</td>
+	<td>
+		<a>
+			<xsl:attribute name = "href">Chair?action=criterion&amp;target=criteria&amp;criterion_target=delete&amp;
+			id=<xsl:value-of select="id"/>
+			</xsl:attribute>delete
+		</a>
+	</td>
+	<td>
+		<a>
+			<xsl:attribute name = "href">Chair?action=criterion&amp;target=criteria&amp;criterion_target=change&amp;
+			id=<xsl:value-of select="id"/>
+			</xsl:attribute>change
+		</a>
+	</td>
+	
+</tr>
+</xsl:for-each>
+</table>
+<form method="post" action="Chair?action=criterion&amp;target=criteria&amp;criterion_target=add">
+<input type="submit" value="add criterion" class="submit-button"/>
+</form>
+</xsl:template>
+
+<xsl:template match="/result/criterion_add/content">
+<form method="post" action="Chair?action=criterion&amp;target=criteria&amp;criterion_target=save">
+<table class="chair">
+<tr>
+	<td>
+		*Name:
+	</td>
+	<td>
+		<input type="text" size="30" maxlength="30" name="criterion_name" id="criterion_name">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_add/content/name"/>
+			</xsl:attribute></input>
+	</td>
+</tr>
+<tr>
+	<td>
+		*Description:
+	</td>
+	<td>
+		<input type="text" size="50" maxlength="50" name="criterion_description" id="criterion_description">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_add/content/description"/>
+			</xsl:attribute></input>
+	</td>
+</tr>
+<tr>
+	<td>
+		*Max Value:
+	</td>
+	<td>
+		<input type="text" size="2" maxlength="2" name="criterion_value" id="criterion_value">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_add/content/value"/>
+			</xsl:attribute></input>
+	</td>
+</tr>
+<tr>
+	<td>
+		*quality Ranking:
+	</td>
+	<td>
+		<input type="text" size="2" maxlength="2" name="criterion_ranking" id="criterion_ranking">
+			<xsl:attribute name = "value"><xsl:apply-templates select="/result/criterion_add/content/ranking"/>
+			</xsl:attribute></input>
+	</td>
+</tr>	
+</table>
+<input type="submit" value="save" class="submit-button"/>
+</form>
+</xsl:template>
+
+<xsl:template match="/result/show_topics/content">
+<table class="chair">
+<tr>
+	<th> Name
+	</th>
+	<th>
+		number of papers
+	</th>
+</tr>
+<xsl:for-each select="/result/show_topics/content/topics">
+<tr>
+	<td>
+		<xsl:value-of select="topic/name"/>
+	</td>
+	<td>
+		<xsl:value-of select="number_of_papers"/>
+	</td>
+</tr>
+</xsl:for-each>
+</table>
+</xsl:template>
+
 
 <xsl:template match="/result/invite/content">
 	<div class="formular">
@@ -110,8 +305,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			<tr>
 				<td colspan="2">
 					invite as:
-					<input type="radio" name="invite as" value="author" checked=""/>author
-					<input type="radio" name="invite as" value="reviewer"/>reviewer
+					<input type="radio" name="invite as" value="author" checked=""/>Author
+					<input type="radio" name="invite as" value="reviewer"/>Reviewer
+					<input type="radio" name="invite as" value="participant"/>Participant
 				</td>
 			</tr>
 			<tr>
@@ -140,7 +336,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			<td><xsl:value-of select="first_name"/></td>
 			<td><xsl:value-of select="last_name"/></td>
 			<td><xsl:value-of select="email"/></td>
-			<td><a><xsl:attribute name = "href">Chair?action=show_authors&amp;delete=true</xsl:attribute>delete
+			<td><a><xsl:attribute name = "href">Chair?action=show_authors&amp;delete=true&amp;id=<xsl:value-of select="id"/></xsl:attribute>delete
 			</a>
 			</td>
 			<td>
@@ -268,7 +464,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			<td><xsl:value-of select="first_name"/></td>
 			<td><xsl:value-of select="last_name"/></td>
 			<td><xsl:value-of select="email"/></td>
-			<td><a><xsl:attribute name = "href">Chair?action=show_reviewers&amp;delete=true</xsl:attribute>delete
+			<td><a><xsl:attribute name = "href">Chair?action=show_reviewers&amp;delete=true&amp;id=<xsl:value-of select="id"/></xsl:attribute>delete
 			</a>
 			</td>
 			<td>
@@ -359,7 +555,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 
-<xsl:template match="/result/showpapers/content">
+<xsl:template match="/result/show_papers/content">
 Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen 
 <table class="chair" cellpadding="2">
 <thead>
@@ -374,7 +570,7 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 	<th></th>
 </tr>
 </thead>
-<xsl:for-each select="/result/showpapers/content/paper">
+<xsl:for-each select="/result/show_papers/content/paper">
 <tr>
 	<td><xsl:value-of select="title"/></td>
 	<td><xsl:value-of select="Abstract"/></td>
@@ -410,7 +606,7 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 
 
 <xsl:template match="/result/assign/content">
-<h4 align="left" style="color:black">Paper</h4>
+<h4 align="left" style="color:black">Paper:</h4>
 <table class="chair" cellpadding="5">
 	<thead>
 		<tr align="center">
@@ -456,10 +652,21 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 					Assign
 				</th>
 				<th>
+					number of Reports
 				</th>
 			</tr>
 		</thead>
-		<h4 align="left" style="color:black">Reviewers:</h4>
+		<h4 align="left" style="color:black">Reviewers: 
+		<xsl:if test="//more">
+			(you have to assign <xsl:value-of select="//more"/> more reviewer(s)) 
+		</xsl:if>
+		<xsl:if test="//even">
+			(you have assigned the minimum of reviewers) 
+		</xsl:if>
+		<xsl:if test="//already">
+			(you have assigned  <xsl:value-of select="//already"/> reviewer over the minimum)
+		</xsl:if>
+		</h4>
 	<xsl:for-each select="/result/assign/content/personplus">
 		<tr>
 			<td><xsl:value-of select="person/first_name"/></td>
@@ -473,13 +680,19 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 			</xsl:if>
 			</input>		
 </td>
+<td>
+	<xsl:value-of select="number_of_ReviewReports"/>
+</td>
 		
 	   </tr>
 	</xsl:for-each>
 	</table>
-	<p>	<input type="submit" value="submit"/></p>
+	<p style="color:black">	<input type="submit" value="submit"/></p>
 		</form>
 </xsl:template>
+
+
+
 
 <xsl:template match="/result/email/content">
 <form action="Chair?action=send_email" method="post">
@@ -529,12 +742,108 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 </form>
 </xsl:template>
 
+<xsl:template match="/result/program/content">
+<h4 align="left" style="color:black">Paper</h4>
+<form method="POST" action="Chair?action=programCommit">	
+<table class="chair" cellpadding="5">
+	<thead>
+		<tr align="center">
+			<!--<td>ID</td><td>Conference ID</td><td>Author ID</td>-->
+			<th><a href="Chair?action=program&amp;sort=0">Title</a>
+			</th>
+			<th><a href="Chair?action=program&amp;sort=1">Author</a></th>
+			<th><a href="Chair?action=program&amp;sort=2">Grade</a></th>
+			<th><a href="Chair?action=program&amp;sort=3">Topic</a></th>
+			<th>Choice</th>
+		</tr>
+	</thead>
+		<xsl:for-each select="/result/program/content/FINISH">
+	<tr align="center">
+		<td>
+			<xsl:value-of select="title"/>
+		</td>
+		<td>
+	<xsl:value-of select="author"/>
+		</td>
+				<td>
+					<xsl:value-of select="avggrade"/>
+		</td>
+				<td>
+	<xsl:value-of select="topic"/>
+		</td>
+
+<td>
+	<input type="checkbox" name="CB"><xsl:attribute name = "value"><xsl:value-of select="paper_id"/></xsl:attribute>
+			<xsl:if test="state ='1'">
+			<xsl:attribute name = "checked"/>
+			</xsl:if>
+			</input>	
+			</td>
+	  </tr>
+		</xsl:for-each>
+</table>
+<p>	<input type="submit" value="submit"/></p>
+		</form>
+		<form method="POST" action="Chair?action=programCreate">	
+		<p>	<input type="submit" value="submit"/></p>
+		</form>
+</xsl:template>
+
+<xsl:template match="/result/procreate/content">
+
+<table class="chair" cellpadding="5">
+<xsl:for-each select="/result/procreate/content/day">
+	<tr align="center">
+		<td colspan="3">
+		DAY
+			<xsl:value-of select="@date"/>
+		</td>
+	</tr>
+	<tr align="center">
+		<th>Time</th>
+		<th>Title</th>
+		<th>Author</th>
+	</tr>
+	<xsl:for-each select="FINISH">
+	<tr>
+		<td>
+			<xsl:value-of select="time"/>
+		</td>
+		<td>
+			<xsl:value-of select="title"/>
+		</td>
+		<td>
+			<xsl:value-of select="author"/>
+		</td>
+	</tr>
+	</xsl:for-each>
+</xsl:for-each>
+</table>
+</xsl:template>
+
+
+
+
+
+
 
 <xsl:template match="/result/login/status">
 <xsl:value-of select='.'/>
 </xsl:template>
 
 <xsl:template match="/result/invite/status">
+<xsl:value-of select='.'/>
+</xsl:template>
+
+<xsl:template match="/result/save_initial/status">
+<xsl:value-of select='.'/>
+</xsl:template>
+
+<xsl:template match="/result/criteria/status">
+<xsl:value-of select='.'/>
+</xsl:template>
+
+<xsl:template match="/result/setup_topics/status">
 <xsl:value-of select='.'/>
 </xsl:template>
 
@@ -551,6 +860,10 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 </xsl:template>
 
 <xsl:template match="/result/setup_new/status">
+<xsl:value-of select='.'/>
+</xsl:template>
+
+<xsl:template match="/result/show_topics/status">
 <xsl:value-of select='.'/>
 </xsl:template>
 
