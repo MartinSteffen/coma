@@ -46,10 +46,11 @@ table.menu  { border-style: none;
               text-align: left;
               background-color: #F7FBFF;
             }
-td.menu { width: 150px; height: 450px; min-height: 450px; background-color: #F7FBFF; }
+td.menu { width: 150px; height: 450px; min-height: 450px;
+          background-color: #F7FBFF; vertical-align: top; }
 
 /* tabelle fuer den seiteninhalt */
-table.body { width: 100%; min-height: 450px; }
+table.body { width: 100%; min-height: 450px; vertical-align: top; }
 
 /* tabelle fuer die kopfzeile */
 table.header { width: 100%; background-color: #DBE9EC; }
