@@ -17,9 +17,9 @@
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">
-      <button name="addpaper" type="button" class="button" value="edit"
-              onClick="self.location.href='{basepath}author_createpaper.php{?SID}'">
-              Add new paper</button>    
+      <form action="{basepath}author_createpaper.php{?SID}" method="post" accept-charset="UTF-8">
+        <input type="submit" name="addpaper" value="Add new paper" class="button">
+      </form>      
     </th>        
   </tr>
   {lines}
