@@ -58,7 +58,7 @@
   </tr>
   <tr class="viewline"> 
     <td class="viewline">
-      <span class="emph">Currently average rating:</span>
+      <span class="emph">Current average rating:</span>
     </td>
     <td class="viewline">
       <span class="emph">{avg_rating}</span><br>
