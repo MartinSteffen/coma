@@ -51,7 +51,8 @@ function reviewer_task()
 	{
 		$task = array();
 		$task[] = array("text"=>"In Conference", "action"=>$list[8]);
-		$task[] = array("text"=>"Paper title", "action"=>$list[5]);
+		$downloadLink = "<a href=\"index.php?m=reviewer&a=default&s=getfile&pid=$list[2]\" class=\"normal\">".$list[5]."</a>";
+		$task[] = array("text"=>"Paper title", "action"=>$downloadLink);
 		$task[] = array("text"=>"Deadline", "action"=>$list[7]);
 		$reviewLink = "<a href=\"index.php?m=reviewer&a=review&s=review&paperID=$list[2]\" class=\"normal\">Review the paper.</a>";
 		$task[] = array("text"=>"Task", "action"=>$reviewLink);
@@ -164,7 +165,7 @@ function chair_task()
 			$count++;
 		}
 	}
-	
+
 	//Find the new conferences that have no dates  ----------------------------------
 	$SQL = "select conference.id, conference.name
 			from conference,role
@@ -194,7 +195,7 @@ function chair_task()
 			$task[] = array("text"=>"Task", "action"=>$taskLink);
 			$tasks[$count] = $task;
 			$count++;
-	}	
+	}
 
 	//Find the conferences that have no topics and/or no criterions  ----------------------------------
 	$SQL = "select conference.id, conference.name

@@ -23,8 +23,7 @@ if(isReviewer_Overall())
 	while ($list = mysql_fetch_row ($result))
 	{
 		$criterion = array();
-		$criterion = array("id"=>$list[3], "value"=>$_POST['G'.$list[0]], "comment"=>$_POST['K'.$list[0]]);
-
+		$criterion = array("id"=>$list[3], "value"=>$_POST['G'.base64_encode($list[0])], "comment"=>$_POST['K'.base64_encode($list[0])]);
 		$criterionlist[$count] = $criterion;
 		$count++;
 	}
@@ -41,25 +40,22 @@ if(isReviewer_Overall())
 		{
 			// Datensatz bereits vorhanden, nur update durchführen
 			$SQL =
-			  "UPDATE rating SET grade = '".$criterionlist[$i]['value']."' , comment = '".$criterionlist[$i]['comment']."'
+			  "UPDATE rating SET grade = '".$criterionlist[$i]['value']."' , comment = '".htmlentities($criterionlist[$i]['comment'])."'
 			  WHERE (review_id = ".$_POST['reviewreportID'].")
 				AND (criterion_id = ".$criterionlist[$i]['id'].")";
-
 			$result = mysql_query($SQL);
 		} else {
 			$SQL =
 			  "INSERT INTO rating
-			  VALUES (".$_POST['reviewreportID'].", ".$criterionlist[$i]['id'].", '".$criterionlist[$i]['value']."', '".$criterionlist[$i]['comment']."')";
+			  VALUES (".$_POST['reviewreportID'].", ".$criterionlist[$i]['id'].", '".$criterionlist[$i]['value']."', '".htmlentities($criterionlist[$i]['comment'])."')";
 			$result = mysql_query($SQL);
 		}
 	}
 
 	$SQL =
-	  "UPDATE reviewreport SET summary = '".$_POST['summary']."', remarks = '".$_POST['remarks']."', confidential = '".$_POST['confidential']."'
+	  "UPDATE reviewreport SET summary = '".nl2br(htmlentities($_POST['summary']))."', remarks = '".nl2br(htmlentities($_POST['remarks']))."', confidential = '".nl2br(htmlentities($_POST['confidential']))."'
 	  WHERE (paper_id = ".$_POST['paperID'].")
 	  AND (reviewer_id = ".$_SESSION['userID'].")";
-
-//	echo $SQL;
 
     $result = mysql_query($SQL);
 
