@@ -28,7 +28,7 @@ a.menu:visited { color: #000000; }
 a.menu:active  { color: #000000; }
 a.menu:hover   { color: #2F2F2F; }
 
-.markedmenuitem { font-size: 13px; text-decoration: none; font-weight : bold; color: #FF0000; }
+a.markedmenuitem { font-size: 13px; text-decoration: none; font-weight : bold; color: #FF0000; }
 
 /* startmenue */
 table.menu  { border: 0px;
