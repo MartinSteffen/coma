@@ -26,4 +26,6 @@ include("header.tpl.php");
 </table>
 </form>
 
-		
+<?
+include("footer.tpl.php");
+?>
