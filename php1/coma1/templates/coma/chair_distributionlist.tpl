@@ -8,9 +8,9 @@
   <span class="diststatus-3">The reviewer prefers the topic of the paper.</span><br>
   <span class="diststatus-4">The reviewer explicitly wants to review the paper.
     </span><br><br>
-  For each paper, you may unselect some of the suggested reviewers except he/she
-    is already assigned.<br>
-  Finally, you can either confirm or reject the distribution.
+  For each paper, you may deselect suggested reviewers except he/she is already
+    assigned.<br>
+  Finally, you can either confirm or dismiss the distribution.
 </p>
 
 <form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
@@ -23,7 +23,9 @@
   {lines}
 </table>
 <input type="submit" name="confirm" value="Confirm distribution" class="button">
+<span class="emph">Note:</span> The distribution is obligatory after confirmation.</span>
 </form>
 <form action="{basepath}chair_distribution.php{?SID}" method="post" accept-charset="UTF-8">
   <input type="submit" name="dismiss" value="Dismiss distribution" class="button">
+  <span class="emph">Note:</span> You can restart the suggestion process later.</span>
 </form>
