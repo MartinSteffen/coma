@@ -1359,7 +1359,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('participant', $strArrayHe
 
 
 
-$strContentAssocs['navlink'] = ($popup) ? array('CLOSE') : array();
+$strContentAssocs['navlink'] = ($popup) ? array('CLOSE') : array('BACK');
 $content->assign($strContentAssocs);
 
 if (!$popup) {
