@@ -285,10 +285,9 @@ function emptyDBtime($str, $format='M d, Y') {
  *    The chronometer is then available for being started again.
  *
  */
-$CHRONO_STARTTIME = 0;
 function chronometer()
 {
-  global $CHRONO_STARTTIME;
+  static $CHRONO_STARTTIME = 0;
   $now = (float) array_sum(explode(' ', microtime()));
 
   if ($CHRONO_STARTTIME > 0)
@@ -312,6 +311,7 @@ function chronometer()
  */
 function sendMail($intUserID, $strSubject, $strMsg)
 {
+  global $myDBAccess;
   $objPerson = $myDBAccess->getPerson($intUserID);
   if ($myDBAccess->failed()) {
     error('sendMail',$myDBAccess->getLastError());
