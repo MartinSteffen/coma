@@ -25,8 +25,7 @@ while ($i < $conferences) {
 echo 'C<br>';
   $myDBAccess->addConference('Conference'.$i, 'Homepage'.$i, 'Description'.$i,
     'AbstractDeadline', 'PaperDeadline', 'ReviewDeadline', 'FinalDeadline',
-    'Notification', 'ConferenceStart', 'ConferenceEnd',2,3,10,1000,0.5,1,1,1,2,'Topics'.$i,
-    'Criterions'.$i,'CritDesc'.$i,rand(1,10),0.5);
+    'Notification', 'ConferenceStart', 'ConferenceEnd',2,3,10,1000,0.5,1,1,1,2);
   if ($myDBAccess->failed()) {
     echo('Fehler: '.$myDBAccess->getLastError());
 }

@@ -2144,8 +2144,8 @@ nur fuer detaillierte?
                          $intMinReviews, $intDefaultReviews, $intMinPapers, $intMaxPapers,
                          $fltVariance, $blnAutoActAccount, $blnAutoPaperForum,
                          $blnAutoAddReviewer, $intNumAutoAddReviewer,
-                         $strTopics, $strCriterions, $strCritDescripts,
-                         $intCritMaxVals, $fltCritWeights) {
+                         $strTopics=array(), $strCriterions=array(), $strCritDescripts=array(),
+                         $intCritMaxVals=array(), $fltCritWeights=array()) {
     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
         "                          paper_submission_deadline, review_deadline,".
         "                          final_version_deadline, notification, conference_start,".
