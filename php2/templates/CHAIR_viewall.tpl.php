@@ -10,7 +10,7 @@ include("header.tpl.php");
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><span class="textBold">Conference :</span> <span class="text">testing<br>
-      </span><span class="textBold">Task : </span><a href="index.php?m=chair&a=papers&s=paperOfUser" class="normal">John 
+      </span><span class="textBold">Task : </span><a href="index.php?m=chair&a=papers&s=paperOfUser&userID=1&paperID=2&confID=3" class="normal">John 
       Smith has sent a paper</a></td>
   </tr>
 </table>
