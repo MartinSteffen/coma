@@ -17,6 +17,8 @@ import javax.xml.transform.stream.StreamSource;
 
 
 import coma.entities.Person;
+import coma.handler.db.InsertService;
+import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.util.EntityCreater;
 import coma.servlet.util.XMLHelper;
 
@@ -51,27 +53,39 @@ public class Subscribe  extends HttpServlet {
 		String path = getServletContext().getRealPath("");
 		String xslt = path+"/style/xsl/subscribe.xsl";
 		PrintWriter out = response.getWriter();
-		helper.addXMLHead(result);
-		result.append("<result>\n");
-		if (emptyEnum){
-			result.append("<myform></myform>");
 		
+		
+		helper.addXMLHead(result);
+		result.append("<subscribe>\n");
+		if (emptyEnum){
+				
+			result.append(XMLHelper.tagged("form",""));
+			
 			
 		} else {
 			EntityCreater myCreater = new EntityCreater();
-			helper.addStatus("Here are the submitted parameter values\n",result);
+			
 			try {
 				Person mynewPerson = myCreater.getPerson(request);
-				
+				InsertServiceImpl myInsertservice = new InsertServiceImpl();
+				myInsertservice.insertPerson(mynewPerson);
+				result.append(XMLHelper.tagged("success",""));
 				result.append(mynewPerson.toXML());
 			} catch (IllegalArgumentException e) {
-				helper.addStatus("Form illegal filled out\n",result);
+				result.append(XMLHelper.tagged("failed",""));
+				result.append("<form>\n");
+				while(paramNames.hasMoreElements()){
+				    parName = (String) paramNames.nextElement();
+				    result.append(XMLHelper.tagged(parName,request.getParameter(parName).trim()));  
+				}//while
+					   
+				result.append("</form>\n");
 			}
 			
 			
 		}
 		
-		result.append("</result>\n");
+		result.append("</subscribe>\n");
 		response.setContentType("text/html; charset=ISO-8859-15");
 		StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 		StreamSource xsltSource = new StreamSource(xslt);
