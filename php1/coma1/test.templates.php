@@ -19,7 +19,8 @@ $myTemplate = new Template('./templates/test.tpl');
 
 $assocArray = array(
   'tag1' => 'Hallo',
-  'tag2' => 'Test'
+  'tag2' => 'Test',
+  'TaG3' => 'Gross Klein test'
 );
 
 $myTemplate->assign($assocArray);
