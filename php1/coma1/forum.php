@@ -82,7 +82,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
       $forumassocs['forum-title'] = $forum->strTitle;
       $forumassocs['plusorminus'] = '-';
       $messes = $myDBAccess->getThreadsOfForum($forum-intId);
-      displayMessages(&$messes, $msgselection, $select, $forumassocs);
+      $messes = displayMessages($messes, $msgselection, $select, $forumassocs);
     }
     else{
       $forumassocs['selectorunselect'] = 'forumsel';
@@ -155,6 +155,7 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   $forumtypechair->assign($typechairassocs);
   $forumtypechair->parse();
   $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypechair->getOutput();
+  return $assocArray;
 }
 
 function displayMessages($messages, $msgselection, $selected, $forumid, $assocs){
@@ -205,7 +206,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
         $formtemplate->parse();
         $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
         $messes = $message->getNextMessages();
-        displayMessages(&$messes, $msgselection, $selected, $forumid, $messageassocs);
+        $messes = displayMessages($messes, $msgselection, $selected, $forumid, $messageassocs);
       }
     }
     else{
@@ -233,6 +234,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
   else{
     $assocs['messages'] = '';
   }
+  return $assocs;
 }
 
 function isChair($person){
@@ -315,10 +317,10 @@ else{
   $uid = getUID($cid, $myDBAccess);
 
   $content = new Template(TPLPATH . 'forumtypes.tpl');
-  $contentAssocs = defaultAssocArray();
-  $contentAssocs['message'] = session('message', false);
+  $cntntAsscs = defaultAssocArray();
+  $cntntAsscs['message'] = session('message', false);
   session_delete('message');
-  $contentAssocs['forumtypes'] = '';
+  $cntntAsscs['forumtypes'] = '';
 
   if (DEBUG){
     $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>';
@@ -363,12 +365,12 @@ else{
       }
       else{
         $selecttree = array();
-	$selecttree[$postresult] = true;
+        $selecttree[$postresult] = true;
       }
       $_SESSION['forum_msgselect'] = $selecttree;
     }
     else{
-      $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
+      $cntntAsscs['message'] = $cntntAsscs['message'] . '<br>posting failed';
     }
   }
 
@@ -436,7 +438,7 @@ else{
     $fms = array();
   }
 
-  buildForumtemplates($forums, $ffs, $fms, session('select', false), &$contentAssocs);
+  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $cntntAsscs);
   if (DEBUG){
     //echo($contentAssocs['forumtypes']);
   }
