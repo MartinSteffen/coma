@@ -9,8 +9,8 @@
   {menu3}
   {menu4}  
   <tr>
-    <td class="menu"><a href="{basepath}user_conferences.php?{SID}"{if2 class="markedmenuitem"}>
-      Conferences</a>
+    <td class="menu"><a href="{basepath}user_conference.php?{SID}"{if2 class="markedmenuitem"}>
+      Conference</a>
     </td>
   </tr>
   <tr>
@@ -19,7 +19,7 @@
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}logout.php?{SID}"{if4 class="markedmenuitem"}>
+    <td class="menu"><a href="{basepath}logout_conference.php?{SID}"{if4 class="markedmenuitem"}>
       Logout</a>
     </td>
   </tr>
