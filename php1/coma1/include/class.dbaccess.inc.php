@@ -2447,7 +2447,7 @@ nur fuer detaillierte?
         "                     mime_type, state, last_edited)".
         "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
         "                 '$strAbstract', '$strFilePath', '$strMimeType', 0,".
-        "                 '".s2db(date('Y-m-d'))."')";
+        "                 '".s2db(date("Y-m-d"))."')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPaper', $this->mySql->getLastError());
