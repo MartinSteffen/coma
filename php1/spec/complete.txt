@@ -1,35 +1,27 @@
-Hier eingetragene Dateien sollten nicht mehr verändert werden!!
-(insklusive ihrer zugehörigen Templates!!)
+Hier eingetragene Dateien sollten nicht mehr veraendert werden (inklusive
+ihrer zugehoerigen Templates):
 
-Filename             | by whom | controlled by
----------------------+---------+---------------
-index.php            | jwa     |               
-login.php            | jwa     |               
-register.php         | jwa     |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     |         |               
-                     
+Dateiname (alphabetisch)         | Letzte Aenderung | Abgenommen
+                                 | von  / Rep.Rev.  | von  / Datum
+---------------------------------+------------------+-----------------
+index.php                        | jwa  / 2502      |
+login.php                        | jwa  / 2170      |
+register.php                     | jwa  / 2356      |
+---------------------------------+------------------+-----------------
+include/...                      |                  |
+
+
+
+Nachtraegliche Aenderungen (nicht jedes Einchecken, sondern nur essen-
+tielle neue Endstaende) bitte hier dokumentieren:
+
+Dateiname (alphabetisch)         | Letzte Aenderung | Abgenommen
+                                 | von  / Rep.Rev.  | von  / Datum
+---------------------------------+------------------+-----------------
+muster.php                       | ***  / 1234      | ***  / 10.01.05
+  Mustermann eingefuegt, dies    |                  |
+  und das und jenes              |                  |
+muster.php                       | ***  / 4321      | ***  / 20.01.05
+  Mustermann wieder raus, dies   |                  |
+  und das und jenes noch         |                  |
+
