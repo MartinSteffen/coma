@@ -34,6 +34,7 @@ out by S. Esquivel, M.\ Albari, G. Biederbeck, and others.
 \lstinputlisting[basicstyle=\scriptsize]{../sql/db_schema.txt}
 
 
+\iffalse
 I leave out in the discussion of the ``central'' classes as they seems
 obvious, but concentrate more on the tables reprasenting classes.
 
@@ -64,16 +65,21 @@ two different ways\footnote{Remember: that was not on the plate in the
 
 
 
-\newpage
+%\newpage
+\fi
 
 
+\iffalse
 \begin{figure}[htbp]
   \centering
   \includegraphics[height=12cm,angle=90]{../figures/data-model}
   \caption{Class diagram}
   \label{fig:classdiagram}
 \end{figure}
+\fi
 
+
+\iffalse
 We start deconstructing the diagram according to the classes, obvious
 fields we omit in the discussion here (they might get filled in later). We
 start with the main ``entities'', and discuss the ``associations'' later.
@@ -84,8 +90,8 @@ start with the main ``entities'', and discuss the ``associations'' later.
   \begin{tabular}[t]{ll}
     Conference &
   \end{tabular}
-  
 \end{table}
+\fi
 
 
 
@@ -93,18 +99,16 @@ start with the main ``entities'', and discuss the ``associations'' later.
 
 
 
-
-
-
-
-
-
-
-
-
-%\lstinputlisting[basicstyle=\scriptsize]{Tabellen-3-(Vorschlag).txt}
 
 \newpage
+
+
+\subsubsection{SQL-Spec}
+\label{sec:sql}
+
+
+Relevant is only the SQL-Spec.
+
 
 \lstinputlisting[basicstyle=\scriptsize,language=sql]{../sql/db_schema.sql}
 
