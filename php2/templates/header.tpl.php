@@ -15,10 +15,10 @@
 								<td valign="top">
                   <form method="post" action='index.php'>
 										<table width="100%">
-											<tr>
+											<? /*<tr>
 												<td> Hello <? echo($_SESSION['name']; ?>
 											</td>
-										</tr>
+										</tr>*/ ?>
 										<tr>
 											<td valign="bottom">
                         <a href="index.php?logout=1">Logout</a>

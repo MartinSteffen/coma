@@ -1,3 +1,3 @@
 <?
-  var_dump($_SESSION);
+  template('SESSION_show');
   ?>
