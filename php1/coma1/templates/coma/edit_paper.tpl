@@ -75,12 +75,12 @@
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
 <table class="formtable">
   <tr>
-    <th>Upload new document:</th>
+    <td>Upload new document:</td>
     <td colspan="2">
       <input type="hidden" name="action" value="upload">
       <input type="hidden" name="paperid" value="{paper_id}">
-      <input type="file" name="paperfile">      
-      <input type="submit" name="submit" value="Upload" class="button">
+      <input type="file" name="paper_file">      
+      <input type="submit" name="upload" value="Upload" class="button">
     </td>
 </table>
 </form>
@@ -88,11 +88,12 @@
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
 <table class="formtable">
   <tr>
-    <td colspan="2">            
+    <td>Delete this paper?
+      <input type="checkbox" name="confirm_delete" value="1"></td>
+    <td>
       <input type="hidden" name="paperid" value="{paper_id}">
-      <input type="hidden" name="action" value="delete">
-      <input type="checkbox" name="verify_delete" value="1">
-      <input type="submit" name="submit" value="Delete paper" class="button">
+      <input type="hidden" name="action" value="delete">      
+      <input type="submit" name="delete" value="Delete" class="button">
     </td>
   </tr>
 </table>

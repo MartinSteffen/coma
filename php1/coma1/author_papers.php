@@ -21,6 +21,7 @@ if ($myDBAccess->failed()) {
 
 $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['message'] = '';
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
@@ -50,6 +51,12 @@ else {
   // Artikelliste ist leer.
 }
 
+$strMessage = session('message', false);
+unset($_SESSION['message']);
+if (!empty($strMessage)) {  
+  $strContentAssocs['message'] = encodeText($strMessage);
+  $strContentAssocs['if'] = array(9);  
+}
 $content->assign($strContentAssocs);
 
 $actMenu = AUTHOR;

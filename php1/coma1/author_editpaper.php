@@ -66,6 +66,31 @@ if (isset($_POST['action'])) {
       }
     }
   }
+  else if (isset($_POST['delete'])) {    
+    if (empty($_POST['confirm_delete'])) {
+      $strMessage = 'You have to check the delete confirm option!';
+    }
+    // Versuche das Paper zu loeschen
+    else {
+      $result = $myDBAccess->deletePaper($objPaper);
+      if ($myDBAccess->failed()) {
+        // Datenbankfehler?
+        error('Error during deleting paper.', $myDBAccess->getLastError());
+      }
+      else if (!empty($result)) {        
+        $_SESSION['message'] = 'Paper was deleted successfully.';
+        redirect("author_papers.php");
+      }
+    }
+  }
+  else if (isset($_POST['upload'])) {    
+    if (empty($_POST['paper_file'])) {
+      $strMessage = 'You have to select a file for uploading!';
+    }
+    // Versuche das Paper hochzuladen [TODO]
+    else {    	      
+    }
+  }
 }
 $strContentAssocs['targetpage']     = 'author_editpaper.php';
 $strContentAssocs['paper_id']       = encodeText($objPaper->intId);
