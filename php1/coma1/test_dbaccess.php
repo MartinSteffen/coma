@@ -16,7 +16,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-echo(count(array().' '.count(false));
+echo(count(array()).' '.count(false));
 
 /*$p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
