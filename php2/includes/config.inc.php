@@ -2,17 +2,17 @@
 // This is an automatically generated configuration file for CoMa!!
 // Do not change this file manually unless you exactly know what you are doing!
 
-define('COMA_INSTALLED',true);
-$dbhost='localhost'; 
-$dbuser='dziuk'; 
-$dbpass='rethbeff6'; 
-$dbname='coma'; 
+define('COMA_INSTALLED',false);
+$dbhost=''; 
+$dbuser=''; 
+$dbpass=''; 
+$dbname=''; 
 
-$ftphost='localhost'; 
-$ftpuser='coma'; 
-$ftppass='pass'; 
-$ftpdir='papers'; 
-$httpftpurl='http://www.myftpserver.net/papers/'; 
+$ftphost=''; 
+$ftpuser=''; 
+$ftppass=''; 
+$ftpdir=''; 
+$httpftpurl=''; 
  
  
  
