@@ -86,7 +86,7 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $critForm->parse();
   $strContentAssocs['crit_lines'] .= $critForm->getOutput();
 }
-if (isset($strMesage) && !empty($strMessage)) {
+if (isset($strMessage) && !empty($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
   $strContentAssocs['if'] = array(9);
 }
