@@ -317,7 +317,7 @@ function sendMail($intUserID, $strSubject, $strMsg)
     error('sendMail',$myDBAccess->getLastError());
   }
   return mail($objPerson->strEmail, $strSubject, $strMsg,
-              'To: "'.$objPerson->getName(2).'" <'.$objPerson->strEmail.'>\r\n'
+              'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n"
              );
   
 }

@@ -1,4 +1,4 @@
-Dear {name}
+Dear {name},
 
 Welcome to CoMa - Your Conference Manager.
 
