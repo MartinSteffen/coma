@@ -812,7 +812,6 @@ class DBAccess {
   /**
    */
   function addConference() {
-
     return $this->error('addConference '.$this->mySql->getLastError());
   }
 
@@ -848,7 +847,6 @@ class DBAccess {
         '                 \''.$strPostalCode.'\', \''.$strCity.'\', \''.$strState.'\','.
         '                 \''.$strCountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
         '                 \''.sha1($strPassword).'\')';
-    echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
       return $intId;
@@ -857,9 +855,24 @@ class DBAccess {
   }
 
   /**
+   * Fuegt der Person $intPersonId die Rolle $intRole hinzu.
+   *
+   * @param int $intConferenceId Konferenz-ID
+   * @param int $intPersonId     Personen-ID
+   * @param int $intRole         Rollen-Enum
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
    */
-  function addRole($intPersonId, $intRole) {
-
+  function addRole($intConferenceId, $intPersonId, $intRole) {
+    $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
+        '         VALUES (\''.$intConferenceId.'\',\''.$intPersonId.'\','.
+        '                 \''.$intRoleType.'\')');
+    $intId = $this->mySql->insert($s);
+    echo('Return-ID: '.$intId.'<br>');
+    if (!empty($intId)) {
+      return true;
+    }
     return $this->error('addRole '.$this->mySql->getLastError());
   }
 
