@@ -30,7 +30,7 @@ if (isset($_GET['paperid'])) {
   //header("Content-length: $size");
   header("Content-Disposition: attachment; filename=$name");
   header("Content-Description: Downloadable Paper");
-  echo $file[2]
+  echo $file[2];
 }
 else {
   // Keine PaperID
