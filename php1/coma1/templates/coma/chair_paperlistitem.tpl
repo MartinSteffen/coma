@@ -20,13 +20,6 @@
     </td>
     <td class="listitem-{line_no}">
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="action" value="status">
-        <input type="hidden" name="paperid" value="{paper_id}">
-        <input type="submit" name="submit" value="change status" class="smallbutton">
-      </form>
-    </td>    
-    <td class="listitem-{line_no}">
-      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="paperid" value="{paper_id}">
         <input type="submit" name="submit" value="delete" class="smallbutton">
