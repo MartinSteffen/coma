@@ -206,12 +206,15 @@
             <xsl:attribute name="value">
               <xsl:value-of select="id" />
             </xsl:attribute>
+            <xsl:if test="./id = ../../editable/person/expertise/topic/id">
+              <xsl:attribute name="selected">selected</xsl:attribute>
+            </xsl:if>
             <xsl:value-of select="name" />
           </option>
         </xsl:for-each>
       </select>
       <span class="fasthelp">
-        You can select multiple entries by holding the Control key.
+        <i>(You can select multiple entries by holding the Control key.)</i>
       </span>
     </div>
     </xsl:if>

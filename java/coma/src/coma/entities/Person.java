@@ -10,6 +10,7 @@ import coma.handler.impl.db.ReadServiceImpl;
 import coma.servlet.util.User;
 import coma.servlet.util.XMLHelper;
 import static coma.util.logging.Severity.WARN;
+import static java.util.Arrays.asList;
 
 /**
  * @author mti
@@ -309,7 +310,10 @@ public class Person extends Entity {
 						XMLHelper.tagged("postal_code", getPostal_code()),
 						XMLHelper.tagged("city", getCity()),
 						XMLHelper.tagged("state", getState()),
-						XMLHelper.tagged("country", getCountry())
+					    XMLHelper.tagged("country", getCountry()),
+					    XMLHelper.tagged("expertise", 
+							     Topic.manyToXML(asList(getPreferredTopics()), 
+									     SHALLOW))
 						// maybe dangerous XMLHelper.tagged("password", getPassword())
 						// FIXME not Entity yet getPapers().toXML(XMLMODE.SHALLOW),
 					    // FIXME not Entity yet get???().toXML(XMLMODE.SHALLOW),
@@ -340,12 +344,18 @@ public class Person extends Entity {
 	    }
 	
 	public Topic[] getPreferredTopics(){
-		Topic[] result = new Topic[0];
-		SearchResult sr = myReadService.getPreferedTopic(this.id);
-		if(sr != null){
-			result = (Topic[])sr.getResultObj();
-		}
-		return result;
+	    //Topic[] result = new Topic[0];
+	    SearchResult sr = myReadService.getPreferedTopic(this.id);
+	    // if(sr != null){
+	    // result = (Topic[])sr.getResultObj();
+	    // 	}
+	    // return result;
+	    int[] tids = (int[])sr.getResultObj();
+	    Topic[] result = new Topic[tids.length];
+	    for (int j=0; j<tids.length; ++j){
+		result[j]= Topic.byId(tids[j], -1);
+	    }
+	    return result;
 	}
 
 	public SearchResult deletePreferredTopic(Topic t){

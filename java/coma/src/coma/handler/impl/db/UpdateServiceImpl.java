@@ -207,6 +207,8 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 				if (affRows != 1 && ok) {
 					info.append("ERROR: Dataset could not be updated\n");
 					conn.rollback();
+				} else {
+				    result.setSUCCESS(true);
 				}
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");

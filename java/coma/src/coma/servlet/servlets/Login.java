@@ -88,8 +88,7 @@ public class Login extends HttpServlet
 				mysc.setConference(myConference);
 				SearchResult mySR = myReadService.getConference(mysc);
 				info += mySR.getInfo();
-				if(myPerson.isAdmin())	
-					response.sendRedirect("/coma/Admin?action=setup");
+				
 				else
 				{
 					if (mySR != null)
@@ -104,8 +103,10 @@ public class Login extends HttpServlet
 							result.append(myConference.toXML());
 							result.append(myPerson.toXML());
 							result.append("</success>");
+							if(myPerson.isAdmin())	
+							    response.sendRedirect("/coma/Admin?action=setup");
 							if (myPerson.isChair())
-								response.sendRedirect("/coma/Chair?action=login");
+							    response.sendRedirect("/coma/Chair?action=login");
 						}
 						else 
 						{
