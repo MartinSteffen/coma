@@ -27,7 +27,7 @@
       <input type="submit" name="submit" value="Apply as Reviewer" class="button">
     </form>
   }
-  {if5
+  {if6
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="retreat" value="retreat">
@@ -44,7 +44,7 @@
       <input type="submit" name="submit" value="Apply as Author" class="button">
     </form>
   }
-  {if6
+  {if7
     <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="retreat" value="retreat">

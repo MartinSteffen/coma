@@ -49,13 +49,13 @@ if (!empty($objConferences)) {
         $ifArray[] = 2;
       }
       else if ($objPerson->hasRequestedRole(REVIEWER)) {
-        $ifArray[] = 5;
+        $ifArray[] = 6;
       }
       if (!($objPerson->hasRole(AUTHOR)) && !($objPerson->hasRequestedRole(AUTHOR))) {
         $ifArray[] = 3;
       }
       else if ($objPerson->hasRequestedRole(AUTHOR)) {
-        $ifArray[] = 6;
+        $ifArray[] = 7;
       }
       if (!($objPerson->hasRole(PARTICIPANT)) && !($objPerson->hasRequestedRole(PARTICIPANT))) {
         $ifArray[] = 4;
