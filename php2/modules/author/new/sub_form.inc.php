@@ -14,7 +14,7 @@ foreach ($author as $row) {
 	$conf = array_merge($conf,$sql->query($SQL));
 }
 $TPL['conf'] = $conf;
-template("AUTHOR_choose_conference");
+template("AUTHOR_new_conference");
 
 
 
