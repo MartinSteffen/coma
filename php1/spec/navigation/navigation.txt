@@ -63,14 +63,14 @@ Aufruf der index.html (-> I. Startseite, Startmenü)
 
    I. NAVIGATION OHNE LOGIN:
 
-Startmenü
+Startmenü  [startmenue.tpl]
 ----------
 Menü:      - Login (-> Startseite)
            - Registrieren (-> Neuen Benutzer registrieren)
            - Hilfe (-> Hilfe)
            - Impressum (-> Impressum)
 
-Startseite
+Startseite  [start.php]
 -----------
 Inhalt:    - Begrüßungstext
 Formulare: - Benutzername und Passwort für Login

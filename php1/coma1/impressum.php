@@ -6,11 +6,6 @@
  */
 /***/
 
-/**
- * Wichtig damit Coma1 Dateien eingebunden werden koennen
- *
- * @ignore
- */
 define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
@@ -27,7 +22,7 @@ $strMainAssocs['content'] = &$content;
 require_once(TPLPATH.'startmenu.php');
 $strMainAssocs['menu'] = openStartMenuItem(4);
 
-$strPath = array('CoMa'=>'', 'Login'=>'');
+$strPath = array('CoMa'=>'', 'Impressum'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 

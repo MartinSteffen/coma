@@ -6,23 +6,100 @@
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Neuen Benutzer registrieren:</th>
+    <th colspan="2">Benutzerdaten:</th>
   </tr>
   <tr>
-    <td>Email-Addresse:</td>
-    <td>
-      <input type="text" name="userMail" size="30" maxlength="127" />
+    <td> 
+      Vorname:
+    </td>
+    <td>      
+      <input type="text" name="first_name" size="32" maxlength="127" />
     </td>
   </tr>
   <tr>
-    <td>Passwort:</td>
+    <td> 
+      Name:
+    </td>
+    <td>      
+      <input type="text" name="last_name" size="32" maxlength="127" />
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Email-Addresse:
+    </td>
+    <td>      
+      <input type="text" name="email" size="32" maxlength="127" />
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Titel:
+    </td>
+    <td>      
+      <input type="text" name="title" size="16" maxlength="32" />
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Telefon:
+    </td>
+    <td>      
+      <input type="text" name="phone" size="16" maxlength="20" />
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Fax:
+    </td>
+    <td>      
+      <input type="text" name="fax" size="16" maxlength="20" />
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Stra&szlig;e:
+    </td>
+    <td>      
+      <input type="text" name="street" size="32" maxlength="127" />
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      PLZ:
+    </td>
+    <td>      
+      <input type="text" name="postalcode" size="16" maxlength="20" /> 
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Ort:
+    </td>
+    <td>      
+      <input type="text" name="city" size="32" maxlength="127" />
+    </td>
+  </tr>
+  <tr>
+    <td> 
+      Passwort:
+    </td>
+    <td>      
+      <input type="password" name="user_password" size="32" maxlength="127" />
+    </td>
+  </tr>
+  <tr>
     <td>
-       <input type="password" name="userPassword" size="30" maxlength="127" />
+      Passwort wiederholen:
+    </td>
+    <td>
+      <input type="password" name="password_repeat" size="32" maxlength="127" />
     </td>
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="Login" class="button" />
+      <input type="submit" name="submit" value="Login" class="button" /> &nbsp;
+      <input type="submit" name="cancel" value="Abbrechen" class="button" />
     </td>
   </tr>
 </table>
@@ -30,11 +107,3 @@
 </p>
 
 <p>&nbsp;</p>
-
-<p>
-<form action="{basepath}register.php?{SID}" method="post">
-  Falls Sie noch keinen Account besitzen, k&ouml;nnen Sie sich hier als Benutzer
-  registrieren:<br>
-  <input type="submit" name="submit" value="Registrieren" class="button" />
-</form>
-</p>

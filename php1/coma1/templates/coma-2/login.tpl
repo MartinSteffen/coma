@@ -38,3 +38,5 @@
   <input type="submit" name="submit" value="Registrieren" class="button" />
 </form>
 </p>
+
+<p>&nbsp;</p>
