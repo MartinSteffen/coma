@@ -54,7 +54,7 @@ if (isset($_POST['action'])) {
       $strMailAssocs['conference'] = encodeText($objConference->strName);
       $mail->assign($strMailAssocs);
       $mail->parse();
-      sendMail($result, "New role in conference '$strMailAssocs['conference']'", $mail->getOutput());
+      sendMail($result, "New role in conference '".$strMailAssocs['conference']."'", $mail->getOutput());
     }
     else if ($_POST['submit'] == 'accept') {
       $myDBAccess->acceptRole($intPersonId, $intRoleType, session('confid'));
