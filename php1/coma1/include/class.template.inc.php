@@ -110,7 +110,7 @@ class Template {
   function parse() {
     $strKeys = array();
     $strValues = array();
-    foreach ($this->strAssocs as ($key => $value)) {
+    foreach ($this->strAssocs as $key => $value) {
       $key = '<(?i){'.$key.'}>';
       $strKeys[] = $key;
       //if (isObject($value)) {
