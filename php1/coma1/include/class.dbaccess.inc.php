@@ -1564,15 +1564,6 @@ nur fuer detaillierte?
     if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
-    /*$s = "UPDATE  Paper".
-        " SET     title = '$objPaperDetailed->strTitle',".
-        "         author_id = '$objPaperDetailed->intAuthorId',".
-        "         abstract = '$objPaperDetailed->strAbstract',".
-        "         mime_type = '$objPaperDetailed->strMimeType',".
-        "         last_edited = '$objPaperDetailed->strLastEdit',".
-        "         filename = '$objPaperDetailed->strFilePath',".
-        "         state = '$objPaperDetailed->intStatus'".
-        " WHERE   id = '$objPaperDetailed->intId'";*/
     $s = sprintf("UPDATE   Paper".
                  " SET     title = '%s', author_id = '%d', abstract = '%s', mime_type = '%s',".
                  "         last_edited = '%s', filename = '%s', state = '%d'".
@@ -1581,7 +1572,6 @@ nur fuer detaillierte?
                  s2db($objPaperDetailed->strAbstract), s2db($objPaperDetailed->strMimeType),
                  s2db($objPaperDetailed->strLastEdit), s2db($objPaperDetailed->strFilePath),
                  s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
-    echo("<br>$s<br>");
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
@@ -1661,12 +1651,20 @@ nur fuer detaillierte?
     }
     for ($i = 0; $i < count($objConferenceDetailed->objCriterions); $i++) {
       $objCriterion = $objConferenceDetailed->objCriterions[$i];
-      $s = "UPDATE  Criterion".
+      /*$s = "UPDATE  Criterion".
           " SET     name = '$objCriterion->strName',".
           "         description = '$objCriterion->strDescription',".
           "         max_value = '$objCriterion->intMaxValue',".
           "         quality_rating = '$objCriterion->fltWeight'".
-          " WHERE   id = '$objCriterion->intId'";
+          " WHERE   id = '$objCriterion->intId'";*/
+      $s = sprintf("UPDATE   Criterion".
+                   " SET     name = '%s', description = '%s', max_value = '%d',".
+                   "         quality_rating = '%f'".
+                   " WHERE   id = '%d'",
+                   s2db($objCriterion->strName), s2db($objCriterion->strDescription),
+                   s2db($objCriterion->intMaxValue), s2db($objCriterion->fltWeight),
+                   s2db($objCriterion->intId));
+      echo("<br>$s<br>");
     }
     $this->mySql->update($s);
     if ($this->mySql->failed()) {

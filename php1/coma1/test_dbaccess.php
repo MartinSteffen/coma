@@ -28,6 +28,22 @@ function bit($b) {
 echo('<br>');
 
 echo('Get<br>');
+$p = $myDBAccess->getConferenceDetailed(1);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else if (empty($p)) {
+  echo('EMPTY');
+  die(-1);
+}
+echo('Update<br>');
+$myDBAccess->updateConference($p);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+echo('End<br>');
+
+/*echo('Get<br>');
 $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -36,14 +52,12 @@ else if (empty($p)) {
   echo('EMPTY');
   die(-1);
 }
-
 echo('Update<br>');
-
 $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo('End<br>');
+echo('End<br>');*/
 
 
 
