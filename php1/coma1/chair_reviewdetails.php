@@ -72,7 +72,7 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
   $strCritAssocs['rating']     = encodeText($objReview->intRatings[$i]);
   $strCritAssocs['comment']    = encodeText($objReview->strComments[$i]);
   $strCritAssocs['message']='';
-  echo $strCritAssocs['message'];
+  echo 'Value:'.$strCritAssocs['message'];
   $critForm->assign($strCritAssocs);
   $critForm->parse();
   $strContentAssocs['crit_lines'] .= $critForm->getOutput();
