@@ -1235,10 +1235,10 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
   }
 
   /**
-   * Aktualisiert die Co-Autoren des Papers $objPaperDetailed in der Datenbank.
+   * Aktualisiert die Co-Autoren (die als Personen in der Datenbank vorkommen)
+   * des Papers $objPaperDetailed in der Datenbank.
    *
-   * @param PaperDetailed [] $objPaperDetailed
-   * @param int [] $intCoAuthors Array von Co-Autor-ID's (Bezug auf Person-ID's in der DB)
+   * @param PaperDetailed [] $objPaperDetailed Das Objekt des Papers
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Tom (14.01.04)
@@ -1261,6 +1261,45 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
             "         VALUES ('".$objPaperDetailed->intCoAuthorIds[$i]."',".
             "                 '$objPaperDetailed->intId')";
+        $this->mySql->insert($s);
+        if ($this->mySql->failed()) {
+          return $this->error('updateCoAuthors', $this->mySql->getLastError());
+        }
+      }
+    }
+    return $this->success(true);
+  }
+
+  /**
+   * Aktualisiert die Namen der Co-Autoren (die nicht als Personen in der Datenbank
+   * vorkommen) des Papers $objPaperDetailed in der Datenbank.
+   *
+   * @param PaperDetailed [] $objPaperDetailed Das Objekt des Papers
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Tom (14.01.04)
+   */
+  function updateCoAuthorNames($objPaperDetailed) {
+    if (empty($objPaperDetailed)) {
+      return $this->success(false);
+    }
+    // Co-Autornamen loeschen...
+    $s = "DELETE  FROM IsCoAuthorOf".
+        " WHERE   paper_id = '$objPaperDetailed->intId'".
+        " AND     person_id IS NULL";
+    $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateCoAuthors', $this->mySql->getLastError());
+    }
+    // Co-Autornamen einfuegen...
+    if (count($objPaperDetailed->intCoAuthorIds) != count($objPaperDetailed->strCoAuthors) {
+      return $this->error('updateCoAuthorNames', 'Co-Author arrays have different length');
+    }
+    for ($i = 0; $i < count($objPaperDetailed->intCoAuthorIds); $i++) {
+      if (empty($objPaperDetailed->intCoAuthorIds[$i])) {
+        $s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
+            "         VALUES ('$objPaperDetailed->intId'".
+            "                 '".$objPaperDetailed->strCoAuthors[$i]."')";
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1299,6 +1338,10 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
       return $this->error('updatePaperDetailed', $this->mySql->getLastError());
     }
     $this->updateCoAuthors($objPaperDetailed);
+    if ($this->failed()) {
+      return $this->error('updatePaperDetailed', $this->getLastError());
+    }
+    $this->updateCoAuthorNames($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaperDetailed', $this->getLastError());
     }

@@ -29,6 +29,8 @@ class PaperDetailed extends PaperSimple {
 
   var $intCoAuthorIds; // enthaelt ID's der Co-Autoren; NULL, falls nicht in der DB (dann nur Name)
   var $strCoAuthors;   // enthaelt die Namen der Co-Autoren korrespondierend zu $intCoAuthorIds
+                       // beide CoAuthor-Arrays sollten gleiche Laenge haben, da sie sich immer
+                       // direkt aufeinander beziehen
   var $strAbstract;
   var $strMimeType;
   var $strLastEdit;
