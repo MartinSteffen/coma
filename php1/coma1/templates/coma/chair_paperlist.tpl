@@ -7,15 +7,15 @@
       <a href="{basepath}{targetpage}?order=1{&SID}" class="order{if1-active}">Title</a>
     </th> 
     <th class="listheader">
-      <a href="{basepath}{targetpage}.php?order=2{&SID}" class="order{if2-active}">Author</a>
+      <a href="{basepath}{targetpage}?order=2{&SID}" class="order{if2-active}">Author</a>
     </th> 
     <th class="listheader">Status</th>    
     <th class="listheader">
-      <a href="{basepath}{targetpage}.php?order=4{&SID}" class="order{if4-active}">Rating</a>
+      <a href="{basepath}{targetpage}?order=4{&SID}" class="order{if4-active}">Rating</a>
     </th>
     <th class="listheader">Variance</th>
     <th class="listheader">
-      <a href="{basepath}{targetpage}.php?order=5{&SID}" class="order{if5-active}">Last edit</a>
+      <a href="{basepath}{targetpage}?order=5{&SID}" class="order{if5-active}">Last edit</a>
     </th>
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
