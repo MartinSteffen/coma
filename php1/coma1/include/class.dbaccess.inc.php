@@ -822,7 +822,7 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPaperDetailed', $this->getLastError());
     }
-    $data[0]['last_edited'] = emptyDBtime($data[0]['last_edited']);
+    $data[0]['last_edited'] = emptyDBtime($data[0]['last_edited'], 'r');
     $objPaper = (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
                   $strAuthor, $data[0]['state'], $data[0]['last_edited'], $fltAvgRating,
                   $intCoAuthorIds, $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
