@@ -124,9 +124,9 @@ if (in_array('comapages', $strArrayHelpTopics)){
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
   $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
-  $strArrayChapterAssocs->assign($strArrayChapterAssocs);
-  $strArrayChapterAssocs->parse();
-  $strContentAssocs['toc'] = $strArrayChapterAssocs->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['toc'] = $objChaptertemplate->getOutput();
 }
 
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
