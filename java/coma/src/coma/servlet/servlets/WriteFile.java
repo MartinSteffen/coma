@@ -95,7 +95,7 @@ public class WriteFile extends HttpServlet {
 				UpdateServiceImpl myUpdateservice = new UpdateServiceImpl();
 				SearchResult mySR = myUpdateservice.updatePaper(theNewPaper);
 				if (mySR.SUCCESS)
-					result.append(XMLHelper.tagged("success", mySR.info));
+					result.append(XMLHelper.tagged("success", "Paper update succesfully"));
 				else {
 					result.append(XMLHelper.tagged("failed", "update"));
 					result.append(XMLHelper.tagged("error", mySR.info));

@@ -215,7 +215,7 @@ public class Author extends HttpServlet {
 				if (deleteFile.exists()){
 					if (deleteFile.delete()){
 						mySR = myDeleteService.deletePaper(theOldPaper.getId());
-						if (mySR.isSUCCESS()) result.append(XMLHelper.tagged("succes", mySR.info));
+						if (mySR.isSUCCESS()) result.append(XMLHelper.tagged("success", mySR.info));
 						else result.append(XMLHelper.tagged("error", mySR.info));
 					}
 					else result.append(XMLHelper.tagged("error", ":couldn't delte the file "+path + "/papers/" + theOldPaper
