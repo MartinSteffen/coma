@@ -89,17 +89,11 @@ $strMainAssocs['menu'] = &$menu;
 //global $strRoles;
 if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
   $strMenu = $strRoles[(int)$_SESSION['menu']];
-  if ($_SESSION['menu'] == CHAIR || $_SESSION['menu'] == AUTHOR) {
-    $strMenu .= '  |  Papers';
-  }
-  else if ($_SESSION['menu'] == REVIEWER) {
-    $strMenu .= '  |  Reviews';
-  }
 }
 else {
   $strMenu = 'Conference';
 }
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  '.$strMenu.'  |  Review details';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Paper review details';
 
 $main->assign($strMainAssocs);
 $main->parse();
