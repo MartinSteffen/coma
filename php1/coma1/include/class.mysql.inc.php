@@ -231,7 +231,7 @@ class MySql extends ErrorHandling {
     if (empty($this->mySqlConnection)) {
       return $this->error('start transaction', 'No database connection');
     }
-    $results = mysql_query('START TRANSACTION', $this->mySqlConnection);
+    $results = mysql_query('BEGIN', $this->mySqlConnection);
     if (empty($results)) {
       return $this->error('start transaction', mysql_error());
     }
