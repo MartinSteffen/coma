@@ -46,7 +46,7 @@ table.menu  { border-style: none;
               text-align: left;
               background-color: #F7FBFF;
             }
-td.menu { width: 150px; min-height: 450px; background-color: #F7FBFF; }
+td.menu { width: 150px; height: 450px; min-height: 450px; background-color: #F7FBFF; }
 
 /* tabelle fuer den seiteninhalt */
 table.body { width: 100%; min-height: 450px; }
