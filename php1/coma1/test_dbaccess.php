@@ -11,10 +11,18 @@
  *
  * @ignore
  */
+
 define('IN_COMA1', true);
 
 require_once('./include/header.inc.php');
 
+$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
+echo('<br>ID = '.$id.'<br>');
+$p = $myDBAccess->getRoles($id,1);
+echo $p[0];
+
+
+/*
 $id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
 echo('<br>ID = '.$id.'<br>');
 $p = $myDBAccess->getPersonDetailed($id);
@@ -25,6 +33,18 @@ echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br><br>')
 
 $myDBAccess->deleteCoAuthorName(4, 'Meister Lampe');
 echo($myDBAccess->getLastError());
+*/
+
+/*
+$p = $myDBAccess->getAllConferences();
+for ($i = 0; $i < count($p); $i++) {
+   echo $p[0]->strName;
+}
+
+echo($myDBAccess->getLastError());
+  */
+
+
 
 /*
 $p = $myDBAccess->getPapersOfAuthor(1);
