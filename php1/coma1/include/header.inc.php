@@ -12,7 +12,7 @@ if (!defined('IN_COMA1')) {
 /**@ignore */
 define('DEBUG', true);
 /**@ignore */
-define('VERSION', '0');
+define('VERSION', '0.M2');
 
 
 // PATH_TRANSLATED patch
