@@ -50,7 +50,6 @@
   </td>
   <td class="body">
     <h2>{title}</h2>
-    <br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ<br>ICQ
     {content}
     <p>&nbsp;</p>
   </td>
