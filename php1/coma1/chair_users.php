@@ -16,10 +16,6 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'chair_userlist.tpl');
 $strContentAssocs = defaultAssocArray();
-$objPersons = $myDBAccess->getUsersOfConference(session('confid'));
-if ($myDBAccess->failed()) {
-  error('get user list',$myDBAccess->getLastError());
-}
 
 global $intRoles;
 global $strRoles;
@@ -51,6 +47,11 @@ if (isset($_POST['action'])) {
       }
     }
   }
+}
+
+$objPersons = $myDBAccess->getUsersOfConference(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get user list',$myDBAccess->getLastError());
 }
 
 $strContentAssocs['message'] = session('message', false);
