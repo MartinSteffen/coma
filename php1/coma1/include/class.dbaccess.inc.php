@@ -1198,9 +1198,8 @@ nur fuer detaillierte?
         "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
         " WHERE   conference_id = '$objConferenceDetailed->intId'";
     $this->mySql->update($s);
-      if ($this->mySql->failed()) {
-        return $this->error('updateConference', $this->mySql->getLastError());
-      }
+    if ($this->mySql->failed()) {
+      return $this->error('updateConference', $this->mySql->getLastError());
     }
     return $this->success();
   }
