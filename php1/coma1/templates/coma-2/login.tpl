@@ -34,8 +34,8 @@
 
 <p class="simplemessage">
 <form action="{basepath}register.php?{SID}" method="post">
-  If you have registered for the site, please enter your username and password.<br>
-  This will mean that you can get access to information relevant to you. <br>
+  If you have registered for the site, please enter your username and password.
+  This will mean that you can get access to information relevant to you.
   If you have not registered, please register below:<br>
   <input type="submit" name="submit" value="Register" class="button" />
 </form>
