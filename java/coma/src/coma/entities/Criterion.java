@@ -13,7 +13,7 @@ import static java.util.Arrays.asList;
 /**
    Wrapper for entries in the DB's Criterion table
 
-   @author ums
+   @author ums, mal
  */
 public class Criterion extends Entity {
 
@@ -121,4 +121,42 @@ public class Criterion extends Entity {
 	    return null;
 	}
     }
+    
+    
+	/**
+	 * @param conferenceId The conferenceId to set.
+	 */
+	public void setConferenceId(int conferenceId) {
+		this.conferenceId = conferenceId;
+	}
+	/**
+	 * @param description The description to set.
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	/**
+	 * @param id The id to set.
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	/**
+	 * @param maxValue The maxValue to set.
+	 */
+	public void setMaxValue(int maxValue) {
+		this.maxValue = maxValue;
+	}
+	/**
+	 * @param name The name to set.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @param qualityRating The qualityRating to set.
+	 */
+	public void setQualityRating(int qualityRating) {
+		this.qualityRating = qualityRating;
+	}
 }
