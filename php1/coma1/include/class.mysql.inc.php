@@ -22,13 +22,25 @@ if (!defined('IN_COMA1')) {
  *
  */
 class MySql {
-
+  
+  /**#@+
+   * @access private
+   * @var string
+   */
   var $mySqlServer = 'localhost';
   var $mySqlUser = '';
   var $mySqlPassword = '';
   var $mySqlDatabase = '';
-  var $conn;
   var $errString;
+  /**#@-*/
+  /**
+   * Ein Verweiss auf das aktuelle Handle der Datenbank.
+   * Sollte nur in Ausnahmefaellen direkt genutzt werden!
+   * 
+   * @access protected
+   * @var resource
+   */
+  var $conn;
 
   /**
    * Konstruktor
@@ -61,8 +73,21 @@ class MySql {
     $this->conn = $conn;
     return true;
   }
-
-  function select( $sql='' ) {
+  
+  /**
+   * select()
+   *
+   * Die Funktion <b>select()</b> ermoeglicht select Anfragen an die Datenbank.
+   * Dabei werden einfache Fehlerchecks durchgefuert. Das Ergebniss wird auto
+   * matisch in ein array umgewandelt.
+   * 
+   * @param string $sql Eine SQL <b>select</b> Anfrage an die Datenbank
+   * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein Fehler auftrat.
+   * @see error()
+   * @see getLastError()
+   *
+   */
+  function select($sql='') {
     if (empty($sql)) {
       return false;
     }
@@ -87,6 +112,18 @@ class MySql {
     return $data;
   }
 
+  /**
+   * insert()
+   *
+   * Die Funktion <b>insert()</b> ermoeglicht insert Anfragen an die Datenbank.
+   * Dabei werden einfache Fehlerchecks durchgefuert.
+   * 
+   * @param string $sql Eine SQL <b>insert</b> Anfrage an die Datenbank
+   * @return int|false Die id des letzten auto_increment Wertes oder <b>false</b> falls ein Fehler auftrat.
+   * @see error()
+   * @see getLastError()
+   *
+   */
   function insert($sql = '') {
     if (empty($sql)) {
       return false;
@@ -105,19 +142,39 @@ class MySql {
     return $results;
   }
 
-  function error($text) {
+  /**
+   * error()
+   *
+   * Die Funktion <b>error()</b> checkt auf MySql Fehler und speichert diese.
+   * 
+   * @param string $text Eine optionale Angabe einer Fehlerursache
+   * @return false Es wird immer <b>false</b> zurueck gegeben
+   * @see getLastError()
+   *
+   */
+  function error($text='') {
     $no = mysql_errno();
     $msg = mysql_error();
     $this->errString = "[$text] ( $no : $msg )";
     return false;
   }
 
+  /**
+   * getLastError()
+   *
+   * Die Funktion <b>getLastError()</b> gibt die letzte mit error
+   * gesicherte Fehlermeldung zurueck udn loescht diese aus dem Speicher.
+   * 
+   * @return string Die letzte Fehlermeldung
+   * @see error()
+   *
+   */
   function getLastError() {
     $errString = $this->errString;
     $this->errString = '';
     return $errString;
   }
 
-} // End Class
+} // end class MySql
 
 ?>

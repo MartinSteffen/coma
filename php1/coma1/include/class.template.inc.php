@@ -9,6 +9,8 @@ if (!defined('IN_COMA1')) {
 }
 
 /**
+ * Klasse Template
+ *
  * Klasse zum Parsen der Templates
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
@@ -65,6 +67,6 @@ class Template {
     return $errString;
   }
 
-} // End Class
+} // end class Template
 
 ?>
