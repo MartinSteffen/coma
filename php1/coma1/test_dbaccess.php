@@ -30,10 +30,7 @@ if ($myDBAccess->failed()) {
 }
 echo('Co-Autoren:');
 for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
-  echo ("$p->intCoAuthorIds[$i]<br>");
-}
-for ($i = 0; $i < count($p->strCoAuthors); $i++) {
-  echo ("$p->strCoAuthors[$i]<br>");
+  echo ($p->intCoAuthorIds[$i].' / '.$p->strCoAuthors[$i].'<br>');
 }
 
 
