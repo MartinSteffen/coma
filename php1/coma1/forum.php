@@ -150,7 +150,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == session('uid', false)) || (DEBUG) || (isChair($myDBAccess->getPerson(session('uid', false))))){
+        if (($sender->intId == getUID()) || (DEBUG) || (isChair($myDBAccess->getPerson(getUID())))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -224,17 +224,7 @@ function generatePostMethodArray($postvars){
   $pma['reply-to'] = $postvars['reply-to'];
   $pma['text'] = $postvars['text'];
   $pma['subject'] = $postvars['subject'];
-  if (emptystring(session('uid', false))){
-    if (DEBUG){
-      $pma['uid'] = 1;
-    }
-    else{
-      $pma['uid'] = session('uid');
-    }
-  }
-  else{
-    $pma['uid'] = session('uid', false);
-  }
+  $pma['uid'] = getUID();
   $pma['forumid'] = $postvars['forumid'];
   return $pma;
 }
@@ -243,6 +233,31 @@ function emptystring($s){
   return ($s == '');
 }
 
+function getUID(){
+  $uid = session('uid', false);
+  if (emptystring($uid)){
+    if (DEBUG){
+      $uid = 1;
+    }
+    else{
+      $uid = session('uid');
+    }
+  }
+  return $uid;
+}
+
+function getCID(){
+  $cid = session('confid', false);
+  if (emptystring($cid)){
+    if (DEBUG){
+      $cid = 1;
+    }
+    else{
+      $cid = session('confid');
+    }
+  }
+  return $cid;
+}
 
 //Main-Code
 
@@ -324,11 +339,11 @@ else{
   }
 
   //foren holen
-  if (DEBUG){
-    $forums = $myDBAccess->getAllForums(session('confid'));
+ if (DEBUG){
+    $forums = $myDBAccess->getAllForums(getCID());
   }
   else{
-    $forums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid'));
+    $forums = $myDBAccess->getForumsOfPerson(getUID(), getCID());
   }
 
   //selektionen updaten
