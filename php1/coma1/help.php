@@ -23,9 +23,9 @@ require_once('./include/header.inc.php');
 
 $strMainAssocs = defaultAssocArray();
 
-if (isset($_SESSION('uname'))) {
+if (isset($_SESSION['uname'])) {
   $strMainAssocs['navigator'] = session('uname').'  |  Help';
-  if (isset($_SESSION('confid'))) {
+  if (isset($_SESSION['confid'])) {
     $menu = new Template(TPLPATH.'usermenu.tpl');
     $strMenuAssocs = defaultAssocArray();
     $strMenuAssocs['if'] = array();
