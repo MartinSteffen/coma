@@ -28,7 +28,7 @@ basedata2.sql Wie basedata.sql nur nicht generisch sondern mit weniger aber Hand
 Nochmal zum mitschreiben:
 
 Erstens tablestruktur mit emptyDB bzw dem Original aus dem sql repos erstellen
-Zweitens bzw falls struktur vorhanden aber bereits Daten in de table delete_data.sql ausführen
+Zweitens delete_data.sql ausführen (Wichtig, da sonst beziehungen der Table nicht consistent!!)
 Drittens mit basedata.sql viele viele Daten einlesen
 
 mit passwort pw und einem benutzernamen ( Xemail@mail.de | X aus [0,99] ) einloggen.
