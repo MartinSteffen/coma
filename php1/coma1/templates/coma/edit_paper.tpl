@@ -64,6 +64,17 @@
     <td>{last_edited}</td>
   </tr>
   <tr>
+    <td colspan="2">      
+      <table class="formlist" width="100%">
+        <tr class="formlistheader">
+          <td class="formlistheader">Topics:</td>
+          <td class="formlistheader">&nbsp;</td>
+        </tr>
+        {topic_lines}        
+      </table>
+    </td>      
+   </tr>
+  <tr>
     <td colspan="2">
       <input type="submit" name="submit" value="Accept changes" class="button">
       <input type="reset"  name="reset" value="Reset settings" class="button">

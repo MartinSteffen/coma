@@ -24,6 +24,10 @@ if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
   else if (empty($objPaper)) {
     error('Paper does not exist in database.', '');
   }
+  $objAllTopics = $myDBAccess->getTopicsOfConference(session('confid'));
+  if ($myDBAccess->failed()) {
+    error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+  }
 }
 else {
   redirect('author_papers.php');
@@ -49,6 +53,18 @@ if (isset($_POST['action'])) {
     $objPaper->strCoAuthors[] = encodeText($_POST['coauthor']);
     $objPaper->intCoAuthorIds[] = false;
   }    
+  $objPaper->objTopics = array();
+  if (!empty($_POST['topics'])) {
+    $intTopicIds = explode(',', $_POST['topics']);
+    for ($i = 0; $i < count($intTopicIds); $i++) {
+      for ($j = 0; $j < count($objAllTopics); $i++) {
+      	if ($intTopicId['$i'] == $objAllTopics['j']->intId) {
+      	  $objPaper->objTopics[] = $objAllTopics['j'];
+          break;
+      	}
+      }
+    }
+  }  
   if (isset($_POST['submit'])) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
     if (empty($_POST['title'])) {
@@ -113,7 +129,7 @@ $strContentAssocs['version']        = encodeText($objPaper->intVersion);
 $strContentAssocs['coauthors_num']  = encodeText(count($objPaper->strCoAuthors));
 $strContentAssocs['coauthor_lines'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
-  $coauthorForm = new Template(TPLPATH.'coauthor_listitem.tpl');
+  $coauthorForm = new Template(TPLPATH.'paper_coauthorlistitem.tpl');
   $strCoauthorAssocs = defaultAssocArray();
   $strCoauthorAssocs['coauthor_no'] = encodeText($i+1);
   $strCoauthorAssocs['coauthor']    = encodeText($objPaper->strCoAuthors[$i]);
@@ -121,6 +137,20 @@ for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   $coauthorForm->assign($strCoauthorAssocs);
   $coauthorForm->parse();
   $strContentAssocs['coauthor_lines'] .= $coauthorForm->getOutput();
+}
+$strContentAssocs['topic_lines'] = '';
+for ($i = 0; $i < count($objAllTopics); $i++) {
+  $topicForm = new Template(TPLPATH.'paper_topiclistitem.tpl');
+  $topicAssocs = defaultAssocArray();
+  $topicAssocs['topic_id'] = encodeText($objAllTopics[$i]->intId);
+  $topicAssocs['topic']    = encodeText($objAllTopics[$i]->strName);
+  $topicAssocs['if'] = array();
+  if ($objPaper->hasTopic($objAllTopics[$i]->intId)) {
+    $topicAssocs['if'] = array(1);  	
+  }
+  $topicForm->assign($strTopicAssocs);
+  $topicForm->parse();
+  $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
 }
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {

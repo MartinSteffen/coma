@@ -35,8 +35,8 @@ class PaperSimple extends Paper {
   var $strFilePath;
   var $objTopics;  
 
-function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
-                     $fltAvgRating, $strFilePath, $objTopics) {
+  function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
+                       $fltAvgRating, $strFilePath, $objTopics) {
     $this->Paper($intId);
     $this->strTitle = $strTitle;
     $this->intAuthorId = $intAuthorId;
@@ -45,6 +45,23 @@ function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
     $this->fltAvgRating = $fltAvgRating;
     $this->strFilePath = $strFilePath;
     $this->objTopics = $objTopics;
+  }
+
+  /**
+   * Testes, ob das Paper das Topic $intTopicId besitzt.
+   *   
+   * @param int $intTopicId ID des zu testenden Topics
+   * @return bool true gdw. das Paper das zu testende Topic besitzt.
+   * @access public
+   * @author Sandro (21.01.05)
+   */
+  function hasTopic($intTopicId) {
+    for ($i = 0; $i < count($this->objTopics); $i++) {
+      if ($this->objTopics[$i]->intId == $intTopicId) {
+        return true;
+      }
+    }
+    return false;
   }
 
 } // end class PaperSimple
