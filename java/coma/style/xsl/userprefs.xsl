@@ -37,7 +37,7 @@
         <div class="content">
           <xsl:call-template name="stderrors" />
           <xsl:call-template name="navcolumn" />
-          <xsl:apply-template select="//error" />
+          <xsl:apply-templates select="//error" />
           <form action="UserPrefs" method="post">
             <xsl:apply-templates select="//servletState" />
             <xsl:apply-templates select="//editable" />
