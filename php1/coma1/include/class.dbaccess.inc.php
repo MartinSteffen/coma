@@ -98,8 +98,7 @@ class DBAccess {
   /**
    */
   function getPersonIdByEmail($strEmail) {
-    //$this->mySql->select('SELECT id FROM Person WHERE email = '''.
-    echo('Ein einfaches Apostroph \' im String.');
+    $this->mySql->select('SELECT id FROM Person WHERE email = \''.$strEmail.'\'');
     return true;
   }
   
