@@ -38,6 +38,7 @@ Datum    Autor   Änderung(en)
 12.01.05 jwa     Kapitel 5 Sessions hinzugefügt
 11.01.05 sae     Beschreibung der Rollen in Kapitel 2 geändert.
 18.01.05 sae     Beschreibung der Dokumentstati in Kapitel 2 ergänzt.
+21.01.05 tos     Kapitel 6 hinzugefügt
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -73,6 +74,8 @@ Konventionen für dieses Dokument (ups, ganz schön viele...):
   2. Das Datenmodell (SQL)
   3. Das Datenmodell (PHP)
   4. Design
+  5. Sessions
+  6. Reduzierung des Funktionsumfangs
 App. Systemvorraussetzungen
 App. Verantwortlichkeiten / Ansprechpartner
 App. Verzeichnisstruktur
@@ -366,6 +369,20 @@ Falls der optionale Paramter false angehängt ist, wird bei Nicht-Existenz ''
 zurückgegeben.
 Ansonsten wird die Skriptausführung unterbrochen, und auf die Index-Seite
 weitergeleitet.
+
+
+============================================================================
+  6. REDUZIERUNG DES FUNKTIONSUMFANGS
+============================================================================
+
+Infolge der gegen Ende knapp gewordenen Zeit haben wir uns entschlossen,
+folgende Funktionalitäten zu streichen:
+
+- Automatisches Benachrichtigungssystem (Cronjobs). Es werden nur noch
+  solche Nachrichten an die CoMa-Nutzer gesandt, die unmittelbar ausgelöst
+  werden.
+- Gesamtbewertung eines Reviews entfällt und wird ersetzt durch die
+  gewichtete Summe der Kriterien.
 
 
 ============================================================================
