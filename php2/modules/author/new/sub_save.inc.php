@@ -45,6 +45,7 @@ else {
 // check for topiccheckboxes
 $SQL = "SELECT id FROM topic WHERE conference_id = ". $content['conference_id'];
 $topic = $sql->query($SQL);
+$content['topic'] = array();
 foreach ($topic as $value) {
 	if (isset ($_REQUEST[$value['id']])) {
 		$content['topic'][] = $_REQUEST[$value['id']];
