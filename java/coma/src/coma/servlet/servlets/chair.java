@@ -40,7 +40,9 @@ import coma.servlet.util.XMLHelper;
  * Changes at 14.12: change method commit, now runs with parameters 
  * HttpServletResponse res and String tag.  
  * delete redundant code
- * Changes at 20.12: show_papers tested with my personal db
+ * Changes at 20.12: show_papers tested with my personal db,
+ * 					new person(-1) let me get all persons,
+ * 					changed readserviceImpl
  *  by pka			 show_authors, show_reviers update
  **/
 
