@@ -1,3 +1,4 @@
+
 <table class="list">
   <tr class="listheader">
     <th class="listheader">Title</th>    
@@ -8,7 +9,6 @@
   </tr>
   {paper_rows}
 </table>
-
 
 <p class="message2">
   Click on any paper, to edit the common information about the paper
