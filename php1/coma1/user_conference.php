@@ -29,9 +29,9 @@ $strContentAssocs['if'] = array();
 $strContentAssocs['name'] = encodeText($objConference->strName);
 $strContentAssocs['description'] = encodeText($objConference->strDescription);
 $strContentAssocs['date'] = $objConference->getDateString();
-if (!empty($objConference->strHomepage)) {
-  $strContentAssocs['if'] = array(1);  	
+if (!empty($objConference->strHomepage)) {    	
   $strContentAssocs['link'] = encodeURL($objConference->strHomepage);
+  $strContentAssocs['if'] = array(1);
 }
 else {  
   $strContentAssocs['link'] = 'No homepage available';
