@@ -4,6 +4,11 @@
 
 __version__ = "0.1.0"
 
+# Insert the installation python dir.  This may redundantly insert the
+# global python path.
+import sys
+sys.path.insert(1, '@pythondir@')
+
 from mod_python import apache
 from mod_python import util
 from mod_python import Session

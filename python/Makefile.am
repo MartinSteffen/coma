@@ -3,7 +3,6 @@ SUBDIRS			= pycoma
 bin_SCRIPTS		= comasetup
 sbin_SCRIPTS		= comaprocmail
 
-pkgpython_PYTHON	= coma_setup.py coma_procmail.py
 dist_pkgdata_DATA	= coma-mysql.sql coma-mysql-del.sql \
 			  coma-psql.sql coma-psql-del.sql
 

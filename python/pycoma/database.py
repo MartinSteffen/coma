@@ -3,26 +3,66 @@
 
 """Data model and PostgreSQL connector."""
 
+import comaconf
+
+class ConfigurationError:
+    """This class describes the situation if no connection has been defined."""
+    def __init__(self, arg):
+        """Standard constructor."""
+        value = arg
+
+
+if comaconfig.database == 'POSTGRESQL':
+    from connpsql import Connection
+elif comaconfig.database == 'MYSQL':
+    from connmysql import Connection
+else:
+    raise ConfigurationError, "No database connection configured"
+
+
+
+
+
 import datetime
 import re
 
-import comaconf
-
-# XXX Only for now:
-from comapsql import Connection
 
 
 
-##############################################################################
-#
-# Data Model
-#
-##############################################################################
+
+def quote(v, default = False):
+    """Small utility function to quote strings before we put them into
+    the data base.  I always wonder why nobody thought of providing
+    this.  This version has been copied and adapted from pgdb.py."""
+    if v:
+        if isinstance(v, types.StringType):
+            return '\'' + string.replace(string.replace(str(v), '\\', '\\\\'),
+                                         '\'', '\'\'')
+        elif isinstance(v, types.IntType, types.LongType, types.FloatType)):
+            return v
+        elif isinstance(x, (types.ListType, types.TupleType)):
+            return '(%s)' % string.join(map(lambda v: str(quote(v)), v), ',')
+        elif isinstance(v, DateTime.DateTimeType):
+            return str(x)
+        elif hasattr(v, '__pg_repr__'):
+            return x.__pg_repr__()
+    else:
+        if default:
+            return 'DEFAULT'
+        else:
+            return 'NULL'
+
+
+
+
+
+_match_date_iso = re.compile(
+    "(?P<year>\d\d|\d\d\d\d)-(?P<month>\d\d)-(?P<day>\d\d)")
+
+_match = _match_date_iso.match(date)
 
 def parse_date(date):
-    _match_date_iso = re.compile(
-	"(?P<year>\d\d|\d\d\d\d)-(?P<month>\d\d)-(?P<day>\d\d)")
-    _match = _match_date_iso.match(date);
+    """Use this to parse dates."""
     if not _match:
 	_match_date_ger = re.compile(
 	    "(?P<day>\d\d)-(?P<month>\d\d)-(?P<year>\d\d|\d\d\d\d)")
@@ -38,18 +78,11 @@ def parse_date(date):
 
 
 
-def _required(string):
-    return "'" + string + "'"
-
-def _optional(string):
-    if string:
-	return "'" + string + "'"
-    else:
-	return 'NULL'
-
-
-
-
+##############################################################################
+#
+# Data Model
+#
+##############################################################################
 
 class Conference:
     def __init__(self, row):
