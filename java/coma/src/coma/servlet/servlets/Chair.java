@@ -216,6 +216,9 @@ public class Chair extends HttpServlet
 				if (req.getParameter("invite as").equals("participant"))
 					p.setRole_type(5);
 				insert.insertPerson(p);
+				/*
+				 * TODO send email
+				 */
 			    info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name")));
 			    info.append(XMLHelper.tagged("content",""));
 			    tag = "invitation_send";
@@ -381,11 +384,6 @@ public class Chair extends HttpServlet
 		if (req.getParameter("target").equals("topics"))
 		{
 			int count = 0;
-		    /*Paper p = new Paper(-2);
-		    SearchCriteria criteria = new SearchCriteria();
-		    criteria.setPaper(p);
-		    search_result = read.getPaper(criteria);
-			Paper[] papers = (Paper[])search_result.getResultObj();*/
 			tag="setup_topics";
 			info.append(XMLHelper.tagged("status",user + ": setup topic(s) "));
 			info.append("<content>");
@@ -393,16 +391,7 @@ public class Chair extends HttpServlet
 			{
 				info.append("<topics>");
 				int topic_id = topics[i].getId();
-				/*for (int j=0;j<papers.length;j++)
-				{
-					search_result = read.isAboutTopic(papers[j].getId(),topic_id);
-					String isAbout = String.valueOf(search_result.getResultObj());
-					if (isAbout.equals("true"))
-						count++;
-				}*/
 				info.append(topics[i].toXML());
-				//info.append(XMLHelper.tagged("number_of_papers",count));
-				//count=0;
 				info.append("</topics>");
 			}
 			info.append("</content>");
@@ -1126,7 +1115,8 @@ public class Chair extends HttpServlet
  	}
 	
 	private void program(HttpServletRequest req,HttpServletResponse res,HttpSession session)
-	{	String tag ="program";
+	{	
+		String tag ="program";
 		Vector<String> SelectedPapers = new java.util.Vector<String>();
         SearchCriteria search = new SearchCriteria();
         ReadServiceImpl readService = new ReadServiceImpl();
@@ -1158,9 +1148,7 @@ public class Chair extends HttpServlet
  	}
 	}
 	
-	
-	
-	
+
 	private void commit(HttpServletResponse res, String tag) 
 	{
 	    try
