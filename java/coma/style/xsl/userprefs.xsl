@@ -105,11 +105,12 @@
         <td>Your email: </td>
         <td>
           <input class="input-box" style="border:1px solid red" 
-            type="text" name="email" size="20" >
+            type="hidden" name="email" size="20" readonly="readonly" >
             <xsl:attribute name="value">
               <xsl:value-of select="person/email"/>
             </xsl:attribute>
           </input>
+          <xsl:value-of select="person/email" />
         </td>
       </tr>
       <tr>
