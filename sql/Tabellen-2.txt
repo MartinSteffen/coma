@@ -1,3 +1,11 @@
+Mein Vorschlag für eine SQL-Tabellenstruktur:
+Einige Dinge fehlen noch, z.B. die Tabellen für Kommunikation / Forum.
+Es orientiert sich ziemlich am Spec-1 Vorschlag.
+
+Mit "->" bezeichne ich Lookup-Felder für "Tabelle, Feld"
+
+-- Gunnar
+
 Überarbeitung des Vorschlags für die SQL-Tabellenstruktur.
 Es wurde folgende Änderungen vorgenommen:
 
@@ -17,10 +25,17 @@ Es wurde folgende Änderungen vorgenommen:
   User des Systems ist.
 
  + + + Sandro
+ 
+Kleine Änderungen: 
+- Conference.abbreviation ist wie überall sonst Varchar 20
+- User.roles genauere Beschreibung: Es sollen die least-significant Bits für die
+  einzelnen Rollen genutzt werden.
+  
+-- Gunnar
 
 Tabelle Conference
 ~~~~~~~~~~~~~~~~~~
-abbreviation			Varchar 16	Prim., Uniq.
+abbreviation			Varchar 20	Prim., Uniq.
 name				Varchar 127
 description			Text
 homepage			Varchar 127
@@ -37,12 +52,12 @@ Tabelle User
 ~~~~~~~~~~~~
 email			Varchar 127	Prim., Uniq., Not Empty
 conference		Varchar 20	-> Conference, abbreviation
-roles			Int		xxxxx
-					||||+-- Admin
-					|||+--- Chair
-					||+---- Reviewer
-					|+----- Autor
-					+------ Teilnehmer
+roles			Int		000xxxxx
+					   ||||+-- Admin
+					   |||+--- Chair
+					   ||+---- Reviewer
+					   |+----- Autor
+					   +------ Teilnehmer
 first_name		Varchar 127
 last_name		Varchar 127
 title			Int		(bzw. Title)
