@@ -157,6 +157,7 @@ class DBAccess {
                 $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
                 $data[0]['country'], $data[0]['phone'], $data[0]['fax']));
     }
+    echo('Else');
     return false;
   }
 
