@@ -1,4 +1,6 @@
 <?php
+include("/config.inc.php");
+
 include("/includes/login.inc.php");
 include("/includes/tools.inc.php");
 include("/includes/templates.inc.php");
