@@ -16,7 +16,6 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'edit_paper.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if'] = array();
 $content->assign($strContentAssocs);
 
 $actMenu = AUTHOR;
