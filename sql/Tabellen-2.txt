@@ -20,38 +20,37 @@ Es wurde folgende Änderungen vorgenommen:
 
 Tabelle Conference
 ~~~~~~~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
-title			Varchar 127
-description		Text
-place			Varchar 127
-date			Date
-homepage		Varchar 127
-paperDeadline		Date
-reviewDeadline		Date
-abstractDeadline	Date
-finalDeadline		Date
-notification		Date
-minPapers		Int
-maxPapers		Int
+abbreviation			Varchar 16	Prim., Uniq.
+name				Varchar 127
+description			Text
+homepage			Varchar 127
+abstract_submission_deadline	Date
+paper_submission_deadline	Date
+review_deadline			Date
+final_version_deadline		Date
+notification			Date
+conference_start		Date
+conference_end			Date
+min_reviews_per_paper		Int
 
 Tabelle User
 ~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
-confId			BigInt		-> Conference, ID
+email			Varchar 127	Prim., Uniq., Not Empty
+conference		Varchar 20	-> Conference, abbreviation
 roles			Int		xxxxx
 					||||+-- Admin
 					|||+--- Chair
 					||+---- Reviewer
 					|+----- Autor
 					+------ Teilnehmer
-name			Varchar 127
-firstname		Varchar 127
+first_name		Varchar 127
+last_name		Varchar 127
+title			Int		(bzw. Title)
 affiliation		Varchar 127
-phone			Varchar 20
-fax			Varchar 20
-email			Varchar 127
+phone_number		Varchar 20
+fax_number		Varchar 20
 street			Varchar 127
-postalCode		Varchar 20
+postal_code		Varchar 20
 city			Varchar 127
 state			Varchar 127
 country			Varchar 127
@@ -61,92 +60,93 @@ password		Varchar 32
 Tabelle Paper
 ~~~~~~~~~~~~~
 id			BigInt		Autoinc., Prim., Uniq.
-confId			BigInt		-> Conference, ID
-authorId		BigInt		-> User, ID
+conference		Varchar 20	-> Conference, abbreviation
+author			Varchar 127	-> User, email
 title			Varchar 127
-description		Text
-createDate		Date
-editDate		Date
-version			Float 		(alternativ Int?)
+abstract		Text
+last_edited		DateAndTime
+version			Int
 filename		Varchar 127
 state			Int		(bzw. PaperState)
 format			Int		(bzw. MimeType)
 
 Tabelle isCoAuthorOf
 ~~~~~~~~~~~~~~~~~~~~
-confId			BigInt		-> Conference, ID
-paperId			BigInt		-> Paper, ID
+conference		Varchar 20	-> Conference, abbreviation
+paper_id		BigInt		-> Paper, ID
 name			Varchar 127
-userId			BigInt		-> User, ID oder NULL
+email			Varchar 127	-> User, email
 
 Tabelle Topic
 ~~~~~~~~~~~~~
 id			BigInt		Autoinc., Prim., Uniq.
-confId			BigInt		-> Conference, ID
-label			Varchar 127
+conference		Varchar 20	-> Conference, abbreviation
+name			Varchar 127
 
 Tabelle IsAboutTopic
 ~~~~~~~~~~~~~~~~~~~~
-paperId			BigInt		-> Paper, ID
-topicId			BigInt		-> Topic, ID
+paper_id		BigInt		-> Paper, ID
+topic			Varchar 127	-> Topic, name
 
 Tabelle PrefersTopic (welche Themenbereiche den User interessieren)
 ~~~~~~~~~~~~~~~~~~~~
-userId			BigInt		-> User, ID
-topicId			BigInt		-> Topic, ID
+user			Varchar 127	-> User, email
+topic			Varchar 127	-> Topic, name
 
 Tabelle PrefersPaper (welche Artikel den User interessieren)
 ~~~~~~~~~~~~~~~~~~~~
-userId			BigInt		-> User, ID
-paperId			BigInt		-> Paper, ID
+user			Varchar 127	-> User, email
+paper_id		BigInt		-> Paper, ID
 
 Tabelle DeniesPaper (welche Artikel der User ablehnt)
 ~~~~~~~~~~~~~~~~~~~~
-userId			BigInt		-> User, ID
-paperId			BigInt		-> Paper, ID
+user			Varchar 127	-> User, email
+paper_id		BigInt		-> Paper, ID
 
-Tabelle Review
-~~~~~~~~~~~~~~
+Tabelle ReviewReport
+~~~~~~~~~~~~~~~~~~~~
 id			BigInt		Autoinc., Prim., Uniq.
-confId			BigInt		-> Conference, ID
-paperId			BigInt		-> Paper, ID
+conference		Varchar 20	-> Conference, abbreviation
+paper_id		BigInt		-> Paper, ID
+summary			Text
+remarks			Text
+confidential		Text
 
 Tabelle Rating
 ~~~~~~~~~~~~~~
-reviewId		BigInt		-> Review, ID
+review_id		BigInt		-> Review, ID
 grade			Int
 comment			Text
 
 Tabelle Criterion
 ~~~~~~~~~~~~~~~~~
 id			BigInt		Autoinc., Prim., Uniq.
-confId			BigInt		-> Conference, ID
-label			Varchar 127
+conference		Varchar 20	-> Conference, abbreviation
+name			Varchar 127
 description		Text
-maxValue		Int
-
-Tabelle Program (alle angenommenen Artikel)
-~~~~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
-confId			BigInt		-> Conference, ID
-paperId			BigInt		-> Paper, ID
+max_value		Int
 
 Tabelle Forum
 ~~~~~~~~~~~~~
 id			BigInt		Autoinc., Prim., Uniq.
-confId			BigInt		-> Conference, ID
+conference		Varchar 20	-> Conference, abbreviation
 title			Varchar 127
 description		Text
 
+Tabelle ParticipatesInForum
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+forum_id		BigInt		-> Forum, ID
+participant		Varchar 127	-> User, email
+
 Tabelle Message
 ~~~~~~~~~~~~~~~
-id			BigInt		Autoinc., Prim., Uniq.
-senderId		BigInt		-> User, ID
-sendTime		TimeAndDate
+id			Varchar 127	Prim., Uniq., Not Empty
+sender			Varchar 127	-> User, email
+send_time		TimeAndDate
 subject			Varchar 127
 text			Text
 
 Tabelle hasThread
 ~~~~~~~~~~~~~~~~~
-forumId			BigInt		-> Forum, ID
-messageId		BigInt		-> Message, ID
+forum_id		BigInt		-> Forum, ID
+message_id		Varchar 127	-> Message, ID
