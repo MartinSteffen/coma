@@ -432,7 +432,7 @@ function sortPapersByAvgRating($objPapers) {
  * @access public
  */
 function sortPapersByAmbiguity($objPapers) {
-  global &myDBAccess;
+  global $myDBAccess;
   $objSortedPapers = array();
   if (!empty($objPapers)) {
     $fltVariance = array();
