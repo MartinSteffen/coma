@@ -104,7 +104,12 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'All users for conference';
+if ($showChairs) {
+  $strMainAssocs['title'] = 'Chairs for conference';	
+}
+else {
+  $strMainAssocs['title'] = 'All users for conference';
+}
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conference  |  All users';
