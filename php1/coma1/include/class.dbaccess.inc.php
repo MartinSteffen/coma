@@ -2024,7 +2024,7 @@ nur fuer detaillierte?
   function addConference($strName, $strHomepage, $strDescription, $strAbstractDeadline,
                          $strPaperDeadline, $strReviewDeadline, $strFinalDeadline,
                          $strNotification, $strConferenceStart, $strConferenceEnd,
-                         $intMinReviews, $intDefaultReviews, $intMinPapers, $intMaxPapers
+                         $intMinReviews, $intDefaultReviews, $intMinPapers, $intMaxPapers,
                          $fltVariance, $blnAutoActAccount, $blnAutoPaperForum,
                          $blnAutoAddReviewer, $intNumAutoAddReviewer
                          $strTopics, $strCriterions, $strCritDescripts,
