@@ -36,7 +36,7 @@ else {
     $blnAccepted = true;	
   }
   else {
-    $blnAccepted = $objConference->$blnAutoActivateAccount;
+    $blnAccepted = $objConference->blnAutoActivateAccount;
   }
   $myDBAccess->addRole(session('uid'), $_POST['roleid'], $_POST['confid'], $blnAccepted);
   if ($myDBAccess->failed()) {
@@ -48,7 +48,7 @@ global $strRoles;
 
 $content = new Template(TPLPATH.'confirm_apply.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['title'] = $objConference->strTitle;
+$strContentAssocs['title'] = $objConference->strName;
 $strContentAssocs['role'] = $strRoles[$_POST['roleid']];
 if (empty($blnAccepted)) {
   $strContentAssocs['if'] = array(1);
