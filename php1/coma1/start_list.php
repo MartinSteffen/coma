@@ -48,13 +48,13 @@ $id = $myDBAccess->getPersonIdByEmail($_SESSION['uname']);
 
 $zeilen =''; //die Zeilen der Tabelle
 for ($i = 0; $i < count($conferences); $i++) {
-  $person = $myDBAccess->getRoles($id,$conferences[$i]->intId);
+  $roles = $myDBAccess->getRoles($id,$conferences[$i]->intId);
   $cname = (string) $conferences[$i]->strName; 
   $zeilen = $zeilen.'<tr> <td class="z1" >'.$cname.'</td> <td align="left">';
-  if (count($person)!=NULL){
+  if (count($roles)!=NULL){
     // lese alle Rollen aus
-    for ($j = 0; $j < count($person); $j++){
-      $zeilen = $zeilen.'&nbsp; <a href="'.strtolower($person[$j]).'.php">'.$person[$j].'</a> &nbsp;'; 
+    for ($j = 0; $j < count($roles); $j++){
+      $zeilen = $zeilen.'&nbsp; <a href="'.strtolower($roles[$j]).'.php">'.$roles[$j].'</a> &nbsp;'; 
     } 
     $zeilen = $zeilen.'</td> </tr>'; 
   }
