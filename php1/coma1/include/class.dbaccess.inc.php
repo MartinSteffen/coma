@@ -104,7 +104,6 @@ class DBAccess {
    * @author Tom (15.12.04)
    */
   function checkLogin() {
-    echo(sha1('pw'));
     $s = 'SELECT  id, email, password'.
         ' FROM    Person'.
         ' WHERE   email = \''.$_SESSION['uname'].'\''.
