@@ -155,10 +155,12 @@ function checkLogin() {
   if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
     return true;
   }
-  else if ($myDBAccess->failed()) {
-    error('checkLogin',$myDBAccess->getLastError());
+  else {
+    if ($myDBAccess->failed()) {
+      error('checkLogin',$myDBAccess->getLastError());
+    }
+    return false;  
   }
-  return false;  
 }
 
 /**
