@@ -13,144 +13,185 @@
 <table border="1" bordercolor="#000000" cellspacing="0" cellpadding="3" width="90%">
 	<tr>
 		<td align="center">
-			<b>rank</b>
-		</td>
+<font size="+1">			<b>rank</b>
+</font>		</td>
 		<td align="center">
-			<b>total&nbsp;grade<br>
-(in&nbsp;%)</b>
-		</td>
-		<td align="left">
-			<b>title</b>
-		</td>
+<font size="+1">			<b>total&nbsp;grade</b>
+</font>		</td>
 		<td align="center">
-			<b>accept&nbsp;/<br>
-reject</b>
-		</td>
-		<td align="center">
-			<b>review<br>
+<font size="+1">			<b>title</b>
+</font>		</td>
+		<td align="center" width="20%" >
+<font size="+1">			<b>accept&nbsp;/&nbsp;reject /&nbsp;re-open</b>
+</font>		</td>
+		<td align="center" >
+<font size="+1">			<b>review<br>
 status</b>
-		</td>
-		<td align="center">
-			<b>review<br>
+</font>		</td>
+		<td align="center" >
+<font size="+1">			<b>review<br>
 count</b>
-		</td>
-		<td align="center">
-			<b>gradelist<br>
+</font>		</td>
+		<td align="center" >
+<font size="+1">			<b>gradelist<br>
 (in&nbsp;%)</b>
-		</td>
+</font>		</td>
 	</tr>
+<?php
+if (count($TPL['paperlist_accepted']) >0) {
+?>
 	<tr>
-		<td colspan="7">
- <font size="+2"><b>ACCEPTED:</b></font>			
-		</td>
+		<td colspan="7" bgcolor="AAFFAA">
+ <div align="center"><font size="+2"><b>ACCEPTED</b></font>			
+</div>		</td>
 	</tr>
 
 <?php
+}
 
-$i=0;
-foreach($TPL['paperlist'] as $paper) {
+foreach($TPL['paperlist_accepted'] as $paper) {
 
-$i++;
 ?>
 	<tr>
-		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $i; ?>&nbsp;&nbsp;&nbsp;
+		<td align="right"  bgcolor="AAFFAA" class="<?php echo $paper['review_status']; ?>">
+			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['total_grade']; ?>&nbsp;&nbsp;&nbsp;
+			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['title']; ?>
-		</td>
+<font size="+1"><b>			<?PHP echo $paper['title']; ?>
+</b></font>		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<a href="index.php?m=chair&a=papers&s=accept&paperID=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_up.gif" alt="accept" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=papers&s=reject&paperID=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_down.gif" alt="reject" border="0"></a>
+			<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&accept=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_up.gif" alt="accept" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reject=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_down.gif" alt="reject" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reopen=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_mark.gif" alt="re-open" border="0"></a>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 			<?PHP echo $paper['review_status']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['review_count']; ?>
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['totalgradelist']; ?>
+			<?PHP echo $paper['totalgradelist']; ?>&nbsp;
 		</td>
 	</tr>
 <?php
 }
+
+if (count($TPL['paperlist_open']) >0) {
 ?>
+
 	<tr>
 		<td colspan="7">
- <font size="+2"><b>OPEN</b></font>			
-		</td>
+<div align="center"> <font size="+2"><b>OPEN</b></font>			
+</div>		</td>
 	</tr>
 
 <?php
+}
+foreach($TPL['paperlist_open'] as $paper) {
 
-$i=0;
-foreach($TPL['paperlist'] as $paper) {
-
-$i++;
 ?>
 	<tr>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $i; ?>&nbsp;&nbsp;&nbsp;
+			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['total_grade']; ?>&nbsp;&nbsp;&nbsp;
+			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['title']; ?>
+			<font size="+1"><b><?PHP echo $paper['title']; ?></b></font>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<a href="index.php?m=chair&a=papers&s=accept&paperID=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_up.gif" alt="accept" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=papers&s=reject&paperID=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_down.gif" alt="reject" border="0"></a>
+			<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&accept=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_up.gif" alt="accept" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reject=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_down.gif" alt="reject" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reopen=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_mark.gif" alt="re-open" border="0"></a>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 			<?PHP echo $paper['review_status']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['review_count']; ?>
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['totalgradelist']; ?>
+			<?PHP echo $paper['totalgradelist']; ?>&nbsp;
 		</td>
 	</tr>
 <?php
 }
+if (count($TPL['paperlist_rejected']) >0) {
+
 ?>
 	<tr>
-		<td colspan="7">
- <font size="+2"><b>REJECTED</b></font>			
-		</td>
+		<td colspan="7" bgcolor="FFAAAA">
+<div align="center"> <font size="+2"><b>REJECTED</b></font>			
+</div>		</td>
 	</tr>
 
 <?php
+}
+foreach($TPL['paperlist_rejected'] as $paper) {
 
-$i=0;
-foreach($TPL['paperlist'] as $paper) {
-
-$i++;
 ?>
 	<tr>
-		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $i; ?>&nbsp;&nbsp;&nbsp;
+		<td align="right" class="<?php echo $paper['review_status']; ?>" bgcolor="FFAAAA">
+			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['total_grade']; ?>&nbsp;&nbsp;&nbsp;
+			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['title']; ?>
-		</td>
+<font size="+1"><b>			<?PHP echo $paper['title']; ?>
+</b></font>		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<a href="index.php?m=chair&a=papers&s=accept&paperID=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_up.gif" alt="accept" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=papers&s=reject&paperID=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_down.gif" alt="reject" border="0"></a>
+			<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&accept=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_up.gif" alt="accept" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reject=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_down.gif" alt="reject" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reopen=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_mark.gif" alt="re-open" border="0"></a>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 			<?PHP echo $paper['review_status']; ?>
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['review_count']; ?>
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
+
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['totalgradelist']; ?>
+			<?PHP echo $paper['totalgradelist']; ?>&nbsp;
+		</td>
+	</tr>
+<?php
+}
+if (count($TPL['paperlist_nothing']) >0) {
+?>
+
+	<tr>
+		<td colspan="7" bgcolor="FF0000">
+<div align="center"> <font size="+2"><b>NOT YET REVIEWED</b></font>			
+</div>		</td>
+	</tr>
+
+<?php
+}
+foreach($TPL['paperlist_nothing'] as $paper) {
+
+?>
+	<tr>
+		<td align="right" class="<?php echo $paper['review_status']; ?>" bgcolor="FF0000">
+			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
+		</td>
+		<td align="right" class="<?php echo $paper['review_status']; ?>">
+			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
+		</td>
+		<td align="center" class="<?php echo $paper['review_status']; ?>">
+<font size="+1"><b>			<?PHP echo $paper['title']; ?>
+</b></font>		</td>
+		<td align="center" class="<?php echo $paper['review_status']; ?>">
+			<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&accept=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_up.gif" alt="accept" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reject=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_down.gif" alt="reject" border="0"></a>&nbsp;&nbsp;<a href="index.php?m=chair&a=program&s=paperlist&confID=<?PHP echo $_REQUEST['confID']; ?>&reopen=<?PHP echo $paper['id']; ?>"><img src="templates/images/thumb_mark.gif" alt="re-open" border="0"></a>
+		</td>
+		<td align="center" class="<?php echo $paper['review_status']; ?>">
+			<?PHP echo $paper['review_status']; ?>
+		</td>
+		<td align="center" class="<?php echo $paper['review_status']; ?>">
+			<?PHP echo $paper['review_count']; ?>&nbsp;/&nbsp;<?PHP echo $paper['min_reviews']; ?>
+		</td>
+		<td align="center" class="<?php echo $paper['review_status']; ?>">
+			<?PHP echo $paper['totalgradelist']; ?>&nbsp;
 		</td>
 	</tr>
 <?php

@@ -150,6 +150,16 @@ function toggle(id)
 						  <table width="230" border="0" cellspacing="0" cellpadding="0">
   							<tr>
 							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+							    <td class="menus"><a href="index.php?m=chair&a=program" class="menus">Manage program</a></td>
+						    </tr>
+						  </table>
+					    </td>
+					  </tr>
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
 							    <td class="menus"><a href="index.php?m=chair&a=conferences" class="menus">Manage conferences</a></td>
 						    </tr>
 						  </table>
