@@ -216,9 +216,9 @@ public class Person extends Entity {
 		case DEEP:
 		    return XMLHelper.tagged("person",
 					    XMLHelper.tagged("id", ""+getId()),
-					    XMLHelper.tagged("last_name", ""+getLast_name()),
-					    XMLHelper.tagged("first_name", ""+getFirst_name()),
-					    XMLHelper.tagged("title", ""+getTitle()),
+					    XMLHelper.tagged("last_name", getLast_name()),
+					    XMLHelper.tagged("first_name", getFirst_name()),
+					    XMLHelper.tagged("title", getTitle()),
 					    XMLHelper.tagged("affiliation", getAffiliation()),
 					    XMLHelper.tagged("email", getEmail()),
 					    XMLHelper.tagged("phone_number", getPhone_number()),
@@ -235,7 +235,7 @@ public class Person extends Entity {
 		case SHALLOW:
 			 return XMLHelper.tagged("Person",
 			 			XMLHelper.tagged("id", ""+getId()),
-						XMLHelper.tagged("last_name", ""+getLast_name()),
+						XMLHelper.tagged("last_name", getLast_name()),
 						XMLHelper.tagged("email", getEmail())
 					    );
 		  
