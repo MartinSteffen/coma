@@ -29,8 +29,8 @@ if (!empty($objPapers)) {
     $ifArray = array();
     $strItemAssocs = defaultAssocArray();
     $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['paper_id'] = $objPaper->intId;
-    $strItemAssocs['author_id'] = $objPaper->intAuthorId;
+    $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
+    $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);    
     $strItemAssocs['file_link'] = encodeURL($objPaper->strFilePath);
     $ifArray[] = $objPaper->intStatus;
@@ -44,7 +44,7 @@ if (!empty($objPapers)) {
     else {
       $strItemAssocs['avg_rating'] = ' - ';
     }    
-    $strItemAssocs['last_edited'] = encodeText(emptytime(strtotime($objPaper->strLastEdit)));
+    $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
     $paperItem = new Template(TPLPATH.'user_paperlistitem.tpl');
     $paperItem->assign($strItemAssocs);
