@@ -49,15 +49,15 @@ if (!empty($objConferences)) {
         $ifArray[] = 3;
       }
     }
-    $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['confid'] = $objConference->intId;
-    $strItemAssocs['link'] = $objConference->strHomepage;
+    $strItemAssocs['line_no'] = encodeText($lineNo);
+    $strItemAssocs['confid'] = encodeText($objConference->intId);
+    $strItemAssocs['link'] = encodeURL($objConference->strHomepage);
     if (!empty($objConference->strHomepage)) {
       $ifArray[] = 4;
     }
-    $strItemAssocs['name'] = $objConference->strName;
-    $strItemAssocs['startdate'] = $objConference->strStart;
-    $strItemAssocs['enddate'] = $objConference->strEnd;
+    $strItemAssocs['name'] = encodeText($objConference->strName);
+    $strItemAssocs['startdate'] = encodeText($objConference->strStart);
+    $strItemAssocs['enddate'] = encodeText($objConference->strEnd);
     $strItemAssocs['if'] = $ifArray;
     $conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
     $conferenceItem->assign($strItemAssocs);
@@ -82,7 +82,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Conferences Overview';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Conferences';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conferences';
 
 $main->assign($strMainAssocs);
 $main->parse();
