@@ -158,7 +158,7 @@ Heute war recht viel auf dem Tablett, ich hoffen da"s ich nix vergessen hab.
                       neueren Version, umbequemer f"ur die Leute die die
                       Datenbank neu aufsetzten muessen und fuer die Kunden
                       die das Ding nutzen wollen (und eventuell dann die Datenbank      
-                      nachinstallieren wollen. 
+                      nachinstallieren muessen)
 
                        abstimmung: wir konnen mit der alten Version zurechtkommen,
                                    also bleibt's dabei.
