@@ -145,7 +145,7 @@ class Session {
    *
    */
   function error($strError='') {
-    $this->strError = [Sessions: $strError ];
+    $this->strError = "[Sessions: $strError ]";
     return false;
   }
 

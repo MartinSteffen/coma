@@ -140,7 +140,7 @@ class Template {
    *
    */
   function error($strError='') {
-    $this->strError = [Templates: $strError ];
+    $this->strError = "[Templates: $strError ]";
     return false;
   }
 
