@@ -26,7 +26,7 @@ $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
-if (!empty($objConferences)) {
+if (!empty($objPapers)) {
   $lineNo = 1;
   foreach ($objPapers as $objPaper) {
     $strItemAssocs['line_no'] = $lineNo;

@@ -693,8 +693,7 @@ class DBAccess extends ErrorHandling {
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
     }
-    $objPapers = array();
-    echo(count($data));
+    $objPapers = array();    
     for ($i = 0; $i < count($data); $i++) {
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->mySql->failed()) {
@@ -713,7 +712,7 @@ class DBAccess extends ErrorHandling {
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $fltAvgRating, $data[$i]['filename'],
                        $this->getTopicsOfPaper($data[$i]['id'])));
-    }
+    }    
     return $this->success($objPapers);
   }
 
