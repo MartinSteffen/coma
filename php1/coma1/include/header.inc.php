@@ -104,7 +104,8 @@ define('AUTHOR', 4);
 define('PARTICIPANT', 5);
 
 // von Tom: [TODO] obige Konstanten evtl. entfernen, dafuer dieses Array benutzen:
-$ROLES = array(2 => 'Chair', 3 => 'Reviewer', 4 => 'Author', 5 => 'Participant');
+$ROLES = array(array(2, 'Chair'), array(3, 'Reviewer'), array(4, 'Author'),
+               array(5, 'Participant'));
 
 // End CoMa Konstanten
 
