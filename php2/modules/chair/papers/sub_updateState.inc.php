@@ -2,6 +2,10 @@
 if(isChair_Paper($_POST['paperID']))
 {
 	$stateID = 0;
+	if(isset($_POST['auto']))
+	{
+		// call the RTPA algorithm (Meiko)
+	}	
 	if(isset($_POST['accept']))
 	{
 		$stateID = 3;
