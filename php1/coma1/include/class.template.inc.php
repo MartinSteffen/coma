@@ -107,6 +107,7 @@ class Template {
    * @access public
    * @todo Check ob gueltiges Objekt!!!
    * @todo nicht ersetzte Tags ueberpruefen!!!
+   * @todo Liste von Assoziationen Baum herunter schleppen
    *
    */
   function parse() {
@@ -117,7 +118,7 @@ class Template {
       $strKeys[] = $key;
       // @todo Check ob gültiges Objekt!!!
       if (is_object($value)) {
-        $value->assign($this->strAssocs);
+        //$value->assign($this->strAssocs);
         $value->parse();
         $strValues[] = $value->getOutput();
       }
