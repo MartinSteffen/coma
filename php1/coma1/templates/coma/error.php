@@ -13,7 +13,8 @@ if (!defined('IN_COMA1')) {
 }
 if (!defined('SID')) {
   define('SID','');
-} else {
+} 
+elseif (SID != '') {
   define('SID','?'.SID);
 }
 ?>
