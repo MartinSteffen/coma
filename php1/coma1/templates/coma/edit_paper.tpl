@@ -89,6 +89,8 @@
       <input type="file" name="paper_file">
       <input type="submit" name="upload" value="Upload" class="button">
     </td>
+  </tr>
+  <tr>
     <td>MIME type:</td>
     <td>
       <input type="text" name="mimetype" size="48" maxlength="127" value="{mimetype}">
