@@ -3,7 +3,7 @@
 
 \newif\ifweb\webfalse
 
-\documentclass[11pt,handout]{handout}
+\documentclass[11pt,handout,nologo]{handout}
 
 
 \dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
@@ -19,7 +19,7 @@
 
 %\usepackage[english, german]{babel}
 
-\usepackage{hevea}
+\ifweb\usepackage{hevea}\fi
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
 
