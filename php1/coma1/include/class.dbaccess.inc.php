@@ -554,6 +554,44 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert ein Array von Person-Objekten zurueck, die Benutzer der
+   * Konferenz $intConferenceId sind.
+   *
+   * @param int $intConferenceId ID der Konferenz
+   * @return Person [] Ist im Regelfall nicht leer.
+   * @access public
+   * @author Sandro (19.01.05)
+   * @todo Existenz der Konferenz muss noch geprueft werden.
+   */
+  function getUsersOfConference($intConferenceId) {
+    $s = "SELECT  id, first_name, last_name, email, title".
+        " FROM    Person".
+        " WHERE   conference_id = '$intConferenceId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getUsersOfConference', $this->mySql->getLastError());
+    }
+    $objPersons = array();
+    for (int $i = 0; $i < count($data); $i++) {
+      $objPerson = (new Person($data[$i]['id'], $data[$i]['first_name'], $data[$i]['last_name'],
+                      $data[$i]['email'], 0, $data[$i]['title']));      
+      $s = "SELECT  role_type".
+          " FROM    Role".
+          " WHERE   person_id = '".$data[$i]['id']."'".
+          " AND     conference_id = '$intConferenceId'";
+      $role_data = $this->mySql->select($s);
+      if ($this->mySql->failed()) {
+        return $this->error('getUsersOfConference', $this->mySql->getLastError());
+      }
+      for ($j = 0; $j < count($role_data); $j++) {
+        $objPerson->addRole($role_data[$j]['role_type']);
+      }
+      $objPersons[] = $objPerson;
+    }
+    return $this->success($objPersons);
+  }
+
+  /**
    * Liefert das PaperSimple-Objekt mit der ID $intPaperId zurueck.
    *
    * @param int $intPaperId ID des Papers
