@@ -54,7 +54,7 @@ function notemptyandtrue($arr, $index){
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
 function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, &$myDBAccess){
   if (DEBUGMODE){
-    echo('forums: ' . count($forums) . '<br>');
+    //echo('forums: ' . count($forums) . '<br>');
   }
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
@@ -164,7 +164,7 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
 
 function displayMessages(&$messages, $msgselection, $selected, $forumid, $assocs){
   if (DEBUGMODE){
-    echo('Messages: ' . count($messages). '<br>');
+    //echo('Messages: ' . count($messages). '<br>');
   }
   $tempstring = '';
   foreach ($messages as $message){
@@ -321,12 +321,14 @@ if ((emptystring(session('uid', false))) && (!DEBUGMODE)){
 else{
 
   if (DEBUGMODE){
+    /*
     echo('<h1>BEGIN VARDUMP $HTTP_POST_VARS</h1><br>');
     var_dump($HTTP_POST_VARS);
     echo('<h1>END VARDUMP $HTTP_POST_VARS</h1><br>');
     echo('<h1>BEGIN VARDUMP $HTTP_GET_VARS</h1><br>');
     var_dump($HTTP_GET_VARS);
     echo('<h1>END VARDUMP $HTTP_GET_VARS</h1><br>');
+    */
   }
 
   $cid = getCID($myDBAccess);
