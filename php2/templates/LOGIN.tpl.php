@@ -20,7 +20,7 @@ $message = $TPL['login'];
   </tr>
   <tr> 
     <td> 
-      <form name="form1" method="post" action="">
+      <form name="form1" method="post" action="index.php?m=login">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td class="textBold" width="27%">Email</td>
