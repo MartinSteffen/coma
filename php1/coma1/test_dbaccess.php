@@ -29,7 +29,6 @@ if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 echo("<br>Papertitel: $p->strTitle<br>");
-echo("Jo: p->intCoAuthorIds[0]<br>");
 echo('Co-Autoren:<br>');
 for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
   echo ($p->intCoAuthorIds[$i].' / '.$p->strCoAuthors[$i].'<br>');

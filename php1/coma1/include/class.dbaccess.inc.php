@@ -14,17 +14,30 @@ if (!defined('INCPATH')) {
 
 
 /* =============================================================================
-NEUIGKEITEN 14.01.05:
----------------------
-- Bitte auch bei Integern in SQL-Anfragen immer Anfuehrungszeichen verwenden
-  (wie bei Strings), weil sonst leere Integer ("false") als Nullstring in den
-  SQL-String eingesetzt werden mit der Folge, dass Anfragen wie
-  SELECT * FROM tab WHERE id =
-  zustande kommen können, was einen SQL-Fehler erzeugt (nicht erwuenscht).
+WICHTIGE NEUIGKEITEN 14.01.05:
+------------------------------
+- Bitte bei ALLEN Datentypen (nicht nur Strings) in SQL-Statements immer
+  Anfuehrungszeichen verwenden, weil sonst leere Integer (=false) als Nullstring
+  in den SQL-String eingesetzt werden mit der Folge, dass Anfragen wie
+    SELECT * FROM tab WHERE id =
+  zustandekommen können, was einen SQL-Fehler und damit einen error erzeugt
+  (hier nicht erwuenscht).
   Stattdessen sollte nach der SQL-Anfrage ggf. die Ergebnismenge auf EMPTY
-  geprueft werden => Anfrage wie
-  SELECT * FROM tab WHERE id = ''
+  geprueft werden. => Anfrage wie
+    SELECT * FROM tab WHERE id = ''
   liefert leeres Ergegnisarray (ok).
+  Sieh Dir mal die zweite SELECT-Anfrage in getPerson an; so sollte es sein.
+  Sieht -- finde ich -- immer noch besser aus als unsere Lösung mit \'.
+  Ich habe es (hoffentlich) ueberall gefixt. *stoehn* (Ich komme zu nichts,
+  weil ich permanent irgendwelche bloeden Fehler finde, die z.T. aus unserer
+  Unwissenheit entstanden sind; bei der DBAccess-Groesse ist es nur immer ein
+  Riesenaufwand, solche Aenderungen durchzufuehren...)
+- Ausserdem habe ich so meine liebe Mueh und Not mit den ""-Strings:
+  Beispiel: $id=1, $tab[0]=0, $tab[1]=2
+  echo("$id/$tab[0]/$tab[$id]"); liefert nicht wie erwartet 1/0/2, sondern
+  1/tab[0]/tab[id] (oder so aehnlich, hab's vergessen).
+  Ursache: Arrays gehen schief. Anders der "->"-Operator:
+  echo("$p->bla"); ist erlaubt.
 ============================================================================= */
 
 /* =============================================================================
@@ -260,7 +273,7 @@ class DBAccess extends ErrorHandling {
         " FROM    Conference AS c".
         " INNER   JOIN ConferenceConfig AS cc".
         " ON      c.id = cc.id".
-        " WHERE   c.id = $intConferenceId";
+        " WHERE   c.id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getConferenceDetailed', $this->mySql->getLastError());
@@ -308,7 +321,7 @@ class DBAccess extends ErrorHandling {
   function getCriterionsOfConference($intConferenceId) {
     $s = "SELECT  id, name, description, max_value, quality_rating".
         " FROM    Criterion".
-        " WHERE   conference_id = $intConferenceId";
+        " WHERE   conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getCriterionsOfConference', $this->mySql->getLastError());
@@ -334,7 +347,7 @@ class DBAccess extends ErrorHandling {
   function getTopicsOfConference($intConferenceId) {
     $s = "SELECT  id, name".
         " FROM    Topic".
-        " WHERE   conference_id = $intConferenceId";
+        " WHERE   conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getTopicsOfConference', $this->mySql->getLastError());
@@ -383,7 +396,7 @@ class DBAccess extends ErrorHandling {
   function getPerson($intPersonId, $intConferenceId=false) {
     $s = "SELECT  id, first_name, last_name, email, title".
         " FROM    Person".
-        " WHERE   id = $intPersonId";
+        " WHERE   id = '$intPersonId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPerson', $this->mySql->getLastError());
@@ -396,8 +409,8 @@ class DBAccess extends ErrorHandling {
     if (!empty($intConferenceId)) {
       $s = "SELECT  role_type".
           " FROM    Role".
-          " WHERE   person_id = ".$data[0]['id'].
-          " AND     conference_id = $intConferenceId";
+          " WHERE   person_id = '".$data[0]['id']."'".
+          " AND     conference_id = '$intConferenceId'";
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getPerson', $this->mySql->getLastError());
@@ -425,7 +438,7 @@ class DBAccess extends ErrorHandling {
     $s = "SELECT  id, first_name, last_name, email, title, affiliation,".
         "         street, city, postal_code, state, country, phone_number, fax_number".
         " FROM    Person".
-        " WHERE   id = $intPersonId";
+        " WHERE   id = '$intPersonId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPersonDetailed', $this->mySql->getLastError());
@@ -442,8 +455,8 @@ class DBAccess extends ErrorHandling {
     if (!empty($intConferenceId)) {
       $s = "SELECT  role_type".
           " FROM    Role".
-          " WHERE   person_id = ".$data[0]['id'].
-          " AND     conference_id = $intConferenceId";
+          " WHERE   person_id = '".$data[0]['id']."'".
+          " AND     conference_id = '$intConferenceId'";
       $role_data = $this->mySql->select($s);
       if ($this->mySql->failed()) {
         return $this->error('getPersonDetailed', $this->mySql->getLastError());
@@ -466,7 +479,7 @@ class DBAccess extends ErrorHandling {
   function getPaper($intPaperId) {
     $s = "SELECT  id, author_id, title, state".
         " FROM    Paper".
-        " WHERE   id = $intPaperId";
+        " WHERE   id = '$intPaperId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPaper', $this->mySql->getLastError());
@@ -513,7 +526,7 @@ class DBAccess extends ErrorHandling {
     $strAuthor = $objAuthor->getName();
     $s = "SELECT  id, author_id, title, state".
         " FROM    Paper".
-        " WHERE   author_id = $intAuthorId";
+        " WHERE   author_id = '$intAuthorId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfAuthor', $this->mySql->getLastError());
@@ -545,7 +558,7 @@ class DBAccess extends ErrorHandling {
         " FROM    Paper AS p".
         " INNER   JOIN ReviewReport AS r".
         " ON      r.paper_id = p.id".
-        " AND     r.reviewer_id = $intReviewerId";
+        " AND     r.reviewer_id = '$intReviewerId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfReviewer', $this->mySql->getLastError());
@@ -607,7 +620,7 @@ class DBAccess extends ErrorHandling {
         " FROM    IsCoAuthorOf AS i".
         " LEFT    JOIN Person AS p".
         " ON      p.id = i.person_id".
-        " WHERE   paper_id = $intPaperId".
+        " WHERE   paper_id = '$intPaperId'".
         " ORDER   BY person_id DESC"; // ORDER BY: Co-Autoren im System im Array vorne!
     $cadata = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -649,7 +662,7 @@ class DBAccess extends ErrorHandling {
         " FROM    Topic AS t".
         " INNER   JOIN IsAboutTopic AS a".
         " ON      a.topic_id = t.id".
-        " WHERE   a.paper_id = $intPaperId";
+        " WHERE   a.paper_id = '$intPaperId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getTopicsOfPaper', $this->mySql->getLastError());
@@ -676,7 +689,7 @@ class DBAccess extends ErrorHandling {
         " ON      r.review_id = rr.id".
         " INNER   JOIN Criterion AS c".
         " ON      c.id = r.criterion_id".
-        " WHERE   rr.paper_id = $intPaperId".
+        " WHERE   rr.paper_id = '$intPaperId'".
         " GROUP   BY rr.id";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -706,7 +719,7 @@ class DBAccess extends ErrorHandling {
         " FROM    Rating AS r".
         " INNER   JOIN Criterion AS c".
         " ON      c.id = r.criterion_id".
-        " AND     r.review_id = $intReviewId";
+        " AND     r.review_id = '$intReviewId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewRating', $this->mySql->getLastError());
@@ -728,7 +741,7 @@ class DBAccess extends ErrorHandling {
   function getReviewsOfReviewer($intReviewerId) {
     $s = "SELECT  id".
         " FROM    ReviewReport".
-        " WHERE   reviewer_id = $intReviewerId";
+        " WHERE   reviewer_id = '$intReviewerId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewsOfReviewer', $this->mySql->getLastError());
@@ -759,7 +772,7 @@ class DBAccess extends ErrorHandling {
   function getReviewersOfPaper($intPaperId) {
     $s = "SELECT  reviewer_id".
         " FROM    ReviewReport".
-        " WHERE   paper_id = $intPaperId";
+        " WHERE   paper_id = '$intPaperId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewersOfPaper', $this->mySql->getLastError());
@@ -790,7 +803,7 @@ class DBAccess extends ErrorHandling {
   function getReviewsOfPaper($intPaperId) {
     $s = "SELECT  id".
         " FROM    ReviewReport".
-        " WHERE   paper_id = $intPaperId";
+        " WHERE   paper_id = '$intPaperId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewsOfPaper', $this->mySql->getLastError());
@@ -821,7 +834,7 @@ class DBAccess extends ErrorHandling {
   function getReview($intReviewId) {
     $s = "SELECT  id, paper_id, reviewer_id".
         " FROM    ReviewReport".
-        " WHERE   id = $intReviewId";
+        " WHERE   id = '$intReviewId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReview', $this->mySql->getLastError());
@@ -871,7 +884,7 @@ class DBAccess extends ErrorHandling {
   function getReviewDetailed($intReviewId) {
     $s = "SELECT  id, paper_id, reviewer_id, summary, remarks, confidential".
         " FROM    ReviewReport".
-        " WHERE   id = $intReviewId";
+        " WHERE   id = '$intReviewId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewDetailed', $this->mySql->getLastError());
@@ -908,7 +921,7 @@ class DBAccess extends ErrorHandling {
         " FROM    Rating r".
         " INNER   JOIN Criterion c".
         " ON      c.id  = r.criterion_id".
-        " WHERE   review_id = ".$data[0]['id'];
+        " WHERE   review_id = '".$data[0]['id']."'";
     $rating_data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getReviewDetailed', $this->mySql->getLastError());
@@ -958,7 +971,7 @@ class DBAccess extends ErrorHandling {
   function getNextMessages($intMessageId) {
     $s = "SELECT  id, sender_id, send_time, subject, text".
         " FROM    Message".
-        " WHERE   reply_to = $intMessageId";
+        " WHERE   reply_to = '$intMessageId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getNextMessages', $this->mySql->getLastError());
@@ -984,7 +997,7 @@ class DBAccess extends ErrorHandling {
   function getThreadsOfForum($intForumId) {
     $s = "SELECT  id, sender_id, send_time, subject, text".
         " FROM    Message".
-        " WHERE   forum_id = $intForumId".
+        " WHERE   forum_id = '$intForumId'".
         " AND     reply_to IS NULL";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -1014,7 +1027,7 @@ class DBAccess extends ErrorHandling {
   function getAllForums($intConferenceId) {
     $s = "SELECT  id, title".
         " FROM    Forum".
-        " WHERE   conference_id = $intConferenceId";
+        " WHERE   conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getAllForums', $this->mySql->getLastError());
@@ -1038,7 +1051,7 @@ class DBAccess extends ErrorHandling {
   function getForumOfPaper($intPaperId) {
     $s = "SELECT  id, title, forum_type".
         " FROM    Forum".
-        " WHERE   paperId = $intPaperId";
+        " WHERE   paperId = '$intPaperId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getForumOfPaper', $this->mySql->getLastError());
@@ -1059,19 +1072,31 @@ class DBAccess extends ErrorHandling {
    * @return Forum [] Ein leeres Array, falls keine solchen Foren existieren.
    * @access public
    * @author Sandro (14.12.04)
+   * @todo Anm. v. Tom: Auskommentierung der failed-Abfrage entfernen, sobald
+   *       checkAccessToForum die Fehlerbehandlung integriert hat
    */
   function getForumsOfPerson($intPersonId, $intConferenceId) {
+    $objForums = array();
     $objPerson = getPerson($intPersonId);
-    if ($this->mySql->failed() || empty($objPerson)) {
-      return $this->error('getForumsOfPerson', $this->mySql->getLastError());
+    if ($this->failed()) {
+      return $this->error('getForumsOfPerson', $this->getLastError());
+    }
+    else if (empty($objPerson)) {
+      return $this->success($objForums);
     }
     $objAllForums = getAllForums();
-    if ($this->mySql->failed()) {
-      return $this->error('getForumsOfPerson', $this->mySql->getLastError());
+    if ($this->failed()) {
+      return $this->error('getForumsOfPerson', $this->getLastError());
     }
-    $objForums = array();
+    else if (empty($objAllForums)) {
+      return $this->success($objForums);
+    }
     for ($i = 0; $i < count($objAllForums) && !empty($objAllForums); $i++) {
-      if ($this->checkAccessToForum($objPerson, $objAllForums[$i])) {
+      $bln = $this->checkAccessToForum($objPerson, $objAllForums[$i]);
+      /*if ($this->failed()) {
+        return $this->error('getForumsOfPerson', $this->getLastError());
+      }*/
+      if ($bln) {
         $objForums[] = $objAllForums[$i];
       }
     }
@@ -1089,7 +1114,7 @@ class DBAccess extends ErrorHandling {
   function getForumDetailed($intForumId) {
     $s = "SELECT  id, title".
         " FROM    Forum".
-        " WHERE   id = $intForumId";
+        " WHERE   id = '$intForumId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getForumDetailed', $this->mySql->getLastError());
@@ -1154,7 +1179,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         "         country = '$objPersonDetailed->strCountry',".
         "         phone_number = '$objPersonDetailed->strPhone',".
         "         fax_number = '$objPersonDetailed->strFax'".
-        " WHERE   id = $objPersonDetailed->intId";
+        " WHERE   id = '$objPersonDetailed->intId'";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePersonDetailed', $this->mySql->getLastError());
@@ -1186,8 +1211,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     $intId = $objPerson->intId;
     // Rollen loeschen...
     $s = "DELETE  FROM Role".
-        " WHERE   person_id = $intId".
-        " AND     conference_id = $intConferenceId";
+        " WHERE   person_id = '$intId'".
+        " AND     conference_id = '$intConferenceId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1199,7 +1224,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     for ($i = 0; $i < count($intRoles); $i++) {
       if ($objPerson->hasRole($intRoles[$i])) {
         $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
-            "         VALUES ($intConferenceId, $intId, $intRoles[$i])";
+            "         VALUES ('$intConferenceId', '$intId', '".$intRoles[$i]."')";
         $result = $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1224,7 +1249,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     }
     // Co-Autoren loeschen...
     $s = "DELETE  FROM IsCoAuthorOd".
-        " WHERE   paper_id = $intId".
+        " WHERE   paper_id = '$intId'".
         " AND     person_id IS NOT NULL";
     $this->mySql->delete($s);
     if ($this->mySql->failed()) {
@@ -1233,7 +1258,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     // Co-Autoren einfuegen...
     for ($i = 0; $i < count($objPaperDetailed->intCoAuthors); $i++) {
       $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
-          "         VALUES ($objPaperDetailed->intCoAuthors[$i], $intPaperId)";
+          "         VALUES ('".$objPaperDetailed->intCoAuthors[$i]."', '$intPaperId')";
       $this->mySql->insert($s);
       if ($this->mySql->failed()) {
         return $this->error('updateCoAuthors', $this->mySql->getLastError());
@@ -1259,13 +1284,13 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
     }
     $s = "UPDATE  Paper".
         " SET     title = '$objPaperDetailed->strTitle',".
-        "         author_id = $objPaperDetailed->intAuthorId,".
+        "         author_id = '$objPaperDetailed->intAuthorId',".
         "         abstract = '$objPaperDetailed->strAbstract',".
         "         mime_type = '$objPaperDetailed->strMimeType',".
         "         last_edited = '$objPaperDetailed->strLastEdit',".
         "         filename = '$objPaperDetailed->strFilePath',".
-        "         state = $objPaperDetailed->intStatus".
-        " WHERE   id = $objPaperDetailed->intId";
+        "         state = '$objPaperDetailed->intStatus'".
+        " WHERE   id = '$objPaperDetailed->intId'";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePaperDetailed', $this->mySql->getLastError());
@@ -1303,12 +1328,12 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
       return $this->error('addConference', $this->mySql->getLastError());
     }
     $s = "INSERT  INTO ConferenceConfig (id)".
-        "         VALUES ($intId)";
+        "         VALUES ('$intId')";
     $this->mySql->insert($s);
     if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
       $strError = $this->mySql->getLastError();
       $s = "DELETE  FROM Conference".
-          " WHERE   id = $intId";
+          " WHERE   id = '$intId'";
       if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
         return $this->error('addConference', 'Fatal error: Database inconsistency!',
                             $this->mySql->getLastError()." / $strError");
@@ -1369,7 +1394,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addRole($intPersonId, $intRoleType, $intConferenceId) {
     $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
-        "         VALUES ($intConferenceId, $intPersonId, $intRoleType)";
+        "         VALUES ('$intConferenceId', '$intPersonId', '$intRoleType')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addRole', $this->mySql->getLastError());
@@ -1388,7 +1413,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addCoAuthor($intPaperId, $intCoAuthorId) {
     $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
-        "         VALUES ($intCoAuthorId, $intPaperId)";
+        "         VALUES ('$intCoAuthorId', '$intPaperId')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCoAuthor', $this->mySql->getLastError());
@@ -1408,7 +1433,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addCoAuthorName($intPaperId, $strName) {
     $s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
-        "         VALUES ($intPaperId, '$strName')";
+        "         VALUES ('$intPaperId', '$strName')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCoAuthorName', $this->mySql->getLastError());
@@ -1435,7 +1460,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
                     $strFilePath, $strMimeType, $strCoAuthors) {
     $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
         "                     mime_type, state)".
-        "         VALUES ($intConferenceId, $intAuthorId, '$strTitle',".
+        "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
         "                 '$strAbstract', '$strFilePath', '$strMimeType', 0)";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
@@ -1445,7 +1470,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
       $this->addCoAuthorName($intId, $strCoAuthors[$i]);
       if ($this->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
         $s = "DELETE  FROM Paper".
-            " WHERE   id = $intId";
+            " WHERE   id = '$intId'";
         $this->mySql->delete($s);
         if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
@@ -1473,7 +1498,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
   function addReviewReport($intPaperId, $intReviewerId, $strSummary = '',
                            $strRemarks = '', $strConfidential = '') {
     $s = "INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)".
-        "         VALUES ($intPaperId, $intReviewerId,".
+        "         VALUES ('$intPaperId', '$intReviewerId',".
         "                 '$strSummary', '$strRemarks', '$strConfidential')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
@@ -1496,7 +1521,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addRating($intReviewId, $intCriterionId, $intGrade = 0, $strComment = '') {
     $s = "INSERT  INTO Rating (review_id, criterion_id, grade, comment)".
-        "         VALUES ($intReviewId, $intCriterionId, $intGrade, '$strComment')";
+        "         VALUES ('$intReviewId', '$intCriterionId', '$intGrade', '$strComment')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCriterion', $this->mySql->getLastError());
@@ -1551,7 +1576,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
       $intPaperId = 0;
     }
     $s = "INSERT  INTO Forum (conference_id, title, forum_type, paper_id)".
-        "         VALUES ($intConferenceId, '$strTitle', $intForumType, $intPaperId)";
+        "         VALUES ('$intConferenceId', '$strTitle', '$intForumType', '$intPaperId')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addForum', $this->mySql->getLastError());
@@ -1577,8 +1602,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
   function addMessage($strSubject, $strText, $strSenderId, $strForumId, $strReplyTo = 0) {
     $strSendTime = date("d.m.Y H:i");
     $s = "INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
-        "         VALUES ('$strSubject', '$strText', $intSenderId, $intForumId,".
-        "                 $intReplyTo, '$strSendTime')";
+        "         VALUES ('$strSubject', '$strText', '$intSenderId', '$intForumId',".
+        "                 '$intReplyTo', '$strSendTime')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addMessage', $this->mySql->getLastError());
@@ -1603,8 +1628,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
   function addCriterion($intConferenceId, $strName, $strDescription, $intMaxValue, $fltWeight) {
     $intQualityRating = round($fltWeight * 100);
     $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
-        "         VALUES ($intConferenceId, '$strName', '$strDescription',".
-        "                 $intMaxValue, $intQualityRating)";
+        "         VALUES ('$intConferenceId', '$strName', '$strDescription',".
+        "                 '$intMaxValue', '$intQualityRating')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCriterion', $this->mySql->getLastError());
@@ -1624,7 +1649,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addTopic($intConferenceId, $strName) {
     $s = "INSERT  INTO Topic (conference_id, name)".
-        "         VALUES ($intConferenceId, '$strName')";
+        "         VALUES ('$intConferenceId', '$strName')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addDeniesPaper', $this->mySql->getLastError());
@@ -1643,7 +1668,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addIsAboutTopic($intPaperId, $intTopicId) {
     $s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
-        "         VALUES ($intPaperId, $intTopicId)";
+        "         VALUES ('$intPaperId', '$intTopicId')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addIsAboutTopic', $this->mySql->getLastError());
@@ -1662,7 +1687,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addPrefersTopic($intPersonId, $intTopicId) {
     $s = "INSERT  INTO PrefersTopic (person_id, topic_id)".
-        "         VALUES ($intPersonId, $intTopicId)";
+        "         VALUES ('$intPersonId', '$intTopicId')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersTopic', $this->mySql->getLastError());
@@ -1681,7 +1706,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addPrefersPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO PrefersPaper (person_id, paper_id)".
-        "         VALUES ($intPersonId, $intPaperId)";    
+        "         VALUES ('$intPersonId', '$intPaperId')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersPaper', $this->mySql->getLastError());
@@ -1700,7 +1725,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addDeniesPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO DeniesPaper (person_id, paper_id)".
-        "         VALUES ($intPersonId, $intPaperId)";
+        "         VALUES ('$intPersonId', '$intPaperId')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addDeniesPaper', $this->mySql->getLastError());
@@ -1719,7 +1744,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addExcludesPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO ExcludesPaper (person_id, paper_id)".
-        "         VALUES ($intPersonId, $intPaperId)";
+        "         VALUES ('$intPersonId', '$intPaperId')";
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addExcludesPaper', $this->mySql->getLastError());
@@ -1742,7 +1767,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteConference($intConferenceId) {
     $s = "DELETE  FROM Conference".
-        " WHERE   id = $intConferenceId";
+        " WHERE   id = '$intConferenceId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteConference', $this->mySql->getLastError());
@@ -1761,7 +1786,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
   function deactivateAccount($intPersonId) {
     $s = "UPDATE  Person".
         " SET     password = NULL".
-        " WHERE   id = $intPersonId";
+        " WHERE   id = '$intPersonId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deactivateAccount', $this->mySql->getLastError());
@@ -1779,7 +1804,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deletePerson($intPersonId) {
     $s = "DELETE  FROM Person".
-        " WHERE   id = $intPersonId";
+        " WHERE   id = '$intPersonId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePerson', $this->mySql->getLastError());
@@ -1797,7 +1822,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deletePaper($intPaperId) {
     $s = "DELETE  FROM Paper".
-        " WHERE   id = $intPaperId";
+        " WHERE   id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePaper', $this->mySql->getLastError());
@@ -1818,9 +1843,9 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteRole($intPersonId, $intRoleType, $intConferenceId) {
     $s = "DELETE  FROM Role".
-        " WHERE   conference_id = $intConferenceId".
-        " AND     person_id = $intPersonId".
-        " AND     role_type = $intRoleType";
+        " WHERE   conference_id = '$intConferenceId'".
+        " AND     person_id = '$intPersonId'".
+        " AND     role_type = '$intRoleType'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteRole', $this->mySql->getLastError());
@@ -1839,8 +1864,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteCoAuthor($intPaperId, $intCoAuthorId) {
     $s = "DELETE  FROM IsCoAuthorOf".
-        " WHERE   person_id = $intCoAuthorId".
-        " AND     paper_id = $intPaperId";
+        " WHERE   person_id = '$intCoAuthorId'".
+        " AND     paper_id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteCoAuthor', $this->mySql->getLastError());
@@ -1859,7 +1884,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteCoAuthorName($intPaperId, $strName) {
     $s = "DELETE  FROM IsCoAuthorOf".
-        " WHERE   paper_id = $intPaperId".
+        " WHERE   paper_id = '$intPaperId'".
         " AND     name = '$strName'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
@@ -1872,7 +1897,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteReviewReport($intReviewId) {
     $s = "DELETE  FROM Reviewreport".
-        "         WHERE id = $intReviewId";
+        "         WHERE id = '$intReviewId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteReviewReport', $this->mySql->getLastError());
@@ -1884,8 +1909,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteRating($intReviewId, $intCriterionId) {
     $s = "DELETE  FROM Rating".
-        "         WHERE   review_id = $intReviewId".
-        "         AND     criterion_id = $intCriterionId";
+        "         WHERE   review_id = '$intReviewId'".
+        "         AND     criterion_id = '$intCriterionId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteRating', $this->mySql->getLastError());
@@ -1897,7 +1922,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteForum($intForumId) {
     $s = "DELETE  FROM Forum".
-        "         WHERE id = $intForumId";
+        "         WHERE id = '$intForumId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteForum', $this->mySql->getLastError());
@@ -1909,7 +1934,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteMessage($intMessageId) {
     $s = "DELETE  FROM Message".
-        "         WHERE id = $intMessageId";
+        "         WHERE id = '$intMessageId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteMessage', $this->mySql->getLastError());
@@ -1921,7 +1946,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteCriterion($intCriterionId) {
     $s = "DELETE  FROM Criterion".
-        "         WHERE id = $intCriterionId";
+        "         WHERE id = '$intCriterionId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteCriterion', $this->mySql->getLastError());
@@ -1934,7 +1959,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteTopic($intTopicId) {
     $s = "DELETE  FROM Topic".
-        "         WHERE id = $intTopicId";
+        "         WHERE id = '$intTopicId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteTopic', $this->mySql->getLastError());
@@ -1946,8 +1971,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteIsAboutTopic($intPaperId, $intTopicId) {
     $s = "DELETE  FROM IsAboutTopic".
-        "         WHERE paper_id = $intPaperId".
-        "         WHERE topic_id = $intTopicId";
+        "         WHERE paper_id = '$intPaperId'".
+        "         WHERE topic_id = '$intTopicId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteIsAboutTopic', $this->mySql->getLastError());
@@ -1959,8 +1984,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deletePrefersTopic($intPersonId, $intTopicId) {
     $s = "DELETE  FROM PrefersTopic".
-        "         WHERE person_id = $intPersonId".
-        "         WHERE topic_id = $intTopicId";
+        "         WHERE person_id = '$intPersonId'".
+        "         WHERE topic_id = '$intTopicId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePrefersTopic', $this->mySql->getLastError());
@@ -1972,8 +1997,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deletePrefersPaper($intPersonId, $intPaperId) {
     $s = "DELETE  FROM PrefersPaper".
-        "         WHERE person_id = $intPersonId".
-        "         WHERE paper_id = $intPaperId";
+        "         WHERE person_id = '$intPersonId'".
+        "         WHERE paper_id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deletePrefersPaper', $this->mySql->getLastError());
@@ -1985,8 +2010,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteDeniesPaper($intPersonId, $intPaperId) {
     $s = "DELETE  FROM DeniesPaper".
-        "         WHERE person_id = $intPersonId".
-        "         WHERE paper_id = $intPaperId";
+        "         WHERE person_id = '$intPersonId'".
+        "         WHERE paper_id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteDeniesPaper', $this->mySql->getLastError());
@@ -1998,8 +2023,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function deleteExcludesPaper($intPersonId, $intPaperId) {
     $s = "DELETE  FROM ExcludesPaper".
-        "         WHERE person_id = $intPersonId".
-        "         WHERE paper_id = $intPaperId";
+        "         WHERE person_id = '$intPersonId'".
+        "         WHERE paper_id = '$intPaperId'";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('deleteExcludesPaper', $this->mySql->getLastError());
