@@ -42,5 +42,4 @@ else {
   error('Get Paper', 'No Paper to get...');
 }
 
-
 ?>

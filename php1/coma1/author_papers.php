@@ -38,7 +38,6 @@ if (!empty($objPapers)) {
     $ifArray = array();
     $strItemAssocs['line_no'] = $lineNo;
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
-    $strItemAssocs['file_link'] = encodeURL($objPaper->strFilePath);
     $ifArray[] = $objPaper->intStatus;
     if (!empty($objPaper->strFilePath)) {
       $ifArray[] = 5;

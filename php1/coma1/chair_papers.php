@@ -38,7 +38,6 @@ if (!empty($objPapers)) {
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);      
-    $strItemAssocs['file_link'] = encodeURL($objPaper->strFilePath);
     $ifArray[] = $objPaper->intStatus;
     if (!empty($objPaper->strFilePath)) {
       $ifArray[] = 5;
