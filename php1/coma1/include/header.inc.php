@@ -29,10 +29,10 @@ define('INCPATH', $ServerPathTranslated.'/include/');
 define('DESIGN', 'coma');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH', $ServerPathTranslated.'/templates/'.DESIGN.'/');
-/** Template-Pfad (als URL)*/
-define('TPLURL', dirname($_SERVER['PHP_SELF']).'/templates/'.DESIGN.'/');
 /** Haupt-Pfad (als URL)*/
-define('COREURL', dirname($_SERVER['PHP_SELF']).'/');
+define('COREURL', 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/');
+/** Template-Pfad (als URL)*/
+define('TPLURL', COREURL.'templates/'.DESIGN.'/');
 // End PFAD - Konstanten
 
 // alle huebschen Funktionen
