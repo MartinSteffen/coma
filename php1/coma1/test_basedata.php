@@ -112,7 +112,7 @@ while ($i < $conferences) {
   while ($j < $persons/2) {
   echo 'Pa<br>';
     $myDBAccess->addPaper($i+1, $j+1, 'Title'.$i.$j, 'Abstract'.$i.$j,
-      'Filepath'.$i.$j, 'Mime'.$i.$j, '',array(random(1,$topics/2),random($topics/2+1,$topics+1)));
+      'Filepath'.$i.$j, 'Mime'.$i.$j, '',array(rand(1,$topics/2),rand($topics/2+1,$topics+1)));
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
