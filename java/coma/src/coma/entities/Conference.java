@@ -144,18 +144,24 @@ public class Conference {
     
     public String convert_date(Date date)
     {
-    	StringBuffer result=new StringBuffer();
-    	String sqlDate = date.toString();
-    	result.append(sqlDate.charAt(8));
-    	result.append(sqlDate.charAt(9));
-    	result.append(".");
-    	result.append(sqlDate.charAt(5));
-    	result.append(sqlDate.charAt(6));
-    	result.append(".");
-    	result.append(sqlDate.charAt(0));
-    	result.append(sqlDate.charAt(1));
-    	result.append(sqlDate.charAt(2));
-    	result.append(sqlDate.charAt(3));
-    	return result.toString();
+    	if (date!=null)
+    	{
+	    	StringBuffer result=new StringBuffer();
+	    	String sqlDate = date.toString();
+	    	result.append(sqlDate.charAt(8));
+	    	result.append(sqlDate.charAt(9));
+	    	result.append(".");
+	    	result.append(sqlDate.charAt(5));
+	    	result.append(sqlDate.charAt(6));
+	    	result.append(".");
+	    	result.append(sqlDate.charAt(0));
+	    	result.append(sqlDate.charAt(1));
+	    	result.append(sqlDate.charAt(2));
+	    	result.append(sqlDate.charAt(3));
+	    	return result.toString();
+    	}
+    	else
+    		return null;
+    	
     }
 }
