@@ -10,5 +10,6 @@ if (isset ($_REQUEST['pid']) and ($paper_id = $_REQUEST['pid']) != "") {
 	redirect("author", "view", "papers", "msg=<font class=textBold style=color:red>pid is missing! (redirected by author_edit_logout)</font>");
 }
 
-cleanup_ftp($paper_id);
+$msg = cleanup_ftp($paper_id);
+redirect("author", "view", "papers", "msg=". $msg);
 ?>
