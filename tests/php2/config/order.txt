@@ -1,3 +1,7 @@
 ProfileSuccess
 ProfileFailure 
 ProfileStress
+AdminSuccess
+AdminFailure
+ChairSuccess
+ForumSuccess
