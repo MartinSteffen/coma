@@ -1201,7 +1201,7 @@ class DBAccess extends ErrorHandling {
     $s = sprintf("SELECT   id, sender_id, send_time, subject, text".
                  " FROM    Message".
                  " WHERE   forum_id = '%d'".
-                 " AND     reply_to IS NULL",
+                 " AND     reply_to IS NULL OR reply_to = '0'",
                            s2db($intForumId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -2593,6 +2593,7 @@ nur fuer detaillierte?
    *                             (falls die Message einen neuen Thread eroeffnet: 0)
    *                             Anm. v. Tom: Ist das mit der 0 so sicher? (ich seh es irgendwie nicht)
    * @return int ID der erzeugten Message
+   * @todo sollte hier nicht statt 0 NULL geschrieben werden? siehe ahck in getThreadsOfForum()
    *
    * @access public
    * @author Sandro (18.12.04)
