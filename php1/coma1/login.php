@@ -22,7 +22,7 @@ $loginPage = new Template('./templates/sandro/login.tpl');
 $strAssocs = array();
 $strAssoc['path'] = './templates/sandro/';
 $strAssoc['content'] =& $loginPage;
-$strAssoc['SID'] = empty(SID) ? '' : '?'.SID;
+$strAssoc['SID'] = (SID == '') ? '' : '?'.strip_tags(SID);
 
 $mainPage->assign($strAssoc);
 
