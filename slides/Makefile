@@ -21,7 +21,7 @@ figures: $(PNGFILES) $(PSFILES)
 
 
 www:
-	cp main-coma.pdf $(WWWDIR)/slides
+	cp main-review.pdf $(WWWDIR)/slides
 
 
 

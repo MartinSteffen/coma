@@ -1,3 +1,83 @@
+Vermutlich die letzte Rundmail.
+
+-----------------------------------------------
+8.2.2005: Pr"asentation/Demo/Review: 4 st"undig
+-----------------------------------------------
+
+anwesend: alle (bis auf zeitweise Thiago), zus"atzlich Harald Fecher
+
+
+Ankuendigungen: 
+
+        - heute abend ist um 19:00 Tisch in der ForstBS  reserviert
+
+        - wir wollen die Folien als PDF von jeder der Prasentationen haben.
+          Vorschlag: einchecken unter coma/gruppe/review
+          wenn sie nicht schon da sind.
+        
+        - unsere Folien (die wir nicht mehr pr"asentieren konnten)
+          liegen unter ~/coma/sides und demn"achst im Netz
+
+
+
+Kurzabriss (genauere Einzelkritik, Schein-geschichten etc, machen wir nicht
+   als Rundmail). Was die Einzelnen Gruppen im Detail gesagt haben, steht
+in Ihren Folien.
+
+----
+
+
+
+   1) Tester: (anwesend Olle/Oliver)
+
+        - Schwerpunkt auf Kritik am Ablauf und an Dingen die man anders
+            machen sollte (mangelde Spec, etc Details in deren Folien)
+            und Verbesserungsvorschlaege
+        - Demo: 
+        - die Pr"asentation h"atte ruhig ``offensiver'' sein k"onnen
+
+   2) PHP1
+
+        - Installation: ok
+        - Pr"asentation: uberzeugend
+        - Demo:ok
+
+        - Tester: Kurz"ubersicht,
+
+        insgesamt runde sache.
+
+        [Die einzige Kritik die mir einf"allt ist, das wir leider nicht
+         behaupten k"onnen, es sei durch unsere Unterst"utzung so gut
+         geworden :-) denn wenn ich das richtig sehe, hat php1 im 2ten Teil
+         weder ``Sondertermine'' gew"unscht, noch m"ussten wir ihnen welche
+         aus den Rippen leiern und sie anzuschieben/zu motivieren/zu
+         ermahnen.]
+ 
+         
+
+   3) Java:
+        - Installation: nein (passwortprobleme)
+        - Pr"asentation: ok
+        - Demo: ok
+        - Tester: Kurz"ubersicht
+
+
+
+   4) PHP2:
+        - Installation: nein (passwortprobleme)
+        - Pr"asentation: ok, allerdings gib es ``auf der B"uhne''
+           ziemlich durcheinander, mehr noch als bei Java...
+        - Tester: Konzeptvorstellung, puretest ``vorgef"uhrt''
+
+   5) Org:  Aus Zeitmangel ausgefallen (h"angt aber gleich im Netz)
+
+Martin
+
+
+
+
+
+
 Vorab-Rundmail
 ---------
 
