@@ -42,7 +42,6 @@
     <td class="listitem-2">
       <span class="status-unreviewed">unreviewed</span>
     </td> 
-    <td class="listitem-2">
     <td class="listitem-2"> 1/5 </td>
     <td class="listitem-2"> - </td>
     <td class="listitem-2"> 
