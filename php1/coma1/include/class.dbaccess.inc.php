@@ -1454,6 +1454,7 @@ nur fuer detaillierte?
                  " WHERE   person_id = '%d'".
                  " AND     conference_id = '%d'",
                  s2db($intId), s2db($intConferenceId));
+    echo("<br>$s<br>");
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1469,13 +1470,13 @@ nur fuer detaillierte?
         $s = sprintf("INSERT   INTO Role (conference_id, person_id, role_type)".
                      " VALUES  ('%d', '%d', %d')",
                      s2db($intConferenceId), s2db($intId), s2db($intRoles[$i]));
+        echo("<br>$s<br>");
         $result = $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateRoles', $this->mySql->getLastError());
         }
       }
     }
-    echo('OK');
     return $this->success(true);
   }
 
