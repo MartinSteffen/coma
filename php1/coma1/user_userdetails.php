@@ -116,8 +116,7 @@ if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
   $paperList->parse();
   $strContentAssocs['author_papers'] = $paperList->getOutput();  
 }
-if ($checkChairRole && $objPerson->hasRole(REVIEWER)) {
-	echo('REVIEWER');
+if ($checkChairRole && $objPerson->hasRole(REVIEWER)) {	
   $ifMainArray[] = 1;
 }
 
