@@ -240,10 +240,10 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($prefers); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$prefers[$j]['paper_id']]], PREFERS);
         $pindex = $p_id_index[$prefers[$j]['paper_id']];
-        if ($matrix[$i][$pindex] != 0) {
-          $matrix[$i][$pindex] *= FAC_PREF;
+        if ($matrix[$i][$pindex] == 1) {
           $p_num_revs_pref_left[$pindex]++;
         }
+        $matrix[$i][$pindex] *= FAC_PREF;
       }
       // Gewuenschte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
