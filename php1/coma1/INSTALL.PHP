@@ -61,7 +61,7 @@ elseif (isset($_GET['4'])) {
       2. <a href="INSTALL.PHP?2">Create Database</a><br>
       3. <a href="INSTALL.PHP?3">Delete INSTALL.PHP</a><br>
       <br>
-      Tutorial: <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
+      Tutorial: <a href="INSTALL.PHP?4">Add Tutorial Data</a><br>
     </p>
     <p>
       Please select your next Step of Installation from the table above...<br>
@@ -90,10 +90,10 @@ elseif ($STEP == 1){
   $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = \"$sqlServer\";\n\$sqlUser = \"$sqlUser\";\n\$sqlPassword = \"$sqlPassword\";\n\$sqlDatabase = \"$sqlDatabase\";\n\n?>";
   
   // Output
-  $sqlServer = htmlentities(stripslashes($_POST['sqlServer']), ENT_QUOTES, 'UTF-8');
-  $sqlUser = htmlentities(stripslashes($_POST['sqlUser']), ENT_QUOTES, 'UTF-8');
-  $sqlPassword = htmlentities(stripslashes($_POST['sqlPassword']), ENT_QUOTES, 'UTF-8');
-  $sqlDatabase = htmlentities(stripslashes($_POST['sqlDatabase']), ENT_QUOTES, 'UTF-8');
+  $sqlServer = htmlentities(stripslashes($sqlServer, ENT_QUOTES, 'UTF-8');
+  $sqlUser = htmlentities(stripslashes($sqlUser, ENT_QUOTES, 'UTF-8');
+  $sqlPassword = htmlentities(stripslashes($sqlPassword, ENT_QUOTES, 'UTF-8');
+  $sqlDatabase = htmlentities(stripslashes($sqlDatabase, ENT_QUOTES, 'UTF-8');
   echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
   echo "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"4\">\n";
   echo "          <tr><td>SQL-Server: </td><td><input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\" value=\"$sqlServer\"></td></tr>\n";
