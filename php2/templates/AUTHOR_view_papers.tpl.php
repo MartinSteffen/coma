@@ -74,7 +74,7 @@ foreach($TPL as $row)
 			</tr>
 			<tr>
 				<td class="textBold" style="color:red">
-			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $row['id']; ?>"><font style="color:red">DELETE PAPER</font></a>
+			<a href="index.php?m=author&a=edit&s=delete&pid=<? echo $row['id']; ?>" onClick="javascript: return confirm('Click \'OK\' for deleting the paper \n<? echo($row['title']); ?>\nA recover of this file is not possible!');"><font style="color:red">DELETE PAPER</font></a>
 				</td>
 				<td class="textBold" style="color:green">
 			<a href="index.php?m=author&a=edit&s=edit&pid=<? echo $row['id']; ?>"><font style="color:green">EDIT PAPER</font></a>
