@@ -176,6 +176,17 @@ if ($objPaper->intStatus == PAPER_ACCEPTED) {
 else {
   $ifArray[] = 1;
 }
+// Pruefe ob die Final-Deadline noch nicht erreich wurde
+$objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+if ($myDBAccess->failed()) {
+  error('get conference details',$myDBAccess->getLastError());
+}
+else if (empty($objConference)) {
+  error('conference '.session('confid').' does not exist in database.','');
+}
+if (strtotime("now") < strtotime($objConference->strFinalDeadline)) {
+  $ifArray[] = 3;
+}
 
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {

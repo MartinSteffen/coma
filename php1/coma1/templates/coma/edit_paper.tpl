@@ -81,7 +81,7 @@
     </td>
   </tr>
 </table>
-
+{if3
 <table class="formtable">
   <tr>
     <td>Upload new document:</td>
@@ -96,7 +96,7 @@
     </td>
   </tr>
 </table>
-
+}
 {if1
 <table class="formtable">
   <tr>
