@@ -459,7 +459,7 @@ p.message2
   width: 60%;
   color: #222222;
   font-size: 13px;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: left;
   background-color: #EEEEEE;
   border: 1px solid #222222;
