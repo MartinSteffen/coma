@@ -135,16 +135,16 @@ class DBAccess {
   /**
    * Liefert ein Array mit Rollen-Namen zurück.
    *
-   * @param int $Id ID der Person $confId ID der Konferenz
+   * @param int $intId ID der Person und  $IntConfId ID der Konferenz
    * @return Array mit Rollen_Namen (siehe Spec von PHP1)
    * @access public
    * @author Daniel (29.12.04)
    */
-  function  getRoles($Id, $confId){
+  function  getRoles($intId, $intConfId){
     $s = 'SELECT  role_type '.
         ' FROM    Role'.
-        ' WHERE   conference_id = \' '.$confId.' \' '.
-        ' AND     person_id= \''.$Id.'\'';
+        ' WHERE   conference_id = \' '.$intConfId.' \' '.
+        ' AND     person_id= \''.$intId.'\'';
    $data = $this->mySql->select($s);
    $strRoles= array();
    if (!empty($data)) {
