@@ -224,7 +224,7 @@ function generatePostMethodArray($postvars){
   $pma['reply-to'] = $postvars['reply-to'];
   $pma['text'] = $postvars['text'];
   $pma['subject'] = $postvars['subject'];
-  if (emptystring(session('uid', false)){
+  if (emptystring(session('uid', false))){
     if (DEBUG){
       $pma['uid'] = 1;
     }
