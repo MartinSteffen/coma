@@ -134,20 +134,22 @@ public class ShowReports extends HttpServlet {
 			MultiMathReporter mr = new MultiMathReporter();
 
 			result.append("<reportblock>");
-			// This is highly redundant, but makes stuff easier.
-			result.append(thePaper.toXML());
-	    
-			for (coma.entities.ReviewReport theReport: 
-				 getVisibleReviewReports(theUser, thePaper)){
-			
-			    LOG.log(DEBUG, "showing report:", theReport);
-			    result.append(theReport.toXML());
-
-			    mr.addReportRatings(theReport);
+			try {
+			    // This is highly redundant, but makes stuff easier.
+			    result.append(thePaper.toXML());
+			    
+			    for (coma.entities.ReviewReport theReport: 
+				     getVisibleReviewReports(theUser, thePaper)){
+				
+				LOG.log(DEBUG, "showing report:", theReport);
+				result.append(theReport.toXML());
+				
+				mr.addReportRatings(theReport);
+			    }
+			} finally {
+			    result.append(mr.toXML());
+			    result.append("</reportblock>");
 			}
-			
-			result.append(mr.toXML());
-			result.append("</reportblock>");
 
 		    }
 		} catch (DatabaseDownException dbdown){
@@ -235,11 +237,15 @@ public class ShowReports extends HttpServlet {
 	if (thePerson.isChair()){
 
 	    theSearchCriteria = new SearchCriteria();
-	    theSearchCriteria.setPaper(new Paper(-1));
+	    theSearchCriteria.setPaper(new Paper(-2));
+	    
 	    theSearchResult = dbRead.getPaper(theSearchCriteria);
 
 	    LOG.log(DEBUG, 
 		    "should get info", "for chair");
+
+	    LOG.log(DEBUG, "papers are", theSearchResult.getResultObj(),
+		    ((Paper[])theSearchResult.getResultObj()).length);
 		
 	    result.addAll(asList((Paper[])theSearchResult.getResultObj()));
 	    
@@ -313,13 +319,16 @@ public class ShowReports extends HttpServlet {
 	
 	for (ReviewReport rr: reportsOnThis){
 	    
-	    if (rr.getReviewer().equals(thePerson)
-		&& rr.getRatings().size() > 0){
+	    if ((rr.getReviewer().equals(thePerson)
+		 && rr.getRatings().size() > 0)
+		|| thePerson.isChair()){
 		
 		hasRated = true;
 		break;
 	    }
 	}
+
+	LOG.log(DEBUG, "visible reports:", reportsOnThis, reportsOnThis.size());
 
 	return (hasRated)? reportsOnThis 
 	    : new HashSet<ReviewReport>();

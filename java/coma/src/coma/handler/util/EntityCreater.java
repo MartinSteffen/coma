@@ -275,7 +275,7 @@ public class EntityCreater {
 			rating.setComment(resSet.getString("comment"));
 
 			rating.setCriterionId(resSet.getInt("criterion_id"));
-			rating.setGrade(resSet.getInt("grad"));
+			rating.setGrade(resSet.getInt("grade"));
 			rating.setReviewReportId(resSet.getInt("review_id"));
 			
 		} catch (SQLException e) {

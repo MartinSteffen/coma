@@ -163,10 +163,10 @@ public class RatePaper extends HttpServlet{
 
 
 		theSC=new SearchCriteria();
-		theSC.setPaper(new Paper(thePaperID));
 		theReport = new ReviewReport(-1);
 		LOG.log(DEBUG, "thePerson is:", thePerson);
 		theReport.setReviewerId(thePerson.getId());
+		theReport.setPaperId(thePaperID);
 		theSC.setReviewReport(theReport);
 
 
@@ -175,10 +175,13 @@ public class RatePaper extends HttpServlet{
 
 		if (((ReviewReport[])theSR.getResultObj()).length != 1){
 
-		    LOG.log(ERROR, "DB inconsistency: !=1 RReports", theSR);
+		    LOG.log(ERROR, 
+			    "DB inconsistency:",
+			    ((ReviewReport[])theSR.getResultObj()).length,
+			    "!=1 RReports", theSR);
 		    pagestate.set(STATE.ERROR);
 
-		} else { // all is well in the land of Denmark.
+		} //else { // all is well in the land of Denmark.
 
 		    theReport = ((ReviewReport[])theSR.getResultObj())[0];
 
@@ -194,7 +197,7 @@ public class RatePaper extends HttpServlet{
 		    result.append(UserMessage.SUBMITBUTTON);
 		    pagestate.set(STATE.UPDATE_DB);
 		
-		}
+		    //}
 		break;
 	    }
 

@@ -36,7 +36,7 @@ public class Service {
 			}
 
 		} catch (Exception e) {
-			System.out.println("coma init: " + e.toString());
+		    //System.out.println("coma init: " + e.toString());
 		}
 	}
 

@@ -169,6 +169,7 @@ public class ReviewReport extends Entity {
 		return false;
 	    }
 	}
+	ALogger.log.log(DEBUG, "Yes, it's rated!");
 	return true;
 
     }
