@@ -8,8 +8,6 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
-require_once('config.inc.php');
-
 /**
  * Klasse MySql
  *
@@ -58,6 +56,8 @@ class MySql {
    *
    */
   function MySql() {
+    // ACHTUNG: nicht once! (da nur lokal verfügbar)
+    require('config.inc.php');
     $this->mySqlServer = $sqlServer;
     $this->mySqlUser = $sqlUser;
     $this->mySqlPassword = $sqlPassword;
