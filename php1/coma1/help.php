@@ -22,6 +22,7 @@ define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
 $popup = (isset($_GET['popup'])) ? true : false;
+$i = (isset($_GET['i'])) ? true : false;
 
 $strMainAssocs = defaultAssocArray();
 
@@ -133,6 +134,12 @@ if (in_array('login', $strArrayHelpTopics)){
   $strArrayChapterAssocs['chapter-title'] = 'The login page / logging into your account';
   $strArrayChapterAssocs['related-topics'] = 'related topics:';
   $strArrayChapterAssocs['special'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the login page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
   $objRelatedTemplate = new Template(TPLPATH.'help_relatedlink.tpl');
   $strArrayRelatedAssocs = defaultAssocArray();
   $strArrayRelatedAssocs['topics'] = 'register';
@@ -161,7 +168,12 @@ if (in_array('register', $strArrayHelpTopics)){
   $strArrayChapterAssocs['chapter-no'] = '2.2';
   $strArrayChapterAssocs['chapter-title'] = 'The registration page / signing up for your account';
   $strArrayChapterAssocs['related-topics'] = '';
-  $strArrayChapterAssocs['special'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
