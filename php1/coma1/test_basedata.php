@@ -160,17 +160,20 @@ $myDBAccess->addCoAuthorName(2, 'Co Author Name');
 	    echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
 
-echo '<br>ReviewReports:<br>';
+echo '<br>ReviewReports/Distribution:<br>';
 $j = 0;
 $reports = 0;
 while ($j < $papers) {
   $i = 0;
 
   while ($i < $persons/3) {
-  if(rand(1,$persons) <= 9) {
+  if(rand(1,$persons) <= 6) {
   echo '.';
     $myDBAccess->addReviewReport($j+1, $i+1, 'Summary'.$i.$j,
       'Remarks'.$i.$j, 'Confidential'.$i.$j);
+    if ($myDBAccess->failed()) {
+	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
+    $myDBAccess->addDistribution($i+1, $j+1);
     if ($myDBAccess->failed()) {
 	  echo('      Fehler: '.$myDBAccess->getLastError()."<br>\n");
 }
@@ -263,7 +266,7 @@ $i = 0;
 while ($i < $persons) {
 echo '.';
   for ($k = 0; $k < min(5, $papers-1); $k++) {
-    if (rand(0,100) < 50+ ($k==0?40:0)) {
+    if (rand(0,100) < 20+ ($k==0?40:0)) {
       $myDBAccess->addPrefersPaper($i+1, rand(1,$papers-1));
       if ($myDBAccess->failed()) {
           echo('      Fehler: '.$myDBAccess->getLastError()." ************** Bei Duplicate entry unkritisch<br>\n");
@@ -278,7 +281,7 @@ $i = 0;
 while ($i < $persons) {
 echo '.';
   for ($k = 0; $k < min(20, $papers-1); $k++) {
-    if (rand(0,100) < 50+ ($k==0?40:0)) {
+    if (rand(0,100) < 20+ ($k==0?40:0)) {
       $myDBAccess->addDeniesPaper($i+1, rand(1,$papers-2));
       if ($myDBAccess->failed()) {
           echo('      Fehler: '.$myDBAccess->getLastError()." ************** Bei Duplicate entry unkritisch<br>\n");
@@ -293,7 +296,7 @@ $i = 0;
 while ($i < $persons) {
 echo '.';
   for ($k = 0; $k < min(20, $papers-1); $k++) {
-    if (rand(0,100) < 50+ ($k==0?40:0)) {
+    if (rand(0,100) < 20+ ($k==0?40:0)) {
       $myDBAccess->addExcludesPaper($i+1, rand(2,$papers-1));
       if ($myDBAccess->failed()) {
           echo('      Fehler: '.$myDBAccess->getLastError()." ************** Bei Duplicate entry unkritisch<br>\n");
