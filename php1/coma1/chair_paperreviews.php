@@ -24,13 +24,14 @@ else if (!$checkRole) {
 }
 
 // Lade die Daten der Reviews des Papers
-if (isset($_POST['paperid'])) {
-  $objPaper = $myDBAccess->getPaperDetailed($_POST['paperid']);
+if (isset($_GET['paperid']) || isset($_POST['paperid'])) {
+  $intPaperId = isset($_GET['paperid']) ? $_GET['paperid'] : $_POST['paperid'];
+  $objPaper = $myDBAccess->getPaperDetailed($intPaperId);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving paper.', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
-    error('Paper does not exist in database.', '');
+    error('Paper '.$intPaperId.' does not exist in database.', '');
   }
   $objReviews = $myDBAccess->getReviewsOfPaper($objPaper->intId);
   if ($myDBAccess->failed()) {
