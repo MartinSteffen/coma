@@ -13,6 +13,7 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+require_once('./include/paperdiscussion.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(CHAIR);
