@@ -18,7 +18,7 @@ require_once('./include/header.inc.php');
 if (isset($_GET['reviewid'])) {
   $objReview = $myDBAccess->getReviewDetailed($_GET['reviewid']);
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving review report.', $myDBAccess->getLastError());
+    error('Error occured during retrieving review.', $myDBAccess->getLastError());
   }
   else if (empty($objReview)) {
     error('Review report does not exist in database.', '');
@@ -33,6 +33,8 @@ $strContentAssocs = defaultAssocArray();
 $strContentAssocs['paper_id'] = encodeText($objReview->intPaperId);
 $strContentAssocs['author_id'] = encodeText($objReview->intAuthorId);
 $strContentAssocs['author_name'] = encodeText($objReview->strAuthorName);
+$strContentAssocs['reviewer_id'] = encodeText($objReview->intReviewerId);
+$strContentAssocs['reviewer_name'] = encodeText($objReview->strReviewerName);
 $strContentAssocs['title'] = encodeText($objReview->strPaperTitle);
 if (!empty($objReview->fltReviewRating)) {
   $strContentAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
@@ -67,15 +69,15 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
-$actMenuItem = 3;
+$actMenuItem = 4;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Review report details';
+$strMainAssocs['title'] = 'Review details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conference  |  All papers';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews  |  Details';
 
 $main->assign($strMainAssocs);
 $main->parse();

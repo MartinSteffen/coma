@@ -3,8 +3,16 @@
 
 <table class="viewtable">
   <tr>
-    <th class="viewheader">Review report of paper:</th>
+    <th class="viewheader">Review details of paper:</th>
     <td class="viewheader">{title} by {author_name}</td>
+  </tr>
+  <tr class="viewline"> 
+    <td class="viewline">
+      <span class="emph">Reviewer:</span>
+    </td>
+    <td class="viewline">
+      <span class="emph">{reviewer_name}</span>      
+    </td>
   </tr>
   <tr class="viewline">
     <td colspan="2" class="viewline">
@@ -64,3 +72,5 @@
 </form>
 
 <p>&nbsp;</p>
+
+Return to the <a href="{basepath}chair_paperreview.php?paperid={paper_id}{&SID}">paper review report</a>.
