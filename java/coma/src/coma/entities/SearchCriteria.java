@@ -25,7 +25,7 @@ public class SearchCriteria {
     public Forum forum;
     public Paper paper;
     public Person person;
-    public ReviewReport report;
+    public ReviewReport reviewReport;
     
     public SearchCriteria(){
     }
@@ -55,10 +55,11 @@ public class SearchCriteria {
     public void setPerson(Person person) {
         this.person = person;
     }
-    public ReviewReport getReport() {
-        return report;
+  
+    public ReviewReport getReviewReport() {
+        return reviewReport;
     }
-    public void setReport(ReviewReport report) {
-        this.report = report;
+    public void setReviewReport(ReviewReport reviewReport) {
+        this.reviewReport = reviewReport;
     }
 }
