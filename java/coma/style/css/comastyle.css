@@ -30,7 +30,6 @@ body {
 	color: #fff;
 	}
 .status-line	{
-	position: absolute;
 	top: 7em;
 	left: 0;
 	width: 100%;
@@ -74,6 +73,15 @@ body {
 	border:1px solid #9097A2;
 }
 
+input[type='file'] {
+	float: left;
+	margin-bottom: 10px;
+	color: black;
+	background: #D9DBE1;
+	padding: 0 ;
+  	border-style: none ;
+}
+
 .submit-button {
 	clear: both;
 	background: #6A7389;
@@ -91,7 +99,7 @@ fieldset {
 	}
 
 		
-body>.header, body>.navbar,body>.status-line,body>.content
+body>.header, body>.navbar,body>.status-line,.status-line>.content
 	{
 	position: fixed;
 	
