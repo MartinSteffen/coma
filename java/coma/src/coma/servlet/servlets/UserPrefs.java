@@ -89,7 +89,8 @@ public class UserPrefs extends HttpServlet {
 		result.append(x.tagged("topics",
 				       Topic.manyToXML(Topic.allTopics(theConference), 
 						       XMLMODE.DEEP)));
-		LOG.log(DEBUG, "Person ID read: "+thePerson.getId());
+		LOG.log(DEBUG, "Person ID read: ",thePerson.getId(),
+			"Topics", Topic.allTopics(theConference).size());
 		break;
 	    case STATE.WRITE:
 		pagestate.set(STATE.READ);
@@ -120,6 +121,7 @@ public class UserPrefs extends HttpServlet {
 		    try {
 			Topic[] ts = thePerson.getPreferredTopics();
 			if (ts != null){ // grrr...
+			    LOG.log(DEBUG, "#preferred Topics:", ts.length);
 			    for (int i=0; i<ts.length; ++i ){
 
 				thePerson.deletePreferredTopic(ts[i]);
@@ -136,6 +138,7 @@ public class UserPrefs extends HttpServlet {
 			}
 		    } catch (Exception exc) {
 			; // Oh well, who cares about topics? FIXME
+			LOG.log(ERROR, "exception about topics:", exc);
 		    }
 		
 		    
@@ -165,6 +168,8 @@ public class UserPrefs extends HttpServlet {
 	result.append(new Navcolumn(session));
 	result.append(pagestate.toString());
 	result.append("</content>");
+
+	LOG.log(DEBUG, "shipping out:\n\n ", result);
 
 	PrintWriter out = response.getWriter();
 	response.setContentType("text/html; charset=ISO-8859-1");

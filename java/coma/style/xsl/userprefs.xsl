@@ -193,7 +193,7 @@
     </table>
   </div>
 
-  <xsl:if test="topics/topic">
+  <xsl:if test="../topics/topic">
     
     <div>
       <h3>Preferred Topics</h3>
@@ -201,7 +201,7 @@
       will help the committee to give you papers that are interesting to
       you, should you become or be a reviewer.</p>
       <select name="preferredtopics" size="5" multiple="multiple">
-        <xsl:for-each select="topics/topic">
+        <xsl:for-each select="../topics/topic">
           <option>
             <xsl:attribute name="value">
               <xsl:value-of select="id" />
@@ -214,7 +214,7 @@
         You can select multiple entries by holding the Control key.
       </span>
     </div>
-  </xsl:if>
+    </xsl:if>
 
   <div>
     Enter your password:

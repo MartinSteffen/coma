@@ -156,10 +156,12 @@ public class ShowReports extends HttpServlet {
 			    for (coma.entities.ReviewReport theReport: 
 				     getVisibleReviewReports(theUser, thePaper)){
 				
-				LOG.log(DEBUG, "showing report:", theReport);
-				result.append(theReport.toXML());
+				if (theReport.isEdited()){
+				    LOG.log(DEBUG, "showing report:", theReport);
+				    result.append(theReport.toXML());
 				
-				mr.addReportRatings(theReport);
+				    mr.addReportRatings(theReport);
+				}
 			    }
 			} catch (Exception exc) {
 			    LOG.log(DEBUG, "inner:", exc); // FIXME

@@ -362,24 +362,37 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 		}
 		if (ok) {
 			try {
-				String UPDATE_QUERY = "UPDATE Paper SET " + " review_id ="
+				String UPDATE_QUERY = "UPDATE Rating SET " 
+				    /*+ " review_id ="
 						+ rating.get_review_id() + " ,criterion_id ="
-						+ rating.getCriterionId() + " ,grade = "
+						+ rating.getCriterionId() + " grade = "
 						+ rating.getGrade() + " ,comment = "
 						+ rating.getComment() + " WHERE review_id = "
 						+ rating.get_review_id() + "  AND criterion_id = "
 						+ rating.get_criterion_id();
+						*/
+				    + "grade = ?,"
+				    + "comment = ? "
+				    + " WHERE review_id = "+rating.get_review_id()
+				    + " AND criterion_id = "+rating.get_criterion_id();
 				int pstmtCounter = 0;
-				Statement stmt = conn.createStatement();
+				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
+				pstmt.setInt(++pstmtCounter, rating.getGrade());
+				pstmt.setString(++pstmtCounter, rating.getComment());
+// 				Statement stmt = conn.createStatement();
 
-				int affRows = stmt.executeUpdate(UPDATE_QUERY);
-				stmt.close();
+// 				int affRows = stmt.executeUpdate(UPDATE_QUERY);
+				int affRows = pstmt.executeUpdate();
+				result.setSUCCESS(true);
+				pstmt.close();
+				
 				if (affRows != 1 && ok) {
-					info.append("ERROR: Dataset could not be updated\n");
+					info.append("ERROR: Dataset could not be updated:"+affRows+"\n");
 					conn.rollback();
 				}
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");
+				result.setSUCCESS(false);
 			} finally {
 				if (conn != null) {
 					try {

@@ -29,6 +29,9 @@ public class SMTPClient {
 	private String subject;
 	private String message;
 
+    public SMTPClient(String a, String b, String c, String d, String e){
+	this(a,b,c,d); // FIXME
+    }
 
 	public SMTPClient(String senAddress,String anrecAddress, String aSubject, String aMessage) {
 		server = "127.0.0.1";
