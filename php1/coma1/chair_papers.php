@@ -96,6 +96,15 @@ if (!empty($objPapers)) {
       $ifArray[] = 5;
     }
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
+    $intRevs = $myDBAccess->getNumberOfReviewsOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('get review list of chair',$myDBAccess->getLastError());
+    }
+    $objReviewers = $myDBAccess->getReviewersOfPaper($objPaper->intId);
+    if ($myDBAccess->failed()) {
+      error('get review list of chair',$myDBAccess->getLastError());
+    }
+    $strItemAssocs['num_reviews'] = encodeText($intRevs.' of '.count($objReviewers));
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
     }
