@@ -54,8 +54,9 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates( $forumselection, $msgselection, $select, $assocArray, $fshow, &$forums){
+function buildForumtemplates($forumselection, $msgselection, $select, $assocArray, $fshow){
   global $myDBAccess;
+  global $forums;
   
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = defaultAssocArray();
@@ -363,9 +364,9 @@ function generatePostMethodArray($postvars){
   }
   if (!empty($_GET['unselect'])){
     $temp[$_GET['unselect']] = false;
-    }
   }
   $_SESSION['forum_msgselect'] = $temp;
+
   $temp = session('forum_forumselect', false);
   if (empty($temp)){
     $temp = array();
@@ -377,8 +378,9 @@ function generatePostMethodArray($postvars){
     $temp[$_GET['forumunsel']] = false;
   }
   $_SESSION['forum_forumselect'] = $temp;
-  if (!empty($HTTP_GET_VARS['showforums'])){
-    $temp = $HTTP_GET_VARS['showforums'];
+
+  if (!empty($_GET['showforums'])){
+    $temp = $_GET['showforums'];
     if (($temp >= 0) && ($temp <= 3)){
       $_SESSION['showforums'] = $temp;
     }
@@ -397,27 +399,25 @@ function generatePostMethodArray($postvars){
     $fms = array();
   }
 
-  if (!empty($HTTP_GET_VARS['select'])){
-    $sel = $HTTP_GET_VARS['select'];
+  if (!empty($_GET['select'])){
+    $sel = $_GET['select'];
   }
   else{
     $sel = '';
   }
 
-  if (empty(session('showforums', false))){
+  $fshow = session('showforums', false);
+  if (empty($fshow)){
     $fshow = 0;
   }
-  else{
-    $fshow = session('showforums', false);
-  }
 
-  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $myDBAccess, $fshow);
-  if (DEBUG){
-    //echo($contentAssocs['forumtypes']);
-    //echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
-    //var_dump($contentAssocs);
-    //echo('<h1>END VARDUMP $contentAssocs</h1><br>');
-  }
+  $contentAssocs = buildForumtemplates($ffs, $fms, $sel, $contentAssocs, $fshow);
+  /*if (DEBUG){
+    echo($contentAssocs['forumtypes']);
+    echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
+    var_dump($contentAssocs);
+    echo('<h1>END VARDUMP $contentAssocs</h1><br>');
+  }*/
 
   $content->assign($contentAssocs);
   //$content->parse();
