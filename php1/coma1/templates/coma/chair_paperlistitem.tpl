@@ -47,7 +47,6 @@
     </td>
     <td class="listitem-{line_no}">{num_reviews}</td>
     <td class="listitem-{line_no}">{avg_rating}</td>
-    <td class="listitem-{line_no}">{variance}</td>
     <td class="listitem-{line_no}">
       {if6<span class="status-critical">{variance}</span>}
       {if7{variance}}
