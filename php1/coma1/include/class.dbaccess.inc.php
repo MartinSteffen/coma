@@ -990,8 +990,9 @@ class DBAccess {
     $s = 'DELETE  FROM Role'.
         ' WHERE   person_id = '.$intId;
     for ($i = 0; $i < count($ROLES); $i++) {
-      if ($objPerson->hasRole($ROLES[$i][0])
+      if ($objPerson->hasRole($ROLES[$i][0])) {
         $s = $s.' AND role_id <> '.$ROLES[$i][0];
+      }
     }
     //$result = $this->mySql->update($s);
     echo($s.' /// ');
