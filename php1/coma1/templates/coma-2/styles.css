@@ -31,8 +31,6 @@ a:visited { color: #AD351A; }
 a:active  { color: #000000; }
 a:hover   { color: #FF4D00; }
 
-a.markedmenuitem { font-size: 13px; text-decoration: none; font-weight : bold; color: #FF0000; }
-
 /* Allgemeine Tabellen */
 table      { border-style: none;
              border-spacing: 0px;
@@ -50,14 +48,29 @@ table.menu  { border-style: none;
             }
 td.menu { width: 150px;
           background-color: #F5FBFF; vertical-align: top;
-          margin-bottom: 10px; }
+          margin-bottom: 12px; }
+
+td.submenu { width: 150px;
+             background-color: #F5FBFF; vertical-align: top;
+             padding-left: 12px; margin-bottom: 8px; }
 
 /* Links im Menue */
-a.menu         { font-size: 13px; text-decoration: none; font-weight : bold; }
-a.menu:link    { color: #000000; }
-a.menu:visited { color: #000000; }
+a.menu         { font-size: 13px; text-decoration: none; font-weight: bold; }
+a.menu:link    { color: #9D351A; }
+a.menu:visited { color: #9D351A; }
 a.menu:active  { color: #000000; }
-a.menu:hover   { color: #2F2F2F; }
+a.menu:hover   { color: #FF4D00; }
+
+a.submenu      { font-size: 12px; text-decoration: none; font-weight: normal; }
+a.submenu:link    { color: #9D351A; }
+a.submenu:visited { color: #9D351A; }
+a.submenu:active  { color: #000000; }
+a.submenu:hover   { color: #FF4D00; }
+
+a.markedmenu { font-size: 13px; text-decoration: none; font-weight: bold;
+               color: #FF4D00; }
+a.markedsubmenu { font-size: 12px; text-decoration: none; font-weight: normal;
+                  color: #FF4D00; }
 
 /* Tabelle fuer den Seiteninhalt */
 table.body { width: 100%; vertical-align: top; }
