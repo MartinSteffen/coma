@@ -29,10 +29,10 @@
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
      <!--
-      <a href="<?=COREURL?>imprint.php">Imprint</a>&nbsp;|&nbsp;
-      <a href="<?=COREURL?>forum.php">Forum</a>&nbsp;|&nbsp;
-      <a href="<?=COREURL?>logout.php">Logout</a>&nbsp;&nbsp;
-      <a href="<?=COREURL?>help.php"><img src="<?=TPLURL?>images/info.gif" width="15" height="15" border="0" alt="Info"></a>
+      <a href="<?=COREURL?>imprint.php?<?=SID?>">Imprint</a>&nbsp;|&nbsp;
+      <a href="<?=COREURL?>forum.php?<?=SID?>">Forum</a>&nbsp;|&nbsp;
+      <a href="<?=COREURL?>logout.php?<?=SID?>">Logout</a>&nbsp;&nbsp;
+      <a href="<?=COREURL?>help.php?<?=SID?>"><img src="<?=TPLURL?>images/info.gif" width="15" height="15" border="0" alt="Info"></a>
      -->
        &nbsp;
      </td>
@@ -62,7 +62,7 @@
     <p>&nbsp;</p>
 
     <p class="center">
-      Click here to return to the <a href="<?=COREURL?>index.php">start page</a>!
+      Click here to return to the <a href="<?=COREURL?>index.php?<?=SID?>">start page</a>!
     </p>
 
     <p>&nbsp;</p>
