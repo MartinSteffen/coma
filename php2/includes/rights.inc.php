@@ -70,7 +70,6 @@ function isChair_Person($userID)
 			and X.state = 1 
 			and X.person_id = ".$_SESSION['userID']."
 			and X.conference_id = Y.conference_id
-			and Y.state = 1
 			and Y.person_id = ".$userID;
     $result=mysql_query($SQL);	
     if ($dummy = mysql_fetch_row ($result)) 	

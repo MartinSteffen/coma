@@ -34,6 +34,7 @@ if(isChair_Person($_GET['personID']))
 			AND X.conference_id = Y.conference_id
 			AND Y.conference_id = conference.id
 			AND Y.person_id = ".$_GET['personID']."
+			AND NOT (Y.role_type = 0)
 			ORDER BY conference.id";
     $result=mysql_query($SQL);
     $roles = array();
