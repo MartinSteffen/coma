@@ -218,7 +218,8 @@ function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = "")
 		default:
 			$SQL = "DELETE FROM paper WHERE id = ". $paper_id;
 			$result = $sql->insert($SQL);
-			redirect("author", "view", "papers", "msg=".$msg);
+			// redirect("author", "view", "papers", "msg=".$msg);
+			return $msg;
 	}	
 	// }}}
 }
