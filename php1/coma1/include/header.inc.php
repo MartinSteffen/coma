@@ -58,7 +58,4 @@ if (!$myDBAccess->checkLogin()) {
   header('Location:'.COREPATH.'login.php');
 }
 
-echo __FILE__.'<br>';
-echo INCPATH;
-
 ?>
