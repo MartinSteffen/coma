@@ -13,6 +13,7 @@ if (!defined('IN_COMA1')) {
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
  * @package coma1
+ * @subpackage DBAccess
  *
  */
 class MySql {

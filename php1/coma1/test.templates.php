@@ -1,7 +1,8 @@
 <?php
 /**
  * @version $Id$
- * @package test1
+ * @package coma1
+ * @subpackage Testing
  */
 
 /**

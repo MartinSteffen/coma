@@ -1,7 +1,8 @@
 <?php
 /**
  * @version $Id$
- * @package test1
+ * @package coma1
+ * @subpackage Testing
  */
 
 /**
@@ -10,9 +11,9 @@
  * @ignore
  */
 define('IN_COMA1',true);
-  
-require('./include/class.mysql.inc.php');
-  
+
+require_once('./include/class.mysql.inc.php');
+
 echo 'Hallo';
 
 ?>
