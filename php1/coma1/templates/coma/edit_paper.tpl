@@ -105,7 +105,7 @@
         <option>application/msexcel</option>
         <option>application/mspowerpoint</option>
         <option>application/msword</option>
-        <option checked>application/pdf</option>
+        <option selected>application/pdf</option>
         <option>application/postscript</option>
         <option>application/rtf</option>
         <option>application/tex</option>
