@@ -115,6 +115,7 @@ if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   }
   else {
     $_SESSION['message'] = 'Benutzername oder Passwort falsch!';
+    die(1);
   }
   if (isset($_SESSION['password'])) {
     unset($_SESSION['password']);
