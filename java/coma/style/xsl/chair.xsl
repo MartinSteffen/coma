@@ -124,7 +124,6 @@ criterion_target=update&amp;id=<xsl:value-of select="/result/criterion_change/co
 </xsl:template>
 
 <xsl:template match="/result/statistic/content">
-<xsl:apply-templates select = "/result/statistic/status"/>
 <h4 style="color_black">Statistic for this Conference</h4> 
 <table class="chair" cellpadding="5">
 <tr>
