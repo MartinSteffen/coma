@@ -47,7 +47,7 @@ class Person {
    * @author Tom (04.12.04)
    */
   function addRole($intRole) {
-    $this->intRoles |= $intRole;
+    $this->intRoles |= (1 << $intRole);
     return true;
   }
 
