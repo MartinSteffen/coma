@@ -6,7 +6,7 @@
  */
 /***/
 if (!defined('IN_COMA1')) {
-  exit('Hacking attempt');
+  die('Hacking attempt');
 }
 
 $objPerson = $myDBAccess->getPerson(session('uid'), session('confid'));

@@ -5,7 +5,7 @@
  */
 /***/
 if (!defined('IN_COMA1')) {
-  exit('Hacking attempt');
+  die('Hacking attempt');
 }
 
 if (!defined('INCPATH')) {

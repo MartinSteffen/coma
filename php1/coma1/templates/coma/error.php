@@ -6,7 +6,7 @@
  */
 /***/
 if (!defined('IN_COMA1')) {
-  exit('Hacking attempt');
+  die('Hacking attempt');
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

@@ -37,7 +37,7 @@ if ($myDBAccess->failed()) {
 }
 else if (empty($p)) {
   echo('EMPTY');
-  exit(-1);
+  die(-1);
 }
 $p->intTopics[0] = 4;
 $p->intTopics[] = 1;
@@ -54,7 +54,7 @@ if ($myDBAccess->failed()) {
 }
 else if (empty($c)) {
   echo('EMPTY');
-  exit(-1);
+  die(-1);
 }
 $c->objTopics[0]->strName = $c->objTopics[0]->strName.' (Update)';
 $myDBAccess->updateConference($c);
@@ -71,7 +71,7 @@ if ($myDBAccess->failed()) {
 }
 else if (empty($p)) {
   echo('EMPTY');
-  exit(-1);
+  die(-1);
 }
 echo("<br>Papertitel: $p->strTitle<br>");
 $p->strTitle = strtolower($p->strTitle);
@@ -106,7 +106,7 @@ else echo("Geloescht: $id");*/
 /*$p = $myDBAccess->getPerson(1, 1);
 if ($myDBAccess->failed()) {
   echo ('Fehler: '.$myDBAccess->getLastError());
-  exit(-1);
+  die(-1);
 }
 echo('<br>Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
@@ -135,7 +135,7 @@ echo('<br>Update der Rollen in der DB...<br>');
 $myDBAccess->updateRoles($p->intRoles, 1);
 if ($myDBAccess->failed()) {
   echo ('Fehler: '.$myDBAccess->getLastError());
-  exit(-1);
+  die(-1);
 }
 echo('<br>Neuladen der Person:<br>');
 $p = $myDBAccess->getPerson(1, 1);

@@ -6,7 +6,7 @@
  */
 /***/
 if (!defined('IN_COMA1')) {
-  exit('Hacking attempt');
+  die('Hacking attempt');
 }
 
 /**
@@ -15,12 +15,10 @@ if (!defined('IN_COMA1')) {
  * @param string $strMethod Methode in der der Fehler aufgetreten ist
  * @param string $strError Beschreibung des Fehlers
  * @param string $strComment optionaler weiterer Kommentar
- * @return bool immer <b>false</b>
  */
 function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";
   $strError = '['.basename($_SERVER['PHP_SELF'],'.php')."->$strMethod: $strError$strComment]";
-  //die($strError);
   include(TPLPATH.'error.php');
   die('CRITICAL UNHANDLED ERROR!');
 }
@@ -39,7 +37,7 @@ function redirect($strName) {
   global $mySession;
   session_write_close();
   header('Location:' . COREURL . $strName . '?' .$mySession->getUrlId());
-  die();
+  die(0);
 }
 
 /**

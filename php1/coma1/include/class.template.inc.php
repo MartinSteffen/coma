@@ -5,7 +5,7 @@
  */
 /***/
 if (!defined('IN_COMA1')) {
-  exit('Hacking attempt');
+  die('Hacking attempt');
 }
 
 //  BACKWARDS COMPATIBILITY WITH PHP VERSIONS < 4.2.0
