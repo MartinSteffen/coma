@@ -688,13 +688,13 @@ class DBAccess extends ErrorHandling {
   function getPapersOfConference($intConferenceId) {
     $s = "SELECT  id, author_id, title, state, filename".
         " FROM    Paper".
-        " WHERE   conference_id = '$intConferenceId'";
-    echo($s);
+        " WHERE   conference_id = '$intConferenceId'";    
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPapersOfConference', $this->mySql->getLastError());
     }
     $objPapers = array();
+    echo(count($s));
     for ($i = 0; $i < count($data); $i++) {
       $objAuthor = $this->getPerson($data[$i]['author_id']);
       if ($this->mySql->failed()) {
