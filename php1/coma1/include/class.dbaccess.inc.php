@@ -2649,9 +2649,9 @@ nur fuer detaillierte?
    */
   function addReviewReport($intPaperId, $intReviewerId, $strSummary = '',
                            $strRemarks = '', $strConfidential = '') {
-    $s = "INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)".
-        "         VALUES ('$intPaperId', '$intReviewerId',".
-        "                 '$strSummary', '$strRemarks', '$strConfidential')";
+    $s = sprintf("INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)".
+                 "VALUES ('%d', '%d', '%s', '%s', '%s')",
+                 s2db($intPaperId), s2db($intReviewerId), s2db($strSummary), s2db($strRemarks), s2db($strConfidential));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addReviewReport', $this->mySql->getLastError());
@@ -2672,8 +2672,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addRating($intReviewId, $intCriterionId, $intGrade = 0, $strComment = '') {
-    $s = "INSERT  INTO Rating (review_id, criterion_id, grade, comment)".
-        "         VALUES ('$intReviewId', '$intCriterionId', '$intGrade', '$strComment')";
+    $s = sprintf("INSERT  INTO Rating (review_id, criterion_id, grade, comment)".
+                 "VALUES ('%d', '%d', '%d', '%s')",
+                 s2db($intReviewId), s2db($intCriterionId), s2db($intGrade), s2db($strComment));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCriterion', $this->mySql->getLastError());
