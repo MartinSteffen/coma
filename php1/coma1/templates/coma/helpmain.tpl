@@ -1,16 +1,10 @@
 <p class="message2">
-  TODO: Sch&ouml;ner langer Hilfetext, der allen m&ouml;glichen Schei&szlig; erkl&auml;rt.<br>
-  BLA BLA BLA
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+  {localhelp}
+</p>
+
+<p>&nbsp;</p>
+
+<p class="message2">
+  {navlinkBACK Return to the <a href="javascript:history.back()" class="link">last page</a>.}
+  {navlinkCLOSE <a href="javascript:close()" class="link">Close this page</a>.}
 </p>

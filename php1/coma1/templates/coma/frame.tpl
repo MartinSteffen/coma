@@ -25,7 +25,7 @@
      <td width="70">&nbsp;</td>
      <td colspan="2" height="32" align="right" valign="top">
       <a href="{basepath}logout.php{?SID}">Logout</a>&nbsp;&nbsp;
-      <a href="{basepath}help.php{?SID}"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
+      <a href="{basepath}help.php?popup{&SID}"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
      </td>
     </tr>
     <tr>

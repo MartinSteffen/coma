@@ -21,37 +21,52 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
+$popup = (isset($_GET['popup'])) ? true : false;
+
 $strMainAssocs = defaultAssocArray();
 
 if (checklogin()) {
   $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Help';
-  if (isset($_SESSION['confid'])) {
-    $actMenu = 0;
-    $actMenuItem = 0;
-    include('./include/usermenu.inc.php');
+  if (!$popup) {
+    if (isset($_SESSION['confid'])) {
+      $actMenu = 0;
+      $actMenuItem = 0;
+      include('./include/usermenu.inc.php');
+    }
+    else {
+      $menu = new Template(TPLPATH.'mainmenu.tpl');
+      $strMenuAssocs = defaultAssocArray();
+      $strMenuAssocs['if'] = array();
+      $menu->assign($strMenuAssocs);
+    }
   }
-  else {
-    $menu = new Template(TPLPATH.'mainmenu.tpl');
-    $strMenuAssocs = defaultAssocArray();
-    $strMenuAssocs['if'] = array();
-    $menu->assign($strMenuAssocs);    
-  }  
 }
 else {
-  $menu = new Template(TPLPATH.'startmenu.tpl');
-  $strMenuAssocs = defaultAssocArray();
-  $strMenuAssocs['if'] = array(3);
-  $menu->assign($strMenuAssocs);
+  if (!$popup) {
+    $menu = new Template(TPLPATH.'startmenu.tpl');
+    $strMenuAssocs = defaultAssocArray();
+    $strMenuAssocs['if'] = array(3);
+    $menu->assign($strMenuAssocs);
+  }
   $strMainAssocs['navigator'] = 'CoMa  |  Help';
 }
 
 $content = new Template(TPLPATH.'helpmain.tpl');
-$content->assign(defaultAssocArray());
+$strContentAssocs = defaultAssocArray();
+$strContentAssocs['localhelp'] = 'TODO: This should be a localized help text for every Situation '.
+  '(get location out of Session? or via GET?)<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+$strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
+$content->assign($strContentAssocs);
 
-$main = new Template(TPLPATH.'frame.tpl');
+if (!$popup) {
+  $main = new Template(TPLPATH.'frame.tpl');
+  $strMainAssocs['menu'] = &$menu;
+}
+else {
+  $main = new Template(TPLPATH.'popup_frame.tpl');
+}
 $strMainAssocs['title'] = 'Getting started with CoMa';
 $strMainAssocs['content'] = &$content;
-$strMainAssocs['menu'] = &$menu;
 
 $main->assign($strMainAssocs);
 $main->parse();
