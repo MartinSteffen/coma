@@ -8,18 +8,6 @@ if (!defined('IN_COMA1')) {
   die('Hacking attempt');
 }
 
-//  BACKWARDS COMPATIBILITY WITH PHP VERSIONS < 4.2.0
-//  BC for file_get_contents()
-if (!function_exists('file_get_contents')) {
-  function file_get_contents($filename)
-  {
-    $fd = fopen($filename, 'rb');
-    $content = fread($fd, filesize($filename));
-    fclose($fd);
-    return $content;
-  }
-}
-
 /**
  * Klasse Template
  *
