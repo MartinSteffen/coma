@@ -98,6 +98,7 @@ public class Admin extends HttpServlet
 			SearchResult result = read.getConference(search);
 			Conference[] result_conference= (Conference[])result.getResultObj();
 			int id = result_conference[0].getId();
+			insert.setPersonRole(user_person.getId(),id,6,0);
 			p.setConference_id(id);
 			insert.insertPerson(p);
 			info.append(XMLHelper.tagged("status","Setup successfull"));
