@@ -7,14 +7,14 @@
 
 <body>
 
-<a name="top"></a>
+<a name="top" />
 
 <table class="header">
  <tr>
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
    <a href="{basepath}index.php?{SID}">
-      <img src="{path}images/logo.jpg" width="150" height="90" align="middle" border="0" alt="">
+      <img src="{path}images/logo.jpg" width="150" height="90" border="0" alt="Logo">
    </a>
   </td>
   <td>
@@ -25,12 +25,12 @@
       <a href="#">Impressum</a>&nbsp;|&nbsp;
       <a href="#">Forum</a>&nbsp;|&nbsp;
       <a href="{basepath}logout.php?{SID}">Logout</a>&nbsp;&nbsp;
-      <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a> &nbsp;
+      <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
      </td>
     </tr>
     <tr height="25">
      <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
-     <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
+     <td colspan="2" height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
       {navigator}
      </td>
     </tr>
@@ -53,7 +53,7 @@
   <td style="background-image:url({path}images/menue.gif)" width="50">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" height="25">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" width="50" align="center">
-   <a href="#top"><img src="{path}images/top.gif" width="15" height="15" border="0" align="middle" alt=""></a>
+   <a href="#top"><img src="{path}images/top.gif" width="15" height="15" border="0" alt="Top"></a>
   </td>
  </tr>
  <tr>
