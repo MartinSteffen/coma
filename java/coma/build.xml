@@ -18,7 +18,7 @@
 	<property file="${basedir}/build.props" name="setup.params" location="${basedir}" />
 
 	<path id="compile.classpath">
-		<fileset dir="${env.LIB_HOME}">
+		<fileset dir="${lib.home}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -57,7 +57,7 @@
 			<fileset dir="${bin}/" />
 		</copy>
 		<copy todir="${dist}/${app.name}/WEB-INF/lib">
-			<fileset dir="${env.LIB_HOME}" />
+			<fileset dir="${lib.home}" />
 		</copy>
 		<!--copy todir="${dist}/${app.name}/doc">
 			<fileset dir="${doc}" />
@@ -68,7 +68,7 @@
 		<copy todir="${dist}/${app.name}/WEB-INF" file="${basedir}/web.xml" />
 		<copy file="${basedir}/${app.name}.xml" tofile="${dist}/${app.name}/META-INF/context.xml" overwrite="true">
 			<filterset>
-				<filter token="WEBAPPS_HOME" value="${env.WEBAPPS_HOME}" />
+				<filter token="WEBAPPS_HOME" value="${webapps.home}" />
 				<filter token="DATABASE_DRIVER" value="${db.driver}" />
 				<filter token="URL" value="${db.url}" />
 				<filter token="USER_NAME" value="${db.user}" />
@@ -77,12 +77,12 @@
 		</copy>
 		<copy file="${basedir}/build.props" tofile="${dist}/${app.name}/WEB-INF/classes/${app.name}/servlet/servlets/db.properties" overwrite="true">
 		</copy>
-		<copy todir="${env.WEBAPPS_HOME}" overwrite="true">
+		<copy todir="${webapps.home}" overwrite="true">
 			<fileset dir="${dist}/" />
 		</copy>
 	</target>
 
-	<target name="remote-install" depends="compile">
+	<target name="remote-install" depends="compile, remote-uninstall">
 		<mkdir dir="${dist}/${app.name}/WEB-INF/classes" />
 		<mkdir dir="${dist}/${app.name}/WEB-INF/lib" />
 		<mkdir dir="${dist}/${app.name}/style" />
