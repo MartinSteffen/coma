@@ -23,7 +23,7 @@ basedata2.sql Wie basedata.sql nur nicht generisch sondern mit weniger aber Hand
               
 -php1addon    Enthält besondere table und constraints für de Gruppe php1
 
--delete_data.sql Löscht die Daten aus alles globalen tablen.
+-delete_data.sql Löscht die Daten aus allen globalen tablen.
 
 Nochmal zum mitschreiben:
 
