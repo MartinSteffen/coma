@@ -33,7 +33,6 @@ else if (empty($m)) {
   echo('<br>EMPTY');
   die(-1);
 }
-echo(count($m).'/'.count($m[0]));
 for ($i = 0; $i < count($m); $i++) {
   $s = sprintf("<br>%3d:", $i);
   for ($j = 0; $j < count($m[$i]); $j++) {

@@ -123,7 +123,7 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($data); $j++) {
-        $this->addBit($matrix[$i][$p_id_index[$data[$j]['paper_id']]], ASSIGNED);
+        $this->addBit($matrix[$i][$p_id_index[$data[$j]['paper_id']]], ASSIGN);
       }
     }
     return $matrix;
