@@ -64,17 +64,13 @@ ini_set('display_startup_errors', '1'); // später 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
-//if (isset($_SERVER['PATH_TRANSLATED'])) {
-//  $ServerPathTranslated = $_SERVER['PATH_TRANSLATED'];
-//}
-//else {
-  $ServerPathTranslated = realpath(dirname(__FILE__) . '../');
-//}
+echo dirname(__FILE__) . '..' . PATH_SEPARATOR;
+$ServerPathTranslated = realpath(dirname(__FILE__) . '..' . PATH_SEPARATOR);
 echo $ServerPathTranslated;
 
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
-define('INCPATH', $ServerPathTranslated.'/include/');
+define('INCPATH', $ServerPathTranslated.PATH_SEPARATOR.'include'.PATH_SEPARATOR);
 /** Das zu verwendende Design (Verzeichniss-Name)*/
 define('DESIGN', 'simplecoma');
 /** Template-Pfad (als absolut)*/
