@@ -30,11 +30,12 @@
     <td><a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a></td>
   </tr>
   <tr>
-    <td>
-      Co-Authors:
-    </td>
-    <td>
-      <table class="formlist">
+    <td colspan="2">      
+      <table class="formlist" width="100%">
+        <tr class="formlistheader">
+          <td class="formlistheader">Co-authors:</td>
+          <td class="formlistheader">&nbsp;</td>
+        </tr>
         {coauthor_lines}
         <tr class="formlistitem">
           <td class="formlistitem">
