@@ -289,6 +289,7 @@ if (isset($_POST['action'])) {
             error('creating internal committee forum', $myDBAccess->getLastError());
           }
           // Erfolg (also anderes Template)
+          $strContentAssocs['description']      = encodeText($_POST['description']);
           $content = new Template(TPLPATH.'confirm_conference.tpl');
           $strContentAssocs['return_page'] = 'main_conferences.php';
           $objConference = new Conference(0, '', '', '', emptytime($start_date), emptytime($end_date));
