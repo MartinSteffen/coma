@@ -99,7 +99,7 @@ class DBAccess {
    */
   function getPersonIdByEmail($strEmail) {
     $s = ' SELECT  id FROM    Person WHERE   email = \''.$strEmail.'\'';
-    $data = $this->mySql->select($s);
+    $data = $this->mySql->select(' SELECT  id FROM    Person WHERE   email = \''.$strEmail.'\'');
     if ($data) {
       return $data[0]['id'];
     }
