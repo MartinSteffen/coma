@@ -26,7 +26,7 @@ public class ReadServiceTest extends TestCase{
 	private ReadServiceImpl read = new ReadServiceImpl();
 	
 	public void testGetConference(){
-		boolean run = false;
+		boolean run = true;
 		if(!run){
 			return;
 		}
@@ -46,7 +46,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPerson(){
-		boolean run = false;
+		boolean run = true;
 		if(!run){
 			return;
 		}
@@ -66,7 +66,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPaper(){
-		boolean run = false;
+		boolean run = true;
 		if(!run){
 			return;
 		}
@@ -92,7 +92,7 @@ public class ReadServiceTest extends TestCase{
 		}
 		
 		ReviewReport rep = new ReviewReport();
-		
+		rep.set_paper_Id(0);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setReviewReport(rep);
 		
@@ -106,7 +106,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetRating(){
-		boolean run = false;
+		boolean run = true;
 		if(!run){
 			return;
 		}
@@ -114,7 +114,7 @@ public class ReadServiceTest extends TestCase{
 		Rating rat = new Rating();
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setRating(rat);
-		
+		rat.set_report_id(0);
 		SearchResult result = read.getRating(criteria);
 		Object objResult = result.getResultObj();
 		
@@ -131,6 +131,8 @@ public class ReadServiceTest extends TestCase{
 		}
 		
 		Criterion crit = new Criterion();
+		crit.set_conference_id(0);
+		crit.setId(0);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setCriterion(crit);
 		
@@ -139,7 +141,7 @@ public class ReadServiceTest extends TestCase{
 		
 		Criterion[] criterions = (Criterion[])objResult;	
 		for (int i = 0; i < criterions.length; i++) {
-			System.out.println(criterions[i].toString());	
+			System.out.println(criterions[i].toXML());	
 		}
 	}
 	

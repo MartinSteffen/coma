@@ -78,13 +78,13 @@ public class EntityCreater {
 		Person person = new Person(-1);
 		try{
 			
-		person.setAffiliation(resSet.getString("affilication"));
+		person.setId(resSet.getInt("id"));			
+		person.setAffiliation(resSet.getString("affiliation"));
 		person.setCity(resSet.getString("city"));
 		person.setCountry(resSet.getString("country"));
 		person.setEmail(resSet.getString("email"));
 		person.setFax_number(resSet.getString("fax_number"));
 		person.setFirst_name(resSet.getString("first_name"));
-		person.setId(resSet.getInt("id"));
 		person.setLast_name(resSet.getString("last_name"));
 		person.setPassword(resSet.getString("password"));
 		person.setPhone_number(resSet.getString("phone_number"));

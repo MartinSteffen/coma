@@ -51,10 +51,4 @@ public class Service {
 
         return result;
     }
-
-	public static void main(String[] args){
-
-		Connection con = getConnection();
-		System.out.println(con.toString());
-	}
 }

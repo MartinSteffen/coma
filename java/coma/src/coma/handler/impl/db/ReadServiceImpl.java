@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.log4j.Category;
 
@@ -31,7 +33,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 	log = Category.getInstance(ReadServiceImpl.class.getName());
 
 	public ReadServiceImpl() {
-		super.init();
+		//super.init();
 	}
 
 	/**
@@ -63,7 +65,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-		String QUERY = "SELECT * FROM Person, Role " + " WHERE ";
+		String QUERY = "SELECT Person.* FROM Person WHERE ";
 
 		boolean idFlag = false;
 		boolean emailFlag = false;
@@ -71,7 +73,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean firstNameFlag = false;
 		boolean stateFlage = false;
 		boolean roleFlage = false;
-		if (p.getId() >= 0) {
+		if (p.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
 		} else {
@@ -104,11 +106,11 @@ public class ReadServiceImpl extends Service implements ReadService {
 					stateFlage = true;
 					and = true;
 				}
-				if (p.getRole_type() < 0) {
+				if (p.getRole_type() > 0) {
 					if (and) {
 						QUERY += " AND ";
 					}
-					QUERY += " role_type = ?";
+					QUERY += " Role.role_type = ? AND Role.person_id = Person.id";
 					roleFlage = true;
 					and = true;
 				}
@@ -149,14 +151,14 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 					while (resSet.next()) {
 						Person person = eCreater.getPerson(resSet);
-						ll.add(p);
+						ll.add(person);
 					}
 					resSet.close();
 					resSet = null;
 					pstmt.close();
 					pstmt = null;
 					Person[] persons = new Person[ll.size()];
-					for (int i = 0; i < persons.length; i++) {
+					for (int i = 0; i < ll.size(); i++) {
 						persons[i] = (Person) ll.get(i);
 					}
 					result.setResultObj(persons);
@@ -166,6 +168,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			} catch (SQLException e) {
 				info.append("ERROR: " + e.toString() + "\n");
+				System.out.println(e);
 			} finally {
 				if (conn != null) {
 					try {
@@ -201,7 +204,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		String QUERY = "SELECT * FROM Conference " + " WHERE ";
 
 		boolean idFlag = false;
-		if (c.getId() >= 0) {
+		if (c.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
 		}
@@ -292,7 +295,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 			idFlag = true;
 		} else {
 			boolean sql_and = false;
-			if (p.getConference_id() >= 0) {
+			if (p.getConference_id() > 0) {
 				if (sql_and) {
 					QUERY += " AND ";
 				}
@@ -300,7 +303,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				conferenceIdFlag = true;
 				sql_and = true;
 			}
-			if (p.getAuthor_id() >= 0) {
+			if (p.getAuthor_id() > 0) {
 				if (sql_and) {
 					QUERY += " AND ";
 				}
@@ -308,7 +311,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				authorIdFlage = true;
 				sql_and = true;
 			}
-			if (p.getState() >= 0) {
+			if (p.getState() > 0) {
 				if (sql_and) {
 					QUERY += " AND ";
 				}
@@ -396,7 +399,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean idFlag = false;
 		boolean PaperIdFlag = false;
 		boolean reviewerIdFlag = false;
-		if (report.getId() >= 0) {
+		if (report.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
 		} else {
@@ -493,15 +496,16 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 		boolean reportIdFlag = false;
 		boolean criterionIdFlag = false;
-		if (rating.getReviewReportId() >= 0) {
+		if (rating.getReviewReportId() > 0) {
 			QUERY += " review_id = ? ";
 			reportIdFlag = true;
 		}
-		if (rating.getCriterionId() >= 0) {
+		if (rating.getCriterionId() > 0) {
 			if (reportIdFlag) {
 				QUERY += " AND ";
 			}
 			QUERY += " criterion_id = ? ";
+			criterionIdFlag = true;
 		}
 		if (!(reportIdFlag || criterionIdFlag)) {
 			info.append("No search critera was specified\n");
@@ -577,15 +581,16 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 		boolean idFlag = false;
 		boolean conferenceIdFlag = false;
-		if (criterion.getId() >= 0) {
+		if (criterion.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
 		}
-		if (criterion.getConferenceId() >= 0) {
+		if (criterion.getConferenceId() > 0) {
 			if (idFlag) {
 				QUERY += " AND ";
 			}
 			QUERY += " conference_id = ?";
+			conferenceIdFlag = true;
 		}
 		if (!(idFlag || conferenceIdFlag)) {
 			info.append("No search critera was specified\n");
@@ -607,7 +612,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 								.getConferenceId());
 					}
 					ResultSet resSet = pstmt.executeQuery();
-					LinkedList<Criterion> ll = new LinkedList<Criterion>();
+					List<Criterion> ll = new LinkedList<Criterion>();
 					EntityCreater eCreater = new EntityCreater();
 
 					while (resSet.next()) {
@@ -628,6 +633,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 							+ "connection to the database\n");
 				}
 			} catch (SQLException e) {
+				System.out.println(e.toString());
 				info.append("ERROR: " + e.toString() + "\n");
 			} finally {
 				if (conn != null) {
@@ -641,6 +647,22 @@ public class ReadServiceImpl extends Service implements ReadService {
 			}
 		}
 		result.setInfo(info.toString());
+		return result;
+	}
+	
+	public ResultSet executeQuery(String sqlQuery){
+		ResultSet result = null;
+		
+		try {
+			Connection conn = getConnection();
+			
+			if(conn != null){
+				Statement stmt = conn.createStatement();
+				result = stmt.executeQuery(sqlQuery);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		return result;
 	}
 

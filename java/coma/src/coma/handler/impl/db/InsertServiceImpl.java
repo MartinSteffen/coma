@@ -3,7 +3,6 @@ package coma.handler.impl.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Category;
@@ -28,7 +27,7 @@ public class InsertServiceImpl extends Service implements InsertService{
     .getInstance(InsertServiceImpl.class.getName());
     
     public InsertServiceImpl(){
-        super.init();
+        //super.init();
     }
     /**
      * @see coma.handler.db.InsertService#insertPerson(coma.entities.Person)
@@ -44,8 +43,9 @@ public class InsertServiceImpl extends Service implements InsertService{
         }
         if(ok){
         	try {
-				conn = dataSource.getConnection();
-			} catch (SQLException e) {
+				//conn = dataSource.getConnection();
+        		conn = getConnection();
+			} catch (Exception e) {
 				ok = false;
 				info.append("Coma could not establish a connection to the database\n");
 				info.append(e.toString());
@@ -118,8 +118,9 @@ public class InsertServiceImpl extends Service implements InsertService{
          }
          if(ok){
          	try {
- 				conn = dataSource.getConnection();
- 			} catch (SQLException e) {
+ 				//conn = dataSource.getConnection();
+         		conn = getConnection();
+ 			} catch (Exception e) {
  				ok = false;
  				info.append("Coma could not establish a connection to the database\n");
  				info.append(e.toString());
@@ -175,8 +176,9 @@ public class InsertServiceImpl extends Service implements InsertService{
          }
          if(ok){
          	try {
- 				conn = dataSource.getConnection();
- 			} catch (SQLException e) {
+ 				//conn = dataSource.getConnection();#
+         		conn = getConnection();
+ 			} catch (Exception e) {
  				ok = false;
  				info.append("Coma could not establish a connection to the database\n");
  				info.append(e.toString());
@@ -232,8 +234,9 @@ public class InsertServiceImpl extends Service implements InsertService{
          }
          if(ok){
          	try {
- 				conn = dataSource.getConnection();
- 			} catch (SQLException e) {
+ 				//conn = dataSource.getConnection();
+         		conn = getConnection();
+ 			} catch (Exception e) {
  				ok = false;
  				info.append("Coma could not establish a connection to the database\n");
  				info.append(e.toString());
@@ -250,7 +253,7 @@ public class InsertServiceImpl extends Service implements InsertService{
          	try {
          		conn.setAutoCommit(false);
  				PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
- 				
+ 				//TODO
  				int rows = pstmt.executeUpdate();
  				if(rows != 1){
  					conn.rollback();
@@ -290,8 +293,9 @@ public class InsertServiceImpl extends Service implements InsertService{
 	        }
 	        if(ok){
 	        	try {
-					conn = dataSource.getConnection();
-				} catch (SQLException e) {
+					//conn = dataSource.getConnection();
+	        		conn = getConnection();
+				} catch (Exception e) {
 					ok = false;
 					info.append("Coma could not establish a connection to the database\n");
 					info.append(e.toString());
@@ -344,8 +348,9 @@ public class InsertServiceImpl extends Service implements InsertService{
 	        }
 	        if(ok){
 	        	try {
-					conn = dataSource.getConnection();
-				} catch (SQLException e) {
+					//conn = dataSource.getConnection();
+	        		conn = getConnection();
+				} catch (Exception e) {
 					ok = false;
 					info.append("Coma could not establish a connection to the database\n");
 					info.append(e.toString());
