@@ -28,7 +28,7 @@ if ($myDBAccess->failed()) {
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
 $strMessage = '';
-if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
+if ((isset($_POST['action'])) && ($_POST['action'] == 'update')) {
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
   ||  empty($_POST['email'])) {
@@ -89,6 +89,27 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
           error('Error updating your account.', $myDBAccess->getLastError());
         }
       }
+    }
+  }
+}
+// Account deaktivieren
+if (isset($_POST['delete')) {
+  // Teste, ob alle Pflichtfelder ausgefuellt wurden
+  if (empty($_POST['confirm_delete'])) {
+    $strMessage = 'You have to check the deactivate confirm option!';
+  }
+  // Versuche den Account zu deaktivieren
+  else {
+    $result = $myDBAccess->deactivateAccount(session('uid'));
+    if ($myDBAccess->failed()) {
+      // Datenbankfehler?
+      error('deactivating account', $myDBAccess->getLastError());
+    }
+    else {
+      $_SESSION['message'] = 'Your account was deactivated successfully.';
+      // Clear all Session Informations besides message
+      $_SESSION = array( 'message' => $message );
+      redirect("login.php");
     }
   }
 }

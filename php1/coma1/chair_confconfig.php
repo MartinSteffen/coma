@@ -165,6 +165,26 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
       !isset($_POST['simple_config']) && !isset($_POST['submit']))) {
       $content = new Template(TPLPATH.'edit_conference_ext.tpl');
   }
+  // Konferenz loeschen
+  if (isset($_POST['delete')) {
+    // Teste, ob alle Pflichtfelder ausgefuellt wurden
+    if (empty($_POST['confirm_delete'])) {
+      $strMessage = 'You have to check the delete confirm option!';
+    }
+    // Versuche die Konferenz zu loeschen
+    else {
+      $result = $myDBAccess->deleteConference(session('confid'));
+      if ($myDBAccess->failed()) {
+        // Datenbankfehler?
+        error('deleting conference', $myDBAccess->getLastError());
+      }
+      else {
+        $_SESSION['message'] = 'The conference was deleted successfully.';
+        session_delete('confid');
+        redirect("index.php");
+      }
+    }
+  }
 }
 // Wenn keine Daten geliefert worden, uebernimm die Werte aus der Datenbank
 else {
