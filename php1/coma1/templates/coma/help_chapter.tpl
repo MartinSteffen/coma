@@ -1,8 +1,8 @@
 <tr>
   <td>
+    {special}<br>
     <h3>Chapter {chapter-no}: {chapter-title}</h3><br>
     {related-topics}
-    {special}
     <table>
       {related-link}
     </table>

@@ -54,18 +54,30 @@ else {
   $strMainAssocs['navigator'] = 'CoMa  |  Help';
 }
 
-$content = new Template(TPLPATH.'helpmain.tpl');
+$content = new Template(TPLPATH.'help.tpl');
 $strContentAssocs = defaultAssocArray();
 
-if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
-  $strContentAssocs['keyword'] = encodeText($_GET['keyword']);
-}
-else {
-  $strContentAssocs['keyword'] = 'no given special Page';
-}
+//angeforderte hilfethemen bestimmen und template zusammenbauen
 
-$strContentAssocs['localhelp'] = 'TODO: This should be a localized help text for every Situation '.
-  '(get location out of Session? or via GET?)<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+//nur zu testzwecken
+$toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
+$tocassocs = defaultAssocArray();
+$tocassocs['chapter-no'] = '0';
+$tocassocs['chapter-title'] = 'Table of contents';
+$tocassocs['related-topics'] = '';
+$tocassocs['special'] = 'example';
+$tocassocs['related-link'] = '';
+$toccontent = new Template(TPLPATH . 'toc.tpl');
+$toccontentassocs = defaultAssocArray();
+$toccontentassocs['popup'] = '';
+$toccontent->assign($toccontentassocs);
+$toccontent->parse();
+$tocassocs['content'] = $toccontent->getOutput();
+$toctemplate->assign($tocassocs);
+$toctemplae->parse();
+$strContentAssocs['toc'] = $toctemplate->getOutput();
+//---
+
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $content->assign($strContentAssocs);
 
