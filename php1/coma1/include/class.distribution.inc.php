@@ -65,7 +65,7 @@ class Distribution extends ErrorHandling {
     $s = sprintf("SELECT   p.id AS paper_id, p.title AS title".
                  " FROM    Paper AS p".
                  " LEFT    JOIN Distribution AS d".
-                 " ON      d.paper_id = p.id"
+                 " ON      d.paper_id = p.id".
                  " WHERE   p.conference_id = '%s'".
                  " AND     d.paper_id IS NULL",
                  s2db($intConferenceId));
