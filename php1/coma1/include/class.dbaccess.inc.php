@@ -922,9 +922,10 @@ class DBAccess {
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
                     $strFilePath, $strMimeType, $strCoAuthors) {
-    $s = 'INSERT  INTO Paper (conference_id, title, author_id, abstract, filename, mime_type)'.
+    $s = 'INSERT  INTO Paper (conference_id, title, author_id, abstract, filename,'.
+        '                     mime_type, state)'.
         '         VALUES (\''.$intConferenceId.'\', \''.$intAuthorId.'\', \''.$strTitle.'\','.
-        '                 \''.$strAbstract.'\', \''.$strFilePath.'\', \''.$strMimeType.'\')';
+        '                 \''.$strAbstract.'\', \''.$strFilePath.'\', \''.$strMimeType.'\', 0)';
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
