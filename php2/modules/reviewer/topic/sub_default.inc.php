@@ -4,7 +4,7 @@ $sql->connect();
 if(isReviewer_Overall())
 {
 	$SQL =
-	 "SELECT role.conference_id, role.person_id, role.role_type,
+	 "SELECT DISTINCT role.conference_id, role.person_id,
 	   topic.id, topic.conference_id, topic.name,
 	   conference.name, conference.id
 	  FROM role INNER JOIN topic ON (role.conference_id = topic.conference_id)
@@ -17,7 +17,7 @@ if(isReviewer_Overall())
 	while ($list = mysql_fetch_row($result))
 	{
 		$wert = "";
-		$SQL = "SELECT * FROM preferstopic WHERE person_id = (".$_SESSION['userID'].") AND (topic_id = ".$list[3].")";
+		$SQL = "SELECT * FROM preferstopic WHERE person_id = (".$_SESSION['userID'].") AND (topic_id = ".$list[2].")";
 
 		$result2 = mysql_query($SQL);
 		if ($result2)
@@ -29,7 +29,7 @@ if(isReviewer_Overall())
 		}
 
 		$topic = array ();
-		$topic = array ("conference"=>$list[6],"conferenceid"=>$list[7], "topicname"=>$list[5],"topicid"=>$list[3], "value"=>$wert);
+		$topic = array ("conference"=>$list[5],"conferenceid"=>$list[6], "topicname"=>$list[4],"topicid"=>$list[2], "value"=>$wert);
 		$topiclist[] = $topic;
 	}
 
