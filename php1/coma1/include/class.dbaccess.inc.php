@@ -242,13 +242,13 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getConferenceDetailed', $this->getLastError());
     }
-    $data[0]['conference_start'] = emptyDBtime($data[$i]['conference_start']);
-    $data[0]['conference_end'] = emptyDBtime($data[$i]['conference_end']);
-    $data[0]['abstract_submission_deadline'] = emptyDBtime($data[$i]['abstract_submission_deadline']);
-    $data[0]['paper_submission_deadline'] = emptyDBtime($data[$i]['paper_submission_deadline']);
-    $data[0]['review_deadline'] = emptyDBtime($data[$i]['review_deadline']);
-    $data[0]['final_version_deadline'] = emptyDBtime($data[$i]['final_version_deadline']);
-    $data[0]['notification'] = emptyDBtime($data[$i]['notification']);
+    $data[0]['conference_start'] = emptyDBtime($data[0]['conference_start']);
+    $data[0]['conference_end'] = emptyDBtime($data[0]['conference_end']);
+    $data[0]['abstract_submission_deadline'] = emptyDBtime($data[0]['abstract_submission_deadline']);
+    $data[0]['paper_submission_deadline'] = emptyDBtime($data[0]['paper_submission_deadline']);
+    $data[0]['review_deadline'] = emptyDBtime($data[0]['review_deadline']);
+    $data[0]['final_version_deadline'] = emptyDBtime($data[0]['final_version_deadline']);
+    $data[0]['notification'] = emptyDBtime($data[0]['notification']);
     $objConferenceDetailed =
       new ConferenceDetailed($data[0]['id'], $data[0]['name'],
                              $data[0]['homepage'], $data[0]['description'],
