@@ -13,7 +13,7 @@ if (!defined('IN_COMA1')) {
 define('DEBUG', true);
 
 // Header fuer die korrekte Ausgabe
-header('Content-type: text/html; charset=utf-8');
+//header('Content-type: text/html; charset=utf-8');
 
 // Debugging Einstellungen:
 if (DEBUG) {
