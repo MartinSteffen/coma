@@ -70,7 +70,7 @@ if(isChair_Paper($_GET['paperID']))
 	$output['alreadyRev'] = $alreadyReviewers;
 	$output['minimum'] = $minimum;
 	$output['reviewers'] = $reviewers;
-	$output['paperID'] = $paperID;
+	$output['paperID'] = $_GET['paperID'];
 	$TPL['chair'] = $output;
 
 	template("CHAIR_manual");	
