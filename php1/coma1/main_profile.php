@@ -14,6 +14,8 @@ $content = new Template(TPLPATH.'profile.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Lade die Daten der Person
+var_dump(session('uid'));
+var_dump($objPerson);
 $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
