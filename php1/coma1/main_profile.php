@@ -45,7 +45,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $strMessage = 'Account with the given E-mail address already exists! '.
                   'Please use another E-mail address!';
   }
-  elseif ($_POST['password'] != $_POST['password2']) {
+  elseif ($_POST['password1'] != $_POST['password2']) {
     $strMessage = 'You have to enter your new Password correctly twice!';
   }
   else {
@@ -71,8 +71,8 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
         // Datenbankfehler?
         error('Error updating your account.', $myDBAccess->getLastError());
       }
-      if ($_POST['password'] != '') {
-        $myDBAccess->updatePersonPassword(session(uid), $_POST['password']);
+      if ($_POST['password1'] != '') {
+        $myDBAccess->updatePersonPassword(session(uid), $_POST['password1']);
         if ($myDBAccess->failed()) {
           error('Error updating your account.', $myDBAccess->getLastError());
         }
