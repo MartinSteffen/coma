@@ -19,28 +19,33 @@ $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-// Warum hier das machen?? Lieber aehnlich create_conference.php
 if (isset($_POST['action'])) {
-  $strContentAssocs['name']             = $_POST['name'];
-  $strContentAssocs['description']      = $_POST['description'];
-  $strContentAssocs['homepage']         = $_POST['homepage'];
-  $strContentAssocs['start_date']       = $_POST['start_date'];
-  $strContentAssocs['end_date']         = $_POST['end_date'];
-  $strContentAssocs['abstract_dl']      = $_POST['abstract_dl'];
-  $strContentAssocs['paper_dl']         = $_POST['paper_dl'];
-  $strContentAssocs['review_dl']        = $_POST['review_dl'];
-  $strContentAssocs['final_dl']         = $_POST['final_dl'];
-  $strContentAssocs['notification']     = $_POST['notification'];
-  $strContentAssocs['min_reviews']      = $_POST['min_reviews'];
-  $strContentAssocs['def_reviews']      = $_POST['def_reviews'];
-  $strContentAssocs['min_papers']       = $_POST['min_papers'];
-  $strContentAssocs['max_papers']       = $_POST['max_papers'];
-  $strContentAssocs['variance']         = $_POST['variance'];
-  $strContentAssocs['criteria']         = $_POST['criteria'];
-  $strContentAssocs['topics']           = $_POST['topics'];
-  $strContentAssocs['crit_max']         = $_POST['crit_max'];
-  $strContentAssocs['crit_descr']       = $_POST['crit_descr'];
-  $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
+
+  // Konvertiere Zeit-Daten in was sinnvolles
+  $abstract_dl = empty($_POST['abstract_dl']) ? '' : strtotime($_POST['abstract_dl']);
+  $paper_dl = empty($_POST['paper_dl']) ? '' : strtotime($_POST['paper_dl']);
+  $review_dl = empty($_POST['review_dl']) ? '' : strtotime($_POST['review_dl']);
+  $final_dl = empty($_POST['final_dl']) ? '' : strtotime($_POST['final_dl']);
+  $notification = empty($_POST['notification']) ? '' : strtotime($_POST['notification']);
+  $start_date = empty($_POST['start_date']) ? '' : strtotime($_POST['start_date']);
+  $end_date = empty($_POST['end_date']) ? '' : strtotime($_POST['end_date']);
+
+  $strContentAssocs['name']             = encodeText($_POST['name']);
+  $strContentAssocs['description']      = encodeText($_POST['description']);
+  $strContentAssocs['homepage']         = encodeURL($_POST['homepage']);
+  $strContentAssocs['start_date']       = encodeText(emptytime($start_date));
+  $strContentAssocs['end_date']         = encodeText(emptytime($end_date));
+  $strContentAssocs['abstract_dl']      = encodeText(emptytime($abstract_dl));
+  $strContentAssocs['paper_dl']         = encodeText(emptytime($paper_dl));
+  $strContentAssocs['review_dl']        = encodeText(emptytime($review_dl));
+  $strContentAssocs['final_dl']         = encodeText(emptytime($final_dl));
+  $strContentAssocs['notification']     = encodeText(emptytime($notification));
+  $strContentAssocs['min_reviews']      = encodeText($_POST['min_reviews']);
+  $strContentAssocs['def_reviews']      = encodeText($_POST['def_reviews']);
+  $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
+  $strContentAssocs['max_papers']       = encodeText($_POST['max_papers']);
+  $strContentAssocs['variance']         = encodeText($_POST['variance']);
+  $strContentAssocs['auto_numreviewer'] = encodeText($_POST['auto_numreviewer']);
   if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
     $ifArray[] = 2;
   }
@@ -50,30 +55,61 @@ if (isset($_POST['action'])) {
   if (isset($_POST['auto_addreviewer']) && !empty($_POST['auto_addreviewer'])) {
     $ifArray[] = 4;
   }
+
   // Aktualisieren der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
-
-    // Teste, ob alle Pflichtfelder ausgefuellt wurden
-    if (empty($_POST['name'])) {
-      $strMessage = 'You have to fill in the field <b>Title</b>!';
+    // auf korrkete Daten pruefen
+    if (empty($_POST['name'])
+    ||  empty($paper_dl)
+    ||  empty($review_dl)
+    ||  empty($final_dl)
+    ||  empty($start_date)
+    ||  empty($abstract_dl))
+    {
+      $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
+                    'and <b>Deadlines</b>!';
     }
+    elseif ((!empty($end_date)) && ($start_date > $end_date)) {
+      $strMessage = 'Your Start Date should be before your End Date!';
+    }
+    elseif ($abstract_dl > $paper_dl) {
+      $strMessage = 'Your Abstract Deadline should be before your Paper Deadline!';
+    }
+    elseif ($paper_dl > $final_dl) {
+      $strMessage = 'Your Paper Deadline should be before your Final Version Deadline!';
+    }
+    elseif ($final_dl > $start_date) {
+      $strMessage = 'Your Final Version Deadline should be before your Start Date!';
+    }
+    elseif ($paper_dl > $review_dl) {
+      $strMessage = 'Your Paper Deadline should be before your Review Deadline!';
+    }
+    elseif ((!empty($notification)) && ($review_dl > $notification)) {
+      $strMessage = 'Your Review Deadline should be before your Notification time!';
+    } 
+    elseif ((!empty($notification)) && ($notification > $start_date)) {
+      $strMessage = 'Your Notification time should be before your Start Date!';
+    } 
+    elseif ($review_dl > $start_date) {
+      $strMessage = 'Your Notification time should be before your Start Date!';
+    } 
     // Versuche die Konferenz zu aktualisieren
     else {
       $result = false; // [TODO] Konferenz aktualisieren
       if (!empty($result)) {
         // Erfolg
-        $strMessage = 'Conference setting was changed.';
+        $strMessage = 'Conference configuration is changed.';
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during updating conference.', $myDBAccess->getLastError());
+        error('Error updating conference.', $myDBAccess->getLastError());
       }
     }
   }
   // Oeffnen der erweiterten Einstellungen
-  else if (isset($_POST['adv_config'])) {
+  if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
+      !isset($_POST['simple_config']) &&  !isset($_POST['submit']))) {
     $content = new Template(TPLPATH.'edit_conference_ext.tpl');
-  }
 }
 // Wenn keine Daten geliefert worden, uebernimm die Werte aus der Datenbank
 else {
@@ -81,26 +117,22 @@ else {
   if ($myDBAccess->failed()) {
     error('Error during retrieving actual conference data.', $myDBAccess->getLastError());
   }
-  $strContentAssocs['name']             = $objConference->strName;
-  $strContentAssocs['description']      = $objConference->strDescription;
-  $strContentAssocs['homepage']         = $objConference->strHomepage;
-  $strContentAssocs['start_date']       = $objConference->strStart;
-  $strContentAssocs['end_date']         = $objConference->strEnd;
-  $strContentAssocs['abstract_dl']      = $objConference->strAbstractDeadline;
-  $strContentAssocs['paper_dl']         = $objConference->strPaperDeadline;
-  $strContentAssocs['review_dl']        = $objConference->strReviewDeadline;
-  $strContentAssocs['final_dl']         = $objConference->strFinalDeadline;
-  $strContentAssocs['notification']     = $objConference->strNotification;
-  $strContentAssocs['min_reviews']      = $objConference->intMinReviewsPerPaper;
-  $strContentAssocs['def_reviews']      = $objConference->intDefaultReviewsPerPaper;
-  $strContentAssocs['min_papers']       = $objConference->intMinNumberOfPapers;
-  $strContentAssocs['max_papers']       = $objConference->intMaxNumberOfPapers;
-  $strContentAssocs['variance']         = $objConference->fltCriticalVariance;
-  $strContentAssocs['criteria']         = '';
-  $strContentAssocs['topics']           = '';
-  $strContentAssocs['crit_max']         = '';
-  $strContentAssocs['crit_descr']       = '';
-  $strContentAssocs['auto_numreviewer'] = $objConference->intNumberOfAutoAddReviewers;
+  $strContentAssocs['name']             = encodeText($objConference->strName);
+  $strContentAssocs['description']      = encodeText($objConference->strDescription);
+  $strContentAssocs['homepage']         = encodeURL($objConference->strHomepage);
+  $strContentAssocs['start_date']       = encodeText(emptytime($objConference->strStart));
+  $strContentAssocs['end_date']         = encodeText(emptytime($objConference->strEnd));
+  $strContentAssocs['abstract_dl']      = encodeText(emptytime($objConference->strAbstractDeadline));
+  $strContentAssocs['paper_dl']         = encodeText(emptytime($objConference->strPaperDeadline));
+  $strContentAssocs['review_dl']        = encodeText(emptytime($objConference->strReviewDeadline));
+  $strContentAssocs['final_dl']         = encodeText(emptytime($objConference->strFinalDeadline));
+  $strContentAssocs['notification']     = encodeText(emptytime($objConference->strNotification));
+  $strContentAssocs['min_reviews']      = encodeText($objConference->intMinReviewsPerPaper);
+  $strContentAssocs['def_reviews']      = encodeText($objConference->intDefaultReviewsPerPaper);
+  $strContentAssocs['min_papers']       = encodeText($objConference->intMinNumberOfPapers);
+  $strContentAssocs['max_papers']       = encodeText($objConference->intMaxNumberOfPapers);
+  $strContentAssocs['variance']         = encodeText($objConference->fltCriticalVariance);
+  $strContentAssocs['auto_numreviewer'] = encodeText($objConference->intNumberOfAutoAddReviewers);
   if (!empty($objConference->blnAutoActivateAccount)) {
     $ifArray[] = 2;
   }
@@ -130,7 +162,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Configurate Conference';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Chair  |  Conference Config.';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Conference Config.';
 
 $main->assign($strMainAssocs);
 $main->parse();
