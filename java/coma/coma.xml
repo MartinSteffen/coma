@@ -12,8 +12,8 @@
   <Realm className="org.apache.catalina.realm.DataSourceRealm" debug="99"
 	 dataSourceName="jdbc/coma"
 	 localDataSource="true"
-	 userTable="users" userNameCol="login" userCredCol="passwort"
-	 userRoleTable="user_rollen" roleNameCol="rolle"/>
+	 userTable="Perons" userNameCol="email" userCredCol="password"
+	 userRoleTable="Roles" roleNameCol="role"/>
   
   
   <!-- connpool datasource --> 
