@@ -23,7 +23,7 @@ if (isset($_POST['email'])){
   /* Anlegen der Person in der Datenbank */
   
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
-  if ($_POST['last_name'] == '' || $_POST['email'] == '' || $_POST['user_password'] == '') ||
+  if ($_POST['last_name'] == '' || $_POST['email'] == '' || $_POST['user_password'] == '' ||
       $_POST['password_repeat'] == '') {    
     $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, <b>Email</b> und <b>Passwort</b>'.
                   'ausf&uuml;llen!';
