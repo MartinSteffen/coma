@@ -21,7 +21,19 @@ foreach($_REQUEST as $key => $value) {
 if($_REQUEST['submit']) {
 	// TODO: check form data	& admin data
 
-	
+	if (!$dbdata_host) $errors[]="No database host given!";
+	if (!$dbdata_user) $errors[]="No database user given!";
+	if (!$dbdata_pass) $errors[]="No database password given!";
+	if (!$dbdata_name) $errors[]="No database instance name given!";
+	if (!$ftp_host) $errors[]="No FTP host given!";
+	if (!$ftp_user) $errors[]="No FTP user given!";
+	if (!$ftp_passwd) $errors[]="No FTP password given!";
+	if (!$ftp_directory) $ftp_directory=".";
+	if (!$admin_lastname) $errors[]="No administrator lastname given!";
+	if (!$admin_email) $errors[]="No administrator email given!";
+	if (!$admin_pass) $errors[]="No administrator password given!";
+	if ($admin_pass_confirm!=$admin_pass) $errors[]="Administrator password and password confirmation do not match!";
+
 
 	if (count($errors)==0) {
 
@@ -198,7 +210,7 @@ FTP-password:
 FTP-directory:
 </td>
 <td>
-<input class="text" type="text" name="ftp_directory" size="40" maxlength="80" value="<?php echo ($_POST['ftp_directory']?$_POST['ftp_directory']:"papers") ?>">
+<input class="text" type="text" name="ftp_directory" size="40" maxlength="80" value="<?php echo (isset($_POST['ftp_directory'])?$_POST['ftp_directory']:"papers") ?>">
 </td>
 </tr>
 <tr>
