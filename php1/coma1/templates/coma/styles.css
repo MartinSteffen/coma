@@ -1,5 +1,5 @@
 /* Allgemeine Styles */
-body, table, th, td, tr, div, p, pre, h1, h2, h3, ul, textarea, input, button {
+body, table, th, td, tr, div, p, pre, h1, h2, h3, ul {
   font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif;
 }
 body, p, pre, ul {
@@ -150,13 +150,14 @@ table.formtable {
 
 /* Schaltflaechen und Eingabefelder */
 input, textarea, button {
+  /*font-family: "Trebuchet MS", Arial, Helvetica, Sans-Serif;*/
   font-size: 12px;
   background-color: #F7FBFF;
   border-style: solid;
   border-width: 1px;
   border-color: #404040;
   margin: 2px 4px;
-  padding: 2px 4px;
+  padding: 2px 4px;  
 }
 input.button, button {
   font-weight: bold;
