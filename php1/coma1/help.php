@@ -1082,6 +1082,7 @@ if (in_array('detailpages', $strArrayHelpTopics)){
   $strArrayChapterAssocs['chapter-no'] = '2.25';
   $strArrayChapterAssocs['chapter-title'] = 'The details pages / detailed information about papers or users';
   $strArrayChapterAssocs['related-topics'] = '';
+  $strArrayChapterAssocs['special'] = '';
   $strArrayChapterAssocs['related-link'] = '';
   $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-25.tpl');
   $strArrayContentAssocs = defaultAssocArray();
