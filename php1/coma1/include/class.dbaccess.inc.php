@@ -927,7 +927,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    /*$s = sprintf("SELECT   SUM((r.grade/c.max_value)*(c.quality_rating/100)) AS total_rating".
+    $s = sprintf("SELECT   SUM((r.grade/c.max_value)*(c.quality_rating/100)) AS total_rating".
                  " FROM    ReviewReport AS rr".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = rr.paper_id".
@@ -950,9 +950,9 @@ class DBAccess extends ErrorHandling {
     for ($i = 0; $i < count($data) && !empty($data); $i++) {
       $sum += $data[$i]['total_rating'];
     }
-    return $this->success($sum / count($data));*/
+    return $this->success($sum / count($data));
 
-    $s = sprintf("SELECT   c.id AS id, c.max_value AS max_value, c.quality_rating/100 AS weight,".
+    /*$s = sprintf("SELECT   c.id AS id, c.max_value AS max_value, c.quality_rating/100 AS weight,".
                  "         SUM(r.grade) AS sum_grade, COUNT(*) AS num".
                  " FROM    ReviewReport AS rr".
                  " INNER   JOIN Distribution AS d".
@@ -975,8 +975,7 @@ class DBAccess extends ErrorHandling {
     echo '<pre>'.str_replace(array("\n" , " "), array('<br>', '&nbsp;'), print_r($data, true)).'</pre>';
     for ($i = 0; $i < count($data); $i++) {
       
-    }
-    
+    }*/
   }
 
   /**
