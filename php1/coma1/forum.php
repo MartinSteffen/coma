@@ -15,10 +15,10 @@ define('DEBUGMODE', false);
  */
 define('IN_COMA1', true);
 
-include_once('./include/header.inc.php');
-include_once('./include/class.forum.inc.php');
-include_once('./include/class.message.inc.php');
-include_once('./include/class.person.inc.php');
+require_once('./include/header.inc.php');
+require_once(INCPATH.'class.forum.inc.php');
+require_once(INCPATH.'class.message.inc.php');
+require_once(INCPATH.'class.person.inc.php');
 
 //Funktiondefinitionen
 
@@ -295,13 +295,9 @@ function generatePostMethodArray($postvars){
   return $pma;
 }
 
-function emptystring($s){
-  return ($s == '');
-}
-
 function getUID($cid, &$myDBAccess){
   $uid = session('uid', false);
-  if (emptystring($uid)) {
+  if (empty($uid)) {
     if (DEBUGMODE){ //ja, sehr haesslich, weiss ich selbst
       $users = $myDBAccess->getUsersOfConference($cid);
       srand ((double)microtime()*1000000);
@@ -318,7 +314,7 @@ function getUID($cid, &$myDBAccess){
 
 function getCID(&$myDBAccess) {	
   $cid = session('confid', false);
-  if (emptystring($cid)){
+  if (empty($cid)){
     if (DEBUGMODE){ //siehe DEBUGMODE-kommentar zu getUID
       $confs = $myDBAccess->getAllConferences();
       srand ((double)microtime()*1000000);
@@ -335,7 +331,7 @@ function getCID(&$myDBAccess) {
 
 //Main-Code
 
-if ((emptystring(session('uid', false))) && (!DEBUGMODE)){
+if ((empty(session('uid', false))) && (!DEBUGMODE)){
   redirect('index.php');
 }
 else{
@@ -402,7 +398,7 @@ else{
 
     if ($postresult != false){
       $selecttree = session('forum_msgselect', false);
-      if (!emptystring($selecttree)){
+      if (!empty($selecttree)){
         $selecttree[$postresult] = true;
       }
       else{
@@ -436,7 +432,7 @@ else{
   if (!empty($HTTP_GET_VARS['select'])){
     $tselect = $HTTP_GET_VARS['select'];
     $temp = session('forum_msgselect', false);
-    if (!emptystring($temp)){
+    if (!empty($temp)){
       $temp[$tselect] = true;
     }
     else{
@@ -447,7 +443,7 @@ else{
   }
   if (!empty($HTTP_GET_VARS['unselect'])){
     $tunselect = $HTTP_GET_VARS['unselect'];
-    if (!emptystring(session('forum_msgselect', false))){
+    if (!empty(session('forum_msgselect', false))){
       $temp = session('forum_msgselect', false);
       $temp[$tunselect] = false;
       $_SESSION['forum_msgselect'] = $temp;
@@ -456,7 +452,7 @@ else{
   if (!empty($HTTP_GET_VARS['forumsel'])){
     $tselect = $HTTP_GET_VARS['forumsel'];
     $temp = session('forum_forumselect', false);
-    if (!emptystring($temp)){
+    if (!empty($temp)){
       $temp[$tselect] = true;
     }
     else{
@@ -467,7 +463,7 @@ else{
   }
   if (!empty($HTTP_GET_VARS['forumunsel'])){
     $tunselect = $HTTP_GET_VARS['forumunsel'];
-    if (!emptystring(session('forum_forumselect', false))){
+    if (!empty(session('forum_forumselect', false))){
       $temp = session('forum_forumselect', false);
       $temp[$tunselect] = false;
       $_SESSION['forum_forumselect'] = $temp;
@@ -484,12 +480,12 @@ else{
   }
 
   $ffs = session('forum_forumselect', false);
-  if (emptystring($ffs)){
+  if (empty($ffs)){
     $ffs = array();
   }
 
   $fms = session('forum_msgselect', false);
-  if (emptystring($fms)){
+  if (empty($fms)){
     $fms = array();
   }
 
@@ -500,7 +496,7 @@ else{
     $sel = '';
   }
 
-  if (emptystring(session('showforums', false))){
+  if (empty(session('showforums', false))){
     $fshow = 0;
   }
   else{
