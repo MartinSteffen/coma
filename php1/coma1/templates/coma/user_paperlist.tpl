@@ -5,7 +5,7 @@
     <th class="listheader">Author</th> 
     <th class="listheader">Status</th>    
     <th class="listheader">Rating</th>
-    <th>&nbsp;</th>
+    <th class="listheader">&nbsp;</th>
   </tr>
 
   <tr class="listitem-1"> 
@@ -42,7 +42,7 @@
       <span class="status-reviewed">reviewed</span>
     </td>
     <td class="listitem-2"> 4/5 </td> 
-    <td class="listitem-1">
+    <td class="listitem-2">
       <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
         <input type="submit" name="submit" value="view" class="button" />
