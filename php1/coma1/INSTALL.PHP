@@ -34,19 +34,23 @@ elseif (isset($_GET['4'])) {
     font-size: 12px; vertical-align: top; background-color: #FFFFFF;
     margin: 0px; padding: 0px; }
   a { text-decoration: none; font-weight: bold; }
-  a:link { color: #1A35AD; }
-  a:visited { color: #1A35AD; }
+  a:link { color: #111111; }
+  a:visited { color: #111111; }
   a:active { color: #000000; }
-  a:hover { color: #004DFF; }
+  a:hover { color: #000000; }
   div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
     width: 60%; font-size: 13px; font-weight: bold; text-align: center;
     vertical-align: top; margin: 10px 10px; padding: 10px 10px; color: #222222; 
     background-color: #dddddd; border: 1px solid #222222; }
   p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
-    width: 60%; font-size: 13px; font-weight: bold; text-align: center;
-    vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
-  p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; }
-  p.message-ok { color: #20A028; background-color: #E0FFF0; border: 1px solid #80A080; }
+    width: 60%; font-size: 13px; font-weight: bold; vertical-align: top; 
+    margin: 6px 10px; padding: 4px 12px; }
+  p.menu { color: #111111; background-color: #EEEEEE; 
+    border: 1px solid #FFFFFF; text-align: left; }
+  p.message-failed { color: #FF2600; background-color: #FFF0E0; 
+    border: 1px solid #A00000; text-align: center; }
+  p.message-ok { color: #20A028; background-color: #E0FFF0; 
+    border: 1px solid #80A080; text-align: center; }
   -->
   </style>
 </head>
