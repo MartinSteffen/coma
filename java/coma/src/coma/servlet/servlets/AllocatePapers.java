@@ -25,6 +25,7 @@ import coma.entities.AllocP_PaperList;
 import coma.entities.AllocP_Person;
 import coma.entities.Allocation;
 import coma.entities.Conference;
+import coma.entities.Criterion;
 import coma.entities.Paper;
 import coma.entities.Person;
 import coma.entities.Rating;
@@ -93,8 +94,8 @@ public class AllocatePapers extends HttpServlet {
 		SearchResult resultset;
 		
 		
-		int conference_id = conference.getId();
-		
+		conference_id = conference.getId();
+	
 		paperList = new AllocP_PaperList(conference_id
 						,conference.getMin_review_per_paper());	
 		
@@ -127,7 +128,6 @@ public class AllocatePapers extends HttpServlet {
 		for (int i = 0 ; i < personList.length; i++){
 			int person_id = personList[i].getPersonID();
 			SearchResult rs = db_delete.deleteReviewReportByReviewerId(person_id);
-			System.out.println(rs.getInfo());
 			Vector<AllocP_Paper> papers = personList[i].getPapers();
 			for (int j = 0; j < papers.size();j++){
 				AllocP_Paper paper = papers.elementAt(j);
@@ -139,20 +139,34 @@ public class AllocatePapers extends HttpServlet {
 				
 				
 			}
-//			SearchCriteria sc = new SearchCriteria();
-//			ReviewReport rep = new ReviewReport();
-//			rep.set_reviewer_id(person_id);
-//			sc.setReviewReport(rep);
-//			SearchResult sr = db_read.getReviewReport(sc);
-//			ReviewReport[] reports = (ReviewReport []) sr.getResultObj();
-//			for (int j = 0; j < reports.length; j++){
-//				int rep_id = reports[j].getId();
-//				Rating rating = new Rating();
-//				rating.setReviewReportId(rep_id);
-//				db_insert.insertRating(rating);
-//			}
+			SearchCriteria sc = new SearchCriteria();
+			ReviewReport rep = new ReviewReport();
+			rep.set_reviewer_id(person_id);
+			sc.setReviewReport(rep);
+			SearchResult sr = db_read.getReviewReport(sc);
+			ReviewReport[] reports = (ReviewReport []) sr.getResultObj();
+			Criterion crit = new Criterion();
+			sc = new SearchCriteria();
+			
+			crit.setConferenceId(conference_id);
+			sc.setCriterion(crit);
+			sr = db_read.getCriterion(sc);
+			//System.out.println(sr.getInfo());
+			Criterion[] crits = (Criterion[])sr.getResultObj();
+
+			for (int j = 0; j < reports.length; j++){
+				int rep_id = reports[j].getId();
+				
+				db_delete.deleteRating(rep_id);
+				for (int u = 0; u < crits.length;u++){
+					Rating rating = new Rating();
+					rating.setReviewReportId(rep_id);
+					rating.set_criterion_id(crits[u].getId());
+					
+					db_insert.insertRating(rating);
+				}
+			}
 		}
-		
 	}
 
 

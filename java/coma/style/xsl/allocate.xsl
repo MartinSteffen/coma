@@ -105,7 +105,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			</table>
 		</td>
 		<td width="10"></td>
-		<td valign="top" class="normal"><xsl:value-of select="(./@contentment*100)div(/result/allocation/@papersPerReviewer)"/>% (<xsl:value-of select="./@contentment"/>/<xsl:value-of select="/result/allocation/@papersPerReviewer"/>)</td>
+		<td valign="top" class="normal"><xsl:value-of select="round((./@contentment*100)div(/result/allocation/@papersPerReviewer))"/>% (<xsl:value-of select="./@contentment"/>/<xsl:value-of select="/result/allocation/@papersPerReviewer"/>)</td>
 	</tr>
 	</xsl:for-each>
 	

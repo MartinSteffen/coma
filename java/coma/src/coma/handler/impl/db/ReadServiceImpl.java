@@ -667,8 +667,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					}
 					if (conferenceIdFlag) 
 					{
-						pstmt.setInt(++pstmtCounter, criterion
-								.getConferenceId());
+						pstmt.setInt(++pstmtCounter, criterion.getConferenceId());
 					}
 					ResultSet resSet = pstmt.executeQuery();
 					List<Criterion> ll = new LinkedList<Criterion>();
