@@ -9,17 +9,17 @@
   {menu3}
   {menu4}  
   <tr>
-    <td class="menu"><a href="{basepath}user_conference.php?{SID}" class="{if1 marked}menu">
+    <td class="menu"><a href="{basepath}user_conference.php?{SID}" class="{if2 marked}menu">
       Conference</a>
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}user_forums.php?{SID}" class="{if1 marked}menu">
+    <td class="menu"><a href="{basepath}user_forums.php?{SID}" class="{if3 marked}menu">
       Forum</a>
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}logout_conference.php?{SID}" class="{if1 marked}menu">
+    <td class="menu"><a href="{basepath}logout_conference.php?{SID}" class="{if4 marked}menu">
       Logout</a>
     </td>
   </tr>
