@@ -50,7 +50,15 @@ if (isset($_POST['action'])) {
     $objReview->recalcRating();
     // Uebernimm die Aenderungen
     if (isset($_POST['submit']) ) {
-      // Trage Review in die Datenbank ein      
+      // Trage Review in die Datenbank ein
+      $result = $myDBAccess->updateReviewReport($objReviewReport);
+      if (!empty($result)) {        
+        $strMessage = 'Review report was updated successfully.';
+      }
+      else if ($myDBAccess->failed()) {
+        // Datenbankfehler?
+        error('Error during updating review report.', $myDBAccess->getLastError());
+      }
     }
   }  
 }
