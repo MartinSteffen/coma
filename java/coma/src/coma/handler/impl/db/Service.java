@@ -43,7 +43,7 @@ public class Service {
 							.println("ERROR: Connection pool have been initialized but "
 									+ "it could not suply connections");
 				} else {
-					log.info("INFO:Connection pool initialized and is ready");
+					System.out.println("INFO:Connection pool initialized and is ready");
 					configured = true;
 					testConn.close();
 				}

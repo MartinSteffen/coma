@@ -414,8 +414,17 @@ public class ReadServiceImpl extends Service implements ReadService {
 					pstmt.close();
 					pstmt = null;
 					papers = new Paper[ll.size()];
+					
+					Statement stmt = conn.createStatement();
 					for (int i = 0; i < papers.length; i++) {
 						papers[i] = (Paper) ll.get(i);
+						SearchResult sr = getAllTopicsOfPaper(papers[i].getId());
+						int[] ids = (int[])sr.getResultObj();
+						Integer[] tmp = new Integer[ids.length];
+						for (int j = 0; j < ids.length; j++) {
+							tmp[j] = new Integer(ids[j]);
+						}
+						papers[i].setTopics(tmp);
 					}
 				} else {
 					info.append("ERROR: coma could not establish a "
