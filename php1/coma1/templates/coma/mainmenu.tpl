@@ -15,7 +15,7 @@
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}forum.php{?SID}" class="{if4 marked}menu">
+    <td class="menu"><a href="{basepath}forum_public.php{?SID}" class="{if4 marked}menu">
       Forum</a>
     </td>
   </tr>
