@@ -9,17 +9,18 @@
      2. Angaben, die eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation 
         mit ihnen ermöglichen, einschließlich der E-Mail-Adresse,
      <br>&nbsp;<br>
-     Denke das reicht, aber <a href="http://www.domain-recht.de/magazin/article.php?id=96" class="link">hier gucken</a>
+     Denke das reicht, aber <a href="http://www.domain-recht.de/magazin/article.php?id=96" class="link" target="_blank">hier gucken</a>
      <br>&nbsp;<br>
      Sollte man diese Plattform ernnsthaft f&uuml;r Konferenzen nutzen so m&uuml;ssen zwingend noch hin:<br>
      1. Angaben zum Datenschutz<br>
      2. Angaben zum Haftungsausschluss<br>
      3. Angaben zu den Copyrights der eingesandten Paper<br>
      4. (bin ich Anwalt oder was??)
-    </td>
-  </tr>
-  <tr>
-    <td class="viewline"> 
+     
+     <br>
+     <br>
+     <br>
+
       THIS SOFTWARE IS PROVIDED BY THE COMA1 DEVELOPMENT TEAM ``AS IS'' AND 
       ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
       THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
