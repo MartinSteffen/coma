@@ -927,7 +927,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
   function getAverageRatingOfPaper($intPaperId) {
-    $s = sprintf("SELECT   SUM((r.grade/c.max_value)*(c.quality_rating/100)) AS total_rating".
+    /*$s = sprintf("SELECT   SUM((r.grade/c.max_value)*(c.quality_rating/100)) AS total_rating".
                  " FROM    ReviewReport AS rr".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = rr.paper_id".
@@ -940,6 +940,26 @@ class DBAccess extends ErrorHandling {
                  " GROUP   BY rr.id",
                            s2db($intPaperId));
     $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getAverageRatingOfPaper', $this->mySql->getLastError());
+    }
+    else if (empty($data)) {
+      return $this->success(false);
+    }*/
+    $s = sprintf("SELECT   c.id AS id, r.grade AS grade, c.max_value AS max_value,".
+                 "         c.quality_rating/100 AS weight".
+                 " FROM    ReviewReport AS rr".
+                 " INNER   JOIN Distribution AS d".
+                 " ON      d.paper_id = rr.paper_id".
+                 " AND     d.reviewer_id = rr.reviewer_id".
+                 " INNER   JOIN Rating AS r".
+                 " ON      r.review_id = rr.id".
+                 " INNER   JOIN Criterion AS c".
+                 " ON      c.id = r.criterion_id".
+                 " WHERE   rr.paper_id = '%d'";
+                           s2db($intPaperId)); 
+    $data = $this->mySql->select($s);
+    print_r($data);
     if ($this->mySql->failed()) {
       return $this->error('getAverageRatingOfPaper', $this->mySql->getLastError());
     }

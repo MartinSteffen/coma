@@ -24,7 +24,9 @@ function bit($b) {
 echo('<br>');
 
 
-$p = $myDBAccess->addConference('Neue Conf', 'http', '', '', '', '', '', '', '', '',
+$myDBAccess->getAverageRatingOfPaper(3);
+
+/*$p = $myDBAccess->addConference('Neue Conf', 'http', '', '', '', '', '', '', '', '',
                                 2, 4, 20, 25, 0.5, false,  true, true, 1,
                                 array(), array(), array(), array(), array());
 if ($myDBAccess->failed()) {
@@ -33,7 +35,7 @@ if ($myDBAccess->failed()) {
 else if (empty($p)) {
   echo('EMPTY');
   die(-1);
-}
+}*/
 
 /*echo('Get<br>');
 $p = $myDBAccess->getConferenceDetailed(1);
