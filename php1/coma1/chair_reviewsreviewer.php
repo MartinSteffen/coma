@@ -89,6 +89,11 @@ if (!empty($r_id)) {
     $strItemAssocs['paper_id'] = encodeText($objPaper->intId);
     $strItemAssocs['rev_id'] = encodeText($objReviewer->intId);
     $strItemAssocs['rev_name'] = encodeText($objReviewer->getName(1));
+    $intNum = $myDBAccess->getNumberOfPapersOfReviewer($rid, session('confid'));
+    if ($myDBAccess->failed()) {
+      error('get number of papers of reviewer', $myDBAccess->getLastError());
+    }
+    $strItemAssocs['num_papers'] = encodeText($intNum);
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     //$strItemAssocs['if'] = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
@@ -134,7 +139,7 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Edit reviewers of paper \''.encodeText($objPaper->strTitle).'\'';
+$strMainAssocs['title'] = 'Assigned reviewers of paper \''.encodeText($objPaper->strTitle).'\'';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Manage reviews';

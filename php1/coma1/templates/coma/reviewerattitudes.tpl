@@ -3,6 +3,9 @@
       <a href="{basepath}user_userdetails.php?userid={rev_id}{&SID}" class="link">{rev_name}</a>
     </td>
     <td class="listitem-{line_no}">
+      {num_papers}
+    </td>
+    <td class="listitem-{line_no}">
       {if7<input type="checkbox" name="p{paper_id}r{rev_id}" value="1">}
       {if8<input type="checkbox" name="p{paper_id}r{rev_id}" value="1" checked="checked">}
     </td>

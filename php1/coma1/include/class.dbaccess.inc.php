@@ -1119,6 +1119,34 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert die Anzahl der zugeteilten Reviewer des Papers $intPaperId in der
+   * Konferenz $intConferenceId zurueck.
+   *
+   * @param int $intReviewerId ID des Reviewers
+   * @param int $intConferenceId ID der Konferenz
+   * @return int Anzahl der dem Reviewer zugeteilten Paper.
+   * @access public
+   * @author Tom (01.02.05)
+   */
+  function getNumberOfPapersOfReviewer($intReviewerId, $intConferenceId) {
+    $s = sprintf("SELECT   COUNT(*) AS num".
+                 " FROM    Distribution AS d".
+                 " INNER   JOIN Paper AS p".
+                 " ON      p.id = d.paper_id".
+                 " AND     d.reviewer_id = '%d'".
+                 " AND     p.conference_id = '%d'",
+                           s2db($intPaperId), s2db($intConferenceId));
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getNumberOfPapersOfReviewer', $this->mySql->getLastError());
+    }
+    if (empty($data)) { // sollte nicht vorkommen
+      return $this->error('getNumberOfPapersOfReviewer', 'Empty result set.');
+    }
+    return $this->success($data[0]['num']);
+  }
+
+  /**
    * Liefert die Anzahl der Paper mit dem Status $intStatus in der Konferenz
    * $intConferenceId zurueck.
    * 
