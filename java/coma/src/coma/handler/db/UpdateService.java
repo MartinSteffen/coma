@@ -2,8 +2,10 @@
 package coma.handler.db;
 
 import coma.entities.Conference;
+import coma.entities.Criterion;
 import coma.entities.Paper;
 import coma.entities.Person;
+import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchResult;
 
@@ -18,4 +20,6 @@ public interface UpdateService {
     public SearchResult updateReviewReport(ReviewReport report);
     public SearchResult updatePaper(Paper paper);
     public SearchResult updateConference(Conference conference);
+    public SearchResult updateRating(Rating rating);
+    public SearchResult updateCriterion(Criterion criterion);
 }
