@@ -28,7 +28,10 @@ $p = $myDBAccess->getPerson(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-else echo(get_class($p).' / '.get_class(false).' / '.get_class(array(1, 2)));
+else {
+  echo($p->strName);
+  echo(get_class($p).' / '.get_class(false).' / '.get_class(array(1, 2)));
+}
 
 /*
 $p = $myDBAccess->getPaperDetailed(2);
