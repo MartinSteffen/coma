@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Vector;
 
 import org.apache.log4j.Category;
 
@@ -17,6 +18,7 @@ import coma.entities.Person;
 import coma.entities.Rating;
 import coma.entities.ReviewReport;
 import coma.entities.SearchResult;
+import coma.entities.Topic;
 import coma.handler.db.InsertService;
 
 /**
@@ -183,7 +185,7 @@ public class InsertServiceImpl extends Service implements InsertService {
 				}
 			} catch (SQLException e) {
 				// info.append(e.toString());
-				
+
 				System.out.println(e);
 			} finally {
 				try {
@@ -243,8 +245,9 @@ public class InsertServiceImpl extends Service implements InsertService {
 				if (paper.getLast_edited() != null) {
 					pstmt.setDate(++counter, new java.sql.Date(paper
 							.getLast_edited().getTime()));
-				}else{
-					pstmt.setDate(++counter, new java.sql.Date(new Date().getTime()));
+				} else {
+					pstmt.setDate(++counter, new java.sql.Date(new Date()
+							.getTime()));
 				}
 				pstmt.setInt(++counter, paper.getVersion());
 				pstmt.setString(++counter, paper.getFilename());
@@ -252,10 +255,29 @@ public class InsertServiceImpl extends Service implements InsertService {
 				pstmt.setString(++counter, paper.getMim_type());
 
 				int rows = pstmt.executeUpdate();
+				ResultSet keyRes = pstmt.getGeneratedKeys();
+				int paper_id = 0;
+				if (keyRes.next())
+					paper_id = keyRes.getInt(1);
 				if (rows != 1) {
 					conn.rollback();
 					info.append("Paper could not inserted into the database\n");
 				} else {
+
+					Vector<Topic> topics = paper.getTopics();
+					if (topics != null) {
+						for (int i = 0; i < topics.size(); i++) {
+							SearchResult sr = insertTopic(topics.elementAt(i)
+									.getConferenceId(), topics.elementAt(i)
+									.getName());
+							if (!sr.SUCCESS) {
+								info
+										.append("Error: could not insert Topic nummber ("
+												+i+ ") for this Paper!");
+								conn.rollback();
+							}
+						}
+					}
 					result.setSUCCESS(true);
 					info.append("Paper inserted successfully\n");
 				}
