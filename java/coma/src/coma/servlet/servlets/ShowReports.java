@@ -153,9 +153,11 @@ public class ShowReports extends HttpServlet {
 		    helper.addError(UserMessage.ERRDATABASEDOWN, result);
 		} catch (UnauthorizedException unauth){
 		    helper.addWarning(UserMessage.ERRUNAUTHORIZED, result);
-		}
+		} finally {
 
-		result.append("</info>\n");
+		    // Hmmm... strange. Sometimes, this doesn't get executed.
+		    result.append("</info>\n");
+		}
 
 	    } finally {
 
@@ -163,14 +165,14 @@ public class ShowReports extends HttpServlet {
 			
 		response.setContentType("text/html; charset=ISO-8859-1");
 
-		String path = getServletContext().getRealPath("");
-		String xslt = path + "/style/xsl/showreports.xsl";
 		PrintWriter out = response.getWriter();
 
 		StreamSource xmlSource =
 		    new StreamSource(new StringReader(result.toString()));
-		StreamSource xsltSource = new StreamSource(xslt);
-		XMLHelper.process(xmlSource, xsltSource, out);
+
+		XMLHelper.process(xmlSource, 
+				  coma.servlet.util.XSLT.file(this, "showreports"), 
+				  out);
 		out.flush();
 	    }
 	} catch (IOException e) {

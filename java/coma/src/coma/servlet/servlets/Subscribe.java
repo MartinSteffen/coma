@@ -81,7 +81,14 @@ public class Subscribe  extends HttpServlet {
 
 				InsertServiceImpl myInsertservice = new InsertServiceImpl();
 				SearchResult sr = myInsertservice.insertPerson(mynewPerson);
-				
+
+				// now, refresh.
+				SearchCriteria theSC = new SearchCriteria();
+				theSC.setPerson(mynewPerson);
+				// XXX no error handling.
+				mynewPerson = ((Person[])new coma.handler.impl.db.ReadServiceImpl()
+					       .getPerson(theSC).getResultObj())[0];
+
 				myInsertservice.setPersonRole(mynewPerson.getId(), 
 							      confid, 
 							      willBeAuthor? User.AUTHOR 
@@ -90,6 +97,7 @@ public class Subscribe  extends HttpServlet {
 
 				result.append(XMLHelper.tagged("success",sr.getInfo()));
 				result.append(mynewPerson.toXML());
+				result.append(XMLHelper.tagged("confid", confid));
 			} catch (IllegalArgumentException e) {
 				result.append(XMLHelper.tagged("failed",""));
 				result.append("<form>\n");

@@ -230,10 +230,14 @@
                     </xsl:attribute>
                   </input>	 
                   <br />
+                  <i>(Your conference is remembered.)</i><br />
                   <label for="passwd">Password</label><br />
                   <input type="password" id="password" class="input-box" />
                   <br />
                   <input type="submit" value="login" class="submit-button" />
+                  <input type="hidden" name="conference_id">
+                    <xsl:attribute name="value"><xsl:value-of select="../confid" /></xsl:attribute>
+                  </input>
                 </fieldset>
               </form>
             </xsl:template>
