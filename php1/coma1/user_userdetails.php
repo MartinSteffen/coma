@@ -43,6 +43,7 @@ else {
 $ifMainArray = array();
 $content = new Template(TPLPATH.'view_profile.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['userid']      = encodeText($objPerson->intId);
 $strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
 $strContentAssocs['last_name']   = encodeText($objPerson->strLastName);
 $strContentAssocs['email']       = encodeText($objPerson->strEmail);
