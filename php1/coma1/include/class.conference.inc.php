@@ -33,13 +33,13 @@ class Conference {
     $this->strName = $strName;
     $this->strHomepage = $strHomepage;
     $this->strDescription = $strDescription;
-    $this->$strStart = $strStart;
-    $this->$strEnd = $strEnd;
+    $this->strStart = $strStart;
+    $this->strEnd = $strEnd;
   }
 
   function getDateString() {
     if (empty($this->strStart)) {
-      return "not announced";
+      return 'not announced';
     }
     else if (!strcmp($this->strStart, $this->strEnd) || empty($this->strEnd)) {
       return encodeText($this->strStart);
