@@ -28,7 +28,7 @@ if (isset($_POST['action'])) {
   $review_dl = empty($_POST['review_dl']) ? '' : date('d-M-Y',strtotime($_POST['review_dl']));
   $final_dl = empty($_POST['final_dl']) ? '' : date('d-M-Y',strtotime($_POST['final_dl']));
   $notification = empty($_POST['notification']) ? '' : date('d-M-Y',strtotime($_POST['notification']));
-  $start_date = empty($_POST['start_date']) ? '' : date('d-M-Y',strtotime($_POST['start_date']));
+  echo $start_date = empty($_POST['start_date']) ? '' : date('d-M-Y',strtotime($_POST['start_date']));
   $end_date = empty($_POST['end_date']) ? '' : date('d-M-Y',strtotime($_POST['end_date']));
 
   $strContentAssocs['name']             = encodeText($_POST['name']);
