@@ -16,14 +16,7 @@ require_once('./include/header.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
 $showChairs = isset($_GET['showchairs']);
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'),
-  ($showChairs ? 0 : CHAIR));
-if ($myDBAccess->failed()) {
-  error('Error occured during performing permission check.', $myDBAccess->getLastError());
-}
-else if (!$checkRole) {
-  error('You have no permission to view this page.', '');
-}
+checkAccess($showChairs ? 0 : CHAIR);
 
 $checkRoleChair = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
 if ($myDBAccess->failed()) {

@@ -13,6 +13,7 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
+checkAccess(0);
 
 if (isset($_GET['paperid'])) {
   // Hole dir das File

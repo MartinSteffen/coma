@@ -30,7 +30,7 @@ else {
  $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
 }
 if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
+  error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
 }
 else if (!$checkRole) {
   error('You have no permission to view this page.', '');

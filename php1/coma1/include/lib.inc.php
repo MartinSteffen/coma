@@ -169,6 +169,25 @@ function checkLogin() {
 }
 
 /**
+ * Diese Funktion ueberprueft ob der aktuelle Benutzer korrekt eingeloggt ist.
+ *
+ * @param int $role Die Rolle in der Konferenz 0 fuer beliebige
+ * @return bool True gdw User darf ;)
+ */
+function checkAccess($role) {
+  global $myDBAccess;
+  if (!$myDBAccess->hasRoleInConference(session('uid'), session('confid'), $role)) {
+    if ($myDBAccess->failed()) {
+      error('Error occured retrieving conference data.', $myDBAccess->getLastError());
+    }
+    else if (!$checkRole) {
+      error('You have no permission to view this page.', '');
+    }
+  }
+  return true;
+}
+
+/**
  * geschuetztes Lesen von Session-Variablen
  *
  * Diese Funktion liest eine Sessionvariable aus, und stellt dabei sicher

@@ -19,13 +19,7 @@ if (!isset($_GET['reviewid']) && !isset($_POST['reviewid'])) {
 }
 $intReviewId = (isset($_GET['reviewid']) ? $_GET['reviewid'] : $_POST['reviewid']);
 // Lade die Daten des Reviews
-$objReview = $myDBAccess->getReviewDetailed($intReviewId);
-if ($myDBAccess->failed()) {
-  error('Error occured during retrieving review.', $myDBAccess->getLastError());
-}
-else if (empty($objReview)) {
-  error('Review does not exist in database.', '');
-}
+checkAccess(REVIEWER);
 
 // Pruefe Zugriffsberechtigung auf die Seite
 $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER);

@@ -15,13 +15,7 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR);
-if ($myDBAccess->failed()) {
-  error('Error retrieving conference topics', $myDBAccess->getLastError());
-}
-else if (!$checkRole) {
-  error('checkRole', 'You have no permission to view this page!');
-}
+checkAccess(CHAIR);
 
 $content = new Template(TPLPATH.'chair_userlist.tpl');
 $strContentAssocs = defaultAssocArray();

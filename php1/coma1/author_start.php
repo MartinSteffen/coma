@@ -15,13 +15,7 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
 // Pruefe Zugriffsberechtigung auf die Seite
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), AUTHOR);
-if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
-}
-else if (!$checkRole) {
-  error('You have no permission to view this page.', '');
-}
+checkAccess(AUTHOR);
 
 $content = new Template(TPLPATH.'author_start.tpl');
 $strContentAssocs = defaultAssocArray();

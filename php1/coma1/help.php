@@ -21,6 +21,9 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
+// Security :)
+checkAccess(0);
+
 $popup = (isset($_GET['popup'])) ? true : false;
 
 $strMainAssocs = defaultAssocArray();

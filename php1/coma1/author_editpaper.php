@@ -34,13 +34,7 @@ else {
 }
 
 // Pruefe Zugriffsberechtigung auf die Seite
-$checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), AUTHOR);
-if ($myDBAccess->failed()) {
-  error('Error occured during retrieving conference topics.', $myDBAccess->getLastError());
-}
-else if (!$checkRole || !($objPaper->intAuthorId == session('uid'))) {
-  error('You have no permission to view this page.', '');
-}
+checkAccess(AUTHOR);
 
 $content = new Template(TPLPATH.'edit_paper.tpl');
 $strContentAssocs = defaultAssocArray();

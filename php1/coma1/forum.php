@@ -18,6 +18,9 @@ require_once(INCPATH.'class.forum.inc.php');
 require_once(INCPATH.'class.message.inc.php');
 require_once(INCPATH.'class.person.inc.php');
 
+// Security :)
+checkAccess(0);
+
 //Funktiondefinitionen
 
 //Hilfsfunktion zum feststellen ob eine valide Auswahl vorliegt,
@@ -280,17 +283,6 @@ function generatePostMethodArray($strArrayPostvars){
 
 // Main-Code
 
-  /*
-  if (DEBUG){
-    echo('<h1>BEGIN VARDUMP $_POST</h1><br>');
-    var_dump($_POST);
-    echo('<h1>END VARDUMP $_POST</h1><br>');
-    echo('<h1>BEGIN VARDUMP $HTTP_GET_VARS</h1><br>');
-    var_dump($HTTP_GET_VARS);
-    echo('<h1>END VARDUMP $HTTP_GET_VARS</h1><br>');
-  }
-  */
-
   $objContenttemplate = new Template(TPLPATH . 'forumlist.tpl');
   $strArrayContentAssocs = defaultAssocArray();
   $strArrayContentAssocs['message'] = session('message', false);
@@ -305,10 +297,10 @@ function generatePostMethodArray($strArrayPostvars){
     if (($strArrayPvars['posttype'] == 'reply') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid'])) && (!empty($strArrayPvars['reply-to']))){
       $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], session('uid'), $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
     }
-    /** @TODO einen Beitrag updaten - DBAccess Methode dazu fehlt noch*/
-    //if (($strArrayPvars['posttype'] == 'update') && (!empty($strArrayPvars['reply-to'])) && (!empty($strArrayPvars['subject'])) && (!empty($strArrayPvars['text']))){
-    //  $intPostresult = $myDBAccess->updateMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
-    //}
+    //einen Beitrag updaten
+    if (($strArrayPvars['posttype'] == 'update') && (!empty($strArrayPvars['reply-to'])) && (!empty($strArrayPvars['subject'])) && (!empty($strArrayPvars['text']))){
+      $intPostresult = $myDBAccess->updateMessage($strArrayPvars['subject'], $strArrayPvars['text'], $uid, $strArrayPvars['forumid'], $strArrayPvars['reply-to']);
+    }
     //einen neuen Thread starten
     if (($strArrayPvars['posttype'] == 'newthread') && (!empty($strArrayPvars['text'])) && (!empty($strArrayPvars['forumid']))){
       $intPostresult = $myDBAccess->addMessage($strArrayPvars['subject'], $strArrayPvars['text'], session('uid'), $strArrayPvars['forumid']);
@@ -331,7 +323,7 @@ function generatePostMethodArray($strArrayPostvars){
   }
 
   // Foren holen
-  $objArrayForums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid', false));
+  $objArrayForums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid'));
   if ($myDBAccess->failed()) {
     error('Error getting forum list.', $myDBAccess->getLastError());
   }
@@ -401,10 +393,10 @@ function generatePostMethodArray($strArrayPostvars){
 
   $objMaintemplate = new Template(TPLPATH . 'frame.tpl');
   $strArrayMainAssocs = defaultAssocArray();
-  $strArrayMainAssocs['title'] = 'Forums of ' . encodeText(session('uname', false));
+  $strArrayMainAssocs['title'] = 'Forums of ' . encodeText(session('uname'));
   $strArrayMainAssocs['content'] = &$objContenttemplate;
   $strArrayMainAssocs['menu'] = &$menu;
-  $strArrayMainAssocs['navigator'] = encodeText(session('uname', false)) . '  |  Forums';
+  $strArrayMainAssocs['navigator'] = encodeText(session('uname') . '  |  Forums';
 
   $objMaintemplate->assign($strArrayMainAssocs);
   $objMaintemplate->parse();

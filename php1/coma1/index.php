@@ -38,24 +38,22 @@ if (!isset($_SESSION['uid'])) {
     error('getUID', $myDBAccess->getLastError());
   }
 }
+// Message los werden ;)
+session_delete('message');
 $objIch = $myDBAccess->getPerson(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
   error('chooseHighestRole',$myDBAccess->getLastError());
 }
 if ($objIch->hasRole(CHAIR)) {
-  session_delete('message');
   redirect('chair_start.php');
 }
 if ($objIch->hasRole(REVIEWER)) {
-  session_delete('message');
   redirect('reviewer_start.php');
 }
 if ($objIch->hasRole(AUTHOR)) {
-  session_delete('message');
   redirect('author_start.php');
 }
 if ($objIch->hasRole(PARTICIPANT)) {
-  session_delete('message');
   redirect('participant_start.php');
 }
 // falls man kein Userlevel haben sollte, sollte man auch nicht hier sein!
