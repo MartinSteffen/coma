@@ -42,6 +42,7 @@ if (isset($_POST['confirm'])) {
           unset($arrR[$j]);
 //        }
       }
+      else $s .= ' ass';
     }
   }
 }
