@@ -103,6 +103,8 @@ if (isset($_POST['action'])) {
   $strContentAssocs['crit_max']       = '';
   $strContentAssocs['crit_descr']     = '';
   $strContentAssocs['crit_weight']    = '';
+  $strContentAssocs['topicsID']       = '';
+  $strContentAssocs['criterionsID']   = '';
   $strContentAssocs['num_topics']     = encodeText(count($strTopics));
   $strContentAssocs['num_criterions'] = encodeText(count($strCriterions));
   for ($i = 0; $i < count($strTopics); $i++) {
