@@ -188,7 +188,7 @@ function session($strName, $blnRedirect=true) {
     if (!$blnRedirect) {
       return '';
     }
-    error('session()',$strName.' nicht gefunden!');
+    error('session()',$strName.' not found!');
   }
   else {
     return $_SESSION[$strName];
