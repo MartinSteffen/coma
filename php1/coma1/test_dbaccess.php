@@ -53,7 +53,7 @@ for ($i = 0; $i < count($intRoles); $i++) {
     echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
 }
 echo('<br>Update der Rollen in der DB...<br>');
-$myDBAccess->updateRoles(1, $p);
+$myDBAccess->updateRoles($p, 1);
 if ($myDBAccess->failed()) {
   echo ('Fehler: '.$myDBAccess->getLastError());
   exit(-1);
