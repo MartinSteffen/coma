@@ -31,6 +31,7 @@ else {
 $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_index.tpl');
 $loginPage = new Template(TPLPATH.'login.tpl');
+$emptyPage = new Template(TPLPATH.'empty.tpl');
 
 
 $strMainAssocs = defaultAssocArray();
@@ -40,11 +41,12 @@ $strMainAssocs['content'] = '';
 
 if (isset($_SESSION['message'])) {
   $strMessage = $_SESSION['message'];
-  unset($_SESSION['message']);}
- else if (isset($_SESSION['uid'])) {
+  unset($_SESSION['message']);
+ }
+ else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
   $strMessage = 'Sie sind bereits eingeloggt !!!';
-  $emptyPage = new Template(TPLPATH.'empty.tpl');
-  $strMainAssocs['body'] = & $emptyPage;}
+  $strMainAssocs['body'] = & $emptyPage;
+ }
  else {
   $strMessage = '';
   $strMainAssocs['content'] = ' <h2 align="center"> Bitte Einloggen oder Registrieren </h2>';
@@ -66,6 +68,7 @@ $menue->assign(defaultAssocArray());
 $menue->assign($strMenueAssocs);
 
 $loginPage->assign($strLoginAssocs);
+$emptyPage->assign($strLoginAssocs);
 
 $mainPage->parse();
 $mainPage->output();
