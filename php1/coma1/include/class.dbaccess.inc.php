@@ -1135,7 +1135,7 @@ class DBAccess extends ErrorHandling {
                  " ON      p.id = d.paper_id".
                  " AND     d.reviewer_id = '%d'".
                  " AND     p.conference_id = '%d'",
-                           s2db($intPaperId), s2db($intConferenceId));
+                           s2db($intReviewerId), s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getNumberOfPapersOfReviewer', $this->mySql->getLastError());
