@@ -7,4 +7,5 @@ Steffen: I cleaned it up a bit, i.e., kept only the source-files (ppt + tex
 + the graphic for the ps). I checked in also the ``Siegel'' to make it
 compilable for all.
 
-
+Waller: The new Material is optimized for pdf-Output only...
+  This should be our complete Specification (~20 pages)
