@@ -6,7 +6,7 @@
       <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a>
     </td>
     <td class="listitem-{line_no}" colspan="2">
-      {if0<input type="radio" name="paper-{paper_id}" value="0" selected>
+      {if0<input type="radio" name="paper-{paper_id}" value="0" checked>
           <span class="attitude-none">no attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="1">
           <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
@@ -16,7 +16,7 @@
           <span class="weak">exclude</span>}
       {if1<input type="radio" name="paper-{paper_id}" value="0">
           <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="1" selected>
+          <input type="radio" name="paper-{paper_id}" value="1" checked>
           <span class="attitude-prefer">prefer</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="2">
           <span class="weak">deny</span> &nbsp;&nbsp;&nbsp;
@@ -26,7 +26,7 @@
           <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="1">
           <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="2" selected>
+          <input type="radio" name="paper-{paper_id}" value="2" checked>
           <span class="attitude-deny">deny</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="3">
           <span class="weak">exclude</span> &nbsp;&nbsp;&nbsp;}
@@ -36,7 +36,7 @@
           <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="2">
           <span class="weak">deny</span> &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="3" selected>
+          <input type="radio" name="paper-{paper_id}" value="3" checked>
           <span class="attitude-exclude">exclude</span>}
     </td>
   <!--

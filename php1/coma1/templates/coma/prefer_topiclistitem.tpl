@@ -10,7 +10,7 @@
           <span class="weak">prefer</span>}
       {if1<input type="radio" name="topic-{topic_id}" value="0">
           <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="topic-{topic_id}" value="1" selected>
+          <input type="radio" name="topic-{topic_id}" value="1" checked>
           <span class="attitude-prefer">prefer</span>}
     </td>  
     <!--    
