@@ -90,7 +90,7 @@ else {
   $strContentAssocs['review_dl']        = $objConference->strReviewDeadline;
   $strContentAssocs['final_dl']         = $objConference->strFinalDeadline;
   $strContentAssocs['notification']     = $objConference->strNotification;
-  $strContentAssocs['min_reviews']      = $objConference->intMinReviewsPerpaer;
+  $strContentAssocs['min_reviews']      = $objConference->intMinReviewsPerPaper;
   $strContentAssocs['def_reviews']      = $objConference->intDefaultReviewsPerPaper;
   $strContentAssocs['min_papers']       = $objConference->intMinNumberOfPapers;
   $strContentAssocs['max_papers']       = $objConference->intMaxNumberOfPapers;
