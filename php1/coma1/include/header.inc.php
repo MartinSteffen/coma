@@ -125,16 +125,21 @@ define('COREURL', dirname($_SERVER['PHP_SELF']).'/');
 require_once(INCPATH.'class.mysql.inc.php');
 require_once(INCPATH.'class.session.inc.php');
 require_once(INCPATH.'class.dbaccess.inc.php');
-require_once(INCPATH.'class.template.inc.php');
 
 $mySql = new MySql();
-checkError($mySql);
+if ($mySql->failed) {
+  error('Erzeugen den Standard-Objekte',$mySql->getLastError());
+}
 
 $mySession = new Session($mySql, 'coma1', 7200);
-checkError($mySession);
+if ($mySession->failed) {
+  error('Erzeugen den Standard-Objekte',$mySession->getLastError());
+}
 
 $myDBAccess = new DBAccess($mySql);
-checkError($myDBAccess);
+if ($myDBAccess->failed) {
+  error('Erzeugen den Standard-Objekte',$myDBAccess->getLastError());
+}
 // End Standard Klassen
 
 /**#@+ Konstanten fuer die Rollenverteilung */
