@@ -107,10 +107,11 @@ class DBAccess {
     if (!isset($_SESSION['uname']) || !isset($_SESSION['password'])) {
       return $this->error('checkLogin (Session: User oder Passwort nicht gesetzt)');
     }
+    echo($_SESSION['password']);
     $s = 'SELECT  id, email, password'.
         ' FROM    Person'.
-        ' WHERE   email = \''.$_SESSION['uname'].'\'';
-        //' AND     password = \''.$_SESSION['password'].'\'';
+        ' WHERE   email = \''.$_SESSION['uname'].'\''.
+        ' AND     password = \''.$_SESSION['password'].'\'';
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       return true;
