@@ -27,13 +27,17 @@ basedata2.sql Wie basedata.sql nur nicht generisch sondern mit weniger aber Hand
               umgehen können oder von vornherein das Auftreten solcher Daten in der
               Daenbank verhindern.
               
--emptyDB.sql  Ist eine KOPIE von /sql/dbSchema.sql und dient nur der Vollständigkeit. Die
-              Datei ist unter Umständen nicht immer aktuell. Verbindlich ist das Skript im
-              Verzeichnis /trunk/sql!!!
               
 -php1addon    Enthält besondere table und constraints für de Gruppe php1
 
 -delete_data.sql Löscht die Daten aus allen globalen tablen.
+
+---
+
+Bemerkung:   eine leere Datenbank bekommt man mittels:
+
+	       ../../../sql/db_schema.sql
+
 
 Nochmal zum mitschreiben:
 
