@@ -44,7 +44,7 @@ if (!empty($s)) {
 }
 echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
 
-$forum = $dbAccess->getDetailedForum(1);
+$forum = $dbAccess->getForumDetailed(1);
 if ($forum) {  
   echo('<b>'.count($forum->getThreadCount()).' Thread'.
        (count($forum->getThreadCount()) <> 1 ? 's' : '').
