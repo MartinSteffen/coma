@@ -26,7 +26,7 @@
 					</legend>
 					<table>
 						<tr>
-							<td class="textBold">To <font style="color:red">delete</font> Conference enable Checkbox and press <img height="14" width="14" align="middle" border="0" src="templates/images/delete.gif">-Button</td>
+							<td class="textBold">To <font style="color:red">delete</font> Conference press <img height="14" width="14" align="middle" border="0" src="templates/images/delete.gif">-Button</td>
 						</tr>
 						<tr>
 							<td class="textBold">To <font style="color:green">edit</font> Conference click the<img border="0" align="middle" src="templates/images/edit.gif" alt='edit'>-Button</td>
