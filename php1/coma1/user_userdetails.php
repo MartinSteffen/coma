@@ -28,7 +28,7 @@ $popup = (isset($_GET['popup'])) ? true : false;
 // Lade die Daten des Benutzers
 if (isset($_GET['userid']) || isset($_POST['userid'])) {
   $intPersonId = (isset($_GET['userid']) ? $_GET['userid'] : $_POST['userid']);
-  $objPerson = $myDBAccess->getPersonDetailed($intPersonId);
+  $objPerson = $myDBAccess->getPersonDetailed($intPersonId, session('confid', false));
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving person.', $myDBAccess->getLastError());
   }
@@ -64,8 +64,7 @@ $checkChairRole = $myDBAccess->hasRoleInConference(session('uid'), session('conf
 if ($myDBAccess->failed()) {
   error('Error occured during performing permission check.', $myDBAccess->getLastError());
 }
-if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {
-	echo ('AUTHOR');
+if ($checkChairRole && $objPerson->hasRole(AUTHOR)) {	
   $objPapers = $myDBAccess->getPapersOfAuthor($objPerson->intId, session('confid'));
   if ($myDBAccess->failed()) {
     error('get paper list of author', $myDBAccess->getLastError());
