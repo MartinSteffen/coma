@@ -12,7 +12,6 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 
-
 /* =============================================================================
 WICHTIGE NEUIGKEITEN 14.01.05 / 18.01.05:
 -----------------------------------------
@@ -158,34 +157,6 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert die Integer-Repraesentation des Booleans $blnProgram zur Speicherung
-   * in der Datenbank.
-   *
-   * @param bool $blnProgram Boolean
-   * @return int 0, falls $blnProgram = false, und 1 sonst.
-   * @author Tom (12.01.05)
-   * @access private
-   * @todo Statische Funktion, falls moeglich
-   */
-  function b2db($blnProgram) {
-    return $this->success($blnProgram ? 1 : 0);
-  }
-
-  /**
-   * Liefert die Boolean-Repraesentation des Datenbank-Integers $intDatabase zur
-   * Verwendung im Programm.
-   *
-   * @param int $intDatabase Integer
-   * @return bool false gdw. $intDatabase leer (bzw. 0) ist.
-   * @author Tom (12.01.05)
-   * @access private
-   * @todo Statische Funktion, falls moeglich
-   */
-  function db2b($intDatabase) {
-    return $this->success(empty($intDatabase) ? false : true);
-  }
-
-  /**
    * Prueft, ob das Objekt $obj eine Instanz der Klasse mit Namen $strClass
    * oder eines Derivats davon ist.
    *
@@ -200,21 +171,6 @@ class DBAccess extends ErrorHandling {
     //$s = strtolower($strClass);
     //return (strtolower(get_class($obj)) == $s || is_subclass_of($obj, $s));
     return is_a($obj, $strClass);
-  }
-  
-  /**
-   * Liefert einen gueltigen String zur Speicherung in der Datenbank.
-   *
-   * @param string $strSql zu speichernder String
-   * @return string korrekt kodierter String
-   * @author Jan (18.01.05)
-   * @access private
-   * @todo Statische Funktion, falls moeglich
-   */
-  function s2db($strSql) {
-    // muss hier noch mehr? PHP 4.3!!!
-    $strSql = mysql_real_escape_string($strSql);
-    return $this->success($strSql);
   }
 
   // ---------------------------------------------------------------------------
@@ -337,9 +293,9 @@ class DBAccess extends ErrorHandling {
                              $data[0]['default_reviews_per_paper'],
                              $data[0]['min_number_of_papers'], $data[0]['max_number_of_papers'],
                              $data[0]['critical_variance'],
-                             $this->db2b($data[0]['auto_activate_account']),
-                             $this->db2b($data[0]['auto_open_paper_forum']),
-                             $this->db2b($data[0]['auto_add_reviewers']),
+                             db2b($data[0]['auto_activate_account']),
+                             db2b($data[0]['auto_open_paper_forum']),
+                             db2b($data[0]['auto_add_reviewers']),
                              $data[0]['number_of_auto_add_reviewers'], $objCriterions,
                              $objTopics);
     return $this->success($objConferenceDetailed);
@@ -1381,48 +1337,51 @@ nur fuer detaillierte?
                  "         notification = '%s', conference_start = '%s', conference_end = '%s',".
                  "         min_reviews_per_paper = '%d'".
                  " WHERE   id = '%d'",
-                           $this->s2db($objConferenceDetailed->strName),
-                           $this->s2db($objConferenceDetailed->strHomepage),
-                           $this->s2db($objConferenceDetailed->strDescription),
-                           $this->s2db($objConferenceDetailed->strAbstractDeadline),
-                           $this->s2db($objConferenceDetailed->strPaperDeadline),
-                           $this->s2db($objConferenceDetailed->strReviewDeadline),
-                           $this->s2db($objConferenceDetailed->strFinalDeadline),
-                           $this->s2db($objConferenceDetailed->strNotification),
-                           $this->s2db($objConferenceDetailed->strStart),
-                           $this->s2db($objConferenceDetailed->strEnd),
-                           $this->s2db($objConferenceDetailed->intMinReviewsPerPaper),
-                           $this->s2db($objConferenceDetailed->intId));
+                           s2db($objConferenceDetailed->strName),
+                           s2db($objConferenceDetailed->strHomepage),
+                           s2db($objConferenceDetailed->strDescription),
+                           s2db($objConferenceDetailed->strAbstractDeadline),
+                           s2db($objConferenceDetailed->strPaperDeadline),
+                           s2db($objConferenceDetailed->strReviewDeadline),
+                           s2db($objConferenceDetailed->strFinalDeadline),
+                           s2db($objConferenceDetailed->strNotification),
+                           s2db($objConferenceDetailed->strStart),
+                           s2db($objConferenceDetailed->strEnd),
+                           s2db($objConferenceDetailed->intMinReviewsPerPaper),
+                           s2db($objConferenceDetailed->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
     }
-/*    $s = sprintf("UPDATE   ConferenceConfig".
+    $s = sprintf("UPDATE   ConferenceConfig".
                  " SET     default_reviews_per_paper = '%d', min_number_of_papers = '%d',".
                  "         max_number_of_papers = '%d', critical_variance = '%f'".
                  "         auto_activate_account = '%d', auto_open_paper_forum = '%d',".
                  "         auto_add_reviewers = '%d', number_of_auto_add_reviewers = '%d'".
                  " WHERE   id = '%d'",
-                           $this->s2db($objConferenceDetailed->intDefaultReviewsPerPaper),
-                           $this->s2db($objConferenceDetailed->intMinNumberOfPapers),
-                           $this->s2db($objConferenceDetailed->intMaxNumberOfPapers),
-                           $this->s2db($objConferenceDetailed->flt),
-                 
-  */  
-    $s = "UPDATE  ConferenceConfig".
+                           s2db($objConferenceDetailed->intDefaultReviewsPerPaper),
+                           s2db($objConferenceDetailed->intMinNumberOfPapers),
+                           s2db($objConferenceDetailed->intMaxNumberOfPapers),
+                           s2db($objConferenceDetailed->fltCriticalVariance),
+                           s2db(b2db($objConferenceDetailed->blnAutoActivateAccount)),
+                           s2db(b2db($objConferenceDetailed->blnAutoOpenPaperForum)),
+                           s2db(b2db($objConferenceDetailed->blnAutoAddReviewers)),
+                           s2db($objConferenceDetailed->intNumberOfAutoAddReviewers),
+                           s2db($objConferenceDetailed->intId));
+/*    $s = "UPDATE  ConferenceConfig".
         " SET     default_reviews_per_paper = '$objConferenceDetailed->intDefaultReviewsPerPaper',".
         "         min_number_of_papers = 'objConferenceDetailed->intMinNumberOfPapers',".
         "         max_number_of_papers = 'objConferenceDetailed->intMaxNumberOfPapers',".
         "         critical_variance = 'objConferenceDetailed->fltCriticalVariance',".
         "         auto_activate_account = '".
-                    $this->b2db($objConferenceDetailed->blnAutoActivateAccount)."',".
+                    b2db($objConferenceDetailed->blnAutoActivateAccount)."',".
         "         auto_open_paper_forum = '".
-                    $this->b2db($objConferenceDetailed->blnAutoOpenPaperForum)."',".
+                    b2db($objConferenceDetailed->blnAutoOpenPaperForum)."',".
         "         auto_add_reviewers = '".
-                    $this->b2db($objConferenceDetailed->blnAutoAddReviewers)."',".
+                    b2db($objConferenceDetailed->blnAutoAddReviewers)."',".
         "         number_of_auto_add_reviewers = '".
         "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
-        " WHERE   id = '$objConferenceDetailed->intId'";
+        " WHERE   id = '$objConferenceDetailed->intId'";*/
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
@@ -1459,19 +1418,19 @@ nur fuer detaillierte?
                  "         affiliation = '%s', street = '%s', city = '%s', postal_code = '%s',".
                  "         state = '%s', country = '%s', phone_number = '%s', fax_number = '%s'".
                  " WHERE   id = '%d'",
-                           $this->s2db($objPersonDetailed->strFirstName),
-                           $this->s2db($objPersonDetailed->strLastName),
-                           $this->s2db($objPersonDetailed->strEmail),
-                           $this->s2db($objPersonDetailed->strTitle),
-                           $this->s2db($objPersonDetailed->strAffiliation),
-                           $this->s2db($objPersonDetailed->strStreet),
-                           $this->s2db($objPersonDetailed->strCity),
-                           $this->s2db($objPersonDetailed->strPostalCode),
-                           $this->s2db($objPersonDetailed->strState),
-                           $this->s2db($objPersonDetailed->strCountry),
-                           $this->s2db($objPersonDetailed->strPhone),
-                           $this->s2db($objPersonDetailed->strFax),
-                           $this->s2db($objPersonDetailed->intId));
+                           s2db($objPersonDetailed->strFirstName),
+                           s2db($objPersonDetailed->strLastName),
+                           s2db($objPersonDetailed->strEmail),
+                           s2db($objPersonDetailed->strTitle),
+                           s2db($objPersonDetailed->strAffiliation),
+                           s2db($objPersonDetailed->strStreet),
+                           s2db($objPersonDetailed->strCity),
+                           s2db($objPersonDetailed->strPostalCode),
+                           s2db($objPersonDetailed->strState),
+                           s2db($objPersonDetailed->strCountry),
+                           s2db($objPersonDetailed->strPhone),
+                           s2db($objPersonDetailed->strFax),
+                           s2db($objPersonDetailed->intId));
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePerson', $this->mySql->getLastError());
