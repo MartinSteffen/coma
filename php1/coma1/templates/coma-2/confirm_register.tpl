@@ -1,6 +1,4 @@
 
-<h2>Neuen Benutzer registrieren:</h2>
-
 <p class="center">
 
 <table class="formtable">
