@@ -122,9 +122,10 @@ function nl2tag($_str) {
  * @param string $_str String to encode
  * @return string encoded string
  */
-function encodeText($_str) {
+function encodeText($_str, $wrap=false) {
   $_str = strtr(trim($_str), "|", " ");
-  return nl2tag(htmlentities($_str, ENT_QUOTES, 'UTF-8'));
+  $_str = htmlentities($_str, ENT_QUOTES, 'UTF-8');
+  return ($wrap) ? nl2tag($_str) : $_str;
 }
 
 
