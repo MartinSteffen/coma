@@ -36,6 +36,50 @@ class Person {
     $this->intRoles = $intRoles;
     $this->strTitle = $strTitle;
   }
+
+  /**
+   * Fuegt der Person die Rolle $intRole hinzu. 
+   * @warning Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
+   *
+   * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
+   * @return bool konstant: true
+   * @access public
+   * @author Tom (04.12.04)
+   */
+  function addRole($intRole) {
+    $this->intRoles |= $intRole;
+    return true;
+  }
+
+  /**
+   * Aendert die Rolle $intRole der Person ().
+   * @warning Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
+   *
+   * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
+   * @return bool konstant: true
+   * @access public
+   * @author Tom (04.12.04)
+   */
+  function switchRole($intRole) {
+    $this->intRoles = ~((~$intRole) ^ ($this->intRoles));
+    return true;
+  }
+
+  /**
+   * Aendert die Rolle $intRole der Person ().
+   * @warning Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
+   *
+   * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
+   * @return bool konstant: true
+   * @access public
+   * @author Tom (04.12.04)
+   */
+  function deleteRole($intRole) {
+    if ($this->hasRole($intRole)) {
+      $this->switchRole($intRole);
+    }
+    return true;
+  }
   
   function hasRole($intRole) {
     return (($this->intRoles & (1 << $intRole)) != 0);
