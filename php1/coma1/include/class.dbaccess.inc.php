@@ -224,6 +224,46 @@ class DBAccess {
     }
     return false;
   }
+  
+  /**
+   * Liefert den Durchschnitt der Gesamtbewertungen des Papers $intPaperId.
+   *
+   * @param int $intPaperId ID des Papers
+   * @return flt bzw. <b>false</b>, falls keine Bewertungen des Papers gefunden wurden.
+   * @access private
+   * @author Sandro, Tom (06.12.04)
+   */
+  function getAverageRatingOfPaper($intPaperId) {
+    $s = 'SELECT  AVG('.
+        '         SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)'.
+        '         FROM    Rating AS r'.
+        '         INNER   JOIN Criterion AS c'.
+        '         ON      c.id = r.criterion_id'.
+        '         AND     r.review_id = rr.id))'.
+        ' FROM    ReviewReport AS rr'.
+        ' WHERE   rr.paper_id = '.$intPaperId;
+    $data = $this->mySql->select($s);
+    return $data;
+  }
+
+  /**
+   * Liefert die Gesamtbewertung eines Reviews (die Durchschnittsnote aller
+   * Kriterien unter Beruecksichtigung der Gewichtungen).
+   *
+   * @param int $intReviewId ID des Reviews
+   * @return int bzw. <b>false</b>, falls das Review nicht existiert.
+   * @access private
+   * @author Sandro, Tom (06.12.04)
+   */
+  function getReviewRating($intReviewId) {
+    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)'.
+        ' FROM    Rating AS r'.
+        ' INNER   JOIN Criterion AS c'.
+        ' ON      c.id = r.criterion_id'.
+        ' AND     r.review_id = '.$intReviewId.')';
+    $data = $this->mySql->select($s);
+    return $data;
+  }
 
   /**
    */

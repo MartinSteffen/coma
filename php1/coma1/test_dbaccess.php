@@ -30,4 +30,8 @@ if($p) {
   }
 }
 
+echo('rating of review #1 = '.$myDBAccess->getReviewRating(1).'<br>');
+echo('rating of review #2 = '.$myDBAccess->getReviewRating(2).'<br>');
+echo('avg rating of paper #1 = '.$myDBAccess->getAverageRatingOfPaper(1).'<br>');
+
 ?>
