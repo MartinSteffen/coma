@@ -952,7 +952,7 @@ class DBAccess extends ErrorHandling {
     }
     return $this->success($sum / count($data));*/
 
-    $s = sprintf("SELECT   c.id AS id, c.max_value AS max_value, c.quality_rating/100 AS weight,",
+    $s = sprintf("SELECT   c.id AS id, c.max_value AS max_value, c.quality_rating/100 AS weight,".
                  "         SUM(r.grade) AS sum_grade, COUNT(*) AS num".
                  " FROM    ReviewReport AS rr".
                  " INNER   JOIN Distribution AS d".
