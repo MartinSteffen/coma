@@ -133,10 +133,11 @@ $output['paper'] = $paper;
 		{
 			$rating = array();
 			$rating['criterionName'] = $list2[0];
-			$rating['qualityRating'] = $list2[1]/$max_quality*100;
+			$currentQualityRating = $list2[1]/$max_quality*100;
+			$rating['qualityRating'] = number_format($currentQualityRating,2);
 			$currentRate = ($list2[2]-1)/($list2[4]-1)*100;
 			$rating['grade'] = number_format($currentRate,2);
-			$totalGrade = $totalGrade + ($currentRate*$rating['qualityRating']);
+			$totalGrade = $totalGrade + ($currentRate*$currentQualityRating);
 			$rating['comment'] = $list2[3];				 
 			$ratings[$ratingCount] = $rating;
 			$ratingCount++;
