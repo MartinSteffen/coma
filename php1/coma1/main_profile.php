@@ -33,17 +33,23 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>E-mail</b>!';
   }
   // Teste, ob die Email gueltig ist
-  else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
+  elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
     $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist
-  else if ($_POST['email'] != $objPerson->strEmail &&
+  elseif ($_POST['email'] != $objPerson->strEmail &&
            $myDBAccess->checkEmail($_POST['email'])) {
     if ($myDBAccess->failed()) {
       error('Check e-mail failed.', $myDBAccess->getLastError());
     }
-    $strMessage = 'Account with the given E-mail address is already existing! '.
+    $strMessage = 'Account with the given E-mail address already exists! '.
                   'Please use another E-mail address!';
+  }
+  elseif ($_POST['password'] != $_POST['password2']) {
+    $strMessage = 'You have to enter your new Password correctly twice!';
+  }
+  elseif (0 < strlen($_POST['password']) < 2) {
+    $strMessage = 'Your Password must contain at least 2 characters!';
   }
   else {
     $objPerson->strFirstName   = $_POST['first_name'];
@@ -68,7 +74,9 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
         // Datenbankfehler?
         error('Error during updating account.', $myDBAccess->getLastError());
       }
-      updatePersonPassword('','');
+      if ($_POST['password'] != '') {
+        updatePersonPassword(seesion(uid), $_POST['password');
+      }
     }
   }
 }

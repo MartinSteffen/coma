@@ -12,15 +12,15 @@
       Password:
     </td>
     <td>
-      <input type="password" name="password1" size="48" maxlength="127" value="not changed">
+      <input type="password" name="password1" size="48" maxlength="127" value="">
     </td>
   </tr>
   <tr>
     <td>
-      Password:
+      Repeat Password:
     </td>
     <td>
-      <input type="password" name="password2" size="48" maxlength="127" value="not changed">
+      <input type="password" name="password2" size="48" maxlength="127" value="">
     </td>
   </tr>
   <tr>
