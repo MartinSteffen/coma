@@ -49,9 +49,9 @@ if ($_POST['submit']) {
 					paper_submission_deadline, review_deadline, final_version_deadline,
 					notification, conference_start, conference_end, min_reviews_per_paper)
 				VALUES (
-					'$confname','$confhomepage','$confdescription','1970-01-01',
-					'1970-01-01','1970-01-01','1970-01-01',
-					'1970-01-01','1970-01-01','1970-01-01','3')";
+					'$confname','$confhomepage','$confdescription','1970-02-01',
+					'1970-02-01','1970-02-01','1970-02-01',
+					'1970-02-01','1970-02-01','1970-01-02','3')";
 			$insertstatement2="
 				INSERT INTO person (
 					last_name, email, password)
