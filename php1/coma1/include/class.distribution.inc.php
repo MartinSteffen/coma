@@ -65,8 +65,8 @@ class Distribution extends ErrorHandling {
     define('DENIES', 3); // Paper
     define('EXCLUDED', 4); // Paper
 
-    define('FAC_PREF', 2000.0); // Faktor fuer Preferred Topic
-    define('FAC_WANT', 10000.0); // Faktor fuer Preferred Paper
+    define('FAC_PREF', 20000.0); // Faktor fuer Preferred Topic
+    define('FAC_WANT', 100000.0); // Faktor fuer Preferred Paper
 
     if (empty($intConferenceId)) {
       return $this->success(false);
@@ -200,8 +200,10 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($excluded); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
         $pindex = $p_id_index[$excluded[$j]['paper_id']];
-        $matrix[$i][$pindex] = 0;
-        $p_num_revs_total_left[$pindex]--;
+        if ($matrix[$i][$pindex] != 0) { // sollte immer != 0 sein...
+          $matrix[$i][$pindex] = 0;
+          $p_num_revs_total_left[$pindex]--;
+        }
       }
       // Abgelehnte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
@@ -242,8 +244,8 @@ class Distribution extends ErrorHandling {
         $pindex = $p_id_index[$prefers[$j]['paper_id']];
         if ($matrix[$i][$pindex] == 1) {
           $p_num_revs_pref_left[$pindex]++;
+          $matrix[$i][$pindex] = FAC_PREF;
         }
-        $matrix[$i][$pindex] *= FAC_PREF;
       }
       // Gewuenschte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
@@ -260,10 +262,8 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($wants); $j++) {
         //$this->addBit($matrix[$i][$p_id_index[$wants[$j]['paper_id']]], WANTS);
         $pindex = $p_id_index[$wants[$j]['paper_id']];
-        if ($matrix[$i][$pindex] != 0) {
-          if ($matrix[$i][$pindex] == 1) {
-            $p_num_revs_pref_left[$pindex]++;
-          }
+        if ($matrix[$i][$pindex] == 1) {
+          $p_num_revs_pref_left[$pindex]++;
           $matrix[$i][$pindex] = FAC_WANT;
         }
       }
