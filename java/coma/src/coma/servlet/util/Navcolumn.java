@@ -16,8 +16,6 @@ import static coma.util.logging.Severity.*;
 
 
 
-import static coma.servlet.util.XMLHelper.tagged;
-
 
 /**
    Java helper class to create the Navigation columns in the output.
@@ -78,7 +76,7 @@ public class Navcolumn {
 	// 		      ((p != null) 
 	// 		       && (p.isReviewer()))? tagged("isReviewer") : "")
 	// 	    .toString();
-	result.append(tagged("theTime", new Date()));
+	result.append(XMLHelper.tagged("theTime", new Date()));
 	if ( p == null ){
 
 
@@ -109,20 +107,22 @@ public class Navcolumn {
 								XMLMODE.SHALLOW)));
 
 	//result.append(extraData);
-	result.append(tagged("noUser"));
+	result.append(XMLHelper.tagged("noUser"));
     } else {
 	result.append(p.toXML(XMLMODE.SHALLOW));
 	if (p.isChair())
-	    result.append(tagged("isChair"));
+	    result.append(XMLHelper.tagged("isChair"));
 	if (p.isAuthor())
-	    result.append(tagged("isAuthor"));
+	    result.append(XMLHelper.tagged("isAuthor"));
 	if (p.isReviewer())
-	    result.append(tagged("isReviewer"));
+	    result.append(XMLHelper.tagged("isReviewer"));
+	if (p.isAdmin())
+	    result.append(XMLHelper.tagged("isAdmin"));
     }
     for (String s: extradata){
 	result.append(s);
     }
-    return tagged("navcolumn", result).toString();
+    return XMLHelper.tagged("navcolumn", result).toString();
 }
     public Conference[] getConferenceArray()
     {
