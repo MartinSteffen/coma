@@ -1,11 +1,18 @@
 package coma.handler.util;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import java.util.Enumeration;
 import java.util.regex.*;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 
 import coma.entities.Conference;
 import coma.entities.Criterion;
@@ -63,7 +70,7 @@ public class EntityCreater {
 		}
 		return conference;
 	}
-
+	
 	public Person getPerson(ResultSet resSet) {
 		Person person = new Person(-1);
 		try{
@@ -88,7 +95,17 @@ public class EntityCreater {
 		}
 		return person;
 	}
-
+	/**
+	 * @author mti
+	 * @version 0.1
+	 * @param request the form elements
+	 * @return the Person submitted by the form
+	 * 
+	 * consistency check of the form inputs:
+	 * - email regex match
+	 * - password retpyp match
+	 * - last_name not empty 
+	 */
 	public Person getPerson(HttpServletRequest request)
 			throws IllegalArgumentException {
 
@@ -144,9 +161,52 @@ public class EntityCreater {
 		return paper;
 	}
 
-	public Paper getPaper(HttpServletRequest request) {
-		Paper paper = new Paper(-1);
-		//TODO
+	/**
+	 * @author mti
+	 * @version 0.1
+	 * <b>This will need the com.oreilly.servlet.* packets</b>
+	 * available <a href="http://snert.informatik.uni-kiel.de:8080/~wprguest3/downloads/">here!</a>
+	 * @param request the form elements
+	 * @return the paper submitted by the form
+	 * 
+	 * maybe missing error handling
+	 * 
+	 * consistency check of the form inputs:
+	 * - linits the file size to 5 MB
+	 * - stores the file on the disk
+	 * 
+	 */
+	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException, IOException {
+		Paper paper = new Paper(-1); // new Paper
+		// path where the paper is stored
+		String webTempPath = request.getContextPath()+"/papers";
+		// limit the size and store the file
+		MultipartRequest mpr = new MultipartRequest(request,webTempPath,(5*1024*1024),new DefaultFileRenamePolicy());
+		//get file and parameter names
+		Enumeration paramNames = request.getParameterNames();
+		while (paramNames.hasMoreElements()) {
+			if (request.getParameter((String)paramNames.nextElement()).equals(""))
+				throw new IllegalArgumentException();
+			
+		}
+		Enumeration fileNames = mpr.getFileNames();
+		//
+		String theSystemFileName = mpr.getFilesystemName((String) fileNames.nextElement());
+		
+		// get session attributes
+		HttpSession session= request.getSession(true);
+		Person theAuthor = (Person) session.getAttribute("person");
+		Conference theConference = (Conference) session.getAttribute("conference");
+		
+		// set the paper attributes
+		paper.setAbstract(request.getParameter("abstract"));
+		paper.setAuthor_id(theAuthor.getId());
+		paper.setConference_id(theConference.getId());
+		paper.setFilename(theSystemFileName);
+		paper.setMim_type(mpr.getContentType(theSystemFileName));
+		paper.setState(-1);
+		paper.setTitle(request.getParameter("title"));
+				
 		return paper;
 	}
 
