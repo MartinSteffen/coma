@@ -1,3 +1,147 @@
+Datum: 11.Januar.2005
+Anwesend: Gunnar, Marcel, Martin, von jeder Gruppe mindestens 2.
+--------------------------------------------------------------------------------
+
+
+
+
+Moin, hier die Punkte die mir im Ged"achtnis blieben.
+
+
+1) Status/Zeitplan (und ``sollen/duergen wir in der Vorlesungsfreien Zeit
+   arbeiten?'')
+
+        Momentan sind die einzelnen Gruppen in Bezug auf Status
+        und Zeitplan noch nicht richtig Aussagef"ahig, da
+        manche Teilnehmer w"ahrend der Ferien gearbeitet haben
+        und demzufolgen erst noch gruppenintern der Stand
+        abgeglichen werden muss. 
+
+        Das gilt auch (und ganz besonders!) in Bezug auf
+        die Einbindung der Tester.
+
+
+        Was die verbleibende Zeit betrifft: der Zeitplan ``Ende des
+        Semesters ist Schicht'' bleibt, da weder von unserer Seite noch
+        (vermutlich) von Seiten der Studenten eine ``Dauerveranstaltung''
+        gew"unscht wird (ms: von mir wird sie jedenfalls nicht
+        erw"unscht....).
+
+        Das bedeutet: wenn sich im Lichte des
+        
+            - bisher erreichten
+            - des noch zu erreichenden/geplanten, daraus folgend
+            - der bislang beobachteten Geschwindigkeit, und
+            - m"oglicher Stolplersteine auf dem Weg ins Ziel
+
+        abzeichnet, das man sich einzelne Funktionalit"aten 
+
+            > vereinfachen muss  (einfacherer Balancieralgorithmis, einfachere Forum
+               einfachere Oberfl"ache, was auch immer)
+
+            > (Extra)features weggelassen muss
+
+        
+          dann soll man das _geplant_ so machen. Mit ``geplant'' ist gemeint
+          da"s man explizit sagt 
+
+             - Dies und das lasse wir weg/implementieren wir nicht 
+
+          Nicht statthaft ist: 
+
+            ``unser vereinfachter Plan sieht vor dass wir alles
+               implementiere, soweit wir es halt schaffen, und am Ende
+               schau'mer mal: das was da ist, ist das was wir wollten...''
+
+        
+         Ferner soll man ber"ucksichtigen, da"s es nicht gut ist den
+         ``Fertigstellungstermin'' auf den Tag der Demo zu setzten!  Der
+         Plan sollte mindestens 2 Wochen vorher sagen: da planen wir, im
+         Grunde fertig zu sein!  (erstens kommt es eventuell anders,
+         zweitens muss man eventuell noch nachbessern, denn die Tester
+         werden nicht 2 Wochen vorher die Arbeit einstellen....Umgekehrt
+         natuerlich: die Tester fangen auch nicht 2 Wochen vor Ende des
+         Semester an, das ist auch hoffentlich klar.)
+
+        Aktionsplan: jeder der Gruppen setzt sich  
+
+           - intern zusammen, und gleicht sich untereinander ab
+             wie der Status ist
+
+           - Entwickelt ein Statement im Lichte des oben gesagten, ob sie
+             noch im Zeitplan sind bzw ob sie einen Reduzierten Umfang
+             realisieren wollen/muessen (und worin die Reduktion besteht!)
+
+           - Die Interne Absprache geschieht unter Mitwirkung des 
+             Testers, denn jeweilige  muss verst"arkt eingebunden
+             werden!
+
+
+        Speziell die Gruppen PHP2 und Java soll die Sache auch nicht nur
+         intern abkl"aren sondern in einer Sitzung bei der mindestens einer
+         von uns (Gunnar/Marcel/ich) dabei sind, da der Wunsch von
+         mindestens einem Mitglied der Gruppe ge"au"sert wurde. Gruppe PHP1
+         glaubt, die interne Coordination (und die Coordination mit Ihrem
+         Tester) selbstst"andig regeln zu k"onnen; eine
+         Gemeinschaftssitzung dann nur nach Bedarf.
+        
+
+
+
+   o SQL-Testdaten:
+
+          Oliver Niemann hat die in der Mache, aber die ``Klienten'' (bis
+          auf eventuell PHP1?) nutzen sie noch nicht (aber der Wunsch ist
+          vorhanden. Auch dies muss schleunigst in die Wege geleitet werden
+          (und ist sicherlich ein Punkt der bei den
+          Gruppen-Coordinationssitzungen auf der Tagesordnung stehen
+          wird.....
+        
+          Spezielle sind auch ``gute Daten'' im Gegensatz zu ``boesen Daten''
+          erw"unscht, sowie vermutlich Doku und Kommunkation.
+
+   o  Admin Rolle aka Henne/Ei-Problem
+
+         Angeregt durch das Problem der PHP1 Gruppe kamen 2 Dinge zum Vorschein:
+
+        1) keine der Gruppen verwendet die Admin-Rolle f"ur Konferenzen, die
+            in 
+
+              trunk/sql/db_schema.txt
+
+          beschrieben sind.
+
+        2) Keine der Gruppen verwendet die an gleicher Stelle beschriebene
+          Option der Roles-Tabelle (nicht role), die in den Diskussionen
+          f"ur diejenigen als optional erlaubt wurden, die ein flexibleres
+          und erweiterbareres Schema wollten als das feste, numerische
+          Schema "uber Integers.
+
+
+        Da also niemand Admin als Rolle einer Konferenz implementiert noch
+        die Tabelle Roles verwendet =>
+
+            - die numerischen Rollen-Werte sind nach Beschluß somit für
+              alle Verbindlich bis auf die Rolle admin.
+
+            - Die Tabelle Roles fällt weg. (Sieht nun etwas unsch"on aus,
+              da"s die Nummer 01 nicht verwendet wird, aber daf"ur mu"s man
+              den Code nicht anpassen.
+        
+        => Aktion: wir (org) "andern das in trunk/sql, die globale Spec wird 
+           von uns angepasst.
+
+
+    o Endabnahme:
+                Demo+Vortrag, wir werden uns um einen Raum mit Zugriff
+               auf Snert k"ummern (vermutlich Ue2, wie gehabt).        
+
+
+
+
+Martin
+
+
 
 
 ===== vorankuendigung ====
