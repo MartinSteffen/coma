@@ -132,7 +132,7 @@ if (!empty($objPapers)) {
       $strItemAssocs['variance'] = ' - ';
       $ifArray[] = 7;
     }
-    if (objPaper->intStatus != PAPER_ACCEPTED) {
+    if ($objPaper->intStatus != PAPER_ACCEPTED) {
       $ifArray[] = 8;
     }
     $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
