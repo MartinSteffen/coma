@@ -7,13 +7,16 @@ if(isChair_Topic($_POST['topicID']))
 {
 	if(isset($_POST['Submit']))
 	{
-		$topicName = $_POST['topicName'];
+		if(!($_POST['topicName']==""))
+		{	
+			$topicName = $_POST['topicName'];
 		
-		$SQL = "UPDATE topic 
-		SET name = '$topicName'
-		WHERE id = ".$_POST['topicID'];
-		
-		$result=mysql_query($SQL);		
+			$SQL = "UPDATE topic 
+			SET name = '$topicName'
+			WHERE id = ".$_POST['topicID'];
+			
+			$result=mysql_query($SQL);		
+		}
 	}
 	redirect("chair","conferences","conference","confID=".$_POST['confID']);
 }

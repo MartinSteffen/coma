@@ -103,10 +103,29 @@ if(isChair_Conference($_GET['confID']))
 		$count++;
 	}
 	
+	//Get the criterions
+	$SQL = "SELECT id, name, description, max_value, quality_rating 
+			FROM criterion 
+			WHERE conference_id = ".$_GET['confID'];
+    $result=mysql_query($SQL);
+    $criterions = array();
+	$count = 0;
+    while ($list = mysql_fetch_row ($result)) 	
+    {
+		$criterion = array();
+		$criterion['criterionID'] = $list[0];
+		$criterion['criterionName'] = $list[1];
+		$criterion['criterionDesc'] = $list[2];		
+		$criterion['maxValue'] = $list[3];
+		$criterion['qualityRating'] = $list[4];
+		$criterions[$count] = $criterion;
+		$count++;
+	}	
 		
 	$output = array();
 	$output['conference'] = $conference;				
 	$output['topics'] = $topics;
+	$output['criterions'] = $criterions;
 
 $TPL['chair'] = $output;
 template("CHAIR_conference");

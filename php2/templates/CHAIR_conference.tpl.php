@@ -3,6 +3,7 @@ include("header.tpl.php");
 $input = d('chair');
 $conference = $input['conference'];
 $topics = $input['topics'];
+$criterions = $input['criterions'];
 ?>
 
 <script language="JavaScript" src="templates/calendar.js"></script>
@@ -255,6 +256,113 @@ $topics = $input['topics'];
 </table>
 <br>
 <br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+<? if (count($criterions) == 0)
+   {  ?>
+    <td class="textBold" width="100%">There are no criterions in this conference</td>
+<? }
+   else
+   {  ?>
+    <td class="textBold" width="100%">List of criterions:</td>   
+<?  } ?>   
+  </tr>
+</table>
+<br>
+<? if (!(count($criterions) == 0))
+   {  ?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr align="left" valign="top"> 
+    <td class="textBold" width="155">Criterion name</td>
+    <td class="textBold" width="270">Description</td>
+    <td class="textBold" width="111">Maximum value</td>
+    <td class="textBold" width="110">Quality rating</td>
+    <td width="150">&nbsp;</td>
+    <td width="100%">&nbsp;</td>
+  </tr>
+  <?
+  foreach ($criterions as $criterion)
+  {  ?>
+  <form name="criterionForm<? echo $criterion['criterionID'] ?>" method="post" action="index.php?m=chair&a=conferences&s=updateCriterion">
+  <input type="hidden" name="confID" value="<? echo $conference['confID'] ?>">
+  <input type="hidden" name="criterionID" value="<? echo $criterion['criterionID'] ?>">
+    <tr align="left" valign="top"> 
+      <td class="text"> 
+        <input type="text" name="criterionName" value="<? echo $criterion['criterionName'] ?>" maxlength="127" size="20">
+      </td>
+      <td class="text"> 
+        <textarea name="criterionDesc" rows="5" cols="30"><? echo $criterion['criterionDesc'] ?></textarea>
+      </td>
+      <td class="text"> 
+        <input type="text" name="maxValue" value="<? echo $criterion['maxValue'] ?>" maxlength="4" size="4">
+      </td>
+      <td class="text"> 
+        <input type="text" name="qualityRating" value="<? echo $criterion['qualityRating'] ?>" size="4" maxlength="4">
+      </td>
+      <td>
+        <input type="submit" name="Submit" value="Update criterion">
+      </td>
+      <td> <a class="normal" href="index.php?m=chair&a=conferences&s=deleteCriterion&criterionID=<? echo $criterion['criterionID'] ?>&confID=<? echo $conference['confID'] ?>" onclick="return confirm('Are you sure you want to delete this criterion?\r\nAll the reviews for this criterion will be lost!')">Delete the criterion</a> </td>
+    </tr>
+  </form>
+  <? } ?>
+    <tr> 
+      <td height="1"><img height="1" width="155" src="/templates/images/spacer.gif"></td>
+      <td><img height="1" width="270" src="/templates/images/spacer.gif"></td>
+      <td><img height="1" width="111" src="/templates/images/spacer.gif"></td>
+      <td><img height="1" width="110" src="/templates/images/spacer.gif"></td>
+      <td><img height="1" width="150" src="/templates/images/spacer.gif"></td>
+      <td></td>	  
+    </tr>  
+</table>
+<br>
+<? } ?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+  <tr> 
+    <td class="textBold" width="100%" align="left">Insert a new criterion:</td>
+  </tr>
+  <tr> 
+	<td class="text" width="100%">&nbsp;</td>
+  </tr> 
+</table>
+<form name="newCriterionForm" method="post" action="index.php?m=chair&a=conferences&s=addCriterion">
+  <input type="hidden" name="confID" value="<? echo $conference['confID'] ?>">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr align="left" valign="top"> 
+      <td class="textBold" width="120">Criterion name</td>
+      <td class="text" width="100%"> 
+        <input type="text" name="criterionName" value="" maxlength="127" size="20"></td>
+  </tr>   
+    <tr align="left" valign="top"> 
+      <td class="textBold" width="120">Description</td>
+	  <td class="text" width="100%"> 
+        <textarea name="criterionDesc" rows="5" cols="30"></textarea></td>
+  </tr> 
+    <tr align="left" valign="top"> 
+      <td class="textBold" width="120">Maximum value</td>
+      <td class="text" width="100%"> 
+        <input type="text" name="maxValue" value="" maxlength="4" size="4"></td>
+  </tr>  
+    <tr align="left" valign="top"> 
+      <td class="textBold" width="120">Quality rating</td>
+      <td class="text" width="100%"> 
+        <input type="text" name="qualityRating" value="" size="4" maxlength="4"></td>
+  </tr>  
+    <tr align="left" valign="top"> 
+      <td class="textBold" width="120">&nbsp;</td>
+      <td class="text" width="100%">&nbsp;</td>
+  </tr>    
+    <tr align="left" valign="top"> 
+      <td class="textBold" width="120">&nbsp;</td>
+      <td class="text" width="100%"> 
+        <input type="submit" name="Submit" value="Add criterion"></td>
+  </tr>      
+  <tr>
+	<td><img height="1" width="120" src="/templates/images/spacer.gif"></td> 
+	<td></td>   
+  </tr>
+</table>
+</form>
 <?
 include("footer.tpl.php");
 ?>
