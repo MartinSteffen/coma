@@ -88,10 +88,11 @@ function encodeURL($_str) {
   if (!preg_match('#^http[s]?:\/\/#i', $_str)) {
     $_str = 'http://' . $_str;
   }
-  if (!preg_match('#^http[s]?:\/\/[a-z0-9\-]+\.([a-z0-9\-]+\.)?[a-z]+#i', $_str))
-  {
-    $_str = '#';
-  }
+  // allow not working links?
+  //if (!preg_match('#^http[s]?:\/\/[a-z0-9\-]+\.([a-z0-9\-]+\.)?[a-z]+#i', $_str))
+  //{
+  //  $_str = '#';
+  //}
   return $_str;
 }
 
