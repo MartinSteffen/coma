@@ -1,7 +1,7 @@
 
 {if9<p class="message">{message}</p>}
 
-<form action="{basepath}{targetpage}{?SID}" method="post" enctype="multipart/form-data">
+<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="paperid" value="{paper_id}">
   <input type="hidden" name="coauthors_num" value="{coauthors_num}">
@@ -86,32 +86,13 @@
   <tr>
     <td>Upload new document:</td>
     <td>
-      <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
-      <input type="file"   name="userfile" maxlength="2097152" accept="*">
+      <input type="submit" name="upload" value="Upload" class="button">
     </td>
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="upload" value="Upload" class="button">
-      <select name="mimetype" size="1">
-        <option>image/gif</option>
-        <option>image/jpeg</option>
-        <option>text/html</option>        
-        <option>text/plain</option>
-        <option>text/richtext</option>
-        <option>text/rtf</option>
-        <option>application/latex</option>
-        <option>application/msexcel</option>
-        <option>application/mspowerpoint</option>
-        <option>application/msword</option>
-        <option>application/force-download</option>
-        <option selected>application/pdf</option>
-        <option>application/postscript</option>
-        <option>application/rtf</option>
-        <option>application/tex</option>
-        <option>application/x-tar</option>
-        <option>application/zip</option>
-      </select>
+      <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+      <input type="file"   name="userfile" maxlength="2097152" accept="*">
     </td>
   </tr>
 </table>
