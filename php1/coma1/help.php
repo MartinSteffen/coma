@@ -59,26 +59,43 @@ $strContentAssocs = defaultAssocArray();
 
 //angeforderte hilfethemen bestimmen und template zusammenbauen
 $strArrayHelpTopics = explode(' ',$_GET['for']);
-var_dump($strArrayHelpTopics);
 
-//nur zu testzwecken
-$toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
-$tocassocs = defaultAssocArray();
-$tocassocs['chapter-no'] = '0';
-$tocassocs['chapter-title'] = 'Table of contents';
-$tocassocs['related-topics'] = '';
-$tocassocs['special'] = 'example';
-$tocassocs['related-link'] = '';
-$toccontent = new Template(TPLPATH . 'toc.tpl');
-$toccontentassocs = defaultAssocArray();
-$toccontentassocs['popup'] = '';
-$toccontent->assign($toccontentassocs);
-$toccontent->parse();
-$tocassocs['content'] = $toccontent->getOutput();
-$toctemplate->assign($tocassocs);
-$toctemplate->parse();
-$strContentAssocs['toc'] = $toctemplate->getOutput();
-//---
+if (in_array('toc', $strArrayHelpTopics)){
+  $toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
+  $tocassocs = defaultAssocArray();
+  $tocassocs['chapter-no'] = '0';
+  $tocassocs['chapter-title'] = 'Table of contents';
+  $tocassocs['related-topics'] = '';
+  $tocassocs['special'] = '';
+  $tocassocs['related-link'] = '';
+  $toccontent = new Template(TPLPATH . 'toc.tpl');
+  $toccontentassocs = defaultAssocArray();
+  $toccontentassocs['popup'] = '';
+  $toccontent->assign($toccontentassocs);
+  $toccontent->parse();
+  $tocassocs['content'] = $toccontent->getOutput();
+  $toctemplate->assign($tocassocs);
+  $toctemplate->parse();
+  $strContentAssocs['toc'] = $toctemplate->getOutput();
+}
+if (empty($strArrayHelpTopics)){
+  $toctemplate = new Template(TPLPATH . 'help_chapter.tpl');
+  $tocassocs = defaultAssocArray();
+  $tocassocs['chapter-no'] = '0';
+  $tocassocs['chapter-title'] = 'Table of contents';
+  $tocassocs['related-topics'] = '';
+  $tocassocs['special'] = '';
+  $tocassocs['related-link'] = '';
+  $toccontent = new Template(TPLPATH . 'toc.tpl');
+  $toccontentassocs = defaultAssocArray();
+  $toccontentassocs['popup'] = '';
+  $toccontent->assign($toccontentassocs);
+  $toccontent->parse();
+  $tocassocs['content'] = $toccontent->getOutput();
+  $toctemplate->assign($tocassocs);
+  $toctemplate->parse();
+  $strContentAssocs['toc'] = $toctemplate->getOutput();
+}
 
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $content->assign($strContentAssocs);
