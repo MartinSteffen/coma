@@ -5,4 +5,5 @@ import sys
 sys.path.insert(0, '@pkgpythondir@')
 
 import coma_setup
-coma_setup.main(sys.argv[1:])
+coma_setup.main({ 'templates' : '@pkgdatadir@',
+                  'libraries' : '@pkgpythondir@'}, sys.argv[1:])
