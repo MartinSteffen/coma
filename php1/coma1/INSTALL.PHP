@@ -22,6 +22,10 @@ elseif (isset($_GET['3'])) {
 elseif (isset($_GET['4'])) {
   $STEP = 4;
 }
+elseif (isset($_GET['downloadconfig'])) {
+ 
+  die(0); 
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -96,7 +100,8 @@ elseif ($STEP == 1){
   $sqlDatabase = htmlentities(stripslashes($sqlDatabase), ENT_QUOTES, 'UTF-8');
   echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
   echo "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"4\">\n";
-  echo "          <tr><td>SQL-Server: </td><td><input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\" value=\"$sqlServer\"></td></tr>\n";
+  echo "          <tr><td>SQL-Server: </td><td><input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\" value=\"$sqlServer\"></td>";
+  echo "              <td rowspan=\"5\"><input type=\"submit\" name=\"downloadconfig\" value=\"Download Config File\"></td></tr>\n";
   echo "          <tr><td>SQL-User: </td><td><input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\" value=\"$sqlUser\"></td></tr>\n";
   echo "          <tr><td>SQL-Password: </td><td><input type=\"text\" name=\"sqlPassword\" size=\"48\" maxlength=\"127\" value=\"$sqlPassword\"></td></tr>\n";
   echo "          <tr><td>SQL-Database: </td><td><input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\" value=\"$sqlDatabase\"></td></tr>\n";

@@ -110,7 +110,3 @@ else {
 
 </body>
 </html>
-<?php
-  // Ausfuehrung beenden
-  die(1);
-?>
