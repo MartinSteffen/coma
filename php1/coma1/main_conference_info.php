@@ -21,7 +21,7 @@ if (isset($_GET['confid'])) {
     error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
   }
   else if (empty($objConference)) {
-    error('Conference does not exist in database.', $myDBAccess->getLastError());
+    error('Conference does not exist in database.', '');
   }
 }
 else {

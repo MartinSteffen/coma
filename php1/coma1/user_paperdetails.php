@@ -21,7 +21,7 @@ if (isset($_GET['paperid'])) {
     error('Error occured during retrieving paper.', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
-    error('Paper does not exist in database.', $myDBAccess->getLastError());
+    error('Paper does not exist in database.', '');
   }
 }
 else {

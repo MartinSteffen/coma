@@ -21,7 +21,7 @@ if (isset($_GET['userid'])) {
     error('Error occured during retrieving person.', $myDBAccess->getLastError());
   }
   else if (empty($objPerson)) {
-    error('Person does not exist in database.', $myDBAccess->getLastError());
+    error('Person does not exist in database.', '');
   }
 }
 else {

@@ -2063,29 +2063,40 @@ nur fuer detaillierte?
    * Legt eine neue Konferenz an.
    *
    * @param string $strAbstractDeadline Deadline fuer die Einsendung der Abstracts
-   * @param string $strPaperDeadline    Deadline fuer die Einsendung der Paper zum Review
+   * @param string $strPaperDeadline    Deadline fuer die Einsendung der Paper
    * @param string $strReviewDeadline   Deadline fuer die Reviews
-   * @param string $strFinalDeadline    Deadline fuer die Einsendung der finale Version der Paper (?)
+   * @param string $strFinalDeadline    Deadline fuer die Einsendung der finale Version der Paper
+   * @param string $strNotification     Bekanntgabe der angenommenen Paper
    *
    * @access public
    * @author Daniel (31.12.04), ueberarbeitet von Tom (13.01.05)
    */
   function addConference($strName, $strHomepage, $strDescription, $strAbstractDeadline,
                          $strPaperDeadline, $strReviewDeadline, $strFinalDeadline,
-                         $strNotification, $strConferenceStart, $strConferenceEnd) {
+                         $strNotification, $strConferenceStart, $strConferenceEnd,
+                         $intMinReviews, $intDefaultReviews, $intMinPapers, $intMaxPapers
+                         $fltVariance, $blnAutoActAccount, $blnAutoPaperForum,
+                         $blnAutoAddReviewer, $intNumAutoAddReviewer) {
     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
         "                          paper_submission_deadline, review_deadline,".
         "                          final_version_deadline, notification, conference_start,".
-        "                          conference_end)".
+        "                          conference_end, min_reviews_per_paper)".
         "         VALUES ('$strName', '$strHomepage', '$strDescription', '$strAbstractDeadline',".
         "                 '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline',".
-        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd')";    
+        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd',".
+        "                 '$intMinReviews')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addConference', $this->mySql->getLastError());
     }
-    $s = "INSERT  INTO ConferenceConfig (id)".
-        "         VALUES ('$intId')";
+    $s = "INSERT  INTO ConferenceConfig (id, default_reviews_per_paper,".
+         "                               min_number_of_paper, max_number_of_papers,".
+         "                               critical_variance, auto_activate_account,".
+         "                               auto_open_paper_forum, auto_add_reviewers,".
+         "                               number_of_auto_add_reviewers)".
+         "         VALUES ('$intId', '$intDefaultReviews', '$intMinPapers',".
+         "                 '$intMaxPaper', '$fltVariance', '$blnAutoActAccount',
+         "                 '$blnAutoPaperForum', '$blnAutoAddReviewer', '$intNumAutoAddReviewer')";
     $this->mySql->insert($s);
     if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
       $strError = $this->mySql->getLastError();
@@ -2290,10 +2301,6 @@ nur fuer detaillierte?
    * Erstellt einen neuen Review-Report-Datensatz in der Datenbank, sowie die
    * mit diesem Review-Report assoziierten Ratings (Bewertungen in den einzelnen
    * Kriterien). Initial sind die Bewertungen 0 und die Kommentartexte leer.
-   *
-   * @todo [TODO] Bleibt evtl. nicht an dieser Stelle stehen, sondern wandert in ein anderes Skript!
-   *        Anm. v. Tom: Dann ALLE Vorkommen von $this durch $myDBAccess (oder so)
-   *                     ersetzen, sonst drohen Probleme wegen der Fehlerbehandlung!
    */
 
    function createNewReviewReport($intPaperId, $intReviewerId, $intConferenceId) {

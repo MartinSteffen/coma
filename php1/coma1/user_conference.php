@@ -20,7 +20,7 @@ if ($myDBAccess->failed()) {
   error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
 }
 else if (empty($objConference)) {
-  error('Conference does not exist in database.', $myDBAccess->getLastError());
+  error('Conference does not exist in database.', '');
 }
 
 $content = new Template(TPLPATH.'user_conference.tpl');
