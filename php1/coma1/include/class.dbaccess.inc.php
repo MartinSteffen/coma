@@ -566,7 +566,7 @@ class DBAccess extends ErrorHandling {
    * @author Tom (12.12.04)
    */
   function getPaperDetailed($intPaperId) {
-    $s = "SELECT  author_id, title, state, abstract, format, last_edited, filename".
+    $s = "SELECT  author_id, title, state, abstract, mime_type, last_edited, filename".
         " FROM    Paper".
         " WHERE   id = $intPaperId";
     $data = $this->mySql->select($s);
@@ -1245,7 +1245,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         " SET     title = '$objPaperDetailed->strTitle',".
         "         author_id = $objPaperDetailed->intAuthorId,".
         "         abstract = '$objPaperDetailed->strAbstract',".
-        "         format = '$objPaperDetailed->strMimeType',".
+        "         mime_type = '$objPaperDetailed->strMimeType',".
         "         last_edited = '$objPaperDetailed->strLastEdit',".
         "         filename = '$objPaperDetailed->strFilePath',".
         "         state = $objPaperDetailed->intStatus".
