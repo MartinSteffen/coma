@@ -118,6 +118,7 @@ function encodeText($_str) {
   $trans_tbl["\t"] = ' ';
   $trans_tbl["\\"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
+  $trans_tbl['&quot;'] = '&#039;'; // keine Doppelquotes zulassen!
   $_str = strtr($_str, $trans_tbl);
   $_str = trim($_str);
   return($_str);
@@ -125,6 +126,8 @@ function encodeText($_str) {
 
 /**
  * This function decodes the string.
+ *
+ * Was ist mit quotes? " ist nicht benutzbar!!
  *
  * @param string $_str String to decode
  * @return string decoded string
@@ -137,6 +140,7 @@ function decodeText($_str) {
   //$trans_tbl["\t"] = ' '; // nur loeschen!
   $trans_tbl["\\"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
+  //$trans_tbl['&quot;'] = '&#039;'; // nur entfernen!
   $trans_tbl = array_flip($trans_tbl);
   $_str = strtr($_str, $trans_tbl);
   return($_str);
