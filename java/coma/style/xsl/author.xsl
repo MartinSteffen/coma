@@ -54,6 +54,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select="/author/error" />
 <xsl:apply-templates select="/author/success" />
 <xsl:apply-templates select="/author/submitpaper"/>
+<xsl:apply-templates select="/author/writefile" />
 </div> <!-- Main content end -->
 
 </body>
@@ -62,8 +63,8 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <xsl:template match="/author/submitpaper">
 
-<h3>Please fill out the form</h3>
-<form action="Author" method="post" enctype="multipart/form-data" >
+<h3>Step 1: Please fill out the form</h3>
+<form action="Author" method="post" >
 	<input type="hidden" name="action" value="processpaper"/>
 	<table style="border:0">
 		<tr>
@@ -76,12 +77,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 				 </input>
 			</td>
 		</tr>
-		<tr>
-			<td>Choose your Paper</td>
-			<td>
-				<input  size="50" name="thefile" type="file"/>
-			</td>
-			</tr>
+		
 		<tr>
 			<td>Enter here your Abstract</td>
 			<td>	
@@ -94,10 +90,29 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		</tr>
 		<tr>
 			<td>
-				<input class="submit-button" type="submit" value="Submit your Paper" />
+				<input class="submit-button" type="submit" value="go to upload form" />
 			</td>
 		</tr>
 	</table>
+</form>
+</xsl:template>
+
+<xsl:template match="author/writefile">
+<h3>Step 2: Choose your paper</h3>
+<form action="WriteFile" method="post" enctype="multipart/form-data" >
+<table style="border:0">
+<tr>
+			<td>Choose your Paper</td>
+			<td>
+				<input  size="50" name="thefile" type="file"/>
+			</td>
+			</tr>
+				<tr>
+			<td>
+				<input class="submit-button" type="submit" value="Submit your Paper" />
+			</td>
+		</tr>
+				</table>
 </form>
 </xsl:template>
 
