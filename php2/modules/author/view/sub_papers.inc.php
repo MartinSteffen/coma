@@ -34,13 +34,19 @@ $alive_conf = array_diff($conf_list, $dead_conf_list);
 $TPL = array();
 
 foreach($alive_conf as $row) {
-	$SQL = "SELECT conference_id, id, title, abstract, last_edited FROM paper WHERE conference_id = " . $row . " AND author_id = ".$_SESSION['userID'];
+	$SQL = "SELECT conference_id, id, title, abstract, last_edited, filename FROM paper WHERE conference_id = " . $row . " AND author_id = ".$_SESSION['userID'];
 	$result = $sql->query($SQL);
 	foreach ($result as $key => $value) {
 		$date = $result[$key]['last_edited'];
 		$date = explode(" ", $date);
 		$date = $date[0];
 		$result[$key]['last_edited'] = $date;
+		if ($result[$key]['filename'] != "") {
+			$result[$key]['uploaded'] = true;
+		}
+		else {
+			$result[$key]['uploaded'] = false;
+		}
 	}
 	$TPL['alive'][$row] = $result;
 	$TPL['alive'][$row]['conference_id'] = $row;
@@ -50,13 +56,19 @@ foreach($alive_conf as $row) {
 }
 
 foreach($dead_conf as $row) {
-	$SQL = "SELECT conference_id, id, title, abstract, last_edited FROM paper WHERE conference_id = " . $row . " AND author_id = ".$_SESSION['userID'];
+	$SQL = "SELECT conference_id, id, title, abstract, last_edited, filename FROM paper WHERE conference_id = " . $row . " AND author_id = ".$_SESSION['userID'];
 	$result = $sql->query($SQL);
 	foreach ($result as $key => $value) {
 		$date = $result[$key]['last_edited'];
 		$date = explode(" ", $date);
 		$date = $date[0];
 		$result[$key]['last_edited'] = $date;
+		if ($result[$key]['filename'] != "") {
+			$result[$key]['uploaded'] = true;
+		}
+		else {
+			$result[$key]['uploaded'] = false;
+		}
 	}
 	$TPL['dead'][$row] = $result;
 	$TPL['dead'][$row]['conference_id'] = $row;
@@ -66,12 +78,11 @@ foreach($dead_conf as $row) {
 }
 
 
-// dump($TPL);
-
 if (isset ($_REQUEST['msg'])) {
 	$msg = $_REQUEST['msg'];
 	$TPL['msg'] = $msg;
 }
+
 
 template('AUTHOR_view_papers')
 ?>
