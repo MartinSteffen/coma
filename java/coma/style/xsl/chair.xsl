@@ -1,5 +1,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-<xsl:output method="html" indent="yes"/>
+<xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
+doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
+<xsl:include href="navcolumn.xsl"/>
 
 <xsl:template match="/">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" > 
@@ -24,54 +26,15 @@
 <xsl:apply-templates select = "/result/showreviewers_data/status"/>
 <xsl:apply-templates select = "/result/showauthors_data/status"/>
 <xsl:apply-templates select = "/result/setup/status"/>
-<xsl:apply-templates select = "/result/setup_new/status"/>
+<xsl:apply-templates select = "/result/setup_new_step1/status"/>
+<xsl:apply-templates select = "/result/setup_new_step2/status"/>
 <xsl:apply-templates select = "/result/email/status"/>
 <xsl:apply-templates select = "/result/invitation_send/status"/>
 </div>
 
 
 <!-- Site navigation menu -->
-<div class="navbar">
-<ul>
-  <li><a href="index.html">Home page</a></li>
-  <li>
-   <form action="Chair?action=setup" method="post">
-  		<input type="submit" value="setup" class="submit-button" />
-  	</form>
-  <form action="Chair?action=invite_person" method="post">
-  		<input type="submit" value="invite person" class="submit-button" />
-  	</form>
-  <form action="Chair?action=show_authors" method="post">
-  		<input type="submit" value="show authors" class="submit-button" />	
-  	</form>
-  	<form action="Chair?action=show_reviewers" method="post">
-  		<input type="submit" value="show reviewers" class="submit-button" />	
-  	</form>
-  	 <form action="Chair?action=show_papers" method="post">
-  		<input type="submit" value="show papers" class="submit-button" />
-  	</form>
-  	<form action="Chair?action=email" method="post">
-  		<input type="submit" value="email" class="submit-button" />	
-  	</form>
-  </li>
-		
-  <li><a href="http://snert.informatik.uni-kiel.de:8888/coma/">tomcat directory</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/svn/coma/">svn repository</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/~wprguest3/phpmyadmin/">phpMyAdmin</a></li>
-  <li>
-  	<a href="http://validator.w3.org/check?uri=referer">
-  		<img src="./img/valid-xhtml11.png" alt="Valid XHTML 1.1!" style="border:0;width:68px;height:20px"  />
-  	</a>
-   	<a href="http://jigsaw.w3.org/css-validator/check/referer">
- 			<img style="border:0;width:68px;height:20px" src="./img/vcss.png" alt="Valid CSS!" />
- 		</a>
- 	</li>
-</ul> 
-
-	
-
-</div>
-
+<xsl:call-template name="navcolumn"/>
 
 <!-- Main content -->
 <div class="content">
@@ -83,7 +46,8 @@
 <xsl:apply-templates select = "/result/showreviewers_data/content"/>
 <xsl:apply-templates select = "/result/showauthors_data/content"/>
 <xsl:apply-templates select = "/result/setup/content"/>
-<xsl:apply-templates select = "/result/setup_new/content"/>
+<xsl:apply-templates select = "/result/setup_new_step1/content"/>
+<xsl:apply-templates select = "/result/setup_new_step2/content"/>
 <xsl:apply-templates select = "/result/email/content"/>
 </div> <!-- Main content end -->
 
@@ -137,7 +101,7 @@
 					<label for="text">comment: </label>
 				</td>
 				<td>
-					<textarea id="text" name="text" rows="3" cols="30" class="textarea"/>
+					<textarea name="text" rows="3" cols="30">&#160; </textarea>
 				</td>
 			</tr>
 			<tr>
@@ -188,7 +152,6 @@
 </xsl:template>
 
 <xsl:template match="/result/showauthors_data/content">
-Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 	<table class="chair" cellpadding="5">
 		<thead>
 			<tr align="center">
@@ -198,30 +161,38 @@ Hier noch Liste der Paper mit Link auf der rechten Seite eintragen
 		</thead>
 	<xsl:for-each select="/result/showauthors_data/content/person">
 		<tr>
-			<td>first name: 
+			<td>
+				first name: 
 			</td>
-			<td><xsl:value-of select="first_name"/>
+			<td>
+				<xsl:value-of select="first_name"/>
 			</td>
 			<td colspan="2" rowspan="9">
-			<table class="chair">
-			<xsl:for-each select="/result/showauthors_data/content/paper">
-			<tr>
-			<td>title:
-			</td>
-			<td width="200"><xsl:value-of select="title"/>
-			</td>
-			</tr>
-			<tr>
-			<td>Abstract:
-			</td>
-			<td width="100"><xsl:value-of select="Abstract"/>
-			</td>
-			</tr>
-			<tr>
-			<td colspan="2">-----------------------------------------------</td>
-			</tr>
-			</xsl:for-each>
-			</table>
+				<table class="chair">
+					<xsl:for-each select="/result/showauthors_data/content/paper">
+						<tr>
+							<td>
+								title:
+							</td>
+							<td width="200">
+								<xsl:value-of select="title"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Abstract:
+							</td>
+							<td width="100">
+								<xsl:value-of select="Abstract"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								-----------------------------------------------
+							</td>
+						</tr>
+					</xsl:for-each>
+				</table>
 			</td>
 		</tr>	
 		<tr>
@@ -432,6 +403,7 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 </table>
 </xsl:template>
 
+
 <xsl:template match="/result/setup/content">
 <table class="chair" cellpadding="5">
 <tr>
@@ -531,9 +503,10 @@ Hier noch neben Autorenliste auch Reviewreports und Bewertung anzeigen lassen
 </xsl:template>
 
 
-<xsl:template match="/result/setup_new/content">
+<xsl:template match="/result/setup_new_step1/content">
+Step 1
 <div class="formular">
-<form action="Chair?action=send_setup" method="post">
+<form action="Chair?action=send_setup&amp;step=1" method="post">
 <table style="color:black">
 <tr>
 	<td colspan="2">
