@@ -44,7 +44,7 @@ public class InsertServiceTest extends TestCase {
 	}
 
 	public void testInsertCriterion() {
-		boolean run = true;
+		boolean run = false;
 		if (run) {
 			Criterion criterion = new Criterion();
 			criterion.setConferenceId(9);
@@ -65,15 +65,15 @@ public class InsertServiceTest extends TestCase {
 			SearchResult sr = insert.insertPaper(paper);
 			System.out.println(sr.SUCCESS);
 		}
-	}
+	} 
 
 	public void testInsertPerson() {
-		boolean run = false;
+		boolean run = true;
 		if (run) {
 			Person p = new Person(1);
-			p.setFirst_name("Testperson2");
-			p.setLast_name("Testperson2");
-			p.setEmail("test3@web.com");
+			p.setFirst_name("Testperson1");
+			p.setLast_name("Testperson1");
+			p.setEmail("test1@web.com");
 			p.setPassword("passwort");
 			SearchResult sr = new SearchResult();
 			// sr = insert.insertPerson(p);

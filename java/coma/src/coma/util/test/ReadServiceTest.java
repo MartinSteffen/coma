@@ -38,7 +38,7 @@ public class ReadServiceTest extends TestCase{
 		}
 		
 		Conference conference = new Conference();
-		conference.setId(1);
+		conference.setId(-1);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setConference(conference);
 		
@@ -47,7 +47,7 @@ public class ReadServiceTest extends TestCase{
 		
 		Conference[] conferences = (Conference[])objResult;	
 		for (int i = 0; i < conferences.length; i++) {
-			System.out.println(conferences[i].toString());	
+			log.debug(conferences[i].toString());	
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class ReadServiceTest extends TestCase{
 			return;
 		}
 		
-		Person p = new Person(0);
+		Person p = new Person(1);
 		//p.setLast_name("Susi");
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPerson(p);

@@ -33,7 +33,7 @@ public class Login extends HttpServlet {
 		session = request.getSession(true);
 		String email = request.getParameter(FormParameters.EMAIL);
 		String passwd = request.getParameter(FormParameters.PASSWORD);
-
+		int conference_id = Integer.parseInt(request.getParameter(FormParameters.CONFERENCE_ID));
 		StringBuffer result = new StringBuffer();
 		XMLHelper helper = new XMLHelper();
 
@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 		}
 
 		else {
-			if (validatePasswd(email, passwd)) {
+			if (validatePasswd(email, passwd, conference_id)) {
 
 				session.setAttribute(SessionAttribs.PERSON, myPerson);
 				result.append(XMLHelper.tagged("success"));
@@ -86,7 +86,7 @@ public class Login extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private boolean validatePasswd(String email, String passwd) {
+	private boolean validatePasswd(String email, String passwd, int conference_id) {
 
 		boolean isValid = false;
 
@@ -99,16 +99,17 @@ public class Login extends HttpServlet {
 		if (mySR != null){
 			Person[] personArray = (Person[]) mySR.getResultObj();
 			String info = mySR.getInfo();
-						
-			try {
+			if(personArray.length == 1){			
 				myPerson = personArray[0];
-				if (myPerson.getPassword().equals(passwd))
+				if (myPerson.getPassword().equals(passwd)){
 					isValid = true;
-			} catch (RuntimeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				}
+				mySR = myReadService.getPersonRoles(conference_id, myPerson.getId());
+				if( mySR != null){
+					int[] roles = (int[])mySR.getResultObj();
+					myPerson.setRole_type(roles);
+				}
 			}
-			
 
 			
 		}

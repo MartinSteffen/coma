@@ -59,7 +59,7 @@
     <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-      <servlet-name>chair</servlet-name>
+      <servlet-name>Chair</servlet-name>
     <url-pattern>/chair</url-pattern>
     </servlet-mapping>
 

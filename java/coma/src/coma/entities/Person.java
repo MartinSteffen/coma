@@ -26,7 +26,7 @@ public class Person extends Entity {
     private String state; 
     private String country; 
     private String password;
-    private int role_type;
+    private int[] role_type;
 
 	
 	/**
@@ -40,13 +40,13 @@ public class Person extends Entity {
 	/**
 	 * @return Returns the role_type.
 	 */
-	public int getRole_type() {
+	public int[] getRole_type() {
 		return role_type;
 	}
 	/**
 	 * @param role_type The role_type to set.
 	 */
-	public void setRole_type(int role_type) {
+	public void setRole_type(int[] role_type) {
 		this.role_type = role_type;
 	}
 	/**
@@ -219,18 +219,25 @@ public class Person extends Entity {
 	}
 
     public boolean isChair(){
-    	if (this.role_type==0) return true;
-    	else return false;
+    	return isInRole(role_type, 0);
     }
     public boolean isAuthor(){
-    	if (this.role_type==1) return true;
-    	else return false;
+    	return isInRole(role_type, 1);
     }
     public boolean isReviewer(){
-    	if (this.role_type==2) return true;
-    	else return false;
+    	return isInRole(role_type, 2);
     }
 	
+    private boolean isInRole(int[] rolesArray, int role){
+    	boolean result = false;
+    	for (int i = 0; i < rolesArray.length; i++) {
+			if(role == rolesArray[i]){
+				result = true;
+				break;
+			}
+		}
+    	return result;
+    }
 	
 	
 	public Paper[] getPapers() throws Exception{

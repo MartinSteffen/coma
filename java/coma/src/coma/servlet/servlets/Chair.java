@@ -14,20 +14,7 @@ import javax.sql.DataSource;
 import javax.xml.transform.stream.StreamSource;
 
 import coma.entities.Conference;
-import coma.entities.Entity;
-import coma.entities.Paper;
-import coma.entities.Person;
-import coma.entities.SearchCriteria;
-import coma.entities.SearchResult;
-import coma.entities.Topic;
-import coma.handler.impl.db.InsertServiceImpl;
-import coma.handler.impl.db.ReadServiceImpl;
-import coma.handler.impl.db.UpdateServiceImpl;
-import coma.servlet.util.FormularChecker;
-import coma.servlet.util.Navcolumn;
-import coma.servlet.util.Password_maker;
-import coma.servlet.util.SMTPClient;
-import coma.servlet.util.SessionAttribs;
+import coma.entities.*;
 import coma.servlet.util.XMLHelper;
 //import coma.handler.db.*;
 
@@ -182,7 +169,7 @@ public class Chair extends HttpServlet
 		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 	    ReadServiceImpl readService = new ReadServiceImpl();
 	    Topic t = new Topic(-2);
-	    SearchResult search_result = readService.getTopics(t.getId());
+	    SearchResult search_result = readService.getTopic(t.getId());
 	    Topic[] topics = (Topic[])search_result.getResultObj();
     	String tag = "setup";
 		info.append(XMLHelper.tagged("status","you are chair of: "));

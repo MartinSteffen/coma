@@ -137,9 +137,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (stateFlag) {
 						pstmt.setString(++pstmtCounter, p.getState());
 					}
-					if (roleFlag) {
-						pstmt.setInt(++pstmtCounter, p.getRole_type());
-					}
+					//TODO
+					//if (roleFlag) {
+					//	pstmt.setInt(++pstmtCounter, p.getRole_type());
+					//}
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
@@ -197,16 +198,12 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Confernce must not be null\n");
 			ok = false;
 		}
-		String QUERY = "SELECT * FROM Conference " + " WHERE ";
+		String QUERY = "SELECT * FROM Conference ";
 
 		boolean idFlag = false;
 		if (c.getId() > 0) {
-			QUERY += " id = ?";
+			QUERY += "WHERE  id = ?";
 			idFlag = true;
-		}
-		if (!idFlag) {
-			info.append("No search critera was specified\n");
-			ok = false;
 		}
 		if (ok) {
 			try {

@@ -32,7 +32,7 @@
 			<include name="*.jar" />
 		</fileset>
 	</path>
-
+    
 	<target name="clean" description="deleting old build ...">
 			<delete dir="${bin}" />
 			<delete dir="${doc}" />

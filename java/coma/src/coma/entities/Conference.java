@@ -164,4 +164,9 @@ public class Conference {
     		return null;
     	
     }
+    
+    public String toXML(){
+    	
+    	return null;
+    }
 }

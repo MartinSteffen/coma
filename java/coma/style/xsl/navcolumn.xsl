@@ -29,8 +29,8 @@
               <fieldset>
                 <div>
                 <div>
-                  <select name="conferences">
-                    <xsl:for-each select="conference">
+                  <select name="conference_id">
+                    <xsl:for-each select="conference_list/conference">
                       <option>
                         <xsl:attribute name="value">
                           <xsl:value-of select="id"/>

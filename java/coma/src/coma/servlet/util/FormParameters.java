@@ -34,4 +34,6 @@ public class FormParameters {
 
     /** A list of Topic-Ids preferred by the current Person */
     public static final String PREFERREDTOPICS="preferredtopics";
+    
+    public static final String CONFERENCE_ID="conference_id";
 }
