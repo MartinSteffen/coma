@@ -78,11 +78,11 @@ if (isset($_POST['action'])) {
       (isset($_POST['advanced']) && !isset($_POST['simple_setup']))) {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
     $strContentAssocs['topic_lines'] = '';
-    $strContentAssocs['crit_lines'] = '';
+    $strContentAssocs['crit_lines']  = '';
     for ($i = 0; $i < count($strTopics); $i++) {
       $topicForm = new Template(TPLPATH.'topic_listitem.tpl');
       $strTopicAssocs = defaultAssocArray();
-      $strTopicAssocs['topic_no'] = $i+1;
+      $strTopicAssocs['topic_no']   = $i+1;
       $strTopicAssocs['topic_name'] = $strTopics[$i];
       $topicForm->assign($strTopicAssocs);
       $topicForm->parse();
@@ -91,14 +91,14 @@ if (isset($_POST['action'])) {
     for ($i = 0; $i < count($strCriterions); $i++) {
       $critForm = new Template(TPLPATH.'criterion_listitem.tpl');
       $strCritAssocs = defaultAssocArray();
-      $strCritAssocs['crit_no'] = $i+1;
+      $strCritAssocs['crit_no']     = $i+1;
       $strCritAssocs['crit_name']   = $strCriterions[$i];
       $strCritAssocs['crit_descr']  = $strCritDescripts[$i];
       $strCritAssocs['crit_max']    = $strCritMaxVals[$i];
       $strCritAssocs['crit_weight'] = $strCritWeights[$i];
       $critForm->assign($strCritAssocs);
       $critForm->parse();
-      $strContentAssocs['crit_lines'] .= $critForm->getOutput();
+      $strContentAssocs['crit_lines'] .= '*'.$critForm->getOutput();
     }    
   }
   $strContentAssocs['topics']         = '';
