@@ -9,7 +9,6 @@ include('../coma1/include/header.inc.php');
 
 class ComaExample extends PHPUnit_TestCase
 {
-global $myDBAccess;
 $strEmail = "sae@me.de";
 
   function testTrue() {
@@ -17,10 +16,12 @@ $strEmail = "sae@me.de";
   }
 
   function test_myDBAccess() {
-      $this->assertFalse($myDBAccess->failed());
+  	global $myDBAccess;
+    $this->assertFalse($myDBAccess->failed());
   }
 
   function test_checkEmail() {
+  	global $myDBAccess;
     $this->assertTrue($myDBAccess->checkEmail($strEmail));
   }
 }
