@@ -6,6 +6,7 @@
 
   {chapter-02}
   {chapter-02-01}
+  {chapter-02-02}
   {chapter-02-03}
   {chapter-02-04}
   {chapter-02-05}
