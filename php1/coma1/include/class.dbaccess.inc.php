@@ -945,9 +945,15 @@ class DBAccess extends ErrorHandling {
     }
     else if (empty($data)) {
       return $this->success(false);
-    }*/
-    $s = sprintf("SELECT   c.id AS id, r.grade AS grade, c.max_value AS max_value,".
-                 "         c.quality_rating/100 AS weight".
+    }
+    $sum = 0;
+    for ($i = 0; $i < count($data) && !empty($data); $i++) {
+      $sum += $data[$i]['total_rating'];
+    }
+    return $this->success($sum / count($data));*/
+
+    $s = sprintf("SELECT   c.id AS id, c.max_value AS max_value, c.quality_rating/100 AS weight,",
+                 "         SUM(r.grade) AS sum_grade, COUNT(*) AS num".
                  " FROM    ReviewReport AS rr".
                  " INNER   JOIN Distribution AS d".
                  " ON      d.paper_id = rr.paper_id".
@@ -956,7 +962,8 @@ class DBAccess extends ErrorHandling {
                  " ON      r.review_id = rr.id".
                  " INNER   JOIN Criterion AS c".
                  " ON      c.id = r.criterion_id".
-                 " WHERE   rr.paper_id = '%d'",
+                 " WHERE   rr.paper_id = '%d'".
+                 " GROUP   BY c.id, c.max_value, c.quality_rating",
                            s2db($intPaperId)); 
     $data = $this->mySql->select($s);
     print_r($data);
@@ -966,11 +973,10 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
-    $sum = 0;
-    for ($i = 0; $i < count($data) && !empty($data); $i++) {
-      $sum += $data[$i]['total_rating'];
+    for ($i = 0; $i < count($data); $i++) {
+      
     }
-    return $this->success($sum / count($data));
+    
   }
 
   /**
