@@ -3648,7 +3648,7 @@ nur fuer detaillierte?
   function deactivateAccount($intPersonId) {
     $s = sprintf("UPDATE   Person".
                  " SET     password = ''".
-                 " WHERE   id = ''",
+                 " WHERE   id = '%d'",
                            s2db($intPersonId));
     $result = $this->mySql->update($s);
     if ($this->mySql->failed()) {
