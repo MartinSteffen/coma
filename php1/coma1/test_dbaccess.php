@@ -37,14 +37,16 @@ for ($i = 0; $i < count($intRoles); $i++) {
 bit($p->intRoles);
 echo('Aendere Rollen:<br>');
 if ($p->hasRole(REVIEWER)) {
-  //$p->deleteRole(REVIEWER);
+  echo('Case 1');
+  $p->deleteRole(REVIEWER);
   $p->switchRole(AUTHOR);
-  //$p->addRole(CHAIR);
+  $p->addRole(CHAIR);
 }
 else {
-  //$p->addRole(REVIEWER);
+  echo('Case 2');
+  $p->addRole(REVIEWER);
   $p->switchRole(AUTHOR);
-  //$p->deleteRole(CHAIR);
+  $p->deleteRole(CHAIR);
 }
 bit($p->intRoles);
 echo('Roles:<br>');
