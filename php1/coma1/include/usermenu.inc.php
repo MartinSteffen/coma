@@ -9,6 +9,9 @@ if (!defined('IN_COMA1')) {
 }
 
 $objPerson = $myDBAccess->getPerson(session('uid', session('confid')));
+if ($mySql->failed()) {
+  echo ($mySql->getLastError().'<br>');
+}
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
 $strMenuAssocs = defaultAssocArray();
