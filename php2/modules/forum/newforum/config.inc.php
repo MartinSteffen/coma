@@ -1,3 +1,3 @@
 <?php
-$config['defaultsubaction'] = "default";
+$config['defaultsubaction'] = "new";
 ?>
