@@ -1529,8 +1529,8 @@ class DBAccess extends ErrorHandling {
     $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
                                 $data[0]['conference_id'],
                                 $data[0]['forum_type'],
-                               ($data[$i]['forum_type'] == FORUM_PAPER) ?
-                                $data[$i]['paper_id'] : false),                                
+                               ($data[0]['forum_type'] == FORUM_PAPER) ?
+                                $data[0]['paper_id'] : false),                                
                                 $this->getThreadsOfForum($intForumId)));
     return $this->success($forum);
   }
