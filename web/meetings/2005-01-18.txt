@@ -1,3 +1,186 @@
+Stand aus unserer Sicht/was tut not (aka meeting minutes: 18.01.2005)
+====
+
+
+Moin, hier das was uns f"ur uns heute im Ged"achtnis geblieben ist.
+
+Anwesend: Gunnar, Martin
+           PHP1: vollst"andig (oder fast)
+           PHP2: Mehrheit
+           Java: 1er
+           Tester: alle
+--------------------
+
+Es war aber eine _wichtige Sitzung_ wie angek"undigt, da es
+wir nun auf der Zielgeraden sind und es hei"st ``Jetzt-oder-nie!'.
+
+Es war recht geballte und viel Information, insofern werde ich mir nicht
+die M"uhe machen, jedes Bit an Information "uber den Status festzuhalten.
+
+----
+
+Im "Ubrigen diente genau zu diesem Zweck ja der geforderte
+``Status-Bericht'' zum Festhalten, zu Referenz, zur Diskussionsgrundlage. etc
+und insofern ist der Schlafmuetzenweg ``ich erz"ahl mal was,
+Martin/Marcel/Gunnar halten dann schon fest, was der Status ist'' eine zu
+entspannte Haltung.
+
+Wie auch immer: der allgemeine Eindruck war durchaus, da"s manche Dinge von
+manchen nicht ernst genug genommen werden.
+
+Ist zitiere nochmal die Entscheidenden Passagen aus der Vorankuendigung vom
+letzten Mal
+
+> Umso _dringender_ ist ein 
+>
+>        vern"unftiger, koordinierter expliziter Statusbericht
+>        und Restplan der Gruppen beim kommenden Mal!
+
+..
+
+> Explizit hei"st nicht nur 
+>
+>         ``eine Pr"asentation vor dem Klassenraum''
+>sondern auch ein 
+>
+>        schriftliches Statement, welches wir vorher verteilen (und
+> ausgedruckt mitbringen). Man k"onnte sich vorstellen, da"s die
+> spec/architecture Beschreibung (die ja alle gruppen gemacht haben :-) ein
+> Rolle dabei spielen kann.
+>
+> Worauf wir hinauswollen ist: nehmt das bitte Ernst,
+
+> [blablabla weitere Motivationworte]
+
+Der gesamte Text ist (wie immer) festgehalten auf:
+
+http://www.informatik.uni-kiel.de/inf/deRoever/WS0405/PITM/coma/main002.html#toc1
+
+
+
+Was sozusagen den Hauptsinn der heutigen Veranstaltung betraft, hat uns nur
+PHP1 "uberzeugt, insbesondere auch, das Falk sich die M"uhe gemacht
+hat. Wir hatten den Eindruck: die Leute wissen was sich tun und sind im
+Bilde, insofern ist auch unser "au"serlicher Eindruck, Falk stehe etwas im
+Schatten, wohl genau das: ein "au"serlicher Eindruck.
+
+
+
+PHP2:
+----
+PHP2 war  vorbereitet und ``koordiniert'' so wie wir das wollten,
+nur die Muehe mit dem ``schriftlichen Festhalten'' damit wir oder die
+anderen sich das anschauen koennen oder diksutieren, das hatten sich sich
+erspart (oder vergessen, oder f"ur unwichtig gesehen oder einfach
+"uberlesen.)
+
+Die Lage scheint so, dass die Struktur intern abgesprochen und klar ist,
+und die Knackpunkte (fehlender Code an einigen Stellen) den Leuten bekannt
+ist sowie da"s sie sich Gedanken gemacht haben, wann was kommen soll (wenn
+es nach plan geht). Speziell Teile des Codes die "uber des Wocheende
+versprochen wurde, wurden geliefert (wobei nichts dar"uber gesagt wurde,
+wie umfangreich und erfolgreich das war; keiner von der org-Gruppe hatte
+bislang auch die Zeit, sich selbst ein Bild zu machen, was den Code-status
+betrifft, wir verlassen bislang uns also auf Eure Worte aber das ging aus
+dem gesagten heute nicht hervor.)
+
+Die ``Lageeinsch"atzung'' innerhalb ist immer noch geteilt (vorsichtig
+optimistisch bis vorsichtig pessimistisch, was an sich ja nicht kritisch
+ist, Dinge unterschiedlich zu sehen. Es sei denn die blockieren den
+Fortschritt )
+
+
+
+
+Java:
+----
+Java: Nun ja, die Tatsache, da"s derjenige der an die Front musste, nicht
+        wusste da"s ihm die Aufgabe zuf"allt (wahrscheinlich aus Zufall?)
+        war exakt das Gegenteil von dem was ich oben als ``vern"unftiger,
+        koordinierter expliziter Statusbericht'' (speziell das Punkt
+        ``koordiniert''). Da das auch demzufolge etwas aus dem Stegreif
+        geschah, und ohne Unterlage, ist uns aus der Globalen Siztung nicht
+        klar geworden was nun der Stand der Dinge ist.
+
+        [Einen wichtigen Punkt konnten wir dann noch in einer
+         Gruppendiskussion hinterher kl"aren: die Rechte und Rollen sind
+         nicht dem Plan B und der Zeitnot zum Opfer gefallen (was auch mehr
+         oder minder den Kern des Tools entsprochen h"atte und was nicht
+         akzeptiert h"atten. In dem Punkt konnte man uns zumindest in der
+         Java-Runde etwas beruhigen....]
+
+        Trotzdem bleibt hier der Eindruck: nicht da"s nichts da ist, es ist
+          viel eingecheckt, jedoch (und das ist kein einfaches Problemchen)
+
+          - teilweise mangelnde Koordination (insbesondere sollte
+             verst"arkt in sich gemeinsam Zeit genommen werden, um
+             Kernstolpersteine aus dem Weg zu r"aumen)
+
+          - Dinge bleiben unnatuerlich/unnotwendig lange liegen (Zitat:
+              ``Ich warte hier bereits seit drei Wochen auf ein Interface,
+              warum kommt da nix'')
+
+         -  Integration koennte ein Gr"o"seres Problem werden als bei 
+            den PHP Leuten (technisch betrachtet, aber auch wg. der Gr"o"se
+            der Gruppen und der obengenannten schleppenden Koordination.
+        
+            Vielleich w"are es gut (das haben wir nicht besprochen, ein
+            Gedanke von mir) wenn einer oder 2 der Gruppe, die ihren Teil
+            mehr oder minder abgeschlossen haben und arbeitslos sind, um
+            nichts andere kuemmern als F"uhrung der
+            Koordination/Integration zu "ubernehmen, und jeweils
+            ``hinterherzusein'' wenn wo was hakt. Aber viel Zeit ist nicht
+            mehr. Weiterer Rat: wenn wo was hakt, auch uns einschalten (wir
+            rennen aber nicht hinterher, ausser dass wir ab und zu
+            versuchen einen Statusbericht/Treffen zu erzwingen was aber
+            heute ja als Statusbericht in grosser Runde ignoriert wurde...
+
+        
+Tester:
+=======
+
+In diesem Fall war ``koordinierter Statusbericht'' nicht so sehr
+  ``koordiniert untereinander'' (obwohl man sicher voneinander lernen
+  kann), sondern eher koordiniert mit ihren Gruppen.
+
+    Wie auch immer, auch die 2 Test-Statusberichte waren nicht "uberzeugend
+   (Thiago kam aus Zeitgruenden nicht an die Front, und auch wegen der
+   Tatsache, da"s die PHP2 Gruppe Thiago insofern integriert hat, da"s er
+   sinnvolle Beitr"age leistet im Fehlerfinden.)
+
+    Die Anbindung von Olle und Oliver scheint sich noch zum grossen Teil im
+    Planunstadium zu befinden.
+
+    Der Vorschlag, auf Coding conventions in Java zu achten finden wir
+    nicht sinnvoll (ich bin ein grosser Fan von Coding conventions und
+    Ordnung etc, aber das kann nicht der Kern sein....).
+
+    Der Vorschlag, eine Installationsanleitung und Installationsskript zu
+   erstellen (und vermutlich damit zu erwartende Fehler bei der Integration
+   zu entdecken und ausmerzen zu helfen) halten wir dagegen fuer die
+   Javaleute hilfreich.
+
+   Die weiteren technischen Punkte (skript ja oder lieber doch nicht,
+   automatisches testen, tut das not), halte ich nicht fest, denn die
+   Meinung war ja eher unschluessig.
+
+    Globalbetrachtet: was das Testen betrifft, da muss ernsthaft mehr drive
+     rein, da muessen 2 G"ange hochgeschaltet werden. Speziell _muss_
+     sollte man nicht der Illusion nachh"angen die Haltung sei genug:
+     ``warten wir mal bis die mit der Implementierung fertig sind, dann
+     f"allt schon was fuer mich ab, wo ich mich eventuell nuetzlich machen
+     kann''. Das ist _nicht_ das was wir erwarten und ist an Leistung nicht
+     ausreichend. Das Phase des ``Aufbaus der Kommunikationskanaelen'', das
+     ``Rantasten an die entstehende Implementieren'', das ``Schnuppern an
+     moeglichen Tools'' must abgeschlossen sein.
+
+
+---
+Martin, Gunnar, Marcel.
+
+
+
+
 
 
 
