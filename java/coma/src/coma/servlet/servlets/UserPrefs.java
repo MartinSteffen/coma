@@ -108,10 +108,12 @@ public class UserPrefs extends HttpServlet {
 		    }
 
 		    int oldid = thePerson.getId();
+		    int[] oldRole = thePerson.getRole_type();
 		    LOG.log(DEBUG, "Person ID "+oldid);
 		    thePerson 
 			= new coma.handler.util.EntityCreater().getPerson(request);
 		    thePerson.setId(oldid); // makes us safer against attacks
+		    thePerson.setRole_type(oldRole);
 
 		    LOG.log(DEBUG, thePerson.toXML(XMLMODE.SHALLOW));
 	    
