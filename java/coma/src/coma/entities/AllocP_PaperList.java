@@ -5,9 +5,12 @@
 package coma.entities;
 
 
-import java.util.Enumeration;
+import java.util.Collection;
+
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
+
 import java.util.Vector;
 
 import coma.handler.db.ReadService;
@@ -55,11 +58,12 @@ public class AllocP_PaperList {
 	}
 	
 	public int getOpenPapers(){
-		Enumeration<AllocP_Paper> e = getPapers();
+		Collection<AllocP_Paper> pap = getPapers();
+		Iterator<AllocP_Paper> i = pap.iterator();
 		int open_papers = 0;
-		while (e.hasMoreElements())
+		while (i.hasNext())
 		{
-			AllocP_Paper p = e.nextElement();
+			AllocP_Paper p = i.next();
 			if (p.isOpen(min_reviewer)) open_papers++; 
 		}
 		return open_papers;
@@ -68,29 +72,28 @@ public class AllocP_PaperList {
 	public AllocP_Paper findPaperForMe(AllocP_Person person,boolean open){
 		AllocP_Paper paper;
 		if ((paper = findPaperbyPaperID(person,open)) != null )
-		{
-			person.incHappiness();
-			person.incHappiness();
 			return paper;
-		}
+		
 		if ((paper = findPaperbyTopicID(person,open)) != null )
-		{
-			person.incHappiness();
 			return paper;
-		}
-		paper = findOpenPaper();
+		
+		paper = findOpenPaper(person,open);
+			
 		return paper;
 	}
 
 	/**
 	 * @return
 	 */
-	private AllocP_Paper findOpenPaper() {
-		Enumeration<AllocP_Paper> e = getPapers();
-		while (e.hasMoreElements())
+	private AllocP_Paper findOpenPaper(AllocP_Person person,boolean open) {
+		Collection<AllocP_Paper> pap = getPapers();
+		Iterator<AllocP_Paper> i = pap.iterator();
+		while (i.hasNext())
 		{
-			AllocP_Paper p = e.nextElement();
-			if (p.isOpen(min_reviewer)) return p; 
+			int s = 0;
+			AllocP_Paper p = i.next();
+			if (!open) s = 1;
+			if (p.isOpen(min_reviewer+s) && person.verifyPaper(p)) return p; 
 		}
 		return null;
 	}
@@ -100,10 +103,10 @@ public class AllocP_PaperList {
 	 * @return
 	 */
 	private AllocP_Paper findPaperbyTopicID(AllocP_Person person,boolean open) {
-		int[] topicIDs = person.getPreferdTopics();
+		Vector<Integer> topicIDs = person.getPreferdTopics();
 		HashSet<AllocP_Paper> paperlist = new HashSet<AllocP_Paper>();
-		for (int i = 0 ; i < topicIDs.length;i++){
-			Vector p = (Vector) papers_by_topicID.get(topicIDs[i]);
+		for (int i = 0 ; i < topicIDs.size();i++){
+			Vector p = (Vector) papers_by_topicID.get(topicIDs.elementAt(i));
 			for (int j = 0 ; j < p.size();j++){
 				AllocP_Paper paper = (AllocP_Paper) p.elementAt(j);
 				if (paper.isOpen(min_reviewer) || 
@@ -127,12 +130,12 @@ public class AllocP_PaperList {
 	 * @return
 	 */
 	private AllocP_Paper findPaperbyPaperID(AllocP_Person person, boolean open) {
-		int[] preferedPapers = person.getPreferdPapers();
+		Vector<Integer> preferedPapers = person.getPreferdPapers();
 		int count = 0;
 		boolean ok = false;
 		AllocP_Paper paper = null;
-		while (count < preferedPapers.length &&
-				!(ok = person.verifyPaper(paper = findOpenPaperByPaperID(preferedPapers[count],open))))			
+		while (count < preferedPapers.size() &&
+				!(ok = person.verifyPaper(paper = findOpenPaperByPaperID(preferedPapers.elementAt(count),open))))			
 					count++;			
 		
 		if (ok) return paper;
@@ -152,7 +155,30 @@ public class AllocP_PaperList {
 						return paper;
 		return null;
 	}
-	public Enumeration<AllocP_Paper> getPapers(){
-		return papers_by_paperID.elements();
+	public Collection<AllocP_Paper> getPapers(){
+		return papers_by_paperID.values();
+	}
+	
+	/**
+	 * 
+	 */
+	public void resetPapers() {
+		Collection<AllocP_Paper> pap = getPapers();
+		Iterator<AllocP_Paper> i = pap.iterator();
+		while (i.hasNext()){
+			(i.next()).resetRewiever();
+		}
+		
+	}
+	public int getMinReviewer(){
+		return this.min_reviewer;
+	}
+	/**
+	 * @param is
+	 * @return
+	 */
+	public AllocP_Paper getPaperByID(int id) {
+		
+		return papers_by_paperID.get(id);
 	}
 }

@@ -1215,10 +1215,10 @@ public class ReadServiceImpl extends Service implements ReadService {
 			ok = false;
 		}
 		else {
-			QUERRY = "SELECT person_id FROM ROLE WHERE ";
+			QUERRY = "SELECT person_id FROM Role WHERE ";
 			QUERRY += "conference_id ="+conference_id+" AND ";
 			QUERRY += "role_type = 3";
-			QUERRY_COUNT = "SELECT Count(person_id) FROM role WHERE ";
+			QUERRY_COUNT = "SELECT Count(person_id) FROM Role WHERE ";
 			QUERRY_COUNT += "conference_id ="+conference_id+" AND ";
 			QUERRY_COUNT += "role_type = 3";
 		}
@@ -1272,9 +1272,9 @@ public class ReadServiceImpl extends Service implements ReadService {
 			ok = false;
 		}
 		else {
-			QUERRY = "SELECT id FROM paper WHERE ";
+			QUERRY = "SELECT id FROM Paper WHERE ";
 			QUERRY += "conference_id ="+conference_id;
-			QUERRY_COUNT = "SELECT Count(id) FROM paper WHERE ";
+			QUERRY_COUNT = "SELECT Count(id) FROM Paper WHERE ";
 			QUERRY_COUNT += "conference_id ="+conference_id;
 		}
 		
@@ -1329,9 +1329,9 @@ public class ReadServiceImpl extends Service implements ReadService {
 		}
 		else {
 			
-			QUERRY = "SELECT topic_id FROM isabouttopic WHERE ";
+			QUERRY = "SELECT topic_id FROM IsAboutTopic WHERE ";
 			QUERRY += "paper_id ="+paper_id;
-			QUERRY_COUNT = "SELECT Count(topic_id) FROM isabouttopic WHERE ";
+			QUERRY_COUNT = "SELECT Count(topic_id) FROM IsAboutTopic WHERE ";
 			QUERRY_COUNT += "paper_id ="+paper_id;
 		}
 		

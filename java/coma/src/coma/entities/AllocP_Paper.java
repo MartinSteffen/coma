@@ -3,8 +3,6 @@
  */
 package coma.entities;
 
-import java.util.Vector;
-
 import coma.handler.db.ReadService;
 
 /**
@@ -12,7 +10,7 @@ import coma.handler.db.ReadService;
  *
  *
  */
-public class AllocP_Paper {
+public class AllocP_Paper  {
 	
 		int paperID;
 		int[] topicIDs = new int[0];
@@ -25,7 +23,7 @@ public class AllocP_Paper {
 			resultset = db_read.getAllTopicsOfPaper(paperID);
 			topicIDs = (int[])resultset.getResultObj();
 		}
-		
+	
 		public void addReviewer(){
 			numOfReviewer++;
 		}
@@ -44,5 +42,13 @@ public class AllocP_Paper {
 		}
 		public int[] getTopicIDs(){
 			return topicIDs;
+		}
+
+		/**
+		 * 
+		 */
+		public void resetRewiever() {
+			numOfReviewer =0;
+			
 		}
 }

@@ -6,7 +6,9 @@ package coma.servlet.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
+import java.util.Collection;
+
+import java.util.Iterator;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -18,9 +20,10 @@ import javax.servlet.http.HttpSession;
 import coma.entities.AllocP_Paper;
 import coma.entities.AllocP_PaperList;
 import coma.entities.AllocP_Person;
+import coma.entities.Allocation;
 import coma.entities.Conference;
 import coma.entities.Person;
-import coma.entities.SearchCriteria;
+
 import coma.entities.SearchResult;
 import coma.handler.db.ReadService;
 import coma.servlet.util.Navcolumn;
@@ -36,10 +39,14 @@ import coma.servlet.util.XMLHelper;
 public class AllocatePapers extends HttpServlet { 
 	 
 	
+	AllocP_Person[] personList_high = new AllocP_Person[0];	
+	AllocP_PaperList paperList_high;
 	AllocP_Person[] personList = new AllocP_Person[0];	
 	AllocP_PaperList paperList;
 	int happiness = 0;
 	int shift = 0;
+	int max_happiness = 0;
+	int contentment = 0;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, java.io.IOException {
@@ -66,9 +73,11 @@ public class AllocatePapers extends HttpServlet {
 		//testphase TODO: wegmachen
 		printOut(response);
 		
-		happiness = 0;
 		resetHappiness();
-		shift = (shift + 1 )%personList.length;
+		happiness = 0;
+		max_happiness = 0;	
+		shift = 0;//(shift+1)%personList.length;
+		
 	}
 	
 	
@@ -79,38 +88,71 @@ public class AllocatePapers extends HttpServlet {
 		
 		try {
 			PrintWriter out = res.getWriter();
+			out.print("<table border=1>");
+			out.print("<tr>");
+			out.print("<td>Person</td>");
+			out.print("<td>Pref.Paps</td>");
+			out.print("<td>Pref.Tops</td>");
+			out.print("<td>Papers</td>");
+			out.print("<td>% Content</td>");
+			out.print("<td>Content/Total</td>");
+			out.print("<td>Happy/Total</td>");
+			out.print("<td>TotalPaps</td>");
+			out.println("</tr>");
 			for (int i = 0 ; i < personList.length;i++){
+				out.print("<tr>");
 				AllocP_Person person = personList[i];
-				out.print("Person "+person.getPersonID()+" tops(");
-				int[] tops = person.getPreferdTopics();
-				for (int x = 0; x< tops.length;x++)
-					out.print(tops[x]+",");
-				out.print(") pap( ");
-				int[] pap = person.getPreferdPapers();
-				for (int x = 0; x< pap.length;x++)
-					out.print(pap[x]+",");
-				out.print(") Papers: ");
+				out.print("<td>"+person.getPersonID()+":"+person.getFirstName()+
+						" "+person.getLastName()+"</td><td>");
+				Vector<Integer> pap = person.getPreferdPapers();
+				for (int x = 0; x< pap.size();x++)
+					out.print(pap.elementAt(x)+",");
+				out.print("</td><td>");
+				Vector<Integer> tops = person.getPreferdTopics();
+				for (int x = 0; x< tops.size();x++)
+					out.print(tops.elementAt(x)+",");
+				out.print("</td><td>");
+				
 				Vector papers = person.getPapers();
 				for (int j = 0; j < papers.size();j++){
+					String in = "";
+					String out_ = "";
 					AllocP_Paper paper = (AllocP_Paper) papers.elementAt(j);
-					out.print(paper.getPaperID()+"(");
+					if (person.isPreferedPaper(paper))
+							{
+								in = "<font color=green>";
+								out_ = "</font>";
+							}
+					else if (person.isPreferedTopic(paper))
+					{
+						in = "<font color=blue>";
+						out_ = "</font>";
+					}
+					out.print(in+paper.getPaperID()+"(");
 					int[] t = paper.getTopicIDs();
 					for (int u = 0;u<t.length;u++)
 						out.print(t[u]+",");
-					out.print("),");
+					out.print(")"+out_+",");
 				}
-				out.println(" happy: "+person.getPercHappiness()+"% "+
-						person.getHappiness()+"/"+person.getNumOfPapers()*2
-							+" TotalPap: "+person.getNumOfPapers());
+			
+				out.println("</td><td>"+person.getPercContent()+"%");
+				out.println("</td><td>"+person.getContent()+"/"+person.getNumOfPapers()+"</td><td>");
+				out.println(person.getHappiness()+"/"+person.getNumOfPapers()*2);
+				out.println("</td><td>"+person.getNumOfPapers());
+				out.print("</td></tr>");
 			}
-			out.println("Happiness: "+happiness);
-			out.println("Shift: "+shift);
-			out.println("-----------");
-			Enumeration<AllocP_Paper> e = paperList.getPapers();
-			while (e.hasMoreElements())
+			out.print("</table>");
+			out.println("Happiness: "+happiness+"<br>");
+			out.println("ContentPerc: "+contentment+"<br>");
+			
+			out.println("Shift: "+shift+"<br>");
+			out.println("-----------"+"<br>");
+			Collection<AllocP_Paper> e = paperList.getPapers();
+			Iterator<AllocP_Paper> it = e.iterator();
+			while (it.hasNext())
 			{
-				AllocP_Paper p = e.nextElement();
-				out.println("Paper: "+p.getPaperID()+":"+p.getNumOfReviewer());
+				AllocP_Paper p = it.next();
+				out.println("Paper: "+p.getPaperID()+":"+p.getNumOfReviewer()+"<br>");
 			}
 			
 		} catch (IOException e) {
@@ -124,11 +166,89 @@ public class AllocatePapers extends HttpServlet {
 	 * 
 	 */
 	private void allocatePapers() {
-				
-		while (paperList.getOpenPapers()!=0) newRound(shift);
-		fillUpPapers();
-		happiness = getHappiness();		
+		Allocation alloc = new Allocation();
+		int min_diff = paperList.getMinReviewer()+1;
+		while (shift < personList.length)
+		{
+			
+			resetPapers();
+			resetHappiness();
+			resetContent();
+			
+			while (paperList.getOpenPapers()!=0) newRound(shift);
+			
+			fillUpPapers();
+			happiness = getHappiness(personList);
+			int diff = getConDiff();
+			
+			if (happiness >= max_happiness && min_diff > diff)
+			{
+				min_diff = diff;
+				max_happiness = happiness;
+				alloc = new Allocation(paperList,personList);
+			}
+			shift++;
+			
+		}
+		resetPapers();
+		resetHappiness();
+		resetContent();
+		alloc.reAlloc(paperList,personList);
+		happiness = getHappiness(personList);
+		contentment = getPercContent(personList);
+		
 	}
+	
+
+	/**
+	 * @return
+	 */
+	private int getConDiff() {
+		int min = paperList.getMinReviewer()+1;
+		int max = 0;
+		for (int i = 0 ; i < personList.length ; i++){
+			int c = personList[i].getContent();
+				
+			if (c < min) min = c;
+			if (c > max) max = c;
+		}
+		
+		return max-min;
+	}
+
+
+	/**
+	 * @param personList2
+	 * @return
+	 */
+	private int getPercContent(AllocP_Person[] pl) {
+		int content = 0;
+		for (int i = 0; i < pl.length;i++){
+			pl[i].reCalcHapCon();
+			content += pl[i].getPercContent();
+		}
+		return content/pl.length;
+	}
+
+
+	/**
+	 * 
+	 */
+	private void resetContent() {
+		for (int i = 0; i < personList.length;i++)
+			 personList[i].resetContent();
+	}
+
+
+	/**
+	 * 
+	 */
+	private void resetPapers() {
+		for (int i = 0; i < personList.length;i++)
+			 personList[i].resetPapers();
+		paperList.resetPapers();
+	}
+
 
 	/**
 	 * 
@@ -143,8 +263,10 @@ public class AllocatePapers extends HttpServlet {
 		}
 		for (int i = 0; i <personList.length;i++)
 		{
-			if (personList[i].getNumOfPapers()<maxPapers)
-				underworkpersons.add(personList[i]);
+			if (personList[i].getNumOfPapers()< maxPapers){
+					underworkpersons.add(personList[i]);
+					
+			}
 		}
 		for (int i = 0; i < underworkpersons.size();i++){
 			underworkpersons.elementAt(i).pickPaper(paperList,false);
@@ -156,10 +278,12 @@ public class AllocatePapers extends HttpServlet {
 	/**
 	 * @return
 	 */
-	private int getHappiness() {
+	private int getHappiness(AllocP_Person[] pl) {
 		int happy = 0;
-		for (int i = 0; i < personList.length;i++)
-			happy += personList[i].getHappiness();
+		for (int i = 0; i < pl.length;i++){
+			pl[i].reCalcHapCon();
+			happy += pl[i].getHappiness();
+		}
 		return happy;
 	}
 	/**
