@@ -27,7 +27,7 @@ $strContentAssocs['lines'] = '';
 if (!empty($objConferences)) {
   $lineNo = 1;  
   foreach ($objConferences as $objConference) {
-  	echo ("$uid<br>");
+  	echo (session('uid').'<br>');
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
     $ifArray = array();
     if (!empty($objPerson)) {
