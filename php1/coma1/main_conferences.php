@@ -14,8 +14,6 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
-require_once('./include/class.dbaccess.inc.php');
-
 
 $content = new Template(TPLPATH.'conference_list.tpl');
 $strContentAssocs = defaultAssocArray();
@@ -29,8 +27,8 @@ $strContentAssocs['lines'] = '';
 if (!empty($objConferences)) {
   $lineNo = 1;  
   foreach ($objConferences as $objConference) {  	  	
-    $objPerson = $this->myDBAccess->getPerson(session('uid'), $objConference->intId);
-    if ($this->mySql->failed()) {
+    $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
+    if ($mySql->failed()) {
       echo ($this->error('getPerson', $this->mySql->getLastError()).'<br>');
     }
     $ifArray = array();
