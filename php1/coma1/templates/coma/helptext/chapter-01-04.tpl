@@ -9,8 +9,10 @@
 <ul>
   <li>
     step two: <u> Sign up for conference </u> <br>
-    At the conference of your choice, press to button 'sign up' und log into the chosen conference. <br>
-    See the item 'Conference' to inform yourself about the basic-data, 
+    At the conference of your choice, press to button 
+    <a href="./help.php?for=main_conferences{&popup}{&SID}"> sign up </a> and log into the chosen conference. <br>
+    See the item <a href="./help.php?for=user_conference{&popup}{&SID}"> Conference </a> 
+    to inform yourself about the basic-data, 
     the chairs and, after the date of notification, about the accepted papers for chosen conference.  
   </li>
 </ul>
