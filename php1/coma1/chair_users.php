@@ -31,6 +31,9 @@ if (isset($_POST['action'])) {
     // Benutzer loeschen (?)
   }
   else if ($_POST['action'] == 'editrole') {
+    $intPersonId = $_POST['userid'];
+    $intRoleType = $_POST['roletype'];
+
     $objPerson = $myDBAccess->getPerson(session('uid'));
     if ($myDBAccess->failed()) {
       error('Error retrieving chair data', $myDBAccess->getLastError());
@@ -49,8 +52,6 @@ if (isset($_POST['action'])) {
     $strMailAssocs['conference'] = encodeText($objConference->strName);
     $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
 
-    $intPersonId = $_POST['userid'];
-    $intRoleType = $_POST['roletype'];
     // Benutzerrolle bearbeiten
     if ($_POST['submit'] == 'add') {
       $myDBAccess->addRole($intPersonId, $intRoleType, session('confid'), true);
