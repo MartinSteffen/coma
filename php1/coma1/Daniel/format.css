@@ -11,13 +11,13 @@
 /* Tabellen */
         /* header */
 		td.header { color:#26003A; font-family:Verdana,Helvetica,Arial,sans-serif; font-size:24pt;
-		         font-weight:bold;  vertical-align:middle; line-height:130%;} 
+		         font-weight:bold;  vertical-align:middle;} 
 		
 		/* navigator */
 		td.nav { background-color:#400040; color:#82FF82; 
 		     font-family:Verdana,Helvetica,Arial,sans-serif; font-size:11pt;
              font-weight:bold ;vertical-align:middle; line-height:130%; text-align:center;
-			  margin-left:80px; margin-right:70px; min-height:300; height:30; border-width:medium; }
+			  margin-left:80px; margin-right:70px; border-width:medium; }
 			  
         a.nav { color:#82FF82; text-decoration:none; }
 		a.nav:visited { color:#82FF82;}
@@ -29,16 +29,16 @@
 		td.nav2 { background-color:#D9FFCF; color:#26003A;
 		     font-family:Verdana,Helvetica,Arial,sans-serif; font-size:11pt;
              font-weight:bold ;vertical-align:middle; line-height:130%; text-align:center;
-			  margin-left:80px; margin-right:70px; min-height:300; height:30; border-width:medium; }
+			  margin-left:80px; margin-right:70px; border-width:medium; }
 			  
 		a.nav2 { background-color:#D9FFCF; color:#26003A;
 		     font-family:Verdana,Helvetica,Arial,sans-serif; font-size:11pt;
              font-weight:bold ; line-height:130%; text-align:left;
-			   height:30; border-width:medium; }	
+			 border-width:medium; }	
 			     
 		td.nav3 { background-color:#400040; color:#82FF82; 
 		     font-family:Verdana,Helvetica,Arial,sans-serif; font-size:11pt;
              font-weight:bold ;vertical-align:middle; line-height:130%; text-align:center;
-			  margin-left:80px; margin-right:70px; min-height:300; height:3; border-width:medium; }
+			  margin-left:80px; margin-right:70px; border-width:medium; }
 
 /* Ende der Stylesheet Definitionen */
