@@ -417,7 +417,7 @@ function generatePostMethodArray($strArrayPostvars){
   $objContenttemplate->assign($strArrayContentAssocs);
 
   $_SESSION['menu'] = 0;
-  $_SESSION['menuitem'] = 3;
+  $_SESSION['menuitem'] = 10 + $fshow;
   include(INCPATH.'usermenu.inc.php');
 
   $objMaintemplate = new Template(TPLPATH . 'frame.tpl');
