@@ -1,0 +1,311 @@
+
+
+\newif\ifweb\webfalse
+
+\documentclass[11pt,handout,nologo]{handout}
+
+\dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
+\coursename{P-I-T-M: Coma}
+\semester{WS 2004/05}
+\ausgabetermin{30.~November 2004}
+\handouttitle{not needed, only for freeform}
+\nummer{6}
+\thema{Some remarks on the way we communicate}
+
+
+\newcommand{\Coma}{\textsl{Coma}}
+\ifweb
+\usepackage{hevea}
+\fi
+\usepackage{hyperref}
+\usepackage{psfrag}
+
+\usepackage{graphicx}
+\graphicspath{{../figures/}} %% cool!
+
+
+%\uebungfalse
+%\handouttrue
+
+\begin{document}
+
+\thispagestyle{empty}
+
+
+
+
+
+\begin{abstract}
+  The handout is an ad-hoc document collecting observations and remarks (as
+  far as we see it) concerning the current state of communication problems.
+  The handout basically condense and makes explicit the stuff that has been
+  discussed/presented during the meeting. So the document probably does not
+  contain eternal truths, but just points that currently are of concern and
+  which we should keep in mind so that the project(s) and discussions do
+  not get out of hand. Compared to the distributed version, I leave out the
+  \emph{technical} points concerning the data model and concentrate on the
+  ``communication'' part.
+\end{abstract}
+
+
+\iffalse
+\subsection*{Open points}
+
+I list current open question, that I've seen on the bulletin board.
+
+\begin{itemize}
+\item 
+  \begin{enumerate}
+  \item \texttt{Conference.desciption}: it's in the textual code, but not in
+    the SQL-code. Recommendation: remove in the SQL thing
+  \item \textbf{Person.conference:} varchar \texttt{29} to \texttt{20:}
+    \texttt{20} is ok, do this in \texttt{SQL}
+  \item \textbf{roles:} Int or Bit Vector: not so crucial, but agree
+  \item \textbf{paper.id} Bigint: in the textual form: it's int now, in SQL it's
+    bigint. agree
+  \item \textbf{CoAuthorOf:} field email not necessary (or at least is allowed
+    to be zero): Currently it's non-null. Name would suffice. In the UML
+    diagram, a set of strings was proposed
+  \item \textbf{Forgotten: a reviewer reject to review a paper:} add an assoc
+    \texttt{WantsNotReview}
+  \item \textbf{must\_not\_review}: This was an association, which was proposed
+    in the UML diagram, associating \texttt{Person} and \texttt{Paper}
+  \item \textbf{where are grades?:} 
+  \item \textbf{Value names}:
+  \item \textbf{Forum title:}
+  \item \textbf{Forum description:}
+  \item \textbf{How to assoc. a forum to a paper?}
+  \item \textbf{ParticipatesInForum} to \texttt{ParticipantsInForum}: not yet
+    done in SQL
+  \end{enumerate}
+\item 
+  \begin{enumerate}
+  \item \textbf{HasThread:} that has been removed
+  \item \textbf{User:} only per conference? In other words, if a user wants to
+  participate in various conferences, he has to login separately? Answer is:
+  yes, that's intended. And I agree with Sandro
+\item \textbf{In Person:} reference to rights,id. I could not find that
+\item \texttt{redundant references:}
+  \begin{itemize}
+  \item  from \texttt{Person} to  \texttt{Conference} 
+  \item from \texttt{User} to \texttt{Rights}
+  \item from \texttt{Rights} to \texttt{Roles}
+  \item from \texttt{Roles} to \texttt{Conference}
+  \end{itemize}
+\item \textbf{redundant reference:} 
+  \begin{itemize}
+  \item  in \texttt{isCoAuthor} to \texttt{Paper}
+    and to \texttt{Conference}. In principle, I agree. Depends however, how
+    complex the coauthor is modelled.
+  \item \texttt{IsAboutTopic} connects \texttt{Paper} and \texttt{Conference}
+    via \texttt{Topic}, but there's also a direct connection from \texttt{Paper}
+    to \texttt{Conference}
+  \item \texttt{ReviewReport} to \texttt{Conference}
+  \end{itemize}
+\item Remark: I agree with the comment of Sandro: Paper and Topic should be
+  connected to the conference.
+\end{enumerate}
+\item Further stuff:
+  \begin{itemize}
+  \item Mohamed is the only one to adapt SQL
+  \item Sandro defends his proposition concerning roles., ivanilas  has a more
+  complex proposal
+\item Discussion about \textbf{IDs}. The arguments on the table are
+  \begin{itemize}
+  \item \emph{efficiency/perfomance:} I think it's not so important.
+  \item \emph{changeability:} what if a user changes his email. I think that's
+    a valid valid
+  \item \emph{uniqueness:} what if there are different writings of an email
+  \item \textrm{readability/understandability:} I'd say: not so relevant
+  \item a real problem is indeed: one user in different conferences, but one
+    can solve it via \textbf{Ids} or without
+  \item adaptability: do we want to find later new roles? My remark: now, we
+    have problems enough. I agree with Marcel, we should not design for
+    adaptability in this respect and in this way. Besides that, using integers
+    because there's `` still so much space left in \texttt{Int}, which we can
+    later use, perhaps, if we have something forgotten'', it sounds not
+    convincing, it sounds not even like \emph{adaptability,} more like leaving
+    the door open for a future hack, if we need one :-) There's still the
+    disagreement about the extra table for the roles. We must take a decision.
+  \end{itemize}
+\item\textbf{Exclude paper:} missing
+  \end{itemize}
+\fi
+\begin{itemize}
+\item \textbf{Request of ``Stop the discussion'':} (by Tom)
+  \begin{itemize}
+  \item The discussion can indeed turn into a problem. As yesterday already
+    indicated in the general email: underlying may be (amongst other
+    things) a communication problem. One of the core messages I do support
+    from what Tom (others too) remarked: we should come to an end.
+    Furthermore, the discussions on the board start to get into an exchange
+    of arguments for sake of the argument (``and here is yet another reason
+    why I'm right and you are wrong \ldots'':). We have to be careful here
+    and come to a conclusion, in particular in cases where it does not
+    matter what we decide (bitvector vs. integer, the arguments are on the
+    table so we go ahead.)
+  \item The second underlying message (``If we only had taken the carefully
+    and painfully worked out good specification, then we would not had
+    those problems'') I do not completely support (I pointed that out on
+    the board). It's true that the specs had been worked out well, but we
+    are currently somehow deep in ``Varchar(29)'' (a typo) or ``BigInt''
+    vs. ``Int'' and all this kind of stuff, and also inconsistency remarks.
+    
+    I would rather guess, that both of the two delivered specs would have
+    drawn equal flak as well, once it came to the details or it came to
+    realizing them really. We might have saved, I agree, a week or so, when
+    just taking one of the specs and pour them into SQL (because the
+    discussion would have started just one week earlier) but some discussion
+    would have evolved.  
+    
+    The counter argument, ``perhaps the previous specs had been some open
+    points too, but at least \emph{we} had to implement it'' does not
+    really hold in my eyes, because we \emph{all} have to implement it, not
+    just each one his own spec. Life would indeed be easier if each group
+    could implement whatever it chooses (spec 1, or spec 2, or some
+    additions/subset), but that's not the idea.
+  \item Related to the above concern (``general development, apart from
+    technical details'') I further agree with Sandro (if that was his point):
+    No unannouced critical changes which influences someone else. This holds
+    even for \emph{healthy} changes.\footnote{Unless one really trusts each
+      other.} 
+  \end{itemize}
+\item And again related to the above: \textbf{the means of communication.}
+    \begin{itemize}
+    \item I can't speak for the rest of the audience, but it could be that
+      this BB is not the fastest means of communication, in particular for
+      \emph{agreement.} This is not to propose email instead, but
+      \emph{sometimes} to come together and solve trivial technical things
+      and that's it. What I mean is that for some issue the net time to
+      follow long discussions, browing, reading through quotes etc, is
+      longer than the net time to sit together (or make an appointment with
+      (me and/or Marcel and/or Gunnar), drop by and hammer it out. Also
+      face-to-face sometimes makes compromise easier, and that's important
+      as well.
+    \item This was raised (by Gunnar) commenting on ``agreements in the
+      forum''. I agree with him in this point. Technically, since we (so far)
+      said in the meeting, that the forum does \emph{not} constitute an
+      obligatory means of communication, there can't be \emph{obligatory}
+      agreements concerning topics of general interest on the forum.
+      
+      A different thing would be that group \emph{X} decides that everyone
+      in this group \emph{must} read the relevant group and thus the people
+      are forced to use the board. In this point, I agree with
+      \emph{Gunnar}. \texttt{Scherbengestalt} mentioned: ``I don't see
+      what's going on'' and ``too many communication channels''. For the
+      last point, that's difficult to change. The only thing that one can
+      change is to reduce the \emph{obligatory} channels (if someone likes
+      to send someone else an SMS about the project, it's difficult to do
+      something about).
+    \item Here's the means of communication that we have:
+      \begin{itemize}
+      \item \textbf{snv logs:} I do not recommend this as means of
+        communication, unless we decide this, but I think it does not work,
+        and we have enough other channels. Especially now, where somehow
+        lot's of stuff seem to get checked in, probably we would be swamped
+        by reading meaninless logs. As a matter of fact, many of the logs
+        (by me and also by others) are plain empty.
+      \item \textbf{after-the-fact Readmes:} I'd recommend that Readmes are
+        short and pretty \emph{stable} (up-to the point of course, that
+        things they describe change) but not used as a means of
+        communication of changes. In this way, it would be more a
+        \textbf{log-file.}  Especially, it can turn out contraproductive,
+        to change someone else's work and note it down in the Readme (I
+        don't know whether we had instances of that already).
+      \item Also, in the medium run a bad means (or a sign of bad)
+        communication: \textbf{``hand-versioned''} files like
+        \texttt{file-x} checked in. At least the alternatives \emph{must}
+        as soon as possible been resolved.
+        
+        In some sense, it's the polite way of avoiding the previous point
+        (just overwrite or undo someone else's stuff and the other one has
+        to swallow it or re-redo it). In the medium run, it's equally bad,
+        because we will loose overview. For instance, currently we have
+        \emph{3 versions} of the data-model in textual form lying around
+        (two in the repos + one posted on the board accessible via some
+        url) and 1 in SQL format. All versions are different. Version 2
+        seems to be the evolution of version 1, one can guess that. Apart
+        from that, however,\footnote{and besides the fact that we have to
+          come to a conclusion, which is important \ldots.} there creep in
+        slight inconsistencies, for instance things that had been resolved
+        in version 2, suddenly re-appear in version 3, which makes a
+        proposal to solve one point in version 2, but \emph{reentroduces}
+        stuff that had been there in version 1.
+        
+        The danger therefore is, that one looses overview (and we are
+        talking here about only \emph{one} (important) file.  This means,
+        it is (also) a problem of communication, because one forces the
+        others to go through the code again, compare it, see new additions,
+        see that old stuff has not been taken into account. Basically, it's
+        the same situation as in the previous point, only more ``polite''
+        at the surface.
+      \item \textbf{Bugzilla} has not yet proved how helpful it will be,
+        but I guess it is. By not yet proven I mean: so far it has not been
+        put to the (real) test. We have 18 reported bug, and one can
+        imagine to keep track of 18 in one's brain alone; only the future
+        will tell how many bugs are reported \ldots
+      \item \textbf{email:} In my eyes, email so far is not a problem, at
+        least not the \emph{official emails} via \texttt{swprakt+coma},
+        basically there's one or 2 emails per week. How groups use email
+        internally, we don't exactly know.
+      \item\textbf{Face-to-face:} probably, in this phase, we need to use
+        this more \ldots Especially, we would like to recommend also to
+        make separate appointments (with each group) apart from the general
+        meetings. This will cost (also us) time, but is probably effective
+        in the current stage.
+      \item \textbf{Web-page:} we maintain the web-page as server for
+        information (keeping the handouts, specs,, the announcemetn emails
+        etc) I think, that's important.
+      \end{itemize}
+      The remarks about the bad means are, in some sense, more
+      \emph{psychological} than \emph{technical}.  one usually tend to feel
+      ``neglected'' if someone changes someone without announcement, or
+      adds a ``better'' version of the file, and this is aggravated by the
+      tendency \emph{not to read} the Readme's etc. (``I undertand what I
+      want, but what the heck has \texttt{XXX} checked in here, well, I
+      don't care/I don't understand, mine was good, too, I go ahead'').
+    \end{itemize}
+  \item \textbf{Structure of the repos:} Also here, it starts getting out
+    of hand. we see signs of bad structure, for instance \emph{names} as
+    directory identifiers. It is good to have clean areas of
+    responsabilities, but I tend to think it as not a good sign of
+    structuring to see it reflected by name in the ``code''.\footnote{At
+      the server side, it might be tolerable, but the ``user version''
+      should not have to deal with packages called ``Alice'' and ``Bob''.}
+    It could again be some polite way of avoiding communication and current
+    conflicts (``Let me do my stuff in ``Alice'' and so I leave you in
+    peace in your directory in ``Bob'', I don't even look). If it works
+    like this, it's ideal, but probably, our situation is not as clean.
+    
+    Related to the above problems that we see with some of the means of
+    communication, we must insist of \textbf{keeping the repos clean!} 
+    By this I mean
+    \begin{itemize}
+    \item no \textbf{garbage}/no \textbf{duplicates}/no \textbf{stale
+        code}: it must for the people affected, be clear at (almost) each
+      point, what is there, what is the current version that is relevant
+      etc.  Of course, it's impossible (and we should not even try) that
+      everyone knows everything what's there all the time.  But: if
+      something affects others, those concerned must be ``warned'' in
+      advance before something is added/changed etc. This warning need not
+      be an email or long thread, it can mean \emph{sitting together}
+    \item clear separation of own source and third-party stuff (if we have
+      some such).
+    \end{itemize}
+\end{itemize}
+
+
+
+
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: handout3.tex 23 2004-11-11 07:22:29Z ms $ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
