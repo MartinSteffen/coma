@@ -75,28 +75,11 @@ if ($STEP == 0){
 }
 elseif ($STEP == 1){
   // Create Configuration
+  /**@ignore */
+  define('IN_COMA1', true);
   require_once('./include/config.inc.php');
-$confFile = "<?php
-/**
- * Configuration of the Database Server
- *
- * @version \$Id$DATETIME\$
- * @package coma1
- * @subpackage Configuration
- */
-/***/
-if ( !defined('IN_COMA1') )
-{
-  die('Hacking attempt');
-}
-
-// Change these Values
-\$sqlServer = '$sqlServer';
-\$sqlUser = '$sqlUser';
-\$sqlPassword = '$sqlPassword';
-\$sqlDatabase = '$sqlDatabase';
-
-?>";
+  // Create ConfigFile
+  $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = '$sqlServer';\n\$sqlUser = '$sqlUser';\n\$sqlPassword = '$sqlPassword';\n\$sqlDatabase = '$sqlDatabase';\n\n?>";
 
   echo "    <p class=\"menu\">\n";
   echo htmlentities($confFile, ENT_QUOTES, 'UTF-8');
