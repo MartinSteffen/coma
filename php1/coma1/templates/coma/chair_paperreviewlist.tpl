@@ -10,6 +10,7 @@
     <th class="viewheader">&nbsp;</th>   
     {crit_cols}
     <th class="viewheader">Total rating:</th>
+    <th class="viewheader">&nbsp;</th>
   </tr>
   {review_lines}
 </table>
