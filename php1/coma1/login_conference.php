@@ -11,7 +11,7 @@ require_once('./include/header.inc.php');
 
 if (isset($_POST['confid'])) {
   /* Einloggen zur Konferenz confid */
-  $_SESSION['confid'] = $_POST['confid'];
+  $_SESSION['confid'] = encodeText($_POST['confid']);
   redirect('user_profile.php');
 }
 else {
