@@ -100,7 +100,7 @@ class Session {
   }
 
   /**
-  * @retrun true Die Funktion gibt immer <b>true</b> zurueck.
+  * @return true Die Funktion gibt immer <b>true</b> zurueck.
   * @access private
   */
   function sessionClose() {
