@@ -1726,12 +1726,13 @@ nur fuer detaillierte?
       return $this->success();
     }
     // Topics einfuegen...
-    for ($i = 0; $i < count($objPaperSimple->objTopics); $i++) {
-      $objTopics = $objPaperSimple->objTopics[$i];
-      if (!empty($objTopics)) {
+    $objTopics = $objPaperSimple->objTopics;
+    for ($i = 0; $i < count($objTopics); $i++) {
+      if (!empty($objTopics[$i])) {
         $s = sprintf("INSERT   INTO IsAboutTopic (paper_id, topic_id)".
                      " VALUES  ('%d', '%d')",
-                     s2db($intId), s2db($objTopics->intId));
+                     s2db($intId), s2db($objTopics[$i]->intId));
+        echo($s);
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
