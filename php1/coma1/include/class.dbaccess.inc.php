@@ -82,6 +82,118 @@ class DBAccess {
     $this->strError = '';
     return $strError;
   }
+
+
+
+
+  /**
+   */
+  function getAllConferences() {
+    return true;
+  }
+
+  /**
+   */
+  function checkLogin() {
+    return true;
+  }
+
+  /**
+   */
+  function getConferenceConfig() {
+    return true;
+  }
+
+  /**
+   */
+  function getPerson($strUserEmail) {
+    return true;
+  }
+
+  /**
+   */
+  function getPersonDetailed($strUserEmail) {
+    return true;
+  }
+
+  /**
+   */
+  function getPapersOfAuthor($strAuthorEmail) {
+    return true;
+  }
+
+  /**
+   */
+  function getPapersOfReviewer($strReviewerEmail) {
+    return true;
+  }
+
+  /**
+   */
+  function getPaperDetailed($intPaperId) {
+    return true;
+  }
+
+  /**
+   */
+  function getReviewsOfReviewer($strReviewerEmail) {
+    return true;
+  }
+
+  /**
+   */
+  function getReviewersOfPaper($intPaperId) {
+    return true;
+  }
+
+  /**
+   */
+  function getReviewsOfPaper($intPaperId) {
+    return true;
+  }
+
+  /**
+   */
+  function getReviewDetailed($intReviewId) {
+    return true;
+  }
+
+  /**
+   */
+  function checkAccessToForum($intForumId) {
+    return true;
+  }
+
+  /**
+   */
+  function getAllForums() {
+    return true;
+  }
+
+  /**
+   */
+  function getForumOfPaper($intPaperId) {
+    return true;
+  }
+
+  /**
+   */
+  function getForumsOfUser($strUserEmail) {
+    return true;
+  }
+
+  /**
+   */
+  function getForumDetailed($intForumId) {
+    return true;
+  }
+
+
+
+
+
+
+
 }
 
 ?>
