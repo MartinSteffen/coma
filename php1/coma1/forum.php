@@ -46,7 +46,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $objForumTypeOpenTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeOpenAssocs = defaultAssocArray();
   $strArrayTypeOpenAssocs['type'] = 'Public forums';
-  if ((1 == 2) ||(isChair($myDBAccess->getPerson(session('uid'))))){
+  if ((1 == 1) ||(isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
     $strArrayCreateAssocs['type'] = 'public';
@@ -59,7 +59,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $objForumTypePaperTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypePaperAssocs = defaultAssocArray();
   $strArrayTypePaperAssocs['type'] = 'Paper forums';
-  if ((1 == 2) || (isChair($myDBAccess->getPerson(session('uid'))))){
+  if ((1 == 1) || (isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
     $strArrayCreateAssocs['type'] = 'paper';
@@ -85,7 +85,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $objForumTypeChairTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeChairAssocs = defaultAssocArray();
   $strArrayTypeChairAssocs['type'] = 'Committee forums';
-  if ((1 == 2) || (isChair($myDBAccess->getPerson(session('uid'))))){
+  if ((1 == 1) || (isChair($myDBAccess->getPerson(session('uid'))))){
     $objCreateTemplate = new Template(TPLPATH . 'createforumform.tpl');
     $strArrayCreateAssocs = defaultAssocArray();
     $strArrayCreateAssocs['type'] = 'committee';
