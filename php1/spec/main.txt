@@ -157,7 +157,7 @@ DESIGN festgelegt welches Design verwendet werden soll (dieses
 ermöglicht eventuell später für den Benutzer ein Umschalten zwischen 
 mehreren Design-Schemata).
 Alle Dateien die zu einem Design gehören sollten dementsprechend in einem
-entsprechenden Unterverzeichnis (zB /templates/sandro/images/) liegen.
+entsprechenden Unterverzeichnis (zB /templates/simplecoma/images/) liegen.
 Wie man automatisch die korrekten Links setzt zeigen die schon vorhandenen
 Beispieldateien.
 
