@@ -62,6 +62,8 @@ table.formtable { font-size: 13px;
                   border-style: solid;
                   border: 1px;
                   border-color: #000000; /*#CEDBEF;*/
+                  margin: 10px;
+                  padding: 10px;
                 }
 
 /* tabelle mit linien zur darstellung von listen */
