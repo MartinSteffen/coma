@@ -16,7 +16,7 @@
   </tr>
   <tr class="viewline">
     <td colspan="2" class="viewline">
-      <table class="viewlist" width="100%">
+      <table class="viewtable" width="100%">
         <tr class="viewheader">
           <th class="viewline">Rating criterion</th>
           <th class="viewline">Score</th>
