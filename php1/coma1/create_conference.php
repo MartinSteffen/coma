@@ -63,8 +63,7 @@ if (isset($_POST['action'])) {
       }
     } 	
     if (isset($_POST['add_topic']) && !empty($_POST['topic_name'])) {
-        $strTopics[] = encodeText($_POST['topic_name']);
-      }
+        $strTopics[] = encodeText($_POST['topic_name']);      
     }
     if (isset($_POST['add_crit']) && !empty($_POST['crit_name'])) {
       $strCriterions[]    = encodeText($_POST['crit_name']);
