@@ -66,7 +66,29 @@ if (isset($_POST['action'])) {
     $topicForm->parse();
     $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
   }
-
+  // Anlegen des Papers in der Datenbank
+  if (isset($_POST['submit'])) {
+    // Teste, ob alle Pflichtfelder ausgefuellt wurden
+    if (empty($_POST['title'])) {  
+      $strMessage = 'You have to fill in the field <b>Title</b>!';
+    }
+    // Versuche einzutragen
+    else {
+      $result = $myDBAccess->addPaper(session('confid'), $objAuthor->intId,
+                                      $_POST['title'], $_POST['description'], '', '',
+                                      $strCoAuthors, $intTopicIds);                                     
+      if (!empty($result)) {
+        // Erfolg (kehre zurueck zur Artikelliste)
+        $_SESSION['message'] = 'Paper was successfully created.<br>'.
+                               'Please upload the document file soon.';
+        $content = new Template(TPLPATH.'author_papers.tpl');
+      }
+      else if ($myDBAccess->failed()) {
+        // Datenbankfehler?
+        error('Error during creating new paper.', $myDBAccess->getLastError());
+      }
+    }
+  }
 }
 else {
   $strContentAssocs['title']       = '';
