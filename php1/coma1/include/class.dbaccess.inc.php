@@ -502,7 +502,14 @@ class DBAccess extends ErrorHandling {
     }
     $objPersonAlgorithmic->objDeniedPapers =
       $this->getDeniedPapers($intPersonId, $intConferenceId);
-    $objPersonAlgorithmic->objExcludedPapers = array();
+    if ($this->failed()) {
+      return $this->error('getPersonAlgorithmic', $this->getLastError());
+    }
+    $objPersonAlgorithmic->objExcludedPapers =
+      $this->getExcludedPapers($intPersonId, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('getPersonAlgorithmic', $this->getLastError());
+    }
 
     // Rollen der Person
     $s = "SELECT  role_type".
@@ -1309,6 +1316,37 @@ class DBAccess extends ErrorHandling {
       $objPapers[] = $this->getPaper($data[$i]['paper_id']);
       if ($this->failed()) {
         return $this->error('getDeniedPapers', $this->getLastError());
+      }
+    }
+    return $this->success($objPapers);
+  }
+
+  /**
+   * Liefert ein Array der durch die Person $intPersonId zum Reviw abgelehnten Paper
+   * bei der Konferenz $intConferenceId.
+   *
+   * @param int $intPersonId ID der Person
+   * @param int $intConferenceId Konferenz-ID
+   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @access private
+   * @author Tom (18.01.05)
+   */
+  function getExcludedPapers($intPersonId, $intConferenceId) {
+    $objPapers = array();
+    $s = "SELECT  ep.paper_id AS paper_id".
+        " FROM    ExcludesPaper ep".
+        " INNER   JOIN Paper p".
+        " ON      p.id = ep.paper_id".
+        " AND     p.conference_id = '$intConferenceId'".
+        " WHERE   ep.person_id = '$intPersonId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getExcludedPapers', $this->mySql->getLastError());
+    }
+    for ($i = 0; $i < count($data); $i++) {
+      $objPapers[] = $this->getPaper($data[$i]['paper_id']);
+      if ($this->failed()) {
+        return $this->error('getExcludedPapers', $this->getLastError());
       }
     }
     return $this->success($objPapers);
