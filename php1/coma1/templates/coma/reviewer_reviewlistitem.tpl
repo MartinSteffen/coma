@@ -31,7 +31,7 @@
           <td>
         {if7<a href="{basepath}reviewer_reviews.php?createforum&paperid={paper_id}{&SID}"
                class="buttonlink">Start discussion</a>}&nbsp;
-        {if8<a href="{basepath}forum.php?paperid={paper_id}{&SID}"
+        {if8<a href="{basepath}forum.php?forumsel={forum-id}{&SID}"
                class="buttonlink">Enter discussion</a>}&nbsp;
           </td>
         </tr>
