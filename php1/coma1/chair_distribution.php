@@ -31,9 +31,9 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
 //    unset($_SESSION['dist_check']);
     redirect('chair_reviews.php');
 //  }
-  if ($_POST['dist_check'] != $_SESSION['dist_check']) {
+/*  if ($_POST['dist_check'] != $_SESSION['dist_check']) {
     error('Conflict.', 'Distribution not updated.');
-  }
+  }*/
   $dist = $_SESSION['dist'];
   reset($dist);
   while ($pid = key($dist)) {
