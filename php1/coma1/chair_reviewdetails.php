@@ -84,7 +84,8 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['message'] = '';
+echo $strMainAssocs['message'];
+
 //global $strRoles;
 if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
   $strMenu = $strRoles[(int)$_SESSION['menu']];
