@@ -97,6 +97,7 @@
   </tr>
 </table>
 
+{if1
 <table class="formtable">
   <tr>
     <td>Delete this paper?
@@ -108,3 +109,9 @@
   </tr>
 </table>
 </form>
+}
+{if2
+<p class="message2">
+  This paper has been accepted for the conference.
+</p>
+}

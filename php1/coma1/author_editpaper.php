@@ -176,6 +176,13 @@ for ($i = 0; $i < count($objAllTopics); $i++) {
   $topicForm->parse();
   $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
 }
+if ($objPaper->intStatus == PAPER_ACCEPTED) {
+  $ifArray[] = 2;
+}
+else {
+  $ifArray[] = 1;
+}
+
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
