@@ -78,18 +78,19 @@ else {
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['title'] = 'Details of paper';
+$strMainAssocs['content'] = &$content;
+
 if (!$popup) {
   include('./include/usermenu.inc.php');
+  $strMainAssocs['menu'] = &$menu;
   $main = new Template(TPLPATH.'frame.tpl');
 }
 else {
   $main = new Template(TPLPATH.'popup_frame.tpl');
 }
-$strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Details of paper';
-$strMainAssocs['content'] = &$content;
-$strMainAssocs['menu'] = &$menu;
-global $strRoles;
+
 if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
   $strMenu = $strRoles[(int)$_SESSION['menu']];
 }

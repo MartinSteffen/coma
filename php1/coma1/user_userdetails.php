@@ -55,18 +55,20 @@ $strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
 $content->assign($strContentAssocs);
 
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['title'] = 'User profile';
+$strMainAssocs['content'] = &$content;
+
+
 if (!$popup) {
   include('./include/usermenu.inc.php');
+  $strMainAssocs['menu'] = &$menu;
   $main = new Template(TPLPATH.'frame.tpl');
 }
 else {
   $main = new Template(TPLPATH.'popup_frame.tpl');
 }
-$strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'User profile';
-$strMainAssocs['content'] = &$content;
-$strMainAssocs['menu'] = &$menu;
-global $strRoles;
+
 if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
   $strMenu = $strRoles[(int)$_SESSION['menu']];
 }
