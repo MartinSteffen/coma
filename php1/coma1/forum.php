@@ -150,7 +150,7 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
         $formassocs['subject'] = 'Re: ' . $message->strSubject;
         $formassocs['text'] = $message->strText;
         $formassocs['newthread'] = '';
-        if (($sender->intId == session('uid')) || (DEBUG) || (isChair($myDBAccess->getPerson(session('uid'))))){
+        if (($sender->intId == session('uid', false)) || (DEBUG) || (isChair($myDBAccess->getPerson(session('uid', false))))){
           //neu/aendern
           $formassocs['replystring'] = 'Update this message/Post a reply to this message';
           $edittemplate = new Template(TPLPATH . 'editform.tpl');
@@ -224,7 +224,17 @@ function generatePostMethodArray($postvars){
   $pma['reply-to'] = $postvars['reply-to'];
   $pma['text'] = $postvars['text'];
   $pma['subject'] = $postvars['subject'];
-  $pma['uid'] = session('uid');
+  if (emptystring(session('uid', false)){
+    if (DEBUG){
+      $pma['uid'] = 1;
+    }
+    else{
+      $pma['uid'] = session('uid');
+    }
+  }
+  else{
+    $pma['uid'] = session('uid', false);
+  }
   $pma['forumid'] = $postvars['forumid'];
   return $pma;
 }
@@ -236,7 +246,7 @@ function emptystring($s){
 
 //Main-Code
 
-if ((emptystring(session('uid'))) && (!DEBUG)){
+if ((emptystring(session('uid', false))) && (!DEBUG)){
   redirect('login.php');
 }
 else{
@@ -298,8 +308,14 @@ else{
     }
 
     if ($postresult != false){
-      $selecttree = session('forum_msgselect');
-      $selecttree[$postresult] = true;
+      $selecttree = session('forum_msgselect', false);
+      if (!emptystring($selecttree)){
+        $selecttree[$postresult] = true;
+      }
+      else{
+        $selecttree = array();
+	$selecttree[$postresult] = true;
+      }
       $_SESSION['forum_msgselect'] = $selecttree;
     }
     else{
@@ -318,34 +334,56 @@ else{
   //selektionen updaten
   if (!empty($HTTP_GET_VARS['select'])){
     $tselect = $HTTP_GET_VARS['select'];
-    $temp = session('forum_msgselect');
-    $temp[$tselect] = true;
+    $temp = session('forum_msgselect', false);
+    if (!emptystring($temp)){
+      $temp[$tselect] = true;
+    }
+    else{
+      $temp = array();
+      $temp[$tselect] = true;
+    }
     $_SESSION['forum_msgselect'] = $temp;
   }
   if (!empty($HTTP_GET_VARS['unselect'])){
     $tunselect = $HTTP_GET_VARS['unselect'];
-    if (!emptystring(session('forum_msgselect'))){
-      $temp = session('forum_msgselect');
+    if (!emptystring(session('forum_msgselect', false))){
+      $temp = session('forum_msgselect', false);
       $temp[$tunselect] = false;
       $_SESSION['forum_msgselect'] = $temp;
     }
   }
   if (!empty($HTTP_GET_VARS['forumsel'])){
     $tselect = $HTTP_GET_VARS['forumsel'];
-    $temp = session('forum_forumselect');
-    $temp[$tselect] = true;
+    $temp = session('forum_forumselect', false);
+    if (!emptystring($temp)){
+      $temp[$tselect] = true;
+    }
+    else{
+      $temp = array();
+      $temp[$tselect] = true;
+    }
     $_SESSION['forum_forumselect'] = $temp;
   }
   if (!empty($HTTP_GET_VARS['forumunsel'])){
     $tunselect = $HTTP_GET_VARS['forumunsel'];
-    if (!emptystring(session('forum_forumselect'))){
-      $temp = session('forum_forumselect');
+    if (!emptystring(session('forum_forumselect', false))){
+      $temp = session('forum_forumselect', false);
       $temp[$tunselect] = false;
       $_SESSION['forum_forumselect'] = $temp;
     }
   }
 
-  buildForumtemplates($forums, session('forum_forumselect'), session('forum_msgselect'), session('select'), $contentAssocs);
+  $ffs = session('forum_forumselect', false);
+  if (emptystring($ffs)){
+    $ffs = array();
+  }
+
+  $fms = session('forum_msgselect', false);
+  if (emptystring($fms)){
+    $fms = array();
+  }
+
+  buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs);
 
   $content->assign($contentAssocs);
   $content->parse();
