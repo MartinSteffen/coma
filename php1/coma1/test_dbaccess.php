@@ -20,7 +20,7 @@ $p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
 for ($i = 0; $i <= count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
-    echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
+    echo('p hat Rolle '.$strRoles[$i].'<br>');
 }
 echo('Aendere Rollen:<br>');
 if($p->hasRole(3) == true && $p->hasRole(4) == false) {
@@ -35,7 +35,7 @@ else {
 echo('Roles:<br>');
 for ($i = 0; $i <= count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
-    echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
+    echo('p hat Rolle '.$strRoles[$i].'<br>');
 }
 echo('Update der Rollen in der DB...<br>');
 $myDBAccess->updateRoles(1, $p);
@@ -44,7 +44,7 @@ $p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
 for ($i = 0; $i <= count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
-    echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
+    echo('p hat Rolle '.$strRoles[$i].'<br>');
 }
 
 
