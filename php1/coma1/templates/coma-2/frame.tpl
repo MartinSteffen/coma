@@ -9,8 +9,8 @@
 
 <a name="top"></a>
 
-<table>
- <tr bgcolor="#DBE9EC">
+<table class="header">
+ <tr>
   <td width="25">&nbsp;</td>
   <td height="90" width="150">
    <a href="{basepath}index.php?{SID}">
@@ -18,8 +18,8 @@
    </a>
   </td>
   <td>
-   <table>
-    <tr bgcolor="#DBE9EC">
+   <table class="header">
+    <tr>
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
       <a href="#">Impressum</a>&nbsp;|&nbsp;
@@ -28,7 +28,7 @@
       <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt=""></a> &nbsp;
      </td>
     </tr>
-    <tr height="25" bgcolor="#DBE9EC">
+    <tr height="25">
      <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
      <td colspan="2" height="25" valign="middle" style="background-image:url({path}images/menue.gif)">
       {navigator}
@@ -48,7 +48,7 @@
 </table>
 
 <!-- - - - - - - - - - - - - - - - - - Footer - - - - - - - - - - - - - - - -  -->
-<table>
+<table class="footer">
  <tr>
   <td style="background-image:url({path}images/menue.gif)" width="50">&nbsp;</td>
   <td style="background-image:url({path}images/menue.gif)" height="25">&nbsp;</td>
@@ -56,7 +56,7 @@
    <a href="#top"><img src="{path}images/top.gif" width="15" height="15" border="0" align="middle" alt=""></a>
   </td>
  </tr>
- <tr bgcolor="#DBE9EC">
+ <tr>
   <td>&nbsp;</td>
   <td colspan="2" height="32">&copy; 2004 by Sandro Esquivel, Daniel Miesling, Tom Scherzer, Falk Starke, Jan Waller</td>
  </tr>
