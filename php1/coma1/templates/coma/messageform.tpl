@@ -1,6 +1,6 @@
 <br>
 <p>{replystring}<br>
-<form action="{basepath}fast_forum-impl.php{?SID}" method="post">
+<form action="{basepath}forum.php{?SID}" method="post">
   <input type="hidden" name="reply-to" value="{message-id}">
   <input type="hidden" name="forumid" value="{forum-id}">
   Subject: <input type="text" size="40" name="subject" value="{subject}"><br>
