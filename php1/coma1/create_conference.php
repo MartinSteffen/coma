@@ -134,9 +134,6 @@ if (isset($_POST['action'])) {
     }
     // Versuche die neue Konferenz einzutragen
     else {
-      if ($myDBAccess->failed()) {       
-        echo('Error during creating conference: '. $myDBAccess->getLastError());
-      }
       $result = $myDBAccess->addConference(encodeText($_POST['name']),                                           
                                            encodeURL($_POST['homepage']),
                                            encodeText($_POST['description']),                                           
@@ -160,7 +157,7 @@ if (isset($_POST['action'])) {
                                            $strCritMaxVals, $strCritWeights);                                           
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        //error('Error during creating conference.', $myDBAccess->getLastError());
+        error('Error during creating conference.', $myDBAccess->getLastError());
       }
       else {
         // Erfolg (also anderes Template)

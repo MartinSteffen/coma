@@ -2068,6 +2068,7 @@ nur fuer detaillierte?
       $strError = $this->mySql->getLastError();
       $s = "DELETE  FROM Conference".
           " WHERE   id = '$intId'";
+      $this->mySql->delete($s);
       if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
         return $this->error('addConference', 'Fatal error: Database inconsistency!',
                             $this->mySql->getLastError()." / $strError");
@@ -2081,12 +2082,13 @@ nur fuer detaillierte?
           $strError = $this->mySql->getLastError();
           $s = "DELETE  FROM Conference".
               " WHERE   id = '$intId'";
+          $this->mySql->delete($s);
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
                                 $this->mySql->getLastError()." / $strError");
-          }
+          }        
+          return $this->error('addConference', $this->mySql->getLastError());
         }
-        return $this->error('addConference', $this->mySql->getLastError());
       }
     }
     if (!empty($strCriterions)) {
@@ -2097,12 +2099,13 @@ nur fuer detaillierte?
           $strError = $this->mySql->getLastError();
           $s = "DELETE  FROM Conference".
               " WHERE   id = '$intId'";
+          $this->mySql->delete($s);
           if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
             return $this->error('addConference', 'Fatal error: Database inconsistency!',
                                 $this->mySql->getLastError()." / $strError");
-          }
+          }        
+          return $this->error('addConference', $this->mySql->getLastError());
         }
-        return $this->error('addConference', $this->mySql->getLastError());
       }
     }
     return $this->success($intId);
