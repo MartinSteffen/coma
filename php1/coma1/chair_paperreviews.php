@@ -36,7 +36,7 @@ $content = new Template(TPLPATH.'chair_paperreviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['paper_id'] = encodeText($objPaper->intId);
 $strContentAssocs['author_id'] = encodeText($objPaper->intAuthorId);
-$strContentAssocs['author_name'] = encodeText($objPaper->strAuthorName);
+$strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);
 $strContentAssocs['title'] = encodeText($objPaper->strTitle);
 if (!empty($objPaper->fltAvgRating)) {
   $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');

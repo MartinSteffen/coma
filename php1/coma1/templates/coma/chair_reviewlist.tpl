@@ -10,5 +10,3 @@
     <th class="listheader">Distribution</th>
    </tr>
 </table>
-
-<a href="{basepath}chair_reviewdetails.php?reviewid=1{&SID}">SHOW REVIEW #1</a>

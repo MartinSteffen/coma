@@ -16,6 +16,7 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'chair_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['message'] = '';
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
