@@ -285,7 +285,7 @@ class Distribution extends ErrorHandling {
       if ($sum > 0) {
         $faktor = count($r_id) / $sum;
       }
-      for ($i = 0; $j < count($r_id); $j++) {
+      for ($i = 0; $i < count($r_id); $i++) {
         if ($matrix[$i][$j] > 0) {
           $matrix[$i][$j] *= $faktor;
         }
