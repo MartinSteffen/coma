@@ -1529,7 +1529,7 @@ class DBAccess extends ErrorHandling {
     $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
                                 $data[0]['conference_id'],
                                 $data[0]['forum_type'],
-                               ($data[0]['forum_type'] == FORUM_PAPER) ?
+                               ($data[0]['forum_type'] == FORUM_PAPER ?
                                 $data[0]['paper_id'] : false),                                
                                 $this->getThreadsOfForum($intForumId)));
     return $this->success($forum);
@@ -2055,7 +2055,7 @@ nur fuer detaillierte?
     }
     $s = sprintf("UPDATE   Forum".
                  " SET     title = '%s', forum_type = '%d'".
-                ($objForum->intForumType == FORUM_PAPER ? " paper_id = '%d'" : ""),
+                 (($objForum->intForumType == FORUM_PAPER) ? " paper_id = '%d'" : ""),
                  s2db($objForum->strTitle),
                  s2db($objForum->intForumType),
                  s2db($objForum->intPaperId));
