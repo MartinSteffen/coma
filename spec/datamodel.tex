@@ -26,7 +26,7 @@ The graphical representation from Figure~\ref{fig:classdiagram} is
 simplified insofar as plain fields are left out. Those are specified in
 more detail in the SQL-representation. Apart from the information here,
 some textual file has been produced, accessible via the subversion server under
-\texttt{sql/db_schema.txt}.
+\texttt{sql/db\_schema.txt}.
 
 
 
@@ -272,7 +272,7 @@ the context of \Coma\ coauthors.\footnote{In real life, of course, all are
 \index{coauthor}%
 The table \texttt{IsCoauthorOf} associates persons and papers (cf.\ 
 Listing~\ref{code:sql.iscoauthorof}). The name-field is to contain the name of
-the coauthor as string.  As the coauthor does not have a active role in
+the coauthor as string.  As the coauthor does not have an active role in
 connection with the tool, it may suffices to keep the name of the coauthor;
 this avoids a full ``registration'' of the coauthor in the tool.
 Alternatively, the coauthor can be represented as an entry in the table of
@@ -380,7 +380,10 @@ criterion, and \texttt{description} is used for some more explanatory text
 about the criterion (for instance, whether a small value is better than a
 high value or other information which helps the reviewer). The criteria are
 all represented by numerical values, and \texttt{max\_value} gives the
-maximal possible value. The \texttt{quality\_rating} \ldots
+maximal possible value. The \texttt{quality\_rating} can be used to build
+a \emph{weighted} mean of all criteria for an overall rating. The default
+is the ordinary mean value, i.e., the quality rating is $1$ for all
+criteria for the conference. \index{criterion!quality rating}
 
 The rating of a paper (cf. table \texttt{Rating}) then contains the actual
 grading for a given paper, i.e., the numerical values per criterion for the
