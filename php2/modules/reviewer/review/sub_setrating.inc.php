@@ -14,7 +14,7 @@ if(isReviewer_Overall())
       WHERE
             (paper.id = ".$_POST['paperID'].")
         AND (conference.review_deadline >= CURRENT_DATE)
-        AND (paper.state = 0)";
+        AND (paper.state = 1)";
 
 	$result = mysql_query($SQL);
 	$count = 0;
