@@ -339,7 +339,7 @@ else{
     var_dump($HTTP_GET_VARS);
     echo('<h1>END VARDUMP $HTTP_GET_VARS</h1><br>');
     */
-    var_dump($_SESSION);
+    //var_dump($_SESSION);
   }
 
   $cid = getCID($myDBAccess);
