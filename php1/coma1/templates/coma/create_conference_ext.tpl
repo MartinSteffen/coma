@@ -41,7 +41,7 @@
   </tr>
   <tr>
     <td>
-      Critical variance of different paper ratings:
+      Critical ambiguity of paper ratings:
     </td>
     <td>
       <input type="text" name="variance" size="8" maxlength="8" value="{variance}">
