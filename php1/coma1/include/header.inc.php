@@ -119,7 +119,7 @@ function encodeText($_str) {
   $trans_tbl["\t"] = ' ';
   $trans_tbl["\'"] = '&#039;';
   $trans_tbl["\x1a"] = "\\\x1a";
-  //$trans_tbl['&quot;'] = '&#039;'; // keine Doppelquotes zulassen!
+  $trans_tbl['&quot;'] = '&#039;'; // keine Doppelquotes zulassen!
   $_str = strtr($_str, $trans_tbl);
   $_str = trim($_str);
   return($_str);
