@@ -93,7 +93,7 @@ if (isset($_POST['action'])) {
 else {
   $strContentAssocs['title']       = '';
   $strContentAssocs['abstract']    = '';  
-  $intCoAuthorNum = $_POST['coauthors_num'];
+  $intCoAuthorNum = 0;
   $strCoAuthors = array();
   $intTopics = array();
   $strContentAssocs['topic_lines'] = '';
