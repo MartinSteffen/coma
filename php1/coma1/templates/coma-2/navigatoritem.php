@@ -2,6 +2,7 @@
 function createNavigatorContent($strPath) {
   $navigatorItem = new Template(TPLPATH.'navigatoritem.tpl');
   $i = 0;
+  $strNavigator = '';
   foreach ($strPath as $strName=>$strLink) {
     $strNavigatorAssocs['node'] = $strName;
     $strNavigatorAssocs['link'] = $strLink;

@@ -21,8 +21,8 @@ $content = new Template(TPLPATH.'login.tpl');
 $content->assign(defaultAssocArray());
 
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['body'] = &$content;
 $strMainAssocs['title'] = 'Login';
+$strMainAssocs['content'] = &$content;
 
 require_once(TPLPATH.'startmenu.php');
 $strMainAssocs['menu'] = openStartMenuItem(1);
