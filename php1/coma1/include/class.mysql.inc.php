@@ -83,7 +83,7 @@ class MySql {
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
    * @param string $strSql Eine SQL <b>delete</b> Anfrage an die Datenbank
-   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls ein Fehler auftrat.
+   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls Fehler auftrat.
    * @see error()
    * @see getLastError()
    * @access public
@@ -111,7 +111,8 @@ class MySql {
    * automatisch in ein array umgewandelt.
    *
    * @param string $strSql Eine SQL <b>select</b> Anfrage an die Datenbank
-   * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein Fehler auftrat.
+   * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein 
+   *                     Fehler auftrat.
    * @see error()
    * @see getLastError()
    * @access public
@@ -130,7 +131,7 @@ class MySql {
     $results = mysql_query($strSql, $this->mySqlConnection);
     if (empty($results)) {
       @mysql_free_result($results);
-      return $this->error('select: Datensatz nicht gefunden.');
+      return $this->error('select: ');
     }
     $count = 0;
     $data = array();
@@ -149,7 +150,7 @@ class MySql {
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
    * @param string $strSql Eine SQL <b>insert</b> Anfrage an die Datenbank
-   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls ein Fehler auftrat.
+   * @return bool <b>true</b> bei Erfolg oder <b>false</b> falls Fehler auftrat.
    * @see error()
    * @see getLastError()
    * @access public
@@ -176,7 +177,8 @@ class MySql {
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
    * @param string $strSql Eine SQL <b>update</b> Anfrage an die Datenbank
-   * @return int|false Die id des letzten auto_increment Wertes oder <b>false</b> falls ein Fehler auftrat.
+   * @return int|false Die id des letzten auto_increment Wertes oder 
+   *                   <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
    * @access public
@@ -194,7 +196,7 @@ class MySql {
     }
     $results = mysql_query( $strSql, $this->mySqlConnection );
     if (empty($results)) {
-      return $this->error('insert: konnte Datensatz nicht hinzufuegen');
+      return $this->error('insert: ');
     }
     return mysql_insert_id();
   }
