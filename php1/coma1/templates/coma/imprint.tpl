@@ -12,7 +12,7 @@
       Sollte man diese Plattform ernnsthaft f&uuml;r Konferenzen nutzen so m&uuml;ssen zwingend noch hin:<br>
       1. Angaben zum Datenschutz<br>
       2. Angaben zum Haftungsausschluss<br>
-      3. Angaben zu den Copyrights der eingesandten Paper
+      3. Angaben zu den Copyrights der eingesandten Paper<br>
       4. (bin ich Anwalt oder was??)
      </td>
   </tr>
