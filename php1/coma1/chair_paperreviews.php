@@ -70,21 +70,20 @@ if (!empty($objCriterions)) {
 }
 $strContentAssocs['review_lines'] = '';
 if (!empty($objReviews)) {  
-  foreach ($objReviews as $objReview) {
-  	echo('!');
+  foreach ($objReviews as $objReview) {  	
     $objReviewDetailed = $myDBAccess->getReviewDetailed($objReview->intId);
     if ($myDBAccess->failed()) {
       error('Error occured during retrieving review details.', $myDBAccess->getLastError());
     }
     else if (empty($objReviewDetailed)) {
       error('Review does not exist in database.', '');
-    }    
+    }
     $strRowAssocs = defaultAssocArray();
     $strRowAssocs['review_id'] = encodeText($objReview->intId);
     $strRowAssocs['reviewer_name'] = encodeText($objReview->strReviewerName);
     $strRowAssocs['reviewer_id'] = encodeText($objReview->intReviewerId);
     $strRowAssocs['total_rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
-    $strRowAssocs['rating_cols'] = '';
+    $strRowAssocs['rating_cols'] = '';    
     for ($i = 0; $i < count($objReviewDetailed->intRatings); $i++) {
       $strColAssocs = defaultAssocArray();
       $strColAssocs['content'] = encodeText($objReviewDetailed->intRatings[$i]).'/'.

@@ -1,0 +1,1 @@
+<th class="viewheader">{content}</th>
