@@ -58,7 +58,8 @@ public class ReadServiceTest extends TestCase{
 			return;
 		}
 		Person p = new Person(-11);
-		//p.setLast_name("Susi");
+		p.setFirst_name("Myname0");
+		p.setLast_name("Surname0");
 		//p.setEmail("test10@web.com");
 		int[] role = new int[3];
 		role[0] = 0; role[1] = 1; role[2] = 2; 

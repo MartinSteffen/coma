@@ -75,8 +75,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 		QUERY += " WHERE ";
 		boolean idFlag = false;
 		boolean emailFlag = false;
-		boolean nameFlage = false;
 		boolean firstNameFlag = false;
+		boolean lastNameFlag = false;
 		boolean stateFlag = false;
 		boolean roleFlag = false;
 
@@ -93,15 +93,15 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (and) {
 						QUERY += " AND ";
 					}
-					QUERY += " first_name = ?";
-					nameFlage = true;
+					QUERY += " last_name = ?";
+					lastNameFlag = true;
 					and = true;
 				}
 				if (p.getFirst_name() != null) {
 					if (and) {
 						QUERY += " AND ";
 					}
-					QUERY += " last_name = ?";
+					QUERY += " first_name = ?";
 					firstNameFlag = true;
 					and = true;
 				}
@@ -131,7 +131,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
-		if (!(idFlag || emailFlag || stateFlag || nameFlage || firstNameFlag || roleFlag)) {
+		if (!(idFlag || emailFlag || stateFlag || lastNameFlag || firstNameFlag || roleFlag)) {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
@@ -141,7 +141,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 				conn = getConnection();
 				
 				if (conn != null) {
-					System.out.append(QUERY);
+					System.out.println(QUERY);
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					//pstmt.setQueryTimeout(5);
 					int pstmtCounter = 0;
@@ -151,7 +151,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (emailFlag) {
 						pstmt.setString(++pstmtCounter, p.getEmail());
 					}
-					if (nameFlage) {
+					if (lastNameFlag) {
 						pstmt.setString(++pstmtCounter, p.getLast_name());
 					}
 					if (firstNameFlag) {
@@ -160,8 +160,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (stateFlag) {
 						pstmt.setString(++pstmtCounter, p.getState());
 					}
-					String s = conn.nativeSQL(QUERY);
-					System.out.println(s);
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
