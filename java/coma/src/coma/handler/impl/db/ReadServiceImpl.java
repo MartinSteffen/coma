@@ -33,8 +33,7 @@ public class ReadServiceImpl extends Service implements ReadService {
             .getInstance(ReadServiceImpl.class.getName());
 
     public ReadServiceImpl() {
-    	//TODO: uncomment this
-        //super.init();
+        super.init();
     }
 
     /**
@@ -102,9 +101,7 @@ public class ReadServiceImpl extends Service implements ReadService {
         }
         if (ok) {
             try {
-            	//TODO: uncomment this
-            	//conn = dataSource.getConnection();
-                conn = getConnection();
+            	conn = dataSource.getConnection();
                 if (conn != null) {
                     PreparedStatement pstmt = conn.prepareStatement(QUERY);
                     int pstmtCounter = 0;
@@ -300,10 +297,8 @@ public class ReadServiceImpl extends Service implements ReadService {
         if (ok) {
             try {
 
-            	//TODO: uncomment this
-                //conn = dataSource.getConnection();
-            	conn = getConnection();
-                if (conn != null) {
+            	conn = dataSource.getConnection();
+            	if (conn != null) {
                     PreparedStatement pstmt = conn.prepareStatement(QUERY);
                     int pstmtCounter = 0;
                     if (idFlag) {
@@ -402,10 +397,8 @@ public class ReadServiceImpl extends Service implements ReadService {
         if (ok) {
             try {
 
-            	//TODO: uncomment this
-                //conn = dataSource.getConnection();
-            	conn = getConnection();
-                if (conn != null) {
+            	conn = dataSource.getConnection();
+            	if (conn != null) {
                     PreparedStatement pstmt = conn.prepareStatement(QUERY);
                     int pstmtCounter = 0;
                     if (idFlag) {
@@ -487,10 +480,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 	         if (ok) {
 	             try {
 
-	             	//TODO: uncomment this
-	                 //conn = dataSource.getConnection();
-	             	conn = getConnection();
-	                 if (conn != null) {
+	             	conn = dataSource.getConnection();
+	             	 if (conn != null) {
 	                     PreparedStatement pstmt = conn.prepareStatement(QUERY);
 	                     int pstmtCounter = 0;
 	                     if (reportIdFlag) {
@@ -569,9 +560,7 @@ public class ReadServiceImpl extends Service implements ReadService {
          if (ok) {
              try {
 
-             	//TODO: uncomment this
-                 //conn = dataSource.getConnection();
-             	conn = getConnection();
+             	conn = dataSource.getConnection();
                  if (conn != null) {
                      PreparedStatement pstmt = conn.prepareStatement(QUERY);
                      int pstmtCounter = 0;
