@@ -13,20 +13,20 @@
  */
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
-/*
-if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
+
+/*if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
   $myDBAccess->deletePaper($_POST['paperid']);
   if ($myDBAccess->failed()) {
     error('Error deleting paper.', $myDBAccess->getLastError());
   }
-}
-*/
+}*/
+
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
-if ($myDBAccess->failed() || 1) {
-  error('get paper list of chair',$myDBAccess->getLastError());
+if ($myDBAccess->failed()) {
+  error('get review list of chair',$myDBAccess->getLastError());
 }
 
-$content = new Template(TPLPATH.'chair_paperlist.tpl');
+$content = new Template(TPLPATH.'chair_reviewlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
@@ -52,7 +52,7 @@ if (!empty($objPapers)) {
     }    
     $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
-    $paperItem = new Template(TPLPATH.'chair_paperlistitem.tpl');
+    $paperItem = new Template(TPLPATH.'chair_reviewlistitem.tpl');
     $paperItem->assign($strItemAssocs);
     $paperItem->parse();
     $strContentAssocs['lines'] .= $paperItem->getOutput();
