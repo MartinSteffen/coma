@@ -142,15 +142,20 @@ if (isset($_POST['action'])) {
   // Anlegen der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
     // auf korrkete Daten pruefen
-    if (empty($_POST['name']))
+    if (empty($_POST['name'])
+    ||  empty($paper_dl)
+    ||  empty($review_dl)
+    ||  empty($final_dl)
+    ||  empty($start_date)
+    ||  empty($abstract_dl))
     {
       $strMessage = 'You have to fill in the fields <b>Title</b>, <b>Start Date</b>, '.
                     'and <b>Deadlines</b>!';
     }
-    elseif ($end_date > $start_date) {
+    elseif ($end_date < $start_date) {
       $strMessage = 'Your Start Date should be before your End Date!';
     }
-    elseif ($abstract_dl > $paper_dl) {
+    elseif ($abstract_dl < $paper_dl) {
       $strMessage = 'Your Abstract Deadline should be before your Paper Deadline!';
     }
       
