@@ -18,7 +18,7 @@ require_once('./include/header.inc.php');
 
 function bit($b) {
   for ($i = 15; $i >= 0; $i--) {
-    echo($b&$i ? '1':'0');
+    echo(($b & (1 << $i)) ? '1':'0');
   }
   return true;
 }
