@@ -421,6 +421,7 @@ function generatePostMethodArray($strArrayPostvars){
   }
   $_SESSION['forum_forumselect'] = $temp;
 
+  var_dump($_SESSION);
   if (!empty($_GET['showforums'])){
     $temp = $_GET['showforums'];
     if (($temp >= 0) && ($temp <= 3)){
