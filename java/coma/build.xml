@@ -15,7 +15,7 @@
 	<property name="dist" value="${basedir}/dist" />
 	<property name="style" value="${basedir}/style" />
 	<property name="papers" value="${basedir}/${papers}" />
-	<property file="${basedir}/build.props" name="setup.params" location="${basedir}" />
+	<property file="${basedir}/build.properties" name="setup.params" location="${basedir}" />
 
 	<path id="compile.classpath">
 		<fileset dir="${lib.home}">
