@@ -15,22 +15,18 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 require_once('./include/class.distribution.inc.php');
 
-if (isset($_POST['action']) && $_POST['action'] == 'dismiss') {  
-  if (!isset($_SESSION['dist'])) {
-    error('get distribution suggestion of session', 'Variable not set.');
+if (isset($_POST['action'])) {
+  if($_POST['action'] != 'confirm' || !isset($_SESSION['dist'])) {
+    redirect('chair_reviews.php');
   }
-  if (!isset($_POST['paperid']) || !isset($_POST['reviewerid']) ||
-      !isset($_POST['reviewerarrayindex'])) {
-    error('get distribution suggestion of session', 'An index is missing.');
-  }
-  $pid = $_POST['paperid'];
-  $rid = $_POST['reviewerid'];
-  $rindex = $_POST['reviewerarrayindex'];
   $dist = $_SESSION['dist'];
-  if ($dist[$pid][$rindex]['reviewer_id'] != $rid) {
-    error('get distribution suggestion of session', 'Wrong index.');
+  foreach ($dist as $pid => $arrR) {
+    for ($j = 0; $j < count($arrR); $j++) {
+      if ($arrR[$j] != ASSIGNED) && !isset($_POST['p'.$pid.'ridx'.$j]) {
+        unset($arrR[$j]);
+      }
+    }
   }
-  unset($dist[$pid][$rindex]);
 }
 else {
   $myDist = new Distribution($mySql);
