@@ -136,7 +136,10 @@ elseif ($STEP == 2) {
 }
 elseif ($STEP == 3) {
   // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was machen ;)
+  echo "    <p class=\"message-failed\">\n";
   include('test_basedata.php');
+  echo "    </p>\n";
+  echo "    <p class=\"message-ok\">Hopefully Data added! Check above for errors!</p>\n";
 }
 elseif ($STEP == 4) {
   // TODO

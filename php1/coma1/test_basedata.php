@@ -9,9 +9,17 @@
 
 /**@ignore */
 define('IN_COMA1', true);
-/**@ignore */
-define('NEED_NO_LOGIN', true);
-require_once('include/header.inc.php');
+require_once('include/class.mysql.inc.php');
+require_once('include/class.dbaccess.inc.php');
+$mySql = new MySql();
+if ($mySql->failed()) {
+  die('Erzeugen den Standard-Objekte'.$mySql->getLastError());
+}
+
+$myDBAccess = new DBAccess($mySql);
+if ($myDBAccess->failed()) {
+  die('Erzeugen den Standard-Objekte'.$myDBAccess->getLastError());
+}
 
 $conferences = 1;
 $persons = 100;
