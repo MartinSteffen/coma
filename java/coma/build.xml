@@ -87,9 +87,7 @@
 		<mkdir dir="${dist}/${app.name}/style" />
 		<mkdir dir="${dist}/${app.name}/papers" />
 		<mkdir dir="${dist}/${app.name}/doc" />
-		<chmod perm="u=rwx,g=rwx,o=rwx">
-			<fileset dir="${dist}/${app.name}/papers" />
-		</chmod>
+	
 		<copy todir="${dist}/${app.name}/WEB-INF/classes">
 			<fileset dir="${bin}/" />
 		</copy>
@@ -115,6 +113,9 @@
 			<fileset dir="${dist}/" />
 		</copy>
 		<get src="${tomcat.url}/${tomcat.deploy_path}" dest="status.html" username="${tomcat.manager.user}" password="${tomcat.manager.password}" />
+	<chmod perm="u=rwx,g=rwx,o=rwx" type="both" >
+			<fileset dir="${webapps.home}/${app.name}/papers" />
+		</chmod>
 	</target>
 
 	<target name="remote-uninstall">
