@@ -93,7 +93,25 @@
   <tr>
     <td>MIME type:</td>
     <td>
-      <input type="text" name="mimetype" size="48" maxlength="127" value="{mimetype}">
+      <!--<input type="text" name="mimetype" size="48" maxlength="127" value="{mimetype}">-->
+      <select name="mimetype" size="1">
+        <option>image/gif</option>
+        <option>image/jpeg</option>
+        <option>text/html</option>        
+        <option>text/plain</option>
+        <option>text/richtext</option>
+        <option>text/rtf</option>
+        <option>application/latex</option>
+        <option>application/msexcel</option>
+        <option>application/mspowerpoint</option>
+        <option>application/msword</option>
+        <option checked>application/pdf</option>
+        <option>application/postscript</option>
+        <option>application/rtf</option>
+        <option>application/tex</option>
+        <option>application/x-tar</option>
+        <option>application/zip</option>
+      </select>
     </td>
 </table>
 </form>
