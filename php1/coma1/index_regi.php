@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: start.php 803 2004-12-13 22:55:56Z miesling $
+ * @version $Id$
  * @package coma1
  * @subpackage core
  */

@@ -24,59 +24,48 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
   }
   redirect('start.php');
 }
-
 else {
+  $mainPage = new Template(TPLPATH.'main.tpl');
+  $menue = new Template(TPLPATH.'nav_index.tpl');
+  $loginPage = new Template(TPLPATH.'login.tpl');
+  $emptyPage = new Template(TPLPATH.'empty.tpl');
 
+  $strMainAssocs = defaultAssocArray();
+  $strMainAssocs['body'] = & $loginPage;
 
-$mainPage = new Template(TPLPATH.'main.tpl');
-$menue = new Template(TPLPATH.'nav_index.tpl');
-$loginPage = new Template(TPLPATH.'login.tpl');
-$emptyPage = new Template(TPLPATH.'empty.tpl');
+  $strMainAssocs['content'] = '';
 
+  if (isset($_SESSION['message'])) {
+    $strMessage = $_SESSION['message'];
+    unset($_SESSION['message']);
+   }
+   else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
+    $strMessage = 'Sie sind bereits eingeloggt !!! <BR>'
+                 .'Bitte <a href="logout.php"> ausloggen </a> oder zur&uuml;ck '
+                 .'zur <a  href="start.php"> Startseite</a>';
+    $strMainAssocs['body'] = & $emptyPage;
+   }
+   else {
+    $strMessage = '';
+    $strMainAssocs['content'] = ' <h2 align="center"> Bitte Einloggen oder Registrieren </h2>';
 
-$strMainAssocs = defaultAssocArray();
-$strMainAssocs['body'] = & $loginPage;
+  }
 
-$strMainAssocs['content'] = '';
+  $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
+  $strMainAssocs['menue'] =& $menue;
+  $strMainAssocs['submenue'] = '<a href="index_regi.php" class="menue"> Registrieren </a>';
 
-if (isset($_SESSION['message'])) {
-  $strMessage = $_SESSION['message'];
-  unset($_SESSION['message']);
- }
- else if ((isset($_SESSION['uid']))||(isset($_SESSION['password']))) {
-  $strMessage = 'Sie sind bereits eingeloggt !!! <BR>
-  Bitte <a href="logout.php"> ausloggen </a> oder zurück zur <a  href="start.php"> Startseite</a>';
-  $strMainAssocs['body'] = & $emptyPage;
+  $strLoginAssocs = defaultAssocArray();
+  $strLoginAssocs['message'] = $strMessage;
 
- }
- else {
-  $strMessage = '';
-  $strMainAssocs['content'] = ' <h2 align="center"> Bitte Einloggen oder Registrieren </h2>';
+  $mainPage->assign($strMainAssocs);
+  $menue->assign(defaultAssocArray());
+  $menue->assign($strMenueAssocs);
 
+  $loginPage->assign($strLoginAssocs);
+  $emptyPage->assign($strLoginAssocs);
+
+  $mainPage->parse();
+  $mainPage->output();
 }
-
-$strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
-$strMainAssocs['menue'] =& $menue;
-$strMainAssocs['submenue'] = '<a href="index_regi.php" class="menue"> Registrieren </a>';
-
-
-
-
-
-$strLoginAssocs = defaultAssocArray();
-$strLoginAssocs['message'] = $strMessage;
-
-$mainPage->assign($strMainAssocs);
-$menue->assign(defaultAssocArray());
-$menue->assign($strMenueAssocs);
-
-$loginPage->assign($strLoginAssocs);
-$emptyPage->assign($strLoginAssocs);
-
-$mainPage->parse();
-$mainPage->output();
-
- }
-
-
 ?>
