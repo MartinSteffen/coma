@@ -71,7 +71,7 @@ if (!empty($objPapers)) {
     else {
       $ifArray[] = 7;
     }
-    $strItemAssocs['crit_value'] = $fltTestTmp/100;
+    $strItemAssocs['crit_value'] = $fltTestTmp.'%';
     $strItemAssocs['if'] = $ifArray;
     // Zugeteilte Reviewer
     $strItemAssocs['reviewers'] = '';
