@@ -105,17 +105,102 @@ start with the main ``entities'', and discuss the ``associations'' later.
 
 \subsubsection{SQL-Spec}
 \label{sec:sql}
-
+\lstset{basicstyle=\scriptsize,numbers=left,numberstyle=\tiny,stepnumber=5,language=sql}
 
 Relevant is only the SQL-Spec.
 
 
-\lstinputlisting[basicstyle=\scriptsize,language=sql]{../sql/db_schema.sql}
+
+
+\lstinputlisting[caption=DB: conference,label=code:sql.conference,firstline=27,lastline=44]{../sql/db_schema.sql}%
+
+
+The table conferences (cf.\ Listing~\ref{code:sql.conference}) contains all
+the conferences being hosted by the server. We propose that there exists as
+\emph{default, empty conference} to begin with as entry in the table. This
+default conference is charakterized by the empty string. Most of the
+entries in the table should be self-explanatory. For the deadlines, the
+following ones are foreseen, in the order of events:
+\begin{enumerate}
+\item The \emph{abstract submission deadline.} This typically is a
+  (secondary) deadline for \emph{authors} shortly before the paper
+  submission deadline.  It allows the authors to upload an abstract of
+  their papers. There is not much ``semantics'' behind this deadline, only
+  that experience shows that it helps in organizing the conference to know
+  in advances how many papers there will be, about what topics etc. A
+  further advantage of the abstract submission deadline is that it may
+  ``encourage'' the authors to try to meet the real paper deadline a little
+\item The \emph{paper submission deadline.} This is the most important
+  deadline for authors, namely: when must they finished their work! After
+  that deadline, no new papers or new versions of the paper may be
+  uploaded.\footnote{A exception may be, that the chair make a personal
+    exception or something, but that's only by circumventing the normal
+    process.}
+\item The \emph{review deadline:} That's the first deadline for the
+  \emph{reviewers,} namely: when must they have finished their reading job
+  and must have handed in the grades; on the basis of this information, the
+  discussion and selection starts.
+\item The \emph{notification deadline:} this is the deadline when the
+  \emph{selection} has ended and when the authors are notified about their
+  success or failure.
+\item The \emph{final version} deadline: afterwards, the successful authors
+  may be required to up-load the ``very final version'' to be printed,
+  sometimes also called \emph{camera ready version}, which takes into
+  account the criticism of the reviewers.
+\end{enumerate}
+
+
+\medskip{}
 
 
 
+The \emph{persons} using the tool are all kept in the table
+\texttt{Person}. Again most fields should be self-explanatory. Not all
+fields of a person must be filled in; in order to facilitate communication,
+we require the \emph{email address}; for secure identification furthermore
+a password (cf.\ Listing~\ref{code:sql.person}).  An
+
+\lstinputlisting[caption=Person,label=code:sql.person,firstline=45,lastline=60]{../sql/db_schema.sql}%
+
+\medskip{}
+
+Crucial for the interaction of persons with he tool are the \emph{roles}
+the persons play (cf~\ref{code.sql.role}. Some of them were mentioned
+informally in the requirements specification \cite{coma:requirements}. In
+the course of the semester, we reached at \emph{no agreement} how to
+represent the role. Thus, neither the representation no the exact choice of
+roles are indicated in the shown SQL-code. 
+
+\lstinputlisting[caption=Role,label=code:sql.role,firstline=65,lastline=79]{../sql/db_schema.sql}%
 
 
+In the textual representation which is agreed upon as supplementary global
+spec, we fixed the roles of Table~\ref{tab:roles} to be mandatory. The
+numbers indicate the numerical representation, if no enumeration and
+additional table \texttt{Roles} is chosen.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{lll}
+    \\
+    role & integer
+    \\\hline
+    without role & 00 
+    \\
+    admin & 01
+    \\
+    chair & 02
+    \\
+    reviewer & 03
+    \\
+    author & 04
+    \\
+    participant & 05
+    \\
+  \end{tabular}
+  \caption{roles}
+  \label{tab:roles}
+\end{table}
 
 
 
