@@ -80,8 +80,8 @@ h3
 .alert
 {
   font-weight: bold;
-  color: #FF2600;
-  border: 1px solid #A00000;
+  color: #FF2600;  
+  margin: 2px 10px;
 }
 
 /* Allgemeine Links */
