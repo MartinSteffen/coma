@@ -22,7 +22,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
 
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
-  ||  empty($_POST['email'])
+  ||  empty($_POST['email']))
     $strMessage = 'Sie m&uuml;ssen die Felder <b>Nachname</b>, und <b>Email</b>'
                  .'ausf&uuml;llen!';
   }
