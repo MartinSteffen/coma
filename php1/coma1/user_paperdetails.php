@@ -18,7 +18,7 @@ require_once('./include/header.inc.php');
 if (isset($_GET['paperid'])) {
   $objPaper = $myDBAccess->getPaperDetailed($_GET['paperid']);
   if ($myDBAccess->failed()) {
-    error('Error occured during retrieving paper.', $myDBAccess->getLastError());
+    error('Error occured retrieving paper.', $myDBAccess->getLastError());
   }
   else if (empty($objPaper)) {
     error('Display PaperDetailed','Paper '.$_GET['paperid'].' does not exist in database!');
