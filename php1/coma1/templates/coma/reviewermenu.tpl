@@ -10,7 +10,7 @@
   </tr>
   <tr>
     <td class="submenu"><a href="{basepath}reviewer_prefers.php{?SID}" class="{if3 marked}submenu">
-      Edit preferences</a>
+      Edit my preferences</a>
     </td>
   </tr>
 

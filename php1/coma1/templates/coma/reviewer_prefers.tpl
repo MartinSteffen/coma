@@ -5,13 +5,16 @@
 
 <table class="list">
   <tr class="listheader">
-    <th class="listheader" colspan="2">Preferred papers for reviewing:</th>    
+    <th class="listheader" colspan="2">Attitudes towards papers for reviewing:</th>    
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
   </tr>
   {paper_lines}
+</table>
+ 
+<table class="list">  
   <tr class="listheader">
-    <th class="listheader" colspan="2">Preferred topics for reviewing:</th> 
+    <th class="listheader" colspan="2">Attitudes towards topics for reviewing:</th> 
     <th class="listheader">&nbsp;</th>
     <th class="listheader">&nbsp;</th>
   </tr>

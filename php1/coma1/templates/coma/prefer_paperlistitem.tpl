@@ -5,6 +5,29 @@
     <td class="listitem-{line_no}"> 
       <a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a>
     </td>
+    <td class="listitem-{line_no}" colspan="2">
+      {if0<input type="radio" name="paper-{paper_id}" value="0" selected>
+          <span class="attitude-none">no attitude</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="1">prefer &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="2">deny &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="3">exclude}
+      {if1<input type="radio" name="paper-{paper_id}" value="0">no attitude
+          <input type="radio" name="paper-{paper_id}" value="1" selected>
+          <span class="attitude-prefer">prefer</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="2">deny &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="3">exclude}
+      {if2<input type="radio" name="paper-{paper_id}" value="0">no attitude
+          <input type="radio" name="paper-{paper_id}" value="1">prefer &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="2" selected>
+          <span class="attitude-deny">deny</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="3">exclude}
+      {if3<input type="radio" name="paper-{paper_id}" value="0">no attitude
+          <input type="radio" name="paper-{paper_id}" value="1">prefer &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="2">deny &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="3" selected>
+          <span class="attitude-exclude">exclude</span>}
+    </td>
+  <!--
     <td class="listitem-{line_no}">
       {if0<span class="attitude-none">no attitude</span>}
       {if1<span class="attitude-prefer">prefer</span>}
@@ -19,4 +42,5 @@
         <option>no attitude</option>        
       </select>      
     </td>
+  -->
   </tr>
