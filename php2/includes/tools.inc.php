@@ -179,13 +179,16 @@ function ftp_rmAll($conn_id,$dst_dir)
 
 function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = ""){
 	// {{{
+
+	global $ftphost, $ftpuser, $ftppass, $ftpdir;
+
 	if (!$step_id) {
 		$step_id = 6;
 		}
 	switch($step_id){
 		case 6:
 			if ($ftphandle == NULL){
-				$ftphandle = ftp_connect(localhost) or die("function cleanup_ftp: ftp_connect() failed!");
+				$ftphandle = ftp_connect() or die("function cleanup_ftp: ftp_connect() failed!");
 			}
 			ftp_login($ftphandle, "test", "pass");//ftp_login($ftphandle, $ftpuser, $ftppass) or die("function cleanup_ftp: ftp_login() failed!");
 			$msg = "<font style=color:green>Paper deleted succesfully.</font>";
