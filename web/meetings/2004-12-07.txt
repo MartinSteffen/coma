@@ -1,0 +1,129 @@
+
+Moin an alle.
+
+Hier das, was (aus unserer Sicht) morgen zu besprechen ist. Ich habe am
+Wochenende die BBs + Bugzilla nicht im Detail verfolgt, deswegen sind die
+TOPS nicht aufgespalten bis ins letzte diskutierte Bit (was ja auch nicht
+der Sinn ist).
+
+===
+Vorab:
+
+        Wer selbst Dinge hat die er morgen Diskutiert haben will: sich
+        gedanklich drauf vorbereiten (falls notwendig), und eventell
+
+        Gunnar/Marcel/mir (=swprakt+org) eine email zukommen lassen, damit
+        wir vorher wissen, was auf's Tapet kommt.
+
+        Wie gesagt, unten sind Punkte, die wir auf die TOP setzen und
+        diskutieren wollen.
+===
+
+
+
+        1) Status (wie immer): wie geht es in den Gruppen voran,
+           jede Gruppe ist gefragt. Fortschritt, Probleme, W"unsche an andere
+           etc.
+
+           Brennpunkte, speziell:
+
+              - was geht ab in der Test-Gruppe, wie stellt sie sich ihre
+                   allm"ahliche Einbindung vor?
+
+              - der Klassiker: das Datenmodell: was ist aus dem SQL-Teil
+                     geworden, was ist der Stand? Das letzte mal hat es
+                     geheissen, die Textuelle Repr"asentierung ist die
+                     Referenz bis die email rumgeht ``SQL'' ist nun der
+                     Standard.  Bislang kam die email nicht (jedenfalls
+                     nicht bei mir an).
+        
+
+        2) Technische Probleme (soweit ich sie mitbekommen habe)
+
+              - ``Java'' wollte Dinge auf Snert implementiert haben, ist
+                 das soweit klar?
+
+              -  einchecken von Jar's
+
+        3) Spec:
+
+              - Die Frage kam: gibt es eine gemeinsame Spec? 
+
+                Es fing auch die Diskussion an:
+                 soll/muss/wird/wollen wir eine gemeinsam Spec haben?
+
+                Bis zu dem Detailierungsgrad, den das gemeinsame (bis auf
+                die optionalen Teile) SQL darstellt, wird es das natuerlich
+                nicht geben, das w"are ja die Bescheibung der
+                Implementation.  Momentan gibt es 2 globale ``Spec-oide'' Teile
+
+                   - requirements
+
+                   - spec
+
+                Requirements ist die ``Requirementsspec''. Diese ist etwas veraltet,    
+                da durch die Diskussion manche Dinge ander Entschieden wurden (mehrere
+                Konferenzen statt einer), manche Dinge wurde konretisiert. Das ziehen
+                wir nach.
+
+                spec ist/war ein Dokument, welches den Stand des
+                Datenmodell dokumentiert hatte. Wie gesagt, auf diesem
+                Detaillierungniveau werden wir keine zentrale Spec. aufrecht
+                erhalten.
+
+                Was die einzelnen Gruppen betrifft, heisst dass, da"s was die
+                konkrete Umsetztung betrifft, folgt jede Implementierung
+                seiner eigenen Spec.
+
+                Welcher Spec sie folgt (Spec1/Spec2) ist der Gruppe
+                "uberlassen. Die Dinge muessen ohnehin den
+                Entscheidungen/Vereinfachungen angepasst werden.
+
+                Da die Spec. jedoch etwas ist, was eine ``Schnittstelle
+                nach aussen'' von der Gruppe ist, soll das auch von aussen
+                verwertbar sein.
+
+                Wir schlagen vor:
+
+                                <gruppex>/spec/main.tex
+
+
+                und dort hinein die Beschreibung. Im Prinzip soll das jeder
+                der Gruppe texen k"onne. In Hinblick auf die alten Specs:
+                die Allgemeinen Beschreibungen (leicht nutzbar, anpassbar
+                etc.) brauchen nicht in die Spec aufgenommen zu
+                werden. Andere Dinge, die nicht vorhanden waren (``was
+                meint man mit ``ausgeglichene Verteilung'') sollen
+                ausgefleischt sein. Dazu eine High-level beschreibung der
+                Architektur.
+
+                Im wesentlichen habt Ihr das eh, nur wir brauchen Struktur
+                im Ganzen, d.h. eine Stelle wo das garantiert zu finden
+                ist, Damit wir die "ubersicht behalten und damit
+                man die Dinge findet.
+
+               Ausnahme ist die Org-Gruppe, deren Verzeichnis nicht spec
+               heisst sondern requirement/ 
+
+===
+
+        
+
+
+
+
+
+
+
+        
+
+         
+
+
+
+                
+
+
+
+
+        

@@ -1,8 +1,11 @@
 
-\section*{Material}
+\section*{Soruces of information}
+
 
 Some material (handouts, slides) which have been presented during the
-course).
+course) or circulated via the email list.
+
+
 
 \begin{tabular}{r@{\quad\quad}rll}
   \hline
@@ -34,10 +37,37 @@ course).
 
 
 
+\begin{description}
+\item[BB]
+  \href{http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2/}{bulletin
+    board}: not obligatory, but perhaps useful.
+\item[Bugzilla] 
+  \href{http://snert.informatik.uni-kiel.de:8080/~swprakt/bugzilla}{bugzilla}: 
+  login via email-address + your chosen password (not the generated one, not the ssh-passphrase)
+  For some hints, see also handout 3.
+\end{description}
+
+
+\input{meetings}
+
+
+\subsection*{Repository}
+
+The repository resides on \texttt{snert}-machine. Write-access is
+password-protected, for browsing the current status, you can click here:
+\begin{center}
+  \href{http://snert.informatik.uni-kiel.de:8080/svn/coma/}{\textbf{current repository status}}
+\end{center}
+
+The write access is granular in the following sense: each group can write
+only within its own domain of responsibilities.
+
+
+
 \subsection*{Spec + tools groups}
 \label{sec:material.spec-tools}%
 
-The following is the material worked out in the fist phase. It is also
+The following is the material worked out in the first phase. It is also
 checked in under \texttt{spec/material} in the main trunk of the
 development.
 
@@ -56,7 +86,7 @@ development.
   \\
   10.11 & Alexander & \href{spec/material/derenbach/tools.pdf}{choice of tools}
   \\
-  ?  & Tools 1 & ????
+  ?  & Tools 1 & \href{spec/material/tools1/tools.txt}{choice of tools}
   \\
   15.11.04 & Tools 2 &
   \href{spec/material/tools2/tools.pdf}{choice of tools}
@@ -71,17 +101,36 @@ development.
 
 \subsubsection*{Other stuff}
 
-\begin{tabular}{lp{8cm}}
+\begin{tabular}[t]{lp{8cm}}
  \LaTeX\ \href{misc/handout.cls}{handout class}  (+
  \href{misc/hevea.sty}{hevea}) & for tex'ing the handouts, if wished. hevea is only needed if 
  you want to generate webpages out of it, i.e., if the switch \textrm{\webtrue} is set
- \\
- \href{http://snert.informatik.uni-kiel.de:8080/~swprakt/phpBB2/}{bulletin board}  
- \\
- \href{http://snert.informatik.uni-kiel.de:8080/~swprakt/bugzilla}{bugzilla} 
- &
- login via email-address + your chosen password (not the generated one, not the ssh-passphrase)
 \end{tabular}
+
+
+\subsection*{External links}
+
+The following are links to external tools, that are needed or came up
+discussion-wise during semester.
+
+
+\begin{itemize}
+\item \href{http://www.apache.org}{Apache}
+\item \href{http://www.mysql.org}{Mysql}
+\item \href{http://java.sun.com/j2se/index.jsp}{J2SE}
+\item \href{http://java.sun.com/j2ee/index.jsp}{J2EE}
+\item \href{http://java.sun.com/products/ejb/}{EJB}
+\item \href{http://java.sun.com/products/jsp/index.jsp}{JSP}
+\item \href{http://java.sun.com/products/servlet/index.jsp}{Servelets}
+\item \href{http://www.mysql.com/products/connector/j/}{JDBC}
+\item \href{http://jakarta.apache.org/tomcat/index.html}{Jacarta Tomcat}
+\item \href{http://www.jboss.org/}{JBoss App. Server}
+\item \href{ttp://subversion.tigris.org/}{Subversion}
+\item \href{http://www.sebastian-bergmann.de/en/phpunit.php}{Unit-testing} for PHP
+\item \href{https://www.esm.jp/jude-web/en/index.html}{Jude}
+\item \href{http://www.phpdoc.org/docs/HTMLSmartyConverter/default/phpDocumentor/tutorial_tags.pkg.html}{PhP DOC}
+\end{itemize}
+
 
 
 
