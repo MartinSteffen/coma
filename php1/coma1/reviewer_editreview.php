@@ -36,21 +36,20 @@ if (isset($_POST['action'])) {
     $objReview->intRatings[$i]  = (int)$_POST['rating-'.($i+1)];
     $objReview->strComments[$i] = $_POST['comment-'.($i+1)];
   }
-  $objReview->recalcRating();
-  // Uebernimm die Aenderungen
-  if (isset($_POST['submit'])) {
-    // Teste Gueltigkeit der Daten
-    $noError = true;
-    for ($i = 0; $i < count($objReview->intRatings); $i++) {
-      if ($objReview->intRatings[$i] < 0 ||
-          $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
-        $noError = false;
-        $strMessage = 'There are invalid ratings. Please check if all ratings are '.
-                      'within their respective range.';
-      }
-      // Trage Review in die Datenbank ein
-      if (!empty($noError)) {
-      }
+  // Teste Gueltigkeit der Daten
+  $noError = true;
+  for ($i = 0; $i < count($objReview->intRatings); $i++) {
+  if ($objReview->intRatings[$i] < 0 ||
+      $objReview->intRatings[$i] > $objReview->objCriterions[$i]->intMaxValue) {
+    $noError = false;
+    $strMessage = 'There are invalid ratings. Please check if all ratings are '.
+                  'within their respective range.';
+  }
+  if (!empty($noError)) {
+    $objReview->recalcRating();
+    // Uebernimm die Aenderungen
+    if (isset($_POST['submit']) ) {
+      // Trage Review in die Datenbank ein      
     }
   }  
 }
