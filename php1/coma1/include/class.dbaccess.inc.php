@@ -1857,7 +1857,7 @@ nur fuer detaillierte?
    * @todo Delete Add geht vielleicht auch besser
    * @todo Rollback?
    */
-  function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, $strContents) {
+  function uploadPaperFile($intPaperId, $strFilePath, $strMimeType, &$strContents) {
     $s = sprintf("UPDATE   Paper".
                  " SET     filename = '%s', mime_type = '%s', ".
                  "         version = version + 1, last_edited = '%s'".

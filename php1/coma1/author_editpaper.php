@@ -94,10 +94,9 @@ if (isset($_POST['action'])) {
       }
     }
   }
-  else if (isset($_POST['upload'])) {    
-    var_dump($_POST['file']);
-    if (empty($_POST['file'])) {
-      $strMessage = 'You have to select a file for uploading!';
+  else if (isset($_FILES['userfile'])) {    
+    if (!is_uploaded_file($_FILES['userfile']['tmp_name'])) {
+      $strMessage = 'You have to select a correct file for uploading!';
     }
     // Versuche das Paper hochzuladen
     else {      
@@ -105,10 +104,17 @@ if (isset($_POST['action'])) {
         $objPaper->strMimeType = $_POST['mimetype'];
       }
       else {
-        $objPaper->strMimeType = 'application/force-download';
+        $objPaper->strMimeType = $_FILES['userfile']['type'];
       }
-      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['file'],
-                                             $objPaper->strMimeType);
+      $tmp = $_FILES['userfile']['tmp_name'];
+      $filehandle = fopen($tmp, "rb") or error('Upload File', 'Can\'t read the file!');
+      $file = fread($filehandle, filesize($tmp));
+      fclose ($filehandle); 
+      $result = $myDBAccess->uploadPaperFile($objPaper->intId, 
+                                             $_FILES['userfile']['name'],
+                                             $objPaper->strMimeType,
+                                             $file);
+      unset($file);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error during uploading paper.', $myDBAccess->getLastError());
