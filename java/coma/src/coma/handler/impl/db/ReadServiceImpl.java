@@ -343,6 +343,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 			QUERY = "SELECT * FROM Paper";
 			allFlag = true;
 		} else {
+			QUERY += " WHERE ";
 			if (p.getId() >= 0) {
 				QUERY += " id = ?";
 				idFlag = true;

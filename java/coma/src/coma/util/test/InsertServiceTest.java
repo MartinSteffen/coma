@@ -58,12 +58,13 @@ public class InsertServiceTest extends TestCase {
 		boolean run = true;
 		if (run) {
 			Paper paper = new Paper(-1);
-			paper.setConference_id(3);
-			paper.setAuthor_id(15);
+			paper.setConference_id(1);
+			paper.setAuthor_id(2);
 			paper.setState(1);
 			paper.setTitle("This is a test paper");
 			SearchResult sr = insert.insertPaper(paper);
 			System.out.println(sr.SUCCESS);
+			System.out.println(sr.getInfo());
 		}
 	} 
 
