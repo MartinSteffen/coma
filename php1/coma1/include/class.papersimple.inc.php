@@ -17,7 +17,7 @@ require_once(INCPATH.'class.paper.inc.php');
 /**
  * Klasse PaperSimple
  *
- * @author  Jan Waller <jwa@informatik.uni-kiel.de>
+ * @author Jan Waller <jwa@informatik.uni-kiel.de>
  * @author Falk Starke <fast@informatik.uni-kiel.de>
  * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1

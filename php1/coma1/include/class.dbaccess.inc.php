@@ -150,16 +150,16 @@ class DBAccess {
    if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
         // Rollen die nach der PHP1 Spec nicht verwendet werden dürfen auch in der Datenbank nicht
-	// vorkommen
-        if (($data[$i]['role_type'] >4)||($data[$i]['role_type']==1)){ 
+	// vorkommen.
+        if (($data[$i]['role_type'] > 4)||($data[$i]['role_type'] == 1)){ 
           $strRoles[$i] = 'undef';
           echo 'Rolle: '.$data[$i]['role_type'].' ist in der Funktion getRoles nicht bekannt';
         }
         else {
-        if ($data[$i]['role_type']==2){$strRoles[$i] = 'Chair';}
-        if ($data[$i]['role_type']==3){$strRoles[$i] = 'Reviewer';}
-        if ($data[$i]['role_type']==4){$strRoles[$i] = 'Autor';}
-        if ($data[$i]['role_type']==0){$strRoles[$i] = 'Teilnehmer';}
+        if ($data[$i]['role_type'] == 2){$strRoles[$i] = 'Chair';}
+        if ($data[$i]['role_type'] == 3){$strRoles[$i] = 'Reviewer';}
+        if ($data[$i]['role_type'] == 4){$strRoles[$i] = 'Autor';}
+        if ($data[$i]['role_type'] == 0){$strRoles[$i] = 'Teilnehmer';}
         }
       }
    }
@@ -938,6 +938,64 @@ class DBAccess {
   // Definition der Update-Funktionen
   // ---------------------------------------------------------------------------
 
+  /**
+   * Aktualisiert den Datensatz der Person mit den Daten des PersonDetailed-Objekts $objPerson.
+   * [TODO] Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Rollen der Person.
+   *
+   * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll   
+   * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
+   * @access public
+   * @author Sandro (10.01.05)
+   */
+  function updatePerson($objPerson) {
+    $s = 'UPDATE  Person'.
+        ' SET     first_name = '.$objPerson->strFirstName.','.
+        '         last_name = '.$objPerson->strLastName.','.
+        '         email = '.$objPerson->strEmail.','.
+        '         title = '.$objPerson->strTitle.','.
+        '         affiliation = '.$objPerson->strAffiliation.','.
+        '         street = '.$objPerson->strStreet.','.
+        '         city = '.$objPerson->strCity.','.
+        '         postal_code = '.$objPerson->strPostalCode.','.
+        '         state = '.$objPerson->strState.','.
+        '         country = '.$objPerson->strCountry.',' .
+        '         phone_number = '.$objPerson->strPhone.','.
+        '         fax_numer = '.$objPerson->strFax.
+        ' WHERE   id = '.$objPerson->intId;
+    $data = $this->mySql->update($s);
+    if (!empty($data)) {      
+      return true;
+    }
+    return $this->error('updatePaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Aktualisiert den Datensatz des Artikels mit den Daten des PaperDetailed-Objekts $objPaper.   
+   * Sorgt nicht (!) dafuer, die aktuelle Dateiversion hochzuladen.
+   * [TODO] Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Co-Autoren des Papers.
+   *
+   * @param PaperDetailed $objPaper Artikel, der in der Datenbank aktualisiert werden soll   
+   * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
+   * @access public
+   * @author Sandro (10.01.05)
+   */
+  function updatePaper($objPaper) {
+    $s = 'UPDATE  Paper'.
+        ' SET     title = '.$objPaper->strTitle.','.
+        '         author_id = '.$objPaper->intAuthorId.','.
+        '         abstract = '.$objPaper->strAbstract.','.
+        '         format = '.$objPaper->strMimeType.','.
+        '         last_edited = '.$objPaper->strLastEdit.','.
+        '         author_id = '.$objPaper->intAuthorId.','.
+        '         filename = '.$objPaper->strFilePath.','.
+        '         state = '.$objPaper->intStatus.
+        ' WHERE   id = '.$objPaper->intId;
+    $data = $this->mySql->update($s);
+    if (!empty($data)) {      
+      return true;
+    }
+    return $this->error('updatePaper '.$this->mySql->getLastError());
+  }
 
   // ---------------------------------------------------------------------------
   // Definition der Insert-Funktionen
