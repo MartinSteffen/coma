@@ -100,7 +100,9 @@
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="Registrieren" class="button" /> &nbsp;      
+      <input type="submit" name="submit" value="Registrieren" class="button" /> &nbsp;
+      <button type="button" name="cancel" value="Abbrechen"
+       onClick="self.location.href='{basepath}register.php?{SID}' />
     </td>
   </tr>
 </table>

@@ -79,7 +79,7 @@ table.formtable { font-size: 13px;
                 }
 
 /* Schaltflaechen und Eingabefelder */
-input { font-size: 13px;
+input, button { font-size: 13px;
         background-color: #F7FBFF;
         border-style: solid;
         border-width: 1px;
@@ -88,7 +88,7 @@ input { font-size: 13px;
         padding: 2px 8px;
       }
 
-input.button { background-color: #CEDBEF; min-width: 100px; text-align: center; }
+input.button, button { background-color: #CEDBEF; min-width: 100px; text-align: center; }
 
 /* Tabelle mit Linien zur Darstellung von Listen */
 table.list { border-style: solid;
