@@ -344,7 +344,7 @@ class Distribution extends ErrorHandling {
     while ($blnChanged && !$blnBreak) {
       $blnBreak = true;
       for ($i = 0; $i < count($p_num_revs); $i++) {
-        if ($p_num_revs[$i] < $avg_revs_per_paper) {
+        if ($p_num_revs[$i] < $intWantedReviewers[$p_id[$i]]) {
           $blnBreak = false;
         }
       }
@@ -370,7 +370,7 @@ class Distribution extends ErrorHandling {
         }
       }
       if ($pindex >= 0) {
-        // am besten geeigneten Reviewer nehmen
+        // am geeignetsten Reviewer nehmen
         $max = 0; $rindex = -1;
         for ($i = 0; $i < count($r_id); $i++) {
           if ($matrix[$i][$pindex] > $max) {
@@ -382,20 +382,6 @@ class Distribution extends ErrorHandling {
 
       if ($rindex >= 0 && $pindex >= 0) {
         $blnChanged = true;
-        /*$p_num_revs_total_left[$pindex]--;
-        $p_num_revs[$pindex]++;
-        $r_num_papers[$rindex]++;
-        $matrix[$rindex][$pindex] = SUGG;
-        // Zeile Reviewer "halbieren"
-        for ($i = 0; $i < count($p_id); $i++) {
-          if ($matrix[$rindex][$i] > 1) {
-            $matrix[$rindex][$i] /= 2.0;
-            if ($r_num_papers[$rindex] > $avg_revs_per_paper + 1 && $matrix[$rindex][$i] >= 1) {
-              $matrix[$rindex][$i] = 0;
-              $p_num_revs_total_left[$i]--;
-            }
-          }
-        }*/
         $this->suggest($matrix, $rindex, $pindex, $p_id, count($p_id),
                        $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGG);
       }
