@@ -1,10 +1,45 @@
-CoMa - ein Konferenzmanager
-(c) 2004-05 by
+CoMa - a conference manager
+(C) 2004-05 by
     Daniel Miesling <dmi@informatik.uni-kiel.de>
     Falk Starke <fast@informatik.uni-kiel.de>
     Jan Waller <jwa@informatik.uni-kiel.de>
     Sandro Esquivel <sae@informatik.uni-kiel.de>
     Tom Scherzer <tos@informatik.uni-kiel.de>
+
+The preparation, organization and execution of a scientific conference, 
+a Workshops or a comparable event represents a large challenge for the 
+supervisors: Logistic tasks and problems are to be mastered likewise 
+like contentwise questions to clarify, in order to achieve as smooth 
+an operational sequence of the event as possible and to let the meeting 
+become a success. 
+
+In the center of the interest thereby contents of the conference, i.e. 
+the lectures, which are presented, are located and accordingly most 
+concentration on their suitable selection and composition are used. 
+If this Prozedere is made more difficult not only by restrictions from 
+the outside (e.g. short duration of the meeting, lack of time), but 
+particularly by the complicated asynchronous operational sequence 
+and dependence, which are hardly avoidable, if several (usually much-busy) 
+took part, still in addition from all world, to be coordinated must. 
+
+But fortunately there are CoMa: a Web-based Tool, which is be served the 
+selective procedure of the articles meaningfully supported, easily and just 
+as fast as simply to more special needs be adapted can. 
+
+CoMa helps during the composition of the committee, during the invitation 
+of the authors, who can submit article on-line over their own user profile 
+independently, and particularly with the efficient selection of the best 
+articles. Of course user data, contributions, articles, for discussions, are 
+in each case made decisions and evaluations of the involved ones only that 
+for it intended circle of acquaintances accessible, in order to guarantee 
+a high measure of Diskretion also among the participants themselves. 
+
+Above all however CoMa establishes a standard for Communication all among 
+themselves involved one - and is as application of Web for everyone immediately 
+without installation expenditure and from everywhere usable. 
+
+This was a nice example of: "Why not to use automatic Translations!"
+Below the german original:
 
 Die Vorbereitung, Organisation und Durchführung einer wissenschaftlichen Konferenz,
 eines Workshops oder eines vergleichbaren Ereignisses stellt für die Organisatoren
@@ -31,7 +66,7 @@ Beiträge, Artikel, Diskussionen, Entscheidungen und Bewertungen der Beteiligten 
 jeweils dafür vorgesehenen Personenkreis zugänglich gemacht, um ein hohes Maß an Diskretion
 auch unter den Teilnehmern selbst sicherzustellen.
 
-Vor allem aber etabliert CoMa einen Standard für die \emph{Kommunikation} aller Beteiligten
+Vor allem aber etabliert CoMa einen Standard für die Kommunikation aller Beteiligten
 untereinander - und ist als Webanwendung für jeden sofort ohne Installationsaufwand
 und von überall aus nutzbar.
 
