@@ -13,8 +13,8 @@ if (!defined('IN_COMA1')) {
 
 class Template {
 
-  var temp = '';
-  var errString = '';
+  var $template='';
+  var $errString = '';
 
   function Template() {
     return true;
@@ -23,9 +23,9 @@ class Template {
   function readTemplate($template) {
     // vor PHP 4.3 waere es das gewesen:
     // $contents = implode("", @file($template) );
-    $contents = file_get_contents($template)
+    $contents = file_get_contents($template);
     if (empty($contents)) {
-      return this->error("Could not read Template [$template]");
+      return $this->error("Could not read Template [$template]");
     }
     $this->template = $contents;
     return true;
@@ -34,7 +34,7 @@ class Template {
   function parse($assocArray) {
     $template = $this->template;
     $keyArray = array_keys($assocArray);
-    array_map(create_function('&$s', 'return "{$s}";'), $keyArray);
+    $keyArray = array_map(create_function('$s', 'return "<{" . $s . "}>";'), $keyArray);
     $template = preg_replace($keyArray, array_values($assocArray), $template);
     return $template;
   }
