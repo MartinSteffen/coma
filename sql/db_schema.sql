@@ -2,7 +2,6 @@ CREATE TABLE Conference
 (
    abbreviation                 VARCHAR(20) NOT NULL,
    name                         VARCHAR(127) NOT NULL,
-   description                  TEXT,
    homepage                     VARCHAR(127),
    abstract_submission_deadline DATE,
    paper_submission_deadline    DATE,
@@ -35,12 +34,14 @@ CREATE TABLE Person
    PRIMARY KEY (email),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
          ON DELETE CASCADE
+
 ) TYPE = INNODB;
 
 CREATE TABLE Paper
 (
-   id           BIGINT NOT NULL AUTO_INCREMENT,
+   id           INT NOT NULL AUTO_INCREMENT,
    conference   VARCHAR(20) NOT NULL,
+   forum_id     INT NOT NULL,
    author       VARCHAR(127) NOT NULL,
    title        VARCHAR(127) NOT NULL,
    abstract     MEDIUMTEXT,
@@ -52,16 +53,43 @@ CREATE TABLE Paper
    PRIMARY KEY (id),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
        ON DELETE CASCADE,
+   FOREIN KEY (forum_id) REFERENCES Forum(id)
+       ON DELETE CASCADE,
    FOREIGN KEY (author) REFERENCES Person(email)
        ON DELETE CASCADE
+) TYPE = INNODB;
+
+CREATE TABLE Rights
+(
+   person_id  INT NOT NULL,
+   role_id    INT NOT NULL,
+   status     INT,
+
+   FOREIGN KEY (person_id) REFERENCES Person(id)
+       ON DELETE CASCADE,
+   FOREIGN KEY (role_id) REFERENCES Roles(id)
+       ON DELETE CASCADE	
+) TYPE = INNODB;
+
+CREATE TABLE Roles
+(
+   id          INT NOT NULL AUTO_INCREMENT,
+   conference  INT NOT NULL,
+   type        VARCHAR(20),
+   description VARCHAR(127),
+
+   PRIMARY KEY (id),
+   FOREIGN KEY (conference) REFERENCES Conference(id)
+       ON DELETE CASCADE
+   
 ) TYPE = INNODB;
 
 CREATE TABLE IsCoAuthorOf
 (
    conference  VARCHAR(20) NOT NULL,
-   paper_id    BIGINT NOT NULL,
+   paper_id    INT NOT NULL,
    name        VARCHAR(127) NOT NULL,
-   email       VARCHAR(127),
+   coauthor    VARCHAR(127),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
        ON DELETE CASCADE,
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
@@ -72,10 +100,10 @@ CREATE TABLE IsCoAuthorOf
 
 CREATE TABLE Topic
 (
-   id         BIGINT NOT NULL AUTO_INCREMENT,
+   id         INT NOT NULL AUTO_INCREMENT,
    conference VARCHAR(20) NOT NULL,
    name       VARCHAR(127) NOT NULL,
-   UNIQUE(id),
+   
    PRIMARY KEY (id),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
        ON DELETE CASCADE
@@ -83,19 +111,19 @@ CREATE TABLE Topic
 
 CREATE TABLE IsAboutTopic
 (
-   paper_id BIGINT NOT NULL,
-   topic    VARCHAR(127) NOT NULL,
+   paper_id INT NOT NULL,
+   topic    INT NOT NULL,
    PRIMARY KEY (paper_id, topic),
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
        ON DELETE CASCADE,
-   FOREIGN KEY (topic) REFERENCES Topic(name)
+   FOREIGN KEY (topic) REFERENCES Topic(id)
        ON DELETE CASCADE
 ) TYPE = INNODB;
 
 CREATE TABLE PrefersTopic
 (
    person     VARCHAR(127) NOT NULL,
-   paper_id   BIGINT NOT NULL,
+   paper_id   INT NOT NULL,
    FOREIGN KEY (person) REFERENCES Person(email)
        ON DELETE CASCADE,       
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
@@ -104,11 +132,11 @@ CREATE TABLE PrefersTopic
 
 CREATE TABLE ReviewReport
 (
-   id           BIGINT NOT NULL AUTO_INCREMENT,
+   id           INT NOT NULL AUTO_INCREMENT,
    conference   VARCHAR(20) NOT NULL,
-   paper_id     BIGINT NOT NULL,
+   paper_id     INT NOT NULL,
    reviewer     VARCHAR(127) NOT NULL,
-   summary      MEDIUMTEXT,
+   summary      TEXT,
    remarks      TEXT,
    confidential TEXT,
    PRIMARY KEY (id),
@@ -122,20 +150,23 @@ CREATE TABLE ReviewReport
 
 CREATE TABLE Rating
 (
-   review_id BIGINT NOT NULL,
-   grade     INT NOT NULL,
-   comment   TEXT,
+   review_id    INT NOT NULL,
+   criterion_id INT NOT NULL,
+   grade        INT NOT NULL,
+   comment      TEXT,
    FOREIGN KEY (review_id) REFERENCES ReviewReport(id)
-       ON DELETE CASCADE
+       ON DELETE CASCADE,
+   FOREIGN KEY (criretion_id) REFERENCES Criterion(id)
 ) TYPE = INNODB;
 
 CREATE TABLE Criterion
 (
-   id          BIGINT NOT NULL AUTO_INCREMENT,
-   conference  VARCHAR(20) NOT NULL,
-   name        VARCHAR(127) NOT NULL,
-   description TEXT,
-   max_value   INT,
+   id             INT NOT NULL AUTO_INCREMENT,
+   conference     VARCHAR(20) NOT NULL,
+   name           VARCHAR(127) NOT NULL,
+   description    TEXT,
+   max_value      INT,
+   quality_rating INT,
    PRIMARY KEY (id),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
        ON DELETE CASCADE
@@ -143,19 +174,35 @@ CREATE TABLE Criterion
 
 CREATE TABLE Forum
 (
-   id          BIGINT AUTO_INCREMENT,
+   id          INT AUTO_INCREMENT,
    conference  VARCHAR(20) NOT NULL,
    title       VARCHAR(127) NOT NULL,
-   description TEXT,
+   
    PRIMARY KEY (id),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
        ON DELETE CASCADE
 ) TYPE = INNODB;
 
+CREATE TABLE Thread
+(
+   id            INT NOT NULL,
+   forum_id      INT NOT NULL,
+   first_message VARCHAR(127) NOT NULL,
+   title         VARCHAR(127),
+   describtion   TEX,
+  
+   PRIMARY KEY (id),
+   FOREIN KEY (forum_id) REFERENCES Forum(id)
+       ON DELETE CASCADE,
+   FOREIN KEY (first_message) REFERENCES Message(id)
+       ON DELETE CASCADE
+) TYPE = INNODB;
+
 CREATE TABLE ParticipatesInForum
 (
-   forum_id     BIGINT NOT NULL,
+   forum_id     INT NOT NULL,
    participant  VARCHAR(127) NOT NULL,
+
    PRIMARY KEY (forum_id, participant),
    FOREIGN KEY (participant) REFERENCES Person(email)
       ON DELETE CASCADE,
@@ -169,21 +216,16 @@ CREATE TABLE Message
    sender    VARCHAR(127) NOT NULL,
    send_time DATETIME,  /*wird von coma automatisch gesetzt*/
    subject   VARCHAR(127),
-   text      MEDIUMTEXT,
+   text      TEXT,
+   reply_to  INT,
+
    PRIMARY KEY (id),
    FOREIGN KEY (sender) REFERENCES Person(email)
+      ON DELETE CASCADE,
+   FOREIGN KEY (reply_to) REFERENCES MESSAGE(id)
       ON DELETE CASCADE
 ) TYPE = INNODB;
 
-CREATE TABLE HasThread
-(
-   forum_id   BIGINT NOT NULL,
-   message_id VARCHAR(127) NOT NULL,
-   FOREIGN KEY (forum_id) REFERENCES Forum(id)
-       ON DELETE CASCADE,
-   FOREIGN KEY (message_id) REFERENCES Message(id)
-       ON DELETE CASCADE
-) TYPE = INNODB;
 
 /* Sollen Enumerations wirklich als eigene Tabellen realisiert werden? */
 
