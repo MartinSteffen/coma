@@ -70,7 +70,7 @@ define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/sandro/');
 /** Template-Pfad-Images (als absolut) */
-define('TPLURL',dirname($_SERVER['PHP_SELF']).'/images/');
+define('IMAGES',dirname($_SERVER['PHP_SELF']).'/images/');
 /** Template-Pfad (als URL)*/
 define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/');
 /** Haupt-Pfad (als URL)*/
