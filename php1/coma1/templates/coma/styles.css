@@ -265,7 +265,7 @@ textarea
   font-family: Arial, Sans-Serif;
   font-size: 11px;
 }
-input.button, button
+input.button, button.button
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
   font-weight: bold;
