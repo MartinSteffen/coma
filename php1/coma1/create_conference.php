@@ -61,8 +61,7 @@ if (isset($_POST['action'])) {
         $strCritMaxVals[]   = encodeText($_POST['crit_max-'.($i+1)]);
         $strCritWeights[]   = encodeText($_POST['crit_weight-'.($i+1)]);      
       }
-    } 
-    /* 	
+    } 	
     if (isset($_POST['add_topic']) && !empty(encodeText($_POST['topic_name']))) {
       $strTopics[] = encodeText($_POST['topic_name']);
     }
@@ -71,8 +70,7 @@ if (isset($_POST['action'])) {
       $strCritDescripts[] = encodeText($_POST['crit_descr']);
       $strCritMaxVals[]   = encodeText($_POST['crit_max']);
       $strCritWeights[]   = encodeText($_POST['crit_weight']);
-    } 
-    */  
+    }  
   }
   if ( isset($_POST['adv_config']) ||
       (isset($_POST['advanced']) && !isset($_POST['simple_config']))) {
@@ -156,7 +154,7 @@ if (isset($_POST['action'])) {
                                            (!empty($_POST['auto_addreviewer']) ? '1' : '0'),
                                            encodeText($_POST['auto_numreviewer']),                                           
                                            $strTopics, $strCriterions, $strCritDescripts,
-                                           $intCritMaxVals, $fltCritWeights);                                           
+                                           $strCritMaxVals, $strCritWeights);                                           
       if (!empty($result)) {
         // Erfolg (also anderes Template)
         $content = new Template(TPLPATH.'confirm_conference.tpl');
