@@ -864,7 +864,7 @@ class DBAccess {
    * @access public
    * @author Tom (26.12.04)
    */
-  function addRole($intConferenceId, $intPersonId, $intRole) {
+  function addRole($intConferenceId, $intPersonId, $intRoleType) {
     $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
         '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
         '                 \''.$intRoleType.'\')';
