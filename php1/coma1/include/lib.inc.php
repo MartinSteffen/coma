@@ -306,19 +306,27 @@ function chronometer()
 /**
  * Versendet eine E-Mail
  *
- *
- *
+ * @param int $intUserId an diesen wird geschickt
+ * @param string $strSubject dieses ist der Betreff
+ * @param string $strMsg dieses ist eine spannende Nachricht
+ * @param string $strFrom dieses ist 1. optional und 2. der Absender
+ * @return bool True gdw. Erfolgreich
+ * @author Jan&Tom (31.01.05)
+ * @access public
  */
-function sendMail($intUserID, $strSubject, $strMsg)
+function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
 {
   global $myDBAccess;
   $objPerson = $myDBAccess->getPerson($intUserID);
   if ($myDBAccess->failed()) {
     error('sendMail',$myDBAccess->getLastError());
   }
+  if (empty($strFrom)) {
+    $strFrom = "\"CoMa - Your Conference Manager\" <>"
+  }
   return mail('', '[CoMa] '.$strSubject, $strMsg,
               'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
-              "From: \"CoMa - Your Conference Manager\" <>\r\n"
+              "From: $strFrom\r\n"
              );
   
 }
