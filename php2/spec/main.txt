@@ -183,6 +183,20 @@ dH : Die Rolle 0 bedeutet dass der User eine Rolle in der Konferenz früher hatte
 -Reviewer:
 ----------
 Marco
+	*** bisher nur Stichpunktartig, kommt aber noch schöner :) ***
+	* Tasks:
+		Paper bewerten oder ablehnen, nicht mehr nach der Deadline review_deadline
+	* Paper bewerten
+		Reviewreport machen
+		Ratings zu Criterions geben
+			Note zw. 0 und max_value
+	* Paper ablehnen
+		geht direkt in DeniesPapers und weg (für immer)
+	* Paper anfordern
+		nicht mehr nach Deadline der Verteilung möglich
+		Nachname des Authors muss angegeben werden, danach Liste aller Paper dieses Authors zum Auswählen
+	* Topics anfordern
+		Liste der Topics aus Topics anbieten und gewählte in PrefersTopic reinschmeißen
 
 -Author:
 --------
@@ -243,7 +257,9 @@ Gunnar
 	Das Paperdiskussionsforum wird automatisch angelegt, sofern das Paper eingereicht und an Reviewer verteilt ist. Der Titel dieses Forums lautet dann "PDF: <Paper.title>" und die Paperid wird in das Forum eingetragen.
 	
 	Zu den Foren werden Messages zugeordnet. Auf eine Message darf nur im gleichen Forum (id) geantwortet werden. Wird auf eine Nachricht geantwortet, wird in der neuen Nachricht das Feld reply_to mit der id der alten Nachricht gefüllt, andernfalls ist das Feld reply_to leer.
-	Forum_id, Sender_id und Send_time werden beim schreiben einer Message automatisch eingetragen, Subject und Text werden vom Verfasser der Nachricht ausgefüllt. 
+	Forum_id, Sender_id und Send_time werden beim schreiben einer Message automatisch eingetragen (siehe PTRA), Subject und Text werden vom Verfasser der Nachricht ausgefüllt. 
+	
+	Beim Löschen müssen wir nochmal gucken.... :)
 	
 -Templates & Design:
 --------------------

@@ -36,3 +36,5 @@ DROP TABLE IF EXISTS rights
  CREATE TABLE rights ( role_id int(10) unsigned NOT NULL default '0', module_id int(10) unsigned NOT NULL default '0' ) TYPE=MyISAM
 DROP TABLE IF EXISTS roledescription
  CREATE TABLE roledescription ( role_id int(10) unsigned NOT NULL auto_increment, rolename varchar(20) NOT NULL default '', PRIMARY KEY (role_id), UNIQUE KEY role_id (role_id) ) TYPE=MyISAM
+DROP TABLE IF EXISTS rejectedpapers
+ CREATE TABLE rejectedpapers ( person_id  INT NOT NULL, paper_id   INT NOT NULL, PRIMARY KEY (person_id, paper_id), INDEX (person_id), INDEX (paper_id), FOREIGN KEY (person_id) REFERENCES Person (id) ON DELETE CASCADE, FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE ) TYPE = INNODB
