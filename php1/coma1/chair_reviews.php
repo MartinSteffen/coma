@@ -81,7 +81,7 @@ if (strtotime($objConference->strAbstractDeadline) <= strtotime("now") &&
 else if (strtotime($objConference->strReviewDeadline) <= strtotime("now") &&
          strtotime("now") <=
          (!empty($objConference->strNotification) ?
-          strtotime($objConference->strNotification)
+          strtotime($objConference->strNotification) :
           strtotime($objConference->strStart))) {
   $ifArray[] = 'AUTHORNOTIFY';
 }
