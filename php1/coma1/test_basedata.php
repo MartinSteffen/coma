@@ -83,7 +83,7 @@ while ($i < $conferences) {
     $j++;
   }
   $j = 0;
-  while($j < $persons/3) {
+  while($j < $persons/8) {
   echo 'R2<br>';
     $myDBAccess->addRole($j+1, 3, $i+1);
     if ($myDBAccess->failed()) {

@@ -26,9 +26,10 @@ if ($myDist->failed()) {
   echo($myDist->getLastError());
 }
 else if (empty($m)) {
-  echo('<br>EMPTY');
+  echo('<br><br>EMPTY');
   die(-1);
 }
+else echo('<br><br>OK');
 /*for ($i = 0; $i < count($m); $i++) {
   $s = sprintf("<br>%d:", $i);
   for ($j = 0; $j < count($m[$i]); $j++) {
