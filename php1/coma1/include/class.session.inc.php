@@ -102,9 +102,7 @@ class Session {
   function sessionRead($sess_id) {
     $results = $this->mySql->select("SELECT sdata FROM 'Sessions' WHERE sid='$sess_id'");
     if (!$results) {
-      //echo 'delete Inserte';
       $this->mySql->delete("DELETE FROM 'Sessions' WHERE sid='$sess_id'");
-      echo "INSERT INTO 'Sessions' ('sid', 'sdata', 'stime') VALUES ('$sess_id', '', NOW())";
       $this->mySql->insert("INSERT INTO 'Sessions' ('sid', 'sdata', 'stime') VALUES ('$sess_id', '', NOW())");
       $s = $this->mySql->getLastError();
       if (!empty($s)) {
@@ -113,7 +111,6 @@ class Session {
       return '';
     }
     else {
-      echo 'sid gefunden';
       return $results[0]['sdata'];
     }
   }
@@ -148,7 +145,7 @@ class Session {
    *
    */
   function error($strError='') {
-    $this->strError = $strError;
+    $this->strError = [Sessions: $strError ];
     return false;
   }
 
