@@ -115,7 +115,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
       $objArrayChairForumTemplates[$objForum->intId] = $objForumTemplate;
     }
     if (isGlobalForum($objForum)){
-      $objArrayGlobalForumTemplates[objForum->intId] = $objForumTemplate;
+      $objArrayGlobalForumTemplates[$objForum->intId] = $objForumTemplate;
     }
   }
 
