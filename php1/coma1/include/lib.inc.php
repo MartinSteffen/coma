@@ -328,13 +328,16 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
     $strFrom = "\"CoMa - Your Conference Manager\" <>";
   }
 
-  // TOTALAY UNSURE ABOUT THIS WHOLE \r\n vs \n STUFF NEEDS LOTS OF TESTING
   $strMsg = utf8_encode($strMsg);
   $strSubject = utf8_encode('[CoMa] '.$strSubject);
-  $header = "To: \"".$objPerson->getName(2)."\" <{$objPerson->strEmail}>\n".
-            "From: $strFrom\n".
-            "MIME-Version: 1.0\n".
-            "Content-type: text/plain; charset=utf-8";
+  $name = $objPerson->getName(2);
+  // \n vs \r\n vs \r fix via relying on downloading it from svn using correct system :)
+  $header = <<<HEADER
+To: "{$name}" <{$objPerson->strEmail}>
+From: {$strFrom}
+MIME-Version: 1.0
+Content-type: text/plain; charset=utf-8
+HEADER;
   return mail('', $strSubject, $strMsg, $header);
 }
 
