@@ -36,11 +36,11 @@
     <td>
       <table class="formlist">
         {coauthor_lines}
-        <tr>
-          <td>
+        <tr class="formlistitem">
+          <td class="formlistitem">
             <input type="text" name="coauthor" size="32" maxlength="127" value="">
           </td>
-          <td>
+          <td class="formlistitem">
             <input type="submit" name="add_coauthor" value="add" class="smallbutton">
           </td>
         </tr>  
