@@ -133,7 +133,10 @@ if (isset($_POST['action'])) {
       $strMessage = 'You have to fill in the field <b>Title</b>!';
     }
     // Versuche die neue Konferenz einzutragen
-    else {      
+    else {
+      if ($myDBAccess->failed()) {       
+        echo('Error during creating conference.', $myDBAccess->getLastError());
+      }
       $result = $myDBAccess->addConference(encodeText($_POST['name']),                                           
                                            encodeURL($_POST['homepage']),
                                            encodeText($_POST['description']),                                           
