@@ -157,7 +157,7 @@ class DBAccess {
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPerson($intPersonId) {
-    $s = 'SELECT  id, email, first_name, last_name'.
+    $s = 'SELECT  id, first_name, last_name, email, title'.
         ' FROM    Person'.
         ' WHERE   id = '.$intPersonId;
     $data = $this->mySql->select($s);
@@ -172,8 +172,8 @@ class DBAccess {
       	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
       	}
       }
-      return (new Person($data[0]['id'], $data[0]['email'],
-                $data[0]['first_name'], $data[0]['last_name'], $role_type));
+      return (new Person($data[0]['id'], $data[0]['first_name'], $data[0]['last_name'],
+                $data[0]['email'], $role_type, $data[0]['title'],));
     }
     return $this->error('getPerson '.$this->mySql->getLastError());
   }
@@ -188,7 +188,7 @@ class DBAccess {
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
   function getPersonDetailed($intPersonId) {
-    $s = 'SELECT  id, email, first_name, last_name, title, affiliation,'.
+    $s = 'SELECT  id, first_name, last_name, email, title, affiliation,'.
         '         street, city, postal_code, state, country, phone_number,'.
         '         fax_number'.
         ' FROM    Person'.
@@ -205,8 +205,8 @@ class DBAccess {
       	  $role_type = $role_type | (1 << $role_data[$i]['role_type']);
       	}
       }
-      return (new PersonDetailed($data[0]['id'], $data[0]['email'],
-                $data[0]['first_name'], $data[0]['last_name'], $role_type,
+      return (new PersonDetailed($data[0]['id'], $data[0]['first_name'],
+                $data[0]['last_name'], $data[0]['email'], $role_type,
                 $data[0]['title'], $data[0]['affiliation'], $data[0]['street'],
                 $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
                 $data[0]['country'], $data[0]['phone_number'],
@@ -765,7 +765,7 @@ class DBAccess {
    * @access public
    * @author Sandro, Tom (17.12.04)
    */
-  function addPerson($strEmail, $strFirstname, $strLastname, $intRole, $strTitle,
+  function addPerson($strFirstname, $strLastname, $strEmail, $intRole, $strTitle,
                      $strAffiliation, $strStreet, $strCity, $strPostalCode,
                      $strState, $strCountry, $strPhone, $strFax, $strPassword) {
     $s = 'INSERT  INTO Person (first_name, last_name, title, affiliation, email,'.

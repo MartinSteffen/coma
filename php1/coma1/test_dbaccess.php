@@ -22,6 +22,9 @@ echo($p->strFirstName.' '.$p->strLastName.' '.$p->intRoles.'<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(1)?'':'k').'ein Chair.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br><br>');
+
+echo($myDBAccess->addPerson('Gummi', 'Huhn', 'gh@chicks.org', 0, '', '', '', '',
+                            '', '', '', '', '', 'pw'));
 /*
 $p = $myDBAccess->getPapersOfAuthor(1);
 if (!empty($p)) {
@@ -60,14 +63,5 @@ else {
   echo($myDBAccess->getLastError());
 }
 */
-
-function test($int1 = -1, $int2 = -2) {
-  echo('->'.$int1.'/'.$int2);
-}
-
-test();
-test(1);
-test(1, 2);
-test(, 2);
 
 ?>

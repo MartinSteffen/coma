@@ -21,18 +21,20 @@ if (!defined('IN_COMA1')) {
  */
 class Person {
 
-  var $intId;
-  var $strEmail;
+  var $intId;  
   var $strFirstName;
   var $strLastName;
+  var $strEmail;
   var $intRoles;
+  var $strTitle;
   
-  function Person($intId, $strEmail, $strFirstName, $strLastName, $intRoles = 0) {
-    $this->intId = $intId;
-    $this->strEmail = $strEmail;
+  function Person($intId, $strFirstName, $strLastName, $strEmail, $intRoles, $strTitle) {
+    $this->intId = $intId;  
     $this->strFirstName = $strFirstName;
     $this->strLastName = $strLastName;
+    $this->strEmail = $strEmail;
     $this->intRoles = $intRoles;
+    $this->strTitle = $strTitle;
   }
   
   function hasRole($intRole) {
