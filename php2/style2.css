@@ -1,0 +1,49 @@
+/*
+// $Id: style2.css 92 2004-04-06 10:08:12Z  $
+*/ 
+body
+{
+	font-family: Arial, Helvetica, Sans-Serif;
+	background: #FBF9AA;
+}
+h2
+{
+	margin-bottom: 2mm;
+}
+a
+{
+	color: blue;
+}
+a.menusublink
+{
+	padding-left: 3mm;
+}
+
+td.standard
+{
+	padding: 2mm;
+	vertical-align: top;
+}
+
+td.navigation
+{
+	text-align: right;
+	padding-top: 6mm;
+}
+
+td.border, th.border
+{
+	border: black solid 1px;
+	margin: 0px;
+	padding: 3px;
+	vertical-align: top;
+}
+div.fehler
+{
+	color: red;
+}
+
+table
+{
+	border-collapse: collapse;
+}
