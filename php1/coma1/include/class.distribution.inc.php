@@ -356,11 +356,11 @@ class Distribution extends ErrorHandling {
 
       // Paper mit dem niedrigsten Faktor n/m (n=Anzahl Reviewer, m=gewunschte Reviewer)
       // ermitteln... (Paper mit hoeherem m bei gleichem Faktor bevorzugen.)
-      $minFactor = 1; $wanted = -1; $pindex = -1;
+      $minFactor = 1.001; $wanted = -1; $pindex = -1;
       for ($i = 0; $i < count($p_id); $i++) {
         // nur solche, fuer die noch Reviewer in Frage kommen
         if ($p_num_revs_total_left[$i] > 0) {
-          if(($p_num_revs[$i]-1) / $intWantedReviewers[$p_id[$i]] < $minFactor ||
+          if(($p_num_revs[$i]+1) / $intWantedReviewers[$p_id[$i]] < $minFactor ||
               (abs($p_num_revs[$i] / $intWantedReviewers[$p_id[$i]] - $minFactor) <= 0.005 &&
                $intWantedReviewers[$p_id[$i]] > $wanted)) {
             $minFactor = $p_num_revs[$i] / $intWantedReviewers[$p_id[$i]];
