@@ -94,6 +94,10 @@ a
 {  
   text-decoration: none;
   font-weight: bold;
+  padding-left: 12px;
+  background-image:url('images/link.gif');
+  background-repeat: no-repeat;
+  background-position: left;
 }
 a:link
 {
