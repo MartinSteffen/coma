@@ -1156,7 +1156,7 @@ class DBAccess extends ErrorHandling {
     for ($i = 0; $i < count($intRoles); $i++) {
       if ($objPerson->hasRole($intRoles[$i])) {
         $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
-            "         VALUES ($intConferenceId, $intId, $intRole[$i])";
+            "         VALUES ($intConferenceId, $intId, ".$intRole[$i].")";
         $result = $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateRoles', $this->mySql->getLastError());
