@@ -182,8 +182,8 @@ class MySql {
    * Dabei werden einfache Fehlerchecks durchgefuert.
    *
    * @param string $strSql Eine SQL <b>update</b> Anfrage an die Datenbank
-   * @return int|false Die id des letzten auto_increment Wertes oder 
-   *                   <b>false</b> falls ein Fehler auftrat.
+   * @return int|false Die id des letzten auto_increment Wertes (0, falls keiner
+   *                   erzeugt wird) oder <b>false</b> falls ein Fehler auftrat.
    * @see error()
    * @see getLastError()
    * @access public
