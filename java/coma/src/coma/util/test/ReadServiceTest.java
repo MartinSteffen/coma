@@ -57,9 +57,9 @@ public class ReadServiceTest extends TestCase{
 		if(!run){
 			return;
 		}
-		Person p = new Person(-1);
+		Person p = new Person(-11);
 		//p.setLast_name("Susi");
-		//p.setEmail("test@web.de");
+		//p.setEmail("test10@web.com");
 		int[] role = new int[3];
 		role[0] = 0; role[1] = 1; role[2] = 2; 
 		p.setRole_type(role);
@@ -75,13 +75,13 @@ public class ReadServiceTest extends TestCase{
 		}
 		System.out.println("----------------------------");
 		
-		result = read.getPersonByRole(role, 1);
-		objResult = result.getResultObj();
-		
-		persons = (Person[])objResult;	
-		for (int i = 0; i < persons.length; i++) {
-			System.out.println(persons[i].toXML());	
-		}
+//		result = read.getPersonByRole(role, 1);
+//		objResult = result.getResultObj();
+//		
+//		persons = (Person[])objResult;	
+//		for (int i = 0; i < persons.length; i++) {
+//			System.out.println(persons[i].toXML());	
+//		}
 	}
 	
 	public void testGetPersonByRole(){

@@ -68,7 +68,11 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-		QUERY = "SELECT * FROM Person, Role WHERE";
+		QUERY = "SELECT * FROM Person ";
+		if(p.getRole_type() != null && p.getRole_type().length > 0){
+			QUERY += ", Role ";
+		}
+		QUERY += " WHERE ";
 		boolean idFlag = false;
 		boolean emailFlag = false;
 		boolean nameFlage = false;
@@ -135,8 +139,11 @@ public class ReadServiceImpl extends Service implements ReadService {
 			try {
 				// conn = dataSource.getConnection();
 				conn = getConnection();
+				
 				if (conn != null) {
+					System.out.append(QUERY);
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
+					//pstmt.setQueryTimeout(5);
 					int pstmtCounter = 0;
 					if (idFlag) {
 						pstmt.setInt(++pstmtCounter, p.getId());
@@ -153,6 +160,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 					if (stateFlag) {
 						pstmt.setString(++pstmtCounter, p.getState());
 					}
+					String s = conn.nativeSQL(QUERY);
+					System.out.println(s);
 					ResultSet resSet = pstmt.executeQuery();
 					LinkedList<Person> ll = new LinkedList<Person>();
 					EntityCreater eCreater = new EntityCreater();
