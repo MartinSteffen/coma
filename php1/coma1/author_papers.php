@@ -32,16 +32,17 @@ foreach ($testpapers as $paper){
   $none = false;
   $papertemplate = new Template(TPLPATH . 'author_paperlistitem.tpl');
   $paperassocs = defaultAssocArray();
-  $paperassocs['title'] = $paper->strTitle;
-  $paperassocs['status'] = $paper->intStatus;
-  $paperassocs['avgrating'] = $paper->fltAvgRating;
-  $paperassocs['abstract_link'] = $paper->strAbstract;
-  $paperassocs['last_edited'] = $paper->strLastEdit;
-  $paperassocs['paper_id'] = $paper->intId;
+  $paperassocs['title'] = encodeText($paper->strTitle);
+  $paperassocs['status'] = encodeText($paper->intStatus);
+  $paperassocs['avgrating'] = encodeText($paper->fltAvgRating);
+  $paperassocs['abstract_link'] = encodeURL($paper->strAbstract);
+  $paperassocs['last_edited'] = encodeText($paper->strLastEdit);
+  $paperassocs['paper_id'] = encodeURL($paper->intId);
   $paperassocs['co_authors'] = '';
   foreach ($paper->strCoAuthors as $coauthor){
     $paperassocs['co_authors'] = $paperassocs['co_authors'] . $coauthor;
   }
+  $paperassocs['co_authors'] = encodeText($paperassocs['co_authors']);
   $papertemplate->assign($paperassocs);
   $papertemplate->parse();
   $strContentAssocs['paper_rows'] = $strContentAssocs['paper_rows'] . $papertemplate->getOutput();
@@ -57,10 +58,10 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Manage papers of author '.session('uname');
+$strMainAssocs['title'] = 'Manage papers of author '.encodeText(session('uname'));
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Author  |  Papers';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Author  |  Papers';
 
 $main->assign($strMainAssocs);
 $main->parse();

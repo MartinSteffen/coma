@@ -28,7 +28,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Conferences Overview';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = session('uname').'  |  Conferences';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Conferences';
 
 $main->assign($strMainAssocs);
 $main->parse();
