@@ -8,7 +8,7 @@
 
   <tr class="listitem-1"> 
     <td class="listitem-1">
-      <a href="{basepath}chair_userdetails.php?userid={userid}{&SID}">
+      <a href="{basepath}user_userdetails.php?userid={userid}{&SID}">
       Robby Rabbit</a>
     </td> 
     <td class="listitem-1"> 
@@ -49,7 +49,7 @@
 
   <tr class="listitem-2">
     <td class="listitem-2">
-      <a href="{basepath}chair_userdetails.php?userid={userid}{&SID}">
+      <a href="{basepath}user_userdetails.php?userid={userid}{&SID}">
       Grinse Katz</a>
     </td>
     <td class="listitem-2"> 

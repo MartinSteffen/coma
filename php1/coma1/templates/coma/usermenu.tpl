@@ -14,6 +14,16 @@
     </td>
   </tr>
   <tr>
+    <td class="submenu"><a href="{basepath}user_users.php{?SID}" class="{if6 marked}submenu">
+      All users</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="submenu"><a href="{basepath}user_papers.php{?SID}" class="{if7 marked}submenu">
+      All papers</a>
+    </td>
+  </tr>
+  <tr>
     <td class="menu"><a href="{basepath}user_forums.php{?SID}" class="{if3 marked}menu">
       Forums</a>
     </td>
