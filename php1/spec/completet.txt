@@ -1,0 +1,35 @@
+Hier eingetragene Dateien sollten nicht mehr verändert werden!!
+(insklusive ihrer zugehörigen Templates!!)
+
+Filename             | by whom | controlled by
+---------------------+---------+---------------
+index.php            | jwa     |               
+login.php            | jwa     |               
+register.php         | jwa     |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     |         |               
+                     
