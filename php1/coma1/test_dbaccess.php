@@ -34,7 +34,7 @@ echo('rating of review #1 = '.$myDBAccess->getReviewRating(1).'<br>');
 echo('rating of review #2 = '.$myDBAccess->getReviewRating(2).'<br>');
 echo('avg rating of paper #1 = '.$myDBAccess->getAverageRatingOfPaper(1).'<br>');
 
-$p->getPaperDetailed(1);
+$p = $myDBAccess->getPaperDetailed(1);
 if (!empty($p)) {
   echo('Autor (ID) / Titel: '.$p->strAuthor.' ('.$p->intAuthorId.') / '.$p->strTitle.'<br>');
   echo('Co-Autoren (ID):<br>');
