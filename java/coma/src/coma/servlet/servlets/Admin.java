@@ -144,7 +144,7 @@ public class Admin extends HttpServlet
 	    }
 	}
 	
-	public void send_email(String address)
+	private void send_email(String address)
 	{	
 		/*
 		 * 
@@ -158,7 +158,7 @@ public class Admin extends HttpServlet
 	         * FIXME get SMTP-SERVER
 	         * test with your own smtp server an mail address
 	         */
-			SMTPClient MyE = new SMTPClient("127.0.0.1","localHost",
+			SMTPClient MyE = new SMTPClient("localHost",
 				formular[0],formular[1],formular[2]);
 			SENDED=MyE.send();		
 			// FIXME FIXME FIXME NOBUILD session = req.getSession(true);
