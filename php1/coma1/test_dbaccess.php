@@ -25,7 +25,7 @@ function bit($b) {
   return true;
 }
 
-$p = $myDBAccess->getPersonAlgorithmic(1, 5);
+$p = $myDBAccess->getPersonAlgorithmic(1, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
