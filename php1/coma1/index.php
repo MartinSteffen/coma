@@ -24,6 +24,7 @@ if (!isset($_SESSION['confid'])) {
 }
 // Eingeloggt und hab ne Konfernez gewaehlt -> Userlevel bestimmen
 $myDBAccess->getPerson(session('uid'));
+echo session('uid');
 if ($myDBAccess->failed()) {
   error('index.php -> chooseHighestUserlevel',$myDBAccess->getLastError());
 }
