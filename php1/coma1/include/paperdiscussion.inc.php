@@ -37,7 +37,7 @@ if ($objPaper->intStatus == PAPER_CRITICAL) {
     if ($myDBAccess->failed()) {      
       error('Error during creating paper discussion forum.', $myDBAccess->getLastError());
     }
-    $objReviewers = $myDBAccess_>getReviewersOfPaper($intPaperId);
+    $objReviewers = $myDBAccess->getReviewersOfPaper($intPaperId);
     if ($myDBAccess->failed()) {      
       error('Error during receiving reviewers of paper.', $myDBAccess->getLastError());
     }
