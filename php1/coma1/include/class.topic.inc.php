@@ -25,7 +25,7 @@ class Topic {
   var $strName;
 
   function Topic($intId, $strName) {
-    $this->intId = $intId;    
+    $this->intId   = $intId;    
     $this->strName = $strName;
   }
 

@@ -4,6 +4,6 @@
             {topic}
           </td>
           <td class="formlistitem">
-	    &nbsp&;            
+	    &nbsp;            
           </td>
         </tr>
