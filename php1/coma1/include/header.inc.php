@@ -1,0 +1,33 @@
+<?php
+/**
+ * @version $Id$
+ * @package coma1
+ * @subpackage core
+ */
+/***/
+if (!defined('IN_COMA1')) {
+  exit('Hacking attempt');
+}
+
+function checkError($class) {
+  $s = $class->getLastError();
+  if (!empty($s)) {
+    echo $s;
+  }
+}
+
+require_once('class.mysql.inc.php');
+require_once('class.session.inc.php');
+require_once('class.template.inc.php');
+require_once('class.dbaccess.inc.php');
+
+$mySql = new MySql();
+checkError($mySql);
+
+$mySession = new Session($mySql);
+checkError($mySession);
+
+$myDBAccess = new DBAccess($mysql);
+checkError($myDBAccess);
+
+?>
