@@ -1861,7 +1861,7 @@ nur fuer detaillierte?
                    s2db($objReviewDetailed->intRatings[$i]),
                    s2db($objReviewDetailed->strComments[$i]),
                    s2db($objReviewDetailed->intId),
-                   s2db($objReviewDetailed->objCriterions[$i]->intId);
+                   s2db($objReviewDetailed->objCriterions[$i]->intId));
       $this->mySql->update($s);
       if ($this->mySql->failed()) {
         return $this->error('updateReviewReport', $this->mySql->getLastError(),
