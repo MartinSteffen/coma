@@ -1470,7 +1470,7 @@ nur fuer detaillierte?
     for ($i = 0; $i < count($objConferenceDetailed->objCriterions); $i++) {
       $objCriterion = $objConferenceDetailed->objCriterions[$i];
       $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
-          "         VALUES ('$intId', '$objCriterion->strName', '$objCriterion->strDescription',
+          "         VALUES ('$intId', '$objCriterion->strName', '$objCriterion->strDescription',".
           "                 '$objCriterion->intMaxValue', '$objCriterion->fltWeight')";
       $this->mySql->insert($s);
       if ($this->mySql->failed()) {
