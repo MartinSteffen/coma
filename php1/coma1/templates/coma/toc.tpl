@@ -1,5 +1,5 @@
 <ol>
-  <li><a class="menu" href="./help.php?for=introduction{&popup}{&SID}">A step-by-step introduction to Coma</a></li>
+  <li><a class="menu" href="./help.php?for=introduction{&popup}{&SID}">A step-by-step introduction to Coma</a>
   <ol>
     <li><a class="submenu" href="./help.php?for=step_chair{&popup}{&SID}">How to create a conferce</a></li>
     <li><a class="submenu" href="./help.php?for=step_reviewer{&popup}{&SID}">How to review the papers </a></li>
@@ -8,9 +8,9 @@
         How to get information for participation at a conference </a>
     </li>
   </ol>
-
+  </li>
   <li><a class="menu" href="./help.php?for=comapages{&popup}{&SID}">
-      Detailed explanations about the different pages in Coma</a> </li>
+      Detailed explanations about the different pages in Coma</a> 
     <ol>
       <li><a class="submenu" href="./help.php?for=layout{&popup}{&SID}">General layout of the CoMa pages</a></li>
       <li><a class="submenu" href="./help.php?for=login{&popup}{&SID}">
