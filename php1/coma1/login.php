@@ -22,7 +22,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
 }
 
 $content = new Template(TPLPATH.'login.tpl');
-$strContentAssocs = defaultAssocArray()
+$strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
 
 if (isset($_SESSION['message'])) {
