@@ -31,7 +31,9 @@ if (!isset($_SESSION['dist'])) {
 if (isset($_POST['confirm'])) {
   $dist = $_SESSION['dist'];
   reset($dist);
-  while(list ($pid, $arrR) = each ($dist)) {
+  while($a = each ($dist)) {
+    $pid = $a['key'];
+    $arrR = $a['value'];
     $s .= '<br>'.$pid.':';
     for ($j = 0; $j < count($arrR); $j++) {
       if ($arrR[$j]['status'] != ASSIGNED) {
