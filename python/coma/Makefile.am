@@ -1,9 +1,9 @@
 
-SUBDIRS	=		templates
+SUBDIRS		= templates
 
-CGI_SCRIPT	= index.py new-account.py new-conference.py new-paper.py
+CGI_SCRIPT	= index.py new-conference.py new-paper.py
 CGI_LIB		= comadb.py coma.py
-EXTRA_DIST	= procmail.py
+EXTRA_DIST	=
 
 pkgpython_PYTHON =	$(CGI_SCRIPT) $(CGI_LIB)
 
