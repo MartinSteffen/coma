@@ -19,7 +19,7 @@ import javax.xml.transform.stream.StreamSource;
 import coma.servlet.util.*;
 import coma.entities.*;
 //import coma.handler.db.*;
-import coma.handler.impl.db.*;
+
 import java.util.Date;
 //import coma.entities.*;
 
@@ -31,7 +31,11 @@ import coma.servlet.util.XMLHelper;
  * @author Peter Kauffels 
  * @version 1.0
  * The chair servlet is responsible for all functions the chair can do.
- */
+   Changes at 12.12: I added commit Method(at the bottom).
+   	by hbra@inf...	    added EMail function(not yet for invite)
+   						changes path settings
+   						added if ( action == null) at 67
+ **/
 public class chair extends HttpServlet 
 {
 	DataSource ds = null;
@@ -44,14 +48,14 @@ public class chair extends HttpServlet
 
 	public void init(ServletConfig config) 
 	{
-		/*try {
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			ds = (DataSource) envCtx.lookup("jdbc/coma");
+		try {
+		//	Context initCtx = new InitialContext();
+		//	Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		//	ds = (DataSource) envCtx.lookup("jdbc/coma");
 			super.init(config);
 		} catch (Exception e) {
-			helper.addInfo(e.getMessage().toString(), info);
-		}*/
+	//		helper.addInfo(e.getMessage().toString(), info);
+		}
 	}
 	
 	public void doGet(HttpServletRequest req,HttpServletResponse res) 
@@ -59,19 +63,16 @@ public class chair extends HttpServlet
 		info.delete(0,info.length());
 		result.delete(0,result.length());
 		String action = req.getParameter("action");
-		HttpSession session;
-		session = req.getSession(true);
-		/*
-		 *FIXME update method req.getRealPath(); 
-		 */
-		path = "jakarta-tomcat-5.0.28/webapps/coma";
+		HttpSession session= req.getSession(true);;
+
+		path = getServletContext().getRealPath("");
 		user = session.getAttribute("user").toString();
 		if (action.equals("login"))
 		{
 			login(req,res,session);
 		}
 		if (action.equals("invite_person"))
-		{
+		{	
 			invite_person(req,res,session);
 		}
 		if (action.equals("show_authors"))
@@ -92,7 +93,7 @@ public class chair extends HttpServlet
 		}
 		if (action.equals("email"))
 		{
-			invite_person(req,res,session);
+			email(req,res,session);
 		}
 		if (action.equals("send_invitation"))
 		{
@@ -101,6 +102,10 @@ public class chair extends HttpServlet
 		if (action.equals("send_setup"))
 		{
 			send_setup(req,res,session);
+		}
+		if (action.equals("send_email"))
+		{
+			send_email(req,res,session);
 		}
 	}
 
@@ -123,10 +128,8 @@ public class chair extends HttpServlet
 			result.append(info.toString());
 			result.append("</result>\n");
 			res.setContentType("text/html; charset=ISO-8859-1");
-			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-			StreamSource xsltSource = new StreamSource(xslt);
-			XMLHelper.process(xmlSource, xsltSource, out);
-			out.flush();
+			commit(result,out);
+	
 		}
 		catch (IOException e) 
 		{
@@ -139,25 +142,24 @@ public class chair extends HttpServlet
 		try 
 		{
 			helper.addTagged("content","",info);
-			helper.addTagged("status","" + user + ": invite a person",info);
+			helper.addTagged("status","" + user + ": invite a person",info);			
 			helper.addTagged("invite",info.toString(),info);
-			String xslt = path + "/style/xsl/chair.xsl";;
+				String xslt = path + "/style/xsl/chair.xsl";;
 			PrintWriter out = res.getWriter();
 			helper.addXMLHead(result);
 			result.append("<result>\n");
 			result.append(info.toString());
 			result.append("</result>\n");
 			res.setContentType("text/html; charset=ISO-8859-1");
-			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-			StreamSource xsltSource = new StreamSource(xslt);
-			XMLHelper.process(xmlSource, xsltSource, out);
-			out.flush();
+			commit(result,out);
 		}
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		} 
 	}
+	
+
 
 	public void send_invitation(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
@@ -175,8 +177,8 @@ public class chair extends HttpServlet
 				p.setFirst_name(req.getParameter("first name"));
 				p.setLast_name(req.getParameter("last name"));
 				p.setEmail(req.getParameter("email"));
-				InsertServiceImpl insert = new InsertServiceImpl();
-				insert.insertPerson(p);
+		//		InsertServiceImpl insert = new InsertServiceImpl();
+		//		insert.insertPerson(p);
 			    helper.addTagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name"),info);
 				helper.addTagged("content","",info);
 			    helper.addTagged("invitation_send",info.toString(),info);
@@ -187,10 +189,7 @@ public class chair extends HttpServlet
 				result.append(info.toString());
 				result.append("</result>\n");
 				res.setContentType("text/html; charset=ISO-8859-1");
-				StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-				StreamSource xsltSource = new StreamSource(xslt);
-				XMLHelper.process(xmlSource, xsltSource, out);
-				out.flush();
+				commit(result,out);
 			}
 			else 
 			{
@@ -203,11 +202,7 @@ public class chair extends HttpServlet
 			    result.append("<result>\n");
 				result.append(info.toString());
 				result.append("</result>\n");
-				String xslt = "jakarta-tomcat-5.0.28/webapps/coma/style/xsl/chair.xsl";
-			    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-				StreamSource xsltSource = new StreamSource(xslt);
-				XMLHelper.process(xmlSource, xsltSource, out);
-				out.flush();
+				commit(result,out);
 			}
 				
 		}
@@ -224,7 +219,6 @@ public class chair extends HttpServlet
 			helper.addTagged("status","" + user + ": Setup the conference",info);
 			helper.addTagged("content","",info);
 			helper.addTagged("setup",info.toString(),info);
-			System.out.println(req.getContextPath());
 			String xslt = path + "/style/xsl/chair.xsl";
 			PrintWriter out = res.getWriter();
 			helper.addXMLHead(result);
@@ -232,10 +226,7 @@ public class chair extends HttpServlet
 			result.append(info.toString());
 			result.append("</result>\n");
 			res.setContentType("text/html; charset=ISO-8859-1");
-			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-			StreamSource xsltSource = new StreamSource(xslt);
-			XMLHelper.process(xmlSource, xsltSource, out);
-			out.flush();
+			commit(result,out);
 		}
 		catch (IOException e) 
 		{
@@ -290,36 +281,26 @@ public class chair extends HttpServlet
 					helper.addTagged("status","" + user + ": Congratulations you have setup a new conference",info);
 					helper.addTagged("content","",info);
 					helper.addTagged("setup",info.toString(),info);
-					System.out.println(req.getContextPath());
-					String xslt = path + "/style/xsl/chair.xsl";
 					PrintWriter out = res.getWriter();
 					helper.addXMLHead(result);
 					result.append("<result>\n");
 					result.append(info.toString());
 					result.append("</result>\n");
 					res.setContentType("text/html; charset=ISO-8859-1");
-					StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-					StreamSource xsltSource = new StreamSource(xslt);
-					XMLHelper.process(xmlSource, xsltSource, out);
-					out.flush();
+					commit(result,out);
 				}
 				else
 				{
 				    helper.addTagged("status","" + user + ": please fill out all *-fields",info);
 					helper.addTagged("content","",info);
 					helper.addTagged("setup",info.toString(),info);
-					System.out.println(req.getContextPath());
-					String xslt = path + "/style/xsl/chair.xsl";
 					PrintWriter out = res.getWriter();
 					helper.addXMLHead(result);
 					result.append("<result>\n");
 					result.append(info.toString());
 					result.append("</result>\n");
 					res.setContentType("text/html; charset=ISO-8859-1");
-					StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-					StreamSource xsltSource = new StreamSource(xslt);
-					XMLHelper.process(xmlSource, xsltSource, out);
-					out.flush();
+					commit(result,out);
 				}
 			}
 			catch (IOException e) 
@@ -346,17 +327,13 @@ public class chair extends HttpServlet
 			helper.addTagged("content","",info);
 			helper.addTagged("status","" + user + ": all authors",info);
 			helper.addTagged("showauthors",info.toString(),info);
-			String xslt = path + "/style/xsl/chair.xsl";;
 			PrintWriter out = res.getWriter();
 			helper.addXMLHead(result);
 			result.append("<result>\n");
 			result.append(info.toString());
 			result.append("</result>\n");
 			res.setContentType("text/html; charset=ISO-8859-1");
-			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-			StreamSource xsltSource = new StreamSource(xslt);
-			XMLHelper.process(xmlSource, xsltSource, out);
-			out.flush();
+			commit(result,out);
 		}
 		catch (IOException e) 
 		{
@@ -380,17 +357,13 @@ public class chair extends HttpServlet
 			helper.addTagged("content","",info);
 			helper.addTagged("status","" + user + ": all reviewers",info);
 			helper.addTagged("showreviewers",info.toString(),info);
-			String xslt = path + "/style/xsl/chair.xsl";;
 			PrintWriter out = res.getWriter();
 			helper.addXMLHead(result);
 			result.append("<result>\n");
 			result.append(info.toString());
 			result.append("</result>\n");
 			res.setContentType("text/html; charset=ISO-8859-1");
-			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-			StreamSource xsltSource = new StreamSource(xslt);
-			XMLHelper.process(xmlSource, xsltSource, out);
-			out.flush();
+			commit(result,out);
 		}
 		catch (IOException e) 
 		{
@@ -414,22 +387,120 @@ public class chair extends HttpServlet
 				helper.addTagged("content","",info);
 				helper.addTagged("status","" + user + ": all papers",info);
 				helper.addTagged("showpapers",info.toString(),info);
-				String xslt = path + "/style/xsl/chair.xsl";;
 				PrintWriter out = res.getWriter();
 				helper.addXMLHead(result);
 				result.append("<result>\n");
 				result.append(info.toString());
 				result.append("</result>\n");
 				res.setContentType("text/html; charset=ISO-8859-1");
-				StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
-				StreamSource xsltSource = new StreamSource(xslt);
-				XMLHelper.process(xmlSource, xsltSource, out);
-				out.flush();
+				commit(result,out);
 			}
 			catch (IOException e) 
 			{
 				e.printStackTrace();
 			} 
+	}
+	
+	public void email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	{
+	    try 
+		{
+
+			helper.addTagged("content","",info);
+			helper.addTagged("status","" + user + ": plean write an email",info);
+			helper.addTagged("email",info.toString(),info);
+			String xslt = path + "/style/xsl/chair.xsl";;
+			PrintWriter out = res.getWriter();
+			helper.addXMLHead(result);
+			result.append("<result>\n");
+			result.append(info.toString());
+			result.append("</result>\n");
+			res.setContentType("text/html; charset=ISO-8859-1");
+			commit(result,out);
+		}
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		} 
+}
+	
+	
+	public void send_email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	{		
+		
+		try{
+			String[] formular = new String[] {req.getParameter("Recv"),
+												req.getParameter("Subj"),
+												  req.getParameter("Cont")};
+			FormularChecker checker = new FormularChecker(formular);
+			boolean VALID = checker.EmailCheck(0);
+			boolean SENDED = false;
+			
+			if (VALID){
+			     /*
+		         * FIXME get SMTP-SERVER
+		         */
+					SMTPClient MyE = new SMTPClient("mail.gxm.de","HarmBrandt@gmx.de",
+						formular[0],formular[1],formular[2]);
+			
+					SENDED=MyE.send();		
+					session = req.getSession(true);
+					String user = session.getAttribute("user").toString();
+
+					if(SENDED){
+						helper.addTagged("content","",info);
+						helper.addTagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate(),info);
+						helper.addTagged("email",info.toString(),info);
+						String xslt = path + "/style/xsl/chair.xsl";
+						PrintWriter out = res.getWriter();			    
+						helper.addXMLHead(result);
+						result.append("<result>\n");
+						result.append(info.toString());
+						result.append("</result>\n");
+						res.setContentType("text/html; charset=ISO-8859-1");
+						commit(result,out);
+
+					}
+			}
+			
+//Case of Error, defining handler here; addTaged(subj),..., to fill textfields again
+			if(!SENDED || !VALID){
+				if(VALID && !SENDED)
+					helper.addTagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN",info);
+				if(!VALID)
+					helper.addTagged("status","ENTER A VALID EMAIL ADDRESS",info);
+				helper.addTagged("subj",formular[1],info);
+				helper.addTagged("recv",formular[0],info);
+				helper.addTagged("cont",formular[2],info);
+				helper.addTagged("content","",info);
+				helper.addTagged("email",info.toString(),info);
+			    PrintWriter out = res.getWriter();			
+			    result.append("<result>\n");
+				result.append(info.toString());
+				result.append("</result>\n");
+				commit(result,out);
+
+			}
+	}
+	catch (IOException e) 
+		{
+		e.printStackTrace();
+		}
+				
+
+				
+		
+
+	}
+	/** commit method to avoid redundant(falls das in Engl so heiﬂt) code*/
+	
+	private void commit(StringBuffer result,PrintWriter out) {
+		String xslt = path + "/style/xsl/chair.xsl";
+	    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
+		StreamSource xsltSource = new StreamSource(xslt);
+		XMLHelper.process(xmlSource, xsltSource, out);
+		out.flush();
+		
 	}
 }
 
