@@ -26,7 +26,7 @@ class SQL {
 			$this->connect();
 		}
 		$resultSet=mysql_query($queryStr, $this->conn);
-		if (mysql_error()) die(mysql_error());
+		if (mysql_error()) die($queryStr." lieferte Fehler: ".mysql_error());
 		$resultArr=array();
 		while ($row=mysql_fetch_array($resultSet)) {
 			$resultArr[]=$row;
