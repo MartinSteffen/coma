@@ -450,7 +450,7 @@ table.subviewtable
 }
 
 /* Meldungen */
-p.message
+p.message-failed
 {
   /*width: 60%;*/
   color: #FF2600;
@@ -474,7 +474,7 @@ p.message-ok
   margin: 6px 10px;
   padding: 4px 12px;
 }
-p.message2
+p.message
 {
   /*width: 60%;*/
   color: #222222;

@@ -1,5 +1,5 @@
 
-{if1<p class="message">{message}</p>}
+{if1<p class="message-failed">{message}</p>}
 {if2<p class="message-ok">{message}</p>}
 
 <form action="{basepath}login.php{?SID}" method="post" accept-charset="UTF-8">
@@ -31,7 +31,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   If you have registered for the site, please enter your username and password.
   You have to login in order to access information that is relevant to you.<br>
   If you have not registered yet, <a href="{basepath}register.php{?SID}" class="link">please register!</a>

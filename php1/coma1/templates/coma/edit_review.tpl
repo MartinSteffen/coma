@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
   <input type="hidden" name="reviewid" value="{review_id}">

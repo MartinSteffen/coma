@@ -45,7 +45,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message-okay">
+<p class="message-ok">
   Conference was successfully registered!<br>
   Return to the <a href="{basepath}{return_page}{?SID}" class="link">conference overview</a>.
 </p>

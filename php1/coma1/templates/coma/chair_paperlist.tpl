@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <table class="list">
   <tr class="listheader">
@@ -26,7 +26,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   Click on any paper to view the details for the paper.<br>
   Click on any author to view the details for the user.<br>
   You can change the status of the paper by using the buttons <span class="emph">Accept</span>,

@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <table class="viewtable">
   <tr>
@@ -71,6 +71,6 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   Return to the <a href="javascript:history.back()" class="link">last page</a>.
 </p>

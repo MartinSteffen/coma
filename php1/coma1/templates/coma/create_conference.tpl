@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <form action="{basepath}create_conference.php{?SID}" method="post" accept-charset="UTF-8">
 
@@ -115,7 +115,7 @@
 </table>
 </form>
 
-<p class="message2">
+<p class="message">
   Dates should be entered in common U.S. writing <b>mm/dd/yyyy</b>! eg <b>01/15/2005</b>.<br>
   But lots of other formats are accepted, too. (eg <b>Jan 15, 2005</b>)<br>
   Hint: You can also use stuff like <b>today</b>, <b>1 year</b> and so on...

@@ -67,7 +67,7 @@ elseif (SID != '') {
   <td class="body">
     <h2>Error</h2>
     
-    <p class="message"><?=$strError?></p>
+    <p class="message-failed"><?=$strError?></p>
 
     <p>&nbsp;</p>
     

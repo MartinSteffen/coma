@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <a name="topics"></a> 
 <table class="list">  
@@ -23,7 +23,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   {navlinkBACK Return to the <a href="javascript:history.back()" class="link">last page</a>.}
   {navlinkCLOSE <a href="javascript:close()" class="link">Close this page</a>.}
 </p>

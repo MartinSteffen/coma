@@ -44,7 +44,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   Show <a href="{basepath}user_users.php{?SID}" class="link">list of all members</a> of this conference.<br>
   Show <a href="{basepath}user_papers.php{?SID}" class="link">list of all papers</a> submitted in for this conference.
 </p>

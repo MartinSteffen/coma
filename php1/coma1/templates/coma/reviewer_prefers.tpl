@@ -1,7 +1,7 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
-<p class="message2">
+<p class="message">
   Below you can submit your attitude towards certain <a href="#topics" class="link">topics</a>
   or <a href="#papers" class="link">papers</a>:<br>
   Selected <span class="emph">prefer</span> if you favor to review a certain paper

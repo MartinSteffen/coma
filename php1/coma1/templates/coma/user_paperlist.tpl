@@ -23,7 +23,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   Click on any Paper to view the details for the Paper.<br>
   Click on any Author to view the details for the User.<br>
 </p>

@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
   <input type="hidden" name="action" value="submit">

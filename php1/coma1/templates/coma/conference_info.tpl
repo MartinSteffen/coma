@@ -44,6 +44,6 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   Return to the <a href="{basepath}{return_page}{?SID}" class="link">conference overview</a>.
 </p>

@@ -1,5 +1,5 @@
 
-<p class="message2">
+<p class="message">
   <span class="emph">Note:</span> A reviewer's name in one of the following
     colors means:<br><br>
   <span class="diststatus-0">The paper is already assigned to the reviewer.</span><br>

@@ -1,5 +1,5 @@
 
-<p class="message2">
+<p class="message">
   It is <span class="emph">recommended</span> to proceed as follows:<br>
   Let CoMa make a <a href="{basepath}chair_distribution.php{?SID}" class="link">
   suggestion</a> (may take several seconds) of a possible paper/reviewer

@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <form action="{basepath}register.php{?SID}" method="post" accept-charset="UTF-8">
 
@@ -129,7 +129,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   Please enter information regarding your person!<br>
   Fields marked with (*) are required to proceed with the registration.
 </p>

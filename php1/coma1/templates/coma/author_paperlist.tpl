@@ -1,5 +1,5 @@
 
-{if9<p class="message">{message}</p>}
+{if9<p class="message-failed">{message}</p>}
 
 <table class="list">
   <tr class="listheader">
@@ -27,7 +27,7 @@
 
 <p>&nbsp;</p>
 
-<p class="message2">
+<p class="message">
   Click on any paper, to edit the common information about the paper
   and to upload new versions of the document.<br>
   Click on <span class="emph">View</span> to download and read the paper.<br>
