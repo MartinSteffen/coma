@@ -567,7 +567,7 @@ class DBAccess extends ErrorHandling {
    * @access public
    * @author Sandro (27.01.05)
    */
-  function hasRoleInConference($intPersonId, $intConferenceId, $intRoleType) {
+  function hasRoleInConference($intPersonId, $intConferenceId, $intRoleType=0) {
     $s = sprintf("SELECT   role_type, state".
                  " FROM    Role".
                  " WHERE   person_id = '%d'".
