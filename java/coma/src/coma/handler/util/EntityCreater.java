@@ -193,7 +193,9 @@ public class EntityCreater {
 		Paper paper = (Paper) session.getAttribute(SessionAttribs.PAPER);//get an old paper, if existing
 		String[] checkboxes = request.getParameterValues(FormParameters.TOPICS);
 		if (checkboxes==null) throw new IllegalArgumentException("no topic choosen");
-		//Integer[] topicids = Integer.parseInt(checkboxes);
+		Integer[] topicids = new Integer[checkboxes.length];
+		for (int i = 0; i < topicids.length; i++) 
+			topicids[i] = Integer.parseInt(checkboxes[i]);
 		 
 		if (paper==null) paper= new Paper(-1); // new Paper
 		
@@ -215,7 +217,7 @@ public class EntityCreater {
 		//paper.setMim_type("");///set in WriteFile.java
 		paper.setState(0);
 		paper.setTitle(request.getParameter(FormParameters.TITLE));
-		//paper.setTopics(topicids);	
+		paper.setTopics(topicids);	
 		return paper;
 		
 	}
