@@ -78,6 +78,40 @@ mje
 ------
 gbi
 
+	Der Algorithmus läuft das erste mal, sobald 
+	  Conference.paper_submission_deadline überschritten ist, und
+	  ReviewReport leer ist.
+	Die Aufteilung wird in ReviewReport gespeichert. Dort werden die Felder paper_id und reviewer_id entsprechend gesetzt.
+	
+	Abgelehnte Papiere der Reviewern werden zunächst in ExcludesPaper gespeichert.
+	
+	Sollten in ExcludesPaper Einträge sein, wird der Alg. erneut ausgeführt.
+	In diesem Fall werden die Einträge aus ExcludesPaper gelöscht und in DeniesPaper eingefügt und gleichzeitig 
+	ein neuer Reviewer für dieses Paper bestimmt.
+	
+	Der Alg. läuft auf keinen Fall mehr nach der Conference.review_deadline, Conference.min_reviews_per_paper kann dann 
+	nicht unbedingt eingehalten werden.
+	
+	Die Auswahl im einzelnen:
+	1. Bestimmung aller in Frage kommenden Reviewern:
+	  a.) Alle Reviewer der Conference die NICHT Author oder CoAuthor des Papers sind, und das Paper NICHT abgelehnt haben
+	      und die das Papier noch nicht reviewen
+	2. Verteilung der Paper auf Reviewer:
+	  b.) Gibt es eine nichtleere Schnittmenge aus der ermittelten Reviewermenge und Prefers_Paper wird direkt zugeteilt
+	  c.) Gibt es eine nichtleere Schnittmenge aus der ermittelten Reviewermenge und Prefers_Topic und Paper.IsAboutTopic wird zugeteilt
+	  d.) Das Paper wird dem Reviewer mit der geringsten Anzahl Papers zugeteilt.
+
+	  Die Schritte können mehrfach ausgeführt werden, dabei wird ein Counter bei erfolgter Zuteilung hochgezhält, Abbruchbedingung
+	  für Schritt 1 ist Counter >= Conference.min_reviews_per_paper oder die Reviewermenge aus a.) und d.) ist leer.
+	  Nach jeder Zuteilung wird der entsprechende Reviewer aus der Menge der Reveiwer gelöscht.
+	  
+	Hierbei liegen folgende Annahmen / Vorraussetzungen zu Grunde:
+	* es gibt Initial eine nichtleere Menge von Reviewern aus a)
+	* der Algorithmus wird zwischen der Paper_submission_deadline und der review_deadline "ausreichend" oft ausgeführt.
+	  Ausreichend meint, mindestens ein mal für die Anfangsverteilung und mindestens dann, falls in ExcludesPaper Einträge sind.
+	  
+	Die Schritte 1. und 2. laufen für jedes Papier aus der Conference, welches als State nicht "accepted" oder "rejected" hat.
+
 -Forum:
 -------
 gbi
