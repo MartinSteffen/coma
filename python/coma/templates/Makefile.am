@@ -15,12 +15,5 @@ dist_pkgdata_DATA	= bad-page.xml \
 
 MOSTLYCLEANFILES	= *~
 CLEANFILES		= *.pyc *.pyo
-
-all-local: selinux
-
-.PHONY: selinux
-selinux:
-	for i in ${XML_TEMPLATES} ${TXT_TEMPLATES} ${CSS_FILES} ; do \
-	    chmod 0644 $$i ; \
-	    ${CHCON} -u user_u -t httpd_sys_script_ro_t $$i ; \
-	done
+DISTCLEANFILES		=
+MAINTAINERCLEANFILES	= Makefile.in

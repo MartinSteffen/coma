@@ -59,6 +59,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{pythondir}/%{name}/coma.py
 %{pythondir}/%{name}/coma.pyc
 %{pythondir}/%{name}/coma.pyo
+%{pythondir}/%{name}/comadb.py
+%{pythondir}/%{name}/comadb.pyc
+%{pythondir}/%{name}/comadb.pyo
 %{pythondir}/%{name}/coma_setup.py
 %{pythondir}/%{name}/coma_setup.pyc
 %{pythondir}/%{name}/coma_setup.pyo
@@ -94,17 +97,23 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files mysql
 %defattr(-,root,root)
+# Connector for postgresql
+%{pythondir}/%{name}/comamysql.py
+%{pythondir}/%{name}/comamysql.pyc
+%{pythondir}/%{name}/comamysql.pyo
+# Database schemas for postgres.
+%{_datadir}/%{name}/coma-mysql.sql
+%{_datadir}/%{name}/coma-mysql-del.sql
 
 %files psql
 %defattr(-,root,root)
 # Connector for postgresql
-%{pythondir}/%{name}/comadb.py
-%{pythondir}/%{name}/comadb.pyc
-%{pythondir}/%{name}/comadb.pyo
+%{pythondir}/%{name}/comapsql.py
+%{pythondir}/%{name}/comapsql.pyc
+%{pythondir}/%{name}/comapsql.pyo
 # Database schemas for postgres.
-%{_datadir}/%{name}/coma.sql
-%{_datadir}/%{name}/coma-aux.sql
-%{_datadir}/%{name}/coma-del.sql
+%{_datadir}/%{name}/coma-psql.sql
+%{_datadir}/%{name}/coma-psql-del.sql
 
 %changelog
 * Wed Jan 27 2005 Marcel Kyas <mky@informatik.uni-kiel.de>
