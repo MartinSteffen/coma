@@ -302,11 +302,11 @@ else {
   $strContentAssocs['variance']         = '10';
   $strContentAssocs['num_topics']       = '3';
   $strContentAssocs['num_criterions']   = '2';
-  $strContentAssocs['topics']           = 'Informatics|Mathematics|Electronics';
-  $strContentAssocs['criterions']       = 'Content|Form';
-  $strContentAssocs['crit_max']         = '5|5';
-  $strContentAssocs['crit_descr']       = 'Aspects of the content|Aspects of the outer form';
-  $strContentAssocs['crit_weight']      = '0.7|0.3';
+  $strContentAssocs['topics']           = serialize(array('Informatics','Mathematics','Electronics'));
+  $strContentAssocs['criterions']       = serialize(array('Content','Form'));
+  $strContentAssocs['crit_max']         = serialize(array('5','5'));
+  $strContentAssocs['crit_descr']       = serialize(array('Aspects of the content','Aspects of the outer form'));
+  $strContentAssocs['crit_weight']      = serialize(array('0.7','0.3'));
 }
 
 $strContentAssocs['message'] = '';
