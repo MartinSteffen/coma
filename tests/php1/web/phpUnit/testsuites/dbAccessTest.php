@@ -93,7 +93,7 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_hasRoleInConference() {
           	global $myDBAccess;
-            $this->assertTrue($myDBAccess->hasRoleInConference(1, 1, $intRoleType=1));
+            $this->assertTrue($myDBAccess->hasRoleInConference(1, 1, 2));
   }
 
 
