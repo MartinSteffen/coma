@@ -41,14 +41,15 @@ if(isReviewer_Overall())
 		{
 			// Datensatz bereits vorhanden, nur update durchführen
 			$SQL =
-			  "UPDATE rating SET grade = ".$criterionlist[$i]['value']." , comment = ".$criterionlist[$i]['comment']."
+			  "UPDATE rating SET grade = '".$criterionlist[$i]['value']."' , comment = '".$criterionlist[$i]['comment']."'
 			  WHERE (review_id = ".$_POST['reviewreportID'].")
 				AND (criterion_id = ".$criterionlist[$i]['id'].")";
+
 			$result = mysql_query($SQL);
 		} else {
 			$SQL =
 			  "INSERT INTO rating
-			  VALUES (".$_POST['reviewreportID'].", ".$criterionlist[$i]['id'].", ".$criterionlist[$i]['value'].", ".$criterionlist[$i]['comment'].")";
+			  VALUES (".$_POST['reviewreportID'].", ".$criterionlist[$i]['id'].", '".$criterionlist[$i]['value']."', '".$criterionlist[$i]['comment']."')";
 			$result = mysql_query($SQL);
 		}
 	}
