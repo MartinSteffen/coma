@@ -200,7 +200,7 @@ if ($rec==true){
                                    $_POST['conference_end_d'],
                                    $_POST['min_reviews_per_paper'] );
 
-  $msgRole=$myDBAccess->addRole($msg,$myDBAccess->getPersonIdByEmail($_SESSION['uname']),3);
+  $msgRole=$myDBAccess->addRole($msg,$myDBAccess->getPersonIdByEmail($_SESSION['uname']),2);
     
   if ($msg == false){
     $strMessage = 'Ein Fehler beim Anlegen der Konferenz in der Datenbank ist aufgetreten ' ;
