@@ -972,9 +972,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
-    <pre>
-    print_r($data);
-    </pre>
+    echo '<pre>'.str_replace(array("\n" , " "), array('<br>', '&nbsp;'), print_r($data, true)).'</pre>';
     for ($i = 0; $i < count($data); $i++) {
       
     }
