@@ -31,6 +31,14 @@ if ($myDBAccess->failed()) {
 else if (empty($objConference)) {
   error('Conference does not exist in database.', '');
 }
+// Rollenbewerbung zurueckziehen
+else if (isset($_POST['retreat'])) {
+  $myDBAccess->deleteRole(session('uid'), $_POST['roleid'], $_POST['confid']);
+  if ($myDBAccess->failed()) {
+    error('Error updating role table.', $myDBAccess->getLastError());
+  }	
+}
+// Rollen eintragen bzw. Rollenbewerbung eintragen
 else {  
   if ($_POST['roleid'] == PARTICIPANT) {
     $blnAccepted = true;	

@@ -54,6 +54,12 @@ if (!empty($objConferences)) {
       if (!($objPerson->hasRole(PARTICIPANT)) && !($objPerson->hasRequestedRole(PARTICIPANT))) {
         $ifArray[] = 4;
       }
+      if ($objPerson->hasRequestedRole(REVIEWER)) {
+        $ifArray[] = 5;
+      }
+      if ($objPerson->hasRequestedRole(AUTHOR)) {
+        $ifArray[] = 6;
+      }
     }
     $strItemAssocs['line_no'] = encodeText($lineNo);
     $strItemAssocs['confid'] = encodeText($objConference->intId);

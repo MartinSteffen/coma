@@ -27,6 +27,14 @@
       <input type="submit" name="submit" value="Apply as Reviewer" class="button">
     </form>
   }
+  {if5
+    <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
+      <input type="hidden" name="confid" value="{confid}">
+      <input type="hidden" name="retreat" value="retreat">
+      <input type="hidden" name="roleid" value="{roleid_reviewer}">
+      <input type="submit" name="submit" value="Retreat as Reviewer" class="button">
+    </form>
+  }
   </td>
   <td class="listitem-{line_no}">&nbsp;
   {if3
@@ -34,6 +42,14 @@
       <input type="hidden" name="confid" value="{confid}">
       <input type="hidden" name="roleid" value="{roleid_author}">
       <input type="submit" name="submit" value="Apply as Author" class="button">
+    </form>
+  }
+  {if6
+    <form action="{basepath}apply_role.php{?SID}" method="post" accept-charset="UTF-8">
+      <input type="hidden" name="confid" value="{confid}">
+      <input type="hidden" name="retreat" value="retreat">
+      <input type="hidden" name="roleid" value="{roleid_author}">
+      <input type="submit" name="submit" value="Retreat as Author" class="button">
     </form>
   }
   </td>
