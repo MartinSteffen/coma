@@ -1,0 +1,27 @@
+
+        o Fortschritt:
+
+	    - Lob an PHP1: 
+                 php1/spec/main.txt vorhanden,
+		 vorn allen anderen noch nicht mal ein Verzeichnis
+
+        - Testeinbindung:
+            o von PHP1 kamm auf BB der Hinweis: sie h"atte bereits
+              was, was man anbinden kann (zumindest Gedanken)
+
+            o Meiko von PHP2 hatte ebenfalls einen Vorschlage (ich
+              glaube per email an swprakt+org), jedenfalls
+              hat sich anscheienen PHP2 ebenfalls Gedanken gemacht
+
+            o Java: die hatten ja letztes Mal Zeitplanm"a"sig gesagt: in
+                   einer Woche w"aren sie soweit mit
+                   ``Testanbindungsf"ahigkeit'' :-)
+
+           D.h., das sollten wir anpacken
+
+        - und: SQL: sind die (wenigen) Dinge vom letzten Mal ausgebuegelt?
+
+Martin
+
+          
+        
