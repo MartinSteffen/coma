@@ -13,7 +13,7 @@
     <td class="viewline">
       Select <a href="{basepath}reviewer_reviews.php{?SID}" class="link">'Manage my reviews'</a> to review the
       papers that have been distributed to you, or to edit the reviews you have made so far.<br>
-      You can also take part in <a href="{basepath}forum.php?showforums=3[&SID}" class="link">reviewing discussions</a>.
+      You can also take part in <a href="{basepath}forum.php?showforums=3{&SID}" class="link">reviewing discussions</a>.
       {if1<br><span class="alert">There are still reviews missing that have to be submitted until {review_dl}</span>}
       {if2<br><span class="alert">New paper discussion have been started since your last login.</span>}
       {if3<br><span class="alert">The reviewing of papers has ended since {review_dl}.</span>}
