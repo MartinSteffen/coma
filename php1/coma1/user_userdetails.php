@@ -49,6 +49,7 @@ $strContentAssocs['address']     = encodeText($objPerson->getAddress());
 $strContentAssocs['country']     = encodeText($objPerson->getCountry());
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
+$strContentAssocs['navlink'] = array( 'BACK' );
 $content->assign($strContentAssocs);
 
 include('./include/usermenu.inc.php');

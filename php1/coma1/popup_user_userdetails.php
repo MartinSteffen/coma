@@ -49,7 +49,7 @@ $strContentAssocs['address']     = encodeText($objPerson->getAddress());
 $strContentAssocs['country']     = encodeText($objPerson->getCountry());
 $strContentAssocs['phone']       = encodeText($objPerson->strPhone);
 $strContentAssocs['fax']         = encodeText($objPerson->strFax);
-$strContentAssocs['if'] = array( 'POPUP' );
+$strContentAssocs['navlink'] = array( 'CLOSE' );
 $content->assign($strContentAssocs);
 
 $main = new Template(TPLPATH.'popup_frame.tpl');
