@@ -1003,6 +1003,7 @@ class DBAccess {
             '         VALUES ('.$intConferenceId.', '.$intId.', '.$i.')';
         echo('SQL: '.$s.'<br>');
         $result = $this->mySql->insert($s);
+        echo($this->mySql->getLastError());
         if (empty($result)) {
           return $this->error('updateRoles '.$this->mySql->getLastError());
         }
