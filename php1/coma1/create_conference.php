@@ -233,7 +233,10 @@ if (isset($_POST['action'])) {
         $strMessage .= "The weight of the criterion '{$strCriterions[$key]}'should be greater then zero!\n";
       }
       $sum += $critWeights;
+      echo $sum ."\n";
     }
+    
+    var_dump($sum);
     
     if ($sum != 1) {
       $strMessage .= "The weight of the criterions should sum to one!\n";
