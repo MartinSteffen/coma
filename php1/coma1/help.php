@@ -21,7 +21,7 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$menu = new Template(TPLPATH.'startmenu.tpl');
+$menu = new Template(TPLPATH.'staratmenu.tpl');
 $strMenuAssocs = defaultAssocArray();
 $strMenuAssocs['if'] = array(3);
 $menu->assign($strMenuAssocs);

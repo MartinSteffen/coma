@@ -73,7 +73,7 @@ class Template extends ErrorHandling {
    *
    */
   function readTemplate($strFilename) {
-    $strContents = file_get_contents($strFilename);
+    $strContents = @file_get_contents($strFilename);
     if (empty($strContents)) {
       return $this->error('readTemplate', "Could not read template $strFilename");
     }
