@@ -93,11 +93,26 @@ while ($i < $conferences) {
 echo '.';
 $i = 0;
 while ($i < $conferences) {
+  $j = 0;
+  while ($j < $topics) {
+  echo 'T<br>';
+    $myDBAccess->addTopic($i+1, 'Name'.$i.$j);
+    if ($myDBAccess->failed()) {
+	  echo('Fehler: '.$myDBAccess->getLastError());
+}
+    $j++;
+  }
+  $i++;
+}
+
+echo '.';
+$i = 0;
+while ($i < $conferences) {
   $j = $persons/10;
   while ($j < $persons/2) {
   echo 'Pa<br>';
     $myDBAccess->addPaper($i+1, $j+1, 'Title'.$i.$j, 'Abstract'.$i.$j,
-      'Filepath'.$i.$j, 'Mime'.$i.$j, '');
+      'Filepath'.$i.$j, 'Mime'.$i.$j, '',$j/($topics+1)+1);
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
@@ -193,31 +208,12 @@ echo 'M<br>';
 
 echo '.';
 $i = 0;
-while ($i < $conferences) {
-  $j = 0;
-  while ($j < $topics) {
-  echo 'T<br>';
-    $myDBAccess->addTopic($i+1, 'Name'.$i.$j);
-    if ($myDBAccess->failed()) {
-	  echo('Fehler: '.$myDBAccess->getLastError());
-}
-    $j++;
-  }
-  $i++;
-}
-
-echo '.';
-$i = 0;
-while ($i < $topics) {
-  $j = $papers/$topics*$i;
-  while ($j < $papers/$topics*($i+1)) {
+while ($i < $papers) {
   echo 'AT<br>';
-    $myDBAccess->addIsAboutTopic($j+1, $i+1);
+    $myDBAccess->addIsAboutTopic($i+1, $i/($topics+1)+1);
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
-    $j++;
-  }
   $i++;
 }
 
