@@ -46,7 +46,6 @@ if (!empty($dist)) {
     $strItemAssocs['author_id'] = encodeText($objPaper->intAuthorId);
     $strItemAssocs['author_name'] = encodeText($objPaper->strAuthor);      
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $
     $strItemAssocs['if'] = $ifArray;
     // Zugeteilte Reviewer
     $strItemAssocs['reviewers'] = '';
