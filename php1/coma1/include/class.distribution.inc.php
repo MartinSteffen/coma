@@ -168,7 +168,7 @@ class Distribution extends ErrorHandling {
       }
       // Abgelehnte Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
-                   " FROM    DeniedPaper AS pp".
+                   " FROM    DeniesPaper AS pp".
                    " INNER   JOIN Paper p".
                    " ON      p.id = pp.paper_id".
                    " AND     pp.person_id = '%d'".
