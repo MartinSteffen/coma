@@ -3,8 +3,7 @@
     <th class="listheader" colspan="3">Conference title</th>
     <th class="listheader">Date</th>
   </tr>  
-  {lines}
-  {if1 HALLO}
+  {lines}  
   {if1
   <tr class="listitem-1" colspan="3">
     <td class="listitem-1">
