@@ -24,7 +24,7 @@ function bit($b) {
   return true;
 }
 
-$p = $myDBAccess->getPaperDetailed(false);
+$p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
