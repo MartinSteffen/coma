@@ -1467,8 +1467,8 @@ nur fuer detaillierte?
       return $this->error('updateCriterions', $this->mySql->getLastError());
     }
     // Kriterien einfuegen...
-    for ($i = 0; $i < count($objConferenceDetailed->intCriterions); $i++) {
-      $objCriterion = $objConferenceDetailed->intCriterion[$i];
+    for ($i = 0; $i < count($objConferenceDetailed->objCriterions); $i++) {
+      $objCriterion = $objConferenceDetailed->objCriterions[$i];
       $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
           "         VALUES ('$intId', '$objCriterion->strName', '$objCriterion->strDescription',
           "                 '$objCriterion->intMaxValue', '$objCriterion->fltWeight')";
