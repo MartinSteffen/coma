@@ -106,6 +106,10 @@ if (STEP2) {
   }
   echo "<br><br>Done.";
 }
+elseif (STEP3) {
+  // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was machen ;)
+  include('test_basedata.php');
+}
 ?>
   </p>
 </body>
