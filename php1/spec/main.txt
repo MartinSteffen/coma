@@ -28,7 +28,7 @@ Datum    Autor   Änderung(en)
 09.12.04 jwa     Typos entfernt, Templates ergänzt
 09.12.04 sae     Noch mehr Typos entfernt
 23.12.04 jwa     Systemvorraussetzungen hinzugefügt
-24.12.04 ???     Anhang Login / Registrieung
+24.12.04 dmi     Anhang Login / Registrieung
 24.12.04 jwa     Konventionen "enforced" -> Frage sollte das(^^) Anhang sein? 
 07.01.05 dmi     Hinweis auf db_schema.txt und Bedeutung für uns in Kapitel 2.2
 
