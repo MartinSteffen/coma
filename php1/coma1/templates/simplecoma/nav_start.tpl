@@ -1,2 +1,2 @@
-<a href="{basepath}start_konf.php{SID}"> Konferenzuebersicht </a>&nbsp;&nbsp;&nbsp;
+<a href="{basepath}start_konf.php{SID}"> {loginName} | Konferenzuebersicht </a>&nbsp;&nbsp;&nbsp;
 
