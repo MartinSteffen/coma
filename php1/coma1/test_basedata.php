@@ -256,7 +256,6 @@ echo 'PT<br>';
       echo('Fehler: '.$myDBAccess->getLastError(). '(aber unkritisch)');
     }
   }
-}
   $i++;
 
 }
