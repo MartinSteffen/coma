@@ -29,14 +29,14 @@ if (checklogin()) {
   $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Help';
   if (!$popup) {
     if (isset($_SESSION['confid'])) {
-      $actMenu = 0;
-      $actMenuItem = 0;
+      $_SESSION['menu'] = 0;
+      $_SESSION['menuitem'] = 5;
       include('./include/usermenu.inc.php');
     }
     else {
       $menu = new Template(TPLPATH.'mainmenu.tpl');
       $strMenuAssocs = defaultAssocArray();
-      $strMenuAssocs['if'] = array();
+      $strMenuAssocs['if'] = array(5);
       $menu->assign($strMenuAssocs);
     }
   }

@@ -20,7 +20,12 @@
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}logout.php{?SID}" class="{if5 marked}menu">
+    <td class="menu"><a href="{basepath}help.php{?SID}" class="{if5 marked}menu">
+      Help</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="menu"><a href="{basepath}logout.php{?SID}" class="{if6 marked}menu">
       Logout</a>
     </td>
   </tr>
