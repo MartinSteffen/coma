@@ -36,12 +36,7 @@ if (isset($_GET['paperid'])) {
   }
 }
 else {
-  if ($popup) {
-    error('No paper selected!', '');
-  }
-  else {
-    redirect('user_papers.php');
-  }
+  error('No paper selected!', '');
 }
 
 $content = new Template(TPLPATH.'view_paper.tpl');

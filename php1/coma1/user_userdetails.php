@@ -36,12 +36,7 @@ if (isset($_GET['userid'])) {
   }
 }
 else {
-  if ($popup) {
-    error('No User selected!', '');
-  }
-  else {
-    redirect('user_users.php');
-  }
+  error('No User selected!', '');
 }
 
 $content = new Template(TPLPATH.'view_profile.tpl');
