@@ -13,7 +13,7 @@ require_once('./class.papersimple.inc.php');
 /**
  * Klasse PaperDetailed
  *
- * @author  Jan Waller <jwa@informatik.uni-kiel.de>
+ * @author Jan Waller <jwa@informatik.uni-kiel.de>
  * @author Falk Starke <fast@informatik.uni-kiel.de>
  * @copyright Copyright (c) 2004, Gruppe: PHP1
  * @package coma1
@@ -29,7 +29,7 @@ class PaperDetailed extends PaperSimple {
   var $intFormatId;
   var $strLastEdit;
   var $strFilePath;
-  
+
   function PaperDetailed($id, $title, $authorId, $status, $avgRating = 0.0, $coAuthorsIds='', $cpAuthors, $abstract, $formatId, $lastEdit, $filePath){
     $this->PaperSimple($id, $title, $authorId, $status, $avgRating);
     $this->intCoAuthorsIds = $coAuthorsIds;
