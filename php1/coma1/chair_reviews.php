@@ -73,6 +73,20 @@ if (!empty($objPapers)) {
     }
     $strItemAssocs['crit_value'] = $fltTestTmp/100;
     $strItemAssocs['if'] = $ifArray;
+    // Zugeteilte Reviewer
+    $strReviewersAssocs = defaultAssocArray();
+    $assIfArray = array();
+    for ($i = 0; $i < count($objReviewers); $i++) {
+      if ($i > 0) {
+        $assIfArray[] = 1;
+      }
+      $strReviewersAssocs['rev_id'] = $objReviewers->intId;
+      $strReviewersAssocs['rev_name'] = $objReviewers->strName;
+    }
+    $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
+    $assignedReviewers->assign($strReviewersAssocs);
+    $strItemAssocs['reviewers'] = $assignedReviewers->getOutput();
+    
     $paperItem = new Template(TPLPATH.'chair_reviewlistitem.tpl');
     $paperItem->assign($strItemAssocs);
     $paperItem->parse();
