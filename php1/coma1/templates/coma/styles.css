@@ -95,6 +95,9 @@ a:hover
 {
   color: #FF4D00;
 }
+a.email {
+  color: #00D048;
+}
 
 /* Allgemeine Tabellen */
 table

@@ -25,29 +25,23 @@ $strContentAssocs['message'] = session('message', false);
 session_delete('message');
 $strContentAssocs['if'] = array();
 $strContentAssocs['lines'] = '';
-if (!empty($objPapers)) {
+if (!empty($objPersons)) {
   $lineNo = 1;
-  foreach ($objPapers as $objPaper) {
+  foreach ($objPersons as $objPerson) {
     $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['paper_id'] = $objPaper->intId;
-    $strItemAssocs['file_link'] = encodeURL($objPaper->strFilePath);
-    $ifArray[] = $objPaper->intStatus;
-    if (!empty($objPaper->strFilePath)) {
-      $ifArray[] = 5;
-    }
-    $strItemAssocs['title'] = encodeText($objPaper->strTitle);
-    $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 10) / 10);
-    $strItemAssocs['last_edited'] = 'TODO';        
-    $strItemAssocs['if'] = $ifArray;
-    $paperItem = new Template(TPLPATH.'author_paperlistitem.tpl');
-    $paperItem->assign($strItemAssocs);
-    $paperItem->parse();
-    $strContentAssocs['lines'] .= $paperItem->getOutput();
+    $strItemAssocs['user_id'] = $objPerson->intId;    
+    $strItemAssocs['name'] = encodeText($objPerson->getName());
+    $strItemAssocs['email'] = encodeText($objPerson->strEmail);
+    $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
+    $userItem = new Template(TPLPATH.'user_userlistitem.tpl');
+    $userItem->assign($strItemAssocs);
+    $userItem->parse();
+    $strContentAssocs['lines'] .= $userItem->getOutput();
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
   }
 }
 else {
-  // Artikelliste ist leer.
+  // Benutzerliste ist leer.
 }
 
 $content->assign($strContentAssocs);
