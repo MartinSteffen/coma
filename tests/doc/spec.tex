@@ -10,6 +10,12 @@
 %\renewcommand\url{\begingroup\urlstyle{sf}\Url}
 
 
+%%%% Du kannst
+\newcommand{\commentary}[1]{\textsl{\small[\textbf{comment:} #1]}}
+%\newcommand{\commentary}[1]{}
+
+
+
 \begin{document}
 
 % The Title
@@ -38,7 +44,17 @@ Lehrstuhl f\"{u}r Software-Technologie }
 
 \indent
 
-CoMa, short for ``Conference Manager'', is a development project that aims to produce an automated conference manager. The participants were divided in four groups. One group will develop the conference manager using the Java language while other two will use the Php language. All groups share the same specification and the same Data Model, with minor changes. The last group is responsible for testing the implementations and guarantee the functionalities described in the specification. This document describes the concept developed for testing the implementations of the CoMa project.
+\commentary{ms: Ich verbessere kein Englisch, bis auf Notf"alle}
+
+CoMa, short for ``Conference Manager'', is a development project that aims
+to produce an automated conference manager. The participants were divided
+in four groups. One group will develop the conference manager using the
+Java language while other two will use the Php language. All groups share
+the same specification and the same Data Model, with minor changes. The
+last group is responsible for testing the implementations and guarantee the
+functionalities described in the specification. This document describes the
+concept developed for testing the implementations of the CoMa project.
+\commentary{ms: ok}
 
 %-----------------------------------------------
 %-----------------------------------------------
@@ -53,12 +69,17 @@ This section describes the tests that are going to be performed. The next subsec
 
 \indent
 
-There are several diferent models for the architecture design. We assume that the groups are going to use something similar to a 3-tier Architecture. In a 3-tier architecture, the application is divided in ``View'', ``Business'' and ``Data''. The modules implementing each tier should be as separated and independent from each other as possible. When independency is achieved, one is able to reuse code, for example changing the View module, but keeping the Business and Data modules. Such an approach is represented in Figure 1.
+There are several diferent models for the architecture design. We assume that the groups are going to use something similar to a 3-tier Architecture. In a 3-tier architecture, the application is divided in ``View'', ``Business'' and ``Data''. The modules implementing each tier should be as separated and independent from each other as possible. When independency is achieved, one is able to reuse code, for example changing the View module, but keeping the Business and Data modules. Such an approach is represented in Figure~\ref{fig:3tier}.
 
-\begin{center}
-\includegraphics[width=8cm]{3tier.eps} \\
-Figure 1 - The 3-tier Architecture
-\end{center}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=8cm]{3tier}
+  \caption{The 3-tier Architecture}
+  \label{fig:3tier}
+\end{figure}
+
 
 The View tier is responsible only for user presentation and interaction. It means that in this tier the application should not have any business rules. It is only the external representation of the application data and state, as well as presenting the user means for interaction with the business tier.
 
@@ -102,13 +123,35 @@ Since Php is not compiled until running time, this section applies only for the 
 
 \textcolor{red}{Are we going to do these tests in Java?? Is it necessary now?}
 
+\commentary{The testers have provided an ant-file. It should be compilable
+  (they say so, even on the solaris machines and on other platforms). I
+  (Martin) reported some time ago some compile-errors, because the
+  ant-build file did not work. My opinion is: that sure one should test
+  that (but after that's tested it's self-evident, that compilability
+  should maintained by the group from that point on.}
+
 \subsubsection*{Use Case Driven Test Cases}
 
 \indent
 
-\textcolor{red}{I am not sure if it is true now, since I couldn't compile these tex files to check if somebody followed some specification or not. Anyway, I assume each has its own... not?}
+\textcolor{red}{I am not sure if it is true now, since I couldn't compile
+  these tex files to check if somebody followed some specification or not.
+  Anyway, I assume each has its own... not?}
 
-Despite of having a similar {\it Informal Requirements Document}, each group has a separated {\it Specification Document}. This documents describe in detail all the functionality of the system. From these documents, use cases can be derived and test scripts written. The reach of these scripts are still dependant on the quality of the Testing Frameworks we will be able to install.
+\commentary{ms: then complain! I complained some time ago that I could not
+  tex their stuff. The said: well, it's not so important. If it's important
+  for you to read their stuff, they must provided you with a viewable
+  document. I would say, if they choose \TeX\ (which is quite portable and
+  a good choice for platform independant documentation), they should not
+  use 15 esoteric packages that only one person in the world has, namely
+  they.}
+
+Despite of having a similar \textit{Informal Requirements Document}, each
+group has a separated {\it Specification Document}. This documents describe
+in detail all the functionality of the system. From these documents, use
+cases can be derived and test scripts written. The reach of these scripts
+are still dependant on the quality of the Testing Frameworks we will be
+able to install.
 
 These tests have two main purposes. First, they assure that all the functionality described in the specification document is available and works properly. Sencond, they check if the application is prepared to deal extreme and special cases, like non-conforming use input, sql-injection attacks and Database inconsistency.
 
@@ -178,6 +221,9 @@ Some general automated tests.
 \indent
 
 \textcolor{red}{are we going to check performance??}
+
+\commentary{ms: difficult. I'd say no, at least no in particular. If one
+  sees that perfomance is low, one can report that, though.}
 
 
 %-----------------------------------------------
