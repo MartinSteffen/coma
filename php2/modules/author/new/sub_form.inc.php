@@ -8,16 +8,18 @@ $sql->connect();
 	$author = $sql->query($SQL);
 	$SQL = "SELECT conference_id FROM paper WHERE author_id = ".$_SESSION['userID'];
 	$paper = $sql->query($SQL);
-	$a = array();
-	while ($row = mysql_fetch_row($author))
+	$a = $author;
+/*	while ($row = mysql_fetch_row($author))
 	{
 		$a[] = $row[0];
 	}
-	$b = array();
-  while ($row = mysql_fetch_row($paper))
+*/	
+	$b = $paper;
+/*  while ($row = mysql_fetch_row($paper))
 	{
 		$b[] = $row[0];
 	}
+*/	
 	$c = array();
 	$c = array_diff($a, $b);
 	if (count($c) > 0)
