@@ -213,8 +213,8 @@ public class Person extends Entity {
 	public StringBuilder toXML(XMLMODE mode){
 		
 		switch (mode){
-		case SHALLOW:
-		    return XMLHelper.tagged("Person",
+		case DEEP:
+		    return XMLHelper.tagged("person",
 					    XMLHelper.tagged("id", ""+getId()),
 					    XMLHelper.tagged("last_name", ""+getLast_name()),
 					    XMLHelper.tagged("first_name", ""+getFirst_name()),
@@ -229,8 +229,10 @@ public class Person extends Entity {
 						XMLHelper.tagged("state", getState()),
 						XMLHelper.tagged("country", getCountry())
 						// maybe dangerous XMLHelper.tagged("password", getPassword())
+						// FIXME not Entity yet getPapers().toXML(XMLMODE.SHALLOW),
+					    // FIXME not Entity yet get???().toXML(XMLMODE.SHALLOW),
 					    );
-		case DEEP:
+		case SHALLOW:
 			 return XMLHelper.tagged("Person",
 			 			XMLHelper.tagged("id", ""+getId()),
 						XMLHelper.tagged("last_name", ""+getLast_name()),
