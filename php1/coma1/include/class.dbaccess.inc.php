@@ -291,6 +291,25 @@ class DBAccess {
 
   /**
    */
+  function getNextMessages($intMessageId) {
+    $s = 'SELECT  id, sender_id, send_time, subject, text'.
+        ' FROM    Message'.
+        ' WHERE   reply_to = \''.$intMessageId.'\'';
+    $data = $this->mySql->select($s);
+    $messages = array();
+    if ($data) {
+      for ($i = 0; $i < count($data); $i++) {
+      	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
+      	                 $data[$i]['send_time'], $data[$i]['subject'],
+      	                 $data[$i]['text'], getNextMessages($data[$i]['id'])));
+      }
+      return $messages;
+    }
+    return false;
+  }
+  
+  /**
+   */
   function getMessagesOfForum($intForumId) {
     $s = 'SELECT  id, sender_id, send_time, subject, text'.
         ' FROM    Message'.
@@ -308,24 +327,6 @@ class DBAccess {
     return false;
   }
 
-  /**
-   */
-  function getNextMessages($intMessageId) {
-    $s = 'SELECT  id, sender_id, send_time, subject, text'.
-        ' FROM    Message'.
-        ' WHERE   reply_to = \''.$intMessageId.'\'';
-    $data = $this->mySql->select($s);
-    $messages = array();
-    if ($data) {
-      for ($i = 0; $i < count($data); $i++) {
-      	$messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
-      	                 $data[$i]['send_time'], $data[$i]['subject'],
-      	                 $data[$i]['text'], getNextMessages($data[$i]['id'])));
-      }
-      return $messages;
-    }
-    return false;
-  }
 }
 
 ?>
