@@ -59,9 +59,9 @@ if (isset($_POST['action'])) {
     echo($_POST['topics']);    
     for ($i = 0; $i < count($intTopicIds); $i++) {
       for ($j = 0; $j < count($objAllTopics); $i++) {
-      	if ($intTopicIds['$i'] == $objAllTopics['j']->intId) {
-          echo('Topic'.$objAllTopics['j']->strName.','.$objAllTopics['j']->intId);
-      	  $objPaper->objTopics[] = $objAllTopics['j'];
+      	if ($intTopicIds['$i'] == $objAllTopics['$j']->intId) {
+          echo('Topic'.$objAllTopics['$j']->strName.','.$objAllTopics['$j']->intId);
+      	  $objPaper->objTopics[] = $objAllTopics['$j'];
           break;
       	}
       }
