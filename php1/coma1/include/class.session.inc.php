@@ -63,7 +63,7 @@ class Session {
   function Session($mySql) {
     $this->mySql = $mySql;
 
-    session_name('$SESSIONNAME');
+    session_name($SESSIONNAME);
     session_cache_limiter('nocache');
     if (!session_set_save_handler(array(& $this,'sessionOpen'),
                                   array(& $this,'sessionClose'),
