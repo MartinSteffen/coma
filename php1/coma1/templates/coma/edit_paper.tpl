@@ -85,8 +85,7 @@
 <table class="formtable">
   <tr>
     <td>Upload new document:</td>
-    <td colspan="2">
-      <input type="hidden" name="binFile" value="none">
+    <td colspan="2">      
       <input type="file"   name="binFile">
       <input type="submit" name="upload" value="Upload" class="button">
     </td>
