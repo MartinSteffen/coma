@@ -14,6 +14,7 @@ tomcat.manager.password=tomcat
 tomcat.url=http://localhost:8080
 ###################### END ######################################
 ############ change this if you do not use tomcat 5.x ###########
+## WARNING: Dont change the tokens like ${xyz}
 tomcat.undeploy_path=manager/html/undeploy?path=/${app.name}
-tomcat.deploy_path=manager/html/deploy?deployPath=&deployConfig=file:${dist}/${app.name}/${app.name}.xml&deployWar=file:${webapps.home}/${app.name}
+tomcat.deploy_path=manager/html/deploy?deployPath=&deployConfig=file:${dist}/${app.name}/${app.name}.xml&deployWar=
 ###################### END ######################################
