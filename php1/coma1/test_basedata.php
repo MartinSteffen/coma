@@ -247,13 +247,13 @@ echo 'PT<br>';
   if (rand(0,100) < 30) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
     if ($myDBAccess->failed()) {
-      echo('Fehler: '.$myDBAccess->getLastError().' ************** wahrscheinlich unkritisch');
+      echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
     }
   }
   if (rand(0,100) < 10) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
     if ($myDBAccess->failed()) {
-      echo('Fehler: '.$myDBAccess->getLastError().' ************** wahrscheinlich unkritisch');
+      echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
     }
   }
   $i++;
