@@ -76,11 +76,12 @@ class Distribution extends ErrorHandling {
     // Paper-Indizierungsarray erstellen
     $p_id = array(); // enthaelt ID's von Papern
     $p_id_index = array(); // enthaelt Indexposition der ID im Array $p_id
+    echo('<br>'.count($data).' Papers found:');
     for ($i = 0; $i < count($data); $i++) {
       $p_id[$i] = $data[$i]['id'];
+      echo(' '.$data[$i]['id']);
       $p_id_index[$data[$i]['id']] = $i;
     }
-    echo('<br>'.count($data).' Papers found.');
     // Reviewer-ID's holen
     $s = sprintf("SELECT   p.id".
                  " FROM    Person AS p".
@@ -100,13 +101,14 @@ class Distribution extends ErrorHandling {
     // Reviewer-Indizierungsarray erstellen
     $r_id = array(); // enthaelt ID's von Reviewern
     $r_id_index = array(); // enthaelt ID's von Reviewern
+    echo('<br>'.count($data).' Reviewers found:');
     for ($i = 0; $i < count($data); $i++) {
       $r_id[$i] = $data[$i]['id']; // wie bei Papern
+      echo(' '.$data[$i]['id']);
       $r_id_index[$data[$i]['id']] = $i; // wie bei Papern
     }
-    echo('<br>'.count($data).' Reviewers found.');
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
-    $matrix = array_fill(0, count($r_id)-1, array_fill(0, count($p_id)-1, 0));
+    $matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), 0));
     // Bereits zugeteilte Paper in die Matrix eintragen
     for ($i = 0; $i < count($r_id); $i++) {
       $s = sprintf("SELECT paper_id FROM Distribution WHERE reviewer_id = '%d'",
