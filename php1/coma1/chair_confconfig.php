@@ -45,6 +45,72 @@ if (isset($_POST['action'])) {
   $strContentAssocs['min_papers']       = encodeText($_POST['min_papers']);
   $strContentAssocs['max_papers']       = encodeText($_POST['max_papers']);
   $strContentAssocs['variance']         = encodeText($_POST['variance']);
+  $strTopics        = encodeTextArray($_POST['topics']);
+  $strCriterions    = encodeTextArray($_POST['criterions']);
+  $strCritDescripts = encodeTextArray($_POST['crit_descr']);
+  $strCritMaxVals   = encodeTextArray($_POST['crit_max']);
+  $strCritWeights   = encodeTextArray($_POST['crit_weight']);
+  if (isset($_POST['advanced'])) {
+    $intTopicNum = count($strTopics);
+    $intCritNum  = count($strCriterions);
+    $strTopics        = array();
+    $strCriterions    = array();
+    $strCritDescripts = array();
+    $strCritMaxVals   = array();
+    $strCritWeights   = array();
+    for ($i = 0; $i < $intTopicNum; $i++) {
+      $strTopics[] = encodeText($_POST['topic_name-'.($i+1)]);
+    }
+    for ($i = 0; $i < $intCritNum; $i++) {
+      $strCriterions[]    = encodeText($_POST['crit_name-'.($i+1)]);
+      $strCritDescripts[] = encodeText($_POST['crit_descr-'.($i+1)]);
+      $strCritMaxVals[]   = encodeText($_POST['crit_max-'.($i+1)]);
+      $strCritWeights[]   = encodeText($_POST['crit_weight-'.($i+1)]);
+    }
+  }
+  if ( isset($_POST['adv_config'])    || (isset($_POST['advanced']) &&
+      !isset($_POST['simple_config']) &&  !isset($_POST['submit']))) {
+    $content = new Template(TPLPATH.'edit_conference_ext.tpl');
+    $strContentAssocs['topic_lines'] = '';
+    $strContentAssocs['crit_lines']  = '';
+    for ($i = 0; $i < count($strTopics); $i++) {
+      $topicForm = new Template(TPLPATH.'topic_listitem.tpl');
+      $strTopicAssocs = defaultAssocArray();
+      $strTopicAssocs['topic_no']   = encodeText($i+1);
+      $strTopicAssocs['topic_name'] = encodeText($strTopics[$i]);
+      $topicForm->assign($strTopicAssocs);
+      $topicForm->parse();
+      $strContentAssocs['topic_lines'] .= $topicForm->getOutput();
+    }
+    for ($i = 0; $i < count($strCriterions); $i++) {
+      $critForm = new Template(TPLPATH.'criterion_listitem.tpl');
+      $strCritAssocs = defaultAssocArray();
+      $strCritAssocs['crit_no']     = encodeText($i+1);
+      $strCritAssocs['crit_name']   = encodeText($strCriterions[$i]);
+      $strCritAssocs['crit_descr']  = encodeText($strCritDescripts[$i]);
+      $strCritAssocs['crit_max']    = encodeText($strCritMaxVals[$i]);
+      $strCritAssocs['crit_weight'] = encodeText($strCritWeights[$i]);
+      $critForm->assign($strCritAssocs);
+      $critForm->parse();
+      $strContentAssocs['crit_lines'] .= $critForm->getOutput();
+    }
+  }
+  $strContentAssocs['topics']         = '';
+  $strContentAssocs['criterions']     = '';
+  $strContentAssocs['crit_max']       = '';
+  $strContentAssocs['crit_descr']     = '';
+  $strContentAssocs['crit_weight']    = '';
+  $strContentAssocs['num_topics']     = encodeText(count($strTopics));
+  $strContentAssocs['num_criterions'] = encodeText(count($strCriterions));
+  for ($i = 0; $i < count($strTopics); $i++) {
+    $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($strTopics[$i]);
+  }
+  for ($i = 0; $i < count($strCriterions); $i++) {
+    $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($strCriterions[$i]);
+    $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($strCritDescripts[$i]);
+    $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($strCritMaxVals[$i]);
+    $strContentAssocs['crit_weight'] .= (($i > 0) ? '|' : '').encodeText($strCritWeights[$i]);
+  }
   $strContentAssocs['auto_numreviewer'] = encodeText($_POST['auto_numreviewer']);
   if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
     $ifArray[] = 2;
@@ -55,7 +121,6 @@ if (isset($_POST['action'])) {
   if (isset($_POST['auto_addreviewer']) && !empty($_POST['auto_addreviewer'])) {
     $ifArray[] = 4;
   }
-
   // Aktualisieren der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
     // auf korrkete Daten pruefen
