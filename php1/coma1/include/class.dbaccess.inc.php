@@ -1855,23 +1855,93 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo (macht Tom)
+   * Aktualisiert die von der Person $objPersonAlgorithmic zum Review abgelehnten Paper bei der
+   * Konferenz mit ID $intConferenceId.
+   *
+   * @param PersonAlgorithmic $objPersonAlgorithmic Die Person.
+   * @param int $intConferenceId Konferenz-ID.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
+   * @author Tom (18.01.05)
    */
-  function updateDeniedPapers($objPersonAlgorithmic) {
+  function updateDeniedPapers($objPersonAlgorithmic, $intConferenceId) {
     if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
+    }
+    if (empty($intConferenceId)) {
+      return $this->success(false);
+    }
+    $intPersonId = $objPersonAlgorithmic->intId;
+    // Papers loeschen...
+    // (umstaendlich, weil bei dieser MySQL-Version kein Join im DELETE erlaubt ist)
+    $objPapers = $this->getDeniedPapers($intPersonId, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('updateDeniedPapers', $this->getLastError());
+    }
+    for ($i = 0; $i < count($objPapers); $i++) {
+      $this->deleteDeniesPaper($intPersonId, $objPapers[$i]->intId);
+      if ($this->failed()) {
+        return $this->error('updateDeniedPapers', $this->getLastError());
+      }
+    }
+    if (empty($objPersonAlgorithmic->objDeniedPapers)) {
+      return $this->success();
+    }
+    $objPapers = $objPersonAlgorithmic->objDeniedPapers;
+    // Papers einfuegen...
+    for ($i = 0; $i < count($objPapers); $i++) {
+      if (!empty($objPapers[$i])) {
+        $this->addDeniesPaper($intPersonId, $objPapers[$i]->intId);
+        if ($this->failed()) {
+          return $this->error('updateDeniedPapers', $this->getLastError());
+        }
+      }
     }
     return $this->success();
   }
 
   /**
-   * @todo (macht Tom)
+   * Aktualisiert die fuer die Person $objPersonAlgorithmic ausgeschlossenen Paper bei der
+   * Konferenz mit ID $intConferenceId.
+   *
+   * @param PersonAlgorithmic $objPersonAlgorithmic Die Person.
+   * @param int $intConferenceId Konferenz-ID.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
+   * @author Tom (18.01.05)
    */
-  function updateExcludedPapers($objPersonAlgorithmic) {
+  function updateExcludedPapers($objPersonAlgorithmic, $intConferenceId) {
     if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
+    }
+    if (empty($intConferenceId)) {
+      return $this->success(false);
+    }
+    $intPersonId = $objPersonAlgorithmic->intId;
+    // Papers loeschen...
+    // (umstaendlich, weil bei dieser MySQL-Version kein Join im DELETE erlaubt ist)
+    $objPapers = $this->getExcludedPapers($intPersonId, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('updateExcludedPapers', $this->getLastError());
+    }
+    for ($i = 0; $i < count($objPapers); $i++) {
+      $this->deleteExcludesPaper($intPersonId, $objPapers[$i]->intId);
+      if ($this->failed()) {
+        return $this->error('updateExcludedPapers', $this->getLastError());
+      }
+    }
+    if (empty($objPersonAlgorithmic->objExcludedPapers)) {
+      return $this->success();
+    }
+    $objPapers = $objPersonAlgorithmic->objExcludedPapers;
+    // Papers einfuegen...
+    for ($i = 0; $i < count($objPapers); $i++) {
+      if (!empty($objPapers[$i])) {
+        $this->addExludesPaper($intPersonId, $objPapers[$i]->intId);
+        if ($this->failed()) {
+          return $this->error('updateExcludedPapers', $this->getLastError());
+        }
+      }
     }
     return $this->success();
   }

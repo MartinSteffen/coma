@@ -41,8 +41,17 @@ if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 
-$p->objPreferredPapers[0] = false;
 $myDBAccess->updatePreferredPapers($p, 1);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+
+$myDBAccess->updateDeniedPapers($p, 1);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+
+$myDBAccess->updateExcludededPapers($p, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
