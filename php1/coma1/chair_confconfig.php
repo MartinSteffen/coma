@@ -181,7 +181,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
       else {
         $_SESSION['message'] = 'The conference was deleted successfully.';
         session_delete('confid');
-        redirect("index.php");
+        redirect("login.php");
       }
     }
   }
