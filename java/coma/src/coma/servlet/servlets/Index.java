@@ -21,6 +21,9 @@ import coma.handler.impl.db.ReadServiceImpl;
 import coma.servlet.util.Navcolumn;
 import coma.servlet.util.XMLHelper;
 
+import coma.entities.Entity.XMLMODE;
+import coma.entities.Entity;
+
 /**
  * @author mti
  * 
@@ -40,26 +43,29 @@ public class Index extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		helper.addXMLHead(result);
 		
-		result.append(XMLHelper.tagged("dummy",""));
+		//result.append(XMLHelper.tagged("dummy",""));
+		result.append("<content>");
 		result.append(myNavCol.toString());
-		/*ReadServiceImpl myReadService = new ReadServiceImpl();
+		ReadServiceImpl myReadService = new ReadServiceImpl();
 		Conference mySearchconference = new Conference(-1);
 		SearchCriteria mysc = new SearchCriteria();
 		mysc.setConference(mySearchconference);
 		SearchResult mySR = myReadService.getConference(mysc);
 		if (mySR != null){
 			Conference[] confernceArray = (Conference[]) mySR.getResultObj();
-			result.append("<conference_list>\n");
-			for (int i = 0; i < confernceArray.length; i++) {
-				result.append(confernceArray[i].toXML());
-			}
-			result.append("</conference_list>\n");
+// 			result.append("<conference_list>\n");
+// 			for (int i = 0; i < confernceArray.length; i++) {
+// 				result.append(confernceArray[i].toXML());
+// 			}
+// 			result.append("</conference_list>\n");
+			result.append(XMLHelper.tagged("conference_list",
+						       Conference.manyToXML(java.util.Arrays.asList(confernceArray), XMLMODE.SHALLOW)));
 			String info = mySR.getInfo();
 			System.out.println(info);
-		}*/
+		}
 			
 			
-		
+		result.append("</content>");		
 			response.setContentType("text/html; charset=ISO-8859-15");
 			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);

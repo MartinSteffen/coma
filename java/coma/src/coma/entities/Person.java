@@ -33,7 +33,7 @@ public class Person extends Entity {
     private String state; 
     private String country; 
     private String password;
-    private Vector role_type =new Vector();
+    private Vector<Integer> role_type =new Vector<Integer>();
 
 	
 	/**
@@ -297,9 +297,19 @@ public class Person extends Entity {
 					    );
 		case SHALLOW:
 			 return XMLHelper.tagged("Person",
-			 			XMLHelper.tagged("id", ""+getId()),
-						XMLHelper.tagged("last_name", getLast_name()),
-						XMLHelper.tagged("email", getEmail())
+					    XMLHelper.tagged("id", ""+getId()),
+					    XMLHelper.tagged("last_name", getLast_name()),
+					    XMLHelper.tagged("first_name", getFirst_name()),
+					    XMLHelper.tagged("title", getTitle()),
+					    XMLHelper.tagged("affiliation", getAffiliation()),
+					    XMLHelper.tagged("email", getEmail()),
+					    XMLHelper.tagged("phone_number", getPhone_number()),
+						XMLHelper.tagged("fax_number", getFax_number()),
+						XMLHelper.tagged("street", getStreet()),
+						XMLHelper.tagged("postal_code", getPostal_code()),
+						XMLHelper.tagged("city", getCity()),
+						XMLHelper.tagged("state", getState()),
+						XMLHelper.tagged("country", getCountry())
 					    );
 		  
 		default:

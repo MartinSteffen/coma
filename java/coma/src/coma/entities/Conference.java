@@ -12,7 +12,7 @@ import static coma.util.logging.Severity.WARN;
  * @author <a href="mailto:mal@informatik.uni-kiel.de">Mohamed Z. Albari</a>
  *
  */
-public class Conference {
+public class Conference extends Entity {
 
     int id;
     String name;

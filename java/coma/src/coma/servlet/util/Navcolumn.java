@@ -36,6 +36,8 @@ public class Navcolumn {
 
     HttpSession hsession;
 
+    java.util.Set<String> extradata = new java.util.HashSet<String>();
+
     public Navcolumn(HttpSession hs){
 	hsession=hs;
     }
@@ -44,9 +46,14 @@ public class Navcolumn {
 	this(hsr.getSession(true));
     }
 
+    public void addExtraData(String s){
+	extradata.add(s);
+    }
+
     public String toString(){
 
 	Person p=null;
+	StringBuilder result= new StringBuilder();
 	try{
 	    p = (Person)hsession.getAttribute(SessionAttribs.PERSON);
 	} catch (ClassCastException cce){
@@ -56,16 +63,31 @@ public class Navcolumn {
 
 	}
 
-	return tagged("navcolumn",
-		      tagged("theTime", new Date()),
-		      (p==null)? tagged("noUser") : "",
-		      ((p != null) 
-		       && (p.isChair()))? tagged("isChair") : "",
-		      ((p != null) 
-		       && (p.isAuthor()))? tagged("isAuthor") : "",
-		      ((p != null) 
-		       && (p.isReviewer()))? tagged("isReviewer") : "")
-	    .toString();
+// 	return tagged("navcolumn",
+// 		      tagged("theTime", new Date()),
+// 		      (p==null)? tagged("noUser") : "",
+// 		      ((p != null) 
+// 		       && (p.isChair()))? tagged("isChair") : "",
+// 		      ((p != null) 
+// 		       && (p.isAuthor()))? tagged("isAuthor") : "",
+// 		      ((p != null) 
+// 		       && (p.isReviewer()))? tagged("isReviewer") : "")
+// 	    .toString();
+	result.append(tagged("theTime", new Date()));
+	if ( p == null ){
+	    result.append(tagged("noUser"));
+	} else {
+	    if (p.isChair())
+		result.append(tagged("isChair"));
+	    if (p.isAuthor())
+		result.append(tagged("isAuthor"));
+	    if (p.isReviewer())
+		result.append(tagged("isReviewer"));
+	}
+	for (String s: extradata){
+	    result.append(s);
+	}
+	return tagged("navcolumn", result).toString();
     }
 
 }
