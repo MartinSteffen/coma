@@ -168,7 +168,7 @@ class Distribution extends ErrorHandling {
       $r_id_index[$r_id[$i]] = $i; // wie bei Papern
     }
 
-    echo('<br>'.count($data).' Reviewers found:');
+    echo('<br>'.count($r_id).' Reviewers found:');
 
     // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
     $initial_matrix = array_fill(0, count($r_id), array_fill(0, count($p_id), NEUTRAL));
@@ -435,7 +435,7 @@ class Distribution extends ErrorHandling {
       $y[$p_id[$j]] = $r;
     }
 
-    return $y;
+    return $this->success($y);
   }
 
   /**
