@@ -33,7 +33,7 @@ class dbAccessTest extends PHPUnit_TestCase
 
   function test_getAllConferences() {
     	global $myDBAccess;
-      $this->assertEquals(2,sizeof($myDBAccess->getAllConferences()));
+      $this->assertEquals(4,sizeof($myDBAccess->getAllConferences()));
   }
 
   function test_getConferenceDetailed() {
@@ -89,6 +89,11 @@ class dbAccessTest extends PHPUnit_TestCase
   function test_getPaperFile2($intPaperId) {
         	global $myDBAccess;
           $this->assertTrue($myDBAccess->getPaperFile(1));
+  }
+
+  function test_hasRoleInConference() {
+          	global $myDBAccess;
+            $this->assertTrue($myDBAccess->hasRoleInConference(1, 1, $intRoleType=1));
   }
 
 
