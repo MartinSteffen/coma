@@ -187,12 +187,15 @@ public class EntityCreater {
 	 * - renames the filename to a unique one
 	 * 
 	 */
-	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException, IOException {
+	public Paper getPaper(HttpServletRequest request) throws IllegalArgumentException {
 		Paper paper = new Paper(-1); // new Paper
 		Enumeration paramNames = request.getParameterNames();
-		String parName ="";
+		String parName = "";
+		String parValue = "";
 		while(paramNames.hasMoreElements()){
 			parName = (String) paramNames.nextElement();
+			parValue =request.getParameter(parName);
+			if (parValue.equals("")) throw new IllegalArgumentException("Missing Form entry "+parName);
 		    }
 		paper.setAbstract("");//(request.getParameter("abstract"));
 		paper.setAuthor_id(-1);//(theAuthor.getId());

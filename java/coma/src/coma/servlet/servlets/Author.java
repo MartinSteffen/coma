@@ -22,6 +22,7 @@ import coma.entities.Paper;
 import coma.entities.Person;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.util.EntityCreater;
+import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 /**
  * @author mti
@@ -78,7 +79,7 @@ public class Author extends HttpServlet {
 			Paper theNewPaper = myCreater.getPaper(request);
 			
 			result.append(XMLHelper.tagged("writefile",""));
-			
+			session.setAttribute(SessionAttribs.PAPER,theNewPaper);
 		} catch (Exception e) {
 			result.append(XMLHelper.tagged("failed",""));
 			result.append("<submitpaper>\n");

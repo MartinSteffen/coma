@@ -31,7 +31,7 @@ import coma.servlet.util.XMLHelper;
  * @author mti
  * @version 0.1
  * 
- * process a form with enctype="multipart/form-data" atribute
+ * process a form with enctype="multipart/form-data" attribute
  * to store a file on the disk
  * 
  */
