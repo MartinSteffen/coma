@@ -82,7 +82,7 @@ class DBAccess extends ErrorHandling {
   function getKeyOfPerson($intUId) {
     $s = sprintf("SELECT   password".
                  " FROM    Person".
-                 " WHERE   id = '%d'".,
+                 " WHERE   id = '%d'",
                            s2db($intUId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
