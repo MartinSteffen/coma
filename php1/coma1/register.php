@@ -117,8 +117,10 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Neuen Benutzer registrieren';
 $strMainAssocs['content'] = &$content;
 
-require_once(TPLPATH.'startmenu.php');
-$strMainAssocs['menu'] = openStartMenuItem(2);
+$menu = new Template(TPLPATH.'startmenu.tpl');
+$strMenuAssocs = defaultAssocArray();
+$strMenuAssocs['if'] = array(2);
+$menu->assign($strMenuAssocs);
 
 $strPath = array('CoMa'=>'', 'Registrieren'=>'');
 require_once(TPLPATH.'navigatoritem.php');
