@@ -80,7 +80,7 @@ if (!empty($r_id)) {
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
     //$strItemAssocs['if'] = array($objReviewerAttitude->getTopicAttitude($objTopic->intId));
     $strItemAssocs['if'] = array($objReviewerAttitude->getPaperAttitude($objPaper->intId));
-    $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId));
+    $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId);
     if ($myDBAccess->failed()) {
       error('get reviewer/paper information', $myDBAccess->getLastError());
     }
