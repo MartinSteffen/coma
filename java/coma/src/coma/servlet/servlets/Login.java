@@ -32,22 +32,23 @@ public class Login extends HttpServlet {
 	StringBuffer info = new StringBuffer();
 	StringBuffer result = new StringBuffer();
 	XMLHelper helper = new XMLHelper();
-	coma.entities.person person = null;
+	Person person = null;
 	String role = new String();
 
 	public void init(ServletConfig config) 
 	{
-		try 
-		{
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			ds = (DataSource) envCtx.lookup("jdbc/coma");
-			super.init(config);
-		} 
-		catch (Exception e) 
-		{
-			helper.addError(e.getMessage().toString(), info);
-		}
+	    // The DB-Connection will be done in the handling-class
+//		try 
+//		{
+//			Context initCtx = new InitialContext();
+//			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+//			ds = (DataSource) envCtx.lookup("jdbc/coma");
+//			super.init(config);
+//		} 
+//		catch (Exception e) 
+//		{
+//			helper.addError(e.getMessage().toString(), info);
+//		}
 	}
 	
 	public void doGet(HttpServletRequest request,HttpServletResponse response) 
@@ -122,7 +123,7 @@ public class Login extends HttpServlet {
 		if ((user.equals("chair")) && (passwd.equals("test")))
 		{
 			isValid = true;
-			person = new person(1);
+			person = new Person(1);
 			role = "chair";
 		}
 		/*try {
