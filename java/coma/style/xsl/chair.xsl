@@ -2,6 +2,7 @@
 <xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
 doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
 <xsl:include href="navcolumn.xsl"/>
+<xsl:include href="chair_setup.xsl"/>
 
 <xsl:template match="/">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" > 
@@ -38,6 +39,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 <!-- Main content -->
 <div class="content">
+<xsl:call-template name="setup"/>
+<xsl:call-template name="setup_step2"/>
+<xsl:call-template name="setup_step1"/>
 <xsl:apply-templates select = "/result/login/content"/>
 <xsl:apply-templates select = "/result/invite/content"/>
 <xsl:apply-templates select = "/result/showpapers/content"/>
@@ -45,9 +49,6 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:apply-templates select = "/result/showreviewers/content"/>
 <xsl:apply-templates select = "/result/showreviewers_data/content"/>
 <xsl:apply-templates select = "/result/showauthors_data/content"/>
-<xsl:apply-templates select = "/result/setup/content"/>
-<xsl:apply-templates select = "/result/setup_new_step1/content"/>
-<xsl:apply-templates select = "/result/setup_new_step2/content"/>
 <xsl:apply-templates select = "/result/email/content"/>
 </div> <!-- Main content end -->
 
@@ -156,7 +157,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<thead>
 			<tr align="center">
 				<th colspan="2">personel data</th>
-				<th colspan="2">papers</th>
+				<xsl:if test="//showauthors_data/content/paper"><th colspan="2">papers</th></xsl:if>
 			</tr>
 		</thead>
 	<xsl:for-each select="/result/showauthors_data/content/person">
@@ -167,6 +168,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 			<td>
 				<xsl:value-of select="first_name"/>
 			</td>
+			<xsl:if test="//showauthors_data/content/paper">
 			<td colspan="2" rowspan="9">
 				<table class="chair">
 					<xsl:for-each select="/result/showauthors_data/content/paper">
@@ -194,6 +196,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 					</xsl:for-each>
 				</table>
 			</td>
+			</xsl:if>
 		</tr>	
 		<tr>
 			<td>last name: 
@@ -752,6 +755,7 @@ Step 1
 </xsl:template>
 
 
+<!-- Setup a new conference : Step 2 -->
 <xsl:template match="/result/setup_new_step2/content">
 <div class="formular">
 Step 2 : Please insert topics
@@ -770,9 +774,6 @@ Step 2 : Please insert topics
 </form>
 </div>
 </xsl:template>
-
-
-
 
 
 <!-- content for email -->
@@ -807,7 +808,7 @@ Step 2 : Please insert topics
 	<td>
 	</td>
 	<td>
-		<textarea rows="7" name="Cont" id="Cont" cols="28">
+		<textarea rows="7" name="Cont" id="Cont" cols="28">&#160;
   			<xsl:value-of select="/result/email/content/cont"/>
 		</textarea>
 	</td>
@@ -855,9 +856,6 @@ Step 2 : Please insert topics
 <xsl:template match="/result/email/status">
 <xsl:value-of select='.'/><br></br> 
 </xsl:template>
-
-
-
 
 
 </xsl:stylesheet>
