@@ -27,22 +27,22 @@
 
 CREATE TABLE Conference
 (
-   id                           INT NOT NULL AUTO_INCREMENT,
-   name                         VARCHAR(127) NOT NULL,
-   homepage                     VARCHAR(127),
-   description                  TEXT, -- ``Werbung''/Berschreibung  fuer die Konferenz
-   abstract_submission_deadline DATE, -- Abgabe einer Kurzfassung
-   paper_submission_deadline    DATE, -- Abgabe des Papiers, danach beginnt das Begutachtung
-   review_deadline              DATE, -- Abgabe der Bewertung durch die Gutachter
-   final_version_deadline       DATE, -- Endversion des (evntl. revidierten) Papiers
-   notification                 DATE, -- Benachrichtigung der Autoren (Ja/Nein + Kritik)
-   conference_start             DATE, -- Beginn der eigentlichen Konferenz (nicht der Planung)
-   conference_end               DATE, -- analog
-   min_reviews_per_paper        INT,
+   id                           INT NOT NULL AUTO_INCREMENT, -- Coma = conference service = many conferences
+   name                         VARCHAR(127) NOT NULL,       -- Name/Acronym of the conference
+   homepage                     VARCHAR(127),                -- webpage of the conference
+   description                  TEXT,                        -- ``Werbung''/Beschreibung  fuer die Konferenz
+   abstract_submission_deadline DATE,                        -- Abgabe einer Kurzfassung
+   paper_submission_deadline    DATE,                        -- Abgabe des Papiers, danach beginnt die Begutachtung
+   review_deadline              DATE,                        -- Abgabe der Bewertung durch die Gutachter
+   final_version_deadline       DATE,                        -- Endversion des (evntl. revidierten) Papiers
+   notification                 DATE,                        -- Benachrichtigung der Autoren (Ja/Nein + Kritik)
+   conference_start             DATE,                        -- Beginn der eigentlichen Konferenz (nicht der Planung)
+   conference_end               DATE,                        -- analog
+   min_reviews_per_paper        INT,                         -- vorzugsweise: Mindestanzahl Gutachten
    PRIMARY KEY (id)
 ) TYPE = INNODB;
 
-CREATE TABLE Person
+CREATE TABLE Person                                          -- alle natuerlichen Personen
 (
    id           INT NOT NULL AUTO_INCREMENT,
    first_name   VARCHAR(127),
@@ -61,7 +61,8 @@ CREATE TABLE Person
    PRIMARY KEY (id)
 ) TYPE = INNODB;
 
-CREATE TABLE Role
+
+CREATE TABLE Role                   
 (
    conference_id  INT NOT NULL,
    person_id      INT NOT NULL,
@@ -82,9 +83,9 @@ CREATE TABLE Paper
    conference_id   INT NOT NULL,
    author_id       INT NOT NULL,
    title           VARCHAR(127) NOT NULL,
-   abstract        TEXT,
+   abstract        TEXT,         -- Kurzfassung der Artikels 
    last_edited     DATETIME,
-   version         INT,
+   version         INT,          
    filename        VARCHAR(127),
    state           INT NOT NULL,
    mime_type       VARCHAR(127),
