@@ -8,6 +8,10 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
+if (!defined('INCPATH')) {
+  define('INCPATH', dirname(_FILE_).'/');
+}
+
 /**
  * Klasse MySql
  *
@@ -57,7 +61,7 @@ class MySql {
    */
   function MySql() {
     // ACHTUNG: nicht once! (da nur lokal verfügbar)
-    require(dirname(__FILE__).'/config.inc.php');
+    require(INCPATH.'/config.inc.php');
     $this->mySqlServer = $sqlServer;
     $this->mySqlUser = $sqlUser;
     $this->mySqlPassword = $sqlPassword;

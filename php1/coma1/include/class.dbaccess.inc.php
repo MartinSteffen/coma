@@ -9,16 +9,18 @@ if (!defined('IN_COMA1')) {
 }
 
 // by Jan: verbesserter Include
-$strRelPath = dirname(__FILE__).'/';
-require_once($strRelPath.'class.mysql.inc.php');
-require_once($strRelPath.'class.person.inc.php');
-require_once($strRelPath.'class.persondetailed.inc.php');
-require_once($strRelPath.'class.paper.inc.php');
-require_once($strRelPath.'class.papersimple.inc.php');
-require_once($strRelPath.'class.paperdetailed.inc.php');
-require_once($strRelPath.'class.message.inc.php');
-require_once($strRelPath.'class.forum.inc.php');
-require_once($strRelPath.'class.forumdetailed.inc.php');
+if (!defined('INCPATH')) {
+  define('INCPATH', dirname(_FILE_).'/');
+}
+require_once(INCPATH.'class.mysql.inc.php');
+require_once(INCPATH.'class.person.inc.php');
+require_once(INCPATH.'class.persondetailed.inc.php');
+require_once(INCPATH.'class.paper.inc.php');
+require_once(INCPATH.'class.papersimple.inc.php');
+require_once(INCPATH.'class.paperdetailed.inc.php');
+require_once(INCPATH.'class.message.inc.php');
+require_once(INCPATH.'class.forum.inc.php');
+require_once(INCPATH.'class.forumdetailed.inc.php');
 
 /**
  * Klasse DBAccess

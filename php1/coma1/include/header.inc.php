@@ -30,10 +30,12 @@ ini_set('display_errors', '1'); // später 0 ??
 ini_set('display_startup_errors', '1'); // später 0 !!
 ini_set('warn_plus_overloading', '1');
 
-$strRelPath = dirname(__FILE__).'/';
-require_once($strRelPath.'class.mysql.inc.php');
-require_once($strRelPath.'class.session.inc.php');
-require_once($strRelPath.'class.dbaccess.inc.php');
+define('INCPATH',dirname(PHP_SELF).'/include/');
+define('TPLPATH',dirname(PHP_SELF).'/templates/');
+define('COREPATH',dirname(PHP_SELF).'/');
+require_once(INCPATH.'class.mysql.inc.php');
+require_once(INCPATH.'class.session.inc.php');
+require_once(INCPATH.'class.dbaccess.inc.php');
 echo $strRelPath;
 
 $mySql = new MySql();
@@ -48,7 +50,7 @@ checkError($myDBAccess);
 // Check ob User eingeloggt ist
 if (!$myDBAccess->checkLogin()) {
   session_write_close();
-  header('Location:'.dirname(PHP_SELF).'/login.php');
+  header('Location:'.COREPATH.'login.php');
 }
 
 ?>
