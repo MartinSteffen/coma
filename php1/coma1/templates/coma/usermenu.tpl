@@ -24,8 +24,24 @@
     </td>
   </tr>
   <tr>
-    <td class="menu"><a href="{basepath}forum.php{?SID}" class="{if3 marked}menu">
+    <td class="menu"><a href="{basepath}forum.php?showforums=0{&SID}" class="{if3 marked}menu">
       Forums</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=4{&SID}" class="submenu">Global forums</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=1{&SID}" class="submenu">Open forums</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=3{&SID}" class="submenu">Paper forums</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="submenu"><a href="{basepath}forum.php?showforums=2{&SID}" class="submenu">Chair forums</a>
     </td>
   </tr>
   <tr>
