@@ -84,7 +84,7 @@ if (isset($_POST['email'])){
   }
   
   $strContentAssocs['message'] = '<p class="message">'.$strMessage.'</p>';
-  $content->assign(defaultAssocArray());  
+  $content->assign($strContentAssocs);  
 
   $strMainAssocs = defaultAssocArray();
   $strMainAssocs['title'] = 'Neuen Benutzer registrieren';
