@@ -115,7 +115,8 @@ function encodeText($_str) {
   //$r2 = array('\\\x00', '<BR>', '',   '\\\\', '&#039;', '&quot;', '\\\x1a');
   $_str = trim($_str);
   $_str = htmlentities($_str);
-  $_str = str_replace($r1, $r2, $_str);
+  //$_str = str_replace($r1, $r2, $_str);
+  var_dump(get_html_translation_table (HTML_ENTITIES));
   return($_str);
 }
 
