@@ -19,7 +19,15 @@ require_once('./include/class.template.inc.php');
 require_once('./include/class.dbaccess.inc.php');
 
 $mySql = new MySql();
+$s = $mySql->getLastError();
+if (!empty($s)) {
+  echo $s;
+}
 $mySession = new Session($mySql);
+$s = $mySession->getLastError();
+if (!empty($s)) {
+  echo $s;
+}
 
 echo 'OK';
 

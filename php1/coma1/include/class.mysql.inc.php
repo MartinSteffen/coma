@@ -168,7 +168,7 @@ class MySql {
     if (empty($results)) {
       return $this->error('insert: konnte Datensatz nicht hinzufuegen');
     }
-    return  mysql_insert_id();
+    return mysql_insert_id();
   }
 
   /**
