@@ -35,8 +35,8 @@ function checkError(&$class) {
  * @param string $strName Das aufzurufende Skript.
  */
 function redirect($strName) {
+  global $mySession;
   session_write_close();
-  var_dump($mySession);
   header('Location:' . COREURL . $strName . $mySession->getUrlId());
 }
 
