@@ -126,8 +126,6 @@ if (isset($_POST['name'])){
    
 }
 
-
-
 /**
   *  Anlegen einer Konferenz in der Datenbank
   *  wenn alle Daten korrekt empfangen wurden
