@@ -129,7 +129,7 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
     elseif ( !($min_reviews <= $def_reviews)){
       $strMessage = 'Your minimum number of reviews should not be greater than the default number of reviews!';
     }
-    elseif ( !(0 <= $variance) || !($variance < 100)){
+    elseif ( !(0 < $variance) || !($variance < 100)){
       $strMessage = 'Your ambiguity should be greater than zero and less than hundred!';
     }
     elseif ( !(0 <= $auto_numrev )){
