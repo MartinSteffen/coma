@@ -35,19 +35,6 @@ class Distribution extends ErrorHandling {
    * @var MySql
    */
   var $mySql;
-  
-    define('ASSIGNED', -2); // bereits vorher verteilt
-    define('SUGGESTED', -1); // Verteilungsvorschlag
-/*    define('ASSIGNED', 0);
-    define('PREFERS', 1); // Topic
-    define('WANTS', 2); // Paper
-    define('DENIES', 3); // Paper
-    define('EXCLUDED', 4); // Paper*/
-
-    define('NEUTRAL', 10000.0); // Faktor fuer Preferred Topic
-    define('PREF', NEUTRAL*1.5); // 1*NEUTRAL < Faktor fuer Preferred Topic < 2*NEUTRAL
-    define('WANT', PREF*1.5); // 1*PREF < Faktor fuer Preferred Paper < 2*PREF
-
   /**#@-*/
 
   /**
@@ -72,6 +59,18 @@ class Distribution extends ErrorHandling {
    * @todo Noch ne ganze Menge UND PHPDoc :-) $color entfernen! $p_num_revs_pref_left kann raus
    */
   function getDistribution($intConferenceId) {
+    define('ASSIGNED', -2); // bereits vorher verteilt
+    define('SUGGESTED', -1); // Verteilungsvorschlag
+/*    define('ASSIGNED', 0);
+    define('PREFERS', 1); // Topic
+    define('WANTS', 2); // Paper
+    define('DENIES', 3); // Paper
+    define('EXCLUDED', 4); // Paper*/
+
+    define('NEUTRAL', 10000.0); // Faktor fuer Preferred Topic
+    define('PREF', NEUTRAL*1.5); // 1*NEUTRAL < Faktor fuer Preferred Topic < 2*NEUTRAL
+    define('WANT', PREF*1.5); // 1*PREF < Faktor fuer Preferred Paper < 2*PREF
+
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
@@ -288,7 +287,7 @@ class Distribution extends ErrorHandling {
       for ($j = 0; $j < count($p_id); $j++) {
         if ($matrix[$i][$j] == WANT) {
           $this->suggest($matrix, $i, $p_id, $avg_revs, $p_num_revs_total_left,
-                         $p_num_revs, $r_num_paper);
+                         $p_num_revs, $r_num_paper, SUGGESTED);
         }
       }
     }
@@ -346,7 +345,7 @@ class Distribution extends ErrorHandling {
           }
         }*/
         $this->suggest($matrix, $rindex, $p_id, $avg_revs, $p_num_revs_total_left,
-                       $p_num_revs, $r_num_paper);
+                       $p_num_revs, $r_num_paper, SUGGESTED);
       }
     }
     
@@ -415,11 +414,11 @@ class Distribution extends ErrorHandling {
    * @access private
    */
   function halfReviewerLine(&$matrix, $rindex, $p_id, $avg_revs, &$p_num_revs_total_left,
-                            &$p_num_revs, &$r_num_papers) {
+                            &$p_num_revs, &$r_num_papers, $intSuggested) {
     $p_num_revs_total_left[$pindex]--;
     $p_num_revs[$pindex]++;
     $r_num_papers[$rindex]++;
-    $matrix[$rindex][$pindex] = SUGGESTED;
+    $matrix[$rindex][$pindex] = $intSuggested;
     for ($i = 0; $i < count($p_id); $i++) {
       if ($matrix[$rindex][$i] > 1) {
         $matrix[$rindex][$i] /= 2.0;
