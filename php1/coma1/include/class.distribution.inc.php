@@ -200,7 +200,7 @@ class Distribution extends ErrorHandling {
     
     $text = array('', 'assigned', 'prefers', 'wants', 'denies', 'excluded');
     for ($i = 0; $i < count($matrix); $i++) {
-      echo('<br>Reviewer '.$r_id_index[$i].':');
+      echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
         for ($k = ASSIGNED; $k <= EXCLUDED; $k++) {
           if ($this->isBit($matrix[$i][$j], $k)) {
