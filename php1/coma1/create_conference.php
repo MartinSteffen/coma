@@ -19,7 +19,7 @@ $strContentAssocs = defaultAssocArray();
 $ifArray = array();
 
 function emptytime($str) {
-  return empty($str) ? '' : date('m/d/Y',$str);
+  return empty($str) ? '' : date('M d, Y',$str);
 }
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
