@@ -331,7 +331,7 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
   // TOTALAY UNSURE ABOUT THIS WHOLE \r\n vs \n STUFF NEEDS LOTS OF TESTING
   $strMsg = utf8_encode($strMsg);
   $strSubject = utf8_encode('[CoMa] '.$strSubject);
-  $header = "To: \"{$objPerson->getName(2)}\" <{$objPerson->strEmail}>\n".
+  $header = "To: \"".$objPerson->getName(2)."\" <$objPerson->strEmail>\n".
             "From: $strFrom\n".
             "MIME-Version: 1.0\n".
             "Content-type: text/plain; charset=utf-8";
