@@ -721,6 +721,43 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
+   * Liefert die Anzahl der Paper des Autoren $intAuthorId in der Konferenz
+   * $intConferenceId zurueck, zu denen noch kein Dokument hochgeladen wurde.   
+   *
+   * @param int $intAuthorId ID des Autors
+   * @param int $intConferenceId ID der Konferenz   
+   * @return int Die Anzahl der Paper ohne hochgeladene Dokumente
+   * @access public
+   * @author Sandro (06.02.05)
+   * @todo Existenz der Konferenz muss noch geprueft werden.
+   */
+  function getNumOfPapersOfAuthorWithoutUpload($intAuthorId, $intConferenceId) {   
+    $s = sprintf("SELECT   COUNT(*) AS num".
+                 " FROM    Paper AS p".
+                 " INNER   JOIN PaperData AS d".
+                 " ON      d.paper_id = p.id"
+                 " WHERE   p.author_id = '%d'".
+                 " AND     p.conference_id = '%d'",                 
+                           s2db($intAuthorId), s2db($intConferenceId));    
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getNumOfPapersOfAuthorWithoutUpload', $this->mySql->getLastError());
+    }
+    $numOfPapersWithUpload = $data[0]['num'];
+    $s = sprintf("SELECT   COUNT(*)".
+                 " FROM    Paper AS p".                 
+                 " WHERE   p.author_id = '%d'".
+                 " AND     p.conference_id = '%d'",                 
+                           s2db($intAuthorId), s2db($intConferenceId));    
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getNumOfPapersOfAuthorWithoutUpload', $this->mySql->getLastError());
+    }
+    $numOfAllPapers = $data[0]['num'];
+    return $this->success($numOfAllPapers - $numOfPapersWithUpload);
+  }
+
+  /**
    * Liefert ein Array von PaperSimple-Objekten des Reviewers $intReviewerId
    * in der Konferenz $intConferenceId zurueck.
    *

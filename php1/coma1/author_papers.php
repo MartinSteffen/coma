@@ -53,7 +53,7 @@ if ($myDBAccess->failed()) {
 else if (empty($objConference)) {
   error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
-if (strtotime("now") < strtotime($objConference->strPaperDeadline)) {
+if (strtotime("now") < strtotime($objConference->strAbstractDeadline)) {
   $ifArray[] = 8;
 }
 

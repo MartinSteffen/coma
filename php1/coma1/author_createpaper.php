@@ -39,8 +39,8 @@ if ($myDBAccess->failed()) {
 else if (empty($objConference)) {
   error('get conference details', 'Conference '.session('confid').' does not exist in database.');
 }
-if (strtotime($objConference->strPaperDeadline) <= strtotime("now")) {
-  error('Paper submission deadline has already been reached.','');
+if (strtotime($objConference->strAbstractDeadline) <= strtotime("now")) {
+  error('Deadline for submission of new papers has already been reached.','');
 }
 
 $content = new Template(TPLPATH.'create_paper.tpl');
