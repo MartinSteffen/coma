@@ -67,7 +67,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-
 		QUERY = "SELECT * FROM Person WHERE";
 		boolean idFlag = false;
 		boolean emailFlag = false;
@@ -174,6 +173,52 @@ public class ReadServiceImpl extends Service implements ReadService {
 				}
 			}
 		}
+		result.setResultObj(persons);
+		result.setInfo(info.toString());
+		return result;
+	}
+
+	public SearchResult getPersonByRole(int[] role_type, int conference_id) {
+		SearchResult result = new SearchResult();
+		Person[] persons = new Person[0];
+		StringBuffer info = new StringBuffer();
+		Connection conn = getConnection();
+
+		if (conn != null) {
+			if (role_type.length > 0) {
+				String QUERY = "SELECT Person.*  FROM Person, Role WHERE "
+						+ " Role.role_type IN (";
+				for (int i = 0; i < role_type.length; i++) {
+					QUERY += role_type[i];
+					if (i < role_type.length-1) {
+						QUERY += ",";
+					}
+				}
+				QUERY += ") AND Person.id = Role.person_id"
+						+ " AND Role.conference_id = " + conference_id;
+				System.out.println(QUERY);
+				Statement stmt;
+				try {
+					EntityCreater eCreater = new EntityCreater();
+					stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(QUERY);
+					LinkedList<Person> ll = new LinkedList<Person>();
+					while(rs.next()){
+						ll.add(eCreater.getPerson(rs));
+					}
+					persons = new Person[ll.size()];
+					for (int i = 0; i < ll.size(); i++) {
+						persons[i] = ll.get(i);
+					}
+				} catch (SQLException e) {
+					System.out.println(e);
+				}
+			}
+		} else {
+			info
+					.append("Coma could not establish a connection to the database\n");
+		}
+
 		result.setResultObj(persons);
 		result.setInfo(info.toString());
 		return result;

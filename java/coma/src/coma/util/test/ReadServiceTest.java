@@ -52,12 +52,12 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetPerson(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}
 		
-		Person p = new Person(-1);
+		Person p = new Person(15);
 		//p.setLast_name("Susi");
 		p.setEmail("test@web.de");
 		SearchCriteria criteria = new SearchCriteria();
@@ -72,14 +72,30 @@ public class ReadServiceTest extends TestCase{
 		}
 	}
 	
+	public void testGetPersonByRole(){
+		boolean run = true;
+		if(!run){
+			return;
+		}
+		int[] role_type = new int[2];
+		int conference_id = 1;
+		SearchResult result = read.getPersonByRole(role_type, conference_id);
+		Object objResult = result.getResultObj();
+		Person[] persons = (Person[])objResult;	
+		for (int i = 0; i < persons.length; i++) {
+			System.out.println(persons[i].toXML());	
+		}
+	}
+	
 	public void testGetPaper(){
 		boolean run = false;
 		if(!run){
 			return;
 		}
 		
-		Paper p = new Paper(-1);
+		Paper p = new Paper(-2);
 		p.setAuthor_id(15);
+		//p.setConference_id(1);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPaper(p);
 		
@@ -88,7 +104,7 @@ public class ReadServiceTest extends TestCase{
 		
 		Paper[] papers = (Paper[])objResult;	
 		for (int i = 0; i < papers.length; i++) {
-			System.out.println(papers[i].toString());	
+			System.out.println(papers[i].getAuthor_id());	
 		}
 	}
 	
