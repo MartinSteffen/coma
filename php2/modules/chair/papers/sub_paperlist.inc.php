@@ -13,7 +13,9 @@ foreach($paperlist as $paper) {
 	$paper['author'] = getPerson($paper['author_id']);
 }
 
-$TPL['paperlist'] = template("CHAIR_listPapers");
+$TPL['paperlist'] = $paperlist;
+
+template("CHAIR_listPapers");
 
 }
 else redirect("logout",false,false,"error=1");	
