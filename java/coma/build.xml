@@ -28,14 +28,17 @@
     <!--                         END                                -->
 	
 	<path id="compile.classpath">
+		<!--
 		<pathelement location="${catalina.home}/common/classes" />
 		<pathelement location="${catalina.home}/shared/classes" />
+		
 		<fileset dir="${catalina.home}/common/endorsed">
 			<include name="*.jar" />
 		</fileset>
 		<fileset dir="${catalina.home}/common/lib">
 			<include name="*.jar" />
 		</fileset>
+		-->
 		<fileset dir="${lib}">
 			<include name="*.jar" />
 		</fileset>
