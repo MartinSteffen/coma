@@ -54,6 +54,13 @@ class Distribution extends ErrorHandling {
       return $this->success(false);
     }
 
+    // Paper-Indizierungsarray
+    $p_id = array(); // enthaelt ID's von Papern
+    $p_id_index = array(); // enthaelt Indexposition der ID im Array $p_id
+    // Anzahl moeglicher Reviewer fuer das Paper unter Beruecksichtigung der Wuensche
+    $p_revs_left = array();
+
+
     // Paper-ID's holen
     $s = sprintf("SELECT id FROM Paper WHERE conference_id = '%d' ORDER BY id ASC",
                  s2db($intConferenceId));
@@ -64,9 +71,7 @@ class Distribution extends ErrorHandling {
     if (empty($data)) {
       return array();
     }
-    // Paper-Indizierungsarray erstellen
-    $p_id = array(); // enthaelt ID's von Papern
-    $p_id_index = array(); // enthaelt Indexposition der ID im Array $p_id
+
     echo('<br>'.count($data).' Papers found:');
     for ($i = 0; $i < count($data); $i++) {
       $p_id[$i] = $data[$i]['id'];
@@ -164,6 +169,8 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($denies); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
+        $this->deleteBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], PREFERS);
+        $this->deleteBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], WANTS);
       }
       // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
@@ -179,11 +186,17 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($excluded); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
+        $this->deleteBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], PREFERS);
+        $this->deleteBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], WANTS);
       }
     }
 
-    // Weiteres Vorgehen: Reviewer- und aus Papersicht einnehmen; jeweils
-    // "rundenbasiert" verteilen...
+    for ($i = 0; $i < count($matrix); $i++) {
+      for ($j = 0; $j < count($matrix[$i]); $j++) {
+        if ($this->isBit($matrix[$i][$j], PREFERS) || $this->isBit($matrix[$i][$j], WANTS)
+        $p_revs_left[$j]++;
+      }
+    }
 
     // Debug: Ausgabe
     $text = array(0 => 'assigned', 'prefers', 'wants', 'denies', 'excluded');
