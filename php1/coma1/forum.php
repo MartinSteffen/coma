@@ -149,7 +149,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
     }
   }
   else{
-    $strArrayTypeGloablAssocs['forum'] = 'No forums available in this category';
+    $strArrayTypeGlobalAssocs['forum'] = 'No forums available in this category';
   }
   $objForumTypeGlobalTemplate->assign($strArrayTypeGlobalAssocs);
   $objForumTypeGlobalTemplate->parse();
