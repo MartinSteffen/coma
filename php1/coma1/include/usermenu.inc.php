@@ -1,3 +1,13 @@
+<?php
+/**
+ * @version $Id$
+ * @package coma1
+ */
+/***/
+if (!defined('IN_COMA1')) {
+  exit('Hacking attempt');
+}
+
 $objPerson = $myDBAccess->getPerson(session('uid'));
 
 $menu = new Template(TPLPATH.'usermenu.tpl');
@@ -45,3 +55,5 @@ if ($objPerson->hasRole(PARTICIPANT)) {
 }
 
 $menu->assign($strMenuAssocs);
+
+?>
