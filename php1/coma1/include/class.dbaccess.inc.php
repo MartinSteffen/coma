@@ -272,7 +272,7 @@ class DBAccess {
     if (!empty($data)) {
       $objAuthor = $this->getPerson($data[0]['author_id']);
       $strAuthor = $objAuthor->getName();
-      $fltAvgRating = $this->getAverageRatingOfPaper($data[0]['id']);
+      $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
       // Co-Autoren
       $s = 'SELECT  coauthor_id'.
           ' FROM    IsCoAuthorOf AS i'.
@@ -280,6 +280,7 @@ class DBAccess {
           ' ON      p.id = i.person_id'.
           ' WHERE   paper_id = '.$intPaperId;
       $cadata = $this->mySql->select($s);
+      $intCoAuthorIds = $strCoAuthors = false;
       if (!empty($cadata)) {
         for ($i = 0; $i < count($cadata); $i++) {
           $objCoAuthor = $this->getPerson($cadata[$i]['coauthor_id']);
@@ -287,8 +288,8 @@ class DBAccess {
           $strCoAuthors[$i] = $objCoAuthor->getName();
         }
       }
-      return (new PaperDetailed($intPaperId, $data[$i]['title'], $data[0]['author_id'],
-                $strAuthorName, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
+      return (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
+                $strAuthor, $data[0]['state'], $fltAvgRating, $intCoAuthorIds,
                 $strCoAuthors, $data[0]['abstract'], $data[0]['format'],
                 $data[0]['last_edited'], $data[0]['filename']));
     }
