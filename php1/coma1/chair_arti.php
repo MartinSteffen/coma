@@ -27,9 +27,12 @@ $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] =& $submenue;
 $strMainAssocs['body'] = '';
 $strMenueAssocs['loginName'] = $_SESSION['uname'];
+
 $menue->assign(defaultAssocArray());
 $submenue->assign(defaultAssocArray());
 $mainPage->assign($strMainAssocs);
+$menue->assign($strMenueAssocs);
+
 
 $mainPage->parse();
 $mainPage->output();
