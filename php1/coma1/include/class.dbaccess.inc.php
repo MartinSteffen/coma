@@ -141,6 +141,7 @@ class DBAccess {
         ' WHERE   id = '.$intPersonId;
     $data = $this->mySql->select($s);
     if ($data) {
+      echo('Echo... Echo...');
       $s = 'SELECT  role_type'.
           ' FROM    Role'.
           ' WHERE   person_id = '.$data[0]['id'];
@@ -157,7 +158,6 @@ class DBAccess {
                 $data[0]['city'], $data[0]['postal_code'], $data[0]['state'],
                 $data[0]['country'], $data[0]['phone'], $data[0]['fax']));
     }
-    echo('Else');
     return false;
   }
 
