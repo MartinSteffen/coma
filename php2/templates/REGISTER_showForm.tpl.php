@@ -2,7 +2,6 @@
 include("header.tpl.php");
 $input = d("register");
 ?>
-<link rel="stylesheet" href="style.css" type="text/css">
 
 <table width="576" border="0" cellspacing="0" cellpadding="0">
   <tr>
