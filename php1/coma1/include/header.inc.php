@@ -48,6 +48,7 @@ function redirect($strName) {
  * @return array Das geforderte Array
  */
 function defaultAssocArray() {
+  global $mySession;
   return array(
                'path' => TPLURL, 
                'SID'  => $mySession->getUrlId()
