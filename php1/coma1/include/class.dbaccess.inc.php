@@ -459,7 +459,7 @@ class DBAccess {
       return (new Review($data[0]['id'], $data[0]['paper_id'],
                 $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),                
                 getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
-                $objReviewer->strEmail, $objReviewer->getName());
+                $objReviewer->strEmail, $objReviewer->getName()));
     }
     return $this->error('getReviewDetailed '.$this->mySql->getLastError());
   }
