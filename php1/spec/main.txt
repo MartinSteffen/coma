@@ -196,31 +196,33 @@ voneinander zu trennen.
   2. DAS DATENMODELL (SQL)
 ============================================================================
 
-1.) Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
-    dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
-    die Datenbank wie folgt für uns anpasst:
+2.1 Tabelle Session
+Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
+dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
+die Datenbank wie folgt für uns anpasst:
 
-   - Tabelle Session wird hinzugefügt:
-   **************************************************
-   --
-   -- Tabellenstruktur für Tabelle 'Session'
-   -- sid normalerweise 128 oder 160
-   --
-   CREATE TABLE IF NOT EXISTS Session (
-     sid VARCHAR(255) NOT NULL DEFAULT '',
-     sname VARCHAR(25) NOT NULL DEFAULT '',
-     sdata TEXT,
-     stime TIMESTAMP(14) NOT NULL,
-     PRIMARY KEY  (sid, sname),
-     KEY stime (stime)
-   ) TYPE=MyISAM COMMENT='Session-Verwaltung';
-   **************************************************
+- Tabelle Session wird hinzugefügt:
+**************************************************
+--
+-- Tabellenstruktur für Tabelle 'Session'
+-- sid normalerweise 128 oder 160
+--
+CREATE TABLE IF NOT EXISTS Session (
+  sid VARCHAR(255) NOT NULL DEFAULT '',
+  sname VARCHAR(25) NOT NULL DEFAULT '',
+  sdata TEXT,
+  stime TIMESTAMP(14) NOT NULL,
+  PRIMARY KEY  (sid, sname),
+  KEY stime (stime)
+) TYPE=MyISAM COMMENT='Session-Verwaltung';
+**************************************************
 
-2.)Die Tabelle Role enthält role_types mit folgenden Bedeutungen:
-   3 chair
-   2 reviewer
-   1 autor
-   0 teilnehmer  
+2.2 Tabelle Role
+Die Tabelle Role enthält role_types mit folgenden Bedeutungen:
+  3 chair
+  2 reviewer
+  1 autor
+  0 teilnehmer  
 
 
 
