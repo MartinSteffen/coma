@@ -70,17 +70,22 @@ public class DeleteServiceImpl extends Service implements DeleteService {
 		return executeQuery(QUERY);
 	}
 	
+	public SearchResult deleteRating(int reviewer_id,int criterion_id) {
+		final String QUERY = "DELETE FROM Rating WHERE review_id = "+reviewer_id+" AND criterion_id = "+criterion_id ; 
+		return executeQuery(QUERY);
+	}
+	
 	public SearchResult deletePreferedTopic(int person_id, int topic_id) {
 		String QUERY = "DELETE FROM  PreferedTopic WHERE Person_id = "+person_id
 			+ " AND topic_id = "+ topic_id;
 		return executeQuery(QUERY);
 	}
 	public SearchResult deleteRating(int reviewreport_id) {
-		String QUERY = "DELETE FROM rating WHERE review_id  = "+reviewreport_id;
+		String QUERY = "DELETE FROM Rating WHERE review_id  = "+reviewreport_id;
 		return executeQuery(QUERY);
 	}
 	public SearchResult deleteReviewReportByReviewerId(int reviewer_id){
-		String QUERY = "DELETE FROM reviewreport WHERE reviewer_id = "+reviewer_id;
+		String QUERY = "DELETE FROM Reviewreport WHERE reviewer_id = "+reviewer_id;
 		return executeQuery(QUERY);
 	}
 }
