@@ -89,6 +89,8 @@ require_once(INCPATH.'class.papersimple.inc.php');
 require_once(INCPATH.'class.person.inc.php');
 require_once(INCPATH.'class.personalgorithmic.inc.php');
 require_once(INCPATH.'class.persondetailed.inc.php');
+require_once(INCPATH.'class.review.inc.php');
+require_once(INCPATH.'class.reviewdetailed.inc.php');
 require_once(INCPATH.'class.topic.inc.php');
 
 /**
