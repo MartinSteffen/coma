@@ -52,7 +52,7 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, &$myDBAccess){
+function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, $assocArray, &$myDBAccess, $fshow){
   if (DEBUGMODE){
     //echo('forums: ' . count($forums) . '<br>');
   }
@@ -155,13 +155,19 @@ function buildForumtemplates(&$forums, $forumselection, $msgselection, $select, 
   }
   $forumtypeopen->assign($typeopenassocs);
   $forumtypeopen->parse();
-  $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypeopen->getOutput();
+  if (($fshow = 0) || ($fshow = 1)){
+    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypeopen->getOutput();
+  }
   $forumtypepaper->assign($typepaperassocs);
   $forumtypepaper->parse();
-  $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypepaper->getOutput();
+  if (($fshow = 0) || ($fshow = 3)){
+    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypepaper->getOutput();
+  }
   $forumtypechair->assign($typechairassocs);
   $forumtypechair->parse();
-  $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypechair->getOutput();
+  if (($fshow = 0) || ($fshow = 2)){
+    $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypechair->getOutput();
+  }
   return $assocArray;
 }
 
@@ -466,6 +472,15 @@ else{
       $_SESSION['forum_forumselect'] = $temp;
     }
   }
+  if (!empty($HTTP_GET_VARS['showforums'])){
+    $temp = $HTTP_GETVARS['showforums'];
+    if (($temp >= 0) && ($temp <= 3)){
+      $_SESSION['showforums'] = $temp;
+    }
+  }
+  else{
+    $_SESSION['showforums'] = 0;
+  }
 
   $ffs = session('forum_forumselect', false);
   if (emptystring($ffs)){
@@ -484,7 +499,14 @@ else{
     $sel = '';
   }
 
-  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $myDBAccess);
+  if (emptystring(session('showforums', false))){
+    $fshow = 0;
+  }
+  else{
+    $fshow = session('showforums', false);
+  }
+
+  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $myDBAccess, $fshow);
   if (DEBUGMODE){
     //echo($contentAssocs['forumtypes']);
     //echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
