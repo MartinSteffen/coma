@@ -115,7 +115,7 @@ elseif ($STEP == 1){
   echo "          <tr><td>SQL-Database: </td><td><input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\" value=\"$sqlDatabase\"></td></tr>\n";
   echo "          <tr><td colspan=\"2\"><input type=\"submit\" name=\"submit\" value=\"generate Config\"> <input type=\"submit\" name=\"downloadconfig\" value=\"Download Config File generated below\"></td></tr>\n";
   echo "        </table>\n";
-  echo "        <input type=\"hidden\" value=\"". base64_encode($confFile)."\">
+  echo "        <input type=\"hidden\" name=\"base64encoded\" value=\"". base64_encode($confFile)."\">\n";
   echo "      </form>\n";
 
   echo "    <p class=\"menu\">\n";
