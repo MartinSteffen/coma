@@ -219,6 +219,16 @@ function toggle(id)
 						  </table>
 					    </td>
 					  </tr>
+					  <tr>
+					    <td>
+						  <table width="230" border="0" cellspacing="0" cellpadding="0">
+  							<tr>
+							    <td align="right" valign="middle" width="30"><img src="templates/images/arrow.gif" width="30" height="17"></td>
+							    <td class="menus"><a href="index.php?m=reviewer&a=denied" class="menus">My denied papers</a></td>
+						    </tr>
+						  </table>
+					    </td>
+					  </tr>
 	            <?
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
 			   }}}
@@ -258,7 +268,7 @@ function toggle(id)
 			   }}} ?>
                       <tr>
                         <td class="menus">&nbsp;</td>
-                      </tr>	   					  					  
+                      </tr>
                       <tr>
                         <td class="menus"><a href="index.php?m=forum" class="menus">Forum</a></td>
                       </tr>
@@ -306,7 +316,7 @@ function toggle(id)
 						  </table>
 					    </td>
 					  </tr>
-					  
+
 	            		<?
 				}
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
