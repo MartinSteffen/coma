@@ -19,13 +19,13 @@ require_once(INCPATH.'class.conferencedetailed.inc.php');
 
 
 // Globale Konstanten (nach aussen; auch im CSS benutzt!)
-define('ASSIGNED', 0); // Paper
+define('ASSIGNED',  0); // Paper
 define('SUGGESTED', 1); // Paper
-define('NEUTRAL', 2); // Topic
-define('PREFERS', 3); // Topic
-define('WANTS', 4); // Paper
-define('DENIES', 5); // Paper
-define('EXCLUDED', 6); // Paper
+define('NEUTRAL',   2); // Topic
+define('PREFERS',   3); // Topic
+define('WANTS',     4); // Paper
+define('DENIES',    5); // Paper
+define('EXCLUDED',  6); // Paper
 
 
 /**
