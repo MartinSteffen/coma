@@ -5,11 +5,15 @@
   <tr class="viewheader">
     <th class="viewheader" colspan="{cols}">Review report for '{title}' by {author_name}:</th>    
   </tr>
-  <tr class="viewheader">
-    <th class="viewheader">&nbsp;</th>   
+  <tr class="viewline">
+    <th class="viewline" colspan="{cols}">The papers is currently reviewed by
+    <span class="emph">{reviews_num}</span> reviewers.
+  </tr>
+  <tr class="viewline">
+    <tr class="viewline">&nbsp;</tr>
     {crit_cols}
-    <th class="viewheader">Total rating:</th>
-    <th class="viewheader">&nbsp;</th>
+    <tr class="viewline">Total rating:</tr>
+    <tr class="viewline">&nbsp;</tr>
   </tr>
   {review_lines}
 </table>
