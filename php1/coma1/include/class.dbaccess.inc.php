@@ -1504,7 +1504,7 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     for ($i = 0; $i < count($objConferenceDetailed->objTopics); $i++) {
-      $objTopic = $objConferenceDetailed->objTopic[$i];
+      $objTopic = $objConferenceDetailed->objTopics[$i];
       $s = "UPDATE  Topic".
           " SET     name = '$objTopic->strName'".
           " WHERE   id = '$objTopic->intId'";
