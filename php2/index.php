@@ -1,4 +1,7 @@
 <?php
+
+	error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
 include("includes/config.inc.php");
 if(is_dir("install/")){
 	if(COMA_INSTALLED){
