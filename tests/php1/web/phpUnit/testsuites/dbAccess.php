@@ -80,7 +80,7 @@ class ComaExample extends PHPUnit_TestCase
         $this->assertEquals($myDBAccess->getUsersOfConference(200, 2),$myDBAccess->getUsersOfConference(200, 1));
   }
 
-  function test_getUsersOfConference() {
+  function test_getUsersOfConference2() {
         	global $myDBAccess;
           $this->assertNotSame($myDBAccess->getUsersOfConference(1, 1),$myDBAccess->getUsersOfConference(1, 2));
   }
