@@ -27,9 +27,9 @@ function bit($b) {
 
 echo('<br>');
 
-$v = '\%';
-$s = sprintf("String: %s, Integer: %d, Float: %f, Böser String: %s",
-             $myDBAccess->s2db('string'),
+$v = '%d';
+$s = sprintf("String: %s, Integer: %d, Float: %f",
+             $myDBAccess->s2db("[$v\$v]"),
              $myDBAccess->s2db(35),
              $myDBAccess->s2db(4.2464),
              $myDBAccess->s2db($v));
