@@ -80,7 +80,6 @@ class DBAccess {
   /**
    */
   function getAllConferences() {
-    // hier ein temporaerer Kommentar, um RapidSVN zu testen :-)
     return true;
   }
 
