@@ -14,8 +14,21 @@ if (!defined('INCPATH')) {
 
 /* =============================================================================
 WICHTIGE NEUIGKEITEN 14.01.05 / 18.01.05:
+(auch als Notizen gedacht)
 -----------------------------------------
-- Objekt PersonAlgorithmic hinzugefuegt; entsprechende DBAccess-Methonden
+- Updatemethoden mit sprintf und s2db (aus lib.inc.php) ausgestattet.
+  Bitte analog verfahren!
+- Ich knoepfe mir als naechstes mal die Addmethoden vor (sprintf/s2db); fuer
+  diese ist das obligatorisch wie fuer die Uploadmethoden!
+  Bei den Getmethoden muessen MINDESTENS diejenigen, die direkt auf
+  Nutzereingaben ueber Editierfelder angesprochen werden, ebenso mit
+  sprintf/s2db abgesichert werden (z.B. bei Anfrage nach Mailadresse xyz'"@$_\).
+  Der Vollstaendigkeit halber waere es schoen, auch die restlichen Getmethoden
+  sowie die Deletemethoden mit sprintf/s2db zu versehen, aber das ist nur
+  ZUCKER.
+- Objekt PersonAlgorithmic hinzugefuegt; entsprechende DBAccess-Methonden.
+
+Vom 14.01.:
 - Bitte bei ALLEN Datentypen (nicht nur Strings) in SQL-Statements immer
   Anfuehrungszeichen verwenden, weil sonst leere Integer (=false) als Nullstring
   in den SQL-String eingesetzt werden mit der Folge, dass Anfragen wie
@@ -1732,7 +1745,6 @@ nur fuer detaillierte?
         $s = sprintf("INSERT   INTO IsAboutTopic (paper_id, topic_id)".
                      " VALUES  ('%d', '%d')",
                      s2db($intId), s2db($objTopics[$i]->intId));
-        echo($s);
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
