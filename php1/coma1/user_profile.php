@@ -93,7 +93,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] == 'update')) {
   }
 }
 // Account deaktivieren
-if (isset($_POST['delete')) {
+if (isset($_POST['delete'])) {
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['confirm_delete'])) {
     $strMessage = 'You have to check the deactivate confirm option!';
