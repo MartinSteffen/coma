@@ -1,0 +1,183 @@
+Moin
+
+Answesend: dünner besetzt als sonst, Marcel + Gunnar abwesend, bis auf die
+Testgruppe war aber von jeder Gruppe einer da.
+-----
+
+2 Punkte hatte ich vorher in der Rundmail (unten angehaengt) angerissen,
+die dringend sind und die sich auch aus der gef"uhlten Sachlage auf dem
+Board ergaben.
+
+
+        - Kommunikation 
+
+            wesentliche Punkte hatte ich getippt, kopiert, und ausgeteilt
+            (Vor und nachteile einzelner Kommunikationsformen und wo ich
+            Probleme sehe.) Ich wiederhole sie nicht alle, stelle sie
+            jedoch (bald) ins Netz als Handout
+
+
+            Punkte, die in der Diskussion aufkamen, waren:
+
+             > Board bleibt ``optional, nicht verplichtend'' =>
+                Allgemeine Entscheidungen koennen auf dem Board
+                nicht verpflichtend getroffen werden.
+
+             > emails "uber swprakt+coma bleibt verpflichtend (zur
+               Kenntnisname/Reaktion etc) momentan droht anscheinend auch
+               auf diesem Kanal keine Reizuberflutung wie (eventuell) auf
+               BB
+
+
+             > Die Punkte, die ich auf dem Zettel niedergeschrieben hatte,
+               schienen nicht gross zum Widerspruch zu reizen 
+               
+        
+
+        - SQL/Datenmodell: Das war kontroverser. Wie in der Vorankuendigung
+              angemerkt: Zeit fuer Entscheidungen.
+
+              Es lagen mehrere Entwuerfe auf dem Tisch: Tabelle, Tabelle-2,
+              Tabelle-3 die UML-Spec, SQL-Modelle, alle etwas
+              unterschiedlich und dazu die Threads auf BB und die
+              Tatsache, dass manche der Tabellen bereits auf eine bewegte
+              Geschichte zurueckblicken (rein-raus-rein-raus....) 
+
+             Im wesentlichen war Sandros Modell + Gunnars Anmerkungen
+             ber"ucksichtigt (die beide auch bei den konkurrierenden
+             Vorentwuerfen Anteil hatten), ferner Anmerkungen von Stragalis
+             (?). 
+
+             Ferner wurde abgestimmt "uber den Dauerbrenner: Ids: ja oder
+             nein, die Mehrheit derer, die eine Meinung hatten, waren
+             dafuer => also wieder zureuck.
+
+
+          Fazit: er wurde das Model ein weiteres Mal umgeknetet, es wurden
+                 wenn ich mich recht errinere sogar eine inhaltliche Erweiterung
+                 durchgek"ampft (eine Person kann in mehreren Konferenzen sein)
+              
+                 Wie dem auch sein: nach turbulenter Diskussion: Sandro +
+                 Gunnar legen das nun fest, was an der Tafel war (Sandro
+                 hat sich sogar angeboten, das in UML/Jude zu mache (prima)).
+                 Sandro setzt sich gleich hin, Gunnar hat erst heute abend
+                 Zeit, und das war's dann, so Gott will....
+
+
+
+                => alle Varianten sind monentan hinf"allig, und werden
+                   durch die von Gunnar und Sandro bereitgestellten (in der
+                   Runde oberfl"achlich diskutierten) ersetzt.
+
+                   Speziell die SQL variante ist momentan nicht wichtig,
+                   bis dass die Loesung festgehalten ist.
+
+                   _Danach_ wird sie nachgezogen, wie auch die UML-Spec
+                   in dem allgemeinen Dokumentation.
+
+
+======
+
+Vorankuendigung vom Montag:
+
+
+
+Hier vorl"aufige Dinge die morgen zu besprechen sind (eventuell f"allt mir
+noch was neues heute abend ein).
+
+
+- Morgen sind Gunnar und Marcel nicht da.
+
+- Ich habe die Diskussionsforen gescannt (heute abend
+        etwas genauer wenn ich noch mich konzentrieren kann...)
+
+   die dr"angesten Probleme/schlimmsten Gefarhen momentan sind 
+
+        > abstrakte Gefahr: da"s es aus der Spur l"auft. das sieht man an
+       den verschiedenen Gespr"achsthemen im BB, sei es dass es
+       ``inhaltlich'' hin- und her geht (Tom merkte an, es fuehre zu
+       nicht. Ich sehe das nicht so hart, aber wir mussen in der Tat
+       schauen, das wir auf Spur bleiben) oder das die Kommunikation nicht
+       ganz so klappt.
+
+       > konretes Problem: Datenmodell
+
+
+
+   Die Frage w"are: wie begegnen wir dem? Das brennendste konkrete Problem,
+       wo wir Einigung erziehlen mussen ist: das mit SQL.
+
+    Meiner Meinung nach: vielleicht ist das Board + Bugzilla etc) dafuer
+       nicht das geeignete mittel, wir muessen wir uns die Zeit nehmen,
+       alle SQL-Interessenten zusammenzusitzen und die verbleibenden
+       Problem ausmerzen (und gut ist es). Wir sollten also einen Termin
+       machen, es sei denn wir koennen morgen die verbleibenden Probleme
+       ausmerzen. Danach traegt eine (und es sieht danach aus, als sei
+       dafuer das Los auf Mohamed gefallen....) die Anderungen ein und gut.
+
+        Ohne auf die Details einzugehen, wie aus meiner Sicht der Stand ist
+        (Int vs. BitArray etc), sieht die Sachlage so aus, da"s wir unter
+
+            sql/*
+
+        3 Vorschlaege haben (und dazu noch das Datenmodell der
+        Spezifikation) und dazu, wenn man das auch z"ahlen will, offene
+        Diskussionpunkte auf dem BB.
+
+        --
+
+
+Insofern sollten wir uns auf die 2 Dinge vorrangig st"urzen. 
+
+
+Die abstrakte Gefahr betrifft aber nicht nur SQL, auch die Gruppenarbeit
+allgemein. Mit der Javagruppe wollen wir einen gemeinsamen
+Diskussion-Termin machen (das hilft uns die "Ubersicht zu behalten, das
+hilft (eventuell) denen...)  Aber das ist nicht auf die Javagruppe
+beschr"ankt. "Ahnliches k"onnen wir auch mit den anderen Gruppen machen
+wenn der Wunsch danach ist.
+
+Besprechungen kosten zeit (auch uns) aber ich habe den Verdacht, da"s es
+manchmal effizienter ist (speziell in dieser Phase) als unendliches
+Verfolgen der Threads etc)
+
+----
+
+Wie man sieht, viel konkrete Punkte ausser das mit SQL/Kommunikation ist
+mir bis jetzt f"ur morgen nicht eingefallen... Aber sie sind wichtig
+nichtsdestoweniger.
+
+
+
+
+
+
+      
+
+
+
+
+
+
+        
+
+
+
+               
+
+
+ 
+
+
+        
+
+
+                 
+
+        
+
+
+
+              
+ 
+             
