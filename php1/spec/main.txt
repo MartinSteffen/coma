@@ -310,11 +310,11 @@ Alternativ gibt es für Templates die Kosntante {SID} (siehe Templates 1.4)
   +---------------------------------------------------------------------+
   | Variable               | Funktion                                   |
   +------------------------+--------------------------------------------+
-  |  $_SESSION['uname']    | der Benutername
-  |  $_SESSION['uid']      | die ID des Benutzers
-  |  $_SESSION['password'] | das (verschlüsselte) Passwort
-  |  $_SESSION['confid']   | die ID der Konferenz
-  |  $_SESSION['message']  | eine Nachricht
+  |  $_SESSION['uname']    | der Benutername                            |
+  |  $_SESSION['uid']      | die ID des Benutzers                       |
+  |  $_SESSION['password'] | das (verschlüsselte) Passwort              |
+  |  $_SESSION['confid']   | die ID der Konferenz                       |
+  |  $_SESSION['message']  | eine Nachricht                             |
   +---------------------------------------------------------------------+
 
 Bei der Nachricht handelt es sich um eine Nachricht die von einem Skript 

@@ -47,7 +47,6 @@ function redirect($strName) {
  * Die Funktion gibt ein Array mit Standard-Zuweisungen fuer
  * Templates zurueck!
  *
- * @subpackage template
  * @return array Das geforderte Array
  */
 function defaultAssocArray() {
@@ -69,7 +68,6 @@ function defaultAssocArray() {
  * Ist jedoch Parameter $blnRedirect==false, so wird stattdessen '' 
  * geliefert.
  *
- * @subpackage Session
  * @param string $strName Der Name der Variablen.
  * @param bool $blnRedirect Soll eine Weiterleitung stattfinden
  * @return string Wert der Variablen
@@ -87,11 +85,10 @@ function session($strName, $blnRedirect=true) {
 }
 
 /**
- * Löschen von Session-Variablen
+ * Loeschen von Session-Variablen
  *
  * Diese Funktion löscht eine Sessionvariable aus dem Speicher
  *
- * @subpackage Session
  * @param string $strName Der Name der Variablen.
  */
 function session_delete($strName) {
@@ -139,7 +136,7 @@ $myDBAccess = new DBAccess($mySql);
 checkError($myDBAccess);
 // End Standard Klassen
 
-// CoMa Konstanten
+/**#@+ Konstanten fuer die Rollenverteilung */
 define('CHAIR',       2);
 define('REVIEWER',    3);
 define('AUTHOR',      4);
@@ -149,7 +146,7 @@ $strRoles = array(CHAIR       => 'Chair',
                   REVIEWER    => 'Reviewer',
                   AUTHOR      => 'Author',
                   PARTICIPANT => 'Participant');
-// End CoMa Konstanten
+/**#@-*/
 
 // Check, ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 // Stellt ausserdem sicher, dass uname und password nur genau dann gesetzt sind,
