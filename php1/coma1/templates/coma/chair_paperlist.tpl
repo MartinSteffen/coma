@@ -1,10 +1,10 @@
 <table class="list">
   <tr class="listheader">
-    <th width="25%" class="listheader"> Articlename      </th> 
+    <th width="25%" class="listheader"> Title            </th> 
     <th width="25%" class="listheader"> Author           </th> 
-    <th width="25%" class="listheader"> State            </th>
+    <th width="25%" class="listheader"> Status           </th>
     <th width="25%" class="listheader"> Abstact          </th>
-    <th width="25%" class="listheader"> Change State     </th>
+    <th width="25%" class="listheader"> Change Status    </th>
   </tr>
 
   <tr class="ft-tr"> 

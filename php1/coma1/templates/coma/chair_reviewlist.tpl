@@ -1,7 +1,7 @@
 
 <table class="list">
   <tr>
-    <td> distibute as 'distribute' marked articles </td> 
+    <td> distibute articles which are marked 'distribute'</td> 
     <td>
        <form action="" method="post">
        <input type="hidden" name="confid" value="{confid}" />
@@ -14,9 +14,9 @@
 
 <table class="list">
   <tr class="listheader">
-    <th width="20%" class="listheader"> Articlename      </th> 
+    <th width="20%" class="listheader"> Title            </th> 
     <th width="20%" class="listheader"> Author           </th> 
-    <th width="20%" class="listheader"> State            </th>
+    <th width="20%" class="listheader"> Status           </th>
     <th width="20%" class="listheader"> Rating           </th>
     <th width="20%" class="listheader"> Destribution     </th>
    </tr>
