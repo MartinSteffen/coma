@@ -1809,12 +1809,47 @@ nur fuer detaillierte?
   }
 
   /**
-   * @todo (macht Tom)
+   * Aktualisiert die bevorzugten Paper der Person $objPersonAlgorithmic bei der
+   * Konferenz mit ID $intConferenceId.
+   *
+   * @param PersonAlgorithmic $objPersonAlgorithmic Die Person.
+   * @param int $intConferenceId Konferenz-ID.
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access private
+   * @author Tom (18.01.05)
    */
-  function updatePreferredPapers($objPersonAlgorithmic) {
+  function updatePreferredPapers($objPersonAlgorithmic, $intConferenceId) {
     if (!($this->is_a($objPersonAlgorithmic, 'PersonAlgorithmic'))) {
       return $this->success(false);
+    }
+    if (empty($intConferenceId)) {
+      return $this->success(false);
+    }
+    $intPersonId = $objPersonAlgorithmic->intId;
+    // Papers loeschen...
+    // (umstaendlich, weil bei dieser MySQL-Version kein Join im DELETE erlaubt ist)
+    $objPapers = $this->getPreferredPapers($intPersonId, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('updatePreferredPapers', $this->getLastError());
+    }
+    for ($i = 0; $i < count($objPapers); $i++) {
+      $this->deletePrefersTopic($intPersonId, $objPapers[$i]->intId);
+      if ($this->failed()) {
+        return $this->error('updatePreferredPapers', $this->getLastError());
+      }
+    }
+    if (empty($objPersonAlgorithmic->objPreferredPapers)) {
+      return $this->success();
+    }
+    $objPapers = $objPersonAlgorithmic->objPreferredPapers;
+    // Topics einfuegen...
+    for ($i = 0; $i < count($objPapers); $i++) {
+      if (!empty($objPapers[$i])) {
+        $this->addPrefersPaper($intPersonId, $objPapers[$i]->intId);
+        if ($this->failed()) {
+          return $this->error('updatePreferredPapers', $this->getLastError());
+        }
+      }
     }
     return $this->success();
   }

@@ -40,6 +40,11 @@ $myDBAccess->updatePreferredTopics($p, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
+$myDBAccess->updatePreferredPapers($p, 5);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+
 echo ('<br><br>Pref. Topics:');
 for ($i = 0; $i < count($p->objPreferredTopics); $i++) {
   echo ('<br>'.$p->objPreferredTopics[$i]->intId.' / '.$p->objPreferredTopics[$i]->strName);
