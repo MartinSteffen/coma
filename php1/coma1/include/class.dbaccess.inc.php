@@ -1387,21 +1387,7 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (27.02.05)
    * @todo Zu klaeren: Duerfen Reviewer zu allen Foren Zugang haben?
    */
-  function checkAccessToForum($intPersonId, $intForumId) {
-    $objForum = $this->getForum($intForumId);
-    if ($this->failed()) {
-      return $this->error('checkAccessToForum', $this->getLastError());
-    }
-    else if (empty($objForum)) {
-      return $this->error('checkAccessToForum', 'Forum does not exist in database.');
-    }
-    $objPerson = $this->getPerson($intPersonId, $objForum->intConferenceId);
-    if ($this->failed()) {
-      return $this->error('checkAccessToForum', $this->getLastError());
-    }
-    else if (empty($objPerson)) {
-      return $this->error('checkAccessToForum', 'Person does not exist in database.');
-    }
+  function checkAccessToForum($objPerson, $objForum) {    
     $blnAccess = false;    
     if ($objForum->intForumType == FORUM_PUBLIC) {
       if ($objPerson->hasAnyRole()) {
