@@ -1781,16 +1781,16 @@ nur fuer detaillierte?
     }
     $intPersonId = $objPersonAlgorithmic->intId;
     // Topics loeschen...
-    $s = "DELETE  PrefersTopic".
-        " FROM    PrefersTopic AS pt".
-        " INNER   JOIN Topic AS t".
-        " ON      t.id = pt.topic_id".
-        " AND     t.conference_id = '$intConferenceId'".
-        " WHERE   person_id = '$intPersonId'";
-    echo("<br>$s<br>");
-    $this->mySql->delete($s);
-    if ($this->mySql->failed()) {
-      return $this->error('updatePreferredTopics', $this->mySql->getLastError());
+    // (umstaendlich, weil bei dieser MySQL-Version kein Join im DELETE erlaubt ist)
+    $objTopics = $this->getPreferredTopics($intPersonId, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('updatePreferredTopics', $this->getLastError());
+    }
+    for ($i = 0; $i < count($objTopics); $i++) {
+      $this->deletePrefersTopic($intPersonId, $objTopics[$i]->intId);
+      if ($this->failed()) {
+        return $this->error('updatePreferredTopics', $this->getLastError());
+      }
     }
     if (empty($objPersonAlgorithmic->objPreferredTopics)) {
       return $this->success();
@@ -1798,11 +1798,9 @@ nur fuer detaillierte?
     $objTopics = $objPersonAlgorithmic->objPreferredTopics;
     // Topics einfuegen...
     for ($i = 0; $i < count($objTopics); $i++) {
-      $s = "INSERT  INTO PrefersTopic (person_id, topic_id)".
-          "         VALUES ('$intPersonId', '".$objTopics[$i]->intId."')";
-      $this->mySql->insert($s);
-      if ($this->mySql->failed()) {
-        return $this->error('updatePreferredTopics', $this->mySql->getLastError());
+      $this->addPrefersTopic($intPersonId, $objTopics[$i]->intId);
+      if ($this->failed()) {
+        return $this->error('updatePreferredTopics', $this->getLastError());
       }
     }
     return $this->success();
