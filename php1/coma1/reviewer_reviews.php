@@ -27,7 +27,7 @@ if (!empty($objReviews)) {
   foreach ($objReviews as $objReview) {
     $ifArray = array();
     $strItemAssocs['line_no'] = $lineNo;
-    $strItemAssocs['review_id'] = encodeText($objReview->intId));
+    $strItemAssocs['review_id'] = encodeText($objReview->intId);
     $strItemAssocs['paper_id'] = encodeText($objReview->intPaperId);
     $strItemAssocs['title'] = encodeText($objReview->strPaperTitle);
     $strItemAssocs['author_id'] = encodeText($objReview->intAuthorId);
