@@ -25,8 +25,7 @@ else if (!$checkRole) {
 }
 
 if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
-  if (!isset($_SESSION['dist']) || !isset($_SESSION['dist_check']) ||
-      !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
+  if (!isset($_SESSION['dist']) || !isset($_SESSION['dist_check']) || !isset($_POST['dist_check']) || isset($_POST['dismiss'])) {
     unset($_SESSION['dist']);
     unset($_SESSION['dist_check']);
     redirect('chair_reviews.php');
