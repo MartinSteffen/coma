@@ -114,12 +114,12 @@ a.list:active  { color: #000000; }
 a.list:hover   { color: #2F2F2F; }
 
 /* Meldungen */
-p.message-ok { width: 60%; color: #FF2600; background-color: #FFF0E0;
+p.message { width: 60%; color: #FF2600; background-color: #FFF0E0;
             border: 1px solid #A00000; margin: 6px 10px; padding: 4px 12px;
             font-size: 13px; font-weight: bold; text-align: center;
           }
 
-p.message   { width: 60%; color: #20A028; background-color: #E0FFF0;
+p.message-ok { width: 60%; color: #20A028; background-color: #E0FFF0;
                border: 1px solid #80A080; margin: 6px 10px; padding: 4px 12px;
                font-size: 13px; font-weight: bold; text-align: center;
              }
