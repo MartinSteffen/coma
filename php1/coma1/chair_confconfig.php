@@ -239,7 +239,7 @@ else {
   $strContentAssocs['crit_descr']     = '';
   $strContentAssocs['crit_weight']    = '';
   for ($i = 0; $i < count($objConference->objCriterions); $i++) {
-    $strContentAssocs['criterionsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intID);
+    $strContentAssocs['criterionsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intId);
     $strContentAssocs['criterions']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strName);
     $strContentAssocs['crit_descr']  .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->strDescription);
     $strContentAssocs['crit_max']    .= (($i > 0) ? '|' : '').encodeText($objConference->objCriterions[$i]->intMaxValue);
@@ -247,7 +247,7 @@ else {
   }
   $strContentAssocs['topics']         = '';
   for ($i = 0; $i < count($objConference->objTopics); $i++) {
-    $strContentAssocs['topicsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objTopics[$i]->intID);
+    $strContentAssocs['topicsID'] .= (($i > 0) ? '|' : '').encodeText($objConference->objTopics[$i]->intId);
     $strContentAssocs['topics'] .= (($i > 0) ? '|' : '') . encodeText($objConference->objTopics[$i]->strName);
   }
   $strContentAssocs['num_topics']     = encodeText(count($objConference->objTopics));
