@@ -1,4 +1,4 @@
-USE comadb;
+USE coma2;
 DROP TABLE IF EXISTS conference
 ;
  CREATE TABLE conference ( id int(11) NOT NULL auto_increment, name varchar(127) NOT NULL default '', homepage varchar(127) default NULL, description text, abstract_submission_deadline date default NULL, paper_submission_deadline date default NULL, review_deadline date default NULL, final_version_deadline date default NULL, notification date default NULL, conference_start date default NULL, conference_end date default NULL, min_reviews_per_paper int(11) default NULL, PRIMARY KEY (id) ) TYPE=InnoDB
