@@ -12,18 +12,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.xml.transform.stream.StreamSource;
 
 
 import coma.entities.Person;
-import coma.handler.db.InsertService;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.util.EntityCreater;
 import coma.servlet.util.XMLHelper;
 
 /**
- * @author atx
+ * @author mti
  * @version 0.1
  * 
  * Sverlet to subscribe for a conference as a participant 
@@ -86,7 +84,7 @@ public class Subscribe  extends HttpServlet {
 		}
 		
 		result.append("</subscribe>\n");
-		response.setContentType("text/html; charset=ISO-8859-15");
+		response.setContentType("text/html; charset=ISO-8859-1");
 		StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 		StreamSource xsltSource = new StreamSource(xslt);
 		XMLHelper.process(xmlSource, xsltSource, out);
