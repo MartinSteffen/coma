@@ -58,8 +58,8 @@ $strContentAssocs['targetpage'] = 'user_papers.php';
 $strContentAssocs['if']         = $ifArray;
 $strContentAssocs['lines']      = '';
 $strContentAssocs['&option']    = '';
-$strContentAssocs['&option']   .= ($showAuthorPapers   ? '&showauthorpapers'   : '');
-$strContentAssocs['&option']   .= ($showAcceptedPapers ? '&showacceptedpapers' : '');
+$strContentAssocs['&option']   .= ($showAuthorPapers   ? '&amp;showauthorpapers'   : '');
+$strContentAssocs['&option']   .= ($showAcceptedPapers ? '&amp;showacceptedpapers' : '');
 $paperCount = 0;
 if (!empty($objPapers)) {
   $lineNo = 1;
