@@ -100,7 +100,7 @@ table.list { border-style: solid;
              padding: 0px;
              background-color: #F7FBFF;
            }
-th.list       { text-align: left; font-size: 12px; padding-left: 10px;
+tr.listheader { text-align: left; font-size: 12px; padding-left: 10px;
                 font-weight: bold; background-color: #DBE9EC; }
 tr.listitem-1 { text-align: left; font-size: 12px; padding-left: 20px;
                 background-color: #F7FBFF; }
