@@ -1248,7 +1248,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
       return $this->success(false);
     }
     // Co-Autoren loeschen...
-    $s = "DELETE  FROM IsCoAuthorOd".
+    $s = "DELETE  FROM IsCoAuthorOf".
         " WHERE   paper_id = '$intId'".
         " AND     person_id IS NOT NULL";
     $this->mySql->delete($s);
