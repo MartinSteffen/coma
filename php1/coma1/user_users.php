@@ -14,7 +14,13 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$objPersons = $myDBAccess->getUsersOfConference(session('confid'));
+if (isset($_GET['order']) || isset($_POST['order'])) {
+  $intOrder = (isset($_GET['order']) ? $_GET['order'] : $_POST['order']);
+}
+else {
+  $intOrder = 0;
+}
+$objPersons = $myDBAccess->getUsersOfConference(session('confid'), $intOrder);
 if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
