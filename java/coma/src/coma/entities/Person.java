@@ -10,6 +10,7 @@ import java.util.*;
 
 import coma.servlet.util.XMLHelper;
 import coma.handler.db.ReadService;
+import coma.handler.impl.db.ReadServiceImpl;
 
 
 /**
@@ -210,8 +211,24 @@ public class Person extends Entity {
 		this.title = title;
 	}
 	
-	public StringBuilder toXML(XMLMODE mode){
+	public Paper[] getPapers() throws Exception{
 		
+		ReadServiceImpl myReadService = new ReadServiceImpl();
+		Paper mySearchPaper = new Paper(-1);
+		mySearchPaper.setAuthor_id(this.id);
+		SearchCriteria mysc = new SearchCriteria();
+		mysc.setPaper(mySearchPaper);
+		SearchResult mySR = myReadService.getPaper(mysc);
+		if (!mySR.isSUCCESS())
+			throw new Exception(mySR.getInfo());
+		else {
+		} 
+		return (Paper[])mySR.getResultObj();
+		
+	}
+	
+	public StringBuilder toXML(XMLMODE mode){
+	
 		switch (mode){
 		case DEEP:
 		    return XMLHelper.tagged("person",

@@ -33,7 +33,7 @@ import coma.servlet.util.XMLHelper;
  */
 public class Author extends HttpServlet {
 	
-	static enum ACTIONS {NULL, SUBMITPAPER, UPDATEPAPER, PROCESSPAPER}; 
+	static enum ACTIONS {NULL, SUBMITPAPER, UPDATEPAPER, PROCESSPAPER, RETRACTPAPER }; 
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, java.io.IOException {
@@ -57,6 +57,9 @@ public class Author extends HttpServlet {
 	
 	String parName;//this will hold the name of the parameter from the HTML form
 	HttpSession session = request.getSession(true);
+	
+	Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
+	
 	String path = getServletContext().getRealPath("");
 	String xslt = path+"/style/xsl/author.xsl";
 	PrintWriter out = response.getWriter();
@@ -66,8 +69,18 @@ public class Author extends HttpServlet {
 	result.append("<author>\n");
 	
 	switch (action) {
-	case NULL: // no action selected
-    	
+	case NULL: // show all his submitted papers
+		/*result.append("<showpaper>\n");
+		try {
+				Paper[] thePapers = theLogedPerson.getPapers();
+				result.append(XMLHelper.tagged("success",""));
+				for(int i=0;i<thePapers.length; i++)
+					result.append(thePapers[i].toXML());
+			} catch (Exception e) {
+				result.append(XMLHelper.tagged("failed",e.toString()));
+			}
+		
+			result.append("</showpaper>\n");*/
     	break;
 	case SUBMITPAPER: // submit form for a paper
 		result.append(XMLHelper.tagged("submitpaper",""));
