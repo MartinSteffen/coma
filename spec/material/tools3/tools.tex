@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage[german]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amssymb}
+
+\begin{document}
+
+\section*{Summary of the tools for CoMa}
+
+
+\section{What is CoMa?}
+CoMa is a Conferencing Manager, which should be implemented as a \\ 
+Server/Client Architecture using HTML.\\
+In this context the following tools are our choice.\\
+\section{The Web Server - Apache}
+http://www.apache.org
+\begin{quote}
+  Pro's:
+  \begin{itemize}
+    \item it costs nothing
+	\item easy to install
+	\item it's fast
+	\item it's easy to configure
+	\item robust
+	\item embedded PHP-Module
+  \end{itemize}
+  Contra's:
+  \begin{itemize}
+    \item costs plenty of ressources
+  \end{itemize}
+\end{quote}
+
+\section{The Database Management System - MySQL}
+http://mysql.com
+\begin{quote}
+  Pro's:
+  \begin{itemize}
+    \item it costs nothing
+	\item easy to install
+	\item it's fast
+	\item easy to configure
+	\item all base SQL elements are supported
+	\item lots of functionalities (like timecount and complete view on datastrukture)
+  \end{itemize}
+  Contra's:
+  \begin{itemize}
+    \item doesn't match all SQL-standards, no one does :P
+	\item limited support of transactions  
+	\item supports no ''Union''-Queries (subselect)
+	\item supports no ''views''
+	\item supports no ''stored procedures''
+	\item supports no ''trigger''
+  \end{itemize}
+\end{quote}
+
+
+\section{The Programming-Language - PHP}
+http://www.php.net\\
+The URL also includes a good overview of all existing php-functions and tutorials.
+\begin{quote}
+  Pro's:
+  \begin{itemize}
+    \item easy to learn (close to c syntax)
+	\item costs nothing
+	\item ditributed freely an easy to install
+	\item special design for WWW-oriented codings
+	\item automated typing (weak typed)
+	\item size of arrays can be dynamically altered at runtime
+	\item easy to use Database-Interface
+	\item less code generating much Output (Output-oriented)
+	\item optional possibility of object oriented coding Style
+	\item build-in web-functions (Sessions, Cookies, Headers)
+	\item \emph{Write-And-Run-Programming} (no compiling, no reboot of server, etc.)
+	\item platformindependent, code is copied in plain text
+  \end{itemize}
+  Contra's:
+  \begin{itemize}
+	\item existing ceiling of Access-Capacity
+	\item security risks:
+	\begin{enumerate}
+	  \item Code is ''plain text''
+	  \item weak typing
+	  \item automated Embedding of GET- and POST-Parametres 
+	  \item vulnerable to denial of service attack
+	\end{enumerate}
+	\item relatively high amount of runtime at complex module architecture
+	\item relatively complicated module architecture at complex modules
+	\item due to weak typing no error messages on wrong use of variables etc
+  \end{itemize}
+\end{quote}
+
+
+\section{Enhancing Software - PHPMyAdmin}
+http://www.sourceforge.net/projects/phpmyadmin/
+\begin{quote}
+  Pro's:
+  \begin{itemize}
+    \item costs nothing
+	\item easy to install
+	\item guarantees full access on the mysql database via webinterface
+	\item clearly laid out
+	\item intuitive usage (Data oriented)
+  \end{itemize}
+  Contra's:
+  \begin{itemize}
+    \item requires PHP
+	\item requires MySQL (PostGres or MSSQL avariants available)
+  \end{itemize}
+\end{quote}
+
+
+\section{SVN}
+http://subversion.tigris.org/
+\begin{quote}
+  Pro's:
+  \begin{itemize}
+    \item costs nothing
+	\item easy to install
+	\item plug-ins for several Programming APIs available
+	\item plug-in for windows explorer available (TortoiseSVN)
+  \end{itemize}
+\end{quote}
+
+
+\section{Editoren}
+\begin{quote}
+  Pro's:
+  \begin{quote}
+    Due to the choice of PHP and SVN there is no need of a special Programming-API,
+	for the Code of PHP is understood by all Editors, which understand plain text.
+	So every programmer is able to use his/her favorite API (e.g. Eclipse, Emacs, VI, Notepad, ...)
+  \end{quote}
+  Contra's:
+  \begin{itemize}
+    \item no guarantee for uniform coding (Line-Feeds, Tabs, etc)
+	\item perhaps editor built-in additions in the sourcecode
+  \end{itemize}
+\end{quote}
+
+\end{document}

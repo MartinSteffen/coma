@@ -1,0 +1,119 @@
+
+
+Coma        ::=       id:              Identifier
+                      conf:            Conference
+
+
+Conference  ::=       title:     String
+	              admin:     AdminData   
+		      general:   GeneralData
+		      commitee:  CommiteeData
+
+GeneralData   ::=     title:     String
+		      acronym:   String
+		      location:  String
+		      time:      Date * Date   /* from, to */
+		      homepage:  Url
+		      email:     [Email]
+                      submission: Date
+		      notification:    Date
+AdminData     ::=     topicnames* (common topics)	
+		      ratingtype  (1: 1--5)	
+		      criteria*   (common criteria)
+		      average-reviewers (4)
+		      critical-variance (?)
+		      finalversion      Date
+		      min-papers,maxpapers:  int
+		      min-reviewer (3)
+                      auto-validate-accounts:     boolean: (true)
+		      auto-start-paperdiscussion: boolean (true)
+		      auto-add-reviewers:  boolean false
+		      num-rereviewers:          boolean (true)
+		      forums:                    set of Forum
+		      review    :   Date
+
+
+
+Person      :: =      id:        Identifier
+	              name:      String
+		      firstname: String
+		      title:     [ Dr. | Prof. | Mr | Mrs. ]
+		      address:   Address
+		      email:     Email-url
+		      username:  string
+		      password:  string
+
+		      status:    active | deleted
+
+
+
+Paper       :: =     id:        Identifier
+	             title:     String
+		     abstract:  String
+		     created:   Date
+		     edited:    Date
+		     version:   int
+		     author:    Author
+		     coauthors: set of Author
+		     topics:    set of topic
+		     paper:     file-url
+		     papertype: PS | PDF | OTHER
+		     reviews:   set of Review
+		     [total:]   Rating
+                     status:    Status
+		     pcauthor:  Boolean = false
+
+
+Status      ::=                        //status of a paper during review
+
+		     accepted:  Boolean
+		     reviewed:  Boolean
+		     decided:   Boolean
+		     critical:  Boolean
+
+Review      ::=      // the stuff a reviewer hands in
+	             reviewer:  Reviewer
+		     paper:     Paper
+		     text:      String
+		     [total:]   Totalrating
+
+TotalRating ::=      rating:    Int
+	             text:      String
+
+
+
+Visibility  ::=      All | PC | Chair
+
+
+
+Forum       ::=      id:       Identifier
+	             forum:     Forumx:   
+
+Forumx      ::=      FreeForum | PaperForum
+
+PaperForum  ::=      
+	             threads   : Set of Thread
+		     
+
+
+	             title:    
+
+
+		     description: String
+	             threads  : set of Thread
+		     visibility : Visibility
+		     
+	             
+
+
+		      
+		      
+		      
+		      
+
+
+---
+
+
+
+propose-reviewers: Conference * Int 
