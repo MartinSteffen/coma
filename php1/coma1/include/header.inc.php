@@ -52,8 +52,11 @@ $strRoles = array(CHAIR       => 'Chair',
                   REVIEWER    => 'Reviewer',
                   AUTHOR      => 'Author',
                   PARTICIPANT => 'Participant');
-define('INTROLES', $intRoles);                  
-define('STRROLES', $strRoles);
+define('INTROLES', array(CHAIR, REVIEWER, AUTHOR, PARTICIPANT));
+define('STRROLES', array(CHAIR       => 'Chair',
+                         REVIEWER    => 'Reviewer',
+                         AUTHOR      => 'Author',
+                         PARTICIPANT => 'Participant'));
                   
 /**#@-*/
 
