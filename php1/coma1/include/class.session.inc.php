@@ -159,11 +159,12 @@ class Session {
   /**
   * @param int $intMaxLifeTime Maximale Zeit die eine Session gespeichert werden soll
   * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
+  * @todo Verbessrung der SQL Anweisung
   * @access private
   */
   function sessionGC($intMaxLifeTime) {
     $intMax = min($this->intMaxLifeTime,$intMaxLifeTime); 
-    $this->mySql->delete("DELETE FROM Sessions WHERE stime>(UNIX_TIMESTAMP(NOW())-$intMax) AND sname='$this->strSessName'");
+    $this->mySql->delete("DELETE FROM Sessions WHERE UNIX_TIMESTAMP(stime)<(UNIX_TIMESTAMP(NOW())-$intMax) AND sname='$this->strSessName'");
     return true;
   }
 
