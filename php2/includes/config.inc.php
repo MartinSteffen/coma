@@ -33,7 +33,4 @@ $ftpdir="";
 // base http url of the directory accessed by FTP, we need this to generate http download links to papers.
 $httpftpurl="";
 
-// connect to the database
-//$link = mysql_connect ("localhost","testUser","testPass");
-//$base = mysql_select_db ("coma2");
 
