@@ -46,7 +46,7 @@ echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
 
 $forum = $dbAccess->getForumDetailed(1);
 if ($forum) {  
-  echo('<b>'.count($forum->getThreadCount()).' Thread'.
+  echo('<b>'.$forum->getThreadCount().' Thread'.
        (count($forum->getThreadCount()) <> 1 ? 's' : '').
        ' in Forum \''.$forum->strTitle.'\':</b><br><br>');   
   for ($n = 0; $n < $forum->getThreadCount(); $n++) {
