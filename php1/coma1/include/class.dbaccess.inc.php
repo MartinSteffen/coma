@@ -1086,7 +1086,7 @@ class DBAccess extends ErrorHandling {
    * @todo Einfuegen der Konstante fuer den Artikelforen-Typ!
    */
   function getAllForums($intConferenceId) {
-    $s = "SELECT  id, title".
+    $s = "SELECT  id, title, forum_type".
         " FROM    Forum".
         " WHERE   conference_id = '$intConferenceId'";
     $data = $this->mySql->select($s);
@@ -1732,7 +1732,6 @@ nur fuer detaillierte?
         $s = sprintf("INSERT   INTO IsAboutTopic (paper_id, topic_id)".
                      " VALUES  ('%d', '%d')",
                      s2db($intId), s2db($objTopics->intId));
-        echo("$s<br>");
         $this->mySql->insert($s);
         if ($this->mySql->failed()) {
           return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
