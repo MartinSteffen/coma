@@ -1,5 +1,5 @@
 
-{if1<p class="message">{message}</p>}
+{if9<p class="message">{message}</p>}
 
 <table class="list">
   <tr class="listheader">
@@ -8,13 +8,6 @@
     <th class="listheader">Website</th>
   </tr>
   {lines}
-  {if1
-  <tr class="listitem-1">
-    <td class="listitem-1" colspan="5">
-      <span class="emph">There are no conferences yet.</span>
-    </td>    
-  </tr>
-  }
 </table>
 
 <p>&nbsp;</p>

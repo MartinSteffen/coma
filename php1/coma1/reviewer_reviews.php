@@ -52,6 +52,13 @@ if (!empty($objReviews)) {
 }
 else {
   // Reviewliste ist leer.
+  $strItemAssocs = defaultAssocArray();
+  $strItemAssocs['colspan'] = '5';
+  $strItemAssocs['text'] = 'There are no reviews available.';
+  $emptyList = new Template(TPLPATH.'empty_list.tpl');
+  $emptyList->assign($strItemAssocs);
+  $emptyList->parse();
+  $strContentAssocs['lines'] = $emptyList->getOutput();    
 }
 
 $content->assign($strContentAssocs);

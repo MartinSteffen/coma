@@ -77,6 +77,12 @@ h3
   font-weight: normal;
   color: #A0A0A0;
 }
+.alert
+{
+  font-weight: bold;
+  color: #FF2600;
+  border: 1px solid #A00000;
+}
 
 /* Allgemeine Links */
 a

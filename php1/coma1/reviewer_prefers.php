@@ -50,6 +50,13 @@ if (!empty($objPapers)) {
 }
 else {
   // Artikelliste ist leer.
+  $strItemAssocs = defaultAssocArray();
+  $strItemAssocs['colspan'] = '4';
+  $strItemAssocs['text'] = 'There are no papers available.';
+  $emptyList = new Template(TPLPATH.'empty_list.tpl');
+  $emptyList->assign($strItemAssocs);
+  $emptyList->parse();
+  $strContentAssocs['lines'] = $emptyList->getOutput();    
 }
 $strContentAssocs['topic_lines'] = '';
 if (!empty($objTopics)) {
@@ -69,6 +76,13 @@ if (!empty($objTopics)) {
 }
 else {
   // Topicliste ist leer.
+  $strItemAssocs = defaultAssocArray();
+  $strItemAssocs['colspan'] = '4';
+  $strItemAssocs['text'] = 'There are no topics available.';
+  $emptyList = new Template(TPLPATH.'empty_list.tpl');
+  $emptyList->assign($strItemAssocs);
+  $emptyList->parse();
+  $strContentAssocs['lines'] = $emptyList->getOutput();
 }
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {

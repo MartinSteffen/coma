@@ -25,9 +25,12 @@ if ($myDBAccess->failed()) {
   error('get conference list',$myDBAccess->getLastError());
 }
 
-$strContentAssocs['message'] = session('message', false);
+$strMessage = session('message', false);
 session_delete('message');
-$strContentAssocs['if'] = array();
+if (!empty($strMessage)) {	
+  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['if'] = array(9);
+}
 $strContentAssocs['lines'] = '';
 if (!empty($objConferences)) {
   $lineNo = 1;
@@ -65,8 +68,14 @@ if (!empty($objConferences)) {
     $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
   }
 }
-else {
-  $strContentAssocs['if'] = array(1);
+else {  
+  $strItemAssocs = defaultAssocArray();
+  $strItemAssocs['colspan'] = '3';
+  $strItemAssocs['text'] = 'There are no users available.';
+  $emptyList = new Template(TPLPATH.'empty_list.tpl');
+  $emptyList->assign($strItemAssocs);
+  $emptyList->parse();
+  $strContentAssocs['lines'] = $emptyList->getOutput();  
 }
 
 $content->assign($strContentAssocs);
