@@ -23,6 +23,8 @@ $sqlDatabase = 'coma1';
 $ftpServer = 'localhost';
 $ftpUser = 'ftp-php1';
 $ftpPassword = 'janMiUct';
+
+$sessionName = 'coma1';
 /**#@-*/
 
 /**
