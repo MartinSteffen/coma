@@ -322,7 +322,7 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
     error('sendMail',$myDBAccess->getLastError());
   }
   if (empty($strFrom)) {
-    $strFrom = "\"CoMa - Your Conference Manager\" <>"
+    $strFrom = "\"CoMa - Your Conference Manager\" <>";
   }
   return mail('', '[CoMa] '.$strSubject, $strMsg,
               'To: "'.$objPerson->getName(2)."\" <$objPerson->strEmail>\r\n".
