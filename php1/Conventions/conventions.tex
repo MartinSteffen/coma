@@ -23,13 +23,19 @@
         who has to read your code after you.
 
         \begin{lstlisting}[stepnumber=0,frame={}]
-while ($x < $z) {
-  if ($a == 1) {
+while ($x < $z)
+{
+  if ($a == 1)
+  {
     echo 'A was equal to 1';
-  } else {
+  }
+  else
+  {
     if ($b == 2) {
       //do something
-    } else {
+    }
+    else
+    {
       //do something else
     }
   }
@@ -65,10 +71,13 @@ if ($a == 1)
 
         \item{Correct:}
 \begin{lstlisting}[stepnumber=0,frame={}]
-if (($a == 1) && ($b==2)) {
+if (($a == 1) && ($b==2))
+{
   echo 'A was equal to 1';
   //easily add more code
-} elseif (($a == 1) && ($b==3)) {
+}
+elseif (($a == 1) && ($b==3))
+{
   //do something
 }
 \end{lstlisting}
@@ -85,8 +94,8 @@ $var = myFunction($x, $y);
 \end{lstlisting}
 
     \subsection{Functions}
-        Function calls are braced differently than conditional expressions. This is a case where I'll have
-        to change my personal coding style in order to be kosher, but I guess it needs to be done.
+%        Function calls are braced differently than conditional expressions. This is a case where I'll have
+%        to change my personal coding style in order to be kosher, but I guess it needs to be done.
 
 \begin{lstlisting}[stepnumber=0,frame={}]
 function myFunction($var1, $var2 = '')
@@ -305,6 +314,10 @@ $var="My String $a";
         \item If you add images to the project make sure you apply the correct  mime-type property.\\
             Example for a XPM:\\
             \texttt{\% svn propset svn:mime-type image/x-xpm}
+
+        \item If you want to add an Id to your files, just insert the Tag \$Id\$ somewhere and issue the following property:\\
+            \texttt{\% svn propset svn:keywords Id}
+
     \end{itemize}
 
 
