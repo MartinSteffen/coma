@@ -246,9 +246,11 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       $sum = 0;
+      echo(count($data).' -> '.);
       for ($i = 0; $i < count($data); $i++) {
         $sum += $data[$i]['total_rating'];
       }
+      echo(count($data));
       return ($sum / count($data));
     }
     return false;
