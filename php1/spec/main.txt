@@ -70,6 +70,7 @@ App. Verzeichnisstruktur
 App. Tests
 App. Offene Punkte
 App. Verweise
+App. Registrierung und Login
 
 
 
@@ -370,3 +371,30 @@ Ferner:
 Wir sind bemüht, diese Dateien möglichst aktuell zu halten, jedoch kann
 dies während des Entwicklungsprozesses nicht immer garantiert werden. Wir
 bitten um Verständnis.
+
+
+============================================================================
+  APPENDIX: Registrierung und Login
+============================================================================
+
+Accounts sollen wiederverwendbar sein, d.h. ein Account fuer viele Konferenzen.
+
+Wenn der Benutzer auf die Startseite geht wird er zunaechst 
+aufgefordert sich einzuloggen. Danach hat er zunaechst keine Rolle.
+
+Danach hat er im Prinzip folgende Moeglichkeiten:
+
+1.) Liste(n) von Konferenzen mit Sortiermoeglichkeiten und Optionen sich in eine Konferenz
+einzuloggen oder sich zu registrieren.
+
+Beim Einloggen in eine Konferenz erhaelt der Benutzer die entsprechende Rolle z.B. Autor.
+
+Beim Registrieren muss der Benutzer angeben welche Rolle er haben will.
+
+Je nachdem kann er sich anschliessend sofort einloggen oder muss warten, bis jmd seiner gewuenschten Rolle zugestimmt hat.
+
+2.) Erstellen einer neuen Konferenz
+Der Benutzer muss sich zunaechst einloggen.
+Hier muss der Benutzer alle initialen Daten eingeben und kann diese
+auch spaeter nicht mehr aendern (zumindest in der Grundversion nicht -
+spaeter ggf. optional). Der Benutzer wird automatisch zum Chair. 
