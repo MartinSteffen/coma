@@ -74,6 +74,8 @@ if (!empty($dist)) {
       $strReviewersAssocs['rev_name'] = $objReviewer->getName(1);
       $strReviewersAssocs['status'] = rand(1,5)<=1?0:$arrReviewers[$i]['status'];
       $strReviewersAssocs['rev_array_index'] = $i;
+      $strReviewersAssocs['if'] =
+        ($arrReviewers[$i]['status']==ASSIGNED?array():array(1));
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
