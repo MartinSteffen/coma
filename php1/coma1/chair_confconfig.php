@@ -95,6 +95,7 @@ if (isset($_POST['action'])) {
     // Versuche die Konferenz zu aktualisieren
     else {
       $objCriterions = array();
+      $objTopics = array();
       $objConferenceDetailed =
         new ConferenceDetailed(session('confid'),
                                $_POST['name'],
