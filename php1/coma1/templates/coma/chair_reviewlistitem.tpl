@@ -1,9 +1,9 @@
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}">
-      <a href="{basepath}user_paperdetails.php?paperid={paper_id}&popup{&SID}" class="link" target="_blank">{title}</a>      
+      <a href="{basepath}user_paperdetails.php?paperid={paper_id}{&popup}{&SID}" class="link" target="_blank">{title}</a>      
     </td>
     <td class="listitem-{line_no}">
-      <a href="{basepath}user_userdetails.php?userid={author_id}&popup{&SID}" class="link" target="_blank">{author_name}</a>
+      <a href="{basepath}user_userdetails.php?userid={author_id}{&popup}{&SID}" class="link" target="_blank">{author_name}</a>
     </td>
     <td class="listitem-{line_no}">
       {if0<span class="status-unreviewed">unreviewed</span><br>
@@ -59,7 +59,7 @@
     <td class="listitem-{line_no}" colspan="6">
         <a href="{basepath}chair_paperreviews.php?paperid={paper_id}{&SID}" class="buttonlink">View review report</a>        
         {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a>}
-        {if8<a href="{basepath}chair_reviews.php?createforum&paperid={paper_id}{&SID}"
+        {if8<a href="{basepath}chair_reviews.php?createforum&amp;paperid={paper_id}{&SID}"
                class="buttonlink">Start discussion</a>}
         {if9<a href="{basepath}forum.php?forumsel={forum_id}{&SID}"
                class="buttonlink">Enter discussion</a>}
