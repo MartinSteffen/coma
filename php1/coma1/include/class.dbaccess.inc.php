@@ -1064,7 +1064,7 @@ class DBAccess extends ErrorHandling {
         "         state = '$objPerson->strState',".
         "         country = '$objPerson->strCountry',".
         "         phone_number = '$objPerson->strPhone',".
-        "         fax_numer = '$objPerson->strFax'".
+        "         fax_number = '$objPerson->strFax'".
         " WHERE   id = $objPerson->intId";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -1088,8 +1088,8 @@ class DBAccess extends ErrorHandling {
     $intId = $objPerson->intId;
 
     // Rollen loeschen...
-    $s = 'DELETE  FROM Role'.
-        ' WHERE   person_id = '.$intId;
+    $s = "DELETE  FROM Role".
+        " WHERE   person_id = $intId";
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
@@ -1127,7 +1127,7 @@ class DBAccess extends ErrorHandling {
         "         format = '$objPaper->strMimeType',".
         "         last_edited = '$objPaper->strLastEdit',".
         "         filename = '$objPaper->strFilePath',".
-        "         state = '$objPaper->intStatus".
+        "         state = $objPaper->intStatus".
         " WHERE   id = $objPaper->intId";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -1164,20 +1164,12 @@ class DBAccess extends ErrorHandling {
    function addConference($strName, $strHomepage, $strDescription, $strAbsSubDeadline,
                          $strPaperSubDeadline, $strReviewDeadline, $strFinalVersionDeadline,
                          $strNotification, $strConverenceStart, $strConferenceEnd, $strMinRevPerPaper){
-     $s = 'INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,
-                                    paper_submission_deadline, review_deadline, final_version_deadline,
-                                    notification, conference_start, conference_end, min_reviews_per_paper)'.
-                 ' VALUES          ( \''.$strName.'\',
-                                     \''.$strHomepage.'\',
-                                     \''.$strDescription.'\',
-                                     \''.$strAbsSubDeadline.'\',
-                                     \''.$strPaperSubDeadline.'\',
-                                     \''.$strReviewDeadline.'\',
-                                     \''.$strFinalVersionDeadline.'\',
-                                     \''.$strNotification.'\',
-                                     \''.$strConverenceStart.'\',
-                                     \''.$strConferenceEnd.'\',
-                                     \''.$strMinRevPerPaper.'\')';
+     $s = "INSERT  INTO Conference (name, homepage, description, abstract_submission_deadline,".
+         "                          paper_submission_deadline, review_deadline, final_version_deadline,".
+         "                          notification, conference_start, conference_end, min_reviews_per_paper)".
+         "         VALUES  ('$strName', '$strHomepage', '$strDescription,'$strAbsSubDeadline,".
+         "                  '$strPaperSubDeadline', '$strReviewDeadline', '$strFinalVersionDeadline',".
+         "                  '$strNotification', '$strConverenceStart', '$strConferenceEnd' ,$strMinRevPerPaper')";
      //echo('<br>SQL: '.$s.'<br>');
      $intId = $this->mySql->insert($s);
      if (!empty($intId)) {
@@ -1213,23 +1205,20 @@ class DBAccess extends ErrorHandling {
   function addPerson($strFirstname, $strLastname, $strEmail, $strTitle,
                      $strAffiliation, $strStreet, $strCity, $strPostalCode,
                      $strState, $strcountry, $strPhone, $strFax, $strPassword) {
-    $s = 'INSERT  INTO Person (first_name, last_name, title, affiliation, email,'.
-        '                      street, postal_code, city, state, country,'.
-        '                      phone_number, fax_number, password)'.
-        '         VALUES (\''.$strFirstname.'\', \''.$strLastname.'\', \''.$strTitle.'\','.
-        '                 \''.$strAffiliation.'\', \''.$strEmail.'\', \''.$strStreet.'\','.
-        '                 \''.$strPostalCode.'\', \''.$strCity.'\', \''.$strState.'\','.
-        '                 \''.$strcountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
-        '                 \''.sha1($strPassword).'\')';
+    $s = "INSERT  INTO Person (first_name, last_name, title, affiliation, email,".
+        "                      street, postal_code, city, state, country,".
+        "                      phone_number, fax_number, password)".
+        "         VALUES ('$strFirstname', '$strLastname', '$strTitle',".
+        "                 '$strAffiliation', '$strEmail', '$strStreet',".
+        "                 '$strPostalCode', '$strCity', '$strState',".
+        "                 '$strcountry', '$strPhone', '$strFax',".
+        "                 '".sha1($strPassword)."')";
     // echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      return $intId;
+    if ($this->mySql->failed()) {
+      return $this->error('addPerson ' $this->mySql->getLastError());
     }
-    else {
-      return false;
-      echo $this->error('addPerson '.$this->mySql->getLastError());
-    }
+    return $this->success($intId);
   }
 
   /**
@@ -1243,15 +1232,14 @@ class DBAccess extends ErrorHandling {
    * @author Tom (26.12.04)
    */
   function addRole($intConferenceId, $intPersonId, $intRoleType) {
-    $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
-        '         VALUES (\''.$intConferenceId.'\', \''.$intPersonId.'\','.
-        '                 \''.$intRoleType.'\')';
+    $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
+        "         VALUES ($intConferenceId, $intPersonId, $intRoleType)";
     // echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return true;
+    if ($this->mySql->failed()) {
+      return $this->error('addRole ' $this->mySql->getLastError());
     }
-    return $this->error('addRole '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1264,14 +1252,14 @@ class DBAccess extends ErrorHandling {
    * @author Tom (26.12.04)
    */
   function addCoAuthor($intPaperId, $intCoAuthorId) {
-    $s = 'INSERT  INTO IsCoAuthorOf (person_id, paper_id)'.
-        '         VALUES (\''.$intCoAuthorId.'\', \''.$intPaperId.'\')';
+    $s = "INSERT  INTO IsCoAuthorOf (person_id, paper_id)".
+        "         VALUES ($intCoAuthorId, '$intPaperId')";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return true;
+    if ($this->mySql->failed()) {
+      return $this->error('addCoAuthor ' $this->mySql->getLastError());
     }
-    return $this->error('addCoAuthor '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1285,14 +1273,14 @@ class DBAccess extends ErrorHandling {
    * @author Tom (26.12.04)
    */
   function addCoAuthorName($intPaperId, $strName) {
-    $s = 'INSERT  INTO IsCoAuthorOf (paper_id, name)'.
-        '         VALUES (\''.$intPaperId.'\', \''.$strName.'\')';
+    $s = "INSERT  INTO IsCoAuthorOf (paper_id, name)".
+        "         VALUES ($intPaperId, '$strName')";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return true;
+    if ($this->mySql->failed()) {
+      return $this->error('addCoAuthorName ' $this->mySql->getLastError());
     }
-    return $this->error('addCoAuthorName '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1313,10 +1301,10 @@ class DBAccess extends ErrorHandling {
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
                     $strFilePath, $strMimeType, $strCoAuthors) {
-    $s = 'INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,'.
-        '                     mime_type, state)'.
-        '         VALUES (\''.$intConferenceId.'\', \''.$intAuthorId.'\', \''.$strTitle.'\','.
-        '                 \''.$strAbstract.'\', \''.$strFilePath.'\', \''.$strMimeType.'\', 0)';
+    $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
+        "                     mime_type, state)".
+        "         VALUES ($intConferenceId, $intAuthorId, '$strTitle',".
+        "                 '$strAbstract', '$strFilePath', '$strMimeType', 0)";
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
     if (!empty($intId)) {
@@ -1349,10 +1337,15 @@ class DBAccess extends ErrorHandling {
    */
   function addReviewReport($intPaperId, $intReviewerId, $strSummary = '',
                            $strRemarks = '', $strConfidential = '') {
-    $s = 'INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)'.
-        '         VALUES (\''.$intPaperId.'\', \''.$intReviewerId.'\','.
-        '                 \''.$strSummary.'\', \''.$strRemarks.'\', \''.$strConfidential.'\')';
-    return $this->error('addReviewReport '.$this->mySql->getLastError());
+    $s = "INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)".
+        "         VALUES ($intPaperId, $intReviewerId,".
+        "                 '$strSummary', '$strRemarks', '$strConfidential')";
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if ($this->mySql->failed()) {
+      return $this->error('addReviewReport ' $this->mySql->getLastError());
+    }
+    return $this->success($intId);
   }
 
   /**
@@ -1368,15 +1361,14 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addRating($intReviewId, $intCriterionId, $intGrade = 0, $strComment = '') {
-    $s = 'INSERT  INTO Rating (review_id, criterion_id, grade, comment)'.
-        '         VALUES (\''.$intReviewId.'\', \''.$intCriterionId.'\','.
-        '                 \''.$intGrade.'\', \''.$strComment.'\')';
+    $s = "INSERT  INTO Rating (review_id, criterion_id, grade, comment)".
+        "         VALUES ($intReviewId, $intCriterionId, $intGrade, '$strComment')";
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      return $intId;
+    if ($this->mySql->failed()) {
+      return $this->error('addCriterion ' $this->mySql->getLastError());
     }
-    return $this->error('addRating '.$this->mySql->getLastError());
+    return $this->success($intId);
   }
 
   /**
@@ -1390,14 +1382,17 @@ class DBAccess extends ErrorHandling {
    function createNewReviewReport($intPaperId, $intReviewerId) {
      $intConferenceId = $_SESSION['confid'];
      $intReviewId = $this->addReviewReport($intPaperId, $intReviewerId);
-     if (empty($intReviewId)) {
-        return $this->error('createNewReviewReport '.$this->mySql->getLastError());
+     if ($this->mySql->failed() || empty($intReviewId)) {
+        return $this->error('createNewReviewReport ', $this->mySql->getLastError());
      }
      $objCriterions = $this->getCriterionsOfConference($intConferenceId);
      for ($i = 0; $i < count($objCriterions) && empty($objCriterions) == false; $i++) {
         $this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
+        if ($this->mySql->failed()) {
+          return $this->error('createNewReviewReport ' $this->mySql->getLastError());
+        }    
      }
-     return $intReviewId;
+     return $this->success($intReviewId);
    }
 
   /**
@@ -1416,15 +1411,14 @@ class DBAccess extends ErrorHandling {
     if ($intForumType <> 3) {  // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
       $intPaperId = 0;
     }
-    $s = 'INSERT  INTO Forum (conference_id, title, forum_type, paper_id)'.
-        '         VALUES (\''.$intConferenceId.'\', \''.$strTitle.'\','.
-        '                 \''.$intForumType.'\', \''.$intPaperId.'\')';
+    $s = "INSERT  INTO Forum (conference_id, title, forum_type, paper_id)".
+        "         VALUES ($intConferenceId, '$strTitle', $intForumType, $intPaperId)";
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      return $intId;
+    if ($this->mySql->failed()) {
+      return $this->error('addForum ' $this->mySql->getLastError());
     }
-    return $this->error('addForum '.$this->mySql->getLastError());
+    return $this->success($intId);
   }
 
   /**
@@ -1443,16 +1437,15 @@ class DBAccess extends ErrorHandling {
    */
   function addMessage($strSubject, $strText, $strSenderId, $strForumId, $strReplyTo = 0) {
     $strSendTime = date("d.m.Y H:i");
-    $s = 'INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)'.
-        '         VALUES (\''.$strSubject.'\', \''.$strText.'\','.
-        '                 \''.$intSenderId.'\', \''.$intForumId.'\','.
-        '                 \''.$intReplyTo.'\', \''.$strSendTime.'\')';
+    $s = "INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
+        "         VALUES ('$strSubject', '$strText', $intSenderId, $intForumId,".
+        "                 $intReplyTo, '$strSendTime')";
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      return $intId;
+    if ($this->mySql->failed()) {
+      return $this->error('addMessage ' $this->mySql->getLastError());
     }
-    return $this->error('addMessage '.$this->mySql->getLastError());
+    return $this->success($intId);
   }
 
 
@@ -1471,16 +1464,16 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addCriterion($intConferenceId, $strName, $strDescription, $intMaxValue, $fltWeight) {
-    $intQualityRating = $fltWeight * 100;
-    $s = 'INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)'.
-        '         VALUES (\''.$intConferenceId.'\', \''.$strName.'\', \''.$strDescription.'\','.
-        '                 \''.$intMaxValue.'\', \''.$intQualityRating.'\')';
+    $intQualityRating = round($fltWeight * 100);
+    $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
+        "         VALUES ($intConferenceId, $strName', '$strDescription',".
+        "                 $intMaxValue, $intQualityRating)";
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      return $intId;
+    if ($this->mySql->failed()) {
+      return $this->error('addCriterion ' $this->mySql->getLastError());
     }
-    return $this->error('addCriterion '.$this->mySql->getLastError());
+    return $this->success($intId);
   }
 
   /**
@@ -1494,14 +1487,14 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addTopic($intConferenceId, $strName) {
-    $s = 'INSERT  INTO Topic (conference_id, name)'.
-        '         VALUES (\''.$intConferenceId.'\', \''.$strName.'\')';
+    $s = "INSERT  INTO Topic (conference_id, name)".
+        "         VALUES ($intConferenceId, '$strName')";
     echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
-    if (!empty($intId)) {
-      return $intId;
+    if ($this->mySql->failed()) {
+      return $this->error('addDeniesPaper ' $this->mySql->getLastError());
     }
-    return $this->error('addTopic '.$this->mySql->getLastError());
+    return $this->success($intId);
   }
 
   /**
@@ -1514,14 +1507,14 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addIsAboutTopic($intPaperId, $intTopicId) {
-    $s = 'INSERT  INTO IsAboutTopic (paper_id, topic_id)'.
-        '         VALUES (\''.$intPaperId.'\', \''.$intTopicId.'\')';
+    $s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
+        "         VALUES ($intPaperId, $intTopicId)";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('addIsAboutTopic ' $this->mySql->getLastError());
     }
-    return $this->error('addIsAboutTopic '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1534,14 +1527,14 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addPrefersTopic($intPersonId, $intTopicId) {
-    $s = 'INSERT  INTO PrefersTopic (person_id, topic_id)'.
-        '         VALUES (\''.$intPersonId.'\', \''.$intTopicId.'\')';
+    $s = "INSERT  INTO PrefersTopic (person_id, topic_id)".
+        "         VALUES ($intPersonId, $intTopicId)";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('addPrefersTopic' $this->mySql->getLastError());
     }
-    return $this->error('addPrefersTopic '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1554,14 +1547,14 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addPrefersPaper($intPersonId, $intPaperId) {
-    $s = 'INSERT  INTO PrefersPaper (person_id, paper_id)'.
-        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
+    $s = "INSERT  INTO PrefersPaper (person_id, paper_id)".
+        "         VALUES ($intPersonId, $intPaperId)";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('addPrefersPaper ' $this->mySql->getLastError());
     }
-    return $this->error('addPrefersPaper '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1574,14 +1567,14 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addDeniesPaper($intPersonId, $intPaperId) {
-    $s = 'INSERT  INTO DeniesPaper (person_id, paper_id)'.
-        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
+    $s = "INSERT  INTO DeniesPaper (person_id, paper_id)".
+        "         VALUES ($intPersonId, $intPaperId)";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('addDeniesPaper ' $this->mySql->getLastError());
     }
-    return $this->error('addDeniesPaper '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1594,14 +1587,14 @@ class DBAccess extends ErrorHandling {
    * @author Sandro (18.12.04)
    */
   function addExcludesPaper($intPersonId, $intPaperId) {
-    $s = 'INSERT  INTO ExcludesPaper (person_id, paper_id)'.
-        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
+    $s = "INSERT  INTO ExcludesPaper (person_id, paper_id)".
+        "         VALUES ($intPersonId, $intPaperId)";
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->insert($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('addExcludesPaper ', $this->mySql->getLastError());
     }
-    return $this->error('addExcludesPaper '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
 
@@ -1623,7 +1616,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteConference '.$this->mySql->getLastError());
+      return $this->error('deleteConference ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1643,7 +1636,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePerson '.$this->mySql->getLastError());
+      return $this->error('deletePerson ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1662,7 +1655,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePerson '.$this->mySql->getLastError());
+      return $this->error('deletePerson ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1681,7 +1674,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePaper '.$this->mySql->getLastError());
+      return $this->error('deletePaper ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1705,7 +1698,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteRole '.$this->mySql->getLastError());
+      return $this->error('deleteRole ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1726,7 +1719,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteCoAuthor '.$this->mySql->getLastError());
+      return $this->error('deleteCoAuthor ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1747,7 +1740,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteCoAuthorName '.$this->mySql->getLastError());
+      return $this->error('deleteCoAuthorName ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1760,7 +1753,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteReviewReport '.$this->mySql->getLastError());
+      return $this->error('deleteReviewReport ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1774,7 +1767,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteRating '.$this->mySql->getLastError());
+      return $this->error('deleteRating ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1787,7 +1780,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteForum '.$this->mySql->getLastError());
+      return $this->error('deleteForum ', $this->mySql->getLastError());
     }
     return $this->success($result);
 
@@ -1801,7 +1794,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteMessage '.$this->mySql->getLastError());
+      return $this->error('deleteMessage ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1814,7 +1807,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteCriterion '.$this->mySql->getLastError());
+      return $this->error('deleteCriterion ', $this->mySql->getLastError());
     }
     return $this->success($result);
 
@@ -1828,7 +1821,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteTopic '.$this->mySql->getLastError());
+      return $this->error('deleteTopic ', $this->mySql->getLastError());
     }
     return $this->success($result);
   }
@@ -1842,7 +1835,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteIsAboutTopic '.$this->mySql->getLastError());
+      return $this->error('deleteIsAboutTopic ', $this->mySql->getLastError());
     }
     return $this->success($result);
 
@@ -1857,7 +1850,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
+      return $this->error('deletePrefersTopic ', $this->mySql->getLastError());
     }
     return $this->success($result);
 
@@ -1872,7 +1865,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deletePrefersPaper '.$this->mySql->getLastError());
+      return $this->error('deletePrefersPaper ', $this->mySql->getLastError());
     }
     return $this->success($result);
 
@@ -1887,7 +1880,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteDeniesPaper '.$this->mySql->getLastError());
+      return $this->error('deleteDeniesPaper ', $this->mySql->getLastError());
     }
     return $this->success($result);
 
@@ -1902,7 +1895,7 @@ class DBAccess extends ErrorHandling {
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
-      return $this->error('deleteExcludesPaper '.$this->mySql->getLastError());
+      return $this->error('deleteExcludesPaper ', $this->mySql->getLastError());
     }
     return $this->success($result);
 
