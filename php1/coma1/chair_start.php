@@ -61,7 +61,12 @@ if (strtotime($objConference->strReviewDeadline) <= strtotime("now")) {
   }
   if ($objConference->intMinNumberOfPapers > $intAcceptedPapers) {
     $strContentAssocs['acc_papers_no'] = encodeText($objConference->intMinNumberOfPapers - $intAcceptedPapers);
-    $strContentAssocs['acc_date'] = encodeText(emptytime(strtotime($objConference->strNotification)));
+    if (!empty($objConference->strNotification)) {
+      $strContentAssocs['acc_date'] = encodeText(emptytime(strtotime($objConference->strNotification)));
+    }
+    else {
+      $strContentAssocs['acc_date'] = encodeText(emptytime(strtotime($objConference->strStart)));
+    }
     $ifArray[] = 4;
   }
 }
