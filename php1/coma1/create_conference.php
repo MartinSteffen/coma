@@ -180,8 +180,8 @@ if (isset($_POST['action'])) {
     if ($review_dl > $start_date) {
       $strMessage .= "Your Notification time should be before your Start Date!\n";
     }
-    if ($min_reviews < 0){
-      $strMessage .= "Your minimum number of reviews should be greater or equel to zero!\n";
+    if ($min_reviews <= 0){
+      $strMessage .= "Your minimum number of reviews should be greater to zero!\n";
     }
     if ($min_papers < 0){
       $strMessage .= "Your number of papers should be greater or equal to zero!\n";
