@@ -32,7 +32,7 @@ else if (empty($p)) {
   echo('EMPTY');
   die(-1);
 }
-for ($i = 0; $i < count($p->objPreferredTopics); $i++)
+for ($i = 0; $i < count($p->objPreferredTopics); $i++) {
   echo ('<br>'.$p->objPreferredTopics[$i]);
 }
 
