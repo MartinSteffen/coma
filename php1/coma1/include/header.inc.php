@@ -22,7 +22,7 @@ function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";
   $strError = '['.basename($_SERVER['PHP_SELF'],'.php')."->$strMethod: $strError$strComment]";
   //die($strError);
-  redirect('error.php?msg='.$strError);
+  include(INCPATH.'error.inc.php');
   return false;
 }
 
