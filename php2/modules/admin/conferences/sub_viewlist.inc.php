@@ -1,20 +1,25 @@
 <? 
 
-include("includes/rtp.lib.php");
-if(isAdmin_Overall() 
-  || 1
-)
+include("includes/sql.class.php");
+$sql = new SQL();
+if(isAdmin_Overall())
 {
 
 //TODO:
 //process inputs
 
-	$colnames=$sql->queryAssoc("SHOW COLUMNS FROM conference");
+	$colnames=array(
+		"Name",
+		"Description",
+		"No of reviews per paper",
+		"Conference start",
+		"Conference end"
+	);
 	$orderby="name";
 	if (isset($HTTP_POST_VARS['orderby'])) {
 		$orderby=$HTTP_POST_VARS['orderby'];
 	}
-	$output = $sql->queryAssoc("SELECT * FROM conference ORDER BY ".$orderby);
+	$output = $sql->queryAssoc("SELECT id, name, description, min_reviews_per_paper, conference_start, conference_end FROM conference ORDER BY ".$orderby);
 
 	$TPL['ADMIN_colnames'] = $colnames;
 	$TPL['ADMIN_conferenceList'] = $output;		
