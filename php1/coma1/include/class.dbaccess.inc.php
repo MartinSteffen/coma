@@ -1355,7 +1355,7 @@ nur fuer detaillierte?
     }
     $s = sprintf("UPDATE   ConferenceConfig".
                  " SET     default_reviews_per_paper = '%d', min_number_of_papers = '%d',".
-                 "         max_number_of_papers = '%d', critical_variance = '%f'".
+                 "         max_number_of_papers = '%d', critical_variance = '%f',".
                  "         auto_activate_account = '%d', auto_open_paper_forum = '%d',".
                  "         auto_add_reviewers = '%d', number_of_auto_add_reviewers = '%d'".
                  " WHERE   id = '%d'",
