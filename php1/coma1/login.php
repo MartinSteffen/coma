@@ -32,7 +32,7 @@ else {
   
   $strMainAssocs = defaultAssocArray();
   $strMainAssocs['content'] =& $loginPage;
-  $strMainAssocs['menue'] = '<a href="{basepath}start.php">Start</a>&nbsp;|&nbsp;&nbsp;';
+  $strMainAssocs['menue'] = '<a href="start.php">Start</a>&nbsp;&nbsp;&nbsp;';
   $strMainAssocs['submenue'] = '';
   $strMainAssocs['body'] = '';
 
