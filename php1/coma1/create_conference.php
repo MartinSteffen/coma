@@ -69,7 +69,7 @@ if (isset($_POST['action'])) {
     }
   }
   // Oeffnen der erweiterten Einstellungen
-  else if ($_POST['action'] == 'advanced_config') {
+  else {
     $content = new Template(TPLPATH.'create_conference_ext.tpl');
   }
 }
