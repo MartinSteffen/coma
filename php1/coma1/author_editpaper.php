@@ -200,7 +200,7 @@ if ($objPaper->intStatus == PAPER_ACCEPTED) {
 else {
   $ifArray[] = 1;
 }
-// Pruefe ob die Final-Deadline noch nicht erreich wurde
+// Pruefe ob die Final-Deadline noch nicht erreicht wurde
 if (strtotime("now") < strtotime($objConference->strFinalDeadline)) {
   $ifArray[] = 3;
 }

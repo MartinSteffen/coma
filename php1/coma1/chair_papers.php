@@ -79,6 +79,16 @@ if (!empty($strMessage)) {
 }
 $strContentAssocs['if'] = $ifArray;
 $strContentAssocs['targetpage'] = 'chair_papers.php';
+// Pruefe ob die Reviewphase begonnen oder beendet ist
+if (strtotime($objConference->strAbstractDeadline) <= strtotime("now") &&
+    strtotime("now") < strtotime($objConference->strReviewDeadline)) {
+  $ifArray[] = 'REVIEWERNOTIFY';
+}
+else if (strtotime($objConference->strReviewDeadline) <= strtotime("now") &&
+         strtotime("now") <= strtotime($objConference->strNotification)) {
+  $ifArray[] = 'AUTHORNOTIFY';
+}
+
 $strContentAssocs['lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
