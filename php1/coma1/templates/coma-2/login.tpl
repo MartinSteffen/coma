@@ -1,6 +1,4 @@
-<table width="100%">
-<tr>
-<td class="center">
+<p class="center">
 <form action="{basepath}index.php?{SID}" method="post">
 <table class="formtable">
   <tr>
@@ -25,6 +23,12 @@
   </tr>
 </table>
 </form>
-</td>
-</tr>
-</table>
+</p>
+
+<p>
+Falls Sie noch keinen Account besitzen, k&ouml;nnen Sie sich hier als Benutzer
+registrieren.
+<form action="{basepath}index.php?{SID}" method="post">
+  <input type="submit" name="submit" value="Registrieren" class="button" />
+</form>
+</p>

@@ -15,6 +15,8 @@ h3 { font-size: 13px; }
 .invert { color: #000000; background-color: #E0E2D4;
           font-weight: bold; letter-spacing: 2px; font-size: 15px; }
 
+.center { text-align: center; }
+
 a         { font-size: 13px; text-decoration: none; font-weight : bold; }
 a:link    { color: #AD351A; }
 a:visited { color: #AD351A; }
@@ -78,8 +80,6 @@ input { font-size: 13px;
       }
 
 input.button { background-color: #CEDBEF; min-width: 100px; text-align: center; }
-
-.center { text-align: center; }
 
 /* tabelle mit linien zur darstellung von listen */
 table.list  { border-style: groove; }
