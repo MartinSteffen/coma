@@ -52,7 +52,7 @@ function notemptyandtrue($arr, $index){
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
-function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray){
+function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray, $myDBAccess){
   if (DEBUG){
     echo('forums: ' . count($forums));
   }
@@ -438,7 +438,7 @@ else{
     $fms = array();
   }
 
-  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs);
+  $contentAssocs = buildForumtemplates($forums, $ffs, $fms, session('select', false), $contentAssocs, $myDBAccess);
   if (DEBUG){
     //echo($contentAssocs['forumtypes']);
     echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
