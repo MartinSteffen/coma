@@ -2047,7 +2047,7 @@ nur fuer detaillierte?
          "                               auto_open_paper_forum, auto_add_reviewers,".
          "                               number_of_auto_add_reviewers)".
          "         VALUES ('$intId', '$intDefaultReviews', '$intMinPapers',".
-         "                 '$intMaxPaper', '$fltVariance', '$blnAutoActAccount',
+         "                 '$intMaxPaper', '$fltVariance', '$blnAutoActAccount',".
          "                 '$blnAutoPaperForum', '$blnAutoAddReviewer', '$intNumAutoAddReviewer')";
     $this->mySql->insert($s);
     if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
