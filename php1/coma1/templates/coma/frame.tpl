@@ -30,10 +30,12 @@
     </tr>
     <tr>
      <td width="70" style="background-image:url({path}images/menueleft.gif)" height="25"> &nbsp; </td>
-     <td  height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
+     <td height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
       {navigator}
      </td>
-     <td class="renderTime">CoMa - Your Conference Manager - version /VERSION/</td>
+     <td height="25" style="background-image:url({path}images/menue.gif); vertical-align: right; " class="renderTime">
+      CoMa - Your Conference Manager - version /VERSION/
+     </td>
     </tr>
    </table>
   </td>
