@@ -38,8 +38,8 @@ if ($myDBAccess->failed()) {
   error('get user list',$myDBAccess->getLastError());
 }
 
-global $intRoles;
-global $strRoles;
+//global $intRoles;
+//global $strRoles;
 
 $content = new Template(TPLPATH.'user_userlist.tpl');
 $strContentAssocs = defaultAssocArray();

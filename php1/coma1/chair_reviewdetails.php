@@ -84,7 +84,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-global $strRoles;
+//global $strRoles;
 if (isset($_SESSION['menu']) && !empty($_SESSION['menu'])) {
   $strMenu = $strRoles[(int)$_SESSION['menu']];
   if ($_SESSION['menu'] == CHAIR || $_SESSION['menu'] == AUTHOR) {

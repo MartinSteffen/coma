@@ -26,8 +26,8 @@ else if (!$checkRole) {
 $content = new Template(TPLPATH.'chair_userlist.tpl');
 $strContentAssocs = defaultAssocArray();
 
-global $intRoles;
-global $strRoles;
+//global $intRoles;
+//global $strRoles;
 
 if (isset($_POST['action'])) {
   if ($_POST['action'] == 'delete') {
