@@ -28,7 +28,7 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Edit review #'.$_GET['reviewid'];
+$strMainAssocs['title'] = 'Edit review';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = session('uname').'  |  Reviewer  |  Reviews';
