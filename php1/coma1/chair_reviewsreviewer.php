@@ -111,7 +111,7 @@ include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Edit reviewers of paper \''.encodeText($objPaper->strTitle).'\'');
+$strMainAssocs['title'] = 'Edit reviewers of paper \''.encodeText($objPaper->strTitle).'\'';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Manage reviews';
