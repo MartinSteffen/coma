@@ -35,13 +35,16 @@ for ($i = 0; $i < count($intRoles); $i++) {
     echo('p hat Rolle '.$strRoles[$intRoles[$i]].'<br>');
 }
 echo('Aendere Rollen:<br>');
-bit($p->intRoles);
-$p->deleteRole(REVIEWER);
-bit($p->intRoles);
-$p->switchRole(AUTHOR);
-bit($p->intRoles);
-$p->addRole(CHAIR);
-bit($p->intRoles);
+if ($p->hasRole(REVIEWER)) {
+  $p->deleteRole(REVIEWER);
+  $p->switchRole(AUTHOR);
+  $p->addRole(CHAIR);
+}
+else {
+  $p->addRole(REVIEWER);
+  $p->switchRole(AUTHOR);
+  $p->deleteRole(CHAIR);
+}
 echo('Roles:<br>');
 for ($i = 0; $i < count($intRoles); $i++) {
   if ($p->hasRole($intRoles[$i]))
