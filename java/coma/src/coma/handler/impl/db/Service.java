@@ -1,5 +1,8 @@
 package coma.handler.impl.db;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -39,19 +42,24 @@ public class Service {
 	}
 	
 	 public static Connection getConnection() {
-        Properties props = new Properties();
+        Properties prop = new Properties();
         Connection result = null;
         try {
+        	//prop.load(new FileInputStream("coma/db.props"));
             String driver = "org.gjt.mm.mysql.Driver";
+        	//String driver = prop.getProperty("driver");
+            //String url = prop.getProperty("url");
+            //String user = prop.getProperty("user");
+            //String pass = prop.getProperty("password");
             String url = "jdbc:mysql://vs170142.vserver.de/coma3";
-	        //String url = "jdbc:mysql://snert.informatik.uni-kiel.de/coma3";
             Class.forName(driver);
+            //result = DriverManager.getConnection(url,user,pass);
             result = DriverManager.getConnection(url,"coma3","TervArHorhy");
         } catch (SQLException e) {
             System.out.println(e.getClass() + e.getMessage().toString());
         } catch (ClassNotFoundException e1) {
             System.out.println(e1.getClass() + e1.getMessage().toString());
-        }
+        } 
 
         return result;
     }
