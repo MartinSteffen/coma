@@ -276,7 +276,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
-		Paper p = new Paper(-1);
+		Paper p = sc.getPaper();
 		boolean ok = true;
 		Connection conn = null;
 
@@ -285,7 +285,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 			ok = false;
 		}
 		String QUERY = "SELECT * FROM Paper " + " WHERE ";
-
 		boolean idFlag = false;
 		boolean conferenceIdFlag = false;
 		boolean authorIdFlage = false;
@@ -330,7 +329,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 					stateFlag = true;
 					sql_and = true;
 				}
-		}
+			}
 		}
 		if (!(idFlag || allFlag || conferenceIdFlag || authorIdFlage || stateFlag)) {
 			info.append("No search critera was specified\n");
