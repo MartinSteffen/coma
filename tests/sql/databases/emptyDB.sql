@@ -25,6 +25,13 @@
 -- - 17.12.04, 16:25: Person.password von VARCHAR(32) auf VARCHAR(127)
 --   geaendert (Tom).
 
+-- ------------------------------------------------------------------------
+
+CREATE DATABASE coma1;
+USE coma1;
+
+-- ------------------------------------------------------------------------
+
 CREATE TABLE Conference
 (
    id                           INT NOT NULL AUTO_INCREMENT,
