@@ -341,7 +341,7 @@ function generatePostMethodArray($postvars){
   }
 
   // Foren holen
-  $forums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid', false));
+  //$forums = $myDBAccess->getForumsOfPerson(session('uid'), session('confid', false));
   if ($myDBAccess->failed()) {
     error('Error getting forum list.', $myDBAccess->getLastError());
   }
