@@ -39,6 +39,10 @@ if (isset($_POST['action'])) {
       if ($myDBAccess->failed()) {
         error('Error updating role table', $myDBAccess->getLastError());
       }
+      $objPerson = $myDBAccess->getPerson(session('uid'));
+      if ($myDBAccess->failed()) {
+        error('Error retrieving chair data', $myDBAccess->getLastError());
+      }
       $objPerson = $myDBAccess->getPerson($intPersonId);
       if ($myDBAccess->failed()) {
         error('Error retrieving person data', $myDBAccess->getLastError());
@@ -47,8 +51,9 @@ if (isset($_POST['action'])) {
       if ($myDBAccess->failed()) {
         error('Error retrieving conference data', $myDBAccess->getLastError());
       }
-      $mail = new Template(TPLPATH.'mail_registered.tpl');
+      $mail = new Template(TPLPATH.'mail_newrole.tpl');
       $strMailAssocs = defaultAssocArray();
+      $strMailAssocs['chair'] = encodeText($objPerson->getName(2));
       $strMailAssocs['name'] = encodeText($objPerson->getName(2));
       $strMailAssocs['role'] = encodeText($strRoles[$intRoleType]);
       $strMailAssocs['conference'] = encodeText($objConference->strName);
