@@ -1013,7 +1013,7 @@ class DBAccess extends ErrorHandling {
    * @access public
    * @author Tom (26.01.05)
    */
-  getNumberOfReviewsOfPaper($intPaperId) {
+  function getNumberOfReviewsOfPaper($intPaperId) {
     $s = sprintf("SELECT   COUNT(*) AS num".
                  " FROM    ReviewReport".
                  " WHERE   paper_id = '%d'",
