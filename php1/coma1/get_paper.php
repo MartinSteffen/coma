@@ -26,10 +26,15 @@ if (isset($_GET['paperid'])) {
   // Sende das File
   $name = $file[0];
   $type = $file[1];
+  header("Pragma: public");
+  header("Expires: 0");
+  header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+  header("Cache-Control: public"); 
   header("Content-type: $type");
   //header("Content-length: $size");
   header("Content-Disposition: attachment; filename=$name");
   header("Content-Description: Downloadable Paper");
+  header("Content-Transfer-Encoding: binary");
   echo $file[2];
 }
 else {
