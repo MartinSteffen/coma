@@ -19,21 +19,8 @@ ini_set('display_startup_errors', '1'); // spaeter 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
-// Magic Quotes machen uns eh nur Aerger... Verbieten?
-ini_set('magic_quotes_runtime', '0');
-ini_set('magic_quotes_sybase', '0');
-if (get_magic_quotes_gpc()) {
-  error('PHP-Server Config', '\'magic_quotes_gpc\' should be set to off!');
-}
-
 // PATH_TRANSLATED patch
 $ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
-
-// check auf INSTALL.PHP
-if (@file_exists($ServerPathTranslated . '/INSTALL.PHP')) {
-  error('INSTALL.PHP', 
-        'You have to delete the file INSTALL.PHP in order to use this tool (security reasons!)');
-}
 
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
@@ -47,6 +34,22 @@ define('TPLURL', dirname($_SERVER['PHP_SELF']).'/templates/'.DESIGN.'/');
 /** Haupt-Pfad (als URL)*/
 define('COREURL', dirname($_SERVER['PHP_SELF']).'/');
 // End PFAD - Konstanten
+
+// alle huebschen Funktionen
+require_once(INCPATH.'lib.inc.php');
+
+// Magic Quotes machen uns eh nur Aerger... Verbieten?
+ini_set('magic_quotes_runtime', '0');
+ini_set('magic_quotes_sybase', '0');
+if (get_magic_quotes_gpc()) {
+  error('PHP-Server Config', '\'magic_quotes_gpc\' should be set to off!');
+}
+
+// check auf INSTALL.PHP
+if (@file_exists($ServerPathTranslated . '/INSTALL.PHP')) {
+  error('INSTALL.PHP', 
+        'You have to delete the file INSTALL.PHP in order to use this tool (security reasons!)');
+}
 
 /**#@+ Konstanten fuer die Rollenverteilung */
 define('CHAIR',       2);
@@ -67,9 +70,6 @@ define('PAPER_CONFLICTED',  2);
 define('PAPER_ACCEPTED',    3);
 define('PAPER_REJECTED',    4);
 /**#@-*/
-
-// Library files -> viele bunte Funktionen
-require_once(INCPATH.'lib.inc.php');
 
 // Standard Klassen
 require_once(INCPATH.'class.mysql.inc.php');
@@ -93,8 +93,6 @@ if ($myDBAccess->failed()) {
   error('Erzeugen den Standard-Objekte',$myDBAccess->getLastError());
 }
 // End Standard Klassen
-
-
 
 // Check, ob User eingeloggt ist
 // Stellt ausserdem sicher, dass uname und password nur genau dann gesetzt sind,
