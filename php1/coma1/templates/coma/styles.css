@@ -428,18 +428,18 @@ table.list
   text-align: left;
   font-size: 12px;
   padding: 1px 8px;
-  margin: 0px;
+  margin: 1px;
   color: #FF2600;
-  background-color: #FFF0E0;
+  background-color: #FFE0E0;
 }
 .listitem-alert-2
 {
   text-align: left;
   font-size: 12px;
   padding: 1px 8px;
-  margin: 0px;
+  margin: 1px;
   color: #FF2600;
-  background-color: #F0E4D4;
+  background-color: #F0D4D4;
 }
 
 a.list:link
