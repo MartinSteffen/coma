@@ -19,6 +19,7 @@ import coma.entities.ReviewReport;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
 import coma.entities.Topic;
+import coma.entities.Finish;
 import coma.handler.db.ReadService;
 import coma.handler.util.EntityCreater;
 
@@ -140,7 +141,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 				conn = getConnection();
 				
 				if (conn != null) {
-					System.out.println(QUERY);
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					int pstmtCounter = 0;
 					if (idFlag) {
@@ -255,7 +255,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		Connection conn = null;
 
 		if (c == null) {
-			info.append("Confernce must not be null\n");
+			info.append("Conference must not be null\n");
 			ok = false;
 		}
 		String QUERY = "SELECT * FROM Conference ";
@@ -631,12 +631,15 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 		boolean idFlag = false;
 		boolean conferenceIdFlag = false;
-		if (criterion.getId() > 0) {
+		if (criterion.getId() > 0) 
+		{
 			QUERY += " id = ?";
 			idFlag = true;
 		}
-		if (criterion.getConferenceId() > 0) {
-			if (idFlag) {
+		if (criterion.getConferenceId() > 0) 
+		{
+			if (idFlag) 
+			{
 				QUERY += " AND ";
 			}
 			QUERY += " conference_id = ?";
@@ -646,24 +649,28 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
-		if (ok) {
-			try {
+		if (ok) 
+		{
+			try 
+			{
 				conn = getConnection();
 				if (conn != null) {
 					PreparedStatement pstmt = conn.prepareStatement(QUERY);
 					int pstmtCounter = 0;
-					if (idFlag) {
+					if (idFlag) 
+					{
 						pstmt.setInt(++pstmtCounter, criterion.getId());
 					}
-					if (conferenceIdFlag) {
+					if (conferenceIdFlag) 
+					{
 						pstmt.setInt(++pstmtCounter, criterion
 								.getConferenceId());
 					}
 					ResultSet resSet = pstmt.executeQuery();
 					List<Criterion> ll = new LinkedList<Criterion>();
 					EntityCreater eCreater = new EntityCreater();
-
-					while (resSet.next()) {
+					while (resSet.next()) 
+					{
 						ll.add(eCreater.getCriterion(resSet));
 					}
 					resSet.close();
@@ -671,14 +678,18 @@ public class ReadServiceImpl extends Service implements ReadService {
 					pstmt.close();
 					pstmt = null;
 					criterions = new Criterion[ll.size()];
-					for (int i = 0; i < criterions.length; i++) {
+					for (int i = 0; i < criterions.length; i++) 
+					{
 						criterions[i] = (Criterion) ll.get(i);
 					}
-				} else {
+				} 
+				else 
+				{
 					info.append("ERROR: coma could not establish a "
 							+ "connection to the database\n");
 				}
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 				System.out.println(e.toString());
 				info.append("ERROR: " + e.toString() + "\n");
 			} finally {
@@ -1359,4 +1370,78 @@ public class ReadServiceImpl extends Service implements ReadService {
 		result.setInfo(info.toString());
 		return result;
 	}
+	
+	public SearchResult getFinalData(SearchCriteria sc, int OrderNr) {
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		Finish[] conference = new Finish[0];
+		boolean ok = true;
+		Connection conn = null;
+		String Order="";
+		switch(OrderNr){
+		case(0):{Order = "order by 1,3,2 ASC";
+				break;}
+		case(1):{Order = "order by 2,3,1 ASC";
+				break;}
+		case(2):{Order = "order by 3,1,2 ASC";
+				break;}
+		case(3):{Order = "order by 4,3,1 ASC";
+				break;}
+		}
+		String QUERY =  "SELECT paper.title,person.last_name,avg(Grade),topic.name,paper.state,paper.id" +
+						" FROM paper,reviewreport,rating,person,topic,isabouttopic where " +
+						"(paper.id = reviewreport.paper_id) " +
+						"and (reviewreport.id = rating.review_id) " +
+						"and (person.id= paper.author_id) " +
+						"and (topic.id = isabouttopic.topic_id) " +
+						"and (paper.id = isabouttopic.paper_id) " +
+						"group by paper.title " +
+		 Order;
+		System.out.println(QUERY);
+		if (ok) {
+			try {
+				conn = getConnection();
+				if (conn != null) {
+					PreparedStatement pstmt = conn.prepareStatement(QUERY);
+					int pstmtCounter = 0;
+					ResultSet resSet = pstmt.executeQuery();
+					LinkedList<Finish> ll = new LinkedList<Finish>();
+					EntityCreater eCreater = new EntityCreater();
+					while (resSet.next()) {
+						ll.add(eCreater.getFinish(resSet));
+					}
+					resSet.close();
+					resSet = null;
+					pstmt.close();
+					pstmt = null;
+					conference = new Finish[ll.size()];
+					for (int i = 0; i < conference.length; i++) {
+						conference[i] = (Finish) ll.get(i);
+					}
+				} else {
+					info.append("ERROR: coma could not establish a "
+							+ "connection to the database\n");
+				}
+			} catch (SQLException e) {
+				info.append("ERROR: " + e.toString() + "\n");
+				System.out.println(e.toString());
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setResultObj(conference);
+		result.setInfo(info.toString());
+		return result;
+	}
+	
+	
+	
+	
 }
