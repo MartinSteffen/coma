@@ -24,6 +24,7 @@
       <form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="paperid" value="{paper_id}">
+        <input type="checkbox" name="confirm_delete" value="1">
         <input type="submit" name="submit" value="delete" class="smallbutton">
       </form>    
     </td>

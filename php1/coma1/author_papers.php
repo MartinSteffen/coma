@@ -14,10 +14,15 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
-  $myDBAccess->deletePaper($_POST['paperid']);
-  if ($myDBAccess->failed()) {
-    error('Error deleting paper.', $myDBAccess->getLastError());
+if (isset($_POST['action']) && $_POST['action'] == 'delete') {
+  if (empty($_POST['confirm_delete'])) {
+    $strMessage = 'You have to check the delete confirm option!';
+  }
+  else {	  
+    $myDBAccess->deletePaper($_POST['paperid']);
+    if ($myDBAccess->failed()) {
+      error('Error deleting paper.', $myDBAccess->getLastError());
+    }
   }
 }
 
@@ -81,9 +86,11 @@ else {
   $strContentAssocs['lines'] = $emptyList->getOutput();  
 }
 
-$strMessage = session('message', false);
-unset($_SESSION['message']);
-if (!empty($strMessage)) {  
+if (!empty(session('message', false))) {
+  $strMessage = session('message', false);
+  unset($_SESSION['message']);
+}
+if (isset($strMessage) && !empty($strMessage)) {  
   $strContentAssocs['message'] = encodeText($strMessage);
   $strContentAssocs['if'] = array(9);  
 }
