@@ -44,8 +44,8 @@ CREATE TABLE Paper
    author       VARCHAR(127) NOT NULL,
    title        VARCHAR(127) NOT NULL,
    abstract     MEDIUMTEXT,
-   last_edited  DATETIME, /*wird von coma automatisch gesetzt*/
-   version      INT, /*wird von coma automatisch gesetzt*/
+   last_edited  DATETIME, /*wird von CoMa automatisch gesetzt*/
+   version      INT,      /*wird von CoMa automatisch gesetzt*/
    filename     VARCHAR(127),
    state        INT,
    format       INT,
@@ -60,7 +60,7 @@ CREATE TABLE IsCoAuthorOf
    conference  VARCHAR(20) NOT NULL,
    paper_id    BIGINT NOT NULL,
    name        VARCHAR(127) NOT NULL,
-   email       VARCHAR(127) NOT NULL,
+   email       VARCHAR(127),
    FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
        ON DELETE CASCADE,
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
@@ -79,20 +79,22 @@ CREATE TABLE Topic
        ON DELETE CASCADE
 ) TYPE = INNODB;
 
-CREATE TABLE IsAboutToic
+CREATE TABLE IsAboutTopic
 (
    paper_id BIGINT NOT NULL,
    topic    VARCHAR(127) NOT NULL,
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
        ON DELETE CASCADE,
    FOREIGN KEY (topic) REFERENCES Topic(name)
+       ON DELETE CASCADE
 ) TYPE = INNODB;
 
 CREATE TABLE PrefersTopic
 (
    user     VARCHAR(127) NOT NULL,
    paper_id BIGINT NOT NULL,
-   FOREIGN KEY (user) REFERENCES User (email),
+   FOREIGN KEY (user) REFERENCES User(email)
+       ON DELETE CASCADE,
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
        ON DELETE CASCADE
 ) TYPE = INNODB;
@@ -102,12 +104,16 @@ CREATE TABLE ReviewReport
    id           BIGINT NOT NULL AUTO_INCREMENT,
    conference   VARCHAR(20) NOT NULL,
    paper_id     BIGINT NOT NULL,
+   reviewer     VARCHAR(127) NOT NULL,
    summary      MEDIUMTEXT,
    remarks      TEXT,
    confidential TEXT,
    PRIMARY KEY (id),
-   FOREIGN KEY (conference) REFERENCES Conference(abbreviation),
+   FOREIGN KEY (conference) REFERENCES Conference(abbreviation)
+       ON DELETE CASCADE,
    FOREIGN KEY (paper_id) REFERENCES Paper(id)
+       ON DELETE CASCADE,
+   FOREIGEN KEY (reviewer) REFERENCES User(email)
        ON DELETE CASCADE
 ) TYPE = INNODB;
 
@@ -150,6 +156,7 @@ CREATE TABLE ParticipatesInForum
    FOREIGN KEY (user) REFERENCES User (email)
       ON DELETE CASCADE,
    FOREIGN KEY (forum_id) REFERENCES Forum(id) 
+      ON DELETE CASCADE
 ) TYPE = INNODB;
 
 CREATE TABLE Message
@@ -160,7 +167,7 @@ CREATE TABLE Message
    subject   VARCHAR(127),
    text      MEDIUMTEXT,
    PRIMARY KEY (id),
-   FOREIGN KEY (user) REFERENCES User (email)
+   FOREIGN KEY (user) REFERENCES User(email)
       ON DELETE CASCADE
 ) TYPE = INNODB;
 
@@ -174,9 +181,11 @@ CREATE TABLE HasThread
        ON DELETE CASCADE
 ) TYPE = INNODB;
 
+// Sollen Enumerations wirklich als eigene Tabellen realisiert werden?
+
 CREATE TABLE Title
 (
-   id    INT NOT NULL,
+   id          INT NOT NULL,
    designation VARCHAR(50),
    PRIMARY KEY (id)
 ) TYPE = MYISAM;
