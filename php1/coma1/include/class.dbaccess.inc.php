@@ -235,11 +235,11 @@ class DBAccess {
    */
   function getAverageRatingOfPaper($intPaperId) {
     $s = 'SELECT  AVG('.
-        '         SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)'.
+        '         SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100))'.
         '         FROM    Rating AS r'.
         '         INNER   JOIN Criterion AS c'.
         '         ON      c.id = r.criterion_id'.
-        '         AND     r.review_id = rr.id))'.
+        '         AND     r.review_id = rr.id)'.
         ' FROM    ReviewReport AS rr'.
         ' WHERE   rr.paper_id = '.$intPaperId;
     $data = $this->mySql->select($s);
@@ -256,14 +256,14 @@ class DBAccess {
    * @author Sandro, Tom (06.12.04)
    */
   function getReviewRating($intReviewId) {
-    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100)'.
+    $s = 'SELECT  SUM(((r.grade-1)/(c.max_value-1))*(c.quality_rating/100))'.
         ' FROM    Rating AS r'.
         ' INNER   JOIN Criterion AS c'.
         ' ON      c.id = r.criterion_id'.
-        ' AND     r.review_id = '.$intReviewId.')';
+        ' AND     r.review_id = '.$intReviewId;
     echo($s);
     $data = $this->mySql->select($s);    
-    if (!empty($data))
+    if (empty($data))
       echo(' !DATA ');
     return $data;
   }
