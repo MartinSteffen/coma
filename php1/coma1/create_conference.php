@@ -45,7 +45,7 @@ if (isset($_POST['action'])) {
   $strContentAssocs['auto_addreviewer'] =
    (isset($_POST['auto_addreviewer']) ? $_POST['auto_addreviewer'] : '');
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
-
+echo($_POST['submit']);
   // Anlegen der Konferenz in der Datenbank
   if ($_POST['action'] == 'submit') {
   
