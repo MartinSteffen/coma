@@ -2724,8 +2724,9 @@ nur fuer detaillierte?
     if ($intForumType <> 3) {  // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
       $intPaperId = 0;
     }
-    $s = "INSERT  INTO Forum (conference_id, title, forum_type, paper_id)".
-        "         VALUES ('$intConferenceId', '$strTitle', '$intForumType', '$intPaperId')";
+    $s = sprintf("INSERT  INTO Forum (conference_id, title, forum_type, paper_id)".
+                 "VALUES ('%d', '%s', '%d', '%d')",
+                 s2db($intConferenceId), s2db($strTitle), s2db($intForumType), s2db($intPaperId);
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addForum', $this->mySql->getLastError());
@@ -2750,10 +2751,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addMessage($strSubject, $strText, $intSenderId, $intForumId, $intReplyTo = 0) {
-    $strSendTime = date("Y-m-d H:i:s");
-    $s = "INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
-        "         VALUES ('$strSubject', '$strText', '$intSenderId', '$intForumId',".
-        "                 '$intReplyTo', '$strSendTime')";
+    $s = sprintf("INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
+                 "VALUES ('%s', '%s', '%d', '%d', '%d', '%s')",
+                 s2db($strSubject), s2db($strText), s2db($intSenderId), s2db($intForumId), s2db($intReplyTo), s2db(date("Y-m-d H:i:s")));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addMessage', $this->mySql->getLastError());
@@ -2776,10 +2776,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addCriterion($intConferenceId, $strName, $strDescription, $intMaxValue, $fltWeight) {
-    $intQualityRating = round($fltWeight * 100);
-    $s = "INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
-        "         VALUES ('$intConferenceId', '$strName', '$strDescription',".
-        "                 '$intMaxValue', '$intQualityRating')";
+    $s = sprintf("INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)".
+                 "VALUES ('%d', '%s', '%s', '%d', '%d')",
+                 s2db($intConferenceId), s2db($strName), s2db($strDescription), s2db($intMaxValue), s2db(round($fltWeight * 100)));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addCriterion', $this->mySql->getLastError());
@@ -2798,8 +2797,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addTopic($intConferenceId, $strName) {
-    $s = "INSERT  INTO Topic (conference_id, name)".
-        "         VALUES ('$intConferenceId', '$strName')";
+    $s = sprintf("INSERT  INTO Topic (conference_id, name)".
+                 "VALUES ('%d', '%s')",
+                 s2db($intConferenceId), s2db($strName));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addTopic', $this->mySql->getLastError());
@@ -2817,8 +2817,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addIsAboutTopic($intPaperId, $intTopicId) {
-    $s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
-        "         VALUES ('$intPaperId', '$intTopicId')";
+    $s = sprintf("INSERT  INTO IsAboutTopic (paper_id, topic_id)".
+                 "VALUES ('%d', '%d')",
+                 s2db($intPaperId), s2db($intTopicId));
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addIsAboutTopic', $this->mySql->getLastError());
@@ -2836,8 +2837,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addPrefersTopic($intPersonId, $intTopicId) {
-    $s = "INSERT  INTO PrefersTopic (person_id, topic_id)".
-        "         VALUES ('$intPersonId', '$intTopicId')";
+    $s = sprintf("INSERT  INTO PrefersTopic (person_id, topic_id)".
+                 "VALUES ('%d', '%d')",
+                 s2db($intPersonId), s2db($intTopicId));
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersTopic', $this->mySql->getLastError());
@@ -2855,8 +2857,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addPrefersPaper($intPersonId, $intPaperId) {
-    $s = "INSERT  INTO PrefersPaper (person_id, paper_id)".
-        "         VALUES ('$intPersonId', '$intPaperId')";
+    $s = sprintf("INSERT  INTO PrefersPaper (person_id, paper_id)".
+                 "VALUES ('%d', '%d')",
+                 s2db($intPersonId), s2db($intPaperId));
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersPaper', $this->mySql->getLastError());
@@ -2874,8 +2877,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addDeniesPaper($intPersonId, $intPaperId) {
-    $s = "INSERT  INTO DeniesPaper (person_id, paper_id)".
-        "         VALUES ('$intPersonId', '$intPaperId')";
+    $s = sprintf("INSERT  INTO DeniesPaper (person_id, paper_id)".
+                 "VALUES ('%d', '%d')",
+                 s2db($intPersonId), s2db($intPaperId));
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addDeniesPaper', $this->mySql->getLastError());
@@ -2893,8 +2897,9 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addExcludesPaper($intPersonId, $intPaperId) {
-    $s = "INSERT  INTO ExcludesPaper (person_id, paper_id)".
-        "         VALUES ('$intPersonId', '$intPaperId')";
+    $s = sprintf("INSERT  INTO ExcludesPaper (person_id, paper_id)".
+                 "VALUES ('%d', '%d')",
+                 s2db($intPersonId), s2db($intPaperId));
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addExcludesPaper', $this->mySql->getLastError());
