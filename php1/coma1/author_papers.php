@@ -18,7 +18,7 @@ $content = new Template(TPLPATH.'author_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = REVIEWER;
+$actMenu = AUTHOR;
 $actMenuItem = 2;
 include('./include/usermenu.inc.php');
 

@@ -18,7 +18,7 @@ $content = new Template(TPLPATH.'participant_start.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
+$actMenu = PARTICIPANT;
 $actMenuItem = 1;
 include('./include/usermenu.inc.php');
 

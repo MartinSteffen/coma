@@ -18,7 +18,7 @@ $content = new Template(TPLPATH.'reviewer_start.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
+$actMenu = REVIEWER;
 $actMenuItem = 1;
 include('./include/usermenu.inc.php');
 
