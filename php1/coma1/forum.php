@@ -54,7 +54,7 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   $strArrayTypeChairAssocs['type'] = 'Committee forums';
   $objForumTypeGlobalTemplate = new Template(TPLPATH . 'forumtypes.tpl');
   $strArrayTypeGlobalAssocs = defaultAssocArray();
-  $strArrayTypeGlobalAssocs['type'] = 'Committee forums';
+  $strArrayTypeGlobalAssocs['type'] = 'Global forums';
   $objArrayOpenForumTemplates = array();
   $objArrayPaperForumTemplates = array();
   $objArrayChairForumTemplates = array();
