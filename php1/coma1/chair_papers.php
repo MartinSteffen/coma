@@ -23,12 +23,6 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
-//Achtung: Nur zu Testzwecken eingefuegt
-require_once(INCPATH.'getCriticalPapers.inc.php');
-require_once(INCPATH.'class.conferencedetailed.inc.php');
-require_once(INCPATH.'class.papervariance.inc.php');
-//bis hier
-
 if (isset($_POST['action'])) {
   if ($_POST['action'] == 'delete') {
     if (empty($_POST['confirm_delete'])) {
@@ -72,12 +66,6 @@ if ($myDBAccess->failed()) {
   error('get paper list of chair',$myDBAccess->getLastError());
 }
 
-//Achtung: Nur zu Testzwecken hier eingefuegt
-$critPapers = getCriticalPapers($myDBAccess);
-$confdet = $myDBAccess->getConferenceDetailed(session('confid'));
-$critvar = $confdet->fltCriticalVariance;
-//bis hier
-
 $content = new Template(TPLPATH.'chair_paperlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
@@ -106,25 +94,11 @@ if (!empty($objPapers)) {
     $strItemAssocs['title'] = encodeText($objPaper->strTitle);
     if (!empty($objPaper->fltAvgRating)) {
       $strItemAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100).'%');
-      //achtung: nur fuer testzwecke
-      foreach($critPapers as $cpap){
-        $cpapstr = round($cpap->fltVariance * 100) . '%';
-        if ($cpap->intId == $objPaper->intId){
-	        if ($cpap->fltVariance > $critvar){
-	          $strItemAssocs['variance'] = '!! ' . $cpapstr;
-	        }
-	        else{
-	          $strItemAssocs['variance'] = $cpapstr;
-	        }
-	      }
-      }
-      //bis hier
+      $strItemAssocs['variance'] = encodeText(sprintf('%.2f', $objPaper->fltVariance));
     }
     else {
       $strItemAssocs['avg_rating'] = ' - ';
-      //achtung: nur fuer testzwecke
       $strItemAssocs['variance'] = ' - ';
-      //bis hier
     }
     $strItemAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
     $strItemAssocs['if'] = $ifArray;
