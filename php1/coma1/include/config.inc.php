@@ -32,7 +32,7 @@ $ftpPassword = "janMiUct";
  * wie moeglich nach dem Include dieser Datei ausgefuert werden, 
  * um eventuellen Passworddiebstahl oder so zu erschweren
  *
- * Ist das wirklcih noetig? Und bringt es ueberhaupt was?
+ * Ist das wirklich noetig? Und bringt es ueberhaupt was?
  * 
  */
 function ConfigClearVariables()
