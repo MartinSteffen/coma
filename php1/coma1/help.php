@@ -135,8 +135,35 @@ if (in_array('comapages', $strArrayHelpTopics)){
 
 
 /**
- * chapther-02-01.tpl
- */ 
+ * chapter-02-01.tpl
+ */
+if (in_array('layout', $strArrayHelpTopics)){
+  $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
+  $strArrayChapterAssocs = defaultAssocArray();
+  $strArrayChapterAssocs['chapter-no'] = '2.1';
+  $strArrayChapterAssocs['chapter-title'] = 'General layout of the pages in CoMa';
+  $strArrayChapterAssocs['special'] = '';
+  if ($i){
+    $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the login page.';
+  }
+  else{
+    $strArrayChapterAssocs['special'] = '';
+  }
+  if (!empty($strArrayChapterAssocs['special'])){
+    $strArrayChapterAssocs['if'] = array(1);
+  }
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-01.tpl');
+  $strArrayContentAssocs = defaultAssocArray();
+  $objChapterContent->assign($strArrayContentAssocs);
+  $objChapterContent->parse();
+  $strArrayChapterAssocs['content'] = $objChapterContent->getOutput();
+  $objChaptertemplate->assign($strArrayChapterAssocs);
+  $objChaptertemplate->parse();
+  $strContentAssocs['chapter-02-01'] = $objChaptertemplate->getOutput();
+}
+/**
+ * chapter-02-02.tpl
+ */
 if (in_array('login', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
@@ -166,7 +193,7 @@ if (in_array('login', $strArrayHelpTopics)){
   $objRelatedTemplate->assign($strArrayRelatedAssocs);
   $objRelatedTemplate->parse();
   $strArrayChapterAssocs['related-link'] = $objRelatedTemplate->getOutput();
-  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-03.tpl');
+  $objChapterContent = new Template(TPLPATH.'helptext/chapter-02-02.tpl');
   $strArrayContentAssocs = defaultAssocArray();
   $objChapterContent->assign($strArrayContentAssocs);
   $objChapterContent->parse();
@@ -265,7 +292,7 @@ if (in_array('profile', $strArrayHelpTopics)){
 }
 
 /**
- * chapther-01.tpl
+ * chapter-01.tpl
  */ 
 if (in_array('introduction', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
@@ -295,7 +322,7 @@ if (in_array('introduction', $strArrayHelpTopics)){
 
 
 /**
- * chapther-01-01.tpl
+ * chapter-01-01.tpl
  */ 
 if (in_array('step', $strArrayHelpTopics) && in_array('chair', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
@@ -324,7 +351,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('chair', $strArrayHelpTopi
 }
 
 /**
- * chapther-01-02.tpl
+ * chapter-01-02.tpl
  */ 
 if (in_array('step', $strArrayHelpTopics) && in_array('reviewer', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
@@ -353,7 +380,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('reviewer', $strArrayHelpT
 }
 
 /**
- * chapther-01-03.tpl
+ * chapter-01-03.tpl
  */ 
 if (in_array('step', $strArrayHelpTopics) && in_array('author', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
@@ -382,7 +409,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('author', $strArrayHelpTop
 }
 
 /**
- * chapther-01-03.tpl
+ * chapter-01-03.tpl
  */ 
 if (in_array('step', $strArrayHelpTopics) && in_array('participant', $strArrayHelpTopics)){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
