@@ -127,11 +127,15 @@ public class UserPrefs extends HttpServlet {
 				thePerson.deletePreferredTopic(ts[i]);
 			    }
 			}
-			final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
+			final String[] ptopics 
+			    = request.getParameterValues(FormParameters.PREFERREDTOPICS);
 
-			for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
+			LOG.log(DEBUG, "New Topics:", ptopics);
+			for (String s: ptopics){ //welcome to quoting hell!
 			    try{
 				
+				LOG.log(DEBUG, "Adding topic #", s);
+
 				thePerson.addPreferredTopic(new Topic(Integer.parseInt(s)));
 				// (turns out Person just picks out the id anyway.)
 			    } catch (NumberFormatException nfe) {;}//just skip it, then.

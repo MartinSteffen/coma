@@ -76,7 +76,7 @@ public class DeleteServiceImpl extends Service implements DeleteService {
 	}
 	
 	public SearchResult deletePreferedTopic(int person_id, int topic_id) {
-		String QUERY = "DELETE FROM  PreferedTopic WHERE Person_id = "+person_id
+		String QUERY = "DELETE FROM  PrefersTopic WHERE Person_id = "+person_id
 			+ " AND topic_id = "+ topic_id;
 		return executeQuery(QUERY);
 	}
