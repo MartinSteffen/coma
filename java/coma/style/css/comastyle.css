@@ -27,6 +27,11 @@ body
 {
 	color:black;
 }
+
+.content textarea
+{
+	color:black;	
+}
 	
 .header	
 {
@@ -126,7 +131,7 @@ fieldset
 }
 
 		
-body>.header, body>.navbar,body>.status-line,.status-line>.content
+body>.header, body>.navbar,body>.status-line,.status-line>.content,body>.date
 {
 	position: fixed;
 }
