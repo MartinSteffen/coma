@@ -105,15 +105,15 @@ input, button { font-size: 12px;
       }
 
 input.button, button { font-weight: bold; background-color: #CEDBEF;
-                       min-width: 100px; text-align: center; padding: 2px 8px; 
-                       text-align: center; 
+                       min-width: 100px; text-align: center; padding: 2px 8px;
+                       text-align: center;
                      }
 
 /* Tabelle mit Linien zur Darstellung von Listen */
 table.list { border-style: solid;
              border-width: 1px;
              border-color: #404040;
-             font-size: 12px; 
+             font-size: 12px;
              margin: 6px 10px;
              padding: 0px;
              background-color: #F7FBFF;

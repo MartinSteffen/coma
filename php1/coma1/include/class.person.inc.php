@@ -21,15 +21,15 @@ if (!defined('IN_COMA1')) {
  */
 class Person {
 
-  var $intId;  
+  var $intId;
   var $strFirstName;
   var $strLastName;
   var $strEmail;
   var $intRoles;
   var $strTitle;
-  
+
   function Person($intId, $strFirstName, $strLastName, $strEmail, $intRoles, $strTitle) {
-    $this->intId = $intId;  
+    $this->intId = $intId;
     $this->strFirstName = $strFirstName;
     $this->strLastName = $strLastName;
     $this->strEmail = $strEmail;
@@ -38,7 +38,7 @@ class Person {
   }
 
   /**
-   * Fuegt der Person die Rolle $intRole hinzu. 
+   * Fuegt der Person die Rolle $intRole hinzu.
    * @warning Es findet keine Aenderung in der Datenbank statt, lediglich im Objekt!
    *
    * @param int $intRole Ein Rollen-Enum (keine Abfrage auf Gueltigkeit!)
@@ -80,7 +80,7 @@ class Person {
     }
     return true;
   }
-  
+
   function hasRole($intRole) {
     return ($this->intRoles & (1 << $intRole));
   }
@@ -88,7 +88,7 @@ class Person {
   function hasAnyRole() {
     return ($this->intRoles != 0);
   }
-  
+
   /**
    * Liefert den vollstaendigen Namen der Person wahlweise in der Form
    * "Vorname Nachname" ($intStyle = 0) oder "Nachname, Vorname" ($intStyle = 1).
@@ -112,7 +112,7 @@ class Person {
     }
     return $ret;
   }
-  
+
 } // end class Person
 
 ?>

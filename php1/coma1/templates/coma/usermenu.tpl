@@ -7,7 +7,7 @@
   {menu1}
   {menu2}
   {menu3}
-  {menu4}  
+  {menu4}
   <tr>
     <td class="menu"><a href="{basepath}user_conference.php?{SID}" class="{if2 marked}menu">
       Conference</a>
@@ -28,5 +28,5 @@
       Logout</a>
     </td>
   </tr>
-  
+
 </table>

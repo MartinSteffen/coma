@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
@@ -20,7 +20,7 @@
   </td>
   <td>
    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr bgcolor="#DBE9EC">     
+    <tr bgcolor="#DBE9EC">
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
       <a href="#">Impressum</a>&nbsp;|&nbsp;
@@ -40,9 +40,9 @@
      <td colspan="2" height="25" valign="middle">
       {submenue}
      </td>
-     </tr>   
+     </tr>
    </table>
-  </td>  
+  </td>
  </tr>
 </table>
 <!-- - - - - - - - - - - - - - - - - - - - Body - - - - - - - - - - - - - - - -  -->

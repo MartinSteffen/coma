@@ -37,7 +37,7 @@ class ConferenceDetailed extends Conference {
   var $intNumberOfAutoAddReviewers;
   var $objCriterions;
   var $objTopics;
-  
+
   function ConferenceDetailed($intId, $strName, $strHomepage, $strDescription, $strStart, $strEnd,
                               $strAbstractDeadline, $strPaperDeadline, $strReviewDeadline,
                               $strFinalDeadline, $strNotification, $intMinReviewsPerPaper,

@@ -20,16 +20,16 @@ if (!defined('IN_COMA1')) {
  */
 class Forum {
 
-  var $intId;  
-  var $strTitle;  
+  var $intId;
+  var $strTitle;
   var $intForumType;
-  var $intPaperId;  
-  
+  var $intPaperId;
+
   function Forum($intId, $strTitle, $intForumType = 0, $intPaperId = false) {
-    $this->intId = $intId;  
-    $this->strTitle = $strTitle;    
-    $this->intForumType = $intForumType;    
-    $this->intPaperId = $intPaperId;    
+    $this->intId = $intId;
+    $this->strTitle = $strTitle;
+    $this->intForumType = $intForumType;
+    $this->intPaperId = $intPaperId;
   }
 
 } // end class Forum

@@ -26,7 +26,7 @@ require_once(INCPATH.'class.person.inc.php');
  *
  */
 class PersonDetailed extends Person {
-  
+
   var $strAffiliation;
   var $strStreet;
   var $strCity;
@@ -35,7 +35,7 @@ class PersonDetailed extends Person {
   var $strCountry;
   var $strPhone;
   var $strFax;
-  
+
   function PersonDetailed($intId, $strFirstname, $strLastname, $strEmail, $intRole,
                           $strTitle, $strAffiliation, $strStreet,
                           $strCity, $strPostalCode, $strState,
@@ -50,7 +50,7 @@ class PersonDetailed extends Person {
     $this->strPhone = $strPhone;
     $this->strFax = $strFax;
   }
-  
+
 } // end class PersonDetailed
 
 ?>

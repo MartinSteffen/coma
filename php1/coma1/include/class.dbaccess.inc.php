@@ -858,7 +858,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getReviewDetailed', $this->mySql->getLastError());
     }
     else if (empty($data)) {
-    	return $this->success(false);
+      return $this->success(false);
     }
     $objReviewer = $this->getPerson($data[0]['reviewer_id']);
     if ($this->failed()) {
@@ -1076,7 +1076,7 @@ class DBAccess extends ErrorHandling {
       return $this->error('getForumDetailed', $this->mySql->getLastError());
     }
     else if (empty($data)) {
-    	return $this->success(false);
+      return $this->success(false);
     }
     $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'], 0, false,
                                 $this->getThreadsOfForum($intForumId)));
@@ -1205,7 +1205,7 @@ class DBAccess extends ErrorHandling {
    * @param string $strName                 Name der Konferenz
    * @param string $strHomepage             URL der Homepage
    * @param string $strDescription          Beschreibung
-   * @param string $strAbstractDeadline     
+   * @param string $strAbstractDeadline
    * @param string $strPaperDeadline       :?
    * @param string $strReviewDeadline         :?
    * @param string $strFinalDeadline   :?
@@ -1447,7 +1447,7 @@ class DBAccess extends ErrorHandling {
         $this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
         if ($this->failed()) {
           return $this->error('createNewReviewReport', $this->getLastError());
-        }    
+        }
      }
      return $this->success($intReviewId);
    }
@@ -1926,7 +1926,7 @@ class DBAccess extends ErrorHandling {
     }
     return $this->success();
   }
-  
+
   // end of class DBAccess
 }
 

@@ -13,7 +13,7 @@ $objPerson = $myDBAccess->getPerson(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
   $_SESSION['message'] = 'An error occured during processing the user menu!<br>'.
                            $myDBAccess->getLastError();
-  redirect('error.php');  
+  redirect('error.php');
 }
 */
 
@@ -58,7 +58,7 @@ if ($objPerson->hasRole(AUTHOR, session('confid'))) {
   $strSubmenuAssocs['if'] = array();
   if ($actMenu == AUTHOR) {
     $strSubmenuAssocs['if'] = array($actMenuItem);
-  }  
+  }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
   $strMenuAssocs['menu3'] = $submenu->getOutput();
@@ -70,7 +70,7 @@ if ($objPerson->hasRole(PARTICIPANT)) {
   $strSubmenuAssocs['if'] = array();
   if ($actMenu == PARTICIPANT) {
     $strSubmenuAssocs['if'] = array($actMenuItem);
-  }  
+  }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
   $strMenuAssocs['menu4'] = $submenu->getOutput();

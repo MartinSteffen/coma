@@ -13,7 +13,7 @@
     <td class="submenu"><a href="{basepath}create_conference.php?{SID}" class="{if3 marked}submenu">
       Create conference</a>
     </td>
-  </tr>  
+  </tr>
   <tr>
     <td class="menu"><a href="{basepath}main_forum.php?{SID}" class="{if4 marked}menu">
       Forum</a>
@@ -24,5 +24,5 @@
       Logout</a>
     </td>
   </tr>
-  
+
 </table>

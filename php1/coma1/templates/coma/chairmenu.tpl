@@ -12,7 +12,7 @@
     <td class="submenu"><a href="{basepath}chair_papers.php?{SID}" class="{if3 marked}submenu">
       Manage papers</a>
     </td>
-  </tr>  
+  </tr>
   <tr>
     <td class="submenu"><a href="{basepath}chair_reviews.php?{SID}" class="{if4 marked}submenu">
       Manage reviews</a>
@@ -22,4 +22,4 @@
     <td class="submenu"><a href="{basepath}chair_confconfig.php?{SID}" class="{if5 marked}submenu">
       Config. conference</a>
     </td>
-  </tr>    
+  </tr>

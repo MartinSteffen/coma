@@ -21,12 +21,12 @@ if (!defined('IN_COMA1')) {
  */
 class Topic {
 
-  var $intId;  
+  var $intId;
   var $strName;
-  
+
   function Topic($intId, $strName) {
-    $this->intId = $intId;  
-    $this->strName = $strName;    
+    $this->intId = $intId;
+    $this->strName = $strName;
   }
 
 } // end class Topic

@@ -27,9 +27,9 @@ class Conference {
   var $strDescription;
   var $strStart;
   var $strEnd;
-  
+
   function Conference($intId, $strName, $strHomepage, $strDescription, $strStart, $strEnd) {
-    $this->intId = $intId;  
+    $this->intId = $intId;
     $this->strName = $strName;
     $this->strHomepage = $strHomepage;
     $this->strDescription = $strDescription;

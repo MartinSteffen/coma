@@ -33,7 +33,7 @@ class ReviewDetailed extends Review {
   var $intRatings;
   var $strComments;
   var $objCriterions;
-  
+
   function ReviewDetailed($intId, $intPaperId, $strPaperTitle, $strAuthorEmail,
                           $strAuthorName, $intReviewRating, $fltAverageRating,
                           $strReviewerEmail, $strReviewerName, $strSummary,

@@ -31,7 +31,7 @@ class Review {
   var $fltAverageRating;   // Durchschnitt aller Gesamtbewertungen des Papers
   var $strReviewerEmail;
   var $strReviewerName;
-  
+
   function Review($intId, $intPaperId, $strPaperTitle, $strAuthorEmail, $strAuthorName,
                   $intReviewRating, $fltAverageRating, $strReviewerEmail, $strReviewerName) {
     $this->intId = $intId;

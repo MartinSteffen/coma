@@ -6,50 +6,50 @@
     <th colspan="2">Registered New User:</th>
   </tr>
   <tr>
-    <td> 
+    <td>
       Name:
     </td>
-    <td>      
+    <td>
       {name_title} {first_name} {last_name}
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       E-mail address:
     </td>
-    <td>      
+    <td>
       {email} <span class="emph">(= username)</span>
     </td>
   </tr>
   <tr>
-    <td> 
-      Affiliation: 
+    <td>
+      Affiliation:
     </td>
-    <td>      
+    <td>
       {affiliation}
     </td>
-  </tr>  
+  </tr>
   <tr>
-    <td> 
+    <td>
       Phone number:
     </td>
-    <td>      
+    <td>
       {phone}
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Fax number:
     </td>
-    <td>      
+    <td>
       {fax}
     </td>
   </tr>
   <tr>
-    <td> 
-      Address: 
+    <td>
+      Address:
     </td>
-    <td>      
+    <td>
       {street} &nbsp;&nbsp;&nbsp;&nbsp; {postalcode} {city} <br>
       {state} {country}
     </td>

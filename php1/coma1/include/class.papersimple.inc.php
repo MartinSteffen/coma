@@ -33,7 +33,7 @@ class PaperSimple extends Paper {
   var $intStatus;
   var $fltAvgRating; // false, falls kein Rating existiert
   var $objTopics;
-  
+
 function PaperSimple($intId, $strTitle, $intAuthorId, $strAuthor, $intStatus,
                      $fltAvgRating, $objTopics) {
     $this->Paper($intId);

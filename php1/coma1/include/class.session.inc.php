@@ -49,7 +49,7 @@ class Session extends ErrorHandling {
 
   /**#@+@access private*/
   /**@var MySql*/
-  var $mySql;  
+  var $mySql;
   /**@var int*/
   var $intMaxLifeTime = 7200;
   /**@var string*/

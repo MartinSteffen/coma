@@ -119,7 +119,7 @@ class MySql extends ErrorHandling {
    * automatisch in ein array umgewandelt.
    *
    * @param string $strSql Eine SQL <b>select</b> Anfrage an die Datenbank
-   * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein 
+   * @return array|false Eine Liste der Ergebnisse oder <b>false</b> falls ein
    *                     Fehler auftrat.
    * @see error()
    * @see getLastError()
@@ -181,7 +181,7 @@ class MySql extends ErrorHandling {
     }
     return $this->success($result);
   }
-  
+
   /**
    * insert()
    *

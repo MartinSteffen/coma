@@ -8,82 +8,82 @@
     <th colspan="2">Configurate conference:</th>
   </tr>
   <tr>
-    <td> 
+    <td>
       Title:
     </td>
-    <td>      
+    <td>
       <input type="text" name="name" size="32" maxlength="127" value="{name}" /> *
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Description:
     </td>
-    <td>      
+    <td>
       <input type="text" name="description" size="48" value="{description}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Homepage URL:
     </td>
-    <td>      
+    <td>
       <input type="text" name="homepage" size="32" maxlength="127" value="{homepage}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Starts:
     </td>
-    <td>      
+    <td>
       <input type="text" name="start_date" size="16" maxlength="20" value="{start_date}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       End:
     </td>
-    <td>      
+    <td>
       <input type="text" name="end_date" size="16" maxlength="20" value="{end_date}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Deadline for abstracts:
     </td>
-    <td>      
+    <td>
       <input type="text" name="abstract_dl" size="16" maxlength="20" value="{abstract_dl}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Deadline for paper submission:
     </td>
-    <td>      
+    <td>
       <input type="text" name="paper_dl" size="16" maxlength="20" value="{paper_dl}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Deadline for reviews:
     </td>
-    <td>      
+    <td>
       <input type="text" name="review_dl" size="16" maxlength="20" value="{review_dl}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Deadline for final versions:
     </td>
-    <td>      
+    <td>
       <input type="text" name="final_dl" size="16" maxlength="20" value="{final_dl}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Date for notification:
     </td>
-    <td>      
+    <td>
       <input type="text" name="notification" size="16" maxlength="20" value="{notification}"/ >
     </td>
   </tr>
@@ -94,16 +94,16 @@
       <input type="hidden" name="def_reviews" value="{def_reviews}" />
       <input type="hidden" name="min_papers" value="{min_papers}" />
       <input type="hidden" name="max_papers" value="{max_papers}" />
-      <input type="hidden" name="variance" value="{variance}" />    
-      <input type="hidden" name="criteria" value="{criteria}" />    
-      <input type="hidden" name="topics" value="{topics}" />    
+      <input type="hidden" name="variance" value="{variance}" />
+      <input type="hidden" name="criteria" value="{criteria}" />
+      <input type="hidden" name="topics" value="{topics}" />
       <input type="hidden" name="crit_max" value="{crit_max}" />
       <input type="hidden" name="crit_descr" value="{crit_descr}" />
       <input type="hidden" name="auto_actaccount" value="{auto_actaccount}" />
       <input type="hidden" name="auto_paperforum" value="{auto_paperforum}" />
       <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
       <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
-            
+
       <input type="hidden" name="action" value="submit" />
       <input type="submit" name="submit" value="Submit changes" class="button" />
       <input type="submit" name="adv_config" value="Advanced settings" class="button" />
@@ -112,6 +112,6 @@
 </table>
 </form>
 
-<form action="{basepath}chair_confconfig.php?{SID}" method="post">  
+<form action="{basepath}chair_confconfig.php?{SID}" method="post">
   <input type="submit" name="cancel" value="Cancel" class="button" />
 </form>

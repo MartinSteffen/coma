@@ -5,15 +5,15 @@
   <tr class="listheader">
     <th class="listheader" colspan="3">Conference title</th>
     <th class="listheader">Date</th>
-  </tr>  
-  {lines}  
+  </tr>
+  {lines}
   {if1
   <tr class="listitem-1" colspan="3">
     <td class="listitem-1">
       <span class="emph">There are no conferences yet.</span>
     </td>
     <td class="listitem-1">&nbsp;</td>
-  </tr>  
+  </tr>
   }
 </table>
 

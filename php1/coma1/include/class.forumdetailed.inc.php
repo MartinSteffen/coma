@@ -25,19 +25,19 @@ require_once(INCPATH.'class.forum.inc.php');
  *
  */
 class ForumDetailed extends Forum {
-  
+
   var $objThreads;
-  
+
   function ForumDetailed($intId, $strTitle, $intForumType = 0,
                  $intPaperId = false, $objThreads = false) {
-    $this->intId = $intId;    
-    $this->strTitle = $strTitle;    
-    $this->intForumType = $intForumType;    
+    $this->intId = $intId;
+    $this->strTitle = $strTitle;
+    $this->intForumType = $intForumType;
     $this->intPaperId = $intPaperId;
     $this->objThreads = $objThreads;
   }
-  
-  function getThreads() {      	
+
+  function getThreads() {
     return $this->objThreads;
   }
 
@@ -45,7 +45,7 @@ class ForumDetailed extends Forum {
     if ($this->objThreads) {
       return count($this->objThreads);
     }
-    return 0;     
+    return 0;
   }
 
   function getThread($intIndex) {
@@ -54,7 +54,7 @@ class ForumDetailed extends Forum {
     }
     return false;
   }
-  
+
 } // end class ForumDetailed
 
 ?>

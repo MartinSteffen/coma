@@ -21,31 +21,31 @@ if (!defined('IN_COMA1')) {
 class Message {
 
   var $intId;
-  var $intSender;    
+  var $intSender;
   var $strSendTime;
   var $strSubject;
   var $strText;
   var $objNext;
-  
+
   function Message($intId, $intSender, $strSendTime, $strSubject, $strText,
                    $objNext = false) {
     $this->intId = $intId;
     $this->intSender = $intSender;
     $this->strSendTime = $strSendTime;
     $this->strSubject = $strSubject;
-    $this->strText = $strText;    
+    $this->strText = $strText;
     $this->objNext = $objNext;
   }
-  
-  function getNextMessages() {      	
-    return $this->objNext;    
+
+  function getNextMessages() {
+    return $this->objNext;
   }
 
   function getNextMessageCount() {
     if ($this->objNext) {
       return count($this->objNext);
     }
-    return 0;     
+    return 0;
   }
 
   function getNextMessage($intIndex) {
@@ -54,7 +54,7 @@ class Message {
     }
     return false;
   }
-  
+
 } // end class Message
 
 ?>

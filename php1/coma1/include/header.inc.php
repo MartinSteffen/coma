@@ -64,9 +64,9 @@ function defaultAssocArray() {
  * geschuetztes Lesen von Session-Variablen
  *
  * Diese Funktion liest eine Sessionvariable aus, und stellt dabei sicher
- * das diese auch gesetzt ist! Im Fehlerfall wird der Benutzer 
+ * das diese auch gesetzt ist! Im Fehlerfall wird der Benutzer
  * normalerweise auf die index-Seite geleitet.
- * Ist jedoch Parameter $blnRedirect==false, so wird stattdessen '' 
+ * Ist jedoch Parameter $blnRedirect==false, so wird stattdessen ''
  * geliefert.
  *
  * @param string $strName Der Name der Variablen.

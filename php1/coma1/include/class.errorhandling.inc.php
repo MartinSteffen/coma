@@ -47,10 +47,10 @@ class ErrorHandling {
     $this->blnError = true;
     return false;
   }
-  
+
   /**
    * Gibt einen Rueckgabewert erfolgreich, d.h. ohne Fehler zurueck.
-   * 
+   *
    * @param mixed $val Rueckgabewert
    * @return mixed Der Rueckgabewert
    * @see getLastError()
@@ -61,7 +61,7 @@ class ErrorHandling {
     $this->strError = '';
     return $val;
   }
-  
+
   /**
    * Liefert die letzte Fehlerbeschreibung zurueck.
    *
@@ -76,8 +76,8 @@ class ErrorHandling {
     $strError = $this->strError;
     return $strError;
   }
-  
-  /** 
+
+  /**
    * Liefert zurueck, ob ein Fehler erzeugt worden ist.
    *
    * @return bool Ist ein Fehler erzeugt worden?
@@ -85,7 +85,7 @@ class ErrorHandling {
    * @see success()
    * @see getLastError()
    * @access public
-   */  
+   */
   function failed() {
     return $this->blnError;
   }

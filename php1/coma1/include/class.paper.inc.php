@@ -20,13 +20,13 @@ if (!defined('IN_COMA1')) {
  *
  */
 class Paper {
-  
+
   var $intId;
-  
+
   function Paper($intId){
     $this->intId = $intId;
   }
-  
+
 } // end class Paper
 
 ?>

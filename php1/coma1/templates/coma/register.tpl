@@ -9,106 +9,106 @@
     <th colspan="2">User data:</th>
   </tr>
   <tr>
-    <td> 
+    <td>
       First name:
     </td>
-    <td>      
+    <td>
       <input type="text" name="first_name" size="32" maxlength="127" value="{first_name}" />
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Last name:
     </td>
-    <td>      
+    <td>
       <input type="text" name="last_name" size="32" maxlength="127" value="{last_name}"/ > *
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Email address:
     </td>
-    <td>      
+    <td>
       <input type="text" name="email" size="32" maxlength="127" value="{email}"/ > *
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Title:
     </td>
-    <td>      
+    <td>
       <input type="text" name="name_title" size="16" maxlength="32" value="{name_title}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Affiliation:
     </td>
-    <td>      
+    <td>
       <input type="text" name="affiliation" size="16" maxlength="20" value="{affiliation}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Phone number:
     </td>
-    <td>      
+    <td>
       <input type="text" name="phone" size="16" maxlength="20" value="{phone}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Fax number:
     </td>
-    <td>      
+    <td>
       <input type="text" name="fax" size="16" maxlength="20" value="{fax}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Street:
     </td>
-    <td>      
+    <td>
       <input type="text" name="street" size="32" maxlength="127" value="{street}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Postal code:
     </td>
-    <td>      
+    <td>
       <input type="text" name="postalcode" size="16" maxlength="20" value="{postalcode}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       City:
     </td>
-    <td>      
+    <td>
       <input type="text" name="city" size="32" maxlength="127" value="{city}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       State:
     </td>
-    <td>      
+    <td>
       <input type="text" name="state" size="32" maxlength="127" value="{state}"/ >
     </td>
   </tr>
   <tr>
-    <td> 
+    <td>
       Country:
     </td>
-    <td>      
+    <td>
       <input type="text" name="country" size="32" maxlength="127" value="{country}"/ >
     </td>
-  </tr>  
+  </tr>
   <tr>
-    <td> 
+    <td>
       Password:
     </td>
-    <td>      
+    <td>
       <input type="password" name="user_password" size="32" maxlength="127" /> *
     </td>
   </tr>
@@ -122,7 +122,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="Register" class="button" />      
+      <input type="submit" name="submit" value="Register" class="button" />
     </td>
   </tr>
 </table>
