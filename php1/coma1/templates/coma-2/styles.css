@@ -21,7 +21,6 @@ h3 { font-size: 13px; }
 a         { font-size: 13px; text-decoration: none; font-weight: bold; }
 a:link    { color: #AD351A; }
 a:visited { color: #AD351A; }
-/* #78534A; */
 a:active  { color: #000000; }
 a:hover   { color: #FF4D00; }
 
