@@ -1,8 +1,12 @@
 package coma.handler.util;
 
 import java.sql.ResultSet;
+import java.util.Enumeration;
+
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.regex.*;
 
 import coma.entities.Conference;
 import coma.entities.Paper;
@@ -46,9 +50,37 @@ public class EntityCreater {
 	    
 	    return p;
 	}
-	public Person getPerson(HttpServletRequest request){
+	public Person getPerson(HttpServletRequest request) throws IllegalArgumentException  {
+		
 	    Person p = new Person(-1);
-	    //TODO
+	    //display the parameter names and values
+		Enumeration paramNames = request.getParameterNames();
+		String parName;//this will hold the name of the parameter from the HTML form
+		
+			
+		if(request.getParameter("last_name").equals("") || request.getParameter("password").equals(""))
+				throw  new IllegalArgumentException();
+				
+		if(!Pattern.matches("\\b[a-z0-9._%-]+@[a-z0-9._%-]+\\.[a-z]{2,6}\\b",
+					request.getParameter("email").toLowerCase()))
+			throw  new IllegalArgumentException();
+		if(!(request.getParameter("password").equals(request.getParameter("repassword"))))
+			throw  new IllegalArgumentException();
+		
+		p.setFirst_name(request.getParameter("first_name"));
+		p.setLast_name(request.getParameter("last_name"));
+		p.setTitle(request.getParameter("title"));
+		p.setAffiliation(request.getParameter("affiliation"));
+		p.setEmail(request.getParameter("email"));
+		p.setPhone_number(request.getParameter("phone_number"));
+		p.setFax_number(request.getParameter("Fax_number"));
+		p.setStreet(request.getParameter("street"));
+		p.setPostal_code(request.getParameter("postal_code"));
+		p.setCity(request.getParameter("city"));
+		p.setState(request.getParameter("state"));
+		p.setCountry(request.getParameter("country"));
+		p.setPassword(request.getParameter("password"));
+		
 	    return p;
 	}
 	
