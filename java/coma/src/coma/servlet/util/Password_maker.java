@@ -32,7 +32,7 @@ public class Password_maker {
         int c = last_low.charAt(last_low.length()-1);
         int d = last_low.charAt(0);
     	String email_low = email.toLowerCase();
-    	int e = email_low.charAt(last_low.length()-1);
+    	int e = email_low.charAt(email_low.length()-1);
         int f = email_low.charAt(0);
     	a = (a + 4)%25+97;
     	b = (b - 6)%25+97;
@@ -45,9 +45,9 @@ public class Password_maker {
     	int h = r.nextInt(10);
     	String pass = String.valueOf((char)a) + String.valueOf(g) + String.valueOf((char)b) + String.valueOf((char)c) + String.valueOf((char)d) + String.valueOf((char)e) + String.valueOf((char)f) + String.valueOf(h);
 
-	coma.util.logging.ALogger.log.log(coma.util.logging.Severity.INFO, 
+    	/*coma.util.logging.ALogger.log.log(coma.util.logging.Severity.INFO, 
 					  "password for", email,
-					  "is",pass);
+					  "is",pass);*/
         return pass;
     }
     
