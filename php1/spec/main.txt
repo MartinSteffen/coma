@@ -411,7 +411,7 @@ folgende Funktionalitäten zu streichen:
 |             |          |                                                 |
 | PHP         | 4.3.0+   | diverse Funktionen ab da verfügbar              |
 |             |          |                                                 |
-| MySQL       | ?        |                                                 |
+| MySQL       | 3.23.58+ |                                                 |
 |             |          |                                                 |
 | WebBrowser  | ?        |                                                 |
 |             |          |                                                 |
