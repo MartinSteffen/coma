@@ -41,6 +41,9 @@ $strContentAssocs['author_name'] = encodeText($objReview->strAuthorName);
 $strContentAssocs['reviewer_id'] = encodeText($objReview->intReviewerId);
 $strContentAssocs['reviewer_name'] = encodeText($objReview->strReviewerName);
 $strContentAssocs['title'] = encodeText($objReview->strPaperTitle);
+$strContentAssocs['summary'] = encodeText($objReview->strSummary);
+$strContentAssocs['confidential'] = encodeText($objReview->strConfidential);
+$strContentAssocs['remarks'] = encodeText($objReview->strRemarks);
 if (!empty($objReview->fltReviewRating)) {
   $strContentAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
 }
