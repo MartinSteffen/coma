@@ -44,38 +44,38 @@ if (empty($result)) {
 $sql = "
 CREATE TABLE Conference
 (
-   id                           INT NOT NULL AUTO_INCREMENT,
-   name                         VARCHAR(127) NOT NULL,
-   homepage                     VARCHAR(127),
-   description                  TEXT,
-   abstract_submission_deadline DATE,
-   paper_submission_deadline    DATE,
-   review_deadline              DATE,
-   final_version_deadline       DATE,
-   notification                 DATE,
-   conference_start             DATE,
-   conference_end               DATE,
-   min_reviews_per_paper        INT,
-   PRIMARY KEY (id)
+   `id`                           INT NOT NULL AUTO_INCREMENT,
+   `name`                         VARCHAR(127) NOT NULL,
+   `homepage`                     VARCHAR(127),
+   `description`                  TEXT,
+   `abstract_submission_deadline` DATE,
+   `paper_submission_deadline`    DATE,
+   `review_deadline`              DATE,
+   `final_version_deadline`       DATE,
+   `notification`                 DATE,
+   `conference_start`             DATE,
+   `conference_end`               DATE,
+   `min_reviews_per_paper`        INT,
+   PRIMARY KEY (`id`)
 ) TYPE = INNODB;
 
 CREATE TABLE Person
 (
-   id           INT NOT NULL AUTO_INCREMENT,
-   first_name   VARCHAR(127),
-   last_name    VARCHAR(127) NOT NULL,
-   title        VARCHAR(32),
-   affiliation  VARCHAR(127),
-   email        VARCHAR(127) UNIQUE NOT NULL,
-   phone_number VARCHAR(20),
-   fax_number   VARCHAR(20),
-   street       VARCHAR(127),
-   postal_code  VARCHAR(20),
-   city         VARCHAR(127),
-   state        VARCHAR(127),
-   country      VARCHAR(127),
-   password     VARCHAR(127) NOT NULL,
-   PRIMARY KEY (id)
+   `id`           INT NOT NULL AUTO_INCREMENT,
+   `first_name`   VARCHAR(127),
+   `last_name`    VARCHAR(127) NOT NULL,
+   `title`        VARCHAR(32),
+   `affiliation`  VARCHAR(127),
+   `email`        VARCHAR(127) UNIQUE NOT NULL,
+   `phone_number` VARCHAR(20),
+   `fax_number`   VARCHAR(20),
+   `street`       VARCHAR(127),
+   `postal_code`  VARCHAR(20),
+   `city`         VARCHAR(127),
+   `state`        VARCHAR(127),
+   `country`      VARCHAR(127),
+   `password`     VARCHAR(127) NOT NULL,
+   PRIMARY KEY (`id`)
 ) TYPE = INNODB;
 
 
@@ -275,7 +275,6 @@ CREATE TABLE Message
    FOREIGN KEY (sender_id) REFERENCES Person (id)
       ON DELETE CASCADE
 ) TYPE = INNODB;
-
 
 CREATE TABLE Session (
   sid VARCHAR(255) NOT NULL DEFAULT '',
