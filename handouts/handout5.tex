@@ -1,0 +1,264 @@
+
+
+\newif\ifweb\webfalse
+
+\documentclass[11pt,handout]{handout}
+
+\dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
+\coursename{P-I-T-M: Coma}
+\semester{WS 2004/05}
+\ausgabetermin{5.~November 2004}
+\handouttitle{F}
+\nummer{5}
+\thema{Group architecture + next steps}
+
+
+
+
+
+\newcommand{\Coma}{\textsl{Coma}}
+\usepackage{hevea}
+\usepackage{hyperref}
+\usepackage{psfrag}
+
+\usepackage{graphicx}
+\graphicspath{{../figures/}} %% cool!
+
+
+%\uebungfalse
+%\handouttrue
+
+\begin{document}
+
+\thispagestyle{empty}
+
+
+
+
+
+\begin{abstract}
+  This handout serve to prepare the decision finding, in particular
+  concering the ``group-architecture'' for the rest of the semester. We
+  propose a certain group-structure as base for discussion, and give
+  arguments and motivations about that structure. Consider the structure
+  and think whether it makes sense from your perspective. If not, give
+  arguments/alternatives.
+\end{abstract}
+
+\section*{Where are we?}
+
+
+
+What's needed now is to keep on rolling (or for some to get rolling
+\ldots). The \emph{first phase} is \emph{finished} which gave some
+clarification about the following points
+
+\begin{itemize}
+\item how many people still on board
+\item what tools we choose.
+\item some more insight on the specification, in particular the data model.
+\end{itemize}
+
+As a further comment on what happened so far is, that the spec-groups had
+the tougher task as compared to the tools groups.
+
+
+\subsection*{Status}
+
+
+
+
+\begin{description}
+\item[Org:] Snert is up and running (buzilla, email-exploder, svn,
+  passwords handed out); some proposal for the next step is worked out
+\item[tools:] we have statements about tools etc from the tools groups (in
+  written form only by Alexander Derenbach). So far, the tools groups have not
+\item[Spec:] we have two (or three?) specs by today
+\item[test:] we probably got one proposal from the test-groups
+\end{description}
+
+As a critical review, I'd say
+
+
+\begin{itemize}
+\item The specification is helpful. The fact that we have two is helpful
+  insofar as we could see ideas and get inspiration and discussion from
+  both. As we have seen, the work that pushed the semester ahead so far was
+  the spec work, so having only one spec group would have left more people
+  ``idle''.
+\item The success and the usefulness (in the context of the project) is
+  less transparent. This has various reasons
+  \begin{itemize}
+  \item the task was perhaps more fuzzy
+  \item it's difficult to see the success. If the thinking about the
+    platform s allowed us to avoid a definite wrong choice, even then the
+    success is not visible (because we never know what would have been).
+  \item Another important goal in this phase was, that the people proposing
+    the tools \emph{are} or (even better from a learning perspective)
+    \emph{become} experts in using/installing/maintaining the tools. From
+    the organizer's perspective, we don't know to which extent this has
+    happened. Also this depends on how good the ``deliverable'' of
+    ``Getting started with Tool xxx'' etc will be.
+  \end{itemize}
+\end{itemize}
+
+Local means that one needs the code of one of the local groups for the full
+tool. For instance, the configuration indicated in Figure~\ref{fig:groups}
+by the dotted blob consists of the local implementation of \emph{group 1}
+together with the 3 global (or shared) modules.
+
+
+
+\section*{Group architecture}
+
+
+To keep the semester rolling it is important to get something productive
+(and useful) to do for everyone for the weeks (in particular already the
+next week). Things to be \emph{decided} now is the group architecture. In
+Figure~\ref{fig:groups}, we make some proposal. The key points are
+
+\begin{itemize}
+\item 3 local modules, which work in isolation and in parallel, considering
+  the general preferences, perhaps 2 ``PHP'' groups and one ``Java'' group.
+  Each group consists of \emph{6} persons
+\item 3 global modules, which are relevant for all particpants. Those are
+  \begin{itemize}
+  \item testing: \emph{3 persons}
+  \item data base: 
+  \item requirements/specification
+  \end{itemize}
+\end{itemize}
+
+
+
+
+
+Before we mention concrete tasks within this proposal in a bit more detail,
+we first clarify the (partially conflicting) design goals of our proposal.
+\begin{description}
+\item[programming in the (not too) many:] We are, according to our
+  statistics, currently \emph{21 people}. All programming in the same group
+  will lead to chaos, in particular it will conflict with the goal that
+  (more or less) all participants will contribute in the next phase.
+  Furthermore, the task at hand is too small, so in order to make this work
+  and not too many complicated interfaces, there would be a few ``real
+  groups'' and the rest would do the doc, the manual, etc. 
+  
+  We propose therefore \emph{3 parallel, local groups.} They are small
+  enough that internal communication is still possible. Furthermore, the
+  parallel work might inspire competition
+\item[preferences] We have seen, that the course is split into ``PHP vs.\ 
+  Java'' fractions. The split allows that (probably) anybody get what he
+  proposes
+\item[one spec.] We propose, as the course is intended as a \emph{common}
+  programming project, that we do not split it cleanly into completely
+  independently working groups. Three things should remain common, which are
+  \begin{itemize}
+  \item testing
+  \item requirements/docu, and related to that, 
+  \item the concrete data representation in SQL
+  \end{itemize}
+\item[constant progress] Having finished (more or less) the work on
+  spec/tools by \emph{today,} it is not adivsable to make further
+  specification week(s) concerning the data-model.
+\end{description}
+
+
+
+
+
+{
+\psfrag{G1}{group 1}
+\psfrag{G2}{group 2}
+\psfrag{G3}{group 3}
+\psfrag{test}{test}
+\psfrag{spec}{spec./requirements}
+\psfrag{DB}{DB/data model}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[clip=true,height=8.0cm]{group-structure}  
+  \caption{Groups}
+  \label{fig:groups}
+\end{figure}
+
+
+
+The goals are conflicting, and the architecture is a compromise between
+goals mentioned above. A critical point are (as always) the shared modules,
+and in particular the data base. The reason is that everything else depends
+on that. It's less critical for testing and the requirements, obviously.
+Nevertheless, built on the work of the spec-group, we need to hammer out a
+unified data model concretely (down to SQL-expressions) \emph{soon-ish.}
+This should doable quickly, and not much discussion should be needed there.
+
+
+
+\subsubsection*{Structure of each group}
+
+We propose therefore the following structure and responsibilities for each
+group. So currently this still some sort of ``special assignment'', since
+we are not yet coding the final product.
+
+\begin{description}
+\item[DB:]
+  \begin{description}
+  \item[task] \emph{one person} of group 1 -- 3 does a realization of the
+    (agreed/common) data model in SQL merge them into one specific
+    data-model.
+  \item[deadline:] 21?
+  \item[deliverable:] specification + SQL-code
+  \item[profile:] preferably an SQL-specialist (or someone who wants to
+    learn something new \emph{very fast}\ldots)
+  \end{description}
+\item[data model:] that's us, the authors of the handout
+  \begin{description}
+  \item[task] merge the spec. delivs into one common and approved
+    specification
+  \item[deadline] 18.11 (that's damn soon \ldots)
+  \item[deliverable:] some textual format (or graphical, let's see.) It
+    should be precise enough that the SQL-person can do their work.
+  \end{description}
+\item[architecture:] the rest of the persons of groups 1 --3 
+  \begin{description}
+    \item[task:] depending on your choice of tools: work out a
+      modularization of the tools into submodules
+    \item[deliverable:] presentation + written description
+    \item[deadline:] 23.11
+  \end{description}
+\item[test:] So far, haven't found a task for those. Lucky again \ldots
+\end{description}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection*{What's next}
+
+
+
+
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: handout3.tex 23 2004-11-11 07:22:29Z ms $ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
