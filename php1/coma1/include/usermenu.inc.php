@@ -18,7 +18,7 @@ $strMenuAssocs['menu3'] = '';
 $strMenuAssocs['menu4'] = '';
 $strMenuAssocs['if'] = array();
 
-if ($objPerson->hasRole(CHAIR)) {
+if ($objPerson->hasRole(CHAIR, session('confid'))) {
   $submenu = new Template(TPLPATH.'chairmenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
@@ -27,7 +27,7 @@ if ($objPerson->hasRole(CHAIR)) {
   $strMenuAssocs['menu1'] = $submenu->getOutput();
 }
 
-if ($objPerson->hasRole(REVIEWER)) {
+if ($objPerson->hasRole(REVIEWER, session('confid'))) {
   $submenu = new Template(TPLPATH.'reviewermenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
@@ -36,7 +36,7 @@ if ($objPerson->hasRole(REVIEWER)) {
   $strMenuAssocs['menu2'] = $submenu->getOutput();
 }
 
-if ($objPerson->hasRole(AUTHOR)) {
+if ($objPerson->hasRole(AUTHOR, session('confid'))) {
   $submenu = new Template(TPLPATH.'authormenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
@@ -45,7 +45,7 @@ if ($objPerson->hasRole(AUTHOR)) {
   $strMenuAssocs['menu3'] = $submenu->getOutput();
 }
 
-if ($objPerson->hasRole(PARTICIPANT)) {
+if ($objPerson->hasRole(PARTICIPANT, session('confid'))) {
   $submenu = new Template(TPLPATH.'participantmenu.tpl');
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
