@@ -6,8 +6,9 @@
     <th class="viewheader" colspan="{cols}">Review report for '{title}' by {author_name}:</th>    
   </tr>
   <tr class="viewline">
-    <th class="viewline" colspan="{cols}">The papers is currently reviewed by
-    <span class="emph">{reviews_num}</span> reviewers.
+    <td class="viewline" colspan="{cols}">The papers is currently being reviewed by
+      <span class="emph">{reviews_num}</span> reviewers.
+    </td>
   </tr>
   <tr class="viewline">
     <tr class="viewline">&nbsp;</tr>
