@@ -141,6 +141,9 @@ public class Chair extends HttpServlet
 	
 	public void send_invitation(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
+		/*FIXME
+		 * fix parameter invite as(int) insert service for DB not correct
+		 */
 		String[] formular = new String[] {req.getParameter("first name"),req.getParameter("last name")
 				,req.getParameter("email")};
 		FormularChecker checker = new FormularChecker(formular);
@@ -153,7 +156,8 @@ public class Chair extends HttpServlet
 			p.setFirst_name(formular[0]);
 			p.setLast_name(formular[1]);
 			p.setEmail(formular[2]);
-			p.setState(req.getParameter("invite as"));
+			p.setRole_type(1);
+			//p.setState(req.getParameter("invite as"));
 			InsertServiceImpl insert = new InsertServiceImpl();
 			insert.insertPerson(p);
 		    info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name")));
@@ -296,6 +300,9 @@ public class Chair extends HttpServlet
 	
 	public void show_authors(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
+		/*
+		 * FIXME: same as in show_reviewers
+		 */
 		Person p;
 		boolean PAPER = false;
 		if (req.getParameter("author")==null)
@@ -339,37 +346,90 @@ public class Chair extends HttpServlet
 
 	public void show_reviewers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		String tag = "showreviewers";
-        Person p = new Person(0);
-        p.setState("reviewer");
-        SearchCriteria search = new SearchCriteria();
-        search.setPerson(p);
-        ReadServiceImpl readService = new ReadServiceImpl();
-        SearchResult search_result = readService.getPerson(search);
-        Person[] result = (Person[])search_result.getResultObj();
-		 if (result==null || result.length ==0)
-	        {
-		 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
-	        	commit(res,tag);
-	        }
-	        else
-	        {
-	        	info.append("<content>");
-	        	for (int i=0;i<result.length;i++)
-	        	{
-	        		p = result[i];
-	        		info.append(p.toXML());
-	        	}
-	        	info.append("</content>");
-	        	info.append(XMLHelper.tagged("status","" + user + ": list of all reviewers"));
-	        	commit(res,tag);	
-	        }
+		if(req.getParameter("delete")!=null)
+		{
+			/*FIXME
+			 * delete person from db
+			 */
+			try
+			{
+			res.sendRedirect("/coma/Chair?action=show_reviewers");
+			}
+			catch(IOException io)
+			{
+				
+			}
+		}
+		else
+		{
+			if(req.getParameter("status")!=null)
+			{
+				String tag = "showreviewers_data";
+				info.append(XMLHelper.tagged("status","" + user + ":statistic"));
+				Person p = new Person(Integer.parseInt(req.getParameter("id")));
+				SearchCriteria search = new SearchCriteria();
+		        search.setPerson(p);
+		        ReadServiceImpl readService = new ReadServiceImpl();
+		        SearchResult search_result = readService.getPerson(search);
+		        Person[] result = (Person[])search_result.getResultObj();
+		        if (result==null || result.length ==0)
+		        {
+			 		info.append(XMLHelper.tagged("status","" + user + ": no reviewer available"));
+		        	commit(res,tag);
+		        }
+		        else
+		        {
+		        	info.append("<content>");
+		        	for (int i=0;i<result.length;i++)
+		        	{
+		        		p = result[i];
+		        		info.append(p.toXML());
+		        	}
+		        	info.append("</content>");
+		        	commit(res,tag);	
+		        }
+			}
+			else
+			{
+				/* FIXME
+				 * int role_type? for reviewer;
+				 */
+				String tag = "showreviewers";
+		        Person p = new Person(0);
+		        p.setRole_type(1);
+		        SearchCriteria search = new SearchCriteria();
+		        search.setPerson(p);
+		        ReadServiceImpl readService = new ReadServiceImpl();
+		        SearchResult search_result = readService.getPerson(search);
+		        Person[] result = (Person[])search_result.getResultObj();
+				 if (result==null || result.length ==0)
+			        {
+				 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
+			        	commit(res,tag);
+			        }
+			        else
+			        {
+			        	info.append("<content>");
+			        	for (int i=0;i<result.length;i++)
+			        	{
+			        		p = result[i];
+			        		info.append(p.toXML());
+			        	}
+			        	info.append("</content>");
+			        	info.append(XMLHelper.tagged("status","" + user + ": list of all reviewers"));
+			        	commit(res,tag);	
+			        }
+			}
+		}
 	}
 	
 	public void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
+		/*
+		 * FIXME DB: get all papers wirh id=-2, fixed readServiceImpl
+		 */
 	    String tag = "showpapers";
-        Paper p = new Paper(-1);
+        Paper p = new Paper(-2);
         SearchCriteria search = new SearchCriteria();
         search.setPaper(p);
         ReadServiceImpl readService = new ReadServiceImpl();
@@ -399,8 +459,8 @@ public class Chair extends HttpServlet
 		if (req.getParameter("email")!=null)
 		{
 			info.append("<content>");
-			info.append(XMLHelper.tagged("Recv",req.getParameter("email")));
-			info.append("</content");
+			info.append(XMLHelper.tagged("recv",req.getParameter("email")));
+			info.append("</content>");
 		}
 		else
 		{
@@ -408,7 +468,7 @@ public class Chair extends HttpServlet
 		}
 		info.append(XMLHelper.tagged("status","" + user + ": please write an email"));
 		String tag="email";
-		commit(res,tag);		
+		commit(res,tag);
 	}
 	
 	public void send_email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
@@ -467,6 +527,7 @@ public class Chair extends HttpServlet
 			result.append(info.toString());
 			result.append("</" +tag + ">\n");
 			result.append("</result>\n");
+			System.out.println(result.toString());
 			String xslt = path + "/style/xsl/chair.xsl";
 		    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);
