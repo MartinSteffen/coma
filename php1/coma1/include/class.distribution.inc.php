@@ -118,7 +118,7 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($data); $j++) {
-        $matrix[$r_id_index[$i]][$p_id_index[$data[$j]['paper_id']]] = -1;
+        $matrix[$r_id[$i]][$p_id_index[$data[$j]['paper_id']]] = -1;
       }
     }
     return $matrix;
