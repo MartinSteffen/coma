@@ -2488,11 +2488,13 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     $s = sprintf("UPDATE   Forum".
-                 " SET     title = '%s', forum_type = '%d'".
-                 (($objForum->intForumType == FORUM_PAPER) ? " paper_id = '%d'" : ""),
+                 " SET     title = '%s', forum_type = '%d'".                 
+                 (($objForum->intForumType == FORUM_PAPER) ? " paper_id = '%d'" : "").
+                 " WHERE   id = '%d'",
                  s2db($objForum->strTitle),
                  s2db($objForum->intForumType),
-                 s2db($objForum->intPaperId));
+                 s2db($objForum->intPaperId),
+                 s2db($objForum->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateForum', $this->mySql->getLastError());
@@ -2514,9 +2516,11 @@ nur fuer detaillierte?
       return $this->success(false);
     }
     $s = sprintf("UPDATE   Message".
-                 " SET     sender_id = '%d', send_time = '%s', subject = '%s', text = '%s'",
+                 " SET     sender_id = '%d', send_time = '%s', subject = '%s', text = '%s'".
+                 " WHERE   id = '%d'",
                  s2db($objMessage->intSender), s2db(date("Y-m-d H:i:s")),
-                 s2db($objMessage->strSubject), s2db($objMessage->strText));
+                 s2db($objMessage->strSubject), s2db($objMessage->strText),
+                 s2db($objMessage->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateMessage', $this->mySql->getLastError());
