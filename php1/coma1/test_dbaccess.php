@@ -38,7 +38,7 @@ else if (empty($p)) {
 }
 
 echo('Update<br>');
-$myDBAccess->updatePersonDetailed($p, 1);
+$myDBAccess->updatePerson($p, 1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
