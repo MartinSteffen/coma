@@ -15,18 +15,23 @@ define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
 if (isset($_GET['paperid'])) {
-  checkAccess(0);
-  /* Das hier besser? So noch nciht, fehlt getAuthorId, ausserdem ErrorCheck nicht korrekt!!
-  $checkRole = ($myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR))
-             ||($myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER))
-             ||(session('uid') == $intAuthorId);
+  //checkAccess(0);
+  $objPaper = $myDBAccess->getPaperSimple($_GET['paperid']);
+  if ($myDBAccess->failed()) {
+    error('Error occured retrieving paper.', $myDBAccess->getLastError());
+  }
+  else if (empty($objPaper)) {
+    error('Get paper','Paper '.$intPaperId.' does not exist in database!');
+  }  
+  $checkRole = $myDBAccess->hasRoleInConference(session('uid'), session('confid'), CHAIR)    ||
+               $myDBAccess->hasRoleInConference(session('uid'), session('confid'), REVIEWER) ||
+               (session('uid') == $objPaper->intAuthorId);
   if ($myDBAccess->failed()) {
     error('Error occured during retrieving conference data.', $myDBAccess->getLastError());
   }
   else if (!$checkRole) {
     error('You have no permission to view this page.', '');
-  }
-  */
+  }  
   // Hole dir das File
   $file = $myDBAccess->getPaperFile($_GET['paperid']);
   if ($myDBAccess->failed()) {

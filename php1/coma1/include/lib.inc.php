@@ -320,7 +320,7 @@ function chronometer()
 /**
  * Versendet eine E-Mail
  *
- * @param int $intUserId an diesen wird geschickt
+ * @param int    $intUserId an diesen wird geschickt
  * @param string $strSubject dieses ist der Betreff
  * @param string $strMsg dieses ist eine spannende Nachricht
  * @param string $strFrom dieses ist 1. optional und 2. der Absender

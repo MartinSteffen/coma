@@ -37,6 +37,31 @@ if ($objPaper->intStatus == PAPER_CRITICAL) {
     if ($myDBAccess->failed()) {      
       error('Error during creating paper discussion forum.', $myDBAccess->getLastError());
     }
+    $objReviewers = $myDBAccess_>getReviewersOfPaper($intPaperId);
+    if ($myDBAccess->failed()) {      
+      error('Error during receiving reviewers of paper.', $myDBAccess->getLastError());
+    }
+    $objChair = $myDBAccess->getPerson(session('uid'));
+    if ($myDBAccess->failed()) {
+      error('Error retrieving chair data', $myDBAccess->getLastError());
+    }
+    $strFrom = '"'.$objChair->getName(2).'" <'.$objChair->strEmail.'>';    
+    $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+    if ($myDBAccess->failed()) {
+      error('Error retrieving conference data', $myDBAccess->getLastError());
+    }        
+    $strMailAssocs = defaultAssocArray();
+    $strMailAssocs['chair'] = $objChair->getName(2);    
+    $strMailAssocs['conference'] = $objConference->strName;
+    $strMailAssocs['paper'] = $objPaper->strTitle;
+    foreach ($objReviewers as $objReviewer) {
+      $strMailAssocs['name'] = $objReviewer->getName(2);
+      $mail = new Template(TPLPATH.'mail_startdiscussion.tpl');
+      $mail->assign($strMailAssocs);
+      $mail->parse();
+      sendMail($objReviewer->intId, "Discussion of paper '".$objPaper->strTitle."' started.",
+               $mail->getOutput(), $strFrom);
+    }
     $strMessage .= '<br>The paper was marked as critical. A discussion forum for this '.
                    'paper has been opened.';
   }
