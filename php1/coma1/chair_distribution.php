@@ -47,6 +47,7 @@ if (isset($_POST['confirm']) || isset($_POST['dismiss'])) {
 else {
   // Kritischen Papers automatisch mehr Reviewer hinzufuegen
   $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
+  $intWantedReviewers = false;
   if ($myDBAccess->failed()) {
     error('get conference data', $myDBAccess->getLastError());
   }
@@ -55,15 +56,12 @@ else {
     if ($myDBAccess->failed()) {
       error('get critical papers of conference', $myDBAccess->getLastError());
     }
-    $intWantedReviewers = false;
     for ($i = 0; $i < count($intPapers); $i++) {
       $intWantedReviewers[$intPapers[$i]] = $objConference->intDefaultReviewsPerPaper +
                                             $objConference->intNumberOfAutoAddReviewers;
     }
-    print_r($intWantedReviewers);
-    die();
   }
-  $dist = $myDist->getDistribution(session('confid'));
+  $dist = $myDist->getDistribution(session('confid'), $intWantedReviewers);
   if ($myDist->failed()) {
     error('get distribution suggestion',$myDist->getLastError());
   }
