@@ -134,15 +134,16 @@ $output['paper'] = $paper;
 			$rating = array();
 			$rating['criterionName'] = $list2[0];
 			$rating['qualityRating'] = $list2[1]/$max_quality*100;
-			$rating['grade'] = $list2[2]/$list2[4]*100;
-			$totalGrade = $totalGrade + ($rating['grade']*$rating['qualityRating']);
+			$currentRate = ($list2[2]-1)/($list2[4]-1)*100;
+			$rating['grade'] = number_format($currentRate,2);
+			$totalGrade = $totalGrade + ($currentRate*$rating['qualityRating']);
 			$rating['comment'] = $list2[3];				 
 			$ratings[$ratingCount] = $rating;
 			$ratingCount++;
 		}
 		if (($CriterionCount == $ratingCount) & ($CriterionCount > 0))
 		{
-			$reviewer['totalGrade'] = ($totalGrade/100)."%";
+			$reviewer['totalGrade'] = (number_format(($totalGrade/100),2))."%";
 			$reviewer['totalGradeColor'] = "textGreen";
 			$report['totalGrade'] = $report['totalGrade'] + $totalGrade/100;
 		}
@@ -167,7 +168,7 @@ $output['paper'] = $paper;
 	}
 	else
 	{  	
-		$report['totalGrade'] = ($report['totalGrade'] / $reviewerCount)."%";	
+		$report['totalGrade'] = (number_format(($report['totalGrade'] / $reviewerCount),2))."%";	
 	}
 	$report['reviewers'] = $reviewers;
 	
