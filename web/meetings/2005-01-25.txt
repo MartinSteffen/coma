@@ -1,0 +1,32 @@
+Hier die Meeting Minutes (nach Gunnar). auch uns sitzt das Semesterende im
+Nacken, insofern konnte Marcel und ich heute sogut wie nicht dabei sein....
+
+Martin
+
+
+----------------------------------------------------------------------
+
+
+Bericht der Tester:
+    Olli: Wunsch nach zweiter DB fuer Php1 zum Testen -> Marcel
+    Thiago: will noch Test-Scripte schreiben
+    Olle: nicht da
+
+Meiko: Bewertungssystem (ist 1 "Punkt" gut oder schlecht)
+       -> nicht spezifiziert, kann jede Gruppe selber loesen
+
+Status:
+    Java: "kaempfen mit Integration", heute neue Version
+    Php2: "es wird mehr", jetzt Integration, Forum kommt noch
+    Php1: Milestone 2 zu 90% fertig
+
+Demo am __08.02.2005, 8:15 - 11:45__ (bzw. bis wir fertig sind)
+    Frage nach neuen Accounts fuer die Installations-Demo
+    Frage nach genauem Inhalt der Demo
+    wir bringen Laptop und Beamer mit
+
+Mein Vorschlag: neue Accounts fuer die Installation, aber jede Gruppe
+                haelt auch ihr eigenes Account fuer eine Demo bereit,
+                falls die Installation nicht 100%ig klappt.
+
+
