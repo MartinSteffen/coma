@@ -32,17 +32,17 @@ elseif (isset($_GET['4'])) {
   <!--
   body { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 12px; 
     vertical-align: top; background-color: #FFFFFF; margin: 0px; text-align: center;
-    padding: 4% 20px 20px 4%; }
+    padding: 30px; }
   a { text-decoration: none; font-weight: bold; }
   a:link { color: #111111; }
   a:visited { color: #111111; }
   a:active { color: #000000; }
   a:hover { color: #000000; }
-  div { width: 80%; font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; width: 100%; 
+  div { width: 100%; font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; width: 100%; 
     font-size: 13px; font-weight: bold; text-align: center; vertical-align: top; 
     margin: 10px; padding: 10px; color: #222222; background-color: #dddddd; 
     border: 1px solid #222222; }
-  p { width: 50%; font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px; 
+  p { width: 80%; font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px; 
     font-weight: bold; vertical-align: top; margin: 6px 10px; padding: 4px 12px; }
   p.menu { color: #111111; background-color: #EEEEEE; border: 1px solid #FFFFFF; 
     text-align: left; }
