@@ -565,8 +565,7 @@ class DBAccess extends ErrorHandling {
    */
   function getUsersOfConference($intConferenceId) {
     $s = "SELECT  id, first_name, last_name, email, title".
-        " FROM    Person".
-        " WHERE   conference_id = '$intConferenceId'";
+        " FROM    Person";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getUsersOfConference', $this->mySql->getLastError());
@@ -586,7 +585,9 @@ class DBAccess extends ErrorHandling {
       for ($j = 0; $j < count($role_data); $j++) {
         $objPerson->addRole($role_data[$j]['role_type']);
       }
-      $objPersons[] = $objPerson;
+      if ($objPerson->hasAnyRole()) {
+        $objPersons[] = $objPerson;
+      }
     }
     return $this->success($objPersons);
   }

@@ -18,7 +18,7 @@ $content = new Template(TPLPATH.'user_userlist.tpl');
 $strContentAssocs = defaultAssocArray();
 $objPersons = $myDBAccess->getUsersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
-  error('get paper list of author',$myDBAccess->getLastError());
+  error('get user list',$myDBAccess->getLastError());
 }
 
 $strContentAssocs['message'] = session('message', false);
