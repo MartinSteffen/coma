@@ -23,7 +23,7 @@
     {lines}
   </table>
   <input type="submit" name="confirm" value="Confirm distribution" class="button">
-  <span class="emph">Note:</span> The distribution is obligatory after confirmation.
+  <span class="emph">Note:</span> The distribution is obligatory after confirmation.<br>
   <input type="submit" name="dismiss" value="Dismiss distribution" class="button">
   <span class="emph">Note:</span> You can restart the suggestion process later whenever you want.
 </form>
