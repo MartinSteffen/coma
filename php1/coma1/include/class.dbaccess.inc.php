@@ -1295,7 +1295,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
           " WHERE   id = $intId";
       if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
         return $this->error('addConference', 'Fatal error: Database inconsistency!',
-                            "$this->mySql->getLastError() / $strError");
+                            $this->mySql->getLastError()." / $strError");
       }
       return $this->error('addConference', $this->mySql->getLastError());
     }
@@ -1433,7 +1433,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         $this->mySql->delete($s);
         if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
-                              "$this->mySql->getLastError() / $this->getLastError()");
+                              $this->mySql->getLastError().' / '.$this->getLastError());
         }
         return $this->error('addPaper', $this->getLastError());
       }

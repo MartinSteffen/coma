@@ -30,10 +30,13 @@ if ($myDBAccess->failed()) {
 }
 echo('Co-Autoren:<br>');
 for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
-  echo ("$p->intCoAuthorIds[$i] / $p->strCoAuthors[$i]<br>");
+  echo ($p->intCoAuthorIds[$i].' / '.$p->strCoAuthors[$i].'<br>');
 }
-
-
+$myDBAccess->updatePaper($p);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+echo('OK');
 
 /*$id = $myDBAccess->addConference('Angebranntes Sommerheu und andere Betaeubungsmittel',
                            '', '', '', '', '', '', '', '', '');
