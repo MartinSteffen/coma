@@ -122,6 +122,12 @@ if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   if (isset($_SESSION['uname'])) {
     unset($_SESSION['uname']);
   }
+  if (isset($_SESSION['uid'])) {
+    unset($_SESSION['uid']);
+  }
+  if (isset($_SESSION['confid'])) {
+    unset($_SESSION['confid']);
+  }  
   redirect('index.php');
 }
 ?>
