@@ -13,6 +13,7 @@
     />
   
   <xsl:include href="navcolumn.xsl" />
+  <xsl:include href="stderrors.xsl" />
   
   <xsl:template match="//servletState">
     <input type="hidden" name="servletState" value="{@state}"></input>
@@ -30,6 +31,7 @@
       </head>
       <body>
         <div class="content">
+          <xsl:call-template name="stderrors" />
         <xsl:call-template name="navcolumn" />
         <form action="UserPrefs" method="post">
           <xsl:apply-templates select="//servletState" />

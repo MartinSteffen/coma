@@ -50,9 +50,7 @@ public class UserPrefs extends HttpServlet {
     */
     public void doGet(
 		      HttpServletRequest request,
-		      HttpServletResponse response) {
-
-	try{
+		      HttpServletResponse response) throws Exception {
 
 	HttpSession session;
 	session = request.getSession(true);
@@ -69,50 +67,56 @@ public class UserPrefs extends HttpServlet {
 	result.append("<content>");
 	result.append(x.tagged("pagetitle","Edit User Information"));
 
-	switch (pagestate.get()){
+	if ((thePerson == null) || (theConference==null)){
 
-	case PageStateHelper.NULLSTATE: //fall through
-	case STATE.READ:
-	    pagestate.set(STATE.WRITE);
-	    result.append(x.tagged("editable", thePerson.toXML()));
-	    result.append(x.tagged("topics",
-			  Topic.manyToXML(Topic.allTopics(theConference), XMLMODE.DEEP)));
-	    break;
-	case STATE.WRITE:
-	    pagestate.set(STATE.READ);
-	    result.append(UserMessage.UPDATING);
+	    result.append(UserMessage.ERRUNAUTHORIZED);
+	} else {
 
-	    // change thePerson's attribs.
-	    // now, I'd like a functional map operator. And polymorphism.
+	    switch (pagestate.get()){
 
-	    try{
-		int oldid = thePerson.getId();
-		thePerson 
-		    = new coma.handler.util.EntityCreater().getPerson(request);
-		thePerson.setId(oldid); // makes us safer against attacks
+	    case PageStateHelper.NULLSTATE: //fall through
+	    case STATE.READ:
+		pagestate.set(STATE.WRITE);
+		result.append(x.tagged("editable", thePerson.toXML()));
+		result.append(x.tagged("topics",
+				       Topic.manyToXML(Topic.allTopics(theConference), XMLMODE.DEEP)));
+		break;
+	    case STATE.WRITE:
+		pagestate.set(STATE.READ);
+		result.append(UserMessage.UPDATING);
+
+		// change thePerson's attribs.
+		// now, I'd like a functional map operator. And polymorphism.
+
+		try{
+		    int oldid = thePerson.getId();
+		    thePerson 
+			= new coma.handler.util.EntityCreater().getPerson(request);
+		    thePerson.setId(oldid); // makes us safer against attacks
 	    
-		for (Topic t: thePerson.getPreferredTopics()){
-		    thePerson.deletePreferredTopic(t);
-		}
-		final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
-		for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
+		    for (Topic t: thePerson.getPreferredTopics()){
+			thePerson.deletePreferredTopic(t);
+		    }
+		    final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
+		    for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
 		
-		    thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s)));
-		}
+			thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s)));
+		    }
 		
-		SearchResult theSR;
-		UpdateService dbWrite 
-		    = new coma.handler.impl.db.UpdateServiceImpl();
-		theSR = dbWrite.updatePerson(thePerson);
-		if (!theSR.isSUCCESS()){
-		    throw new Exception(theSR.getInfo());
+		    SearchResult theSR;
+		    UpdateService dbWrite 
+			= new coma.handler.impl.db.UpdateServiceImpl();
+		    theSR = dbWrite.updatePerson(thePerson);
+		    if (!theSR.isSUCCESS()){
+			throw new Exception(theSR.getInfo());
+		    }
+		    session.setAttribute(SessionAttribs.PERSON, thePerson);
+		} catch (Exception exc){
+		    // well, almost true.
+		    result.append(UserMessage.ERRDATABASEDOWN);
 		}
-		session.setAttribute(SessionAttribs.PERSON, thePerson);
-	    } catch (Exception exc){
-		// well, almost true.
-		result.append(UserMessage.ERRDATABASEDOWN);
-	    }
 		result.append(x.tagged("noneditable", thePerson.toXML()));
+	    }
 	}
 
 	result.append(new Navcolumn(session));
@@ -127,11 +131,6 @@ public class UserPrefs extends HttpServlet {
 	XMLHelper.process(xmlSource, xsltSource, out);
 	out.flush();
 	    
-	} catch (Throwable tbl) {
-	    // FIXME: brute-force: error handling by tomcat.
-	    throw new RuntimeException(tbl);
-	}
-
     }
 
 
