@@ -32,13 +32,13 @@ $loginPage = new Template(TPLPATH.'logreg.tpl');
 
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
-$strMainAssocs['content'] =& $loginPage;
-$strMainAssocs['body'] = '';
+$strMainAssocs['content'] = 'Bitte Einloggen oder Registrieren';
+$strMainAssocs['body'] = & $loginPage;
 
 $strMainAssocs['menue'] =& $menue;
 $strMainAssocs['submenue'] = '';
-// $strMenueAssocs['loginName'] = $_SESSION['uname'];
 
+// $strMenueAssocs['loginName'] = $_SESSION['uname'];
 if (isset($_SESSION['message'])) {
   $strMessage = $_SESSION['message'];
   unset($_SESSION['message']);
