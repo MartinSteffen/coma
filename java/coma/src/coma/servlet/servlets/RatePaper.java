@@ -249,18 +249,20 @@ public class RatePaper extends HttpServlet{
 
 		    // well, this is close enough to the truth for the moment.
 		    result.append(UserMessage.ERRDATABASEDOWN);
+		} finally {
+		    state = '0';
 		}
 	    }
 		break;
-	    case 'e': {
+	    case '?': //fall through
+	    case 'e': //fall through 
+	    default: {
 		/*
 		  Pretty generic error state: user not authorized
 		*/
 		result.append(UserMessage.ERRUNAUTHORIZED);
 	    }
 		break;
-	    case '?': //fall through
-	    default:
 	    }
 
 	    /*FIXME FIXME FIXME*/

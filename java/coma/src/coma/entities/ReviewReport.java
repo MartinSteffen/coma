@@ -14,6 +14,9 @@ import coma.handler.db.ReadService;
 import coma.servlet.util.XMLHelper;
 
 /**
+ *  A Review Report.
+ *
+ *
  * @author mal, ums
  *
  */

@@ -31,22 +31,22 @@ class Log4jLogger extends ALogger{
 	initial stringbuffer capacity for temporary stringbuffer. For
 	debugging, the Java default of 16 is probably too little.
      */
-    private final int INITBUFFERSIZE = 80;
+    private int INITBUFFERSIZE = 80;
 
     /** 
 	Everything of this level or more severe goes into the buffer
 	for potential traceback.
     */
-    private final Severity RETAINLEVEL = Severity.INFO;
+    private Severity RETAINLEVEL = Severity.INFO;
     /**
        Everything of this level or more severe causes the buffer to be
        displayed.
      */
-    private final Severity FLUSHLEVEL  = Severity.ERROR;
+    private Severity FLUSHLEVEL  = Severity.ERROR;
     /**
        The size of the history buffer.
      */
-    private final int      HISTORYSIZE = 8;
+    private int      HISTORYSIZE = 8;
 
     private final Queue<StringBuffer> history;
 

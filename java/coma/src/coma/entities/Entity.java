@@ -15,7 +15,7 @@ public abstract class Entity {
        By default, this is the deep representation.
 
        Be careful not to create infinite loops when calling other
-       entities' toXML(), you may want toXML(false);
+       entities' toXML(), you may want toXML(XMLMODE.SHALLOW);
 
        Note that CharSequence is a common interface to StringBuffer,
        StringBuilder and String.
@@ -29,7 +29,7 @@ public abstract class Entity {
 
        If parameter isdeep equals XMLMODE.DEEP, the representation may
        be somewhat more verbose, e.g. ReviewReport might look up the
-       name of its paper, etc. If isdeep equals XMLMODE.SHALLOW, the
+       name of its paper, etc. If mode equals XMLMODE.SHALLOW, the
        Entity should avoid doing anything fancy.
 
        The rationale is that for XMLMODE.DEEP, you might want to call
