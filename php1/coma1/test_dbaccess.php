@@ -23,14 +23,30 @@ for ($i = 0; $i < count($ROLES); $i++) {
   if ($p->hasRole($ROLES[$i][0]))
     echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
 }
-
-$p->intRoles = $p->intRoles + 16 - 8;
+echo('Aendere Rollen:<br>');
+if($p->hasRole(3) == true && $p->hasRole(4) == false) {
+  $p->intRoles = $p->intRoles + 16 - 8;
+}
+else if($p->hasRole(3) == false && $p->hasRole(4) == true) {
+  $p->intRoles = $p->intRoles + 8 - 16;
+}
+else {
+  echo('FEHLER: KEINE AENDERUNGEN GEMACHT!');
+}
 echo('Roles:<br>');
 for ($i = 0; $i < count($ROLES); $i++) {
   if ($p->hasRole($ROLES[$i][0]))
     echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
 }
-
+echo('Update der Rollen in der DB...<br>');
+$myDBAccess->updateRoles($p);
+echo('Neuladen der Person:<br>');
+$p = $myDBAccess->getPerson(1);
+echo('Roles:<br>');
+for ($i = 0; $i < count($ROLES); $i++) {
+  if ($p->hasRole($ROLES[$i][0]))
+    echo('p hat Rolle '.$ROLES[$i][0].' = '.$ROLES[$i][1].'<br>');
+}
 
 
 /*$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
