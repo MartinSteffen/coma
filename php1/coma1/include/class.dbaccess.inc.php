@@ -1186,6 +1186,7 @@ class DBAccess extends ErrorHandling {
     }
     $messages = array();
     for ($i = 0; $i < count($data); $i++) {
+      $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time']);
       $messages[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
                        $data[$i]['send_time'], $data[$i]['subject'],
                        $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
@@ -1214,6 +1215,7 @@ class DBAccess extends ErrorHandling {
     }
     $objThreads = array();
     for ($i = 0; $i < count($data); $i++) {
+      $data[$i]['send_time'] = emptyDBtime($data[$i]['send_time']);
       $objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
                          $data[$i]['send_time'], $data[$i]['subject'],
                          $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
@@ -1784,7 +1786,7 @@ nur fuer detaillierte?
                  " WHERE   id = '%d'",
                  s2db($objPaperDetailed->strTitle), s2db($objPaperDetailed->intAuthorId),
                  s2db($objPaperDetailed->strAbstract), s2db($objPaperDetailed->strMimeType),
-                 s2db(date("Y-m-d")), s2db($objPaperDetailed->intVersion + 1),
+                 s2db(date("Y-m-d H:i:s")), s2db($objPaperDetailed->intVersion + 1),
                  s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -2617,7 +2619,7 @@ nur fuer detaillierte?
    * @author Sandro (18.12.04)
    */
   function addMessage($strSubject, $strText, $intSenderId, $intForumId, $intReplyTo = 0) {
-    $strSendTime = date("d.m.Y H:i");
+    $strSendTime = date("Y-m-d H:i:s");
     $s = "INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)".
         "         VALUES ('$strSubject', '$strText', '$intSenderId', '$intForumId',".
         "                 '$intReplyTo', '$strSendTime')";

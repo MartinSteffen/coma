@@ -45,12 +45,12 @@ if (isset($_POST['action'])) {
   $objPaper->intCoAuthorIds = array();
   for ($i = 0; $i < $intCoAuthorNum; $i++) {
     if (!isset($_POST['del_coauthor-'.($i+1)])) {
-      $objPaper->strCoAuthors[] = encodeText($_POST['coauthor-'.($i+1)]);
+      $objPaper->strCoAuthors[] = $_POST['coauthor-'.($i+1)];
       $objPaper->intCoAuthorIds[] = false;
     }
   }
   if (isset($_POST['add_coauthor']) && !empty($_POST['coauthor'])) {
-    $objPaper->strCoAuthors[] = encodeText($_POST['coauthor']);
+    $objPaper->strCoAuthors[] = $_POST['coauthor'];
     $objPaper->intCoAuthorIds[] = false;
   }    
   $objPaper->objTopics = array();
