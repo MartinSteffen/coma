@@ -16,7 +16,10 @@ define('IN_COMA1', true);
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-$p = $myDBAccess->getPerson(1);
+
+echo(count(false));
+
+/*$p = $myDBAccess->getPerson(1);
 echo('Roles:<br>');
 for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
   if ($p->hasRole($i))
@@ -45,7 +48,7 @@ echo('Roles:<br>');
 for ($i = MIN_ROLE; $i <= MAX_ROLE; $i++) {
   if ($p->hasRole($i))
     echo('p hat Rolle '.$i.'<br>');
-}
+}*/
 
 
 /*$id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
