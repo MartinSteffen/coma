@@ -1238,8 +1238,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         "                          conference_end)".
         "         VALUES ('$strName', '$strHomepage', '$strDescription, '$strAbstractDeadline',".
         "                 '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline',".
-        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd')";
-    echo("<br>$s<br>");
+        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd')";    
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addConference', $this->mySql->getLastError());
@@ -1622,8 +1621,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function addPrefersPaper($intPersonId, $intPaperId) {
     $s = "INSERT  INTO PrefersPaper (person_id, paper_id)".
-        "         VALUES ($intPersonId, $intPaperId)";
-    echo('<br>SQL: '.$s.'<br>');
+        "         VALUES ($intPersonId, $intPaperId)";    
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPrefersPaper', $this->mySql->getLastError());
