@@ -31,24 +31,27 @@ import coma.servlet.util.XMLHelper;
 
 /**
  * @author Peter Kauffels & Harm Brandt
- * @version 1.1
+ * @version 1.0
  * The chair servlet is responsible for all functions the chair can do.
-   Changes at 12.12: I added commit Method(at the bottom).
-   	by hbra@inf...	    added EMail function(not yet for invite)
-   						changes path settings
-   						added if ( action == null) at 67
- * Changes at 14.12: change method commit, now runs with parameters 
- * HttpServletResponse res and String tag.  
- * delete redundant code
- * Changes at 20.12: show_papers tested with my personal db,
- * 					new person(-1) let me get all persons,
- * 					changed readserviceImpl
- *  by pka			 show_authors, show_reviers update
+   Changes at 12.12: 	- added commit Method(at the bottom).
+   by hbra@inf...	    - added EMail function(not yet for invite)
+   						- changes path settings
+   						- added if ( action == null) at 67
+ * Changes at 14.12: 	- change method commit, now runs with parameters 
+ * by pka				  HttpServletResponse res and String tag.  
+ * 						- delete redundant code
+ * Changes at 20.12: 	- show_papers tested with my personal db,
+ * by pka				  new person(-1) let me get all persons,
+ * 						  changed readserviceImpl
+ *  			 		- show_authors, show_reviewers update
+ * Changes at 22.12: 	- show_papers changed, is complete, also with xsl
+ * Changes at 27.12: 	- show_authors and show_reviewers are complete, 
+ * by pka				  also with xsl  								
  **/
 
 public class chair extends HttpServlet 
 {
-	//static final long serialVersionUID = 0;
+	static final long serialVersionUID = 1;
 	DataSource ds = null;
 	static StringBuffer info = new StringBuffer();
 	static StringBuffer result = new StringBuffer();
@@ -67,7 +70,11 @@ public class chair extends HttpServlet
 		result.delete(0,result.length());
 		String action = req.getParameter("action");
 		HttpSession session= req.getSession(true);
-		path = getServletContext().getRealPath("");
+		/*
+		 * FIXME: set relative path
+		 */
+		path = "/home/superingo/jakarta-tomcat-5.0.28/webapps/coma";
+		//path = getServletContext().getRealPath("");
 		user = session.getAttribute("user").toString();
 		if (action.equals("login"))
 		{
@@ -143,9 +150,10 @@ public class chair extends HttpServlet
 			String pass = password_maker.generate_password();
 			Person p = new Person(-1);
 			p.setPassword(pass);
-			p.setFirst_name(req.getParameter("first name"));
-			p.setLast_name(req.getParameter("last name"));
-			p.setEmail(req.getParameter("email"));
+			p.setFirst_name(formular[0]);
+			p.setLast_name(formular[1]);
+			p.setEmail(formular[2]);
+			p.setState(req.getParameter("invite as"));
 			InsertServiceImpl insert = new InsertServiceImpl();
 			insert.insertPerson(p);
 		    helper.addTagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name"),info);
@@ -157,9 +165,11 @@ public class chair extends HttpServlet
 		{
 		    info.delete(0,info.length());
 			result.delete(0,result.length());
-			String form = "<first>" + req.getParameter("first name") + "</first>";
+			helper.addTagged("first",formular[0],info);
+			helper.addTagged("last",formular[1],info);
+			helper.addTagged("email",formular[2],info);
 			helper.addTagged("status","" + user + ": you have to fill out all *-fields",info);
-			helper.addTagged("content",form,info);
+			helper.addTagged("content",info.toString(),info);
 			String tag = "invite";
 			commit(res,tag);
 		}
@@ -175,75 +185,84 @@ public class chair extends HttpServlet
 	}
 
 	public void send_setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
-	{
-	    /*
-	     * FIXME get Conference from Database
-	     */
-	    /*Conference c = new Conference(-1);
+	{ 
+	    Conference c = new Conference(1);
 	    ReadServiceImpl readService = new ReadServiceImpl();
 	    SearchCriteria search = new SearchCriteria();
 	    search.setConference(c);
-	    SearchResult search_result = readService.getConference();
-	    if (!search_result.isSuccess())
-	    {*/
-	    Date d = null;
-	    String tag = "setup";
-		String[] formular = new String[] {req.getParameter("conference name"),req.getParameter("homepage"),
-		req.getParameter("min_reviewers"),req.getParameter("start_day"),req.getParameter("start_month"),
-		req.getParameter("start_year"),req.getParameter("end_day"),
-		req.getParameter("end_month"),req.getParameter("end_year"),
-		req.getParameter("abstract"),req.getParameter("final"),req.getParameter("paper"),
-		req.getParameter("review")};
-	    FormularChecker checker = new FormularChecker(formular);
-		if (checker.check())
-		{
-		    /*
-		     * FIXME Insert Conference in Database, problem with Date
-		     */
-		    Conference c = new Conference(-1);
-		    c.setName(req.getParameter("conference name"));
-		    c.setHomepage(req.getParameter("Homepage"));
-		    c.setDescription(req.getParameter("description"));
-		    /*d = new Date();
-		    d.setDate(Integer.parseInt(req.getParameter("start_day")));
-		    d.setMonth(Integer.parseInt(req.getParameter("start_month")));
-		    d.setYear(Integer.parseInt(req.getParameter("start_year")));
-		    c.setConference_start(d);
-		    d = new Date();
-		    d.setTime();
-		    d.setDate(Integer.parseInt(req.getParameter("end_day")));
-		    d.setMonth(Integer.parseInt(req.getParameter("end_month")));
-		    d.setYear(Integer.parseInt(req.getParameter("end_year")));
-		    c.setConference_end(d);*/
-		    InsertServiceImpl insert = new InsertServiceImpl();
-		    insert.insertConference(c);
-			helper.addTagged("status","" + user + ": Congratulations you have setup a new conference",info);
-			helper.addTagged("content","",info);
-			commit(res,tag);
-		}
-		else
-		{
-		    helper.addTagged("status","" + user + ": please fill out all *-fields",info);
-			helper.addTagged("content","",info);
-			commit(res,tag);
-		}
-	    //}
+	    SearchResult search_result = readService.getConference(search);
+	    if (search_result.getResultObj()==null)
+	    {
+	    	Date d = null;
+	    	String tag = "setup";
+			String[] formular = new String[] {req.getParameter("conference name"),req.getParameter("homepage"),
+			req.getParameter("min_reviewers"),req.getParameter("start_day"),req.getParameter("start_month"),
+			req.getParameter("start_year"),req.getParameter("end_day"),
+			req.getParameter("end_month"),req.getParameter("end_year"),
+			req.getParameter("abstract"),req.getParameter("final"),req.getParameter("paper"),
+			req.getParameter("review")};
+		    FormularChecker checker = new FormularChecker(formular);
+			if (checker.check())
+			{
+			    /*
+			     * FIXME Insert Conference in Database, problem with Date
+			     */
+			    c = new Conference(-1);
+			    c.setName(req.getParameter("conference name"));
+			    c.setHomepage(req.getParameter("Homepage"));
+			    c.setDescription(req.getParameter("description"));
+			    /*d = new Date();
+			    d.setDate(Integer.parseInt(req.getParameter("start_day")));
+			    d.setMonth(Integer.parseInt(req.getParameter("start_month")));
+			    d.setYear(Integer.parseInt(req.getParameter("start_year")));
+			    c.setConference_start(d);
+			    d = new Date();
+			    d.setTime();
+			    d.setDate(Integer.parseInt(req.getParameter("end_day")));
+			    d.setMonth(Integer.parseInt(req.getParameter("end_month")));
+			    d.setYear(Integer.parseInt(req.getParameter("end_year")));
+			    c.setConference_end(d);*/
+			    InsertServiceImpl insert = new InsertServiceImpl();
+			    insert.insertConference(c);
+				helper.addTagged("status","" + user + ": Congratulations you have setup a new conference",info);
+				helper.addTagged("content","",info);
+				commit(res,tag);
+			}
+			else
+			{
+			    helper.addTagged("status","" + user + ": please fill out all *-fields",info);
+				helper.addTagged("content","",info);
+				commit(res,tag);
+			}
+	    }
+	    else
+	    {
+	    	
+	    }
 	}
 	
 	public void show_authors(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-        /*
-         * FIXME get all authors from db
-         */
+		Person p;
+		boolean PAPER = false;
+		if (req.getParameter("author")==null)
+		{
+			p = new Person(0);
+			p.setState("author");
+		}
+		else
+		{
+			p = new Person(Integer.parseInt(req.getParameter("author")));
+			p.setState("author");
+			PAPER=true;
+		}
 		String tag = "showauthors";
-        Person p = new Person(-1);
-        p.setState("author");
         SearchCriteria search = new SearchCriteria();
         search.setPerson(p);
         ReadServiceImpl readService = new ReadServiceImpl();
         SearchResult search_result = readService.getPerson(search);
         Person[] result = (Person[])search_result.getResultObj();
-		if (result.length==0)
+		if (result==null || result.length ==0)
         {
         	helper.addTagged("status","" + user + ": no authors available",info);
         	commit(res,tag);
@@ -257,27 +276,25 @@ public class chair extends HttpServlet
         		info.append(p.toXML());
         	}
         	info.append("</content>");
-        	helper.addTagged("status","" + user + ": list of all authors",info);
-        	commit(res,tag);	
+        	if (PAPER)
+        		helper.addTagged("status","" + user + ": list of author for paper ?" ,info);
+        	else
+        		helper.addTagged("status","" + user + ": list of all authors",info);	
+        	commit(res,tag);
         }
-		commit(res,tag);
 	}
 
 	public void show_reviewers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-        /*
-         * FIXME get all reviewers
-         */
 		String tag = "showreviewers";
-        Person p = new Person(-1);
+        Person p = new Person(0);
         p.setState("reviewer");
         SearchCriteria search = new SearchCriteria();
         search.setPerson(p);
         ReadServiceImpl readService = new ReadServiceImpl();
         SearchResult search_result = readService.getPerson(search);
-        search_result.getResultObj();
         Person[] result = (Person[])search_result.getResultObj();
-		 if (result.length==0)
+		 if (result==null || result.length ==0)
 	        {
 	        	helper.addTagged("status","" + user + ": no reviewers available",info);
 	        	commit(res,tag);
@@ -294,7 +311,6 @@ public class chair extends HttpServlet
 	        	helper.addTagged("status","" + user + ": list of all reviewers",info);
 	        	commit(res,tag);	
 	        }
-		commit(res,tag);
 	}
 	
 	public static void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
@@ -306,7 +322,7 @@ public class chair extends HttpServlet
         ReadServiceImpl readService = new ReadServiceImpl();
         SearchResult search_result = readService.getPaper(search); 
         Paper[] result = (Paper[])search_result.getResultObj();
-        if (result.length==0)
+        if (result==null || result.length ==0)
         {
         	helper.addTagged("status","" + user + ": no papers available",info);
         	commit(res,tag);
@@ -324,7 +340,6 @@ public class chair extends HttpServlet
         	commit(res,tag);	
         }
 }
-	
 	
 	public void email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
@@ -377,7 +392,6 @@ public class chair extends HttpServlet
 		}
 	}
 	
-	/** commit method to avoid redundant(falls das in Engl so hei�t) code*/
 	private static void commit(HttpServletResponse res, String tag) 
 	{
 	    try
@@ -390,7 +404,6 @@ public class chair extends HttpServlet
 			result.append(info.toString());
 			result.append("</" +tag + ">\n");
 			result.append("</result>\n");
-			System.out.println(result.toString());
 			String xslt = path + "/style/xsl/chair.xsl";
 		    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);
