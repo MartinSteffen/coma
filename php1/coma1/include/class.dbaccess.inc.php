@@ -1553,7 +1553,7 @@ class DBAccess extends ErrorHandling {
    */
   function getForumsOfPerson($intPersonId, $intConferenceId) {
     $objForums = array();
-    $objPerson = getPerson($intPersonId);
+    $objPerson = $this->getPerson($intPersonId, $intConferenceId);
     if ($this->failed()) {
       return $this->error('getForumsOfPerson', $this->getLastError());
     }
