@@ -15,7 +15,7 @@ define('IN_COMA1',true);
 
 require_once('./include/header.inc.php');
 
-// Haupt-Ansicht fuer den Chair
+// Haupt-Ansicht fuer den Reviewer
 $mainPage = new Template(TPLPATH.'main.tpl');
 $menue = new Template(TPLPATH.'nav_reviewer.tpl');
 
