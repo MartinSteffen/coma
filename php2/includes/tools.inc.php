@@ -69,6 +69,7 @@ function makePassword($pass)
 	$pass = MD5(strtolower($pass));
 	return $pass;
 }
+// {{{
 /*
 function getRoles($person_id, $filter_conference = null, $filter_role = null){ 
 	global $sql;
@@ -140,6 +141,8 @@ function getRights($userid)
 	// }}}
 }
 */
+
+// }}}
 function isDate($date){
 	if (!preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/", $string)){
 		return false;
@@ -152,4 +155,64 @@ function dump($var){
 	var_dump($var);
 	exit();
 }
+
+function ftp_rmAll($conn_id,$dst_dir)
+{ // {{{
+  $ar_files = ftp_rawlist($conn_id, $dst_dir) or die("function ftp_rmAll: ftp_rawlist() failed!");
+  if (is_array($ar_files)) { // makes sure there are files
+   foreach ($ar_files as $st_file) { // for each file
+     if (ereg("([-d][rwxst-]+).* ([0-9]) ([a-zA-Z0-9]+).* ([a-zA-Z0-9]+).* ([0-9]*) ([a-zA-Z]+[0-9: ]*[0-9]) ([0-9]{2}:[0-9]{2}) (.+)",$st_file,$regs)) {
+       if (substr($regs[1],0,1)=="d") { // check if it is a directory
+         ftp_rmAll($conn_id, $dst_dir."/".$regs[8]); // if so, use recursion
+       } else {
+         ftp_delete($conn_id, $dst_dir."/".$regs[8]) or die("function ftp_rmAll: ftp_delete failed()"); // if not, delete the file
+       }
+     }
+   }
+  }
+  ftp_rmdir($conn_id, $dst_dir) or die("function ftp_rmAll: ftp_rmdir() failed!"); // delete empty directories
+	return true; // }}}
+}
+
+
+function cleanup_ftp($paper_id, $step_id, $ftphandle = NULL,  $msg = ""){
+	// {{{
+	switch($step_id){
+		case 6:
+			if ($ftphandle == NULL){
+				$ftphandle=@ftp_connect($ftphost) or die("function cleanup_ftp: ftp_connect() failed!");
+			}
+			@ftp_login($ftphandle, $ftpuser, $ftppass) or die("function cleanup_ftp: ftp_login() failed!");
+			$msg = "<font style=color:green>Paper deleted succssesfully.</font>";
+		case 5:
+			if ($msg == ""){
+				$msg = "<font style=color:red>Error: (Author_new_save) ftp_put failed! Maybe no permission.</font>";
+			}
+		case 4:
+			if ($msg == ""){
+				$msg = "<font style=color:red>Error: (Author_new_save) ftp_chdir() failed! Maybe no permission.</font>";
+			}
+			ftp_rmAll($ftphandle, "./" . $ftpdir . "/" . $paper_id) or die("function cleanup_ftp: ftp_rmAll failed, but we can't be here anyway, because we are already dead!");
+		case 3:
+			if ($msg == ""){
+				$msg = "<font style=color:red>Error: (Author_new_save) ftp_mkdir() failed! Maybe wrong path.</font>";
+			}
+		case 2:
+			if ($msg == ""){
+				$msg = "<font style=color:red>Error: (Author_new_save) ftp_login() failed! Maybe wrong username or password.</font>";
+			}
+			ftp_quit($ftphandle);
+		case 1:
+			if ($msg == ""){
+				$msg = "<font style=color:red>Error: (Author_new_save) ftp_connect() failed!</font>";
+			}
+		default:
+			$SQL = "DELETE FROM paper WHERE id = ". $paper_id;
+			$result = $sql->insert($SQL);
+			redirect("author", "view", "papers", "msg=".$msg);
+	}	
+	// }}}
+}
+
+
 ?>
