@@ -101,21 +101,22 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<tr>
 			<td>Your Abstract</td>
 			<td>	
-				<textarea  name="abstract" cols="50" rows="10" ><xsl:value-of select="paper/Abstract"/>
+				<textarea  name="abstract" cols="50" rows="10" ><xsl:value-of select="paper/Abstract"/>&#160;
 				  </textarea>
 			</td>
 		</tr>
 		<tr>
-		<td>Your Topics <xsl:value-of select="info"/></td>
+		<td>Your Topics </td>
 		<td>
 		<xsl:for-each select="topic">
-<tr>
-	
+	<tr>
+	<td/>
 	<td>
 		<input type="checkbox" name="topics">
 			<xsl:attribute name="value">
         		<xsl:value-of select="id"/>
         	</xsl:attribute>
+        	
 		</input>
 		<xsl:value-of select="name"/>
 	</td>
