@@ -11,6 +11,9 @@
 if (!defined('IN_COMA1')) {
   die('Hacking attempt');
 }
+if (!defined(SID)) {
+  define(SID,'');
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
