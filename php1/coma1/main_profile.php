@@ -4,7 +4,7 @@
  * @package coma1
  * @subpackage core
  * @todo Darf die Email, also der Benutzername hier geaendert werden?!
- * @todo Fehlende Felder ergänzen!
+ * @todo Fehlende Felder ergaenzen!
  */
 /***/
 
