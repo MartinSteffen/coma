@@ -62,7 +62,7 @@
         {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">View&nbsp;paper</a>}
         {if8<a href="{basepath}chair_reviews.php?createforum&paperid={paper_id}{&SID}"
                class="buttonlink">Start discussion</a>}
-        {if9<a href="{basepath}forum.php?paperid={paper_id}{&SID}"
+        {if9<a href="{basepath}forum.php?forumsel={forum-id}{&SID}"
                class="buttonlink">Enter discussion</a>}
     </td>
     <td class="listitem-{line_no}">
