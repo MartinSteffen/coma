@@ -7,6 +7,6 @@
     <span class="emph">{total_rating}</span>
   </td>
   <td class="viewline">
-    <a href="{basepath}chair_reviewdetails.php?reviewid={review_id}{&SID}" class="buttonlink">view&nbsp;details</a>
+    <a href="{basepath}{targetpage}?reviewid={review_id}{&SID}" class="buttonlink">view&nbsp;details</a>
   </td>
 </tr>
