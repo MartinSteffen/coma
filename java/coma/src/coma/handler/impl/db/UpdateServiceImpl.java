@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.log4j.Category;
 
@@ -158,11 +159,68 @@ public class UpdateServiceImpl extends Service implements UpdateService {
 	}
 
 	public SearchResult updatePaper(Paper paper) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		Connection conn = null;
+		boolean ok = true;
+		if (paper == null) {
+			ok = false;
+			info.append("ERROR: paper must not be null\n");
+		}
+		if (ok && (paper.getId() < 0)) {
+			ok = false;
+			info.append("ERROR: paper[id] must not be less than 0");
+		}
+		if (ok) {
+			try {
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+			} catch (Exception e) {
+				ok = false;
+				info
+						.append("ERROR: Coma could not establish a connection to the database");
+				info.append(e.toString() + "\n");
+			}
+		}
+		if (ok) {
+			try {
+				String UPDATE_QUERY = "UPDATE Paper SET "
+						+ " author_id ? , title = ?, abstract = ?,"
+						+ " filename = ?, state = ?, mime_typen = ?" 
+						+ " WHERE id = "+paper.getId();
+				int pstmtCounter = 0;
+				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
+				pstmt.setInt(++pstmtCounter, paper.getAuthor_id());
+				pstmt.setString(++pstmtCounter, paper.getTitle());
+				pstmt.setString(++pstmtCounter, paper.getAbstract());
+				pstmt.setString(++pstmtCounter, paper.getFilename());
+				pstmt.setInt(++pstmtCounter, paper.getState());
+				pstmt.setString(++pstmtCounter, paper.getMim_type());
+				
+				int affRows = pstmt.executeUpdate();
+				pstmt.close();
+				if (affRows != 1 && ok) {
+					info.append("ERROR: Dataset could not be updated\n");
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				info.append("ERROR: " + e.toString() + "\n");
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
 	}
 
-public SearchResult updateConference(Conference conference) {
+	public SearchResult updateConference(Conference conference) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Connection conn = null;
@@ -190,52 +248,60 @@ public SearchResult updateConference(Conference conference) {
 			try {
 				String UPDATE_QUERY = "UPDATE Conference SET "
 						+ "name = ?,homepage = ?,description = ?,"
-						+ "abstract_submission_deadline = ?,paper_submission_deadline = ?," 
+						+ "abstract_submission_deadline = ?,paper_submission_deadline = ?,"
 						+ "review_deadline = ?,final_version_deadline = ?,notification = ?,"
 						+ "conference_start = ?,conference_end = ?,min_reviews_per_paper = ?"
-						+ " WHERE id = "+conference.getId();
+						+ " WHERE id = " + conference.getId();
 				int pstmtCounter = 0;
 				PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
 				pstmt.setString(++pstmtCounter, conference.getName());
 				pstmt.setString(++pstmtCounter, conference.getHomepage());
 				pstmt.setString(++pstmtCounter, conference.getDescription());
-				if(conference.getAbstract_submission_deadline() != null){
-					pstmt.setDate(++pstmtCounter, new Date(conference.getAbstract_submission_deadline().getTime()));
-				}else{
+				if (conference.getAbstract_submission_deadline() != null) {
+					pstmt.setDate(++pstmtCounter, new Date(conference
+							.getAbstract_submission_deadline().getTime()));
+				} else {
 					pstmt.setString(++pstmtCounter, null);
 				}
-				if(conference.getPaper_submission_deadline() != null){
-					pstmt.setDate(++pstmtCounter, new Date(conference.getPaper_submission_deadline().getTime()));
-				}else{
+				if (conference.getPaper_submission_deadline() != null) {
+					pstmt.setDate(++pstmtCounter, new Date(conference
+							.getPaper_submission_deadline().getTime()));
+				} else {
 					pstmt.setString(++pstmtCounter, null);
 				}
-				if(conference.getReview_deadline() != null){
-					pstmt.setDate(++pstmtCounter, new Date(conference.getReview_deadline().getTime()));
-				}else{
+				if (conference.getReview_deadline() != null) {
+					pstmt.setDate(++pstmtCounter, new Date(conference
+							.getReview_deadline().getTime()));
+				} else {
 					pstmt.setString(++pstmtCounter, null);
 				}
-				if(conference.getFinal_version_deadline() != null){
-					pstmt.setDate(++pstmtCounter, new Date(conference.getFinal_version_deadline().getTime()));
-				}else{
+				if (conference.getFinal_version_deadline() != null) {
+					pstmt.setDate(++pstmtCounter, new Date(conference
+							.getFinal_version_deadline().getTime()));
+				} else {
 					pstmt.setString(++pstmtCounter, null);
 				}
-				if(conference.getNotification() != null){
-					pstmt.setDate(++pstmtCounter, new Date(conference.getNotification().getTime()));
-				}else{
+				if (conference.getNotification() != null) {
+					pstmt.setDate(++pstmtCounter, new Date(conference
+							.getNotification().getTime()));
+				} else {
 					pstmt.setString(++pstmtCounter, null);
 				}
-				if(conference.getConference_start() != null){
-					pstmt.setDate(++pstmtCounter, new Date(conference.getConference_start().getTime()));
-				}else{
+				if (conference.getConference_start() != null) {
+					pstmt.setDate(++pstmtCounter, new Date(conference
+							.getConference_start().getTime()));
+				} else {
 					pstmt.setString(++pstmtCounter, null);
 				}
-				if(conference.getConference_end() != null){
-					pstmt.setDate(++pstmtCounter, new Date(conference.getConference_end().getTime()));
-				}else{
+				if (conference.getConference_end() != null) {
+					pstmt.setDate(++pstmtCounter, new Date(conference
+							.getConference_end().getTime()));
+				} else {
 					pstmt.setString(++pstmtCounter, null);
 				}
-				pstmt.setInt(++pstmtCounter, conference.getMin_review_per_paper());
-				
+				pstmt.setInt(++pstmtCounter, conference
+						.getMin_review_per_paper());
+
 				int affRows = pstmt.executeUpdate();
 				pstmt.close();
 				if (affRows != 1 && ok) {
@@ -257,14 +323,73 @@ public SearchResult updateConference(Conference conference) {
 		}
 		result.setInfo(info.toString());
 		return result;
-	}	/*
+	} /*
 		 * (non-Javadoc)
 		 * 
 		 * @see coma.handler.db.UpdateService#updateRating(coma.entities.Rating)
 		 */
+
 	public SearchResult updateRating(Rating rating) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer info = new StringBuffer();
+		SearchResult result = new SearchResult();
+		Connection conn = null;
+		boolean ok = true;
+		if (rating == null) {
+			ok = false;
+			info.append("ERROR: rating must not be null\n");
+		}
+		if (ok && (rating.get_criterion_id() <= 0)) {
+			ok = false;
+			info.append("ERROR: rating[criterion_id] must not be 0");
+		}
+		if (ok && (rating.get_review_id() <= 0)) {
+			ok = false;
+			info.append("ERROR: rating[review_id] must not be 0");
+		}
+		if (ok) {
+			try {
+				// conn = dataSource.getConnection();
+				conn = getConnection();
+			} catch (Exception e) {
+				ok = false;
+				info
+						.append("ERROR: Coma could not establish a connection to the database");
+				info.append(e.toString() + "\n");
+			}
+		}
+		if (ok) {
+			try {
+				String UPDATE_QUERY = "UPDATE Paper SET "
+						+ " review_id ="+rating.get_review_id()
+						+ " ,criterion_id ="+rating.getCriterionId()
+						+ " ,grade = "+rating.getGrade()
+						+ " ,comment = "+rating.getComment()
+						+ " WHERE review_id = "+rating.get_review_id()
+						+ "  AND criterion_id = "+rating.get_criterion_id();
+				int pstmtCounter = 0;
+				Statement stmt = conn.createStatement();
+				
+				int affRows = stmt.executeUpdate(UPDATE_QUERY);
+				stmt.close();
+				if (affRows != 1 && ok) {
+					info.append("ERROR: Dataset could not be updated\n");
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				info.append("ERROR: " + e.toString() + "\n");
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+						conn = null;
+					} catch (SQLException e1) {
+						System.out.println(e1.toString());
+					}
+				}
+			}
+		}
+		result.setInfo(info.toString());
+		return result;
 	}
 
 	/*
