@@ -31,12 +31,12 @@ $strMainAssocs['body'] =
 </tr>
 <tr class="list">
   <td class="list"> Konferenz A </td> 
-  <td class="list"> <a href="login.php"> login </a> </td> 
+  <td class="list"> <a href="login.php" class="list"> login </a> </td> 
   <td class="list"> (register) </td>
 </tr>
 <tr class="list">
   <td class="list"> Konferenz B </td> 
-  <td class="list"> <a href="login.php"> login </a> </td> 
+  <td class="list"> <a href="login.php" class="list"> login </a> </td> 
   <td class="list"> (register) </td>
 </tr>
 </table>
