@@ -32,9 +32,9 @@ ini_set('warn_plus_overloading', '1');
 // End Debugging
 
 // PFAD - Konstanten
-define('INCPATH',dirname($_SERVER['PHP_SELF']).'/include/');
-define('TPLPATH',dirname($_SERVER['PHP_SELF']).'/templates/');
-define('COREPATH',dirname($_SERVER['PHP_SELF']).'/');
+define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
+define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/');
+define('COREPATH',dirname($_SERVER['PATH_TRANSLATED']).'/');
 // End PFAD - Konstanten
 
 // Standard Klassen
@@ -57,5 +57,8 @@ if (!$myDBAccess->checkLogin()) {
   session_write_close();
   header('Location:'.COREPATH.'login.php');
 }
+
+echo __FILE__.'<br>';
+echo INCPATH;
 
 ?>
