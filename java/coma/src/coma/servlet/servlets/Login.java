@@ -89,8 +89,7 @@ public class Login extends HttpServlet
 				SearchResult mySR = myReadService.getConference(mysc);
 				info += mySR.getInfo();
 				
-				else
-				{
+				
 					if (mySR != null)
 					{
 						System.out.println("Hallo");
@@ -119,7 +118,7 @@ public class Login extends HttpServlet
 						session.setAttribute(SessionAttribs.PERSON, null);
 						result.append(XMLHelper.tagged("conf_not_found",conference_id));
 					}	
-				}
+				
 			}
 			else 
 			{
