@@ -80,12 +80,35 @@
       <input type="text" name="final_dl" size="16" maxlength="20" value="{final_dl}"/ >
     </td>
   </tr>
+  <tr>
+    <td> 
+      Date for notification:
+    </td>
+    <td>      
+      <input type="text" name="notification" size="16" maxlength="20" value="{notification}"/ >
+    </td>
+  </tr>
 
   <tr>
     <td colspan="2">
+      <input type="hidden" name="min_reviews" value="{min_reviews}" />
+      <input type="hidden" name="def_reviews" value="{def_reviews}" />
+      <input type="hidden" name="min_papers" value="{min_papers}" />
+      <input type="hidden" name="max_papers" value="{max_papers}" />
+      <input type="hidden" name="variance" value="{variance}" />    
+      <input type="hidden" name="criteria" value="{criteria}" />    
+      <input type="hidden" name="topics" value="{topics}" />    
+      <input type="hidden" name="crit_max" value="{crit_max}" />
+      <input type="hidden" name="crit_descr" value="{crit_descr}" />
+      <input type="hidden" name="auto_actaccount" value="{auto_actaccount}" />
+      <input type="hidden" name="auto_paperforum" value="{auto_paperforum}" />
+      <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
+      <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
+            
       <input type="hidden" name="action" value="submit" />
       <input type="submit" name="submit" value="Create conference" class="button" />
-      <form action="{basepath}create_conference_ext.php?{SID}" method="post">
+      <form action="{basepath}create_conference.php?{SID}" method="post">
+        <input type="hidden" name="action" value="advanced_config" />
         <input type="submit" name="submit" value="Advanced settings" class="button" />
       </form>
     </td>
@@ -94,5 +117,6 @@
 </form>
 
 <form action="{basepath}main_conferences.php?{SID}" method="post">
+  <input type="hidden" name="action" value="cancel" />
   <input type="submit" name="cancel" value="Cancel" class="button" />
 </form>

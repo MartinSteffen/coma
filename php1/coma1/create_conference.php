@@ -18,7 +18,7 @@ $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
-if (isset($_POST['action'])){
+if (isset($_POST['action']) && $_POST['action'] == 'submit') {
 
   // Anlegen der Person in der Datenbank
   $strContentAssocs['name']         = $_POST['name'];
@@ -64,6 +64,10 @@ if (isset($_POST['action'])){
                    .'<br>Please try again!';
     }
   }
+}
+// Oeffnen der erweiterten Einstellungen
+else if (isset($_POST['action']) && $_POST['action'] == 'advanced_config') {
+  $content = new Template(TPLPATH.'create_conference_ext.tpl');
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte
 else {
