@@ -162,4 +162,41 @@ public class ReviewReport extends Entity {
 	    return null;
 	}
     }
+    
+	/**
+	 * @param confidental The confidental to set.
+	 */
+	public void setConfidental(String confidental) {
+		this.confidental = confidental;
+	}
+	/**
+	 * @param id The id to set.
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	/**
+	 * @param paperId The paperId to set.
+	 */
+	public void setPaperId(int paperId) {
+		this.paperId = paperId;
+	}
+	/**
+	 * @param remarks The remarks to set.
+	 */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	/**
+	 * @param reviewerId The reviewerId to set.
+	 */
+	public void setReviewerId(int reviewerId) {
+		this.reviewerId = reviewerId;
+	}
+	/**
+	 * @param summary The summary to set.
+	 */
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
 }
