@@ -11,64 +11,28 @@
  *
  * @ignore
  */
-define('IN_COMA1',true);
+define('IN_COMA1', true);
+define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
-if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
-  // Einlog-Versuch
-  if (isset($_POST['userMail'])) {
-    $_SESSION['uname'] = $_POST['userMail'];
-  }
-  if (isset($_POST['userPassword'])) {
-    $_SESSION['password'] = sha1($_POST['userPassword']);
-  }
-  redirect('start.php');
-}
-else {
-  $mainPage = new Template(TPLPATH.'main.tpl');
-  $menue = new Template(TPLPATH.'nav_index.tpl');
-  $loginPage = new Template(TPLPATH.'login.tpl');
-  $emptyPage = new Template(TPLPATH.'empty.tpl');
+$main = new Template(TPLPATH.'frame.tpl');
 
-  // SID und basepath in Links einfügen
-  $links = defaultAssocArray();
+$content = new Template(TPLPATH.'login.tpl');
+$content->assign(defaultAssocArray());
 
-  $strMainAssocs = defaultAssocArray();
-  $strMainAssocs['body'] = & $loginPage;
+$strMainAssocs = defaultAssocArray();
+$strMainAssocs['body'] = &$content;
+$strMainAssocs['title'] = 'Login';
 
-  $strMainAssocs['content'] = '';
+require_once(TPLPATH.'startmenu.php');
+$strMainAssocs['menu'] = openStartMenuItem(1);
 
-  if(isset($_SESSION['message'])) {
-    $strMessage = $_SESSION['message'];
-    unset($_SESSION['message']);
-  }
-  else if( isset($_SESSION['uid']) || isset($_SESSION['password'])) {
-    $strMessage = 'Sie sind bereits eingeloggt !!! <BR>'
-                 .'Bitte <a href="'.$links['basepath'].'logout.php'.$links['SID']
-                 .'"> ausloggen </a> oder zur&uuml;ck '.'zur <a  href="'.$links['basepath']
-                 .'start.php'.$links['SID'].'"> Startseite</a>';
-    $strMainAssocs['body'] = & $emptyPage;
-  }
-  else {
-    $strMessage = '';
-    $strMainAssocs['content'] = ' <h2 align="center"> Bitte Einloggen oder Registrieren </h2>';
-  }
+$strPath = array('CoMa'=>'', 'Login'=>'');
+require_once(TPLPATH.'navigatoritem.php');
+$strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
-  $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
-  $strMainAssocs['menue'] =& $menue;
-  $strMainAssocs['submenue'] = '';
+$main->assign($strMainAssocs);
+$main->parse();
+$main->output();
 
-  $strLoginAssocs = defaultAssocArray();
-  $strLoginAssocs['message'] = $strMessage;
-
-  $mainPage->assign($strMainAssocs);
-  $menue->assign(defaultAssocArray());
-  $menue->assign($strMenueAssocs);
-
-  $loginPage->assign($strLoginAssocs);
-  $emptyPage->assign($strLoginAssocs);
-
-  $mainPage->parse();
-  $mainPage->output();
-}
 ?>

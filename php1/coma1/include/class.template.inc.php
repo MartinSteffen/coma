@@ -30,10 +30,10 @@ if (!function_exists('file_get_contents')) {
  * @package coma1
  * @subpackage Parser
  * @access public
- * 
+ *
  */
 class Template {
-  
+
   /**#@+@access private*/
   /**@var string*/
   var $strTemplate='';
@@ -44,12 +44,12 @@ class Template {
   /**@var array*/
   var $strAssocs = array();
   /**#@-*/
-  
+
   /**
    * Konstruktor
    *
    * Der Konstruktor liest eine Template Datei ein.
-   * 
+   *
    * @param string $strFilename Der Dateiname des Templates
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
@@ -65,7 +65,7 @@ class Template {
    *
    * Die Methode liest ein (neues) Template ein.
    * Sollte nicht verwendet werdem, stattdessen besser neues Objekt erzeugen!
-   * 
+   *
    * @param string $strFilename Der Dateiname des Templates
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
@@ -81,7 +81,7 @@ class Template {
     $this->strTemplate =& $strContents;
     return true;
   }
-  
+
   /**
    * Zuweisung von Werten auf Tags
    *
@@ -93,7 +93,7 @@ class Template {
    *  "key" => "wert"
    * </code>
    * Hierbei wird das Tag {key} durch den Wert "wert" ersetzt.
-   * 
+   *
    * @param array $strAssocs Das Array mit Zuweisungen
    * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
    * @see error()
@@ -108,13 +108,13 @@ class Template {
     $this->strAssocs = array_merge($this->strAssocs, $strAssocs);
     return true;
   }
-  
+
   /**
    * Parsen der Seite
    *
    * Die Methode uebernimmt das tatsaechliche Parsen des Templates.
    * Alle mit assign uebergebenen Ersetzungenw erden durchgefuehrt.
-   * 
+   *
    * @return true Erfolg
    * @access public
    * @todo Check ob gueltiges Objekt!!!
@@ -141,12 +141,12 @@ class Template {
     $this->strOutput = preg_replace($strKeys, $strValues, $this->strTemplate);
     return true;
   }
-  
+
   /**
    * Ausgabe
    *
    * Die Methode gibt ein (geparstet) Template aus.
-   * 
+   *
    * @return true Erfolg
    * @access public
    *
@@ -154,12 +154,12 @@ class Template {
   function getOutput() {
     return $this->strOutput;
   }
-  
+
   /**
    * Ausgabe
    *
    * Die Methode gibt ein (geparstet) Template aus.
-   * 
+   *
    * @return true Erfolg
    * @access public
    *
@@ -168,12 +168,12 @@ class Template {
     print($this->strOutput);
     return true;
   }
-  
+
   /**
    * Fehler erzeugen
    *
    * Die Funktion <b>error()</b> erzeugt und speichert einen Fehlerstring.
-   * 
+   *
    * @param string $strError Optionale Angabe einer Fehlerursache
    * @return false Es wird immer <b>false</b> zurueck gegeben
    * @see getLastError()
@@ -190,7 +190,7 @@ class Template {
    *
    * Die Funktion <b>getLastError()</b> gibt die letzte mit error
    * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
-   * 
+   *
    * @return string Die letzte Fehlermeldung
    * @see error()
    * @access public

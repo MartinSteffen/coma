@@ -72,7 +72,7 @@ $ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
 /** Include-Pfad (als absolut)*/
 define('INCPATH', $ServerPathTranslated.'/include/');
 /** Das zu verwendende Design (Verzeichniss-Name)*/
-define('DESIGN', 'simplecoma');
+define('DESIGN', 'coma-2');
 /** Template-Pfad (als absolut)*/
 define('TPLPATH', $ServerPathTranslated.'/templates/'.DESIGN.'/');
 /** Template-Pfad (als URL)*/
@@ -97,12 +97,17 @@ $myDBAccess = new DBAccess($mySql);
 checkError($myDBAccess);
 // End Standard Klassen
 
+// CoMa Konstanten
+define('CHAIR', 2);
+define('REVIEWER', 3);
+define('AUTHOR', 4);
+define('PARTICIPANT', 5);
+// End CoMa Konstanten
+
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
 // Stellt ausserdem sicher das uid und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
-if ((basename($_SERVER['PHP_SELF']) != 'index_regi.php')
-&&  (basename($_SERVER['PHP_SELF']) != 'index.php')
-&&  (!$myDBAccess->checkLogin())) {
+if (!isset(NEED_NO_LOGIN) &&  (!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
     $_SESSION['message'] = 'Bitte melden Sie sich an!';
   }
