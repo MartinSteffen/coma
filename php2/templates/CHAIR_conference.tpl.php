@@ -7,9 +7,6 @@ $criterions = $input['criterions'];
 ?>
 
 <script language="JavaScript" src="templates/calendar.js"></script>
-<link rel="stylesheet" href="style.css" type="text/css">
-
-
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr> 

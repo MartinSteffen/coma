@@ -2,7 +2,6 @@
 include("header.tpl.php");
 $input = d('tasks');
 ?>
-<link rel="stylesheet" href="style.css" type="text/css">
 
   <? 
   $isEmpty=true;
