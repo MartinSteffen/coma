@@ -34,7 +34,9 @@ class ErrorHandling {
   /**
    * Erzeugt einen Fehler mit der angegebenen Fehlerbeschreibung.
    *
-   * @param string $strError optionale Fehlerbeschreibung
+   * @param string $strMethod Methode in der der Fehler aufgetreten ist
+   * @param string $strError Beschreibung des Fehlers
+   * @param string $strComment optionaler weiterer Kommentar
    * @return bool immer <b>false</b>
    * @see getLastError()
    * @access protected
