@@ -1,385 +1,509 @@
+6.1.2006
+
+==============
+
 svn status for directory ~/Snert/coma/trunk/
 0 files marked
 
-      866  866 ms          .
-      866  866 ms          Makefile
-      867  867 ms          Readme
-      866  337 ms          figures
-      866   32 ms            Makefile
-      866   17 mky           bug-life-cycle.dot
-      866   33 mky           bug-life-cycle.eps
-      866   33 mky           bug-life-cycle.svg
-      866   79 mky           data-model.dia
+     1146 1146 niemann     .
+     1146  866 ms          Makefile
+  M  1146 1040 ms          Readme
+     1146  337 ms          figures
+     1146   32 ms            Makefile
+     1146   17 mky           bug-life-cycle.dot
+     1146   33 mky           bug-life-cycle.eps
+     1146   33 mky           bug-life-cycle.svg
+     1146   79 mky           data-model.dia
   ?            ?             data-model.png
   ?            ?             data-model.ps
-      866  337 ms            db_photo.jpg
+     1146  337 ms            db_photo.jpg
   ?            ?             group-structure.fig.bak
-      866  125 ms            group-structure.fig
+     1146  125 ms            group-structure.fig
   ?            ?             group-structure.png
   ?            ?             group-structure.ps
-      866  306 ms          handouts
-      866   23 ms            Makefile
+     1146  306 ms          handouts
+     1146   23 ms            Makefile
   ?            ?             auto
   ?            ?             handout1.aux
   ?            ?             handout1.dvi
   ?            ?             handout1.log
-      866  126 ms            handout1.tex
+     1146  126 ms            handout1.tex
   ?            ?             handout2.aux
   ?            ?             handout2.dvi
   ?            ?             handout2.log
-      866  126 ms            handout2.tex
+     1146  126 ms            handout2.tex
   ?            ?             handout3.aux
   ?            ?             handout3.dvi
   ?            ?             handout3.log
-      866  126 ms            handout3.tex
+     1146  126 ms            handout3.tex
   ?            ?             handout4.aux
   ?            ?             handout4.dvi
   ?            ?             handout4.log
-      866  126 ms            handout4.tex
+     1146  126 ms            handout4.tex
   ?            ?             handout5.aux
   ?            ?             handout5.dvi
   ?            ?             handout5.log
-      866  126 ms            handout5.tex
+     1146  126 ms            handout5.tex
   ?            ?             handout6.aux
   ?            ?             handout6.dvi
   ?            ?             handout6.log
   ?            ?             handout6.pdf
   ?            ?             handout6.ps
-      866  306 ms            handout6.tex
-      866  851 schwarz     java
-      866  851 schwarz       coma
-      866  835 albari          README
-      866  219 albari          bin
-      866  831 albari          build.xml
-      866  834 albari          coma.xml
-      866  772 albari          index.html
-      866  408 tiedje          lib
-      866  219 albari          log
-      866  851 schwarz         src
-      866  851 schwarz           coma
-      866  851 schwarz             entities
-      866  599 schwarz               Conference.java
-      866  808 schwarz               Criterion.java
-      866  851 schwarz               Entity.java
-      866  219 albari                Forum.java
-      866  850 tiedje                Paper.java
-      866  788 tiedje                Person.java
-      866  839 schwarz               Rating.java
-      866  851 schwarz               ReviewReport.java
-      866  601 albari                SearchCriteria.java
-      866  554 albari                SearchResult.java
-      866  849 tiedje              handler
-      866  783 albari                db
-      866  783 albari                  InsertService.java
-      866  604 schwarz                 ReadService.java
-      866  782 albari                  UpdateService.java
-      866  837 albari                impl
-      866  837 albari                  db
-      866  830 albari                    InsertServiceImpl.java
-      866  836 albari                    ReadServiceImpl.java
-      866  837 albari                    Service.java
-      866  780 albari                    UpdateServiceImpl.java
-      866  849 tiedje                util
-      866  564 albari                  DBConnectionCreater.java
-      866  849 tiedje                  EntityCreater.java
-      866  784 albari                  PreparedStatementSetter.java
-      866  851 schwarz             servlet
-      866  851 schwarz               servlets
-      866  789 tiedje                  Author.java
-      866  715 tiedje                  Index.java
-      866  565 schwarz                 Login.java
-      866  851 schwarz                 RatePaper.java
-      866  770 schwarz                 ShowReports.java
-      866  779 tiedje                  Subscribe.java
-      866  813 kauffels                chair.java
-      866  569 kauffels                invite.java
-      866  848 tiedje                util
-      866  839 schwarz                 FormParameters.java
-      866  814 kauffels                FormularChecker.java
-      866  764 brandt                  SMTPClient.java
-      866  848 tiedje                  SessionAttribs.java
-      866  839 schwarz                 UserMessage.java
-      866  808 schwarz                 XMLHelper.java
-      866  701 kauffels                password_maker.java
-      866  851 schwarz             util
-      866  851 schwarz               logging
-      866  356 schwarz                 ALogger.java
-      866  851 schwarz                 Log4jLogger.java
-      866  343 schwarz                 Severity.java
-      866  343 schwarz                 StdErrLogger.java
-      866  838 albari                test
-      866  838 albari                  ReadServiceTest.java
-      866  847 tiedje          style
-      866  793 tiedje            css
-      866  793 tiedje              comastyle.css
-      866  847 tiedje            xsl
-      866  847 tiedje              author.xsl
-      866  847 tiedje              chair.xsl
-      866  847 tiedje              index.xsl
-      866  847 tiedje              login.xsl
-      866  847 tiedje              subscribe.xsl
-      866  833 albari          web.xml
-      866  113 tiedje        java_architecture.tex
-      866  812 tiedje        spec
-      866  812 tiedje          architecture.tex
-      866  812 tiedje          schedule.tex
-      866  114 ms          org
-      869  869 ms            activity.txt
-      866  114 ms            gruppen.txt
-  ?            ?             structure.txt
-  ?            ?             tops.txt
-  ?            ?             tops2.txt
-      866  864 esquivel    php1
+     1146  306 ms            handout6.tex
+     1146 1131 schwarz     java
+     1146 1131 schwarz       coma
+     1146  896 albari          README
+  ?            ?               bin
+     1146  933 albari          build.xml
+     1146  933 albari          coma.xml
+     1146  772 albari          index.html
+     1146  936 albari          jaas.config
+     1146 1131 schwarz         src
+     1146 1131 schwarz           coma
+     1146 1103 schwarz             entities
+     1146  599 schwarz               Conference.java
+     1146  808 schwarz               Criterion.java
+     1146 1103 schwarz               Entity.java
+     1146  219 albari                Forum.java
+     1146 1103 schwarz               Paper.java
+     1146  937 tiedje                Person.java
+     1146  839 schwarz               Rating.java
+     1146  851 schwarz               ReviewReport.java
+     1146  601 albari                SearchCriteria.java
+     1146  554 albari                SearchResult.java
+     1146  934 albari              handler
+     1146  783 albari                db
+     1146  783 albari                  InsertService.java
+     1146  604 schwarz                 ReadService.java
+     1146  782 albari                  UpdateService.java
+     1146  933 albari                impl
+     1146  933 albari                  db
+     1146  933 albari                    InsertServiceImpl.java
+     1146  898 albari                    ReadServiceImpl.java
+     1146  933 albari                    Service.java
+     1146  879 albari                    UpdateServiceImpl.java
+     1146  934 albari                login
+     1146  934 albari                  DataSourceLoginModule.java
+     1146  934 albari                  LoginBean.java
+     1146  934 albari                  WebCallbackHandler.java
+     1146  888 tiedje                util
+     1146  564 albari                  DBConnectionCreater.java
+     1146  888 tiedje                  EntityCreater.java
+     1146  784 albari                  PreparedStatementSetter.java
+     1146 1131 schwarz             servlet
+     1146 1131 schwarz               servlets
+     1146  937 tiedje                  Author.java
+     1146  715 tiedje                  Index.java
+     1146  933 albari                  Login.java
+     1146  935 albari                  LoginServlet.java
+     1146  935 albari                  LogoutServlet.java
+     1146 1131 schwarz                 RatePaper.java
+     1146  770 schwarz                 ShowReports.java
+     1146  933 albari                  Subscribe.java
+     1146  888 tiedje                  WriteFile.java
+     1146  892 kauffels                chair.java
+     1146  569 kauffels                invite.java
+     1146 1131 schwarz               util
+     1146  839 schwarz                 FormParameters.java
+     1146  814 kauffels                FormularChecker.java
+     1146 1131 schwarz                 PageStateHelper.java
+     1146  764 brandt                  SMTPClient.java
+     1146 1131 schwarz                 SessionAttribs.java
+     1146  839 schwarz                 UserMessage.java
+     1146 1103 schwarz                 XMLHelper.java
+     1146  701 kauffels                password_maker.java
+     1146  880 albari              util
+     1146  851 schwarz               logging
+     1146  356 schwarz                 ALogger.java
+     1146  851 schwarz                 Log4jLogger.java
+     1146  343 schwarz                 Severity.java
+     1146  343 schwarz                 StdErrLogger.java
+     1146  880 albari                test
+     1146  880 albari                  InsertServiceTest.java
+     1146  838 albari                  ReadServiceTest.java
+     1146  880 albari                  UpdateServiceTest.java
+     1146  933 albari          style
+     1146  793 tiedje            css
+     1146  793 tiedje              comastyle.css
+     1146  933 albari            xsl
+     1146  919 tiedje              author.xsl
+     1146  890 kauffels            chair.xsl
+     1146  933 albari              index.xsl
+     1146  847 tiedje              login.xsl
+     1146  933 albari              subscribe.xsl
+     1146  933 albari          web.xml
+     1146  113 tiedje        java_architecture.tex
+     1146  812 tiedje        spec
+  ?            ?               architecture.aux
+  ?            ?               architecture.dvi
+  ?            ?               architecture.log
+     1146  812 tiedje          architecture.tex
+  ?            ?               architecture.toc
+  ?            ?               schedule.aux
+  ?            ?               schedule.dvi
+  ?            ?               schedule.log
+     1146  812 tiedje          schedule.tex
+  ?            ?               schedule.toc
+  ?            ?           org
+     1146 1143 miesling    php1
   ?            ?             Conventions
   ?            ?             Project CoMa
-      866  567 waller        Readme
-      866  226 waller        architecture
-      866  119 esquivel        liste_interessen.pdf
-      866  116 starke          navigator.pdf
-      866  226 waller          objects
-      866  226 waller            conference.jpg
-      866  216 esquivel          conference.jude
-      866  226 waller            forum.jpg
-      866  223 esquivel          forum.jude
-      866  226 waller            paper.jpg
-      866  216 esquivel          paper.jude
-      866  226 waller            person.jpg
-      866  180 esquivel          person.jude
-      866  226 waller            review.jpg
-      866  216 esquivel          review.jude
-      866  116 starke          programmschema.jpg
-      866  132 waller        coding_conventions
-      866   60 waller          CAU-Siegel.eps
-      866   95 waller          CAU-Siegel.jpg
+     1146 1112 gsc           Readme
+     1146  226 waller        architecture
+     1146  119 esquivel        liste_interessen.pdf
+     1146  116 starke          navigator.pdf
+     1146  226 waller          objects
+     1146  226 waller            conference.jpg
+     1146  216 esquivel          conference.jude
+     1146  226 waller            forum.jpg
+     1146  223 esquivel          forum.jude
+     1146  226 waller            paper.jpg
+     1146  216 esquivel          paper.jude
+     1146  226 waller            person.jpg
+     1146  180 esquivel          person.jude
+     1146  226 waller            review.jpg
+     1146  216 esquivel          review.jude
+     1146  116 starke          programmschema.jpg
+     1146  132 waller        coding_conventions
+     1146   60 waller          CAU-Siegel.eps
+     1146   95 waller          CAU-Siegel.jpg
   ?            ?               auto
   ?            ?               conventions.aux
   ?            ?               conventions.dvi
   ?            ?               conventions.log
-      866  132 waller          conventions.tex
+     1146  132 waller          conventions.tex
   ?            ?               handout.log
   ?            ?               texput.log
-      866  864 esquivel      coma1
-      866  730 waller          .htaccess
-      866  238 miesling        Daniel
-      866  236 miesling          artikelverwaltung.html
-      866  237 miesling          benutzerverwaltung.html
-      866  238 miesling          format.css
-      866  188 miesling          logo.gif
-      866  192 miesling          vorschlag1.html
-      866  733 waller          Kopie von chair_konf.php
-      866  165 waller          README
-      866  331 esquivel        Sandro
-      866  331 esquivel          comaLayout
-      866  241 esquivel            images
-      866  240 esquivel              blank.gif
-      866  240 esquivel              down.gif
-      866  240 esquivel              info.gif
-      866  240 esquivel              left.gif
-      866  240 esquivel              link.gif
-      866  240 esquivel              logo.jpg
-      866  240 esquivel              mail.gif
-      866  240 esquivel              menue.gif
-      866  240 esquivel              menueleft.gif
-      866  240 esquivel              right.gif
-      866  240 esquivel              top.gif
-      866  331 esquivel            index.htm
-      866  240 esquivel            styles.css
-      866  733 waller          autor.php
-      866  800 miesling        autor_nach.php
-      866  801 miesling        autor_verw.php
-      866  802 miesling        chair.php
-      866  803 miesling        chair_arti.php
-      866  803 miesling        chair_benu.php
-      866  803 miesling        chair_konf.php
-      866  803 miesling        chair_nach.php
-      866  803 miesling        chair_verw.php
-      866  862 esquivel        include
-      866  230 waller            .htaccess
-      866  862 esquivel          class.dbaccess.inc.php
-      866  733 waller            class.forum.inc.php
-      866  733 waller            class.forumdetailed.inc.php
-      866  733 waller            class.message.inc.php
-      866  532 waller            class.mysql.inc.php
-      866  412 scherzer          class.paper.inc.php
-      866  532 waller            class.paperalgorithmic.inc.php
-      866  725 scherzer          class.paperdetailed.inc.php
-      866  725 scherzer          class.papersimple.inc.php
-      866  437 scherzer          class.person.inc.php
-      866  532 waller            class.persondetailed.inc.php
-      866  467 esquivel          class.review.inc.php
-      866  817 esquivel          class.reviewdetailed.inc.php
-      866  846 waller            class.session.inc.php
-      866  724 waller            class.template.inc.php
-      866  260 waller            config.inc.php
-      866  826 scherzer          header.inc.php
-      866  721 waller          index.php
-      866  710 miesling        login.php
-      866  551 waller          logout.php
-      866   98 waller          phpInfo.php
-      866  803 miesling        reviewer.php
-      866  803 miesling        reviewer_nach.php
-      866  803 miesling        reviewer_verw.php
-      866  803 miesling        start.php
-      866  803 miesling        start_konf.php
-      866  805 miesling        start_list.php
-      866  803 miesling        start_neue.php
-      866  803 miesling        teilnehmer.php
-      866  803 miesling        teilnehmer_nach.php
-      866  803 miesling        teilnehmer_verw.php
-      866  852 esquivel        templates
-      866  230 waller            .htaccess
-      866  730 waller            index.htm
-      866  852 esquivel          simplecoma
-      866  730 waller              images
-      866  730 waller                blank.gif
-      866  730 waller                down.gif
-      866  730 waller                info.gif
-      866  730 waller                left.gif
-      866  730 waller                link.gif
-      866  730 waller                logo.jpg
-      866  730 waller                mail.gif
-      866  730 waller                menue.gif
-      866  730 waller                menueleft.gif
-      866  730 waller                right.gif
-      866  730 waller                top.gif
-      866  593 waller              login.tpl
-      866  704 miesling            main.tpl
-      866  730 waller              main121204.tpl
-      866  730 waller              nav_autor.tpl
-      866  794 miesling            nav_chair.tpl
-      866  730 waller              nav_chair_arti.tpl
-      866  730 waller              nav_chair_benu.tpl
-      866  618 waller              nav_chair_konf.tpl
-      866  730 waller              nav_nach.tpl
-      866  794 miesling            nav_reviewer.tpl
-      866  804 miesling            nav_start.tpl
-      866  730 waller              nav_start_konf.tpl
-      866  794 miesling            nav_teilnehmer.tpl
-      866  730 waller              nav_verw.tpl
-      866  852 esquivel            styles.css
-      866  864 esquivel        test_dbaccess.php
-      866  733 waller          test_forum.php
-      866  154 waller        post-commit
-      866  845 scherzer      spec
-      866  845 scherzer        main.txt
-      866  707 miesling        navigation
-      866  663 miesling          nav_autor.jpg
-      866  587 starke            nav_autor.jude
-      866  617 starke            nav_chair.jpg
-      866  663 miesling          nav_chair.jude
-      866  663 miesling          nav_nachrichten.jpg
-      866  663 miesling          nav_nachrichten.jude
-      866  663 miesling          nav_reviewer.jpg
-      866  663 miesling          nav_reviewer.jude
-      866  707 miesling          nav_start.jpg
-      866  707 miesling          nav_start.jude
-      866  663 miesling          nav_teilnehmer.jpg
-      866  663 miesling          nav_teilnehmer.jude
-      866  663 miesling          nav_verwaltung.jpg
-      866  663 miesling          nav_verwaltung.jude
-      866  810 jensen      php2
-      866  130 jensen        author.php
-      866  130 jensen        chair.php
-      866  214 stragalis     choose_conference.php
-      866  521 jensen        config.inc.php
-      866  130 jensen        empty.php
-      866   86 jensen        forbidden.php
-      866  624 dziuk         includes
-      866  458 dziuk           config.inc.php
-      866  624 dziuk           definitions.inc.php
-      866  289 dziuk           login.inc.php
-      866  384 jensen          rtp.lib.php
-      866  453 dziuk           templates.inc.php
-      866  456 dziuk           tools.inc.php
-      866  624 dziuk         index.php
-      866  229 stragalis     login.php
-      866  214 stragalis     logout.php
-      866  624 dziuk         modules
-      866  624 dziuk           author
-      866  624 dziuk             config.inc.php
-      866  624 dziuk             list
-      866  624 dziuk               config.inc.php
-      866  624 dziuk               sub_view.inc.php
-      866  624 dziuk             new
-      866  624 dziuk               config.inc.php
-      866  624 dziuk               sub_form.inc.php
-      866  518 jensen          chair
-      866  518 jensen            config.inc.php
-      866  518 jensen            throwError
-      866  518 jensen              config.inc.php
-      866  518 jensen              sub_throwError.inc.php
-      866  294 dziuk           config.inc.php
-      866  456 dziuk           roles
-      866  456 dziuk             change
-      866  295 dziuk               config.inc.php
-      866  456 dziuk               sub_do.inc.php
-      866  456 dziuk               sub_save.inc.php
-      866  295 dziuk             config.inc.php
-      866  456 dziuk           session
-      866  454 dziuk             config.inc.php
-      866  456 dziuk             show
-      866  454 dziuk               config.inc.php
-      866  456 dziuk               sub_showsessionid.inc.php
-      866  283 jensen        old_sql
-      866  232 stragalis       Tabellen-3 (Vorschlag).gif
-      866  232 stragalis       Tabellen-3 (Vorschlag).txt
-      866  283 jensen        old_template
-      866  214 stragalis       conferences-footer.php
-      866  214 stragalis       conferences-header.php
-      866  214 stragalis       conferences-main.php
-      866  130 jensen          empty.tpl.php
-      866  214 stragalis       footer.php
-      866  214 stragalis       header.php
-      866  214 stragalis       images
-      866  214 stragalis         actions.gif
-      866  214 stragalis         blue-back.gif
-      866  214 stragalis         change-conference-button.gif
-      866  214 stragalis         control-panel.gif
-      866  214 stragalis         gray-back.gif
-      866  214 stragalis         logo.gif
-      866  214 stragalis         logout.gif
-      866  214 stragalis         menu-gray-back.gif
-      866  214 stragalis         spacer.gif
-      866  214 stragalis         user-properties-button.gif
-      866   88 jensen          index.php
-      866  214 stragalis       login.php
-      866  214 stragalis       main-header.php
-      866  214 stragalis       upper-links.php
-      866  214 stragalis       user-attr.php
-      866  130 jensen        reviewer.php
-      866  214 stragalis     security.php
-      866  810 jensen        spec
-      866  810 jensen          main.txt
-      866  523 jensen        sql_dumps
-      866  488 jensen          db_schema2.sql
-      866  490 jensen          db_schema2_light.sql
-      866  523 jensen          hardcoded_sql_data.sql
-      866  457 dziuk           rights_structure.sql
-      866  455 dziuk         style2.css
-      866  624 dziuk         templates
-      866  624 dziuk           AUTHOR_new_form.tpl.php
-      866  520 jensen          ERROR.tpl.php
-      866  404 dziuk           ROLES_change.tpl.php
-      866  456 dziuk           SESSION_show.tpl.php
-      866  298 dziuk           footer.tpl.php
-      866  519 jensen          header.tpl.php
-      866  214 stragalis     user_properties.php
-      866  130 jensen        visitor.php
+     1146 1143 miesling      coma1
+     1146  730 waller          .htaccess
+     1146  238 miesling        Daniel
+     1146  236 miesling          artikelverwaltung.html
+     1146  237 miesling          benutzerverwaltung.html
+     1146  238 miesling          format.css
+     1146  188 miesling          logo.gif
+     1146  192 miesling          vorschlag1.html
+     1146  165 waller          README
+     1146  331 esquivel        Sandro
+     1146  331 esquivel          comaLayout
+     1146  241 esquivel            images
+     1146  240 esquivel              blank.gif
+     1146  240 esquivel              down.gif
+     1146  240 esquivel              info.gif
+     1146  240 esquivel              left.gif
+     1146  240 esquivel              link.gif
+     1146  240 esquivel              logo.jpg
+     1146  240 esquivel              mail.gif
+     1146  240 esquivel              menue.gif
+     1146  240 esquivel              menueleft.gif
+     1146  240 esquivel              right.gif
+     1146  240 esquivel              top.gif
+     1146  331 esquivel            index.htm
+     1146  240 esquivel            styles.css
+     1146  733 waller          autor.php
+     1146  800 miesling        autor_nach.php
+     1146  801 miesling        autor_verw.php
+     1146  802 miesling        chair.php
+     1146  803 miesling        chair_arti.php
+     1146  803 miesling        chair_benu.php
+     1146  803 miesling        chair_konf.php
+     1146  803 miesling        chair_nach.php
+     1146  803 miesling        chair_verw.php
+     1146 1091 miesling        include
+     1146  230 waller            .htaccess
+     1146  872 esquivel          class.conference.inc.php
+     1146  872 esquivel          class.conferencedetailed.inc.php
+     1146  872 esquivel          class.criterion.inc.php
+     1146 1085 miesling          class.dbaccess.inc.php
+     1146  733 waller            class.forum.inc.php
+     1146  733 waller            class.forumdetailed.inc.php
+     1146  733 waller            class.message.inc.php
+     1146 1021 scherzer          class.mysql.inc.php
+     1146  412 scherzer          class.paper.inc.php
+     1146  532 waller            class.paperalgorithmic.inc.php
+     1146  876 esquivel          class.paperdetailed.inc.php
+     1146  868 esquivel          class.papersimple.inc.php
+     1146  873 esquivel          class.person.inc.php
+     1146  873 esquivel          class.persondetailed.inc.php
+     1146  467 esquivel          class.review.inc.php
+     1146  868 esquivel          class.reviewdetailed.inc.php
+     1146  846 waller            class.session.inc.php
+     1146  912 waller            class.template.inc.php
+     1146  872 esquivel          class.topic.inc.php
+     1146  260 waller            config.inc.php
+     1146 1091 miesling          header.inc.php
+     1146 1062 miesling        index.php
+     1146 1143 miesling        index_regi.php
+     1146  962 miesling        logout.php
+     1146   98 waller          phpInfo.php
+     1146  803 miesling        reviewer.php
+     1146  803 miesling        reviewer_nach.php
+     1146  803 miesling        reviewer_verw.php
+     1146  803 miesling        start.php
+     1146 1089 miesling        start_konf.php
+     1146 1089 miesling        start_list.php
+     1146 1139 miesling        start_neue.php
+     1146  803 miesling        teilnehmer.php
+     1146  803 miesling        teilnehmer_nach.php
+     1146  803 miesling        teilnehmer_verw.php
+     1146 1141 miesling        templates
+     1146  230 waller            .htaccess
+     1146  730 waller            index.htm
+     1146 1141 miesling          simplecoma
+     1146 1003 waller              empty.tpl
+     1146 1079 miesling            images
+     1146  730 waller                blank.gif
+     1146  730 waller                down.gif
+     1146  730 waller                info.gif
+     1146  730 waller                left.gif
+     1146  730 waller                link.gif
+     1146  730 waller                logo.jpg
+     1146  730 waller                mail.gif
+     1146  730 waller                menue.gif
+     1146 1079 miesling              menue2.gif
+     1146  730 waller                menueleft.gif
+     1146 1079 miesling              menueleft2.gif
+     1146  730 waller                right.gif
+     1146  730 waller                top.gif
+     1146  990 miesling            login.tpl
+     1146 1121 miesling            main.tpl
+     1146 1059 miesling            nav_autor.tpl
+     1146 1078 miesling            nav_chair.tpl
+     1146  730 waller              nav_chair_arti.tpl
+     1146  730 waller              nav_chair_benu.tpl
+     1146  995 miesling            nav_chair_konf.tpl
+     1146 1083 miesling            nav_index.tpl
+     1146 1003 waller              nav_index_regi.tpl
+     1146  730 waller              nav_nach.tpl
+     1146 1059 miesling            nav_reviewer.tpl
+     1146 1141 miesling            nav_start.tpl
+     1146 1090 miesling            nav_start_konf.tpl
+     1146 1059 miesling            nav_teilnehmer.tpl
+     1146  730 waller              nav_verw.tpl
+     1146 1141 miesling            neueKonferenz.tpl
+     1146 1099 esquivel            register.tpl
+     1146 1102 esquivel            styles.css
+     1146 1122 miesling        test.html
+     1146 1140 miesling        test_dbaccess.php
+     1146  733 waller          test_forum.php
+     1146 1123 miesling        umlaute.txt
+     1146  154 waller        post-commit
+     1146 1142 miesling      spec
+     1146  951 waller          installation_xp.txt
+     1146 1142 miesling        main.txt
+     1146 1093 miesling        navigation
+     1146  663 miesling          nav_autor.jpg
+     1146  587 starke            nav_autor.jude
+     1146 1093 miesling          nav_chair.jpg
+     1146 1093 miesling          nav_chair.jude
+     1146  964 miesling          nav_index.jpg
+     1146  964 miesling          nav_index.jude
+     1146  663 miesling          nav_nachrichten.jpg
+     1146  663 miesling          nav_nachrichten.jude
+     1146  663 miesling          nav_reviewer.jpg
+     1146  663 miesling          nav_reviewer.jude
+     1146 1093 miesling          nav_start.jpg
+     1146 1093 miesling          nav_start.jude
+     1146  663 miesling          nav_teilnehmer.jpg
+     1146  663 miesling          nav_teilnehmer.jude
+     1146  663 miesling          nav_verwaltung.jpg
+     1146  663 miesling          nav_verwaltung.jude
+     1146 1138 stragalis   php2
+     1146 1135 stragalis     includes
+     1146 1135 stragalis       config.inc.php
+     1146  624 dziuk           definitions.inc.php
+     1146 1052 stragalis       login.inc.php
+     1146 1129 stragalis       rights.inc.php
+     1146 1108 jensen          rtp.lib.php
+     1146 1134 stragalis       sql.class.php
+     1146 1130 stragalis       tasks.inc.php
+     1146  453 dziuk           templates.inc.php
+     1146 1114 stragalis       tools.inc.php
+     1146 1134 stragalis     index.php
+     1146 1136 stragalis     modules
+     1146 1134 stragalis       admin
+     1146 1134 stragalis         conferences
+     1146 1105 jensen              config.inc.php
+     1146 1134 stragalis           sub_change.inc.php
+     1146 1134 stragalis           sub_create.inc.php
+     1146 1134 stragalis           sub_viewlist.inc.php
+     1146 1011 stragalis         config.inc.php
+     1146 1134 stragalis         view
+     1146 1011 stragalis           config.inc.php
+     1146 1134 stragalis           sub_viewall.inc.php
+     1146 1136 stragalis       author
+     1146 1008 stragalis         config.inc.php
+     1146  924 stragalis         list
+     1146  924 stragalis           config.inc.php
+     1146  624 dziuk               sub_view.inc.php
+     1146 1136 stragalis         new
+     1146  924 stragalis           config.inc.php
+     1146 1136 stragalis           sub_create.inc.php
+     1146 1136 stragalis           sub_form.inc.php
+     1146 1134 stragalis         view
+     1146 1011 stragalis           config.inc.php
+     1146 1134 stragalis           sub_viewall.inc.php
+     1146 1132 stragalis       chair
+     1146 1132 stragalis         conferences
+     1146 1055 stragalis           config.inc.php
+     1146 1132 stragalis           sub_addTopic.inc.php
+     1146 1132 stragalis           sub_chooseConf.inc.php
+     1146 1132 stragalis           sub_conference.inc.php
+     1146 1132 stragalis           sub_deleteTopic.inc.php
+     1146 1132 stragalis           sub_updateConference.inc.php
+     1146 1132 stragalis           sub_updateTopic.inc.php
+     1146  978 stragalis         config.inc.php
+     1146 1132 stragalis         papers
+     1146  922 stragalis           config.inc.php
+     1146 1132 stragalis           sub_PaperReviewerAuto.inc.php
+     1146 1132 stragalis           sub_PaperReviewerManual.inc.php
+     1146 1132 stragalis           sub_allPapersOfConference.inc.php
+     1146 1132 stragalis           sub_allPapersOfTopic.inc.php
+     1146 1132 stragalis           sub_allPapersOfUser.inc.php
+     1146 1132 stragalis           sub_chooseConf.inc.php
+     1146 1132 stragalis           sub_paper.inc.php
+     1146 1132 stragalis           sub_removeReviewer.inc.php
+     1146 1132 stragalis           sub_sendManual.inc.php
+     1146 1132 stragalis           sub_updateState.inc.php
+     1146 1132 stragalis         users
+     1146 1116 stragalis           config.inc.php
+     1146 1132 stragalis           sub_allUsersOfConference.inc.php
+     1146 1132 stragalis           sub_chooseConf.inc.php
+     1146 1132 stragalis           sub_deleteRole.inc.php
+     1146 1132 stragalis           sub_inviteUser.inc.php
+     1146 1132 stragalis           sub_makeInviteUser.inc.php
+     1146 1132 stragalis           sub_user.inc.php
+     1146 1132 stragalis         view
+     1146  922 stragalis           config.inc.php
+     1146 1132 stragalis           sub_viewall.inc.php
+     1146 1004 stragalis       config.inc.php
+     1146 1013 stragalis       forum
+     1146 1132 stragalis       login
+     1146 1052 stragalis         config.inc.php
+     1146 1132 stragalis         login
+     1146 1052 stragalis           config.inc.php
+     1146 1132 stragalis           sub_login.inc.php
+     1146 1052 stragalis       logout
+     1146 1052 stragalis         config.inc.php
+     1146 1052 stragalis         logout
+     1146 1052 stragalis           config.inc.php
+     1146 1052 stragalis           sub_logout.inc.php
+     1146 1132 stragalis       profile
+     1146 1038 stragalis         config.inc.php
+     1146 1132 stragalis         data
+     1146 1038 stragalis           config.inc.php
+     1146 1132 stragalis           sub_saveData.inc.php
+     1146 1132 stragalis           sub_showData.inc.php
+     1146 1132 stragalis         default
+     1146 1038 stragalis           config.inc.php
+     1146 1132 stragalis           sub_default.inc.php
+     1146 1132 stragalis         participate
+     1146 1117 stragalis           config.inc.php
+     1146 1132 stragalis           sub_participate.inc.php
+     1146 1132 stragalis         password
+     1146 1038 stragalis           config.inc.php
+     1146 1132 stragalis           sub_changePass.inc.php
+     1146 1132 stragalis         roles
+     1146 1129 stragalis           config.inc.php
+     1146 1132 stragalis           sub_role.inc.php
+     1146 1132 stragalis           sub_updateRole.inc.php
+     1146 1132 stragalis       register
+     1146 1052 stragalis         config.inc.php
+     1146 1132 stragalis         register
+     1146 1052 stragalis           config.inc.php
+     1146 1132 stragalis           sub_register.inc.php
+     1146 1132 stragalis       reviewer
+     1146 1011 stragalis         config.inc.php
+     1146 1132 stragalis         view
+     1146 1011 stragalis           config.inc.php
+     1146 1132 stragalis           sub_viewall.inc.php
+     1146  924 stragalis       roles
+     1146  924 stragalis         change
+     1146  295 dziuk               config.inc.php
+     1146  924 stragalis           sub_do.inc.php
+     1146  924 stragalis           sub_save.inc.php
+     1146  295 dziuk             config.inc.php
+     1146  456 dziuk           session
+     1146  454 dziuk             config.inc.php
+     1146  456 dziuk             show
+     1146  454 dziuk               config.inc.php
+     1146  456 dziuk               sub_showsessionid.inc.php
+     1146 1132 stragalis       tasks
+     1146 1004 stragalis         config.inc.php
+     1146 1132 stragalis         tasks
+     1146 1004 stragalis           config.inc.php
+     1146 1132 stragalis           sub_tasks.inc.php
+     1146 1134 stragalis       welcomeUser
+     1146 1134 stragalis         config.inc.php
+     1146 1134 stragalis         welcome
+     1146 1134 stragalis           config.inc.php
+     1146 1134 stragalis           sub_welcome.inc.php
+     1146 1110 jensen        spec
+     1146 1110 jensen          main.txt
+     1146 1050 dziuk         sql_dumps
+     1146  523 jensen          hardcoded_sql_data.sql
+     1146  457 dziuk           rights_structure.sql
+     1146 1050 dziuk           testdatenbank_mit daten.sql
+     1146  455 dziuk         style2.css
+     1146 1137 stragalis     templates
+     1146 1128 jensen          ADMIN_conferenceCreate.tpl.php
+     1146 1128 jensen          ADMIN_conferenceList.tpl.php
+     1146  925 stragalis       AUTHOR_new_form.tpl.php
+     1146 1115 stragalis       CHAIR_allPapersOfConference.tpl.php
+     1146 1054 stragalis       CHAIR_allPapersOfTopic.tpl.php
+     1146 1054 stragalis       CHAIR_allPapersOfUser.tpl.php
+     1146 1116 stragalis       CHAIR_allUsersOfConference.tpl.php
+     1146  929 stragalis       CHAIR_chooseConf.tpl.php
+     1146 1055 stragalis       CHAIR_chooseConfforConfManagement.tpl.php
+     1146 1116 stragalis       CHAIR_chooseConfforUserManagement.tpl.php
+     1146 1117 stragalis       CHAIR_conference.tpl.php
+     1146 1120 stragalis       CHAIR_inviteUser.tpl.php
+     1146 1048 stragalis       CHAIR_manual.tpl.php
+     1146 1115 stragalis       CHAIR_paper.tpl.php
+     1146 1120 stragalis       CHAIR_user.tpl.php
+     1146  520 jensen          ERROR.tpl.php
+     1146 1060 stragalis       LOGIN.tpl.php
+     1146 1038 stragalis       PROFILE_changePass.tpl.php
+     1146 1038 stragalis       PROFILE_dataChanged.tpl.php
+     1146 1129 stragalis       PROFILE_default.tpl.php
+     1146 1117 stragalis       PROFILE_participate.tpl.php
+     1146 1038 stragalis       PROFILE_passChanged.tpl.php
+     1146 1137 stragalis       PROFILE_roles.tpl.php
+     1146 1038 stragalis       PROFILE_showData.tpl.php
+     1146 1052 stragalis       REGISTER_ok.tpl.php
+     1146 1038 stragalis       REGISTER_showForm.tpl.php
+     1146 1041 dziuk           ROLES_change.tpl.php
+     1146  906 dziuk           SESSION_show.tpl.php
+     1146 1016 stragalis       TASKS.tpl.php
+     1146 1119 stragalis       WELCOME.tpl.php
+     1146 1117 stragalis       calendar.js
+     1146  924 stragalis       default.tpl.php
+     1146 1043 stragalis       footer.tpl.php
+     1146  907 stragalis       footerOLD.tpl.php
+     1146 1124 jensen          header.tpl.php
+     1146  907 stragalis       headerOLD.tpl.php
+     1146 1060 stragalis       images
+     1146  924 stragalis         arrow.gif
+     1146 1060 stragalis         b_calendar.png
+     1146  907 stragalis         blueBack.gif
+     1146  907 stragalis         confManager.gif
+     1146  907 stragalis         logoDown.gif
+     1146  907 stragalis         logoUp.gif
+     1146 1120 stragalis       style.css
   ?            ?           python
-      866  758 ms          requirements
-      866  510 ms            Makefile
-      866  758 ms            Readme
-      866  510 ms            Todo
-      866  510 ms            abstract.tex
+     1146  758 ms          requirements
+  M  1146  510 ms            Makefile
+     1146  758 ms            Readme
+     1146  510 ms            Todo
+  M  1146  510 ms            abstract.tex
   ?            ?             auto
   ?            ?             contents_motif.gif
-      866    6 ms            examples
-      866    6 ms              Makefile
-      866    6 ms              cfpapers.html
-      866    6 ms              picture.jpg
-      866    6 ms              wirr.css
+     1146    6 ms            examples
+     1146    6 ms              Makefile
+     1146    6 ms              cfpapers.html
+     1146    6 ms              picture.jpg
+     1146    6 ms              wirr.css
   ?            ?             index.html
-      866  510 ms            introduction.tex
+  M  1147 1147 ms            introduction.tex
   ?            ?             main-sec.haux
   ?            ?             main-sec.html
   ?            ?             main-sec.htoc
@@ -393,87 +517,94 @@ svn status for directory ~/Snert/coma/trunk/
   ?            ?             main.aux
   ?            ?             main.dvi
   ?            ?             main.log
-      866  510 ms            main.tex
+     1147 1147 ms            main.tex
   ?            ?             main.toc
   ?            ?             next_motif.gif
-      866    6 ms            preamble.tex
+     1146    6 ms            preamble.tex
   ?            ?             previous_motif.gif
-      866  510 ms            switches.tex
-      866   22 ms          slides
-      866   22 ms            Makefile
+  M  1147 1147 ms            switches.tex
+     1146   22 ms          slides
+     1146   22 ms            Makefile
   ?            ?             auto
   ?            ?             learnt.tex
-      866    8 ms            main-coma.tex
-      866    8 ms            preamble.tex
-      866    8 ms            timeline.png
-      866    8 ms            timeline.ps
-      866  118 mky         snert
-      866   81 ms            Makefile
-      866   47 mky           README
-      866  117 mky           subversion.tex
-      866  118 mky           tomcat.tex
-      866  865 ms          spec
-      866   75 ms            Makefile
-      866  865 ms            Readme
-      866  263 ms            abstract.tex
+     1146    8 ms            main-coma.tex
+     1146    8 ms            preamble.tex
+     1146    8 ms            timeline.png
+     1146    8 ms            timeline.ps
+     1146  118 mky         snert
+     1146   81 ms            Makefile
+     1146   47 mky           README
+     1146  117 mky           subversion.tex
+     1146  118 mky           tomcat.tex
+     1146  865 ms          spec
+     1146   75 ms            Makefile
+     1146  865 ms            Readme
+     1146  263 ms            abstract.tex
   ?            ?             auto
-      866  259 ms            coma.bib
-      866   73 ms            data.txt
-      866  858 ms            datamodel.tex
+     1146  259 ms            coma.bib
+     1146   73 ms            data.txt
+     1146  858 ms            datamodel.tex
   ?            ?             main.aux
   ?            ?             main.bbl
   ?            ?             main.blg
   ?            ?             main.dvi
   ?            ?             main.log
-      866  510 ms            main.tex
-      866  487 ms            material
-      866   30 ms              derenbach
-      866   30 ms                tools.tex
-      866   42 waller          spec1
-      866   39 mky               CAU-Siegel.jpg
-      866   39 mky               CoMa-ER-Diagramm.jpg
-      866   42 waller            Readme
-      866   39 mky               ablauf1.jpg
-      866   39 mky               anmelde1.jpg
-      866   39 mky               bewertung1.jpg
-      866   39 mky               causiegel.ps
-      866   39 mky               er-diagram.ps
-      866   39 mky               forum1.jpg
-      866   39 mky               slides.ppt
-      866   40 esquivel          spezifikation.tex
-      866   39 mky               uebersicht1.jpg
-      866   39 mky               verteilung1.jpg
-      866   69 ms              spec2
-      866   63 ms                datenstruktur.ps
-      866   67 ms                slides.pdf
-      866   69 ms                usecase.pdf
-      866  123 ms              tests
-      866  123 ms                tests.txt
-      866  487 ms              tools1
-      866  487 ms                tools.txt
-      866   84 tiedje          tools2
-      866   84 tiedje            tools.pdf
-      866   83 ms                tools.tex
-      866   62 ms              tools3
-      866   62 ms                tools.tex
-      866  143 ms            preamble.tex
-      866  345 ms            switches.tex
-      866  861 esquivel    sql
-      866  359 esquivel      db_schema.jpg
-      866  359 esquivel      db_schema.jude
+     1146  510 ms            main.tex
+     1146  487 ms            material
+     1146   30 ms              derenbach
+     1146   30 ms                tools.tex
+     1146   42 waller          spec1
+     1146   39 mky               CAU-Siegel.jpg
+     1146   39 mky               CoMa-ER-Diagramm.jpg
+     1146   42 waller            Readme
+     1146   39 mky               ablauf1.jpg
+     1146   39 mky               anmelde1.jpg
+     1146   39 mky               bewertung1.jpg
+     1146   39 mky               causiegel.ps
+     1146   39 mky               er-diagram.ps
+     1146   39 mky               forum1.jpg
+     1146   39 mky               slides.ppt
+  ?            ?                 spezifikation.log
+     1146   40 esquivel          spezifikation.tex
+     1146   39 mky               uebersicht1.jpg
+     1146   39 mky               verteilung1.jpg
+     1146   69 ms              spec2
+     1146   63 ms                datenstruktur.ps
+     1146   67 ms                slides.pdf
+     1146   69 ms                usecase.pdf
+     1146  123 ms              tests
+     1146  123 ms                tests.txt
+     1146  487 ms              tools1
+     1146  487 ms                tools.txt
+     1146   84 tiedje          tools2
+     1146   84 tiedje            tools.pdf
+     1146   83 ms                tools.tex
+     1146   62 ms              tools3
+     1146   62 ms                tools.tex
+     1146  143 ms            preamble.tex
+     1146  345 ms            switches.tex
+     1146 1133 ms          sql
+     1146  359 esquivel      db_schema.jpg
+     1146  359 esquivel      db_schema.jude
   ?            ?             db_schema.ps
-      866  861 esquivel      db_schema.sql
-      866  816 esquivel      db_schema.txt
-      866  218 ms          tex
-      866  218 ms            inputs
-      866  218 ms              macros.hva
-      866    7 ms              macros.tex
-      866  809 ms          web
-      866  133 ms            Makefile
+     1146 1133 ms            db_schema.sql
+     1146  816 esquivel      db_schema.txt
+     1146 1146 niemann     tests
+     1146 1146 niemann       sql
+     1146 1146 niemann         databases
+     1146 1145 niemann           emptyDB.sql
+     1146 1144 niemann           php1addon.sql
+     1146 1146 niemann           testdata.sql
+     1146  218 ms          tex
+     1146  218 ms            inputs
+     1146  218 ms              macros.hva
+     1146    7 ms              macros.tex
+     1146  910 ms          web
+     1146  133 ms            Makefile
   ?            ?             auto
   ?            ?             contents_motif.gif
-      866  129 ms            conventions.tex
-      866  807 ms            groups.tex
+     1146  129 ms            conventions.tex
+     1146  909 ms            groups.tex
   ?            ?             index.haux
   ?            ?             index.html
   ?            ?             index.htoc
@@ -484,32 +615,36 @@ svn status for directory ~/Snert/coma/trunk/
   ?            ?             main.htoc
   ?            ?             main.image.tex
   ?            ?             main.log
-      866  498 ms            main.tex
+     1146  895 ms            main.tex
   ?            ?             main.toc
   ?            ?             main001.html
   ?            ?             main002.html
   ?            ?             main003.html
   ?            ?             main004.html
   ?            ?             main005.html
-      866  807 ms            material.tex
-      866  809 ms            meetings.tex
-      866  809 ms            meetings
-      866   16 ms              2004-10-19.txt
-      866   16 ms              2004-10-26.txt
-      866   16 ms              2004-11-02.txt
-      866   21 ms              2004-11-09.txt
-      866   43 ms              2004-11-16.txt
-      866  129 ms              2004-11-23.txt
-      866  296 ms              2004-11-30.txt
-      866  584 ms              2004-12-07.txt
-      866  809 ms              2004-12-14.txt
+  M  1146  910 ms            material.tex
+     1146  908 ms            meetings.tex
+     1146  908 ms            meetings
+     1146   16 ms              2004-10-19.txt
+     1146   16 ms              2004-10-26.txt
+     1146   16 ms              2004-11-02.txt
+     1146   21 ms              2004-11-09.txt
+     1146   43 ms              2004-11-16.txt
+     1146  129 ms              2004-11-23.txt
+     1146  296 ms              2004-11-30.txt
+     1146  584 ms              2004-12-07.txt
+     1146  809 ms              2004-12-14.txt
+     1146  908 ms              2004-12-21.txt
   ?            ?             next_motif.gif
-      866  218 ms            preamble.tex
+     1146  218 ms            preamble.tex
   ?            ?             previous_motif.gif
-      866  498 ms            requirements.tex
-      866   16 ms            review.tex
-      866   16 ms            snapshots.tex
-      866   16 ms            switches.tex
-      866   16 ms            timeline.tex
+     1146  498 ms            requirements.tex
+     1146   16 ms            review.tex
+     1146   16 ms            snapshots.tex
+     1146   16 ms            switches.tex
+     1146   16 ms            timeline.tex
+
+
+
 
 
