@@ -46,7 +46,7 @@ if ($_POST['submit']) {
 			."\$httpftpurl='$ftp_baseurl'; \n"
 			." \n"
 			." \n"
-			." \n";
+			." \n?>";
 	
 		// try filesystem write access
 		if (is_writable("includes/config.inc.php")) {
