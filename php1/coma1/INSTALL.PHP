@@ -94,16 +94,16 @@ elseif ($STEP == 1){
   $sqlUser = htmlentities(stripslashes($_POST['sqlUser']), ENT_QUOTES, 'UTF-8');
   $sqlPassword = htmlentities(stripslashes($_POST['sqlPassword']), ENT_QUOTES, 'UTF-8');
   $sqlDatabase = htmlentities(stripslashes($_POST['sqlDatabase']), ENT_QUOTES, 'UTF-8');
-  echo "      <table border=\"0\" cellpadding=\"0\" cellspacing=\"4\">\n";
-  echo "        <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
+  echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
+  echo "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"4\">\n";
   echo "          <tr><td>SQL-Server: </td><td><input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\" value=\"$sqlServer\"></td></tr>\n";
   echo "          <tr><td>SQL-User: </td><td><input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\" value=\"$sqlUser\"></td></tr>\n";
   echo "          <tr><td>SQL-Password: </td><td><input type=\"text\" name=\"sqlPassword\" size=\"48\" maxlength=\"127\" value=\"$sqlPassword\"></td></tr>\n";
   echo "          <tr><td>SQL-Database: </td><td><input type=\"text\" name=\"sqlDatabase\" size=\"48\" maxlength=\"127\" value=\"$sqlDatabase\"></td></tr>\n";
   echo "          <tr><td colspan=\"2\"><input type=\"submit\" name=\"submit\" value=\"generate Config\"></td></tr>\n";
-  echo "        </form>\n";
-  echo "      </table>\n";
-  
+  echo "        </table>\n";
+  echo "      </form>\n";
+    
   echo "    <p class=\"menu\">\n";  
   highlight_string($confFile);
   echo "    </p>\n";
