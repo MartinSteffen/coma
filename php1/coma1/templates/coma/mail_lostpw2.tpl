@@ -1,8 +1,6 @@
 Dear {name},
 
-welcome to CoMa - Your Conference Manager.
-
-You have got a new Password.
+you have got a new password.
 
 Your login:    {email}
 Your password: {password}

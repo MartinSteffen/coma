@@ -1,8 +1,6 @@
 Dear {name},
 
-welcome to CoMa - Your Conference Manager.
-
-Someone pressed the key to generate you a new password!
+someone pressed the key to generate you a new password!
 
 If you really want to do so please use the link below:
 
