@@ -43,7 +43,7 @@ elseif (isset($_GET['4'])) {
     margin: 0px; padding: 10px; color: #222222; background-color: #dddddd; 
     border: 1px solid #222222; }
   p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; font-size: 13px; 
-    font-weight: bold; vertical-align: top; margin: 0px; padding: 4px 12px; }
+    font-weight: bold; vertical-align: top; margin: 10px; padding: 4px 12px; }
   p.menu { color: #111111; background-color: #EEEEEE; border: 1px solid #FFFFFF; 
     text-align: left; }
   p.message-failed { color: #FF2600; background-color: #FFF0E0; border: 1px solid #A00000; 
@@ -55,6 +55,7 @@ elseif (isset($_GET['4'])) {
 </head>
 <body>
   <div>
+    <h1>Installation of Coma</h1>
     <p class="menu">
       1. <a href="INSTALL.PHP?1">Generate Configuration</a><br>
       2. <a href="INSTALL.PHP?2">Create Database</a><br>
