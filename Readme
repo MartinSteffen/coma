@@ -34,7 +34,7 @@ Currently, the structure is as follows:
  
     o snert:             specific remarks about the snert-platform
 
-    o python:           some python implementation
+    o python:           some python implementation 
 
     o org:              internal org. matters
 
