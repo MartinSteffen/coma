@@ -21,7 +21,7 @@ $strContentAssocs = defaultAssocArray();
 // Lade die Daten der Person
 $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
 if ($myDBAccess->failed()) {
-  error('get actual person',$myDBAccess->getLastError());
+  error('Error occured during retrieving actual person.', $myDBAccess->getLastError());
 }
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
@@ -40,7 +40,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
   else if ($_POST['email'] != $objPerson->strEmail &&
            $myDBAccess->checkEmail($_POST['email'])) {
     if ($myDBAccess->failed()) {
-      error('check E-mail',$myDBAccess->getLastError());
+      error('Check e-mail failed.', $myDBAccess->getLastError());
     }
     $strMessage = 'Account with the given E-mail address is already existing! '.
                   'Please use enter another E-mail address!';
@@ -66,7 +66,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     }
     else if ($myDBAccess->failed()) {
       // Datenbankfehler?
-      error('updating account', $myDBAccess->getLastError());
+      error('Error during updating account.', $myDBAccess->getLastError());
     }
   }
 }

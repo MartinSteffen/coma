@@ -51,19 +51,19 @@
   <tr>
     <td colspan="2">
       Activate accounts automatically
-      <input type="checkbox" name="auto_actaccount" value="checked" {auto_actaccount} />
+      <input type="checkbox" name="auto_actaccount" value="1"{if2 checked} />
     </td>
   </tr>
   <tr>
     <td colspan="2">
       Start discussion of critical papers automatically
-      <input type="checkbox" name="auto_paperforum" value="checked" {auto_paperforum} />
+      <input type="checkbox" name="auto_paperforum" value="1"{if3 checked} />
     </td>
   </tr>
   <tr>
     <td colspan="2">
       Auto Account activation
-      <input type="checkbox" name="auto_addreviewer" value="checked" {auto_addreviewer} />
+      <input type="checkbox" name="auto_addreviewer" value="1"{if4 checked} />
     </td>
   </tr>
   <tr>

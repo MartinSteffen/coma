@@ -16,6 +16,7 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'create_conference.tpl');
 $strContentAssocs = defaultAssocArray();
+$ifArray = array();
 
 // Teste, ob Daten mit der Anfrage des Benutzer mitgeliefert wurde.
 if (isset($_POST['action'])) {
@@ -38,14 +39,16 @@ if (isset($_POST['action'])) {
   $strContentAssocs['topics']       = $_POST['topics'];
   $strContentAssocs['crit_max']     = $_POST['crit_max'];
   $strContentAssocs['crit_descr']   = $_POST['crit_descr'];
-  $strContentAssocs['auto_actaccount']  =
-   (isset($_POST['auto_actaccount']) ? $_POST['auto_actaccount'] : '');
-  $strContentAssocs['auto_paperforum']  =
-   (isset($_POST['auto_paperforum']) ? $_POST['auto_paperforum'] : '');
-  $strContentAssocs['auto_addreviewer'] =
-   (isset($_POST['auto_addreviewer']) ? $_POST['auto_addreviewer'] : '');
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
-
+  if (isset($_POST['auto_actaccount'])) {
+    $ifArray[] = 2;
+  }
+  if (isset($_POST['auto_paperforum'])) {
+    $ifArray[] = 3;
+  }
+  if (isset($_POST['auto_addreviewer'])) {
+    $ifArray[] = 4;
+  }
   // Anlegen der Konferenz in der Datenbank
   if (isset($_POST['submit'])) {
 
@@ -62,7 +65,7 @@ if (isset($_POST['action'])) {
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('creating conference', $myDBAccess->getLastError());
+        error('Error during creating conference.', $myDBAccess->getLastError());
       }
     }
   }
@@ -73,9 +76,8 @@ if (isset($_POST['action'])) {
 }
 // Wenn keine Daten geliefert worden, nimm die Defaultwerte
 else {
-  $strContentAssocs['auto_actaccount']  = 'checked';
-  $strContentAssocs['auto_paperforum']  = 'checked';
-  $strContentAssocs['auto_addreviewer'] = '';
+  $ifArray[] = 1;
+  $ifArray[] = 2;  
   $strContentAssocs['auto_numreviewer'] = '2';
   $strContentAssocs['variance']         = '0.5';
 }
@@ -83,9 +85,10 @@ else {
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(1);
+  $ifArray[] = 1;
 }
 
+$strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');

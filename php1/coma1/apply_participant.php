@@ -25,7 +25,7 @@ $menu->assign($strMenuAssocs);
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Main forum';
+$strMainAssocs['title'] = 'Conferences Overview';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 $strMainAssocs['navigator'] = session('uname').'  |  Conferences';
