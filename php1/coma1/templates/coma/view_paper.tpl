@@ -1,6 +1,3 @@
-
-{if1<p class="message">{message}</p>}
-
 <form action="{basepath}{targetpage}.php{?SID}" method="post" accept-charset="UTF-8">
 
 <table class="viewtable">
