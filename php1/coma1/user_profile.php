@@ -51,7 +51,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $strMessage .= 'You have to enter your new Password correctly twice!';
   }
   if (($_POST['password1'] || ($_POST['email'] != $objPerson->strEmail))
-    && $myDBAccess->checkLogin($objPerson->intId, $_POST['password'])) {
+    && (!$myDBAccess->checkLogin($objPerson->intId, $_POST['password']))) {
 		if ($myDBAccess->failed()) {
     	error('Error updating your account.', $myDBAccess->getLastError());
     }
