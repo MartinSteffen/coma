@@ -202,7 +202,7 @@ elseif ($STEP == 2) {
   }
 }
 elseif ($STEP == 3) {
-  unlink('INSTALL.PHP');
+  @unlink('INSTALL.PHP');
   if (file_exists('INSTALL.PHP')) {
     echo "    <p class=\"message-failed\">\n";
     echo "      Failed to delete file 'INSTALL.PHP'!<br>\n";
