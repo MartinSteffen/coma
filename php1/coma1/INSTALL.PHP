@@ -62,9 +62,17 @@ elseif (isset($_GET['4'])) {
       3. <a href="INSTALL.PHP?3">Add Tutorial Data</a><br>
       4. <a href="INSTALL.PHP?4">Delete INSTALL.PHP</a><br>
     </p>
+    <p>
+      Please selct your next Step of Isntallation...<br>
+      Your current step is: <?php echo $step; ?> <br>
+    </p>
+}
+
 <?php
 if ($STEP == 1){
-  // TODO
+  echo "    <p class=\"message-failed\">\n";
+  echo "      Not yet implemented!";
+  echo "    </p>\n";
 }
 elseif ($STEP == 2) {
   // Block neuanlegen der Datenbank
@@ -152,7 +160,9 @@ elseif ($STEP == 3) {
   echo "    <p class=\"message-ok\">Hopefully Data added! Check above for errors!</p>\n";
 }
 elseif ($STEP == 4) {
-  // TODO
+  echo "    <p class=\"message-failed\">\n";
+  echo "      Not yet implemented!";
+  echo "    </p>\n";
 }
 ?>
   </div>
