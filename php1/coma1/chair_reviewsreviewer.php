@@ -94,10 +94,10 @@ if (!empty($r_id)) {
       error('get paper/reviewer information', $myDBAccess->getLastError());
     }
     if ($isD) {
-      $strItemAssocs['if'][] = 8;
+      $strItemAssocs['if'][] = 8; // Haekchen setzen
     }
     if ($objReviewerAttitude->getPaperAttitude($objPaper->intId) != ATTITUDE_EXCLUDE) {
-      $strItemAssocs['if'][] = 7; // nach dem inneren If (8) belegen!
+      $strItemAssocs['if'][] = 7; // Checkbox setzen (nach dem inneren If (8) belegen!)
     }
     $strRevItem = new Template(TPLPATH.'reviewerattitudes.tpl');
     $strRevItem->assign($strItemAssocs);
