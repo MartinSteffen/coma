@@ -1,10 +1,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-
-<xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
-doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
+<xsl:output method="html" indent="yes"/>
 
 <xsl:template match="/">
-<html> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" > 
 <head>
   <title>JCoMa:: a Conference Manager</title>
   <link rel="stylesheet" type="text/css" href="style/css/comastyle.css" />
@@ -34,22 +32,22 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <ul>
   <li><a href="index.html">Home page</a></li>
   <li>
-   <form action="chair?action=setup" method="post">
+   <form action="Chair?action=setup" method="post">
   		<input type="submit" value="setup" class="submit-button" />
   	</form>
-  <form action="chair?action=invite_person" method="post">
+  <form action="Chair?action=invite_person" method="post">
   		<input type="submit" value="invite person" class="submit-button" />
   	</form>
-  <form action="chair?action=show_authors" method="post">
+  <form action="Chair?action=show_authors" method="post">
   		<input type="submit" value="show authors" class="submit-button" />	
   	</form>
-  	<form action="chair?action=show_reviewers" method="post">
+  	<form action="Chair?action=show_reviewers" method="post">
   		<input type="submit" value="show reviewers" class="submit-button" />	
   	</form>
-  	 <form action="chair?action=show_papers" method="post">
+  	 <form action="Chair?action=show_papers" method="post">
   		<input type="submit" value="show papers" class="submit-button" />
   	</form>
-  	<form action="chair?action=email" method="post">
+  	<form action="Chair?action=email" method="post">
   		<input type="submit" value="email" class="submit-button" />	
   	</form>
   </li>
@@ -86,13 +84,14 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </body>
 </html>
 </xsl:template>
+
 <xsl:template match="/result/login/content">
 <xsl:value-of select='.'/><br></br>
 </xsl:template>
 
 <xsl:template match="/result/invite/content">
 	<div class="formular">
-		<form action="chair?action=send_invitation" method="post">
+		<form action="Chair?action=send_invitation" method="post">
 		<table style="color:black">
 			<tr>
 				<td>
@@ -100,8 +99,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 				</td>
 				<td>
 					<input type="text" id="first name" name="first name" size="30" maxlength="30">
-						<!-- Wie krieg ich diesen Wert in das Formularfeld?
-						<xsl:apply-templates select="/result/invite/content/first"/>	--></input>
+						<xsl:attribute name = "value"><xsl:apply-templates select="/result/invite/content/first"/>
+						</xsl:attribute>
+					</input>	
 				</td>
 			</tr>
 			<tr>
@@ -109,7 +109,10 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 					<label for="last name">* last name: </label>
 				</td>
 				<td>
-					<input type="text" id="last name" name="last name" size="30" maxlength="30"/>
+					<input type="text" id="last name" name="last name" size="30" maxlength="30">
+						<xsl:attribute name = "value"><xsl:apply-templates select="/result/invite/content/last"/>
+						</xsl:attribute>
+					</input>
 				</td>
 			</tr>
 			<tr>
@@ -117,7 +120,10 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 					<label for="email">* e-mail address: </label>
 				</td>
 				<td>
-					<input type="text" id="email" name="email" size="30" maxlength="30"/>
+					<input type="text" id="email" name="email" size="30" maxlength="30">
+						<xsl:attribute name = "value"><xsl:apply-templates select="/result/invite/content/email"/>
+						</xsl:attribute>
+					</input>
 				</td>
 			</tr>
 			<tr>
@@ -145,14 +151,78 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 	</div>
 </xsl:template>
 
-
 <xsl:template match="/result/showauthors/content">
-<xsl:value-of select='.'/><br></br> 
+	<table style="color:black; text-align:center" cellpadding="12">
+		<thead>
+			<tr align="center">
+				<th>title</th>
+				<th>first name</th>
+				<th>last name</th>
+				<th>affiliation</th>
+				<th>email</th>
+				<th>phone number</th>
+				<th>fax number</th>
+				<th>street</th>
+				<th>PC</th>
+				<th>city</th>
+				<th>country</th>
+				<th></th>
+			</tr>
+		</thead>
+	<xsl:for-each select="/result/showauthors/content/person">
+		<tr>
+			<td><xsl:value-of select="title"/></td>
+			<td><xsl:value-of select="first_name"/></td>
+			<td><xsl:value-of select="last_name"/></td>
+			<td><xsl:value-of select="affiliation"/></td>
+			<td><xsl:value-of select="email"/></td>
+			<td><xsl:value-of select="phone_number"/></td>
+			<td><xsl:value-of select="fax_number"/></td>
+			<td><xsl:value-of select="street"/></td>
+			<td><xsl:value-of select="postal_code"/></td>
+			<td><xsl:value-of select="city"/></td>
+			<td><xsl:value-of select="country"/></td>
+		</tr>
+	</xsl:for-each>
+	</table>
 </xsl:template>
 
 <xsl:template match="/result/showreviewers/content">
-<xsl:value-of select='.'/><br></br> 
+	<table style="color:black; text-align:center" cellpadding="12">
+		<thead>
+			<tr align="center">
+				<th>title</th>
+				<th>first name</th>
+				<th>last name</th>
+				<th>affiliation</th>
+				<th>email</th>
+				<th>phone number</th>
+				<th>fax number</th>
+				<th>street</th>
+				<th>PC</th>
+				<th>city</th>
+				<th>country</th>
+				<th></th>
+			</tr>
+		</thead>
+	<xsl:for-each select="/result/showreviewers/content/person">
+		<tr>
+			<td><xsl:value-of select="title"/></td>
+			<td><xsl:value-of select="first_name"/></td>
+			<td><xsl:value-of select="last_name"/></td>
+			<td><xsl:value-of select="affiliation"/></td>
+			<td><xsl:value-of select="email"/></td>
+			<td><xsl:value-of select="phone_number"/></td>
+			<td><xsl:value-of select="fax_number"/></td>
+			<td><xsl:value-of select="street"/></td>
+			<td><xsl:value-of select="postal_code"/></td>
+			<td><xsl:value-of select="city"/></td>
+			<td><xsl:value-of select="country"/></td>
+		</tr>
+	</xsl:for-each>
+	</table>
 </xsl:template>
+
 
 <xsl:template match="/result/showpapers/content">
 <table style="color:black; text-align:center" cellpadding="12">
@@ -170,11 +240,6 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </thead>
 <xsl:for-each select="/result/showpapers/content/paper">
 <tr>
-	<!-- 
-	<td style="margin-left:10mm"><xsl:value-of select="id"/></td>	
-	<td style="margin-left:10mm"><xsl:value-of select="conference_id"/></td>
-	<td style="margin-left:10mm"><xsl:value-of select="author_id"/></td>
-	-->
 	<td><xsl:value-of select="title"/></td>
 	<td><xsl:value-of select="Abstract"/></td>
 	<td><xsl:value-of select="last_edited"/></td>
@@ -198,7 +263,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
    </td>
    <td>
    	<a>
-		<xsl:attribute name = "href">chair?action=show_authors&amp;author=<xsl:value-of select="author_id"/></xsl:attribute>
+		<xsl:attribute name = "href">Chair?action=show_authors&amp;author=<xsl:value-of select="author_id"/></xsl:attribute>
 		Autorenliste
 		</a>
    </td>
@@ -207,12 +272,27 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </table>
 </xsl:template>
 
-
-
 <xsl:template match="/result/setup/content">
+Name: <xsl:apply-templates select="/result/setup/content/name"/><br/>
+Homepage: <xsl:apply-templates select="/result/setup/content/home"/><br/>
+Description: <xsl:apply-templates select="/result/setup/content/desc"/><br/>
+Start: <xsl:apply-templates select="/result/setup/content/start"/><br/>
+End: <xsl:apply-templates select="/result/setup/content/end"/><br/>
+Notification: <xsl:apply-templates select="/result/setup/content/not"/><br/>
+<h3 style="color:black">Deadlines</h3>
+Abstract submission: <xsl:apply-templates select="/result/setup/content/abstract"/><br/>
+Paper submission: <xsl:apply-templates select="/result/setup/content/paper"/><br/>
+review: <xsl:apply-templates select="/result/setup/content/review"/><br/>
+final submission: <xsl:apply-templates select="/result/setup/content/final"/><br/>
+min reviewer per paper: <xsl:apply-templates select="/result/setup/content/min"/><br/>
+</xsl:template>
+
+
+
+
+<xsl:template match="/result/setup_new/content">
 <div class="formular">
-<h3 align="middle">Setup of the Conference</h3><br/>
-<form action="chair?action=send_setup" method="post">
+<form action="Chair?action=send_setup" method="post">
 <table style="color:black">
 <tr>
 	<td colspan="2">
@@ -224,7 +304,11 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<label for="conference name">* conference name: </label>
 	</td>
 	<td>
-		<input type="text" id="conference name" name="conference name" size="30" maxlength="30"/>
+		<input type="text" id="conference name" name="conference name" size="30" maxlength="30">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/name"/>
+  			</xsl:attribute>
+  		</input>
 	</td>
 </tr>
 <tr>
@@ -232,7 +316,11 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<label for="homepage">* Homepage: </label>
 	</td>
 	<td>
-		<input type="text" id="homepage" name="homepage" size="30" maxlength="30"/><br/>
+		<input type="text" id="homepage" name="homepage" size="30" maxlength="30">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/home"/>
+  			</xsl:attribute>
+  		</input>
 	</td>
 </tr>
 <tr>
@@ -240,7 +328,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<label for="description">description: </label>
 	</td>
 	<td>
-		<textarea id="description" name="description" rows="3" cols="30" class="textarea"/><br/>
+		<textarea id="description" name="description" rows="3" cols="30" class="textarea"/>
 	</td>
 </tr>
 <tr>
@@ -248,7 +336,11 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<label for="min_reviewers">* minimum reviewers per paper:</label>
 	</td>
 	<td>
-		<input id="min_reviewers" name="min_reviewers" rows="3" cols="5" class="textarea"/><br/>
+		<input id="min_reviewers" name="min_reviewers" size="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/min"/>
+  			</xsl:attribute>
+  		</input>
 	</td>
 </tr>
 <tr>
@@ -261,9 +353,21 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<label for="start">* conference start: </label>
 	</td>
 	<td>
-		<input type="text" id="start_day" name="start_day" size="2" maxlength="2"/>.
-		<input type="text" id="start_month" name="start_day" size="2" maxlength="2"/>.
-		<input type="text" id="start_year" name="start_day" size="4" maxlength="4"/>
+		<input type="text" id="start_day" name="start_day" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/start_day"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="start_month" name="start_month" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/start_month"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="start_year" name="start_year" size="4" maxlength="4">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/start_year"/>
+  			</xsl:attribute>
+  		</input>
 	</td>
 </tr>	
 <tr>
@@ -271,11 +375,45 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<label for="end">* conference end: </label>
 	</td>
 	<td>
-		<input type="text" id="end_day" name="start_day" size="2" maxlength="2"/>.
-		<input type="text" id="end_month" name="start_day" size="2" maxlength="2"/>.
-		<input type="text" id="end_year" name="start_day" size="4" maxlength="4"/>
+		<input type="text" id="end_day" name="end_day" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/end_day"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="end_month" name="end_month" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/end_month"/>
+  			</xsl:attribute>
+		</input>:
+		<input type="text" id="end_year" name="end_year" size="4" maxlength="4">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/end_year"/>
+  			</xsl:attribute>
+  		</input>
 	</td>
 </tr>
+<tr>
+	<td>
+		<label for="notification">* notification: </label>
+	</td>
+	<td>
+		<input type="text" id="not_day" name="not_day" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/not_day"/>
+  			</xsl:attribute>
+		</input>:
+		<input type="text" id="not_month" name="not_month" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/not_month"/>
+  			</xsl:attribute>
+		</input>:
+		<input type="text" id="not_year" name="not_year" size="4" maxlength="4">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/not_year"/>
+  			</xsl:attribute>
+  		</input>
+	</td>
+</tr>	
 <tr>
 	<td colspan="2">
 		<b>Deadlines</b>
@@ -286,24 +424,96 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		<label for="abstract">* abstract submission deadline: </label>
 	</td>
 	<td>
-		<input type="text" id="abstract" name="abstract" size="30" maxlength="30"/>
+		<input type="text" id="abstract_day" name="abstract_day" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/abstract_day"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="abstract_month" name="abstract_month" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/abstract_month"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="abstract_year" name="abstract_year" size="4" maxlength="4">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/abstract_year"/>
+  			</xsl:attribute>
+  		</input>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="paper">* paper submission deadline: </label>
+	</td>
+	<td>
+		<input type="text" id="paper_day" name="paper_day" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/paper_day"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="paper_month" name="paper_month" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/paper_month"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="paper_year" name="paper_year" size="4" maxlength="4">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/paper_year"/>
+  			</xsl:attribute>
+  		</input>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="review">* review deadline: </label>
+	</td>
+	<td>
+		<input type="text" id="review_day" name="review_day" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/review_day"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="review_month" name="review_month" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/review_month"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="review_year" name="review_year" size="4" maxlength="4">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/review_year"/>
+  			</xsl:attribute>
+  		</input>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="final">* final version deadline: </label>
+	</td>
+	<td>
+		<input type="text" id="final_day" name="final_day" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/final_day"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="final_month" name="final_month" size="2" maxlength="2">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/final_month"/>
+  			</xsl:attribute>
+  		</input>:
+		<input type="text" id="final_year" name="final_year" size="4" maxlength="4">
+			<xsl:attribute name="value">
+  				<xsl:apply-templates select="/result/setup/content/final_year"/>
+  			</xsl:attribute>
+  		</input>
 	</td>
 </tr>
 </table>
-
-<label for="paper">* paper submission deadline: </label>
-<input style="margin-left:0.87cm" type="text" id="paper" name="paper" size="30" maxlength="30"/><br/>
-
-<label for="review">* review deadline: </label>
-<input style="margin-left:3.81cm" type="text" id="review" name="review" size="30" maxlength="30"/><br/>
-
-<label for="final">* final version deadline: </label>
-<input style="margin-left:2.25cm" type="text" id="final" name="final" size="30" maxlength="30"/><br/>
 <input type="submit" value="save" class="submit-button"/>
 </form>
-
 </div>
 </xsl:template>
+
+
 
 <xsl:template match="/result/email/content">
 <form action="chair?action=send_email" method="post">
@@ -328,11 +538,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 		</textarea></p>
 	<p style="text-align:center"><input type="submit" value="Absenden" name="B1"/></p>
 </form>
-  
-<xsl:value-of select='.'/><br></br> 
 </xsl:template>
-
-
 
 <xsl:template match="/result/login/status">
 <xsl:value-of select='.'/>
@@ -343,7 +549,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="/result/showauthors/status">
-<xsl:value-of select='.'/><br></br> 
+<xsl:value-of select='.'/> 
 </xsl:template>
 
 <xsl:template match="/result/showreviewers/status">
@@ -354,16 +560,19 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 <xsl:value-of select='.'/>
 </xsl:template>
 
+<xsl:template match="/result/setup_new/status">
+<xsl:value-of select='.'/>
+</xsl:template>
+
 <xsl:template match="/result/setup/status">
 <xsl:value-of select='.'/>
 </xsl:template>
 
 <xsl:template match="/result/email/status">
-<p style="text-align:center">	
-
 <xsl:value-of select='.'/><br></br> 
-	</p>
 </xsl:template>
+
+
 
 
 
