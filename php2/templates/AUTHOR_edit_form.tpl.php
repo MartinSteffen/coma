@@ -33,6 +33,19 @@ include("templates/header.tpl.php");
 					<textarea name="summary" cols="60" rows="10"><? echo d('abstract'); ?></textarea>
 					</p>
 				</td>
+				<td valign="top">
+					<p>Correct topics</p>
+<? foreach ($TPL['topic'] as $value) {
+	?>
+					<input name="<? echo $value['id'] ?>" type="checkbox" value="<? echo $value['id'] ?>" id="<? echo $value['id'] ?>"
+	<?
+	if (in_array ($value['id'], $TPL['topic_checked'])) {
+		?> checked<?
+	}?>><label for="<? echo $value['id'] ?>"><? echo $value['name'] ?></label><br>
+	<?
+}
+?>
+				</td>
 			</tr>
 			<tr>
 				<td>
