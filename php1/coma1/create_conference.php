@@ -62,7 +62,7 @@ if (isset($_POST['action'])) {
       }
       else if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('creating conference', $myDBAccess->getLastError()';
+        error('creating conference', $myDBAccess->getLastError());
       }
     }
   }

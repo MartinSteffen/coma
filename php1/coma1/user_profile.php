@@ -65,7 +65,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     }
     else if ($myDBAccess->failed()) {
       // Datenbankfehler?
-      error('updating account', $myDBAccess->getLastError()';
+      error('updating account', $myDBAccess->getLastError());
     }
   }
 }

@@ -84,7 +84,7 @@ if (isset($_POST['email'])){
     }
     else if ($myDBAccess->failed()) {
       // Datenbankfehler?
-      error('creating account', $myDBAccess->getLastError()';
+      error('creating account', $myDBAccess->getLastError());
     }
   }
 }
