@@ -25,18 +25,13 @@ $sql->connect();
 		$Conferences = $c;
 //		var_dump($Conferences);
 		$conf = array();
-		for ($i = 1; $i < (count($Conferences))+1; $i++)
-		{
-			$SQL = "SELECT name, description FROM conference WHERE id = ".$Conferences[$i];
-			$confinf = $sql->query($SQL);
-//			var_dump($confinf);
-			
-//			echo($Conferences[$i]);
-//			exit();
-			$conf[] = mysql_fetch_row($confinf);
-		}
 		if(count($Conferences) == 1){
  			redirect("author", "new", "create", "cid=".$Conferences[0]);
+		}
+		foreach ($Conferences as $conference_id)
+		{
+			$SQL = "SELECT name, description FROM conference WHERE id = ".$conference_id;
+			$conf = array_merge($conf,$sql->query($SQL));
 		}
 	}
 	else
