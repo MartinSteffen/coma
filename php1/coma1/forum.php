@@ -40,10 +40,11 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
   $paperforumtemplates = array();
   $chairforumtemplates = array();
 
+  $tempstring = '';
   foreach ($forums as $forum){
     $forumtemplate = new Template(TPLPATH . 'forum.tpl');
     $forumassocs = defaultAssocArray();
-    if ($forumselection[$forum->intId]){
+    if (($forumselection[$forum->intId]) == true){
       $forumassocs['selectorunselect'] = 'forumunsel';
       $forumassocs['forum-id'] = $forum->intId;
       $forumassocs['forum-title'] = $forum->strTitle;
@@ -76,15 +77,15 @@ function buildForumtemplates($forums, $forumselection, $msgselection, $select, $
 
     $forumtemplate->assign($forumassocs);
     $forumtemplate->parse();
-    $tempstring = $tempstring . $forum->getOutput();
+    $tempstring = $tempstring . $forumtemplate->getOutput();
     if (isOpenForum($forum)){
-      $openforumtemplates[$forum->intId] = $forum;
+      $openforumtemplates[$forum->intId] = $forumtemplate;
     }
     if (isPaperForum($forum)){
-      $paperforumtemplates[$forum->intId] = $forum;
+      $paperforumtemplates[$forum->intId] = $forumtemplate;
     }
     if (isChairForum($forum)){
-      $chairforumtemplates[$forum->intId] = $forum;
+      $chairforumtemplates[$forum->intId] = $forumtemplate;
     }
   }
 
