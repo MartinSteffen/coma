@@ -19,11 +19,10 @@ $criterions = 3;
 $papers = $persons/2-$persons/10;
 $topics = 10;
 
-echo('<br>');
 echo '.';
 $i = 0;
 while ($i < $conferences) {
-//echo 'C<br>';
+echo 'C<br>';
   $myDBAccess->addConference('Conference'.$i, 'Homepage'.$i, 'Description'.$i,
     '2001-01-01', '2001-01-01', '2001-01-01', '2001-01-01',
     '2001-01-01', '2001-01-01', '2001-01-01',2,3,10,1000,0.5,1,1,1,2);
