@@ -67,6 +67,7 @@ if (isset($_POST['action'])) {
   $strSummary      = $_POST['summary'];
   $strConfidential = $_POST['confidential'];
   $strRemarks      = $_POST['remarks'];
+  $fltRating       = $_POST['rating'];
   // Teste Gueltigkeit der Daten
   $noError = true;
   for ($i = 0; $i < count($intRatings) && $noError; $i++) {    
@@ -76,10 +77,10 @@ if (isset($_POST['action'])) {
       $strMessage = 'There are invalid ratings. Please check if all ratings are '.
                     'within their respective range.';
     }
-  }
+  }      
   if ($noError) {
+  	$fltRating = 0.0;
   	// Berechne Gesamtbewertung neu
-    $fltRating = 0.0;
     for ($i = 0; $i < count($intRatings); $i++) {
       $fltRating += (($intRatings[$i] / $objCriterions[$i]->intMaxValue) *
                      $objCriterions[$i]->fltWeight);
