@@ -30,10 +30,10 @@ else {
 
 $content = new Template(TPLPATH.'view_review.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['paper_id'] = $objPaper->intId;
-$strContentAssocs['author_id'] = $objPaper->intAuthorId;
-$strContentAssocs['author_name'] = encodeText($objPaper->strAuthor);
-$strContentAssocs['title'] = encodeText($objPaper->strTitle);
+$strContentAssocs['paper_id'] = encodeText($objReview->intPaperId);
+$strContentAssocs['author_id'] = encodeText($objReview->intAuthorId);
+$strContentAssocs['author_name'] = encodeText($objReview->strAuthorName);
+$strContentAssocs['title'] = encodeText($objReview->strPaperTitle);
 if (!empty($objReview->fltReviewRating)) {
   $strContentAssocs['rating'] = encodeText(round($objReview->fltReviewRating * 100).'%');
 }
