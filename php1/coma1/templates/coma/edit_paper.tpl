@@ -5,7 +5,7 @@
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="paperid" value="{paper_id}">
   <input type="hidden" name="coauthors_num" value="{coauthors_num}">
-  
+
 <table class="formtable">
   <tr>
     <th colspan="2">Edit paper:</th>
@@ -33,7 +33,7 @@
     <td>{author_name}</td>
   </tr>
   <tr>
-    <td colspan="2">      
+    <td colspan="2">
       <table class="formlist" width="100%">
         <tr class="formlistheader">
           <td class="formlistheader">Co-authors:</td>
@@ -47,9 +47,9 @@
           <td class="formlistitem">
             <input type="submit" name="add_coauthor" value="add" class="smallbutton">
           </td>
-        </tr>  
+        </tr>
       </table>
-    </td>      
+    </td>
   </tr>
   <tr>
     <td>
@@ -64,15 +64,15 @@
     <td>{last_edited}</td>
   </tr>
   <tr>
-    <td colspan="2">      
+    <td colspan="2">
       <table class="formlist" width="100%">
         <tr class="formlistheader">
           <td class="formlistheader">Topics:</td>
           <td class="formlistheader">&nbsp;</td>
         </tr>
-        {topic_lines}        
+        {topic_lines}
       </table>
-    </td>      
+    </td>
    </tr>
   <tr>
     <td colspan="2">

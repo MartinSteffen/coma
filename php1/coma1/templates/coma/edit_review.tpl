@@ -5,7 +5,7 @@
   <input type="hidden" name="reviewid" value="{review_id}">
   <input type="hidden" name="paperid" value="{paper_id}">
   <input type="hidden" name="rating" value="{rating}">
-  <input type="hidden" name="action" value="submit">  
+  <input type="hidden" name="action" value="submit">
 
 <table class="formtable">
   <tr>
@@ -13,7 +13,7 @@
     <td>{title} by {author_name}</td>
   </tr>
   <tr>
-    <td colspan="2">      
+    <td colspan="2">
       <table class="formlist" width="100%">
         <tr class="formlistheader">
           <th class="formlistheader">Rating criterion</th>
@@ -22,9 +22,9 @@
         </tr>
         {crit_lines}
       </table>
-    </td>  
+    </td>
   </tr>
-  <tr> 
+  <tr>
     <td><span class="emph">Overall rating:</span></td>
     <td>
       <span class="emph">{rating}%</span>
@@ -60,7 +60,7 @@
   {if1<input type="submit" name="submit" value="Update review" class="button">
       <input type="reset" name="reset" value="Reset review" class="button">}
   {if2<input type="submit" name="submit" value="Submit review" class="button">
-      <form action="{basepath}reviewer_reviews.php{?SID}" method="post" accept-charset="UTF-8">        
+      <form action="{basepath}reviewer_reviews.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="submit" name="cancel" value="Cancel" class="button">
       </form>}
     </td>

@@ -7,14 +7,14 @@
           </td>
           <td>
             <input type="text" name="crit_weight-{crit_no}" size="8" maxlength="8" value="{crit_weight}">
-          </td>          
+          </td>
           <td>
             <input type="submit" name="del_crit-{crit_no}" value="Remove" class="smallbutton">
-          </td>          
+          </td>
         </tr>
         <tr class="formlistitem">
           <td class="formlistitem" colspan="3">
             Description: <textarea name="crit_descr-{crit_no}" rows="1" cols="48">{crit_descr}</textarea>
           </td>
-          <td class="formlistitem">&nbsp;</td>          
+          <td class="formlistitem">&nbsp;</td>
         </tr>

@@ -99,7 +99,7 @@
         <tr class="formlistheader">
           <th class="formlistheader">Criterions</th>
           <th class="formlistheader">maximum value</th>
-          <th class="formlistheader">weight</th>          
+          <th class="formlistheader">weight</th>
           <th class="formlistheader">&nbsp;</th>
         </tr>
         {crit_lines}
@@ -112,7 +112,7 @@
           </td>
           <td>
             <input type="text" name="crit_weight" size="8" maxlength="8" value="">
-          </td>          
+          </td>
           <td>
             <input type="submit" name="add_crit" value="Add" class="smallbutton">
           </td>
@@ -145,8 +145,8 @@
       <input type="hidden" name="crit_descr" value="{crit_descr}">
       <input type="hidden" name="crit_weight" value="{crit_weight}">
       <input type="hidden" name="num_topics" value="{num_topics}">
-      <input type="hidden" name="num_criterions" value="{num_criterions}">      
-      
+      <input type="hidden" name="num_criterions" value="{num_criterions}">
+
       <input type="hidden" name="action" value="submit">
       <input type="submit" name="submit" value="Create Conference" class="button">
       <input type="submit" name="simple_config" value="Simple settings" class="button">

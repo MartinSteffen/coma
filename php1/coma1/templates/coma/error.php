@@ -14,7 +14,7 @@ if (!defined('IN_COMA1')) {
 if (!defined('SID')) {
   /**@ignore*/
   define('SID','');
-} 
+}
 elseif (SID != '') {
   /**@ignore*/
   define('SID','?'.SID);
@@ -66,11 +66,11 @@ elseif (SID != '') {
   </td>
   <td class="body">
     <h2>Error</h2>
-    
+
     <p class="message-failed"><?=$strError?></p>
 
     <p>&nbsp;</p>
-    
+
     <p>You have the following options:</p>
     <ul>
 <?php

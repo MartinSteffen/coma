@@ -2,13 +2,13 @@
 
 {if1
 <p class="message-ok">
-  You have successfully applied as an <span class="emph">{role}</span> for 
+  You have successfully applied as an <span class="emph">{role}</span> for
   the conference '{title}'!<br>
 </p>
 }
 {if2
 <p class="message-failed">
-  You have successfully applied as an <span class="emph">{role}</span> for 
+  You have successfully applied as an <span class="emph">{role}</span> for
   the conference '{title}'!<br>
   You will be notified as soon as the conference chair accepts your apply.
 </p>

@@ -9,7 +9,7 @@
     {if5 <a href="{link}" target="_blank" class="buttonlink">visit website
      <!--<img border="0" alt="website" height="20" width="64" src="{path}images/icon_website.gif">-->
      </a>}
-  </td> 
+  </td>
 </tr>
 <tr class="listitem-{line_no}">
   <td class="listitem-{line_no}">&nbsp;
@@ -62,5 +62,5 @@
       <input type="submit" name="submit" value="Sign up as Participant" class="button">
     </form>
   }
-  </td>    
+  </td>
 </tr>

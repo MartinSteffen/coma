@@ -2,7 +2,7 @@
 {if9<p class="message-failed">{message}</p>}
 
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
-  <input type="hidden" name="action" value="submit">  
+  <input type="hidden" name="action" value="submit">
   <input type="hidden" name="coauthors_num" value="{coauthors_num}">
 
 <table class="formtable">
@@ -32,7 +32,7 @@
     <td>{author_name}</td>
   </tr>
   <tr>
-    <td colspan="2">      
+    <td colspan="2">
       <table class="formlist" width="100%">
         <tr class="formlistheader">
           <td class="formlistheader">Co-authors:</td>
@@ -46,27 +46,27 @@
           <td class="formlistitem">
             <input type="submit" name="add_coauthor" value="add" class="smallbutton">
           </td>
-        </tr>  
+        </tr>
       </table>
-    </td>      
+    </td>
   </tr>
   <tr>
-    <td colspan="2">      
+    <td colspan="2">
       <table class="formlist" width="100%">
         <tr class="formlistheader">
           <td class="formlistheader">Topics:</td>
           <td class="formlistheader">&nbsp;</td>
         </tr>
-        {topic_lines}        
+        {topic_lines}
       </table>
-    </td>      
+    </td>
    </tr>
   <tr>
     <td colspan="2">
       <input type="submit" name="submit" value="Add paper" class="button">
-      <form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">        
+      <form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="submit" name="cancel" value="Cancel" class="button">
-      </form>      
+      </form>
     </td>
   </tr>
 </table>
