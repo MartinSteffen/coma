@@ -17,11 +17,13 @@
   </tr>
   <tr class="listitem-{line_no}">
     <td class="listitem-{line_no}" colspan="5">
-      <form action="{basepath}reviewer_editreview.php{?SID}" method="post" accept-charset="UTF-8">        
-        <input type="hidden" name="reviewid" value="{review_id}">
-        <input type="submit" name="submit" value="Edit review" class="button">
-        <input type="submit" name="paper_details" value="See paper details" class="button">
-        <input type="submit" name="discuss" value="Enter discussion" class="button">
-      </form> 
+      <button name="edit" type="button" class="button" value="Edit review"
+              onClick="self.location.href='{basepath}reviewer_editreview.php?reviewid={review_id}{&SID}'">
+       Edit review</button>
+      <button name="paperdetails" type="button" class="button" value="See paper details"
+              onClick="self.location.href='{basepath}user_paperdetails.php?paperid={paper_id}{&SID}'">
+       See paper details</button>
+      <button name="discuss" type="button" class="button" value="Enter discussion" onClick="">
+       Enter discussion</button>
     </td>
   </tr>
