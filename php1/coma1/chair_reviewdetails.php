@@ -69,7 +69,7 @@ for ($i = 0; $i < count($objReview->objCriterions); $i++) {
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
-$actMenuItem = 4;
+$actMenuItem = 3;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
@@ -77,7 +77,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review details';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews  |  Details';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Papers  |  Review';
 
 $main->assign($strMainAssocs);
 $main->parse();

@@ -58,7 +58,7 @@ $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
 $actMenu = CHAIR;
-$actMenuItem = 4;
+$actMenuItem = 3;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
@@ -66,7 +66,7 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Review report for paper';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
-$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Reviews for paper';
+$strMainAssocs['navigator'] = encodeText(session('uname')).'  |  Chair  |  Paper  |  Review report';
 
 $main->assign($strMainAssocs);
 $main->parse();
