@@ -102,8 +102,7 @@
 
           <xsl:when test="updateInProgress">
             <div>
-              Now updating... press reload to select another paper.
-              <!-- XXX ugly. Figure out meta refresh?-->
+              Update complete.
             </div>
           </xsl:when>
           
@@ -156,9 +155,7 @@
           <tr>
             <th  valign="top">Summary:</th>
             <td>
-              <textarea name="summary" cols="72" rows="6">
-                <xsl:value-of select="summary" />&#160;
-              </textarea>
+              <textarea name="summary" cols="72" rows="6"><xsl:value-of select="summary" />&#160;</textarea>
             </td>
           </tr>
           <xsl:for-each select="rating">
@@ -166,8 +163,7 @@
               <th valign="top"><xsl:value-of select="criterion/name" />:</th>
               <td>
                 <xsl:value-of select="criterion/description" />
-                <p>You can rate this criterion from 1 (worst) to
-                <xsl:value-of select="criterion/maxValue" /> (best).
+                <p>You can rate this criterion from 1 (worst) to <xsl:value-of select="criterion/maxValue" /> (best).
                 It has Quality Rating Factor <xsl:value-of
                 select="criterion/qualityRating" />. (Higher QRF
                 means bigger influence on total result.)
@@ -190,10 +186,7 @@
                   <tr>
                     <th valign="top">Remarks:</th>
                     <td>
-                      <textarea cols="60" rows="4">
-                        <xsl:attribute name="name">ratingForCriterion<xsl:value-of select="criterion/id" />Commt</xsl:attribute>
-                        <xsl:value-of select="comment" />&#160;
-                      </textarea>
+                      <textarea cols="60" rows="4"><xsl:attribute name="name">ratingForCriterion<xsl:value-of select="criterion/id" />Commt</xsl:attribute><xsl:value-of select="comment" />&#160;</textarea>
                     </td>
                   </tr>
                 </table>
@@ -204,9 +197,7 @@
         <tr>
           <th valign="top">Remarks:</th>
           <td>
-            <textarea name="remarks" cols="72" rows="12">
-              <xsl:value-of select="remarks" />&#160;
-            </textarea>
+            <textarea name="remarks" cols="72" rows="12"><xsl:value-of select="remarks" />&#160;</textarea>
           </td>
         </tr>
         <tr>

@@ -120,9 +120,7 @@
              <div>
                <h3><xsl:value-of select="Person/last_name" />:</h3>
                <xsl:value-of select="summary" />
-               <a>
-                 <xsl:attribute name="href">ShowReports?reportid=<xsl:value-of select="id" /></xsl:attribute>
-                 details...</a>
+               <a><xsl:attribute name="href">ShowReports?reportid=<xsl:value-of select="id" /></xsl:attribute>(details...)</a>
              </div>
            </xsl:for-each>
            <xsl:if test="statistics">

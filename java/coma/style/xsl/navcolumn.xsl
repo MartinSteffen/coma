@@ -62,8 +62,7 @@
 
       <!-- any proper content based on the user's role. -->
       <xsl:otherwise>
-        Hello, <xsl:value-of select="//navcolumn//Person/first_name" />&#160;
-      <xsl:value-of select="//navcolumn//Person/last_name" />!
+        Hello, <xsl:value-of select="//navcolumn//Person/first_name" />&#160;<xsl:value-of select="//navcolumn//Person/last_name" />!
         <li>User
         <ul>
         	<!-- logout button -->
@@ -110,7 +109,7 @@
 
       <xsl:if test="//navcolumn//isReviewer">
         <li>Reviewer<ul>
-        <li><a href="RatePaper">Write Review</a></li>
+        <li><a href="RatePaper">Write Report</a></li>
         <li><a href="ShowReports">Show Reports</a></li>
       </ul></li>
     </xsl:if>
@@ -130,7 +129,7 @@
     Valid CSS?
   </a>
 </li>
-<li>Best viewed with any browser, except ie</li>
+<li>Best viewed with the naked eye and a good knowledge of HTML.</li>
 </ul> 
 </div><!-- Site navigation menu -->
 <xsl:comment>End of Navbar</xsl:comment>
