@@ -1,4 +1,9 @@
 <?
+if (! isset ($_SESSION['userID'])) {
+	redirect("logout", false, false, "error=1");
+}
+
+
 
 $SQL = "SELECT conference_id FROM paper WHERE author_id = " . $_SESSION['userID'];
 $result = $sql->query($SQL);

@@ -4,6 +4,10 @@ $sql->connect();
 
 
 //select all conferences with <user> is author
+if (! isset ($_SESSION['userID'])) {
+	redirect("logout", false, false, "error=1");
+}
+
 $SQL = "SELECT conference_id FROM role WHERE person_id = ".$_SESSION['userID']." AND role_type = 4";
 $author = $sql->query($SQL);
 
