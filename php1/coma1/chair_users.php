@@ -43,7 +43,7 @@ if (isset($_POST['action'])) {
       if ($myDBAccess->failed()) {
         error('Error retrieving person data', $myDBAccess->getLastError());
       }
-      $objConference = $myDBAccess->getConference(session('confid'));
+      $objConference = $myDBAccess->getConferenceDetailed(session('confid'));
       if ($myDBAccess->failed()) {
         error('Error retrieving conference data', $myDBAccess->getLastError());
       }
