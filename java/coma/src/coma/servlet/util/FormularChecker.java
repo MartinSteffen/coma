@@ -5,6 +5,8 @@ package coma.servlet.util;
  * @author pka
  *
  * Class for checking formulars.  
+ * changes on 12.12. added EMail checking
+ * hbra@inf...
  */
 public class FormularChecker {
 
@@ -32,7 +34,7 @@ public class FormularChecker {
 		check = true;
 		for (int i=0;i<data.length;i++)
 		{
-			System.out.println("data= " + data[i]);
+			System.out.println("data=" + data[i]);
 			if (data[i].equals(""))
 			{
 			    check = false;
@@ -40,5 +42,20 @@ public class FormularChecker {
 			}
 		}
 		return check;
+	}
+	
+	public boolean EmailCheck(int EmailPos)
+	{
+		for (int i=0;i<data.length;i++)
+		{
+			System.out.println("data="+data[i]);
+			if (data[i].equals(""))
+			{
+				return false;
+			}
+		}
+		if(data[EmailPos].indexOf("@")==-1)
+			return false;
+		return true;
 	}
 }
