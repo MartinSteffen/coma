@@ -6,7 +6,7 @@
   distribution for papers that are not assigned to the average number of
   reviewers yet. If the <a href="{basepath}chair_confconfig.php{?SID}" class="link">
   'Auto add reviewers' flag</a> is activated, CoMa will try to suggest more
-  reviewers for that paper if possible. You may edit the suggested distribution
+  reviewers for ambiguous papers if possible. You may edit the suggested distribution
   and afterwards confirm it. After that, you can assign several papers by hand
   (this formular) or restart the suggestion process.
 </p>
