@@ -85,7 +85,7 @@ if (isset($_POST['action'])) {
     if (isset($_POST['add_topic']) && !empty($_POST['topic_name'])) {
         $strTopics[] = $_POST['topic_name'];
     }
-    if (isset($_POST['add_crit']) && !empty($_POST['crit_name'])) {
+    if (isset($_POST['add_crit']) && !empty($_POST['crit-name'])) {
       $strCriterions[]    = $_POST['crit-name'];
       $strCritDescripts[] = $_POST['crit-descr'];
       $strCritMaxVals[]   = $_POST['crit-max'];
