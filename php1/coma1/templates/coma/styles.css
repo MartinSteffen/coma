@@ -69,10 +69,10 @@ a.submenu:hover   { color: #FF4D00; }
 
 a.markedmenu { font-size: 13px; text-decoration: none; font-weight: bold;
                color: #FF0000;
-               border-top: 1px #CEDBEF solid; border-bottom: 1px #CEDBEF solid; }
+               border-top: 1px #FF0000 solid; border-bottom: 1px #FF0000 solid; }
 a.markedsubmenu { font-size: 12px; text-decoration: none; font-weight: normal;
                   color: #FF0000;
-                  border-top: 1px #CEDBEF solid; border-bottom: 1px #CEDBEF solid; }
+                  border-top: 1px #FF0000 solid; border-bottom: 1px #FF0000 solid; }
 
 /* Tabelle fuer den Seiteninhalt */
 table.body { width: 100%; vertical-align: top; }
