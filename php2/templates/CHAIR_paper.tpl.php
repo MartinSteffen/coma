@@ -106,8 +106,7 @@ $reviewers = $report['reviewers'];
 	  <? if ($report['isReviewed'])
 	    {
 		?>
-		<form name="form1" method="post" action="index.php?m=chair&a=papers&s=updateState">
-		<input type="submit" name="auto" value="Validate automatically">		
+		<form name="form1" method="post" action="index.php?m=chair&a=papers&s=updateState">		
 		<input type="submit" name="accept" value="Accept">
         <input type="submit" name="reject" value="Reject" onclick="return confirm('Are you sure you want to reject the paper?')">
 		<input type="submit" name="reset" value="Reset">		
