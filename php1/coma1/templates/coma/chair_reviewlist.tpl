@@ -87,11 +87,12 @@
 <!- ---------------------------- LISTE der Reviewer --------------------------------- -->  
 
 
-<h2> List of Reviewer  </h2>
+
 <table class="list">
   <tr class="listheader">
     <th width="25%" class="listheader"> Name  </th> 
     <th width="25%" class="listheader"> Exclude </th> 
+    <th width="25%" class="listheader"> Prefered </th>
   </tr>
 
   <tr class="ft-tr"> 
@@ -104,24 +105,69 @@
        <input type="submit" name="submit" value="exclude  " class="button" />
        </form>
    </td>
- 
+    <td class="listitem-1">   
+       prefered
+   </td> 
 </tr>
 
 <tr>
     <td class="listitem-2"> 
-        <a href=""> Robby Rabbit </a> 
+        <a href=""> Randy  Rabbit </a> 
     </td>
-
-
-    <td class="listitem-2"> 
- 
+    <td class="listitem-2">   
        <form action="" method="post">
        <input type="hidden" name="confid" value="{confid}" />
        <input type="submit" name="submit" value="exclude  " class="button" />
        </form>
    </td>
+   <td class="listitem-2"> 
+      <form action="" method="post">
+       <input type="hidden" name="confid" value="{confid}" />
+       <input type="submit" name="submit" value="add to prefered  " class="button" />
+       </form>
+   </td>
 </tr>
 
+
+<!- ---------------------------- Liste ausgeschlossener / bevorzugter Reviewer eine Artikels ------------------ -->  
+
+
+
+<table class="list">
+  <tr class="listheader">
+    <th width="25%" class="listheader"> Reviewer Name  </th> 
+    <th width="25%" class="listheader"> Exclude / Prefered </th> 
+  </tr>
+
+  <tr class="ft-tr"> 
+    <td class="listitem-1"> 
+        <a href="">  Rudy  Review </a> 
+    </td>
+    <td class="listitem-1">
+       <form action="" method="post">
+       <input type="hidden" name="confid" value="{confid}" />
+       <input type="submit" name="submit" value="exclude  " class="button" />
+       <input type="hidden" name="confid" value="{confid}" />
+       <input type="submit" name="submit" value=" prefer  " class="button" />
+       </form>
+   </td>
+ 
+</tr>
+
+<tr>
+    <td class="listitem-2"> 
+        <a href=""> Randy  Rabbit </a> 
+    </td>
+
+
+    <td class="listitem-2"> 
+       <form action="" method="post">
+         exclude
+       <input type="hidden" name="confid" value="{confid}" />
+       <input type="submit" name="submit" value=" delete choice" class="button" />
+       </form>
+   </td>
+</tr>
 
 
 </table>
