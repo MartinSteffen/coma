@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>CoMa - Das Konferenzmanagement-Tool - {title}</title>
+<title>CoMa -  the Conference Manager - {title}</title>
 <link rel="stylesheet" type="text/css" href="{path}styles.css">
 </head>
 
@@ -22,7 +22,7 @@
     <tr>
      <td width="70">&nbsp;</td>
      <td height="32" align="right" valign="top">
-      <a href="{basepath}impressum.php?{SID}">Impressum</a>&nbsp;|&nbsp;
+      <a href="{basepath}impressum.php?{SID}">Imprint</a>&nbsp;|&nbsp;
       <a href="#">Forum</a>&nbsp;|&nbsp;
       <a href="{basepath}logout.php?{SID}">Logout</a>&nbsp;&nbsp;
       <a href="#"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>

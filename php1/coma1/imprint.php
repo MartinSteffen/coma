@@ -26,16 +26,16 @@ $strMenuAssocs = defaultAssocArray();
 $strMenuAssocs['if'] = array(4);
 $menu->assign($strMenuAssocs);
 
-$content = new Template(TPLPATH.'impressum.tpl');
+$content = new Template(TPLPATH.'imprint.tpl');
 $content->assign(defaultAssocArray());
 
 $main = new Template(TPLPATH.'frame.tpl');
 $strMainAssocs = defaultAssocArray();
-$strMainAssocs['title'] = 'Impressum';
+$strMainAssocs['title'] = 'Imprint';
 $strMainAssocs['content'] = &$content;
 $strMainAssocs['menu'] = &$menu;
 
-$strPath = array('CoMa'=>'', 'Impressum'=>'');
+$strPath = array('CoMa'=>'', 'Imprint'=>'');
 require_once(TPLPATH.'navigatoritem.php');
 $strMainAssocs['navigator'] = createNavigatorContent($strPath);
 
