@@ -456,6 +456,10 @@ table.subviewtable
 .viewline
 {
   border-top: 1px #808080 solid;
+}
+.viewlineNoWrap
+{
+  border-top: 1px #808080 solid;
   white-space: nowrap;
 }
 
