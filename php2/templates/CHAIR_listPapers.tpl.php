@@ -33,8 +33,7 @@ status</b>
 count</b>
 </font>		</td>
 		<td align="center" >
-<font size="+1">			<b>gradelist<br>
-(in&nbsp;%)</b>
+<font size="+1">			<b>gradelist</b>
 </font>		</td>
 	</tr>
 <?php
@@ -57,7 +56,7 @@ foreach($TPL['paperlist_accepted'] as $paper) {
 			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
+			<?PHP echo $paper['total_grade']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 <font size="+1"><b>			<?PHP echo $paper['title']; ?>
@@ -97,7 +96,7 @@ foreach($TPL['paperlist_open'] as $paper) {
 			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
+			<?PHP echo $paper['total_grade']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 			<font size="+1"><b><?PHP echo $paper['title']; ?></b></font>
@@ -136,7 +135,7 @@ foreach($TPL['paperlist_rejected'] as $paper) {
 			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
+			<?PHP echo $paper['total_grade']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 <font size="+1"><b>			<?PHP echo $paper['title']; ?>
@@ -176,7 +175,7 @@ foreach($TPL['paperlist_nothing'] as $paper) {
 			<?PHP echo $paper['rank']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="right" class="<?php echo $paper['review_status']; ?>">
-			<?PHP echo $paper['total_grade']; ?>&nbsp;%&nbsp;&nbsp;
+			<?PHP echo $paper['total_grade']; ?>&nbsp;&nbsp;&nbsp;
 		</td>
 		<td align="center" class="<?php echo $paper['review_status']; ?>">
 <font size="+1"><b>			<?PHP echo $paper['title']; ?>
