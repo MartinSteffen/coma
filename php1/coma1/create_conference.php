@@ -160,7 +160,7 @@ if (isset($_POST['action'])) {
                                            $strCritMaxVals, $strCritWeights);                                           
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
-        error('Error during creating conference.', $myDBAccess->getLastError());
+        //error('Error during creating conference.', $myDBAccess->getLastError());
       }
       else {
         // Erfolg (also anderes Template)
