@@ -57,7 +57,7 @@ checkError($myDBAccess);
 // End Standard Klassen
 
 // Check ob User eingeloggt ist
-if (!$myDBAccess->checkLogin()) {
+if ($myDBAccess->checkLogin()) {
   session_write_close();
   header('Location:'.COREPATH.'login.php');
 }
