@@ -4,7 +4,7 @@
  * @package coma1
  * @subpackage core
  */
-/***/
+
 if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
