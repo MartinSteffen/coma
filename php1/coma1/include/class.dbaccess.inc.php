@@ -1860,8 +1860,8 @@ nur fuer detaillierte?
     $s = sprintf("UPDATE   Person".
                  " SET     password = '%s'".
                  " WHERE   id = '%d'",
-                           s2db($intPersonId),
-                           s2db(sha1($strPassword)));
+                           s2db(sha1($strPassword)),
+                           s2db($intPersonId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updatePersonPassword', $this->mySql->getLastError());
