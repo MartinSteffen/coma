@@ -19,7 +19,7 @@ $sqlPassword = 'Rhashdeak';
 $sqlDatabase = 'coma1';
 
 // This is the Debugging Version :)
-if (!defined('DEBUG') {
+if (!defined('DEBUG')) {
   define('DEBUG', true);
 }
 
