@@ -25,7 +25,7 @@ function checkError(&$class) {
 }
 
 /**
- * Verweis auf anderen Skript
+ * Weiterleitung auf ein anderes Skript
  *
  * Diese Funktion lenkt den Benutzer auf einen anderen Skript weiter, in
  * dem die Bearbeitung fortgeführt wird. Dabei wird sichergestellt, das
@@ -42,11 +42,12 @@ function redirect($strName) {
 }
 
 /**
- * Erzeugen von Standard-Zuweisungen
+ * Erzeugen von Standard-Zuweisungen fuer Templates
  *
  * Die Funktion gibt ein Array mit Standard-Zuweisungen fuer
  * Templates zurueck!
  *
+ * @subpackage template
  * @return array Das geforderte Array
  */
 function defaultAssocArray() {
@@ -68,6 +69,7 @@ function defaultAssocArray() {
  * Ist jedoch Parameter $blnRedirect==false, so wird stattdessen '' 
  * geliefert.
  *
+ * @subpackage Session
  * @param string $strName Der Name der Variablen.
  * @param bool $blnRedirect Soll eine Weiterleitung stattfinden
  * @return string Wert der Variablen
@@ -89,6 +91,7 @@ function session($strName, $blnRedirect=true) {
  *
  * Diese Funktion löscht eine Sessionvariable aus dem Speicher
  *
+ * @subpackage Session
  * @param string $strName Der Name der Variablen.
  */
 function session_delete($strName) {
