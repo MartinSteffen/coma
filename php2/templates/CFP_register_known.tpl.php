@@ -18,18 +18,18 @@
 	<tr>
 		<td class="textBold">
 
-			The email you specified for chair account is already in use by another user account.<br>
+			The email you specified is already in use by another user.<br>
 Do you want to:
 		</td>
 	</tr>
 	<tr>
 		<td class="textBold">
-			<input type="radio" name="createNewAccount" value="no" CHECKED>&nbsp;make existing user account Chair of this conference or
+		<input id="no" type="radio" name="createNewAccount" value="no" CHECKED><label for="no">&nbsp;make existing user account Author in this conference (in this case an entry in "password" will be ignored) or</label>
 		</td>
 	</tr>
 	<tr>
 		<td class="textBold">
-			<input type="radio" name="createNewAccount" value="yes">&nbsp;go back and change chair email?
+		<input id="yes" type="radio" name="createNewAccount" value="yes"><label for="yes">&nbsp;go back and change email adress?</label>
 		</td>
 	</tr>
 	<tr>

@@ -33,8 +33,14 @@ foreach ($conf as $key => $value)
 					<legend class="textBold"><a href="index.php?m=author&a=new&s=create&cid=<? echo $value['id']; ?>"><? echo $value['name']; ?></a></legend>
 					<table>	
 						<tr>
-							<td class="textBold">Description	</td>
-							<td class="text"><? echo $value['description']; ?></td> 
+							<td class="textBold">Description</td>
+						</tr>
+						<tr>
+							<td class="text">
+								<p>
+								<? echo $value['description']; ?>
+								</p>
+							</td> 
 						</tr>
 					</table>
 				</fieldset>
