@@ -92,7 +92,8 @@ public class Subscribe  extends HttpServlet {
 		result.append(mynewPerson.toXML());
 		result.append(XMLHelper.tagged("confid", confid));
 	    } catch (IllegalArgumentException e) {
-		result.append(XMLHelper.tagged("failed", e));
+		result.append(XMLHelper.tagged("failed", XMLHelper.tagged(e.getMessage())));
+		/*
 		result.append("<form>\n");
 		while(paramNames.hasMoreElements()){
 		    parName = (String) paramNames.nextElement();
@@ -100,6 +101,7 @@ public class Subscribe  extends HttpServlet {
 		}//while
 					   
 		result.append("</form>\n");
+		*/
 	    }
 			
 			

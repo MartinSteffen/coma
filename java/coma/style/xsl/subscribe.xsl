@@ -38,8 +38,17 @@
 
 
   <xsl:template match="subscribe/failed">
-    <h3>An Error has occurred,plaese check your data!</h3>
-    <xsl:value-of select="." />
+    <h3>An Error has occurred,plaese check your data:</h3>
+    <!--    <xsl:value-of select="." /> -->
+    <xsl:if test="PWshort">
+      The password must have at least 6 characters.
+    </xsl:if>
+    <xsl:if test="invalidMail">
+      That mail is syntactically invalid (no at, or no tld).
+    </xsl:if>
+    <xsl:if test="PWmistyped">
+      You gave two different passwords.
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="subscribe/success">
