@@ -134,22 +134,19 @@ class Session {
           " FROM    Sessions ".
           " WHERE   sid   = '$strSessId' ".
           " AND     sname = '$this->strSessName' ".
-          " AND     UNIX_TIMESTAMP(stime) > (UNIX_TIMESTAMP()-'$this->intMaxLifeTime)' ";
-    echo $sql.'<br>';
+          " AND     UNIX_TIMESTAMP(stime) > (UNIX_TIMESTAMP()-'$this->intMaxLifeTime') ";
     $results = $this->mySql->select($sql);
     if (!$results) {
       $sql = "DELETE ".
             " FROM  Sessions ".
             " WHERE sid   = '$strSessId' ".
             " AND   sname = '$this->strSessName' ";
-      echo $sql.'<br>';
       $this->mySql->delete($sql);
       $sql = "INSERT ".
             " INTO  Sessions ".
             "       (sid,          sname,                sdata, stime) ".
             " VALUES ".
             "       ('$strSessId', '$this->strSessName', NULL,  NOW()) ";
-      echo $sql.'<br>';
       $this->mySql->insert($sql);
       $s = $this->mySql->getLastError();
       if (!empty($s)) {
