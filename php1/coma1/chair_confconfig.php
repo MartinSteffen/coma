@@ -135,9 +135,9 @@ if (isset($_POST['action']) && !isset($_POST['simple_config_adv'])) {
       $strMessage =  $strMessage.
                      'Your minimum number of reviews should not be greater than the default number of reviews!<br>';
     }
-    if ( !(0 < $variance) || !($variance < 100)){
+    if ( !(0 < $variance) || !($variance <= 100)){
       $strMessage =  $strMessage.
-                     'Your ambiguity should be greater than zero and less than hundred!<br>';
+                     'Your ambiguity should be greater than zero and less or equal than hundred!<br>';
     }
     if ( !(0 <= $auto_numrev )){
       $strMessage =  $strMessage.
@@ -209,7 +209,7 @@ else {
   $strContentAssocs['def_reviews']      = encodeText($objConference->intDefaultReviewsPerPaper);
   $strContentAssocs['min_papers']       = encodeText($objConference->intMinNumberOfPapers);
   $strContentAssocs['max_papers']       = encodeText($objConference->intMaxNumberOfPapers);
-  $strContentAssocs['variance']         = encodeText($objConference->fltCriticalVariance)*100;
+  $strContentAssocs['variance']         = encodeText($objConference->fltCriticalVariance*100);
   $strContentAssocs['auto_numreviewer'] = encodeText($objConference->intNumberOfAutoAddReviewers);
   if (!empty($objConference->blnAutoActivateAccount)) {
     $ifArray[] = 2;
