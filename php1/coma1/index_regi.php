@@ -128,6 +128,7 @@ if (isset($_POST['email'])){
    $strMainAssocs['titel'] = ' Willkommen bei CoMa - dem Konferenzmanagement-Tool ';
    $strMainAssocs['content'] = '
    <h2 align="center"> Hinweis: Bitte registrieren Sie sich nur einmal ! </h2>';
+   $strMainAssocs['message'] = 'MESSAGE!';
    $strMainAssocs['body'] = & $loginPage;
    $strMainAssocs['menue'] =& $menue;
    $strMainAssocs['submenue'] = '';
