@@ -1,11 +1,9 @@
 <table class="viewtable">
-  <tr class="viewheader" colspan="2">
-    <th class="viewheader">{name}</th>
+  <tr class="viewheader">
+    <th class="viewheader" colspan="2">{name}</th>
   </tr>
-  <tr class="viewline" colspan="2">
-    <td class="viewline">
-     {description}
-    </td>
+  <tr class="viewline">
+    <td class="viewline" colspan="2">{description}</td>
   </tr>
   <tr class="viewline">    
     <td class="viewline">Takes place at:</td>
