@@ -301,7 +301,7 @@ if (in_array('step', $strArrayHelpTopics) && in_array('chair', $strArrayHelpTopi
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
   $strArrayChapterAssocs['chapter-no'] = '1.1';
-  $strArrayChapterAssocs['chapter-title'] = 'How to administrate a conferce';
+  $strArrayChapterAssocs['chapter-title'] = 'How to create a conferce';
   $strArrayChapterAssocs['related-topics'] = '';
   if ($i){
     $strArrayChapterAssocs['special'] = 'In the main window, you are currently viewing the registration page.';
