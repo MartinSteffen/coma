@@ -128,11 +128,63 @@ class DBAccess {
   }
 
   /**
+   * Liefert einen Array von Criterion-Objekten zurueck, die Bewertungskriterien
+   * der aktuellen Konferenz sind.
+   *   
+   * @return Criterion [] bzw. <b>false</b>, falls keine Konferenz aktiv ist, oder
+   *                      ein leeres Array, falls fuer die aktuelle Konferenz keine
+   *                      Bewertungskriterien definiert sind.
+   * @access public
+   * @author Sandro (18.12.04)
+   */   
+  function getCriterionsOfConference() {
+    $s = 'SELECT  id, name, description, max_value, quality_rating'.
+        ' FROM    Criterion'.
+        ' WHERE   conference_id = '.$_SESSION['confid'];
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objCriterions = array();
+      for ($i = 0; $i < count($data); $i++) {
+      	$fltWeight = $data[$i]['quality_rating'] / 100.0;
+      	$objCriterions[] = (new Criterion($data[$i]['id'], $data[$i]['name'],
+      	                      $data[$i]['description'], $data[$i]['max_value'], $fltWeight);      	                      
+      }
+      return $objCriterions;
+    }
+    return $this->error('getCriteriaOfConference '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Liefert einen Array von Topic-Objekten zurueck, die als Topics der
+   * aktuellen Konferenz definiert sind.
+   *   
+   * @return Topic [] bzw. <b>false</b>, falls keine Konferenz aktiv ist, oder
+   *                  ein leeres Array, falls fuer die aktuelle Konferenz keine
+   *                  Topics definiert sind.
+   * @access public
+   * @author Sandro (18.12.04)
+   */     
+  function getTopicsOfConference() {
+    $s = 'SELECT  id, name'.
+        ' FROM    Topic'.        
+        ' WHERE   conference_id = '.$_SESSION['confid'];
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objTopics = array();
+      for ($i = 0; $i < count($data); $i++) {
+      	$objTopics[] = (new Topic($data[$i]['id'], $data[$i]['name']));      
+      }
+      return $objTopics;
+    }
+    return $this->error('getTopicsOfConference '.$this->mySql->getLastError());
+  }
+
+  /**
    * Liefert die ID der Person, deren E-Mail-Adresse $strEmail ist.
    *
    * @param string $strEmail E-Mail-Adresse der Person
    * @return int ID bzw. <b>false</b>, falls keine Person mit E-Mail-Adresse
-   *   $strEmail gefunden wurde
+   *             $strEmail gefunden wurde
    * @access public
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
@@ -152,7 +204,7 @@ class DBAccess {
    *
    * @param int $intPersonId ID der Person
    * @return Person <b>false</b>, falls keine Person mit ID $intPersonId
-   *   gefunden wurde
+   *                gefunden wurde
    * @access public
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
@@ -183,7 +235,7 @@ class DBAccess {
    *
    * @param int $intPersonId ID der Person
    * @return PersonDetailed <b>false</b>, falls keine Person mit ID $intPersonId
-   *   gefunden wurde
+   *                        gefunden wurde
    * @access public
    * @author Sandro, Tom (03.12.04, 12.12.04)
    */
@@ -247,7 +299,7 @@ class DBAccess {
    *
    * @param int $intAuthorId ID des Autors
    * @return PaperSimple [] <b>false</b>, falls keine Paper des Autors
-   *   $intAuthorId gefunden wurden
+   *                        $intAuthorId gefunden wurden
    * @access public
    * @author Tom (04.12.04, 12.12.04)
    */
@@ -279,7 +331,7 @@ class DBAccess {
    *
    * @param int $intReviewerId ID des Reviewers
    * @return PaperSimple [] <b>false</b>, falls keine Reviews des Reviewers
-   *   $intReviewerId gefunden wurden
+   *                        $intReviewerId gefunden wurden
    * @access public
    * @author Tom (12.12.04)
    */
@@ -312,7 +364,7 @@ class DBAccess {
    *
    * @param int $intPaperId ID des Papers
    * @return PaperDetailed <b>false</b>, falls kein Paper mit der ID
-   *   $intPaperId gefunden wurde
+   *                       $intPaperId gefunden wurde
    * @access public
    * @author Tom (12.12.04)
    */
@@ -391,7 +443,7 @@ class DBAccess {
    * Liefert den Durchschnitt der Gesamtbewertungen des Papers $intPaperId.
    *
    * @param int $intPaperId ID des Papers
-   * @return flt <b>false</b>, falls keine Bewertungen des Papers gefunden wurden.
+   * @return float <b>false</b>, falls keine Bewertungen des Papers gefunden wurden.
    * @access private
    * @author Sandro, Tom (06.12.04, 12.12.04)
    */
@@ -463,7 +515,7 @@ class DBAccess {
    * Liefert ein Array von Person-Objekten zurueck, die Reviewer des Papers $intPaperId sind.
    *
    * @param int $intPaperId ID des Papers
-   * @return Person[] <b>false</b>, falls das Paper keine Reviewer besitzt
+   * @return Person [] <b>false</b>, falls das Paper keine Reviewer besitzt
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -485,7 +537,7 @@ class DBAccess {
    * Liefert ein Array von Review-Objekten des Papers $intPaperId zurueck.
    *
    * @param int $intPaperId ID des Papers
-   * @return Review[] <b>false</b>, falls kein Review des Papers existiert
+   * @return Review [] <b>false</b>, falls kein Review des Papers existiert
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -581,7 +633,7 @@ class DBAccess {
       	  $strComments[] = $rating_data[$i]['comment'];
       	  $objCriterions[] = (new Criterion($rating_data[$i]['id'], $rating_data[$i]['name'],
       	                        $rating_data[$i]['description'], $rating_data[$i]['max_value'],
-      	                        $rating_data[$i]['quality_rating']));
+      	                        $rating_data[$i]['quality_rating'] / 100.0));
       	}
       }
       return (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
@@ -605,8 +657,8 @@ class DBAccess {
    * Message $intMessageId sind.
    *
    * @param int $intMessageId ID der Message
-   * @return Message[] <b>false</b>, falls die Message nicht existiert oder
-   *                   ein leeres Array, wenn die Message keine Antworten besitzt
+   * @return Message [] <b>false</b>, falls die Message nicht existiert oder
+   *                    ein leeres Array, wenn die Message keine Antworten besitzt
    * @access private
    * @author Sandro (14.12.04)
    */
@@ -658,8 +710,8 @@ class DBAccess {
   /**
    * Liefert ein Array von Forum-Objekten der aktuellen Konferenz zurueck.
    *   
-   * @return Forum[] <b>false</b>, falls kein Forum existiert oder keine Konferenz
-   *                 in der aktuellen Session aktiv ist
+   * @return Forum [] <b>false</b>, falls kein Forum existiert oder keine Konferenz
+   *                  in der aktuellen Session aktiv ist
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -673,8 +725,7 @@ class DBAccess {
       for ($i = 0; $i < count($data); $i++) {
         $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
                           ($data[$i]['forum_type'] == 3) ? $data[$i]['paper_id'] : 0));
-        // ACHTUNG: Statt '3' muss evtl. der tatsaechliche Wert fuer Paper-Foren eingesetzt werden
-        //          bzw. die Konstante, in welcher dieser Wert spaeter gespeichert ist.
+          // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
       }
       return $objForums;
     }
@@ -704,7 +755,7 @@ class DBAccess {
    * Liefert ein Array von Forum-Objekten aller Foren zurueck, welche die Person
    * $intPersonId einsehen darf.
    *   
-   * @return Forum[] <b>false</b>, falls die Person nicht existiert
+   * @return Forum [] <b>false</b>, falls die Person nicht existiert
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -766,7 +817,19 @@ class DBAccess {
   /**
    * Fuegt einen Datensatz in die Tabelle Person ein.
    *
-   * @param FOLGT!!! [TODO]
+   * @param string $strFirstname    Vorname(n) der Person
+   * @param string $strLastname     Nachname der Person
+   * @param string $strEmail        Email-Adresse der Person (Login fuer den Account)
+   * @param string $strTitle        Titel der Person
+   * @param string $strAffiliation  Zur Person zugehoerige Einrichtung oder Gruppe
+   * @param string $strStreet       Strasse und Hausnummer des Wohnsitzes
+   * @param string $strCity         Wohnort der Person
+   * @param string $strPostalCode   Postleitzahl oder ZIP-Code des Wohnsitzes
+   * @param string $strState        Staat oder Bundesland des Wohnsitzes
+   * @param string $strCountry      Land des Wohnsitzes
+   * @param string $strPhone        Telefonnummer der Person
+   * @param string $strFax          Faxnummer der Person
+   * @param string $strPassword     Passwort des Accounts (unverschluesselt zu uebergeben)
    * @return int ID der erzeugten Person oder <b>false</b>, falls ein Fehler
    *             aufgetreten ist
    * @access public
@@ -800,47 +863,285 @@ class DBAccess {
 
   /**
    */
+  function addIsCoAuthorOf() {
+    return $this->error('addIsCoAuthorOf '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
   function addPaper($strTitle, $intAuthorId, $strAbstract, $strFilePath,
                     $strMimeType, $strCoAuthors) {
-                    	    
     return $this->error('addPaper '.$this->mySql->getLastError());
   }
 
   /**
+   * Fuegt einen Datensatz in die Tabelle ReviewReport ein.
+   *   
+   * @param int $intPaperId          ID des Papers, das bewertet wird
+   * @param int $intReviewerId       ID des Reviewers
+   * @param string $strSummary       Zusammenfassender Text fuer die Bewertung (inital: '')
+   * @param string $strRemarks       Anmerkungen fuer den Autoren (inital: '')
+   * @param string $strConfidential  Vertrauliche Anmerkungen fuer das Komitee (inital '')
+   * @return int ID des erzeugten Review-Reports oder <b>false</b>, falls ein Fehler
+   *             aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
    */
-  function addReviewRating() {
-                    	    
-    return $this->error('addReviewRating '.$this->mySql->getLastError());
+  function addReviewReport($intPaperId, $intReviewerId, $strSummary = '',
+                           $strRemarks = '', $strConfidential = '') {
+    $s = 'INSERT  INTO ReviewReport (paper_id, reviewer_id, summary, remarks, confidential)'.
+        '         VALUES (\''.$intPaperId.'\', \''.$intReviewerId.'\','.
+        '                 \''.$strSummary.'\', \''.$strRemarks.'\', \''.$strConfidential.'\')';
+    return $this->error('addReviewReport '.$this->mySql->getLastError());
   }
 
+  /**
+   * Fuegt einen Datensatz in die Tabelle Rating ein.
+   *   
+   * @param int $intReviewId     ID des Review-Reports, der das Rating beinhaltet
+   * @param int $intCriterionId  ID des Bewertungskriteriums
+   * @param int $intGrade        Note, Auspraegung der Bewertung (inital: 0)
+   * @param string $strComment   Anmerkung zur Bewertung in dem Kriterium (inital: '')
+   * @return int ID des erzeugten Ratings oder <b>false</b>, falls ein Fehler
+   *             aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
+   */
+  function addRating($intReviewId, $intCriterionId, $intGrade = 0, $strComment = '') {
+    $s = 'INSERT  INTO Rating (review_id, criterion_id, grade, comment)'.
+        '         VALUES (\''.$intReviewId.'\', \''.$intCriterionId.'\','.
+        '                 \''.$intGrade.'\', \''.$strComment.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return $intId;
+    }                    	                        	    
+    return $this->error('addRating '.$this->mySql->getLastError());
+  }
+  
+  /**
+   * Erstellt einen neuen Review-Report-Datensatz in der Datenbank, sowie die
+   * mit diesem Review-Report assoziierten Ratings (Bewertungen in den einzelnen
+   * Kriterien). Initial sind die Bewertungen 0 und die Kommentartexte leer.
+   *
+   * [TODO] Bleibt evtl. nicht an dieser Stelle stehen, sondern wandert in ein anderes Skript!
+   */
+   
+   function createNewReviewReport($intPaperId, $intReviewerId) {
+     $intConferenceId = $_SESSION['confid'];
+     $intReviewId = $this->addReviewReport($intPaperId, $intReviewerId);
+     if (empty($intReviewId)) {
+     	return $this->error('createNewReviewReport '.$this->mySql->getLastError());
+     }
+     $objCriterions = $this->getCriterionsOfConference($intConferenceId);
+     for ($i = 0; $i < count($objCriterions); $i++) {
+     	$this->addRating($intReviewId, $objCriterions[$i]->intId, 0, '');
+     }
+     return $intReviewId;
+   }
 
   /**
+   * Fuegt einen Datensatz in die Tabelle Forum ein.
+   *   
+   * @param int $intConferenceId  ID der Konferenz, fuer die das Forum angelegt wird
+   * @param string $strTitle      Bezeichnung des Forums
+   * @param int $intForumType     Art des Forums (1: globales, 2:Komitee-, 3:Artikelforum)
+   * @param int $intPaperId       ID des assoziierten Artikels bei Artikelforen (sonst: 0)
+   * @return int ID des erzeugten Forums oder <b>false</b>, falls ein Fehler
+   *             aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
    */
-  function addForum() {
-                    	    
+  function addForum($intConferenceId, $strTitle, $intForumType, $intPaperId = 0) {
+    if ($intForumType <> 3) {  // [TODO] statt '3' die Konstante fuer den Artikelforen-Typ!
+      $intPaperId = 0;
+    }
+    $s = 'INSERT  INTO Forum (conference_id, title, forum_type, paper_id)'.
+        '         VALUES (\''.$intConferenceId.'\', \''.$strTitle.'\','.
+        '                 \''.$intForumType.'\', \''.$intPaperId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return $intId;
+    }                    	    
     return $this->error('addForum '.$this->mySql->getLastError());
   }
 
   /**
+   * Fuegt einen Datensatz in die Tabelle Message ein.
+   *      
+   * @param string $strSubject   Betreff der Message
+   * @param string $strText      Inhalt der Message
+   * @param string $intSenderId  ID des Erstellers der Message
+   * @param int $intForumId      ID des Forums, in das die Message eingefuegt wird   
+   * @param int $intReplyTo      ID der Nachricht, auf welche die Message antwortet
+   *                             (falls die Message einen neuen Thread eroeffnet: 0)
+   * @return int ID der erzeugten Message oder <b>false</b>, falls ein Fehler
+   *             aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
    */
-  function addMessage() {
-                    	    
+  function addMessage($strSubject, $strText, $strSenderId, $strForumId, $strReplyTo = 0) {
+    $strSendTime = date("d.m.Y H:i");
+    $s = 'INSERT  INTO Message (subject, text, sender_id, forum_id, reply_to, send_time)'.
+        '         VALUES (\''.$strSubject.'\', \''.$strText.'\','.
+        '                 \''.$intSenderId.'\', \''.$intForumId.'\','.
+        '                 \''.$intReplyTo.'\', \''.$strSendTime.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return $intId;
+    }                    	                        	    
     return $this->error('addMessage '.$this->mySql->getLastError());
   }
 
 
   /**
+   * Fuegt einen Datensatz in die Tabelle Criterion ein.
+   *   
+   * @param int $intConferenceId    ID der Konferenz, fuer die das Kriterium angelegt wird
+   * @param string $strName         Bezeichnung des Bewertungskriteriums
+   * @param string $strDescription  Beschreibungstext fuer das Kriterium
+   * @param int $intMaxValue        Groesster zu vergebender Wert fuer die Bewertung in
+   *                                diesem Kriterium (Wertespektrum: 0..$intMaxValue)
+   * @param float $fltWeight        Gewichtung des Kriteriums (Wert aus dem Intervall [0, 1])
+   * @return int ID des erzeugten Bewertungskriteriums oder <b>false</b>, falls ein Fehler
+   *             aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
    */
-  function addCriterion() {
-                    	    
+  function addCriterion($intConferenceId, $strName, $strDescription, $intMaxValue, $fltWeight) {
+    $intQualityRating = $fltWeight * 100;
+    $s = 'INSERT  INTO Criterion (conference_id, name, description, max_value, quality_rating)'.
+        '         VALUES (\''.$intConferenceId.'\', \''.$strName.'\', \''.$strDescription.'\','.
+        '                 \''.$intMaxValue.'\', \''.$intQualityRating.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return $intId;
+    }                    	                        	                        	    
     return $this->error('addCriterion '.$this->mySql->getLastError());
   }
 
   /**
+   * Fuegt einen Datensatz in die Tabelle Topic ein.
+   *   
+   * @param int $intConferenceId  ID der Konferenz, fuer die das Topic angelegt wird
+   * @param string $strName       Bezeichnung des Topics
+   * @return int ID des erzeugten Topics oder <b>false</b>, falls ein Fehler
+   *             aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
    */
-  function addTopic() {
-                    	    
+  function addTopic($intConferenceId, $strName) {
+    $s = 'INSERT  INTO Topic (conference_id, name)'.
+        '         VALUES (\''.$intConferenceId.'\', \''.$strName.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return $intId;
+    }                    	                        	                        	                        	    
     return $this->error('addTopic '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Fuegt einen Datensatz in die Tabelle IsAboutTopic ein.
+   *   
+   * @param int $intPaperId  ID des Papers
+   * @param int $intTopicId  ID des behandelten Topics
+   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
+   */
+  function addIsAboutTopic($intPaperId, $intTopicId) {
+    $s = 'INSERT  INTO IsAboutTopic (paper_id, topic_id)'.
+        '         VALUES (\''.$intPaperId.'\', \''.$intTopicId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('addIsAboutTopic '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Fuegt einen Datensatz in die Tabelle PrefersTopic ein.
+   *   
+   * @param int $intPersonId  ID der Person
+   * @param int $intTopicId   ID des bevorzugten Topics
+   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
+   */
+  function addPrefersTopic($intPersonId, $intTopicId) {
+    $s = 'INSERT  INTO PrefersTopic (person_id, topic_id)'.
+        '         VALUES (\''.$intPersonId.'\', \''.$intTopicId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('addPrefersTopic '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Fuegt einen Datensatz in die Tabelle PrefersPaper ein.
+   *   
+   * @param int $intPersonId  ID der Person
+   * @param int $intPaperId   ID des bevorzugten Papers
+   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
+   */
+  function addPrefersPaper($intPersonId, $intPaperId) {
+    $s = 'INSERT  INTO PrefersPaper (person_id, paper_id)'.
+        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('addPrefersPaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Fuegt einen Datensatz in die Tabelle DeniesPaper ein.
+   *   
+   * @param int $intPersonId  ID der Person
+   * @param int $intPaperId   ID des abgelehnten Papers
+   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
+   */
+  function addDeniesPaper($intPersonId, $intPaperId) {
+    $s = 'INSERT  INTO DeniesPaper (person_id, paper_id)'.
+        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('addDeniesPaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   * Fuegt einen Datensatz in die Tabelle ExcludesPaper ein.
+   *   
+   * @param int $intPersonId  ID der Person
+   * @param int $intPaperId   ID des ausgeschlossenen Papers
+   * @return int <b>false</b>, falls ein Fehler aufgetreten ist
+   * @access public
+   * @author Sandro (18.12.04)
+   */
+  function addExcludesPaper($intPersonId, $intPaperId) {
+    $s = 'INSERT  INTO ExcludesPaper (person_id, paper_id)'.
+        '         VALUES (\''.$intPersonId.'\', \''.$intPaperId.'\')';
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->insert($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('addExcludesPaper '.$this->mySql->getLastError());
   }
 
 
@@ -848,6 +1149,184 @@ class DBAccess {
   // Definition der Delete-Funktionen
   // ---------------------------------------------------------------------------
 
+  /**
+   */
+  function deleteConference($intConferenceId) {
+    return $this->error('deleteConference '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deletePerson($intPersonId) {
+    return $this->error('deletePerson '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deletePaper($intPaperId) {
+    return $this->error('deletePaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteRole() {
+    return $this->error('deleteRole '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteIsCoAuthorOf() {
+    return $this->error('deleteIsCoAuthorOf '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteReviewReport($intReviewId) {
+    $s = 'DELETE  FROM Reviewreport'.
+        '         WHERE id = '.$intReviewId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteReviewReport '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteRating($intReviewId, $intCriterionId) {
+    $s = 'DELETE  FROM Rating'.
+        '         WHERE   review_id = '.$intReviewId.
+        '         AND     criterion_id = '.$intCriterionId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteRating '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteForum($intForumId) {
+    $s = 'DELETE  FROM Forum'.
+        '         WHERE id = '.$intForumId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteForum '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteMessage($intMessageId) {
+    $s = 'DELETE  FROM Message'.
+        '         WHERE id = '.$intMessageId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteMessage '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteCriterion($intCriterionId) {
+    $s = 'DELETE  FROM Criterion'.
+        '         WHERE id = '.$intCriterionId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteCriterion '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteTopic($intTopicId) {
+    $s = 'DELETE  FROM Topic'.
+        '         WHERE id = '.$intTopicId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteTopic '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteIsAboutTopic($intPaperId, $intTopicId) {
+    $s = 'DELETE  FROM IsAboutTopic'.
+        '         WHERE paper_id = '.$intPaperId.
+        '         WHERE topic_id = '.$intTopicId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deletePrefersTopic($intPersonId, $intTopicId) {
+    $s = 'DELETE  FROM PrefersTopic'.
+        '         WHERE person_id = '.$intPersonId.
+        '         WHERE topic_id = '.$intTopicId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deletePrefersPaper($intPersonId, $intPaperId) {
+    $s = 'DELETE  FROM PrefersPaper'.
+        '         WHERE person_id = '.$intPersonId.
+        '         WHERE paper_id = '.$intPaperId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deletePrefersPaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteDeniesPaper($intPersonId, $intPaperId) {
+    $s = 'DELETE  FROM DeniesPaper'.
+        '         WHERE person_id = '.$intPersonId.
+        '         WHERE paper_id = '.$intPaperId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteDeniesPaper '.$this->mySql->getLastError());
+  }
+
+  /**
+   */
+  function deleteExcludesPaper($intPersonId, $intPaperId) {
+    $s = 'DELETE  FROM ExcludesPaper'.
+        '         WHERE person_id = '.$intPersonId.
+        '         WHERE paper_id = '.$intPaperId;
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if (!empty($result)) {
+      return $result;
+    }                    	                        	                        	                        	    
+    return $this->error('deleteExcludesPaper '.$this->mySql->getLastError());
+  }
 
 }
 
