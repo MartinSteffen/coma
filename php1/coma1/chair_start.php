@@ -43,7 +43,7 @@ if ($intRoleRequests > 0) {
   $ifArray[] = 1;
 }
 $intUndistributedPapers = $myDBAccess->getNumberOfPapers(session('confid')) -
-                          $myDBAccess->getNumberOfUndistributedPapers(session('confid'));
+                          $myDBAccess->getNumberOfDistributedPapers(session('confid'));
 if ($myDBAccess->failed()) {
   error('get num of undistributed papers',$myDBAccess->getLastError());
 }
