@@ -8,6 +8,13 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
+require_once('./include/class.mysql.inc.php');
+require_once('./include/class.person.inc.php');
+require_once('./include/class.persondetailed.inc.php');
+require_once('./include/class.paper.inc.php');
+require_once('./include/class.papersimple.inc.php');
+require_once('./include/class.paperdetailed.inc.php');
+
 /**
  * Klasse DBAccess
  *
@@ -46,7 +53,7 @@ class DBAccess {
   }
 
   /**
-   * Fehlerbeschreibung festlegen.
+   * Legt die Fehlerbeschreibung fest.
    *
    * @param string $strError optionale Fehlerbeschreibung
    * @return false immer <b>false</b>
@@ -59,7 +66,7 @@ class DBAccess {
   }
 
   /**
-   * Letzten Fehler zurueckgeben.
+   * Liefert die letzte Fehlerbeschreibung zurueck.
    *
    * Die Funktion <b>getLastError()</b> gibt die letzte mit error
    * gesicherte Fehlermeldung zurueck und loescht diese aus dem Speicher.
@@ -97,7 +104,8 @@ class DBAccess {
    * Liefert die ID der Person, deren E-Mail-Adresse $strEmail ist.
    *
    * @param string $strEmail E-Mail-Adresse der Person
-   * @return int ID bzw. <b>false</b>, falls keine Person mit E-Mail-Adresse $strEmail gefunden wurde
+   * @return int ID bzw. <b>false</b>, falls keine Person mit E-Mail-Adresse
+   *   $strEmail gefunden wurde
    * @access public
    */
   function getPersonIdByEmail($strEmail) {

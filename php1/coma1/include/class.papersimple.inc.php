@@ -28,14 +28,15 @@ class PaperSimple extends Paper {
   var $intStatus;
   var $fltAvgRating;
   
-  function PaperSimple($id, $title, $authorId, $status, $avgRating = 0.0){
-    $this->Paper($id);
-    $this->strTitle = $title;
-    $this->intAuthorId = $authorId;
-    $this->intStatus = $status;
-    $this->fltAvgRating = $avgRating;
+  function PaperSimple($intId, $strTitle, $intAuthorId, $intStatus, $fltAvgRating = 0.0){
+    $this->Paper($intId);
+    $this->strTitle = $strTitle;
+    $this->intAuthorId = $intAuthorId;
+    $this->intStatus = $intStatus;
+    $this->fltAvgRating = $fltAvgRating;
   }
-  
+
+  // weg damit! (Tom)  
   function PaperSimpleFromPaper($paper, $title, $authorId, $status, $avgRating = 0.0){
     $this->PaperSimple($paper->intId, $title, $authorId, $status, $avgRating);
   }

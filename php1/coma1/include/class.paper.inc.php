@@ -23,8 +23,8 @@ class Paper {
   
   var $intId;
   
-  function Paper($id){
-    $this->intId = $id;
+  function Paper($intId){
+    $this->intId = $intId;
   }
   
 } // end class Paper

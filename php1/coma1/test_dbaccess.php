@@ -15,8 +15,12 @@ define('IN_COMA1',true);
 
 require_once('./include/class.mysql.inc.php');
 require_once('./include/class.dbaccess.inc.php');
-require_once('./include/class.person.inc.php');
+/*require_once('./include/class.person.inc.php');
 require_once('./include/class.persondetailed.inc.php');
+require_once('./include/class.paper.inc.php');
+require_once('./include/class.papersimple.inc.php');
+require_once('./include/class.paperdetailed.inc.php');*/
+
 
 $mySql = new MySql();
 $dbAccess = new DBAccess($mySql);
@@ -37,6 +41,8 @@ echo($p->strFirstName.' ist '.($p->hasRole(1)?'':'k').'ein Chair.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br>');
 
+$p = new PaperDetailed(1, 'Title', 1, 2, 0, '', 'No Co-Authors', 'Abstract', 0, 'Last Edit', 'File Path');
 
+echo('Editierdatum: '.$p->strLastEdit.'<br>');
 
 ?>

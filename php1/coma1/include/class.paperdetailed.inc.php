@@ -30,14 +30,16 @@ class PaperDetailed extends PaperSimple {
   var $strLastEdit;
   var $strFilePath;
 
-  function PaperDetailed($id, $title, $authorId, $status, $avgRating = 0.0, $coAuthorIds='', $coAuthors, $abstract, $formatId, $lastEdit, $filePath){
-    $this->PaperSimple($id, $title, $authorId, $status, $avgRating);
-    $this->intCoAuthorsIds = $coAuthorIds;
-    $this->strCoAuthors = $coAuthors;
-    $this->strAbstract = $abstract;
-    $this->intFormatId = $formatId;
-    $this->strLastEdit = $lastEdit;
-    $this->strFilePath = $filePath;
+  function PaperDetailed($intId, $strTitle, $intAuthorId, $intStatus,
+                         $fltAvgRating = 0.0, $intCoAuthorIds = '', $strCoAuthors,
+                         $strAbstract, $intFormatId, $strLastEdit, $strFilePath) {
+    $this->PaperSimple($intId, $strTitle, $intAuthorId, $intStatus, $fltAvgRating);
+    $this->intCoAuthorsIds = $intCoAuthorIds;
+    $this->strCoAuthors = $strCoAuthors;
+    $this->strAbstract = $strAbstract;
+    $this->intFormatId = $intFormatId;
+    $this->strLastEdit = $strLastEdit;
+    $this->strFilePath = $strFilePath;
   }
 
   // weg damit! (Tom)
