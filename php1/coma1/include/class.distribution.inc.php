@@ -291,7 +291,7 @@ class Distribution extends ErrorHandling {
         }
       }
       for ($j = 0; $j < count($tmp); $j++) {
-        $this->suggest($matrix, $i, $j, $p_id, $avg_revs,
+        $this->suggest($matrix, $i, $tmp[$j], $p_id, $avg_revs,
                        $p_num_revs_total_left, $p_num_revs, $r_num_papers, SUGGESTED);
       }
     }
