@@ -39,6 +39,7 @@
 
   <xsl:template match="subscribe/failed">
     <h3>An Error has occurred,plaese check your data!</h3>
+    <xsl:value-of select="." />
   </xsl:template>
 
   <xsl:template match="subscribe/success">
