@@ -42,8 +42,10 @@ class Session {
   var $mySql;
   /**@var string*/
   var $strError = '';
+  /**@var int*/
+  var $intMaxLifeTime = '86400';
   /**@var string*/
-  var $strSessName = '';
+  var $strSessName = 'coma1';
   /**#@-*/
 
   /**
@@ -60,7 +62,7 @@ class Session {
   function Session(&$mySql) {
     $this->mySql =& $mySql;
 
-    session_name('coma1');
+    session_name($this->strSessName);
     session_cache_limiter('nocache');
     if (!session_set_save_handler(array(& $this,'sessionOpen'),
                                   array(& $this,'sessionClose'),
@@ -78,7 +80,7 @@ class Session {
    * Anzuhaengende URL fuer Verweise
    *
    * Falls ein Cookie gesetzt wurde, gibt die Funktion leer zurueck. Ansonsten
-   * wird '?SessionNmae=SessionId' zurueck gegeben. Dieses kann also einfach an 
+   * wird '?SessionName=SessionId' zurueck gegeben. Dieses kann also einfach an 
    * alle Skript-Verweise angehaengt werden.
    *
    * @return string Anhang fuer URL
@@ -96,6 +98,7 @@ class Session {
   */
   function sessionOpen($strSavePath, $strSessName) {
     $this->strSessName = $strSessName;
+    sessionGC($this->intMaxLifeTime);
     return true;
   }
 
@@ -104,6 +107,7 @@ class Session {
   * @access private
   */
   function sessionClose() {
+    sessionGC($this->intMaxLifeTime);
     return true;
   }
 
@@ -158,7 +162,8 @@ class Session {
   * @access private
   */
   function sessionGC($intMaxLifetime) {
-    $this->mySql->delete("DELETE FROM Sessions WHERE stime>(UNIX_TIMESTAMP(NOW())-$intMaxLifetime) AND sname='$this->strSessName'");
+    $intMax = min($this->intMaxLifeTime,$intMaxLifetime); 
+    $this->mySql->delete("DELETE FROM Sessions WHERE stime>(UNIX_TIMESTAMP(NOW())-$intMax) AND sname='$this->strSessName'");
     return true;
   }
 
