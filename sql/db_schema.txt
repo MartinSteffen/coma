@@ -2,6 +2,8 @@
  Aktuelle Version der SQL-Datenstruktur
 ----------------------------------------
 
+
+
 - Diese Tabellenstruktur sollten derjenigen entsprechen, die in
   der Absprache vom 30.11.04 entstanden ist.
 - Unten gelistet sind meine Vorschlaege fuer die Interpretation
@@ -20,6 +22,9 @@
   dann nur beruecksichtigt, wenn das Forum ein Artikel-Forum ist.
   @Gunnar: Wenn du damit nicht einverstanden bist, kannst du das
   Attribut auch entfernen, dann faellt das Komitee-Forum raus.
+
+  + + + Martin: Table Roles entfernt, nach
+        Gruppenbeschluss
   
   + + + Sandro
   
@@ -116,14 +121,6 @@ conference_id	Int		-> Conference, id
 person_id       Int             -> Person, id
 role_type	Int		(enumeration Roles), optional -> Roles (*)
 state		Int		(enumeration Status) optional (*)
-
- Table Roles    (optional)
-~~~~~~~~~~~~~
-id	        Int             Primary Key, Autoincrement
-role            Varchar 32
-
-(Anmerkung: Die Ids sollten uebereinstimmend mit den Werten in
-            der Enumeration Roles sein, also Id 1 fuer Admins, etc.)
 
  Table Paper
 ~~~~~~~~~~~~~
