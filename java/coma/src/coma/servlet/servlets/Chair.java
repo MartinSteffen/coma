@@ -201,6 +201,7 @@ public class Chair extends HttpServlet
 			int topics = Integer.parseInt(session.getAttribute("number_of_topics").toString());
 			InsertServiceImpl insert = new InsertServiceImpl();
 			Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+			session.setAttribute("number_of_topics",null);
 			for (int i=0;i<topics;i++)
 			{
 				insert.insertTopic(c.getId(),req.getParameter(String.valueOf(i)));
@@ -237,7 +238,7 @@ public class Chair extends HttpServlet
 	{
 		String tag;
 		ReadServiceImpl readService = new ReadServiceImpl();
-	    Topic t = new Topic(-2);
+	    Topic t = new Topic(-1);
 	    Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 	    SearchResult search_result = readService.getTopic(t.getId(),c.getId());
 	    Topic[] topics = (Topic[])search_result.getResultObj();	
@@ -468,7 +469,7 @@ public class Chair extends HttpServlet
 			else
 			{
 				tag = "showreviewers";
-		        Person p = new Person(0);
+		        Person p = new Person(-1);
 		        p.setRole_type(2);
 		        SearchCriteria search = new SearchCriteria();
 		        search.setPerson(p);
@@ -588,7 +589,7 @@ public class Chair extends HttpServlet
 		}
 	}
 	
-	public void assign(HttpServletRequest req,HttpServletResponse res,HttpSession session)
+	private void assign(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{	
 		Paper p =null;
 		int PaperID;
@@ -617,6 +618,7 @@ public class Chair extends HttpServlet
         String tag = "assign";
         if (resultP==null || resultP.length ==0)
         {
+        	info.append("</content>");
         	info.append(XMLHelper.tagged("status","" + user + ": no papers available"));
         	commit(res,tag);
         }
@@ -628,11 +630,8 @@ public class Chair extends HttpServlet
         		System.out.println(p.getAbstract());
         		info.append(p.toXML());
         	}
-	        Person p1 = new Person(0);
-	        /*
-	         * FIXME state setzen
-	         */
-	        p1.setState("reviewer");
+	        Person p1 = new Person(-1);
+	        p1.setRole_type(2);
 			SearchCriteria search1 = new SearchCriteria();
 	        search.setPerson(p1);
 	        ReadServiceImpl readService1 = new ReadServiceImpl();
@@ -640,7 +639,8 @@ public class Chair extends HttpServlet
 	        Person[] result1 = (Person[])search_result1.getResultObj();  
 	   	 	if (result1==null || result1.length ==0)
 	        {
-		 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
+	   	 		info.append("</content>");
+	   	 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
 	        	commit(res,tag);
 	        }
 	        else
