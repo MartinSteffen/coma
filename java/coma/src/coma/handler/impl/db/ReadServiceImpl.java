@@ -76,7 +76,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 		boolean stateFlag = false;
 		boolean roleFlag = false;
 
-		if (p.getId() >= 0) {
+		if (p.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
 		} else {
@@ -343,7 +343,7 @@ public class ReadServiceImpl extends Service implements ReadService {
 			allFlag = true;
 		} else {
 			QUERY += " WHERE ";
-			if (p.getId() >= 0) {
+			if (p.getId() > 0) {
 				QUERY += " id = ?";
 				idFlag = true;
 			} else {

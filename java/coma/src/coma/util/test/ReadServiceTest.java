@@ -73,6 +73,15 @@ public class ReadServiceTest extends TestCase{
 		for (int i = 0; i < persons.length; i++) {
 			System.out.println(persons[i].toXML());	
 		}
+		System.out.println("----------------------------");
+		
+		result = read.getPersonByRole(role, 1);
+		objResult = result.getResultObj();
+		
+		persons = (Person[])objResult;	
+		for (int i = 0; i < persons.length; i++) {
+			System.out.println(persons[i].toXML());	
+		}
 	}
 	
 	public void testGetPersonByRole(){
