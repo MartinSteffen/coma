@@ -50,6 +50,7 @@ $strMainAssocs['submenue'] =& $submenue;
 $menue->assign(defaultAssocArray());
 $submenue->assign(defaultAssocArray());
 $mainPage->assign($strMainAssocs);
+$menue->assign($strMenueAssocs);
 
 $mainPage->parse();
 $mainPage->output();
