@@ -30,6 +30,6 @@ a.menue:hover   { color: #2F2F2F; }
 
 /* tabelle mit linien zur dartstellung von listen */
 table.list {border-style:groove; } 
-td.listhead { font-size:medium; background-color:#DBE9EC; border-style:inset; 
+td.listhead { font-size:medium; background-color:#DBE9EC; 
               text-align:center;font-weight:bold;}
 td.list { text-align:center; font-weight:bold;}
