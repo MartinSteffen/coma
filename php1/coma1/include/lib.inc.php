@@ -46,7 +46,7 @@ define('PAPER_REJECTED',   4);
 function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";
   $strError = '['.basename($_SERVER['PHP_SELF'],'.php')."->$strMethod: $strError$strComment]";
-  (@require(TPLPATH.'error.php')) or print($strError);
+  (include(TPLPATH.'error.php')) or print($strError);
   die(1);
 }
 
