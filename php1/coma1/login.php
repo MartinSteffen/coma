@@ -16,8 +16,7 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'login')) {
       !empty($_POST['user_name']) && !empty($_POST['user_password'])) {
     $_SESSION['uname'] = $_POST['user_name'];  
     $_SESSION['password'] = sha1($_POST['user_password']);     
-    if ($myDBAccess->checkLogin()) {
-      $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail($_SESSION['uname']);
+    if ($myDBAccess->checkLogin()) {      
       redirect('main_start.php');
     }
     else {

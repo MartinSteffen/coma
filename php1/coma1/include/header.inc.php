@@ -106,8 +106,8 @@ define('PARTICIPANT', 5);
 define('MAX_ROLE', 5);
 // End CoMa Konstanten
 
-// Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
-// Stellt ausserdem sicher das uname und password nur genau dann gesetzt sind,
+// Check, ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
+// Stellt ausserdem sicher, dass uname und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
 if (!defined('NEED_NO_LOGIN') &&  (!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
