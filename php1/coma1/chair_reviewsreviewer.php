@@ -110,7 +110,7 @@ if (!empty($r_id)) {
         $strTopicItem = new Template(TPLPATH.'reviewertopic.tpl');
         $strTopicItem->assign($strItem2Assocs);
         $strTopicItem->parse();
-        $strItemAssocs['topics'] .= $strTopicItem->getOutput().' BLABLA';
+        $strItemAssocs['topics'] .= $strTopicItem->getOutput();
       }
     }    
 
