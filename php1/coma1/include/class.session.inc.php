@@ -61,12 +61,12 @@ class Session {
 
     session_name('$SESSIONNAME');
     session_cache_limiter('nocache');
-    if (!session_set_save_handler(array($this&,'sessionOpen'),
-                                  array($this&,'sessionClose'),
-                                  array($this&,'sessionRead'),
-                                  array($this&,'sessionWrite'),
-                                  array($this&,'sessionDestroy'),
-                                  array($this&,'sessionGC'))) {
+    if (!session_set_save_handler(array(& $this,'sessionOpen'),
+                                  array(& $this,'sessionClose'),
+                                  array(& $this,'sessionRead'),
+                                  array(& $this,'sessionWrite'),
+                                  array(& $this,'sessionDestroy'),
+                                  array(& $this,'sessionGC'))) {
       return this->error('Konnte Sessionmanger nicht initialisieren (save_handler).');
     }
     session_start();
