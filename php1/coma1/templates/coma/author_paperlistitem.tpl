@@ -13,13 +13,10 @@
     <td class="listitem-{line_no}">{avg_rating}</td>  
     <td class="listitem-{line_no}">{last_edited}</td>
     <td class="listitem-{line_no}">
-      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="link">view paper</a>}
+      {if5<a href="{basepath}get_paper.php?paperid={paper_id}{&SID}" class="buttonlink">view paper</a>}
     </td>
     <td class="listitem-{line_no}">
-      <form action="{basepath}author_editpaper.php{?SID}" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="paperid" value="{paper_id}">
-        <input type="submit" name="editpaper" value="edit" class="smallbutton">
-      </form>      
+      <a href="{basepath}author_editpaper.php?paperid={paper_id}{&SID}" class="buttonlink">edit</a>      
     </td>
     <td class="listitem-{line_no}">
       <form action="{basepath}author_papers.php{?SID}" method="post" accept-charset="UTF-8">
