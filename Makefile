@@ -5,6 +5,8 @@ WWWDIR      = /home/info/www/inf/deRoever/WS0405/PITM/coma
 
 
 
+
+
 DVIFILES = $(subst .tex,.dvi, $(wildcard handout*.tex uebung*.tex))
 PSFILES  = $(subst .dvi,.ps, $(DVIFILES))
 PDFFILES = $(subst .ps,.pdf, $(PSFILES))
@@ -31,6 +33,9 @@ pdf: $(PDFFILES)
 
 all: dvi ps pdf
 	true
+
+
+
 
 
 clean:
