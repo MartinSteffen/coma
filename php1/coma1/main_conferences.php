@@ -13,6 +13,27 @@ require_once('./include/header.inc.php');
 $content = new Template(TPLPATH.'conference_list.tpl');
 $strContentAssocs = defaultAssocArray();
 $strContentAssocs['message'] = '';
+
+$conferenceItem = new Template(TPLPATH.'conference_listitem.tpl');
+$strItemAssocs = defaultAssocArray();
+
+$objConferences = $myDBAccess->getAllConferences();
+if (!empty($objConferences)) {
+  $lineNo = 1;
+  foreach ($objConferences as $objConference) {
+    $strItemAssocs['line_no'] = $lineNo;
+    $strItemAssocs['name'] = $objConference->strName;
+    $conferenceItem->assign($strItemAssocs);
+    $conferenceItem->parse();
+    $strContentAssocs['lines'] .= $conferenceItem->getOutput();
+    $lineNo = 3 - $lineNo;  // wechselt zwischen 1 und 2
+  }
+}
+else {
+  $strContentAssocs['lines'] = '<tr class="listitem-1"><td colspan="2">'.
+                               'Es sind keine Konferenzen vorhanden.</td></tr>';  
+}
+
 $content->assign($strContentAssocs);
 
 $menu = new Template(TPLPATH.'mainmenu.tpl');
