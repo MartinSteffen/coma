@@ -28,11 +28,7 @@ function bit($b) {
 echo('<br>');
 
 
-$myDBAccess->addTopic(1, 'Ein Thema');
-$myDBAccess->addTopic(1, 'Zweites Thema');
-$myDBAccess->addTopic(1, 'Drittes Thema');
-$myDBAccess->addTopic(1, 'Viertes Thema');
-echo('Get<br>');
+/*echo('Get<br>');
 $p = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -46,10 +42,10 @@ $myDBAccess->updateConference($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo('End<br>');
+echo('End<br>');*/
 
-/*echo('Get<br>');
-$p = $myDBAccess->getPaperDetailed(2);
+echo('Get<br>');
+$p = $myDBAccess->getPaperDetailed(30);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -62,7 +58,7 @@ $myDBAccess->updatePaper($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
-echo('End<br>');*/
+echo('End<br>');
 
 
 
