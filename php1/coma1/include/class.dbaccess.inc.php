@@ -1453,7 +1453,7 @@ nur fuer detaillierte?
     $s = sprintf("DELETE   FROM Role".
                  " WHERE   person_id = '%d'".
                  " AND     conference_id = '%d'",
-                 s2db($intId), s2db($infConferenceId));
+                 s2db($intId), s2db($intConferenceId));
     $result = $this->mySql->delete($s);
     if ($this->mySql->failed()) {
       return $this->error('updateRoles', $this->mySql->getLastError());
