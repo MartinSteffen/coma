@@ -175,8 +175,11 @@ function ftp_rmAll($conn_id,$dst_dir)
 }
 
 
-function cleanup_ftp($paper_id, $step_id, $ftphandle = NULL,  $msg = ""){
+function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = ""){
 	// {{{
+	if (!$step_id) {
+		$step_id = 6;
+		}
 	switch($step_id){
 		case 6:
 			if ($ftphandle == NULL){
