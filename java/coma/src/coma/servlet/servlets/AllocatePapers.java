@@ -6,6 +6,7 @@ package coma.servlet.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.Collection;
 
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.stream.StreamSource;
 
 import coma.entities.AllocP_Paper;
 import coma.entities.AllocP_PaperList;
@@ -23,6 +25,7 @@ import coma.entities.AllocP_Person;
 import coma.entities.Allocation;
 import coma.entities.Conference;
 import coma.entities.Person;
+import coma.entities.Topic;
 
 import coma.entities.SearchResult;
 import coma.handler.db.ReadService;
@@ -47,12 +50,18 @@ public class AllocatePapers extends HttpServlet {
 	int shift = 0;
 	int max_happiness = 0;
 	int contentment = 0;
+	StringBuffer result = new StringBuffer();
+	XMLHelper helper = new XMLHelper();
+	Navcolumn myNavCol = null;
+	String path = null;
+	int papersPerReviewer=0;
+	Topic[] topics = new Topic[0];
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, java.io.IOException {
 		
 		HttpSession session = request.getSession(true);
-
+		myNavCol = new Navcolumn(request.getSession(true));
 		PageStateHelper pagestate = new PageStateHelper(request);
 		Person person = (Person)session.getAttribute(SessionAttribs.PERSON);	
 		Conference conference 
@@ -60,7 +69,8 @@ public class AllocatePapers extends HttpServlet {
 	 
 		ReadService db_read = new coma.handler.impl.db.ReadServiceImpl();
 		SearchResult resultset;
-		
+		path = getServletContext().getRealPath("");
+		result.delete(0,result.length());
 		int conference_id = 1;  //TODO: conference_id eintragen!
 		
 		paperList = new AllocP_PaperList(conference_id
@@ -69,9 +79,14 @@ public class AllocatePapers extends HttpServlet {
 		resultset = db_read.getReviewerList(conference_id); 
 		fillPersonList(resultset);
 		
+		resultset = db_read.getTopic(0,conference_id);
+		topics = (Topic[]) resultset.getResultObj();
+		
 		allocatePapers();
-		//testphase TODO: wegmachen
-		printOut(response);
+
+		String action = request.getParameter("action");
+		if (action != null && action.equals("html")) printOut(response);
+		else printXML(response);
 		
 		resetHappiness();
 		happiness = 0;
@@ -82,11 +97,131 @@ public class AllocatePapers extends HttpServlet {
 	
 	
 	/**
+	 * @param response
+	 */
+	
+	/*
+	 * <result>
+	<Navbar>
+	<allocation papersPerReviewer=5>
+	<persons>
+		<reviewer id=xx firstname=xxx lastname=xxxx title=xxxx contentment=x>
+			<prefersPaper id=1 />
+			<prefersTopic id=1 />
+			<paper id=1 pref=paper/>
+			<paper id=1 pref=topic/>
+			<paper id=1 pref=none/>
+		</reviewer>
+	</persons>
+	<papers>
+		<paper id=1 title=xxxx>
+		 	<topic id=1/>
+		 	<topic id=1/>
+		 	<topic id=1/>
+		</paper>
+		<paper id=1 title=xxxx>
+		 	<topic id=1/>
+		 	<topic id=1/>
+		 	<topic id=1/>
+		</paper>
+	</papers>
+	<allocation>
+	<topics>
+		<topic id=1 name=blabla>
+		<topic id=1 name=blabla>
+		<topic id=1 name=blabla>
+	</topics>
+</result>
+	 */
+	private void printXML(HttpServletResponse response) {
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+		
+		
+		response.setContentType("text/html; charset=ISO-8859-1");
+		helper.addXMLHead(result);
+		result.append("<result>\n");
+		result.append(myNavCol+"\n");
+		result.append("<allocation papersPerReviewer=\""+papersPerReviewer+"\">\n");
+		result.append("<persons>\n");
+		for (int i = 0 ; i < personList.length; i++){
+			result.append("<reviewer ");
+			result.append("id=\""+personList[i].getPersonID()+"\"");
+			result.append(" firstname=\""+personList[i].getFirstName()+"\"");
+			result.append(" lastname=\""+personList[i].getLastName()+"\"");
+			result.append(" title=\""+personList[i].getTitle()+"\"");
+			result.append(" contentment=\""+personList[i].getContent()+"\"");
+			result.append(">\n");
+			Vector<Integer> prefP = personList[i].getPreferdPapers();
+			Vector<Integer> prefT = personList[i].getPreferdTopics();
+			for (int j = 0; j < prefP.size(); j++){
+				result.append("<prefersPaper id=\""+prefP.elementAt(j)+"\" />\n");				
+			}
+			for (int j = 0; j < prefT.size(); j++){
+				result.append("<prefersTopic id=\""+prefT.elementAt(j)+"\" />\n");				
+			}
+			Vector<AllocP_Paper> paps = personList[i].getPapers();
+			for (int j = 0; j < paps.size();j++){
+				AllocP_Paper p = paps.elementAt(j);
+				String pref = "none";
+				if (personList[i].isPreferedPaper(p)) pref = "paper"; 
+				else if (personList[i].isPreferedTopic(p)) pref = "topic";
+				result.append("<paper id=\""+(p.getPaperID()
+						+"\" pref=\""+pref+"\" />\n"));
+			}
+			result.append("</reviewer>\n");
+		}
+		result.append("</persons>\n");
+		result.append("<papers>\n");
+		Collection<AllocP_Paper> paps = paperList.getPapers();
+		Iterator<AllocP_Paper> it = paps.iterator();
+		while (it.hasNext()){
+			AllocP_Paper p = it.next();
+			result.append("<paper ");
+			result.append("id=\""+p.getPaperID()+"\"");
+			result.append(" title=\""+p.getTitle()+"\">\n");
+			int[] tops = p.getTopicIDs();
+			for (int j = 0 ; j < tops.length; j++){
+				result.append("<topic id=\""+tops[j]+"\" />\n");
+			}
+			Vector<AllocP_Person> revs = p.getReviewer();
+			for (int j = 0 ; j < revs.size();j++){
+				result.append("<reviewer id=\""+revs.elementAt(j).getPersonID()+"\" />\n");
+			}
+			result.append("</paper>\n");
+		}
+		result.append("</papers>\n");
+		result.append("</allocation>\n");
+		result.append("<topics>\n");
+		for (int i = 0 ; i < topics.length; i++){
+			result.append("<topic id=\""+topics[i].getId()
+					+"\" name=\""+topics[i].getName()+"\" />\n");
+		}
+		result.append("</topics>\n");
+		result.append("</result>\n");
+		
+		System.out.println(result.toString());
+		
+		String xslt = path + "/style/xsl/allocate.xsl";
+	    StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
+		StreamSource xsltSource = new StreamSource(xslt);
+		XMLHelper.process(xmlSource, xsltSource, out);
+		out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	/**
 	 * tempor�re Ausgabe
 	 */
 	private void printOut(HttpServletResponse res) {
 		
 		try {
+			res.setContentType("text/html");
 			PrintWriter out = res.getWriter();
 			out.print("<table border=1>");
 			out.print("<tr>");
@@ -152,7 +287,7 @@ public class AllocatePapers extends HttpServlet {
 			while (it.hasNext())
 			{
 				AllocP_Paper p = it.next();
-				out.println("Paper: "+p.getPaperID()+":"+p.getNumOfReviewer()+"<br>");
+				out.println("Paper: "+p.getPaperID()+" "+p.getTitle()+":"+p.getNumOfReviewer()+"<br>");
 			}
 			
 		} catch (IOException e) {
@@ -196,7 +331,7 @@ public class AllocatePapers extends HttpServlet {
 		alloc.reAlloc(paperList,personList);
 		happiness = getHappiness(personList);
 		contentment = getPercContent(personList);
-		
+		papersPerReviewer=personList[0].getNumOfPapers();
 	}
 	
 

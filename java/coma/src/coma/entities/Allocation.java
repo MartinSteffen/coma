@@ -21,17 +21,10 @@ public class Allocation {
 
 		int happiness = 0;
 		Hashtable<Integer,int[]> alloc = new Hashtable<Integer,int[]>();
-		Hashtable<Integer,Integer> reviews_paper 
-				= new Hashtable<Integer,Integer>();
+		
 				
 		public Allocation(AllocP_PaperList papers, AllocP_Person[] persons){
-			Collection<AllocP_Paper> pap = papers.getPapers();
-			Iterator<AllocP_Paper> it = pap.iterator();
-			while (it.hasNext()){
-				AllocP_Paper p = it.next();
-				reviews_paper.put(p.getPaperID(),p.getNumOfReviewer());
-			}
-			
+						
 			for (int i = 0; i < persons.length ; i++){
 				Vector<AllocP_Paper> v = persons[i].getPapers();
 				int[] p = new int[v.size()];
@@ -58,10 +51,7 @@ public class Allocation {
 							AllocP_Person[] personList) {
 			Collection<AllocP_Paper> pap = paperList.getPapers();
 			Iterator<AllocP_Paper> it = pap.iterator();
-			while(it.hasNext()){
-				AllocP_Paper p = it.next();
-				p.numOfReviewer = reviews_paper.get(p.getPaperID());
-			}
+			
 			for (int i = 0 ; i < personList.length; i++){
 							
 				Vector<AllocP_Paper> v = new Vector<AllocP_Paper>();
@@ -69,7 +59,8 @@ public class Allocation {
 				int[] papersOfPerson = alloc.get(personList[i].getPersonID());
 				for (int j = 0 ; j < papersOfPerson.length;j++){
 					v.add(paperList.getPaperByID(papersOfPerson[j]));
-					
+					AllocP_Paper per = paperList.getPaperByID(papersOfPerson[j]);
+					per.addReviewer(personList[i]);
 				}
 				personList[i].setPapers(v);
 				personList[i].reCalcHapCon();

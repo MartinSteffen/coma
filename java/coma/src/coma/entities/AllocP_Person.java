@@ -28,6 +28,7 @@ public class AllocP_Person  {
 	String first_name = "";
 	String last_name = "";
 	String email = "";
+	String title = "";
 	
 	public AllocP_Person(int id){
 		happiness = 0;
@@ -43,6 +44,7 @@ public class AllocP_Person  {
 		first_name = per.getFirst_name();
 		last_name = per.getLast_name();
 		email = per.getEmail();
+		title = per.getTitle();
 		sr = db_read.getPreferedPapers(personID);
 		int []prefP = (int[]) sr.getResultObj();
 		for (int i = 0;i < prefP.length;i++)
@@ -99,7 +101,7 @@ public class AllocP_Person  {
 		if (paper != null)
 		{
 			papers.add(paper);
-			paper.addReviewer();
+			paper.addReviewer(this);
 			forbiddenPapers.add(paper.getPaperID());
 			foundOne = true;
 			reCalcHapCon();
@@ -130,11 +132,9 @@ public class AllocP_Person  {
 	}
 
 	public boolean isPreferedPaper(AllocP_Paper p){
-		boolean isPref = false;
-	
-		if (isPref = this.prefersPaper.contains(p.getPaperID())) return isPref;
-		return isPref;
+		return this.prefersPaper.contains(p.getPaperID());
 	}
+	
 	public boolean isPreferedTopic(AllocP_Paper p){
 		boolean isPref = false;
 		int [] tops = p.getTopicIDs();
@@ -142,12 +142,15 @@ public class AllocP_Person  {
 			if (isPref = this.prefersTopic.contains(tops[i])) return isPref;
 		return isPref;
 	}
+	
 	public Vector<Integer> getPreferdPapers(){
 		return prefersPaper;
 	}
+	
 	public Vector<Integer> getPreferdTopics(){
 		return prefersTopic;
 	}
+	
 	public int getNumOfPapers()	{
 		return papers.size();
 	}
@@ -240,7 +243,9 @@ public class AllocP_Person  {
 	
 		return last_name;
 	}
-
+	public String getTitle(){
+		return title;
+	}
 	
 	
 }
