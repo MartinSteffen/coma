@@ -102,10 +102,10 @@ class DBAccess {
          ' FROM    Person'.
          ' WHERE   email = \''.$strEmail.'\'';
     $data = $this->mySql->select($s);
-    echo($data);
     if ($data) {
       return $data[0]['id'];
     }
+    echo('False');
     return false;
   }
   
