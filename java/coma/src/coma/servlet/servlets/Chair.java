@@ -96,6 +96,10 @@ public class Chair extends HttpServlet
 		user = user_person.getFirst_name() + " " + user_person.getLast_name();
 		if(menu)
 			myNavCol.addExtraData("<list_menu/>");
+		if(ProgramFileExists())
+		{
+			myNavCol.addExtraData("<ConfEnd/>");
+		}
 		if (action.equals("invite_person"))
 		{	
 			invite_person(req,res,session);
@@ -196,9 +200,22 @@ public class Chair extends HttpServlet
 	{		
 		tag = "login";
 		info.append("<content>");
-		info.append("Welcome to JCOMA chair: " + user + "\n");
+		if (is_abstract)
+			info.append("Abstract submission deadline terminated\n");
+		if (is_paper)
+			info.append("Paper submission deadline terminated\n");
+		if (is_final)
+		{
+			info.append("Final submission deadline terminated\n");
+		}	
+		if (is_review)
+		{
+			info.append("Review submission deadline terminated\n");
+			if (!ProgramFileExists())
+				info.append("Please select papers to create programm\n");
+		}
 		info.append("</content>");
-		info.append(XMLHelper.tagged("status","" + user + ": Hello"));
+		info.append(XMLHelper.tagged("status", user+" , Welcome to JCOMA "));
 		commit(res,tag);		
 	}
 	
@@ -241,7 +258,8 @@ public class Chair extends HttpServlet
 		tag = "statistic";
 		SearchCriteria search = new SearchCriteria();
 		int id = c.getId();
-		Paper search_paper = new Paper(-2);
+		Paper search_paper = new Paper(-1);
+		search_paper.setConference_id(c.getId());
 		search.setPaper(search_paper);
 		Paper[] papers = (Paper[])read.getPaper(search).getResultObj();
 		int[] role = new int[] {1,3,4,5};
@@ -257,7 +275,6 @@ public class Chair extends HttpServlet
 	    criterion.setConferenceId(c.getId());
 	    search.setCriterion(criterion);
 	    Criterion[] criterions = (Criterion[])read.getCriterion(search).getResultObj();
-	    ReviewReport search_report = new ReviewReport(-1);
 	    search.setReviewReport(new ReviewReport(-2));
 	    ReviewReport[] reports = (ReviewReport[])read.getReviewReport(search).getResultObj();
 		int number_of_persons = persons.length;
@@ -286,14 +303,14 @@ public class Chair extends HttpServlet
 		info.append(XMLHelper.tagged("reports",number_of_reports));
 		info.append(XMLHelper.tagged("participants",number_of_participants));;
 		info.append("</content>");
-		info.append(XMLHelper.tagged("status","statistic"));
+		info.append(XMLHelper.tagged("status","Statistics"));
 		commit(res,tag);
 	}
 	
 	private void invite_person(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
 		info.append(XMLHelper.tagged("content",""));
-		info.append(XMLHelper.tagged("status","" + user + ": invite a person\n"));
+		info.append(XMLHelper.tagged("status","Please invite Person"));
 		tag = "invite";
 		commit(res,tag);
 	}
@@ -306,8 +323,8 @@ public class Chair extends HttpServlet
 		FormularChecker checker = new FormularChecker(formular);
 		if (checker.check())
 		{
-			//p.setFirst_name(formular[0]);
-			//p.setLast_name(formular[1]);
+			p.setFirst_name(formular[0]);
+			p.setLast_name(formular[1]);
 			p.setEmail(formular[2]);
 			p.setConference_id(c.getId());
 			SearchCriteria criteria = new SearchCriteria();
@@ -317,7 +334,7 @@ public class Chair extends HttpServlet
 			if (result_array.length!=0)
 			{
 				info.append(XMLHelper.tagged("content",""));
-				info.append(XMLHelper.tagged("status","person " +  req.getParameter("first_name") + " " + req.getParameter("last_name")+ " is already in database"));
+				info.append(XMLHelper.tagged("status","Person " +  req.getParameter("first_name") + " " + req.getParameter("last_name")+ " is already in database"));
 				tag = "invite";
 				commit(res,tag);
 			}
@@ -326,19 +343,59 @@ public class Chair extends HttpServlet
 				Password_maker password_maker = new Password_maker(req.getParameter("first_name"),req.getParameter("last_name"),req.getParameter("email"));
 				String pass = password_maker.generate_password();
 				p.setPassword(pass);
+				String email_formular[] = new String[3];
 				if (req.getParameter("invite as").equals("author"))
+				{
 					p.setRole_type(4);
+					email_formular[1] = "Invitation as Author for Conference " + c.getName();
+				}
+					
 				if (req.getParameter("invite as").equals("reviewer"))
+				{
 					p.setRole_type(3);
+					email_formular[1] = "Invitation as Reviewer for Conference " + c.getName();
+				}	
 				if (req.getParameter("invite as").equals("participant"))
+				{
 					p.setRole_type(5);
-				insert.insertPerson(p);
-				/*
-				 * TODO send email
-				 */
-			    info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first_name") +" " +  req.getParameter("last_name")));
-			    info.append(XMLHelper.tagged("content",""));
-			    tag = "invitation_send";
+					email_formular[1] = "Invitation as Participant for Conference " + c.getName();
+				}
+				email_formular[2] = req.getParameter("comment").toString() + "\n"
+				+"Conference Homepage: " + c.getHomepage()+"\n"
+				+"your username: "+ p.getEmail()+"\n"
+				+"your password: "+ p.getPassword();	
+				email_formular[0]=p.getEmail();
+				boolean SENDED = sendEmail(user_person.getEmail(),formular);
+				tag = "invitation_send";
+				if (checker.EmailCheck(2))
+				{
+					if (SENDED)
+					{
+						info.append(XMLHelper.tagged("status","E-Mail successfully send to " + req.getParameter("first_name") +" " +  req.getParameter("last_name")));
+						insert.insertPerson(p);
+					}
+					else
+					{
+						info.append(XMLHelper.tagged("status","Sending problems, try again later ;-)"));
+						tag = "invite";
+						info.append("<content>");
+					    info.append(XMLHelper.tagged("first",formular[0]));
+					    info.append(XMLHelper.tagged("last",formular[1]));
+					    info.append(XMLHelper.tagged("email",formular[2]));
+						info.append("</content>");
+					}		
+				}
+				else
+				{
+					info.append(XMLHelper.tagged("status","INVALID EMAIL ADDRESS"));	
+					tag = "invite";
+					info.append("<content>");
+				    info.append(XMLHelper.tagged("first",formular[0]));
+				    info.append(XMLHelper.tagged("last",formular[1]));
+				    info.append(XMLHelper.tagged("email",formular[2]));
+					info.append("</content>");
+				}	
+			    //info.append(XMLHelper.tagged("content",""));    
 			    commit(res,tag);
 			}
 		}
@@ -350,7 +407,7 @@ public class Chair extends HttpServlet
 		    info.append(XMLHelper.tagged("last",formular[1]));
 		    info.append(XMLHelper.tagged("email",formular[2]));
 			info.append("</content>");
-			info.append(XMLHelper.tagged("status","" + user + ": you have to fill out all *-fields"));
+			info.append(XMLHelper.tagged("status","Please check your textfields"));
 			tag = "invite";
 			commit(res,tag);
 		}
@@ -361,7 +418,7 @@ public class Chair extends HttpServlet
 		if(req.getParameter("criterion_target").equals("add"))
 		{
 			tag = "criterion_add";
-			info.append(XMLHelper.tagged("status","please insert criterion: "));
+			info.append(XMLHelper.tagged("status","Please insert a criterion"));
 			info.append(XMLHelper.tagged("content",""));
 			commit(res,tag);	
 		}
@@ -385,7 +442,7 @@ public class Chair extends HttpServlet
 			else
 			{
 				tag = "criterion_add";
-				info.append(XMLHelper.tagged("status","you have to fill out all *-fields"));
+				info.append(XMLHelper.tagged("status","Please check your textfields"));
 				info.append("<content>");
 				info.append(XMLHelper.tagged("name",formular[0]));
 			    info.append(XMLHelper.tagged("description",formular[1]));
@@ -420,7 +477,7 @@ public class Chair extends HttpServlet
 		    info.append(XMLHelper.tagged("ranking",result_criterion[0].getQualityRating()));
 		    info.append(XMLHelper.tagged("id",result_criterion[0].getId()));
 		    info.append("</content>");
-		    info.append(XMLHelper.tagged("status","change criterion"));
+		    info.append(XMLHelper.tagged("status","Change Criterion "+result_criterion[0].getName()));
 			commit(res,tag);	
 		}
 		
@@ -432,7 +489,7 @@ public class Chair extends HttpServlet
 			if (!req.getParameter("criterion_name").equals(""))
 				criterion.setName(req.getParameter("criterion_name"));
 			if (!req.getParameter("criterion_description").equals(""))
-				criterion.setDescription(req.getParameter("criterion_descriptio"));
+				criterion.setDescription(req.getParameter("criterion_description"));
 			if (!req.getParameter("criterion_value").equals(""))
 				criterion.set_max_value(Integer.parseInt(req.getParameter("criterion_value").toString()));
 			if (!req.getParameter("criterion_ranking").equals(""))
@@ -462,7 +519,7 @@ public class Chair extends HttpServlet
 				info.append("</topic_new>");
 			}
 			info.append("</content>");
-			info.append(XMLHelper.tagged("status","please insert topic(s): "));
+			info.append(XMLHelper.tagged("status","Please insert Topic(s): "));
 			commit(res,tag);
 		}
 		
@@ -501,7 +558,7 @@ public class Chair extends HttpServlet
 		{
 			int count = 0;
 			tag="setup_topics";
-			info.append(XMLHelper.tagged("status",user + ": setup topic(s) "));
+			info.append(XMLHelper.tagged("status","Topic(s) Setup"));
 			info.append("<content>");
 			for (int i=0;i<topics.length;i++)
 			{
@@ -518,7 +575,7 @@ public class Chair extends HttpServlet
 		if (req.getParameter("target").equals("conference"))
 		{
 			tag = "setup";
-			info.append(XMLHelper.tagged("status",user + ": conference configuration"));
+			info.append(XMLHelper.tagged("status","Conference Configuration"));
 			info.append("<content>\n");
 			if (c!=null)
 				info.append(c.toXML(Entity.XMLMODE.DEEP));	
@@ -560,7 +617,7 @@ public class Chair extends HttpServlet
 				info.append(result_criteria[i].toXML());
 			}
 			info.append("</content>\n");
-			info.append(XMLHelper.tagged("status",user + ": criteria configuration"));
+			info.append(XMLHelper.tagged("status","Criterion Configuration"));
 			commit(res,tag);
 		}
 		
@@ -574,7 +631,7 @@ public class Chair extends HttpServlet
 			if (topics.length==0)
 			{
 				info.append("<error>");
-				info.append("you have to choose at least 1 topic");
+				info.append("you have to choose at least 1 Topic");
 				info.append("</error>");
 			} 
 			Criterion search_criteria = new Criterion(-1);
@@ -586,11 +643,11 @@ public class Chair extends HttpServlet
 			if (result_criteria.length==0)
 			{
 				info.append("<error>");
-				info.append("you have to choose at least 1 criterion");
+				info.append("you have to choose at least 1 Criterion");
 				info.append("</error>");
 			}
 			info.append("</content>");
-			info.append(XMLHelper.tagged("status",user + ": save initial setup"));
+			info.append(XMLHelper.tagged("status","Save initial Setup"));
 			commit(res,tag);
 		}
 		
@@ -613,7 +670,7 @@ public class Chair extends HttpServlet
 			else
 			{
 				tag="save_initial";
-				info.append(XMLHelper.tagged("status",user +": You must choose a name for the conference"));
+				info.append(XMLHelper.tagged("status","You must choose a name for the conference"));
 				info.append(XMLHelper.tagged("content",""));
 				commit(res,tag);
 			}	
@@ -630,7 +687,7 @@ public class Chair extends HttpServlet
 	    SearchResult search_result = read.getPaper(criteria);
 		Paper[] papers = (Paper[])search_result.getResultObj();
 		tag="show_topics";
-		info.append(XMLHelper.tagged("status",user + ": topics"));
+		info.append(XMLHelper.tagged("status","Topics"));
 		info.append("<content>");
 		for (int i=0;i<topics.length;i++)
 		{
@@ -657,7 +714,7 @@ public class Chair extends HttpServlet
 	{
 	    Criterion[] criterions = (Criterion[])session.getAttribute("criterions");
 		tag="show_criterions";
-		info.append(XMLHelper.tagged("status",user + ": criterions"));
+		info.append(XMLHelper.tagged("status","Criterions"));
 		info.append("<content>");
 		for (int i=0;i<criterions.length;i++)
 		{
@@ -773,7 +830,7 @@ public class Chair extends HttpServlet
 		
 		if (result==null || result.length ==0)
         {
-			info.append(XMLHelper.tagged("status","" + user + ": no authors available"));
+			info.append(XMLHelper.tagged("status","No Authors available"));
         	commit(res,tag);
         }
         else
@@ -802,9 +859,9 @@ public class Chair extends HttpServlet
         	}
         	info.append("</content>");
         	if (PAPER)
-        		info.append(XMLHelper.tagged("status","" + user + ": statistic for author "+ p.getFirst_name()+" "+p.getLast_name()));	
+        		info.append(XMLHelper.tagged("status","Statistic Author "+ p.getFirst_name()+" "+p.getLast_name()));	
         	else
-        		info.append(XMLHelper.tagged("status","" + user + ": list of all authors"));	
+        		info.append(XMLHelper.tagged("status","Authors"));	
         	commit(res,tag);
         }
 	}
@@ -844,7 +901,7 @@ public class Chair extends HttpServlet
 		}
 		if (result==null || result.length ==0)
         {
-			info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
+			info.append(XMLHelper.tagged("status","No Reviewers available"));
         	commit(res,tag);
         }
 		else
@@ -865,7 +922,7 @@ public class Chair extends HttpServlet
         		info.append(RR.toXML());
         	}
         	info.append("</content>");
-        	info.append(XMLHelper.tagged("status","" + user + ": list of all reviewers"));
+        	info.append(XMLHelper.tagged("status","Reviewers"));
         	commit(res,tag);
         }
 	}
@@ -873,29 +930,34 @@ public class Chair extends HttpServlet
 	private void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
         tag = "show_papers";
+        SearchCriteria search = new SearchCriteria();
         Paper p; 
-        Paper[] result = (Paper[])session.getAttribute("papers");
+        Paper search_paper = new Paper(-1);
+        search_paper.setConference_id(c.getId());
+		search.setPaper(search_paper);
+		Paper[] result= (Paper[])read.getPaper(search).getResultObj();
         if (result==null || result.length ==0)
         {
-        	info.append(XMLHelper.tagged("status","" + user + ": no papers available"));
+        	info.append(XMLHelper.tagged("status","No Papers available"));
         	commit(res,tag);
         }
         else
         {
         	info.append("<content>");
         	info.append("<paperPlus>");
-        	SearchCriteria search = new SearchCriteria();
+        	search = new SearchCriteria();
         	for (int i=0;i<result.length;i++)
         	{
         		p = result[i];
             	search.setPaper(p);
-            	Finish[] f = (Finish[])read.getFinalData(search,0).getResultObj();
-            	info.append(XMLHelper.tagged("avg",f[0].getAvgGrade()));
+            	Finish[] f = (Finish[])read.getFinalData(search,0,c.getId()).getResultObj();
+            	if (f.length!=0)
+            		info.append(XMLHelper.tagged("avg",f[0].getAvgGrade()));
         		info.append(p.toXML(Entity.XMLMODE.DEEP));
         	}
         	info.append("</paperPlus>");
         	info.append("</content>\n");
-        	info.append(XMLHelper.tagged("status","" + user + ": all papers\n"));
+        	info.append(XMLHelper.tagged("status","Papers"));
         	commit(res,tag);	
         }
 }
@@ -912,7 +974,7 @@ public class Chair extends HttpServlet
 		{
 			info.append(XMLHelper.tagged("content",""));
 		}
-		info.append(XMLHelper.tagged("status","" + user + ": please write an email"));
+		info.append(XMLHelper.tagged("status","Please write an email"));
 		tag="email";
 		commit(res,tag);
 	}
@@ -932,7 +994,7 @@ public class Chair extends HttpServlet
 			if(SENDED)
 			{
 				info.append(XMLHelper.tagged("content",""));
-				info.append(XMLHelper.tagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate()));
+				info.append(XMLHelper.tagged("status","E-Mail successfully send to " + formular[0] +" at " + MyE.getDate()));
 				String tag = "email";
 				commit(res,tag);
 			}
@@ -983,7 +1045,7 @@ public class Chair extends HttpServlet
         if (resultP==null || resultP.length ==0)
         {
         	info.append("</content>");
-        	info.append(XMLHelper.tagged("status","" + user + ": no papers available"));
+        	info.append(XMLHelper.tagged("status","No Papers available"));
         	commit(res,tag);
         }
         else
@@ -1008,7 +1070,7 @@ public class Chair extends HttpServlet
 	   	 	if (result1==null || result1.length ==0)
 	        {
 	   	 		info.append("</content>");
-	   	 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
+	   	 		info.append(XMLHelper.tagged("status","No Reviewers available"));
 	        	commit(res,tag);
 	        }
 	        else
@@ -1046,7 +1108,7 @@ public class Chair extends HttpServlet
 	          		info.append(XMLHelper.tagged("already",count-c.getMin_review_per_paper()));
 	        	session.setAttribute("CheckedReviewers",CheckedReviewers);
 	        	info.append("</content>");
-	        	info.append(XMLHelper.tagged("status","" + user + ": Assignment"));
+	        	info.append(XMLHelper.tagged("status","Assignment"));
 	        	commit(res,tag);
 	        }
         }
@@ -1081,12 +1143,18 @@ public class Chair extends HttpServlet
 				ReviewReport RR = new ReviewReport();
 				RR.setReviewerId(id);
 				RR.setPaperId(PaperID);
+				Paper p = new Paper(PaperID);
+				search = new SearchCriteria();
+				search.setPaper(p);
+				p = ((Paper[])read.getPaper(search).getResultObj())[0];
+				p.setState(0);
+				update.updatePaper(p);
 				search.setReviewReport(RR);
 				result = read.getReviewReport(search);
 				ReviewReport[] Review_result = (ReviewReport[])result.getResultObj();
-				delete.deleteReviewReport(Review_result[0].getId());
 				Rating r = new Rating();
-				r.set_report_id(RR.get_reviewer_id());
+				r.setReviewReportId(Review_result[0].getId());
+				delete.deleteReviewReport(Review_result[0].getId());
 				search.setRating(r);
 				result = read.getRating(search);
 				Rating[] R = (Rating[])result.getResultObj();
@@ -1099,6 +1167,12 @@ public class Chair extends HttpServlet
 	    {
 	    	if(NewReviewerIDs[i] != null)
 	    	{
+	    		Paper p = new Paper(PaperID);
+				search = new SearchCriteria();
+				search.setPaper(p);
+				p = ((Paper[])read.getPaper(search).getResultObj())[0];
+				p.setState(1);
+				update.updatePaper(p);
 	    		ReviewReport RR = new ReviewReport(-1);
 	    		RR.set_paper_Id(PaperID);   
 	    		RR.set_reviewer_id(Integer.parseInt(NewReviewerIDs[i]));
@@ -1129,12 +1203,18 @@ public class Chair extends HttpServlet
 			ReviewReport RR = new ReviewReport();
 			RR.setReviewerId(id);
 			RR.setPaperId(PaperID);
+			Paper p = new Paper(PaperID);
+			search = new SearchCriteria();
+			search.setPaper(p);
+			p = ((Paper[])read.getPaper(search).getResultObj())[0];
+			p.setState(0);
+			update.updatePaper(p);
 			search.setReviewReport(RR);
 			result = read.getReviewReport(search);
 			ReviewReport[] Review_result = (ReviewReport[])result.getResultObj();
 			delete.deleteReviewReport(Review_result[0].getId());
 			Rating r = new Rating();
-			r.set_report_id(RR.get_reviewer_id());
+			r.set_report_id(Review_result[0].getId());
 			search.setRating(r);
 			result = read.getRating(search);
 			Rating[] R = (Rating[])result.getResultObj();
@@ -1174,7 +1254,7 @@ public class Chair extends HttpServlet
 				    search.setPaper(p);
 				    SearchResult search_resultP = readService.getPaper(search); 
 				    p = ((Paper[])search_resultP.getResultObj())[0];
-				    p.setState(0);				
+				    p.setState(4);				
 					update.updatePaper(p);
 				}	
 			}
@@ -1186,7 +1266,7 @@ public class Chair extends HttpServlet
 				    search.setPaper(p);
 				    SearchResult search_resultP = readService.getPaper(search); 
 				    p = ((Paper[])search_resultP.getResultObj())[0];
-				    p.setState(1);	
+				    p.setState(3);	
 					update.updatePaper(p);	
 		    	}
 		    }
@@ -1199,11 +1279,11 @@ public class Chair extends HttpServlet
 			    search.setPaper(p);
 			    SearchResult search_resultP = readService.getPaper(search); 
 			    p = ((Paper[])search_resultP.getResultObj())[0];
-			    p.setState(0);		
+			    p.setState(4);		
 				update.updatePaper(p);
 			}
 		}
-		info.append(XMLHelper.tagged("status","" + user + ": Done successfulll: "));
+		info.append(XMLHelper.tagged("status","Changes committed: "));
 		program(req,res,session);
  	}
 	
@@ -1259,7 +1339,7 @@ public class Chair extends HttpServlet
         for(int i=0;i<P.length;i++){
         	formular[0] += P[i].getEmail()+";";
         }
-        sendEmail(user,formular);
+        sendEmail(user_person.getEmail(),formular);
 	}
 
 	private void programShow(HttpServletRequest req,HttpServletResponse res,HttpSession session)
@@ -1267,7 +1347,7 @@ public class Chair extends HttpServlet
 		StringBuffer program = new StringBuffer();
 		SearchCriteria search = new SearchCriteria();
 		Paper p = new Paper(-1);
-		p.setState(1);
+		p.setState(3);
 		search.setPaper(p);
 		SearchResult search_resultP = read.getPaper(search);
 		int Selection = ((Paper[])search_resultP.getResultObj()).length;
@@ -1277,12 +1357,12 @@ public class Chair extends HttpServlet
 		int RestSem  = Selection%Days;
 		String[] Times = new String[]{"09:00-10:00","10:00-11:00","11:00-12:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17.00-18:00"};
         int SortBy =3;
-        SearchResult search_result = read.getFinalData(search,SortBy); 
+        SearchResult search_result = read.getFinalData(search,SortBy,c.getId()); 
         Finish[] result = (Finish[])search_result.getResultObj();
         Finish f = new Finish();
         if (result==null || result.length ==0)
         {
-        	info.append(XMLHelper.tagged("status","" + user + ": no papers available"));
+        	info.append(XMLHelper.tagged("status","No Papers available"));
         	commit(res,tag);
         }
         else
@@ -1348,7 +1428,7 @@ public class Chair extends HttpServlet
     		WriteFiles(info,program);
     	}
         }
-		info.append(XMLHelper.tagged("status","" + user + ": Program Creation Sucessful "));
+		info.append(XMLHelper.tagged("status","Program successfully created "));
     	commit(res,tag);	
  	}
 	
@@ -1361,12 +1441,12 @@ public class Chair extends HttpServlet
         int SortBy =-1;
         if(req.getParameter("sort") != null)
         	SortBy = Integer.parseInt(req.getParameter("sort"));
-        SearchResult search_result = readService.getFinalData(search,SortBy); 
+        SearchResult search_result = readService.getFinalData(search,SortBy,c.getId()); 
         Finish[] result = (Finish[])search_result.getResultObj();
         Finish f = new Finish();
         if (result==null || result.length ==0)
         {
-        	info.append(XMLHelper.tagged("status","" + user + ": no papers available"));
+        	info.append(XMLHelper.tagged("status","No Papers available"));
         	commit(res,tag);
         }
         else
@@ -1376,11 +1456,11 @@ public class Chair extends HttpServlet
         	{
         		f = result[i];
         		info.append(f.toXML(Entity.XMLMODE.DEEP));
-        		if(f.getState() == 1)
+        		if(f.getState() == 3)
         			SelectedPapers.addElement(String.valueOf(f.getPaperId())); 	
         	}
         	info.append("</content>");
-        	info.append(XMLHelper.tagged("status","" + user + ": ALL PAPERS"));
+        	info.append(XMLHelper.tagged("status","Papers"));
         	session.setAttribute("SelectedPapers",SelectedPapers);
         	commit(res,tag);	   
  	}
