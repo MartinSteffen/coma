@@ -129,6 +129,11 @@ paper_id	Int          	-> Paper, id
 person_id	Int		-> Person, id
 paper_id	Int             -> Paper, id
 
+ Table ExcludesPaper
+~~~~~~~~~~~~~~~~~~~~~
+person_id	Int		-> Person, id
+paper_id	Int             -> Paper, id
+
  Table ReviewReport
 ~~~~~~~~~~~~~~~~~~~~
 id              Int             Primary Key, Autoincrement
