@@ -950,8 +950,8 @@ class DBAccess extends ErrorHandling {
       foreach ($objReviews as $objReview){
         $fltVariance = $fltVariance + pow(($objReview->fltReviewRating - $fltAvgRating), 2);
       }
-      $fltVariance = $fltVariance / count($objReviews);
-      return $this->success($fltVariance*4); // Faktor 4 fuer Skalierung auf 0..1
+      $fltVariance = sqrt($fltVariance / count($objReviews)); // jetzt Standardabweichung!!
+      return $this->success($fltVariance*2); // Faktor 2 fuer Skalierung auf 0..1
     }
     return $this->success(false);
   }
