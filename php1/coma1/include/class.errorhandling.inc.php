@@ -8,6 +8,18 @@ if (!defined('IN_COMA1')) {
   exit('Hacking attempt');
 }
 
+/**
+ * Klasse ErrorHandling
+ *
+ * @author Jan Waller <jwa@informatik.uni-kiel.de>
+ * @author Sandro Esquivel <sae@informatik.uni-kiel.de>
+ * @author Tom Scherzer <tos@informatik.uni-kiel.de>
+ * @copyright Copyright (c) 2004, Gruppe: PHP1
+ * @package coma1
+ * @subpackage core
+ * @access public
+ *
+ */
 class ErrorHandling {
 
   /**#@+
@@ -75,7 +87,6 @@ class ErrorHandling {
   function failed() {
     return $this->blnError;
   }
-
-}
+} // End class ErrorHandling
 
 ?>
