@@ -1,6 +1,8 @@
 <tr class="listitem-{line_no}">
   <td class="listitem-{line_no}" colspan="3">
-    <a href="{link}"><span class="emph">{name}</span></a>
+    <a href="{basepath}main_conference_details.php?{SID}&confid={confid}">
+      <span class="emph">{name}</span>
+    </a>{if4 &nbsp; | &nbsp; <a href="{link}">homepage</a>}
   </td>
   <td class="listitem-{line_no}">
     {startdate} - {enddate}
