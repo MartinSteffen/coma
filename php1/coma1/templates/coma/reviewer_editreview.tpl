@@ -11,26 +11,31 @@
     <td colspan="2">
       <table class="list">
         <tr class="listheader">
-           <th>Evaluation of review criteria:</th>
+          <th>Rating criterion</th>
+          <th>Score</th>
+          <th>Comment</th>
         </tr>
         <tr class="listitem-1"> 
-          <td class="listitem-1">truth:</td>
-          <td class="listitem-1"><input type="text" size="2" name="overall rating" value="2"/>/3</td>
+          <td class="listitem-1">Truth:</td>
+          <td class="listitem-1"><input type="text" size="2" name="rating-1" value="2"/>/3</td>
+          <td class="listitem-1"><textarea name="comment-1" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>
         <tr class="listitem-2"> 
-          <td class="listitem-2">originality:</td>
-          <td class="listitem-2"><input type="text" size="2" name="overall rating" value="1"/>/5</td>
+          <td class="listitem-2">Originality:</td>
+          <td class="listitem-2"><input type="text" size="2" name="rating-2" value="1"/>/5</td>
+          <td class="listitem-1"><textarea name="comment-2" rows="1" cols="48">Bla, bla...</textarea></td>
         </tr>
         <tr class="listitem-1"> 
-          <td class="listitem-1">style:</td>
-          <td class="listitem-1"><input type="text" size="2" name="overall rating" value="7"/>/10</td>
-        </tr>
-        <tr class="listitem-2"> 
-          <td class="listitem-2"><span class="emph">overall rating:</span></td>
-          <td class="listitem-2"><input type="text" size="2" name="overall rating" value="3"/>/5</td>
-        </tr>
+          <td class="listitem-1">Style:</td>
+          <td class="listitem-1"><input type="text" size="2" name="rating-3" value="7"/>/10</td>
+          <td class="listitem-1"><textarea name="comment-3" rows="1" cols="48">Bla, bla...</textarea></td>
+        </tr>        
       </table>
     </td>  
+  </tr>
+  <tr> 
+    <td><span class="emph">Overall rating:</span></td>
+    <td><input type="text" size="2" name="overall rating" value="3"/>/5</td>          
   </tr>
   <tr>
     <td>
