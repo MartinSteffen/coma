@@ -12,12 +12,8 @@ if(isChair_Conference($_GET['confID']))
     }
 	$SQL = "select paper.id, paper.title, paper.abstract, paper.state, 
 	        person.id, person.title, person.first_name, person.last_name 
-			from paper, person, role
-			where role.role_type = 2
-			and role.state = 1 
-			and role.person_id = ".$_SESSION['userID']."
-			and role.conference_id = ".$_GET['confID']."
-			and role.conference_id = paper.conference_id 
+			from paper, person
+			where paper.conference_id = ".$_GET['confID']." 
 			and paper.author_id = person.id";
 						
     $result=mysql_query($SQL);

@@ -4,12 +4,8 @@ if(isChair_Paper($_GET['paperID']))
 	$SQL = "select paper.title, paper.abstract, paper.last_edited, paper.version, paper.state, 
 	        person.id, person.title, person.first_name, person.last_name, 
 			conference.id, conference.name
-			from paper, conference, person, role 
-			where role.role_type = 2
-			and role.state = 1 
-			and role.person_id = ".$_SESSION['userID']."
-			and role.conference_id = conference.id 
-			and conference.id = paper.conference_id 
+			from paper, conference, person 
+			where conference.id = paper.conference_id 
 			and paper.id = ".$_GET['paperID']." 
 			and paper.author_id = person.id";
 					

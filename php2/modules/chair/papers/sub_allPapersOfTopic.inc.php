@@ -12,12 +12,8 @@ if(isChair_Topic($_GET['topicID']))
     }
 	$SQL = "select paper.id, paper.title, paper.abstract, paper.state, 
 	        person.id, person.title, person.first_name, person.last_name, conference.name 
-			from paper, person, role, conference, isabouttopic  
-			where role.role_type = 2
-			and role.state = 1 
-			and role.person_id = ".$_SESSION['userID']."
-			and role.conference_id = paper.conference_id 
-			and paper.author_id = person.id
+			from paper, person, conference, isabouttopic  
+			where paper.author_id = person.id
 			and paper.conference_id = conference.id
 			and paper.id = isabouttopic.paper_id
 			and isabouttopic.topic_id = ".$_GET['topicID'];
