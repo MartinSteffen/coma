@@ -16,7 +16,6 @@ if (!defined('IN_COMA1')) {
  * @param string $strError Beschreibung des Fehlers
  * @param string $strComment optionaler weiterer Kommentar
  * @return bool immer <b>false</b>
- * @todo Fehlerausgabe verbessern
  */
 function error($strMethod, $strError, $strComment='') {
   $strComment = empty($strComment) ? '' : " ($strComment)";
@@ -32,8 +31,8 @@ function error($strMethod, $strError, $strComment='') {
  * Diese Funktion lenkt den Benutzer auf einen anderen Skript weiter, in
  * dem die Bearbeitung fortgeführt wird. Dabei wird sichergestellt, das
  * Sessioninformationen erhalten bleiben.
- * WICHTIG: nur vor irgendwelchen Ausgaben aufrufen!
  *
+ * @warning nur vor irgendwelchen Ausgaben aufrufen!
  * @param string $strName Das aufzurufende Skript.
  */
 function redirect($strName) {
