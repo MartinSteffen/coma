@@ -7,7 +7,7 @@
 
 <body>
 
-<a name="top" />
+<a name="top"></a>
 
 <table class="header">
  <tr>
