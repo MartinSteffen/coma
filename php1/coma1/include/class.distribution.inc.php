@@ -118,9 +118,9 @@ class Distribution extends ErrorHandling {
         
       }
     }*/
-    for ($i = 0; $i < count($r_pos_id); $i++) {
-      echo ('<br>'.$i.': '.$r_pos_id[$i].'; ');
-      echo ($r_id_pos[$r_pos_id[$i]]);
+    for ($i = 0; $i < count($p_pos_id); $i++) {
+      echo ('<br>'.$i.': '.$p_pos_id[$i].'; ');
+      echo ($p_id_pos[$p_pos_id[$i]]);
     }
     return $matrix;
   }
