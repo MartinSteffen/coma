@@ -190,7 +190,7 @@ else {
     error('Conference does not exist in database.', '');
   }
   $strContentAssocs['name']             = encodeText($objConference->strName);
-  $strContentAssocs['description']      = encodeText($objConference->strDescription);
+  $strContentAssocs['description']      = encodeText($objConference->strDescription, false);
   $strContentAssocs['homepage']         = encodeURL($objConference->strHomepage);
   $strContentAssocs['start_date']       = encodeText($objConference->strStart);
   $strContentAssocs['end_date']         = encodeText($objConference->strEnd);
