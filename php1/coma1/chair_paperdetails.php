@@ -14,7 +14,7 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
-$content = new Template(TPLPATH.'chair_paperdetails.tpl');
+$content = new Template(TPLPATH.'view_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
