@@ -27,18 +27,18 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
 
   // Teste, ob alle Pflichtfelder ausgefuellt wurden
   if (empty($_POST['last_name'])
-  ||  empty($_POST['email'])
-    $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>Email</b>!';
+  ||  empty($_POST['email'])) {
+    $strMessage = 'You have to fill in the fields <b>Last name</b>, and <b>E-mail</b>!';
   }
   // Teste, ob die Email gueltig ist
   else if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
-    $strMessage = 'Please enter a valid email address!';
+    $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist
   else if ($_POST['email'] != $objPerson->strEmail &&
            $myDBAccess->checkEmail($_POST['email'])) {
-    $strMessage = 'Account with the given email address is already existing! '.
-                  'Please use enter another email address!';
+    $strMessage = 'Account with the given E-mail address is already existing! '.
+                  'Please use enter another E-mail address!';
   }
   else {
     $objPerson->strFirstName   = $_POST['first_name'];
