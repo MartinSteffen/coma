@@ -1,0 +1,428 @@
+============================================================================
+  SPEZIFIKATION - NAVIGATION UND SEITENSTRUKTUR
+============================================================================
+
+Zusatz zur technischen Spezifikation [main.txt] der Gruppe PHP1.
+Dieses Dokument spezifiziert die Seitenstruktur der php-Dokumente, aus welchen
+CoMa besteht. Es beschreibt den Inhalt der einzelnen Seiten (statischer Inhalt,
+Formularfelder, Interaktionselemente, Menü) und deren Verknüpfung untereinander.
+Die Beschreibung stützt sich auf die UML-Diagramme, sowie die Spezifikation
+[spec-1.pdf], die als Grundlage für die Implementierung dient.
+
+
+
+============================================================================
+  STAND UND HISTORIE DIESES DOKUMENTS:
+============================================================================
+
+Datum    Autor   Änderung(en)
+----------------------------------------------------------------------------
+10.12.04 sae     Dokument erstellt: Kapitel 1, 2.I-III, Anmerkungen
+13.12.04 sae     Dateinamen fuer die bisher erstellten Seiten hinzugefuegt
+24.01.05 sae     Datei aktualisiert, Statusbeschreibungen hinzugefuegt
+
+
+
+============================================================================
+  INHALT
+============================================================================
+  1. Beschreibung des Rahmenlayouts
+  2. Die Seitenstrukur und ihre Navigation
+       I. Navigation ohne Login 
+      II. Navigation nach Login
+     III. Navigation nach Login zu einer Konferenz
+App. Anmerkungen zur Notation
+
+
+
+============================================================================
+  1. BESCHREIBUNG DES RAHMENLAYOUTS
+============================================================================
+
+Beschreibung der Rahmenstruktur:
+
+Am oberen Bildrand werden Logo, Login-Name und aktueller Pfad
+innerhalb der Navigationsstruktur von CoMa angezeigt
+(z.B. 'user@coma.de | Testkonferenz | Chair | Benutzer verwalten')
+
+Die Menüpunkte werden am linken Bildrand angezeigt.
+Der aktuelle Menüpunkt ist hervorgehoben.
+
+Am unteren Bildrand wird das Impressum angezeigt (Autoren, ...),
+sowie eventuell eine Statuszeile (Loginzeit, Sessiondauer, aktuelle
+Zeit oder ähnliche Daten). [?]
+
+Formulare (Eingabefelder), Inhalt (statische Information) und
+Optionen (Schaltflächen, Links) werden im restlichen Bild angezeigt.  
+
+
+
+============================================================================
+  2. DIE SEITENSTRUKTUR UND IHRE NAVIGATION
+============================================================================
+  
+Aufruf der index.html (-> I. Startseite, Startmenü)
+
+   I. NAVIGATION OHNE LOGIN:
+
+Startmenü  [startmenu.tpl]
+----------
+Menü:      - Login (-> Startseite)
+           - Registrieren (-> Neuen Benutzer registrieren)
+           - Hilfe (-> Hilfe)
+           - Impressum (-> Impressum)
+STATUS:    fertig
+
+Startseite  [login.php]
+-----------
+Inhalt:    - Begrüßungstext
+Formulare: - Benutzername und Passwort für Login
+Optionen:  - Login (-> II. Konferenzauswahl, Benutzermenü)
+           - Registrieren (-> Neuen Benutzer registrieren)
+STATUS:    fertig
+
+Neuen Benutzer registrieren  [register.php]
+----------------------------
+Formulare: - Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail, ...)
+Optionen:  - Registrierung bestätigen (-> Startseite)
+           - Registrierung abbrechen (-> Startseite)
+STATUS:    fertig
+
+Hilfe  [help.php]
+------
+Inhalt:    - Kurze Hilfe zur Anmeldung und Benutzerführung
+STATUS:    Text muss hinzugefuegt werden
+
+Impressum  [imprint.php]
+----------
+Inhalt:    - Über das Programm, Autoren, etc.
+STATUS:    Text muss hinzugefuegt werden
+
+
+  II. NAVIGATION NACH LOGIN:
+
+Benutzermenü  [mainmenu.tpl]
+-------------
+Menü:      - Profil (-> Profil einstellen)
+           - Foren  (-> Forenübersicht)
+           - Nachrichten (-> Nachrichtenübersicht)
+           - Konferenzauswahl (-> Konferenzauswahl)
+           - Logout (-> Startseite)
+STATUS:    fertig
+
+Profil einstellen  [main_profile.php]
+------------------
+Formulare: - Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail, ...)
+Optionen:  - Einstellungen übernehmen
+STATUS:    fertig
+
+Konferenzauswahl  [main_conferences.php]
+-----------------
+Inhalt:    - Liste der verfügbaren Konferenzen
+Optionen:  - Login zu den Konferenzen (-> III. Konferenz-Startseite, Konferenzmenü)
+           - Link zu den Konferenzseiten (-> [externer Link])
+           - Anmeldung zu den einzelnen Konferenzen
+             - als Autor (-> Rollenanmeldung)
+             - als Reviewer (-> Rollenanmeldung)
+             - als Teilnehmer (-> Rollenanmeldung)
+           - Zurückziehen von bestehenden Anmeldungen (-> Rollenanmeldung)
+           - Neue Konferenz erstellen (-> Neue Konferenz [einfach])
+STATUS:    fertig
+
+Neue Konferenz [einfach] [create_conference.php]
+---------------
+Formulare: - Einfache Konferenzdaten (Titel, Beschreibung, Zeit, ...)
+Optionen:  - Erweiterte Einstellungen  (-> Neue Konferenz [erweitert])
+           - Konferenz anlegen (-> Konferenzauswahl)
+           - Abbrechen (-> Konferenzauswahl)
+STATUS:    fertig
+
+Neue Konferenz [erweitert]  [create_conference.php]
+---------------
+Formulare: - Erweiterte Konferenzdaten (Kritische Varianz, ...)
+           - Liste der Themen, Eingabefeld für neues Thema
+           - Liste der Bewertungskriterien, Eingabefeld für neues
+             Bewertungskriterium (Bezeichnung, Bewertungsskala, Gewichtung)
+Optionen:  - Thema hinzufügen / entfernen
+           - Bewertungskriterium hinzufügen / entfernen
+           - Einfache Einstellungen  (-> Neue Konferenz [einfach])
+           - Konferenz anlegen (-> Konferenzauswahl)
+           - Abbrechen (-> Konferenzauswahl)
+STATUS:    fertig
+
+Rollenanmeldung   [apply_role.php]
+-----------------
+Optionen:  - Anmeldungsbestätigung (-> Konferenzauswahl)           
+STATUS:    Funktionalität fertig, evtl. Bestätigung/Abbruch der Anmeldung als Option
+
+Forenübersicht 
+---------------
+Inhalt:    - Liste der (sichtbaren ?) Foren
+Optionen:  - Forum öffnen (-> Forum [erweitert])
+STATUS:    offen           
+
+Forum  [erweitert]
+------
+Inhalt:    - Liste der Threads und deren einzelne Messages (Titel, Text, Zeit, Autor, ...)
+Optionen:  - Neuen Thread eröffnen (-> Thread eröffnen) [rollen-/forenabhängig]
+           - Thread löschen [nur Chair]
+           - Auf eine Message antworten (-> Message erstellen)
+           - Message editieren / löschen [nur Chair oder Autor der Message]
+STATUS:    offen           
+
+Thread eröffnen
+----------------
+Formular:  - Titel des Threads
+           - Text der ersten Message
+Optionen:  - Thread eröffnen (-> Forum [erweitert])
+           - Abbrechen (-> Forum [erweitert])
+STATUS:    offen           
+
+Message erstellen
+------------------
+Formular:  - Text der Message
+Optionen:  - Message posten (-> Forum [erweitert])
+           - Abbrechen (-> Forum [erweitert])
+STATUS:    offen           
+
+Nachrichtenübersicht
+---------------------
+Inhalt:    - Liste der Nachrichten (Text, Zeit) (-> [evtl. Link zur entsprechenden Seite])
+Optionen:  - Einzelne / Alle Nachrichten löschen
+STATUS:    offen           
+
+
+
+ III. NAVIGATION NACH LOGIN ZU EINER KONFERENZ:
+
+Konferenzmenü   [usermenu.tpl]
+--------------
+Menü:      - Profil (-> Profil einstellen)           
+           - Rollenabhängige Menüs:
+             - Chair-Menü (s.u.)
+             - Reviewer-Menü (s.u.)
+             - Autoren-Menü (s.u.)
+             - Teilnehmer-Menü (s.u.)
+           - Foren  (-> Forenübersicht)
+           - Nachrichten (-> Nachrichtenübersicht)
+           - Konferenzinfo (-> Konferenzinfo [nach Login])
+           - Logout (-> Konferenzauswahl)
+STATUS:    fertig bis auf Forenanbindung
+
+Chair-Menü   [chairmenu.tpl]
+-----------
+Untermenü: - Chair (-> CHAIR-Startseite)
+           - Benutzer verwalten (-> CHAIR-Benutzerverwaltung)
+           - Artikel verwalten (-> CHAIR-Artikelverwaltung)
+           - Artikelreviews verteilen (-> CHAIR-Artikelverteilung)
+           - Konferenz konfigurieren (-> CHAIR-Konferenzkonfiguration [einfach])
+STATUS:    fertig
+
+Reviewer-Menü   [reviewermenu.tpl]
+--------------
+Untermenü: - Reviewer (-> REVIEWER-Startseite)
+           - Präferenzen einstellen (-> REVIEWER-Präferenzen)
+           - Eigene Reviews (-> REVIEWER-Reviews)
+STATUS:    fertig
+
+Autoren-Menü   [authormenu.tpl]
+-------------
+Untermenü: - Autor (-> AUTOR-Startseite)
+           - Eigene Artikel (-> AUTOR-Artikel)
+STATUS:    fertig
+
+Teilnehmer-Menü   [participant_menu.tpl]
+----------------
+Untermenü: - Teilnehmer (-> TEILNEHMER-Startseite)
+           - Teilnahmeeinstellungen (-> TEILNEHMER-Einstellungen)
+STATUS:    fertig
+
+
+Konferenz-Startseite   [siehe login_conference.tpl]
+---------------------
+= CHAIR-, REVIEWER-, AUTOR- oder TEILNEHMER-Startseite (in dieser Reihenfolge),
+  je nachdem, welche Rolle der eingeloggte Benutzer als erste erfüllt.
+
+CHAIR-Startseite   [chair_start.php]
+-----------------
+Inhalt:    - Information über die einzelnen Chair-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Chair-Menü
+STATUS:    Nachrichten über anstehende Aufgaben fehlen noch
+
+REVIEWER-Startseite   [reviewer_start.php]
+--------------------
+Inhalt:    - Information über die einzelnen Reviewer-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Reviewer-Menü
+STATUS:    Nachrichten über anstehende Aufgaben fehlen noch
+
+AUTOR-Startseite   [author_start.php]
+-----------------
+Inhalt:    - Information über die einzelnen Autoren-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Autor-Menü
+STATUS:    Nachrichten über anstehende Aufgaben fehlen noch
+
+TEILNEHMER-Startseite   [participant_start.php]
+----------------------
+Inhalt:    - Information über die einzelnen Teilnehmer-Optionen
+           - Information über neue Nachrichten (-> Nachrichtenübersicht)
+           - Information über anstehende Aufgaben (-> [Link zur entsprechenden Seite])
+Optionen:  - siehe Teilnehmer-Menü
+STATUS:    Nachrichten über anstehende Aufgaben fehlen noch
+
+
+CHAIR-Benutzerverwaltung   [chair_users.php]
+-------------------------
+Inhalt:    - Liste der Benutzer* (Name, Vorname, Rollen, ...)
+Optionen:  - Benutzer löschen
+           - Rollen hinzufügen / entfernen
+STATUS:    fertig
+
+CHAIR-Artikelverwaltung   [chair_papers.php]
+------------------------
+Inhalt:    - Liste der Artikel* (Titel, Autor*, Status, ...)
+Optionen:  - Download der einzelnen Artikel
+           - Infos zu den Artikeln anzeigen (-> Artikelinfo)
+           - Artikel löschen
+           - Artikelstatus ändern (annehmen, ablehnen)
+STATUS:    Sortierung fehlt, Status ändern fehlt, Download fehlt
+
+CHAIR-Artikelverteilung   [chair_reviews.php]
+------------------------
+Inhalt:    - Liste der Artikel* (Titel, Autor*, Status, Bewertung)
+             - Liste der Reviewer* des Artikels (Name, Vorname, ...)
+             - Liste ausgeschlossener / bevorzugter Reviewer* des Artikels
+Optionen:  - Einzelne Artikel als zu verteilen markieren
+           - Reviewer entfernen / hinzufügen
+           - Ausgeschlossene / Bevorzugte Reviewer entfernen / hinzufügen
+           - Verteilung berechnen lassen
+           - Einstellungen übernehmen / rückgängig machen
+STATUS:    offen
+
+CHAIR-Konferenzkonfiguration [einfach]   [chair_config.php]
+-----------------------------
+Formulare: - Einfache Konferenzdaten (Titel, Beschreibung, Zeit, ...)
+Optionen:  - Erweiterte Einstellungen  (-> CHAIR-Konferenzkonfiguration [erweitert])
+           - Einstellungen übernehmen / rückgängig machen
+STATUS:    fertig
+
+CHAIR-Konferenzkonfiguration [erweitert]   [chair_config_ext.php]
+-----------------------------
+Formulare: - Erweiterte Konferenzdaten (Kritische Varianz, ...)
+           - Liste der Themen
+           - Liste der Bewertungskriterien (Bezeichnung, Bewertungsskala, Gewichtung)
+Optionen:  - Einfache Einstellungen  (-> CHAIR-Konferenzkonfiguration [einfach])
+           - Einstellungen übernehmen / rückgängig machen
+STATUS:    fertig
+
+REVIEWER-Präferenzen   [reviewer_prefers.php]
+---------------------
+Inhalt:    - Liste aller Themen
+           - Liste aller (unverteilten ?) Artikel* (Titel, Autor*, Status, Themen ?)
+Optionen:  - Einzelne Themen als gewünscht markieren
+           - Einzelne Artikel als gewünscht / nicht gewünscht / ausgeschlossen markieren
+STATUS:    fertig
+
+REVIEWER-Reviews   [reviewer_reviews.php]
+-----------------
+Inhalt:    - Liste aller eigenen Reviews (Artikel*, Autor*, evtl. Artikelstatus,
+             eigene Bewertung, evtl. akt. Gesamtbewertung, Diskussionsforum)
+             - Liste der beteiligten Reviewer*
+Optionen:  - Review bearbeiten (-> REVIEWER-Review bearbeiten)
+           - Diskussionsforen betreten (-> Forum [erweitert])
+STATUS:    Liste der Reviewer fehlt, Link zum Forum fehlt
+
+REVIEWER-Review bearbeiten   [reviewer_editreview.php]
+---------------------------
+Inhalt:    - Summary, Remarks, Confidential
+           - Liste der Bewertungskriterien (Rating, max Rating, Kommentar)
+           - Gesamtbewertung
+Optionen:  - Änderungen übernehmen (-> REVIEWER-Review bearbeiten)
+           - Gesamtbewertung neu berechnen  (-> REVIEWER-Review bearbeiten)
+STATUS:    fertig
+
+AUTOR-Artikel   [author_papers.php]
+--------------
+Inhalt:    - Liste der Artikel* (Titel, Autor*, Status ?, ...)
+Optionen:  - Download der einzelnen Artikel
+           - Artikeldaten bearbeiten (-> AUTOR-Artikel bearbeiten)
+           - Artikel löschen
+STATUS:    Download fehlt
+
+AUTOR-Artikel bearbeiten   [author_editpaper.php]
+-------------------------
+Formular:  - Alle Artikeldaten (Titel, Beschreibung, Autor, Themen, Datum, Format, ...)
+           - Liste der Co-Autoren, Eingabefeld für neuen Co-Autoren
+Optionen:  - Artikelversion uploaden
+           - Download des Artikels
+           - Co-Autor hinzufügen / entfernen
+           - Einstellungen übernehmen / rückgängig machen (-> AUTOR-Artikel)
+STATUS:    Download fehlt, Artikeldatei uploaden fehlt
+
+TEILNEHMER-Einstellungen    [participant_data.php]
+-------------------------
+Formular:  - Teilnahmedaten (die berüchtigten 'dietary rescrictions'...)
+Optionen:  - Einstellungen übernehmen / rückgängig machen
+STATUS:    fertig (wird nicht implementiert)
+
+Profil einstellen [nach Login]  [user_profile.php]
+------------------
+Formulare: - Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail, Rollen, ...)
+Optionen:  - Einstellungen übernehmen
+STATUS:    Rollen entfernen fehlt
+
+Konferenzinfo [nach Login]  [user_conference.php]
+--------------
+Inhalt:    - Öffentliche Konferenzdaten (Titel, Beschreibung, Zeit, ...)
+           - Liste aller Benutzer* (-> Benutzerliste)
+           - Liste aller Artikel* (-> Artikelliste)
+Optionen:  - keine
+STATUS:    fertig, wird designtechnisch noch überarbeitet
+
+Benutzerliste [nach Login]  [user_users.php]
+--------------
+Inhalt:    - Liste der Konferenzbenutzer (Name, Vorname, Titel, e-Mail)
+Optionen:  - Detailsansicht der Benutzer (-> Öffentliches Profil)
+STATUS:    fertig, wird designtechnisch noch überarbeitet           
+
+Artikelliste [nach Login]  [user_papers.php]
+-------------
+Inhalt:    - Liste der Artikel (Titel, Autor)
+Optionen   - Download der einzelnen Artikel
+           - Infos zu den Artikeln anzeigen (-> Artikelinfo)
+           - Öffentliches Profil des Autoren anzeigen (-> Öffentliches Profil)
+STATUS:    fertig, wird designtechnisch noch überarbeitet
+
+Öffentliches Profil [nach Login]  [user_userdetails.php]
+--------------------
+Inhalt:    - Öffentliche Benutzerdaten (Name, Vorname, Titel, Anschrift, e-Mail)
+Optionen:  - Zurück (-> [Herkunftsseite])
+STATUS:    fertig, wird designtechnisch noch überarbeitet           
+
+Artikelinfo [nach Login]  [user_paperdetails.php]
+------------
+Inhalt:    - Alle Artikeldaten (Titel, Beschreibung, Autor*, Themen, Datum, Format, ...)
+Optionen:  - Download des Artikels
+           - Zurück (-> [Herkunftsseite])
+STATUS:    wird designtechnisch noch überarbeitet,
+           Download fehlt
+
+============================================================================
+  APPENDIX: Anmerkungen zur Notation
+============================================================================
+
+ *  Artikel bzw. Benutzer enthält einen Link auf -> Artikelinfo bzw. -> Öffentliches Profil
+ ?  Anzeige dieses Attributs muss noch diskutiert werden bzw. ist optional
+[?] Option muss noch diskutiert werden bzw. ist optional
+
+(-> [S]) kennzeichnet einen Link bzw. einen Übergang auf Seite [S].
+
+(-> [S], [M]) kennzeichnet einen Link / Übergang auf Seite [S] mit
+dem Hinweis, dass die Seite und alle folgenden das Menü [M] verwenden.
+
+
