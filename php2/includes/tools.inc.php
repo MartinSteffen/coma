@@ -181,6 +181,7 @@ function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = "")
 	// {{{
 
 	global $ftphost, $ftpuser, $ftppass, $ftpdir;
+	global $sql;
 
 	if (!$step_id) {
 		$step_id = 6;
@@ -188,9 +189,9 @@ function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = "")
 	switch($step_id){
 		case 6:
 			if ($ftphandle == NULL){
-				$ftphandle = ftp_connect() or die("function cleanup_ftp: ftp_connect() failed!");
+				$ftphandle = ftp_connect($ftphost) or die("function cleanup_ftp: ftp_connect() failed!");
 			}
-			ftp_login($ftphandle, "test", "pass");//ftp_login($ftphandle, $ftpuser, $ftppass) or die("function cleanup_ftp: ftp_login() failed!");
+			ftp_login($ftphandle, $ftpuser, $ftppass) or die("function cleanup_ftp: ftp_login() failed!");
 			$msg = "<font style=color:green>Paper deleted succesfully.</font>";
 		case 5:
 			if ($msg == ""){
@@ -200,8 +201,7 @@ function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = "")
 			if ($msg == ""){
 				$msg = "<font style=color:red>Error: (Author_new_save) ftp_chdir() failed! Maybe no permission.</font>";
 			}
-			ftp_rmAll($ftphandle, "papers/" . $paper_id) or die("function cleanup_ftp: ftp_rmAll failed, but we can't be here anyway, because we are already dead!");
-			//ftp_rmAll($ftphandle, "./" . $ftpdir . "/" . $paper_id) or die("function cleanup_ftp: ftp_rmAll failed, but we can't be here anyway, because we are already dead!");
+			ftp_rmAll($ftphandle, "./" . $ftpdir . "/" . $paper_id) or die("function cleanup_ftp: ftp_rmAll failed, but we can't be here anyway, because we are already dead!");
 		case 3:
 			if ($msg == ""){
 				$msg = "<font style=color:red>Error: (Author_new_save) ftp_mkdir() failed! Maybe wrong path.</font>";
@@ -216,8 +216,6 @@ function cleanup_ftp($paper_id, $step_id = false, $ftphandle = NULL,  $msg = "")
 				$msg = "<font style=color:red>Error: (Author_new_save) ftp_connect() failed!</font>";
 			}
 		default:
-			$sql = new SQL(); //notfallbehelf
-			$sql->connect(); //notfallbehelf
 			$SQL = "DELETE FROM paper WHERE id = ". $paper_id;
 			$result = $sql->insert($SQL);
 			redirect("author", "view", "papers", "msg=".$msg);
