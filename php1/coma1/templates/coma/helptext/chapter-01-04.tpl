@@ -1,6 +1,6 @@
 <ul>
   <li>
-    step one: Registration and login <br>
+    step one: <u> Registration and login  </u> <br>
     At first you have to register at coma and login.  <br>
     Notice: You only need one account for all conferences you want to take part in. <br>
   </li>
@@ -8,7 +8,7 @@
 
 <ul>
   <li>
-    step two: Sign up for conference <br>
+    step two: <u> Sign up for conference </u> <br>
     At the conference of your choice, press to button 'sign up' und log into the chosen conference. <br>
     See the item 'Conference' to inform yourself about the basic-data, 
     the chairs and, after the date of notification, about the accepted papers for chosen conference.  
