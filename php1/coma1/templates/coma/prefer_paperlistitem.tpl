@@ -8,22 +8,34 @@
     <td class="listitem-{line_no}" colspan="2">
       {if0<input type="radio" name="paper-{paper_id}" value="0" selected>
           <span class="attitude-none">no attitude</span> &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="1">prefer &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="2">deny &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="3">exclude}
-      {if1<input type="radio" name="paper-{paper_id}" value="0">no attitude
+          <input type="radio" name="paper-{paper_id}" value="1">
+          <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="2">
+          <span class="weak">deny</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="3">
+          <span class="weak">exclude</span>}
+      {if1<input type="radio" name="paper-{paper_id}" value="0">
+          <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="1" selected>
           <span class="attitude-prefer">prefer</span> &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="2">deny &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="3">exclude}
-      {if2<input type="radio" name="paper-{paper_id}" value="0">no attitude
-          <input type="radio" name="paper-{paper_id}" value="1">prefer &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="2">
+          <span class="weak">deny</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="3">
+          <span class="weak">exclude</span>}
+      {if2<input type="radio" name="paper-{paper_id}" value="0">
+          <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="1">
+          <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="2" selected>
           <span class="attitude-deny">deny</span> &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="3">exclude}
-      {if3<input type="radio" name="paper-{paper_id}" value="0">no attitude
-          <input type="radio" name="paper-{paper_id}" value="1">prefer &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="paper-{paper_id}" value="2">deny &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="3">
+          <span class="weak">exclude</span> &nbsp;&nbsp;&nbsp;}
+      {if3<input type="radio" name="paper-{paper_id}" value="0">
+          <span class="weak">no attitude</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="1">
+          <span class="weak">prefer</span> &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="paper-{paper_id}" value="2">
+          <span class="weak">deny</span> &nbsp;&nbsp;&nbsp;
           <input type="radio" name="paper-{paper_id}" value="3" selected>
           <span class="attitude-exclude">exclude</span>}
     </td>
