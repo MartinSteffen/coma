@@ -14,6 +14,13 @@
 define('IN_COMA1', true);
 require_once('./include/header.inc.php');
 
+if (isset($_POST['action']) && $_POST['action'] == 'delete') {  
+  $myDBAccess->deletePaper($_POST['paperid']);
+  if ($myDBAccess->failed()) {
+    error('Error deleting paper.', $myDBAccess->getLastError());
+  }
+}
+
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get paper list of chair',$myDBAccess->getLastError());
