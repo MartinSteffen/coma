@@ -235,6 +235,19 @@ INSERT INTO `Rating` VALUES (5, 2, 1, 'tr');
 INSERT INTO `Rating` VALUES (5, 3, 1, 'tr');
 INSERT INTO `Rating` VALUES (5, 4, 1, 'tr');
 INSERT INTO `Rating` VALUES (5, 5, 1, 'tr');
+INSERT INTO `Rating` VALUES (6, 2, 2, 'tr');
+INSERT INTO `Rating` VALUES (6, 3, 3, 'tr');
+INSERT INTO `Rating` VALUES (6, 4, 4, 'tr');
+INSERT INTO `Rating` VALUES (6, 5, 5, 'tr');
+INSERT INTO `Rating` VALUES (7, 2, 6, 'tr');
+INSERT INTO `Rating` VALUES (7, 3, 5, 'tr');
+INSERT INTO `Rating` VALUES (7, 4, 4, 'tr');
+INSERT INTO `Rating` VALUES (7, 5, 3, 'tr');
+INSERT INTO `Rating` VALUES (8, 2, 2, 'tr');
+INSERT INTO `Rating` VALUES (8, 3, 1, 'tr');
+INSERT INTO `Rating` VALUES (8, 4, 3, 'tr');
+INSERT INTO `Rating` VALUES (8, 5, 6, 'tr');
+
 
 -- --------------------------------------------------------
 
@@ -253,6 +266,10 @@ INSERT INTO `ReviewReport` VALUES (2, 7, 36, 'My personal summary', 'My personal
 INSERT INTO `ReviewReport` VALUES (3, 8, 38, 'The summary', 'The remarks', 'The confidential');
 INSERT INTO `ReviewReport` VALUES (4, 8, 37, 'The summary 2', 'The remarks 2', 'The confidential 2');
 INSERT INTO `ReviewReport` VALUES (5, 9, 32, 'The summary for my own paper', 'The remarks for my own paper', 'The confidential for my own paper');
+INSERT INTO `ReviewReport` VALUES (6, 9, 35, 'The summary for my own paper', 'The remarks for my own paper', 'The confidential for my own paper');
+INSERT INTO `ReviewReport` VALUES (7, 9, 36, 'The summary for my own paper', 'The remarks for my own paper', 'The confidential for my own paper');
+INSERT INTO `ReviewReport` VALUES (8, 9, 37, 'The summary for my own paper', 'The remarks for my own paper', 'The confidential for my own paper');
+
 
 -- --------------------------------------------------------
 
