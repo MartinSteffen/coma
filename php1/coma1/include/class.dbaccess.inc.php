@@ -1029,11 +1029,8 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
     	return $this->success(false);
     }
-    $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
-                0, false, $this->getThreadsOfForum($intForumId)));
-    if ($this->mySql->failed()) {
-      return $this->error('getForumDetailed', $this->mySql->getLastError());
-    }                    
+    $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'], 0, false,
+                                $this->getThreadsOfForum($intForumId)));
     return $this->success($forum);    
   }
 
@@ -1045,35 +1042,35 @@ class DBAccess extends ErrorHandling {
 
   /**
    * Aktualisiert den Datensatz der Person mit den Daten des PersonDetailed-Objekts $objPerson.
-   * [TODO] Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Rollen der Person.
-   *        Dazu Anmerkung von Tom: Habe Funktion updateRoles hinzugefuegt, die
-   *        Du dafuer benutzen solltest.
    *
    * @param PersonDetailed $objPerson Person, die in der Datenbank aktualisiert werden soll   
    * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
    * @access public
    * @author Sandro (10.01.05)
+   * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Rollen der Person.
+   *       Dazu Anmerkung von Tom: Habe Funktion updateRoles hinzugefuegt, die
+   *       Du dafuer benutzen solltest.
    */
   function updatePerson($objPerson) {
-    $s = 'UPDATE  Person'.
-        ' SET     first_name = '.$objPerson->strFirstName.','.
-        '         last_name = '.$objPerson->strLastName.','.
-        '         email = '.$objPerson->strEmail.','.
-        '         title = '.$objPerson->strTitle.','.
-        '         affiliation = '.$objPerson->strAffiliation.','.
-        '         street = '.$objPerson->strStreet.','.
-        '         city = '.$objPerson->strCity.','.
-        '         postal_code = '.$objPerson->strPostalCode.','.
-        '         state = '.$objPerson->strState.','.
-        '         country = '.$objPerson->strCountry.',' .
-        '         phone_number = '.$objPerson->strPhone.','.
-        '         fax_numer = '.$objPerson->strFax.
-        ' WHERE   id = '.$objPerson->intId;
+    $s = "UPDATE  Person".
+        " SET     first_name = '$objPerson->strFirstName',".
+        "         last_name = '$objPerson->strLastName',".
+        "         email = '$objPerson->strEmail',".
+        "         title = '$objPerson->strTitle',".
+        "         affiliation = '$objPerson->strAffiliation',".
+        "         street = '$objPerson->strStreet',".
+        "         city = '$objPerson->strCity',".
+        "         postal_code = '$objPerson->strPostalCode',".
+        "         state = '$objPerson->strState',".
+        "         country = '$objPerson->strCountry',".
+        "         phone_number = '$objPerson->strPhone',".
+        "         fax_numer = '$objPerson->strFax'".
+        " WHERE   id = $objPerson->intId";
     $data = $this->mySql->update($s);
-    if (!empty($data)) {      
-      return true;
+    if ($this->mySql->failed()) {
+      return $this->error('updatePerson', $this->mySql->getLastError);
     }
-    return $this->error('updatePerson '.$this->mySql->getLastError());
+    return $this->success(true);
   }
 
   /**
@@ -1086,7 +1083,7 @@ class DBAccess extends ErrorHandling {
    * @access private
    * @author Tom (11.05.04)
    */
-  function updateRoles($intConferenceId, $objPerson) {
+  function updateRoles($objPerson, $intConferenceId) {
     global $intRoles;
     $intId = $objPerson->intId;
     
@@ -1094,8 +1091,8 @@ class DBAccess extends ErrorHandling {
     $s = 'DELETE  FROM Role'.
         ' WHERE   person_id = '.$intId;
     $result = $this->mySql->delete($s);
-    if (empty($result)) {
-      return $this->error('updateRoles '.$this->mySql->getLastError());
+    if ($this->mySql->failed()) {
+      return $this->error('updateRoles', $this->mySql->getLastError);
     }
 
     // Rollen einfuegen...
@@ -1103,43 +1100,40 @@ class DBAccess extends ErrorHandling {
       if ($objPerson->hasRole($intRoles[$i])) {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
             '         VALUES ('.$intConferenceId.', '.$intId.', '.$intRole[$i].')';
-        echo('SQL: '.$s.'<br>');
         $result = $this->mySql->insert($s);
-        // [TODO] Abfrage != 0 spaeter mal ersetzen, wenn Fehlerbehandlung vorhanden
-        if (empty($result) && $result != 0) {
-          return $this->error('updateRoles '.$this->mySql->getLastError());
+        if ($this->mySql->failed()) {
+          return $this->error('updateRoles', $this->mySql->getLastError);
         }
       }
     }
-    return true;
+    return $this->success(true);
   }
 
   /**
    * Aktualisiert den Datensatz des Artikels mit den Daten des PaperDetailed-Objekts $objPaper.   
    * Sorgt nicht (!) dafuer, die aktuelle Dateiversion hochzuladen.
-   * [TODO] Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Co-Autoren des Papers.
    *
    * @param PaperDetailed $objPaper Artikel, der in der Datenbank aktualisiert werden soll   
    * @return boolean <b>false</b>, falls der Datensatz nicht aktualisiert werden konnte
    * @access public
    * @author Sandro (10.01.05)
+   * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Co-Autoren des Papers.
    */
   function updatePaper($objPaper) {
-    $s = 'UPDATE  Paper'.
-        ' SET     title = '.$objPaper->strTitle.','.
-        '         author_id = '.$objPaper->intAuthorId.','.
-        '         abstract = '.$objPaper->strAbstract.','.
-        '         format = '.$objPaper->strMimeType.','.
-        '         last_edited = '.$objPaper->strLastEdit.','.
-        '         author_id = '.$objPaper->intAuthorId.','.
-        '         filename = '.$objPaper->strFilePath.','.
-        '         state = '.$objPaper->intStatus.
-        ' WHERE   id = '.$objPaper->intId;
+    $s = "UPDATE  Paper".
+        " SET     title = '$objPaper->strTitle',".
+        "         author_id = $objPaper->intAuthorId,".
+        "         abstract = '$objPaper->strAbstract',".
+        "         format = '$objPaper->strMimeType',".
+        "         last_edited = '$objPaper->strLastEdit',".
+        "         filename = '$objPaper->strFilePath',".
+        "         state = '$objPaper->intStatus".
+        " WHERE   id = $objPaper->intId";
     $data = $this->mySql->update($s);
-    if (!empty($data)) {      
-      return true;
+    if ($this->mySql->failed()) {
+      return $this->error('updatePaper', $this->mySql->getLastError);
     }
-    return $this->error('updatePaper '.$this->mySql->getLastError());
+    return $this->success(true)
   }
 
   // ---------------------------------------------------------------------------
@@ -1207,7 +1201,7 @@ class DBAccess extends ErrorHandling {
    * @param string $strCity         Wohnort der Person
    * @param string $strPostalCode   Postleitzahl oder ZIP-Code des Wohnsitzes
    * @param string $strState        Staat oder Bundesland des Wohnsitzes
-   * @param string $strCountry      Land des Wohnsitzes
+   * @param string $strcountry      Land des Wohnsitzes
    * @param string $strPhone        Telefonnummer der Person
    * @param string $strFax          Faxnummer der Person
    * @param string $strPassword     Passwort des Accounts (unverschluesselt zu uebergeben)
@@ -1218,14 +1212,14 @@ class DBAccess extends ErrorHandling {
    */
   function addPerson($strFirstname, $strLastname, $strEmail, $strTitle,
                      $strAffiliation, $strStreet, $strCity, $strPostalCode,
-                     $strState, $strCountry, $strPhone, $strFax, $strPassword) {
+                     $strState, $strcountry, $strPhone, $strFax, $strPassword) {
     $s = 'INSERT  INTO Person (first_name, last_name, title, affiliation, email,'.
         '                      street, postal_code, city, state, country,'.
         '                      phone_number, fax_number, password)'.
         '         VALUES (\''.$strFirstname.'\', \''.$strLastname.'\', \''.$strTitle.'\','.
         '                 \''.$strAffiliation.'\', \''.$strEmail.'\', \''.$strStreet.'\','.
         '                 \''.$strPostalCode.'\', \''.$strCity.'\', \''.$strState.'\','.
-        '                 \''.$strCountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
+        '                 \''.$strcountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
         '                 \''.sha1($strPassword).'\')';
     // echo('<br>SQL: '.$s.'<br>');
     $intId = $this->mySql->insert($s);
