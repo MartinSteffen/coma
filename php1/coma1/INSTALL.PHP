@@ -30,8 +30,8 @@ if (isset($_POST['downloadconfig'])) {
   header("Content-type: application/x-httpd-php");
   header("Content-Disposition: attachment; filename=config.inc.php");
   header("Content-Description: Download Configuration File");
-  header("Content-Transfer-Encoding: base64");
-  echo $_POST['base64encoded'];
+  header("Content-Transfer-Encoding: binary");
+  echo base64_decode($_POST['base64encoded']);
   die; 
 }
 header('Content-type: text/html; charset=utf-8');
