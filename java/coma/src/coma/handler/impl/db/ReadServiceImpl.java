@@ -270,6 +270,12 @@ public class ReadServiceImpl extends Service implements ReadService {
 			QUERY += "WHERE  id = ?";
 			idFlag = true;
 		}
+		if (c.getName()!=null)
+		{
+			if(!idFlag)
+				QUERY += "WHERE name = '"+ c.getName()+"'";
+		}
+		System.out.println(QUERY);
 		if (ok) {
 			try {
 				conn = getConnection();
@@ -483,6 +489,12 @@ public class ReadServiceImpl extends Service implements ReadService {
 			info.append("No search critera was specified\n");
 			ok = false;
 		}
+		if (report.getId()==-2)
+		{
+			QUERY = "SELECT * FROM ReviewReport";
+			ok = true;
+		}
+		
 		if (ok) {
 			try {
 				conn = getConnection();
@@ -649,6 +661,8 @@ public class ReadServiceImpl extends Service implements ReadService {
 			QUERY += " conference_id = ?";
 			conferenceIdFlag = true;
 		}
+		
+		QUERY += " order by quality_rating";
 		if (!(idFlag || conferenceIdFlag)) {
 			info.append("No search critera was specified\n");
 			ok = false;
@@ -1374,13 +1388,16 @@ public class ReadServiceImpl extends Service implements ReadService {
 		return result;
 	}
 	
-	public SearchResult getFinalData(SearchCriteria sc, int OrderNr) {
+	
+	
+	public SearchResult getFinalData(SearchCriteria sc,int OrderNr) {
 		StringBuffer info = new StringBuffer();
 		SearchResult result = new SearchResult();
 		Finish[] conference = new Finish[0];
 		boolean ok = true;
 		Connection conn = null;
 		String Order="";
+		String QUERY;
 		switch(OrderNr){
 		case(0):{Order = "order by 1,3,2 ASC";
 				break;}
@@ -1391,14 +1408,23 @@ public class ReadServiceImpl extends Service implements ReadService {
 		case(3):{Order = "order by 4,3,1 ASC";
 				break;}
 		}
-		String QUERY =  "SELECT Paper.title,Person.last_name,avg(grade),Topic.name,Paper.state,Paper.id" +
-						" FROM Paper,ReviewReport,Rating,Person,Topic,IsAboutTopic where " +
-						"(Paper.id = ReviewReport.paper_id) " +
-						"and (ReviewReport.id = Rating.review_id) " +
-						"and (Person.id= Paper.author_id) " +
-						"and (Topic.id = IsAboutTopic.topic_id) " +
-						"and (Paper.id = IsAboutTopic.paper_id) " +
-						"group by Paper.id " + Order;
+		if (sc.getPaper()!=null && sc.getReviewReport()!=null)
+		{
+			QUERY = "SELECT avg(grade) FROM Paper,Rating,ReviewReport "+
+			"WHERE (Rating.review_id = " + sc.getReviewReport().getId() + " and " +
+			"(Paper.id = " + sc.getPaper().getId()+")";
+		}
+		else
+		{
+			QUERY =  "SELECT Paper.title,Person.last_name,avg(grade),Topic.name,Paper.state,Paper.id" +
+			" FROM Paper,ReviewReport,Rating,Person,Topic,IsAboutTopic where " +
+			"(Paper.id = ReviewReport.paper_id) " +
+			"and (ReviewReport.id = Rating.review_id) " +
+			"and (Person.id= Paper.author_id) " +
+			"and (Topic.id = IsAboutTopic.topic_id) " +
+			"and (Paper.id = IsAboutTopic.paper_id) " +
+			"group by Paper.id " + Order;
+		}
 		if (ok) {
 			try {
 				conn = getConnection();
