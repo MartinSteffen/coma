@@ -33,10 +33,32 @@ Kleine Änderungen:
 
 -- Gunnar
 
+Änderungen:
+- Jede Tabelle, die referenziert wird bekommt eine ID, die vom System vergeben wird.
+- Neue Tabellen für Rechte und Rollen
+  die Tabelle Roles soll vordefiniert werden mit:
+  
+  type		description
+  admin		superuser
+  chair		organisation of conference
+  reviewer	...
+  author	...
+  participant	...
+  
+- Tabelle Deniespapers gelöscht, stattdessen Status in Reviewreport eingefügt
+- Tabelle Criterion um Wertigkeit erweitert
+- Das Forum ist um Threads erweitert, Beziehung Paper - Thread gesetzt
+
+-- Gunnar
+  
+
+
+
 Tabelle Conference
 ~~~~~~~~~~~~~~~~~~
-abbreviation                  Varchar 20    Primary Key
-name                          Varchar 127   Not Null
+id			      BigInt		Autoincrement, Primary Key
+abbreviation                  Varchar 20	Not Null
+name                          Varchar 127	Not Null
 description                   Text
 homepage                      Varchar 127
 abstract_submission_deadline  Date
@@ -50,121 +72,138 @@ min_reviews_per_paper         Int
 
 Tabelle User
 ~~~~~~~~~~~~
-email         Varchar 127     Primary Key
-conference    Varchar 20      -> Conference, abbreviation
-roles         Int   000xxxxx
-                       ||||+-- Admin
-                       |||+--- Chair
-                       ||+---- Reviewer
-                       |+----- Autor
-                       +------ Teilnehmer
-first_name    Varchar 127
-last_name     Varchar 127     Not Null
-title         Int             (bzw. Title)
-affiliation   Varchar 127
-phone_number  Varchar 20
-fax_number    Varchar 20
-street        Varchar 127
-postal_code   Varchar 20
-city          Varchar 127
-state         Varchar 127
-country       Varchar 127
-password      Varchar 32      Not Null (wird codiert gespeichert)
+id		BigInt		Autoincrement, Primary Key
+conference	BigInt		-> Conference, id
+rights		BigInt		-> Rights, id
+email		Varchar 127	Not Null
+first_name	Varchar 127
+last_name	Varchar 127	Not Null
+title		Varchar 127	(bzw. Title)
+affiliation	Varchar 127
+phone_number	Varchar 20
+fax_number	Varchar 20
+street		Varchar 127
+postal_code	Varchar 20
+city		Varchar 127
+state		Varchar 127
+country		Varchar 127
+password	Varchar 32      Not Null (wird codiert gespeichert)
+
+Tabelle Rights
+~~~~~~~~~~~~~~
+user_id		BigInt		-> User, id
+role_id		BigInt		-> Roles, id
+status		Int		z.B. aktiv / nicht aktiv
+
+Tabelle Roles
+~~~~~~~~~~~~~
+id		BigInt		Autoincrement, Primary Key
+conference	BigInt		-> Conference, id
+type		Varchar 20	z.B. "Chair"
+description	Varchar 127
 
 Tabelle Paper
 ~~~~~~~~~~~~~
-id            BigInt          Autoincrement, Primary Key
-conference    Varchar 20      -> Conference, abbreviation
-author        Varchar 127     -> User, email
-title         Varchar 127     Not Null
-abstract      Text
-last_edited   DateAndTime     (wird automatisch gesetzt)
-version       Int             (wird automatisch gesetzt)
-filename      Varchar 127
-state         Int             (bzw. PaperState)
-format        Int             (bzw. MimeType)
+id		BigInt		Autoincrement, Primary Key
+conference	BigInt		-> Conference, id
+author		BigInt		-> User, id
+thread		BigInt		-> Thread, id
+title		Varchar 127	Not Null
+abstract	Text
+last_edited	DateAndTime	(wird automatisch gesetzt)
+version		Int		(wird automatisch gesetzt)
+filename	Varchar 127
+state		Int		(bzw. PaperState)
+format		Int		(bzw. MimeType)
 
 Tabelle IsCoAuthorOf
 ~~~~~~~~~~~~~~~~~~~~
-conference    Varchar 20      -> Conference, abbreviation
-paper_id      BigInt          -> Paper, ID
-name          Varchar 127     Not Null
-email         Varchar 127     -> User, email
+conference	BigInt		-> Conference, id
+paper_id	BigInt		-> Paper, id
+user_id		BigInt		-> User, id
+name		Varchar 127	Not Null
+email		VarChar 127	falls user_id leer ist, also der Coautor nicht angemeldet ist
 
 Tabelle Topic
 ~~~~~~~~~~~~~
-id            BigInt          Autoincrement, Primary Key
-conference    Varchar 20      -> Conference, abbreviation
-name          Varchar 127     Not Null
+id		BigInt		Autoincrement, Primary Key
+conference	BigInt		-> Conference, id
+name		Varchar 127	Not Null
 
 Tabelle IsAboutTopic
 ~~~~~~~~~~~~~~~~~~~~
-paper_id      BigInt          -> Paper, ID
-topic         Varchar 127     -> Topic, name
+paper_id	BigInt          -> Paper, id
+topic		BigInt		-> Topic, id
 
 Tabelle PrefersTopic (welche Themenbereiche den User interessieren)
 ~~~~~~~~~~~~~~~~~~~~
-user          Varchar 127     -> User, email
-topic         Varchar 127     -> Topic, name
+user		BigInt		-> User, id
+topic		BigInt		-> Topic, id
 
 Tabelle PrefersPaper (welche Artikel den User interessieren)
 ~~~~~~~~~~~~~~~~~~~~
-user          Varchar 127     -> User, email
-paper_id      BigInt          -> Paper, ID
-
-Tabelle DeniesPaper (welche Artikel der User ablehnt)
-~~~~~~~~~~~~~~~~~~~~
-user          Varchar 127     -> User, email
-paper_id      BigInt          -> Paper, ID
+user		BigInt		-> User, id
+paper_id	BigInt          -> Paper, id
 
 Tabelle ReviewReport
 ~~~~~~~~~~~~~~~~~~~~
-id            BigInt          Autoincrement, Primary Key
-conference    Varchar 20      -> Conference, abbreviation
-paper_id      BigInt          -> Paper, ID
-reviewer      Varchar 127     -> User, email
-summary       Text
-remarks       Text
-confidential  Text
+id		BigInt		Autoincrement, Primary Key
+conference	BigInt		-> Conference, id
+paper_id	BigInt		-> Paper, id
+reviewer_id	BigInt		-> User, id
+status		Int
+summary		Text
+remarks		Text
+confidential	Text
 
 Tabelle Rating
 ~~~~~~~~~~~~~~
-review_id     BigInt          -> Review, ID
-grade         Int             Not Null
-comment       Text
+review_id	BigInt		-> ReviewReport, id
+criterion_id	BigInt		-> Criterion, id
+grade		Int		Not Null
+comment		Text
 
 Tabelle Criterion
 ~~~~~~~~~~~~~~~~~
-id            BigInt          Autoincrement, Primary Key
-conference    Varchar 20      -> Conference, abbreviation
-name          Varchar 127     Not Null
-description   Text
-max_value     Int
+id		BigInt          Autoincrement, Primary Key
+conference	BigInt		-> Conference, id
+name		Varchar 127     Not Null
+description	Text
+max_value	Int
+quality_rating	Int		in Percent
 
 Tabelle Forum
 ~~~~~~~~~~~~~
-id            BigInt          Autoincrement, Primary Key
-conference    Varchar 20      -> Conference, abbreviation
-title         Varchar 127     Not Null
-description   Text
+id		BigInt		Autoincrement, Primary Key
+conference	BigInt		-> Conference, id
+title		Varchar 127	Not Null
+description	Text
+
+Tabelle Thread
+~~~~~~~~~~~~~~
+id		BigInt		Autoincrement, Primary Key
+forum_id	BigInt		-> Forum, id
+title		Varchar 127
+description	Text
 
 Tabelle ParticipatesInForum
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-forum_id      BigInt          -> Forum, ID
-participant   Varchar 127     -> User, email
+forum_id	BigInt		-> Forum, id
+participant	BigInt		-> User, id
 
 Tabelle Message
 ~~~~~~~~~~~~~~~
-id            Varchar 127     Primary Key
-sender        Varchar 127     -> User, email
-send_time     TimeAndDate     (wird automatisch gesetzt)
-subject       Varchar 127
-text          Text
+id		BigInt		Autoinctement, Primary Key
+thread		BigInt		-> Thread, id
+sender		BigInt		-> User, id
+send_time	TimeAndDate	(wird automatisch gesetzt)
+subject		Varchar 127
+text		Text
 
 Tabelle HasThread
 ~~~~~~~~~~~~~~~~~
-forum_id      BigInt          -> Forum, ID
-message_id    Varchar 127     -> Message, ID
+forum_id	BigInt          -> Forum, id
+message_id	BigInt		-> Message, id
 
 
 (*: Der Contraint "wird automatisch gesetzt" kann vernachlässigt werden
