@@ -5,7 +5,7 @@
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="paperid" value="{paper_id}">
 
-      <input type="file"   name="binFile">
+      <input type="file"   name="file">
       <input type="submit" name="upload" value="Upload" class="button">
 
       <select name="mimetype" size="1">

@@ -95,8 +95,8 @@ if (isset($_POST['action'])) {
     }
   }
   else if (isset($_POST['upload'])) {    
-    var_dump($_POST['binFile']);
-    if (empty($_POST['binFile'])) {
+    var_dump($_POST['file']);
+    if (empty($_POST['file'])) {
       $strMessage = 'You have to select a file for uploading!';
     }
     // Versuche das Paper hochzuladen
@@ -107,7 +107,7 @@ if (isset($_POST['action'])) {
       else {
         $objPaper->strMimeType = 'application/force-download';
       }
-      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['binFile'],
+      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['file'],
                                              $objPaper->strMimeType);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
