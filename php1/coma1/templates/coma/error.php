@@ -62,6 +62,7 @@ if (!defined('IN_COMA1')) {
     <p>&nbsp;</p>
 
     <p class="center">
+      You have the following three options:
       <ul>
        <li>Return to the <a href="<?=COREURL?>index.php?<?=SID?>">start page</a>!
        <li>Try again and <a href="javascript:location.reload()">reload the page</a>!
