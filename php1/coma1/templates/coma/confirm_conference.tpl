@@ -1,44 +1,44 @@
 <table class="viewtable">
   <tr class="viewheader">
-    <th class="viewheader" colspan="2">{name}&nsbp;</th>
+    <th class="viewheader" colspan="2">{name}&nbsp;</th>
   </tr>
   <tr class="viewline">
-    <td class="viewline" colspan="2">{description}&nsbp;</td>
+    <td class="viewline" colspan="2">{description}&nbsp;</td>
   </tr>
   <tr class="viewline">    
     <td class="viewline">Takes place at:</td>
-    <td class="viewline">{date}&nsbp;</td>
+    <td class="viewline">{date}&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline">Website:</td>
-    <td class="viewline">{homepage}&nsbp;</td>
+    <td class="viewline">{homepage}&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline" colspan="2">&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline">Number of papers to chose:</td>
-    <td class="viewline">{min_papers} - {max_papers}&nsbp;</td>
+    <td class="viewline">{min_papers} - {max_papers}&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline">Submit paper abstracts until:</td>
-    <td class="viewline">{abstract_dl}&nsbp;</td>
+    <td class="viewline">{abstract_dl}&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline">Submit papers until:</td>
-    <td class="viewline">{paper_dl}&nsbp;</td>
+    <td class="viewline">{paper_dl}&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline">Submit final paper version until:</td>
-    <td class="viewline">{final_dl}&nsbp;</td>
+    <td class="viewline">{final_dl}&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline">Submit reviews until:</td>
-    <td class="viewline">{review_dl}&nsbp;</td>
+    <td class="viewline">{review_dl}&nbsp;</td>
   </tr>
   <tr class="viewline">
     <td class="viewline">Decide papers until:</td>
-    <td class="viewline">{notification}&nsbp;</td>
+    <td class="viewline">{notification}&nbsp;</td>
   </tr>  
 </table>
 
