@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Session (
 
 
 
-CREATE TABLE ConferenceConfig
+CREATE TABLE IF NOT EXISTS ConferenceConfig
 (
    id                           INT NOT NULL,
    default_reviews_per_paper    INT NOT NULL,
