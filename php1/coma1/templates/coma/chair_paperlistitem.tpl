@@ -45,6 +45,7 @@
       </form>
       }
     </td>
+    <td class="listitem-{line_no}">{num_reviews}</td>
     <td class="listitem-{line_no}">{avg_rating}</td>
     <td class="listitem-{line_no}">{variance}</td>
     <td class="listitem-{line_no}">{last_edited}</td>
