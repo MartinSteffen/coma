@@ -53,19 +53,18 @@ public class WriteFile extends HttpServlet {
 		Navcolumn myNavCol = new Navcolumn(session);
 		Paper theNewPaper = (Paper) session.getAttribute(SessionAttribs.PAPER);
 		if (theNewPaper.getId() != -1) { //update paper: rename the old, so a new one can be created
-			File renameFile = new File(path + "/paper", theNewPaper
+			File renameFile = new File(path + "/papers", theNewPaper
 					.getFilename());
-			File backupFile = new File(path + "/paper", theNewPaper
+			if (renameFile.exists()){
+			File backupFile = new File(path + "/papers/", theNewPaper
 					.getFilename()
 					+ theNewPaper.getVersion());
-
-			try {
-				renameFile.renameTo(backupFile);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				result.append(XMLHelper.tagged("error", e1.toString()));
+			
+			if(!renameFile.renameTo(backupFile))
+				result.append(XMLHelper.tagged("error", "old version not corectly renamed"));
 			}
-
+			else result.append(XMLHelper.tagged("error", "old file not found Path: "+path + "/papers/" + theNewPaper
+					.getFilename()));
 		}
 		try {
 

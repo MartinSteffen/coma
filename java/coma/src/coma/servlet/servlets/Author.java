@@ -5,6 +5,7 @@
 package coma.servlet.servlets;
 
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.Enumeration;
@@ -43,7 +44,7 @@ import coma.servlet.util.XMLHelper;
  */
 public class Author extends HttpServlet {
 	
-	static enum ACTIONS {NULL, SUBMITPAPER, UPDATEPAPER, PROCESSPAPER, RETRACTPAPER }; 
+	static enum ACTIONS {NULL, SUBMITPAPER, UPDATEPAPER, PROCESSPAPER, RETRACTPAPER, SHOWPAPER}; 
 	
 	private ReadServiceImpl myReadService = new ReadServiceImpl();
 	private DeleteServiceImpl myDeleteService = new DeleteServiceImpl();
@@ -191,6 +192,62 @@ public class Author extends HttpServlet {
 			result.append("</submitpaper>\n");
 			
 		}
+    	break;
+    	
+    case RETRACTPAPER: //  RETRACTPAPER a paper
+    	
+    	
+		try {
+			int paper_id;
+			Paper theOldPaper ;
+			SearchCriteria mysc;
+			File deleteFile;
+				paper_id = Integer.parseInt(request.getParameter(FormParameters.PAPER_ID));
+				theOldPaper = new Paper(paper_id);
+				mysc = new SearchCriteria();
+				mysc.setPaper(theOldPaper);
+				mySR = myReadService.getPaper(mysc);
+				if (mySR != null){
+					Paper[] thePapers = (Paper[])mySR.getResultObj();
+					if (thePapers.length==1) theOldPaper=thePapers[0];
+				}
+				deleteFile = new File(path + "/papers", theOldPaper.getFilename());
+				if (deleteFile.exists()){
+					if (deleteFile.delete()){
+						mySR = myDeleteService.deletePaper(theOldPaper.getId());
+						if (mySR.isSUCCESS()) result.append(XMLHelper.tagged("succes", mySR.info));
+						else result.append(XMLHelper.tagged("error", mySR.info));
+					}
+					else result.append(XMLHelper.tagged("error", ":couldn't delte the file "+path + "/papers/" + theOldPaper
+							.getFilename()));
+				}
+				
+				else result.append(XMLHelper.tagged("error", "file not found Path: "+path + "/papers/" + theOldPaper
+						.getFilename()));
+			} catch (Exception e2) {
+				result.append(XMLHelper.tagged("error", e2.toString()));
+				
+			}
+	
+    	break;
+    case SHOWPAPER: //  show more details of the paper
+    	try {
+				int paper_id = Integer.parseInt(request.getParameter(FormParameters.PAPER_ID));
+				Paper thePaper = new Paper(paper_id) ;
+				SearchCriteria mysc = new SearchCriteria();
+				mysc.setPaper(thePaper);
+				mySR = myReadService.getPaper(mysc);
+				if (mySR != null){
+					Paper[] thePapers = (Paper[])mySR.getResultObj();
+					if (thePapers.length==1) thePaper=thePapers[0];
+				}
+				result.append(XMLHelper.tagged("showdetails", thePaper.toXML(Entity.XMLMODE.DEEP)));
+			} catch (Exception e3) {
+				result.append(XMLHelper.tagged("error", e3.toString()));
+				
+			}
+		
+	
     	break;
 	default:
 		

@@ -148,8 +148,10 @@ public class Paper extends Entity {
 					    XMLHelper.tagged("version", getVersion()),
 					    XMLHelper.tagged("filename", getFilename()),
 					    XMLHelper.tagged("state", ""+PaperState.number2State(getState())),
-					    XMLHelper.tagged("mim_type", getMim_type())
-						
+					    XMLHelper.tagged("mim_type", getMim_type()),
+					    XMLHelper.tagged("topics", 
+					    		Topic.manyToXML(getTopics(),XMLMODE.SHALLOW))
+					    
 						// FIXME not Entity yet getCoAuthors().toXML(XMLMODE.SHALLOW),
 					    // FIXME not Entity yet get???().toXML(XMLMODE.SHALLOW),
 					    );

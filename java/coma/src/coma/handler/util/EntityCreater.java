@@ -18,6 +18,7 @@ import coma.entities.ReviewReport;
 import coma.entities.Topic;
 import coma.entities.Finish;
 import coma.servlet.util.FormParameters;
+import coma.servlet.util.PaperState;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 
@@ -199,7 +200,7 @@ public class EntityCreater {
 		paper.setConference_id(theConf.getId());
 		//paper.setFilename(""); //set in WriteFile.java
 		//paper.setMim_type("");///set in WriteFile.java
-		paper.setState(0);
+		paper.setState(PaperState.NOSTATE);
 		paper.setTitle(request.getParameter(FormParameters.TITLE));
 		paper.setTopics(topicids);	
 		return paper;
