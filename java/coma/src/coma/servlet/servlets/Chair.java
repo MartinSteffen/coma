@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.GregorianCalendar;
+import java.io.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -243,7 +244,7 @@ public class Chair extends HttpServlet
 		Paper search_paper = new Paper(-2);
 		search.setPaper(search_paper);
 		Paper[] papers = (Paper[])read.getPaper(search).getResultObj();
-		int[] role = new int[] {1,2,3,4,5};
+		int[] role = new int[] {1,3,4,5};
 		Person[] persons = (Person[])read.getPersonByRole(role,id).getResultObj();
 		Topic[] topics =(Topic[])read.getTopic(-1,id).getResultObj();
 		role = new int[] {4};
@@ -276,7 +277,7 @@ public class Chair extends HttpServlet
 		session.setAttribute("papers",papers);
 		session.setAttribute("reports",reports);
 		info.append("<content>");
-		info.append(XMLHelper.tagged("persons",number_of_persons));
+		info.append(XMLHelper.tagged("persons",number_of_persons+1));
 		info.append(XMLHelper.tagged("authors",number_of_authors));
 		info.append(XMLHelper.tagged("reviewers",number_of_reviewers));
 		info.append(XMLHelper.tagged("topics",number_of_topics));
@@ -911,11 +912,7 @@ public class Chair extends HttpServlet
 		boolean SENDED = false;
 		if (VALID)
 		{
-		     /*
-	         * FIXME get SMTP-SERVER
-	         * test with your own smtp server an mail address
-	         */
-			SMTPClient MyE = new SMTPClient("127.0.0.1","pkauffels@aol.com",
+			SMTPClient MyE = new SMTPClient("pkauffels@aol.com",
 				formular[0],formular[1],formular[2]);
 			SENDED=MyE.send();		
 			if(SENDED)
@@ -1046,6 +1043,8 @@ public class Chair extends HttpServlet
 	int PaperID = Integer.parseInt((String)session.getAttribute("PaperID"));
 	String[] NewReviewerIDs = req.getParameterValues("CB");
 	Vector OldCheckedReviewers =(Vector)session.getAttribute("CheckedReviewers");
+	SearchCriteria search = new SearchCriteria();
+	SearchResult result = new SearchResult();
 	session.setAttribute("CheckedReviewers",null);
 	tag = "assign";
 	if(NewReviewerIDs != null)
@@ -1068,12 +1067,18 @@ public class Chair extends HttpServlet
 				ReviewReport RR = new ReviewReport();
 				RR.setReviewerId(id);
 				RR.setPaperId(PaperID);
-				SearchCriteria search = new SearchCriteria();
 				search.setReviewReport(RR);
-				SearchResult result = new SearchResult();
 				result = read.getReviewReport(search);
 				ReviewReport[] Review_result = (ReviewReport[])result.getResultObj();
 				delete.deleteReviewReport(Review_result[0].getId());
+				Rating r = new Rating();
+				r.set_report_id(RR.get_reviewer_id());
+				search.setRating(r);
+				result = read.getRating(search);
+				Rating[] R = (Rating[])result.getResultObj();
+				for(int i=0;i<R.length;i++){
+					delete.deleteRating(R[i].get_review_id(),R[i].get_criterion_id());
+				}		
 			}	
 		}
 	    for(int i=0;i<NewReviewerIDs.length;i++)
@@ -1084,6 +1089,21 @@ public class Chair extends HttpServlet
 	    		RR.set_paper_Id(PaperID);   
 	    		RR.set_reviewer_id(Integer.parseInt(NewReviewerIDs[i]));
 	    		insert.insertReviewReport(RR);
+				search.setReviewReport(RR);
+				result = read.getReviewReport(search);
+				RR = ((ReviewReport[])result.getResultObj())[0];
+	    		Criterion cr = new Criterion();
+	    		cr.set_conference_id(c.getId());
+	    		search.setCriterion(cr);
+	    		result = read.getCriterion(search);
+				Criterion[] C = (Criterion[])result.getResultObj();
+				for(int j=0;j<C.length;j++)
+				{
+		    		Rating R = new Rating();
+		    		R.setReviewReportId(RR.getId());
+			    		R.setCriterionId(C[j].getId());
+					insert.insertRating(R);
+				}	
 	    	}
 	    }
 	}
@@ -1095,16 +1115,23 @@ public class Chair extends HttpServlet
 			ReviewReport RR = new ReviewReport();
 			RR.setReviewerId(id);
 			RR.setPaperId(PaperID);
-			SearchCriteria search = new SearchCriteria();
 			search.setReviewReport(RR);
-			SearchResult result = new SearchResult();
 			result = read.getReviewReport(search);
 			ReviewReport[] Review_result = (ReviewReport[])result.getResultObj();
 			delete.deleteReviewReport(Review_result[0].getId());
+			Rating r = new Rating();
+			r.set_report_id(RR.get_reviewer_id());
+			search.setRating(r);
+			result = read.getRating(search);
+			Rating[] R = (Rating[])result.getResultObj();
+			for(int i=0;i<R.length;i++)
+			{
+				delete.deleteRating(R[i].get_review_id(),R[i].get_criterion_id());
+			}
 		}
 	}
 	assign(req,res,session);
-}
+	}
 	
 	private void programCommit(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{	
@@ -1168,6 +1195,7 @@ public class Chair extends HttpServlet
 	
 	private void programCreate(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{	String tag="procreate";
+		StringBuffer program = new StringBuffer();
 		SearchCriteria search = new SearchCriteria();
 		Paper p = new Paper(-1);
 		p.setState(1);
@@ -1193,18 +1221,29 @@ public class Chair extends HttpServlet
         	info.append("<content>");
         	int cnt=0;
         	int left =1;
-        	if(SemPerDay>0)
+        	if(Days >1 && Selection >8)
         	{
         		for(int j=0;j<Days;j++)
         		{
         			info.append("<day date='"+(j+1)+"'>");
+        			program.append("DAY "+(j+1)+": ");
+
+        			long dateStart = c.getConference_start().getTime();
+        			Date day = new Date(dateStart+j*518400);
+        			program.append(day+"\n");
+                  	info.append(XMLHelper.tagged("date",day));
 		        	for (int i=0;i<SemPerDay+left;i++)
-		        	{	
+		        	{	System.out.println(cnt);
 		        		f = result[cnt];
 		        		f.setMyTime(Times[i]);
 		        		info.append(f.toXML(Entity.XMLMODE.DEEP));
+		        		program.append("Time: "+f.getmyTime()+"\n");
+		        		program.append("	Author: "+f.getAuthor()+"\n");
+		        		program.append("	Title: "+f.getTitle()+"\n");
+		        		program.append("---------------------------\n");
 		        		cnt++;        	
 		        	}
+		        	program.append("---------------------------\n"+"\n");
 		        	info.append("</day>");
 		        	if(j==RestSem-1)
 		        		left=0;
@@ -1213,20 +1252,54 @@ public class Chair extends HttpServlet
         	else
         	{
         		info.append("<day date='"+1+"'>");
-            	for (int i=0;i<RestSem;i++)
+    			program.append("DAY 1: ");
+    			program.append(c.getConference_start()+"\n"+"\n");
+            	for (int i=0;i<Selection;i++)
             	{	
             		f = result[cnt];
             		f.setMyTime(Times[i]);
             		info.append(f.toXML(Entity.XMLMODE.DEEP));
+	        		program.append("Time: "+f.getmyTime()+"\n");
+	        		program.append("	Author: "+f.getAuthor()+"\n");
+	        		program.append("	Title: "+f.getTitle()+"\n");
+	        		program.append("---------------------------\n");
             		cnt++;        	
-            	}
+            	}           	
+
+            	info.append(XMLHelper.tagged("date",c.getConference_start()));
             	info.append("</day>");
         	}
         info.append("</content>");
         }
-		info.append(XMLHelper.tagged("status","" + user + ": Done successfulll: "));
+		info.append(XMLHelper.tagged("status","" + user + ": Program Creation Sucessful "));
     	commit(res,tag);
+    	try
+    	{
+		File XMLFile = new File(path + "/papers","Program.txt");
+		if(XMLFile.exists())
+			XMLFile.delete();
+			XMLFile.createNewFile();
+			RandomAccessFile output = new RandomAccessFile( XMLFile, "rw" );
+			String s = program.toString();
+			byte[] b = s.getBytes();
+			output.write(b);
+			output.close();
+    	} 	
+    	catch(IOException E)
+    	{
+    		E.printStackTrace();
+    	}	
  	}
+
+
+	private boolean sendEmail(String SenderAdress, String[] formular)
+	{
+		boolean SENDED = false;
+		SMTPClient MyE = new SMTPClient(SenderAdress,
+						formular[0],formular[1],formular[2]);
+		SENDED=MyE.send();	
+		return SENDED;
+	}
 	
 	private void program(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{	
