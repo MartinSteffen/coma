@@ -9,7 +9,12 @@ include("templates/header.tpl.php");
 			<fieldset>
 				<table>
 					<tr>
-						<td class="textBold">Please select the conference, you want to participate.</td>
+						<td class="textBold">
+						<p>Please select the conference, you want to participate.<br>
+						Below all conferences are listed, their submission deadline for papers is not exceeded.<br>
+						So, if you are missing a conference, check, if you are still on time.
+						</p>
+						</td>
 					</tr>
 				</table>
 			</fieldset>

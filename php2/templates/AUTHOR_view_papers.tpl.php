@@ -65,23 +65,17 @@ if (array_key_exists('msg', $TPL)) {
 
 <?
 
-foreach($TPL as $key => $value) {
+foreach($TPL as $key => $value) { // for each block of conferences (alive or dead)
 	if ($key == 'alive') {
-		foreach ($value as $row) {
+		foreach ($value as $row) { // for each conference from alive block
 			?>
 <fieldset>
 <legend class="text"><font class="textBold">Conference: </font><? echo $row['conference_name']; ?></legend>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td>&nbsp;</td>
-<td>
-		<?
-			foreach ($row as $v) {
+
+			<?
+			foreach ($row as $v) { // for each paper in the conference
 				if (is_array ($v)) {
 					?>
-				</td>
-			</tr>
-		</table>	
 	<fieldset>
 	<legend class="text"><font class="textBold">Paper: </font><? echo $v['title']; ?><font class="textBold"> -- last edited: </font><? echo $v['last_edited'] ?></legend>
 		<table border="0" cellspacing="0" cellpadding="0">
@@ -109,6 +103,7 @@ foreach($TPL as $key => $value) {
 			}
 			?>
 </fieldset>
+<br>
 			<?
 		}
 	}
