@@ -22,14 +22,16 @@ require_once('./include/class.papersimple.inc.php');
 require_once('./include/class.paperdetailed.inc.php');*/
 
 function printMessage($objMessage, $indent = 0)
-{    
-  for ($i = 0; $i < $indent; $i++) {
-    echo ('&nbsp;&nbsp;&nbsp;&nbsp;');
+{ 
+  if ($objMessage) {   
+    for ($i = 0; $i < $indent; $i++) {
+      echo ('&nbsp;&nbsp;&nbsp;&nbsp;');
+    }
+    echo('-- '.$objMessage->strSubject.'<br>');    
+    for ($n = 0; $n < $objMessage->getNextMessageCount(); $n++) {
+      printMessage($objMessage->getNextMessage($n), $indent + 1);
+    }  
   }
-  echo('-- '.$objMessage->strSubject.'<br>');    
-  for ($n = 0; $n < $objMessage->getNextMessageCount(); $n++) {
-    printMessage($objMessage->getNextMessage($n), $indent + 1);
-  }  
 }
 
 $mySql = new MySql();
@@ -48,7 +50,7 @@ if ($messages) {
   echo('<b>'.count($messages).' Nachricht'.(count($messages) <> 1 ? 'en' : '').
        ' in Forum (ID 1):</b><br><br>'); 
   for ($n = 0; $n < count($messages); $n++) {
-    printMessage($messages[$i], 1);
+    printMessage($messages[$n], 1);
   } 
 }
 
