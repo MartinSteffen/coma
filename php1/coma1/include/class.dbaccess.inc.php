@@ -922,7 +922,7 @@ class DBAccess {
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
                     $strFilePath, $strMimeType, $strCoAuthors) {
-    $s = 'INSERT  INTO Paper (conference_id, title, author_id, abstract, filename,'.
+    $s = 'INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,'.
         '                     mime_type, state)'.
         '         VALUES (\''.$intConferenceId.'\', \''.$intAuthorId.'\', \''.$strTitle.'\','.
         '                 \''.$strAbstract.'\', \''.$strFilePath.'\', \''.$strMimeType.'\', 0)';
