@@ -485,6 +485,7 @@ class DBAccess extends ErrorHandling {
     else if (empty($data)) {
       return $this->success(false);
     }
+    echo("OK1");
 
     $objPersonAlgorithmic = new PersonAlgorithmic($data[0]['id'], $data[0]['first_name'],
                              $data[0]['last_name'], $data[0]['email'], 0, $data[0]['title']);
@@ -499,6 +500,7 @@ class DBAccess extends ErrorHandling {
     $intDeniedPapers = array();
     $intExcludedPapers = array();
 
+    echo("OK2");
     // Rollen der Person
     $s = "SELECT  role_type".
         " FROM    Role".
