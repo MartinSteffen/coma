@@ -867,7 +867,7 @@ class DBAccess extends ErrorHandling {
                  "         a.last_name AS author_name".
                  " FROM    Paper AS p".
                  " INNER   JOIN Person AS a".
-                 " WHERE   a.id = p.author_id".
+                 " ON      a.id = p.author_id".
                  " WHERE   conference_id = '%d'",
                            s2db($intConferenceId));
     if (!empty($intOrder)) {
