@@ -1,0 +1,184 @@
+----------------------------------------
+ Aktuelle Version der SQL-Datenstruktur
+----------------------------------------
+
+- Diese Tabellenstruktur sollten derjenigen entsprechen, die in
+  der Absprache vom 30.11.04 entstanden ist.
+- Unten gelistet sind meine Vorschlaege fuer die Interpretation
+  der Integer-Werte status, forum_type und paper_state (im Folgenden
+  Enumerations genannt). @Gunnar: Die Status-Enumeration muesstest
+  du noch ergaenzen, je nachdem welchen Status ihr fuer die Rollen
+  vorgesehen hattet. Ich schlage vor, dass die Verwendung des Status-
+  Integers fuer die Implementierung nicht verpflichtend ist, da er
+  in unserer Spezifikation gar nicht vorgesehen war. Falls ihr ihn
+  mittlerweile auch nicht mehr benoetigt, kann er auch gestrichen werden.
+- Was wir in der Diskussion vergessen haben, ist dass wir eigentlich
+  mehr Foren als das oeffentliche und die Artikel-Foren spezifiziert
+  hatten, naemlich auch Foren, die nur fuer Kommitee-Mitglieder
+  vorgesehen sind. Habe darum einen integer-Wert forum_type in das
+  Forum eingefuegt, der die Art des Forums angibt. Die paper_id wird
+  dann nur beruecksichtigt, wenn das Forum ein Artikel-Forum ist.
+  @Gunnar: Wenn du damit nicht einverstanden bist, kannst du das
+  Attribut auch entfernen, dann faellt das Komitee-Forum raus.
+  
+  + + + Sandro
+ 
+
+1.  Tables:
+
+ Table Conference
+~~~~~~~~~~~~~~~~~~
+id                            Int               Primary Key, Autoincrement
+name                          Varchar 127	Not Null
+homepage                      Varchar 127
+description                   Text
+abstract_submission_deadline  Date
+paper_submission_deadline     Date
+review_deadline               Date
+final_version_deadline        Date
+notification                  Date
+conference_start              Date
+conference_end                Date
+min_reviews_per_paper         Int
+
+ Table Person
+~~~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+conference	Int		-> Conference, id
+first_name	Varchar 127
+last_name	Varchar 127	Not Null
+title		Varchar 32
+affiliation	Varchar 127
+email		Varchar 127	Not Null
+phone_number	Varchar 20
+fax_number	Varchar 20
+street		Varchar 127
+postal_code	Varchar 20
+city		Varchar 127
+state		Varchar 127
+country		Varchar 127
+password	Varchar 32      Not Null (encrypted)
+
+ Table Role
+~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+person_id	Int		-> Person, id
+conference_id	Int		-> Conference, id
+role_id		Int		-> Roles, id
+status		Int		(enumeration Status)
+
+ Table Roles
+~~~~~~~~~~~~~
+conference_id	Int		-> Conference, id
+person_id       Int             -> Person, id
+type		Int		(enumeration Roles)
+
+ Table Paper
+~~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+conference_id	Int		-> Conference, id
+author		Int		-> Person, id
+title		Varchar 127	Not Null
+abstract	Text
+last_edited	DateAndTime	(automatically set)
+version		Int		(automatically set)
+filename	Varchar 127
+state		Int		(enumeration PaperState)
+mime_type	Varchar 127
+
+ Table IsCoAuthorOf
+~~~~~~~~~~~~~~~~~~~~
+person_id	Int		-> Person, id (may be NULL)
+paper_id	Int		-> Paper, id
+name		Varchar 127	Not Null
+
+ Table Topic
+~~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+conference_id	Int		-> Conference, id
+name		Varchar 127	Not Null
+
+ Table IsAboutTopic
+~~~~~~~~~~~~~~~~~~~~
+paper_id	Int          	-> Paper, id
+topic_id	Int		-> Topic, id
+
+ Table PrefersTopic
+~~~~~~~~~~~~~~~~~~~~
+person_id	Int		-> Person, id
+topic_id	Int		-> Topic, id
+
+ Table PrefersPaper
+~~~~~~~~~~~~~~~~~~~~
+person_id	Int		-> Person, id
+paper_id	Int          	-> Paper, id
+
+ Table DeniesPaper
+~~~~~~~~~~~~~~~~~~~
+person_id	Int		-> Person, id
+paper_id	Int             -> Paper, id
+
+ Table ReviewReport
+~~~~~~~~~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+paper_id      	Int  		-> Paper, id
+reviewer_id     Int	     	-> Person, id
+summary         Text
+remarks         Text
+confidential    Text
+
+ Table Rating
+~~~~~~~~~~~~~~
+review_id	Int		-> ReviewReport, id
+criterion_id	Int		-> Criterion, id
+grade		Int		Not Null
+comment		Text
+
+ Table Criterion
+~~~~~~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+conference_id	Int		-> Conference, id
+name		Varchar 127     Not Null
+description	Text
+max_value	Int
+quality_rating	Int		(in percent)
+
+ Table Forum
+~~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+conference_id	Int		-> Conference, id
+title		Varchar 127	Not Null
+type		Int		(enumeration ForumType)
+paper_id	Int		-> Paper, id (may be NULL)
+
+ Table Message
+~~~~~~~~~~~~~~~
+id              Int             Primary Key, Autoincrement
+forum_id	Int		-> Forum, id   (may be NULL)
+reply_to	Int		-> Message, id (may be NULL)
+sender_id	Int		-> Person, id
+send_time	TimeAndDate	(automatically set)
+subject		Varchar 127
+text		Text
+
+
+2. Enumerations:
+
+ Enumeration Status
+~~~~~~~~~~~~~~~~~~~~
+01  active
+02  not active
+
+ Enumeration PaperState
+~~~~~~~~~~~~~~~~~~~~~~~~
+01  being reviewed
+02  conflicting
+03  accepted
+04  rejected
+
+ Enumeration ForumType
+~~~~~~~~~~~~~~~~~~~~~~~
+01  open forum (for committee, authors and participants)
+02  committee forum (only for chairs and reviewers)
+03  paper discussion forum (only for committee members and authors
+                            that are allowed to see the paper's review)
