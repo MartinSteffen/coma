@@ -1001,6 +1001,7 @@ class DBAccess {
       if ($objPerson->hasRole($i)) {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
             '         VALUES ('.$intConferenceId.', '.$intId.', '.$i.')';
+        echo('SQL: '.$s.'<br>');
         $result = $this->mySql->insert($s);
         if (empty($result)) {
           return $this->error('updateRoles '.$this->mySql->getLastError());
