@@ -146,7 +146,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 					EntityCreater eCreater = new EntityCreater();
 					while (resSet.next()) {
 						Person person = eCreater.getPerson(resSet);
-						// getPersonRoles(person.getId());
 						ll.add(person);
 					}
 					resSet.close();
@@ -350,7 +349,6 @@ public class ReadServiceImpl extends Service implements ReadService {
 
 					while (resSet.next()) {
 						Paper paper = eCreater.getPaper(resSet);
-						;
 						ll.add(paper);
 					}
 					resSet.close();

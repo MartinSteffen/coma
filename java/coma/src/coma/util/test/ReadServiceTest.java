@@ -57,8 +57,9 @@ public class ReadServiceTest extends TestCase{
 			return;
 		}
 		
-		Person p = new Person(1);
+		Person p = new Person(-1);
 		//p.setLast_name("Susi");
+		p.setEmail("test@web.de");
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPerson(p);
 		
@@ -77,8 +78,8 @@ public class ReadServiceTest extends TestCase{
 			return;
 		}
 		
-		Paper p = new Paper(1);
-		//p.setAuthor_id(2);
+		Paper p = new Paper(-1);
+		p.setAuthor_id(15);
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setPaper(p);
 		
@@ -92,7 +93,7 @@ public class ReadServiceTest extends TestCase{
 	}
 	
 	public void testGetReviewReport(){
-		boolean run = true;
+		boolean run = false;
 		if(!run){
 			return;
 		}

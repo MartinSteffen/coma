@@ -146,7 +146,7 @@ public class EntityCreater {
 			paper.setFilename(resSet.getString("filename"));
 			paper.setId(resSet.getInt("id"));
 			paper.setLast_edited(resSet.getDate("last_edited"));
-			paper.setMim_type(resSet.getString("mim_type"));
+			paper.setMim_type(resSet.getString("mime_type"));
 			paper.setState(resSet.getInt("state"));
 			paper.setTitle(resSet.getString("title"));
 			paper.setVersion(resSet.getInt("version"));
