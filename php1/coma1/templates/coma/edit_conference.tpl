@@ -99,9 +99,9 @@
       <input type="hidden" name="topics" value="{topics}" />
       <input type="hidden" name="crit_max" value="{crit_max}" />
       <input type="hidden" name="crit_descr" value="{crit_descr}" />
-      <input type="hidden" name="auto_actaccount" value="{auto_actaccount}" />
-      <input type="hidden" name="auto_paperforum" value="{auto_paperforum}" />
-      <input type="hidden" name="auto_addreviewer" value="{auto_addreviewer}" />
+      <input type="hidden" name="auto_actaccount" value="{if2 1}" />
+      <input type="hidden" name="auto_paperforum" value="{if3 1}" />
+      <input type="hidden" name="auto_addreviewer" value="{if4 1}" />
       <input type="hidden" name="auto_numreviewer" value="{auto_numreviewer}" />
 
       <input type="hidden" name="action" value="submit" />

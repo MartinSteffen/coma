@@ -62,7 +62,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      Auto Account activation
+      Add reviewers to critical papers automatically
       <input type="checkbox" name="auto_addreviewer" value="1"{if4 checked} />
     </td>
   </tr>

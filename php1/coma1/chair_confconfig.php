@@ -40,13 +40,13 @@ if (isset($_POST['action'])) {
   $strContentAssocs['crit_max']         = $_POST['crit_max'];
   $strContentAssocs['crit_descr']       = $_POST['crit_descr'];
   $strContentAssocs['auto_numreviewer'] = $_POST['auto_numreviewer'];
-  if (isset($_POST['auto_actaccount'])) {
+  if (isset($_POST['auto_actaccount']) && !empty($_POST['auto_actaccount'])) {
     $ifArray[] = 2;
   }
-  if (isset($_POST['auto_paperforum'])) {
+  if (isset($_POST['auto_paperforum']) && !empty($_POST['auto_paperforum'])) {
     $ifArray[] = 3;
   }
-  if (isset($_POST['auto_addreviewer'])) {
+  if (isset($_POST['auto_addreviewer']) && !empty($_POST['auto_addreviewer'])) {
     $ifArray[] = 4;
   }
   // Aktualisieren der Konferenz in der Datenbank
