@@ -464,8 +464,8 @@ function generatePostMethodArray($strArrayPostvars){
   $strArrayContentAssocs = buildForumtemplates($objArrayForums, $ffs, $fms, $sel, $strArrayContentAssocs, $fshow);
   $objContenttemplate->assign($strArrayContentAssocs);
 
-  $_SESSION['menu'] = 0;
-  $_SESSION['menuitem'] = 'F'.$fshow;
+  $_SESSION['menu'] = 0;  
+  $_SESSION['menuitem'] = 10 + fshow;  
   include(INCPATH.'usermenu.inc.php');
 
   $objMaintemplate = new Template(TPLPATH . 'frame.tpl');

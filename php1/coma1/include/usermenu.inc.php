@@ -29,7 +29,7 @@ $strMenuAssocs['menu4'] = '';
 $strMenuAssocs['if'] = array();
 
 if ($actMenu == 0) {
-  $strMenuAssocs['if'] = array($actMenuItem);
+  $strMenuAssocs['if'] = array(($actMenuItem < 10) ? '0'.$actMenuItem : $actMenuItem);
 }
 
 if ($objPerson->hasRole(CHAIR, session('confid'))) {
@@ -37,7 +37,7 @@ if ($objPerson->hasRole(CHAIR, session('confid'))) {
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
   if ($actMenu == CHAIR) {
-    $strSubmenuAssocs['if'] = array($actMenuItem);
+    $strSubmenuAssocs['if'] = array(($actMenuItem < 10) ? '0'.$actMenuItem : $actMenuItem);
   }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
@@ -49,7 +49,7 @@ if ($objPerson->hasRole(REVIEWER, session('confid'))) {
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
   if ($actMenu == REVIEWER) {
-    $strSubmenuAssocs['if'] = array($actMenuItem);
+    $strSubmenuAssocs['if'] = array(($actMenuItem < 10) ? '0'.$actMenuItem : $actMenuItem);
   }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
@@ -61,7 +61,7 @@ if ($objPerson->hasRole(AUTHOR, session('confid'))) {
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
   if ($actMenu == AUTHOR) {
-    $strSubmenuAssocs['if'] = array($actMenuItem);
+    $strSubmenuAssocs['if'] = array(($actMenuItem < 10) ? '0'.$actMenuItem : $actMenuItem);
   }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
@@ -73,7 +73,7 @@ if ($objPerson->hasRole(PARTICIPANT)) {
   $strSubmenuAssocs = defaultAssocArray();
   $strSubmenuAssocs['if'] = array();
   if ($actMenu == PARTICIPANT) {
-    $strSubmenuAssocs['if'] = array($actMenuItem);
+    $strSubmenuAssocs['if'] = array(($actMenuItem < 10) ? '0'.$actMenuItem : $actMenuItem);
   }
   $submenu->assign($strSubmenuAssocs);
   $submenu->parse();
