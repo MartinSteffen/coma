@@ -9,19 +9,19 @@
  * @subpackage core
  */
 /***/
-define('STEP1', false);
-define('STEP2', false);
-define('STEP3', false);
+$STEP1 = false;
+$STEP2 = false;
+$STEP3 = false;
 if (isset($_GET['1'])) {
-  define('STEP1', true);
+  $STEP1 = true;
   echo 1;
 }
 elseif (isset($_GET['2'])) {
-  define('STEP2', true);
+  $STEP2 = true;
   echo 2;
 }
 elseif (isset($_GET['3'])) {
-  define('STEP3', true);
+  $STEP3 = true;
   echo 3;
 }
 ?>
@@ -41,7 +41,7 @@ elseif (isset($_GET['3'])) {
 <?php
 
 // Block neuanlegen der Datenbank
-if (STEP2) {
+if ($STEP2) {
   /**@ignore */
   define('IN_COMA1', true);
   require_once('./include/config.inc.php');
@@ -106,7 +106,7 @@ if (STEP2) {
   }
   echo "<br><br>Done.";
 }
-elseif (STEP3) {
+elseif ($STEP3) {
   // Ollis Skript aufrufen... Spaeter vielleicht hier drinne was machen ;)
   include('test_basedata.php');
 }
