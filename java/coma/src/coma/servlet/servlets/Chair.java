@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import javax.xml.transform.stream.StreamSource;
+import coma.servlet.util.XMLHelper;
 import coma.servlet.util.*;
 import coma.entities.*;
 import coma.handler.impl.db.*;
@@ -124,16 +125,16 @@ public class Chair extends HttpServlet
 	
 	public void login(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 		{
-			helper.addTagged("content","Welcome to Coma, " + user + "\n", info);
-			helper.addTagged("status","Welcome chair\n ",info);
+			helper.tagged("content","Welcome to Coma, " + user + "\n", info);
+			helper.tagged("status","Welcome chair\n ",info);
 			String tag = "login";
 			commit(res,tag); 
 		}
 		
 	public void invite_person(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		helper.addTagged("content","",info);
-		helper.addTagged("status","" + user + ": invite a person\n",info);
+		helper.tagged("content","",info);
+		helper.tagged("status","" + user + ": invite a person\n",info);
 		String tag = "invite";
 		commit(res,tag);
 	}
@@ -145,7 +146,7 @@ public class Chair extends HttpServlet
 		FormularChecker checker = new FormularChecker(formular);
 		if (checker.check())
 		{
-		    password_maker password_maker = new password_maker(req.getParameter("first name"),req.getParameter("last name"),req.getParameter("email"));
+		    Password_maker password_maker = new Password_maker(req.getParameter("first name"),req.getParameter("last name"),req.getParameter("email"));
 			String pass = password_maker.generate_password();
 			Person p = new Person(-1);
 			p.setPassword(pass);
@@ -155,8 +156,8 @@ public class Chair extends HttpServlet
 			p.setState(req.getParameter("invite as"));
 			InsertServiceImpl insert = new InsertServiceImpl();
 			insert.insertPerson(p);
-		    helper.addTagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name"),info);
-			helper.addTagged("content","",info);
+		    helper.tagged("status","" + user + ": E-Mail successfully send to " + req.getParameter("first name") +" " +  req.getParameter("last name"),info);
+			helper.tagged("content","",info);
 		    String tag = "invitation_send";
 		    commit(res,tag);
 		}
@@ -164,11 +165,11 @@ public class Chair extends HttpServlet
 		{
 		    info.delete(0,info.length());
 			result.delete(0,result.length());
-			helper.addTagged("first",formular[0],info);
-			helper.addTagged("last",formular[1],info);
-			helper.addTagged("email",formular[2],info);
-			helper.addTagged("status","" + user + ": you have to fill out all *-fields",info);
-			helper.addTagged("content",info.toString(),info);
+			helper.tagged("first",formular[0],info);
+			helper.tagged("last",formular[1],info);
+			helper.tagged("email",formular[2],info);
+			helper.tagged("status","" + user + ": you have to fill out all *-fields",info);
+			helper.tagged("content",info.toString(),info);
 			String tag = "invite";
 			commit(res,tag);
 		}
@@ -176,9 +177,9 @@ public class Chair extends HttpServlet
 	
 	public void setup(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-		helper.addTagged("status","" + user + ": Setup the conference",info);
-		helper.addTagged("content","",info);
-		helper.addTagged("setup",info.toString(),info);
+		helper.tagged("status","" + user + ": Setup the conference",info);
+		helper.tagged("content","",info);
+		helper.tagged("setup",info.toString(),info);
 		String tag = "setup";
 		commit(res,tag);
 	}
@@ -223,14 +224,14 @@ public class Chair extends HttpServlet
 			    c.setConference_end(d);*/
 			    InsertServiceImpl insert = new InsertServiceImpl();
 			    insert.insertConference(c);
-				helper.addTagged("status","" + user + ": Congratulations you have setup a new conference",info);
-				helper.addTagged("content","",info);
+				helper.tagged("status","" + user + ": Congratulations you have setup a new conference",info);
+				helper.tagged("content","",info);
 				commit(res,tag);
 			}
 			else
 			{
-			    helper.addTagged("status","" + user + ": please fill out all *-fields",info);
-				helper.addTagged("content","",info);
+			    helper.tagged("status","" + user + ": please fill out all *-fields",info);
+				helper.tagged("content","",info);
 				commit(res,tag);
 			}
 	    }
@@ -263,7 +264,7 @@ public class Chair extends HttpServlet
         Person[] result = (Person[])search_result.getResultObj();
 		if (result==null || result.length ==0)
         {
-        	helper.addTagged("status","" + user + ": no authors available",info);
+        	helper.tagged("status","" + user + ": no authors available",info);
         	commit(res,tag);
         }
         else
@@ -276,9 +277,9 @@ public class Chair extends HttpServlet
         	}
         	info.append("</content>");
         	if (PAPER)
-        		helper.addTagged("status","" + user + ": list of author for paper ?" ,info);
+        		helper.tagged("status","" + user + ": list of author for paper ?" ,info);
         	else
-        		helper.addTagged("status","" + user + ": list of all authors",info);	
+        		helper.tagged("status","" + user + ": list of all authors",info);	
         	commit(res,tag);
         }
 	}
@@ -295,7 +296,7 @@ public class Chair extends HttpServlet
         Person[] result = (Person[])search_result.getResultObj();
 		 if (result==null || result.length ==0)
 	        {
-	        	helper.addTagged("status","" + user + ": no reviewers available",info);
+	        	helper.tagged("status","" + user + ": no reviewers available",info);
 	        	commit(res,tag);
 	        }
 	        else
@@ -307,7 +308,7 @@ public class Chair extends HttpServlet
 	        		info.append(p.toXML());
 	        	}
 	        	info.append("</content>");
-	        	helper.addTagged("status","" + user + ": list of all reviewers",info);
+	        	helper.tagged("status","" + user + ": list of all reviewers",info);
 	        	commit(res,tag);	
 	        }
 	}
@@ -323,7 +324,7 @@ public class Chair extends HttpServlet
         Paper[] result = (Paper[])search_result.getResultObj();
         if (result==null || result.length ==0)
         {
-        	helper.addTagged("status","" + user + ": no papers available",info);
+        	helper.tagged("status","" + user + ": no papers available",info);
         	commit(res,tag);
         }
         else
@@ -335,15 +336,15 @@ public class Chair extends HttpServlet
         		info.append(p.toXML());
         	}
         	info.append("</content>");
-        	helper.addTagged("status","" + user + ": all papers",info);
+        	helper.tagged("status","" + user + ": all papers",info);
         	commit(res,tag);	
         }
 }
 	
 	public void email(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
-	        helper.addTagged("content","",info);
-			helper.addTagged("status","" + user + ": please write an email",info);
+	        helper.tagged("content","",info);
+			helper.tagged("status","" + user + ": please write an email",info);
 			String tag="email";
 			commit(res,tag);		
 	}
@@ -369,8 +370,8 @@ public class Chair extends HttpServlet
 			String user = session.getAttribute("user").toString();
 			if(SENDED)
 			{
-				helper.addTagged("content","",info);
-				helper.addTagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate(),info);
+				helper.tagged("content","",info);
+				helper.tagged("status","" + user + ": E-Mail successfully send to " + formular[0] +" at " + MyE.getDate(),info);
 				String tag = "email";
 				commit(res,tag);
 			}
@@ -382,10 +383,10 @@ public class Chair extends HttpServlet
 				helper.addTagged("status","SENDING PROBLEMS : INFORM YOUR ADMIN",info);
 			if(!VALID)
 				helper.addTagged("status","ENTER A VALID EMAIL ADDRESS",info);
-			helper.addTagged("subj",formular[1],info);
-			helper.addTagged("recv",formular[0],info);
-			helper.addTagged("cont",formular[2],info);
-			helper.addTagged("content","",info);
+			helper.tagged("subj",formular[1],info);
+			helper.tagged("recv",formular[0],info);
+			helper.tagged("cont",formular[2],info);
+			helper.tagged("content","",info);
 			String tag = "email";
 			commit(res,tag);
 		}
