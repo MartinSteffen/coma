@@ -21,12 +21,6 @@
       <span class="status-accepted">accepted</span>
     </td>
     <td> 3/5 </td> 
-    <td class="listitem-1">
-      <form action="" method="post" accept-charset="UTF-8">
-        <input type="hidden" name="paperid" value="{paperid}" />
-        <input type="submit" name="submit" value="reset status" class="button" />        
-      </form>
-    </td>
     <td>
       <form action="" method="post" accept-charset="UTF-8">
         <input type="hidden" name="paperid" value="{paperid}" />
