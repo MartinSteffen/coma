@@ -51,5 +51,5 @@ a:
 1.) phpadmin öffnen und eine neue Datenbank coma1 anlegen
 2.) Benutzer mit Passwort wie in '.../include/config.inc.php' hinterlegt anlegen
 3.) Erzeugen der (globalen)-Tabellen mit dem Skript '.../sql/db_schema.sql'
-4.) Erzeugen der php1 spezifischen Tabellen wie in der '.../spec/main.txt' angegeben
+4.) Erzeugen der php1-spezifischen Tabellen wie in der '.../spec/main.txt' angegeben
 5.) z.B. Einspielen von Testdaten
