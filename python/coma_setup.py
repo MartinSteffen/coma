@@ -80,6 +80,8 @@ defaults = { 'dbname' : 'coma',
              'smtpserver' : 'localhost' }
 
 def save_config(filename, config, settings):
+    print "Saving configuration file %s" % (filename)
+    print
     try:
         os.remove(filename)
     except:
@@ -120,14 +122,69 @@ def import_pgsql_schema(filename, settings):
     db.query(schema)
     print
 
-def main():
-    """Ask for some settings."""
+def main(argv = []):
+    """Ask for some settings.
+    The argument list provides the setup program with some settings.  The
+    following are understood:
+
+    -mysql:           The intended data base is mysql.
+    -psql:            The intended data base is postgresql.
+    -instance name:   The name of the coma instance.
+    """
     print "Welcome to the CoMa Conference Manager set-up program."
     print
     print "Before you can start using CoMa, we first need to check some settings."
     print
-    test_pgsql_config(defaults)
-    save_config('./coma/comaconf.py', comaconf, defaults)
-    save_config('./coma.conf', apacheconf, defaults)
-    import_pgsql_schema('coma.sql', defaults)
-    import_pgsql_schema('coma-aux.sql', defaults)
+
+    database = 'POSTGRESQL'
+    instance = 'coma'
+    delete = False
+
+    # Parse options.
+    while argv:
+        if argv[0] == '-instance':
+            if argv[1]:
+                if argv[1][0] != '-':
+                    instance = argv[1]
+                    argv = argv[2:]
+                else:
+                    print "The name of the instance must not start with '-'"
+                    argv = argv[1:]
+            else:
+                print "Option -instance requires an argument."
+                argv = argv[1:]
+        elif argv[0] == '-mysql':
+            database = 'MYSQL'
+	    argv = argv[1:]
+        elif argv[0] == '-psql':
+            database = 'POSTGRESQL'
+	    argv = argv[1:]
+        elif argv[0] == '-delete':
+            delete = True
+            argv = argv[1:]
+        else:
+            print "Option '%s' not understood." % (argv[0])
+
+    # First save the apache settings.
+    save_config('%s/%s.conf' % (instance, instance), apacheconf, defaults)
+
+    # Now configure coma for the data base.
+    if delete:
+        if database == 'POSTGRESQL':
+            test_pgsql_config(defaults)
+            # Now the global settings.
+            import_pgsql_schema('coma-psql-del.sql', defaults)
+        elif database == 'MYSQL':
+            pass
+        else:
+            pass
+    else:
+        if database == 'POSTGRESQL':
+            test_pgsql_config(defaults)
+            save_config('%s/comaconf.py' % (instance), comaconf, defaults)
+            import_pgsql_schema('coma-psql.sql', defaults)
+            import_pgsql_schema('coma-psql-aux.sql', defaults)
+        elif database == 'MYSQL':
+            pass
+        else:
+            pass

@@ -1,4 +1,5 @@
 DROP TABLE coauthors CASCADE;
+DROP TABLE papers CASCADE;
 DROP TABLE conferences CASCADE;
 DROP TABLE criteria CASCADE;
 DROP TABLE deniedpapers CASCADE;
@@ -6,7 +7,6 @@ DROP TABLE excludedpapers CASCADE;
 DROP TABLE forum CASCADE;
 DROP TABLE message CASCADE;
 DROP TABLE paperrating CASCADE;
-DROP TABLE papers CASCADE;
 DROP TABLE preferedpapers CASCADE;
 DROP TABLE ratings CASCADE;
 DROP TABLE reviewreports CASCADE;

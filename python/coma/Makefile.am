@@ -6,4 +6,4 @@ pkgpython_PYTHON	= coma.py comadb.py comapsql.py comamysql.py
 MOSTLYCLEANFILES	= *~
 CLEANFILES		= *.pyc *.pyo
 DISTCLEANFILES		=
-MAINTAINERCLEANFILES	= comaconf.py Makefile.in
+MAINTAINERCLEANFILES	= comaconf.py coma.conf Makefile.in

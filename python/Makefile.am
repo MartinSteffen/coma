@@ -11,7 +11,7 @@ EXTRA_DIST		= pycoma.spec comasetup.in comaprocmail.in
 
 MOSTLYCLEANFILES	= *~
 CLEANFILES		= *.pyc *.pyo
-DISTCLEANFILES		= comasetup comaprocmail coma.conf
+DISTCLEANFILES		= comasetup comaprocmail
 MAINTAINERCLEANFILES	= configure Makefile.in pycoma.spec \
 			  aclocal.m4 install-sh py-compile \
 			  COPYING missing
