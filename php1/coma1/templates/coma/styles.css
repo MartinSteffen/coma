@@ -101,8 +101,7 @@ h3
 a
 {
   text-decoration: none;
-  font-weight: bold;
-  white-space: nowrap;
+  font-weight: bold;  
 }
 a:link
 {
@@ -163,6 +162,7 @@ a.buttonlink
   border-color: #404040;
   margin: 1px 4px;
   padding: 1px 2px;
+  white-space: nowrap;
 }
 
 /* Allgemeine Tabellen und Formulare */
@@ -191,8 +191,7 @@ td.menu
   width: 150px;
   background-color: #F5FBFF;
   vertical-align: top;
-  margin-bottom: 10px;
-  white-space: nowrap;
+  margin-bottom: 10px;  
 }
 td.submenu
 {
@@ -200,8 +199,7 @@ td.submenu
   background-color: #F5FBFF;
   vertical-align: top;
   padding-left: 10px;
-  margin-bottom: 4px;
-  white-space: nowrap;
+  margin-bottom: 4px;  
 }
 
 /* Links im Menue */
@@ -319,8 +317,7 @@ table.formlist {
 .formlistitem
 {
   padding: 0px 8px;
-  border-bottom: 1px #404040 solid;
-  white-space: nowrap;
+  border-bottom: 1px #404040 solid;  
 }
 
 /* Schaltflaechen und Eingabefelder */
@@ -396,8 +393,7 @@ table.list
   font-size: 12px;
   padding: 1px 8px;
   margin: 0px;
-  background-color: #FAFAFA;
-  white-space: nowrap;
+  background-color: #FAFAFA;  
 }
 .listitem-2
 {
@@ -405,8 +401,7 @@ table.list
   font-size: 12px;
   padding: 1px 8px;
   margin: 0px;
-  background-color: #E4E4E4;
-  white-space: nowrap;
+  background-color: #E4E4E4;  
 }
 
 a.list:link
@@ -454,8 +449,7 @@ table.subviewtable
 }
 .viewline
 {
-  border-top: 1px #808080 solid;
-  white-space: nowrap;
+  border-top: 1px #808080 solid;  
 }
 
 /* Meldungen */
