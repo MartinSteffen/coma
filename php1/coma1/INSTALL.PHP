@@ -30,7 +30,7 @@ if (!mysql_select_db($sqlDatabase, $conn)) {
 }
 
 $sql = 'DROP TABLE IF EXISTS `Conference`, `ConferenceConfig`, `Criterion`, '.
-       '                     `DeniesPaper`, `Distribution`, `ExcludesPaper`,".
+       '                     `DeniesPaper`, `Distribution`, `ExcludesPaper`,'.
        '                     `Forum`, `IsAboutTopic`, `IsCoAuthorOf`, `Message`,'.
        '                     `Paper`, `Person`, `PrefersPaper`, `PrefersTopic`,'.
        '                     `Rating`, `ReviewReport`, `Role`, `Session`, `Topic`';
