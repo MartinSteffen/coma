@@ -60,6 +60,11 @@ class Distribution extends ErrorHandling {
    * @author Falk, Tom (20.01.05)
    */
   function getDistribution($intConferenceId) {
+    define('ASSIGN', 1);
+    define('WANT', 2);
+    define('DENY', 4);
+    define('EXCLUDE', 8);
+    
     if (empty($intConferenceId)) {
       return $this->success(false);
     }
@@ -118,10 +123,53 @@ class Distribution extends ErrorHandling {
         return $this->error('getDistribution', $this->mySql->getLastError());
       }
       for ($j = 0; $j < count($data); $j++) {
-        $matrix[$i][$p_id_index[$data[$j]['paper_id']]] = -1;
+        $this->addBit($matrix[$i][$p_id_index[$data[$j]['paper_id']]], ASSIGNED);
       }
     }
     return $matrix;
   }
 
+  /**
+   * @access private
+   */
+  function getBitArray($int) {
+    $a = array();
+    for ($i = 0; $i < 32; $i++) {
+      $a[] = ($int & (1 << $i)) ? 1 : 0;
+    }
+    return $a;
+  }
+  
+  /**
+   * @access private
+   */
+  function addBit(&$m, $intBit) {
+    $m |= (1 << $intBit);
+    return true;
+  }
+  
+  /**
+   * @access private
+   */
+  function switchBit(&$m, $intBit) {
+    $m = ~((~(1 << $intBit)) ^ ($m));
+    return true;
+  }
+
+  /**
+   * @access private
+   */
+  function deleteBit(&$m, $intBit) {
+    if ($this->hasBit($intBit)) {
+      $this->switchBit($m, $intBit);
+    }
+    return true;
+  }
+
+  /**
+   * @access private
+   */
+  function isBit($m, $intBit) {
+    return ($m & (1 << $intBit));
+  }
 }
