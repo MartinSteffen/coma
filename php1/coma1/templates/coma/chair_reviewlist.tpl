@@ -1,9 +1,12 @@
 
 <p class="message2">
-  You have the following options:<br>
-  1. <a href="{basepath}.php{?SID}" class="link">Get suggestion</a>
-     of paper/reviewer distribution for papers that are not assigned to at least
-     average number of reviewers yet.
+  It is recommended to proceed as following:<br>
+  Let CoMa make a <a href="{basepath}.php{?SID}" class="link">suggestion</a> of
+  a possible paper/reviewer distribution for papers that are not assigned to the
+  average number of reviewers wanted yet.<br>
+  You may edit the suggested distribution and confirm it then.<br>
+  After that, you can assign several papers by hand (this formular) or re-start
+  the suggestion process.
 </p>
 
 <table class="list">
