@@ -207,6 +207,7 @@ if (isset($_POST['action'])) {
     
     foreach ($strTopics as $key => $name){
       if (trim($name) == ''){
+        $key++;
         $strMessage .= "Topic $key is empty!\n";
       }
     }
@@ -220,7 +221,6 @@ if (isset($_POST['action'])) {
     
     foreach ($strCritMaxVals as $key => $critMax){
       if ($critMax < 1){
-        $key++;
         $strMessage .= "The maximum value of the criterion '{$strCriterions[$key]}' should be greater than zero!\n";
       }
     }
