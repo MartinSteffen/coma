@@ -238,26 +238,15 @@ echo '.';
 $i = 0;
 while ($i < $persons) {
 echo 'PT<br>';
-  if (rand(0,100) < 80) {
+  for ($k = 0; $k < min(8, $topics-1); $k++) {
+    if (rand(0,100) < 50+ ($k==0?40:0)) {
     $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
-    if ($myDBAccess->failed()) {
-      echo('Fehler: '.$myDBAccess->getLastError());
-    }
-  }
-  if (rand(0,100) < 30) {
-    $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
-    if ($myDBAccess->failed()) {
-      echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
-    }
-  }
-  if (rand(0,100) < 10) {
-    $myDBAccess->addPrefersTopic($i+1, rand(1,$topics-1));
-    if ($myDBAccess->failed()) {
-      echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
+      if ($myDBAccess->failed()) {
+          echo('Fehler: '.$myDBAccess->getLastError().' ************** Bei Duplicate entry unkritisch');
+      }
     }
   }
   $i++;
-
 }
 
 echo '.';
@@ -279,7 +268,7 @@ echo '.';
 $i = 0;
 while ($i < $persons) {
 echo 'DP<br>';
-  for ($k = 0; $k < min(5, $papers-1); $k++) {
+  for ($k = 0; $k < min(10, $papers-1); $k++) {
     if (rand(0,100) < 50+ ($k==0?40:0)) {
       $myDBAccess->addDeniesPaper($i+1, rand(1,$papers-2));
       if ($myDBAccess->failed()) {
@@ -294,7 +283,7 @@ echo '.';
 $i = 0;
 while ($i < $persons) {
 echo 'EP<br>';
-  for ($k = 0; $k < min(5, $papers-1); $k++) {
+  for ($k = 0; $k < min(10, $papers-1); $k++) {
     if (rand(0,100) < 50+ ($k==0?40:0)) {
       $myDBAccess->addExcludesPaper($i+1, rand(2,$papers-1));
       if ($myDBAccess->failed()) {
