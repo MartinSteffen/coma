@@ -1468,7 +1468,7 @@ nur fuer detaillierte?
         /*$s = "INSERT  INTO Role (conference_id, person_id, role_type)".
             "         VALUES ('$intConferenceId', '$intId', '".$intRoles[$i]."')";*/
         $s = sprintf("INSERT   INTO Role (conference_id, person_id, role_type)".
-                     " VALUES  ('%d', '%d', %d')",
+                     " VALUES  ('%d', '%d', '%d')",
                      s2db($intConferenceId), s2db($intId), s2db($intRoles[$i]));
         echo("<br>$s<br>");
         $result = $this->mySql->insert($s);
