@@ -1,47 +1,90 @@
 <table class="list">
   <tr class="listheader">
-    <th width="25%" class="listheader"> Name </th> 
-    <th width="25%" class="listheader"> Roles </th> 
-    <th width="25%" class="listheader"> Add Role  </th>
+    <th class="listheader">Name</th> 
+    <th class="listheader">Roles</th> 
+    <th class="listheader">Add Role</th>
+    <th class="listheader">&nbsp;</th>
   </tr>
 
-  <tr class="ft-tr"> 
-    <td class="listitem-1"> <a href=""> Robby Rabbit</a> </td> 
-    <td class="listitem-1"> 
-       <form action="" method="post"> 
-       <input type="hidden" name="confid" value="{confid}"> 
-       <input type="submit" name="submit" value="delete" class="button">
-       chair 
-       </form>  
-       <form action="" method="post">   
-       <input type="hidden" name="confid" value="{confid}">
-       <input type="submit" name="submit" value="delete" class="button">
-       reviewer
-       </form> 
-       <form action="" method="post"> 
-       <input type="hidden" name="confid" value="{confid}">
-       <input type="submit" name="submit" value="delete" class="button">
-       author
-       </form>
-   </td> 
-  </tr>
-
-  <tr class="listitem-2"> 
-    <td class="listitem-2"> <a href=""> Grinse Katze</a> </td> 
-    <td class="listitem-2">  &nbsp; </td> 
-    <td class="listitem-2">  
-       <form action="" method="post">
-       <input type="hidden" name="confid" value="{confid}">
-       <input type="submit" name="submit" value="add Chair" class="button">
-       </form>
-       <form action="" method="post">
-       <input type="hidden" name="confid" value="{confid}">
-       <input type="submit" name="submit" value="add Reviewer" class="button">
-       </form>
-       <form action="" method="post">
-       <input type="hidden" name="confid" value="{confid}">
-       <input type="submit" name="submit" value="add Author" class="button">
-       </form>
+  <tr class="listitem-1"> 
+    <td class="listitem-1">
+      <a href="{basepath}chair_userdetails.php?userid={userid}{&SID}">
+      Robby Rabbit</a>
     </td> 
+    <td class="listitem-1"> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        chair
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        reviewer
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+    </td>
+    <td class="listitem-1"> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        author
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        participant
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+    </td>
+    <td>
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}" />
+        <input type="submit" name="submit" value="delete" class="button" />
+      </form>
+    </td>
+  </tr>
+
+  <tr class="listitem-2">
+    <td class="listitem-2">
+      <a href="{basepath}chair_userdetails.php?userid={userid}{&SID}">
+      Grinse Katz</a>
+    </td>
+    <td class="listitem-1"> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        reviewer
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+    </td>
+    <td class="listitem-1"> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        chair
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        author
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}">
+        <input type="hidden" name="roletype" value="{roletype}">
+        participant
+        <input type="submit" name="submit" value="deleterole" class="button">       
+      </form> 
+    </td>
+    <td>
+      <form action="" method="post">
+        <input type="hidden" name="userid" value="{userid}" />
+        <input type="submit" name="submit" value="delete" class="button" />
+      </form>
+    </td>
   </tr>
 </table>

@@ -5,7 +5,8 @@
     <th class="listheader">Author</th> 
     <th class="listheader">Status</th>    
     <th class="listheader">Rating</th>
-    <th class="listheader">&nbsp;</th>    
+    <th class="listheader">&nbsp;</th>
+    <th class="listheader">&nbsp;</th>
   </tr>
 
   <tr class="listitem-1"> 
@@ -24,8 +25,13 @@
     <td class="listitem-1">
       <form action="" method="post">
         <input type="hidden" name="paperid" value="{paperid}" />
-        <input type="submit" name="submit" value="delete" class="button" />
         <input type="submit" name="submit" value="reset status" class="button" />        
+      </form>
+    </td>
+    <td>
+      <form action="" method="post">
+        <input type="hidden" name="paperid" value="{paperid}" />        
+        <input type="submit" name="submit" value="delete" class="button" />
       </form>
     </td>
   </tr>
@@ -46,9 +52,14 @@
     <td class="listitem-2">
       <form action="" method="post">
         <input type="hidden" name="paperid" value="{paperid}" />
-        <input type="submit" name="submit" value="delete" class="button" />
         <input type="submit" name="submit" value="accept" class="button" />
         <input type="submit" name="submit" value="reject" class="button" />
+      </form>
+    </td>
+    <td>
+      <form action="" method="post">
+        <input type="hidden" name="paperid" value="{paperid}" />        
+        <input type="submit" name="submit" value="delete" class="button" />
       </form>
     </td>
   </tr>
