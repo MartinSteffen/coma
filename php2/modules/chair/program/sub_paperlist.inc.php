@@ -14,8 +14,7 @@ if($_REQUEST['accept']) {
 	$query="UPDATE paper SET state=4 where id=".$_REQUEST['reject'];
 	$result=$sql->insert($query);
 } else if($_REQUEST['reopen']) {
-	$query="UPDATE paper SET state=1 where id=".$_REQUEST['reopen'];
-	$result=$sql->insert($query);
+	makePaperState($_REQUEST['reopen']);
 }
 
 
