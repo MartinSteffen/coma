@@ -31,14 +31,20 @@ echo('<br>');
 
 $myDist = new Distribution($mySql);
 
-$myDist->getDistribution(1);
+$m = $myDist->getDistribution(1);
 if ($myDist->failed()) {
   echo($myDist->getLastError());
 }
-else if (empty($p)) {
+else if (empty($m)) {
   echo('<br>EMPTY');
   die(-1);
 }
-echo('OK');
+for ($i = 0; $i < count($m); $i++) {
+  $s = sprintf("<br>%3d:", $i);
+  for ($j = 0; $j < count($m[$i]); $j++) {
+    $s = $s.sprintf(" %3d", $m[$i][$j]);
+  }
+  echo($s);
+}
 
 ?>
