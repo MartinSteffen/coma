@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.stream.StreamSource;
 
-import coma.servlet.util.XMLHelper;
+import coma.servlet.util.*;
 
 /**
  * @author mti
@@ -31,13 +31,12 @@ public class Index  extends HttpServlet {
 		
 		StringBuffer result = new StringBuffer();	
 		XMLHelper helper = new XMLHelper();
-		
+		Navcolumn myNavCol = new Navcolumn(request.getSession(true));
 		String path = getServletContext().getRealPath("");
 		String xslt = path+"/style/xsl/index.xsl";
 		PrintWriter out = response.getWriter();
 		helper.addXMLHead(result);
-		result.append("<status>\n");
-		result.append("</status>\n");
+		result.append(myNavCol);
 		response.setContentType("text/html; charset=ISO-8859-15");
 		StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 		StreamSource xsltSource = new StreamSource(xslt);

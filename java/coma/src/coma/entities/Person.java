@@ -221,6 +221,8 @@ public class Person extends Entity {
     public boolean isAuthor(){throw new Error("ENOTIMPLEMENTED");}
     public boolean isReviewer(){throw new Error("ENOTIMPLEMENTED");}
 	
+	
+	
 	public Paper[] getPapers() throws Exception{
 		
 		ReadServiceImpl myReadService = new ReadServiceImpl();

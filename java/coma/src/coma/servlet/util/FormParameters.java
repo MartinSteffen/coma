@@ -16,7 +16,8 @@ package coma.servlet.util;
    not, of course, the names).
  */
 public class FormParameters {
-
+	public static final String EMAIL="email";
+	public static final String PASSWORD="password";
     /** A user-editable ReviewReport attribute */
     public static final String SUMMARY="summary";
 

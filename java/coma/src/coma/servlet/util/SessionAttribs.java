@@ -16,10 +16,14 @@ public class SessionAttribs {
     /** to request the Conference object associated with the used conference. */
     public static final String CONFERENCE="conference";
     /** to request the user's login name */
+    @Deprecated
     public static final String USER="user";
 
     /** is LOGIN_OK if login is ok. (duh!) */
+    /** mti,owu no longer used: the session have a person, or not*/
+    @Deprecated
     public static final String LOGIN="login";
+    @Deprecated
     public static final String LOGIN_OK="ok";
 
     // was used in RatePaper. Now using hidden form and PageStateHelper
