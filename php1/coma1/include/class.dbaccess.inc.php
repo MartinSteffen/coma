@@ -197,6 +197,32 @@ class DBAccess {
   }
 
   /**
+   * Liefert das PaperSimple-Objekt mit der ID $intPaperId zurueck.
+   *
+   * @param int $intPaperId ID des Papers
+   * @return PaperSimple <b>false</b>, falls das Paper nicht existiert
+   * @access public
+   * @author Sandro (14.12.04)
+   */
+  function getPaper($intPaperId) {
+    $s = 'SELECT  id, author_id, title, state'.
+        ' FROM    Paper'.
+        ' WHERE   id = '.$intPaperId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
+      $objAuthor = $this->getPerson($data[$i]['author_id']);
+      if (empty($objAuthor)) {
+      	return $this->error('getPaper '.$this->mySql->getLastError());
+      }
+      $strAuthor = $objAuthor->getName();
+      return (new PaperSimple($data[$i]['id'], $data[$i]['title'],
+                $data[$i]['author_id'], $strAuthor, $data[$i]['state'], $fltAvgRating);     
+    }
+    return $this->error('getPaper '.$this->mySql->getLastError());
+  }
+
+  /**
    * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
    *
    * @param int $intAuthorId ID des Autors
@@ -214,6 +240,9 @@ class DBAccess {
       for ($i = 0; $i < count($data); $i++) {
       	$fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
       	$objAuthor = $this->getPerson($intAuthorId);
+        if (empty($objAuthor)) {
+          return $this->error('getPapersOfAuthor '.$this->mySql->getLastError());
+        }
       	$strAuthor = $objAuthor->getName();
       	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
       	                   $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
@@ -244,6 +273,9 @@ class DBAccess {
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
       	$objAuthor = $this->getPerson($intReviewerId);
+      	if (empty($objAuthor)) {
+      	  return $this->error('getPapersOfReviewer '.$this->mySql->getLastError());
+        }
       	$strAuthor = $objAuthor->getName();
       	$fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
       	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
@@ -271,6 +303,9 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       $objAuthor = $this->getPerson($data[0]['author_id']);
+      if (empty($objAuthor)) {
+      	return $this->error('getPaperDetailed '.$this->mySql->getLastError());
+      }
       $strAuthor = $objAuthor->getName();
       $fltAvgRating = $this->getAverageRatingOfPaper($intPaperId);
       // Co-Autoren
@@ -352,29 +387,131 @@ class DBAccess {
     }
     return $this->error('getReviewRating '.$this->mySql->getLastError());
   }
-
+                 
   /**
    */
   function getReviewsOfReviewer($intReviewerId) {
-    return false;
+    $s = 'SELECT  id'.
+        ' FROM    ReviewReport'.
+        ' WHERE   reviewer_id = '.$intReviewerId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objReviews = array();
+      for ($i = 0; $i < count($data); $i++) {
+        $objReviews[] = $this->getReview(data[i]['id']);
+      }
+    }
+    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
   }
 
   /**
    */
   function getReviewersOfPaper($intPaperId) {
-    return false;
+    $s = 'SELECT  reviewer_id'.
+        ' FROM    ReviewReport'.
+        ' WHERE   paper_id = '.$intPaperId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objReviewers = array();
+      for ($i = 0; $i < count($data); $i++) {
+        $objReviewers[] = $this->getPerson(data[i]['reviewer_id']);
+      }
+    }
+    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
   }
 
   /**
    */
   function getReviewsOfPaper($intPaperId) {
-    return false;
+    $s = 'SELECT  id'.
+        ' FROM    ReviewReport'.
+        ' WHERE   paper_id = '.$intPaperId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objReviews = array();
+      for ($i = 0; $i < count($data); $i++) {
+        $objReviews[] = $this->getReview(data[i]['id']);
+      }
+    }
+    return $this->error('getReviewersOfPaper '.$this->mySql->getLastError());    
+  }
+
+  /**
+   */
+  function getReview($intReviewId) {
+    $s = 'SELECT  id, paper_id, reviewer_id'.
+        ' FROM    ReviewReport'.
+        ' WHERE   id = '.$intReviewId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objReviewer = $this->getPerson($data[0]['reviewer_id']);
+      if (empty($objReviewer)) {
+      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      }
+      $objPaper = $this->getPaper($data[0]['paper_id']);
+      if (empty($objPaper)) {
+      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      }
+      $objAuthor = $this->getPerson($objPaper->intAuthorId);      
+      if (empty($objAuthor)) {
+      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      }      
+      return (new Review($data[0]['id'], $data[0]['paper_id'],
+                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),                
+                getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
+                $objReviewer->strEmail, $objReviewer->getName());
+    }
+    return $this->error('getReviewDetailed '.$this->mySql->getLastError());
   }
 
   /**
    */
   function getReviewDetailed($intReviewId) {
-    return false;
+    $s = 'SELECT  id, paper_id, reviewer_id, summary, remarks, confidential'.        
+        ' FROM    ReviewReport'.
+        ' WHERE   id = '.$intReviewId;
+    $data = $this->mySql->select($s);
+    if (!empty($data)) {
+      $objReviewer = $this->getPerson($data[0]['reviewer_id']);
+      if (empty($objReviewer)) {
+      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      }
+      $objPaper = $this->getPaper($data[0]['paper_id']);
+      if (empty($objPaper)) {
+      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      }
+      $objAuthor = $this->getPerson($objPaper->intAuthorId);      
+      if (empty($objAuthor)) {
+      	return $this->error('getReviewDetailed '.$this->mySql->getLastError());
+      }      
+      $s = 'SELECT  grade, comment, name, description, max_value'.
+          ' FROM    Rating r'.
+          ' INNER   JOIN Criterion c'.
+          ' ON      c.id  = r.criterion_id'.
+          ' WHERE   review_id = '.$data[0]['id'];
+      $rating_data = $this->mySql->select($s);
+      $intRatings = array();
+      $strComments = array();
+      $intMaxValues = array();
+      $strCriteria = array();
+      $strDescriptions = array();
+      if (!empty($rating_data)) {
+      	for ($i = 0; $i < count($rating_data); $i++) {
+      	  $intRatings[] = $rating_data[$i]['grade'];
+      	  $intMaxValues[] = $rating_data[$i]['max_value'];
+      	  $strComments[] = $rating_data[$i]['comment'];
+      	  $strCriteria[] = $rating_data[$i]['name'];
+      	  $strDescriptions[] = $rating_data[$i]['description'];
+      	}
+      }
+      return (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
+                $paper_data[0]['title'], $objAuthor->strEmail, $objAuthor->getName(),                
+                getReviewRating($intReviewId), getAverageRatingOfPaper($paper_data[0]['id']),
+                $objReviewer->strEmail, $objReviewer->getName(),
+                $data[0]['summary'], $data[0]['remarks'], $data[0]['confidential'],
+                $intRatings, $strComments, $intMaxValues, $strCriteria, $strDescriptions));
+    }
+    return $this->error('getReviewDetailed '.$this->mySql->getLastError());
   }
 
   /**
@@ -399,7 +536,7 @@ class DBAccess {
       }
       return $messages;
     }
-    return false;
+    return $this->error('getNextMessages '.$this->mySql->getLastError());;
   }
   
   /**
@@ -419,7 +556,7 @@ class DBAccess {
       }
       return $messages;
     }
-    return false;
+    return $this->error('getThreadsOfForum '.$this->mySql->getLastError());;
   }
 
   /**
@@ -433,7 +570,7 @@ class DBAccess {
       $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
-    return false;
+    return $this->error('getAllForums '.$this->mySql->getLastError());;
   }
 
   /**
@@ -448,7 +585,7 @@ class DBAccess {
       $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
       return $forum;
     }
-    return false;
+    return $this->error('getForumOfPaper '.$this->mySql->getLastError());;
   }
 
   /**
@@ -466,7 +603,7 @@ class DBAccess {
         }    	  
       }
     }
-    return false;
+    return $this->error('getForumsOfUser '.$this->mySql->getLastError());;
   }
 
   /**
@@ -481,7 +618,7 @@ class DBAccess {
                   0, false, $this->getThreadsOfForum($intForumId)));
       return $forum;
     }
-    return false;
+    return $this->error('getForumDetailed '.$this->mySql->getLastError());
   }
 
 }
