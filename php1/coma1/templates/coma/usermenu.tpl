@@ -18,11 +18,13 @@
       Forums</a>
     </td>
   </tr>
-  <tr>
+  <!-- ausprogrammierung der messages ausgelassen  -->
+  <!-- tr>
     <td class="menu"><a href="{basepath}user_messages.php{?SID}" class="{if4 marked}menu">
       Messages</a>
     </td>
-  </tr>
+  </tr -->
+
   <tr>
     <td class="menu"><a href="{basepath}logout_conference.php{?SID}" class="{if5 marked}menu">
       Logout</a>

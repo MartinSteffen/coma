@@ -60,17 +60,15 @@
   <tr class="listheader">
     <th width="20%" class="listheader"> Reviername  </th> 
     <th width="20%" class="listheader"> Email       </th> 
- <tr>
+  </tr>
 
-<tr class="listitem-1">
+  <tr class="listitem-1">
     <td class="listitem-1"> Rudy Rabbit  </td>
     <td class="listitem-1"> review1@reviewer.de </td>
-</tr>
+  </tr>
 
-<tr  class="listitem-2">
-   <td  class="listitem-2"> Randy Review </td>
-   <td  class="listitem-2"> review2@reviewer.de </td>
-</tr> 
-
-
+  <tr  class="listitem-2">
+    <td  class="listitem-2"> Randy Review </td>
+    <td  class="listitem-2"> review2@reviewer.de </td>
+  </tr> 
 </table>
