@@ -224,7 +224,8 @@ function ptraMain()
 				$SQL =
 				  "SELECT COUNT(*) FROM paper INNER JOIN reviewreport ON (paper.id = reviewreport.paper_id)
 				   WHERE (paper.id = ".$list[0].")";
-
+				  
+				$currentPaperID = $list[0];
 				$res = mysql_query($SQL);
 				$ll = mysql_fetch_row($res);
 				$papercount = $minrev - $ll[0]; // Die Anzahl der noch nötigen Reviewer
@@ -306,6 +307,7 @@ function ptraMain()
 						// unset($rest[$i]);
 					}
 				}
+				makePaperState($currentPaperID);
 			}
 		}
 	}
