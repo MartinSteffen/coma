@@ -67,6 +67,13 @@ if (isset($_POST['email'])){
     $strMessage = ' Passwort stimmt nicht mir der Wiederholung überein !!! ' ;
     $strMainAssocs['message'] = $strMessage; 
     }
+  // Test, ob die Email gültig ist
+  else if (!($_POST['email']!="" && 
+	     ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email']))){
+    $strMessage = ' Bitte geben Sie eine gültige Emailadresse ein !!! ' ;
+    $strMainAssocs['message'] = $strMessage; 
+
+    }
   // Test, ob die Email bereits vorhanden ist
   else if ( $myDBAccess->checkEmail((string)$_POST['email']) == true){
     $strMessage = ' Ihre Emailadresse ist bereits registriert !!! ' ;
