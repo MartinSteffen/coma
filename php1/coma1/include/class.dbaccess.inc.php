@@ -2163,7 +2163,10 @@ nur fuer detaillierte?
    */
    function updatePaperStatus($intPaperId) {
      $intNewStatus = false;
-     $fltVariance = $myDBAccess->getVarianceOfPaper($intPaperId);
+     $fltVariance = $this->getVarianceOfPaper($intPaperId);
+     if ($this->failed()) {
+       return $this->error('updatePaperStatus', $this->getLastError());
+     }     
      if (!empty($fltVariance)) {
        if ($this->failed()) {
          return $this->error('updatePaperStatus', $this->getLastError());
