@@ -12,66 +12,6 @@ if (!defined('INCPATH')) {
   define('INCPATH', dirname(__FILE__).'/');
 }
 
-/* =============================================================================
-WICHTIGE NEUIGKEITEN 14.01.05 / 18.01.05:
-(auch als Notizen gedacht)
------------------------------------------
-- Updatemethoden mit sprintf und s2db (aus lib.inc.php) ausgestattet.
-  Bitte analog verfahren!
-- Ich knoepfe mir als naechstes mal die Addmethoden vor (sprintf/s2db); fuer
-  diese ist das obligatorisch wie fuer die Uploadmethoden!
-  Bei den Getmethoden muessen MINDESTENS diejenigen, die direkt auf
-  Nutzereingaben ueber Editierfelder angesprochen werden, ebenso mit
-  sprintf/s2db abgesichert werden (z.B. bei Anfrage nach Mailadresse xyz'"@$_\).
-  Der Vollstaendigkeit halber waere es schoen, auch die restlichen Getmethoden
-  sowie die Deletemethoden mit sprintf/s2db zu versehen, aber das ist nur
-  ZUCKER.
-- Objekt PersonAlgorithmic hinzugefuegt; entsprechende DBAccess-Methonden.
-
-Vom 14.01.:
-- Bitte bei ALLEN Datentypen (nicht nur Strings) in SQL-Statements immer
-  Anfuehrungszeichen verwenden, weil sonst leere Integer (=false) als Nullstring
-  in den SQL-String eingesetzt werden mit der Folge, dass Anfragen wie
-    SELECT * FROM tab WHERE id =
-  zustandekommen können, was einen SQL-Fehler und damit einen error erzeugt
-  (hier nicht erwuenscht).
-  Stattdessen sollte nach der SQL-Anfrage ggf. die Ergebnismenge auf EMPTY
-  geprueft werden. => Anfrage wie
-    SELECT * FROM tab WHERE id = ''
-  liefert leeres Ergegnisarray (ok).
-  Sieh Dir mal die zweite SELECT-Anfrage in getPerson an; so sollte es sein.
-  Sieht -- finde ich -- immer noch besser aus als unsere Lösung mit \'.
-  Ich habe es (hoffentlich) ueberall gefixt. *stoehn* (Ich komme zu nichts,
-  weil ich permanent irgendwelche bloeden Fehler finde, die z.T. aus unserer
-  Unwissenheit entstanden sind; bei der DBAccess-Groesse ist es nur immer ein
-  Riesenaufwand, solche Aenderungen durchzufuehren...)
-- Ausserdem habe ich so meine liebe Mueh und Not mit den ""-Strings:
-  Beispiel: $id=1, $tab[0]=0, $tab[1]=2
-  echo("$id/$tab[0]/$tab[$id]"); liefert nicht wie erwartet 1/0/2, sondern
-  1/tab[0]/tab[id] (oder so aehnlich, hab's vergessen).
-  Ursache: Arrays gehen schief. Anders der "->"-Operator:
-  echo("$p->bla"); ist erlaubt.
-- Die EMPTY-Abfrage zu Beginn der Methoden (vor allem bei Updatemethoden)
-  habe ich ersetzt durch eine Abfrage is_a (weil is_a erst ab PHP 4.2)
-- Vor den letzten vier Updatemethoden habe ich eine kleine Anmerkung
-  geschrieben, die einen Vorschlag zum Umgang mit Bug #71 macht.
-============================================================================= */
-/*
-Frisch geSAEte Neuerungen vom 19.01.:
-- Die Methode getPapersOfAuthor() wird zusaetzlich mit dem Attribut $intConferenceId
-  aufgerufen, das angibt, in welcher Konferenz nach Artikel gesucht werden soll.
-  Es wird noch nicht geprueft, ob die Konferenz existiert.
-- Entsprechendes gilt fuer getPapersOfReviewer() und getReviewsOfReviewer().
-- Das Attribut $strFilePath, das vorher in den PaperDetailed-Objekten
-  auftauchte, ist nun eine Stufe nach oben ins PaperSimple-Objekt verschoben
-  worden, da wir es auch in Listen haeufiger benutzen. Dasselbe Schicksal
-  koennte dem $strLastEdit-Attribut drohen (-> Absprache).
-  Bitte beachtet das beim Verwenden des Konstruktors PaperSimple!
-- addConference() bekommt als zusaetzliche Parameter die Angaben fuer die
-  ConferenceConfig-Tabelle (also unsere erweiterten Konfigurationsdaten).
-
-============================================================================= */
-
 require_once(INCPATH.'lib.inc.php');
 require_once(INCPATH.'class.mysql.inc.php');
 
