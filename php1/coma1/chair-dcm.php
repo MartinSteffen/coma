@@ -24,9 +24,9 @@ $strMainAssocs = defaultAssocArray();
 $strMainAssocs['content'] = 'Eingeloggt!';
 
 
-$header->assign($strMainAssocs);
+$headerPage->assign($strMainAssocs);
 
-$header->parse();
-$header->output();
+$headerPage->parse();
+$headerPage->output();
 
 ?>
