@@ -12,7 +12,8 @@ if (!defined('IN_COMA1')) {
  * Klasse zum Parsen der Templates
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
- *
+ * @package coma1
+ * 
  */
 class Template {
 

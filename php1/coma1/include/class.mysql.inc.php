@@ -12,6 +12,7 @@ if (!defined('IN_COMA1')) {
  * simple Klasse zum Zugriff auf die MySQL Datenbank
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
+ * @package coma1
  *
  */
 class MySql {
