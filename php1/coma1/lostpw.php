@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
 }
 elseif (isset($_GET['id']) && isset($_GET['key'])) {
   // Aendern des PW
-  if (checkLogin($_GET['id'], $_GET['key'])) {
+  if ($myDBAccess->checkLogin($_GET['id'], $_GET['key'])) {
     // altes PW korrekt
     $objPerson = $myDBAccess->getPerson($_GET['id']);
     if ($myDBAccess->failed()) {
@@ -84,9 +84,9 @@ elseif (isset($_GET['id']) && isset($_GET['key'])) {
     $strMailAssocs['password'] = $newPass;
     $mail->assign($strMailAssocs);
     $mail->parse();
-    if (sendMail($uid, 'Get a new Password', $mail->getOutput())) {
-      $strContentAssocs['message'] = 'An Email with further instructions has been sent to you!';
-      $strContentAssocs['if'] = array(2);
+    if (sendMail($uid, 'New Password', $mail->getOutput())) {
+      session['message'] = 'An Email with yournew Password has been sent to you!';
+      redirect('index.php');
     }
     else {
       $strContentAssocs['message'] = 'Failed to send Email!';
@@ -94,6 +94,9 @@ elseif (isset($_GET['id']) && isset($_GET['key'])) {
     }
   }
   else {
+    if ($myDBAccess->failed()) {
+      error('Check for Userdata failed.',$myDBAccess->getLastError());
+    }
     error('lostPW', "Hacking Attempt on Accountnumber {$_GET['id']}");
   }  
 }
