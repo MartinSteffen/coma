@@ -2,7 +2,11 @@
 $sql = new SQL();
 $sql->connect();
 
-	$error = $_GET['error'];
+	$error = 0;
+	if (isset($_GET['error']))
+	{
+		$error = $_GET['error'];
+	}
 	if(isset($_SESSION['userID']))
 	{
 		redirect("welcomeUser");

@@ -13,7 +13,7 @@ if(isChair_Person($_POST['userID']))
 				{
 					foreach ($_POST['roles'] as $roleType)
 					{
-						if(!($selRole == 1))
+						if(!($roleType == 1))
 						{
 							$SQL = "SELECT state FROM role
 									WHERE person_id = ".$_POST['userID']."

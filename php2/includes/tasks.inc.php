@@ -173,7 +173,7 @@ function participant_task()
 	$SQL = "select role_type from role 
 			where state = 3 
 			and person_id = ".$_SESSION['userID'];
-			
+	$count = 0;		
     $result=mysql_query($SQL);
     if ($list = mysql_fetch_row ($result)) 	
 	{

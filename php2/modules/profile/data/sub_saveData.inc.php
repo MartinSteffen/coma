@@ -20,7 +20,9 @@ if(isset($_SESSION['userID']))
 		$output['phone']=$_POST['phone'];
 		$output['fax']=$_POST['fax'];
 		$output['email']=strtolower($_POST['email']);
-
+		$output['last_name_error']="";
+		$output['email_error']="";
+		
 		//Evaluate the data
 		
 		$errorExists=0;		
@@ -58,7 +60,7 @@ if(isset($_SESSION['userID']))
 		$TPL['profile'] = $output;
 		if($errorExists==0)  //If no error, update the database
 		{				
-			$_SESSION['userName'] = $output[first_name]." ".$output['last_name'];
+			$_SESSION['userName'] = $output['first_name']." ".$output['last_name'];
 			$SQL = "UPDATE person SET 
 					title = '".$output['title']."', 
 					first_name = '".$output['first_name']."',

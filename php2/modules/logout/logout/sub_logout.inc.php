@@ -2,12 +2,18 @@
 	//Destroy the session
 	session_unset(); 
 	session_destroy(); 
-	
-	if($error == 1)
+	if(isset($error))
 	{
-		redirect("login",false,false,"error=1");
+		if($error == 1)
+		{
+			redirect("login",false,false,"error=1");
+		}
+		if($error == 0)
+		{
+			redirect("login");
+		}
 	}
-	if($error == 0)
+	else
 	{
 		redirect("login");
 	}

@@ -20,7 +20,10 @@ if(isset($_POST['Submit']))
 		$output['email']=strtolower($_POST['email']);
 		$output['pass']=$_POST['pass'];
 		$output['passRetype']=$_POST['passRetype'];
-
+		$output['last_name_error']="";
+		$output['pass_error']="";
+		$output['email_error']="";
+		
 		//Evaluate the data
 		
 		$errorExists=0;		

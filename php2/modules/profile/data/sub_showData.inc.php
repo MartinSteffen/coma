@@ -21,6 +21,8 @@ if(isset($_SESSION['userID']))
 		$output['country'] = $list[9];
 		$output['phone'] = $list[10];
 		$output['fax'] = $list[11];
+		$output['last_name_error']="";
+		$output['email_error']="";		
 	}
 	$TPL['profile'] = $output;
 	template("PROFILE_showData");

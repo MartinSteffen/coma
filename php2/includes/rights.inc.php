@@ -3,7 +3,7 @@
 /* ----- FOR CHAIR ------------------------------------------------------ */
 function isChair_Paper($paperID)
 {
-  if($_SESSION['userID'])
+  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 2
@@ -23,7 +23,7 @@ function isChair_Paper($paperID)
 
 function isChair_Conference($confID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 2
@@ -42,7 +42,7 @@ function isChair_Conference($confID)
 
 function isChair_Topic($topicID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($topicID)) && (!($topicID == "")))
   {
 	$SQL = "select role.person_id from role, topic 
 			where role.role_type = 2
@@ -62,7 +62,7 @@ function isChair_Topic($topicID)
 
 function isChair_Person($userID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($userID)) && (!($userID == "")))
   {
 	$SQL = "select X.person_id
 			from role X, role Y  
@@ -102,7 +102,7 @@ function isChair_Overall()
 /* ----- FOR ADMIN ------------------------------------------------------ */
 function isAdmin_Paper($paperID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 1
@@ -122,7 +122,7 @@ function isAdmin_Paper($paperID)
 
 function isAdmin_Conference($confID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 1
@@ -161,7 +161,7 @@ function isAdmin_Overall()
 /* ----- FOR AUTHOR ------------------------------------------------------ */
 function isAuthor_Paper($paperID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 4
@@ -181,7 +181,7 @@ function isAuthor_Paper($paperID)
 
 function isAuthor_Conference($confID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 4
@@ -220,7 +220,7 @@ function isAuthor_Overall()
 /* ----- FOR REVIEWER ------------------------------------------------------ */
 function isReviewer_Paper($paperID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($paperID)) && (!($paperID == "")))
   {
 	$SQL = "select role.person_id from paper, role 
 			where role.role_type = 3
@@ -240,7 +240,7 @@ function isReviewer_Paper($paperID)
 
 function isReviewer_Conference($confID)
 {
-  if(isset($_SESSION['userID']))
+  if ((isset($_SESSION['userID'])) && (isset($confID)) && (!($confID == "")))
   {
 	$SQL = "select role.person_id from role 
 			where role.role_type = 3
