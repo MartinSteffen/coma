@@ -102,7 +102,7 @@ if (!empty($objPapers)) {
     else {
       $strItemAssocs['avg_rating'] = ' - ';
     }
-    if (!empty($fltVariance) || $fltVariance == 0) {
+    if (!empty($fltVariance) || is_numeric($fltVariance)) {
       $strItemAssocs['variance'] = encodeText(round($fltVariance * 100).'%');
     }
     else {
