@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.GregorianCalendar;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +18,6 @@ import coma.entities.*;
 import coma.servlet.util.XMLHelper;
 import coma.handler.impl.db.*;
 import coma.servlet.util.*;
-
-//import coma.entities.*;
-
-//import org.apache.catalina.realm.RealmBase;
 
 
 /**
@@ -260,7 +255,7 @@ public class Chair extends HttpServlet
 		{
 			tag = "setup";
 			info.append(XMLHelper.tagged("status","you are chair of: "));
-			info.append("<content>");
+			info.append("<content>\n");
 			if (c!=null)
 				info.append(c.toXML(Entity.XMLMODE.DEEP));	
 			if (c.getMin_review_per_paper()==0)
@@ -277,7 +272,7 @@ public class Chair extends HttpServlet
 			{
 				info.append(topics[i].toXML());
 			}
-			info.append("</content>");
+			info.append("</content>\n");
 			commit(res,tag);
 		}
 	}
@@ -287,11 +282,14 @@ public class Chair extends HttpServlet
 		GregorianCalendar calendar = null;
 		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
 		if (req.getParameter("conference name")!=null)
+			if (!req.getParameter("conference name").equals(""))
 			c.setName(req.getParameter("conference name"));
 		if (req.getParameter("homepage")!=null)
-			c.setHomepage(req.getParameter("homepage"));
+			if (!req.getParameter("homepage").equals(""))	
+				c.setHomepage(req.getParameter("homepage"));
 		if (req.getParameter("description")!=null)
-			c.setDescription(req.getParameter("description"));
+			c.setHomepage(req.getParameter("description"));
+				c.setDescription(req.getParameter("description"));
 		if (req.getParameter("min")!=null)
 			if (!(req.getParameter("min").equals("")))
 				c.setMin_review_per_paper(Integer.parseInt(req.getParameter("min")));	
@@ -321,24 +319,27 @@ public class Chair extends HttpServlet
 			    		Integer.parseInt(req.getParameter("end_month"))-1,Integer.parseInt(req.getParameter("end_day")));
 			    c.setConference_end(calendar.getTime());
 			}
-		if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && !(req.getParameter("paper_year").equals("")))
-		{
-			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
-		    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
-		    c.setPaper_submission_deadline(calendar.getTime());
-		}
-		if (!(req.getParameter("review_day").equals("")) && !(req.getParameter("review_month").equals("")) && !(req.getParameter("review_year").equals("")))
-		{
-			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
-		    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
-		    c.setReview_deadline(calendar.getTime());
-		}
-		if (!(req.getParameter("not_day").equals("")) && !(req.getParameter("not_month").equals("")) && !(req.getParameter("not_year").equals("")))
-		{
-			calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
-		    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
-		    c.setNotification(calendar.getTime());
-		}
+		if (req.getParameter("paper_day")!=null)
+			if (!(req.getParameter("paper_day").equals("")) && (req.getParameter("paper_month").equals("")) && !(req.getParameter("paper_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("paper_year")),
+			    		Integer.parseInt(req.getParameter("paper_month"))-1,Integer.parseInt(req.getParameter("paper_day")));
+			    c.setPaper_submission_deadline(calendar.getTime());
+			}
+		if (req.getParameter("review_day")!=null)
+			if (!(req.getParameter("review_day").equals("")) && !(req.getParameter("review_month").equals("")) && !(req.getParameter("review_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("review_year")),
+			    		Integer.parseInt(req.getParameter("review_month"))-1,Integer.parseInt(req.getParameter("review_day")));
+			    c.setReview_deadline(calendar.getTime());
+			}
+		if (req.getParameter("not_day")!=null)
+			if (!(req.getParameter("not_day").equals("")) && !(req.getParameter("not_month").equals("")) && !(req.getParameter("not_year").equals("")))
+			{
+				calendar = new GregorianCalendar(Integer.parseInt(req.getParameter("not_year")),
+			    		Integer.parseInt(req.getParameter("not_month"))-1,Integer.parseInt(req.getParameter("not_day")));
+			    c.setNotification(calendar.getTime());
+			}
 		UpdateServiceImpl update = new UpdateServiceImpl();
 		update.updateConference(c);
 		session.setAttribute(SessionAttribs.CONFERENCE,c);
@@ -348,11 +349,13 @@ public class Chair extends HttpServlet
 	public void show_authors(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
 		String tag;
-		Person p;
+		Person p = null;
+		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+		Person[] result;
 		boolean PAPER = false;
 		if(req.getParameter("delete")!=null)
 		{
-			/*FIXME
+			/*TODO
 			 * delete person from db
 			 */
 			try
@@ -366,21 +369,23 @@ public class Chair extends HttpServlet
 		}
 		if (req.getParameter("id")==null)
 		{
-			p = new Person(-1);
-			p.setRole_type(1);
+			int[] role = new int[] {4};
 			tag = "showauthors";
+			ReadServiceImpl readService = new ReadServiceImpl();
+	        SearchResult search_result = readService.getPersonByRole(role,c.getId());
+	        result = (Person[])search_result.getResultObj();	
 		}
 		else
 		{
 			p = new Person(Integer.parseInt(req.getParameter("id")));
 			PAPER=true;
 			tag = "showauthors_data";
+			ReadServiceImpl readService = new ReadServiceImpl();
+			SearchCriteria search = new SearchCriteria();
+		    search.setPerson(p);
+		    SearchResult search_result = readService.getPerson(search);
+	        result = (Person[])search_result.getResultObj();
 		}
-        SearchCriteria search = new SearchCriteria();
-        search.setPerson(p);
-        ReadServiceImpl readService = new ReadServiceImpl();
-        SearchResult search_result = readService.getPerson(search);
-        Person[] result = (Person[])search_result.getResultObj();
 		if (result==null || result.length ==0)
         {
 			info.append(XMLHelper.tagged("status","" + user + ": no authors available"));
@@ -412,7 +417,6 @@ public class Chair extends HttpServlet
         	}
         	info.append("</content>");
         	if (PAPER)
-
         		info.append(XMLHelper.tagged("status","" + user + ": statistic for author "+ p.getFirst_name()+" "+p.getLast_name()));	
         	else
         		info.append(XMLHelper.tagged("status","" + user + ": list of all authors"));	
@@ -423,9 +427,12 @@ public class Chair extends HttpServlet
 	public void show_reviewers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
 	{
 		String tag;
+		Person p = null;
+		Conference c = (Conference)session.getAttribute(SessionAttribs.CONFERENCE);
+		Person[] result;
 		if(req.getParameter("delete")!=null)
 		{
-			/*FIXME
+			/*TODO
 			 * delete person from db
 			 */
 			try
@@ -437,64 +444,41 @@ public class Chair extends HttpServlet
 				
 			}
 		}
+		if (req.getParameter("id")==null)
+		{
+			int[] role = new int[] {3};
+			tag = "showreviewers";
+			ReadServiceImpl readService = new ReadServiceImpl();
+	        SearchResult search_result = readService.getPersonByRole(role,c.getId());
+	        result = (Person[])search_result.getResultObj();	
+		}
 		else
 		{
-			if(req.getParameter("id")!=null)
-			{
-				tag = "showreviewers_data";
-				info.append(XMLHelper.tagged("status","" + user + ":statistic"));
-				Person p = new Person(Integer.parseInt(req.getParameter("id")));
-				SearchCriteria search = new SearchCriteria();
-		        search.setPerson(p);
-		        ReadServiceImpl readService = new ReadServiceImpl();
-		        SearchResult search_result = readService.getPerson(search);
-		        Person[] result = (Person[])search_result.getResultObj();
-		        if (result==null || result.length ==0)
-		        {
-			 		info.append(XMLHelper.tagged("status","" + user + ": no reviewer available"));
-		        	commit(res,tag);
-		        }
-		        else
-		        {
-		        	info.append("<content>");
-		        	for (int i=0;i<result.length;i++)
-		        	{
-		        		p = result[i];
-		        		info.append(p.toXML());
-		        	}
-		        	info.append("</content>");
-		        	commit(res,tag);	
-		        }
-			}
-			else
-			{
-				tag = "showreviewers";
-		        Person p = new Person(-1);
-		        p.setRole_type(2);
-		        SearchCriteria search = new SearchCriteria();
-		        search.setPerson(p);
-		        ReadServiceImpl readService = new ReadServiceImpl();
-		        SearchResult search_result = readService.getPerson(search);
-		        Person[] result = (Person[])search_result.getResultObj();
-				 if (result==null || result.length ==0)
-			        {
-				 		info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
-			        	commit(res,tag);
-			        }
-			        else
-			        {
-			        	info.append("<content>");
-			        	for (int i=0;i<result.length;i++)
-			        	{
-			        		p = result[i];
-			        		info.append(p.toXML());
-			        	}
-			        	info.append("</content>");
-			        	info.append(XMLHelper.tagged("status","" + user + ": list of all reviewers"));
-			        	commit(res,tag);	
-			        }
-			}
+			p = new Person(Integer.parseInt(req.getParameter("id")));
+			tag = "showreviewers_data";
+			ReadServiceImpl readService = new ReadServiceImpl();
+			SearchCriteria search = new SearchCriteria();
+		    search.setPerson(p);
+		    SearchResult search_result = readService.getPerson(search);
+	        result = (Person[])search_result.getResultObj();
 		}
+		if (result==null || result.length ==0)
+        {
+			info.append(XMLHelper.tagged("status","" + user + ": no reviewers available"));
+        	commit(res,tag);
+        }
+		else
+        {
+        	info.append("<content>");
+        	for (int i=0;i<result.length;i++)
+        	{
+        		p = result[i];
+        		info.append(p.toXML());
+        	}
+        	info.append("</content>");
+        	info.append(XMLHelper.tagged("status","" + user + ": list of all reviewers"));
+        	commit(res,tag);
+        }
 	}
 	
 	public void show_papers(HttpServletRequest req,HttpServletResponse res,HttpSession session)
@@ -631,7 +615,7 @@ public class Chair extends HttpServlet
         		info.append(p.toXML());
         	}
 	        Person p1 = new Person(-1);
-	        p1.setRole_type(2);
+	        p1.setRole_type(3);
 			SearchCriteria search1 = new SearchCriteria();
 	        search.setPerson(p1);
 	        ReadServiceImpl readService1 = new ReadServiceImpl();
@@ -645,7 +629,7 @@ public class Chair extends HttpServlet
 	        }
 	        else
 	        {
-	        	Vector CheckedReviewers = new Vector();
+	        	Vector<String> CheckedReviewers = new java.util.Vector<String>();
 	          	for (int i=0;i<result1.length;i++)
 	        	{    
 	          		info.append("<personplus>");
@@ -693,9 +677,9 @@ public class Chair extends HttpServlet
 			if(toDelete)
 			{
 				System.out.println("TODEL :"+OldCheckedReviewers.elementAt(j).toString());
-				/*
-				 * TODO delete ReviewReport
-				 */
+				
+				DeleteServiceImpl delete = new DeleteServiceImpl();
+				delete.deleteReviewReport(Integer.parseInt((String)OldCheckedReviewers.elementAt(j)));
 			}	
 		}
 	    for(int i=0;i<NewReviewerIDs.length;i++)
