@@ -212,7 +212,7 @@ class DBAccess {
     $data = $this->mySql->select($s);
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {
-      	$fltAvgRating = getAverageRating($data[$i]['id']);
+      	$fltAvgRating = $this->getAverageRating($data[$i]['id']);
       	$objAuthor = $this->getPerson($intAuthorId);
       	$strAuthor = $objAuthor->getName();
       	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
@@ -245,7 +245,7 @@ class DBAccess {
       for ($i = 0; $i < count($data); $i++) {
       	$objAuthor = $this->getPerson($intAuthorId);
       	$strAuthor = $objAuthor->getName();
-      	$fltAvgRating = getAverageRating($data[$i]['id']);
+      	$fltAvgRating = $this->getAverageRating($data[$i]['id']);
       	$objPapers[$i] = new PaperSimple($data[$i]['id'], $data[$i]['title'],
       	                   $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
       	                   $fltAvgRating);
@@ -272,7 +272,7 @@ class DBAccess {
     if (!empty($data)) {
       $objAuthor = $this->getPerson($data[0]['author_id']);
       $strAuthor = $objAuthor->getName();
-      $fltAvgRating = getAverageRating($data[0]['id']);
+      $fltAvgRating = $this->getAverageRating($data[0]['id']);
       // Co-Autoren
       $s = 'SELECT  coauthor_id'.
           ' FROM    IsCoAuthorOf AS i'.
