@@ -86,7 +86,7 @@ class dbAccessTest extends PHPUnit_TestCase
           $this->assertFalse($myDBAccess->getPaperFile(0));
   }
 
-  function test_getPaperFile2($intPaperId) {
+  function test_getPaperFile2() {
         	global $myDBAccess;
           $this->assertTrue($myDBAccess->getPaperFile(1));
   }
