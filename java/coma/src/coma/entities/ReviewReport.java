@@ -34,7 +34,11 @@ public class ReviewReport extends Entity {
 
     public int getId(){return id;}
     public int getPaperId(){return paperId;}
+    public int get_paper_id(){return getPaperId();}
+
     public int getReviewerId(){return reviewerId;}
+    public int get_reviewer_id(){return getReviewerId();}
+
     public String getSummary(){return summary;}
     public String getRemarks(){return remarks;}
     public String getConfidental(){return confidental;}
@@ -181,6 +185,11 @@ public class ReviewReport extends Entity {
 	public void setPaperId(int paperId) {
 		this.paperId = paperId;
 	}
+
+    public void set_paper_Id(int p){
+	setPaperId(p);
+    }
+
 	/**
 	 * @param remarks The remarks to set.
 	 */
@@ -193,6 +202,9 @@ public class ReviewReport extends Entity {
 	public void setReviewerId(int reviewerId) {
 		this.reviewerId = reviewerId;
 	}
+
+    public void set_reviewer_id(int r){setReviewerId(r);}
+
 	/**
 	 * @param summary The summary to set.
 	 */

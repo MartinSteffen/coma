@@ -14,7 +14,7 @@ import static java.util.Arrays.asList;
    Wrapper for entries in the DB's Criterion table
 
    @author ums, mal
- */
+*/
 public class Criterion extends Entity {
 
     /* the DB's fields. */
@@ -30,7 +30,7 @@ public class Criterion extends Entity {
 
        Important: this does _not_ look up the Criterion in the
        database, you need to call a ReadService for that.
-     */
+    */
     public Criterion(int id){
 	this.id = id;
     }
@@ -39,6 +39,8 @@ public class Criterion extends Entity {
 
     public int getId(){return id;}
     public int getConferenceId(){return conferenceId;}
+    public int get_conference_id(){return getConferenceId();}
+
     public String getName(){
 	/* String is immutable, so we don't have to worry that the
 	 * world can modify our field if we return this directly
@@ -51,13 +53,16 @@ public class Criterion extends Entity {
 	return description;
     }
     public int getMaxValue(){return maxValue;}
+    public int get_max_value(){return getMaxValue();}
+
     public int getQualityRating(){return qualityRating;}
+    public int get_quality_rating(){return getQualityRating();}
 
     /** 
 	read my Conference from the DB. 
 
 	may return null if for some reason there is no Conference.
-     */
+    */
     public Conference getConference(){
 
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
@@ -123,40 +128,32 @@ public class Criterion extends Entity {
     }
     
     
-	/**
-	 * @param conferenceId The conferenceId to set.
-	 */
-	public void setConferenceId(int conferenceId) {
-		this.conferenceId = conferenceId;
-	}
-	/**
-	 * @param description The description to set.
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	/**
-	 * @param id The id to set.
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	/**
-	 * @param maxValue The maxValue to set.
-	 */
-	public void setMaxValue(int maxValue) {
-		this.maxValue = maxValue;
-	}
-	/**
-	 * @param name The name to set.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @param qualityRating The qualityRating to set.
-	 */
-	public void setQualityRating(int qualityRating) {
-		this.qualityRating = qualityRating;
-	}
+    public void setConferenceId(int conferenceId) {
+	this.conferenceId = conferenceId;
+    }
+    public void set_conference_id(int c){setConferenceId(c);}
+
+    public void setDescription(String description) {
+	this.description = description;
+    }
+
+    public void setId(int id) {
+	this.id = id;
+    }
+
+    public void setMaxValue(int maxValue) {
+	this.maxValue = maxValue;
+    }
+    public void set_max_value(int m){setMaxValue(m);}
+
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public void setQualityRating(int qualityRating) {
+	this.qualityRating = qualityRating;
+    }
+    public void set_quality_rating(int qr){setQualityRating(qr);}
+
+    
 }

@@ -75,11 +75,13 @@ public class XMLHelper {
        hack. "Normative Kraft des Faktischen", anyone?
 
        @author ums
+       @deprecated should not have been used in the first place.
      */
+    @Deprecated
     public String addTagged(String tag, CharSequence... c){
 
 	if ((c==null )
-	    || (c.length<2)
+	    || (c.length<1)
 	    || (!(c[c.length-1] instanceof StringBuffer))){
 
 	    coma.util.logging.ALogger.log.log(coma.util.logging.Severity.ERROR, "addTagged failure!");
@@ -97,18 +99,18 @@ public class XMLHelper {
     /**
        Puts the content in the tagname.
 
-       If content is not present, creates a <... /> tag.
+       If content is not present, creates a &lt;... /&gt; tag.
 
        This cannot handle attributes. The result is not threadsafe.
 
-       XMLHelper.tagged("foo", "bar", "baz"); gives "<foo>bar baz</foo>",
-       XMLHelper.tagged("foo"); gives "<foo />",
+       XMLHelper.tagged("foo", "bar", "baz"); gives "&lt;foo&gt;bar baz&lt;/foo&gt;",
+       XMLHelper.tagged("foo"); gives "&lt;foo /&gt;",
        XMLHelper.tagged("foo", XMLHelper.tagged("bar", "baz"));
-           gives "<foo><bar>baz</bar></foo>".
+           gives "&lt;foo&gt;&lt;bar&gt;baz&lt;/bar&gt;&lt;/foo&gt;".
 
        Note that several items in one tag will still be seperated by one single space.   
 
-       2004DEC13: would not actually generate <... /> tags.
+       2004DEC13: would not actually generate &lt;... /&gt; tags.
        2004DEC13: At request of mti, changed to not provide line breaking or sane spacing.
      */
     public static StringBuilder tagged(String tagname, CharSequence... content){

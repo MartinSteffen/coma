@@ -15,7 +15,7 @@ import coma.servlet.util.XMLHelper;
    Wrapper class for the DB Rating entries.
    
    $Id:$
- */
+*/
 public class Rating extends Entity {
 
     private int reviewReportId = -1;
@@ -26,7 +26,10 @@ public class Rating extends Entity {
     public Rating(){;}
 
     public int getReviewReportId(){return reviewReportId;}
+    public int get_review_id(){return getReviewReportId();}
+
     public int getCriterionId(){return criterionId;}
+    public int get_criterion_id(){return getCriterionId();}
     
     public int getGrade(){return grade;}
     public String getComment(){return comment;}
@@ -70,7 +73,7 @@ public class Rating extends Entity {
 
     /**
        get the proper corresponding RR from the DB.
-     */
+    */
     public ReviewReport getReviewReport(){
 
 	ReadService rs = new coma.handler.impl.db.ReadServiceImpl();
@@ -131,16 +134,22 @@ public class Rating extends Entity {
 	}
     }
     
-	/**
-	 * @param criterionId The criterionId to set.
-	 */
-	public void setCriterionId(int criterionId) {
-		this.criterionId = criterionId;
-	}
-	/**
-	 * @param reviewReportId The reviewReportId to set.
-	 */
-	public void setReviewReportId(int reviewReportId) {
-		this.reviewReportId = reviewReportId;
-	}
+    /**
+     * @param criterionId The criterionId to set.
+     */
+    public void setCriterionId(int criterionId) {
+	this.criterionId = criterionId;
+    }
+
+    public void set_criterion_id(int c){setCriterionId(c);}
+
+    /**
+     * @param reviewReportId The reviewReportId to set.
+     */
+    public void setReviewReportId(int reviewReportId) {
+	this.reviewReportId = reviewReportId;
+    }
+
+    public void set_report_id(int r){setReviewReportId(r);}
+
 }
