@@ -195,7 +195,7 @@ Neben dem für alle Gruppen verbindlichen minimalen Datenmodell, auf Basis
 dessen die Datenbank angelegt wird, werden wir ein Skript bereitstellen, das
 die Datenbank wie folgt für uns anpasst:
 
-- Tabelle Sessions wird hinzugefügt:
+- Tabelle Session wird hinzugefügt:
 **************************************************
 --
 -- Tabellenstruktur für Tabelle 'Session'
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS Session (
   stime TIMESTAMP(14) NOT NULL,
   PRIMARY KEY  (sid, sname),
   KEY stime (stime)
-) TYPE=MyISAM COMMENT='Session Verwaltung';
+) TYPE=MyISAM COMMENT='Session-Verwaltung';
 **************************************************
 
 
