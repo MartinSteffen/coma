@@ -128,8 +128,8 @@ while ($j < $papers) {
     if ($myDBAccess->failed()) {
 	  echo('Fehler: '.$myDBAccess->getLastError());
 }
-}
  $reports++;
+}
     $i++;
   }
   $j++;
