@@ -94,7 +94,7 @@ if (!empty($dist)) {
         ($arrReviewers[$i]['status']==ASSIGNED?array():array(1));
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
-      $strItemAssocs['reviewers'] .= encodeText($assignedReviewers->getOutput());
+      $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
     }
     $paperItem = new Template(TPLPATH.'chair_distributionlistitem.tpl');
     $paperItem->assign($strItemAssocs);

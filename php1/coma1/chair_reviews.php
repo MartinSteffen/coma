@@ -98,15 +98,15 @@ if (!empty($objPapers)) {
     else {
       $ifArray[] = 7;
     }
-    $strItemAssocs['variance'] = $fltTestTmp.'%';
+    $strItemAssocs['variance'] = encodeText($fltTestTmp.'%');
     $strItemAssocs['if'] = $ifArray;
     // Zugeteilte Reviewer
     $strItemAssocs['reviewers'] = '';
     $assignedReviewers = new Template(TPLPATH.'chair_reviewlistreviewers.tpl');
     $strReviewersAssocs = defaultAssocArray();
     for ($i = 0; $i < count($objReviewers); $i++) {
-      $strReviewersAssocs['rev_id'] = $objReviewers[$i]->intId;
-      $strReviewersAssocs['rev_name'] = $objReviewers[$i]->getName(1);
+      $strReviewersAssocs['rev_id'] = encodeText($objReviewers[$i]->intId);
+      $strReviewersAssocs['rev_name'] = encodeText($objReviewers[$i]->getName(1));
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
       $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
