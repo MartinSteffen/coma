@@ -77,7 +77,12 @@ if (!empty($objPersons)) {
       $strRolesAssocs['role_type'] = $intRoles[$i];
       $strRolesAssocs['role_name'] = $strRoles[$intRoles[$i]];
       if ($objPerson->hasRole($intRoles[$i])) {
-      	$strRolesAssocs['if'] = array(1);
+      	if ($objPerson->intId != session('uid') || $intRoles[$i] != CHAIR) {
+      	  $strRolesAssocs['if'] = array(1);
+      	}
+      	else {
+      	  $strRolesAssocs['if'] = array(4);
+      	}
       }
       else if ($objPerson->hasRequestedRole($intRoles[$i])) {
         $strRolesAssocs['if'] = array(3);
