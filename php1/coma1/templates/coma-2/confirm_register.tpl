@@ -57,7 +57,11 @@
 </table>
 </p>
 
-User was successfully registered! Please login on
-<a href="{basepath}index.php?{SID}">start page</a> with your Email address as Username!
+<p>&nbsp;</p>
+
+<p class="message">
+  User was successfully registered! Please login on
+  <a href="{basepath}index.php?{SID}">start page</a> with your Email address as Username!
+</p>
 
 <p>&nbsp;</p>
