@@ -35,7 +35,7 @@ PHP 5.0.3
 ============================================================================
 a: 
 1.) beenden aller Prozesse apache und mysql
-2.) Installation des Paketes z.B. nach c:
+2.) Entpacken des Paketes z.B. nach c:
 3.) kopieren des Sourcecodes z.B. nach 'xampplite/htdocs/coma/...'
 4.) starten des apache und der mysql-Datenbank durch Ausführen der 'xampplite/xampp_start.exe'
     (auf Fehlermeldungen achten ! - keine anderen apache oder mysql-Datenbanken dürfen laufen) 
