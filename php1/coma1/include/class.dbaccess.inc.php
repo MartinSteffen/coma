@@ -117,7 +117,7 @@ class DBAccess {
         ' AND     password = \''.$_SESSION['password'].'\'';
     $data = $this->mySql->select($s);
     if (!empty($data)) {
-      $_SESSION['uid'] = $data['id'];
+      $_SESSION['uid'] = $data[0]['id'];
       return true;
     }
     return $this->error('checkLogin '.$this->mySql->getLastError());
