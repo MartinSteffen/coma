@@ -1,6 +1,5 @@
-%\newif\ifsolution\solutionfalse
-%\newif\ifworking\workingfalse
-
+\newif\ifsolution\solutionfalse
+\newif\ifworking\workingfalse
 \newif\ifweb\webfalse
 
 
@@ -8,13 +7,13 @@
 \documentclass[11pt,nologo,handout]{handout}
 
 
-\dozent{Marcel Kyas, Gunnar Schaefer Martin Steffen}
+\dozent{Marcel Kyas, Martin Steffen, Gunnar Sch\"afer}
 \coursename{P-I-T-M}
 \semester{WS 2004/05}
-\ausgabetermin{9.~November 2005}
+\ausgabetermin{19.~Oktober 2004}
 \handouttitle{F}
-\nummer{2}
-\thema{Platform and software}
+\nummer{1}
+\thema{Thema}
 
 \newcommand{\Coma}{\textsl{Coma}}
 
@@ -37,288 +36,14 @@
 \thispagestyle{empty}
 
 
-The purpose of this handout is to give infomration about the available
-platforms, access methods, the currently available software.
-
-
-\section{Hardware + access}
-
-We have one (not-too fast, not-too-big, not-too-new \ldots) PC hooked up to
-the net, over which we have control. Even it the machine is not a
-high-performance server,  the tool should run
-
-Here is some data descibing the machine.
-
-\begin{table}[htbp]
-  \centering
-  \begin{tabular}{ll}
-    name & \texttt{snert.informatik.uni-kiel.de}
-    \\
-    IP &  134.245.253.11
-    \\
-    disc & ca. 3G available (/home)
-    \\
-    Mhz & 800Mhz
-    \\
-    main memory & 128M
-    \\
-    swap & ca 256M
-    \\
-    OS & Linux 2.6.8 / Fedora core 2 (+ updates)
-    \\
-  \end{tabular}
-  \label{tab:platform}
-\end{table}
-
-The purpose of the machine is 3fold\footnote{One particular purpose for
-  which we cannot use the machine is for backup, since it is not part of
-  the networks backup system. As solution, we are running a cronjob which
-  in regular intervals copies relevant data to the sun-pool.}
-\begin{enumerate}
-\item subversion server
-\item test platform
-\item bugzilla server
-\end{enumerate}
-
-More details concerning that below. 
-
-%But in order to access the machine, we
-%need from everybody a separate \emph{password} for subversion access (via
-%apache) i.e.  everyone must physically appear at the machine and pick a
-%password.
-
-
-\section{Subversion}
-\label{sec:subversion}
-
-From the discussion, we learnt that we will use \emph{subversion}, which is
-mandatory for all participants.  Currently, we have on the solaris pool the
-\emph{server side} of subversion running.\footnote{The reason why we can't
-  us a solaris machine also for the server side, which would simplify
-  matter a bit is technical: currently subversion cannot deal with NFS'ed
-  file systems very well, and the sys-admin are currently not (yet) setting
-  up a dedicated svn-server machine.}
-
-The command is
-\begin{quotation}
-  \texttt{/opt/local/bin/snv}
-\end{quotation}
-which (probably) means, it's in your execution path. Later we will discuss
-further rules of the game concerning access to the server, but here are a
-few easy commands to start with. For deeper knowledge, refer to the
-subversion manuals. Their are linked to our course pages.
-
-
-
-\subsection{Technical prerequisites}
-
-To access the repos, you need the client-side part of \emph{subversion}.
-For the solaris pool this is installed (see below). Subversion is also
-shipped in modern Linux distributions. As far as installation on Windows or
-Mac platforms is concerned, there's no experience from our side, but it
-seems that some of the participants have expertise there. If proplems
-should arise there, please share the knowledge.
-
-
-Furthermore, for write access to the repos, you need some \emph{password.}
-We will send more instructions about this later.
-
-
-
-
-
-
-\subsection{First access and survival guide}
-
-
-Luckily, many commands look very similar to the ones you might be used from
-cvs. The most important ones are probably:
-\begin{description}
-\item[checking out], i.e., getting the first copy of the repository into
-  ones own workspace
-\item[update] getting one's own copy into sync with the general development
-\item[commit] writing back own changes
-\end{description}
-
-
-
-\subsubsection{Checkout}
-
-For a read access, checking out the currently rather empty repository, you
-don't yet need a password. Create (or choose)in your workspace some
-appropriate directory, say \texttt{WORKDIR}, and then do
-
-
-\begin{verbatim}
-   cd <WORKDIR>
-   svn co http://snert.informatik.uni-kiel.de:8080/svn/coma 
-\end{verbatim}
-
-As an explanation: \texttt{co} stands for ``checkout'' (also
-\texttt{checkout} instead would do), next comes the url of the
-\emph{repository} which is accessed via http and the apache server running
-on snert. The part \texttt{/svn/coma} gives the \emph{project}
-\texttt{coma} on the repository which is specified by
-\texttt{/snv/}.\footnote{The \texttt{/svn/} is one full repository as seen
-  through apache. At the server side, the actual directory containing the
-  repository is kept at a space in the file system accessible by apache.}
-
-%The last argument \texttt{coma}
-%give the client side (sub-)directory, in which the project is developed. We
-%chose it to have the same name as on the server which is plausible, but not
-%mandatory.
-
-
-
-
-
-
-
-\subsection{Testing}
-
-If new to subversion or and version control, it might be help to play
-around a bit. In order to do this without fear of destroying real work, we
-set up a \emph{second repository} for that purpose. It is completely
-separated from the ``real'' one, so it's not just another project on
-\texttt{/svn/} but is called \texttt{/snvtest/} instead.
-
-So you might try:
-
-\begin{verbatim}
-   svn co http://snert.informatik.uni-kiel.de:8080/svntest/coma comatest
-\end{verbatim}
-
-
-
-
-\subsection*{Example}
-
-
-The example uses \texttt{\$WORKDIR} as name for the \emph{working
-  directory} you choose appropriately. In principle you can have as many
-working directories at the same time, i.e., more than one checked out copy
-of your project. A typical scenario would be to have one at the university
-pool and one at the workplace at home. With the number of checked out
-working directories, however, the danger of confusion increases; in normal
-situation, one woring directory per ``workplace'' suffices.
-\begin{description}
-\item[check out:] as explained already above, the following gives you
-  the first copy of the \Coma-project:
-\begin{verbatim}
-              mkdir $WORKDIR
-              cd $WORKDIR
-              svn co http://snert.informatik.uni-kiel.de:8080/svn/coma 
-\end{verbatim}
-  As said: Instead of \texttt{svn}, you might wish to play around with
-  \texttt{svntest} for a start.  The ``variable'' \texttt{\$WORKDIR} is
-  here just for illustration, pick yourself an appropriate place.  You can
-  also pick only parts of the repos, for instance
-
-\begin{verbatim}
-              svn co http://snert.informatik.uni-kiel.de:8080/svn/coma/org checkout 
-\end{verbatim}
-  gives you info about the groups etc.
-\item[write back:] Once done with your changes, you can hand back the whole 
-  work tree, doing
-\begin{verbatim}
-              cd $WORKDIR/coma
-              svn commit 
-\end{verbatim}
-  Afterwards you will be asked to give a comment about what changes you did in some editor.
-  If you do not have much to say for that revision, you can write back faster by typing
-\begin{verbatim}
-              cd $WORKDIR/coma
-              svn commit -m"Small bug fix"
-\end{verbatim}
-\item[update:] to get the tree in your workspace in sync again, i.e., to
-  obtain possible new changes, is done by:
-\begin{verbatim}
-               cd $WORKDIR/coma
-               svn update
-\end{verbatim}
-  Typically, this should be done when you start working \ldots
-\item[new files and directories] can be added by
-\begin{verbatim}
-               svn add [filename]
-\end{verbatim}
-  They can be removed again by
-\begin{verbatim}
-               svn remove [filename],
-\end{verbatim}
-  Instead of a filename, also a directory can be added. Furthermore,
-  subversion honors regular expression, so it understands things like
-  \texttt{svn add *.java}.
-\item[moving \& copying:] Here's something new for cvs-users: you can move
-  really move directories (and files). The fact, however, that this is
-  possible does not mean, that it is useful to keep the project under
-  constant re-construction. Cf. the remarks about policy below.
-\end{description}
-
-\subsection*{Strategy and policy}
-
-Version control does not guarantee smoothless work. I supports it, however,
-if used with with one's brain switched on and with discipline. From out
-side, we have not yet had experience with subversion (with CVS however),
-therefor more specific do's and don't may follow. The following rules of
-thumb might give first guidance.
-
-\begin{itemize}
-\item In general: if there is danger that changes affect negatively other
-  group's work, clarify this before you check in your changes.
-  In particular
-  \begin{itemize}
-  \item directly changing other persons's work (``I can fix that
-    better/faster than those \ldots''): \emph{only} after \emph{careful
-      reflection} and communication with the concerned group
-  \item No unannounced change in the directory structure. New
-    subdirectories in one's own part are ok, though. No fiddling around
-    with administrative  subversion properties.
-  \item No global \emph{undo} (``quick fix repair'') of other person's
-    changes without communication.
-%  \item Keine ``\emph{watches}'' setzen (au"ser eventuell auf seinen
-%    eigenene Code).
-  \end{itemize}
-\item Later in the course: check in only versins that \emph{integrate} with
-  the rest of the code (for instance, the can compile together). We will
-  work out a strategy for that, probably using \emph{make}. After
-  intergration interface changes (whether the interfaces are formal like
-  Java interfaces or informal such as common agreements) \emph{must be
-    announced} and accepted by concerned parties. (for instance during the
-  meetings or the email list).
-\item \texttt{Makefile}s and \texttt{Readme}s are useful.
-% Der Code f"ur
-%  jedes Pakets soll mittels \texttt{make all} als erstes ``target'' des
-%  Makefiles kompilierbar sein. Im Paket \texttt{absynt} finden sich
-%  Beispiele.
-%\item Der Code soll sinnvoll mittels \textsl{Javadoc} kommentieren werden.
-%  Zumindest der Author/die Autoren sollen dokumentiert sein.  In Paket
-%  \texttt{absynt} kann man sich anschauen, wie man auch cvs-logs
-%  dokumentieren lassen kann, (z.B.\ indem man die Datei
-%  \texttt{templates/classtemplate.txt} verwendet und anpaßt.) Die
-%  generierte Dokumentation wird in regelm"a"sigen Abst"anden im Netz
-%  bereitgestellt.
-\end{itemize}
-
-
-
-\nocite{subversion:manual}
-%\nocite{cvs:www}
-%\nocite{cvs:manual}
-%\nocite{fogel:cvs}
-
-
-\bibliographystyle{alpha}
-
-\addcontentsline{toc}{section}{Bibliography}
-
-
-{%\small
-  \bibliography{string,etc,imperative,oop,types,protocol,functional,logic,crossref}
-}
-
-\end{document}
-
-
+\section*{Verteiltes Arbeiten unter CVS}
+
+Zu Koordination der einzelnen Gruppen ist die Verwendung von
+``\textit{Concurrent Version Control''} (CVS) vorgeschrieben. Wir werden
+eine kurze Einführung in CVS geben und einen \textit{account} als Server
+f"ur das \emph{Repositorium} zur Verfügung stellen. Die wichtigesten Dinge
+sind auf diesem Handout zusammengefaßt. \ifweb\else Weitere Informationen
+über unsere Webseite. \fi
 
 \subsection*{Technische Vorraussetzungen}
 
@@ -334,6 +59,19 @@ Diese Tools sind auf dem Uni-Netz vorhanden. Wer daheim (oder von einem
 sonstigen account) arbeiten will, mu"s daf"ur sorgen, da"s sie installiert
 sind. Sie sind kostenlos f"ur Linux/Unix/Windows/MacOS verf"ugbar.
 
+
+
+\subsubsection*{ssh-Zugriff}
+
+
+
+Für den ersten Punkt, dem Fernzugriff unter \textsl{ssh}, geht man wie
+folgt vor.  Man beschaffe sich einen \textsl{ssh}-Schlüssel Der Schlüssel
+liegt typischerweise unter \texttt{\home{}/.ssh/identity.pub}.  Diesen
+maile man an \texttt{swprakt@informatik.uni-kiel.de}. Wer einen solchen
+Schlüssel nicht hat, muß ihn sich generieren und zwar mittels
+\textsl{ssh-keygen} am besten \texttt{ssh-keygen -tdsa} für einen ssh-2
+Schlüssel.
 
 
 \subsubsection*{Angabe des cvs-Servers}
@@ -362,38 +100,140 @@ ohnehin emacs verwendet und beim starten des emacs' ein
 ssh/cvs, sondern hat mit dem diesj"ahrigen Java-Projekt selbst zu tun.
 
 
+\subsection*{Beispiel}
 
 
-\section*{Verteiltes Arbeiten unter CVS}
+Das Beispiel verwendet \texttt{\$WORKDIR} als Bezeichnung f"ur das
+\emph{Arbeitsverzeichnis} Als \texttt{\$WORKDIR} kann sich jeder selbst
+passend w"ahlen, wo er das Arbeitsverzeichnis haben will. Es spricht nichts
+dageben, da"s man sich auch mehrere Arbeitsverzeichnisse verschafft, zum
+Beispiel eines auf seinem Uni-account und eines daheim, oder da"s ein Team
+zwei Arbeitsverzeichnisse hat, an denen es getrennt arbeitet. Mit der Zahl
+der ausgecheckten Arbeitsverzeichnisse steigt nat"urlich die M"oglichkeiten
+der Verwirrung.  In der Regel kommt man mit einem Arbeitsverzeichnis pro
+Person und pro ``Arbeitsplatz'' aus.
+\begin{itemize}
+\item \textbf{Auschecken:} So bekommt man zum ersten Mal seine Arbeitskopie
+  des \Coma-Projektes:
+\begin{verbatim}
+              mkdir $WORKDIR
+              cd $WORKDIR
+              cvs checkout coma
+\end{verbatim}
+  Die Variable \texttt{\$WORKDIR} ist hier nur zur Illustration gew"ahlt,
+  cvs kennt sie nicht. Falls man konkret \texttt{\$WORKDIR} =
+  \texttt{\home{}/Projekt} w"ahlt, heißen die Befehle:
+\begin{verbatim}
+              cd ~
+              mkdir Projekt
+              cd Projekt
+              cvs checkout coma/src
+\end{verbatim}
+  Im Folgenden bezeichnet \texttt{\$WORKDIR} immer das frei wählbare
+  Arbeitsverzeichnis. Macht man
+\begin{verbatim}
+              cvs checkout coma/org
+\end{verbatim}
+  bekommt man die Gruppeneinteilung. Macht man nur
+\begin{verbatim}
+              cvs checkout coma
+\end{verbatim}
+  so bekommt man alles zum \Coma-Projekt, einschließlich der Quellen des
+  Pflichtenheftes und der Web-Seite.
+\item \textbf{Zurückspeichern:} Wenn man mit den Änderungen durch ist, kann
+  man den gesamten Verzeichnisbaum zurückspeichern:\footnote{Beachte den
+    Wechsel in das Unterverzeichnis.}
+\begin{verbatim}
+              cd $WORKDIR/coma
+              cvs commit 
+\end{verbatim}
+  Danach wird man aufgefordert, einen Kommentar bezüglich seiner Änderungen
+  anzugeben.  Falls der Kommentar nur kurz ist, kann man schneller auch
+\begin{verbatim}
+              cvs commit -m"Anmerkungen zu den Änderungen"
+\end{verbatim}
+  verwenden. 
+\item \textbf{Updaten:} Den Baum seines Arbeitsverzeichnisses auf den
+  neuesten Stand bringen, geht so
+\begin{verbatim}
+               cd $WORKDIR/coma
+               cvs update
+\end{verbatim}
+\item \textbf{Neue Dateien + Verzeichnisse:} Das geht mit
+\begin{verbatim}
+               cvs add [filename]
+\end{verbatim}
+  entfernen mit
+\begin{verbatim}
+               cvs remove [filename],
+\end{verbatim}
+  Anstelle eines Dateinamens kann man auch ein Verzeichnis hinzufügen oder
+  auch alle neuen java-Dateien mit \texttt{cvs add *.java}.
+\end{itemize}
 
-Zu Koordination der einzelnen Gruppen ist die Verwendung von
-``\textit{Concurrent Version Control''} (CVS) vorgeschrieben. Wir werden
-eine kurze Einführung in CVS geben und einen \textit{account} als Server
-f"ur das \emph{Repositorium} zur Verfügung stellen. Die wichtigesten Dinge
-sind auf diesem Handout zusammengefaßt. \ifweb\else Weitere Informationen
-über unsere Webseite. \fi
+\subsection*{Strategie und Spielregeln}
+
+Versionskontrolle garantiert kein reibungsloses Arbeiten, es
+unterstützt dies, wenn man gewisse Disziplin wahrt. Folgende Daumenregeln:
+
+\begin{itemize}
+\item Im Allgemeinen gilt: sobald die Gefahr besteht, da"s eine "Anderung
+  die anderen Gruppen in Mitleidenschaft ziehen kann, soll dies in der
+  Regel vorher abgekl"art werden. Insbesondere:
+  \begin{itemize}
+  \item Ändern von globalen Paketen/Paketen von anderen Gruppen: nur nach
+    reiflicher Über\-legung und Rück\-sprache mit der betroffenen Gruppe.
+  \item Keine unangekündigte Änderung der \emph{Verzeichnisstruktur} im
+    Repositorium. Neue Unterverzeichnisse im eigenen Paket sind dabei in
+    Ordnung. Man soll auch die Finger von den administrativen cvs-Dateien
+    lassen.
+  \item kein globales R"uckg"angigmachen von "Anderungen anderer Seite ohne
+    R"ucksprache.
+  \item Keine ``\emph{watches}'' setzen (au"ser eventuell auf seinen
+    eigenene Code).
+  \end{itemize}
+\item Nur \emph{kompilierbare} Versionen einchecken, d.h.\ der eigene Teil
+  muß sich mittels \texttt{make all} ohne Fehlermeldungen kompilieren
+  lassen. Dies gilt noch nicht für die Anlaufphase, bis die Pakete zum
+  ersten Mal integriert werden. Änderungen, die die \emph{Schnittstellen}
+  mit einem anderen Paket betreffen sollten \emph{angekündigt} werden, zum
+  Beispiel in den Besprechungen.  Daneben sind die Mailadressen der
+  einzelnen Gruppen und ihrer Teilnehmer \ifweb\url{org/gruppen.txt}{hier}
+  zugreifbar \else im Netz vorhanden\fi.
+\item \texttt{Makefile}s und \texttt{Readme}s sind hilfreich. Der Code f"ur
+  jedes Pakets soll mittels \texttt{make all} als erstes ``target'' des
+  Makefiles kompilierbar sein. Im Paket \texttt{absynt} finden sich
+  Beispiele.
+\item Der Code soll sinnvoll mittels \textsl{Javadoc} kommentieren werden.
+  Zumindest der Author/die Autoren sollen dokumentiert sein.  In Paket
+  \texttt{absynt} kann man sich anschauen, wie man auch cvs-logs
+  dokumentieren lassen kann, (z.B.\ indem man die Datei
+  \texttt{templates/classtemplate.txt} verwendet und anpaßt.) Die
+  generierte Dokumentation wird in regelm"a"sigen Abst"anden im Netz
+  bereitgestellt.
+\end{itemize}
 
 
 
+\nocite{cvs:www}
+\nocite{cvs:manual}
+\nocite{fogel:cvs}
+
+\bibliographystyle{alpha}
+
+\addcontentsline{toc}{section}{Bibliography}
 
 
+{%\small
+  \bibliography{string,etc,imperative,oop,types,protocol,functional,logic,crossref}
+}
 
-\subsubsection*{ssh-Zugriff}
-
-
-
-Für den ersten Punkt, dem Fernzugriff unter \textsl{ssh}, geht man wie
-folgt vor.  Man beschaffe sich einen \textsl{ssh}-Schlüssel Der Schlüssel
-liegt typischerweise unter \texttt{\home{}/.ssh/identity.pub}.  Diesen
-maile man an \texttt{swprakt@informatik.uni-kiel.de}. Wer einen solchen
-Schlüssel nicht hat, muß ihn sich generieren und zwar mittels
-\textsl{ssh-keygen} am besten \texttt{ssh-keygen -tdsa} für einen ssh-2
-Schlüssel.
+\end{document}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% $Id: handout1.tex,v 1.1 2004/11/08 17:05:55 swprakt Exp $ 
+%% $Id: handout1.tex,v 1.2 2004/10/19 07:59:22 Steffen Exp $ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
