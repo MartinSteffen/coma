@@ -105,7 +105,7 @@ h3
 a
 {
   text-decoration: none;
-  font-weight: bold;  
+  font-weight: bold;
 }
 a:link
 {
@@ -197,7 +197,7 @@ td.menu
   width: 150px;
   background-color: #F5FBFF;
   vertical-align: top;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
 }
 td.submenu
 {
@@ -205,7 +205,7 @@ td.submenu
   background-color: #F5FBFF;
   vertical-align: top;
   padding-left: 10px;
-  margin-bottom: 4px;  
+  margin-bottom: 4px;
 }
 
 /* Links im Menue */
@@ -323,7 +323,7 @@ table.formlist {
 .formlistitem
 {
   padding: 0px 8px;
-  border-bottom: 1px #404040 solid;  
+  border-bottom: 1px #404040 solid;
 }
 
 /* Schaltflaechen und Eingabefelder */
@@ -399,7 +399,7 @@ table.list
   font-size: 12px;
   padding: 1px 8px;
   margin: 0px;
-  background-color: #FAFAFA;  
+  background-color: #FAFAFA;
 }
 .listitem-2
 {
@@ -407,7 +407,7 @@ table.list
   font-size: 12px;
   padding: 1px 8px;
   margin: 0px;
-  background-color: #E4E4E4;  
+  background-color: #E4E4E4;
 }
 
 a.list:link
@@ -455,7 +455,8 @@ table.subviewtable
 }
 .viewline
 {
-  border-top: 1px #808080 solid;  
+  border-top: 1px #808080 solid;
+  width: 100%;
 }
 
 /* Meldungen */
