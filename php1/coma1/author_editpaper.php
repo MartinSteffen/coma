@@ -36,7 +36,7 @@ $ifArray = array();
 if (isset($_POST['action'])) {  
   $objPaper->strTitle = $_POST['title'];
   $objPaper->strAbstract = $_POST['description'];
-  $intCoAuthorNum = $_POST['coauthors_num']
+  $intCoAuthorNum = $_POST['coauthors_num'];
   $objPaper->strCoAuthors = array();
   $objPaper->intCoAuthorIds = array();
   for ($i = 0; $i < $intCoAuthorNum; $i++) {
