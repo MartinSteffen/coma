@@ -2,7 +2,7 @@
 <head>
 <title>Coma - The ultimate conference manager</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link rel="stylesheet" href="templates/style.css" type="text/css">
+<link rel="stylesheet" href="templates/style2.css" type="text/css">
 <script>
 function toggle(id) 
 {
