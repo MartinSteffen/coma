@@ -22,14 +22,17 @@ ftp_login($ftphandle, $ftpuser, $ftppass) or die("Error (author_view_getfile): f
 
 $size = ftp_size($ftphandle, $ftppath);
 
-header ("Content-Type: " . $result[0]['mime_type']);
-header ("Content-Length: $size");
-header ("Content-Disposition: attachment; filename=" . $result[0]['filename']);
-$error = fopen("ftp://" . $ftpuser. ":" . $ftppass . "@" . $ftphost."". $ftppath, "r");
-dump($error);
-fpassthru(fopen("ftp://" . $ftpuser. ":" . $ftppass . "@" . $ftphost."".$ftppath, "r"));
-exit();
+if (!$file = fopen("ftp://" . $ftpuser. ":" . $ftppass . "@" . $ftphost."". $ftppath, "r")) {
+	var_dump($file);
+	exit();
+}else{	
 
-redirect();
+	header ("Content-Type: " . $result[0]['mime_type']);
+	header ("Content-Length: $size");
+	header ("Content-Disposition: attachment; filename=" . $result[0]['filename']);
+	fpassthru($file);
+}
+//dieser redirect wird aus irgendeinem grund nicht ausgegeben
+redirect("author", "view", "papers", "msg=<font class=textBold style=color:green>Download finished succssesfully!</font>");
 
 ?>
