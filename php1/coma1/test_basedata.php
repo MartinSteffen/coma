@@ -14,7 +14,7 @@ define('NEED_NO_LOGIN', true);
 require_once('include/header.inc.php');
 
 $conferences = 1;
-$persons = 1000;
+$persons = 500;
 $criterions = 3;
 $papers = $persons/2-$persons/10;
 $topics = 10;
