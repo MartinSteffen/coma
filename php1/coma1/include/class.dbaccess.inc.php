@@ -581,7 +581,7 @@ class DBAccess {
   function getNextMessages($intMessageId) {
     $s = 'SELECT  id, sender_id, send_time, subject, text'.
         ' FROM    Message'.
-        ' WHERE   reply_to = \''.$intMessageId.'\'';
+        ' WHERE   reply_to = '.$intMessageId;
     $data = $this->mySql->select($s);
     $messages = array();
     if (!empty($data)) {
@@ -608,17 +608,17 @@ class DBAccess {
   function getThreadsOfForum($intForumId) {
     $s = 'SELECT  id, sender_id, send_time, subject, text'.
         ' FROM    Message'.
-        ' WHERE   forum_id = \''.$intForumId.'\''.
+        ' WHERE   forum_id = '.$intForumId.
         ' AND     reply_to IS NULL';
     $data = $this->mySql->select($s);
-    $threads = array();
+    $objThreads = array();
     if (!empty($data)) {
       for ($i = 0; $i < count($data); $i++) {      	
-      	$threads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
-      	                $data[$i]['send_time'], $data[$i]['subject'],
-      	                $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
+      	$objThreads[] = (new Message($data[$i]['id'], $data[$i]['sender_id'],
+      	                   $data[$i]['send_time'], $data[$i]['subject'],
+      	                   $data[$i]['text'], $this->getNextMessages($data[$i]['id'])));
       }
-      return $threads;
+      return $objThreads;
     }
     return $this->error('getThreadsOfForum '.$this->mySql->getLastError());
   }
@@ -634,11 +634,17 @@ class DBAccess {
   function getAllForums() {
     $s = 'SELECT  id, title'.
         ' FROM    Forum'; //.
-        //' WHERE   conference_id = \''.???.'\'';
+    //    ' WHERE   conferenceId = '.$_SESSION['confid'];
     $data = $this->mySql->select($s);    
     if (!empty($data)) {            
-      $forum = (new Forum($data[$i]['id'], $data[$i]['title'], 0, false));
-      return $forum;
+      $objForums = array();
+      for (int $i = 0; $i < count($data); $i++) {
+        $objForums[] = (new Forum($data[$i]['id'], $data[$i]['title'], $data[$i]['forum_type'],
+                          ($data[$i]['forum_type'] == 3) ? $data[$i]['paper_id'] : 0));
+        // ACHTUNG: Statt '3' muss evtl. der tatsaechliche Wert fuer Paper-Foren eingesetzt werden
+        //          bzw. die Konstante, in welcher dieser Wert spaeter gespeichert ist.
+      }
+      return $objForums;
     }
     return $this->error('getAllForums '.$this->mySql->getLastError());
   }
@@ -663,29 +669,28 @@ class DBAccess {
   }
 
   /**
-   * Liefert ein Array von Forum-Objekten aller Foren zurueck, die User $intUserId einsehen darf.
+   * Liefert ein Array von Forum-Objekten aller Foren zurueck, welche die Person
+   * $intPersonId einsehen darf.
    *   
-   * @return Forum[] <b>false</b>, falls der User nicht existiert.
+   * @return Forum[] <b>false</b>, falls die Person nicht existiert.
    * @access public
    * @author Sandro (14.12.04)
    */
-  function getForumsOfUser($intUserId) {
-    $userData = getPerson($intUserId);
-    if (!empty($userData)) {
-      $allForums = getAllForums();
-      $forums = array();
-      if (!empty($allForums)) {
-    	for ($i = 0; $i < count($allForums); $i++) {
-    	  if ($allForums[$i]->isUserAllowed($userData)) {
-    	    $forums[] = $allForums[$i];
+  function getForumsOfPerson($intPersonId) {
+    $objPerson = getPerson($intPersonId);
+    if (!empty($objPerson)) {
+      $objAllForums = getAllForums();
+      $objForums = array();
+      if (!empty($objAllForums)) {
+    	for ($i = 0; $i < count($objAllForums); $i++) {
+    	  if ($objAllForums[$i]->isPersonAllowed($objPerson)) {
+    	    $objForums[] = $objAllForums[$i];
           }
-        }    	  
-      }
-      else {
-      	return $this->error('getForumsOfUser '.$this->mySql->getLastError());
-      }
+        }
+        return $objForums;
+      }      
     }
-    return $this->error('getForumsOfUser '.$this->mySql->getLastError());
+    return $this->error('getForumsOfPerson '.$this->mySql->getLastError());
   }
 
   /**
@@ -699,7 +704,7 @@ class DBAccess {
   function getForumDetailed($intForumId) {
     $s = 'SELECT  id, title'.
         ' FROM    Forum'.
-        ' WHERE   id = \''.$intForumId.'\'';
+        ' WHERE   id = '.$intForumId;
     $data = $this->mySql->select($s);    
     if (!empty($data)) {       
       $forum = (new ForumDetailed($data[0]['id'], $data[0]['title'],
