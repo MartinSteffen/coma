@@ -357,7 +357,7 @@ p.message2
 
 /* Statusanzeigen fuer Dokumente */
 span.status-reviewed   { font-weight: normal; color: #000000; }
-span.status-unreviewed { font-weight: normal; color: #800000; }
-span.status-critical   { font-weight: bold;   color: #D00000; }
+span.status-unreviewed { font-weight: normal; color: #A00000; }
+span.status-critical   { font-weight: bold;   color: #FF0000; }
 span.status-accepted   { font-weight: bold;   color: #00A000; }
-span.status-denied     { font-weight: bold;   color: #808080; }
+span.status-denied     { font-weight: bold;   color: #A0A0A0; }
