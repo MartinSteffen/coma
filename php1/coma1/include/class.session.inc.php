@@ -14,10 +14,12 @@ if (!defined('IN_COMA1')) {
 --
 CREATE TABLE IF NOT EXISTS `Sessions` (
   `sid` varchar(255) NOT NULL default '',
+  `sname` varchar(255) NOT NULL default '',
   `sdata` text,
   `stime` timestamp(14) NOT NULL,
   PRIMARY KEY  (`sid`),
-  KEY `stime` (`stime`)
+  KEY `stime` (`stime`),
+  KEY `sname` (`sname`)
 ) TYPE=MyISAM COMMENT='Session Verwaltung';
 */
 
@@ -43,6 +45,8 @@ class Session {
   var $mySql;
   /**@var string*/
   var $strError = '';
+  /**@var string*/
+  var $strSessName = '';
   /**#@-*/
 
   /**
@@ -70,18 +74,18 @@ class Session {
       return $this->error('Konnte Sessionmanger nicht initialisieren (save_handler).');
     }
     session_start();
-
     return true;
   }
 
   /**
-  * @param string $save_path Session Speicher Pfad (hier unnoetig?!?)
-  * @param string $sess_name Der Name der Session (hier $SESSIONNAME) (noetig??)
+  * @param string $strSavePath Session Speicher Pfad (hier unnoetig?!?)
+  * @param string $strSessName Der Name der Session (hier $SESSIONNAME) (noetig??)
   * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
   * @access private
   */
-  function sessionOpen($save_path, $sess_name) {
-    // @TODO Was muessen wir hier machen?
+  function sessionOpen($strSavePath, $strSessName) {
+    $this->strSessName = $strSessName;
+    // @TODO Was muessen wir hier noch machen?
     return true;
   }
 
@@ -95,15 +99,16 @@ class Session {
   }
 
   /**
-  * @param string $sess_id Alphanumerischer Sessions-Name.
-  * @return mixed Serialisierter String wenn die Session gefunden wurde, '' wenn keien Session gefunden wurde, false bei Fehler
+  * @param string $strSessId Alphanumerischer Sessions-Name.
+  * @return mixed Serialisierter String wenn die Session gefunden wurde, '' wenn keine Session gefunden wurde, false bei Fehler
   * @access private
   */
-  function sessionRead($sess_id) {
-    $results = $this->mySql->select("SELECT sdata FROM Sessions WHERE sid='$sess_id'");
+  function sessionRead($strSessId) {
+    $strSessId = $this->strSessName . $strSessId;
+    $results = $this->mySql->select("SELECT sdata FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
     if (!$results) {
-      $this->mySql->delete("DELETE FROM Sessions WHERE sid='$sess_id'");
-      $this->mySql->insert("INSERT INTO Sessions (sid, sdata, stime) VALUES ('$sess_id', NULL, NOW())");
+      $this->mySql->delete("DELETE FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
+      $this->mySql->insert("INSERT INTO Sessions (sid, sname, sdata, stime) VALUES ('$strSessId', '$this->strSessName', NULL, NOW())");
       $s = $this->mySql->getLastError();
       if (!empty($s)) {
         return $this->error('Fehler beim Schreiben der Session. '.$s);
@@ -116,21 +121,36 @@ class Session {
   }
 
   /**
+  * @param string $strSessId Alphanumerischer Sessions-Name.
+  * @param string $strData Serialisierter String mit den zu speichernden Daten.
+  * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
   * @access private
   */
-  function sessionWrite($sess_id, $val) {
+  function sessionWrite($strSessId, $strData) {
+    $strSessId = $this->strSessName . $strSessId;
+    $this->mySql->update("UPDATE sessions SET sdata='$strData', stime=NOW() WHERE sid='$strSessId' AND sname='$this->strSessName'");
+    return true;
   }
 
   /**
+  * @param string $strSessId Alphanumerischer Sessions-Name.
+  * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
   * @access private
   */
-  function sessionDestroy($sess_id) {
+  function sessionDestroy($strSessId) {
+    $strSessId = $this->strSessName . $strSessId;
+    $this->mySql->delete("DELETE FROM Sessions WHERE sid='$strSessId' AND sname='$this->strSessName'");
+    return true;
   }
 
   /**
+  * @param int $intMaxLifetime Maximale Zeit die eine Session gespeichert werden soll
+  * @return bool <b>true</b> bei Erfolg, sonst <b>false</b>.
   * @access private
   */
-  function sessionGC($max_lifetime) {
+  function sessionGC($intMaxLifetime) {
+    $this->mySql->delete("DELETE FROM Sessions WHERE stime>(UNIX_TIMESTAMP(NOW())-$intMaxLifetime) AND sname='$this->strSessName'");
+    return true;
   }
 
   /**
