@@ -23,7 +23,7 @@ if (!isset($_SESSION['confid'])) {
   redirect('main_start.php');  
 }
 // Eingeloggt und hab ne Konfernez gewaehlt -> Userlevel bestimmen
-// Sicherheitshalber einfahc mal ueberpruefen
+// Sicherheitshalber einfach mal ueberpruefen
 if (!isset($_SESSION['uid'])) {
   // UID setzen
   $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session('uname'));
@@ -36,6 +36,7 @@ $objIch = $myDBAccess->getPerson(session('uid'));
 if ($myDBAccess->failed()) {
   error('chooseHighestRole',$myDBAccess->getLastError());
 }
+var_dump($objIch);
 if ($objIch->hasRole(CHAIR)) {
   redirect('chair_start.php');
 }
