@@ -11,7 +11,7 @@
   </tr>
   <tr class="viewline">
     <td class="viewline">Website:</td>
-    <td class="viewline">{if1<a href="{link}" target="_blank">}{link}{if1</a>}</td>
+    <td class="viewline"><a href="{link}" target="_blank">{link}</a></td>
   </tr>
   <tr class="viewline">
     <td class="viewline" colspan="2">&nbsp;</td>

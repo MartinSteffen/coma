@@ -62,8 +62,7 @@ class ConferenceDetailed extends Conference {
     $this->blnAutoAddReviewers = $blnAutoAddReviewers;
     $this->intNumberOfAutoAddReviewers = $intNumberOfAutoAddReviewers;
     $this->objCriterions = $objCriterions;
-    $this->objTopics = $objTopics;
-    echo(encodeURL($this->strHomepage));
+    $this->objTopics = $objTopics;    
   }
 
 } // end class ConferenceDetailed
