@@ -5,7 +5,7 @@
   ...
 </p>
 
-<form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
+<form action="{basepath}{targetpage}?paperid={paper_id}{&SID}" method="post" accept-charset="UTF-8">
   <input type="hidden" name="action" value="submit">
 
 <table class="list">

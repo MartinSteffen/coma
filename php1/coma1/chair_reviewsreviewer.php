@@ -27,7 +27,30 @@ else if (!$checkRole) {
 if (!isset($_GET['paperid'])) {
   error('Get paper ID', 'Not found.');
 }
-$objPaper = $myDBAccess->getPaperSimple($_GET['paperid']);
+$pid = $_GET['paperid'];
+
+if (isset($_POST['action']) && $_POST['action'] == 'submit') {
+  foreach ($r_id as $rid) {
+    $isD = $myDBAccess->isPaperDistributedTo($pid, $rid);
+    if ($myDBAccess->failed()) {
+      error('get paper/reviewer information', $myDBAccess->getLastError());
+    }
+    if (isset($_POST['p'.$pid.'r'.$rid]) && !$isD) {
+      $myDBAccess->addDistribution($pid, $rid);
+      if ($myDBAccess->failed()) {
+        error('add distribution', $myDBAccess->getLastError());
+      }
+    }
+    elseif (!isset($_POST['p'.$pid.'r'.$rid]) && $isD) {
+      $myDBAccess->deleteDistribution($pid, $rid);
+      if ($myDBAccess->failed()) {
+        error('delete distribution', $myDBAccess->getLastError());
+      }
+    }
+  }
+}
+
+$objPaper = $myDBAccess->getPaperSimple($pid);
 if ($myDBAccess->failed()) {
   error('get paper', $myDBAccess->getLastError());
 }
@@ -42,20 +65,6 @@ $r_id = $myDist->getAvailableReviewerIdsOfConference(session('confid'));
 if ($myDist->failed()) {
   error('get topic list',$myDist->getLastError());
 }
-
-/*if (isset($_POST['action']) && $_POST['action'] == 'submit') {
-  foreach ($objPapers as $objPaper) {
-    $objReviewerAttitude->setPaperAttitude($objPaper->intId, $_POST['paper-'.$objPaper->intId]);
-  }
-  foreach ($objTopics as $objTopic) {
-    $objReviewerAttitude->setTopicAttitude($objTopic->intId, $_POST['topic-'.$objTopic->intId]);
-  }
-  // Schreibe in die Datenbank
-  $myDBAccess->updateReviewerAttitude($objReviewerAttitude);
-  if ($myDBAccess->failed()) {
-    error('insert new preference into database',$myDBAccess->getLastError());
-  }
-}*/
 
 $content = new Template(TPLPATH.'chair_reviewerassignment.tpl');
 $strContentAssocs = defaultAssocArray();
@@ -85,7 +94,7 @@ if (!empty($r_id)) {
     }
     $isD = $myDBAccess->isPaperDistributedTo($objPaper->intId, $objReviewer->intId);
     if ($myDBAccess->failed()) {
-      error('get reviewer/paper information', $myDBAccess->getLastError());
+      error('get paper/reviewer information', $myDBAccess->getLastError());
     }
     if ($isD) {
       $strItemAssocs['if'][] = 8;
