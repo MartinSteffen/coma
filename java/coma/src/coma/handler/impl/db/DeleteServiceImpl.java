@@ -1,5 +1,6 @@
 package coma.handler.impl.db;
 
+import coma.entities.Conference;
 import coma.entities.ReviewReport;
 import coma.entities.SearchCriteria;
 import coma.entities.SearchResult;
@@ -105,7 +106,22 @@ public class DeleteServiceImpl extends Service implements DeleteService {
 		return executeQuery(QUERY);
 	}
 	public void deleteAllRatingsNReportsByConfID(int conference_id){
-		String QUERRY = "";
+		ReviewReport rep = new ReviewReport();
+		rep.setId(-2);
+		Conference c = new Conference();
+		c.setId(conference_id);
+		ReadService db_read = new coma.handler.impl.db.ReadServiceImpl();
+		SearchCriteria sc = new SearchCriteria();
+		sc.setReviewReport(rep);
+		sc.setConference(c);
+		SearchResult sr = db_read.getReviewReport(sc);
+		ReviewReport[] reps = (ReviewReport[]) sr.getResultObj();
+		for (int i = 0 ; i < reps.length ;i++){
+			int reviewer_id = reps[i].get_reviewer_id();
+			deleteReviewReport(reps[i].getId());
+			deleteRating(reps[i].getId());
+			
+		}
 	}
 	
 }

@@ -125,7 +125,7 @@ public class AllocatePapers extends HttpServlet {
 	 */
 	private void insertAllocInDB() {
 		
-		//db_delete.deleteAllRatingsNReportsByConfID(conference_id);		
+		db_delete.deleteAllRatingsNReportsByConfID(conference_id);		
 		for (int i = 0 ; i < personList.length; i++){
 			int person_id = personList[i].getPersonID();
 			
