@@ -8,20 +8,46 @@ CoMa - Your Conference Manager
 
 1. SYSTEM REQUIREMENTS
 
+  1. Webserver
+     Any capable Webserver, the tool was developed under Apache2, but basically
+     any normal Webserver should do the job.
+
+  2. PHP 4.3.0+
+     It is required to use at least PHP version 4.3.0+. It was developed under
+     4.3.10, so anything above that should fit the requirements :)
+
+  3. MySQL 3.23.58+
+     CoMa uses InnoDB Tables, so you should use any MySQL Version capable to
+     do so.
+
+  4. Webbrowser
+     Any modern Webbrowser should be enough.
+     CoMa has been tested with IE6, Opera7 and Firefox1
+
+
 2. INSTALLATION
+
+  1. Download the code (coma1.tar.gz)
+
+  2. Extract the code to your Webspace
+
+  3. In your Browser start coma1/INSTALL.PHP and follow the suggestions
+
+  4. Enjoy CoMa
+
 
 3. TROUBLESHOOTING
 
   1. Paper uplaod does not work:
-  
+
      Please ensure that the following PHP Configuration Settings are done:
        file_uploads "1"
        upload_tmp_dir "any directory PHP has write access to"
        upload_max_filesize "2M" (or even more)
        post_max_size "greater than upload_max_filesize"
        memory_limit "greater than post_max_size"
-       
-  2. 
-       
-       
+
+  2.
+
+
 $Id$
