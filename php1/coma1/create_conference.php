@@ -193,7 +193,7 @@ else {
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $ifArray[] = 1;
+  $ifArray[] = 9;
 }
 
 $strContentAssocs['if'] = $ifArray;

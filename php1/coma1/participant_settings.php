@@ -16,6 +16,11 @@ require_once('./include/header.inc.php');
 
 $content = new Template(TPLPATH.'participant_settings.tpl');
 $strContentAssocs = defaultAssocArray();
+$strContentAssocs['message'] = '';
+if (isset($strMessage)) {
+  $strContentAssocs['message'] = $strMessage;
+  $strContentAssocs['if'] = array(9);
+}
 $content->assign($strContentAssocs);
 
 $actMenu = PARTICIPANT;

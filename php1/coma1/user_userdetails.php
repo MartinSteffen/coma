@@ -30,8 +30,6 @@ else {
 
 $content = new Template(TPLPATH.'view_profile.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['message'] = session('message', false);
-session_delete('message');
 $strContentAssocs['first_name']  = encodeText($objPerson->strFirstName);
 $strContentAssocs['last_name']   = encodeText($objPerson->strLastName);
 $strContentAssocs['email']       = encodeText($objPerson->strEmail);

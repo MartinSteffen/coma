@@ -30,8 +30,6 @@ else {
 
 $content = new Template(TPLPATH.'view_paper.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['message'] = session('message', false);
-session_delete('message');
 $ifArray = array();
 //$ifArray[] = $objPaper->intStatus;
 $strContentAssocs['paper_id'] = $objPaper->intId;

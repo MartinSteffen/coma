@@ -58,15 +58,16 @@ if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
     $objPerson->strCountry     = $_POST['country'];
     $objPerson->strPhone       = $_POST['phone'];
     $objPerson->strFax         = $_POST['fax'];
-
-    $result = $myDBAccess->updatePerson($objPerson);
-    if (!empty($result)) {
-      $_SESSION['uname'] = $objPerson->strEmail;
-      $strMessage = 'Your account has been updated sucessfully.';
-    }
-    else if ($myDBAccess->failed()) {
-      // Datenbankfehler?
-      error('Error during updating account.', $myDBAccess->getLastError());
+    if ($_POST['submit']) {
+      $result = $myDBAccess->updatePerson($objPerson);
+      if (!empty($result)) {
+        $_SESSION['uname'] = $objPerson->strEmail;
+        $strMessage = 'Your account has been updated sucessfully.';
+      }
+      else if ($myDBAccess->failed()) {
+        // Datenbankfehler?
+        error('Error during updating account.', $myDBAccess->getLastError());
+      }
     }
   }
 }
@@ -86,7 +87,7 @@ $strContentAssocs['fax']         = encodeText($objPerson->strFax);
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(1);
+  $strContentAssocs['if'] = array(9);
 }
 
 $strContentAssocs['targetpage'] = 'main_profile';

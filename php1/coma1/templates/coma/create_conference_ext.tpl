@@ -1,5 +1,5 @@
 
-{if1<p class="message">{message}</p>}
+{if9<p class="message">{message}</p>}
 
 <form action="{basepath}create_conference.php{?SID}" method="post" accept-charset="UTF-8">
 
