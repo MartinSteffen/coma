@@ -3,16 +3,16 @@
 // Do not change this file manually unless you exactly know what you are doing!
 
 define('COMA_INSTALLED',false);
-$dbhost='localhost'; 
-$dbuser='dziuk'; 
-$dbpass='rethbeff6'; 
-$dbname='coma'; 
+$dbhost=''; 
+$dbuser=''; 
+$dbpass=''; 
+$dbname=''; 
 
-$ftphost='xini.de'; 
-$ftpuser='v037607'; 
-$ftppass='Jj1.1ab'; 
+$ftphost=''; 
+$ftpuser=''; 
+$ftppass=''; 
 $ftpdir=''; 
-$httpftpurl='http://www.myftpserver.net/papers/'; 
+$httpftpurl=''; 
  
  
  
