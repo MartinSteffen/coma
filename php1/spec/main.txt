@@ -36,6 +36,7 @@ Datum    Autor   Änderung(en)
 10.01.05 sae     Anmerkung 4.5 (Designstudie) in Kapitel 4 hinzugefuegt,
                  entsprechende Dateien im Appendix Verweise hinzugefuegt.
 12.01.05 jwa     Kapitel 5 Sessions hinzugefügt
+11.01.05 sae     Beschreibung der Rollen in Kapitel 2 geändert.
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -212,15 +213,25 @@ Darin werden folgende Tabellen erstellt:
 - Role: Wir halten uns an die Konventionen in [db-Schema.txt] (enumeration
   roles). Die Tabelle Role enthält role_types mit folgenden Bedeutungen:
   +------------------------------------------------------------------------+
-  | Role_type   | [db-Schema.txt]  | Entsprechung für PHP1                 |
-  +-------------+------------------+---------------------------------------+
-  |   00        |  without role    |  Teilnehmer                           |
-  |   01        |  admin           |   keine                               |
-  |   02        |  chair           |    Chair                              |
-  |   03        |  reviewer        |  Reviewer                             |
-  |   04        |  author          |  Author                               |
-  |   05        | participant      |   keine                               |
+  | Role_type   | Konstante    | [db-Schema.txt]  | Entsprechung für PHP1  |
+  +-------------+--------------+------------------+------------------------+
+  |   00        |   -          | without role     |   -                    |
+  |   02        |  CHAIR       | chair            |  Chair                 |
+  |   03        |  REVIEWER    | reviewer         |  Reviewer              |
+  |   04        |  AUTHOR      | author           |  Author                |
+  |   05        |  PARTICIPANT | participant      |  Participant           |
   +------------------------------------------------------------------------+
+  
+  Die IDs der existierenden Rollen sind in dem globalen Array $intRoles
+  gespeichert. Das globale Array $strRoles mappt die IDs der Rollen auf
+  ihre Namen.
+  
+  Die Werte 0 und 1 finden bei uns keine Berücksichtigung und kommen in der
+  Tabelle Role entsprechend NICHT vor.
+  
+  Rollenlose Benutzer von CoMa (also Personen, die einen Account besitzen,
+  aber noch zu keiner Konferenz mit einer Rolle angemeldet sind), sind
+  dadurch gekennzeichnet, dass sie KEINEN Eintrag in der Roles-Tabelle haben!
 
 
 ============================================================================
@@ -323,12 +334,12 @@ redirect('...');). Die Nachricht sollte dananch auch wieder gelöscht werden!
 
 5.4 Sicherheit, session(...)
 Man sollte niemals davon ausgehen, das eine gewisse Session-Variable gesetzt
-ist, sodnern stattdessen stets vorher eine Überprüfung durchführen!
+ist, sondern stattdessen stets vorher eine Überprüfung durchführen!
 Diese Arbeit nimmt dem Programmierer die Funktion session(...) ab.
 In dieser wird automatisch überprüft ob die Variable existiert, und dann ihr
 Wert zurück geliefert.
-Falls der optionale Paramter false angehängt ist, wird bei nicht-existenz ''
-zurück gegeben.
+Falls der optionale Paramter false angehängt ist, wird bei Nicht-Existenz ''
+zurückgegeben.
 Ansonsten wird die Skriptausführung unterbrochen, und auf die Index-Seite
 weitergeleitet.
 
