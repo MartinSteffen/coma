@@ -24,7 +24,7 @@ echo($p->strFirstName.' ist '.($p->hasRole(2)?'':'k').'ein Reviewer.<br>');
 echo($p->strFirstName.' ist '.($p->hasRole(5)?'':'k').'ein Teilnehmer.<br><br>');
 
 $a[0] = 'Meister Lampe'; $a[1] = 'Mr. X';
-$myDBAccess->addPaper(1, 1, 'Neueste Rezepte', 'Ein abstraktes Abstract...', '', '', $a);
+$myDBAccess->addPaper(1, 1, 'Neueste Rezepte II', 'Ein abstraktes Abstract...', '', '', $a);
 echo($myDBAccess->getLastError());
 
 /*
