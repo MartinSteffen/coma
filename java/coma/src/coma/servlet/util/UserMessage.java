@@ -37,4 +37,7 @@ public class UserMessage {
 
     /** "Now updateing." */
     public static final String UPDATING = "<updateInProgress />";
+
+    /** "Sorry, failed: the deadline is already over" */
+    public static final String ERRTOOLATE="<tooLate />";
 }

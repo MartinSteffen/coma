@@ -292,6 +292,13 @@ public class ShowReports extends HttpServlet {
 	    : new HashSet<ReviewReport>();
     }
 
+    /**
+       Convert database non-success into an Exception, the way G*d
+       intended.
+
+       @throws DatabaseDownException, if an DB access error occured
+       while the passed SearchResult was generated.
+    */
     private void postDBAccess(SearchResult theSearchResult) 
 	throws DatabaseDownException {
 	if (!theSearchResult.isSUCCESS()){
@@ -299,6 +306,28 @@ public class ShowReports extends HttpServlet {
 		    "DB access failed:", theSearchResult.getInfo());
 	    throw new DatabaseDownException(theSearchResult.getInfo());
 	}
+    }
+
+    // Just test routines.
+    public static void main(String[] args){
+	
+	MultiMathReporter mmr = new MultiMathReporter();
+	System.err.println(mmr.mean(3,4,5,6));
+	System.err.println(mmr.rms(3,4,5,6));
+	/* ==> 4.5, 1.1180...  */
+
+	System.err.println(mmr.mean(1,4,5,8));
+	System.err.println(mmr.rms(1,4,5,8));
+	/* ==> 4.5, 2.5 */
+
+	System.err.println(mmr.mean(1,0,4,5,8,0,0,0));
+	System.err.println(mmr.rms(1,0,4,5,0,8));
+	/* ==> 4.5, 2.5 */
+
+	System.err.println(mmr.mean(1,0,4,5,8,0,-3,-666));
+	System.err.println(mmr.rms(1,0,4,5,-666,8));
+	/* ==> 4.5, 2.5 */
+	
     }
 
 }
@@ -331,7 +360,7 @@ class DatabaseDownException extends Exception{
    rms  = sqrt((N\sum_i x_i^2 -(\sum_i x_i)^2 )/n) 
 
    TODO: Currently, we do not care about those priority factors.
- */
+*/
 class MultiMathReporter {
 
     /** A dummy var that indicates Array of Integer to Collection.toArray*/
@@ -344,7 +373,7 @@ class MultiMathReporter {
 
     /**
        put in another ReviewReport that should go into the maths.
-     */
+    */
     public void addReportRatings(ReviewReport rr){
 	for (Rating rat: rr.getRatings()){
 
@@ -361,7 +390,7 @@ class MultiMathReporter {
 
     /**
        calculate and return all that we know.
-     */
+    */
     public CharSequence toXML(){
 	StringBuilder result = new StringBuilder();
 	result.append("<statistics>");
@@ -375,22 +404,49 @@ class MultiMathReporter {
 	return result;
     }
 
+    /**
+       Return the mean of all passed integers that are at least 1.
+       
+       We skip all other integers. This means that this is safe for
+       almost any kind of initialisation the Chair people make up for
+       Reports.
+    */
     Double mean(Integer... xs){
 	Double result = 0.0;
-	for (Integer x: xs)
-	    result += x;
-	return result/(1.0*xs.length);
+	int n = 0;
+	for (Integer x: xs){
+	    if (x==null) continue;
+	    if (x >= 1){
+		result += x;
+		n++;
+	    }
+	}
+	return result/(1.0*n);
     }
 
+    /**
+       Return the rms of all passed integers that are at least 1.
+       
+       We skip all other integers. This means that this is safe for
+       almost any kind of initialisation the Chair people make up for
+       Reports.
+
+       rms is a measure of the deviation of the points, i.e. high
+       values are a sign of equivocality.
+    */
     Double rms(Integer... xs){
 	Double sqsum = 0.0;
 	Double sum = 0.0;
-	final double N = xs.length;
+	double n = 0;
 	for (Integer x:xs){
-	    sum += x;
-	    sqsum += (x*x);
+	    if (x==null) continue;
+	    if (x >= 1){
+		sum += x;
+		sqsum += (x*x);
+		n++;
+	    }
 	}
-	return Math.sqrt((N*sqsum - sum*sum)/(N*N));
+	return Math.sqrt((n*sqsum - sum*sum)/(n*n));
 	
     }
 
