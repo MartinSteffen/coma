@@ -22,7 +22,7 @@ if (isset($_POST['action'])) {
   $dist = $_SESSION['dist'];
   foreach ($dist as $pid => $arrR) {
     for ($j = 0; $j < count($arrR); $j++) {
-      if ($arrR[$j] != ASSIGNED && !isset($_POST['p'.$pid.'ridx'.$j])) {
+      if ($arrR[$j]['status'] != ASSIGNED && !isset($_POST['p'.$pid.'ridx'.$j])) {
         unset($arrR[$j]);
       }
     }
