@@ -12,23 +12,6 @@ if (!defined('IN_COMA1')) {
 /**@ignore */
 define('DEBUG', true);
 
-// Zeit merken
-list($usec, $sec) = explode(" ", microtime());
-$_renderTime = ((float)$usec + (float)$sec);
-unset($usec); unset($sec);
-
-// Header fuer die korrekte Ausgabe
-header('Content-type: text/html; charset=utf-8');
-
-// Debugging Einstellungen:
-if (DEBUG) {
-  error_reporting(E_ALL);
-  ini_set('display_errors', '1');         // spaeter 0 ??
-  ini_set('display_startup_errors', '1'); // spaeter 0 !!
-  ini_set('warn_plus_overloading', '1');
-}
-// End Debugging
-
 // PATH_TRANSLATED patch
 $ServerPathTranslated = realpath(dirname(__FILE__) . '/../');
 
@@ -47,6 +30,21 @@ define('COREURL', dirname($_SERVER['PHP_SELF']).'/');
 
 // alle huebschen Funktionen
 require_once(INCPATH.'lib.inc.php');
+
+// Zeit merken
+chronometer();
+
+// Header fuer die korrekte Ausgabe
+header('Content-type: text/html; charset=utf-8');
+
+// Debugging Einstellungen:
+if (DEBUG) {
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');         // spaeter 0 ??
+  ini_set('display_startup_errors', '1'); // spaeter 0 !!
+  ini_set('warn_plus_overloading', '1');
+}
+// End Debugging
 
 // Magic Quotes machen uns eh nur Aerger... Verbieten?
 ini_set('magic_quotes_runtime', '0');

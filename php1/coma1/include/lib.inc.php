@@ -240,8 +240,38 @@ function emptytime($str, $format='M d, Y') {
  * @access protected
  */
 function emptyDBtime($str, $format='M d, Y') {
-  return (empty($str) || ($str == '0000-00-00') || ($str == '0000-00-00 00:00:00')) ? 
+  return (empty($str) || ($str == '0000-00-00') || ($str == '0000-00-00 00:00:00')) ?
     '' : date($format, strtotime($str));
+}
+
+/**
+ *    float chronometer()
+ *
+ *    Enables determination of an amount of time between two points in a script,
+ *    in milliseconds.
+ *    Call the function a first time to start the chronometer. The next
+ *    call to the function will return the number of milliseconds elapsed since
+ *    the chronometer was started (rounded to three decimal places).
+ *    The chronometer is then available for being started again.
+ *
+ */
+$CHRONO_STARTTIME = 0;
+function chronometer()
+{
+  global $CHRONO_STARTTIME;
+  $now = (float) array_sum(explode(' ', microtime());  // float, in _seconds_
+  
+  if ($CHRONO_STARTTIME > 0)
+  {
+    $retElapsed = round($now * 1000 - $CHRONO_STARTTIME * 1000, 3);
+    $CHRONO_STARTTIME = 0;
+    return $retElapsed;
+  }
+  else
+  {
+    $CHRONO_STARTTIME = $now;
+    return 0;
+  }
 }
 
 ?>
