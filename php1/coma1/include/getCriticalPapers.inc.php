@@ -34,6 +34,16 @@ function getCriticalPapers() {
   $objPapers = array();
 
   //...
+  // Hallo Falk! (Tom hier.) ;-)
+  // Habe folgende Idee: Um nicht fuer jeden Scheiss Klassen anzulegen, waere
+  // ich dafuer, einfach ein verschachteltes Array zurueckzuliefern. So werde
+  // ich es in meinem Algorithmus machen.
+  // Etwa so: $x = array();
+  // ...
+  // $x[] = array('intPaperId' => $intPaperId, 'fltVariance' => $fltVariance);
+  // Dann kann man mittels $y = $x[$i] auf $y wie folgt zugreifen:
+  // $y['intPaperId'] bzw. $y['fltVariance']. Ist doch irgendwie besser als
+  // ne Extra-Klasse, oder? (Nur ein Vorschlag; ich werde es so machen.)
 
   return $objPapers;
 }
