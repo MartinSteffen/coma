@@ -29,10 +29,10 @@ if ($myDBAccess->failed()) {
 
 if (isset($_POST['action']) && $_POST['action'] == 'submit') {
   foreach ($objPapers as $objPaper) {   
-    $objReviewerAttitude->setPaperAttitude($objPaper->intId, $_POST['paper_'.$objPaper->intId]);
+    $objReviewerAttitude->setPaperAttitude($objPaper->intId, $_POST['paper-'.$objPaper->intId]);
   }
   foreach ($objTopics as $objTopic) {
-    $objReviewerAttitude->setTopicAttitude($objTopic->intId, $_POST['topic_'.$objTopic->intId]);
+    $objReviewerAttitude->setTopicAttitude($objTopic->intId, $_POST['topic-'.$objTopic->intId]);
   }
 }
 
