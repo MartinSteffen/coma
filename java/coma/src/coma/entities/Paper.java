@@ -1,14 +1,7 @@
 package coma.entities;
 
 import java.util.Date;
-import coma.util.logging.ALogger;
-import coma.util.logging.Severity;
 import static coma.util.logging.Severity.*;
-
-import static java.util.Arrays.asList;
-import java.util.Set;
-import java.util.*;
-
 import coma.servlet.util.XMLHelper;
 /**
  * @author <a href="mailto:mal@informatik.uni-kiel.de>Mohamed Z. Albari</a>
