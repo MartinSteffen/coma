@@ -35,7 +35,7 @@ $path = $_SERVER['PHP_SELF'];
   <!--
   body, ol { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif;
     font-size: 12px; vertical-align: top; background-color: #FFFFFF;
-    margin: 0px; padding: 0px; }
+    margin: 20px; padding: 0px; }
   a { text-decoration: none; font-weight: bold; }
   a:link { color: #1A35AD; }
   a:visited { color: #1A35AD; }
@@ -56,7 +56,6 @@ $path = $_SERVER['PHP_SELF'];
     <li><a href="<?=$path?>?3">Add Tutorial Data</a></li>
   </ol>
   <p>&nbsp;</p>
-  <p class="message-failed">
 <?php
 if ($STEP1){
 
@@ -67,17 +66,13 @@ elseif ($STEP2) {
   define('IN_COMA1', true);
   require_once('./include/config.inc.php');
   
-  $errorHappened = false;
+  $errors = array();;
   $conn = @mysql_connect($sqlServer, $sqlUser , $sqlPassword);
   if (empty($conn)) {
-    $errorHappened = true;
-    echo("    Could not connect to MySQL Server $sqlServer!<br>\n");
-    echo("    Please check 'include/config.inc.php' for correct values!<br>\n");
+    $errors[] = "Could not connect to MySQL Server $sqlServer!";
   }
   if (!mysql_select_db($sqlDatabase, $conn)) {
-    $errorHappened = true;
-    echo('    '.mysql_error($conn)."<br>\n");
-    echo("    Please check 'include/config.inc.php' for correct values!<br>\n");
+    $errors[] = mysql_error($conn);
   }
 
   $sql = array();
@@ -122,20 +117,25 @@ elseif ($STEP2) {
   $sql[] = "DROP TABLE IF EXISTS PaperData";
   $sql[] = "CREATE TABLE PaperData ( paper_id INT NOT NULL, filesize INT NOT NULL, file MEDIUMBLOB NOT NULL, PRIMARY KEY (paper_id), FOREIGN KEY (paper_id) REFERENCES Paper (id) ON DELETE CASCADE) TYPE = INNODB";
   
-  if (!$errorHappened) {
+  if (empty($errors)) {
     foreach ($sql as $s) {
       $result = mysql_query($s, $conn);
       if (empty($result)) {
-        $errorHappened = true;
-        echo('    '.mysql_error($conn)."<br>\n");
+        $errors[] = mysql_error($conn);
       }
     }
   }
-  if ($errorHappened) {
-    echo "    <br>Database creation failed! see Errors above...";
+  if (empty($errors)) {
+    echo "  <p class=\"message-ok\">Database successfully created!</p>";
   }
   else {
-    echo "  </p>\n  <p class=\"message-ok\">Database successfully created!";
+    echo "  <p class=\"message-failed\">\n    Database creation failed!...<br><br>\n";
+    foreach ($errors as $error) {
+      echo "    ".$error."<br>\n";
+    }
+    echo "    <br><br>\n";
+    echo "    Please check 'include/config.inc.php' for correct values!\n";
+    echo "  </p>\n";
   }
 }
 elseif ($STEP3) {
@@ -143,6 +143,5 @@ elseif ($STEP3) {
   include('test_basedata.php');
 }
 ?>
-  </p>
 </body>
 </html>
