@@ -6,7 +6,7 @@ function createNavigatorContent($strPath) {
     $strNavigatorAssocs['node'] = $strName;
     $strNavigatorAssocs['link'] = $strLink;
     $navigatorItem->assign($strNavigatorAssocs);
-    $navigatorItem->parse()
+    $navigatorItem->parse();
     $strNavigator .= $navigatorItem->strOutput;
     $i++;
     if ($i < count($strPath)) {
