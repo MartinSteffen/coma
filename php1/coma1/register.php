@@ -69,19 +69,19 @@ if (isset($_POST['email'])){
   }
   // Versuche einzutragen
   else {
-    $result = $myDBAccess->addPerson(encodeText($_POST['first_name']),
-                                     encodeText($_POST['last_name']),
-                                     encodeText($_POST['email']),
-                                     encodeText($_POST['name_title']),
-                                     encodeText($_POST['affiliation']),
-                                     encodeText($_POST['street']),
-                                     encodeText($_POST['city']),
-                                     encodeText($_POST['postalcode']),
-                                     encodeText($_POST['state']),
-                                     encodeText($_POST['country']),
-                                     encodeText($_POST['phone']),
-                                     encodeText($_POST['fax']),
-                                     encodeText($_POST['user_password']));
+    $result = $myDBAccess->addPerson($_POST['first_name'],
+                                     $_POST['last_name'],
+                                     $_POST['email'],
+                                     $_POST['name_title'],
+                                     $_POST['affiliation'],
+                                     $_POST['street'],
+                                     $_POST['city'],
+                                     $_POST['postalcode'],
+                                     $_POST['state'],
+                                     $_POST['country'],
+                                     $_POST['phone'],
+                                     $_POST['fax'],
+                                     $_POST['user_password']);
     if (!empty($result)) {
       // Erfolg (also anderes Template)
       $content = new Template(TPLPATH.'confirm_register.tpl');
