@@ -1,11 +1,3 @@
-Ich bin ein TODO :)
-
-Ne, im Ernst:
-
-hier soll die Spezifikation für CoMa von Gruppe PHP2 drinne entstehen. Sprache der Wahl ist deutsch, segmentiert nach den besprochenen Modulen. Jeder ist für sein Modul verantwortlich, also auch für die Specs zu seinem Modul.
-
-Dieser Kommentar wird demnächst gelöscht.
-
 ==============================
 Spezifikation der Gruppe PHP2
 ==============================
@@ -15,8 +7,10 @@ Versionslog:
 
 Version	Datum		Ersteller	Kommentare
 0.1	14.12.04	mje		Grobgliederung
+?.?	22.12.04	gbi		PTRA-Algorithmus
 0.12	4.1.05		mje		Admin&Install
-0.2   6.1.05   Ivan   Chair,Login,Logout und Sicherheit,tasks,profile, Verzeichnisse
+0.2	6.1.05		Ivan		Chair,Login,Logout und Sicherheit,tasks,profile, Verzeichnisse
+1.0	12.01.2005	gbi		PTRA-Algorithmus, Tabelle umbenannt
 
 
 Inhaltsverzeichnis:
@@ -207,10 +201,10 @@ Gunnar
 	  ReviewReport leer ist.
 	Die Aufteilung wird in ReviewReport gespeichert. Dort werden die Felder paper_id und reviewer_id entsprechend gesetzt.
 	
-	Abgelehnte Papiere der Reviewern werden zunächst in ExcludesPaper gespeichert.
+	Abgelehnte Papiere der Reviewern werden zunächst in rejectedpapers gespeichert.
 	
-	Sollten in ExcludesPaper Einträge sein, wird der Alg. erneut ausgeführt.
-	In diesem Fall werden die Einträge aus ExcludesPaper gelöscht und in DeniesPaper eingefügt und gleichzeitig 
+	Sollten in rejectedpapers Einträge sein, wird der Alg. erneut ausgeführt.
+	In diesem Fall werden die Einträge aus rejectedpapers gelöscht und in DeniesPaper eingefügt und gleichzeitig 
 	ein neuer Reviewer für dieses Paper bestimmt.
 	
 	Der Alg. läuft auf keinen Fall mehr nach der Conference.review_deadline, Conference.min_reviews_per_paper kann dann 
@@ -219,7 +213,7 @@ Gunnar
 	Die Auswahl im einzelnen:
 	1. Bestimmung aller in Frage kommenden Reviewern:
 	  a.) Alle Reviewer der Conference die NICHT Author oder CoAuthor des Papers sind, und das Paper NICHT abgelehnt haben
-	      und die das Papier noch nicht reviewen
+	      und die das Papier noch nicht reviewen und es keinen Eintrag in ExcludesPaper für die Person,Paper gibt.
 	2. Verteilung der Paper auf Reviewer:
 	  b.) Gibt es eine nichtleere Schnittmenge aus der ermittelten Reviewermenge und Prefers_Paper wird direkt zugeteilt
 	  c.) Gibt es eine nichtleere Schnittmenge aus der ermittelten Reviewermenge und Prefers_Topic und Paper.IsAboutTopic wird zugeteilt
@@ -232,14 +226,25 @@ Gunnar
 	Hierbei liegen folgende Annahmen / Vorraussetzungen zu Grunde:
 	* es gibt Initial eine nichtleere Menge von Reviewern aus a)
 	* der Algorithmus wird zwischen der Paper_submission_deadline und der review_deadline "ausreichend" oft ausgeführt.
-	  Ausreichend meint, mindestens ein mal für die Anfangsverteilung und mindestens dann, falls in ExcludesPaper Einträge sind.
+	  Ausreichend meint, mindestens ein mal für die Anfangsverteilung und mindestens dann, falls in rejectedpapers Einträge sind.
 	  
 	Die Schritte 1. und 2. laufen für jedes Papier aus der Conference, welches als State nicht "accepted" oder "rejected" hat.
 
 -Forum:
 -------
 Gunnar
-
+	Es gibt drei verschiedene Forumtypen für jede Konferenz:
+	1. Offen: Jeder, der für die Konferenz registriert ist darf lesen und schreiben (Int ID 01)
+	2. Komiteeforum: Personen mit den Rollen "Chair" oder "Reviewer" dürfen lesen und schreiben (Int ID 02)
+	3. Paperdiskussion: Personen, die Reviewer eines Papers sind, dürfen lesen und schreiben (Int ID 03)
+	
+	Beim anlegen einer Konferenz ist noch keines dieser Foren vorhanden. Der Chair darf die Foren der Typen 1 und 2 später anlegen. Für jedes Forum muss der Chair einen Titel wählen, leere Titel sind nicht erlaubt.
+	
+	Das Paperdiskussionsforum wird automatisch angelegt, sofern das Paper eingereicht und an Reviewer verteilt ist. Der Titel dieses Forums lautet dann "PDF: <Paper.title>" und die Paperid wird in das Forum eingetragen.
+	
+	Zu den Foren werden Messages zugeordnet. Auf eine Message darf nur im gleichen Forum (id) geantwortet werden. Wird auf eine Nachricht geantwortet, wird in der neuen Nachricht das Feld reply_to mit der id der alten Nachricht gefüllt, andernfalls ist das Feld reply_to leer.
+	Forum_id, Sender_id und Send_time werden beim schreiben einer Message automatisch eingetragen, Subject und Text werden vom Verfasser der Nachricht ausgefüllt. 
+	
 -Templates & Design:
 --------------------
 Ivan
