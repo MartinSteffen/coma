@@ -24,13 +24,9 @@ function bit($b) {
   return true;
 }
 
-$p = $myDBAccess->getPaperDetailed(2);
-if ($myDBAccess->failed()) {
-  echo($myDBAccess->getLastError());
-}
-echo (is_subclass_of($p, 'paper').' / '.is_subclass_of($p, 'paperdetailed'));
 
-/*
+
+
 $p = $myDBAccess->getPaperDetailed(2);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -40,16 +36,17 @@ else if (empty($p)) {
   exit(-1);
 }
 echo("<br>Papertitel: $p->strTitle<br>");
+$p->strTitle = strtolower($p->strTitle);
 echo('Co-Autoren:<br>');
 for ($i = 0; $i < count($p->intCoAuthorIds); $i++) {
   echo ($p->intCoAuthorIds[$i].' / '.$p->strCoAuthors[$i].'<br>');
 }
-$p->intCoAuthorIds[] = false;
-$p->strCoAuthors[] = 'John Kerry';
-$p->intCoAuthorIds[] = $p->intCoAuthorIds[0];
-$p->strCoAuthors[] = false;
-$p->intCoAuthorIds[0] = false;
-$p->strCoAuthors[0] = false;
+//$p->intCoAuthorIds[] = false;
+//$p->strCoAuthors[] = 'John Kerry';
+//$p->intCoAuthorIds[] = $p->intCoAuthorIds[0];
+//$p->strCoAuthors[] = false;
+//$p->intCoAuthorIds[0] = false;
+//$p->strCoAuthors[0] = false;*/
 $myDBAccess->updatePaperDetailed($p);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());

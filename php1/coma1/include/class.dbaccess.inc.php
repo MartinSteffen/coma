@@ -38,6 +38,8 @@ WICHTIGE NEUIGKEITEN 14.01.05:
   1/tab[0]/tab[id] (oder so aehnlich, hab's vergessen).
   Ursache: Arrays gehen schief. Anders der "->"-Operator:
   echo("$p->bla"); ist erlaubt.
+- Die EMPTY-Abfrage zu Beginn der Methoden (vor allem bei Updatemethoden)
+  habe ich ersetzt durch eine Abfrage $this->is_a (weil is_a erst ab PHP 4.2)
 ============================================================================= */
 
 /* =============================================================================
@@ -177,6 +179,21 @@ class DBAccess extends ErrorHandling {
    */
   function booleanFromDatabase($intDatabase) {
     return $this->success(empty($intDatabase) ? false : true);
+  }
+
+  /**
+   * Prueft, ob das Objekt $obj eine Instanz der Klasse mit Namen $strClass
+   * oder eines Derivats davon ist.
+   *
+   * @param object $obj Das Objekt
+   * @param string $strClass Der Name der zu ueberpruefenden Klasse
+   * @return true gdw. $obj eine Instanz von $strClass oder eines Derivats davon ist
+   * @author Tom (15.01.05)
+   * @access private
+   */
+  function is_a($obj, $strClass) {
+    $s = strtolower($strClass);
+    return (get_class($obj) == $s || is_subclass_of($obj, $s));
   }
 
 
@@ -1133,20 +1150,48 @@ class DBAccess extends ErrorHandling {
   // ---------------------------------------------------------------------------
 
 /* =============================================================================
-Bitte beachten: Methoden sollten analog zu den anderen die _vollstaendigen_
-Bezeichnungen beinhalten, also updatePersonDetailed statt updatePerson.
-Ebenso sollten die Parameter-Objekte, die übergeben werden, $objPersonDetailed
-statt $objPerson heissen, weil es sonst schnell zu ungewollten Fehlern kommen
-kann, die zwar beim ersten Aufruf der Methode auffliegen wuerden, aber doch
-unnoetig sind.
-(Liegt halt an der fehlenden Typisierung von PHP, dass man da ein bisschen
-penibeloes sein muss.)
----------------------------------------------------------------------------
-Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
-(z.B. Person) ueberhaupt benoetigt, wenn es die detailliertere Methode gibt
-(updatePersonDetailed).
+Brauchen wir ueberhaupt Updatemethoden fuer "simple" Objekte, oder i.d.R. immer
+nur fuer detaillierte?
 ============================================================================= */
 
+  /**
+   * Aktualisiert den Datensatz der Konferenz $objConference in der Datenbank.
+   *
+   * @param ConferenceDetailed $objConference Konferenz
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access public
+   * @author Tom (15.01.05)
+   */
+  function updateConference($objConference) {
+    if (!($this->is_a($objConference, 'ConferenceDetailed'))) {
+      return $this->success(false);
+    }
+    /*$s = "U  INTO Conference (name, homepage, description, abstract_submission_deadline,".
+        "                          paper_submission_deadline, review_deadline,".
+        "                          final_version_deadline, notification, conference_start,".
+        "                          conference_end)".
+        "         VALUES ('$strName', '$strHomepage', '$strDescription', '$strAbstractDeadline',".
+        "                 '$strPaperDeadline', '$strReviewDeadline', '$strFinalDeadline',".
+        "                 '$strNotification', '$strConferenceStart', '$strConferenceEnd')";    
+    $intId = $this->mySql->insert($s);
+    if ($this->mySql->failed()) {
+      return $this->error('addConference', $this->mySql->getLastError());
+    }
+    $s = "INSERT  INTO ConferenceConfig (id)".
+        "         VALUES ('$intId')";
+    $this->mySql->insert($s);
+    if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+      $strError = $this->mySql->getLastError();
+      $s = "DELETE  FROM Conference".
+          " WHERE   id = '$intId'";
+      if ($this->mySql->failed()) { // Auch dabei ein Fehler? => fatal!
+        return $this->error('addConference', 'Fatal error: Database inconsistency!',
+                            $this->mySql->getLastError()." / $strError");
+      }
+      return $this->error('addConference', $this->mySql->getLastError());
+    }
+    return $this->success($intId);*/
+  }
 
   /**
    * Aktualisiert den Datensatz der Person $objPersonDetailed in der Datenbank.
@@ -1158,12 +1203,9 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Sandro (10.01.05)
-   * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Rollen der Person.
-   *       Dazu Anmerkung von Tom: Habe Funktion updateRoles hinzugefuegt, die
-   *       Du dafuer benutzen solltest.
    */
-  function updatePersonDetailed($objPersonDetailed, $intConferenceId=false) {
-    if (empty($objPersonDetailed)) {
+  function updatePerson($objPersonDetailed, $intConferenceId=false) {
+    if (!($this->is_a($objPersonDetailed, 'PersonDetailed'))) {
       return $this->success(false);
     }
     $s = "UPDATE  Person".
@@ -1182,12 +1224,12 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         " WHERE   id = '$objPersonDetailed->intId'";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('updatePersonDetailed', $this->mySql->getLastError());
+      return $this->error('updatePerson', $this->mySql->getLastError());
     }
     if (!empty($intConferenceId)) {
       $this->updateRoles($objPersonDetailed, $intConferenceId);
       if ($this->failed()) {
-        return $this->error('updatePersonDetailed', $this->getLastError());
+        return $this->error('updatePerson', $this->getLastError());
       }
     }
     return $this->success(true);
@@ -1205,7 +1247,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    */
   function updateRoles($objPerson, $intConferenceId) {
     global $intRoles;
-    if (empty($objPerson)) {
+    if (!($this->is_a($objPerson, 'Person'))) {
       return $this->success(false);
     }
     $intId = $objPerson->intId;
@@ -1244,7 +1286,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    * @author Tom (14.01.04)
    */
   function updateCoAuthors($objPaperDetailed) {
-    if (empty($objPaperDetailed)) {
+    if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
     // Co-Autoren loeschen...
@@ -1280,7 +1322,7 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    * @author Tom (14.01.04)
    */
   function updateCoAuthorNames($objPaperDetailed) {
-    if (empty($objPaperDetailed)) {
+    if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
     // Co-Autornamen loeschen...
@@ -1321,8 +1363,8 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
    * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Co-Autoren des Papers.
    * @todo Anm. v. Tom: Aenderungen an Unterobjekten fehlen auch noch (Topics, ...)
    */
-  function updatePaperDetailed($objPaperDetailed) {
-    if (empty($objPaperDetailed)) {
+  function updatePaper($objPaperDetailed) {
+    if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
       return $this->success(false);
     }
     $s = "UPDATE  Paper".
@@ -1336,15 +1378,15 @@ Eine andere Frage ist noch, ob man Updatemethoden fuer die einfachen Objekte
         " WHERE   id = '$objPaperDetailed->intId'";
     $data = $this->mySql->update($s);
     if ($this->mySql->failed()) {
-      return $this->error('updatePaperDetailed', $this->mySql->getLastError());
+      return $this->error('updatePaper', $this->mySql->getLastError());
     }
     $this->updateCoAuthors($objPaperDetailed);
     if ($this->failed()) {
-      return $this->error('updatePaperDetailed', $this->getLastError());
+      return $this->error('updatePaper', $this->getLastError());
     }
     $this->updateCoAuthorNames($objPaperDetailed);
     if ($this->failed()) {
-      return $this->error('updatePaperDetailed', $this->getLastError());
+      return $this->error('updatePaper', $this->getLastError());
     }
     return $this->success(true);
   }
