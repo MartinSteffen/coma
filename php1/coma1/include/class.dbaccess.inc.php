@@ -1783,7 +1783,7 @@ nur fuer detaillierte?
                  " WHERE   id = '%d'",
                  s2db($objPaperDetailed->strTitle), s2db($objPaperDetailed->intAuthorId),
                  s2db($objPaperDetailed->strAbstract), s2db($objPaperDetailed->strMimeType),
-                 s2db(emptytime(date(), 'Y-m-d')), s2db($objPaperDetailed->intVersion + 1),
+                 s2db(date('Y-m-d')), s2db($objPaperDetailed->intVersion + 1),
                  s2db($objPaperDetailed->intStatus), s2db($objPaperDetailed->intId));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
@@ -2447,7 +2447,7 @@ nur fuer detaillierte?
         "                     mime_type, state, last_edited)".
         "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
         "                 '$strAbstract', '$strFilePath', '$strMimeType', 0,".
-        "                 '".emptytime(date(), 'Y-m-d')."')";
+        "                 '".s2db(date('Y-m-d'))."')";
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPaper', $this->mySql->getLastError());
