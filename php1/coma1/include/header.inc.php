@@ -111,12 +111,13 @@ function session_delete($strName) {
  * @return string encoded string
  */
 function encodeText($_str) {
-  //$r1 = array('\x00',   '\n',   '\r', '\\',   '\'',   '"',   '\x1a');
+  $trans_tbl = get_html_translation_table(HTML_ENTITIES);
+  $trans_tbl[] = '\x00' => '\\\x00';
+  
+  //  '\n',   '\r', '\\',   '\'',   '"',   '\x1a');
   //$r2 = array('\\\x00', '<BR>', '',   '\\\\', '&#039;', '&quot;', '\\\x1a');
+  $_str = strtr($_str, $trans_tbl);
   $_str = trim($_str);
-  $_str = htmlentities($_str);
-  //$_str = str_replace($r1, $r2, $_str);
-  var_dump(get_html_translation_table (HTML_ENTITIES));
   return($_str);
 }
 
@@ -127,13 +128,10 @@ function encodeText($_str) {
  * @return string decoded string
  */
 function decodeText($_str) {
-  //$r1 = array('\x00',   '\n',   '\r', '\\',   '\'',   '"',   '\x1a');
-  //$r2 = array('\\\x00', '<BR>', '',   '\\\\', '&#039;', '&quot;', '\\\x1a');
   $trans_tbl = get_html_translation_table (HTML_ENTITIES);
-  var_dump($trans_tbl);
+
   $trans_tbl = array_flip ($trans_tbl);
-  $_str      = strtr($_str, $trans_tbl);
-  $_str = str_replace($r2, $r1, $_str);
+  $_str = strtr($_str, $trans_tbl);
   return($_str);
 }
 
