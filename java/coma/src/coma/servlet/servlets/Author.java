@@ -78,7 +78,11 @@ public class Author extends HttpServlet {
 	String path = getServletContext().getRealPath("");
 	String xslt = path+"/style/xsl/author.xsl";
 	PrintWriter out = response.getWriter();
-	
+	Topic[] topicArray = null;
+	mySR = myReadService.getTopic(-1,theConf.getId());
+	if (mySR != null){
+		topicArray = (Topic[]) mySR.getResultObj();
+	}
 	
 	helper.addXMLHead(result);
 	
@@ -119,25 +123,31 @@ public class Author extends HttpServlet {
     	break;
 	case SUBMITPAPER: // submit form for a paper
 		result.append("<submitpaper>");
-		mySR = myReadService.getTopic(-1,theConf.getId());
-		result.append(XMLHelper.tagged("info",mySR.getInfo()));
-		if (mySR != null){
-			Topic[] topicArray = (Topic[]) mySR.getResultObj();
-			
-			for (int i = 0; i < topicArray.length; i++) {
+		
+		for (int i = 0; i < topicArray.length; i++) {
 				result.append(topicArray[i].toXML());
-			}
 		}
+		
 		result.append("</submitpaper>");
 		
 		break;
 	case UPDATEPAPER: // make a update to an previous submitted paper
-		Paper[] thePapers = (Paper[])session.getAttribute(SessionAttribs.PAPER);
-		try {
-				int selection = Integer.parseInt(request.getParameter(FormParameters.SELECTION_ID));
-				Paper theOldPaper = thePapers[selection];
-				session.setAttribute(SessionAttribs.PAPER,theOldPaper);
-				result.append(XMLHelper.tagged("submitpaper",theOldPaper.toXML()));
+		try{
+				int paper_id = Integer.parseInt(request.getParameter(FormParameters.PAPER_ID));
+				Paper theOldPaper = new Paper(paper_id) ;
+				SearchCriteria mysc = new SearchCriteria();
+				mysc.setPaper(theOldPaper);
+				mySR = myReadService.getPaper(mysc);
+				if (mySR != null){
+					Paper[] thePapers = (Paper[])mySR.getResultObj();
+					if (thePapers.length==1) theOldPaper=thePapers[0];
+				}
+				result.append("<submitpaper>\n");
+				result.append(theOldPaper.toXML());
+				for (int i = 0; i < topicArray.length; i++) {
+					result.append(topicArray[i].toXML());
+				}
+				result.append("</submitpaper>\n");
 			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
 				result.append(XMLHelper.tagged("error",e1.toString()));
@@ -167,13 +177,10 @@ public class Author extends HttpServlet {
 			}//while
 			mySR = myReadService.getTopic(-1,theConf.getId());
 			result.append(XMLHelper.tagged("info",mySR.getInfo()));
-			if (mySR != null){
-				Topic[] topicArray = (Topic[]) mySR.getResultObj();
-				
-				for (int i = 0; i < topicArray.length; i++) {
+			for (int i = 0; i < topicArray.length; i++) {
 					result.append(topicArray[i].toXML());
-				}
-			}	    
+			}
+				    
 			result.append("</submitpaper>\n");
 			
 		}
@@ -185,7 +192,7 @@ public class Author extends HttpServlet {
 	
 	result.append(myNavCol.toString());
 	result.append("</author>\n");
-	response.setContentType("text/html; charset=ISO-8859-15");
+	response.setContentType("text/html; charset=ISO-8859-1");
 	StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 	StreamSource xsltSource = new StreamSource(xslt);
 	XMLHelper.process(xmlSource, xsltSource, out);

@@ -9,6 +9,7 @@ import coma.handler.db.ReadService;
 import coma.handler.impl.db.DeleteServiceImpl;
 import coma.handler.impl.db.InsertServiceImpl;
 import coma.handler.impl.db.ReadServiceImpl;
+import coma.servlet.util.PaperState;
 import coma.servlet.util.XMLHelper;
 import static coma.util.logging.Severity.WARN;
 /**
@@ -157,7 +158,7 @@ public class Paper extends Entity {
 					    XMLHelper.tagged("last_edited", getLast_edited().toString()),
 					    XMLHelper.tagged("version", getVersion()),
 					    XMLHelper.tagged("filename", getFilename()),
-					    XMLHelper.tagged("state", ""+getState()),
+					    XMLHelper.tagged("state", ""+PaperState.number2State(getState())),
 					    XMLHelper.tagged("mim_type", getMim_type())
 						
 						// FIXME not Entity yet getCoAuthors().toXML(XMLMODE.SHALLOW),
@@ -173,7 +174,7 @@ public class Paper extends Entity {
 						 XMLHelper.tagged("last_edited", convert_date(getLast_edited())),
 						 XMLHelper.tagged("version", ""+getVersion()),
 						 XMLHelper.tagged("filename", ""+getFilename()),
-						 XMLHelper.tagged("state", ""+getState()),
+						 XMLHelper.tagged("state", ""+PaperState.number2State(getState())),
 						 XMLHelper.tagged("mim_type", ""+getMim_type())
 					    );
 		  
