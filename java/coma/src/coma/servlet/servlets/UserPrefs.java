@@ -118,6 +118,7 @@ public class UserPrefs extends HttpServlet {
 			; // Oh well, who cares about topics? FIXME
 		    }
 		
+		    /*
 		    SearchResult theSR;
 		    UpdateService dbWrite 
 			= new coma.handler.impl.db.UpdateServiceImpl();
@@ -125,6 +126,7 @@ public class UserPrefs extends HttpServlet {
 		    if (!theSR.isSUCCESS()){
 			throw new Exception(theSR.getInfo());
 		    }
+		    */
 		    session.setAttribute(SessionAttribs.PERSON, thePerson);
 		} catch (UnauthorizedException uae){
 		    
