@@ -12,10 +12,12 @@ if(isChair_Paper($_GET['paperID']))
 	}
 	
 	$SQL = "SELECT person.id, person.title, person.first_name, person.last_name
-		  FROM person, role
+		  FROM person, role, paper
 		  WHERE role.role_type = 3
 		  AND role.state = 1
-		  AND role.person_id = person.id";
+		  AND role.person_id = person.id
+		  AND role.conference_id = paper.conference_id
+		  AND paper.id = ".$_GET['paperID'];
 	$reviewers = array();
 	$count = 0;
 	$result=mysql_query($SQL);

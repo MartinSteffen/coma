@@ -1,8 +1,8 @@
 <?
 if(isChair_Paper($_POST['paperID']))
 {	
-	if (isset($_POST['Submit']))
-	{
+	if (isset($_POST['Submit']) && isset($_POST['reviewers']))
+	{		
 		foreach ($_POST['reviewers'] as $reviewer)
 		{
 			$SQL = "INSERT INTO reviewreport (reviewer_id, paper_id) 
