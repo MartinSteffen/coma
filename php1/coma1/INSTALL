@@ -12,4 +12,16 @@ CoMa - a conference manager
 
 3. TROUBLESHOOTING
 
+  1. Paper uplaod does not work:
+  
+     Please ensure that the following PHP Configuration Settings are done:
+       file_uploads "1"
+       upload_tmp_dir "any directory PHP has write access to"
+       upload_max_filesize "2M" (or even more)
+       post_max_size "greater than upload_max_filesize"
+       memory_limit "greater than post_max_size"
+       
+  2. 
+       
+       
 $Id$
