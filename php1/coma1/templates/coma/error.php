@@ -71,9 +71,17 @@ elseif (SID != '') {
 
     <p>&nbsp;</p>
     
-    <p>You have the following three options:</p>
+    <p>You have the following options:</p>
     <ul>
-      <li>Return to the <a href="<?=COREURL?>index.php<?=SID?>" class="link">start page</a>!
+<?php
+if (isset($popup)) && $popup) {
+  echo '      <li>Try again later and <a href="javascript:close()" class="link">close this page</a>!';
+}
+else {
+  echo '      <li>Return to the <a href="'.COREURL.'index.php'.SID.'" class="link">start page</a>!';
+}
+?>
+
       <li>Try again and <a href="javascript:location.reload()" class="link">reload the page</a>!
       <li>Go one step <a href="javascript:history.back()" class="link">back in time</a>!
     </ul>

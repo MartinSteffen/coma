@@ -23,6 +23,8 @@ else if (!$checkRole) {
   error('You have no permission to view this page.', '');	
 }
 
+$popup = (isset($_GET['popup'])) ? true : false;
+
 // Lade die Daten des Artikels
 if (isset($_GET['paperid'])) {
   $objPaper = $myDBAccess->getPaperDetailed($_GET['paperid']);
@@ -34,7 +36,12 @@ if (isset($_GET['paperid'])) {
   }
 }
 else {
-  redirect('user_papers.php');
+  if ($popup) {
+    error('No paper selected!', '');
+  }
+  else {
+    redirect('user_papers.php');
+  }
 }
 
 $content = new Template(TPLPATH.'view_paper.tpl');
@@ -50,6 +57,8 @@ $strContentAssocs['avg_rating'] = encodeText(round($objPaper->fltAvgRating * 100
 $strContentAssocs['last_edited'] = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version'] = encodeText($objPaper->intVersion);
 $strContentAssocs['coauthors'] = '';
+$strContentAssocs['navlink'] = ($popup) ? array( 'CLOSE' ) : array( 'BACK' );
+
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   if ($i > 0) {
     $strContentAssocs['coauthors'] .= ', ';
@@ -73,9 +82,13 @@ else {
 $strContentAssocs['if'] = $ifArray;
 $content->assign($strContentAssocs);
 
-include('./include/usermenu.inc.php');
-
-$main = new Template(TPLPATH.'frame.tpl');
+if (!$popup) {
+  include('./include/usermenu.inc.php');
+  $main = new Template(TPLPATH.'frame.tpl');
+}
+else {
+  $main = new Template(TPLPATH.'popup_frame.tpl');
+}
 $strMainAssocs = defaultAssocArray();
 $strMainAssocs['title'] = 'Details of paper';
 $strMainAssocs['content'] = &$content;
