@@ -32,6 +32,7 @@ Datum    Autor   Änderung(en)
 24.12.04 jwa     Konventionen "enforced" -> Frage sollte das(^^) Anhang sein? 
 07.01.05 dmi     Hinweis auf db_schema.txt und Bedeutung für uns in Kapitel 2.2
 08.01.05 tos     Kapitel 2 geändert
+09.01.05 dmi     Kapitel 4 Design hinzugefügt
 
 Konventionen für dieses Dokument (ups, ganz schön viele...):
 
@@ -66,6 +67,7 @@ Konventionen für dieses Dokument (ups, ganz schön viele...):
   1. Überblick über das Konzept
   2. Das Datenmodell (SQL)
   3. Das Datenmodell (PHP)
+  4. Design
 App. Systemvorraussetzungen
 App. Verantwortlichkeiten / Ansprechpartner
 App. Verzeichnisstruktur
@@ -232,6 +234,31 @@ Sonstige Details sind den entsprechenden Verweisen (s.u.) sowie [PHPDoc] zu
 entnehmen.
 
 
+============================================================================
+  4. Design
+============================================================================
+
+4.1
+Alle unsere Seiten sollten nach einem w3c-Standart validieren. 
+
+4.2 Design [simplecoma] 
+Encoding: utf-8
+Doctype: 4.0 Transitional
+
+4.3 die Navigation
+Einen Überblick über die Navigation durch die Seiten ist im Ordner 
+[navigation] zu finden. Dort sind UML-Diagramme zu finden, die 
+eine Bausstuktur darstellen. Die obersten Klassen in den UML-Diagrammen
+stellen die jeweilen Wurzel des Baumes und somit den Ausgangspunkt der 
+Navigation auf dieser Seite dar. 
+
+4.4 Benennung von Dateinamen
+Die Benennung der Knotenpunkte der Navigation ist aus den UML-Diagrammen im
+Ordner [navigation] ersichtlich. Bei der Benennung von Menue und Submenue-
+punkten sollte, soweit sinnvoll, darauf geachtet werden, dass der Dateiname
+mit der Wurzel beginnt - z.B. start_neue.
+
+
 
 ============================================================================
   APPENDIX: SYSTEMVORRAUSSETZUNGEN
@@ -368,11 +395,14 @@ Die Dateien befinden sich zurzeit im Verzeichnis (...)/php1/architecture/.
 [forum.jpg] (Unterverzeichnis objects)
 [paper.jpg] (Unterverzeichnis objects)
 [review.jpg] (Unterverzeichnis objects)
-[db-Schema.txt] http://snert.informatik.uni-kiel.de:8080/svn/coma/trunk/sql/db_schema.txt
-
 
 Ferner:
-[PHPDoc] http://snert.informatik.uni-kiel.de:8080/~wprguest1/coma1doc/
+[PHPDoc]         ~wprguest1/coma1doc/
+[db-Schema.txt]: ~/svn/coma/trunk/sql/db_schema.txt
+[main.tpl]:      ~/svn/coma/trunk/php1/coma1/templates/simplecoma/
+[simplecoma]:    ~/svn/coma/trunk/php1/coma1/templates/simplecoma/
+[navigation]:    ~/svn/coma/trunk/php1/spec/navigation/
+
 
 Wir sind bemüht, diese Dateien möglichst aktuell zu halten, jedoch kann
 dies während des Entwicklungsprozesses nicht immer garantiert werden. Wir
