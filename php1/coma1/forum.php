@@ -305,10 +305,10 @@ else{
 
   //foren holen
   if (DEBUG){
-    $forums = getAllForums();
+    $forums = getAllForums($_SESSION['confid']);
   }
   else{
-    $forums = getForumsOfUser($_Session['uid']);
+    $forums = getForumsOfPerson($_Session['uid'], $_SESSION['confid']);
   }
 
   //selektionen updaten
