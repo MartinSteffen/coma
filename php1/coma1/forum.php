@@ -38,17 +38,10 @@ function validSelection($selectarray){
 }
 
 function notemptyandtrue($arr, $index){
-  if (empty($arr)){
-    return false;
+  if (isset($arr[$index]) {
+    return ($arr[$index] == true);
   }
-  else{
-    if (empty($arr[$index])){
-      return false;
-    }
-    else{
-      return ($arr[$index] == true);
-    }
-  }
+  return false;
 }
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
@@ -405,13 +398,6 @@ function generatePostMethodArray($postvars){
   }
 
   $contentAssocs = buildForumtemplates($forums, $ffs, $fms, $sel, $contentAssocs, $fshow);
-  /*if (DEBUG){
-    echo($contentAssocs['forumtypes']);
-    echo('<h1>BEGIN VARDUMP $contentAssocs</h1><br>');
-    var_dump($contentAssocs);
-    echo('<h1>END VARDUMP $contentAssocs</h1><br>');
-  }*/
-
   $content->assign($contentAssocs);
 
   include(INCPATH.'usermenu.inc.php');
@@ -426,5 +412,4 @@ function generatePostMethodArray($postvars){
   $main->assign($mainassocs);
   $main->parse();
   $main->output();
-
 ?>
