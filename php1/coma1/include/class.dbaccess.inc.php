@@ -546,6 +546,10 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPaperSimple', $this->getLastError());
     }
+    $fltVariance = $this->getVarianceOfPaper($intPaperId);
+    if ($this->failed()) {
+      return $this->error('getPaperSimple', $this->getLastError());
+    }
     $objAuthor = $this->getPerson($data[0]['author_id']);
     if ($this->failed()) {
       return $this->error('getPaperSimple', $this->getLastError());
@@ -562,7 +566,7 @@ class DBAccess extends ErrorHandling {
     $data[0]['last_edited'] = emptyDBtime($data[0]['last_edited']);
     $objPaper = (new PaperSimple($intPaperId, $data[0]['title'], $data[0]['author_id'],
                   $strAuthor, $data[0]['state'], $data[0]['last_edited'], $fltAvgRating,
-                  $data[0]['filename'], $objTopics));
+                  $data[0]['filename'], $objTopics, $fltVariance));
     return $this->success($objPaper);
   }
 
@@ -655,6 +659,10 @@ class DBAccess extends ErrorHandling {
       if ($this->failed()) {
         return $this->error('getPapersOfAuthor', $this->getLastError());
       }
+      $fltVariance = $this->getVarianceOfPaper($data[$i]['id']);
+      if ($this->failed()) {
+        return $this->error('getPapersOfAuthor', $this->getLastError());
+      }
       $objTopics = $this->getTopicsOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfAuthor', $this->getLastError());
@@ -663,7 +671,7 @@ class DBAccess extends ErrorHandling {
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
-                       $objTopics));
+                       $objTopics, $fltVariance));
       // Anfragen, die Fehler erzeugen koennen (wie $this->getTopics...), nicht inline benutzen!!
     }
     return $this->success($objPapers);
@@ -726,6 +734,10 @@ class DBAccess extends ErrorHandling {
       if ($this->failed()) {
         return $this->error('getPapersOfReviewer', $this->getLastError());
       }
+      $fltVariance = $this->getVarianceOfPaper($data[$i]['id']);
+      if ($this->failed()) {
+        return $this->error('getPapersOfReviewer', $this->getLastError());
+      }
       $objTopics = $this->getTopicsOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfReviewer', $this->getLastError());
@@ -734,7 +746,7 @@ class DBAccess extends ErrorHandling {
       $objPapers[] = (new PaperSimple($data[$i]['id'], $data[$i]['title'],
                        $data[$i]['author_id'], $strAuthor, $data[$i]['state'],
                        $data[$i]['last_edited'], $fltAvgRating, $data[$i]['filename'],
-                       $objTopics));
+                       $objTopics, $fltVariance));
     }
     return $this->success($objPapers);
   }
@@ -779,6 +791,10 @@ class DBAccess extends ErrorHandling {
       }
       $strAuthor = $objAuthor->getName(1);
       $fltAvgRating = $this->getAverageRatingOfPaper($data[$i]['id']);
+      if ($this->failed()) {
+        return $this->error('getPapersOfConference', $this->getLastError());
+      }
+      $fltVariance = $this->getVarianceOfPaper($data[$i]['id']);
       if ($this->failed()) {
         return $this->error('getPapersOfConference', $this->getLastError());
       }
@@ -829,6 +845,10 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPaperDetailed', $this->getLastError());
     }
+    $fltVariance = $this->getVarianceOfPaper($intPaperId);
+    if ($this->failed()) {
+      return $this->error('getPaperDetailed', $this->getLastError());
+    }
     // Co-Autoren
     $s = sprintf("SELECT   person_id AS coauthor_id, name".
                  " FROM    IsCoAuthorOf AS i".
@@ -862,7 +882,7 @@ class DBAccess extends ErrorHandling {
     $objPaper = (new PaperDetailed($intPaperId, $data[0]['title'], $data[0]['author_id'],
                   $strAuthor, $data[0]['state'], $data[0]['last_edited'], $fltAvgRating,
                   $intCoAuthorIds, $strCoAuthors, $data[0]['abstract'], $data[0]['mime_type'],
-                  $data[0]['version'], $data[0]['filename'], $objTopics));
+                  $data[0]['version'], $data[0]['filename'], $objTopics, $fltVariance));
     return $this->success($objPaper);
   }
 
@@ -924,6 +944,39 @@ class DBAccess extends ErrorHandling {
       $sum += $data[$i]['total_rating'];
     }
     return $this->success($sum / count($data));
+  }
+
+  /**
+   * Liefert die Varianz des Papers mit der ID $intPaperId zurueck.
+   *
+   * @param int $intPaperId Paper-ID
+   * @param string $strMethod Optional (Default: 'variance'): Bezeichnet die
+   *        Methode, nach der die Berechnung durchgefuehrt wird. Bislang gibt es
+   *        nur 'variance'.
+   * @return Die Varianz, sofern mindestens ein Review existiert. False, wenn
+   *        dies nicht der Fall ist. Einen Fehler, wenn eine ungueltige Methode
+   *        angegeben wird.
+   *
+   * @access public
+   * @author Falk, Tom (20.01.05)
+   */
+  function getVarianceOfPaper($intPaperId, $strMethod = 'variance') {
+    $objReviews = $myDBAccess->getReviewsOfPaper($intPaperId);
+    if (!empty($objReviews)) {
+      if ($method == 'variance') {
+        $fltAvgRating = $objReviews[0]->fltAverageRating;
+        $fltVal = 0.0;
+        foreach ($objReviews as $objReview){
+          $fltVal = $fltVal + pow(($objReview->fltReviewRating - $fltAvgRating),2);
+        }
+        $fltVal = $fltVal / count($objReviews);
+        return $this->success($fltVal);
+      }
+      else {
+        return $this->error('getVarianceOfPaper', 'Unknown method parameter.');
+      }
+    }
+    return $this->success(false);
   }
 
   /**
@@ -1187,16 +1240,24 @@ class DBAccess extends ErrorHandling {
     }
     $objAuthor = $this->getPerson($objPaper->intAuthorId);
     if ($this->failed()) {
-      return $this->error('getReview', $this->mySql->getLastError());
+      return $this->error('getReview', $this->getLastError());
     }
     else if (empty($objAuthor)) {
       return $this->error('getReview', 'Fatal error: Database inconsistency!',
                           "intAuthorId = $objPaper->intAuthorId");
     }
+    $fltAvgRating = $this->getAverageRatingOfPaper($data[0]['paper_id']);
+    if ($this->failed()) {
+      return $this->error('getReview', $this->getLastError());
+    }
+    $fltVariance = $this->getVarianceOfPaper($data[0]['paper_id']);
+    if ($this->failed()) {
+      return $this->error('getReview', $this->getLastError());
+    }
     $objReview = (new Review($data[0]['id'], $data[0]['paper_id'], $objPaper->strTitle,
                    $objAuthor->intId, $objAuthor->getName(1), $this->getReviewRating($intReviewId),
-                   $this->getAverageRatingOfPaper($data[0]['paper_id']), $objReviewer->intId,
-                   $objReviewer->getName(1)));
+                   $fltAvgRating, $objReviewer->intId,
+                   $objReviewer->getName(1)), $fltVariance);
     return $this->success($objReview);
   }
 
@@ -1273,14 +1334,19 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getReviewDetailed', $this->getLastError());
     }
+    $fltVariance = $this->getVarianceOfPaper($data[0]['paper_id']);
+    if ($this->failed()) {
+      return $this->error('getReviewDetailed', $this->getLastError());
+    }
     $objReview = (new ReviewDetailed($data[0]['id'], $data[0]['paper_id'],
                    $objPaper->strTitle, $objAuthor->intId, $objAuthor->getName(1),
                    $fltReviewRating, $fltAvgRating, $objReviewer->intId,
                    $objReviewer->getName(1), $data[0]['summary'], $data[0]['remarks'],
-                   $data[0]['confidential'], $intRatings, $strComments, $objCriterions));
+                   $data[0]['confidential'], $intRatings, $strComments, $objCriterions,
+                   $fltVariance));
     return $this->success($objReview);
   } 
- 
+
   /**
    * Prueft, ob die Person $objPerson Zugang zum Forum $objForum hat.
    *

@@ -85,16 +85,16 @@ if (!empty($dist)) {
       if ($myDBAccess->failed()) {
         error('get suggested reviewer',$myDBAccess->getLastError());
       }
-      $strReviewersAssocs['paper_id'] = $objPaper->intId;
-      $strReviewersAssocs['rev_id'] = $arrReviewers[$i]['reviewer_id'];
-      $strReviewersAssocs['rev_name'] = $objReviewer->getName(1);
-      $strReviewersAssocs['status'] = $arrReviewers[$i]['status'];
+      $strReviewersAssocs['paper_id'] = encodeText($objPaper->intId);
+      $strReviewersAssocs['rev_id'] = encodeText($arrReviewers[$i]['reviewer_id']);
+      $strReviewersAssocs['rev_name'] = encodeText($objReviewer->getName(1));
+      $strReviewersAssocs['status'] = encodeText($arrReviewers[$i]['status']);
       $strReviewersAssocs['rev_array_index'] = $i;
       $strReviewersAssocs['if'] =
         ($arrReviewers[$i]['status']==ASSIGNED?array():array(1));
       $assignedReviewers->assign($strReviewersAssocs);
       $assignedReviewers->parse();
-      $strItemAssocs['reviewers'] .= $assignedReviewers->getOutput();
+      $strItemAssocs['reviewers'] .= encodeText($assignedReviewers->getOutput());
     }
     $paperItem = new Template(TPLPATH.'chair_distributionlistitem.tpl');
     $paperItem->assign($strItemAssocs);

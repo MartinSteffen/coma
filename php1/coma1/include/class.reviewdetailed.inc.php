@@ -38,9 +38,10 @@ class ReviewDetailed extends Review {
                           $strAuthorName, $fltReviewRating, $fltAverageRating,
                           $intReviewerId, $strReviewerName, $strSummary,
                           $strRemarks, $strConfidential, $intRatings, $strComments,
-                          $objCriterions) {
+                          $objCriterions, $fltVariance=false) {
     $this->Review($intId, $intPaperId, $strPaperTitle, $intAuthorId, $strAuthorName,
-                  $fltReviewRating, $fltAverageRating, $intReviewerId, $strReviewerName);
+                  $fltReviewRating, $fltAverageRating, $intReviewerId, $strReviewerName,
+                  $fltVariance);
     $this->strSummary = $strSummary;
     $this->strRemarks = $strRemarks;
     $this->strConfidential = $strConfidential;
