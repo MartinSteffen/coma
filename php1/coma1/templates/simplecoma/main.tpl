@@ -21,9 +21,6 @@
      <td width="100">&nbsp;</td>
      <td height="32" align="right" valign="top">
       <a href="#">Impressum</a>&nbsp;|&nbsp;
-      <a href="#">Forum</a>&nbsp;|&nbsp;
-      <a href="#">Verwaltung</a>&nbsp;|&nbsp;
-      <a href="#">Nachrichten</a>&nbsp;|&nbsp;
       <a href="{basepath}logout.php{SID}">Logout</a>&nbsp;|&nbsp;
      </td>
      <td width="50" align="center" valign="top">
