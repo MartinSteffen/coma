@@ -29,7 +29,7 @@ if (!empty($objConferences)) {
   foreach ($objConferences as $objConference) {  	  	
     $objPerson = $myDBAccess->getPerson(session('uid'), $objConference->intId);
     if ($this->mySql->failed()) {
-      echo ($this->error('getPerson', $this->mySql->getLastError()).'<br>';
+      echo ($this->error('getPerson', $this->mySql->getLastError()).'<br>');
     }
     $ifArray = array();
     if (!empty($objPerson)) {
