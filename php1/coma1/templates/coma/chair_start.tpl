@@ -13,8 +13,7 @@
     <td class="viewline">      
       Select <a href="{basepath}chair_users.php{?SID}" class="link">'Manage users'</a> to activate or delete user accounts,
       and to add and remove roles for single users.      
-      {if1<br><span class="alert">There are {request_no} requests for accounts waiting
-      for you to be accepted.</span>}
+      {if1<br><span class="alert">There are {request_no} requests for accounts waiting for you to be accepted.</span>}
     </td>
   </tr>
   <tr class="viewline">
