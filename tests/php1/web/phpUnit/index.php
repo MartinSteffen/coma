@@ -12,7 +12,7 @@ require_once 'testsuites/dbAccessTest.php';
 $suites = array();
 
 $suites[] = new PHPUnit_TestSuite("RequiredFunctions");
-$suites[] = new PHPUnit_TestSuite("dbAccessTest(Setzt die Datenbank aus dem Skript voraus!)");
+$suites[] = new PHPUnit_TestSuite("dbAccessTest");
 
 // Build the GUI and Run the Suites
 $gui = new PHPUnit_GUI_HTML($suites);
