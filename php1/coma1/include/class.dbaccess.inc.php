@@ -508,7 +508,7 @@ class DBAccess {
    *
    * @param int $intReviewId ID des Reviews
    * @return Review <b>false</b>, falls das Review, oder das assoziierte Paper,
-   *                der Autor oder der Reviewer nicht existiert.
+   *                der Autor oder der Reviewer nicht existiert
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -543,7 +543,7 @@ class DBAccess {
    *
    * @param int $intReviewId ID des Reviews
    * @return ReviewDetailed <b>false</b>, falls das Review, oder das assoziierte Paper,
-   *                        der Autor oder der Reviewer nicht existiert.
+   *                        der Autor oder der Reviewer nicht existiert
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -605,8 +605,8 @@ class DBAccess {
    * Message $intMessageId sind.
    *
    * @param int $intMessageId ID der Message
-   * @return Message[] <b>false</b>, falls die Message nicht existiert.
-   *                   Gibt ein leeres Array zurueck, wenn die Message keine Antworten besitzt.
+   * @return Message[] <b>false</b>, falls die Message nicht existiert oder
+   *                   ein leeres Array, wenn die Message keine Antworten besitzt
    * @access private
    * @author Sandro (14.12.04)
    */
@@ -632,8 +632,8 @@ class DBAccess {
    * von Threads des Forums $intForumId sind (im folgenden synonym mit Thread verwendet).   
    *
    * @param int $intForumId ID des Forums
-   * @return Message[] <b>false</b>, falls das Forum nicht existiert.
-   *                   Gibt ein leeres Array zurueck, wenn das Forum keine Threads besitzt.
+   * @return Message[] <b>false</b>, falls das Forum nicht existiert oder
+   *                   ein leeres Array, wenn das Forum keine Threads besitzt
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -659,7 +659,7 @@ class DBAccess {
    * Liefert ein Array von Forum-Objekten der aktuellen Konferenz zurueck.
    *   
    * @return Forum[] <b>false</b>, falls kein Forum existiert oder keine Konferenz
-   *                 in der aktuellen Session aktiv ist.
+   *                 in der aktuellen Session aktiv ist
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -684,7 +684,7 @@ class DBAccess {
   /**
    * Liefert ein Forum-Objekt des Forums zurueck, das mit Paper $intPaperId assoziiert ist.
    *   
-   * @return Forum <b>false</b>, falls das Paper nicht existiert oder kein Forum besitzt.
+   * @return Forum <b>false</b>, falls das Paper nicht existiert oder kein Forum besitzt
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -704,7 +704,7 @@ class DBAccess {
    * Liefert ein Array von Forum-Objekten aller Foren zurueck, welche die Person
    * $intPersonId einsehen darf.
    *   
-   * @return Forum[] <b>false</b>, falls die Person nicht existiert.
+   * @return Forum[] <b>false</b>, falls die Person nicht existiert
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -729,7 +729,7 @@ class DBAccess {
    * Liefert ein ForumDetailed-Objekt mit den Daten des Forums $intForumId zurueck.
    * Das ForumDetailed-Objekt enthaelt den kompletten Message-Baum des Forums.
    *   
-   * @return ForumDetailed <b>false</b>, falls das Forum nicht existiert.
+   * @return ForumDetailed <b>false</b>, falls das Forum nicht existiert
    * @access public
    * @author Sandro (14.12.04)
    */
@@ -759,26 +759,28 @@ class DBAccess {
   /**
    * Fuegt einen Datensatz in die Tabelle Person ein.
    *
-   * @param int $intId ID der Person
-   * @return PersonDetailed <b>false</b>, falls keine Person mit ID $intPersonId
-   *   gefunden wurde
+   * @param FOLGT!!! [TODO]
+   * @return int ID der erzeugten Person oder <b>false</b>, falls ein Fehler
+   *             aufgetreten ist
    * @access public
-   * @author Sandro, Tom (03.12.04, 12.12.04)
+   * @author Sandro, Tom (17.12.04)
    */
-   
-  function addPerson($strEmail, $strFirstname, $strLastname, $intRole = 0,
-                          $strTitle = '', $strAffiliation = '', $strStreet = '',
-                          $strCity = '', $strPostalCode = '', $strState = '',
-                          $strCountry = '', $strPhone = '', $strFax = '') {
-    $s = 'INSERT  id, email, first_name, last_name, title, affiliation,'.
-        '         street, city, postal_code, state, country, phone_number,'.
-        '         fax_number'.
-        ' FROM    Person'.
-        ' WHERE   id = '.$intPersonId;
-    $data = $this->mySql->select($s);
-    if (!empty($data)) {
+  function addPerson($strEmail, $strFirstname, $strLastname, $intRole, $strTitle,
+                     $strAffiliation, $strStreet, $strCity, $strPostalCode,
+                     $strState, $strCountry, $strPhone, $strFax, $strPassword) {
+    $s = 'INSERT  INTO Person (first_name, last_name, title, affiliation, email,'.
+        '                      street, postal_code, city, state, country,'.
+        '                      phone_number, fax_number, password)'.
+        '         VALUES (\''.$strFirstname.'\', \''.$strLastname.'\', \''.$strTitle.'\','.
+        '                 \''.$strAffiliation.'\', \''.$strEmail.'\', \''.$strStreet.'\','.
+        '                 \''.$strPostalCode.'\', \''.$strCity.'\', \''.$strState.'\','.
+        '                 \''.$strCountry.'\', \''.$strPhone.'\', \''.$strFax.'\','.
+        '                 \''.sha1($strPassword).'\')';
+    $intId = $this->mySql->insert($s);
+    if (!empty($intId)) {
+      return $intId;
     }
-    return $this->error('getPersonDetailed '.$this->mySql->getLastError());
+    return $this->error('addPerson '.$this->mySql->getLastError());
   }
 
 
