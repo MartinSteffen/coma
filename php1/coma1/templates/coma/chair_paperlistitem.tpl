@@ -19,8 +19,12 @@
                   onClick="self.location.href='{file_link}'">view paper</button>}
     </td>
     <td class="listitem-{line_no}">
-      TODO
-    </td>
+      <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="action" value="status">
+        <input type="hidden" name="paperid" value="{paper_id}">
+        <input type="submit" name="submit" value="change status" class="smallbutton">
+      </form>
+    </td>    
     <td class="listitem-{line_no}">
       <form action="{basepath}chair_papers.php{?SID}" method="post" accept-charset="UTF-8">
         <input type="hidden" name="action" value="delete">
