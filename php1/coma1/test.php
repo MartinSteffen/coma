@@ -30,7 +30,7 @@ echo('<b>Else</b>: "Alles roger in Kambodscher."<br><br>');
 $id = $dbAccess->getPersonIdByEmail('hase@braten.org');
 echo('ID = '.$id.'<br>');
 $p = $dbAccess->getPerson($id);
-echo($p->strFirstName.' '.$p->strLastName.' '.$p->intRole);
+echo($p->strFirstName.' '.$p->strLastName.' '.$p->intRoles);
 
 
 ?>
