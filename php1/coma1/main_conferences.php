@@ -13,8 +13,8 @@
  * @ignore
  */
 define('IN_COMA1', true);
-require_once(INCPATH.'header.inc.php');
-require_once(INCPATH.'class.dbaccess.inc.php');
+require_once('./include/header.inc.php');
+require_once('./include/class.dbaccess.inc.php');
 
 
 $content = new Template(TPLPATH.'conference_list.tpl');
