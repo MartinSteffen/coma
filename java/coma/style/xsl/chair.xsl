@@ -22,6 +22,7 @@
 <xsl:apply-templates select = "/result/showauthors/status"/>
 <xsl:apply-templates select = "/result/showreviewers/status"/>
 <xsl:apply-templates select = "/result/setup/status"/>
+<xsl:apply-templates select = "/result/setup_new/status"/>
 <xsl:apply-templates select = "/result/email/status"/>
 <xsl:apply-templates select = "/result/invitation_send/status"/>
 </div>
@@ -78,6 +79,7 @@
 <xsl:apply-templates select = "/result/showauthors/content"/>
 <xsl:apply-templates select = "/result/showreviewers/content"/>
 <xsl:apply-templates select = "/result/setup/content"/>
+<xsl:apply-templates select = "/result/setup_new/content"/>
 <xsl:apply-templates select = "/result/email/content"/>
 </div> <!-- Main content end -->
 
@@ -286,8 +288,6 @@ review: <xsl:apply-templates select="/result/setup/content/review"/><br/>
 final submission: <xsl:apply-templates select="/result/setup/content/final"/><br/>
 min reviewer per paper: <xsl:apply-templates select="/result/setup/content/min"/><br/>
 </xsl:template>
-
-
 
 
 <xsl:template match="/result/setup_new/content">
@@ -571,9 +571,6 @@ min reviewer per paper: <xsl:apply-templates select="/result/setup/content/min"/
 <xsl:template match="/result/email/status">
 <xsl:value-of select='.'/><br></br> 
 </xsl:template>
-
-
-
 
 
 </xsl:stylesheet>
