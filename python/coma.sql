@@ -40,7 +40,7 @@ CREATE TABLE Topics (
     conference   varchar(20) REFERENCES Conferences
 	 ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (name, conference)
-) WITHOUT OIDS;
+);
 
 
 
@@ -76,7 +76,7 @@ CREATE TABLE Users (
     city                         varchar(127),
     state                        varchar(127),
     country                      varchar(127),
-    sys_role                     bit(2)       NOT NULL DEFAULT B'00',
+    sys_role                     bit(2)       NOT NULL DEFAULT B'00'
 );
 
 
@@ -101,7 +101,7 @@ CREATE TABLE Roles (
         ON DELETE CASCADE ON UPDATE CASCADE,
     conference   varchar(20)  REFERENCES Conferences
         ON DELETE CASCADE ON UPDATE CASCADE,
-    role         bit(4) NOT NULL ,
+    role         bit(4) NOT NULL,
     PRIMARY KEY(email, conference)
 );
 
@@ -234,7 +234,7 @@ CREATE TABLE ExcludedPapers (
         ON DELETE CASCADE ON UPDATE CASCADE,
     paper_id                     integer      REFERENCES Papers
         ON DELETE CASCADE ON UPDATE CASCADE,
-    explenation                  text NOT NULL CHECK(explenation <> ''),
+    explenation                  text NOT NULL CHECK (explenation <> ''),
     PRIMARY KEY(email, paper_id)
 );
 
@@ -253,7 +253,7 @@ CREATE TABLE DeniedPapers (
         ON DELETE CASCADE ON UPDATE CASCADE,
     paper_id                     integer      REFERENCES Papers
         ON DELETE CASCADE ON UPDATE CASCADE,
-    explenation                  text NOT NULL CHECK(explenation <> ''),
+    explenation                  text NOT NULL CHECK (explenation <> ''),
     PRIMARY KEY(email, paper_id)
 );
 
@@ -280,7 +280,7 @@ CREATE TABLE ReviewReports (
     summary                      text,
     remarks                      text,
     confidential                 text,
-    UNIQUE(paper_id, responsible)
+    UNIQUE (paper_id, responsible)
 );
 
 
