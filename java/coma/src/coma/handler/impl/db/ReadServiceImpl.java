@@ -53,19 +53,25 @@ public class ReadServiceImpl extends Service implements ReadService {
 		Person p = sc.getPerson();
 		boolean ok = true;
 		Connection conn = null;
+		String QUERY;
 
 		if (p == null) {
 			info.append("Person must not be null\n");
 			ok = false;
 		}
-		String QUERY = "SELECT Person.* FROM Person, Role WHERE ";
-
+		if (p.getRole_type() > 0)
+		{
+			QUERY = "SELECT Person.* FROM Person,Role WHERE";
+		}
+		else
+			QUERY = "SELECT * FROM Person WHERE";
 		boolean idFlag = false;
 		boolean emailFlag = false;
 		boolean nameFlage = false;
 		boolean firstNameFlag = false;
 		boolean stateFlag = false;
 		boolean roleFlag = false;
+		
 		if (p.getId() > 0) {
 			QUERY += " id = ?";
 			idFlag = true;
@@ -1055,3 +1061,20 @@ public class ReadServiceImpl extends Service implements ReadService {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
