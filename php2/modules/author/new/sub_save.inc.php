@@ -18,9 +18,18 @@ if (isset($_REQUEST['cid']))
   exit();
 }
 
+
 //fill content array with values for db
 
 $content['author_id'] = $_SESSION['userID'];
+
+//check for the paper already uploaded (, via reload e.g.)
+$SQL = "SELECT id FROM paper WHERE author_id = ". $content['author_id'] ." AND conference_id = ". $content[conference_id];
+$result = $sql->query($SQL);
+if (count($result) > 0)
+{redirect("author", "view", "papers");}
+
+//if okay, proceed
 $content['title'] = $_REQUEST['title'];
 $content['abstract'] = $_REQUEST['summary'];
 $content['last_edited'] = date('Y-m-d');
@@ -59,7 +68,7 @@ $remotefilename = $paper_id .".". $ending;
 $localfilename = $_FILES['file']['tmp_name'];
 
 // put file, auto-creating a filename styled $paperid.$ending with ending coming from mimemap, or die in error
-@ftp_put($ftphandle, $remotefilename, $localfilename ,FTP_BINARY) or die("Hochladen nach '$ftppath / $remotefilename' irgendwie fehlgeschlagen. Schade. Aber ich hab noch Erdbeertoertchen...");
+@ftp_put($ftphandle, $remotefilename, $localfilename ,FTP_BINARY) or redirect("author", "new", "cleanup", "pid=".$paper_id);//die("Hochladen nach '$ftppath / $remotefilename' irgendwie fehlgeschlagen. Schade. Aber ich hab noch Erdbeertoertchen...");
 
 $SQL = "UPDATE paper SET filename = '".$remotefilename."' WHERE id = ".$paper_id."";
 $change_result = $sql->insert($SQL);
