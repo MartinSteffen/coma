@@ -6,6 +6,9 @@ coding_conventions
  
 coma1
  -> Der Code des Projektes, so wie er auch auf dem Webserver liegen sollte...
- 
+
+spec
+ -> Die Spezifikation fuer unser Projekt
+
 post-commit
  -> Das auto-commit Skript

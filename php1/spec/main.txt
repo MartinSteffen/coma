@@ -24,7 +24,7 @@ Datum    Autor   Änderung(en)
 ----------------------------------------------------------------------------
 07.12.04 tos     Dokument erstellt: Kapitel 1, Appendizes, Konventionen
 08.12.04 jwa     Links eingefügt, bissige Kommentare entfernt, Templates 
-                 ergänzt
+                 ergänzt, Verzeichniss Struktur ergänzt
 
 
 
