@@ -1,5 +1,5 @@
 <tr class="listitem-{line_no}">
-  <td class="listitem-{line_no}" colspan="3">
+  <td class="listitem-{line_no}" colspan="4">
     <a href="{basepath}main_conference_info.php?confid={confid}{&SID}" class="link">
       <span class="emph">{name}</span>
     </a>
