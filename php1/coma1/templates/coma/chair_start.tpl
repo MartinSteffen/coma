@@ -25,7 +25,7 @@
   <tr class="viewline">
     <td class="viewline">      
       Select <a href="{basepath}chair_reviews.php{?SID}">'Manage reviews'</a> to distribute papers to
-      reviewers and to gather information about the reviewing process of papers.<br>
+      reviewers and to gather information about the reviewing process of papers.
     </td>
   </tr>
   <tr class="viewline">
