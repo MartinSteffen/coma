@@ -153,22 +153,22 @@ function buildForumtemplates(&$objArrayForums, $boolArrayForumselection, $boolAr
   }
   $objForumTypeGlobalTemplate->assign($strArrayTypeGlobalAssocs);
   $objForumTypeGlobalTemplate->parse();
-  if (($intFshow == 0) || ($intFshow == 2)){
+  if (($intFshow == 0) || ($intFshow == FORUM_GLOBAL)){
     $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypeGlobalTemplate->getOutput();
   }
   $objForumTypeOpenTemplate->assign($strArrayTypeOpenAssocs);
   $objForumTypeOpenTemplate->parse();
-  if (($intFshow == 0) || ($intFshow == 1)){
+  if (($intFshow == 0) || ($intFshow == FORUM_PUBLIC)){
     $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypeOpenTemplate->getOutput();
   }
   $objForumTypePaperTemplate->assign($strArrayTypePaperAssocs);
   $objForumTypePaperTemplate->parse();
-  if (($intFshow == 0) || ($intFshow == 3)){
+  if (($intFshow == 0) || ($intFshow == FORUM_PAPER)){
     $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypePaperTemplate->getOutput();
   }
   $objForumTypeChairTemplate->assign($strArrayTypeChairAssocs);
   $objForumTypeChairTemplate->parse();
-  if (($intFshow == 0) || ($intFshow == 2)){
+  if (($intFshow == 0) || ($intFshow == FORUM_PRIVATE)){
     $assocArray['forumtypes'] = $assocArray['forumtypes'] . $objForumTypeChairTemplate->getOutput();
   }
   return $assocArray;
