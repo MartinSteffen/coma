@@ -38,10 +38,12 @@ if (!empty($objPersons)) {
     $strItemAssocs['email_link'] = 'mailto:'.$objPerson->strEmail;
     $strItemAssocs['roles'] = '';
     for ($i = 0; $i < count($intRoles); $i++) {
-      if (!empty($strItemAssocs['roles'])) {
-      	$strItemAssocs['roles'] .= ', ';
+      if ($objPerson->hasRole($intRoles[$i])) {
+        if (!empty($strItemAssocs['roles'])) {
+      	  $strItemAssocs['roles'] .= ', ';
+        }
+        $strItemAssocs['roles'] .= $strRoles[$intRoles[$i]];
       }
-      $strItemAssocs['roles'] .= $strRoles[$intRoles[$i]];
     }
     $userItem = new Template(TPLPATH.'user_userlistitem.tpl');
     $userItem->assign($strItemAssocs);
