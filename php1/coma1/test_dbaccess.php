@@ -22,7 +22,10 @@ $p = $myDBAccess->getRoles($id,1);
 echo $p[0];*/
 
 $_SESSION['confid'] = 1;
-echo('Konferenz-ID: '.$_SESSION['confid']);
+echo('<br>Konferenz-ID: '.$_SESSION['confid']);
+$cd = $myDBAccess->getConferenceDetailed();
+echo('<br>LastError: '.$myDBAccess->getLastError());
+
 
 /*
 $id = $myDBAccess->getPersonIdByEmail('rr@hase.de');
