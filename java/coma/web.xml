@@ -82,53 +82,53 @@
     -->
     
     <servlet-mapping>
-    <servlet-name>Author</servlet-name>
-    <url-pattern>/Author</url-pattern>
+ 		<servlet-name>Author</servlet-name>
+    	<url-pattern>/Author</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-      <servlet-name>Chair</servlet-name>
-    <url-pattern>/chair</url-pattern>
+    	<servlet-name>Chair</servlet-name>
+    	<url-pattern>/chair</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    <servlet-name>Index</servlet-name>
-    <url-pattern>/index.html</url-pattern>
+    	<servlet-name>Index</servlet-name>
+    	<url-pattern>/index.html</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    <servlet-name>invite</servlet-name>
-    <url-pattern>/invite</url-pattern>
+    	<servlet-name>invite</servlet-name>
+    	<url-pattern>/invite</url-pattern>
     </servlet-mapping>
         
     <servlet-mapping>
-      <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
+    	<servlet-name>Login</servlet-name>
+    	<url-pattern>/Login</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    <servlet-name>RatePaper</servlet-name>
-    <url-pattern>/RatePaper</url-pattern>
+    	<servlet-name>RatePaper</servlet-name>
+    	<url-pattern>/RatePaper</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    <servlet-name>ShowReports</servlet-name>
-    <url-pattern>/ShowReports</url-pattern>
+    	<servlet-name>ShowReports</servlet-name>
+    	<url-pattern>/ShowReports</url-pattern>
     </servlet-mapping>
         
     <servlet-mapping>
-    <servlet-name>Subscribe</servlet-name>
-    <url-pattern>/Subscribe</url-pattern>
+    	<servlet-name>Subscribe</servlet-name>
+    	<url-pattern>/Subscribe</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    <servlet-name>UserPrefs</servlet-name>
-    <url-pattern>/UserPrefs</url-pattern>
+    	<servlet-name>UserPrefs</servlet-name>
+    	<url-pattern>/UserPrefs</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    <servlet-name>WriteFile</servlet-name>
-    <url-pattern>/WriteFile</url-pattern>
+    	<servlet-name>WriteFile</servlet-name>
+    	<url-pattern>/WriteFile</url-pattern>
     </servlet-mapping>
     
         
