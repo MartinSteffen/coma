@@ -1,1 +1,1 @@
-<input type="checkbox" name="update" value="true"> Update the above message<br>
+<input type="checkbox" name="posttype" value="update"> Update the above message<br>

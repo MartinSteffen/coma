@@ -1,14 +1,7 @@
 <?php
-/**
- * Wichtig, damit Coma1 Dateien eingebunden werden koennen
- *
- * @ignore
- */
+
+define('DEBUG', true);
 define('IN_COMA1', true);
-
-//ACHTUNG!!! Das hier wird noch nicht funktionieren!
-
-define('DEBUG',true);
 
 require_once('./include/header.inc.php');
 require_once('./include/class.forum.inc.php');
@@ -34,166 +27,97 @@ function validSelection($selectarray){
 
 //Hilfsfunktion zum zusammenbauen des Template-Replacements des Forums
 function buildForumtemplates($forums, $forumselection, $msgselection, $select, $assocArray){
-  //Die Ordnung der Foren durch dreifaches durchlaufen der Schleifen ist schlecht, das kann noch verbessert werden;
-  //ist fuer die Funktionalitaet aber noch nicht so wichtig
-  $tempstring = '';
   $forumtypeopen = new Template(TPLPATH . 'forumtypes.tpl');
   $typeopenassocs = deflautAssocArray();
   $typeopenassocs['type'] = 'Open forums';
-  foreach ($forums as $forum){
-    if (isOpenForum($forum)){
-      $forum = new Template(TPLPATH . 'forum.tpl');
-      $forumassocs = defaultAssocArray();
-      if ($forumselection[$forum->intId]){
-        $forumassocs['selectorunselect'] = 'forumunsel';
-        $forumassocs['forum-id'] = $forum->intId;
-        $forumassocs['forum-title'] = $forum->strTitle;
-        $forumassocs['plusorminus'] = '-';
-        displayMessages(getThreadsOfForum($forum-intId), $msgselection, $select, $forumassocs);
-      }
-      else{
-        $forumassocs['selectorunselect'] = 'forumsel';
-        $forumassocs['forum-id'] = $forum->intId;
-        $forumassocs['forum-title'] = $forum->strTitle;
-        $forumassocs['plusorminus'] = '+';
-        $forumassocs['messages'] = '';
-      }
-      //Thread-neu
-      $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
-      $threadassocs = defaultAssocArray();
-      $threadassocs['replystring'] = 'Start new thread';
-      $threadassocs['message-id'] = '';
-      $threadassocs['forum-id'] = $forum->intId;
-      $threadassocs['subject'] = '';
-      $threadassocs['text'] = '';
-      $edittemplate = new Template(TPLPATH . 'threadform.tpl');
-      $editassocs = defaultAssocArray();
-      $edittemplate->assign($editassocs);
-      $edittemplate->parse();
-      $threadassocs['editform'] = $edittemplate->getOutput();
-      $threadtemplate->assign($threadassocs);
-      $threadtemplate->parse();
-      $forumassocs['thread-new'] = $threadtemplate->getOutput();
-
-      $forum->assign($forumassocs);
-      $forum->parse();
-      $tempstring = $tempstring . $forum->getOutput();
-    }
-  }
-  if ($tempstring != ''){
-    $typeopenassocs['forum'] = $typeopenassocs['forum'] . $tempstring;
-  }
-  else{
-    $typeopenassocs['forum'] = $typeopenassocs['forum'] . 'No forums availabe in this category';
-  }
-  $forumtypeopen->assign($typeopenassocs);
-  $forumtypeopen->parse();
-  $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypeopen->getOutput();
-
-  $tempstring = '';
   $forumtypepaper = new Template(TPLPATH . 'forumtypes.tpl');
   $typepaperassocs = deflautAssocArray();
   $typepaperassocs['type'] = 'Paper forums';
-  foreach ($forums as $forum){
-    if (isPaperForum($forum)){
-      $forum = new Template(TPLPATH . 'forum.tpl');
-      $forumassocs = defaultAssocArray();
-      if ($forumselection[$forum->intId]){
-        $forumassocs['selectorunselect'] = 'forumunsel';
-        $forumassocs['forum-id'] = $forum->intId;
-        $forumassocs['forum-title'] = $forum->strTitle;
-        $forumassocs['plusorminus'] = '-';
-        displayMessages(getThreadsOfForum($forum-intId), $msgselection, $select, $forumassocs);
-      }
-      else{
-        $forumassocs['selectorunselect'] = 'forumsel';
-        $forumassocs['forum-id'] = $forum->intId;
-        $forumassocs['forum-title'] = $forum->strTitle;
-        $forumassocs['plusorminus'] = '+';
-        $forumassocs['messages'] = '';
-      }
-      //Thread-neu
-      $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
-      $threadassocs = defaultAssocArray();
-      $threadassocs['replystring'] = 'Start new thread';
-      $threadassocs['message-id'] = '';
-      $threadassocs['forum-id'] = $forum->intId;
-      $threadassocs['subject'] = '';
-      $threadassocs['text'] = '';
-      $edittemplate = new Template(TPLPATH . 'threadform.tpl');
-      $editassocs = defaultAssocArray();
-      $edittemplate->assign($editassocs);
-      $edittemplate->parse();
-      $threadassocs['editform'] = $edittemplate->getOutput();
-      $threadtemplate->assign($threadassocs);
-      $threadtemplate->parse();
-      $forumassocs['thread-new'] = $threadtemplate->getOutput();
+  $forumtypechair = new Template(TPLPATH . 'forumtypes.tpl');
+  $typechairassocs = deflautAssocArray();
+  $typechairassocs['type'] = 'Chair forums';
+  $openforumtemplates = array();
+  $paperforumtemplates = array();
+  $chairforumtemplates = array();
 
-      $forum->assign($forumassocs);
-      $forum->parse();
-      $tempstring = $tempstring . $forum->getOutput();
+  foreach ($forums as $forum){
+    $forum = new Template(TPLPATH . 'forum.tpl');
+    $forumassocs = defaultAssocArray();
+    if ($forumselection[$forum->intId]){
+      $forumassocs['selectorunselect'] = 'forumunsel';
+      $forumassocs['forum-id'] = $forum->intId;
+      $forumassocs['forum-title'] = $forum->strTitle;
+      $forumassocs['plusorminus'] = '-';
+      displayMessages(getThreadsOfForum($forum-intId), $msgselection, $select, $forumassocs);
+    }
+    else{
+      $forumassocs['selectorunselect'] = 'forumsel';
+      $forumassocs['forum-id'] = $forum->intId;
+      $forumassocs['forum-title'] = $forum->strTitle;
+      $forumassocs['plusorminus'] = '+';
+      $forumassocs['messages'] = '';
+    }
+    //Thread-neu
+    $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
+    $threadassocs = defaultAssocArray();
+    $threadassocs['replystring'] = 'Start new thread';
+    $threadassocs['message-id'] = '';
+    $threadassocs['forum-id'] = $forum->intId;
+    $threadassocs['subject'] = '';
+    $threadassocs['text'] = '';
+    $edittemplate = new Template(TPLPATH . 'threadform.tpl');
+    $editassocs = defaultAssocArray();
+    $edittemplate->assign($editassocs);
+    $edittemplate->parse();
+    $threadassocs['editform'] = $edittemplate->getOutput();
+    $threadtemplate->assign($threadassocs);
+    $threadtemplate->parse();
+    $forumassocs['thread-new'] = $threadtemplate->getOutput();
+
+    $forum->assign($forumassocs);
+    $forum->parse();
+    $tempstring = $tempstring . $forum->getOutput();
+    if (isOpenForum($forum)){
+      $openforumtemplates[$forum->intId] = $forum;
+    }
+    if (isPaperForum($forum)){
+      $paperforumtemplates[$forum->intId] = $forum;
+    }
+    if (isChairForum($forum)){
+      $chairforumtemplates[$forum->intId] = $forum;
     }
   }
-  if ($tempstring != ''){
-    $typepaperassocs['forum'] = $typepaperassocs['forum'] . $tempstring;
+
+  if (!empty($openforumtemplates)){
+    foreach ($openforumtemplates as $ftemp){
+      $typeopenassocs['forum'] = $typeopenassocs['forum'] . $ftemp->getOutput();
+    }
+  }
+  else{
+    $typeopenassocs['forum'] = 'No forums availabe in this category';
+  }
+  if (!empty($paperforumtemplates)){
+    foreach ($paperforumtemplates as $ftemp){
+      $typepaperassocs['forum'] = $typepaperassocs['forum'] . $ftemp->getOutput();
+    }
   }
   else{
     $typepaperassocs['forum'] = $typepaperassocs['forum'] . 'No forums availabe in this category';
   }
-  $forumtypepaper->assign($typepaperassocs);
-  $forumtypepaper->parse();
-  $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypepaper->getOutput();
-
-  $tempstring = '';
-  $forumtypechair = new Template(TPLPATH . 'forumtypes.tpl');
-  $typechairassocs = deflautAssocArray();
-  $typechairassocs['type'] = 'Chair forums';
-  foreach ($forums as $forum){
-    if (isChairForum($forum)){
-      $forum = new Template(TPLPATH . 'forum.tpl');
-      $forumassocs = defaultAssocArray();
-      if ($forumselection[$forum->intId]){
-        $forumassocs['selectorunselect'] = 'forumunsel';
-        $forumassocs['forum-id'] = $forum->intId;
-        $forumassocs['forum-title'] = $forum->strTitle;
-        $forumassocs['plusorminus'] = '-';
-        displayMessages(getThreadsOfForum($forum-intId), $msgselection, $select, $forumassocs);
-      }
-      else{
-        $forumassocs['selectorunselect'] = 'forumsel';
-        $forumassocs['forum-id'] = $forum->intId;
-        $forumassocs['forum-title'] = $forum->strTitle;
-        $forumassocs['plusorminus'] = '+';
-        $forumassocs['messages'] = '';
-      }
-      //Thread-neu ist hier gemacht - bei Gelegenheit gleich alles in eine Schleife packen
-      $threadtemplate = new Template(TPLPATH . 'messageform.tpl');
-      $threadassocs = defaultAssocArray();
-      $threadassocs['replystring'] = 'Start new thread';
-      $threadassocs['message-id'] = '';
-      $threadassocs['forum-id'] = $forum->intId;
-      $threadassocs['subject'] = '';
-      $threadassocs['text'] = '';
-      $edittemplate = new Template(TPLPATH . 'threadform.tpl');
-      $editassocs = defaultAssocArray();
-      $edittemplate->assign($editassocs);
-      $edittemplate->parse();
-      $threadassocs['editform'] = $edittemplate->getOutput();
-      $threadtemplate->assign($threadassocs);
-      $threadtemplate->parse();
-      $forumassocs['thread-new'] = $threadtemplate->getOutput();
-
-      $forum->assign($forumassocs);
-      $forum->parse();
-      $tempstring = $tempstring . $forum->getOutput();
+  if (!empty($chairforumtemplates)){
+    foreach ($chairforumtemplates as $ftemp){
+      $typechairassocs['forum'] = $typechairassocs['forum'] . $ftemp->getOutput();
     }
-  }
-  if ($tempstring != ''){
-    $typechairassocs['forum'] = $typechairassocs['forum'] . $tempstring;
   }
   else{
     $typechairassocs['forum'] = $typechairassocs['forum'] . 'No forums availabe in this category';
   }
+  $forumtypeopen->assign($typeopenassocs);
+  $forumtypeopen->parse();
+  $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypeopen->getOutput();
+  $forumtypepaper->assign($typepaperassocs);
+  $forumtypepaper->parse();
+  $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypepaper->getOutput();
   $forumtypechair->assign($typechairassocs);
   $forumtypechair->parse();
   $assocArray['forumtypes'] = $assocArray['forumtypes'] . $forumtypechair->getOutput();
@@ -215,32 +139,34 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
       $messageassocs['message-subject'] = $message->strSubject;
       $messageassocs['message-sendtime'] = $message->strSendTime;
       $messageassocs['message-text'] = $message->strText;
+      $messageassocs['colon'] = ':';
+      $messageassocs['postfix'] = 'wrote:';
       //formular anzeigen/aendern
       if ($message->intId == $selected){
-	$formtemplate = new Template(TPLPATH . 'messageform.tpl');
-	$formassocs = defaultAssocArray();
-	$formassocs['message-id'] = $message->intId;
-	$formassocs['forum-id'] = $forumid;
-	$formassocs['subject'] = 'Re: ' . $message->strSubject;
-	$formassocs['text'] = $message->strText;
-	$formassocs['newthread'] = '';
+        $formtemplate = new Template(TPLPATH . 'messageform.tpl');
+        $formassocs = defaultAssocArray();
+        $formassocs['message-id'] = $message->intId;
+        $formassocs['forum-id'] = $forumid;
+        $formassocs['subject'] = 'Re: ' . $message->strSubject;
+        $formassocs['text'] = $message->strText;
+        $formassocs['newthread'] = '';
         if (($sender->intId == $_SESSION['uid']) || (DEBUG) || (isChair(getPerson($_SESSION['uid'])))){
           //neu/aendern
-	  $formassocs['replystring'] = 'Update this message/Post a reply to this message';
-	  $edittemplate = new Template(TPLPATH . 'editform.tpl');
-	  $editassocs = defaultAssocArray();
-	  $edittemplate->assign($editassocs);
-	  $edittemplate->parse();
-	  $formassocs['editform'] = $edittemplate->getOutput();
+          $formassocs['replystring'] = 'Update this message/Post a reply to this message';
+          $edittemplate = new Template(TPLPATH . 'editform.tpl');
+          $editassocs = defaultAssocArray();
+          $edittemplate->assign($editassocs);
+          $edittemplate->parse();
+          $formassocs['editform'] = $edittemplate->getOutput();
         }
         else{
           //neu
-	  $formassocs['replystring'] = 'Post a reply to this message';
-	  $formassocs['editform'] = '';
+          $formassocs['replystring'] = 'Post a reply to this message';
+          $formassocs['editform'] = '';
         }
-	$formtemplate->assign($formassocs);
-	$formtemplate->parse();
-	$messageassocs['edit-reply-form'] = $formtemplate->getOutput();
+        $formtemplate->assign($formassocs);
+        $formtemplate->parse();
+        $messageassocs['edit-reply-form'] = $formtemplate->getOutput();
         displayMessages($message->getNextMessages(), $msgselection, $selected, $forumid, $messageassocs);
       }
     }
@@ -248,14 +174,16 @@ function displayMessages($messages, $msgselection, $selected, $forumid, $assocs)
       $messageassocs['selectorunselect'] = 'select';
       $messageassocs['message-id'] = $message->intId;
       $messageassocs['plusorminus'] = '+';
-      $messageassocs['sender-title'] = $sender->strTitle;
-      $messageassocs['sender-firstname'] = $sender->strFirstName;
-      $messageassocs['sender-lastname'] = $sender->strLastName;
+      $messageassocs['sender-title'] = '';
+      $messageassocs['sender-firstname'] = '';
+      $messageassocs['sender-lastname'] = '';
       $messageassocs['message-subject'] = $message->strSubject;
-      $messageassocs['message-sendtime'] = $message->strSendTime;
+      $messageassocs['message-sendtime'] = '';
       $messageassocs['message-text'] = '';
       $messageassocs['edit-reply-form'] = '';
       $messageassocs['messages'] = '';
+      $messageassocs['colon'] = '';
+      $messageassocs['postfix'] = '';
     }
     $messagetemplate->assign($messageassocs);
     $messagetemplate->parse();
@@ -285,6 +213,22 @@ function isChairForum($forum){
   return ($forum->intForumType == 2);
 }
 
+function generatePostMethodArray($postvars){
+  $pma = array();
+  if (empty($postvars['posttype']){
+    $pma['posttype'] = 'reply';
+  }
+  else{
+    $pma['posttype'] = $postvars['posttype'];
+  }
+  $pma['reply-to'] = $postvars['reply-to'];
+  $pma['text'] = $postvars['text'];
+  $pma['subject'] = $postvars['subject'];
+  $pma['uid'] = $_SESSION['uid'];
+  $pma['forumid'] = $postvars['forumid'];
+  return $pma;
+}
+
 
 //Main-Code
 
@@ -292,17 +236,73 @@ if ((empty($_Session['uid'])) && (!DEBUG)){
   redirect('login.php');
 }
 else{
-  
+
   $content = new Template(TPLPATH . 'forumtypes.tpl');
   $contentAssocs = defaultAssocArray();
   $contentAssocs['message'] = session('message', false);
   session_delete('message');
-  
-  
+
   if (DEBUG){
-    $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>';
+    $contentAssocs['message'] = $contentAssocs['message'] . '<br><h1>ACHTUNG! Forum ist im Debugmode. Das muss vor der Final-Version noch abgeschaltet werden!</h1>'
   }
-  
+
+  //evtl. posten einleiten
+  if ((!empty($HTTP_POST_VARS['reply-to'])) && (!empty($HTTP_POST_VARS['text']))){
+    $pvars = generatePostMethodArray($HTTP_POST_VARS);
+    $postresult = false;
+    //auf einen Beitrag antworten
+    if (($pvars['posttype'] == 'reply') && (!empty($pvars['text'])) && (!empty($pvars['forumid'])) && (!empty($pvars['reply-to']))){
+        if (DEBUG){
+          $postresult = addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+        }
+        else{
+          if (!empty($pvars[uid])){
+            $postresult = addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
+          }
+          else{
+            $postresult = false;
+          }
+        }
+    }
+    //einen Beitrag updaten - DBAccess Methode dazu fehlt noch
+    if ((1 == 2) && ($pvars['posttype'] == 'update') && (!empty($pvars['reply-to'])) && (!empty($pvars['subject'])) && (!empty($pvars['text']))){
+        if (DEBUG){
+          $postresult = updateMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], $pvars['reply-to']); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+        }
+        else{
+          if (!empty($pvars[uid])){
+            $postresult = updateMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], $pvars['reply-to']);
+          }
+          else{
+            $postresult = false;
+          }
+        }
+    }
+    //einen neuen Thread starten
+    if (($pvars['posttype'] == 'newthread') && (!empty($pvars['text'])) && (!empty($pvars['forumid']))){
+        if (DEBUG){
+          $postresult = addMessage('DEBUG ' . $pvars['subject'], $pvars['text'], 1, $pvars['forumid'], 0); //UserID 1 fuer maximale toleranz (wenn es den nicht gibt, gibt es auch keinen anderen)
+        }
+        else{
+          if (!empty($pvars[uid])){
+            $postresult = addMessage($pvars['subject'], $pvars['text'], $pvars['uid'], $pvars['forumid'], 0);
+          }
+          else{
+            $postresult = false;
+          }
+        }
+    }
+
+    if ($postresult != false){
+      $selecttree = $_SESSION['forum_msgselect'];
+      $selecttree[$postresult] = true;
+      $_SESSION['forum_msgselect'] = $selecttree;
+    }
+    else{
+      $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
+    }
+  }
+
   //foren holen
   if (DEBUG){
     $forums = getAllForums();
@@ -310,7 +310,7 @@ else{
   else{
     $forums = getForumsOfUser($_Session['uid']);
   }
-  
+
   //selektionen updaten
   if (!empty($HTTP_GET_VARS['select'])){
     $tselect = $HTTP_GET_VARS['select'];
@@ -341,53 +341,10 @@ else{
     }
   }
 
+  buildForumtemplates($forums, $_SESSION['forum_forumselect'], $_SESSION['forum_msgselect'], $_SESSION['select'], $contentAssocs);
 
-  //TODO die Methoden die posten/anzeigen ausfuehren sollen muessen dringen geupdatet werden
-  //TODO beachten ob ein neuer Thread angelegt wird und ob update/reply
-
-  //veraltet
-  if ((!empty($HTTP_POST_VARS['reply-to'])) && (!empty($HTTP_POST_VARS['text'])) && (validSelection($_SESSION['forum_msgselect']))){
-    //posten
-    if (($HTTP_POST_VARS['update'] == true) && (1 == 2)){  //noch keine update-funktion
-      if (DEBUG){
-        $postresult = addMessage('DEBUG ' . $HTTP_POST_VARS['subject'], $HTTP_POST_VARS['text'], $_SESSION['uid'], $HTTP_POST_VARS['forumid'], $HTTP_POST_VARS['reply-to']);
-      }
-      else{
-        $postresult = addMessage($HTTP_POST_VARS['subject'], $HTTP_POST_VARS['text'], $_SESSION['uid'], $HTTP_POST_VARS['forumid'], $HTTP_POST_VARS['reply-to']);
-      }
-    }
-    else{
-      if (DEBUG){
-        $postresult = addMessage('DEBUG ' . $HTTP_POST_VARS['subject'], $HTTP_POST_VARS['text'], $_SESSION['uid'], $HTTP_POST_VARS['forumid'], $HTTP_POST_VARS['reply-to']);
-      }
-      else{
-        $postresult = addMessage($HTTP_POST_VARS['subject'], $HTTP_POST_VARS['text'], $_SESSION['uid'], $HTTP_POST_VARS['forumid'], $HTTP_POST_VARS['reply-to']);
-      }
-    }
-    if ($postresult != false){
-      $selecttree = $_SESSION['forum_msgselect'];
-      $selecttree[$postresult] = true;
-      $_SESSION['forum_msgselect'] = $selecttree;
-      //jetzt den forumanzeigestring zusammenbauen
-      $forumtemplate = $forumtemplate . buildForumtemplates($forums, $_SESSION['forum_forumselect'], $selecttree, $_SESSION['select'], $contentAssocs);
-    }
-    else{
-      $contentAssocs['message'] = $contentAssocs['message'] . '<br>posting failed';
-    }
-  }
-
-  //veraltet
-  if ((empty($HTTP_GET_VARS['select'])) && (!validSelection($_SESSION['forum_msgselect']))){
-    //forumsuebersicht, evtl. selektiertes forum anzeigen
-    buildForumtemplates($forums, $_SESSION['forum_forumselect'], $_SESSION['forum_msgselect'], $_SESSION['select'], $contentAssocs);
-  }
-
-  //veraltet
-  if (((empty($HTTP_POST_VARS['reply-to'])) && (!validSelection($_SESSION['forum_msgselect']))) || ((validSelection($_SESSION['forum_msgselect'])) && (!empty($HTTP_GET_VARS['select']))) || ((empty($HTTP_POST_VARS['text'])) && (!validSelection($_SESSION['forum_msgselect'])))){
-    //select validieren und anzeigen
-    buildForumtemplates($forums, $_SESSION['forum_forumselect'], $_SESSION['forum_msgselect'], $_SESSION['select'], $contentAssocs);
-  }
-  
   $content->assign($contentAssocs);
   $content->parse();
 }
+
+?>
