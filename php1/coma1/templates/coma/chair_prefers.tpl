@@ -1,6 +1,7 @@
 
 {if9<p class="message-failed">{message}</p>}
 
+{if1
 <a name="topics"></a>
 <table class="list">
   <tr class="listheader">
@@ -10,6 +11,7 @@
   </tr>
   {topic_lines}
 </table>
+}
 
 <a name="papers"></a>
 <table class="list">

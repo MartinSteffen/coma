@@ -17,6 +17,7 @@ require_once('./include/header.inc.php');
 // Pruefe Zugriffsberechtigung auf die Seite
 checkAccess(REVIEWER);
 
+$mainIfArray = array();
 $objPapers = $myDBAccess->getPapersOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get paper list',$myDBAccess->getLastError());
@@ -24,6 +25,9 @@ if ($myDBAccess->failed()) {
 $objTopics = $myDBAccess->getTopicsOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('get topic list',$myDBAccess->getLastError());
+}
+if (!empty($objTopics)) {
+  $mainIfArray[] = 1;
 }
 $objReviewerAttitude = $myDBAccess->getReviewerAttitude(session('uid'), session('confid'));
 if ($myDBAccess->failed()) {
@@ -46,7 +50,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'submit') {
 
 $content = new Template(TPLPATH.'reviewer_prefers.tpl');
 $strContentAssocs = defaultAssocArray();
-$strContentAssocs['if'] = array();
 $strContentAssocs['paper_lines'] = '';
 if (!empty($objPapers)) {
   $lineNo = 1;
@@ -104,9 +107,10 @@ else {
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(9);
+  $mainIfArray[] = 9;
 }
 $strContentAssocs['targetpage'] = 'reviewer_prefers.php';
+$strContentAssocs['if'] = $mainIfArray;
 $content->assign($strContentAssocs);
 
 $_SESSION['menu'] = REVIEWER;

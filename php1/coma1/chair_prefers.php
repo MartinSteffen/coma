@@ -18,6 +18,7 @@ require_once('./include/header.inc.php');
 checkAccess(CHAIR);
 
 $popup = (isset($_GET['popup'])) ? true : false;
+$mainIfArray = array();
 
 // Lade die Daten des Benutzers
 if (isset($_GET['userid']) || isset($_POST['userid'])) {
@@ -44,6 +45,9 @@ if ($myDBAccess->failed()) {
 $objTopics = $myDBAccess->getTopicsOfConference(session('confid'));
 if ($myDBAccess->failed()) {
   error('gather list of topics', $myDBAccess->getLastError());
+}
+if (!empty($objTopics)) {
+  $mainIfArray[] = 1;
 }
 $objReviewerAttitude = $myDBAccess->getReviewerAttitude($intPersonId, session('confid'));
 if ($myDBAccess->failed()) {
@@ -111,8 +115,9 @@ else {
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
   $strContentAssocs['message'] = $strMessage;
-  $strContentAssocs['if'] = array(9);
+  $mainIfArray[] = 9;
 }
+$strContentAssocs['if'] = $mainIfArray;
 $content->assign($strContentAssocs);
 
 $strMainAssocs = defaultAssocArray();

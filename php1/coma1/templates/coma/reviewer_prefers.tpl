@@ -2,10 +2,9 @@
 {if9<p class="message-failed">{message}</p>}
 
 <p class="message">
-  Below you can submit your attitude towards certain <a href="#topics" class="link">topics</a>
-  or <a href="#papers" class="link">papers</a>:<br>
-  Selected <span class="emph">prefer</span> if you favor to review a certain paper
-  or papers about certain topic.<br>
+  Below you can submit your attitude towards certain {if1<a href="#topics" class="link">topics</a> or}
+  <a href="#papers" class="link">papers</a>:<br>
+  Selected <span class="emph">prefer</span> if you favor to review a certain paper{if1 or papers about a certain topic}.<br>
   Selected <span class="emph">deny</span> if you would like to review a certain paper
   less than the others.<br>
   Selected <span class="emph">exclude</span> if you want to state that you won't
@@ -15,6 +14,7 @@
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
   <input type="hidden" name="action" value="submit">
 
+{if1
 <a name="topics"></a>
 <table class="list">
   <tr class="listheader">
@@ -30,7 +30,7 @@
     </td>
   </tr>
 </table>
-
+}
 <a name="papers"></a>
 <table class="list">
   <tr class="listheader">
