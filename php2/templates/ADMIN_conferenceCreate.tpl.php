@@ -44,7 +44,7 @@ if ($input) {
 			Homepage:<font style="color:red">*</font>
 		</td>
 		<td>
-			<input class="text" type="text" name="confhomepage" size="40" maxlength="80" value="<?php echo ($TPL['confhomepage']?$TPL['confhomepage'] : "http://www.yoursite.org/anywhere") ?>">
+			<input class="text" type="text" name="confhomepage" size="40" maxlength="80" value="<?php echo (isset($TPL['confhomepage'])?$TPL['confhomepage'] : "http://www.yoursite.org/anywhere") ?>">
 		</td>
 	</tr>
 	<tr>
