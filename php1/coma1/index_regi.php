@@ -142,7 +142,7 @@ if (isset($_POST['email'])){
      $strMainAssocs['body'] = & $emptyPage;
    }
    else {
-     $strMessage = 'Hinweis: Bitte registrieren Sie sich nur einmal!';
+     $strMessage = '';
    }
 
    $strLoginAssocs = defaultAssocArray();
