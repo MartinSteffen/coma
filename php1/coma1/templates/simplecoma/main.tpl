@@ -29,7 +29,7 @@
      </td>
     </tr>
     <tr bgcolor="#DBE9EC">
-     <td width="70" background="{path}images/menueleft2.gif" height="50"> &nbsp; </td>
+     <td width="70"  style="background-image:url({path}images/menueleft2.gif)" height="50"> &nbsp; </td>
      <td colspan="2" height="50" valign="middle" style="background-image:url({path}images/menue2.gif)">
       {menue}
      </td>
