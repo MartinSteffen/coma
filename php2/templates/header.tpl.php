@@ -23,7 +23,7 @@
 				    <? 
 					   if(isset($_SESSION['userID'])) 
 					   {
-					   		echo "Hello ".$_SESSION['userName'];
+					   		echo "Logged in : ".$_SESSION['userName'];
 					   }
 					?>
 			    </td>

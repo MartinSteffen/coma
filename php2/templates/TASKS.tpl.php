@@ -4,7 +4,15 @@ $input = d('tasks');
 ?>
 <link rel="stylesheet" href="style.css" type="text/css">
 
-  <? foreach($input as $role)
+  <? if (count($input)==0)
+		{  ?>  
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>		
+	<td class="textBold">No tasks are waiting for you.</td>
+  </tr>
+</table>			
+  <?    }
+     foreach($input as $role)
   	{ 
 		$tasksInRole = $role['tasks'];
   ?>

@@ -49,7 +49,8 @@ $message = $TPL['login'];
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="textBold">Not a member yet? Register now!</td>
+    <td class="textBold">Not a member yet? <a href="index.php?m=register" class="menus">Register 
+      now</a>!</td>
   </tr>
 </table>
 <?

@@ -1,7 +1,7 @@
 <?
 if(isset($_SESSION['userID']))
 {
-	redirect("tasks");
+	redirect("welcome");
 	exit();	
 }
 else
