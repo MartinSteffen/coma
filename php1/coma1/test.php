@@ -26,7 +26,7 @@ if (!empty($s)) {
 }
 echo('Else: "Alles roger in Kambodscher."');
 
-$dbAccess->getPersonIdByEmail('hase@braten.org');
+echo($dbAccess->getPersonIdByEmail('hase@braten.org'));
 
 
 ?>
