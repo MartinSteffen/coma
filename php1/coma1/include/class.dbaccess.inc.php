@@ -131,8 +131,9 @@ class DBAccess extends ErrorHandling {
    * @return int 0, falls $blnProgram = false, und 1 sonst.
    * @author Tom (12.01.05)
    * @access private
+   * @todo Statische Funktion, falls moeglich
    */
-  static function booleanToDatabase($blnProgram) {
+  function booleanToDatabase($blnProgram) {
     return $this->success($blnProgram ? 1 : 0);
   }
 
@@ -144,8 +145,9 @@ class DBAccess extends ErrorHandling {
    * @return bool false gdw. $intDatabase leer (bzw. 0) ist.
    * @author Tom (12.01.05)
    * @access private
+   * @todo Statische Funktion, falls moeglich
    */
-  static function booleanFromDatabase($intDatabase) {
+  function booleanFromDatabase($intDatabase) {
     return $this->success(empty($intDatabase) ? false : true);
   }
 
