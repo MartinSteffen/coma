@@ -143,7 +143,7 @@ if (isset($_POST['action'])) {
                                            encodeText($_POST['final_dl']),
                                            encodeText($_POST['notification']),
                                            encodeText($_POST['start_date']),
-                                           encodeText($_POST['end_date']),                                           
+                                           encodeText($_POST['end_date']),
                                            encodeText($_POST['min_reviews']),
                                            encodeText($_POST['def_reviews']),
                                            encodeText($_POST['min_papers']),
@@ -163,6 +163,16 @@ if (isset($_POST['action'])) {
         // Erfolg (also anderes Template)        
         $content = new Template(TPLPATH.'confirm_conference.tpl');
         $strContentAssocs['return_page'] = 'main_conferences.php';
+        if (empty($_POST['start_date'])) {
+          $strContentAssocs['data'] = 'no date announced';
+        }
+        else if (!strcmp($_POST['start_date'], $_POST['end_date']) || empty($_POST['end_date'])) {
+          $strContentAssocs['data'] = encodeText($_POST['start_date']);
+        }
+        else if ($_POST['start_date'] == $_POST['end_date']) {
+          $strContentAssocs['data'] = encodeText($_POST['start_date']).' - '.
+                                      encodeText($_POST['end_date']);
+        }         
         $ifArray = array();
       }      
     }

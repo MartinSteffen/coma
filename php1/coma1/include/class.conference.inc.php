@@ -41,8 +41,7 @@ class Conference {
     if (empty($this->strStart)) {
       return "not announced";
     }
-    else if (!strcmp($this->strStart, $this->strEnd) ||
-             empty($this->strEnd)) {
+    else if (!strcmp($this->strStart, $this->strEnd) || empty($this->strEnd)) {
       return encodeText($this->strStart);
     }    
     return encodeText($this->strStart." - ".$this->strEnd);    
