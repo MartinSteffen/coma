@@ -43,6 +43,8 @@ if (isset($_POST['confirm'])) {
     }
     next($dist);
   }
+  unset($dist);
+  redirect('chair_reviews.php');
 }
 else {
   $myDist = new Distribution($mySql);
