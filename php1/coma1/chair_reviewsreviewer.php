@@ -109,10 +109,10 @@ if (!empty($r_id)) {
 
     $strItemAssocs['topics'] = '';
     foreach ($objTopics as $objTopic) {
-      if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) != ATTITUDE_PREFER) {
+      if ($objReviewerAttitude->getTopicAttitude($objTopic->intId) == ATTITUDE_PREFER) {
         $strItem2Assocs = defaultAssocArray();
-        $strItem2Assocs['if'] = array(0);
         $strItem2Assocs['topic'] = $objTopic->strName;
+        $strItem2Assocs['if'] = array(0);
         for ($i = 0; $i < count($objPaper->objTopics); $i++) {
           if ($objTopic->intId == $objPaper->objTopics[$i]->intId) {
             $strItem2Assocs['if'] = array(1);
