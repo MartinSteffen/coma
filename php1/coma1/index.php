@@ -12,6 +12,11 @@
  * @ignore
  */
 define('IN_COMA1', true);
+/**
+ * User muss nicht immer eingeloggt sein, extra check folgt...
+ *
+ * @ignore
+ */
 define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
