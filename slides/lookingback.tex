@@ -6,29 +6,54 @@
 \section{Intro}
 
 \frame{\frametitle{\Coma}
-  \begin{quote}
-    \importantxx{Con}ference \importantxx{Ma}nager: a web-based conference
-    manager assistant tool
-  \end{quote}
-  \begin{itemize}
+
+  \shadowbox{
+    \begin{minipage}[t]{11cm}
+      \begin{quote}
+        \importantxx{Con}ference \importantxx{Ma}nager: a web-based conference
+        manager assistant tool
+      \end{quote}
+    \end{minipage}}
+    \begin{itemize}
   \item rather \important{standard} kind of (small) web application
   \item rather \important{standard} kind of \important{techniques}
-  \item 
+    \begin{itemize}
+    \item apache \ldots
+    \item \Java
+    \item php \ldots
+    \item \textsl{mysql}
+    \end{itemize}
+  \item \importantx{given} informal spec, discussion with us
+  \item \importantxx{to be done:}
+    \begin{enumerate}
+    \item concept, specification, choice of tool (platform \ldots)
+    \item implementation,
+    \item presentation \& roll-out: \important{today!}
+    \end{enumerate}
   \end{itemize}
 }
 
-\frame{\frametitle{Results}
+
+\section{Raw results}
+
+\frame{\frametitle{Results \& structure}
   \begin{itemize}
-  \item 3 installable, runnable\footnote{stuttering} tool(oids), all modules
-    integrated,
+    \psfrag{G1}{PHP$_1$}
+    \psfrag{G2}{PHP$_2$}
+    \psfrag{G3}{Java}
+    \psfrag{test}{tests}
+    \psfrag{spec}{org, spec,\ldots}
+    \psfrag{DB}{DB}
+  \item \important{Structure}: 4 + 1 groups
+    \includegraphics[height=4cm]{../figures/group-structure}  
+  \item 3 installable\footnote{I'm optimistic, this is a prophecy as of the
+      7th of February\ldots}, runnable\footnote{stuttering}, tested (sort of)
+    tool(oids), all modules integrated (ah, well)
     \begin{itemize}
-    \item graphical interface for editing
-    \item checks (type checking, well-formed checking)
-    \item parser
-    \item simulator
+    \item common \important{data model} as core
+    \item (perhaps) common \important{test data} (in principle)
     \end{itemize}
-  \item \important{CD-Rom} with installable tools (+ doc + sources + repos
-    \ldots)
+  \item no \important{CD-Rom} this time \ldots 
   \end{itemize}
 }
 
@@ -41,6 +66,8 @@
     revisions & $\geq$5000\footnote{The statistic is rather misleading, since
     some of the groups ``misused'' the  version management also as ``web-space
     deployment tool''.}
+    \\
+    snapshots &  none (!)
     \\
     files & 
     \begin{tabular}[t]{ll}
@@ -56,9 +83,9 @@
     &    
     \begin{tabular}[t]{ll}
       \\
-      global meetings & ca. 14\footnote{Not all where globally imporant}
+      global meetings & ca. 14\footnote{Not all where globally important}
       \\
-      emails\footnote{in my inbox/outbox} & 
+      emails\footnote{in my inbox/outbox} & $>500$
       \\
       bugzilla & $>230$ reported errors, $40$ open
       \\
@@ -73,6 +100,12 @@
 
 \frame{\frametitle{Tools}
 
+  \scalebox{0.55}{
+    \begin{minipage}[t]{7cm}
+    \input{../web/tools}
+  \end{minipage}
+  }
+
 }
 
 \frame{\frametitle{Develoment process}
@@ -82,7 +115,7 @@
   \item \important{bug tracking} with Bugzilla
   \item email-list(s), bulletin board,
   \item common public \important{web-page}
-  \item weekly progress \important{report}
+  \item (almost) weekly progress \important{report}
   \item 3 \important{review} meetings, including this one.
   \end{itemize}
 }
@@ -96,18 +129,8 @@
 
 
 
-\frame{\frametitle{What's good}
-  \begin{itemize}
-  \item 
-  \end{itemize}
-}
 
 
-\frame{\frametitle{Things we did not like}
-  \begin{itemize}
-  \item \importantx{passivity:}
-  \end{itemize}
-}
 
 \section{Evaluation}
 
@@ -118,16 +141,60 @@
   \item<2-> it's \importantx{over}!
     \only<3->{
     \item we have running tools ready-oid and shipped
-    \item nice result for so few people
-    \item task distribution
-    \item good \important{specification}: \important{formal} operational
-      semantics
+    \item not a single \important{drop-out} during semester (that was a
+      \important{serious!} problem in previous F-Praktika)
+    \item the \important{task} as such was ok 
+    \item \important{snert} (despite it's age and performance limitations) did
+      quite \important{ok}, little down-time, \important{no data loss}
     \item quite some heterogenous environment/tool sets $\Rightarrow$ lots of
-    (well, practical) stuff to cope with, to find ones way 
-    }
+      (well, practical) stuff to cope with, to find ones way }
   \end{itemize}}
 
-\frame{\frametitle{Other remarks}
+\frame{\frametitle{Neutral/beyond our control}
+  \begin{itemize}
+  \item many participants
+  \item some communication \important{overhead}: \important{Yes!} that beyond
+    our control.  Even with \important{1 person} there's communication
+    overhead\footnote{if the task is big enough/long enough, the programmer at
+      some point during of the task has to communicate with the programmer
+      later state (himself, only older), for instance via documentation.}
+  \item little \important{theory} (some people like that, some don't)
+    \begin{itemize}
+    \item[-] in addition to (fail to) \important{work together} and
+      \important{get organized} etc, we did not learn \important{anything
+        theoretical}
+    \item[+] more effort into other stuff.
+    \end{itemize}
+  \item lot's of tiny little problems: well, that how it is \ldots
+  \end{itemize}
+}
+\frame{\frametitle{Things we did not like}
+  \begin{itemize}
+  \item \importantx{passivity} 
+  \item some internal \importantx{in-fighting} within some groups
+  \item ``\important{death march}'' or at least monstrous hectic at the end
+    (year after it's the same)\footnote{Actually, it seems almost to be
+      a universal constant for all human endeavor \ldots}
+  \item \importantxx{laaaate} integration/testing on the target platform (year
+    after year, it's the same)\footnote{In this year, it was in some of the
+      groups in particular postpone \importantxx{till the veeerry end} to try
+      out \emph{snert} even if it was said from the beginning: there is
+      exactly/only \important{one platform} which counts, namely snert. Note
+      that even if we pretended that we intend to do it platform-independent,
+      announcing a predefined machine in advance is of course the opposite of
+      platform-independence.}
+  \item we did not manage to have a \important{common spec}
+    \begin{itemize}
+    \item the common \important{data model} costed to much sweat/time/friction
+      already, the course was on the brink of breaking!
+    \item we (as org) did not had the \important{time} to hunt after that
+      issue as we tried for the data-model spec.
+    \end{itemize}
+  \end{itemize}
+}
+
+
+\frame{\frametitle{Other remarks, heard}
   \begin{itemize}
   \item the task is \importantxx{too small} for so many
     people?\footnote{remarked by more than one participant. E.g. in the form
@@ -141,15 +208,47 @@
           made it \importantx{simpler!}
         \end{itemize}}
     \end{itemize}
-  \item \importantxx{too many comm. channels}
+  \item \importantxx{too many comm. channels}\ actually, we don't exactly know
+    what to leave out
+    \begin{itemize}
+    \item indispensable: \important{svn}, also
+      \important{bugzilla}\footnote{Some did not like bugzilla, but I think it was
+        more important to have some bug tracking}
+    \item \important{bulletin board:} you will have noticed: the BB went much
+      out of use lately, when the hacking effort became harder!
+    \end{itemize}
+  \item \important{global meetings}:
+    \begin{itemize}
+    \item perhaps one should make meetings smaller, 
+    \item sometimes they seem to be a \important{waste of time} for most
+      participants, but no: \importantxx{I'm not talking about the data-base
+        discussions!} 
+    \end{itemize}
   \end{itemize}
 }
 
-\frame{\frametitle{Do the org better}
+\frame{\frametitle{What about the org group?}
   \begin{itemize}
-  \item \importantxx{be harder/stricter} (deadlines, requirements, whatever)
+  \item \importantxx{be harder/stricter} (deadlines, requirements, whatever) ??
   \item \importantxx{specify} exactly what you want, and we do it
-  \item \importantxx{monitor} exactly what's going on, repair
+    \begin{itemize}
+    \item can be advantageous. On the other hand: the challenge here was:  we
+    (the org) are the \emph{clients} we know (a bit) what we want, you have to
+    find a solution
+    \end{itemize}
+  \item \importantxx{monitor} exactly what's going on, repair \ldots
+    \begin{itemize}
+    \item not really possible with $> 20$ participants
+    \end{itemize}
+  \item \important{repeat} the \textsl{Praktikum}
+    \begin{itemize}
+    \item[+] less effort for us, more time for monitoring etc
+    \item[+] better feeling for the hard parts, better assistance in
+      ``load-balance'' etc.
+    \item[-] less ``realistic'', later your boss/manager\ldots will not
+      exactly know what you are doing, there won't be ``Musterl\"osungen'' in
+      your later life.
+    \end{itemize}
   \end{itemize}
 }
 
@@ -157,51 +256,121 @@
   \begin{itemize}
   \item not two spec groups?
     \begin{itemize}
-    \item avoids bickering/merging/friction which spec to take
+    \item avoids bickering/merging/friction/disappointment which spec to take
     \item[-] we cannot have all the rest as tools-groups, because the tools
       groups where wasted time
-    \item 
     \end{itemize}
+  \item \important{testing}
+    \begin{itemize}
+    \item the integration/set-up for the testing \important{must} be organized
+      differently, this year the set-up did not work out
+    \end{itemize}
+  \item \important{tools/platform choice}: 
+    \begin{itemize}
+    \item largely a \important{waste of time}, \important{just do
+        it}/\important{document it} and that's it\footnote{In realistic
+        situations, the choice of weapons and platforms is of course not a
+        waste of time.  In our case, I'd say it was.}
+    \end{itemize}
+  \item some small stuff: 
+    \begin{itemize}
+    \item we \important{lost} some weeks:
+      \begin{itemize}
+      \item for instance after the first demo,
+      \item because of protracted SQL-discussion
+      \item after X-mas, delay in the status/plan 
+      \end{itemize}
+    \end{itemize}
+  \item hard \importantxx{deadline/milestone} around X-mas
   \end{itemize}
   
 }
 
 
 
-\frame{\frametitle{too many channels}
-  
-  \begin{itemize}
-  \item a remark by some student
-  \item 
-  \end{itemize}
-
-}
 
 \frame{\frametitle{Famous quotes from development hell}
   
-  We collected the following this semester (source kept \important{anonymous})
-  \begin{itemize}
-  \item<1> ``in the course of Hanus, the work-load is 3 times as hard, and
-    it scores only 4 hours''
-  \item<2> ``if the testers needs a \texttt{Readme} to understand what's
-    going on in my code, ten they are free to let it be''\footnote{See
-      again the foil with the ``raw and mindless statistic'' and think of
-      an answer to that yourself.}
-  \item<3> \emph{``of course we have a spec; it's not written down,
-      however, because we have it all in our head''}
-  \item<4> year after year our \emph{all-time favorite:} \textit{``it's not
-      my fault. At my machine it works\ldots''}\footnote{shorter still:
-      ``Ah, you don't need to try it. It works!''. A variant is ``we don't
-      need to test it there, because it works here''.}
-  \item<5-6> Request from group-X to their tester:\emph{``additionally, an
-      installation test\footnote{1. February} would be handy, such that our
-      tool is installed in a ``Weissbrotwelt'' as
-      well''}\only<5-6>{\footnote{in the same bug thread a comment is again
-        the classic: ``bei mir aufm Laptop funktioniert alles''.}}
-    \only<6>{and please note down exactly what steps are needed [\ldots].
-      We have the problem that we\footnote{the programmers!} have forgotten
-      what we did to install our tool.''}
-  \end{itemize}
+  We collected those during this semester (sources kept
+  \important{anonymous})
+
+  \bigskip
+
+  \only<1>{
+    \shadowbox{
+      \begin{minipage}[t]{11cm}
+        \begin{quote}
+          ``in the course of Hanus, the work-load is 3 times as hard, and
+          it scores only 4 hours''
+        \end{quote}
+      \end{minipage}
+    }}
+
+  \only<2>{
+    \shadowbox{
+      \begin{minipage}[t]{11cm}
+        \begin{quote}
+          ``if the testers/some others needs a \texttt{Readme} to understand
+          what's going on in my code, then they are free to let it
+          be''\footnote{See again the foil with the ``raw and mindless
+            statistic'' and think of an answer to that yourself.}
+        \end{quote}
+      \end{minipage}}
+  }
+
+
+  \only<3>{
+    \shadowbox{
+      \begin{minipage}[t]{11cm}
+        \begin{quote}
+          \emph{``of course we have a spec; it's not written down,
+            however, because we have it all in our head''}\footnote{Ya, ya}
+        \end{quote}
+      \end{minipage}
+    }}
+
+  \only<4>{
+    \shadowbox{
+      \begin{minipage}[t]{11cm}
+        \begin{quote}
+          year after year our \emph{all-time favorite:} \textit{``it's not my
+            fault. At my machine it works\ldots''}\footnote{shorter still:
+            ``Ah, \important{trust me}, you don't need to try it. It works!''.
+            A variant is ``we don't need to test it \important{there}, because
+            it works \important{here}''. still shorter: it's
+            \important{compatible}!}
+        \end{quote}
+      \end{minipage}
+    }}
+
+  \only<5>{
+    \shadowbox{
+      \begin{minipage}[t]{11cm}
+        \begin{quote}
+          integration will be a piece of cake, don't worry.
+        \end{quote}
+      \end{minipage}
+    }}
+
+  \only<6-7>{
+    \shadowbox{
+      \begin{minipage}[t]{11cm}
+        \begin{quote}
+          Request from group-X to their tester:\emph{``additionally, an
+            \important{installation} test\footnote{1. February} would be
+            handy, such that our tool is installed in a ``Weissbrotwelt'' as
+            well''}\only<6-7>{\footnote{in the same bug thread a comment is
+              again the classic: ``bei mir aufm Laptop funktioniert alles''.}}
+          \only<7>{and please note down exactly what steps are needed
+            [\ldots].  We have the problem that \important{we}\footnote{the
+              programmers/developers!}  have forgotten what we did to install
+            our tool.''\footnote{Remember the
+              \textsl{``Real-programmers-don't-need-Readme's''}-comment 2
+              minutes ago?}}
+        \end{quote}
+      \end{minipage}
+    }}
+
 }
 
 
@@ -209,18 +378,46 @@
 
 
 \frame{\frametitle{Why is it not a tool?}
-  \begin{quote}
-    The result/the process is not ``\important{professional}'', why is
-    this?\footnote{Professional in the sense of ``good''
-      (best-practice/state-of-the-art, or whatever jargon word you prefer).
-      ``Professional'' is not meant in the sense of making a living out of it.
-      After all, rather soon \important{you are professional} computer
-      experts/scientists! Also it does not imply that all tools that one can
-      sell/buy are better than yours \ldots }
-  \end{quote}
+  \only<1>{
+  \shadowbox{
+    \begin{minipage}[t]{11cm}
+      \begin{quote}
+        The result/the process is not ``\important{professional}'', why is
+        this?\footnote{Professional in the sense of ``good''
+          (best-practice/state-of-the-art, or whatever jargon word you prefer).
+          ``Professional'' is not meant in the sense of making a living out of it.
+          After all, rather soon \important{you are professional} computer
+          experts/scientists! Also it does not imply that all tools that one can
+          sell/buy are better than yours \ldots }
+      \end{quote}
+    \end{minipage}}}
+
+\only<2>{
   \begin{itemize}
-  \item the
-  \end{itemize}
+  \item well, we listed some points which we think did not work/haven't been
+    organized too well
+  \item almost everyone was mainly busy with \important{his module}, little
+    serious effort outside one's own home ground field.\footnote{we don't know
+      directly, it's an impression: especially the PHP1 group, they kept
+      problems ---if they had any--- under the carpet.}
+  \item \important{symptom}: in the general meetings: desinterest or even
+    \important{``bad vibes''} if ``\importantx{forced}'' to discuss things
+    beyound one owns interest\footnote{Indeed, the SQL-discussion started to
+      go bitter, for somehow unwillingness to take the effort. The general
+      feeling was: ``C'mon, it's a waste of time, to agree on this/to discuss
+      this, leave us alone.''}
+  \item[$\Rightarrow$] \importantx{much more} effort into ``boring'' stuff]
+    e.g., 2 persons (or more) in a group doing nothing else than
+    \important{integrating,} checking whether all \important{fits together,}
+    having an \important{technical overview} over the \important{interplay},
+    perhaps group ``sub-leader''
+    \begin{itemize}
+    \item difficult in a course: ``what's my contribution?'', ``do I pass the
+      exam without a line of code written?'', who is the subleader
+    \end{itemize}
+  \item one single semester afterwards: just
+    \important{testing}/documenting/making it usable?
+  \end{itemize}}
   }
 
 \iffalse
