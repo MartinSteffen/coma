@@ -32,6 +32,7 @@ public class Conference extends Entity {
 	this.id=id;
     }
     
+    
     public Date getAbstract_submission_deadline() {
         return abstract_submission_deadline;
     }
@@ -173,10 +174,20 @@ public class Conference extends Entity {
     			result.append(javaDate.charAt(5));
     			result.append(javaDate.charAt(6));
     			result.append(" ");
-    			result.append(javaDate.charAt(24));
-    			result.append(javaDate.charAt(25));
-    			result.append(javaDate.charAt(26));
-    			result.append(javaDate.charAt(27));
+    			if (javaDate.contains("CEST"))
+    			{
+    				result.append(javaDate.charAt(25));
+        			result.append(javaDate.charAt(26));
+        			result.append(javaDate.charAt(27));
+        			result.append(javaDate.charAt(28));
+    			}
+    			else
+    			{
+    				result.append(javaDate.charAt(24));
+        			result.append(javaDate.charAt(25));
+        			result.append(javaDate.charAt(26));
+        			result.append(javaDate.charAt(27));
+    			}
     			return result.toString();
     		}
     	}
