@@ -1,8 +1,6 @@
 <? 
 include("header.tpl.php");
 ?>
-<link rel="stylesheet" href="style.css" type="text/css">
-
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
   <? if (!count(d("chair"))==0)

@@ -1,14 +1,15 @@
 <? 
 include("header.tpl.php");
 $input = d('chair');
-$userID = $input['userID'];
-$userName = $input['userName'];
+$confID = $input['confID'];
+$confName = $input['confName'];
 $papers = $input['papers'];
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="left" valign="top"><span class="textBold">List of all papers from author :</span> <span class="text"> 
-      <? echo $userName ?>
+    <td align="left" valign="top"><span class="textBold">List of all papers in 
+      conference :</span> <span class="text"> 
+      <? echo $confName ?>
       </span></td>
   </tr>
 </table>
@@ -21,8 +22,8 @@ $papers = $input['papers'];
     <td width="100%" class="text"><a href="index.php?m=chair&a=papers&s=paper&paperID=<? echo $paper['paperID'] ?>" class="normal"><? echo $paper['paperName']; ?></a></td>
   </tr>
   <tr align="left" valign="top"> 
-    <td class="textBold">In conference</td>
-    <td class="text"><? echo $paper['confName']; ?></td>
+    <td class="textBold">Author</td>
+    <td class="text"><? echo $paper['authorName']; ?></td>
   </tr>
   <tr align="left" valign="top"> 
     <td class="textBold">Description</td>

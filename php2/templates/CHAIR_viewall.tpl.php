@@ -11,8 +11,7 @@ include("header.tpl.php");
   <tr>
     <td><span class="textBold">Conference :</span> <span class="text">Testing 
       Conference <br>
-      </span><span class="textBold">Task : </span><a href="index.php?m=chair&a=papers&s=paperOfUser&userID=1&paperID=2&confID=3" class="normal">John 
-      Smith has sent a paper</a></td>
+      </span><span class="textBold">Task : </span><a href="index.php?m=chair&a=papers&s=paper&paperID=2" class="normal">Author A has sent a paper</a></td>
   </tr>
 </table>
 <?
