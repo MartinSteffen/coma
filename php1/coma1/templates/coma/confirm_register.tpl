@@ -14,7 +14,7 @@
     <td class="viewline" width="15%">
       E-mail address:
     </td>
-    <td>
+    <td class="viewline">
       {email} <span class="emph">(= username)</span>
     </td>
   </tr>
@@ -30,7 +30,7 @@
     <td class="viewline" width="15%">
       Phone number:
     </td>
-    <td>
+    <td class="viewline">
       {phone}
     </td>
   </tr>
