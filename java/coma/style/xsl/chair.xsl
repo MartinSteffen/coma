@@ -79,7 +79,21 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </xsl:template>
 
 <xsl:template match="/result/login/content">
-<xsl:value-of select='.'/><br></br>
+<xsl:if test="//abstract">
+<xsl:value-of select="//abstract"/><br/>
+</xsl:if>
+<xsl:if test="//paper">
+<xsl:value-of select="//paper"/><br/>
+</xsl:if>
+<xsl:if test="//review">
+<xsl:value-of select="//review"/><br/>
+</xsl:if>
+<xsl:if test="//final">
+<xsl:value-of select="//final"/><br/>
+</xsl:if>
+<xsl:if test="//select">
+<xsl:value-of select="//select"/><br/>
+</xsl:if>
 </xsl:template>
 
 <xsl:template match="/result/criterion_change/content">
