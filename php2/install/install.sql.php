@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS excludespaper
 DROP TABLE IF EXISTS forum
  CREATE TABLE forum ( id int(11) NOT NULL auto_increment, conference_id int(11) NOT NULL default '0', title varchar(127) NOT NULL default '', forum_type int(11) NOT NULL default '0', paper_id int(11) default NULL, PRIMARY KEY (id), KEY conference_id (conference_id), KEY forum_type (forum_type), FOREIGN KEY (`conference_id`) REFERENCES `coma2.conference` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
 DROP TABLE IF EXISTS isabouttopic
- CREATE TABLE isabouttopic ( paper_id int(11) NOT NULL default '0', topic_id int(11) NOT NULL default '0', PRIMARY KEY (paper_id,topic_id), KEY paper_id (paper_id), KEY topic_id (topic_id), FOREIGN KEY (`paper_id`) REFERENCES `coma2.paper` (`id`) ON DELETE CASCADE, FOREIGN KEY (`topic_id`) REFERENCES `coma2.Topic` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
+ CREATE TABLE isabouttopic ( paper_id int(11) NOT NULL default '0', topic_id int(11) NOT NULL default '0', PRIMARY KEY (paper_id,topic_id), KEY paper_id (paper_id), KEY topic_id (topic_id), FOREIGN KEY (`paper_id`) REFERENCES `coma2.paper` (`id`) ON DELETE CASCADE, FOREIGN KEY (`topic_id`) REFERENCES `coma2.topic` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
 DROP TABLE IF EXISTS iscoauthorof
  CREATE TABLE iscoauthorof ( person_id int(11) default NULL, paper_id int(11) NOT NULL default '0', name varchar(127) default NULL, KEY paper_id (paper_id), FOREIGN KEY (`paper_id`) REFERENCES `coma2.paper` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
 DROP TABLE IF EXISTS message
@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS person
 DROP TABLE IF EXISTS preferspaper
  CREATE TABLE preferspaper ( person_id int(11) NOT NULL default '0', paper_id int(11) NOT NULL default '0', PRIMARY KEY (person_id,paper_id), KEY person_id (person_id), KEY paper_id (paper_id), FOREIGN KEY (`person_id`) REFERENCES `coma2.person` (`id`) ON DELETE CASCADE, FOREIGN KEY (`paper_id`) REFERENCES `coma2.paper` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
 DROP TABLE IF EXISTS preferstopic
- CREATE TABLE preferstopic ( person_id int(11) NOT NULL default '0', topic_id int(11) NOT NULL default '0', PRIMARY KEY (person_id,topic_id), KEY person_id (person_id), KEY topic_id (topic_id), FOREIGN KEY (`person_id`) REFERENCES `coma2.person` (`id`) ON DELETE CASCADE, FOREIGN KEY (`topic_id`) REFERENCES `coma2.Topic` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
+ CREATE TABLE preferstopic ( person_id int(11) NOT NULL default '0', topic_id int(11) NOT NULL default '0', PRIMARY KEY (person_id,topic_id), KEY person_id (person_id), KEY topic_id (topic_id), FOREIGN KEY (`person_id`) REFERENCES `coma2.person` (`id`) ON DELETE CASCADE, FOREIGN KEY (`topic_id`) REFERENCES `coma2.topic` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
 DROP TABLE IF EXISTS rating
  CREATE TABLE rating ( review_id int(11) NOT NULL default '0', criterion_id int(11) NOT NULL default '0', grade int(11) NOT NULL default '0', comment text, PRIMARY KEY (review_id,criterion_id), KEY review_id (review_id), KEY criterion_id (criterion_id), FOREIGN KEY (`review_id`) REFERENCES `coma2.reviewreport` (`id`) ON DELETE CASCADE, FOREIGN KEY (`criterion_id`) REFERENCES `coma2.criterion` (`id`) ON DELETE CASCADE ) TYPE=InnoDB
 DROP TABLE IF EXISTS reviewreport
