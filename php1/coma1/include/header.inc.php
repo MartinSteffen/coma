@@ -163,7 +163,7 @@ if (!defined('NEED_NO_LOGIN')) {
   if ($myDBAccess->checkLogin(session('uname',false), session('password', false))) {
     if (!isset($_SESSION['uid'])) {
       // UID setzen
-      $_SESSION['uid'] = $myDBAccess->getUserIdByEmail(session(uname));
+      $_SESSION['uid'] = $myDBAccess->getPersonIdByEmail(session(uname));
       if ($myDBAccess->failed()) {
         session_delete('uid');
         error('checkLogin',$myDBAccess->getLastError());

@@ -121,8 +121,7 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Prueft, ob die globalen User-Daten gueltig sind.
-   * Falls die Daten korrekt sind, wird in $_SESSION['uid'] die Userid gespeichert.
+   * Prueft, ob die angegebenen User-Daten gueltig sind.
    *
    * @param string $strUserName Der zu ueberpruefende Benutzername
    * @param string $strPassword Das zu ueberpruefende Passwort
