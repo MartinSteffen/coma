@@ -19,7 +19,9 @@ require_once(INCPATH.'class.message.inc.php');
 require_once(INCPATH.'class.person.inc.php');
 
 // Security :)
-checkAccess(0);
+if (isset($_SESSION['confid'])) {
+  checkAccess(0);
+}
 
 //Funktiondefinitionen
 
@@ -250,19 +252,19 @@ function displayMessages(&$objArrayMessages, $boolArrayMsgselection, $intSelecte
 }
 
 function isChair($objPerson){
-  return (($objPerson->intRoles == 1) || ($objPerson->intRoles == 2));
+  return ($objPerson->hasRole(CHAIR));
 }
 
 function isOpenForum($objForum){
-  return ($objForum->intForumType == 1);
+  return ($objForum->intForumType == FORUM_PUBLIC);
 }
 
 function isPaperForum($objForum){
-  return ($objForum->intForumType == 3);
+  return ($objForum->intForumType == FORUM_PAPER);
 }
 
 function isChairForum($objForum){
-  return ($objForum->intForumType == 2);
+  return ($objForum->intForumType == FORUM_PRIVATE);
 }
 
 function generatePostMethodArray($strArrayPostvars){
@@ -331,7 +333,7 @@ function generatePostMethodArray($strArrayPostvars){
     $objArrayForums = array();
   }
 
-  // selektionen updaten
+  // Selektionen updaten
   $temp = session('forum_msgselect', false);
   if (empty($temp)){
     $temp = array();
