@@ -125,6 +125,8 @@ define('COREURL', dirname($_SERVER['PHP_SELF']).'/');
 require_once(INCPATH.'class.mysql.inc.php');
 require_once(INCPATH.'class.session.inc.php');
 require_once(INCPATH.'class.dbaccess.inc.php');
+// Nur hier weil das eh jeder braucht, eventuell besser in jden einzelnen rein!!
+require_once(INCPATH.'class.template.inc.php');
 
 $mySql = new MySql();
 if ($mySql->failed()) {
