@@ -24,6 +24,24 @@ function bit($b) {
   return true;
 }
 
+
+
+$p = $myDBAccess->getPaperDetailed(2);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+else if (empty($c)) {
+  echo('EMPTY');
+  exit(-1);
+}
+$p->intTopics[] = 3;
+$p->updatePaper($p);
+if ($myDBAccess->failed()) {
+  echo($myDBAccess->getLastError());
+}
+echo('OK');
+
+/*
 $c = $myDBAccess->getConferenceDetailed(1);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
@@ -40,7 +58,7 @@ if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
 echo ('OK');
-
+*/
 
 /*
 $p = $myDBAccess->getPaperDetailed(2);

@@ -40,6 +40,8 @@ WICHTIGE NEUIGKEITEN 14.01.05:
   echo("$p->bla"); ist erlaubt.
 - Die EMPTY-Abfrage zu Beginn der Methoden (vor allem bei Updatemethoden)
   habe ich ersetzt durch eine Abfrage $this->is_a (weil is_a erst ab PHP 4.2)
+- Vor den letzten vier Updatemethoden habe ich eine kleine Anmerkung
+  geschrieben, die einen Vorschlag zum Umgang mit Bug #71 macht.
 ============================================================================= */
 
 /* =============================================================================
@@ -1197,7 +1199,6 @@ nur fuer detaillierte?
         "         number_of_auto_add_reviewers = '".
         "           $objConferenceDetailed->intNumberOfAutoAddReviewers'".
         " WHERE   id = '$objConferenceDetailed->intId'";
-    echo("<br>$s<br>");
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('updateConference', $this->mySql->getLastError());
@@ -1372,8 +1373,6 @@ nur fuer detaillierte?
    * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
    * @access public
    * @author Sandro (10.01.05)
-   * @todo Beruecksichtigt noch nicht (!) eventuelle Aenderungen der Co-Autoren des Papers.
-   * @todo Anm. v. Tom: Aenderungen an Unterobjekten fehlen auch noch (Topics, ...)
    */
   function updatePaper($objPaperDetailed) {
     if (!($this->is_a($objPaperDetailed, 'PaperDetailed'))) {
@@ -1392,6 +1391,10 @@ nur fuer detaillierte?
     if ($this->mySql->failed()) {
       return $this->error('updatePaper', $this->mySql->getLastError());
     }
+    $this->updateIsAboutTopic($objPaperDetailed);
+    if ($this->failed()) {
+      return $this->error('updatePaper', $this->getLastError());
+    }
     $this->updateCoAuthors($objPaperDetailed);
     if ($this->failed()) {
       return $this->error('updatePaper', $this->getLastError());
@@ -1401,6 +1404,145 @@ nur fuer detaillierte?
       return $this->error('updatePaper', $this->getLastError());
     }
     return $this->success(true);
+  }
+
+  /**
+   */
+  function updateReviewReport($objReviewDetailed) {
+    if (!($this->is_a($objReviewDetailed, 'ReviewDetailed'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+  
+  /**
+   * @access private
+   */
+  function updateRating($objReviewDetailed) {
+    if (!($this->is_a($objReviewDetailed, 'ReviewDetailed'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   */
+  function updateForum($objForumDetailed) {
+    if (!($this->is_a($objForumDetailed, 'ForumDetailed'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   */
+  function updateMessage($objMessage) {
+    if (!($this->is_a($objMessage, 'Message'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   * @access private
+   */
+  function updateCriterion($objCriterion) {
+    if (!($this->is_a($objCriterion, 'Criterion'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   * @access private
+   */
+  function updateTopic($objTopic) {
+    if (!($this->is_a($objTopic, 'Topic'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   * Aktualisiert die Topics des Artikels $objPaperSimple in der Datenbank.
+   *
+   * @param PaperSimple $objPaperSimple Artikel, dessen Topics in der Datenbank aktualisiert werden
+   *                                    sollen
+   * @return bool true gdw. die Aktualisierung korrekt durchgefuehrt werden konnte
+   * @access private
+   * @author Tom (15.01.05)
+   */
+  function updateTopicsOfPaper($objPaperSimple) {
+    if (!($this->is_a($objPaperSimple, 'PaperSimple'))) {
+      return $this->success(false);
+    }
+    $intId = $objPaperSimple->intId;
+    // Topics loeschen...
+    $s = "DELETE  FROM IsAboutTopic".
+        " WHERE   paper_id = '$intId'";
+    $result = $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
+    }
+    if (empty($objPaperSimple->intTopics)) {
+      return $this->success();
+    }
+    // Topics einfuegen...
+    for ($i = 0; $i < count($objPaperSimple->intTopics); $i++) {
+      $s = "INSERT  INTO IsAboutTopic (paper_id, topic_id)".
+          "         VALUES ('$intId', '".$objPaperSimple->intTopics[$i]."')";
+      $result = $this->mySql->insert($s);
+      if ($this->mySql->failed()) {
+        return $this->error('updateTopicsOfPaper', $this->mySql->getLastError());
+      }
+    }
+    return $this->success();
+  }
+
+  // Zu den folgenden Updatemethoden:
+  // --------------------------------
+  // Machen Sinn, falls wir PersonDetailed nochmal ableiten (=> PersonConference)
+  // und dort noch konferenzspezifische Daten ($intConferenceId, $intPreferredTopics[],
+  // $intPreferredPapers[], $intDeniedPapers[], $intExcludedPapers[]) ablegen.
+
+  /**
+   * @access private
+   */
+  function updatePrefersTopic($objPersonConference) {
+    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   * @access private
+   */
+  function updatePrefersPaper($objPersonConference) {
+    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   * @access private
+   */
+  function updateDeniesPaper($objPersonConference) {
+    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
+      return $this->success(false);
+    }
+    return $this->success();
+  }
+
+  /**
+   * @access private
+   */
+  function updateExcludesPaper($objPersonConference) {
+    if (!($this->is_a($objPersonConference, 'PersonConference'))) {
+      return $this->success(false);
+    }
+    return $this->success();
   }
 
   // ---------------------------------------------------------------------------
