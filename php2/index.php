@@ -26,7 +26,7 @@ include("includes/tools.inc.php");
 include("includes/templates.inc.php");
 include("includes/rights.inc.php");
 include("includes/tasks.inc.php");
-
+include("includes/ptra.inc.php");
 
 
 session_start();
