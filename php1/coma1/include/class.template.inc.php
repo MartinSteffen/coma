@@ -112,40 +112,29 @@ class Template extends ErrorHandling {
    * Parsen der Seite
    *
    * Die Methode uebernimmt das tatsaechliche Parsen des Templates.
-   * Alle mit assign uebergebenen Ersetzungenw erden durchgefuehrt.
+   * Alle mit assign uebergebenen Ersetzungen werden durchgefuehrt.
    *
    * @return true Erfolg
    * @access public
-   * @todo Check ob gueltiges Objekt!!!
    *
    */
   function parse() {
     $strKeys = array();
     $strValues = array();
     foreach ($this->strAssocs as $key => $value) {
-      if (is_object($value)) { // @todo Check ob gültiges Objekt!!!
+      if (is_object($value)) {
+        if (get_class($value) != get_class($this) {
+          error('parse', 'associated Value is Object but not of class Template');
+        }
         // Tag durch geparsten Output ersetzen
         $strKeys[] = '/(?i){'.$key.'}/';
         $value->parse();
         $strValues[] = $value->getOutput();
       }
       elseif (is_array($value)) {
-        // IF BLOCK
-        if ($key == 'if') {
-          foreach ($value as $val) {
-            $strKeys[] = '/(?is){if'.$val.'(.*?)}/';
-            $strValues[] = '\\1';
-          }
-        }
-        // REPEAT BLOCK
-        else {
-          //$s = preg_match('/(?i)repeat(.*):/', $key);
-          $strKeys[] = '/(?is){repeat(.*?):(.*?)}/';
-          $strVal = '';
-          for ($i=0; $i<$value[0]; $i++) {
-            $strVal .= '\\2'.$i;
-          }
-          $strValues[] = $strVal;
+        foreach ($value as $val) {
+          $strKeys[] = '/(?is){'.$key.$val.'(.*?)}/';
+          $strValues[] = '\\1';
         }
       }
       else {
