@@ -9,19 +9,19 @@
  * @subpackage core
  */
 /***/
-define(STEP1, false);
-define(STEP2, false);
-define(STEP3, false);
+define('STEP1', false);
+define('STEP2', false);
+define('STEP3', false);
 if (isset($_GET['1'])) {
-  define(STEP1, true);
+  define('STEP1', true);
   echo 1;
 }
 elseif (isset($_GET['2'])) {
-  define(STEP2, true);
+  define('STEP2', true);
   echo 2;
 }
 elseif (isset($_GET['3'])) {
-  define(STEP3, true);
+  define('STEP3', true);
   echo 3;
 }
 ?>
@@ -36,8 +36,8 @@ elseif (isset($_GET['3'])) {
     <li><a href="?2">Create Database</a></li>
     <li><a href="?3">Add Tutorial Data</a></li>
   </ol>
-</body>
-</html>
+  <p>&nbsp;</p>
+  <p>
 <?php
 
 // Block neuanlegen der Datenbank
@@ -106,5 +106,7 @@ if (STEP2) {
   }
   echo "<br><br>Done.";
 }
-
 ?>
+  </p>
+</body>
+</html>
