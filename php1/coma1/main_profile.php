@@ -20,6 +20,9 @@ $strContentAssocs = defaultAssocArray();
 
 // Lade die Daten der Person
 $objPerson = $myDBAccess->getPersonDetailed(session('uid'));
+if ($myDBAccess->failed()) {
+  error('profile',$myDBAccess->getLastError());
+}
 
 // Teste, ob Daten mit der Anfrage des Benutzers mitgeliefert wurde.
 if ((isset($_POST['action']))&&($_POST['action'] == 'update')) {
