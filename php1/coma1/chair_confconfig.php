@@ -218,7 +218,7 @@ else {
 
 $strContentAssocs['message'] = '';
 if (isset($strMessage)) {
-  $strContentAssocs['message'] = nl2br($strMessage);
+  $strContentAssocs['message'] = nl2tag($strMessage);
   $ifArray[] = 9;
 }
 

@@ -111,10 +111,22 @@ function getUrlId($strPrefix='') {
  * @param string $_str String to encode
  * @return string encoded string
  */
+function nl2tag($_str) {
+  $tag = @file_get_contents(TPLPATH.'newlinetag.tpl');
+  return = strreplace("\n", $tag."\n", $_str);
+}
+
+/**
+ * This function encodes the string.
+ *
+ * @param string $_str String to encode
+ * @return string encoded string
+ */
 function encodeText($_str) {
   $_str = strtr(trim($_str), "|", " ");
-  return htmlentities($_str, ENT_QUOTES, 'UTF-8');
+  return nl2tag(htmlentities($_str, ENT_QUOTES, 'UTF-8'));
 }
+
 
 /**
  * This function transforms the given string into an array of strings
