@@ -46,7 +46,7 @@ if (isset($_POST['email'])){
   ||  empty($_POST['email'])
   ||  empty($_POST['user_password'])
   ||  empty($_POST['password_repeat'])) {
-    $strMessage = 'You have to fill in the fields <b>Last name</b>, <b>Email</b>, and <b>Password</b>!';
+    $strMessage = 'You have to fill in the fields <b>Last name</b>, <b>E-mail</b>, and <b>Password</b>!';
   }
   // Teste, ob Passwort mit der Wiederholung uebereinstimmt
   elseif ($_POST['user_password'] != $_POST['password_repeat']) {
@@ -54,12 +54,12 @@ if (isset($_POST['email'])){
   }
   // Teste, ob die Email gueltig ist
   elseif (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$", $_POST['email'])) {
-    $strMessage = 'Please enter a valid email address!';
+    $strMessage = 'Please enter a valid E-mail address!';
   }
   // Teste, ob die Email bereits vorhanden ist
   elseif ($myDBAccess->checkEmail($_POST['email'])) {
-    $strMessage = 'Account with the given email address is already existing! '.
-                  'Please use that account or enter another email address!';
+    $strMessage = 'Account with the given E-mail address is already existing! '.
+                  'Please use that account or enter another E-mail address!';
   }
   // Versuche einzutragen
   else {
