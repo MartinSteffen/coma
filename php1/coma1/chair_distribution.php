@@ -143,4 +143,6 @@ $main->assign($strMainAssocs);
 $main->parse();
 $main->output();
 
+print_r($intWantedReviewers);
+
 ?>
