@@ -209,7 +209,7 @@ class DBAccess {
       	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
       	  $fltAvgRating = -1;
         }
-      	$author = this->getPerson($intAuthorId);
+      	$author = $this->getPerson($intAuthorId);
         $strAuthorName = '';
       	if ($author != false) {
       	  $strAuthorName = $author->getName();
