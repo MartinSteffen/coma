@@ -22,7 +22,12 @@ if (!defined('INCPATH')) {
   /** @ignore */
   define('INCPATH', dirname(__FILE__).'/');
 }
-require_once(INCPATH.'header.inc.php');
+define('MIN_ROLE', 2);
+define('CHAIR', 2);
+define('REVIEWER', 3);
+define('AUTHOR', 4);
+define('PARTICIPANT', 5);
+define('MAX_ROLE', 5);
 
 require_once(INCPATH.'class.mysql.inc.php');
 
