@@ -90,7 +90,7 @@ elseif ($STEP == 1){
   $confFile = "<?php\n/**\n * Configuration of the Database Server\n *\n * @package coma1\n * @subpackage Configuration\n */\n/***/\nif ( !defined('IN_COMA1') )\n{\n  die('Hacking attempt');\n}\n\n// Change these Values\n\$sqlServer = '$sqlServer';\n\$sqlUser = '$sqlUser';\n\$sqlPassword = '$sqlPassword';\n\$sqlDatabase = '$sqlDatabase';\n\n?>";
   
   // Output
-  echo "    <p class=\"menu\">\n";
+
   echo "      <form action=\"INSTALL.PHP?1\" method=\"post\" accept-charset=\"UTF-8\">\n";
   echo "        <input type=\"text\" name=\"sqlServer\" size=\"48\" maxlength=\"127\ value=\"$sqlServer\">\n";
   echo "        <input type=\"text\" name=\"sqlUser\" size=\"48\" maxlength=\"127\ value=\"$sqlUser\">\n";
@@ -99,6 +99,7 @@ elseif ($STEP == 1){
   echo "        <input type=\"submit\" name=\"submit\" value=\"generate Config\">\n";
   echo "      </form>\n";
   
+  echo "    <p class=\"menu\">\n";  
   echo "      <hr>\n";
   highlight_string($confFile);
   echo "    </p>\n";
