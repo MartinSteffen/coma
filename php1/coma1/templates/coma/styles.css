@@ -152,7 +152,7 @@ table, form
   /* IE FIX */
   border-collapse: collapse;
   border-spacing: 0px;
-  padding: 0px;
+  padding: 2px;
   margin: 0px;
 }
 
