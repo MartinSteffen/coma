@@ -2,13 +2,12 @@
 {if9<p class="message">{message}</p>}
 
 <form action="{basepath}{targetpage}{?SID}" method="post" accept-charset="UTF-8">
-  <input type="hidden" name="action" value="submit">
-  <input type="hidden" name="paperid" value="{paper_id}">
+  <input type="hidden" name="action" value="submit">  
   <input type="hidden" name="coauthors_num" value="{coauthors_num}">
 
 <table class="formtable">
   <tr>
-    <th colspan="2">Edit paper:</th>
+    <th colspan="2">Add a new paper:</th>
   </tr>
   <tr>
     <td>
@@ -30,7 +29,7 @@
     <td>
       Author:
     </td>
-    <td><a href="{basepath}user_userdetails.php?userid={author_id}{&SID}">{author_name}</a></td>
+    <td>{author_name}</td>
   </tr>
   <tr>
     <td colspan="2">      
@@ -52,18 +51,6 @@
     </td>      
   </tr>
   <tr>
-    <td>
-      Version:
-    </td>
-    <td>{version}</td>
-  </tr>
-  <tr>
-    <td>
-      Last edited:
-    </td>
-    <td>{last_edited}</td>
-  </tr>
-  <tr>
     <td colspan="2">      
       <table class="formlist" width="100%">
         <tr class="formlistheader">
@@ -76,33 +63,10 @@
    </tr>
   <tr>
     <td colspan="2">
-      <input type="submit" name="submit" value="Accept changes" class="button">
-      <input type="reset"  name="reset" value="Reset settings" class="button">
-    </td>
-  </tr>
-</table>
-
-<table class="formtable">
-  <tr>
-    <td>Upload new document:</td>
-    <td colspan="2">
-      <input type="file" name="paper_file">
-      <input type="submit" name="upload" value="Upload" class="button">
-    </td>
-    <td>MIME type:</td>
-    <td>
-      <input type="text" name="mimetype" size="48" maxlength="127" value="{mimetype}">
-    </td>
-</table>
-</form>
-
-<table class="formtable">
-  <tr>
-    <td>Delete this paper?
-      <input type="checkbox" name="confirm_delete" value="1">
-    </td>
-    <td>
-      <input type="submit" name="delete" value="Delete" class="button">
+      <input type="submit" name="submit" value="Add paper" class="button">
+      <button name="cancel" type="button" class="button" value="cancel"
+              onClick="self.location.href='{basepath}author_papers.php{?SID}'">
+              Cancel</button>
     </td>
   </tr>
 </table>

@@ -39,7 +39,7 @@ $ifArray = array();
 //$ifArray[] = $objPaper->intStatus;
 if (isset($_POST['action'])) {  
   $objPaper->strTitle = $_POST['title'];
-  $objPaper->strAbstract = $_POST['description'];
+  $objPaper->strAbstract = $_POST['description'];  
   $intCoAuthorNum = $_POST['coauthors_num'];
   $objPaper->strCoAuthors = array();
   $objPaper->intCoAuthorIds = array();
@@ -98,8 +98,12 @@ if (isset($_POST['action'])) {
       $strMessage = 'You have to select a file for uploading!';
     }
     // Versuche das Paper hochzuladen
-    else {    	      
-      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['paper_file']);
+    else {      
+      if (!empty($_POST['mimetype'])) {
+        $objPaper->strMimeType = $_POST['mimetype'];
+      }
+      $result = $myDBAccess->uploadPaperFile($objPaper->intId, $_POST['paper_file'],
+                                             $objPaper->strMimeType);
       if ($myDBAccess->failed()) {
         // Datenbankfehler?
         error('Error during uploading paper.', $myDBAccess->getLastError());
@@ -120,6 +124,7 @@ $strContentAssocs['file_link']      = encodeURL($objPaper->strFilePath);
 $strContentAssocs['avg_rating']     = encodeText(round($objPaper->fltAvgRating * 10) / 10);
 $strContentAssocs['last_edited']    = encodeText($objPaper->strLastEdit);
 $strContentAssocs['version']        = encodeText($objPaper->intVersion);
+$strContentAssocs['mimetype']       = encodeText($objPaper->strMimeType);
 $strContentAssocs['coauthors_num']  = encodeText(count($objPaper->strCoAuthors));
 $strContentAssocs['coauthor_lines'] = '';
 for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
@@ -128,6 +133,7 @@ for ($i = 0; $i < count($objPaper->strCoAuthors); $i++) {
   $strCoauthorAssocs['coauthor_no'] = encodeText($i+1);
   $strCoauthorAssocs['coauthor']    = encodeText($objPaper->strCoAuthors[$i]);
   $strCoauthorAssocs['coauthor_id'] = encodeText($objPaper->intCoAuthorIds[$i]);
+  $strCoauthorAssocs['if'] = array(1);
   $coauthorForm->assign($strCoauthorAssocs);
   $coauthorForm->parse();
   $strContentAssocs['coauthor_lines'] .= $coauthorForm->getOutput();

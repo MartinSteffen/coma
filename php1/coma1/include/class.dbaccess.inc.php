@@ -1746,13 +1746,13 @@ nur fuer detaillierte?
    * @author Sandro (21.01.05)
    * @todo Ueberpruefung auf Existenz des Papers bzw. des Dokuments
    */
-  function uploadPaperFile($intPaperId, $strFilePath) {
+  function uploadPaperFile($intPaperId, $strFilePath, $strMimeType) {
     //Hochladen des Papers
     $strReposFilePath = $strFilePath;
     $s = sprintf("UPDATE   Paper".
-                 " SET     filename = '%s'".
+                 " SET     filename = '%s', mime_type = '%s'".
                  " WHERE   id = '%d'",
-                 s2db($strReposFilePath), s2db($intPaperId));
+                 s2db($strReposFilePath), s2db($intPaperId), s2db($strMimeType));
     $this->mySql->update($s);
     if ($this->mySql->failed()) {
       return $this->error('uploadPaperFile', $this->mySql->getLastError());
@@ -2291,13 +2291,14 @@ nur fuer detaillierte?
    * @param str $strFilePath     Dateipfad und -name
    * @param str $strMimeType     MIME-Typ
    * @param str $strCoAuthors[]  Namen der Co-Autoren
+   * @param int $intTopicIds[]   IDs der behandelten Themen
    * @return int ID des erzeugten Papers
    *
    * @access public
    * @author Tom (26.12.04)
    */
   function addPaper($intConferenceId, $intAuthorId, $strTitle, $strAbstract,
-                    $strFilePath, $strMimeType, $strCoAuthors) {
+                    $strFilePath, $strMimeType, $strCoAuthors, $intTopicIds) {
     $s = "INSERT  INTO Paper (conference_id, author_id, title, abstract, filename,".
         "                     mime_type, state)".
         "         VALUES ('$intConferenceId', '$intAuthorId', '$strTitle',".
@@ -2316,6 +2317,18 @@ nur fuer detaillierte?
           return $this->error('addPaper', 'Fatal error: Database inconsistency!',
                               $this->mySql->getLastError().' / '.$this->getLastError());
         }
+        return $this->error('addPaper', $this->getLastError());
+      }
+    }    
+    for ($i = 0; $i < count($intTopicIds) && !empty($intTopicIds); $i++) {
+      $this->addIsAboutTopic($intId, $intTopicIds[$i]);
+      if ($this->mySql->failed()) { // Undo: Eingefuegten Satz wieder loeschen.
+        $strError = $this->mySql->getLastError();        
+        $this->deletePaper($intId);
+        if ($this->failed()) { // Auch dabei ein Fehler? => fatal!
+          return $this->error('addPaper', 'Fatal error: Database inconsistency!',
+                              $this->getLastError()." / $strError");
+        }        
         return $this->error('addPaper', $this->getLastError());
       }
     }
