@@ -50,7 +50,12 @@ if (isset($_POST['action'])) {
 }
 
 if (isset($_GET['order'])) {
-  $_SESSION['orderusers'] = $_GET['order'];  
+  if ((int)session('orderusers', false) != $_GET['order']) {
+    $_SESSION['orderusers'] = $_GET['order'];
+  }
+  else {
+    unset($_SESSION['orderusers']);
+  }
 }
 $intOrder = (int)session('orderusers', false);
 $ifArray = array($intOrder);
