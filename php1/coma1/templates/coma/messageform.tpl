@@ -1,9 +1,9 @@
 <br>
 <table class="list" width="100%">
-  <tr width="100%" class="listitem-2">
+  <tr class="listitem-2">
     <td align="center"> <b> <u> {replystring} </u> </b><br> </td>
   </tr>
-  <tr width="100%" class="listitem-2">
+  <tr class="listitem-2">
      <td>
        
        <form action="{basepath}forum.php{?SID}" method="post" accept-charset="UTF-8">
