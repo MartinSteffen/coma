@@ -2498,14 +2498,16 @@ nur fuer detaillierte?
   function addPerson($strFirstname, $strLastname, $strEmail, $strTitle,
                      $strAffiliation, $strStreet, $strCity, $strPostalCode,
                      $strState, $strcountry, $strPhone, $strFax, $strPassword) {
-    $s = "INSERT  INTO Person (first_name, last_name, title, affiliation, email,".
-        "                      street, postal_code, city, state, country,".
-        "                      phone_number, fax_number, password)".
-        "         VALUES ('$strFirstname', '$strLastname', '$strTitle',".
-        "                 '$strAffiliation', '$strEmail', '$strStreet',".
-        "                 '$strPostalCode', '$strCity', '$strState',".
-        "                 '$strcountry', '$strPhone', '$strFax',".
-        "                 '".sha1($strPassword)."')";
+    $s = sprintf("INSERT  INTO Person (first_name, last_name, title, affiliation, email,".
+                 "  street, postal_code, city, state, country,".
+                 "  phone_number, fax_number, password)".
+                 "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '$%s', '%s',".
+                 "  '%s', '%s', '%s', '%s', '%s')",
+                s2db($strFirstname), s2db($strLastname), s2db($strTitle),
+                s2db($strAffiliation), s2db($strEmail), s2db($strStreet),
+                s2db($strPostalCode), s2db($strCity), s2db($strState),
+                s2db($strcountry), s2db($strPhone), s2db($strFax),
+                s2db(sha1($strPassword)));
     $intId = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
       return $this->error('addPerson', $this->mySql->getLastError());
@@ -2525,12 +2527,14 @@ nur fuer detaillierte?
    */
   function addRole($intPersonId, $intRoleType, $intConferenceId, $blnAccepted=true) {
     if ($blnAccepted) {
-      $s = "INSERT  INTO Role (conference_id, person_id, role_type)".
-          "         VALUES ('$intConferenceId', '$intPersonId', '$intRoleType')";
+      $s = sprintf("INSERT INTO Role (conference_id, person_id, role_type)".
+                   "VALUES ('%d', '%d', '%d')",
+                   s2db($intConferenceId), s2db($intPersonId), s2db($intRoleType));
     }
     else {
-      $s = "INSERT  INTO Role (conference_id, person_id, role_type, state)".
-          "         VALUES ('$intConferenceId', '$intPersonId', '$intRoleType', '1')";
+      $s = sprintf("INSERT INTO Role (conference_id, person_id, role_type, state)".
+                   "VALUES ('%d', '%d', '%d', '1')",
+                   s2db($intConferenceId), s2db($intPersonId), s2db($intRoleType));
     }
     $result = $this->mySql->insert($s);
     if ($this->mySql->failed()) {
