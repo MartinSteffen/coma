@@ -48,6 +48,13 @@
 
   + + + Sandro & Tom, 02.12.04
 
+Eine kleine Korrektur:
+- Paper.author nach Paper.author_id geaendert. Steht auch so im JPG und ist so
+  nun korrekt.
+  
+  --- Tom, 04.12.04
+
+
   
 1.  Tables:
 
@@ -94,7 +101,7 @@ state		Int		(enumeration Status)
 ~~~~~~~~~~~~~
 id              Int             Primary Key, Autoincrement
 conference_id	Int		-> Conference, id
-author		Int		-> Person, id
+author_id	Int		-> Person, id
 title		Varchar 127	Not Null
 abstract	Text
 last_edited	DateAndTime	(automatically set)
