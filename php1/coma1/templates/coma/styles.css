@@ -278,11 +278,11 @@ input.button, button
 input.smallbutton
 {
   /*font-family: Verdana, Arial, Sans-Serif;*/
-  font-size: 11px;
-  font-weight: bold;
+  font-size: 10px;
+  font-weight: normal;
   background-color: #F7FBFF;
   text-align: center;
-  padding: 1px 3px;
+  padding: 1px 2px;
 }
 
 input.button120
