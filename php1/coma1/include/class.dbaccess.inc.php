@@ -1243,6 +1243,7 @@ class DBAccess extends ErrorHandling {
     }
     //echo("OK1 / ".empty($data).' / '.count($data));
     for ($i = 0; $i < count($data); $i++) {
+      echo(".");
       $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
     return $this->success($objTopics);
