@@ -225,7 +225,8 @@ if (isset($_POST['action'])) {
    * Test, ob die Datumsangaben plausibel sind
    *
    */
-  if ( !(( $abstract_submission_deadline_y.
+  if ($noErrors &&
+       !(( $abstract_submission_deadline_y.
            $abstract_submission_deadline_m.
            $abstract_submission_deadline_d
            <=
@@ -278,7 +279,7 @@ if (isset($_POST['action'])) {
            $conference_start_m.
            $conference_start_d
 	  )
-	 ) && $noErrors)) { //nur aufrufen, wenn hier auch der Fehler vorliegt!         
+	 )) { //nur aufrufen, wenn hier auch der Fehler vorliegt!         
      $strMessage = (!empty($strMessage) ? $strMessage.'<br>' : '').         	
                    'There are contradictions in the given dates!<br>'.
                    'It should be: '.$_POST['abstract_dl'].'<='.$_POST['paper_dl'].'<='.
