@@ -18,8 +18,8 @@ $content = new Template(TPLPATH.'view_paper.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
-$actMenuItem = 3;
+$actMenu = 0;
+$actMenuItem = 7;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');

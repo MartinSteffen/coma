@@ -18,8 +18,8 @@ $content = new Template(TPLPATH.'view_profile.tpl');
 $strContentAssocs = defaultAssocArray();
 $content->assign($strContentAssocs);
 
-$actMenu = CHAIR;
-$actMenuItem = 2;
+$actMenu = 0;
+$actMenuItem = 6;
 include('./include/usermenu.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
