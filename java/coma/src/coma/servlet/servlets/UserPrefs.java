@@ -103,14 +103,19 @@ public class UserPrefs extends HttpServlet {
 			= new coma.handler.util.EntityCreater().getPerson(request);
 		    thePerson.setId(oldid); // makes us safer against attacks
 	    
-		    for (Topic t: thePerson.getPreferredTopics()){
-			thePerson.deletePreferredTopic(t);
-		    }
-		    final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
-		    for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
-		
-			thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s), 
-							       theConference.getId()));
+		    try {
+			Topic[] ts = thePerson.getPreferredTopics();
+			for (int i=0; i<ts.length; ++i ){
+			    thePerson.deletePreferredTopic(ts[i]);
+			}
+			final String ptopics = request.getParameter(FormParameters.PREFERREDTOPICS);
+			for (String s: ptopics.split("\\s*")){ //welcome to quoting hell!
+			    
+			    thePerson.addPreferredTopic(Topic.byId(Integer.parseInt(s), 
+								   theConference.getId()));
+			}
+		    } catch (Exception exc) {
+			; // Oh well, who cares about topics? FIXME
 		    }
 		
 		    SearchResult theSR;
