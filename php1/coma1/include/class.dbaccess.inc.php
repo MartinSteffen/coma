@@ -994,7 +994,7 @@ class DBAccess {
         $s = $s.' AND role_id <> '.$ROLES[$i][0];
       }
     }
-    //$result = $this->mySql->update($s);
+    $result=true;//$result = $this->mySql->update($s);
     echo($s.' /// ');
     if (empty($result)) {
       return $this->error('updateRoles '.$this->mySql->getLastError());
@@ -1006,7 +1006,7 @@ class DBAccess {
         $s = 'INSERT  INTO Role (conference_id, person_id, role_type)'.
              '        VALUES ('.$intConferenceId.', '.$intPersonId.', '.$ROLES[$i][0].')';
         echo($s.' /// ');
-        //$result = $this->mySql->update($s);
+        $result=true;//$result = $this->mySql->update($s);
         if (empty($result)) {
           return $this->error('updateRoles '.$this->mySql->getLastError());
         }
