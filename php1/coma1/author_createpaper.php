@@ -109,7 +109,7 @@ else {
 }
 
 $strContentAssocs['author_name'] = encodeText($objAuthor->getName());
-$strContentAssocs['coauthors_num']  = encodeText(count($strCoAuthors));
+$strContentAssocs['coauthors_num'] = encodeText(count($strCoAuthors));
 $strContentAssocs['coauthor_lines'] = '';
 for ($i = 0; $i < count($strCoAuthors); $i++) {
   $coauthorForm = new Template(TPLPATH.'paper_coauthorlistitem.tpl');
