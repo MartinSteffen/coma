@@ -70,7 +70,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] == 'update')) {
     $objPerson->strCountry     = $_POST['country'];
     $objPerson->strPhone       = $_POST['phone'];
     $objPerson->strFax         = $_POST['fax'];
-    if ($_POST['submit']) {
+    if (isset($_POST['submit'])) {
       $result = $myDBAccess->updatePerson($objPerson);
       if (!empty($result)) {
         $_SESSION['uname'] = $objPerson->strEmail;
@@ -105,10 +105,9 @@ if (isset($_POST['delete'])) {
       // Datenbankfehler?
       error('deactivating account', $myDBAccess->getLastError());
     }
-    else {
-      $_SESSION['message'] = 'Your account was deactivated successfully.';
-      // Clear all Session Informations besides message
-      $_SESSION = array( 'message' => $message );
+    else {      
+      // Clear all session information besides message
+      $_SESSION = array('message' => 'Your account was deactivated successfully.');
       redirect("login.php");
     }
   }
