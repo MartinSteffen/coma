@@ -39,17 +39,17 @@ elseif (isset($_GET['4'])) {
   a:active { color: #000000; }
   a:hover { color: #000000; }
   div { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
-    width: 60%; font-size: 13px; font-weight: bold; text-align: center;
+    width: 400px; font-size: 13px; font-weight: bold; text-align: center;
     vertical-align: top; margin: 10px 10px; padding: 10px 10px; color: #222222; 
     background-color: #dddddd; border: 1px solid #222222; }
   p { font-family: "Trebuchet MS" , Arial, Helvetica, Sans-Serif; 
-    width: 60%; font-size: 13px; font-weight: bold; vertical-align: top; 
+    font-size: 13px; font-weight: bold; vertical-align: top; 
     margin: 6px 10px; padding: 4px 12px; }
-  p.menu { color: #111111; background-color: #EEEEEE; 
+  p.menu { width: 100px; color: #111111; background-color: #EEEEEE; 
     border: 1px solid #FFFFFF; text-align: left; }
-  p.message-failed { color: #FF2600; background-color: #FFF0E0; 
+  p.message-failed { width: 100%; color: #FF2600; background-color: #FFF0E0; 
     border: 1px solid #A00000; text-align: center; }
-  p.message-ok { color: #20A028; background-color: #E0FFF0; 
+  p.message-ok { width: 100%; color: #20A028; background-color: #E0FFF0; 
     border: 1px solid #80A080; text-align: center; }
   -->
   </style>
