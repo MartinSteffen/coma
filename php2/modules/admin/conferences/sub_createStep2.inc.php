@@ -21,7 +21,7 @@ if ($_POST['submit']) {
 		// write to database and redirect
 
 		if (isset($_REQUEST['createNewChair']) && $_REQUEST['createNewChair']=="yes") {
-			var_dump("createNewChair==true");
+			// var_dump("createNewChair==true");
 			template("ADMIN_conferenceCreate");
 			die();
 		}
