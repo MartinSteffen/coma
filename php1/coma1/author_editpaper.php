@@ -54,14 +54,10 @@ if (isset($_POST['action'])) {
     $objPaper->intCoAuthorIds[] = false;
   }    
   $objPaper->objTopics = array();
-  if (!empty($_POST['topics'])) {    
-    echo($_POST['topics']);    
-    for ($i = 0; $i < count($objAllTopics); $i++) {
-      if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {
-        echo('Topic'.$objAllTopics[$i]->strName.','.$objAllTopics[$i]->intId);
-      	$objPaper->objTopics[] = $objAllTopics[$i];      	
-      }
-    }
+  for ($i = 0; $i < count($objAllTopics); $i++) {
+    if (isset($_POST['topic-'.$objAllTopics[$i]->intId])) {     
+      $objPaper->objTopics[] = $objAllTopics[$i];      	
+    }    
   }  
   if (isset($_POST['submit'])) {
     // Teste, ob alle Pflichtfelder ausgefuellt wurden
