@@ -66,9 +66,9 @@ elseif (SID != '') {
     <p class="message"><?=$strError?></p>
 
     <p>&nbsp;</p>
-
+    
+    <p>You have the following three options:</p>
     <ul>
-      You have the following three options:
       <li>Return to the <a href="<?=COREURL?>index.php<?=SID?>">start page</a>!
       <li>Try again and <a href="javascript:location.reload()">reload the page</a>!
       <li>Go one step <a href="javascript:history.back()">back in time</a>!
