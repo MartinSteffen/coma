@@ -1,7 +1,12 @@
-#! /bin/sh
-
+##! /bin/sh
 if test -d ~/public_html/php1/tests ; then
     svn update ~/public_html/php1/tests
 else
     svn checkout http://localhost:8080/svn/coma/trunk/tests/php1/web ~/public_html/php1/tests
-fi
+fi 
+
+if test -d ~/repository/coma/trunk/tests ; then
+    svn update ~/repository/coma/trunk/tests
+else
+    svn checkout http://localhost:8080/svn/coma/trunk/tests ~/repository/coma/trunk/tests
+fi 
