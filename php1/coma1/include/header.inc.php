@@ -67,7 +67,7 @@ function defaultAssocArray() {
  * @return string encoded string
  */
 function encodeText($_str) {
-  return htmlentities($_str);
+  return htmlentities($_str, ENT_QUOTES, 'UTF-8');
 }
 
 /**
