@@ -316,7 +316,7 @@ function generatePostMethodArray($strArrayPostvars){
   if (isset($strArrayPostvars['update'])){
     $strArrayPma['posttype'] = 'update';
   }
-  if (isset($strArrayPostvars['reply'])){
+  if ((isset($strArrayPostvars['reply'])) && (!isset($strArrayPostvars['newthread']))){
     $strArrayPma['posttype'] = 'reply';
   }
   $strArrayPma['reply-to'] = $strArrayPostvars['reply-to']; //wenn geupdated wird, dann ist reply-to gleich der id der Message die geupdated werden soll
