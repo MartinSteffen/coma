@@ -1559,10 +1559,30 @@ class DBAccess extends ErrorHandling {
         ' WHERE   id = '.$intConferenceId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteConference '.$this->mySql->getLastError());
     }
-    return $this->error('deleteConference '.$this->mySql->getLastError());
+    return $this->success($result);
+  }
+
+  /**
+   * Deaktiviert den Account der Person mit der ID $intPersonId.
+   *
+   * @param int $intPersonId Personen-ID
+   * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
+   * @access public
+   * @author Tom (26.12.04)
+   */
+  function deactivateAccount($intPersonId) {
+    $s = "UPDATE  Person".
+        " SET     password = NULL"
+        " WHERE   id = $intPersonId";
+    echo('<br>SQL: '.$s.'<br>');
+    $result = $this->mySql->delete($s);
+    if ($this->mySql->failed()) {
+      return $this->error('deletePerson '.$this->mySql->getLastError());
+    }
+    return $this->success($result);
   }
 
   /**
@@ -1578,14 +1598,14 @@ class DBAccess extends ErrorHandling {
         ' WHERE   id = '.$intPersonId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deletePerson '.$this->mySql->getLastError());
     }
-    return $this->error('deletePerson '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
-   * Loescht das Person mit der ID $intPaperId.
+   * Loescht das Paper mit der ID $intPaperId.
    *
    * @param int $intPaperId Paper-ID
    * @return bool <b>false</b> gdw. ein Fehler aufgetreten ist
@@ -1597,10 +1617,10 @@ class DBAccess extends ErrorHandling {
         ' WHERE   id = '.$intPaperId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deletePaper '.$this->mySql->getLastError());
     }
-    return $this->error('deletePaper '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1621,10 +1641,10 @@ class DBAccess extends ErrorHandling {
         ' AND     role_type = '.$intRoleType;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteRole '.$this->mySql->getLastError());
     }
-    return $this->error('deleteRole '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1642,10 +1662,10 @@ class DBAccess extends ErrorHandling {
         ' AND     paper_id = '.$intPaperId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteCoAuthor '.$this->mySql->getLastError());
     }
-    return $this->error('deleteCoAuthor '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1663,10 +1683,10 @@ class DBAccess extends ErrorHandling {
         ' AND     name = \''.$strName.'\'';
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteCoAuthorName '.$this->mySql->getLastError());
     }
-    return $this->error('deleteCoAuthor '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1676,10 +1696,10 @@ class DBAccess extends ErrorHandling {
         '         WHERE id = '.$intReviewId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteReviewReport '.$this->mySql->getLastError());
     }
-    return $this->error('deleteReviewReport '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1690,10 +1710,10 @@ class DBAccess extends ErrorHandling {
         '         AND     criterion_id = '.$intCriterionId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteRating '.$this->mySql->getLastError());
     }
-    return $this->error('deleteRating '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1703,10 +1723,11 @@ class DBAccess extends ErrorHandling {
         '         WHERE id = '.$intForumId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteForum '.$this->mySql->getLastError());
     }
-    return $this->error('deleteForum '.$this->mySql->getLastError());
+    return $this->success($result);
+
   }
 
   /**
@@ -1716,10 +1737,10 @@ class DBAccess extends ErrorHandling {
         '         WHERE id = '.$intMessageId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteMessage '.$this->mySql->getLastError());
     }
-    return $this->error('deleteMessage '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1729,10 +1750,11 @@ class DBAccess extends ErrorHandling {
         '         WHERE id = '.$intCriterionId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteCriterion '.$this->mySql->getLastError());
     }
-    return $this->error('deleteCriterion '.$this->mySql->getLastError());
+    return $this->success($result);
+
   }
 
   /**
@@ -1742,10 +1764,10 @@ class DBAccess extends ErrorHandling {
         '         WHERE id = '.$intTopicId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteTopic '.$this->mySql->getLastError());
     }
-    return $this->error('deleteTopic '.$this->mySql->getLastError());
+    return $this->success($result);
   }
 
   /**
@@ -1756,10 +1778,11 @@ class DBAccess extends ErrorHandling {
         '         WHERE topic_id = '.$intTopicId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteIsAboutTopic '.$this->mySql->getLastError());
     }
-    return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
+    return $this->success($result);
+
   }
 
   /**
@@ -1770,10 +1793,11 @@ class DBAccess extends ErrorHandling {
         '         WHERE topic_id = '.$intTopicId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
     }
-    return $this->error('deletePrefersTopic '.$this->mySql->getLastError());
+    return $this->success($result);
+
   }
 
   /**
@@ -1784,10 +1808,11 @@ class DBAccess extends ErrorHandling {
         '         WHERE paper_id = '.$intPaperId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deletePrefersPaper '.$this->mySql->getLastError());
     }
-    return $this->error('deletePrefersPaper '.$this->mySql->getLastError());
+    return $this->success($result);
+
   }
 
   /**
@@ -1798,10 +1823,11 @@ class DBAccess extends ErrorHandling {
         '         WHERE paper_id = '.$intPaperId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteDeniesPaper '.$this->mySql->getLastError());
     }
-    return $this->error('deleteDeniesPaper '.$this->mySql->getLastError());
+    return $this->success($result);
+
   }
 
   /**
@@ -1812,10 +1838,11 @@ class DBAccess extends ErrorHandling {
         '         WHERE paper_id = '.$intPaperId;
     echo('<br>SQL: '.$s.'<br>');
     $result = $this->mySql->delete($s);
-    if (!empty($result)) {
-      return $result;
+    if ($this->mySql->failed()) {
+      return $this->error('deleteExcludesPaper '.$this->mySql->getLastError());
     }
-    return $this->error('deleteExcludesPaper '.$this->mySql->getLastError());
+    return $this->success($result);
+
   }
 
 }

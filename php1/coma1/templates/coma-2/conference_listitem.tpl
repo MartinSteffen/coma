@@ -1,5 +1,5 @@
-<tr class="listitem-{line_no}" colspan="3">
-  <td class="listitem-{line_no}">
+<tr class="listitem-{line_no}">
+  <td class="listitem-{line_no}" colspan="3">
     <span class="emph">{name}</span>
   </td>
   <td class="listitem-{line_no}">
