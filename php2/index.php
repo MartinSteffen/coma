@@ -10,9 +10,9 @@ if(is_dir("install/")){
 	}else{
 		$uri = $_SERVER['REQUEST_URI'];
 		if(preg_match("/\/$/", $uri)){
-			header("Location: http://{$_SERVER['SERVER_NAME']}".$uri."install/install.php");
+			header("Location: http://{$_SERVER['HTTP_HOST']}".$uri."install/install.php");
 		}else{
-			header("Location: http://{$_SERVER['SERVER_NAME']}".dirname($uri)."/install/install.php");
+			header("Location: http://{$_SERVER['HTTP_HOST']}".dirname($uri)."/install/install.php");
 		}
 	}
 }
