@@ -188,54 +188,6 @@ class DBAccess {
   }
 
   /**
-   * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
-   *
-   * @param int $intAuthorId ID des Autors
-   * @return PaperSimple[] bzw. <b>false</b>, falls keine Paper des Autors
-             $intAuthorId gefunden wurden
-   * @access public
-   * @author Tom (04.12.04)
-   */
-  function getPapersOfAuthor($intAuthorId) {
-    $s = 'SELECT  id, author_id, title, state'.
-        ' FROM    Paper'.
-        ' WHERE   author_id = '.$intAuthorId;
-    $data = $this->mySql->select($s);
-    if ($data) {
-      for ($i = 0; $i < count($data); $i++) {
-      	$reviews = getReviewsOfPaper($data[i]['id']);
-      	$fltAvgRating = 0;
-      	if($reviews != false) {
-      	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
-      	  $fltAvgRating = -1;
-        }
-      	$author = getPerson($intAuthorId);
-        $strAuthorName = '';
-      	if($author != false) {
-      	  $strAuthorName = $author->getName();
-        }
-      	$papers[i] = new PaperSimple($data[i]['id'], $data[i]['title'],
-      	               $data[i]['author_id'], $strAuthorName, $data[i]['state'],
-      	               $fltAvgRating);
-      }
-      return $papers;
-    }
-    return true;
-  }
-
-  /**
-   */
-  function getPapersOfReviewer($intReviewerId) {
-    return false;
-  }
-
-  /**
-   */
-  function getPaperDetailed($intPaperId) {
-    return false;
-  }
-
-  /**
    */
   function getReviewsOfReviewer($intReviewerId) {
     return false;
@@ -256,6 +208,60 @@ class DBAccess {
   /**
    */
   function getReviewDetailed($intReviewId) {
+    return false;
+  }
+
+  /**
+   * Liefert ein Array von PaperSimple-Objekten des Autors $intAuthorId.
+   *
+   * @param int $intAuthorId ID des Autors
+   * @return PaperSimple[] bzw. <b>false</b>, falls keine Paper des Autors
+             $intAuthorId gefunden wurden
+   * @access public
+   * @author Tom (04.12.04)
+   */
+  function getPapersOfAuthor($intAuthorId) {
+    $s = 'SELECT  id, author_id, title, state'.
+        ' FROM    Paper'.
+        ' WHERE   author_id = '.$intAuthorId;
+    $data = $this->mySql->select($s);
+    if ($data == false) {
+      echo('False');
+    }
+    else {
+      echo('True');
+    }
+    if ($data) {
+      for ($i = 0; $i < count($data); $i++) {
+      	$reviews = $this->getReviewsOfPaper($data[i]['id']);
+      	$fltAvgRating = 0;
+      	if ($reviews != false) {
+      	  // TODO: Durchschnitt berechnen, wenn getReviewsOfPaper implementiert ist
+      	  $fltAvgRating = -1;
+        }
+      	$author = getPerson($intAuthorId);
+        $strAuthorName = '';
+      	if ($author != false) {
+      	  $strAuthorName = $author->getName();
+        }
+      	$papers[i] = new PaperSimple($data[i]['id'], $data[i]['title'],
+      	               $data[i]['author_id'], $strAuthorName, $data[i]['state'],
+      	               $fltAvgRating);
+      }
+      return $papers;
+    }
+    return false;
+  }
+
+  /**
+   */
+  function getPapersOfReviewer($intReviewerId) {
+    return false;
+  }
+
+  /**
+   */
+  function getPaperDetailed($intPaperId) {
     return false;
   }
 
