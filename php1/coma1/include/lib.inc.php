@@ -294,14 +294,14 @@ function emptyDBtime($str, $format='M d, Y') {
 }
 
 /**
- *    float chronometer()
+ * float chronometer()
  *
- *    Enables determination of an amount of time between two points in a script,
- *    in milliseconds.
- *    Call the function a first time to start the chronometer. The next
- *    call to the function will return the number of milliseconds elapsed since
- *    the chronometer was started (rounded to three decimal places).
- *    The chronometer is then available for being started again.
+ * Enables determination of an amount of time between two points in a script,
+ * in milliseconds.
+ * Call the function a first time to start the chronometer. The next
+ * call to the function will return the number of milliseconds elapsed since
+ * the chronometer was started (rounded to three decimal places).
+ * The chronometer is then available for being started again.
  *
  */
 function chronometer()
