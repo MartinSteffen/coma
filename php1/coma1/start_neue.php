@@ -32,7 +32,7 @@ $strMainAssocs['body'] ='
         <input type="text" name="name" size="30" maxlength="127" /><br>
         <br>
         Beschreibung: <br>
-        <input type="text" name="description" size="30" maxlength="127" /><br>
+        <input type="text" name="description" size="30" maxlength="250" /><br>
         <br>
         Homepage: <br>
         <input type="text" name="homepage" size="30" maxlength="127" /><br>
