@@ -1,0 +1,56 @@
+Ist-Situation (Stand: 20.01.2005):
+
+Entgegen der Einschätzung der Betreuer aus den letzten 'Meeting-Minutes' ist die Kommunikation
+zwischen der PHP1 Gruppe und mir gut. Wir stehen über ICQ, e-mail, wöchentliche Besprechungen sowie
+bugzilla und das Forum in engem Kontakt. Das Erstellen der gewünschten Testdaten ist nun auch per
+php-Skript abgeschlossen sodass eine große Zahl an Daten auch für die anderen Gruppen vorliegt.
+Das späte Einsteigen der Tester in ihren Teil des Projektes war ja von vorn herein nicht anders
+zu erwarten, er ist aber nun in Absprache mit der Gruppe PHP1 erfolgt. Dafür wurden die Milestones
+aus dem Bericht der PHP1 Gruppe auch in Hinblick auf Testabschnitte festgelegt und der Durchführung
+steht nichts im Wege.
+
+Milestone I (18.01.2005) (geplant):
+
+Milestone I umfasst im Wesentlichen das Design des Konferenzmanagers ohne vollständig hinterlegte
+Funktionalität (Siehe Bericht PHP1). Seid dem 18.01.2005 wird also alles was im Dokument Navigation.txt
+im php1 repos festgehalten ist abgetestet und in Bugzilla Mängel reported. Da die Gruppe den
+Milestone nicht ganz eingehalten hat und teilweise Funktion und reines Design nicht voneinander zu
+trennen sind wird sich diese Arbeit mindestens bis Milestone II hinziehen. Weitere Wünsche zu Testdaten
+etc. die PHP1 für die Implementierung der Algorithmen benötigt werden bearbeitet. 
+
+Milestone II (25.01.2005) (geplant):
+
+Milestone II umfasst die grundlegende Funktionalität der Software. Zu diesem Zeitpunkt sollte das Produkt
+also eingeschränkt auslieferbar sein. Dies ist in Absprache mit PHP1 der Startschuss für Funktionstests
+aller Art. Thiago hat bereits für die PHP2 Gruppe phpUnit Tests zur Verfügung gestellt, diese dienen als
+Grundlage und Beispielmaterial zum erstellen solcher Tests für PHP1. Insbesondere gilt es  die Methoden 
+in dbAccess.inc.php zu testen. Desweiteren wird das Produkt durch praktische 'klick_tests' auf seine
+richtige Funktion getestet.
+
+Milestone III (01.02.2005) (geplant):
+
+Milestone III stellt die harte deadline für das Implementieren neuen Codes dar. Ab diesem Zeitpunkt sollen
+nur noch gefundene Bugs ausgebessert werden. Die vorrangegangenen Tests, sowie W3C Tests werden in der nun
+folgenden letzten Woche intensiv durchgeführt werden. Da es kein 'Ist noch nicht fertig' mehr geben darf
+werden alle gefundenen Abweichungen von Spec, Navigation.txt und anderen Vereinbarungen definitiv als
+Fehler behandelt.
+
+Risiken:
+
+Der beschriebene Ablauf basiert auf der Einhaltung der Milestones durch die PHP1 Gruppe, sodass deren
+Zeitplanung einen Kritischen Faktor für den Erfolg darstellt. Ich muss mich noch mit phpUnit Tests
+auseinandersetzen habe in Thiago aber einen kompetenten Ansprechpartner sodass dies nicht zu größeren
+Problemen führen sollte. Fehlende Rechte zum einchecken von Skripten
+etc. in das php1 Repos stellen ein weiteres Problem dar. Marcel antwortet leider nicht auf meine Mails und
+auch die Anfrage bei Martin hat noch kein Ergebnis bezüglich der Repos Rechte erbracht, dieses Problem lässt
+sich jedoch durch e-mails auf etwas umständlichem Wege lösen.
+
+Gesamteinschätzung & Ausblick:
+
+Ich bin zuversichtlich, meine Aufgaben im beschriebenen Zeitrahmen erfüllen zu können, habe jedoch das
+Gefühl bereits in eine Schublade verbannt worden zu sein aus der es schwer zu entkommen sein wird. Der
+Zeitplan ist in jedem Falle eng gestrickt, jedoch schaffbar. Dies ist zurückzuführen auf:
+-Mangelnde Eigeninitiative im Vorfeld
+-Spätere Fertigstellung des Codes als erwartet
+-Behandlung der Testgruppe unter 'ferner liefen' in den Besprechungen, auch wenn ihre Wichtigkeit immer
+ wieder hervorgehoben wurde.
