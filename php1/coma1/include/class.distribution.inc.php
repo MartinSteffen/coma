@@ -63,8 +63,8 @@ class Distribution extends ErrorHandling {
     define('ASSIGNED', 0);
     define('PREFERS', 1); // Topic
     define('WANTS', 2); // Paper
-    define('DENIES', 4); // Paper
-    define('EXCLUDED', 8); // Paper
+    define('DENIES', 3); // Paper
+    define('EXCLUDED', 4); // Paper
 
     if (empty($intConferenceId)) {
       return $this->success(false);
@@ -135,7 +135,7 @@ class Distribution extends ErrorHandling {
         $this->addBit($matrix[$i][$p_id_index[$assigned[$j]['paper_id']]], ASSIGNED);
       }
       // Bevorzugte Themen
-/*      $s = sprintf("SELECT   p.id AS paper_id".
+      $s = sprintf("SELECT   p.id AS paper_id".
                    " FROM    Paper AS p".
                    " INNER   JOIN IsAboutTopic AS iat".
                    " ON      iat.paper_id = p.id".
@@ -180,7 +180,7 @@ class Distribution extends ErrorHandling {
       }
       for ($j = 0; $j < count($denies); $j++) {
         $this->addBit($matrix[$i][$p_id_index[$denies[$j]['paper_id']]], DENIES);
-      }*/
+      }
       // Ausgeschlossene Paper
       $s = sprintf("SELECT   pp.paper_id AS paper_id".
                    " FROM    ExcludesPaper AS pp".
@@ -197,6 +197,19 @@ class Distribution extends ErrorHandling {
         $this->addBit($matrix[$i][$p_id_index[$excluded[$j]['paper_id']]], EXCLUDED);
       }
     }
+    
+    $text = array('assigned', 'prefers', 'wants', 'denies', 'excluded');
+    for ($i = 0; $i < count($matrix); $i++) {
+      echo('<br>Reviewer '.$r_id_index[$i].':');
+      for ($j = 0; $j < count($matrix[$i]); $j++) {
+        for ($k = ASSIGNED; $k <= EXCLUDED; $k++) {
+          if ($this->isBit($matrix[$i][$j], $k)) {
+            echo(' '.$text[$k].' Paper #'.$p_id[$j]);
+          }
+        }
+      }
+    }
+    
     return $matrix;
   }
 

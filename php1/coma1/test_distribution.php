@@ -33,12 +33,12 @@ else if (empty($m)) {
   echo('<br>EMPTY');
   die(-1);
 }
-for ($i = 0; $i < count($m); $i++) {
+/*for ($i = 0; $i < count($m); $i++) {
   $s = sprintf("<br>%d:", $i);
   for ($j = 0; $j < count($m[$i]); $j++) {
     $s = $s.sprintf(" %d", $m[$i][$j]);
   }
   echo($s);
-}
+}*/
 
 ?>
