@@ -20,6 +20,7 @@ if (!isset($_SESSION['uname']) || !isset($_SESSION['password']) || !checkLogin()
 }
 // Wenn ich hier bin, bin ich eingeloggt!
 if (!isset($_SESSION['confid'])) {
+  session_delete('message');	
   redirect('main_conferences.php');  
 }
 // Eingeloggt und eine Konfernez gewaehlt -> Userlevel bestimmen
@@ -37,15 +38,19 @@ if ($myDBAccess->failed()) {
   error('chooseHighestRole',$myDBAccess->getLastError());
 }
 if ($objIch->hasRole(CHAIR)) {
+  session_delete('message');	
   redirect('chair_start.php');
 }
 if ($objIch->hasRole(REVIEWER)) {
+  session_delete('message');	
   redirect('reviewer_start.php');
 }
 if ($objIch->hasRole(AUTHOR)) {
+  session_delete('message');	
   redirect('author_start.php');
 }
-if ($objIch->hasRole(PARTICIPANT)) {  
+if ($objIch->hasRole(PARTICIPANT)) {
+  session_delete('message');	
   redirect('participant_start.php');
 }
 // falls man kein Userlevel haben sollte, sollte man auch nicht hier sein!

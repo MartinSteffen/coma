@@ -27,8 +27,8 @@ if ($myDBAccess->failed()) {
 
 $strMessage = session('message', false);
 session_delete('message');
-if (!empty($strMessage)) {	
-  $strContentAssocs['message'] = $strMessage;
+$strContentAssocs['message'] = $strMessage;
+if (!empty($strMessage)) {  
   $strContentAssocs['if'] = array(9);
 }
 $strContentAssocs['lines'] = '';
