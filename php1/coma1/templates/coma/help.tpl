@@ -1,4 +1,3 @@
-<p>
   {toc}
   {chapter-01}
   {chapter-01-01}
@@ -36,7 +35,6 @@
   {chapter-02-02-20}
   {chapter-02-02-21}
   {index}
-</p>
 
 <p>&nbsp;</p>
 
