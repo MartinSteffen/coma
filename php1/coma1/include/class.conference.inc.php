@@ -42,9 +42,9 @@ class Conference {
       return 'not announced';
     }
     else if (!strcmp($this->strStart, $this->strEnd) || empty($this->strEnd)) {
-      return encodeText($this->strStart);
+      return $this->strStart;
     }    
-    return encodeText($this->strStart." to ".$this->strEnd);    
+    return $this->strStart.' to '.$this->strEnd;
   }
 
 } // end class Conference

@@ -194,9 +194,8 @@ $end_date = date(strtotime($_POST['end_date']));
         // Erfolg (also anderes Template)
         $content = new Template(TPLPATH.'confirm_conference.tpl');
         $strContentAssocs['return_page'] = 'main_conferences.php';
-        $objConference = new Conference(0, '', '', '', encodeText($_POST['start_date']),
-                                        encodeText($_POST['end_date']));
-        $strContentAssocs['date'] = $objConference->getDateString();
+        $objConference = new Conference(0, '', '', '', $start_date, $end_date);
+        $strContentAssocs['date'] = encodeText($objConference->getDateString());
         $ifArray = array();
       }
     }
