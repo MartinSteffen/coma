@@ -223,7 +223,7 @@ $topics = $input['topics'];
 <br>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr> 
-    <td class="textBold" width="100%">Insert a new paper:</td>
+    <td class="textBold" width="100%">Insert a new topic:</td>
   </tr>
   <tr> 
     <td class="textBold" width="100%">&nbsp;</td>
