@@ -12,6 +12,7 @@ if (!defined('IN_COMA1')) {
  * Klasse zum Parsen der Templates
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
+ * @copyright Copyright &copy; 2004, Jan Waller
  * @package coma1
  * @subpackage Parser
  * 

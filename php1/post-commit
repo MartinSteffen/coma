@@ -1,4 +1,6 @@
 #! /bin/sh
-#
-rm -drf ~/public_html/coma1
-svn export http://snert.informatik.uni-kiel.de:8080/svn/coma/trunk/php1/coma1 ~/public_html/coma1
+if test -d ~/public_html/coma1 ; then
+    svn update http://localhost:8080/svn/coma/trunk/php1/coma1 ~/public_html/coma1
+else
+    svn checkout http://localhost:8080/svn/coma/trunk/php1/coma1 ~/public_html/coma1
+fi 

@@ -9,9 +9,14 @@ if (!defined('IN_COMA1')) {
 }
 
 /**
- * simple Klasse zum Zugriff auf die MySQL Datenbank
+ * Klasse MySql
+ *
+ * Eine simple Klasse die einfachste Funktionen fuer MySql
+ * breitstellt, wie z.B. connect, select, insert;
+ * sowie einfache Fehlerbehandlungsroutinen
  *
  * @author  Jan Waller <jwa@informatik.uni-kiel.de>
+ * @copyright Copyright &copy; 2004, Jan Waller
  * @package coma1
  * @subpackage DBAccess
  *
@@ -25,6 +30,18 @@ class MySql {
   var $conn;
   var $errString;
 
+  /**
+   * Konstruktor
+   *
+   * Der Konstruktor stellt eine Verbindung mit der Datenbank her und
+   * stellt die Databse ein. Die Daten werden dabei aus der Konfigurations
+   * datei gelesen.
+   * 
+   * @return bool <b>true</b> bei Erfolg <b>false</b> falls ein Fehler auftrat
+   * @see error()
+   * @see getLastError()
+   *
+   */
   function MySql() {
     require_once('./config.inc.php');
     $this->mySqlServer = sqlServer;
