@@ -25,7 +25,9 @@ function bit($b) {
   return true;
 }
 
-$p = $myDBAccess->getPersonAlgorithmic(1, 2);
+echo('<br>');
+
+$p = $myDBAccess->getPersonAlgorithmic(1, 5);
 if ($myDBAccess->failed()) {
   echo($myDBAccess->getLastError());
 }
@@ -33,14 +35,13 @@ else if (empty($p)) {
   echo('EMPTY');
   die(-1);
 }
-/*if (empty($p->objPreferredTopcs)) {
-  echo ("Empty");
-}
-if (count($p->objPreferredTopics) == 0) {
-  echo ("Count = 0");
-}*/
+echo ('<br>Pref. Topics:<br>');
 for ($i = 0; $i < count($p->objPreferredTopics); $i++) {
   echo ('<br>'.$p->objPreferredTopics[$i]->intId.' / '.$p->objPreferredTopics[$i]->strName);
+}
+echo ('<br>Pref. Papers:<br>');
+for ($i = 0; $i < count($p->objPreferredPapers); $i++) {
+  echo ('<br>'.$p->objPreferredPapers[$i]->intId.' / '.$p->objPreferredPapers[$i]->strTitle);
 }
 
 

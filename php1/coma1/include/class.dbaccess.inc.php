@@ -495,7 +495,11 @@ class DBAccess extends ErrorHandling {
     if ($this->failed()) {
       return $this->error('getPersonAlgorithmic', $this->getLastError());
     }
-    $objPersonAlgorithmic->objPreferredPapers = array();
+    $objPersonAlgorithmic->objPreferredPapers =
+      $this->getPreferredPapers($intPersonId, $intConferenceId);
+    if ($this->failed()) {
+      return $this->error('getPersonAlgorithmic', $this->getLastError());
+    }
     $objPersonAlgorithmic->objDeniedPapers = array();
     $objPersonAlgorithmic->objExcludedPapers = array();
 
@@ -1220,23 +1224,23 @@ class DBAccess extends ErrorHandling {
   }
 
   /**
-   * Liefert ein Array der bevorzugten Topics der Person mit ID $intPersonAlgorithmic
+   * Liefert ein Array der bevorzugten Topics der Person mit ID $intPersonId
    * bei der Konferenz $intConferenceId.
    *
-   * @param int $intPersonAlgorithmic ID der Person
+   * @param int $intPersonId ID der Person
    * @param int $intConferenceId Konferenz-ID
    * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
    * @access private
    * @author Tom (18.01.05)
    */
-  function getPreferredTopics($intPersonAlgorithmicId, $intConferenceId) {
+  function getPreferredTopics($intPersonId, $intConferenceId) {
     $objTopics = array();
-    $s = "SELECT  p.topic_id AS topic_id, t.name AS name".
-        " FROM    PrefersTopic p".
+    $s = "SELECT  pt.topic_id AS topic_id, t.name AS name".
+        " FROM    PrefersTopic pt".
         " INNER   JOIN Topic t".
-        " ON      t.id = p.topic_id".
+        " ON      t.id = pt.topic_id".
         " AND     t.conference_id = '$intConferenceId'".
-        " WHERE   p.person_id = '$intPersonAlgorithmicId'";
+        " WHERE   pt.person_id = '$intPersonId'";
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
       return $this->error('getPreferredTopics', $this->mySql->getLastError());
@@ -1245,6 +1249,37 @@ class DBAccess extends ErrorHandling {
       $objTopics[] = new Topic($data[$i]['topic_id'], $data[$i]['name']);
     }
     return $this->success($objTopics);
+  }
+
+  /**
+   * Liefert ein Array der bevorzugten Paper der Person mit ID $intPersonId
+   * bei der Konferenz $intConferenceId.
+   *
+   * @param int $intPersonAlgorithmic ID der Person
+   * @param int $intConferenceId Konferenz-ID
+   * @return Topic [] Ein leeres Array, falls die Person oder die Konferenz nicht existiert.
+   * @access private
+   * @author Tom (18.01.05)
+   */
+  function getPreferredPapers($intPersonId, $intConferenceId) {
+    $objPapers = array();
+    $s = "SELECT  pp.paper_id AS paper_id".
+        " FROM    PrefersPaper pp".
+        " INNER   JOIN Paper p".
+        " ON      p.id = pp.paper_id".
+        " AND     p.conference_id = '$intConferenceId'".
+        " WHERE   pp.person_id = '$intPersonId'";
+    $data = $this->mySql->select($s);
+    if ($this->mySql->failed()) {
+      return $this->error('getPreferredPapers', $this->mySql->getLastError());
+    }
+    for ($i = 0; $i < count($data); $i++) {
+      $objPapers[] = $this->getPaper($data[$i]['paper_id']);
+      if ($this->failed()) {
+        return $this->error('getPreferredPapers', $this->getLastError());
+      }
+    }
+    return $this->success($objPapers);
   }
 
   // ---------------------------------------------------------------------------
@@ -1937,7 +1972,7 @@ nur fuer detaillierte?
    * mit diesem Review-Report assoziierten Ratings (Bewertungen in den einzelnen
    * Kriterien). Initial sind die Bewertungen 0 und die Kommentartexte leer.
    *
-   * [TODO] Bleibt evtl. nicht an dieser Stelle stehen, sondern wandert in ein anderes Skript!
+   * @todo [TODO] Bleibt evtl. nicht an dieser Stelle stehen, sondern wandert in ein anderes Skript!
    *        Anm. v. Tom: Dann ALLE Vorkommen von $this durch $myDBAccess (oder so)
    *                     ersetzen, sonst drohen Probleme wegen der Fehlerbehandlung!
    */
