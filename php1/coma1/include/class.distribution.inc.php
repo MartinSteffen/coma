@@ -286,8 +286,8 @@ class Distribution extends ErrorHandling {
     for ($i = 0; $i < count($r_id); $i++) {
       for ($j = 0; $j < count($p_id); $j++) {
         if ($matrix[$i][$j] == WANT) {
-          $this->suggest($matrix, $i, $p_id, $avg_revs, $p_num_revs_total_left,
-                         $p_num_revs, $r_num_paper, SUGGESTED);
+          $this->suggest($matrix, $i, $j, $p_id, $avg_revs,
+                         $p_num_revs_total_left, $p_num_revs, $r_num_paper, SUGGESTED);
         }
       }
     }
@@ -344,8 +344,8 @@ class Distribution extends ErrorHandling {
             }
           }
         }*/
-        $this->suggest($matrix, $rindex, $p_id, $avg_revs, $p_num_revs_total_left,
-                       $p_num_revs, $r_num_paper, SUGGESTED);
+        $this->suggest($matrix, $rindex, $pindex, $p_id, $avg_revs,
+                       $p_num_revs_total_left, $p_num_revs, $r_num_paper, SUGGESTED);
       }
     }
     
@@ -413,7 +413,7 @@ class Distribution extends ErrorHandling {
   /**
    * @access private
    */
-  function suggest(&$matrix, $rindex, $p_id, $avg_revs, &$p_num_revs_total_left,
+  function suggest(&$matrix, $rindex, $pindex, $p_id, $avg_revs, &$p_num_revs_total_left,
                    &$p_num_revs, &$r_num_papers, $intSuggested) {
     $p_num_revs_total_left[$pindex]--;
     $p_num_revs[$pindex]++;
