@@ -23,7 +23,7 @@
    <table class="header">
     <tr>
      <td width="70">&nbsp;</td>
-     <td height="32" align="right" valign="top">
+     <td colspan="2" height="32" align="right" valign="top">
       <a href="{basepath}logout.php{?SID}">Logout</a>&nbsp;&nbsp;
       <a href="{basepath}help.php{?SID}"><img src="{path}images/info.gif" width="15" height="15" border="0" alt="Info"></a>
      </td>
@@ -33,7 +33,7 @@
      <td height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; ">
       {navigator}
      </td>
-     <td height="25" style="background-image:url({path}images/menue.gif); vertical-align: right; " class="renderTime">
+     <td height="25" style="background-image:url({path}images/menue.gif); vertical-align: middle; " class="renderTime">
       CoMa - Your Conference Manager - version /VERSION/
      </td>
     </tr>
