@@ -64,9 +64,7 @@ class Distribution extends ErrorHandling {
       return $this->success(false);
     }
     // Paper-ID's holen
-    $s = sprintf("SELECT   id".
-                 " FROM    Paper".
-                 " WHERE   conference_id = '%s'",
+    $s = sprintf("SELECT id FROM Paper WHERE conference_id = '%d' ORDER BY id ASC",
                  s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -76,9 +74,11 @@ class Distribution extends ErrorHandling {
       return array();
     }
     // Paper-Indizierungsarray erstellen
-    $p_id = array(); // enthaelt ID's von Papern
+    $p_pos_id = array(); // enthaelt ID's von Papern
+    $p_id_pos = array(); // enthaelt Position der ID im Array $p_pos_id
     for ($i = 0; $i < count($data); $i++) {
-      $p_id[$i] = $data[$i]['id'];
+      $p_pos_id[$i] = $data[$i]['id'];
+      $p_id_pos[$data[$i]['id']] = $i;
     }
     echo('<br>'.count($data).' Papers found.');
     // Reviewer-ID's holen
@@ -87,7 +87,8 @@ class Distribution extends ErrorHandling {
                  " INNER   JOIN Role AS r".
                  " ON      r.person_id = p.id".
                  " AND     r.role_type = '%d'".
-                 " WHERE   r.conference_id = '%s'",
+                 " WHERE   r.conference_id = '%d'
+                 " ORDER   BY p.id ASC",
                  s2db(REVIEWER), s2db($intConferenceId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
@@ -97,15 +98,31 @@ class Distribution extends ErrorHandling {
       return array();
     }
     // Reviewer-Indizierungsarray erstellen
-    $r_id = array(); // enthaelt ID's von Reviewern
+    $r_pos_id = array(); // enthaelt ID's von Reviewern
     for ($i = 0; $i < count($data); $i++) {
-      $r_id[$i] = $data[$i]['id'];
+      $r_pos_id[$i] = $data[$i]['id']; // wie bei Papern
+      $r_id_pos[$data[$i]['id']] = $i; // wie bei Papern
     }
     echo('<br>'.count($data).' Reviewers found.');
-    // Paper-Reviewer-Matrix aufstellen; array_fill ab PHP >= 4.2
-    $matrix = array_fill(0, count($p_id)-1, array_fill(0, count($r_id)-1, false));
-
-    return false;
+    // Reviewer-Paper-Matrix aufstellen; array_fill ab PHP >= 4.2
+    $matrix = array_fill(0, count($r_pos_id)-1, array_fill(0, count($p_pos_id)-1, 0));
+    // Bereits zugeteilte Paper in die Matrix eintragen
+    /*for ($i = 0; $i < count($r_pos_id); $i++) {
+      $s = sprintf("SELECT paper_id FROM Distribution WHERE reviewer_id = '%d'",
+                   s2db($r_id[$i]));
+      $data = $this->mySql->select($s);
+      if ($this->mySql->failed()) {
+        return $this->error('getDistribution', $this->mySql->getLastError());
+      }
+      for ($j = 0; $j < count($data); $j++) {
+        
+      }
+    }*/
+    for ($i = 0; $i < count($r_pos_id); $i++) {
+      echo ('<br>'.$i.': '.$r_pos_id[$i].'; ');
+      echo ($r_id_pos[$r_pos_id[$i]]);
+    }
+    return $matrix;
   }
 
 }
