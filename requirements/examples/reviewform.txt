@@ -1,0 +1,98 @@
+# ===== To use the email review form, remove all lines above this one! ==== #
+#                                                                           #
+#      IF YOU PLAN TO SUBMIT YOUR REVIEWS USING THIS TEMPLATE, PLEASE DO    #
+#      SO WITH CARE TO EASE THE AUTOMATIC PROCESSING OF YOUR REVIEWS. IF    #
+#      YOU HAVE CO-REVIEWERS, PLEASE FORWARD THESE INSTRUCTIONS TO THEM.    #
+#                                                                           #
+# ========================================================================= #
+#
+# Sections 1 to 4 are in the following format:
+# 1) Question
+# 2) Possible answers
+# 3) What to fill in after the keyword on the keyword-line
+# 4) KEYWORD: 
+#
+# Sections 5 to 8 are meant to 
+# - write a summary of the paper;
+# - write comments for the program committee (which will NOT be sent to
+#   the authors);
+# - write comments for the authors (which will be sent to them after the
+#   PC meeting);
+# - write arguments in favour or against the paper.
+#
+# Section 9 is meant for the names of your co-reviewer(s).
+#
+# You may use more than one line for the answers of sections 5 to 9.
+#   
+# The lines that MUST be in the email are the lines that contain the
+# CAPITALIZED keywords. All lines starting with the '#'-character will
+# be discarded, so you may either leave them as they are or remove them
+# for any reason you can think of.
+#
+# The first keyword of a review form is REVIEWER-NAME.
+# The last line of a review is the line '%%%% END OF FORM %%%%'.
+#
+# You may submit more than one review per email message. To do so, copy
+# the lines including and between the keywords REVIEWER-NAME
+# and %%%% END OF FORM %%%% and paste them after the end-of-form marker
+# of the previous review."
+#
+# Don't change the following 2 lines:
+REVIEWER-NAME: Uwe Nestmann
+REVIEWER-NUMBER: 8
+#
+# (Fill in after the keyword: 1 to 30) 
+PAPER-NUMBER: 
+#
+# 1 - How do you classify this paper?
+# A: I will champion this paper at the PC meeting
+#    (advocate/accept).
+# B: I can accept this paper, but I will not champion it
+#    (accept, but could reject).
+# C: This paper should be rejected, though I will not fight strongly
+#    against it (reject, but could accept).
+# D: Serious problems. I will argue to reject this paper
+#    (detractor).
+# (Fill in after the keyword: A, B, C or D)
+CLASSIFICATION:
+#
+# 2 - What is your overall expertise concerning the subject areas of
+#     this paper?
+# X: I am an expert;
+# Y: I am knowledgable in the area, though not an expert;
+# Z: I am not an expert. My evaluation is that of an informed outsider.
+# (Fill in after the keyword: X, Y or Z)
+REVIEWER-EXPERTISE:
+#
+# 3 - Is the paper a full paper or a short paper? 
+# 1: Full
+# 2: Short
+# 3: Other?
+# (Fill in after the keyword: 1, 2 or 3)
+PAPER-TYPE: 
+#
+# 4 - Summary of the paper:
+# (Type after or below the keyword)
+SUMMARY:
+#
+# 5 - Comments for the committee only (Not shown to the author(s)):
+# (Type after or below the keyword)
+COMMITTEE-COMMENTS: 
+#
+# 6 - Comments for the author(s) - will be sent to the submitters:
+# (Type after or below the keyword)
+AUTHOR-COMMENTS: 
+#
+# 7 - Points in favour or against
+# (Type after or below the keyword)
+POINTS-IN-FAVOUR-AGAINST:
+#
+# 8 - Co-reviewer(s) for this paper:
+# (One line per co-reviewer; leave blank if none)
+CO-REVIEWERS:
+#
+# To include the next review, copy all lines of the review form, so
+# including and between REVIEWER-NAME: and %%%% END OF FORM %%%%,
+# and paste them below the next line.
+%%%% END OF FORM %%%%
+
