@@ -347,6 +347,10 @@ function sendMail($intUserID, $strSubject, $strMsg, $strFrom='')
 /**
  *  Generate Random Password
  *
+ * @param int $intLen Die Laenge des Passwortes (bis Maximal 160)
+ * @return string Das Passwort
+ * @author Jan (31.01.05)
+ * @access public
  */
 function generatePassword($intLen=8) {
   return substr(sha1(microtime()), 0, $intLen);
