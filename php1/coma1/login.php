@@ -16,7 +16,7 @@ define('NEED_NO_LOGIN', true);
 require_once('./include/header.inc.php');
 
 $main = new Template(TPLPATH.'frame.tpl');
-
+  
 $content = new Template(TPLPATH.'login.tpl');
 $content->assign(defaultAssocArray());
 

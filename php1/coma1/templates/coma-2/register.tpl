@@ -1,8 +1,10 @@
 
 <h2>Neuen Benutzer registrieren:</h2>
 
+{message}
+
 <p class="center">
-<form action="{basepath}register.php?{SID}" method="post">
+<form action="{basepath}confirm_register.php?{SID}" method="post">
 
 <table class="formtable">
   <tr>
@@ -37,7 +39,7 @@
       Titel:
     </td>
     <td>      
-      <input type="text" name="title" size="16" maxlength="32" />
+      <input type="text" name="name_title" size="16" maxlength="32" />
     </td>
   </tr>
   <tr>
