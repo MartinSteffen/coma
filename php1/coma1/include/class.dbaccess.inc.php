@@ -1398,7 +1398,8 @@ class DBAccess extends ErrorHandling {
     $s = sprintf("SELECT   id, sender_id, send_time, subject, text".
                  " FROM    Message".
                  " WHERE   forum_id = '%d'".
-                 " AND     reply_to IS NULL OR reply_to = '0'",
+                 " AND     reply_to IS NULL".
+                 " OR      reply_to = '0'",    //?!
                            s2db($intForumId));
     $data = $this->mySql->select($s);
     if ($this->mySql->failed()) {
