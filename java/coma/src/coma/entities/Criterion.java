@@ -1,14 +1,21 @@
 package coma.entities;
 
-import java.util.HashSet;
+
 import java.util.Set;
 
-import static coma.entities.Entity.XMLMODE.*;
+
+import coma.util.logging.ALogger;
+
+
 import coma.handler.db.ReadService;
 import coma.servlet.util.XMLHelper;
-import coma.util.logging.ALogger;
+
 import static coma.util.logging.Severity.*;
+
+
 import static java.util.Arrays.asList;
+
+
 
 /**
    Wrapper for entries in the DB's Criterion table

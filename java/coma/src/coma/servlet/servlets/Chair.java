@@ -215,7 +215,7 @@ public class Chair extends HttpServlet
 		String tag;
 		ReadServiceImpl readService = new ReadServiceImpl();
 	    Topic t = new Topic(-2);
-	    SearchResult search_result = readService.getTopics(t.getId());
+	    SearchResult search_result = readService.getTopic(-1,t.getId());
 	    Topic[] topics = (Topic[])search_result.getResultObj();	
 		if (req.getParameter("target").equals("topics"))
 		{

@@ -1,9 +1,9 @@
 package coma.entities;
 
-import java.util.HashSet;
+
 import java.util.Set;
 
-import static coma.entities.Entity.XMLMODE.*;
+
 import coma.handler.db.ReadService;
 import coma.servlet.util.XMLHelper;
 import coma.util.logging.ALogger;

@@ -19,9 +19,8 @@ import javax.xml.transform.stream.StreamSource;
 import coma.entities.Paper;
 import coma.entities.Person;
 import coma.handler.util.EntityCreater;
-import static coma.servlet.servlets.Author.ACTIONS.NULL;
-import static coma.servlet.servlets.Author.ACTIONS.PROCESSPAPER;
-import static coma.servlet.servlets.Author.ACTIONS.SUBMITPAPER;
+
+import coma.servlet.util.Navcolumn;
 import coma.servlet.util.SessionAttribs;
 import coma.servlet.util.XMLHelper;
 /**
@@ -59,13 +58,14 @@ public class Author extends HttpServlet {
 	HttpSession session = request.getSession(true);
 	
 	Person theLogedPerson = (Person)session.getAttribute(SessionAttribs.PERSON);
-	
+	Navcolumn myNavCol = new Navcolumn(session);
 	String path = getServletContext().getRealPath("");
 	String xslt = path+"/style/xsl/author.xsl";
 	PrintWriter out = response.getWriter();
 	
 	
 	helper.addXMLHead(result);
+	result.append(myNavCol);
 	result.append("<author>\n");
 	
 	switch (action) {

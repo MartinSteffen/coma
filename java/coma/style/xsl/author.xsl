@@ -2,7 +2,7 @@
 
 <xsl:output method="xml" indent="yes"  doctype-public= "-//W3C//DTD XHTML 1.1//EN" 
 doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859-1"/>
-
+<xsl:include href="navcolumn.xsl" />
 <xsl:template match="/">
 <html > 
 <head>
@@ -21,31 +21,9 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 
 
 <!-- Site navigation menu -->
-<div class="navbar">
-<ul>
-  <li><a href="index.html">Home page</a></li>
-  <li>
-   <form action="Author?action=submitpaper" method="post">
-  		<input type="submit" value="submit paper" class="submit-button" />
-  	</form>
-  </li>
-		
-  <li><a href="http://snert.informatik.uni-kiel.de:8888/coma/">tomcat directory</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/svn/coma/">svn repository</a></li>
-  <li><a href="http://snert.informatik.uni-kiel.de:8080/~wprguest3/phpmyadmin/">phpMyAdmin</a></li>
-  <li>
-  	<a href="http://validator.w3.org/check?uri=referer">
-  		<img src="./img/valid-xhtml11.png" alt="Valid XHTML 1.1!" style="border:0;width:68px;height:20px"  />
-  	</a>
-   	<a href="http://jigsaw.w3.org/css-validator/check/referer">
- 			<img style="border:0;width:68px;height:20px" src="./img/vcss.png" alt="Valid CSS!" />
- 		</a>
- 	</li>
-</ul> 
+<xsl:call-template name="navcolumn" />
 
-	
 
-</div>
 
 
 <!-- Main content -->

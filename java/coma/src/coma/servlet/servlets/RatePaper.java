@@ -19,6 +19,7 @@ import coma.servlet.util.*;
 import coma.util.logging.ALogger;
 import static coma.util.logging.Severity.*;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.asList;
 
 /** 
     Rating a paper

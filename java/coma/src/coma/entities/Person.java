@@ -1,5 +1,7 @@
 package coma.entities;
 
+import java.util.Vector;
+
 import static coma.entities.Entity.XMLMODE.DEEP;
 import static coma.entities.Entity.XMLMODE.SHALLOW;
 import coma.handler.impl.db.DeleteServiceImpl;
@@ -31,7 +33,7 @@ public class Person extends Entity {
     private String state; 
     private String country; 
     private String password;
-    private int[] role_type;
+    private Vector role_type =new Vector();
 
 	
 	/**
@@ -46,13 +48,24 @@ public class Person extends Entity {
 	 * @return Returns the role_type.
 	 */
 	public int[] getRole_type() {
-		return role_type;
+		int[] role_type_array = new int[role_type.size()];
+		for (int i = 0; i < role_type.size(); i++) {
+			role_type_array[i]=((Integer)role_type.get(i)).intValue();
+		}
+		return (role_type_array);
 	}
 	/**
 	 * @param role_type The role_type to set.
-	 */
-	public void setRole_type(int[] role_type) {
-		this.role_type = role_type;
+	 */public void setRole_type(int new_role_type) {
+	 	
+	 	this.role_type.add(Integer.valueOf(new_role_type));
+	}
+	
+	public void setRole_type(int[] new_role_type) {
+		for (int i = 0; i < new_role_type.length; i++) {
+			this.role_type.add(Integer.valueOf(new_role_type[i]));
+		}
+		
 	}
 	/**
 	 * @return Returns the affiliation.
@@ -233,10 +246,10 @@ public class Person extends Entity {
     	return isInRole(role_type, 2);
     }
 	
-    private boolean isInRole(int[] rolesArray, int role){
+    private boolean isInRole(Vector roles, int role){
     	boolean result = false;
-    	for (int i = 0; i < rolesArray.length; i++) {
-			if(role == rolesArray[i]){
+    	for (int i = 0; i < roles.size(); i++) {
+			if(role == ((Integer)roles.get(i)).intValue()){
 				result = true;
 				break;
 			}

@@ -1,4 +1,4 @@
-package coma.servlets.servlet;
+package coma.servlet.servlets;
 
 import java.io.PrintWriter;
 import java.io.StringReader;

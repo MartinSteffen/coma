@@ -40,7 +40,9 @@ public class Index extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		helper.addXMLHead(result);
 		
-		ReadServiceImpl myReadService = new ReadServiceImpl();
+		result.append(XMLHelper.tagged("dummy",""));
+		result.append(myNavCol.toString());
+		/*ReadServiceImpl myReadService = new ReadServiceImpl();
 		Conference mySearchconference = new Conference(-1);
 		SearchCriteria mysc = new SearchCriteria();
 		mysc.setConference(mySearchconference);
@@ -54,20 +56,15 @@ public class Index extends HttpServlet {
 			result.append("</conference_list>\n");
 			String info = mySR.getInfo();
 			System.out.println(info);
-		}
-			result.append(myNavCol);
+		}*/
 			
-		if (request.getParameter("show") != null
-				&& request.getParameter("show").equals("xml")) {
-			out.print(result);
-		} else {
+			
+		
 			response.setContentType("text/html; charset=ISO-8859-15");
-			StreamSource xmlSource = new StreamSource(new StringReader(result
-					.toString()));
+			StreamSource xmlSource = new StreamSource(new StringReader(result.toString()));
 			StreamSource xsltSource = new StreamSource(xslt);
 			XMLHelper.process(xmlSource, xsltSource, out);
-		}
-		out.flush();
+			out.flush();
 
 	}
 

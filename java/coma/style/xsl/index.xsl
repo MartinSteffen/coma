@@ -18,7 +18,7 @@ doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" encoding="iso-8859
 </div>
 
 <!-- Site navigation menu -->
-<xsl:call-template name="navcolumn" />
+<xsl:call-template name="navcolumn" /> 
 
 <!-- Main content -->
 <div class="content">

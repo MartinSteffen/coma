@@ -87,8 +87,13 @@
     </servlet-mapping>
     
     <servlet-mapping>
+
+      <servlet-name>Chair</servlet-name>
+    <url-pattern>/chair</url-pattern>
+
     	<servlet-name>Chair</servlet-name>
     	<url-pattern>/chair</url-pattern>
+
     </servlet-mapping>
     
     <servlet-mapping>
@@ -133,8 +138,9 @@
     
         
     
+<!--
 
-  <!-- Define a Security Constraint on this Application
+  Define a Security Constraint on this Application
  <security-constraint>
     <web-resource-collection>
       <web-resource-name>Login Coma</web-resource-name>
