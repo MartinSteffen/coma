@@ -5,6 +5,14 @@ project is found (except email exchange, bugzilla reports, and chattering
 on the BB etc).
 
 
+
+    o Readme:            this file
+
+    o Makefile:          top-level Makefile
+
+
+
 # $Id$#
+
 
 
