@@ -10,12 +10,37 @@
  */
 /***/
 
+function HeadOfPage() {
+  print('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n');
+  print('<html>\n');
+  print('<head>\n);
+  print('  <title>CoMa - Your Conference Manager - Error</title>\n');
+  print('</head>\n');
+  print('<body>\n');
+  print('  <list>\n');
+}
+
+function MenuOfPage() {
+  print('    <ul>Generate Configuration\n');
+  print('    <ul>Create Database\n');
+  print('    <ul>Add Tutorial Data\n');
+}
+
+function FootOfPage() {
+  print('  </list>\n');
+  print('</body>\n');
+  print('</html>\n');
+}
+
+HeadOfPage();
+MenuOfPage();
+
 // Block neuanlegen der Datenbank
-if (true) {
+if (false) {
   /**@ignore */
   define('IN_COMA1', true);
   require_once('./include/config.inc.php');
-  
+
   $conn = @mysql_connect($sqlServer, $sqlUser , $sqlPassword);
   if (empty($conn)) {
     echo("Could not connect to MySQL Server $sqlServer!<br>");
@@ -25,7 +50,7 @@ if (true) {
     echo(mysql_error($conn).'<br>');
     echo("Please check 'include/config.inc.php' for correct values!<br><br>");
   }
-  
+
   $sql = array();
   $sql[] = "DROP TABLE IF EXISTS Conference";
   $sql[] = "CREATE TABLE Conference (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(127) NOT NULL, homepage VARCHAR(127), description TEXT, abstract_submission_deadline DATE, paper_submission_deadline DATE, review_deadline DATE, final_version_deadline DATE, notification DATE, conference_start DATE, conference_end DATE, min_reviews_per_paper INT, PRIMARY KEY (id) ) TYPE = INNODB";
@@ -76,5 +101,7 @@ if (true) {
   }
   echo "<br><br>Done.";
 }
+
+FootOfPage();
 
 ?>
