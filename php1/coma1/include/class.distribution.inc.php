@@ -164,7 +164,7 @@ class Distribution extends ErrorHandling {
                  " INNER   JOIN Role AS r".
                  " ON      r.person_id = p.id".
                  " AND     r.role_type = '%d'".
-                 " AND     r.state IS NULL".
+                 " AND     (r.state IS NULL OR r.state = 0)".
                  " WHERE   r.conference_id = '%d'".
                  " ORDER   BY p.id ASC",
                  s2db(REVIEWER), s2db($intConferenceId));
@@ -391,7 +391,7 @@ class Distribution extends ErrorHandling {
     // (...)
 
     // Debug: Ausgabe
-    for ($i = 0; $i < count($matrix); $i++) {
+    /*for ($i = 0; $i < count($matrix); $i++) {
       echo('<br>Reviewer '.$r_id[$i].':');
       for ($j = 0; $j < count($matrix[$i]); $j++) {
         echo(' '.$matrix[$i][$j]);
@@ -423,7 +423,7 @@ class Distribution extends ErrorHandling {
     echo('<br>NumRevs:');
     print_r($p_num_revs);
     echo('<br>NumPapers:');
-    print_r($r_num_papers);
+    print_r($r_num_papers);*/
 
     // Keine gueltige Verteilung?
     for ($i = 0; $i < count($p_num_revs); $i++) {
