@@ -75,7 +75,7 @@ class Distribution extends ErrorHandling {
     }
     echo('<br>Unverteilte Paper:<br>');
     for ($i = 0; $i < count($data); $i++) {
-      echo('<br>'.$data[$i]['paper_id'].' / '.$data[$i]['title'].);
+      echo('<br>'.$data[$i]['paper_id'].' / '.$data[$i]['title']);
     }
     return false;
   }
