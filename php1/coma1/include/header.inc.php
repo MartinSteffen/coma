@@ -64,15 +64,21 @@ ini_set('display_startup_errors', '1'); // später 0 !!
 ini_set('warn_plus_overloading', '1');
 // End Debugging
 
-
+//if (isset($_SERVER['PATH_TRANSLATED'])) {
+//  $ServerPathTranslated = $_SERVER['PATH_TRANSLATED'];
+//}
+//else {
+  $ServerPathTranslated = realpath(dirname(__FILE__) . '../');
+//}
+echo $ServerPathTranslated;
 
 // PFAD - Konstanten
 /** Include-Pfad (als absolut)*/
-define('INCPATH',dirname($_SERVER['PATH_TRANSLATED']).'/include/');
+define('INCPATH',dirname($ServerPathTranslated.'/include/');
 /** Das zu verwendende Design (Verzeichniss-Name)*/
 define('DESIGN', 'simplecoma');
 /** Template-Pfad (als absolut)*/
-define('TPLPATH',dirname($_SERVER['PATH_TRANSLATED']).'/templates/'.DESIGN.'/');
+define('TPLPATH',dirname($ServerPathTranslated.'/templates/'.DESIGN.'/');
 /** Template-Pfad (als URL)*/
 define('TPLURL',dirname($_SERVER['PHP_SELF']).'/templates/'.DESIGN.'/');
 /** Haupt-Pfad (als URL)*/
@@ -96,7 +102,7 @@ checkError($myDBAccess);
 // End Standard Klassen
 
 // Check ob User eingeloggt ist (nur wenn nicht login.php aufgerufen wird)
-// Stellt ausserdem sicher das uid und password nur genau dann gesetzt sind, 
+// Stellt ausserdem sicher das uid und password nur genau dann gesetzt sind,
 // wenn der Benutzer korrekt eingeloggt ist!
 if ((basename($_SERVER['PHP_SELF'])!='login.php')&&(!$myDBAccess->checkLogin())) {
   if (!isset($_SESSION['uname'])) {
