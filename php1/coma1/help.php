@@ -351,7 +351,7 @@ if ((in_array('create', $strArrayHelpTopics)) && (in_array('conference', $strArr
 /**
  * chapter-02-07-01.tpl
  */
-if ((in_array('main', $strArrayHelpTopics)) && (in_array('conferences', $strArrayHelpTopics)) && (in_array('advanced', $strArrayHelpTopics))){
+if ((in_array('create', $strArrayHelpTopics)) && (in_array('conference', $strArrayHelpTopics)) && (in_array('advanced', $strArrayHelpTopics))){
   $objChaptertemplate = new Template(TPLPATH.'help_chapter.tpl');
   $strArrayChapterAssocs = defaultAssocArray();
   $strArrayChapterAssocs['chapter-no'] = '2.7.1';

@@ -26,6 +26,9 @@
       </li>
       <li><a class="submenu" href="./help.php?for=conference_create{&popup}{&SID}">
           The create conference page</a>
+	  <ol>
+	    <li><a class="submenu" href="./help.php?for=conference_create_advanced{&popup}{&SID}">The advanced conference creation page</a></li>
+	  </ol>
       </li>
       <li><a class="submenu" href="./help.php?for=chair_start{&popup}{&SID}">
           The chair's main overview page</a></li>
