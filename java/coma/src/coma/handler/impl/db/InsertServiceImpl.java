@@ -3,6 +3,7 @@ package coma.handler.impl.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Category;
@@ -58,8 +59,13 @@ public class InsertServiceImpl extends Service implements InsertService{
 				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         	
         	try {
+        		conn.setAutoCommit(false);
 				PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
-				
+				int pstmtCount = 0;
+				pstmt.setString(++pstmtCount,person.getFirst_name());
+				pstmt.setString(++pstmtCount,person.getLast_name());
+				pstmt.setString(++pstmtCount,person.getTitle());
+				pstmt.setString(++pstmtCount,person.getAffiliation());
 				int rows = pstmt.executeUpdate();
 				if(rows != 1){
 					conn.rollback();
@@ -73,6 +79,7 @@ public class InsertServiceImpl extends Service implements InsertService{
 			}finally{
 				try {
 					if(conn != null){
+						conn.setAutoCommit(true);
 						conn.close();
 					}
 				} catch (Exception e) {
@@ -113,6 +120,7 @@ public class InsertServiceImpl extends Service implements InsertService{
  				+ "VALUES(?,?,?,?,?)";
          	
          	try {
+         		conn.setAutoCommit(false);
  				PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
  				
  				int rows = pstmt.executeUpdate();
@@ -128,6 +136,7 @@ public class InsertServiceImpl extends Service implements InsertService{
  			}finally{
  				try {
  					if(conn != null){
+ 						conn.setAutoCommit(true);
  						conn.close();
  					}
  				} catch (Exception e) {
@@ -168,6 +177,7 @@ public class InsertServiceImpl extends Service implements InsertService{
  				+ "VALUES(?,?,?,?,?,?,?)";
          	
          	try {
+         		conn.setAutoCommit(false);
  				PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
  				
  				int rows = pstmt.executeUpdate();
@@ -183,6 +193,7 @@ public class InsertServiceImpl extends Service implements InsertService{
  			}finally{
  				try {
  					if(conn != null){
+ 						conn.setAutoCommit(false);
  						conn.close();
  					}
  				} catch (Exception e) {
@@ -225,6 +236,7 @@ public class InsertServiceImpl extends Service implements InsertService{
  				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
          	
          	try {
+         		conn.setAutoCommit(false);
  				PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
  				
  				int rows = pstmt.executeUpdate();
@@ -240,6 +252,7 @@ public class InsertServiceImpl extends Service implements InsertService{
  			}finally{
  				try {
  					if(conn != null){
+ 						conn.setAutoCommit(true);
  						conn.close();
  					}
  				} catch (Exception e) {
@@ -278,8 +291,8 @@ public class InsertServiceImpl extends Service implements InsertService{
 					+ "VALUES(?,?,?,?)";
 	        	
 	        	try {
+	        		conn.setAutoCommit(false);
 					PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
-					
 					int rows = pstmt.executeUpdate();
 					if(rows != 1){
 						conn.rollback();
@@ -293,6 +306,7 @@ public class InsertServiceImpl extends Service implements InsertService{
 				}finally{
 					try {
 						if(conn != null){
+							conn.setAutoCommit(true);
 							conn.close();
 						}
 					} catch (Exception e) {
@@ -331,9 +345,11 @@ public class InsertServiceImpl extends Service implements InsertService{
 					+ "VALUES(?,?,?,?,?)";
 	        	
 	        	try {
+	        		conn.setAutoCommit(false);
 					PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
-					
 					int rows = pstmt.executeUpdate();
+					//ResultSet res = pstmt.executeQuery();
+					
 					if(rows != 1){
 						conn.rollback();
 						info.append("criterion could not inserted into the database\n");
@@ -346,6 +362,7 @@ public class InsertServiceImpl extends Service implements InsertService{
 				}finally{
 					try {
 						if(conn != null){
+							conn.setAutoCommit(true);
 							conn.close();
 						}
 					} catch (Exception e) {
