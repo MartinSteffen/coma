@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<Context docBase="/home/webapps/coma" path="/coma"
+<?xml version='1.0' encoding='utf-8'?>mv ap	
+<Context docBase="/home/ziad/webapps/coma" path="/coma"
 	 debug="99" reloadable="true" crossContext="true">
 	
  
