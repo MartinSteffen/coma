@@ -61,7 +61,7 @@ public class Chair extends HttpServlet
 	private UpdateServiceImpl update = new UpdateServiceImpl();
 	Conference c = null;
 	Person user_person = null;
-	boolean is_abstract,is_review,is_notification,is_paper,is_final;
+	boolean is_abstract,is_review,is_notification,is_paper,is_final=false;
 	boolean menu = false;
 	
 	public void doGet(HttpServletRequest req,HttpServletResponse res) 
