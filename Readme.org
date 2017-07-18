@@ -1,9 +1,9 @@
 ** Intro
 
-This is the top-level (developer's) readme for the main trunk of the
+This is the top-level (developer's) readme file for the main trunk of the
 development. Below this point, all relevant information for the software
 project is found (except email exchange, bugzilla reports, and chatting on
-the BB etc).
+the bulletin boards etc).
 
 See also [[http://heim.ifi.uio.no/msteffen/teaching/softtech/ws0405/pitm-coma/coma][Coma's course webpages]].
 
@@ -13,40 +13,37 @@ See also [[http://heim.ifi.uio.no/msteffen/teaching/softtech/ws0405/pitm-coma/co
 Currently, the structure is as follows:
 
 
-    o Readme:            this file
+    - Readme.org:            this file
 
-    o Makefile:          top-level Makefile, currently
+    - Makefile:          top-level Makefile, currently
 	                 in use for doc + webpage generation
     
-    o figures:           some pictures (various formats)
+    - figures:           some pictures (various formats)
 	
-    o tex:               common TeX definitions
+    - tex:               common TeX definitions
 
-    o slides:            presentation(s) from the org group
+    - slides:            presentation(s) from the org group
 
-    o spec:              specification + material from the task
+    - spec:              specification + material from the task
 	                 forces
 
-    o handouts:          handouts given to the course
+    - handouts:          handouts given to the course
 
-    o php1/2:            2 php groups
+    - php1/2:            2 php groups
 
-    o test:              the test group(s)
+    - test:              the test group(s)
 
-    o requirements:      informal requirement spec.
+    - requirements:      informal requirement spec.
 
-    o sql:               stuff from the sql team
+    - sql:               stuff from the sql team
 
-    o web:               the overall webpage ((tex/hevea)
+    - web:               the overall webpage ((tex/hevea)
  
-    o snert:             specific remarks about the snert-platform
+    - snert:             specific remarks about the snert-platform
 
-    o python:            some python implementation 
+    - python:            some python implementation 
 
-    o org:               internal org. matters (including email adresses)
+    - org:               internal org. matters (including email adresses)
 
-#############################################
-# $Id$#
-#############################################
 
 
