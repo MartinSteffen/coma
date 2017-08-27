@@ -3,7 +3,7 @@
 This is the top-level (developer's) readme file for the main trunk of the
 development. Below this point, all relevant information for the software
 project is found (except email exchange, bugzilla reports, and chatting on
-the bulletin boards etc).
+the bulletin boards etc.).
 
 See also [[http://heim.ifi.uio.no/msteffen/teaching/softtech/ws0405/pitm-coma/coma][Coma's course webpages]].
 
@@ -13,7 +13,7 @@ See also [[http://heim.ifi.uio.no/msteffen/teaching/softtech/ws0405/pitm-coma/co
 Currently, the structure is as follows:
 
 
-    - Readme.org:            this file
+    - Readme.org:        this file
 
     - Makefile:          top-level Makefile, currently
 	                 in use for doc + webpage generation
