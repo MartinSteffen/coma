@@ -47,3 +47,62 @@ Currently, the structure is as follows:
 
 
 
+
+
+** Historical remarks
+
+
+The repository has been resurrected by migrating from ~cvs~ via svn (using
+~cvs2svn~) and from there to ~git~. Caveats concerning missing branches
+apply. Also the /Snapshots/ or baselines (original svn revision tags) seem
+not to be preserved as git labels in the final repository (see below). In
+general, the contributors were the different students in the course plus
+the course teachers.
+
+
+
+
+
+
+#+BEGIN_SRC 
+
+This is the svn  subdirectory containing the ``tags'' (aka snapshots or
+baselines).
+
+
+
+
+trunk-finalstatusreport: 18.01.2005:
+
+	    As announced in the group meeting of 11.01.2005,
+	    we required (urgently) a status report + plan for the rest
+	    of the semester.
+
+	    The tag caputres the project status just before 	
+	    the meeting where the groups report their
+            progress/status/plans.
+
+
+
+
+trunk-beforehomerun: Status 11.01.2005
+	    some (uncoordinated) tag to capture the status
+	    before entering the last mile, just to see what's
+	    being done.
+
+	   (well, a misnomer, I wanted ``beforehomestretch'',
+	    but I mistyped... (ms))
+
+	   Take care: I ``repaired'' the snapshot insofar
+	    as I removed chair.java (as duplicate of Chair.java)
+	    and password_maker.java as duplicate of Password_maker.java)
+		
+	   Thus, the snapshot is not in pristine condition any more.
+	   
+
+trunk-235: Status am 30.11.2004, bevor die Datenbankmodelle
+	    vereinheitlicht wurden. Aufgehoben zur Referenz
+	    der Alternativen
+
+
+#+END_SRC
