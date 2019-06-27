@@ -1,6 +1,6 @@
 ** Intro
 
-This is the top-level (developer's) readme file for the main trunk of the
+This is the top-level (developer's) Readme file for the main trunk of the
 development. Below this point, all relevant information for the software
 project is found (except email exchange, bugzilla reports, and chatting on
 the bulletin boards etc.).
@@ -18,9 +18,9 @@ Currently, the structure is as follows:
     - Makefile:          top-level Makefile, currently
 	                 in use for doc + webpage generation
     
-    - figures:           some pictures (various formats)
+    - [[./figures]]:         some pictures (various formats)
 	
-    - tex:               common TeX definitions
+    - [[./tex]]:               common TeX definitions
 
     - slides:            presentation(s) from the org group
 
@@ -31,7 +31,7 @@ Currently, the structure is as follows:
 
     - php1/2:            2 php groups
 
-    - test:              the test group(s)
+    - [[./tests]]:              the test group(s)
 
     - requirements:      informal requirement spec.
 
