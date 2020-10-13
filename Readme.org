@@ -5,7 +5,7 @@ development. Below this point, all relevant information for the software
 project is found (except email exchange, bugzilla reports, and chatting on
 the bulletin boards etc.).
 
-See also [[http://heim.ifi.uio.no/msteffen/teaching/softtech/ws0405/pitm-coma/coma][Coma's course webpages]].
+See also [[http://martinsteffen.github.io/teaching/softtech/ws0405/pitm-coma/coma][Coma's course webpages]].
 
 
 ** Structure
